@@ -1,0 +1,3 @@
+A single cute friendly comic-style fox, standing on all four legs, shown in a clean 3/4 side view, full body visible, centered in frame. Big expressive eyes, small smiling muzzle, soft rounded cheeks, upright ears, fluffy tail clearly separated from the body, short clean fur, simplified stylized anatomy, charming and appealing character design, toy-like sculpted form, smooth surfaces, strong readable silhouette, balanced proportions, soft even studio lighting, isolated on a pure white background, no scenery, no extra objects, no cast shadow clutter, highly readable shape, clean edges, designed as a clear single subject for 3D model generation.
+
+

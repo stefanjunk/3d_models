@@ -1,25 +1,33 @@
 # Parametric Labyrinth Gift Box
 
-A two-piece cylindrical gift box generated with Python and CadQuery. One part carries a recessed cylindrical maze and the other carries a single follower. The maze is a perfect spanning tree, so there is exactly one route between the locked position and the opening.
+A two-piece cylindrical gift box generated with Python and CadQuery. One part carries a recessed cylindrical maze and the other carries a single follower. The maze graph is a perfect spanning tree, so it has exactly one validated graph route between the locked position and the opening.
 
 The defaults target PLA, a 0.4 mm nozzle, and a 0.2 mm layer height.
 
 ## Generate The Parts
 
-CadQuery 2.8 or newer is required.
+Python 3.11 or newer and CadQuery `>=2.8,<3` are required. From this directory:
+
+```bash
+python3 -m pip install .
+```
+
+Install the validation extra when running the tests, mesh checks, or preview renderer:
+
+```bash
+python3 -m pip install '.[validation]'
+```
 
 ```bash
 python3 generate_labyrinth_box.py --output-dir exports/default
 ```
 
-For mesh reports and local preview rendering, install the optional validation dependencies with `pip install '.[validation]'`.
-
 The command creates:
 
 - `inner.stl`: inner gift cup, already oriented base-down.
 - `outer.stl`: outer sleeve, automatically oriented cap-down.
-- `inner.step` and `outer.step`: editable print-oriented CAD files.
-- `assembly.step`: separated parts in their common assembly coordinate system.
+- `inner.step` and `outer.step`: interoperable print-oriented B-Rep solids without feature history.
+- `assembly.step`: a side-by-side presentation assembly, not a mated assembly.
 - `maze.json`: exact parameters, graph edges, unique solution, and difficulty metrics.
 
 Example with a 55 mm usable cavity, 110 mm usable length, difficulty 8, and the maze recessed inside the outer sleeve:
@@ -40,7 +48,7 @@ python3 generate_labyrinth_box.py \
 | --- | ---: | --- |
 | `--cavity-diameter` | 40 mm | Usable internal diameter of the gift cup. |
 | `--cavity-length` | 80 mm | Usable internal length above the cup bottom. |
-| `--difficulty` | 5 | Difficulty from 1 to 10; increases grid density and candidate challenge score. |
+| `--difficulty` | 5 | Difficulty from 1 to 10; increases grid density and selects a higher challenge-score quantile. |
 | `--maze-location` | `inner` | `inner` cuts the maze outside the cup; `outer` cuts it inside the sleeve. |
 | `--seed` | 20260805 | Reproduces the same candidate set and selected maze. |
 | `--radial-clearance` | 0.35 mm | Radial running clearance between cup and sleeve. |
@@ -55,9 +63,7 @@ Run `python3 generate_labyrinth_box.py --help` for every fit and tessellation pa
 
 ## Safety Checks
 
-The generator calculates the requested rows and columns from difficulty, then checks axial pitch and groove-floor chord spacing against `channel_width + minimum_web`. It emits a `PrintabilityWarning` and exits with status 2 if the requested difficulty, length, and diameter would force details below the declared print limits. It also blocks inadequate residual walls, undersized followers, invalid clearances, non-finite values, thin caps/bottoms, unsafe STL tolerances, and invalid difficulty or maze-location values.
-
-PLA/0.4 mm safety floors cannot be lowered below 0.8 mm for walls/webs and 0.4 mm for individual features. Channel polygon resolution is automatically increased until chord sag is at most 0.02 mm and remains below the available follower/tessellation allowance.
+The generator emits a `PrintabilityWarning` and exits with status 2 when preflight detects unsafe spacing, walls, end margins, clearances, follower dimensions, caps/bottoms, STL tolerances, or non-finite/out-of-range inputs. The implementation rationale and physical thresholds are documented under [Printability Method](#printability-method).
 
 The JSON manifest contains an independent path count. `unique_solution_count` must be `1`, and the edge count must equal `rows * columns - 1`.
 
@@ -89,18 +95,143 @@ The 0.35 mm radial default is a starting point, not a universal printer calibrat
 
 Do not force the sleeve. Excess force can shear the round follower or wedge PLA layer ridges together.
 
-## Maze Generator Research
+## How This Was Created
+
+### Design Contract
+
+The model started with these non-negotiable requirements:
+
+- Exactly two separately printable round parts: a gift cup and a closed sleeve.
+- Usable cavity diameter and length must be direct parameters, not side effects of outside dimensions.
+- Difficulty must affect more than the random seed.
+- The maze must have exactly one solution route.
+- The maze must work either outside the inner cup or inside the outer sleeve.
+- Unsafe combinations of size, difficulty, and feature dimensions must stop before export.
+- Default geometry must suit PLA, a 0.4 mm nozzle, and 0.2 mm layers.
+
+The resulting architecture separates four concerns: configuration and preflight in `config.py` and `preflight.py`, graph generation in `maze.py`, B-Rep construction in `geometry.py`, and file/manifest export in `generate_labyrinth_box.py`. This separation allows solvability and print constraints to be tested without invoking the CAD kernel.
+
+### Maze Research
 
 The project does not depend on an external maze library. The strongest general Python option found was [`john-science/mazelib`](https://github.com/john-science/mazelib), but it models planar grids rather than cylindrical mechanical topology. Circular-specific projects such as [`Leoche/Svg-Circular-Maze-Generator`](https://github.com/Leoche/Svg-Circular-Maze-Generator) and [`MazeFX/MazeGenerator`](https://github.com/MazeFX/MazeGenerator) are small visualization tools. [`mutantbob/3d-printed-maze-generator`](https://github.com/mutantbob/3d-printed-maze-generator) is directly relevant but unmaintained and GPL-3.0.
 
-This implementation keeps the short seeded depth-first spanning-tree algorithm local so cylindrical wraparound, unique solvability, and physical spacing checks are directly testable.
+A local generator was smaller and easier to audit than adapting those projects. It also made cylindrical seam behavior, deterministic seeds, unique-path verification, and physical spacing part of this project's own test contract.
 
-## Tests
+### Maze Generation Method
+
+The cylindrical surface is represented as a rectangular cell grid whose first and last columns are neighbors. A seeded randomized depth-first search creates a spanning tree. A tree with `N` cells has `N - 1` edges, is fully connected, and contains one graph path between any two cells.
+
+The entry is fixed on the first axial row. The exit is the most distant cell on the final row. The implementation then reconstructs the solution and separately counts simple entry-to-exit paths with an early limit of two. Geometry is generated only when that independent count equals one.
+
+Difficulty from 1 to 10 affects both scale and topology:
+
+- Requested rows are `4 + difficulty`.
+- Requested columns are `8 + 2 * difficulty`.
+- Twenty-four deterministic candidate trees are generated from the requested seed.
+- Candidates are ranked by a normalized challenge score: 65% solution-path ratio, 25% turn ratio, and 10% dead-end ratio.
+- Difficulty selects a quantile from that ranking on the requested grid. This makes selection monotonic within one candidate set; scores are not guaranteed to rise across different grid sizes.
+
+### From Graph To CAD
+
+Each cell maps to an angle and an axial height. Axial graph edges become radial rectangular cutters; circumferential edges become annular-sector cutters. Overlapping cutters create connected channel intersections. A final axial cutter extends the chosen exit to the open edge.
+
+For an inner maze, the channels are cut inward from the cup's outside surface and the follower projects inward from the sleeve. For an outer maze, channels are cut outward from the sleeve bore and the follower projects from the cup. The outer-maze axial mapping is reversed because opening the sleeve moves its local maze coordinates in the opposite direction around the stationary cup follower.
+
+The follower is a round radial pin rather than a square key. The round section is less likely to catch when motion changes between axial and rotational directions at a maze node. Its diameter is the channel width minus the configured follower clearance; radial projection includes sleeve clearance and channel engagement while retaining tip clearance at the groove floor.
+
+### Main Engineering Decisions
+
+| Decision | Reason |
+| --- | --- |
+| Python and CadQuery | Precise parametric solids, reliable booleans, and direct STEP/STL export. |
+| Local perfect-maze generator | Small auditable algorithm with cylindrical wraparound and no unsuitable dependency. |
+| Recessed channels | Keeps both parts as robust tube-like solids and supports either maze location. |
+| Round follower pin | Reduces corner snagging and supports an analytic width-clearance contract. |
+| Fail instead of silently reducing difficulty | The requested puzzle remains honest; unsafe dimensions are not disguised as a lower difficulty. |
+| Usable cavity dimensions as inputs | Gift size stays predictable when wall or maze parameters change. |
+| Print-oriented STL and STEP parts | The cup exports base-down and the sleeve cap-down, avoiding a large cap bridge. |
+| JSON manifest per export | Preserves the exact graph, solution, selected seed, dimensions, and validation metrics. |
+
+### Printability Method
+
+Preflight checks use the physical location where spacing is smallest, not only the visible outside surface. For an inner maze, circumferential spacing is measured as a chord at the groove floor. For an outer maze it is measured at the bore. The cell pitch must preserve `channel_width + minimum_web`.
+
+The end margin must leave a full web beyond half the channel width; otherwise unrelated final-row channels could break through the rim and create unintended exits. Maze cuts must leave the configured residual wall. Bottom and cap thickness must also meet that wall value. Fixed PLA/0.4 mm floors prevent users from making walls or webs thinner than 0.8 mm or individual features thinner than 0.4 mm through parameter overrides.
+
+Annular channels are polygonal B-Rep sectors. Their effective facet count scales with radius so chord sag stays at or below 0.02 mm and below the follower/tessellation allowance. This matters on large boxes: a fixed low facet count can move the channel boundary far enough inward to collide with the pin even when a small model works.
+
+### Tools And Methods
+
+| Tool or method | Use |
+| --- | --- |
+| Python 3 standard library | Configuration, deterministic random generation, graph traversal, CLI, and JSON manifests. |
+| CadQuery 2.8 / OpenCascade | Cup, sleeve, channel cutters, follower, booleans, assemblies, STEP, and STL. |
+| Trimesh 4+ | Reloaded-mesh integrity, volume, bounds, body count, winding, and overhang analysis. |
+| Matplotlib | Multi-angle previews of the actual exported STL files. |
+| `unittest` | Test-first graph, preflight, geometry, kinematic, and CLI coverage without another test dependency. |
+| GitHub repository metadata | Comparison of existing general, circular, and cylindrical maze generators. |
+| Independent code-review passes | Discovery of parameter and large-radius edge cases beyond the default model. |
+
+The implementation followed a red-green workflow: define a failing behavior test, confirm the failure, add the smallest implementation, and rerun focused plus full tests. Exported files were reloaded from disk rather than trusting only in-memory CadQuery objects.
+
+### Challenges And Resolutions
+
+| Challenge | Resolution |
+| --- | --- |
+| General maze libraries did not model a mechanical cylinder | Implemented a compact depth-first spanning tree with wrapped columns. |
+| The two maze locations have opposite relative axial motion | Reversed row-to-height mapping for the outer-sleeve maze. |
+| Cutting with one compound of overlapping tools returned fragmented cutter-like results | Passed all cutters directly to one OpenCascade cut operation. |
+| A square follower had unnecessary corner-snag risk | Replaced it with a round radial pin and sampled no-interference along the solution. |
+| A graph can be unique while wide channels accidentally touch | Enforced axial pitch, groove-floor chord spacing, residual webs, and end margins. |
+| Small end margins opened extra physical exits | Required a closed band of at least half a channel plus one minimum web. |
+| Non-positive clearances could create intersecting parts | Added finite, positive, and printer-oriented parameter validation. |
+| Fixed channel facets failed on large diameters | Derived additional facets from radius and maximum chord sag. |
+| A cap-up sleeve would require bridging the full bore | Rotated exported sleeve files to cap-down and tested bottom-versus-top solid area. |
+| Internal-maze previews were difficult to inspect | Added an exact half-space triangle clipper for a dependency-light cutaway render. |
+
+### Validation Performed
+
+The final suite contains 29 tests. It covers deterministic cylindrical neighbors, tree invariants, independent path counting, candidate difficulty ranking, unsafe parameter warnings, both geometry modes, measured cavity behavior, cap-down export orientation, STL reloads, and zero ideal-CAD overlap between the round follower and maze-bearing solid at every solution node and edge midpoint.
+
+A 200 mm cavity regression starts with only 48 requested facets, automatically raises the effective resolution, and verifies both maze locations without sampled follower collision. The checked-in default artifacts add four STEP reload checks, four STL mesh checks, and four FDM risk reports. Every sample is a valid single solid/body; each STL is watertight, consistently wound, positive-volume, and free of broken or degenerate faces.
+
+The validation boundary is deliberate. Node and midpoint sampling is not a continuous swept-volume proof. It does not prove corner transitions, all dead-end branches, the complete entry/exit lead, assembled removal, or the absence of every possible physical shortcut. It also does not model extrusion variation, seam blobs, elephant foot, bridge sag, shrinkage, or wear. The normal-based reports therefore remain marked for slicer review, and a short physical calibration pair is required before trusting a final locked gift.
+
+Detailed machine-readable results are in `reports/`, exact maze data is in each `maze.json`, and the reviewed STL renders are in `previews/`.
+
+## Reproduce Validation
 
 ```bash
+python3 generate_labyrinth_box.py \
+  --maze-location inner --output-dir exports/inner_maze
+python3 generate_labyrinth_box.py \
+  --maze-location outer --output-dir exports/outer_maze
 python3 -m unittest discover -s tests -v
+python3 validation/render_previews.py
 ```
 
-Automated geometry and mesh checks do not replace slicer inspection or a physical fit test.
+The checked-in reports were generated with local shared utilities under `/workspace/skills`. They are not installed by `.[validation]` or versioned by this project, so the commands below reproduce those reports only in a workspace containing the same utilities. The unit tests and preview renderer above are the self-contained validation path. Example report commands for one part are:
 
-The checked-in `exports/inner_maze/` and `exports/outer_maze/` directories contain default examples. `reports/` contains B-Rep, mesh-integrity, and FDM-risk results, while `previews/` contains multi-angle renders of the actual exported STLs.
+```bash
+SKILLS=/workspace/skills
+
+python3 "$SKILLS/cadquery-functional-geometry/scripts/inspect_cadquery.py" \
+  validation/cadquery_exports.py \
+  --variable inner_maze_inner \
+  --report reports/inner_maze_inner.cadquery.json
+
+python3 "$SKILLS/mesh-validation/scripts/validate_mesh.py" \
+  exports/inner_maze/inner.stl \
+  --units mm --max-bodies 1 \
+  --report reports/inner_maze_inner.mesh.json
+
+python3 "$SKILLS/fdm-printability/scripts/inspect_printability.py" \
+  exports/inner_maze/inner.stl \
+  --units mm --bed 220,220,250 --nozzle 0.4 --layer-height 0.2 \
+  --declared-min-wall 1.6 --declared-min-feature 0.8 --material PLA \
+  --report reports/inner_maze_inner.fdm.json
+```
+
+Repeat those commands for the inner/outer part in each maze mode. Report JSON records the source path, dimensions, and check parameters. Automated geometry and mesh checks do not replace slicer inspection or a physical fit test.
+
+The checked-in `exports/inner_maze/` and `exports/outer_maze/` directories contain default examples.

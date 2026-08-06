@@ -1,6 +1,6 @@
 # Filament Prices for Delivery to Germany
 
-**Price check:** 1 August 2026  
+**Price checks:** 1 August 2026; requested Silk PLA variants checked 6 August 2026<br>
 **Basis:** VAT-inclusive item price, excluding shipping, normalized to net filament weight  
 **Scope:** In-stock single-spool consumer offers deliverable to Germany
 
@@ -15,6 +15,17 @@
 | High-speed PETG | IEMAI High-Speed PETG | Transparent | EUR 11.69 / 1 kg | **EUR 11.69/kg** | EUR 11.69-19.99/kg | Not directly comparable in the retrieved IEMAI transparent line. Cheapest verified black elsewhere was EUR 11.99. | [Amazon.de](https://www.amazon.de/dp/B0CMXHZF8Z) |
 | TPU 95A | iSANMATE TPU 95A | Black | EUR 13.59 / 1 kg | **EUR 13.59/kg** | EUR 13.59-23.76/kg | **Yes.** The next retrieved color was transparent blue at EUR 15.46. | [Amazon.de](https://www.amazon.de/dp/B0G3PD994B) |
 
+## Requested Exact Silk PLA Offers
+
+These requested products are listed separately from the category winners above. Both are coextruded tri-color Silk PLA, not ordinary single-color PLA.
+
+| Exact product | Color | Price / weight | Normalized price | Offer and availability on 6 August 2026 | Shop |
+|---|---|---:|---:|---|---|
+| EONO Silk PLA | Red / Gold / Blue | EUR 14.99 / 1 kg | **EUR 14.99/kg** | In stock; public 17% limited-time offer from EUR 17.99; sold by Europe3DPrinting and fulfilled by Amazon | [Amazon.de, ASIN B0B8YX4Y95](https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE) |
+| GRATKIT Silk PLA Tri-Color | Blue / Purple / Black | EUR 12.74 / 1 kg | **EUR 12.74/kg** | In stock; public 15% limited-time offer from EUR 14.99; sold by GratKit and fulfilled by Amazon | [Amazon.de, ASIN B0BWXQ2WZD](https://www.amazon.de/dp/B0BWXQ2WZD?language=en_GB&th=1&psc=1) |
+
+The EONO price was independently visible in the exact Amazon buy box and in [Nextag's exact-product comparison](https://www.nextag.de/preisvergleich/500001112384_eono-pla-filament-175mm-mehrfarbig.html). GRATKIT's own store listed the Blue/Purple/Black EU-warehouse variant as sold out, so the in-stock Amazon offer is the relevant German purchase route.
+
 ## Deal And Classification Notes
 
 | Material class | Note |
@@ -25,6 +36,7 @@
 | PETG | IEMAI black was standard PETG with a listed 30-100 mm/s range. Its lower Subscribe & Save price was excluded. |
 | High-speed PETG | IEMAI explicitly states "High Speed" and 50-600 mm/s. The price was a public 10% reduction from a stated EUR 12.99 RRP. Amazon's displayed EUR 9.74/kg conflicts with the title and item field stating 1 kg, so the conservative calculation is EUR 11.69/kg. |
 | TPU 95A | iSANMATE's price was a public 15% limited-time deal. The product explicitly states Shore 95A; its subscription price was excluded. |
+| Requested Silk PLA | EONO and GRATKIT prices are exact-color, one-spool buy-box prices rather than category minima. No coupon, subscription, Prime membership, or multi-spool purchase was required. |
 
 ## Method
 
@@ -33,6 +45,7 @@
 - Standard PETG excludes products explicitly positioned as high speed, rapid, or hyper.
 - High-speed categories require explicit speed-oriented wording or claims on the product page.
 - TPU qualifies only when the page explicitly states Shore 95A.
+- Requested exact products are reported separately and do not replace the cheapest standard-PLA category winner.
 - Mandatory multipacks, quantity-tier pricing, coupons, subscriptions, Prime-only prices, business-only net prices, used goods, unavailable variants, and ambiguous listings were excluded.
 - Public sale prices requiring no code, account tier, or repeat purchase were accepted and labeled.
 - Amazon pages were checked with a German delivery destination. Specialist-shop pages were checked for German delivery and VAT treatment.
@@ -49,4 +62,4 @@
 
 ## Limitations
 
-Prices, stock, marketplace sellers, and public sales can change without notice. Shipping is deliberately excluded, so the lowest item price may not produce the lowest delivered total for a one-spool order. Some price-comparison sites blocked automated retrieval; no blocked-page snippet was used to establish a winner.
+Prices, stock, marketplace sellers, and public sales can change without notice. Shipping is deliberately excluded, so the lowest item price may not produce the lowest delivered total for a one-spool order. The two Silk PLA prices are point-in-time Amazon buy-box observations from 6 August 2026. Some price-comparison sites blocked automated retrieval; no blocked-page snippet was used to establish a winner.

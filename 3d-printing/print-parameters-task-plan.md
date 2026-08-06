@@ -1,7 +1,7 @@
 # Task Plan: Kobra 3 Max Filament Profiles
 
 ## Goal
-Create a source-linked Markdown table of speed-and-quality settings for GEEETECH TPU 95A, SUNLU TPU 95A, SUNLU PETG Black, and SUNLU PLA+ 2.0 High Speed on an Anycubic Kobra 3 Max in Anycubic Slicer Next. Cover 0.4 mm nozzle profiles at 0.12, 0.20, and 0.24 mm layers plus 0.8 mm nozzle profiles at 0.20 and 0.40 mm layers.
+Create a source-linked Markdown table of speed-and-quality settings for GEEETECH TPU 95A, SUNLU TPU 95A, SUNLU PETG Black, SUNLU PLA+ 2.0 High Speed, EONO Red/Gold/Blue Silk PLA, and GRATKIT Blue/Purple/Black Silk PLA on an Anycubic Kobra 3 Max in Anycubic Slicer Next. Cover 0.4 mm nozzle profiles at 0.12, 0.20, and 0.24 mm layers plus 0.8 mm nozzle profiles at 0.20 and 0.40 mm layers.
 
 ## Scope
 - Printer: Anycubic Kobra 3 Max
@@ -14,11 +14,12 @@ Create a source-linked Markdown table of speed-and-quality settings for GEEETECH
 ## Phases
 - [x] Phase 1: Define scope and evidence rules
 - [x] Phase 2: Validate printer and slicer capabilities
-- [x] Phase 3: Research manufacturer settings for all four filaments
+- [x] Phase 3: Research manufacturer settings for all six filaments
 - [x] Phase 4: Research owner experiences and reconcile conflicts
 - [x] Phase 5: Derive and sanity-check slicer profiles
 - [x] Phase 6: Create and review the Markdown deliverable
 - [x] Phase 7: Add and validate 0.4/0.24 and 0.8/0.20/0.40 profile variants
+- [x] Phase 8: Add and mathematically validate both requested tri-color Silk PLA profiles and prices
 
 ## Key Questions
 1. Which settings are genuine material limits versus broad marketing ranges?
@@ -33,6 +34,7 @@ Create a source-linked Markdown table of speed-and-quality settings for GEEETECH
 - Express speed limits through both feature speeds and maximum volumetric speed where possible.
 - Provide starting profiles plus a short calibration sequence rather than claiming one universal optimum.
 - Keep the proven 0.4 mm material MVS values as temporary safety caps after fitting the 0.8 mm nozzle; recalibrate flow ratio, PA, and MVS before raising them.
+- Treat EONO's missing TDS and GRATKIT's conflicting high-speed/gloss claims conservatively; prioritize exact Max Silk references, owner evidence, and appearance-preserving speed.
 
 ## Errors Encountered
 - Several delegated research runs paused for assumptions; resumed them with a fully stock printer, current slicer, and balanced speed-quality objective.
@@ -42,4 +44,4 @@ Create a source-linked Markdown table of speed-and-quality settings for GEEETECH
 - The pinned Anycubic Slicer Next bundle contains the 0.4/0.24 Max process but no Max 0.8 printer profile; used the exact Max 0.8 machine and 0.20/0.40 process profiles from pinned Orca commit `972dae2` as the secondary reference.
 
 ## Status
-**Complete** - Manufacturer research, owner-experience review, five nozzle/layer variants, profile derivation, and technical/usability validation are finished.
+**Complete** - Manufacturer research, owner-experience review, six materials across five nozzle/layer variants, pricing, profile derivation, source review, and mathematical MVS validation are finished. Physical calibration prints remain required before treating any profile as production-qualified.

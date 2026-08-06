@@ -1,6 +1,6 @@
 # Research Notes: German Filament Prices
 
-**Research date:** 2026-08-01
+**Research dates:** 2026-08-01; requested Silk PLA update 2026-08-06
 
 ## Comparison Rules
 - Prices include German VAT and exclude shipping.
@@ -77,9 +77,28 @@
 - Comparable verified offers included GEEETECH black at EUR 16.14/kg, GIANTARM black at EUR 16.99/kg, Elegoo translucent at EUR 17.99/kg, Overture black at EUR 18.69/kg, SUNLU black at EUR 18.99/kg, JAYO 500 g at EUR 23.18/kg, and ERYONE 500 g at EUR 23.76/kg.
 - Observed validated sample range: EUR 13.59-23.76/kg.
 
+### EONO Silk PLA Red / Gold / Blue
+
+- Exact product: EONO tri-color coextruded Silk PLA, Red/Gold/Blue, 1.75 mm, 1 kg, ASIN B0B8YX4Y95.
+- Direct URL: https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE
+- Verified buy box on 2026-08-06: EUR 14.99 including VAT, in stock for Berlin 13469, sold by Europe3DPrinting and fulfilled by Amazon.
+- Promotion: public 17% limited-time offer from Amazon's EUR 17.99 reference price; no coupon, subscription, Prime tier, or bundle was required.
+- Cross-check: https://www.nextag.de/preisvergleich/500001112384_eono-pla-filament-175mm-mehrfarbig.html showed the exact model `Eono-3CPLA-1.75mm-1KG-R-GD-BE` at EUR 14.99 with free shipping.
+- The Amazon page confirms 1 kg, 1.75 mm, Red/Gold/Blue coextrusion, vacuum packaging with desiccant, and compatibility with Anycubic FDM printers. It does not provide an EONO temperature, speed, or drying datasheet.
+
+### GRATKIT Silk PLA Blue / Purple / Black
+
+- Exact product: GRATKIT tri-color coextruded Silk PLA, Blue/Purple/Black, 1.75 mm, 1 kg, ASIN B0BWXQ2WZD.
+- Direct URL: https://www.amazon.de/dp/B0BWXQ2WZD?language=en_GB&th=1&psc=1
+- Verified buy box on 2026-08-06: EUR 12.74 including VAT, in stock for Berlin 13469, sold by GratKit and fulfilled by Amazon.
+- Promotion: public 15% limited-time offer from Amazon's EUR 14.99 reference price; the separate buy-two discount was not used.
+- The exact listing states +/-0.03 mm dimensional accuracy, 1 kg, 1.75 mm, and the Blue/Purple/Black coextrusion variant.
+- Manufacturer page: https://gratkit.com/products/gratkit-silk-multi-color-pla-filament-1-75mm-coextrusion-pla-filament-1kg
+- GRATKIT's own EU-warehouse Blue/Purple/Black option was sold out. The Amazon offer therefore establishes current German availability; the manufacturer page establishes the material family and color variant.
+
 ## Validation Notes
 
-- Prices are point-in-time observations from 2026-08-01 and may change quickly, especially public Amazon sales.
+- Prices are point-in-time observations from 2026-08-01 and 2026-08-06 and may change quickly, especially public Amazon sales.
 - Amazon pages were set to delivery in Berlin, Germany. Amazon states that marketplace prices for EU delivery are final prices as indicated by the seller; checkout shows the order total including tax.
 - Categories are mutually exclusive for this comparison: standard PLA excludes PLA+ and explicit high-speed products; conventional PLA+ excludes explicit high-speed products; standard PETG excludes explicit high-speed products.
 - High-speed qualification required explicit listing language such as high speed, rapid, hyper, super speedy, or a directly stated fast-printing claim.

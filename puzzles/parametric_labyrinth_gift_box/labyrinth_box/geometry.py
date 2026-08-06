@@ -187,7 +187,16 @@ def _inner_cup(config: BoxConfig, dimensions: DerivedDimensions) -> cq.Workplane
         .extrude(config.cavity_length + BOOLEAN_OVERLAP)
         .translate((0.0, 0.0, config.bottom_thickness))
     )
-    return body.cut(cavity).clean()
+    cup = body.cut(cavity)
+    if config.grip_length > 0:
+        grip = (
+            cq.Workplane("XY")
+            .circle(dimensions.grip_radius)
+            .extrude(config.grip_length)
+            .translate((0.0, 0.0, -config.grip_length))
+        )
+        cup = cup.union(grip)
+    return cup.clean()
 
 
 def _outer_sleeve(config: BoxConfig, dimensions: DerivedDimensions) -> cq.Workplane:
@@ -203,6 +212,171 @@ def _outer_sleeve(config: BoxConfig, dimensions: DerivedDimensions) -> cq.Workpl
         .translate((0.0, 0.0, -BOOLEAN_OVERLAP))
     )
     return body.cut(bore).clean()
+
+
+def _decoration_radial_bounds(
+    radius: float, config: BoxConfig
+) -> tuple[float, float]:
+    if config.decoration_mode == "emboss":
+        return radius - BOOLEAN_OVERLAP, radius + config.decoration_depth
+    return radius - config.decoration_depth, radius + BOOLEAN_OVERLAP
+
+
+def _ring_tools(
+    radius: float,
+    z_min: float,
+    z_max: float,
+    allocated_count: int,
+    config: BoxConfig,
+) -> list[cq.Workplane]:
+    radial_min, radial_max = _decoration_radial_bounds(radius, config)
+    band_height = z_max - z_min
+    pitch = band_height / allocated_count
+    width = max(config.minimum_feature, min(0.45 * pitch, 2.4))
+    return [
+        (
+            cq.Workplane("XY")
+            .circle(radial_max)
+            .circle(radial_min)
+            .extrude(width)
+            .translate((0.0, 0.0, z_min + (index + 0.5) * pitch - width / 2.0))
+        )
+        for index in range(allocated_count)
+    ]
+
+
+def _flute_tools(
+    radius: float,
+    z_min: float,
+    z_max: float,
+    config: BoxConfig,
+) -> list[cq.Workplane]:
+    radial_min, radial_max = _decoration_radial_bounds(radius, config)
+    sweep = 0.45 * 360.0 / config.decoration_count
+    return [
+        _annular_sector(
+            radial_min,
+            radial_max,
+            index * 360.0 / config.decoration_count - sweep / 2.0,
+            sweep,
+            z_min,
+            z_max - z_min,
+            max(config.angular_facets, config.decoration_count * 8),
+        )
+        for index in range(config.decoration_count)
+    ]
+
+
+def _diamond_tools(
+    radius: float,
+    z_min: float,
+    z_max: float,
+    config: BoxConfig,
+) -> list[cq.Workplane]:
+    radial_min, radial_max = _decoration_radial_bounds(radius, config)
+    band_height = z_max - z_min
+    circumference_pitch = 2.0 * math.pi * radius / config.decoration_count
+    width = 0.55 * circumference_pitch
+    target_height = min(1.25 * width, band_height)
+    rows = max(1, min(8, math.floor(band_height / max(1.3 * target_height, 1e-9))))
+    row_pitch = band_height / rows
+    height = min(target_height, 0.70 * row_pitch)
+    tools: list[cq.Workplane] = []
+    for row in range(rows):
+        center_z = z_min + (row + 0.5) * row_pitch
+        for column in range(config.decoration_count):
+            angle = column * 360.0 / config.decoration_count
+            plane = cq.Plane(
+                origin=(radial_min, 0.0, center_z),
+                xDir=(0.0, 1.0, 0.0),
+                normal=(1.0, 0.0, 0.0),
+            )
+            diamond = (
+                cq.Workplane(plane)
+                .polyline(
+                    [
+                        (-width / 2.0, 0.0),
+                        (0.0, height / 2.0),
+                        (width / 2.0, 0.0),
+                        (0.0, -height / 2.0),
+                    ]
+                )
+                .close()
+                .extrude(radial_max - radial_min)
+                .rotate((0, 0, 0), (0, 0, 1), angle)
+            )
+            tools.append(diamond)
+    return tools
+
+
+def _apply_ornament_band(
+    base: cq.Workplane,
+    radius: float,
+    z_min: float,
+    z_max: float,
+    allocated_ring_count: int,
+    config: BoxConfig,
+) -> cq.Workplane:
+    if z_max <= z_min:
+        raise ValueError("ornament band must have positive height")
+    if config.ornament_type == "rings":
+        tools = _ring_tools(radius, z_min, z_max, allocated_ring_count, config)
+    elif config.ornament_type == "flutes":
+        tools = _flute_tools(radius, z_min, z_max, config)
+    elif config.ornament_type == "diamonds":
+        tools = _diamond_tools(radius, z_min, z_max, config)
+    else:
+        return base
+
+    shapes = [tool.val() for tool in tools]
+    if config.decoration_mode == "emboss":
+        decorated = base.val().fuse(*shapes)
+    else:
+        decorated = base.val().cut(*shapes)
+    result = cq.Workplane("XY").newObject([decorated]).clean()
+    if not result.val().isValid() or len(result.solids().vals()) != 1:
+        raise RuntimeError(
+            f"{config.ornament_type} {config.decoration_mode} ornament did not "
+            "produce one valid solid"
+        )
+    return result
+
+
+def _apply_built_in_ornaments(
+    inner: cq.Workplane,
+    outer: cq.Workplane,
+    config: BoxConfig,
+    dimensions: DerivedDimensions,
+) -> tuple[cq.Workplane, cq.Workplane]:
+    if config.ornament_type == "none":
+        return inner, outer
+
+    margin = config.decoration_margin
+    sleeve_height = dimensions.sleeve_height - 2.0 * margin
+    grip_height = max(0.0, config.grip_length - 2.0 * margin)
+    total_height = sleeve_height + grip_height
+    sleeve_rings = max(
+        1, round(config.decoration_count * sleeve_height / total_height)
+    )
+    outer = _apply_ornament_band(
+        outer,
+        dimensions.sleeve_outer_radius,
+        margin,
+        dimensions.sleeve_height - margin,
+        sleeve_rings,
+        config,
+    )
+    if config.grip_length > 0:
+        grip_rings = max(1, config.decoration_count - sleeve_rings)
+        inner = _apply_ornament_band(
+            inner,
+            dimensions.grip_radius,
+            -config.grip_length + margin,
+            -margin,
+            grip_rings,
+            config,
+        )
+    return inner, outer
 
 
 def _follower_at(
@@ -265,6 +439,10 @@ def build_labyrinth_box(config: BoxConfig) -> GeometryResult:
     else:
         outer = _cut_all(outer, cutters)
         inner = inner.union(follower).clean()
+
+    inner, outer = _apply_built_in_ornaments(
+        inner, outer, config, dimensions
+    )
 
     return GeometryResult(
         config=config,

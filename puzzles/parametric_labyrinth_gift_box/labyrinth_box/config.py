@@ -5,6 +5,8 @@ from typing import Literal
 
 
 MazeLocation = Literal["inner", "outer"]
+OrnamentType = Literal["none", "flutes", "diamonds", "rings"]
+DecorationMode = Literal["engrave", "emboss"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -23,12 +25,22 @@ class BoxConfig:
     cap_thickness: float = 2.4
     radial_clearance: float = 0.35
     axial_clearance: float = 0.5
+    grip_length: float = 15.0
 
     channel_width: float = 2.0
     channel_depth: float = 1.2
     follower_clearance: float = 0.25
     follower_tip_clearance: float = 0.2
     maze_margin: float = 4.0
+
+    ornament_type: OrnamentType = "none"
+    decoration_mode: DecorationMode = "engrave"
+    decoration_depth: float = 0.6
+    decoration_count: int = 16
+    decoration_margin: float = 3.0
+    image_relief_path: str | None = None
+    image_relief_resolution: int = 256
+    image_relief_invert: bool = False
 
     minimum_wall: float = 1.6
     minimum_web: float = 1.2

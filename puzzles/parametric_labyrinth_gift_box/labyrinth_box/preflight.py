@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
+from pathlib import Path
 import warnings
 
 from .config import BoxConfig
@@ -13,6 +14,12 @@ NOZZLE_DIAMETER = 0.4
 ROBUST_TWO_LINE_WIDTH = 2.0 * NOZZLE_DIAMETER
 MAX_CHANNEL_CHORD_SAG = 0.02
 BOOLEAN_RADIAL_OVERLAP = 0.05
+MIN_DECORATION_DEPTH = 0.2
+MAX_DECORATION_DEPTH = 2.0
+MIN_DECORATION_COUNT = 3
+MAX_DECORATION_COUNT = 128
+MIN_IMAGE_RELIEF_RESOLUTION = 32
+MAX_IMAGE_RELIEF_RESOLUTION = 1024
 
 
 class PrintabilityWarning(UserWarning):
@@ -39,6 +46,8 @@ class DerivedDimensions:
     maze_spacing_radius: float
     inner_outer_radius: float
     inner_height: float
+    grip_radius: float
+    inner_total_extent: float
     sleeve_inner_radius: float
     sleeve_outer_radius: float
     sleeve_inner_depth: float
@@ -71,11 +80,14 @@ def validate_and_derive(config: BoxConfig) -> DerivedDimensions:
         "cap_thickness": config.cap_thickness,
         "radial_clearance": config.radial_clearance,
         "axial_clearance": config.axial_clearance,
+        "grip_length": config.grip_length,
         "channel_width": config.channel_width,
         "channel_depth": config.channel_depth,
         "follower_clearance": config.follower_clearance,
         "follower_tip_clearance": config.follower_tip_clearance,
         "maze_margin": config.maze_margin,
+        "decoration_depth": config.decoration_depth,
+        "decoration_margin": config.decoration_margin,
         "minimum_wall": config.minimum_wall,
         "minimum_web": config.minimum_web,
         "minimum_feature": config.minimum_feature,
@@ -85,13 +97,57 @@ def validate_and_derive(config: BoxConfig) -> DerivedDimensions:
     non_finite = [name for name, value in dimensions.items() if not math.isfinite(value)]
     if non_finite:
         _reject(f"dimensions must be finite: {', '.join(non_finite)}")
-    non_positive = [name for name, value in dimensions.items() if value <= 0]
+    positive_dimensions = {
+        name: value
+        for name, value in dimensions.items()
+        if name not in {"grip_length", "decoration_margin"}
+    }
+    non_positive = [
+        name for name, value in positive_dimensions.items() if value <= 0
+    ]
     if non_positive:
         _reject(f"dimensions must be positive: {', '.join(non_positive)}")
+    if config.grip_length < 0:
+        _reject("grip_length must be nonnegative; use 0 to disable the grip")
+    if config.decoration_margin < 0:
+        _reject("decoration_margin must be nonnegative")
     if config.maze_location not in {"inner", "outer"}:
         _reject("maze_location must be 'inner' or 'outer'")
     if not 1 <= config.difficulty <= 10:
         _reject("difficulty must be between 1 and 10")
+    if config.ornament_type not in {"none", "flutes", "diamonds", "rings"}:
+        _reject("ornament_type must be one of: none, flutes, diamonds, rings")
+    if config.decoration_mode not in {"engrave", "emboss"}:
+        _reject("decoration_mode must be 'engrave' or 'emboss'")
+    if not MIN_DECORATION_DEPTH <= config.decoration_depth <= MAX_DECORATION_DEPTH:
+        _reject(
+            f"decoration_depth must be between {MIN_DECORATION_DEPTH:.1f} and "
+            f"{MAX_DECORATION_DEPTH:.1f} mm"
+        )
+    if (
+        not isinstance(config.decoration_count, int)
+        or isinstance(config.decoration_count, bool)
+        or not MIN_DECORATION_COUNT
+        <= config.decoration_count
+        <= MAX_DECORATION_COUNT
+    ):
+        _reject(
+            f"decoration_count must be an integer from {MIN_DECORATION_COUNT} "
+            f"through {MAX_DECORATION_COUNT}"
+        )
+    if (
+        not isinstance(config.image_relief_resolution, int)
+        or isinstance(config.image_relief_resolution, bool)
+        or not MIN_IMAGE_RELIEF_RESOLUTION
+        <= config.image_relief_resolution
+        <= MAX_IMAGE_RELIEF_RESOLUTION
+    ):
+        _reject(
+            "image_relief_resolution must be an integer from "
+            f"{MIN_IMAGE_RELIEF_RESOLUTION} through {MAX_IMAGE_RELIEF_RESOLUTION}"
+        )
+    if not isinstance(config.image_relief_invert, bool):
+        _reject("image_relief_invert must be a boolean")
     if config.angular_facets < 48:
         _reject("angular_facets must be at least 48 for a printable round surface")
     safety_floors = {
@@ -145,12 +201,25 @@ def validate_and_derive(config: BoxConfig) -> DerivedDimensions:
             f"inner wall leaves only {inner_residual:.2f} mm after the maze cut; "
             f"at least {config.minimum_wall:.2f} mm is required"
         )
-    outer_residual = config.outer_wall - (
-        config.channel_depth if config.maze_location == "outer" else 0.0
+    decoration_requested = (
+        config.ornament_type != "none" or config.image_relief_path is not None
+    )
+    if decoration_requested and config.decoration_margin <= 0:
+        _reject("decoration_margin must be positive when decoration is enabled")
+    decoration_cut = (
+        config.decoration_depth
+        if decoration_requested and config.decoration_mode == "engrave"
+        else 0.0
+    )
+    outer_residual = (
+        config.outer_wall
+        - (config.channel_depth if config.maze_location == "outer" else 0.0)
+        - decoration_cut
     )
     if outer_residual < config.minimum_wall:
         _reject(
-            f"outer wall leaves only {outer_residual:.2f} mm after the maze cut; "
+            f"outer wall leaves only {outer_residual:.2f} mm after maze and "
+            "external decoration cuts; "
             f"at least {config.minimum_wall:.2f} mm is required"
         )
 
@@ -166,6 +235,54 @@ def validate_and_derive(config: BoxConfig) -> DerivedDimensions:
     sleeve_outer_radius = sleeve_inner_radius + config.outer_wall
     sleeve_inner_depth = inner_height + config.axial_clearance
     sleeve_height = sleeve_inner_depth + config.cap_thickness
+    grip_radius = sleeve_outer_radius
+    inner_total_extent = inner_height + config.grip_length
+
+    if decoration_requested:
+        sleeve_band = sleeve_height - 2.0 * config.decoration_margin
+        if sleeve_band < config.minimum_feature:
+            _reject(
+                "sleeve decoration band is unusable after applying decoration_margin"
+            )
+        grip_band = 0.0
+        if config.grip_length > 0:
+            grip_band = config.grip_length - 2.0 * config.decoration_margin
+            if grip_band < config.minimum_feature:
+                _reject(
+                    "grip decoration band is unusable after applying decoration_margin"
+                )
+        if config.ornament_type == "rings":
+            total_band = sleeve_band + grip_band
+            sleeve_rings = max(
+                1, round(config.decoration_count * sleeve_band / total_band)
+            )
+            if sleeve_band / sleeve_rings < config.minimum_feature:
+                _reject(
+                    f"rings decoration_count {config.decoration_count} puts ring "
+                    "pitch below the declared minimum feature on the sleeve band"
+                )
+            if config.grip_length > 0:
+                grip_rings = max(1, config.decoration_count - sleeve_rings)
+                if grip_band / grip_rings < config.minimum_feature:
+                    _reject(
+                        f"rings decoration_count {config.decoration_count} puts ring "
+                        "pitch below the declared minimum feature on the grip band"
+                    )
+
+    if config.ornament_type != "none" and config.image_relief_path is not None:
+        _reject(
+            "ornament_type and image_relief cannot be combined in one generation; "
+            "mesh booleans over already-ornamented STLs are unreliable, so choose "
+            "one decoration source"
+        )
+
+    if config.image_relief_path is not None:
+        image_path = Path(config.image_relief_path).expanduser()
+        if not str(config.image_relief_path).strip():
+            _reject("image relief path must not be empty")
+        if not image_path.is_file():
+            _reject(f"image relief file does not exist: {image_path}")
+
     maze_radius = (
         inner_outer_radius if config.maze_location == "inner" else sleeve_inner_radius
     )
@@ -222,6 +339,8 @@ def validate_and_derive(config: BoxConfig) -> DerivedDimensions:
         maze_spacing_radius=maze_spacing_radius,
         inner_outer_radius=inner_outer_radius,
         inner_height=inner_height,
+        grip_radius=grip_radius,
+        inner_total_extent=inner_total_extent,
         sleeve_inner_radius=sleeve_inner_radius,
         sleeve_outer_radius=sleeve_outer_radius,
         sleeve_inner_depth=sleeve_inner_depth,

@@ -76,7 +76,9 @@ class GeometryTests(unittest.TestCase):
         inner_box = result.inner.val().BoundingBox()
         outer_box = result.outer.val().BoundingBox()
 
-        self.assertAlmostEqual(inner_box.zlen, result.dimensions.inner_height, places=4)
+        self.assertAlmostEqual(
+            inner_box.zlen, result.dimensions.inner_total_extent, places=4
+        )
         self.assertAlmostEqual(outer_box.zlen, result.dimensions.sleeve_height, places=4)
         self.assertAlmostEqual(
             outer_box.xlen, 2.0 * result.dimensions.sleeve_outer_radius, places=3

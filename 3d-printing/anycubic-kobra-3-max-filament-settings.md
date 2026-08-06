@@ -5,7 +5,7 @@
 **Build plate:** Stock textured PEI  
 **Slicer:** Anycubic Slicer Next, Advanced mode; field names checked against v2.3.0 commit `70931e5`  
 **Profile goal:** Fast, reliable printing without sacrificing visible-wall and top-surface quality  
-**Research date:** 1 August 2026
+**Research dates:** 1 August 2026; EONO/GRATKIT update 6 August 2026
 
 All profile tables below are **derived starting recommendations**, not manufacturer presets. Dry the filament and run the calibration sequence before treating any pressure-advance, flow, or maximum-volumetric-speed value as final. The 0.4 mm Kobra 3 Max values were checked against [Anycubic's pinned Max profile commit](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/commit/987a3c2bf9ed13934137326bfd522896c70e5101). The 0.8 mm geometry and fallback deltas were checked against the exact Max machine and process profiles in pinned [OrcaSlicer commit `972dae2`](https://github.com/OrcaSlicer/OrcaSlicer/commit/972dae22afdadc3251d05e10c2d6f00c35e6b83a), because the pinned Anycubic tree contains no Max 0.8 profile. Verify the values in your installed configuration bundle because bundled and cloud profiles can differ.
 
@@ -20,6 +20,7 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | TPU feed | Do **not** feed TPU through ACE Pro. Use the shortest low-drag external path, ideally a top-mounted spool close to the toolhead. Follow Anycubic's instruction to loosen the extruder idler screw by half a turn before loading TPU. |
 | TPU preparation | Purge old PLA/PETG completely. A clean nozzle or dedicated TPU hotend is useful if flexible filament buckles before the nozzle. Print one object at a time and avoid retract-heavy geometry. |
 | PETG plate | Wash with dish soap, preheat the large bed for about 10 minutes, and let it cool before removal. Use a thin glue layer as a **release barrier** if PETG bonds too strongly. |
+| Tri-color Silk PLA | Treat both coextruded Silk filaments as decorative materials. Inspect cardboard-spool winding and brittleness before a long print, test direct external feeding before relying on ACE Pro, and rotate the model around Z to choose which colors dominate each visible face. Slower outer walls preserve gloss better than headline high-speed settings. |
 | Pressure advance | Use one PA source only. Enabling PA in a filament preset replaces printer/auto-calibrated PA; commands are not additive and the last emitted command wins. Calibrate after flow ratio. |
 | Profile inheritance | Use the exact Kobra 3 Max **printer** preset for the fitted nozzle. Unlisted filament/cooling fields inherit from the exact duplicated filament base in the preset index; unlisted process fields inherit from the exact duplicated process base. Only unchecked Setting Overrides inherit from the printer preset. Review all inherited values when the configuration bundle changes. |
 | Setting Overrides | In Filament > Setting Overrides, check the override box for every listed retraction, wipe, and Z-hop value, including explicit `Off` and `0 mm`. An unchecked box inherits the printer value. |
@@ -54,6 +55,12 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.20 Balanced` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - SUNLU HS PLA+ 2.0 - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.12 Detail` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - SUNLU HS PLA+ 2.0 - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.24 Balanced` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - SUNLU HS PLA+ 2.0 - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `EONO Silk PLA Red-Gold-Blue - 0.20 Balanced` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - EONO Silk R-Gold-B - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `EONO Silk PLA Red-Gold-Blue - 0.12 Detail` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - EONO Silk R-Gold-B - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `EONO Silk PLA Red-Gold-Blue - 0.24 Balanced` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - EONO Silk R-Gold-B - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - GRATKIT Silk BPB - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - GRATKIT Silk BPB - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced` | `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - GRATKIT Silk BPB - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.8 mm | `GEEETECH TPU 95A - N0.8 Safe Start` | `Anycubic TPU @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - GEEETECH TPU 95A - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | Reuse `GEEETECH TPU 95A - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - GEEETECH TPU 95A - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | `SUNLU TPU 95A - N0.8 Safe Start` | `Anycubic TPU @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - SUNLU TPU 95A - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
@@ -62,10 +69,16 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | 0.8 mm | Reuse `SUNLU PETG Black Standard - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - SUNLU PETG Black - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | `SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start` | `Anycubic PLA @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - SUNLU HS PLA+ 2.0 - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | Reuse `SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - SUNLU HS PLA+ 2.0 - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | `EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start` | `Anycubic PLA @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - EONO Silk R-Gold-B - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | Reuse `EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - EONO Silk R-Gold-B - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | `GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start` | `Anycubic PLA @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - GRATKIT Silk BPB - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | Reuse `GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - GRATKIT Silk BPB - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 
 If an exact process base is absent from the installed bundle, use these pinned files as settings references rather than importing them or substituting a smaller Kobra 3 preset: [Anycubic 0.12/0.4](https://raw.githubusercontent.com/ANYCUBIC-3D/AnycubicSlicerNext/987a3c2bf9ed13934137326bfd522896c70e5101/resources/profiles/Anycubic/process/0.12mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.4%20nozzle.json), [Anycubic 0.24/0.4](https://raw.githubusercontent.com/ANYCUBIC-3D/AnycubicSlicerNext/987a3c2bf9ed13934137326bfd522896c70e5101/resources/profiles/Anycubic/process/0.24mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.4%20nozzle.json), [Orca 0.20/0.8](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/process/0.20mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json), and [Orca 0.40/0.8](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/process/0.40mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json). For missing 0.8 bases, follow the manual fallback below.
 
 The 0.8 mm filament-base names come from the pinned Orca Max bundle and may not appear in every Slicer Next installation. With the custom Max 0.8 printer selected, duplicate the visible Anycubic TPU, PETG, or PLA preset for that printer. If none is visible, create a custom copy from the corresponding 0.4 material, enter every filament/cooling/override value below, then set `Filament > Dependencies > Profile dependencies > Compatible printers` to the exact saved 0.8 printer-preset name. Do not leave a 0.4-only compatibility restriction attached.
+
+The exact `Anycubic PLA Silk @Anycubic Kobra 3 Max 0.4 nozzle` base is present in the same pinned Orca commit. If Slicer Next does not expose it, duplicate the Max 0.4 standard PLA preset and enter every Silk filament, cooling, and retraction value below. For 0.8 mm, start from the listed generic Max PLA base because the pinned bundle has no dedicated Max 0.8 Silk preset.
 
 ## 0.8 mm Manual Fallback
 
@@ -129,18 +142,26 @@ When an 0.8 filament preset was copied from a 0.4 base, first clear every retrac
 | SUNLU High Speed PLA+ 2.0 - 0.20 Balanced | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | 50 deg C for at least 4 h if exposed or stringing |
 | SUNLU High Speed PLA+ 2.0 - 0.24 Balanced | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | Same |
 | SUNLU High Speed PLA+ 2.0 - 0.12 Detail | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | Same |
+| EONO Silk PLA Red-Gold-Blue - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | No exact EONO cycle; 50-55 deg C for 4-6 h only if needed |
+| EONO Silk PLA Red-Gold-Blue - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | Same |
+| EONO Silk PLA Red-Gold-Blue - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | Same |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
 | GEEETECH TPU 95A - N0.8 Safe Start | 0.8 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 starting value | 2.3 mm^3/s temporary cap | Off / 0 s until recalibrated | 50-55 deg C, 4-6 h; print from dryer if possible |
 | SUNLU TPU 95A - N0.8 Safe Start | 0.8 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 starting value | 3.2 mm^3/s temporary cap | Off / 0 s until recalibrated | 55 deg C, 8-12 h; continue from a drybox |
 | SUNLU PETG Black Standard - N0.8 Safe Start | 0.8 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 starting value | 10 mm^3/s temporary cap | Off / 0 s until recalibrated | 60-65 deg C, 6-8 h |
 | SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 0.8 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 starting value | 18 mm^3/s temporary cap | Off / 0 s until recalibrated | 50 deg C for at least 4 h if exposed or stringing |
+| EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start | 0.8 mm | 220 / 215 deg C | 60 / 55 deg C | 0.98 starting value | 8 mm^3/s temporary cap | Off / 0 s until recalibrated | No exact EONO cycle; 50-55 deg C for 4-6 h only if needed |
+| GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start | 0.8 mm | 215 / 215 deg C | 55 / 50 deg C | 0.98 starting value | 10 mm^3/s temporary cap | Off / 0 s until recalibrated | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
 
 Each 0.24/0.4 process has a separately named filament preset with the same material values as its 0.20 counterpart, avoiding ambiguous `0.20` names in the slicer. Each 0.8 mm filament preset is shared by its 0.20 and 0.40 mm process variants.
 
 `MVS` is maximum volumetric speed. It is the hard sustained-flow cap and matters more than the printer's headline speed. The 0.8 mm values deliberately reuse the proven 0.4 mm caps only for safe first prints; Orca states that MVS changes with nozzle diameter, so recalibrate before increasing them and keep 10-20% below the first failure or quality transition.
 
-The GEEETECH 45 deg C later bed, 25% minimum fan, PETG 75 deg C first-layer bed, and SUNLU TPU 55 deg C/8-12 h drying cycle are derived Kobra/direct-drive starting values outside or between manufacturer bands. They are intentionally labeled recommendations, not manufacturer specifications.
+The GEEETECH 45 deg C later bed, 25% minimum fan, PETG 75 deg C first-layer bed, SUNLU TPU 55 deg C/8-12 h drying cycle, and both Silk drying suggestions are derived Kobra/direct-drive starting values outside or between manufacturer bands. They are intentionally labeled recommendations, not manufacturer specifications.
 
-PA sweep ranges are calibration instructions, not preset values: `0.00-0.04 s` for TPU, `0.025-0.060 s` for PETG, and `0.015-0.045 s` for High Speed PLA+ 2.0. If printer auto-calibration is preferred, disable filament PA rather than entering a number.
+PA sweep ranges are calibration instructions, not preset values: `0.00-0.04 s` for TPU, `0.025-0.060 s` for PETG, `0.015-0.045 s` for High Speed PLA+ 2.0, and `0.025-0.050 s` for Silk PLA. If printer auto-calibration is preferred, disable filament PA rather than entering a number.
 
 ## Retraction And Lift Overrides
 
@@ -152,6 +173,8 @@ Each material row applies to all listed layer heights and both nozzle sizes. Che
 | SUNLU TPU 95A | 0.8 mm | 30 mm/s | 25 mm/s | Off | Off | 0 mm | 0 mm / Normal |
 | SUNLU PETG Black Standard | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 35 mm/s | 35 mm/s | On | On | 1 mm | 0.4 mm / Slope |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
 
 ## Cooling Overrides
 
@@ -169,10 +192,18 @@ Each material row applies to all listed layer heights and both nozzle sizes. Che
 | SUNLU High Speed PLA+ 2.0 - 0.20 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - 0.24 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - 0.12 Detail | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| EONO Silk PLA Red-Gold-Blue - 0.20 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| EONO Silk PLA Red-Gold-Blue - 0.24 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| EONO Silk PLA Red-Gold-Blue - 0.12 Detail | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | GEEETECH TPU 95A - N0.8 Safe Start | 2 layers | 4 | 25% at 60 s | 35% at 15 s | On | 50% | On / 7 mm/s |
 | SUNLU TPU 95A - N0.8 Safe Start | 2 layers | 4 | 30% at 60 s | 50% at 15 s | On | 100% | On / 9 mm/s |
 | SUNLU PETG Black Standard - N0.8 Safe Start | 3 layers | 6 | 35% at 60 s | 55% at 15 s | On | 100% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
+| EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start | 1 layer | 3 | 70% at 60 s | 90% at 15 s | On | 100% | On / 15 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start | 1 layer | 3 | 70% at 60 s | 90% at 15 s | On | 100% | On / 15 mm/s |
 
 The 0.24/0.4 cooling values match the corresponding 0.20/0.4 starting values. Each 0.8 cooling row serves both 0.20 and 0.40 mm processes; layer-time slowdown handles most geometry-dependent differences. The thresholds are derived starting values. Unlisted cooling fields inherit from the duplicated filament base in the preset index; inspect the sliced preview for unexpected slowdowns.
 
@@ -202,8 +233,18 @@ Both 0.12 mm TPU profiles are experimental. First complete a representative 0.20
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 35 mm/s | 45 mm/s | 110 mm/s | 165 mm/s | 165 mm/s | 145 mm/s | 75 mm/s | 30 mm/s | 300 mm/s |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.20 mm | 25 mm/s | 35 mm/s | 75 mm/s | 105 mm/s | 105 mm/s | 95 mm/s | 60 mm/s | 30 mm/s | 300 mm/s |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.40 mm | 25 mm/s | 35 mm/s | 40 mm/s | 54 mm/s | 54 mm/s | 48 mm/s | 35 mm/s | 25 mm/s | 280 mm/s |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.12 mm | 20 mm/s | 25 mm/s | 40 mm/s | 65 mm/s | 70 mm/s | 60 mm/s | 35 mm/s | 25 mm/s | 250 mm/s |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.20 mm | 20 mm/s | 25 mm/s | 45 mm/s | 65 mm/s | 75 mm/s | 60 mm/s | 40 mm/s | 25 mm/s | 250 mm/s |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.24 mm | 20 mm/s | 25 mm/s | 40 mm/s | 60 mm/s | 65 mm/s | 55 mm/s | 35 mm/s | 25 mm/s | 250 mm/s |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.20 mm | 15 mm/s | 20 mm/s | 25 mm/s | 35 mm/s | 40 mm/s | 35 mm/s | 25 mm/s | 20 mm/s | 250 mm/s |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.40 mm | 15 mm/s | 20 mm/s | 18 mm/s | 22 mm/s | 24 mm/s | 22 mm/s | 18 mm/s | 15 mm/s | 230 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.12 mm | 20 mm/s | 25 mm/s | 45 mm/s | 75 mm/s | 85 mm/s | 70 mm/s | 40 mm/s | 25 mm/s | 250 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.20 mm | 20 mm/s | 25 mm/s | 50 mm/s | 85 mm/s | 100 mm/s | 80 mm/s | 45 mm/s | 25 mm/s | 250 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.24 mm | 20 mm/s | 25 mm/s | 45 mm/s | 75 mm/s | 90 mm/s | 70 mm/s | 40 mm/s | 25 mm/s | 250 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 15 mm/s | 20 mm/s | 30 mm/s | 45 mm/s | 55 mm/s | 45 mm/s | 28 mm/s | 20 mm/s | 250 mm/s |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 15 mm/s | 20 mm/s | 22 mm/s | 28 mm/s | 30 mm/s | 28 mm/s | 22 mm/s | 15 mm/s | 230 mm/s |
 
-For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `14/7 mm/s` for GEEETECH TPU, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for PETG, and `110/55 mm/s` for High Speed PLA+ at 0.20/0.40 mm layers. The table stays at or below those caps for extrusion features; travel is not flow-limited. Confirm in Preview using the `Flow` color scheme because the slicer's rounded bead model can differ slightly from the rectangular check.
+For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `14/7 mm/s` for GEEETECH TPU, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for PETG, `110/55 mm/s` for High Speed PLA+, `49/24 mm/s` for EONO Silk, and `61/30 mm/s` for GRATKIT Silk at 0.20/0.40 mm layers. The table stays at or below those caps for extrusion features; travel is not flow-limited. Confirm in Preview using the `Flow` color scheme because the slicer's rounded bead model can differ slightly from the rectangular check.
 
 ## Process Acceleration
 
@@ -229,6 +270,16 @@ For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line wid
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 4,500 | 500 | 1,800 | 3,800 | 4,500 | 3,300 | 1,000 | 2,300 | 7,500 |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.20 mm | 4,000 | 500 | 1,500 | 3,200 | 4,000 | 2,800 | 900 | 1,800 | 7,000 |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.40 mm | 3,200 | 500 | 1,200 | 2,600 | 3,200 | 2,300 | 800 | 1,500 | 6,500 |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.12 mm | 2,500 | 500 | 1,000 | 2,000 | 2,500 | 1,800 | 800 | 1,000 | 5,000 |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.20 mm | 3,000 | 500 | 1,200 | 2,400 | 3,000 | 2,200 | 900 | 1,200 | 6,000 |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.24 mm | 2,800 | 500 | 1,100 | 2,200 | 2,800 | 2,000 | 900 | 1,100 | 5,500 |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.20 mm | 2,500 | 500 | 900 | 1,800 | 2,500 | 1,800 | 800 | 900 | 5,000 |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.40 mm | 2,000 | 500 | 800 | 1,500 | 2,000 | 1,500 | 700 | 800 | 4,500 |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.12 mm | 2,500 | 500 | 1,000 | 2,000 | 2,500 | 1,800 | 800 | 1,000 | 5,000 |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.20 mm | 3,000 | 500 | 1,200 | 2,400 | 3,000 | 2,200 | 900 | 1,200 | 6,000 |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.24 mm | 2,800 | 500 | 1,100 | 2,200 | 2,800 | 2,000 | 900 | 1,100 | 5,500 |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 2,500 | 500 | 900 | 1,800 | 2,500 | 1,800 | 800 | 900 | 5,000 |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 2,000 | 500 | 800 | 1,500 | 2,000 | 1,500 | 700 | 800 | 4,500 |
 
 Acceleration values are in `mm/s^2`. Lower outer/top acceleration is intentional on the Max's large moving bed.
 
@@ -256,6 +307,16 @@ Acceleration values are in `mm/s^2`. Lower outer/top acceleration is intentional
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.20 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.40 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.12 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.20 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.20 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.40 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.12 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.20 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
 
 Line-width values are in `mm`. The 0.8 mm values match the pinned Orca Max 0.8 process geometry. Paint or rotate the aligned seam onto a hidden edge per model; seam painting is not a reusable preset field.
 
@@ -285,6 +346,16 @@ For every custom process below, explicitly set `Top shell thickness = 0 mm` and 
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.20 mm | 2 | 5 | 4 | 15% | Gyroid |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 0.40 mm | 2 | 3 | 3 | 15% | Gyroid |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.12 mm | 3 | 7 | 7 | 15% | Gyroid |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.20 mm | 3 | 5 | 4 | 15% | Gyroid |
+| EONO Silk PLA Red-Gold-Blue | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.20 mm | 2 | 5 | 4 | 15% | Gyroid |
+| EONO Silk PLA Red-Gold-Blue | 0.8 mm | 0.40 mm | 2 | 3 | 3 | 15% | Gyroid |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.12 mm | 3 | 7 | 7 | 15% | Gyroid |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.20 mm | 3 | 5 | 4 | 15% | Gyroid |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 2 | 5 | 4 | 15% | Gyroid |
+| GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 2 | 3 | 3 | 15% | Gyroid |
 
 Use more walls, not just more infill, when strength is the priority. Two 0.82 mm walls are already about 1.64 mm thick; add a third only when the model needs it. Extra walls and infill make TPU parts less flexible. Avoid TPU supports where possible; they are difficult to remove.
 
@@ -300,6 +371,8 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | SUNLU PETG Black | A direct color-match owner used 250 deg C first layer and 245 deg C later, with fan mostly off except for overhangs. [Bambu forum](https://forum.bambulab.com/t/best-settings-for-sunlu-petg/33776?page=2#post_35) | Supports 245-250 deg C and moderate normal cooling rather than full fan. |
 | PETG on Kobra 3 | An owner reported nearly flawless output at 250/100 deg C for two layers, then 240/80 deg C and 80 mm/s; later users reported improvement. [Reddit](https://old.reddit.com/r/anycubic/comments/1exjpt8/petg_on_kobra_3/) | Confirms slower first layers and a warm bed, but 100 deg C is not used as a general default. |
 | SUNLU High Speed PLA+ 2.0 | An exact-product owner at 450 mm/s reported slight stringing, visible VFAs, about 5% worse finish, and only about 35% shorter print time. [Reddit](https://www.reddit.com/r/3Dprinting/comments/1m1w03t/favorite_brand_of_filament/n3l70c2/) | Keeps visible walls at 100-120 mm/s; internal features use 180-200 mm/s at 0.20 mm and up to 230 mm/s at 0.12 mm. |
+| EONO Silk PLA Red/Gold/Blue | Exact-color Amazon reviews report clean printing and layer bonding at 205-215 deg C with a 60 deg C bed, but another long-print review reports tangling after about 100 m. [Exact listing and reviews](https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE) | Uses a moderate 210-215 deg C profile, conservative 8 mm^3/s MVS, and an inspect-or-respool rule before unattended long prints. |
+| GRATKIT Silk PLA Blue/Purple/Black | A same-family Red/Gold/Purple owner/forum report linked visible lines to flow, retraction, filament twist, and inconsistent coextrusion orientation; the poster was not verified as official GRATKIT support and the colorway differs. [Owner/forum thread](https://forums.gratkit.com/d/65-tri-colour-silk-pla-lines) | Keeps Kobra retraction instead of the aggressive generic 2 mm recommendation, caps initial flow at 10 mm^3/s, and requires an orientation sample. |
 
 ## Calibration Order
 
@@ -313,7 +386,8 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | 5 | Calibrate PA separately for each nozzle/material pair; only after stable TPU extrusion for TPU. | Corners bulge: PA may be low. Thin corners or gaps after direction changes: PA may be high. |
 | 6 | Run maximum volumetric-flow calibration separately for every nozzle/material pair. | Set MVS 10-20% below the first repeatable roughness, gloss transition, under-extrusion, or layer-strength failure; after increasing MVS, revalidate PA at representative flow. |
 | 7 | Tune retraction last. | TPU clicking/wrapping: set retraction to 0 before increasing it. Rigid-filament stringing after drying: adjust by 0.1 mm. |
-| 8 | Print a dimensional coupon. | Apply XY/hole compensation only from measured error, not another printer's profile. |
+| 8 | For tri-color Silk PLA, print a small vase-mode orientation cylinder and inspect spool feed. | Rotate the final model around Z to choose color-facing; respool or direct-feed if winding or brittleness is inconsistent. |
+| 9 | Print a dimensional coupon. | Apply XY/hole compensation only from measured error, not another printer's profile. |
 
 ## Failure Corrections
 
@@ -327,13 +401,15 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | PETG damages or locks to PEI | Lower first-layer nozzle/bed by 5 deg C, add a thin glue release layer, and wait for full cooling. |
 | PLA+ rough/matte high-speed infill | Reduce MVS from 18 to 16 mm^3/s before lowering every feature speed. |
 | PLA+ ringing or VFAs | Reduce outer wall to 80-100 mm/s and outer acceleration to 1,200-1,500 mm/s^2. |
+| Silk PLA looks dull or loses color separation | Reduce outer-wall speed first; then raise nozzle temperature by 5 deg C only within that material's documented range. Do not exceed GRATKIT's 215 deg C all-metal-hotend ceiling. GRATKIT explicitly warns that high speed removes the silk texture. |
+| Silk PLA snaps, binds, or forms unexplained vertical color lines | Inspect the cardboard spool and coextrusion orientation, dry only at the conservative material-specific cycle, test direct feeding, and replace or respool a crossed or inconsistently oriented roll. |
 | Poor top surface | Lower top speed by 15-20 mm/s or add one top layer after flow is calibrated. |
 | 0.8 mm profile under-extrudes | Confirm the 0.8 mm printer preset and 0.82 mm line widths, then lower MVS by 15%, inspect the nozzle/hotend, and run a temperature tower. Do not compensate by increasing flow ratio. |
 | 0.8 mm first layer is over-squished or detached | Recheck nozzle installation, leveling, and Z offset with the 0.40 mm first-layer height before changing bed temperature or flow. |
 
 ## Sources And Limits
 
-### Manufacturer Data
+### Product, Manufacturer, And Marketplace Sources
 
 - [Anycubic Kobra 3 Max specifications](https://www.anycubic.com/products/kobra-3-max)
 - [Anycubic Kobra 3 Max Combo specifications](https://www.anycubic.com/products/kobra-3-max-combo), including standard 0.4 mm and expandable 0.6/0.8 mm nozzle support
@@ -342,6 +418,9 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 - [SUNLU standard PETG product data](https://www.sunlu.com/products/petg-3d-printing-filament) and [filament/drying guide](https://www.sunlu.com/wiki/filament-usage-guide)
 - [SUNLU High Speed PLA+ 2.0 product data](https://store.sunlu.com/products/moq-6kg-high-speed-pla-2-0hspla-plus-2-0-high-speed-3d-printer-filament-1kg) and [TDS](https://media.sunlu.com/prod/20260330/225ab1bc-a40a-435b-8d20-a2745303674b.pdf?filename=TDS)
 - [GEEETECH TPU product data](https://www.geeetech.com/products/tpu-3d-printer-filament-1-75mm-1kg-roll), [printing guide](https://blog.geeetech.com/materials/tpu-filament-guide-how-to-print-with-tpu/), and [drying guide](https://blog.geeetech.com/materials/3d-printing-filament/why-tpu-filament-absorbs-moisture-easily-and-how-to-dry-it/)
+- [EONO Red/Gold/Blue exact German product listing](https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE); no first-party EONO TDS was found
+- [GRATKIT Blue/Purple/Black exact German product listing](https://www.amazon.de/dp/B0BWXQ2WZD?language=en_GB&th=1&psc=1) and [GRATKIT Silk multi-color product data](https://gratkit.com/products/gratkit-silk-multi-color-pla-filament-1-75mm-coextrusion-pla-filament-1kg)
+- [Anycubic dual/tri-color Silk PLA proxy data](https://store.anycubic.com/products/silk-pla-dual-tri-color-filament), used only where EONO publishes no exact technical range
 
 ### Slicer Behavior And Reference Profiles
 
@@ -353,10 +432,12 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 - [OrcaSlicer Kobra 3 Max merge commit `972dae2`](https://github.com/OrcaSlicer/OrcaSlicer/commit/972dae22afdadc3251d05e10c2d6f00c35e6b83a), a secondary profile reference
 - [Orca Kobra 3 Max 0.8 mm machine profile](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/machine/Anycubic%20Kobra%203%20Max%200.8%20nozzle.json)
 - [Orca Kobra 3 Max 0.20 mm / 0.8 mm process](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/process/0.20mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json) and [0.40 mm / 0.8 mm process](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/process/0.40mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json)
+- [Orca Kobra 3 Max PLA Silk 0.4 mm filament reference](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/filament/Anycubic%20PLA%20Silk%20%40Anycubic%20Kobra%203%20Max%200.4%20nozzle.json)
+- [Orca Kobra 3 Max generic PLA 0.8 mm filament reference](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/filament/Anycubic%20PLA%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json)
 - [Orca maximum volumetric-speed calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/volumetric_speed_calib) and [pressure-advance calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/pressure_advance_calib)
 
 ### Owner Reports
 
 - The directly retrieved owner evidence used to modify these profiles is linked row-by-row in [What Owners Reported](#what-owners-reported).
 
-The strongest online experience evidence is material- and printer-specific for GEEETECH TPU, but exact SUNLU TPU 95A/Kobra 3 Max evidence is scarce. Reports from other modern direct-drive printers are therefore labeled as transferable experience rather than proof. Kobra 3 reports also transfer imperfectly to the Max because the Max has a much larger moving bed and lower quality-oriented process acceleration.
+The strongest online experience evidence is material- and printer-specific for GEEETECH TPU, but exact SUNLU TPU 95A/Kobra 3 Max evidence is scarce. EONO has no retrieved first-party TDS, and neither requested Silk filament has an exact Kobra 3 Max 0.8 mm profile, so their values remain conservative derived starts. Reports from other modern direct-drive printers are therefore labeled as transferable experience rather than proof. Kobra 3 reports also transfer imperfectly to the Max because the Max has a much larger moving bed and lower quality-oriented process acceleration.

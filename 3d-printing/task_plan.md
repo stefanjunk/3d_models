@@ -1,7 +1,7 @@
 # Task Plan: German Filament Price Research
 
 ## Goal
-Create a current, source-linked Markdown comparison of German-market filament prices for PLA, PLA+, high-speed PLA, PETG, high-speed PETG, and TPU 95A.
+Create a current, source-linked Markdown comparison of German-market filament prices for PLA, PLA+, high-speed PLA, PETG, high-speed PETG, and TPU 95A, plus exact requested offers for EONO Red/Gold/Blue and GRATKIT Blue/Purple/Black Silk PLA.
 
 ## Scope
 - Geography: Sellers and marketplaces delivering to Germany
@@ -9,6 +9,7 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - Normalization: EUR per kilogram
 - Offers: In-stock consumer listings; no account-only coupons, subscriptions, or bulk-only prices
 - Color check: Record whether black is cheaper than other colors in the same product line
+- Requested exact products: Report current one-spool German offers separately from category winners
 
 ## Phases
 - [x] Phase 1: Confirm scope and research plan
@@ -16,6 +17,7 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - [x] Phase 3: Research PETG, high-speed PETG, and TPU 95A
 - [x] Phase 4: Validate prices, classifications, stock, and color effects
 - [x] Phase 5: Build and review the Markdown deliverable
+- [x] Phase 6: Add and validate the two requested exact Silk PLA offers
 
 ## Key Questions
 1. What is the cheapest verified in-stock offer in each material class?
@@ -32,6 +34,7 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - Keep the six categories mutually exclusive: standard PLA and PETG exclude explicit high-speed products, and conventional PLA+ excludes explicit high-speed PLA+.
 - Allow public, no-code limited-time sales but label them prominently.
 - Treat ranges as the span of the directly validated sample, not an exhaustive market-wide interval.
+- Keep requested exact-product prices separate from cheapest-category winners.
 
 ## Errors Encountered
 - A stale BerryBase PLA+ URL returned 404; replaced it with the live canonical product URL.
@@ -40,4 +43,4 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - Amazon showed an inconsistent EUR/kg field for IEMAI high-speed PETG; used the explicit 1 kg weight and item price for conservative normalization.
 
 ## Status
-**Complete** - Research, validation, deliverable drafting, and final review are finished.
+**Complete** - Category research and the 6 August 2026 EONO/GRATKIT exact-product update are validated and documented.

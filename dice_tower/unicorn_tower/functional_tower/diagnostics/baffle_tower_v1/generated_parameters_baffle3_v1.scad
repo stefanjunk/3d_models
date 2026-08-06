@@ -1,0 +1,30 @@
+// Generated from parameters.json by prepare_source.py; do not edit values here.
+// Units: millimetres.
+source_mesh_path = "exports/upright_exterior_source_mesh.stl";
+final_mesh_path = "exports/functional_unicorn_dice_tower.stl";
+core_center_x = 0.0;
+core_center_y = 25.0;
+core_rx = 42.0;
+core_ry = 24.5;
+core_start_z = 22.0;
+core_end_z = 150.0;
+baffle_thickness = 4.5;
+baffle_depth_local = 24.0;
+baffle_edge_radius = 1.5;
+baffle_radial_overlap = 2.5;
+baffles = [[39.0, 136.0, 45.0], [11.0, 90.0, -45.0], [39.0, 46.0, 45.0]];
+inlet_center_y = 50.0;
+inlet_center_z = 139.0;
+inlet_depth = 52.0;
+inlet_width = 46.0;
+inlet_height = 42.0;
+inlet_radius = 8.0;
+outlet_center_y = -5.0;
+outlet_center_z = 41.0;
+outlet_depth = 40.0;
+outlet_width = 46.0;
+outlet_height = 38.0;
+outlet_radius = 7.0;
+die_size = 22.0;
+die_path = [[0.0, 65.0, 138.0], [0.0, 45.0, 138.0], [0.0, 37.0, 138.0], [0.0, 37.0, 113.0], [0.0, 17.0, 113.0], [0.0, 33.0, 113.0], [0.0, 33.0, 68.0], [0.0, 17.0, 68.0], [0.0, 17.0, 38.0], [0.0, -28.0, 38.0]];
+render_fn = 48;

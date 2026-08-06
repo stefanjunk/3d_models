@@ -1,6 +1,6 @@
 # Research Notes: Kobra 3 Max Filament Profiles
 
-**Research date:** 2026-08-01
+**Research dates:** 2026-08-01; EONO/GRATKIT update 2026-08-06
 
 ## Evidence Rules
 - First-party printer, slicer, and filament documentation establishes supported ranges.
@@ -69,13 +69,35 @@
 - The stock Kobra 3 Max high-speed PLA profile uses an 18 mm3/s MVS limit. Using the conservative rectangular check at 0.20 x 0.45 mm gives 200 mm/s before flow-ratio adjustment, far below the 600 mm/s motion claim.
 - Derived profile: 220 C, 60/55 C bed, flow 0.97, MVS 18 mm3/s, PA 0.026, 0.8 mm retraction at 35 mm/s, 80-100% cooling, and lower outer/top speeds than infill.
 
+## EONO Silk PLA Red / Gold / Blue
+
+- Exact German listing: https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE
+- The listing confirms Red/Gold/Blue coextruded Silk PLA, 1.75 mm, 1 kg, vacuum packaging with desiccant, and Anycubic compatibility, but provides no EONO TDS or manufacturer print-temperature, speed, MVS, cooling, or drying values.
+- Exact-color owner evidence on the Amazon page includes successful printing at 205-215 C with a 60 C bed. Another exact-color review reports tangling after roughly 100 m, conflicting with the listing's clean-winding claim; inspect the spool before unattended long prints.
+- Anycubic's dual/tri-color Silk PLA is used only as a proxy envelope: 210-240 C, 55-56 C bed, and 8 mm3/s MVS. The exact pinned Kobra 3 Max Silk profile provides flow 0.96, 210 C, PA 0.04, and 13 mm3/s, but 13 mm3/s is not assumed for EONO without flow testing. EONO's exact-color owner evidence, rather than this proxy, supports the 60 C initial bed.
+- Derived 0.4 mm start: 215/210 C nozzle, 60/55 C bed, flow 0.96, MVS 8 mm3/s, PA 0.040, 0.8 mm retraction at 30 mm/s, and 80-100% cooling after layer 1.
+- Derived 0.8 mm safe start: 220/215 C nozzle, 60/55 C bed, flow 0.98, temporary MVS 8 mm3/s, PA disabled until calibrated, and 70-90% normal cooling. Lower outer-wall speed preserves gloss.
+- No exact EONO drying cycle was found. Use 50-55 C for 4-6 hours only when moisture symptoms justify it, and verify dryer and cardboard-spool temperature tolerance.
+
+## GRATKIT Silk PLA Blue / Purple / Black
+
+- Exact German listing: https://www.amazon.de/dp/B0BWXQ2WZD?language=en_GB&th=1&psc=1
+- Manufacturer page: https://gratkit.com/products/gratkit-silk-multi-color-pla-filament-1-75mm-coextrusion-pla-filament-1kg
+- GRATKIT lists 200 +/-10 C nozzle temperature, adding 5 C for an all-metal hotend, 50 C on PEI or 60 C on glass, up to 350 mm/s, and direct-drive retraction of 2 mm at 40 mm/s. It simultaneously warns that Silk PLA melts more slowly than regular PLA and loses its silk texture at high speed; the 350 mm/s claim is therefore not used as a profile speed.
+- GRATKIT describes Silk PLA as more brittle than regular PLA. A same-family Red/Gold/Purple owner/forum report identifies flow, retraction, filament twist, and inconsistent coextrusion orientation as possible causes of visible lines; the poster was not verified as official GRATKIT support and the colorway differs: https://forums.gratkit.com/d/65-tri-colour-silk-pla-lines
+- The exact pinned Max Silk profile provides flow 0.96, 210 C, 13 mm3/s, PA 0.04, and full cooling. The custom profile starts at 10 mm3/s to preserve gloss and margin for batch variability.
+- Derived 0.4 mm start: 215/210 C nozzle, 55/50 C bed, flow 0.96, MVS 10 mm3/s, PA 0.040, Kobra-safe 0.8 mm retraction at 30 mm/s rather than GRATKIT's aggressive generic 2 mm value, and 80-100% cooling after layer 1.
+- Derived 0.8 mm safe start: 215/215 C nozzle, 55/50 C bed, flow 0.98, temporary MVS 10 mm3/s, PA disabled until calibrated, and 70-90% normal cooling. This stays at GRATKIT's documented all-metal-hotend ceiling rather than inheriting the generic Max PLA temperature.
+- GRATKIT publishes no drying cycle. Use 45-50 C for 4-6 hours only for moisture symptoms or brittleness, then store sealed with desiccant.
+
 ## Derived Profiles
 
-- The deliverable uses 0.12 mm detail, 0.20 mm balanced, and 0.24 mm balanced profiles with the 0.4 mm nozzle. It adds 0.20 mm fine and 0.40 mm draft profiles with the 0.8 mm nozzle.
+- The deliverable uses 0.12 mm detail, 0.20 mm balanced, and 0.24 mm balanced profiles with the 0.4 mm nozzle. It adds 0.20 mm fine and 0.40 mm draft profiles with the 0.8 mm nozzle for all six materials.
 - The 0.4 mm rigid-filament profiles retain 3 walls, approximately 0.8-1.0 mm top/bottom thickness, aligned hidden seams, 15% gyroid infill, and 0.4 mm slope z-hop. The 0.8 mm variants use 2 walls because they are already about 1.64 mm thick.
 - TPU uses 3 walls with the 0.4 mm nozzle and 2 walls with the 0.8 mm nozzle. It keeps gyroid but avoids supports, wipe, multi-object plates, and unnecessary retraction. GEEETECH uses no z-hop initially; SUNLU keeps z-hop optional.
 - Feature speed and acceleration are intentionally lower for outer walls and top surfaces. MVS remains the hard sustained extrusion cap.
 - The 0.8 mm profiles use the pinned Orca Max reference geometry: 0.82 mm feature widths, a 0.40 mm first layer, and a 0.16-0.56 mm machine layer range. Two walls are already about 1.64 mm thick; 0.20 mm layers use 5/4 top/bottom layers and 0.40 mm layers use 3/3 for roughly 0.8-1.2 mm shell coverage.
+- Tri-color Silk PLA appearance depends on model rotation around Z and filament orientation through the extruder. Print an orientation cylinder before a large decorative model; slower outer walls improve gloss more predictably than headline high-speed settings.
 
 ## Limitations And Calibration
 
@@ -85,3 +107,4 @@
 - Calibration order: dry filament, verify first layer, temperature tower, flow ratio, pressure advance for rigid materials and only after stable extrusion for TPU, MVS test, PA recheck at representative flow, retraction, then dimensional coupon.
 - Set MVS 10-20% below the first repeatable failure or surface transition in a flow test.
 - For TPU, solve feed drag, hotend residue, and gear wrapping before increasing retraction or flow. Do not use ACE Pro for feeding.
+- For brittle Silk PLA or questionable cardboard-spool winding, test direct external feeding before relying on ACE Pro for a long unattended print.

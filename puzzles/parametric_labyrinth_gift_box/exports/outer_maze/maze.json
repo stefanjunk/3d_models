@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "units": "mm",
   "config": {
     "cavity_diameter": 40.0,
@@ -13,11 +13,20 @@
     "cap_thickness": 2.4,
     "radial_clearance": 0.35,
     "axial_clearance": 0.5,
+    "grip_length": 15.0,
     "channel_width": 2.0,
     "channel_depth": 1.2,
     "follower_clearance": 0.25,
     "follower_tip_clearance": 0.2,
     "maze_margin": 4.0,
+    "ornament_type": "none",
+    "decoration_mode": "engrave",
+    "decoration_depth": 0.6,
+    "decoration_count": 16,
+    "decoration_margin": 3.0,
+    "image_relief_path": null,
+    "image_relief_resolution": 256,
+    "image_relief_invert": false,
     "minimum_wall": 1.6,
     "minimum_web": 1.2,
     "minimum_feature": 0.8,
@@ -40,6 +49,8 @@
     "maze_spacing_radius": 23.55,
     "inner_outer_radius": 23.2,
     "inner_height": 82.4,
+    "grip_radius": 26.75,
+    "inner_total_extent": 97.4,
     "sleeve_inner_radius": 23.55,
     "sleeve_outer_radius": 26.75,
     "sleeve_inner_depth": 82.9,
@@ -2057,8 +2068,24 @@
   },
   "candidate_count": 24,
   "print_orientation": {
-    "inner": "base_down",
-    "outer": "cap_down"
+    "inner": "grip_down",
+    "outer": "cap_down",
+    "inner_note": "translated from assembly coordinates so exported zmin is 0",
+    "outer_note": "rotated 180 degrees from assembly coordinates"
+  },
+  "exact_brep": {
+    "includes_grip": true,
+    "includes_built_in_ornaments": false,
+    "includes_raster_image_relief": false
+  },
+  "image_relief": {
+    "requested": false,
+    "source_image": null,
+    "resolution": 256,
+    "invert": false,
+    "dark_pixels_are_stronger": true,
+    "stl_includes_raster_relief": false,
+    "step_includes_raster_relief": false
   },
   "files": {
     "inner_stl": "inner.stl",

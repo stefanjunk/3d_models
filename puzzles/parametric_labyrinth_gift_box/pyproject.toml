@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parametric-labyrinth-gift-box"
+version = "1.0.0"
+description = "Two-piece cylindrical labyrinth gift-box generator for FDM printing"
+requires-python = ">=3.11"
+dependencies = ["cadquery>=2.8,<3"]
+
+[project.optional-dependencies]
+validation = ["matplotlib>=3.8", "trimesh>=4"]
+
+[project.scripts]
+generate-labyrinth-box = "generate_labyrinth_box:main"
+
+[tool.setuptools]
+py-modules = ["generate_labyrinth_box"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["labyrinth_box*"]

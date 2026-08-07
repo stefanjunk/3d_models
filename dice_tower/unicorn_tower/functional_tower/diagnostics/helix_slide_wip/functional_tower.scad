@@ -37,63 +37,50 @@ module outlet_void() {
     );
 }
 
-// ---- Discrete spiral staircase (v3.1, planar ramps) ------------------
-// Eight rounded stair ramps circling down around the elliptical core axis.
-// Each step is a flat inclined wedge: its top surface is the plane through
-// the mid-radius high-end point, descending stair_descent mm along the chord
-// to the mid-radius low-end point. Flat ramps mate exactly with a flat-bottom
-// die and print cleanly. Steps hand over level across a narrow open wedge,
-// and their outer edges overlap the shell by 2.5 mm for fusion.
+// ---- Spiral staircase -------------------------------------------------
+// Descending parameter t (degrees): 90 -> -780 (2.4167 turns clockwise
+// when viewed from above). Top surface height is linear in t. The outer
+// edge overlaps the shell by spiral_out_r - core_r so the slide is fused
+// into the wall everywhere. The inner edge floats; the inner void is
+// smaller than a die so nothing can fall through it.
 
-function stair_point_xy(t, rx, ry) =
-    [core_center_x + rx * cos(t), core_center_y + ry * sin(t)];
+function spiral_z_of_t(t) =
+    spiral_z_top - (spiral_z_top - spiral_z_end) * ((spiral_t_start - t) / (spiral_t_start - spiral_t_end));
 
-function stair_mid_rx() = (stair_in_rx + stair_out_rx) / 2;
-function stair_mid_ry() = (stair_in_ry + stair_out_ry) / 2;
+function spiral_point(t, rx, ry) =
+    [core_center_x + rx * cos(t), core_center_y + ry * sin(t), 0];
 
-module rounded_post(xy, center_z, thickness, edge_r) {
+module rounded_post(center_xy, center_z, thickness, edge_r) {
     hull() {
-        translate([xy[0], xy[1], center_z + (thickness / 2 - edge_r)])
+        translate([center_xy[0], center_xy[1], center_z + (thickness / 2 - edge_r)])
             sphere(r = edge_r);
-        translate([xy[0], xy[1], center_z - (thickness / 2 - edge_r)])
+        translate([center_xy[0], center_xy[1], center_z - (thickness / 2 - edge_r)])
             sphere(r = edge_r);
     }
 }
 
-module stair_facet(pa_in, pa_out, pb_in, pb_out, z_a_in, z_a_out, z_b_in, z_b_out) {
+module spiral_tread_facet(t_high, t_low) {
+    z_high = spiral_z_of_t(t_high);
+    z_low = spiral_z_of_t(t_low);
+    in_high = spiral_point(t_high, spiral_in_rx, spiral_in_ry);
+    out_high = spiral_point(t_high, spiral_out_rx, spiral_out_ry);
+    in_low = spiral_point(t_low, spiral_in_rx, spiral_in_ry);
+    out_low = spiral_point(t_low, spiral_out_rx, spiral_out_ry);
     hull() {
-        rounded_post(pa_in,  z_a_in  - stair_thickness / 2, stair_thickness, stair_edge_radius);
-        rounded_post(pa_out, z_a_out - stair_thickness / 2, stair_thickness, stair_edge_radius);
-        rounded_post(pb_in,  z_b_in  - stair_thickness / 2, stair_thickness, stair_edge_radius);
-        rounded_post(pb_out, z_b_out - stair_thickness / 2, stair_thickness, stair_edge_radius);
+        rounded_post(in_high,  z_high - spiral_thickness / 2, spiral_thickness, spiral_edge_radius);
+        rounded_post(out_high, z_high - spiral_thickness / 2, spiral_thickness, spiral_edge_radius);
+        rounded_post(in_low,   z_low  - spiral_thickness / 2, spiral_thickness, spiral_edge_radius);
+        rounded_post(out_low,  z_low  - spiral_thickness / 2, spiral_thickness, spiral_edge_radius);
     }
 }
 
 module spiral_staircase() {
-    $fn = stair_fn;
-    for (i = [0 : stair_steps - 1]) {
-        phi = stair_t0 + i * stair_index_angle;
-        H = stair_z_first - i * stair_descent;
-        A = stair_point_xy(phi, stair_mid_rx(), stair_mid_ry());
-        B = stair_point_xy(phi + stair_arc, stair_mid_rx(), stair_mid_ry());
-        dvec = [B[0] - A[0], B[1] - A[1]];
-        L = norm(dvec);
-        uu = [dvec[0] / L, dvec[1] / L];
-        slope = stair_descent / L;
-        dt = stair_arc / stair_subdiv;
-        for (j = [0 : stair_subdiv - 1]) {
-            t_a = phi + j * dt - stair_sub_overlap;
-            t_b = phi + (j + 1) * dt + stair_sub_overlap;
-            pa_in  = stair_point_xy(t_a, stair_in_rx,  stair_in_ry);
-            pa_out = stair_point_xy(t_a, stair_out_rx, stair_out_ry);
-            pb_in  = stair_point_xy(t_b, stair_in_rx,  stair_in_ry);
-            pb_out = stair_point_xy(t_b, stair_out_rx, stair_out_ry);
-            z_a_in  = H - slope * ((pa_in[0]  - A[0]) * uu[0] + (pa_in[1]  - A[1]) * uu[1]);
-            z_a_out = H - slope * ((pa_out[0] - A[0]) * uu[0] + (pa_out[1] - A[1]) * uu[1]);
-            z_b_in  = H - slope * ((pb_in[0]  - A[0]) * uu[0] + (pb_in[1]  - A[1]) * uu[1]);
-            z_b_out = H - slope * ((pb_out[0] - A[0]) * uu[0] + (pb_out[1] - A[1]) * uu[1]);
-            stair_facet(pa_in, pa_out, pb_in, pb_out, z_a_in, z_a_out, z_b_in, z_b_out);
-        }
+    $fn = spiral_fn;
+    dt = (spiral_t_start - spiral_t_end) / spiral_facets;
+    for (i = [0 : spiral_facets - 1]) {
+        t_high = spiral_t_start - i * dt + spiral_facet_overlap;
+        t_low = spiral_t_start - (i + 1) * dt - spiral_facet_overlap;
+        spiral_tread_facet(t_high, t_low);
     }
 }
 
@@ -124,7 +111,6 @@ module die_cube(index) {
             rotate([0, die_pose[index][1], 0])
                 cube([die_size, die_size, die_size], center = true);
 }
-// (die cubes use sliding-block poses on the ramps; see parameters.json)
 
 module die_sweep() {
     for (i = [0 : len(die_path) - 2])

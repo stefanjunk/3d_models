@@ -87,57 +87,107 @@ def elliptic_radius(fg, x, y):
 
 
 def spiral_evidence(mesh, fg) -> dict:
+    """Discrete spiral staircase evidence: zone faces, shell/inner reach,
+    per-step slab thickness rays, multi-turn stacking, and vertical
+    enclosed-gap sampling between stair surfaces."""
     sp = fg["spiral"]
-    centroids = np.asarray(mesh.triangles_center)
-    rho = np.array([elliptic_radius(fg, c[0], c[1]) for c in centroids])
-    spiral_zone = (
-        (centroids[:, 2] >= sp["z_top_surface_end_mm"] - 5.0)
-        & (centroids[:, 2] <= sp["z_top_surface_start_mm"] + 4.0)
-        & (rho >= 0.30) & (rho <= 1.20)
-    )
-    zone_faces = int(np.count_nonzero(spiral_zone))
-    zone_rho = rho[spiral_zone]
+    t0 = float(sp["first_step_high_end_azimuth_deg"])
+    idx = float(sp["step_index_angle_deg"])
+    arc = float(sp["step_arc_deg"])
+    z_first = float(sp["z_first_step_high_end_mm"])
+    descent = float(sp["descent_per_step_mm"])
+    n = int(sp["step_count"])
+    rx_c = float(fg["core_radius_x_mm"]); ry_c = float(fg["core_radius_y_mm"])
+    cy = float(fg["core_center_y_mm"])
 
-    # Thickness: vertical rays at three azimuths across different turns.
-    # Each ray should meet every spiral turn it crosses as a top/under pair
-    # separated by the nominal thickness.
-    thickness_samples = []
-    for t_deg in [20.0, -250.0, -520.0]:
-        ang = math.radians(t_deg)
-        x = 29.5 * math.cos(ang)
-        y = 25.0 + 15.5 * math.sin(ang)
-        coords = line_coordinates(mesh, [x, y, 125.0], [0.0, 0.0, -1.0], 2, 115.0)
+    def elliptic_radius(x, y):
+        return math.sqrt((x / rx_c) ** 2 + ((y - cy) / ry_c) ** 2)
+
+    centroids = np.asarray(mesh.triangles_center)
+    rho = np.array([elliptic_radius(c[0], c[1]) for c in centroids])
+    zone = (
+        (centroids[:, 2] >= 19.0) & (centroids[:, 2] <= 120.0)
+        & (rho >= 0.36) & (rho <= 1.20)
+    )
+    zone_faces = int(np.count_nonzero(zone))
+    zone_rho = rho[zone]
+    reaches_shell = bool(zone_faces > 0 and float(zone_rho.max()) >= 0.99)
+    reaches_inner = bool(zone_faces > 0 and float(zone_rho.min()) <= 0.60)
+
+    # Slab thickness rays through three stair midpoints (different turns).
+    thickness_rays = []
+    for step_i in [1, 4, 7]:
+        t_mid = math.radians(t0 + step_i * idx + arc / 2.0)
+        x = 28.0 * math.cos(t_mid); y = cy + 13.0 * math.sin(t_mid)
+        coords = line_coordinates(mesh, [x, y, 125.0], [0.0, 0.0, -1.0], 2, 108.0)
         diffs = np.diff(coords)
-        thickness_pairs = [round(float(d), 6) for d in diffs if 4.2 <= d <= 4.8]
-        thickness_samples.append({
-            "azimuth_deg": t_deg,
+        pairs = [round(float(d), 6) for d in diffs if 4.2 <= d <= 4.8]
+        thickness_rays.append({
+            "step_index": step_i,
+            "azimuth_deg": round(math.degrees(t_mid) % 360, 2),
             "point_xy_mm": [round(x, 3), round(y, 3)],
             "z_intersections_mm": coords.tolist(),
-            "measured_thickness_pairs_mm": thickness_pairs,
+            "measured_slab_pairs_mm": pairs,
         })
-    measured_ok = all(len(s["measured_thickness_pairs_mm"]) >= 1 for s in thickness_samples)
-    turns_at_t20 = len(thickness_samples[0]["z_intersections_mm"]) // 2 if thickness_samples else 0
-    reaches_shell = bool(zone_faces > 0 and float(zone_rho.max()) >= 0.99)
-    reaches_inner = bool(zone_faces > 0 and float(zone_rho.min()) <= 0.55)
+    thickness_ok = all(len(r["measured_slab_pairs_mm"]) >= 1 for r in thickness_rays)
+
+    # Multi-turn stacking: an azimuth covered by two stair turns.
+    theta_check = 150.0
+    rad = math.degrees and math.radians(theta_check)
+    x = 28.0 * math.cos(rad); y = cy + 13.0 * math.sin(rad)
+    turns_coords = line_coordinates(mesh, [x, y, 125.0], [0.0, 0.0, -1.0], 2, 108.0)
+    turns_diffs = np.diff(turns_coords)
+    slab_hits = int(np.count_nonzero((turns_diffs >= 4.2) & (turns_diffs <= 4.8)))
+
+    # Enclosed-gap sampling: vertical rays across the spiral; every gap between
+    # surfaces above the floor band that is thicker than a slab must be >= 30 mm.
+    gap_samples = []
+    for theta_deg in range(100, 350, 30):
+        t_rad = math.radians(theta_deg)
+        rmax = 1.0 / math.sqrt(
+            (math.cos(t_rad) / rx_c) ** 2 + (math.sin(t_rad) / ry_c) ** 2
+        )
+        for frac in (0.50, 0.78):
+            x = frac * rmax * math.cos(t_rad)
+            y = cy + frac * rmax * math.sin(t_rad)
+            coords = line_coordinates(mesh, [x, y, 125.0], [0.0, 0.0, -1.0], 2, 108.0)
+            diffs = np.diff(coords)
+            lows = coords[:-1]
+            for low, d in zip(lows, diffs):
+                if float(low) >= 27.0 and float(d) >= 6.0:
+                    gap_samples.append({
+                        "azimuth_deg": theta_deg,
+                        "xy_mm": [round(x, 2), round(y, 2)],
+                        "lower_surface_z_mm": round(float(low), 3),
+                        "gap_mm": round(float(d), 3),
+                    })
+    min_gap = min(g["gap_mm"] for g in gap_samples) if gap_samples else None
+    gaps_ok = bool(min_gap is not None and min_gap >= 29.5)
+
     passed = bool(
-        zone_faces >= 500
+        zone_faces >= 2500
         and reaches_shell
         and reaches_inner
-        and measured_ok
-        and turns_at_t20 >= 3
+        and thickness_ok
+        and slab_hits >= 2
+        and gaps_ok
         and mesh.body_count == 1
     )
     return {
-        "method": "Spiral-zone faces identified by elliptic radius and height on the actual STL; vertical rays at three azimuths measure slab thickness per turn and count turns; global one-body topology proves fusion to the shell overlap band.",
+        "method": "Actual-STL evidence: staircase-zone faces by elliptic radius/height; vertical thickness rays through three stair midpoints; a two-turn stacking ray; and vertical enclosed-gap sampling between all stair surfaces above the floor.",
         "declared_shell_radial_overlap_mm": sp["shell_radial_overlap_mm"],
         "zone_face_count": zone_faces,
         "zone_normalized_radius_min": None if zone_faces == 0 else round(float(zone_rho.min()), 6),
         "zone_normalized_radius_max": None if zone_faces == 0 else round(float(zone_rho.max()), 6),
         "reaches_shell_overlap_band": reaches_shell,
         "reaches_inner_edge": reaches_inner,
-        "turns_crossed_at_azimuth_20deg": turns_at_t20,
-        "thickness_rays": thickness_samples,
-        "thickness_measured_at_every_azimuth": measured_ok,
+        "thickness_rays": thickness_rays,
+        "thickness_ok": thickness_ok,
+        "two_turn_stacking_azimuth_deg": theta_check,
+        "slab_hits_at_two_turn_azimuth": slab_hits,
+        "enclosed_gap_samples": gap_samples,
+        "minimum_enclosed_gap_mm": min_gap,
+        "enclosed_gaps_ok": gaps_ok,
         "global_final_mesh_body_count": int(mesh.body_count),
         "passed": passed,
     }
@@ -307,7 +357,7 @@ def main() -> int:
         "source_sha256_actual": source_sha,
         "source_unchanged": source_unchanged,
         "mesh_reloaded_from_disk": True,
-        "interior_generation": "spiral_v2",
+        "interior_generation": "spiral_stairs_v3",
         "mesh_summary": {
             "vertices": int(len(mesh.vertices)),
             "faces": int(len(mesh.faces)),

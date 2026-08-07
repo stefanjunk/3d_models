@@ -30,13 +30,23 @@
     "supported_die_max_mm": 22.0,
     "interior": "spiral",
     "spiral": {
-      "description": "Faceted helical slide descending around the elliptical core axis; tread facets are rounded slab segments fused to the shell with radial overlap. The top surface is continuous (no vertical risers), so the turn-to-turn pitch is the governing dice clearance.",
-      "t_start_deg": 90.0,
-      "t_end_deg": -765.0,
-      "turns": 2.375,
-      "z_top_surface_start_mm": 112.0,
-      "z_top_surface_end_mm": 24.0,
-      "pitch_mm": 37.052632,
+      "description": "Eight discrete rounded stair ramps circling down around the elliptical core axis. Each step is a rounded wedge slab (11.5 mm descent along an 88 degree arc) fused into the inner shell wall with radial overlap. Steps are level with the previous step at the hand-off seam and separated by a 16.5 degree open wedge that is too narrow for a 22 mm die to enter, so dice always roll over the seam. No central post: the 22 mm die cannot pass the narrow elliptical minor diameter beside a post.",
+      "interior_type": "discrete_spiral_stairs",
+      "step_count": 8,
+      "step_arc_deg": 88.0,
+      "step_index_angle_deg": 104.5,
+      "gap_arc_deg": 16.5,
+      "direction": "azimuth increasing (counterclockwise from above), from the back inlet toward the front outlet",
+      "first_step_high_end_azimuth_deg": 90.0,
+      "last_step_low_end_azimuth_deg": 909.5,
+      "exit_motion": "mostly -Y (front) with a small +X bias toward the outlet center",
+      "z_first_step_high_end_mm": 116.0,
+      "z_last_step_low_end_mm": 24.0,
+      "descent_per_step_mm": 11.5,
+      "hand_off": "level seam: step i low end height equals step i+1 high end height; the die rolls across, then descends the next ramp",
+      "total_turns": 2.2764,
+      "pitch_per_turn_mm": 40.415,
+      "enclosed_turn_to_turn_clearance_nominal_mm": 35.915,
       "thickness_mm": 4.5,
       "edge_radius_mm": 1.5,
       "inner_ellipse_rx_mm": 16.0,
@@ -44,14 +54,10 @@
       "outer_ellipse_rx_mm": 44.5,
       "outer_ellipse_ry_mm": 27.0,
       "shell_radial_overlap_mm": 2.5,
-      "facet_count": 20,
-      "facet_overlap_deg": 2.0,
-      "headroom_between_turns_mm": 32.552632,
-      "descent_per_facet_mm": 4.4,
-      "entry_note": "Blade start sits 6 mm below the inlet opening floor (Z=118), so every die dropped into the back inlet lands on the spiral.",
-      "exit_note": "The blade ends at azimuth -45 degrees (front-right of the ellipse) with motion direction about 30 degrees left of straight-forward, aiming toward the outlet; the die then drops about 2 mm onto the closed base floor and rolls out through the outlet onto the tray.",
-      "post": "No central post. A 22 mm cube cannot both roll around a central column and fit the 24.5 mm minor core radius; the inner void is 32 x 10 mm, smaller than a 22 mm die, so dice bridge it and cannot fall through.",
-      "slope_deg": 15.55
+      "central_hole_mm": "32 x 10 ellipse; too small for a 22 mm die to fall through",
+      "post": "none",
+      "slope_along_path_deg": 19.459,
+      "ramp_construction": "flat inclined wedge: top plane descends stair_descent mm along the mid-radius chord of each 88 degree arc"
     },
     "inlet": {
       "side": "+Y back",
@@ -73,7 +79,7 @@
       "sill_z_mm": 22.0
     },
     "die_path": {
-      "proxy": "axis-aligned 22 mm bounding cube; on the spiral it rides as a sliding block parallel to the local slope, analytically lifted about 1.2 mm above the surface. Geometric clearance proof, not a contact simulation.",
+      "proxy": "axis-aligned 22 mm bounding cube; on the staircase it rides as a sliding block whose flat bottom is exactly parallel to each flat step plane, lifted 1.5 mm off the surface. Geometric clearance proof, not a contact simulation.",
       "cube_size_mm": 22.0,
       "waypoints_mm": [
         [
@@ -89,112 +95,157 @@
         [
           0.0,
           38.0,
-          123.8
+          128.74
         ],
         [
-          19.8,
-          34.19,
-          119.17
+          -14.0,
+          36.26,
+          124.24
+        ],
+        [
+          -24.25,
+          31.5,
+          120.42
+        ],
+        [
+          -26.85,
+          21.31,
+          116.89
+        ],
+        [
+          -24.25,
+          18.5,
+          115.87
+        ],
+        [
+          -14.0,
+          13.74,
+          112.45
+        ],
+        [
+          -0.0,
+          12.0,
+          108.22
+        ],
+        [
+          14.0,
+          13.74,
+          105.85
+        ],
+        [
+          24.25,
+          18.5,
+          101.52
         ],
         [
           28.0,
           25.0,
-          114.53
+          98.0
         ],
         [
-          19.8,
-          15.81,
-          109.9
+          19.63,
+          34.27,
+          93.84
+        ],
+        [
+          14.0,
+          36.26,
+          92.28
         ],
         [
           0.0,
-          12.0,
-          105.27
+          38.0,
+          88.44
         ],
         [
-          -19.8,
-          15.81,
-          100.64
+          -14.0,
+          36.26,
+          84.62
+        ],
+        [
+          -24.25,
+          31.5,
+          82.77
         ],
         [
           -28.0,
           25.0,
-          96.01
+          80.49
         ],
         [
-          -19.8,
-          34.19,
-          91.38
+          -24.25,
+          18.5,
+          76.85
+        ],
+        [
+          -7.48,
+          12.47,
+          70.87
         ],
         [
           -0.0,
-          38.0,
-          86.74
+          12.0,
+          68.76
         ],
         [
-          19.8,
-          34.19,
-          82.11
+          14.0,
+          13.74,
+          64.63
+        ],
+        [
+          24.25,
+          18.5,
+          61.34
         ],
         [
           28.0,
           25.0,
-          77.48
+          59.44
         ],
         [
-          19.8,
-          15.81,
-          72.85
+          24.25,
+          31.5,
+          57.1
         ],
         [
-          0.0,
-          12.0,
-          68.22
+          14.0,
+          36.26,
+          53.1
         ],
         [
-          -19.8,
-          15.81,
-          63.59
+          -6.54,
+          37.64,
+          48.02
+        ],
+        [
+          -14.0,
+          36.26,
+          45.43
+        ],
+        [
+          -24.25,
+          31.5,
+          41.21
         ],
         [
           -28.0,
           25.0,
-          58.96
+          38.56
         ],
         [
-          -19.8,
-          34.19,
-          54.32
+          -27.62,
+          22.85,
+          38.17
         ],
         [
-          -0.0,
-          38.0,
-          49.69
+          -18.0,
+          6.0,
+          34.6
         ],
         [
-          19.8,
-          34.19,
-          45.06
-        ],
-        [
-          28.0,
-          25.0,
-          40.43
-        ],
-        [
-          19.8,
-          15.81,
-          35.8
-        ],
-        [
-          8.0,
-          4.0,
-          33.0
-        ],
-        [
-          -5.0,
+          -10.0,
           -32.0,
-          33.0
+          34.6
         ]
       ],
       "waypoint_pose_deg": [
@@ -207,95 +258,131 @@
           0.0
         ],
         [
-          -0.0,
-          15.55
+          -152.94,
+          18.71
         ],
         [
-          -30.26,
-          15.55
+          -152.94,
+          18.71
         ],
         [
-          -90.0,
-          15.55
+          -152.94,
+          18.71
         ],
         [
-          -149.74,
-          15.55
+          -17.96,
+          16.98
         ],
         [
-          -180.0,
-          15.55
+          -17.96,
+          16.98
         ],
         [
-          149.74,
-          15.55
+          -17.96,
+          16.98
         ],
         [
-          90.0,
-          15.55
+          -17.96,
+          16.98
         ],
         [
-          30.26,
-          15.55
+          59.97,
+          25.1
         ],
         [
-          0.0,
-          15.55
+          59.97,
+          25.1
         ],
         [
-          -30.26,
-          15.55
+          59.97,
+          25.1
         ],
         [
-          -90.0,
-          15.55
+          178.68,
+          15.31
         ],
         [
-          -149.74,
-          15.55
+          178.68,
+          15.31
         ],
         [
-          -180.0,
-          15.55
+          178.68,
+          15.31
         ],
         [
-          149.74,
-          15.55
+          178.68,
+          15.31
         ],
         [
-          90.0,
-          15.55
+          -68.11,
+          26.14
         ],
         [
-          30.26,
-          15.55
+          -68.11,
+          26.14
         ],
         [
-          0.0,
-          15.55
+          -68.11,
+          26.14
         ],
         [
-          -30.26,
-          15.55
+          14.77,
+          16.47
         ],
         [
-          -90.0,
-          15.55
+          14.77,
+          16.47
         ],
         [
-          -149.74,
-          15.55
+          14.77,
+          16.47
         ],
         [
-          180.0,
+          14.77,
+          16.47
+        ],
+        [
+          148.68,
+          19.61
+        ],
+        [
+          148.68,
+          19.61
+        ],
+        [
+          148.68,
+          19.61
+        ],
+        [
+          -142.42,
+          20.95
+        ],
+        [
+          -142.42,
+          20.95
+        ],
+        [
+          -142.42,
+          20.95
+        ],
+        [
+          -142.42,
+          20.95
+        ],
+        [
+          -142.42,
+          20.95
+        ],
+        [
+          -142.42,
           0.0
         ],
         [
-          180.0,
+          -142.42,
           0.0
         ]
       ],
-      "pose_note": "Each spiral waypoint carries [tangent_azimuth, tilt] so the 22 mm verification cube sits as a sliding block parallel to the local slope; entry/floor waypoints are upright."
+      "pose_note": "Each ramp waypoint carries [motion_azimuth, ramp_tilt]; floor/exit waypoints are upright."
     }
   },
   "manufacturing": {

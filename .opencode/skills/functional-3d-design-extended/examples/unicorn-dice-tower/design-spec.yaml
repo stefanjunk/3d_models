@@ -1,0 +1,68 @@
+project:
+  id: unicorn-dice-tower
+  revision: 1.0.0
+  owner: example
+function:
+  summary: An integrated board-game dice tower and landing tray with original unicorn engraving.
+  users: [board-game-player]
+  interfaces:
+    - open top receives common gaming dice
+    - front exit discharges into integrated tray
+risk:
+  class: normal-functional
+  hazards: [trapped-die, sharp-edge, small-part-age-suitability]
+  assumptions:
+    - Typical dice are at most approximately 26 mm across their bounding envelope.
+    - The intended user is old enough for the dice and game components.
+fabrication:
+  preference: integrated-print
+  assembly_target: none
+  repairability: low
+  note: Tower, ramps, and tray are one print; optional felt remains purchased.
+printer:
+  model: generic-fdm
+  build_volume_mm: [250, 250, 250]
+  enclosure: false
+manufacturing:
+  process: fdm-fff
+  material: pla-plus
+  nozzle_mm: 0.4
+  layer_height_mm: 0.20
+  target_formats: [stl]
+dimensions:
+  units: mm
+  envelope_mm: [124, 194, 205]
+loads:
+  - case: repeated dice impacts
+    value: low-impact-cyclic
+    direction: internal-ramps-and-tray
+environment:
+  indoor_outdoor: indoor
+  temperature_c: [10, 40]
+  moisture: normal
+  uv: none
+purchased_parts:
+  - item: thin-felt-or-cork
+    optional: true
+    purpose: reduce noise in landing tray
+acceptance:
+  - id: geometry-valid
+    criterion: Export is a watertight connected mesh.
+    method: scripts/validate_mesh.py
+  - id: dice-flow
+    criterion: Representative d6, d8, d10, d12, and d20 dice pass without trapping in 100 consecutive drops.
+    method: physical cycle test
+  - id: support-light
+    criterion: Internal ramps and tray do not require inaccessible support in slicer preview.
+    method: slicer layer review
+  - id: engraving-readable
+    criterion: Unicorn silhouette remains recognizable at final nozzle/layer/profile.
+    method: preview and print inspection
+  - id: edge-safe
+    criterion: Accessible edges are smooth and appropriate for intended user.
+    method: inspection
+test_plan: acceptance-tests.yaml
+outputs:
+  source: model.scad
+  exports: generated/
+  validation: generated/

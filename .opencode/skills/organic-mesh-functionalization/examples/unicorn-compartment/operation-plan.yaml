@@ -1,0 +1,39 @@
+project: unicorn-belly-compartment
+units: mm
+source_mesh: source/unicorn.stl
+operation: window-and-door
+coordinate_system:
+  origin_mm: [0, 0, 0]
+  x_axis: animal-left-right
+  y_axis: head-to-tail
+  z_axis: up
+functional_roi:
+  type: box
+  center_mm: [0, 5, 35]
+  size_mm: [70, 80, 55]
+transition_band_mm: 3.0
+protected_region:
+  rule: outside_roi_plus_transition
+  max_surface_deviation_mm: 0.18
+  p95_surface_deviation_mm: 0.09
+keep_out_regions:
+  - description: legs, tail, mane, horn, and decorative belly relief
+functional_geometry:
+  source: compartment_parts.py
+  master_format: STEP
+  handoff_mesh_tolerance_mm: 0.08
+boolean:
+  operation: subtract_cavity_and_window_keep_door_separate
+  engine_preference: [manifold, blender]
+  overshoot_mm: 0.3
+printing:
+  process: FDM
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  minimum_wall_mm: 2.0
+acceptance:
+  require_watertight: true
+  expected_body_count: 1
+  preserve_protected_surface: true
+  manual_section_review: true
+  slicer_preview_review: true

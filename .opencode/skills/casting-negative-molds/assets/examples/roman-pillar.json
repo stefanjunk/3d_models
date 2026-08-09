@@ -1,0 +1,74 @@
+{
+  "project": {
+    "name": "300 mm Roman pillar with continuous marble relief",
+    "units": "mm",
+    "revision": "concept-1",
+    "notes": "Prefer separate base, shaft, and capital; use continuous cylindrical mapping on shaft."
+  },
+  "final_object": {
+    "dimensions_mm": [92, 92, 300],
+    "quantity": 3,
+    "food_contact": false,
+    "dishwasher_target": false,
+    "assembly_allowed": true
+  },
+  "casting": {
+    "final_material": "plaster",
+    "route": "direct_printed_negative",
+    "fill_mode": "closed_solid_pour",
+    "body_or_product": "Select exact casting plaster and follow its datasheet",
+    "target_cycles": 10
+  },
+  "source": {
+    "type": "hybrid",
+    "path": "models/roman-pillar.step + textures/marble.png",
+    "watertight": true,
+    "face_count": null
+  },
+  "printer": {
+    "process": "FDM",
+    "build_volume_mm": [420, 420, 500],
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.12,
+    "xy_pitch_mm": null,
+    "material": "PETG or PLA case material after compatibility test"
+  },
+  "mold": {
+    "architecture": "modular_panels",
+    "parting_strategy": "Base, shaft, capital as separate casting modules; 2-4 vertical sectors; capital 4 sectors or silicone skin.",
+    "planned_parts": 10,
+    "split_axis": "custom",
+    "shell_mm": 3.2,
+    "rib_mm": 3.2,
+    "key_clearance_mm": 0.25,
+    "funnel": true,
+    "reservoir": true,
+    "vents": true,
+    "drain_cradle": false
+  },
+  "shrinkage": {
+    "status": "not_applicable",
+    "percent_xyz": [0, 0, 0],
+    "coupon_id": null
+  },
+  "detail": {
+    "smallest_feature_mm": 0.6,
+    "relief_depth_mm": 0.35,
+    "heightmap_pitch_mm": 0.2,
+    "placement": "exterior",
+    "continuous_mapping": true
+  },
+  "validation": {
+    "detail_coupon": true,
+    "demolding_test": true,
+    "leak_test": true,
+    "migration_lab_test": false,
+    "dishwasher_cycle_test": false,
+    "acceptance": [
+      "Final assembled height within 1.5 mm of 300 mm",
+      "No visible texture rotation between shaft sectors",
+      "No bubble larger than 1 mm at capital leaf tips",
+      "All sections demold without chipping the relief"
+    ]
+  }
+}

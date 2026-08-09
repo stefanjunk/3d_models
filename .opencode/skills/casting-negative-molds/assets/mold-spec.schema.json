@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/casting-negative-molds/mold-spec.schema.json",
+  "title": "Casting negative mold specification",
+  "type": "object",
+  "required": ["project", "final_object", "casting", "source", "printer", "mold", "shrinkage", "detail", "validation"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["name", "units"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "units": {"const": "mm"},
+        "revision": {"type": "string"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "final_object": {
+      "type": "object",
+      "required": ["dimensions_mm", "quantity"],
+      "properties": {
+        "dimensions_mm": {
+          "type": "array",
+          "items": {"type": "number", "exclusiveMinimum": 0},
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "quantity": {"type": "integer", "minimum": 1},
+        "food_contact": {"type": "boolean"},
+        "dishwasher_target": {"type": "boolean"},
+        "assembly_allowed": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "casting": {
+      "type": "object",
+      "required": ["final_material", "route"],
+      "properties": {
+        "final_material": {
+          "enum": ["gypsum", "plaster", "porcelain", "stoneware", "earthenware", "other"]
+        },
+        "route": {
+          "enum": ["direct_printed_negative", "printed_master_to_plaster", "printed_case_to_plaster", "silicone_skin_mother_mold", "sacrificial", "experimental_porous_print"]
+        },
+        "fill_mode": {
+          "enum": ["open_pour", "closed_solid_pour", "hollow_slip_fill_dwell_drain", "solid_slip_cast", "press", "slump"]
+        },
+        "body_or_product": {"type": "string"},
+        "target_cycles": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {"enum": ["step", "stl", "obj", "ply", "3mf", "image_heightmap", "parametric", "hybrid"]},
+        "path": {"type": "string"},
+        "watertight": {"type": ["boolean", "null"]},
+        "face_count": {"type": ["integer", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "printer": {
+      "type": "object",
+      "required": ["process", "build_volume_mm"],
+      "properties": {
+        "process": {"enum": ["FDM", "SLA", "MSLA", "SLS", "other"]},
+        "build_volume_mm": {
+          "type": "array",
+          "items": {"type": "number", "exclusiveMinimum": 0},
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "nozzle_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "layer_height_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "xy_pitch_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "material": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "mold": {
+      "type": "object",
+      "required": ["architecture", "parting_strategy"],
+      "properties": {
+        "architecture": {
+          "enum": ["solid_block", "hollow_block", "conformal_shell", "ribbed_shell", "precision_insert_frame", "modular_panels", "flexible_skin_mother_mold", "sacrificial_shell", "printed_case", "replaceable_cartridges", "hybrid"]
+        },
+        "parting_strategy": {"type": "string"},
+        "planned_parts": {"type": "integer", "minimum": 1},
+        "split_axis": {"enum": ["X", "Y", "Z", "custom", "open_face"]},
+        "shell_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "rib_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "key_clearance_mm": {"type": ["number", "null"], "minimum": 0},
+        "funnel": {"type": "boolean"},
+        "reservoir": {"type": "boolean"},
+        "vents": {"type": "boolean"},
+        "drain_cradle": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "shrinkage": {
+      "type": "object",
+      "required": ["status", "percent_xyz"],
+      "properties": {
+        "status": {"enum": ["measured", "provisional", "not_applicable"]},
+        "percent_xyz": {
+          "type": "array",
+          "items": {"type": "number", "minimum": -10, "exclusiveMaximum": 100},
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "coupon_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "detail": {
+      "type": "object",
+      "required": ["smallest_feature_mm"],
+      "properties": {
+        "smallest_feature_mm": {"type": "number", "exclusiveMinimum": 0},
+        "relief_depth_mm": {"type": ["number", "null"], "minimum": 0},
+        "heightmap_pitch_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "placement": {"enum": ["interior", "exterior", "both", "face", "none"]},
+        "continuous_mapping": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "validation": {
+      "type": "object",
+      "required": ["detail_coupon", "demolding_test", "leak_test"],
+      "properties": {
+        "detail_coupon": {"type": "boolean"},
+        "demolding_test": {"type": "boolean"},
+        "leak_test": {"type": "boolean"},
+        "migration_lab_test": {"type": "boolean"},
+        "dishwasher_cycle_test": {"type": "boolean"},
+        "acceptance": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

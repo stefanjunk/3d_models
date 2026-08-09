@@ -1,0 +1,463 @@
+{
+  "method": "CadQuery exact B-Rep master plus conforming adaptive surface-mesh heightmap engraving",
+  "hanger_geometry": "boss overlaps inner wall directly; no auxiliary rectangular bridge blocks",
+  "quality": "final",
+  "target_max_edge_mm": 0.6,
+  "parameters": "/home/stefan/Projekte/3d_models/walls/setzkasten/honeycomb_wood_relief/parameters.json",
+  "parameters_sha256": "6afee98a980e59d89b6083a0a4618f708e415168772900127154bc86983d984f",
+  "base_cadquery_source": "/home/stefan/Projekte/3d_models/walls/setzkasten/cadquery_waben_setzkasten_bundle/honeycomb_cadquery.py",
+  "base_cadquery_source_sha256": "0876822fa753731c8ba0c229212ede480ae09fb00853a69bcd14cd2e83f1e54b",
+  "heightmap": {
+    "source": "/home/stefan/Projekte/3d_models/walls/setzkasten/holz.png",
+    "source_sha256": "86370b7c1bac7cd17d51c4086f67d0862ee8154f034dffe8ae58489b9449df11",
+    "source_pixels": [
+      1254,
+      1254
+    ],
+    "heightmap": "/home/stefan/Projekte/3d_models/walls/setzkasten/honeycomb_wood_relief/previews/holz_heightmap.png",
+    "heightmap_pixels": [
+      512,
+      512
+    ],
+    "heightmap_sha256": "d476bb970122e8a36cc556c5ab2b725cd67675a320920e71fd0e764005816d55",
+    "vertical_repeat_mm": 300.0,
+    "vertical_mapping_mm_per_pixel": 0.5859375,
+    "minimum_printable_feature_mm": 1.2,
+    "filter": "periodic grayscale local dark-detail + Sobel edges; mirrored 2x2 before filtering",
+    "value_min": 0.0,
+    "value_max": 1.0,
+    "value_mean": 0.13095776736736298
+  },
+  "image_convention": {
+    "grayscale_policy": "Pillow convert('L'), ImageOps.fit cover crop to square, autocontrast cutoff=0.5; dark local detail and Sobel edges produce relief intensity",
+    "source_crop_fit_behavior": "cover crop (no stretch), then mirrored 2x2 periodic tile; source image is read-only",
+    "orientation": {
+      "side_vertical_image_axis": "+Z",
+      "front_vertical_image_axis": "+Y"
+    },
+    "engraving_sign": "positive relief intensity is displaced opposite the outward mesh normal (material removal)",
+    "mode": "engraving"
+  },
+  "mapping": {
+    "side_mapping": {
+      "coordinate": "continuous_perimeter_u_mm / (6 * actual_side_length_mm)",
+      "outer_perimeter_mm": 692.8199999999999,
+      "inner_perimeter_mm": 661.6430854637601,
+      "cycles_per_hex_perimeter": 1,
+      "vertical_coordinate": "+Z / vertical_repeat_mm"
+    },
+    "front_mapping": {
+      "coordinate": "world X / vertical_repeat_mm, world Y / vertical_repeat_mm",
+      "orientation": "+Y"
+    },
+    "seam_continuity": {
+      "perimeter_cycle_count": 1,
+      "face_boundaries_checked": [
+        0.0,
+        0.16666666666666666,
+        0.3333333333333333,
+        0.5,
+        0.6666666666666666,
+        0.8333333333333334,
+        1.0
+      ],
+      "v_samples_normalized": [
+        0.0,
+        0.17,
+        0.5,
+        0.83
+      ],
+      "finite_difference_epsilon_normalized": 0.0001,
+      "max_value_error": 0.0,
+      "max_first_difference_error": 1.4648443013243195e-05,
+      "value_tolerance": 1e-06,
+      "first_difference_tolerance": 0.0001,
+      "passed": true
+    }
+  },
+  "wall_residual": {
+    "method": "conservative local mapped-field residual; not a measured B-Rep thickness",
+    "sample_grid": [
+      513,
+      257
+    ],
+    "minimum_residual_mm": 3.6037623736716156,
+    "declared_minimum_wall_after_relief_mm": 3.6,
+    "criterion_pass": true
+  },
+  "provenance": {
+    "wood_image": {
+      "path": "/home/stefan/Projekte/3d_models/walls/setzkasten/holz.png",
+      "status": "COMMERCIAL_LICENSE_PASS",
+      "license": "user-provided",
+      "basis": "user-provided authorship declaration / no third-party asset"
+    },
+    "external_cadquery_source": {
+      "path": "/home/stefan/Projekte/3d_models/walls/setzkasten/cadquery_waben_setzkasten_bundle/honeycomb_cadquery.py",
+      "status": "BLOCKED_LIBRARY_ASSET",
+      "license": "unknown",
+      "basis": "no file-level license recorded"
+    }
+  },
+  "software": {
+    "python": "3.11.15",
+    "cadquery": "2.8.0",
+    "numpy": "2.4.6",
+    "trimesh": "4.4.1",
+    "pillow": "12.2.0",
+    "scipy": "1.17.1",
+    "platform": "Linux-7.1.6-1-MANJARO-x86_64-with-glibc2.44"
+  },
+  "variants": [
+    {
+      "name": "wabe_mit_aufhaengung",
+      "quality": "final",
+      "cadquery": {
+        "brep_valid": true,
+        "solid_count": 1,
+        "volume_mm3": 166031.69660014843,
+        "area_mm2": 83605.2631402998,
+        "bounds_xyz_mm": [
+          [
+            -99.99995337498913,
+            -114.851197846483,
+            0.0
+          ],
+          [
+            99.99995337498916,
+            114.851197846483,
+            55.00000000000001
+          ]
+        ],
+        "extents_xyz_mm": [
+          199.9999067499783,
+          229.702395692966,
+          55.00000000000001
+        ],
+        "step_path": "/home/stefan/Projekte/3d_models/walls/setzkasten/honeycomb_wood_relief/exports/wabe_mit_aufhaengung.step",
+        "step_bytes": 385180,
+        "step_reload": {
+          "brep_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 166031.69660024525,
+          "area_mm2": 83605.26314029719,
+          "bounds_xyz_mm": [
+            [
+              -99.99995337498,
+              -114.8511978464,
+              0.0
+            ],
+            [
+              99.999953374989,
+              114.85119784648,
+              55.0
+            ]
+          ],
+          "extents_xyz_mm": [
+            199.999906749969,
+            229.70239569288,
+            55.0
+          ]
+        }
+      },
+      "smooth_mesh": {
+        "vertices": 1753,
+        "faces": 3514,
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 166029.83644628967,
+        "area_mm2": 83604.36624648974,
+        "bounds_xyz_mm": [
+          [
+            -99.999954,
+            -114.851196,
+            0.0
+          ],
+          [
+            99.999954,
+            114.851196,
+            55.0
+          ]
+        ],
+        "extents_xyz_mm": [
+          199.999908,
+          229.702393,
+          55.0
+        ],
+        "body_count": 1
+      },
+      "refinement": {
+        "method": "shared-edge conforming adaptive bisection",
+        "target_max_edge_mm": 0.6,
+        "iterations": [
+          {
+            "split_edges": 487,
+            "active_unique_edges": 703,
+            "max_active_edge_mm": 120.72943513981264,
+            "iteration": 1,
+            "active_faces": 264,
+            "vertices_after": 2240,
+            "faces_after": 4488
+          },
+          {
+            "split_edges": 1057,
+            "active_unique_edges": 1613,
+            "max_active_edge_mm": 68.2373346390395,
+            "iteration": 2,
+            "active_faces": 822,
+            "vertices_after": 3297,
+            "faces_after": 6602
+          },
+          {
+            "split_edges": 3270,
+            "active_unique_edges": 4382,
+            "max_active_edge_mm": 34.11866731951975,
+            "iteration": 3,
+            "active_faces": 2604,
+            "vertices_after": 6567,
+            "faces_after": 13142
+          },
+          {
+            "split_edges": 10648,
+            "active_unique_edges": 13428,
+            "max_active_edge_mm": 17.059333659759876,
+            "iteration": 4,
+            "active_faces": 8490,
+            "vertices_after": 17215,
+            "faces_after": 34438
+          },
+          {
+            "split_edges": 34878,
+            "active_unique_edges": 44444,
+            "max_active_edge_mm": 13.75,
+            "iteration": 5,
+            "active_faces": 28831,
+            "vertices_after": 52093,
+            "faces_after": 104194
+          },
+          {
+            "split_edges": 118550,
+            "active_unique_edges": 146833,
+            "max_active_edge_mm": 31.2456302627935,
+            "iteration": 6,
+            "active_faces": 96722,
+            "vertices_after": 170643,
+            "faces_after": 341294
+          },
+          {
+            "split_edges": 398168,
+            "active_unique_edges": 499574,
+            "max_active_edge_mm": 15.62281513139675,
+            "iteration": 7,
+            "active_faces": 330994,
+            "vertices_after": 568811,
+            "faces_after": 1137630
+          },
+          {
+            "split_edges": 396318,
+            "active_unique_edges": 1688306,
+            "max_active_edge_mm": 7.811407565698375,
+            "iteration": 8,
+            "active_faces": 1121996,
+            "vertices_after": 965129,
+            "faces_after": 1930266
+          },
+          {
+            "split_edges": 55309,
+            "active_unique_edges": 2873028,
+            "max_active_edge_mm": 4.1629128664279875,
+            "iteration": 9,
+            "active_faces": 1910668,
+            "vertices_after": 1020438,
+            "faces_after": 2040884
+          },
+          {
+            "split_edges": 7620,
+            "active_unique_edges": 3038209,
+            "max_active_edge_mm": 2.338753054050329,
+            "iteration": 10,
+            "active_faces": 2020572,
+            "vertices_after": 1028058,
+            "faces_after": 2056124
+          },
+          {
+            "split_edges": 3606,
+            "active_unique_edges": 3060224,
+            "max_active_edge_mm": 1.8368293092493777,
+            "iteration": 11,
+            "active_faces": 2035166,
+            "vertices_after": 1031664,
+            "faces_after": 2063336
+          },
+          {
+            "split_edges": 880,
+            "active_unique_edges": 3070323,
+            "max_active_edge_mm": 0.9709413512798531,
+            "iteration": 12,
+            "active_faces": 2041839,
+            "vertices_after": 1032544,
+            "faces_after": 2065096
+          },
+          {
+            "split_edges": 6,
+            "active_unique_edges": 3072931,
+            "max_active_edge_mm": 0.6142838577144821,
+            "iteration": 13,
+            "active_faces": 2043576,
+            "vertices_after": 1032550,
+            "faces_after": 2065108
+          },
+          {
+            "split_edges": 0,
+            "active_unique_edges": 3072949,
+            "max_active_edge_mm": 0.5994979036956107,
+            "iteration": 14,
+            "active_faces": 2043588,
+            "vertices_after": 1032550,
+            "faces_after": 2065108
+          }
+        ],
+        "vertices_final": 1032550,
+        "faces_final": 2065108,
+        "max_active_edge_final_mm": 0.5994979036956107,
+        "watertight_before_displacement": true,
+        "winding_consistent_before_displacement": true
+      },
+      "displacement": {
+        "outer_side_vertices": 546707,
+        "inner_side_vertices": 429142,
+        "front_rim_vertices": 0,
+        "moved_vertices": 579590,
+        "maximum_applied_displacement_mm": 0.44999044094024493,
+        "mean_nonzero_displacement_mm": 0.12033759631801758,
+        "rear_functional_zone_starts_z_mm": 35.0,
+        "moved_vertices_in_rear_functional_zone": 0,
+        "watertight_after_displacement": true,
+        "winding_consistent_after_displacement": true
+      },
+      "textured_export": "/home/stefan/Projekte/3d_models/walls/setzkasten/honeycomb_wood_relief/exports/wabe_mit_aufhaengung_wood_relief.stl",
+      "textured_file_mib": 98.47210311889648,
+      "textured_reloaded": {
+        "vertices": 1032550,
+        "faces": 2065108,
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 163230.50812577727,
+        "area_mm2": 84174.39367636018,
+        "bounds_xyz_mm": [
+          [
+            -99.999954,
+            -114.851196,
+            0.0
+          ],
+          [
+            99.999954,
+            114.851196,
+            55.0
+          ]
+        ],
+        "extents_xyz_mm": [
+          199.999908,
+          229.702393,
+          55.0
+        ],
+        "body_count": 1
+      },
+      "acceptance": {
+        "reloaded_watertight": true,
+        "reloaded_winding_consistent": true,
+        "reloaded_one_body": true,
+        "reloaded_positive_volume": true,
+        "triangle_budget_pass": true,
+        "file_budget_pass": true,
+        "edge_feature_criterion": {
+          "applicable": true,
+          "minimum_printable_feature_mm": 1.2,
+          "required_max_edge_mm": 0.6,
+          "measured_max_active_edge_mm": 0.5994979036956107,
+          "passed": true
+        },
+        "bounds_do_not_exceed_smooth_master": true,
+        "rear_functional_zone_untouched": true,
+        "passed": true
+      },
+      "elapsed_seconds": 506.9854050220001,
+      "peak_process_rss_mib": 3246.85546875
+    }
+  ],
+  "connector": {
+    "cadquery": {
+      "brep_valid": true,
+      "solid_count": 1,
+      "volume_mm3": 361.7318277739947,
+      "area_mm2": 540.0500297460582,
+      "bounds_xyz_mm": [
+        [
+          -4.427419454838711,
+          -1.300000100000001,
+          -1.0000000090304676e-07
+        ],
+        [
+          4.427419454838711,
+          1.300000100000001,
+          19.7500001
+        ]
+      ],
+      "extents_xyz_mm": [
+        8.854838909677422,
+        2.600000200000002,
+        19.750000200000002
+      ]
+    },
+    "step_reload": {
+      "brep_valid": true,
+      "solid_count": 1,
+      "volume_mm3": 361.73182777410835,
+      "area_mm2": 540.050029746102,
+      "bounds_xyz_mm": [
+        [
+          -4.427419354839662,
+          -1.3000000000006382,
+          -7.572831250968193e-13
+        ],
+        [
+          4.427419354839662,
+          1.3000000000006382,
+          19.75
+        ]
+      ],
+      "extents_xyz_mm": [
+        8.854838709679324,
+        2.6000000000012764,
+        19.750000000000757
+      ]
+    },
+    "mesh_reload": {
+      "vertices": 18,
+      "faces": 32,
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_mm3": 361.7318060525099,
+      "area_mm2": 540.0500021594887,
+      "bounds_xyz_mm": [
+        [
+          -4.427419,
+          -1.3,
+          -0.0
+        ],
+        [
+          4.427419,
+          1.3,
+          19.75
+        ]
+      ],
+      "extents_xyz_mm": [
+        8.854838,
+        2.6,
+        19.75
+      ],
+      "body_count": 1
+    }
+  },
+  "passed": true
+}

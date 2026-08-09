@@ -1,0 +1,50 @@
+{
+  "project": "product-slug",
+  "intent": "Customer-visible product intent",
+  "commercial_product": true,
+  "environment": "indoor ambient",
+  "functions": [
+    {
+      "id": "support-load",
+      "description": "Support the declared load",
+      "load_case": {
+        "magnitude": 100,
+        "unit": "N",
+        "direction": "downward",
+        "duration": "continuous static load"
+      },
+      "life_requirement": {
+        "value": 10000,
+        "unit": "hours"
+      },
+      "failure_modes": ["fracture", "creep", "fastener pull-out"]
+    }
+  ],
+  "components": [
+    {
+      "id": "printed-body",
+      "decision": "PRINT",
+      "reason": "Custom geometry",
+      "material_class": "PETG",
+      "nozzle_classes": [0.4, 0.6],
+      "geometry_origin": "self",
+      "provenance_item_id": "original-product-geometry"
+    }
+  ],
+  "test_plan": [
+    {
+      "id": "critical-fit-coupon",
+      "type": "coupon",
+      "targets": ["printed-body", "support-load"],
+      "acceptance": {
+        "metric": "measured_play",
+        "comparator": "<=",
+        "value": 0.2,
+        "unit": "mm"
+      }
+    }
+  ],
+  "provenance_manifest": "provenance.json",
+  "provenance_report": "reports/commercial-license.json",
+  "manufacturing_profile": "manufacturing-profile.json"
+}

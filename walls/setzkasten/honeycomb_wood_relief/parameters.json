@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "units": "mm",
+  "source": {
+    "cadquery_script": "../cadquery_waben_setzkasten_bundle/honeycomb_cadquery.py",
+    "wood_image": "../holz.png"
+  },
+  "provenance": {
+    "wood_image": {
+      "status": "COMMERCIAL_LICENSE_PASS",
+      "license": "User-created asset",
+      "basis": "User declaration: image fully created by ChatGPT; no third-party asset used"
+    },
+    "cadquery_script": {
+      "status": "BLOCKED_LIBRARY_ASSET",
+      "license": "unknown",
+      "basis": "No file-level license or authorship record provided"
+    }
+  },
+  "provenance": {
+    "wood_image": {
+      "status": "COMMERCIAL_LICENSE_PASS",
+      "license": "user-provided",
+      "basis": "user-provided authorship declaration / no third-party asset"
+    }
+  },
+  "geometry": {
+    "side_length_mm": 115.47,
+    "depth_mm": 55.0,
+    "wall_thickness_mm": 4.5,
+    "corner_radius_mm": 4.0,
+    "hanger_thickness_mm": 5.0,
+    "hanger_boss_diameter_mm": 18.0,
+    "hanger_hole_diameter_mm": 5.0,
+    "hanger_counterbore_diameter_mm": 9.5,
+    "hanger_counterbore_depth_mm": 2.2,
+    "hanger_inset_mm": 5.0,
+    "hanger_tangent_fraction": 0.17,
+    "connectors_per_face": 2,
+    "connector_tangent_fraction": 0.22,
+    "connector_insert_length_mm": 20.0,
+    "connector_recess_mm": 1.55,
+    "connector_waist_width_mm": 6.0,
+    "connector_lobe_width_mm": 10.0,
+    "connector_clearance_each_side_mm": 0.25,
+    "connector_leadin_mm": 0.8,
+    "hanger_connection_style": "boss overlaps inner wall directly; no auxiliary rectangular bridge blocks"
+  },
+  "texture": {
+    "enabled_surfaces": {
+      "outer_sides": true,
+      "inner_sides": true,
+        "front_rim": false,
+      "back_rim": false
+    },
+    "heightmap_pixels": 512,
+    "heightmap_mode": "engraving",
+    "tile_size_mm": 300.0,
+    "minimum_printable_feature_mm": 1.2,
+    "preview_max_edge_mm": 2.0,
+    "final_max_edge_mm": 0.6,
+    "side_max_depth_mm": 0.45,
+    "front_max_depth_mm": 0.35,
+    "side_texture_z_start_mm": 1.2,
+    "side_texture_z_end_mm": 33.0,
+    "transition_feather_mm": 1.2,
+    "front_edge_margin_mm": 0.65,
+    "front_relief_print_strategy": "bed_contact_disabled",
+    "grain_direction": "source image vertical axis follows +Z on side walls and +Y on front rim",
+    "periodic_mapping": "mirrored 2x2 heightmap, continuous perimeter coordinate"
+  },
+  "export": {
+    "stl_linear_tolerance_mm": 0.08,
+    "stl_angular_tolerance_rad": 0.12,
+    "maximum_textured_triangles": 2500000,
+    "maximum_textured_stl_mib": 120.0,
+    "resource_budget_rebaseline_reason": "Rebased after 0.6 mm final edge run measured 1,984,592 faces / 94.63 MiB for plain variant (final), with hanger expected similar or slightly larger.",
+    "resource_budget_units": "rounded_ceiling"
+  },
+  "manufacturing": {
+    "process": "FDM",
+    "material": "PETG",
+    "nozzle_mm": 0.4,
+    "assumed_line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "build_volume_xyz_mm": [
+      256.0,
+      256.0,
+      256.0
+    ],
+    "print_orientation": "front rim at z=0 on build plate; honeycomb depth along printer +Z",
+    "load_direction": "in installed wall plane, mainly downward on lower honeycomb walls",
+    "fit_intent": "sliding connector with 0.25 mm clearance per side; verify by coupon",
+    "declared_minimum_wall_after_relief_mm": 3.6,
+    "declared_minimum_feature_mm": 1.2,
+    "physical_tests_required": [
+      "connector fit coupon",
+      "slicer layer review for front relief and connector slots",
+      "single-cell print for visible grain and elephant-foot behavior",
+      "mounted load and creep test with intended screws, anchors, wall and material"
+    ]
+  }
+}

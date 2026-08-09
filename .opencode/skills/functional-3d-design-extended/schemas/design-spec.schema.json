@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/functional-3d-design/design-spec.schema.json",
+  "title": "Functional 3D Design Specification",
+  "type": "object",
+  "required": ["project", "function", "risk", "fabrication", "printer", "manufacturing", "acceptance"],
+  "properties": {
+    "project": {"type": "object", "required": ["id", "revision"]},
+    "function": {"type": "object", "required": ["summary"]},
+    "risk": {
+      "type": "object",
+      "required": ["class"],
+      "properties": {"class": {"enum": ["decorative", "normal-functional", "structural", "safety-critical"]}}
+    },
+    "fabrication": {
+      "type": "object",
+      "required": ["preference"],
+      "properties": {"preference": {"enum": ["integrated-print", "balanced-hybrid", "standard-hardware"]}}
+    },
+    "printer": {
+      "type": "object",
+      "required": ["build_volume_mm"],
+      "properties": {
+        "build_volume_mm": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "manufacturing": {
+      "type": "object",
+      "required": ["material", "nozzle_mm"],
+      "properties": {"nozzle_mm": {"type": "number", "exclusiveMinimum": 0}}
+    },
+    "acceptance": {"type": "array", "minItems": 1}
+  }
+}

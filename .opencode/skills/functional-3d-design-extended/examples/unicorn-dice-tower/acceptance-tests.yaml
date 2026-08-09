@@ -1,0 +1,21 @@
+tests:
+  - id: openscad-render
+    stage: V0
+    action: Render model.scad with OpenSCAD CLI.
+    pass: Render succeeds with no assertion or empty geometry.
+  - id: mesh
+    stage: V1
+    action: Validate STL as watertight and connected.
+    pass: validate_mesh.py passes with max-bodies 1.
+  - id: slicer-path
+    stage: V2
+    action: Inspect all layers around ramps, gussets, exit, and engraving.
+    pass: No trapped support and no missing thin features.
+  - id: dice-matrix
+    stage: V5
+    action: Drop multiple dice types/orientations through the tower.
+    pass: No jam, ejection, or unreachable die across defined trial count.
+  - id: cycle-and-wear
+    stage: V6
+    action: Perform 100 drops and inspect ramp joints and exit.
+    pass: No cracks, severe wear, or delamination.

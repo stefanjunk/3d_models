@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Organic mesh operation result",
+  "type": "object",
+  "required": ["project", "timestamp_utc", "source_sha256", "operation_plan", "status", "evidence"],
+  "properties": {
+    "project": {"type": "string"},
+    "timestamp_utc": {"type": "string"},
+    "source_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+    "operation_plan": {"type": "string"},
+    "status": {"enum": ["rejected", "experimental", "validated", "promoted"]},
+    "tools": {"type": "object"},
+    "parameters": {"type": "object"},
+    "evidence": {"type": "object"},
+    "notes": {"type": "string"}
+  }
+}

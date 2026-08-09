@@ -1,0 +1,69 @@
+project:
+  id: rounded-desk-organizer
+  revision: 1.0.0
+  owner: example
+function:
+  summary: A compact modern desk organizer with two drawers and three divided upper compartments.
+  users: [adult-office-user]
+  interfaces:
+    - two sliding drawers
+    - four alignment pins between lower carcass and upper tray
+risk:
+  class: normal-functional
+  hazards: [drawer-jam, tip-over, sharp-edge]
+  assumptions:
+    - Loads are stationery and small desk items.
+    - No hot objects or candles are placed in the organizer.
+fabrication:
+  preference: integrated-print
+  assembly_target: very-low
+  repairability: preferred
+  note: The design is split into support-light printed modules instead of one bridge-heavy body.
+printer:
+  model: generic-fdm
+  build_volume_mm: [250, 250, 250]
+  enclosure: false
+manufacturing:
+  process: fdm-fff
+  material: pla-plus
+  nozzle_mm: 0.6
+  layer_height_mm: 0.30
+  target_formats: [step, stl]
+dimensions:
+  units: mm
+  envelope_mm: [188, 126, 108]
+loads:
+  - case: normal desk contents
+    value: low
+    direction: gravity-and-drawer-pull
+environment:
+  indoor_outdoor: indoor
+  temperature_c: [10, 40]
+  moisture: normal
+  uv: none
+purchased_parts:
+  - item: felt-or-rubber-feet
+    optional: true
+  - item: thin-felt-drawer-liner
+    optional: true
+acceptance:
+  - id: geometry-valid
+    criterion: Every manufacturing STL is watertight and one body.
+    method: scripts/validate_mesh.py
+  - id: support-light
+    criterion: Lower carcass prints on its back and no major cavity roof requires internal support.
+    method: slicer layer review
+  - id: drawer-fit
+    criterion: Both drawers travel fully without binding or excessive rattle.
+    method: coupon then assembly test
+  - id: anti-tip
+    criterion: Organizer remains stable with one loaded drawer fully open under the defined contents.
+    method: physical test
+  - id: edge-comfort
+    criterion: User-touch edges are free from sharp burrs and uncomfortable seams.
+    method: inspection
+test_plan: acceptance-tests.yaml
+outputs:
+  source: model.py
+  exports: generated/
+  validation: generated/

@@ -1,0 +1,39 @@
+project: modern-barefoot-shoe-replacement
+units: mm
+source_mesh: source/ai-shoe-shell.stl
+operation: split-and-replace
+coordinate_system:
+  origin_mm: [0, 0, 0]
+  x_axis: lateral
+  y_axis: heel-to-toe
+  z_axis: up
+functional_roi:
+  type: box
+  center_mm: [0, 130, 24]
+  size_mm: [130, 290, 70]
+transition_band_mm: 4.0
+protected_region:
+  rule: retained-outsole-outside-transition
+  max_surface_deviation_mm: 0.20
+  p95_surface_deviation_mm: 0.10
+keep_out_regions:
+  - description: retained outsole tread and decorative sidewall
+functional_geometry:
+  source: sole_generator.py
+  master_format: STEP
+  handoff_mesh_tolerance_mm: 0.08
+boolean:
+  operation: remove_upper_and_old_interior_then_fit_sole
+  engine_preference: [blender, manifold]
+  overshoot_mm: 0.4
+printing:
+  process: FDM
+  nozzle_mm: 0.6
+  layer_height_mm: 0.24
+  minimum_wall_mm: 1.2
+acceptance:
+  require_watertight: true
+  expected_body_count: 1
+  preserve_protected_surface: true
+  manual_section_review: true
+  slicer_preview_review: true

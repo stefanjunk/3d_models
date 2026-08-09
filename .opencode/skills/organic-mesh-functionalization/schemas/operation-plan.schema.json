@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Organic mesh functionalization operation plan",
+  "type": "object",
+  "required": ["project", "units", "source_mesh", "operation", "functional_roi", "protected_region", "boolean", "acceptance"],
+  "properties": {
+    "project": {"type": "string", "minLength": 1},
+    "units": {"enum": ["mm"]},
+    "source_mesh": {"type": "string"},
+    "operation": {"type": "string"},
+    "transition_band_mm": {"type": "number", "minimum": 0},
+    "functional_roi": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {"enum": ["box", "sphere", "cylinder", "all"]},
+        "center_mm": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+        "size_mm": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+        "radius_mm": {"type": "number", "exclusiveMinimum": 0},
+        "height_mm": {"type": "number", "exclusiveMinimum": 0},
+        "axis": {"enum": ["x", "y", "z"]}
+      }
+    },
+    "protected_region": {"type": "object"},
+    "boolean": {"type": "object"},
+    "acceptance": {"type": "object"}
+  }
+}

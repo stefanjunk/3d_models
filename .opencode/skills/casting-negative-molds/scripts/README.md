@@ -5,7 +5,8 @@
 - `common/mesh_preflight.py` — manifold/topology, dimensions, components, quality, and draft-screen report
 - `common/memory_estimator.py` — voxel-grid and height-field mesh planning
 - `common/shrinkage_calculator.py` — anisotropic oversize from percentages or measured coupons
-- `common/prepare_heightmap.py` — 8/16-bit grayscale preprocessing, crop/contain/stretch/tile, physical sampling
+- Height-map preprocessing is owned by
+  `../../3d-print-heightmap-relief/scripts/prepare_heightmap.py`.
 - `common/mold_planner.py` — deterministic Markdown plan from `assets/mold-spec.schema.json`
 
 ## Generators

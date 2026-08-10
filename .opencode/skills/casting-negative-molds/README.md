@@ -18,7 +18,10 @@ mkdir -p ~/.config/opencode/skills
 cp -R casting-negative-molds ~/.config/opencode/skills/
 ```
 
-OpenCode discovers the `SKILL.md` and loads the detailed references only when needed.
+OpenCode discovers the `SKILL.md` and loads the detailed references only when
+needed. In this integrated runtime, also install the sibling
+`3d-print-heightmap-relief` and `mesh-validation` skills. They own image
+preprocessing and generic mesh evidence respectively.
 
 ## Important process distinction
 
@@ -29,7 +32,9 @@ An ordinary sealed FDM/SLA negative is generally suitable as tooling or as a dir
 - Generic workflow and decision gates in `SKILL.md`
 - Detailed references for process selection, demolding, mold architecture, memory/resolution, tools, validation, workshop practice, and food-contact ceramics
 - Three worked examples and machine-readable example specifications
-- Python utilities for mesh preflight, memory estimation, empirical shrinkage, height-map preparation, and mold planning
+- Python utilities for casting-specific mesh preflight, memory estimation,
+  empirical shrinkage, and mold planning; height-map preparation is delegated
+  to `3d-print-heightmap-relief`
 - Parametric CadQuery and OpenSCAD mold generators
 - Blender and FreeCAD command-line baseline generators
 - A CadQuery detail-transfer coupon

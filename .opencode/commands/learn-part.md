@@ -1,9 +1,9 @@
 ---
 description: Add test-backed knowledge from a completed design to the local parts library
-agent: build
+agent: 3d-design
 ---
 
-Load `functional-3d-design` and apply its self-learning workflow to:
+Apply the canonical `functional-3d-design` evidence-backed parts-library workflow to:
 
 $ARGUMENTS
 

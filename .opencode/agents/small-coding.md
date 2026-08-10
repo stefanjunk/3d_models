@@ -9,24 +9,18 @@ permission:
     "*": allow
     "opencode.json": deny
     ".opencode/**": deny
-    "/workspace/3d_models/opencode.json": deny
-    "/workspace/3d_models/.opencode/**": deny
   question: deny
   task: deny
   todowrite: deny
   skill:
     "*": deny
-    "openscad": allow
-    "cadquery-functional-geometry": allow
     "cadquery-llm-skill": allow
-    "implicit-3d-modeling": allow
     "commercial-cad-provenance": allow
     "fdm-process-envelope": allow
     "commercial-component-interfaces": allow
     "cq-warehouse-commercial": allow
     "bosl2-commercial": allow
     "mesh-validation": allow
-    "fdm-printability": allow
   bash:
     "*": ask
     "git status": allow
@@ -45,6 +39,9 @@ permission:
 You are the small-coding worker. Implement bounded changes whose method,
 parameters, constraints, and acceptance criteria are already decided.
 
+Do not create or change geometry unless the task packet names
+`DESIGN_INTAKE_PASS`.
+
 You may write simple OpenSCAD, make localized CadQuery changes, write small
 Python utilities, repair syntax or compiler errors, and implement one clearly
 specified feature. Load only the applicable modeling skill before editing.
@@ -55,9 +52,10 @@ criteria, or modify unrelated user geometry. Use `parameters.json` when
 present. Run the smallest applicable validation after editing. You may attempt
 one ordinary local repair.
 
-If you export a mesh, load `mesh-validation` and `fdm-printability` before
-claiming any mesh or FDM gate. If the task cannot fit within your step budget,
-return the export evidence to the primary for a validation-capable follow-up.
+If you export a mesh, load `mesh-validation` and use `fdm-process-envelope`
+before claiming any mesh or FDM gate. Actual printability still requires slicer
+evidence. If the task cannot fit within your step budget, return the export
+evidence to the primary for a validation-capable follow-up.
 
 For a commercial product, do not implement detailed geometry unless the task
 packet names completed commercial-license and engineering-decision gates. Do

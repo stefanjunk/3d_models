@@ -11,6 +11,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMON = ROOT / "scripts" / "common"
+RELIEF_PREPARER = ROOT.parent / "3d-print-heightmap-relief" / "scripts" / "prepare_heightmap.py"
 
 
 def run_script(script: Path, *args: str) -> subprocess.CompletedProcess[str]:
@@ -55,11 +56,13 @@ def test_heightmap_preparation(tmp_path: Path) -> None:
     arr = np.tile(np.arange(32, dtype=np.uint8), (24, 1))
     Image.fromarray(arr).save(src)
     result = run_script(
-        COMMON / "prepare_heightmap.py",
+        RELIEF_PREPARER,
         str(src), str(dst),
-        "--pixels", "101", "51",
-        "--mode", "tile",
-        "--tile-count", "2", "1",
+        "--target-px", "101x51",
+        "--physical-width-mm", "20",
+        "--physical-height-mm", "10",
+        "--fit", "tile",
+        "--repeat-x", "2",
         "--invert",
     )
     assert result.returncode == 0, result.stderr

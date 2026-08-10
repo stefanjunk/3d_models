@@ -1,6 +1,6 @@
 ---
 name: casting-negative-molds
-description: Designs and validates printable negative molds, masters, cases, and plaster-working-mold workflows for casting porcelain, stoneware, gypsum, plaster, and related materials. Covers demolding, parting, shrinkage, resolution, memory, fill/drain systems, ribs, keys, and OpenSCAD, CadQuery, FreeCAD, and Blender implementations.
+description: Use when designing or validating printable negative molds, masters, cases, and plaster-working-mold workflows for porcelain, stoneware, gypsum, plaster, and related casting materials.
 license: MIT
 compatibility: OpenCode Agent Skills; Python 3.10+; optional OpenSCAD, CadQuery, FreeCAD, or Blender
 metadata:
@@ -41,7 +41,9 @@ Resolve as much as possible from the request and source files. Record assumption
 
 ### 1. Preserve and inspect the source
 
-Keep the original immutable. Work on a copy. Use `scripts/common/mesh_preflight.py` for meshes and log:
+Keep the original immutable. Work on a copy. Use `mesh-validation` for the
+generic immutable baseline, then `scripts/common/mesh_preflight.py` for
+casting-specific draft and pull-direction screening. Log:
 
 - units and bounding box;
 - vertex/face count and connected components;
@@ -116,7 +118,11 @@ Keep keys away from thin edges and delicate ornament. Use asymmetric key layouts
 
 Detail transfer is limited by the complete chain: source, CAD tessellation, printer XY/Z capability, surface finishing, plaster reproduction, green-body shrinkage, firing, and glaze flow.
 
-Use `scripts/common/memory_estimator.py` before voxel/remesh or height-map work. Use `scripts/common/prepare_heightmap.py` for relief images. Prototype with a detail-transfer coupon from `scripts/cadquery/detail_coupon.py`.
+Use `scripts/common/memory_estimator.py` before voxel/remesh work. Delegate all
+relief-image preparation and physical sampling to
+`3d-print-heightmap-relief/scripts/prepare_heightmap.py`; do not maintain a
+casting-specific image converter. Prototype with a detail-transfer coupon from
+`scripts/cadquery/detail_coupon.py`.
 
 Starting points, not guarantees:
 

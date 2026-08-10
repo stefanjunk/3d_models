@@ -1,6 +1,7 @@
 ---
 description: Read-only researcher for upstream CAD APIs, standard-part libraries, supplier drawings, material profiles, and primary engineering references.
 mode: subagent
+model: openai/gpt-5.6-terra
 temperature: 0.1
 permission:
   read: allow

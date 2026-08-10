@@ -1,0 +1,62 @@
+project:
+  id: honeycomb-wood-wall-shelf
+  revision: 1.1.0
+  status: experimental
+  purpose: Modulares Wandregal zum Ausstellen kleiner 3D-Druckobjekte
+risk:
+  class: structural
+  hazards: [falling-object, wall-anchor-failure, connector-release, polymer-creep]
+  limits:
+    - Keine Lastfreigabe ohne Prüfung von Wand, Dübel, Schraube, Material und Druckprofil.
+    - Wertvolle oder zerbrechliche Objekte erst nach Belastungs- und Kriechversuch ausstellen.
+fabrication:
+  preference: balanced-hybrid
+  printed_parts: [honeycomb-module, bridge-clip]
+  purchased_parts: [wall-specific-screws, wall-specific-anchors]
+geometry:
+  units: mm
+  module_envelope: [168.0, 145.49, 72.0]
+  nominal_inside_envelope_open: [149.52, 129.49, 72.0]
+  nominal_inside_envelope_closed: [149.52, 129.49, 67.2]
+  wall_thickness: 8.0
+  back_panel:
+    enabled_default: false
+    closed_thickness: 4.8
+  open_back_mounting_ears:
+    quantity: 2
+    hole_centers: [[-27.0, 54.0], [27.0, 54.0]]
+    thickness: 6.0
+    outer_radius: 9.0
+    neck_width: 12.0
+  modular_grid_center_distance: 145.49
+  shared_edge_connectors: 2
+  connector_insertion: rear-to-front before wall mounting
+  rear_clip_standoff: 2.4
+texture:
+  class: repeating-directional-wood-heightmap
+  operation: engraving
+  maximum_depth: 0.6
+  production_mesh_pitch: 0.45
+  policy:
+    - Maserung läuft auf den Innen- und Außenwänden durchgehend entlang der Regaltiefe.
+    - Die Frontring-Sektoren verwenden eine globale XY-Projektion.
+    - Hinterer Rahmenring, Ösen, Schraubauflagen und Clip-Passkanten bleiben glatt.
+printer_assumptions:
+  process: FDM-FFF
+  build_volume_minimum: [175, 155, 80]
+  default_material: PETG
+  nozzle: 0.4
+  layer_height: 0.2
+  orientation: Hinteren Rahmenring und Befestigungsösen flach auf das Druckbett legen.
+acceptance:
+  - Textured STL is watertight, consistently wound, positive-volume, and one body.
+  - Open-back and closed-back variants are each watertight, one-body meshes.
+  - Base STEP and base STL have the intended envelope and two mounting holes close to the upper frame.
+  - Clip coupon identifies a removable fit without cracking or excessive looseness.
+  - Two rear-inserted clips per shared edge retain alignment during guarded handling.
+  - Two 2.4 mm wall spacers support each mounted module when rear clips are installed.
+  - Installed module passes a user-defined proof load and creep test on the real wall.
+outputs:
+  editable_base: cad/parametric_base.cjs
+  textured_generator: scripts/generate_textured_mesh.py
+  generated_files: generated/

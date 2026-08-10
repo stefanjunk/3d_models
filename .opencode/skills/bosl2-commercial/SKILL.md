@@ -10,6 +10,10 @@ ignored `.deps/openscad/BOSL2` checkout. BOSL2 is BSD-2-Clause; record the exact
 version and retain the required copyright/license notice when distributing
 derived source that includes BOSL2 code.
 
+This checkout may omit the optional `libraries/` infrastructure. If the lock,
+bootstrap script, or smoke script is absent, return `BLOCKED` with the missing
+path. Do not fetch an unpinned replacement.
+
 ## Setup
 
 ```bash

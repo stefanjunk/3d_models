@@ -7,12 +7,20 @@ from pathlib import Path
 
 SCRIPT = Path(__file__).parents[2] / "libraries" / "scripts" / "bootstrap_third_party.py"
 LOCK = Path(__file__).parents[2] / "libraries" / "third-party-lock.json"
-SPEC = importlib.util.spec_from_file_location("bootstrap_third_party", SCRIPT)
-MODULE = importlib.util.module_from_spec(SPEC)
-assert SPEC and SPEC.loader
-SPEC.loader.exec_module(MODULE)
+AVAILABLE = SCRIPT.is_file() and LOCK.is_file()
+if AVAILABLE:
+    SPEC = importlib.util.spec_from_file_location("bootstrap_third_party", SCRIPT)
+    MODULE = importlib.util.module_from_spec(SPEC)
+    assert SPEC and SPEC.loader
+    SPEC.loader.exec_module(MODULE)
+else:
+    MODULE = None
 
 
+@unittest.skipUnless(
+    AVAILABLE,
+    "optional pinned third-party library infrastructure is not installed in this checkout",
+)
 class ThirdPartyBootstrapTests(unittest.TestCase):
     def test_reset_directory_removes_stale_content(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

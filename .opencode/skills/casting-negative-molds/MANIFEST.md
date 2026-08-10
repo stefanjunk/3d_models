@@ -18,7 +18,9 @@
 | `references/` | Process, demolding, architectures, memory/resolution, workshop practice, tool workflows, validation, food contact, examples, and research sources |
 | `assets/mold-spec.schema.json` | JSON Schema for machine-readable casting/mold specifications |
 | `assets/examples/` | Roman pillar, sunflower tile, and food-serving bowl specifications |
-| `scripts/common/` | Mesh preflight, memory estimation, shrinkage compensation, height-map preparation, and plan generation |
+| `scripts/common/` | Casting-specific mesh preflight, memory estimation, shrinkage compensation, and plan generation |
+| sibling `3d-print-heightmap-relief` | Authoritative height-map preparation and physical sampling dependency |
+| sibling `mesh-validation` | Authoritative generic mesh topology and bounds dependency |
 | `scripts/cadquery/` | Parametric split block-mold/case generator and detail-transfer coupon |
 | `scripts/openscad/` | Parametric block, hollow-block, conformal-shell, and ribbed-shell mold variants |
 | `scripts/blender/` | Blender batch baseline for mesh cleanup, booleans, split parts, keys, sprue, and export |
@@ -33,7 +35,7 @@ Validation was executed in the package build environment on `2026-08-09`.
 | Component | Result | Environment or note |
 |---|---|---|
 | Python syntax | Passed | Python 3.13.5 |
-| Automated tests | **7 passed** | `python -m pytest -q tests` |
+| Automated tests | **7 passed** | `python -m pytest -q tests`; integrated sibling skills installed |
 | Example JSON Schema validation | Passed | all three example specifications |
 | Internal relative Markdown links | Passed | no missing or escaping targets |
 | Common Python utilities | Executed | NumPy 2.3.5, Pillow 12.3.0, trimesh 4.11.1 |

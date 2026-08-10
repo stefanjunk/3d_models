@@ -9,6 +9,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from validate_design_intake import validate_intake_path
+
 
 DECISIONS = {"PRINT", "BUY", "INTEGRATE", "ELIMINATE", "NEEDS_TEST"}
 NOZZLE_CLASSES = {0.4, 0.6, 0.8}
@@ -16,6 +18,7 @@ PRIMARY_MATERIALS = {"PLA", "PETG"}
 SPECIALIST_MATERIALS = {"ABS", "ASA", "TPU", "PA-CF"}
 PLACEHOLDERS = {"tbd", "todo", "unknown", "n/a", "na", "later", "?"}
 TEST_TYPES = {"coupon", "dimensional", "assembly", "load", "life", "wear", "creep", "cycle", "slicer"}
+FUNCTION_TEST_TYPES = {"load", "life", "wear", "creep", "cycle"}
 COMPARATORS = {"<", "<=", "==", ">=", ">"}
 PROCESS_STATUSES = {"supported", "conditional", "unsupported", "unverified"}
 POLICY_PATH = (
@@ -74,10 +77,37 @@ def validate(
     provenance_manifest_hash: str,
     manufacturing: dict[str, Any],
 ) -> list[str]:
-    blockers = missing(spec, ("project", "intent", "commercial_product"), "root")
+    blockers = missing(
+        spec,
+        (
+            "project",
+            "intent",
+            "commercial_product",
+            "environment",
+            "customer_claims",
+            "assembly",
+            "design_intake",
+        ),
+        "root",
+    )
     project = str(spec.get("project") or "")
     if spec.get("commercial_product") is not True:
         blockers.append("root.commercial_product must be true")
+    if not meaningful(spec.get("environment")):
+        blockers.append("root.environment")
+    claims = spec.get("customer_claims")
+    if not isinstance(claims, list) or not claims or not all(meaningful(claim) for claim in claims):
+        blockers.append("root.customer_claims must be a nonempty list")
+    assembly = spec.get("assembly")
+    if not isinstance(assembly, dict):
+        blockers.append("root.assembly must be structured")
+    else:
+        order = assembly.get("order")
+        if not isinstance(order, list) or not order or not all(meaningful(step) for step in order):
+            blockers.append("root.assembly.order")
+        for field in ("tool_access", "replacement_access"):
+            if not meaningful(assembly.get(field)):
+                blockers.append(f"root.assembly.{field}")
     functions = spec.get("functions")
     components = spec.get("components")
     tests = spec.get("test_plan")
@@ -162,6 +192,7 @@ def validate(
     else:
         test_ids = set()
         targeted_ids: set[str] = set()
+        function_tested_ids: set[str] = set()
         for index, test in enumerate(tests):
             blockers.extend(
                 missing(test, ("id", "type", "targets", "acceptance"), f"test_plan[{index}]")
@@ -179,10 +210,14 @@ def validate(
                         blockers.append(f"test_plan[{index}].targets unknown {target}")
                     else:
                         targeted_ids.add(str(target))
+                        if target in function_ids and test.get("type") in FUNCTION_TEST_TYPES:
+                            function_tested_ids.add(str(target))
             if not measurable_acceptance(test.get("acceptance")):
                 blockers.append(f"test_plan[{index}].acceptance must be measurable")
         for component_id in sorted(printed_component_ids - targeted_ids):
             blockers.append(f"component {component_id} has no linked test")
+        for function_id in sorted(function_ids - function_tested_ids):
+            blockers.append(f"function {function_id} has no linked load/life test")
 
     if provenance.get("status") != "COMMERCIAL_LICENSE_PASS":
         blockers.append("provenance_report is not COMMERCIAL_LICENSE_PASS")
@@ -279,10 +314,23 @@ def main() -> int:
     )
     if error:
         blockers.append(error)
+    intake_path, error = resolve_inside(
+        project_root, spec.get("design_intake"), "root.design_intake"
+    )
+    if error:
+        blockers.append(error)
     if provenance_path and provenance_path != Path(args.provenance_report).resolve():
         blockers.append("CLI provenance report differs from design spec")
     if manufacturing_path and manufacturing_path != Path(args.manufacturing_profile).resolve():
         blockers.append("CLI manufacturing profile differs from design spec")
+    if intake_path:
+        intake_blockers = validate_intake_path(intake_path, str(spec.get("project")))
+        blockers.extend(
+            "design_intake project mismatch"
+            if blocker == "project does not match expected project"
+            else blocker
+            for blocker in intake_blockers
+        )
 
     provenance = json.loads(provenance_path.read_text(encoding="utf-8")) if provenance_path else {}
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path else {}

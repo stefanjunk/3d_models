@@ -24,6 +24,10 @@ permission:
     "commercial-component-interfaces": allow
     "fdm-joints-and-fits": allow
     "power-transmission-design": allow
+    "3d-print-heightmap-relief": allow
+    "organic-mesh-functionalization": allow
+    "casting-negative-molds": allow
+    "mesh-validation": allow
   todowrite: deny
   webfetch: deny
   websearch: deny
@@ -37,6 +41,13 @@ CadQuery, OpenSCAD, implicit, or hybrid; making conservative manufacturing
 assumptions; analyzing FDM and mechanical tradeoffs; diagnosing deterministic
 validation failures; deciding whether a local repair is safe; and preparing
 precise instructions for a coding worker.
+
+Start by confirming `DESIGN_INTAKE_PASS`; otherwise return
+`NEEDS_USER_INPUT` and no geometry instructions. Use one workflow owner:
+casting for mold/casting outputs, heightmap relief for image-to-surface
+conversion, and organic mesh functionalization for interventions in existing
+dense meshes. Apply functional design as the cross-cutting owner for loads,
+hardware, life, BOM, and commercial release decisions.
 
 For commercial functional products, first load `commercial-cad-provenance`
 and `functional-3d-design`. Produce explicit load/life/failure-mode and

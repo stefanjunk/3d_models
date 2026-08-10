@@ -149,8 +149,11 @@ A 300 mm cube at 0.1 mm voxel pitch is 27 billion voxels before overhead; use lo
 ## Suggested scripts
 
 ```bash
-python scripts/common/prepare_heightmap.py marble.png build/marble-1024.png \
-  --physical-size-mm 220 220 --sample-pitch-mm 0.20 --mode tile --gamma 1.2
+python ../3d-print-heightmap-relief/scripts/prepare_heightmap.py \
+  marble.png build/marble-1024.png \
+  --physical-width-mm 220 --physical-height-mm 220 \
+  --sample-pitch-mm 0.20 --fit tile --gamma 1.2 \
+  --report build/marble-heightmap.json
 
 python scripts/common/mold_planner.py assets/examples/roman-pillar.json \
   --output build/roman-pillar-plan.md

@@ -1,0 +1,40 @@
+tests:
+  - id: source-and-parameter-check
+    stage: V0
+    pass: Both generators reject impossible wall/back/ear/relief combinations and write deterministic outputs.
+  - id: textured-mesh
+    stage: V1
+    action: Run scripts/validate_stl.py on honeycomb-module-textured.stl.
+    pass: watertight true, nonmanifold_edges 0, boundary_edges 0, bodies 1, signed_volume_mm3 > 0.
+  - id: base-cad
+    stage: V1
+    action: Re-import STEP/STL and verify envelope, cavity, and two through holes.
+    pass: Envelope matches report within 0.15 mm, the rear opening is present, both ears join the frame, and each hole is open.
+  - id: closed-back-option
+    stage: V1
+    action: Set back_panel_enabled true and generate the draft mesh.
+    pass: Closed-back variant remains watertight, positive-volume, and one body.
+  - id: texture-coupon
+    stage: V4
+    action: Print the supplied texture coupon using the final material/nozzle/profile.
+    pass: Grain and knots are recognizable at 300-500 mm and no ridge is loose or omitted.
+  - id: clip-coupon
+    stage: V4
+    action: Print 0.10, 0.20, and 0.30 mm-per-side clip clearances.
+    pass: Select the smallest clearance that installs/removes without cracking and has no handling rattle.
+  - id: joined-cells
+    stage: V5
+    action: Join two cells with two clips inserted from the rear on one shared edge and handle over a padded surface.
+    pass: Faces remain seated, clips do not migrate, and both clip caps sit on the rear side.
+  - id: rear-wall-spacing
+    stage: V5
+    action: Assemble rear clips plus one 2.4 mm spacer behind each mounting ear on a flat test panel.
+    pass: Module rests without rocking and screw heads seat without crushing the printed ears or spacers.
+  - id: wall-proof-load
+    stage: V6
+    action: Mount to representative real substrate and load gradually behind a barrier with nonvaluable ballast.
+    pass: User-defined proof load causes no cracks, anchor movement, permanent deformation, or unacceptable deflection.
+  - id: creep
+    stage: V6
+    action: Hold the intended working load for a user-defined period and remeasure.
+    pass: No progressive deformation, screw-seat damage, clip release, or wall-anchor movement.

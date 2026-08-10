@@ -1,0 +1,47 @@
+project: modern-carbon-desk-organizer
+revision: 1.0.0
+units: mm
+risk_class: normal-functional
+fabrication_preference: balanced-hybrid
+function:
+  summary: Two-drawer desktop storage with six open sorting compartments.
+  environment: Indoor desktop use.
+  target_load_assumption: Light stationery, tools, cables, and small electronics; not structurally rated.
+dimensions:
+  assembled_envelope_mm: [320.7, 230, 216.8]
+  housing_mm: [320.7, 230, 148.8]
+  sorter_mm: [320.7, 230, 68]
+  drawer_front_mm: [316, 3.6, 65.2]
+interfaces:
+  drawer_side_clearance_each_mm: 0.45
+  drawer_top_clearance_nominal_mm: 3.0
+  sorter_alignment_socket_clearance_each_mm: 0.30
+  carbon_relief_depth_mm: [0.26, 0.34]
+printer:
+  model: Anycubic Kobra 3 Max
+  nominal_build_volume_mm: [420, 420, 500]
+  nozzle_assumption_mm: 0.4
+  material_assumption: PLA or PLA+
+fabrication:
+  printed_parts:
+    - housing, quantity 1
+    - drawer, quantity 2
+    - top sorter, quantity 1
+  purchased_parts:
+    - optional adhesive felt or TPU feet, quantity 4
+  assembly: Stack sorter on four housing alignment pegs; slide drawers into bays.
+outputs:
+  editable_source: src/desk_organizer.mjs
+  manufacturing_mesh: binary STL
+  assembly_preview: PNG and STL
+acceptance_criteria:
+  - Each production STL is watertight and consistently wound.
+  - Housing print envelope remains inside 420 x 420 x 500 mm.
+  - Drawers move freely after the selected clearance coupon passes.
+  - Carbon relief remains visible in slicer toolpath preview.
+  - No support is required in the documented orientations, except optional bridge tuning for four sorter sockets.
+status: experimental
+notes:
+  - Dimensions are deliberate assumptions because the user did not specify desk contents.
+  - Physical fit and texture coupons are required before the full print.
+  - No autonomous slicer upload or printer start is authorized.

@@ -1,4 +1,5 @@
 import hashlib
+import base64
 import json
 import subprocess
 import sys
@@ -21,12 +22,16 @@ POLICY_PATH = (
     / "references"
     / "commercial-license-policy.json"
 )
+VALID_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+)
 
 
 def run_validation(
     spec: dict,
     provenance_status: str = "COMMERCIAL_LICENSE_PASS",
     provenance_project: str | None = None,
+    intake_project: str | None = None,
     manufacturing_profile: dict | None = None,
 ) -> subprocess.CompletedProcess[str]:
     with tempfile.TemporaryDirectory() as tmp:
@@ -35,6 +40,31 @@ def run_validation(
         manifest = root / "provenance.json"
         provenance = root / "commercial-license.json"
         manufacturing = root / "manufacturing-profile.json"
+        references = root / "references"
+        references.mkdir()
+        requirements = references / "requirements-summary.md"
+        prompt = references / "concept-prompt-v1.md"
+        concept = references / "concept-v1.png"
+        requirements.write_text("# Approved requirements\n", encoding="utf-8")
+        prompt.write_text("# Approved prompt\n", encoding="utf-8")
+        concept.write_bytes(VALID_PNG)
+        intake = root / "design-intake.json"
+        intake.write_text(json.dumps({
+            "project": intake_project or spec["project"],
+            "requirements_summary": "references/requirements-summary.md",
+            "requirements_summary_sha256": hashlib.sha256(requirements.read_bytes()).hexdigest(),
+            "requirements_status": "APPROVED",
+            "requirements_approved_at": "2026-08-09T12:00:00Z",
+            "requirements_approval_note": "Approved by user",
+            "concept_prompt": "references/concept-prompt-v1.md",
+            "concept_requirements_sha256": hashlib.sha256(requirements.read_bytes()).hexdigest(),
+            "concept_prompt_sha256": hashlib.sha256(prompt.read_bytes()).hexdigest(),
+            "concept_image": "references/concept-v1.png",
+            "concept_image_sha256": hashlib.sha256(concept.read_bytes()).hexdigest(),
+            "concept_status": "APPROVED",
+            "concept_approved_at": "2026-08-09T12:05:00Z",
+            "concept_approval_note": "Concept V1 approved by user",
+        }), encoding="utf-8")
         manifest_payload = {
             "project": spec["project"],
             "items": [
@@ -53,6 +83,7 @@ def run_validation(
             "provenance_manifest": "provenance.json",
             "provenance_report": "commercial-license.json",
             "manufacturing_profile": "manufacturing-profile.json",
+            "design_intake": "design-intake.json",
         }
         path.write_text(json.dumps(spec), encoding="utf-8")
         provenance.write_text(
@@ -110,6 +141,13 @@ def valid_spec() -> dict:
         "project": "filament-feeder",
         "intent": "Feed filament with a driven roller",
         "commercial_product": True,
+        "environment": "indoor ambient",
+        "customer_claims": ["Feeds 1.75 mm filament under the declared load and life tests"],
+        "assembly": {
+            "order": ["Install shaft", "Install roller", "Close housing"],
+            "tool_access": "Hex driver access remains open from the side",
+            "replacement_access": "Housing opens without destroying the printed body",
+        },
         "functions": [
             {
                 "id": "feed",
@@ -146,14 +184,25 @@ def valid_spec() -> dict:
             {
                 "id": "fit-coupon",
                 "type": "coupon",
-                "targets": ["housing", "shaft"],
+                "targets": ["feed", "housing", "shaft"],
                 "acceptance": {
                     "metric": "shaft_play",
                     "comparator": "<=",
                     "value": 0.2,
                     "unit": "mm"
                 },
-            }
+            },
+            {
+                "id": "feed-life-test",
+                "type": "life",
+                "targets": ["feed"],
+                "acceptance": {
+                    "metric": "successful_feed_revolutions",
+                    "comparator": ">=",
+                    "value": 100000,
+                    "unit": "revolutions"
+                },
+            },
         ],
     }
 
@@ -285,6 +334,40 @@ class FunctionalDesignTests(unittest.TestCase):
         blockers = " ".join(json.loads(result.stdout)["blockers"])
         self.assertIn("type", blockers)
         self.assertIn("targets", blockers)
+
+    def test_blocks_function_without_load_life_test(self) -> None:
+        spec = valid_spec()
+        spec["test_plan"] = [spec["test_plan"][0]]
+
+        result = run_validation(spec)
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("function feed has no linked load/life test", result.stdout)
+
+    def test_coupon_cannot_substitute_for_function_load_life_test(self) -> None:
+        spec = valid_spec()
+        spec["test_plan"] = [spec["test_plan"][0]]
+        spec["test_plan"][0]["targets"].append("feed")
+
+        result = run_validation(spec)
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("function feed has no linked load/life test", result.stdout)
+
+    def test_blocks_placeholder_environment(self) -> None:
+        spec = valid_spec()
+        spec["environment"] = "TBD"
+
+        result = run_validation(spec)
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("root.environment", result.stdout)
+
+    def test_blocks_intake_from_different_project(self) -> None:
+        result = run_validation(valid_spec(), intake_project="different-project")
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("design_intake project mismatch", result.stdout)
 
 
 if __name__ == "__main__":

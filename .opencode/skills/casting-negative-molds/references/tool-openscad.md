@@ -124,7 +124,7 @@ OpenSCAD does not simulate flow. Verify every isolated high point manually or wi
 
 ## Image relief
 
-OpenSCAD `surface()` can generate a height field from an image, but large images create dense geometry and can consume substantial memory. Preprocess and downsample with `prepare_heightmap.py`. Use local patches rather than wrapping a huge height field around the complete object.
+OpenSCAD `surface()` can generate a height field from an image, but large images create dense geometry and can consume substantial memory. Load `3d-print-heightmap-relief` and preprocess with its `scripts/prepare_heightmap.py`. Use local patches rather than wrapping a huge height field around the complete object.
 
 For curved surfaces, generate the displacement mesh externally or model a cylindrical relief analytically. Repeated planar projection onto different faces changes the texture direction and creates discontinuities.
 

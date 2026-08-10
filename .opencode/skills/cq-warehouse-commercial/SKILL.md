@@ -9,6 +9,10 @@ Use only the commit pinned in `libraries/third-party-lock.json` and the ignored
 `.deps/python` cache. Load `commercial-cad-provenance` before adding the library
 to a commercial project manifest.
 
+This checkout may omit the optional `libraries/` infrastructure. If the lock,
+bootstrap script, or smoke script is absent, return `BLOCKED` with the missing
+path. Do not install an unpinned package or borrow another checkout.
+
 ## Setup
 
 ```bash

@@ -1,6 +1,6 @@
 ---
 name: 3d-print-heightmap-relief
-description: Design, generate, map, validate, and troubleshoot printable embossing or engraving from image height maps on flat, cylindrical, rounded, polygonal, spherical, toroidal, or arbitrary sampled surfaces. Use for OpenSCAD, CadQuery, FreeCAD, Blender, STL/STEP workflows, texture wrapping, image preprocessing, resolution and memory planning, and relief Booleans.
+description: Use when designing, generating, mapping, validating, or troubleshooting printable embossing or engraving from image height maps on flat, cylindrical, rounded, polygonal, spherical, toroidal, or arbitrary sampled surfaces.
 license: MIT
 compatibility: OpenCode; Python 3.10+; optional OpenSCAD, CadQuery, FreeCAD, or Blender
 metadata:
@@ -65,7 +65,7 @@ python scripts/mesh_boolean.py difference base.stl relief-patch.stl \
   -o engraved.stl --engine auto --require-watertight \
   --require-single-body --report boolean.report.json
 
-python scripts/validate_mesh.py engraved.stl \
+python ../mesh-validation/scripts/validate_mesh.py engraved.stl \
   --require-watertight --require-volume --require-single-body
 ```
 

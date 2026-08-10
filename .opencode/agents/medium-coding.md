@@ -12,20 +12,13 @@ permission:
     "*": allow
     "opencode.json": deny
     ".opencode/**": deny
-    "/workspace/3d_models/opencode.json": deny
-    "/workspace/3d_models/.opencode/**": deny
   question: deny
   task: deny
   todowrite: deny
   skill:
     "*": deny
-    "openscad": allow
-    "cadquery-functional-geometry": allow
     "cadquery-llm-skill": allow
-    "implicit-3d-modeling": allow
     "mesh-validation": allow
-    "fdm-printability": allow
-    "parameter-sweep": allow
     "commercial-cad-provenance": allow
     "functional-3d-design": allow
     "fdm-process-envelope": allow
@@ -35,6 +28,9 @@ permission:
     "bosl2-commercial": allow
     "fdm-joints-and-fits": allow
     "power-transmission-design": allow
+    "3d-print-heightmap-relief": allow
+    "organic-mesh-functionalization": allow
+    "casting-negative-molds": allow
   bash:
     "*": ask
     "git status": allow
@@ -54,12 +50,19 @@ You are the medium-coding geometry implementation worker. Implement non-trivial
 but well-defined CadQuery, OpenSCAD, NumPy/SDF, Marching Cubes, Trimesh, and
 supporting Python work.
 
-Read `parameters.json` and relevant project files before editing. Load the
-selected modeling skill before writing source and load validation skills before
-claiming their gates. Prefer parameterized source over hard-coded values.
+Read `parameters.json` and relevant project files before editing. Load an
+installed applicable modeling skill before writing source and load validation
+skills before claiming their gates. Prefer parameterized source over hard-coded
+values. If a named optional skill or executable is absent, report the
+capability limit instead of claiming its evidence.
+Do not begin geometry unless the task packet names `DESIGN_INTAKE_PASS` and the
+approved requirement summary and concept image. Treat the approved concept as
+visual intent, never as dimensional authority.
 
 For commercial functional products, read `design-spec.json`, `provenance.json`,
-`components.json`, and `manufacturing-profile.json`. Do not start detailed CAD
+`bom.json`, and `manufacturing-profile.json`. Component decisions in
+`design-spec.json` are authoritative; the BOM is a derived release artifact and
+must not contradict them. Do not start detailed CAD
 without recorded `COMMERCIAL_LICENSE_PASS` and `ENGINEERING_DECISION_PASS`.
 Use only allowlisted libraries/assets. When rights are unclear, create original
 interfaces with `commercial-component-interfaces` from cited dimensions.

@@ -59,7 +59,9 @@ A relief must create readable light and shadow after printing/casting.
 - Add edge falloff so a relief patch does not end as a vertical cliff.
 - For glaze-covered ceramic, make important motifs broader and deeper because glaze can soften valleys and fill fine recesses.
 
-Use `prepare_heightmap.py` to normalize, invert, gamma-correct, blur, crop, tile, and resize images.
+Load `3d-print-heightmap-relief` and use its `scripts/prepare_heightmap.py` to
+normalize, invert, gamma-correct, blur, crop, tile, physically sample, and
+report images. This casting skill does not maintain a second image converter.
 
 ## Height-map mesh size
 

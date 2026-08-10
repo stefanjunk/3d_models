@@ -5,9 +5,11 @@ description: Use when a commercial CadQuery design needs original bearing seats,
 
 # Commercial Component Interfaces
 
-Use `/workspace/3d_models/libraries/commercial-components` to create original
-interface cutters from explicit dimensions. The library is MIT-licensed and
-contains no embedded standards tables or third-party CAD.
+Use the repository-relative `libraries/commercial-components` package to create
+original interface cutters from explicit dimensions. If that package is not
+present, report the exact blocker instead of importing from another checkout.
+The library is MIT-licensed and contains no embedded standards tables or
+third-party CAD.
 
 ## Rules
 
@@ -23,7 +25,9 @@ contains no embedded standards tables or third-party CAD.
 
 ```python
 import sys
-sys.path.insert(0, "/workspace/3d_models/libraries/commercial-components/src")
+from pathlib import Path
+
+sys.path.insert(0, str(Path("libraries/commercial-components/src").resolve()))
 
 from commercial_components import ComponentSource, bearing_seat_cutter
 ```

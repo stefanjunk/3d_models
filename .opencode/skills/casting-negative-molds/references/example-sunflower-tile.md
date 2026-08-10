@@ -129,9 +129,11 @@ A 200 mm tile with 0.2 mm sample pitch needs about 1000 × 1000 relief samples, 
 Use the height-map tool:
 
 ```bash
-python scripts/common/prepare_heightmap.py sunflower.png build/sunflower.png \
-  --physical-size-mm 200 200 --sample-pitch-mm 0.20 --mode contain \
-  --invert --gamma 0.9 --blur-radius 0.6
+python ../3d-print-heightmap-relief/scripts/prepare_heightmap.py \
+  sunflower.png build/sunflower.png \
+  --physical-width-mm 200 --physical-height-mm 200 \
+  --sample-pitch-mm 0.20 --fit contain --invert --gamma 0.9 \
+  --blur-mm 0.6 --report build/sunflower-heightmap.json
 ```
 
 ## Acceptance criteria

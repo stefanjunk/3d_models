@@ -1,18 +1,18 @@
 # 3D Design System Policy
 
-This policy governs every agent in the `/workspace/3d_models` OpenCode runtime.
+This policy governs every agent in this repository's OpenCode runtime.
 The primary agent coordinates work; workers perform bounded reasoning or
 implementation. Existing project layouts take precedence when modifying a
 model.
 
 ## Repository Boundary
 
-- Treat `/workspace/3d_models` as the only model repository.
+- Treat the current repository root as the only model repository.
 - Run `git status --short --branch` before editing and preserve unrelated work.
 - Model artifacts, reports, and source changes must stay inside this repository.
-- Do not edit `/workspace/opencode.json`, `/workspace/.opencode`, website
-  repositories, shared skills, or this repository's `opencode.json` and
-  `.opencode` runtime files during ordinary model work.
+- Do not edit parent-workspace configuration, website repositories, shared
+  skills, or this repository's `opencode.json` and `.opencode` runtime files
+  during ordinary model work.
 - Do not commit, push, publish, or delete user models unless explicitly asked.
 
 ## Design Contract
@@ -21,7 +21,7 @@ model.
   direction, manufacturing assumptions, and unresolved physical tests.
 - For new commercial projects, start from
   `.opencode/templates/commercial-product/`. Preserve `design-spec.json`,
-  `components.json`, `provenance.json`, `manufacturing-profile.json`,
+  `provenance.json`, `manufacturing-profile.json`,
   `parameters.json`, `bom.json`, `reports/evidence.json`, source files,
   `exports/`, `previews/`, and a concise `README.md`.
 - Put authoritative design values in `parameters.json` or one clearly marked
@@ -31,6 +31,40 @@ model.
   measurable acceptance criteria before substantial implementation.
 - Ask one concise user question only when a missing value materially changes
   the design. Only the primary agent may ask the user.
+
+## Mandatory Human Intake Gates
+
+Every new design and every redesign that changes form or intended function
+starts with two sequential human gates. Inspection needed to understand an
+existing object is allowed; CAD implementation, destructive mesh work, and
+final geometry generation are not.
+
+1. **Requirements approval:** Summarize the requested object, intended use,
+   functions, dimensions, visual intent, constraints, assumptions, exclusions,
+   and unresolved choices as understood. Save it as
+   `<object-folder>/references/requirements-summary.md`, ask the user to approve
+   or adjust it, and stop until the user responds. Any adjustment invalidates
+   the prior approval and requires a revised summary.
+2. **Concept-image approval:** After requirements approval, generate a concept
+   image with `gpt_imagegen`. Save the prompt and image as
+   `<object-folder>/references/concept-prompt-vN.md` and
+   `<object-folder>/references/concept-vN.png`. When source images exist, pass
+   them as references. Show the saved image to the user, ask for approval or
+   adjustments, and stop until the user responds. Never overwrite a prior
+   concept. A changed concept gets the next version.
+
+Record both approvals and SHA-256 hashes in
+`<object-folder>/design-intake.json`. Run the canonical
+`functional-3d-design/scripts/validate_design_intake.py` validator and require
+`DESIGN_INTAKE_PASS` before geometry work. The concept image records appearance
+and arrangement only; dimensions and engineering requirements remain
+authoritative in the approved summary, design specification, and parameters.
+Bind the concept approval to the approved requirements-summary hash so changing
+requirements invalidates the prior concept.
+Run the standalone validator with `--expected-project <project-id>` so an intake
+from another object cannot be reused.
+If image generation is unavailable, report `BLOCKED` rather than silently
+skipping the concept gate.
 
 ## Commercial And Engineering Gates
 
@@ -78,25 +112,35 @@ Use Blender or direct mesh services only for primarily artistic, textile-like,
 sculptural, or character work when the normal toolset is demonstrably
 insufficient. Explain the exception first.
 
-## Required Skills
+## Skill Routing And Capability Checks
 
-Load the applicable skill before writing source or claiming its gate:
+Load an installed applicable skill before writing source or claiming its gate.
+CadQuery, OpenSCAD, Blender, FreeCAD, implicit, or slicer execution also
+requires the corresponding executable or library to be present and actually
+run. An unavailable optional helper is a reported capability limit, not
+permission to invent evidence.
 
-- CadQuery: `cadquery-functional-geometry` and `cadquery-llm-skill`
-- OpenSCAD: `openscad`
-- Implicit geometry: `implicit-3d-modeling`
+- CadQuery implementation: `cadquery-llm-skill`
 - Exported mesh validation: `mesh-validation`
-- FDM assessment: `fdm-printability`
-- Bounded design experiments only: `parameter-sweep`
+- FDM assessment and generic process claims: `fdm-process-envelope`
 - Commercial dependency or CAD provenance: `commercial-cad-provenance`
 - Functional products, mechanisms, hardware, loads, or life: `functional-3d-design`
-- Generic 0.4/0.6/0.8 mm and material claims: `fdm-process-envelope`
 - Snap-fits and flexures: `snap-fit-design`
 - Original bearing/shaft/insert/screw interfaces: `commercial-component-interfaces`
 - Pinned parametric CadQuery hardware: `cq-warehouse-commercial`
 - Pinned OpenSCAD reuse: `bosl2-commercial`
 - Precision and retention joints: `fdm-joints-and-fits`
 - Gears, belts, chains, pulleys, or torque transmission: `power-transmission-design`
+- Image-derived embossing, engraving, or texture: `3d-print-heightmap-relief`
+- Existing dense, scanned, or AI-generated mesh intervention: `organic-mesh-functionalization`
+- Negative molds, masters, cases, parting, or casting workflows: `casting-negative-molds`
+
+Use exactly one workflow owner. Casting owns mold or casting deliverables;
+heightmap relief owns image-to-physical-surface conversion; organic mesh
+functionalization owns interventions in existing dense meshes; functional 3D
+design owns product loads, life, BOM, print-vs-buy, and release decisions.
+Supporting skills may tighten constraints but may not replace the owner's
+contract or emit its global gate.
 
 ## Generic FDM Product Envelope
 
@@ -115,24 +159,27 @@ Load the applicable skill before writing source or claiming its gate:
 
 ## Build And Validation Loop
 
-1. Inspect the nearest project README, design spec, components, provenance,
+1. Complete requirements approval and concept-image approval; record
+   `DESIGN_INTAKE_PASS`.
+2. Inspect the nearest project README, design spec, provenance, BOM,
    parameters, source, exports, reports, previews, and repository state.
-2. Decompose functions and document loads, life, failure modes, environment,
+3. Decompose functions and document loads, life, failure modes, environment,
    and customer-facing claims.
-3. Decide print/buy/integrate/eliminate and define the assembly and test plan.
-4. Pass commercial provenance and engineering decision gates.
-5. Select material/nozzle classes, coupons, interfaces, and modeling method.
-6. Generate a low-cost preview before expensive final output.
-7. Check extents, orientation, clearances, assembly order, tool access,
+4. Decide print/buy/integrate/eliminate and define the assembly and test plan.
+5. Pass commercial provenance and engineering decision gates.
+6. Select material/nozzle classes, coupons, interfaces, and modeling method.
+7. Generate a low-cost preview before expensive final output.
+8. Check extents, orientation, clearances, assembly order, tool access,
    topology, and feature placement.
-8. Generate final source and exports only after the preview is plausible.
-9. Reload each exported mesh from disk and run `mesh-validation`.
-10. Run `fdm-process-envelope` and `fdm-printability` with declared assumptions.
-11. Inspect multi-angle previews and slicer layers; inspect orthogonal slices
+9. Generate final source and exports only after the preview is plausible.
+10. Reload each exported mesh from disk and run `mesh-validation`.
+11. Run `fdm-process-envelope` with declared assumptions and inspect actual
+    slicer output before making printability claims.
+12. Inspect multi-angle previews and slicer layers; inspect orthogonal slices
     for implicit fields.
-12. Compare measured bounds and critical dimensions with acceptance criteria.
-13. Qualify coupons and physical tests for every supported commercial claim.
-14. Package source, parameters, BOM, notices, exports, coupons, previews,
+13. Compare measured bounds and critical dimensions with acceptance criteria.
+14. Qualify coupons and physical tests for every supported commercial claim.
+15. Package source, parameters, BOM, notices, exports, coupons, previews,
     reports, and README only after applicable gates pass.
 
 ## Validation Truthfulness

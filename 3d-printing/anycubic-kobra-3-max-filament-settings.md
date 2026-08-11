@@ -5,7 +5,7 @@
 **Build plate:** Stock textured PEI  
 **Slicer:** Anycubic Slicer Next, Advanced mode; field names checked against v2.3.0 commit `70931e5`  
 **Profile goal:** Fast, reliable printing without sacrificing visible-wall and top-surface quality  
-**Research dates:** 1 August 2026; EONO/GRATKIT update 6 August 2026
+**Research dates:** 1 August 2026; EONO/GRATKIT update 6 August 2026; TPU/variable-layer update 11 August 2026
 
 All profile tables below are **derived starting recommendations**, not manufacturer presets. Dry the filament and run the calibration sequence before treating any pressure-advance, flow, or maximum-volumetric-speed value as final. The 0.4 mm Kobra 3 Max values were checked against [Anycubic's pinned Max profile commit](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/commit/987a3c2bf9ed13934137326bfd522896c70e5101). The 0.8 mm geometry and fallback deltas were checked against the exact Max machine and process profiles in pinned [OrcaSlicer commit `972dae2`](https://github.com/OrcaSlicer/OrcaSlicer/commit/972dae22afdadc3251d05e10c2d6f00c35e6b83a), because the pinned Anycubic tree contains no Max 0.8 profile. Verify the values in your installed configuration bundle because bundled and cloud profiles can differ.
 
@@ -21,6 +21,7 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | TPU preparation | Purge old PLA/PETG completely. A clean nozzle or dedicated TPU hotend is useful if flexible filament buckles before the nozzle. Print one object at a time and avoid retract-heavy geometry. |
 | PETG plate | Wash with dish soap, preheat the large bed for about 10 minutes, and let it cool before removal. Use a thin glue layer as a **release barrier** if PETG bonds too strongly. |
 | Tri-color Silk PLA | Treat both coextruded Silk filaments as decorative materials. Inspect cardboard-spool winding and brittleness before a long print, test direct external feeding before relying on ACE Pro, and rotate the model around Z to choose which colors dominate each visible face. Slower outer walls preserve gloss better than headline high-speed settings. |
+| Variable layer height | Apply it per selected object in `Prepare`, not in the filament preset. Use the exact printer preset's layer-height limits, keep the first layer fixed, and inspect `Layer height`, `Volumetric flow rate (mm³/s)`, `Speed`, overhang, support, and shell-thickness previews before printing. Organic/default tree supports cannot be sliced with a genuinely variable layer profile. |
 | Pressure advance | Use one PA source only. Enabling PA in a filament preset replaces printer/auto-calibrated PA; commands are not additive and the last emitted command wins. Calibrate after flow ratio. |
 | Profile inheritance | Use the exact Kobra 3 Max **printer** preset for the fitted nozzle. Unlisted filament/cooling fields inherit from the exact duplicated filament base in the preset index; unlisted process fields inherit from the exact duplicated process base. Only unchecked Setting Overrides inherit from the printer preset. Review all inherited values when the configuration bundle changes. |
 | Setting Overrides | In Filament > Setting Overrides, check the override box for every listed retraction, wipe, and Z-hop value, including explicit `Off` and `0 mm`. An unchecked box inherits the printer value. |
@@ -36,6 +37,7 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | Process > Quality | Layer height, line widths, `Walls printing order`, `Print infill first`, and seam position |
 | Process > Strength | Wall loops, top/bottom shell layers and minimum thickness, sparse infill density, and sparse infill pattern |
 | Process > Speed | Initial/feature/travel speeds and feature acceleration |
+| Prepare > Variable layer height | Per-object adaptive or manual layer-height profile; `Quality / Speed`, `Adaptive`, `Smooth`, radius, `Keep min`, and the vertical edit bar |
 | Printer > Extruder 1 > Size / Layer height limits | `Nozzle diameter` plus `Min` and `Max` layer height for the custom 0.8 mm printer preset |
 | Printer > Motion ability | Leave the installed Kobra 3 Max machine ceilings unchanged |
 
@@ -148,7 +150,7 @@ When an 0.8 filament preset was copied from a 0.4 base, first clear every retrac
 | GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
 | GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
 | GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
-| GEEETECH TPU 95A - N0.8 Safe Start | 0.8 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 starting value | 2.3 mm^3/s temporary cap | Off / 0 s until recalibrated | 50-55 deg C, 4-6 h; print from dryer if possible |
+| GEEETECH TPU 95A - N0.8 Safe Start | 0.8 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 starting value | 3.0 mm^3/s uncalibrated provisional cap | Off / 0 s until recalibrated | 50-55 deg C, 4-6 h; print from dryer if possible |
 | SUNLU TPU 95A - N0.8 Safe Start | 0.8 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 starting value | 3.2 mm^3/s temporary cap | Off / 0 s until recalibrated | 55 deg C, 8-12 h; continue from a drybox |
 | SUNLU PETG Black Standard - N0.8 Safe Start | 0.8 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 starting value | 10 mm^3/s temporary cap | Off / 0 s until recalibrated | 60-65 deg C, 6-8 h |
 | SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 0.8 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 starting value | 18 mm^3/s temporary cap | Off / 0 s until recalibrated | 50 deg C for at least 4 h if exposed or stringing |
@@ -157,7 +159,9 @@ When an 0.8 filament preset was copied from a 0.4 base, first clear every retrac
 
 Each 0.24/0.4 process has a separately named filament preset with the same material values as its 0.20 counterpart, avoiding ambiguous `0.20` names in the slicer. Each 0.8 mm filament preset is shared by its 0.20 and 0.40 mm process variants.
 
-`MVS` is maximum volumetric speed. It is the hard sustained-flow cap and matters more than the printer's headline speed. The 0.8 mm values deliberately reuse the proven 0.4 mm caps only for safe first prints; Orca states that MVS changes with nozzle diameter, so recalibrate before increasing them and keep 10-20% below the first failure or quality transition.
+`MVS` is maximum volumetric speed. It is the hard sustained-flow cap and matters more than the printer's headline speed. Most 0.8 mm rows deliberately reuse their current 0.4 mm caps only for safe first prints; those caps are profile values or derived starts, not measured nozzle-independent maxima. Orca states that MVS changes with nozzle diameter, so recalibrate every nozzle/material pair and keep 10-20% below the first repeatable failure or quality transition.
+
+GEEETECH's `2.3 mm^3/s` 0.4 mm value is derived from `0.45 mm x 0.20 mm x 25 mm/s = 2.25 mm^3/s`, rounded up; it was not measured in a volumetric-flow test. The cited 25 mm/s comment concerned a Kobra 3, omitted nozzle/layer/line-width geometry, and cannot prove an MVS for the Max. A 0.8 mm nozzle normally lowers nozzle pressure, so `3.0 mm^3/s` is used here as a modest **uncalibrated engineering estimate**, not a manufacturer or owner result. At 225 deg C, dry filament, and a short top feed, calibrate GEEETECH 0.8 from `2.0` to `5.0 mm^3/s` in `0.25 mm^3/s` steps; stop for roughness, weak/matte extrusion, clicking, gear slip, or filament escape, then retain only 80-90% of the first repeatable transition.
 
 The GEEETECH 45 deg C later bed, 25% minimum fan, PETG 75 deg C first-layer bed, SUNLU TPU 55 deg C/8-12 h drying cycle, and both Silk drying suggestions are derived Kobra/direct-drive starting values outside or between manufacturer bands. They are intentionally labeled recommendations, not manufacturer specifications.
 
@@ -216,8 +220,8 @@ Both 0.12 mm TPU profiles are experimental. First complete a representative 0.20
 | GEEETECH TPU 95A | 0.4 mm | 0.12 mm | 12 mm/s | 15 mm/s | 18 mm/s | 24 mm/s | 25 mm/s | 20 mm/s | 16 mm/s | 12 mm/s | 160 mm/s |
 | GEEETECH TPU 95A | 0.4 mm | 0.20 mm | 12 mm/s | 15 mm/s | 20 mm/s | 25 mm/s | 25 mm/s | 22 mm/s | 18 mm/s | 15 mm/s | 180 mm/s |
 | GEEETECH TPU 95A | 0.4 mm | 0.24 mm | 12 mm/s | 15 mm/s | 20 mm/s | 21 mm/s | 21 mm/s | 20 mm/s | 18 mm/s | 15 mm/s | 180 mm/s |
-| GEEETECH TPU 95A | 0.8 mm | 0.20 mm | 6 mm/s | 7 mm/s | 12 mm/s | 14 mm/s | 14 mm/s | 13 mm/s | 11 mm/s | 10 mm/s | 180 mm/s |
-| GEEETECH TPU 95A | 0.8 mm | 0.40 mm | 6 mm/s | 7 mm/s | 6 mm/s | 7 mm/s | 7 mm/s | 6 mm/s | 5 mm/s | 5 mm/s | 160 mm/s |
+| GEEETECH TPU 95A | 0.8 mm | 0.20 mm | 8 mm/s | 9 mm/s | 14 mm/s | 18 mm/s | 18 mm/s | 17 mm/s | 13 mm/s | 10 mm/s | 180 mm/s |
+| GEEETECH TPU 95A | 0.8 mm | 0.40 mm | 7 mm/s | 8 mm/s | 7 mm/s | 9 mm/s | 9 mm/s | 8 mm/s | 6 mm/s | 5 mm/s | 160 mm/s |
 | SUNLU TPU 95A | 0.4 mm | 0.12 mm | 20 mm/s | 20 mm/s | 30 mm/s | 45 mm/s | 50 mm/s | 40 mm/s | 30 mm/s | 20 mm/s | 180 mm/s |
 | SUNLU TPU 95A | 0.4 mm | 0.20 mm | 20 mm/s | 20 mm/s | 25 mm/s | 35 mm/s | 35 mm/s | 30 mm/s | 25 mm/s | 20 mm/s | 180 mm/s |
 | SUNLU TPU 95A | 0.4 mm | 0.24 mm | 20 mm/s | 20 mm/s | 25 mm/s | 29 mm/s | 29 mm/s | 28 mm/s | 25 mm/s | 20 mm/s | 180 mm/s |
@@ -244,7 +248,7 @@ Both 0.12 mm TPU profiles are experimental. First complete a representative 0.20
 | GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 15 mm/s | 20 mm/s | 30 mm/s | 45 mm/s | 55 mm/s | 45 mm/s | 28 mm/s | 20 mm/s | 250 mm/s |
 | GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 15 mm/s | 20 mm/s | 22 mm/s | 28 mm/s | 30 mm/s | 28 mm/s | 22 mm/s | 15 mm/s | 230 mm/s |
 
-For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `14/7 mm/s` for GEEETECH TPU, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for PETG, `110/55 mm/s` for High Speed PLA+, `49/24 mm/s` for EONO Silk, and `61/30 mm/s` for GRATKIT Silk at 0.20/0.40 mm layers. The table stays at or below those caps for extrusion features; travel is not flow-limited. Confirm in Preview using the `Flow` color scheme because the slicer's rounded bead model can differ slightly from the rectangular check.
+For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `18/9 mm/s` for GEEETECH TPU at the provisional 3.0 mm^3/s cap, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for PETG, `110/55 mm/s` for High Speed PLA+, `49/24 mm/s` for EONO Silk, and `61/30 mm/s` for GRATKIT Silk at 0.20/0.40 mm layers. The table stays at or below those caps for extrusion features; travel is not flow-limited. Confirm in Preview using `Volumetric flow rate (mm³/s)` because the slicer's rounded bead model can differ slightly from the rectangular check.
 
 ## Process Acceleration
 
@@ -320,9 +324,84 @@ Acceleration values are in `mm/s^2`. Lower outer/top acceleration is intentional
 
 Line-width values are in `mm`. The 0.8 mm values match the pinned Orca Max 0.8 process geometry. Paint or rotate the aligned seam onto a hidden edge per model; seam painting is not a reusable preset field.
 
+## Variable Layer Height
+
+One selected object can use different layer heights along Z, allowing fine layers on shallow slopes and curved regions and coarse layers on simple regions. In `Prepare`, select the model and open `Variable layer height` from the object toolbar. `Adaptive` generates a profile from object geometry; the `Quality / Speed` control biases it toward finer or coarser layers. `Smooth` applies a Gaussian transition filter, and manual editing uses the vertical profile bar. This is a per-object geometry tool, not a filament setting and not a local XY-region setting. Every feature in that object at a given Z shares the resulting layer plane.
+
+The configured machine limits, rather than nozzle diameter alone, constrain the adaptive tool. Orca's generic 20-80% guideline gives 0.08-0.32 mm for a 0.4 mm nozzle and 0.16-0.64 mm for a 0.8 mm nozzle, but those are not the Kobra 3 Max profile values. The exact pinned Max profiles are more conservative:
+
+| Nozzle | Orca generic guideline | Kobra 3 Max configured adaptive range | Referenced fixed process heights | Recommended first working window |
+|---:|---:|---:|---|---:|
+| 0.4 mm | 0.08-0.32 mm | **0.08-0.28 mm** | 0.08, 0.12, 0.16, 0.20, 0.24, 0.28 mm in the source bundle; this guide provides 0.12/0.20/0.24 | **0.12-0.24 mm** |
+| 0.8 mm | 0.16-0.64 mm | **0.16-0.56 mm** | 0.20, 0.24, 0.32, 0.40, 0.48 mm in the referenced Orca bundle; this guide provides 0.20/0.40 | **0.20-0.40 mm** |
+
+The configured endpoints are technical profile bounds, not universal quality recommendations. Do not raise the machine limits just to obtain more adaptive range. Layers near 20% of nozzle diameter can show low-flow inconsistency and greatly increase layer count; coarse layers reduce overhang support and may become MVS-limited. The first layer remains controlled by `Initial layer height` and should stay at the value in the selected process.
+
+### Choose And Enforce A Window
+
+Select a window by intersection, not by choosing only one table: start with the configured machine range, intersect it with the material range, then intersect that result with the object-type range. Use the highest of the three minima and the lowest of the three maxima. For example, a detailed GEEETECH TPU object with a 0.8 mm nozzle resolves to `0.24-0.28 mm`; a large simple GRATKIT Silk object resolves to `0.32-0.40 mm`.
+
+`Adaptive` normally uses the full Min/Max range of the active printer preset; the Quality/Speed slider does **not** enforce the practical windows below. Do not edit the stock printer preset. To enforce a reusable window, duplicate the exact nozzle-specific printer preset, save it with a clear name such as `Anycubic Kobra 3 Max 0.8 nozzle - VLH 0.24-0.32`, and narrow `Printer > Extruder 1 > Layer height limits > Min/Max`. Then duplicate the nearest process as a separate `VLH` process and set its nominal `Process > Quality > Layer height` **inside** that window, for example 0.28 mm for a 0.24-0.32 mm range; Slicer Next can reset an ordinary process height that falls outside the printer range. The separately configured Initial layer height may remain 0.40 mm for the 0.8 nozzle. Ensure the VLH process and filament remain compatible with the saved printer name. Alternatively, keep the stock preset, run Adaptive, manually constrain the vertical profile, and verify the actual minimum and maximum in Preview before printing; this is less repeatable. `Keep min` can preserve layers below the intended material floor if the machine bounds were not narrowed first.
+
+Current Orca and Slicer Next reject slicing when a genuinely variable custom layer profile is combined with Organic/default tree supports. Before applying VLH, disable supports or choose Normal support or a non-Organic tree style such as Slim, Strong, or Hybrid. The common inherited combination `tree(auto)` plus `default` style counts as Organic and will fail validation.
+
+### Adaptive Controls
+
+| Goal | Suggested VLH nominal layer | Quality / Speed start | Smooth radius | Keep min | Review before printing |
+|---|---|---|---:|---|---|
+| Maximum Z detail | Lower third of the chosen intersection; always inside printer Min/Max | First third toward Quality; approximately 0.20-0.40 if numeric | 3-5 | On for the smoothing pass | Thin features, small islands, supports, total layer count |
+| Balanced quality and time | Midpoint of the chosen intersection; always inside printer Min/Max | Near center; approximately 0.45-0.60 if numeric | 3-5 | On for the smoothing pass | Curves, overhangs, flow, speed, transition bands |
+| Large simple object | Middle or upper third of the chosen intersection; always inside printer Min/Max | Speed-side two-thirds; approximately 0.65-0.80 if numeric | 5-7 | On, then manually coarsen simple spans | MVS slowdowns, wall texture, top/bottom thickness |
+
+Radius is a profile-sample radius, not millimetres. A larger value spreads transitions over more layers. `Keep min` prevents smoothing from erasing already selected fine/detail regions. For manual edits, left-click makes an area finer, right-click makes it coarser, Shift+left resets toward the base height, Shift+right smooths, and the mouse wheel changes the edit width. Start with `Adaptive`, smooth once, then use manual edits only where the preview still shows obvious stepping or an unnecessarily fine vertical span.
+
+### Practical Windows By Material
+
+These are derived working windows inside the machine limits, not manufacturer presets. The Slicer tool itself is filament-agnostic, but flow stability, cooling, feed path, surface sheen, and layer adhesion are not.
+
+| Material | 0.4 mm practical min-max | 0.8 mm practical min-max | Material-specific use of the endpoints |
+|---|---:|---:|---|
+| GEEETECH TPU 95A | **0.16-0.24 mm**; 0.12 experimental | **0.24-0.40 mm** | Prefer 0.16-0.20 and 0.24-0.32 for reliable flexible parts. Use 0.12 only with the 1.6 mm^3/s detail cap; use 0.40 only on simple thick regions. |
+| SUNLU TPU 95A | **0.16-0.24 mm**; 0.12 experimental | **0.24-0.40 mm** | Thin layers multiply feed/retraction opportunities. Cyclic-flex parts favor no more than 0.32 mm with the 0.8 nozzle. |
+| SUNLU PETG Black | **0.12-0.28 mm** | **0.20-0.48 mm** | Use 0.28/0.48 only on simple or near-vertical regions. Refine undersides, hole roofs, and overhangs because PETG is prone to sag and stringing. |
+| SUNLU High Speed PLA+ 2.0 | **0.12-0.28 mm** | **0.20-0.48 mm** | Best candidate for the coarse speed endpoints, but only after nozzle-specific MVS calibration; high material speed does not remove overhang limits. |
+| EONO Silk PLA Red-Gold-Blue | **0.12-0.24 mm** | **0.20-0.40 mm** | Prefer a fixed or narrow band on uninterrupted showcase surfaces because height transitions can appear as sheen bands. No first-party EONO TDS was found. |
+| GRATKIT Silk PLA Blue-Purple-Black | **0.12-0.24 mm** | **0.20-0.40 mm** | Prefer a fixed or narrow band for uniform gloss. GRATKIT warns that excessive speed removes the Silk texture; 0.48 mm remains experimental. |
+
+### Windows By Object Type
+
+| Object type | 0.4 mm recommended min-max | 0.8 mm recommended min-max | Selection guidance |
+|---|---:|---:|---|
+| Detailed figurines and organic curves | **0.12-0.18 mm** | **0.20-0.28 mm** | Use finer layers on heads, backs, shoulders, chins, ears, arches, and shallow slopes. Prefer the 0.4 nozzle for small faces, text, fingers, and accessories because variable height improves Z resolution, not the 0.8 nozzle's XY bead width. |
+| General decorative models | **0.16-0.24 mm** | **0.24-0.32 mm** | Good default adaptive window. Coarsen low-curvature vertical spans, but inspect layer-line texture, seams, embedded detail, and transition bands. |
+| Mechanical, fitted, threaded, or dimensional parts | **0.16-0.20 mm** | **0.20-0.32 mm** | Keep bores, threads, snap fits, bearing shoulders, mating Z faces, and bridge roofs in a fixed fine height range. Validate dimensions with a coupon. |
+| Large simple boxes, organizers, brackets, and near-vertical shells | **0.20-0.28 mm** | **0.32-0.48 mm** | Best speed case. Refine fillets, chamfers, top curves, hole roofs, steep overhangs, and support contacts; tall Max prints still need conservative outer-wall acceleration. |
+| Vases and lampshades | **0.20-0.28 mm** | **0.32-0.48 mm** | Broad speed range for ordinary PLA/PETG. Use a narrow or fixed range for Silk to avoid optical bands, and include the actual wide vase line in the MVS calculation. |
+| Flexible TPU seals, bumpers, sleeves, and wearables | **0.16-0.24 mm** | **0.24-0.32 mm**; 0.40 simple only | Avoid extreme minima, supports, and frequent layer changes. Choose layer height and wall count together because thicker layers and extra walls alter flexibility and fatigue behavior. |
+
+Perfectly vertical, featureless walls gain little Z-contour accuracy from thin layers, so adaptive slicing often makes them coarser. They are not quality-neutral: layer texture, sheen, seams, small openings, and transitions can still change. Bridges also remain governed by bridge flow, speed, and cooling; variable layer height is not a substitute for bridge calibration.
+
+### Flow And Shell Safeguards
+
+The active filament MVS still applies at every local height. Approximate screening uses `flow = line width x actual layer height x speed`; therefore a thicker adaptive layer may force the slicer to reduce speed. This is especially important for TPU: coarse layers reduce layer count, but they may not reduce extrusion time proportionally when the job is already flow-limited. Always inspect `Preview > Volumetric flow rate (mm³/s)` and `Preview > Speed` instead of assuming the Speed side of the adaptive slider produced the expected time saving.
+
+The fixed-height profiles below intentionally set top/bottom minimum thickness to `0 mm` so their listed layer counts are authoritative. That is unsafe to assume for a variable-height job because four generated layers can represent very different physical thicknesses. Save a separate `VLH` process copy and set physical minimums before applying the tool:
+
+| Object goal | 0.4 mm top/bottom minimum | 0.8 mm top/bottom minimum |
+|---|---:|---:|
+| Figurine or decorative shell | 0.8-1.0 mm | 1.0-1.2 mm |
+| Mechanical shell print-quality start, not a structural rating | 1.0-1.2 mm | 1.2-1.6 mm |
+| Large simple part | 1.0-1.2 mm | 1.2-1.6 mm |
+| Vase mode | Top layers 0; start with 4-5 bottom layers and verify their summed 0.8-1.2 mm | Top layers 0; start with 3-4 bottom layers and verify their summed 1.2-1.6 mm |
+| Flexible TPU part | 0.8-1.0 mm, adjusted for desired flex | 1.0-1.2 mm, adjusted for desired flex |
+
+In vase mode, `Bottom shell layers` is the actionable control; the Bottom shell thickness field is disabled and cannot independently add enough layers. Sum the actual first N heights in Preview. For mechanical or structural parts, the table values are print-quality starting points only; load case, orientation, wall design, material condition, creep/fatigue behavior, and physical testing determine safety.
+
+After slicing, complete one final VLH check: confirm the actual minimum/maximum in `Layer height`, ensure `Volumetric flow rate (mm³/s)` remains below MVS, inspect Speed and compare estimated time with the fixed-height slice, check overhangs/bridges/support contacts, confirm thin walls remain, and verify top closure plus physical top/bottom thickness. Use a Height Range Modifier when a specific Z band must stay at a fixed layer height; an ordinary modifier mesh does not create independent XY-local layer planes.
+
 ## Strength
 
-For every custom process below, explicitly set `Top shell thickness = 0 mm` and `Bottom shell thickness = 0 mm`. This makes the listed layer counts authoritative; otherwise an inherited 1 mm minimum can turn four 0.24 mm top layers into five.
+For every **fixed-height** custom process below, explicitly set `Top shell thickness = 0 mm` and `Bottom shell thickness = 0 mm`. This does not apply to the separate `VLH` process copies described above, which require physical shell-thickness safeguards. For fixed-height profiles, zero makes the listed layer counts authoritative; otherwise an inherited 1 mm minimum can turn four 0.24 mm top layers into five.
 
 | Filament | Nozzle | Layer | Wall loops | Top shell layers | Bottom shell layers | Sparse infill density | Sparse infill pattern |
 |---|---:|---:|---:|---:|---:|---:|---|
@@ -364,7 +443,7 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | Material | Online experience | How it changed this profile |
 |---|---|---|
 | GEEETECH TPU 95A | A Kobra 3 owner completed two long prints, then repeatedly had GEEETECH 95A wrap around the extruder rollers. Retract-heavy small geometry was worse; slower speed and slicer changes did not reliably cure it. [Forum thread](https://forum.drucktipps3d.de/forum/thread/39344-kobra-3-tpu-problem-im-extruder/) | Conservative 20-25 mm/s extrusion, short top feed, clean hotend, wipe off, no layer-change retract, and a stop-and-inspect rule for clicking. |
-| GEEETECH TPU 95A | A Kobra 3 Max user reported about 25 mm/s as the reliable ceiling and clogging above it; other owners recommended a roughly six-inch top-fed tube. [Reddit](https://old.reddit.com/r/AnycubicOfficial/comments/1k4n3ou/any_tips_on_printing_tpu_on_anycubic_kobra_3_max/) | The Kobra-specific 25 mm/s evidence overrides faster generic reviews. |
+| GEEETECH TPU 95A | In a Kobra 3 Max discussion, one commenter reported 25 mm/s and clogging above it on a smaller Kobra 3; nozzle diameter, layer height, and line width were not stated. Other owners recommended a roughly six-inch top-fed tube. [Reddit](https://old.reddit.com/r/AnycubicOfficial/comments/1k4n3ou/any_tips_on_printing_tpu_on_anycubic_kobra_3_max/) | Supports a short feed path and a cautious linear-speed start, but does not establish Max-specific or nozzle-specific MVS. |
 | SUNLU TPU 95A | An X1C owner improved stringing with 200 deg C, flow 1.0, 4.5 mm^3/s, 0.8 mm at 25 mm/s retraction, 30-50% fan, and 100% bridge fan. [Bambu forum](https://forum.bambulab.com/t/settings-for-sunlu-tpu/34584) | Supports moderate temperature, short retraction, and localized high bridge cooling. The Max profile remains slower and lower-flow. |
 | SUNLU TPU 95A | An A1 owner found 50 deg C for 6 hours insufficient; 65 deg C for 12 hours improved wet-filament symptoms. [Reddit](https://old.reddit.com/r/FixMyPrint/comments/1uw2spm/issues_printing_tpu_honeycomb/) | The recommended 55 deg C for 8-12 hours is a conservative derived compromise; use a calibrated dryer and let the spool cool before feeding. |
 | SUNLU TPU 95A | A Qidi owner found reducing MVS only delayed failure; removing the PTFE tube enabled a 13-hour print. [Reddit](https://old.reddit.com/r/QidiTech3D/comments/1jzpg5s/q1_pro_tpu_issue_filament_feeding/) | Feed drag must be fixed before treating the problem as a nozzle or speed issue. |
@@ -425,6 +504,12 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 ### Slicer Behavior And Reference Profiles
 
 - [Anycubic Slicer Next parameter guide](https://wiki.anycubic.com/en/software-and-app/new-page-anycubic-slicer-beta(orca-version)/parameter-settings)
+- [Anycubic Slicer Next quick-start guide](https://wiki.anycubic.com/en/software-and-app/new-page-anycubic-slicer-beta%28orca-version%29/anycubic-slicer-next-slicing-software-quick-start-guide), used for the Prepare/object-tool context
+- [Orca Variable Layer Height](https://github.com/OrcaSlicer/OrcaSlicer/wiki/prepare_variable_layer_height) and [layer-height guidance](https://github.com/OrcaSlicer/OrcaSlicer/wiki/quality_settings_layer_height), including adaptive/manual behavior and the generic 20-80% nozzle guideline
+- [Current Anycubic Slicer Next validation source](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/blob/6103ed8b511609658d00d0538cc7f0609cdb57da/src/libslic3r/Print.cpp#L1163-L1173), which rejects variable layer height with Organic/default tree support
+- [Current Orca Organic-support validation](https://github.com/OrcaSlicer/OrcaSlicer/blob/b422636740623f5513692e103fc8af4433acdbf6/src/libslic3r/Print.cpp#L1455-L1464), which applies the same restriction
+- [Current Anycubic Slicer Next vase-mode field behavior](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/blob/6103ed8b511609658d00d0538cc7f0609cdb57da/src/slic3r/GUI/ConfigManipulation.cpp#L620-L621), which disables top/bottom thickness controls in vase mode
+- [Current Anycubic Slicer Next spiral-bottom processing](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/blob/6103ed8b511609658d00d0538cc7f0609cdb57da/src/libslic3r/PrintObject.cpp#L1276-L1285), which caps the vase base by Bottom shell layers
 - [Anycubic Slicer Next v2.3.0 commit `70931e5`](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/commit/70931e5321fa66966a5bfb251efca0e82307d427), used for field semantics; the repository publishes tags rather than GitHub releases
 - [Anycubic Kobra 3 Max 0.4 mm machine profile, pinned commit](https://raw.githubusercontent.com/ANYCUBIC-3D/AnycubicSlicerNext/987a3c2bf9ed13934137326bfd522896c70e5101/resources/profiles/Anycubic/machine/Anycubic%20Kobra%203%20Max%200.4%20nozzle.json)
 - [Anycubic Kobra 3 Max 0.20 mm process profile, pinned commit](https://raw.githubusercontent.com/ANYCUBIC-3D/AnycubicSlicerNext/987a3c2bf9ed13934137326bfd522896c70e5101/resources/profiles/Anycubic/process/0.20mm%20Standard%20%40Anycubic%20Kobra%203%20Max%200.4%20nozzle.json)

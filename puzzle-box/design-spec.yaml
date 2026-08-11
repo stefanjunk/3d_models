@@ -1,0 +1,184 @@
+# Mystery Puzzle Box — Design Specification
+# Revision: v1.1
+# Schema-migrated 2026-08-10: structural completion only (branding/printer/acceptance/approved_by).
+# No functional requirement changed; requirements + concept approvals remain valid for v1.1.
+
+project:
+  name: "Mystery Puzzle Box"
+  id: mystery-puzzle-box
+  revision: "v1.1"
+  owner: "stefan"
+  created: "2026-08-10"
+  description: >
+    Desktop puzzle box with hidden opening mechanism. Lid visually merges into body — no visible seam, hinge, or latch clue.
+    All exterior surfaces covered in dense, overlapping question marks of varying sizes.
+    Three question marks are functional buttons; the rest are decoys. Every mark (real and fake) has a small perimeter slit
+    so touch alone cannot distinguish buttons from decoration.
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: "v1.1"
+    approved_by: user
+    approved_at: "2026-08-10"
+  concept_approval:
+    status: approved
+    spec_revision: "v1.1"
+    asset: "concept_v1-v2.png"
+    approved_by: user
+    approved_at: "2026-08-10"
+  watermark_approval:
+    status: pending
+    spec_revision: null
+    geometry_revision: null
+    asset_id: JSI-WM-001-R1
+    variant: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    approved_by: null
+    approved_at: null
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+
+function:
+  summary: "Decorative puzzle box — user must discover which three question marks open the lid."
+  users: ["desk display owner, occasional puzzling"]
+  interfaces:
+    - "Lid seats on body rim; no visible seam"
+    - "Three ?-mark buttons push internal pins; any press order"
+    - "Latch holds lid via friction + latch pin"
+
+goal_and_scope:
+  function: "Decorative puzzle box — user must discover which three question marks open the lid."
+  included:
+    - Box body with internal cavity
+    - Lid that visually merges into body (no obvious seam)
+    - Three functional button question marks on different faces
+    - Many decoy question marks as visual camouflage
+    - Perimeter slit around every question mark (real and fake) for tactile ambiguity
+  excluded:
+    - Sequential press requirement (any order works)
+    - Electronic components or magnets
+    - Locking mechanism — friction + latch pin only
+
+geometry:
+  envelope_mm: { length: 250, width: 75, height: 75 }
+  wall_thickness_mm: 2.5
+  lid_thickness_mm: 3.0
+  internal_cavity: true
+  question_marks:
+    placement: "parametric — each ? is a discrete geometric element"
+    sizes: "multiple sizes, overlapping, no gaps between marks"
+    perimeter_slit: true
+    real_buttons: 3
+    decoys: "~40-60 depending on layout density"
+
+dimensions:
+  units: mm
+  envelope_mm: [250, 75, 75]
+
+mechanism:
+  type: "multi-button latch (no sequence)"
+  description: >
+    Three question-mark buttons on different faces each push an internal pin.
+    When all three pins are engaged (any order), a ratchet-style latch retracts,
+    releasing the lid. Releasing any one button re-engages the latch.
+    Lid held by friction + latch pin.
+  button_travel_mm: 1.5
+  tolerance_fit: "sliding friction — tuned for PLA at room temp"
+
+interfaces: {}
+
+duty:
+  load_class: "decorative / light handling"
+  cycle_target: "occasional opening/closing for fun"
+  service_life: "indefinite desk display"
+
+loads: []
+
+environment:
+  indoor_outdoor: indoor
+  temperature_c: [20, 25]
+  moisture: dry
+  uv: none
+
+risk:
+  class: "decorative"
+  hazards: []
+  assumptions:
+    - "No sharp edges expected at 2.5mm wall thickness with PLA"
+    - "Loose internal pin mechanism contained within sealed cavity"
+    - "Printer inferred from project context: Anycubic Kobra 3 Max (420x420x500 mm)"
+
+fabrication:
+  preference: "integrated-print"
+  assembly_target: "low (4-5 printed parts, no fasteners)"
+  repairability: "preferred — parts slide in/out without glue where possible"
+  printed_parts:
+    - body, quantity 1
+    - lid, quantity 1
+    - button-pin with integral return spring, quantity 3
+    - ratchet latch bolt, quantity 1
+    - pawl (spring leaf integrated into body), quantity 1
+  purchased_parts: []
+
+printer:
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420, 420, 500]
+  enclosure: false
+
+manufacturing:
+  process: "fdm-fff"
+  material: "PLA"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  supports: "minimize — design for support-free where possible"
+  assembly: "printed as body + lid + mechanism parts, assembled after printing"
+  target_formats: [step, 3mf, stl]
+
+appearance:
+  form_language: "clean rectangular block, no visible hardware"
+  texture: "dense overlapping question marks, all with perimeter slit"
+  color: "single-color print"
+  seam_visibility: "lid-body seam hidden by continuous ? pattern wrapping across it"
+
+deliverables:
+  - "design-spec.yaml (this file)"
+  - "parametric CadQuery source (.py)"
+  - "STEP export for body and lid"
+  - "3MF/STL for printing"
+  - "geometry validation report"
+
+acceptance:
+  - id: geometry-valid
+    criterion: "Exported manufacturing meshes are watertight with the intended body count (body 1, lid 1, buttons 3, bolt 1)."
+    method: "scripts/validate_mesh.py"
+  - id: bed-fit
+    criterion: "Intended orientation of every part fits the 420x420x500 mm build volume."
+    method: "slicer preflight"
+  - id: button-travel
+    criterion: "Each button-pin slides 1.5 mm in its guide bore without binding; return spring restores it."
+    method: "printed prototype, manual/force test"
+  - id: latch-release
+    criterion: "With all three buttons engaged (any order), the latch retracts and the lid lifts; releasing any one button re-engages the latch. 20 open/close cycles without failure."
+    method: "printed prototype, manual cycle test"
+  - id: seam-visual
+    criterion: "Closed box shows a continuous ? pattern across the lid-body seam; no visible seam line from 0.5 m."
+    method: "visual inspection of printed prototype"
+  - id: watermark-release
+    criterion: "The exact JSI-WM-001-R1 mark is recessed, readable from the finished underside, process-safe, and explicitly approved on the current geometry revision."
+    method: "references/watermark-release-gate.md"
+
+test_plan: test-plan.yaml
+
+outputs:
+  source: source/
+  exports: exports/
+  validation: validation/

@@ -1,6 +1,6 @@
 ---
 name: organic-mesh-functionalization
-description: Use when adding, replacing, aligning, or validating parametric functional geometry inside high-resolution organic STL, OBJ, 3MF, or GLB meshes while preserving protected decorative surfaces.
+description: Add, replace, align, and validate parametric functional geometry inside high-resolution organic STL/OBJ/3MF/GLB meshes while preserving protected decorative surfaces. Use for AI-generated or scanned meshes that need cavities, openings, stairs, doors, compartments, soles, mounting interfaces, inserts, or other printable functional features using Blender, OpenSCAD, CadQuery, FreeCAD, Trimesh, Manifold, voxel/SDF methods, or hybrid workflows.
 license: MIT
 compatibility: opencode
 metadata:
@@ -45,9 +45,7 @@ Prefer a local operation over a whole-model remesh. The default protected-surfac
 
 ## Required workflow
 
-1. **Triage input** — load `mesh-validation` for the immutable generic baseline,
-   then add domain-specific interpretation of units, holes, self-intersection
-   risk, and whether the mesh represents a surface or a solid.
+1. **Triage input** — inspect units, bounds, face count, body count, watertightness, winding, duplicate/degenerate faces, holes, self-intersection risk, and whether the mesh represents a surface or a solid.
 2. **Establish coordinates** — define landmarks, main axes, datum planes, and handedness. Apply object scale before dimensioning cutters.
 3. **Choose preservation strategy** — exact mesh Boolean, local remesh, shell patch, split-and-replace, separate assembly, or conformal interface.
 4. **Create parametric functional geometry** — use OpenSCAD/CadQuery/FreeCAD/Blender Python according to representation needs. Keep parameters and export tolerances explicit.
@@ -131,8 +129,8 @@ At minimum, validate:
 Use:
 
 ```bash
-python ../mesh-validation/scripts/validate_mesh.py input.stl --report baseline.json
-python ../mesh-validation/scripts/estimate_memory.py --mesh input.stl --voxel-mm 0.4
+python scripts/inspect_mesh.py input.stl --json-out baseline.json
+python scripts/estimate_memory.py --mesh input.stl --voxel-mm 0.4
 python scripts/validate_edit.py source.stl result.stl --plan operation-plan.yaml --json-out edit-report.json
 python scripts/section_report.py result.stl --axis z --positions 20 40 60 --json-out sections.json
 ```
@@ -184,11 +182,7 @@ Read `references/self-learning.md`. Record operation parameters, tool versions, 
 
 ## Subagents and external skills
 
-Use the system's semantic small worker for bounded mesh-report interpretation,
-formula checks, syntax fixes, transform calculations, source lookup, and test
-generation. Keep architecture, destructive operations, acceptance criteria,
-and final review in the primary agent. Never delegate an unbounded
-high-resolution Boolean job without memory and output limits.
+Use a fast coding/research subagent for bounded tasks such as mesh-report interpretation, formula checks, OpenSCAD syntax fixes, transform calculations, source lookup, and test generation. Keep architecture, destructive operations, acceptance criteria, and final review in the primary agent. A model such as GPT-5.3 Codex Spark can be configured in the included microtask agent example; never delegate an unbounded high-resolution Boolean job without memory and output limits.
 
 Load external skills or MCPs only when they add an actual capability: Blender control, FreeCAD/CadQuery execution, OpenSCAD rendering, slicer CLI, or parts libraries. Pin versions and treat arbitrary code execution as privileged. Read `references/external-integrations.md`.
 

@@ -1,10 +1,9 @@
 ---
-description: Add test-backed knowledge from a completed design to the local parts library
-agent: 3d-design
+description: Record validated component evidence for later local reuse
+agent: parts-librarian
+subtask: true
 ---
 
-Apply the canonical `functional-3d-design` evidence-backed parts-library workflow to:
+Load the `functional-3d-design` skill with the native skill tool.
 
-$ARGUMENTS
-
-Preserve source/provenance, process identity, geometry validation, test evidence, failure modes, and confidence. Do not promote a part to `qualified-local` without linked validation and physical evidence.
+Evaluate the component or test evidence described by `$ARGUMENTS`. Use the supplied parts-library and test-record scripts and schemas. Record source, version, license or supplier identifier, printer/material/nozzle/profile identity, validation evidence, limitations, and status. Never promote a component to `qualified-local` unless the required geometry checks and linked physical test evidence exist. Return the record changed, status decision, supporting evidence, and unresolved limitations.

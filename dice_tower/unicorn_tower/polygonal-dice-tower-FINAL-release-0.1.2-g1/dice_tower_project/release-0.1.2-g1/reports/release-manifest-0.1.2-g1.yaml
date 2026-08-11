@@ -1,0 +1,54 @@
+project: polygonal-dice-tower-functionalization
+spec_revision: 0.1.2
+geometry_revision: 0.1.2-g1
+release_status: FINAL-digitally-validated
+approved_at: 2026-08-11T12:03:42+02:00
+approved_by: user
+release_scope: technical-3d-model-package
+
+source:
+  original_sha256: fb642c430d34142095107f1f35327568c8f6cb25c6d5e5c4c226d38d68c831e3
+  original_preserved: true
+
+final_artifact:
+  path: result/polygonal-dice-tower-FINAL-0.1.2-g1.stl
+  size_bytes: 845784
+  sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+  approved_candidate_path: result/polygonal-dice-tower-DRAFT-watermarked-0.1.2-g1.stl
+  approved_candidate_sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+  byte_identical_to_approved_candidate: true
+  geometry_changed_after_approval: false
+
+validation:
+  final_gate: PASS
+  final_topology: PASS
+  watertight: true
+  connected_body_count: 1
+  positive_volume: true
+  triangle_count: 16914
+  dice_path_25_mm: PASS-94-of-94
+  geometry_regression: PASS
+  watermark_geometry: PASS-approved
+  slicer_gcode: OPEN
+  physical_drop_test: OPEN
+
+critical_evidence:
+  - path: reports/production-geometry-review-0.1.2-g1.jpg
+    sha256: e5ec670b9819d6caf47097bce83477600875129f1bede498b9ac2e39680d07c9
+  - path: reports/geometry-validation-0.1.2-g1.json
+    sha256: 1b5b73bdae52cf90eb0afbfba7786efe723fa12eea957f3a9c6059ecf32d308d
+  - path: reports/dice-path-0.1.2-g1.json
+    sha256: c604d3495a93b25cc9cc4d779c59053ab5b317d3b58ba59b80c7c5f4587409c2
+  - path: reports/watermark-validation-0.1.2-g1.json
+    sha256: 0d8e0081345c47ed587e619436a2d1428165dfe7e2597b3e461abbd0fd362744
+  - path: reports/topology-FINAL-0.1.2-g1.json
+    sha256: 90568c4ad01e6c3b872877264e2aa813ef23beba545a2363e9b59ee395dd3b9c
+  - path: reports/design-spec-final-approval-0.1.2-g1.json
+    sha256: 479903a72abd6a3947431b8aa3c435113e11c36d0268cb475fa0688a8d9fb70c
+  - path: reports/final-model-result-0.1.2-g1.md
+    sha256: 3aeb0f2c905174bfbbcd49cff9ba9bf6f9b86f3ea06dd70da3bef795119e35b0
+
+release_boundaries:
+  - Physical fall behavior is not qualified until the documented real drop tests pass.
+  - The selected slicer profile and generated G-code remain user/process specific and require review.
+  - This technical release does not by itself establish IP clearance, marketplace permission, or global product compliance.

@@ -1,0 +1,309 @@
+{
+  "generated_utc": "2026-08-10T08:52:59.510Z",
+  "revision": "1.1.2",
+  "quality": "final",
+  "generator": "Node.js + manifold-3d WASM; image-derived uint16 height-map cutter",
+  "parameters": {
+    "width": 320,
+    "depth": 230,
+    "housingHeight": 146,
+    "sorterHeight": 68,
+    "housingWall": 3.2,
+    "backWall": 2.4,
+    "shelf": 3.2,
+    "housingRadius": 12,
+    "drawerBodyWidth": 312.7,
+    "drawerDepth": 224.5,
+    "drawerBodyStartY": 3.1,
+    "drawerBodyHeight": 62.5,
+    "drawerFrontWidth": 315.3,
+    "drawerFrontReveal": 2.35,
+    "drawerFrontDepth": 3.6,
+    "drawerFrontRadius": 9.65,
+    "drawerFrontHeight": 65.2,
+    "drawerWall": 2.2,
+    "drawerBottom": 2.2,
+    "sorterBottom": 3,
+    "sorterRadius": 12,
+    "pegSize": 8,
+    "pegHeight": 2.8,
+    "socketSize": 8.6,
+    "socketDepth": 3.2,
+    "textureDepth": 0.32,
+    "textureOverlap": 0.08,
+    "textureTileW": 36,
+    "textureTileH": 36,
+    "texturePitch": 0.3,
+    "textureMarginZ": 3,
+    "simplifyTolerance": 0.018,
+    "curveSegments": 64
+  },
+  "heightmap": {
+    "source": "assets/concept/carbon_twill_heightmap_16bit_v1.png",
+    "source_bit_depth": 16,
+    "source_pixels": [
+      1024,
+      1024
+    ],
+    "source_range_u16": [
+      5198,
+      60342
+    ],
+    "prepared_file": "assets/carbon_twill_height_samples_u16.raw",
+    "prepared_pixels": [
+      120,
+      120
+    ],
+    "prepared_bit_depth": 16,
+    "tile_size_mm": [
+      36,
+      36
+    ],
+    "sample_pitch_mm": [
+      0.3,
+      0.3
+    ],
+    "periodic_u": true,
+    "periodic_v": true,
+    "normalization": "source minimum to 0; source maximum to 65535"
+  },
+  "mapping": {
+    "operation": "engraving",
+    "white_is": "maximum_depth",
+    "u": "continuous surface arc length",
+    "v": "world Z",
+    "housing": "right side through rear to left side",
+    "sorter": "full rounded perimeter, periodic seam at rear center",
+    "drawer": "housing-offset front curve; handles masked"
+  },
+  "parts": [
+    {
+      "name": "housing_print",
+      "bounds": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          320,
+          148.79999999999998,
+          230
+        ]
+      ],
+      "size": [
+        320,
+        148.79999999999998,
+        230
+      ],
+      "triangles": 1467224,
+      "volume_mm3": 984030.8323237799,
+      "surface_area_mm2": 654200.0946981347,
+      "status": "NoError"
+    },
+    {
+      "name": "drawer_print",
+      "bounds": [
+        [
+          2.4368112087249756,
+          2.350000001490116,
+          0
+        ],
+        [
+          317.5662536621094,
+          227.6,
+          65.2
+        ]
+      ],
+      "size": [
+        315.1294424533844,
+        225.24999999850988,
+        65.2
+      ],
+      "triangles": 239554,
+      "volume_mm3": 323584.8886085266,
+      "surface_area_mm2": 270210.4189787036,
+      "status": "NoError"
+    },
+    {
+      "name": "top_sorter_print",
+      "bounds": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          320,
+          230,
+          68
+        ]
+      ],
+      "size": [
+        320,
+        230,
+        68
+      ],
+      "triangles": 1012370,
+      "volume_mm3": 698487.3935718285,
+      "surface_area_mm2": 382069.4555786469,
+      "status": "NoError"
+    },
+    {
+      "name": "fit_coupon",
+      "bounds": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          96.80000000000001,
+          75,
+          12
+        ]
+      ],
+      "size": [
+        96.80000000000001,
+        75,
+        12
+      ],
+      "triangles": 160,
+      "volume_mm3": 22932.000000000004,
+      "surface_area_mm2": 17230.8,
+      "status": "NoError"
+    },
+    {
+      "name": "texture_coupon",
+      "bounds": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          90,
+          20,
+          55
+        ]
+      ],
+      "size": [
+        90,
+        20,
+        55
+      ],
+      "triangles": 65532,
+      "volume_mm3": 15423.952407780698,
+      "surface_area_mm2": 14177.96629212847,
+      "status": "NoError"
+    }
+  ],
+  "cutters": [
+    {
+      "name": "housing_cutter",
+      "bounds": [
+        [
+          -0.07999999821186066,
+          12,
+          3
+        ],
+        [
+          320.0799865722656,
+          230.0800018310547,
+          143
+        ]
+      ],
+      "size": [
+        320.1599865704775,
+        218.0800018310547,
+        140
+      ],
+      "triangles": 1750566,
+      "volume_mm3": 25480.00435654808,
+      "surface_area_mm2": 210734.74144584723,
+      "status": "NoError"
+    },
+    {
+      "name": "drawer_cutter",
+      "bounds": [
+        [
+          2.2699999809265137,
+          2.2699999809265137,
+          -0.10000000149011612
+        ],
+        [
+          317.7300109863281,
+          12,
+          65.30000305175781
+        ]
+      ],
+      "size": [
+        315.4600110054016,
+        9.730000019073486,
+        65.40000305324793
+      ],
+      "triangles": 259562,
+      "volume_mm3": 4789.101025600797,
+      "surface_area_mm2": 39874.58706686799,
+      "status": "NoError"
+    },
+    {
+      "name": "sorter_cutter",
+      "bounds": [
+        [
+          -0.07999999821186066,
+          -0.07999999821186066,
+          3
+        ],
+        [
+          320.0799865722656,
+          230.0800018310547,
+          65
+        ]
+      ],
+      "size": [
+        320.1599865704775,
+        230.16000182926655,
+        62
+      ],
+      "triangles": 1161476,
+      "volume_mm3": 16316.86381991489,
+      "surface_area_mm2": 135616.67625222582,
+      "status": "NoError"
+    },
+    {
+      "name": "texture_coupon_cutter",
+      "bounds": [
+        [
+          0,
+          7.920000076293945,
+          4
+        ],
+        [
+          90,
+          8.298261642456055,
+          51
+        ]
+      ],
+      "size": [
+        90,
+        0.3782615661621094,
+        47
+      ],
+      "triangles": 74516,
+      "volume_mm3": 1031.7798645876583,
+      "surface_area_mm2": 8603.157062994125,
+      "status": "NoError"
+    }
+  ],
+  "mesh_cleanup": [
+    {
+      "name": "drawer_after_engraving",
+      "input_bodies": 4,
+      "retained_bodies": 1,
+      "discarded_bodies": 3,
+      "discarded_mm3": 0.10393549807549052,
+      "maximum_allowed_discarded_mm3": 0.2
+    }
+  ]
+}

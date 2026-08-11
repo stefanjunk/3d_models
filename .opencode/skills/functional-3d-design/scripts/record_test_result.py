@@ -1,50 +1,39 @@
 #!/usr/bin/env python3
-"""Append a physical test result and link it to a local part entry."""
-
+"""Append a test result and link it to a local parts-library entry."""
 from __future__ import annotations
 
 import argparse
 import datetime as dt
-import hashlib
 import json
 from pathlib import Path
 
-
-SKILL_ROOT = Path(__file__).resolve().parents[1]
+from common import DATA_ROOT
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--part-id", required=True)
-    parser.add_argument("--result", required=True, type=Path)
-    parser.add_argument("--library", type=Path, default=SKILL_ROOT / "data" / "parts-library.json")
-    parser.add_argument("--log", type=Path, default=SKILL_ROOT / "data" / "test-results.jsonl")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--part-id", required=True)
+    p.add_argument("--result", required=True, type=Path, help="JSON result file")
+    p.add_argument("--library", type=Path, default=DATA_ROOT / "parts-library.json")
+    p.add_argument("--log", type=Path, default=DATA_ROOT / "test-results.jsonl")
+    args = p.parse_args()
 
     result = json.loads(args.result.read_text(encoding="utf-8"))
     result.setdefault("recorded_at", dt.datetime.now(dt.timezone.utc).isoformat())
     result["part_id"] = args.part_id
     args.log.parent.mkdir(parents=True, exist_ok=True)
-    with args.log.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(result, ensure_ascii=False) + "\n")
+    with args.log.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(result, ensure_ascii=False) + "\n")
 
     library = json.loads(args.library.read_text(encoding="utf-8"))
-    entry = next((item for item in library.get("parts", []) if item.get("part_id") == args.part_id), None)
+    entry = next((x for x in library.get("parts", []) if x.get("part_id") == args.part_id), None)
     if entry is None:
         print(json.dumps({"passed": False, "error": "part not found", "log": str(args.log)}, indent=2))
         return 1
-    reference = {
-        "path": str(args.result),
-        "evidence_type": "physical-test",
-        "sha256": hashlib.sha256(args.result.read_bytes()).hexdigest(),
-        "passed": result.get("passed") is True,
-        "recorded_at": result["recorded_at"],
-        "part_revision": result.get("part_revision"),
-        "material_process": result.get("material_process", {}),
-        "measurements": result.get("measurements", {}),
-    }
-    if reference not in entry.setdefault("test_evidence", []):
-        entry["test_evidence"].append(reference)
+    evidence = entry.setdefault("test_evidence", [])
+    reference = {"path": str(args.result), "passed": bool(result.get("passed")), "recorded_at": result["recorded_at"]}
+    if reference not in evidence:
+        evidence.append(reference)
     args.library.write_text(json.dumps(library, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({"passed": True, "part_id": args.part_id, "log": str(args.log)}, indent=2))
     return 0

@@ -1,0 +1,181 @@
+project:
+  name: monolithic-geometric-hair-clip
+  revision: 5
+  units: mm
+  reconstruction_claim: functional-redesign
+  risk_class: normal-functional
+  status: experimental
+
+workflow:
+  requirements_approval:
+    status: approved
+    approved_by: user
+    spec_revision: 5
+    basis: "Revision 5 is a corrective implementation of the already-approved revision-4 requirement. The user explicitly requested that the latch end receive the same protruding whole-cell high-low contour as the hinge end. No functional or manufacturing requirement changed."
+    timestamp: "2026-08-10"
+  concept_approval:
+    status: approved
+    approved_by: user
+    spec_revision: 5
+    concept_asset: evidence/source/concept-r4.png
+    basis: "The approved revision-4 concept remains authoritative because it already depicts honeycomb continuing over both end zones. Revision 5 corrects the CAD end crop to match that approved depiction and the user's explicit clarification."
+    timestamp: "2026-08-10"
+
+goal:
+  statement: "One-piece, metal-free PETG hair clip for a short-to-medium ponytail"
+  source: user-stated
+  fabrication_preference: integrated-print
+  service: indoor daily use
+  excluded:
+    - separate elastic band
+    - metal spring or pin
+    - electronics
+    - use by children under 3 years
+
+coordinate_system:
+  x: clip length and hinge-to-latch direction
+  y: opening/closing plane
+  z: clip width and print build direction
+  origin: lower-left of the open-state print orientation
+
+geometry:
+  overall_length_nominal: 64.93
+  overall_height_nominal: 25.0
+  structural_body_width_nominal: 22.0
+  overall_width_with_honeycomb_nominal: 26.6
+  grip_zone_span_nominal: 34.2
+  shell_wall: 2.4
+  flexure_thickness: 1.6
+  latch_tongue_thickness: 1.6
+  flexure_effective_path_length: 21.2
+  lower_comb_teeth: 7
+  upper_comb_teeth: 6
+  lower_rail_non_bed_side:
+    central_functional_width_nominal: 12.5
+    full_width_retained_at_hinge_and_latch: true
+    transition: tapered-or-faceted
+    source: recommended
+  armor_hexagons:
+    orientation: pointy-end-along-clip-length-uniform-for-all-cells
+    across_flats_nominal: 10.0
+    groove_width_nominal: 0.8
+    raised_height_nominal: 0.9
+    longitudinal_fit_scale: 0.957
+    layout: one-continuous-staggered-honeycomb-grid
+    cells_per_row: [3, 4, 3, 4, 3]
+    rotation_policy: no-separate-or-90-degree-rotated-longitudinal-cells
+    bed_side_edge_policy: half-cells-permitted-at-build-plane
+    non_bed_side_edge_policy: whole-cells-only-with-alternating-high-low-outline
+    end_edge_policy: mirrored-whole-cell-high-low-contours-over-hinge-and-latch
+    minimum_fused_overlap_nominal: 2.0
+    top_rows: 5
+    bed_side_row_center_z_nominal: 0.0
+    dedicated_long_side_row: false
+    hinge_latch_transition: "remove standalone end blocks; continue honeycomb over the structural end zones"
+    source: recommended
+  state_as_exported: open-and-unlatched
+  evidence:
+    overall_length: requested-range
+    armor_language: observed-in-concept
+    concealed_geometry: inferred-functional-redesign
+
+interfaces:
+  hinge:
+    type: one-integral-c-flexure
+    width: 8.0
+    placement: "starts at the print-side face for support-free fabrication"
+    hard_stop: true
+  closure:
+    type: integral-cantilever-snap
+    release: press latch tongue inward while opening lower comb
+  hair_contact:
+    edge_policy: flat tooth tips and no knife edges
+
+appearance:
+  language: angular-faceted-masculine
+  shell: continuous bow with a single coherent raised honeycomb field
+  armor_coverage:
+    - full visible upper surface
+    - whole-cell outer edge on the long side opposite the print bed
+    - honeycomb continues over the hinge and latch structural zones instead of separate blocks
+  armor_grooves: clearly visible and continuous between neighboring hexagons
+  armor_edge_finish:
+    bed_side: half hexagons permitted where the build plane clips the first row
+    non_bed_side: complete hexagons with a staggered high-low silhouette along x
+    ends: complete honeycomb cells may form a stepped edge over hinge and latch
+  color_intent: anthracite-or-black
+  finish: matte-to-satin
+  visible_hardware: none
+
+manufacturing:
+  process: FDM-FFF
+  target_printer: Anycubic Kobra 3 Max
+  material: unfilled PETG
+  nozzle_supported: [0.4, 0.6]
+  recommended_nozzle: 0.4
+  layer_height_recommended: 0.20
+  orientation: "large side face on the build plate; model already exported with z_min = 0"
+  supports: none_expected
+  walls: 4
+  infill: "20-30% gyroid; local geometry is perimeter dominated"
+  cooling: "use the filament supplier's PETG profile; moderate rather than maximum cooling"
+  seam: "place away from the flexure roots and tooth tips"
+
+engineering_assumptions:
+  printed_petg_modulus_mpa_for_screening: 1200
+  flexure_tip_deflection_screening_mm: 3.5
+  flexure_force_screening_n: 3.6
+  flexure_strain_screening_percent: 1.9
+  note: "Curved large-deflection behavior and printed anisotropy make these screening estimates only."
+
+acceptance:
+  digital:
+    - one connected watertight STL body
+    - length between 50 and 65 mm
+    - toothed grip zone span 34.2 +/- 1 mm
+    - minimum designed flexure and latch thickness 1.6 mm
+    - positive volume and mass estimate below 20 g with PETG density 1.27 g/cm3
+    - armor cells use one uniform orientation and a true staggered honeycomb grid
+    - no dedicated 90-degree-rotated longitudinal armor row remains
+    - only the build-plate-side boundary may contain half hexagons
+    - the opposite long-side boundary contains whole hexagons and may alternate high-low along the clip axis
+    - nominal armor groove is at least 0.8 mm wide for a 0.4 mm nozzle
+    - standalone decorative blocks over the hinge and latch are absent
+    - whole honeycomb cells continue over the structural hinge/latch end zones without entering moving or release clearances
+    - hinge and latch ends have matching complete-cell high-low contours with equal 6.47 mm armor overhang beyond the structural shell
+    - overall X length remains at or below 65 mm after the mirrored end-cell correction
+    - unused central lower-rail material is removed on the non-bed side while full-width material remains at the hinge and latch interfaces
+    - all armor cells are fused to the main body with at least 2.0 mm designed overlap
+  physical:
+    - latch engages and releases without whitening or cracks
+    - 50 open-close cycles on the coupon before the full clip is accepted
+    - no sharp or rough skin-contact edges after deburring
+    - holds the intended ponytail for 30 minutes without painful pulling
+
+deliverables:
+  - parametric Manifold-3D JavaScript source
+  - STL print mesh
+  - 3MF geometry file in millimetres
+  - latch/flexure coupon STL
+  - preview render
+  - validation report and print instructions
+
+uncertainty:
+  - region: hidden-inner-geometry
+    level: high
+    resolution: engineered comb and flexure arrangement
+  - region: exact-camera-and-scale
+    level: high
+    resolution: requirements dimensions take precedence over perspective concept image
+  - region: petg-fatigue-life
+    level: high
+    resolution: experimental status plus coupon and cycle test
+  - region: revision-4-hexagon-scale
+    level: medium
+    resolution: "Recommended approval default: 10.0 mm across flats and 0.8 mm groove"
+  - region: revision-4-high-low-interpretation
+    level: medium
+    resolution: "Interpreted as a staggered outer edge made from whole cells, not alternating relief thickness"
+  - region: revision-5-longitudinal-fit
+    level: low
+    resolution: "The 10 mm key width and 0.8 mm grooves are retained; a 0.957 longitudinal scale keeps the mirrored whole-cell end contour inside the approved 65 mm length."

@@ -1,0 +1,19 @@
+{
+  "name": "hair-clip-project",
+  "version": "5.0.0",
+  "description": "Parametric monolithic PETG hair clip with a true honeycomb lattice",
+  "main": "hair_clip.mjs",
+  "scripts": {
+    "build": "node hair_clip.mjs",
+    "build:preview": "node hair_clip.mjs --preview",
+    "test": "npm run build && python3 validate_stl.py output/masculine-honeycomb-hair-clip-r5.stl --output validation/mesh-audit-clip-r5.json && python3 validate_stl.py output/hair-clip-latch-coupon-r5.stl --output validation/mesh-audit-coupon-r5.json && python3 validate_3mf.py output/masculine-honeycomb-hair-clip-r5.3mf --output validation/3mf-audit-r5.json && python3 validate_r5_features.py --metrics output/generation-metrics.json --mesh-audit validation/mesh-audit-clip-r5.json --output validation/revision5-feature-audit.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "fflate": "0.8.2",
+    "manifold-3d": "3.5.1"
+  }
+}

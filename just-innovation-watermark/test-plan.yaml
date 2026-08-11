@@ -1,0 +1,56 @@
+release_id: JSI-WM-001-R1
+status: ready-for-physical-validation
+scope: JuSt Innovation FDM underside watermark
+
+reference_process:
+  printer: Anycubic Kobra 3 Max
+  nozzle_mm: 0.40
+  layer_height_mm: 0.20
+  material: PLA or PETG
+  supports: none
+  coupon_orientation: six tile undersides flat on the build plate
+
+preflight:
+  - Confirm the slicer interprets all dimensions in millimetres.
+  - Confirm the coupon envelope is 110 x 40 x 2.40 mm.
+  - Confirm all six tiles are present and placed flat at Z=0.
+  - Confirm no automatic mesh repair changes the geometry.
+  - Record filament, nozzle, first-layer height, line width, XY compensation, plate type, and slicer version.
+
+coupon_map:
+  top_row_left_to_right:
+    profile: standard
+    engraving_depth_mm: [0.20, 0.40, 0.60]
+  bottom_row_left_to_right:
+    profile: compact
+    across_flats_mm: [8, 10, 12]
+    engraving_depth_mm: 0.40
+
+inspection:
+  visual:
+    - Read the marks from the finished underside under diffuse light.
+    - Check that JS, JuSt, INNO, VATION, and trace code remain distinguishable.
+    - Look for first-layer closure, elephant-foot fill, stringing, and bridging scars.
+  dimensional:
+    - Confirm the outer coupon dimensions and tile thickness.
+    - Spot-check one 0.80 mm stroke and one 0.60 mm nominal clear gap with suitable magnification.
+  tactile:
+    - Confirm the selected depth is perceptible but does not produce a sharp or weak edge.
+
+acceptance:
+  required:
+    - Standard profile is recognizable and correctly spelled at 0.40 mm depth.
+    - Compact profile is recognizable at 10 mm across flats.
+    - The bottom datum surrounding the mark remains flat.
+    - No detached islands, unintended closures, or layer delamination occur.
+    - The selected mark survives normal handling for the host product.
+  preferred:
+    - 0.20 mm depth remains legible when a subtler mark is needed.
+    - 8 mm compact remains recognizable for noncritical small-product use.
+
+decision:
+  pass: Record the chosen depth, first-layer settings, material, and plate as a qualified process profile.
+  conditional: Adjust first-layer or XY compensation and repeat the coupon.
+  fail: Do not deploy on production parts; revise size, gap, or depth and repeat digital plus physical validation.
+
+record_template: validation/physical-test-record.csv

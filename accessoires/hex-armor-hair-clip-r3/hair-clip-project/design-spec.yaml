@@ -1,0 +1,162 @@
+project:
+  name: monolithic-geometric-hair-clip
+  revision: 3
+  units: mm
+  reconstruction_claim: functional-redesign
+  risk_class: normal-functional
+  status: experimental
+
+workflow:
+  requirements_approval:
+    status: approved
+    approved_by: user
+    spec_revision: 3
+    basis: "User explicitly approved the structured revision-3 requirements in chat."
+    timestamp: "2026-08-10T15:15:18+02:00"
+  concept_approval:
+    status: approved
+    approved_by: user
+    spec_revision: 3
+    concept_asset: evidence/source/concept-r3.png
+    basis: "User explicitly approved the revision-3 concept in chat."
+    timestamp: "2026-08-10T15:25:07+02:00"
+
+goal:
+  statement: "One-piece, metal-free PETG hair clip for a short-to-medium ponytail"
+  source: user-stated
+  fabrication_preference: integrated-print
+  service: indoor daily use
+  excluded:
+    - separate elastic band
+    - metal spring or pin
+    - electronics
+    - use by children under 3 years
+
+coordinate_system:
+  x: clip length and hinge-to-latch direction
+  y: opening/closing plane
+  z: clip width and print build direction
+  origin: lower-left of the open-state print orientation
+
+geometry:
+  overall_length_nominal: 62.0
+  overall_height_nominal: 25.0
+  structural_body_width_nominal: 22.0
+  overall_width_with_complete_hexagons_nominal: 25.6
+  grip_zone_span_nominal: 34.2
+  shell_wall: 2.4
+  flexure_thickness: 1.6
+  latch_tongue_thickness: 1.6
+  flexure_effective_path_length: 21.2
+  lower_comb_teeth: 7
+  upper_comb_teeth: 6
+  lower_rail_non_bed_side:
+    central_functional_width_nominal: 12.5
+    full_width_retained_at_hinge_and_latch: true
+    transition: tapered-or-faceted
+    source: recommended
+  armor_hexagons:
+    orientation: pointy-end-along-clip-length
+    across_flats_nominal: 8.0
+    groove_width_nominal: 0.8
+    raised_height_nominal: 0.9
+    edge_policy: whole-cells-only
+    end_overhang_nominal: 1.2
+    minimum_fused_overlap_nominal: 2.0
+    top_rows: 3
+    top_cell_count: 23
+    non_bed_side_cell_count: 8
+    build_side_edge_policy: "first complete top row begins at z=0"
+    source: recommended
+  state_as_exported: open-and-unlatched
+  evidence:
+    overall_length: requested-range
+    armor_language: observed-in-concept
+    concealed_geometry: inferred-functional-redesign
+
+interfaces:
+  hinge:
+    type: one-integral-c-flexure
+    width: 8.0
+    placement: "starts at the print-side face for support-free fabrication"
+    hard_stop: true
+  closure:
+    type: integral-cantilever-snap
+    release: press latch tongue inward while opening lower comb
+  hair_contact:
+    edge_policy: flat tooth tips and no knife edges
+
+appearance:
+  language: angular-faceted-masculine
+  shell: continuous bow with raised full-hexagon armor plates
+  armor_coverage:
+    - full visible upper surface
+    - long outer face opposite the print bed
+    - visually continues across the hinge and latch end regions
+  armor_grooves: clearly visible and continuous between neighboring hexagons
+  armor_edge_finish: only complete hexagons; no cells clipped by the shell or end outline
+  color_intent: anthracite-or-black
+  finish: matte-to-satin
+  visible_hardware: none
+
+manufacturing:
+  process: FDM-FFF
+  target_printer: Anycubic Kobra 3 Max
+  material: unfilled PETG
+  nozzle_supported: [0.4, 0.6]
+  recommended_nozzle: 0.4
+  layer_height_recommended: 0.20
+  orientation: "large side face on the build plate; model already exported with z_min = 0"
+  supports: none_expected
+  walls: 4
+  infill: "20-30% gyroid; local geometry is perimeter dominated"
+  cooling: "use the filament supplier's PETG profile; moderate rather than maximum cooling"
+  seam: "place away from the flexure roots and tooth tips"
+
+engineering_assumptions:
+  printed_petg_modulus_mpa_for_screening: 1200
+  flexure_tip_deflection_screening_mm: 3.5
+  flexure_force_screening_n: 3.6
+  flexure_strain_screening_percent: 1.9
+  note: "Curved large-deflection behavior and printed anisotropy make these screening estimates only."
+
+acceptance:
+  digital:
+    - one connected watertight STL body
+    - length between 50 and 65 mm
+    - toothed grip zone span 34.2 +/- 1 mm
+    - minimum designed flexure and latch thickness 1.6 mm
+    - positive volume and mass estimate below 20 g with PETG density 1.27 g/cm3
+    - every visible armor cell is a complete six-sided hexagon
+    - nominal armor groove is at least 0.8 mm wide for a 0.4 mm nozzle
+    - terminal armor cells overhang the underlying hinge/latch silhouette by about 1.2 mm without entering moving or release clearances
+    - armor is present on the upper visible shell and the long outer face opposite the print bed
+    - unused central lower-rail material is removed on the non-bed side while full-width material remains at the hinge and latch interfaces
+    - all armor cells are fused to the main body with at least 2.0 mm designed overlap
+  physical:
+    - latch engages and releases without whitening or cracks
+    - 50 open-close cycles on the coupon before the full clip is accepted
+    - no sharp or rough skin-contact edges after deburring
+    - holds the intended ponytail for 30 minutes without painful pulling
+
+deliverables:
+  - parametric Manifold-3D JavaScript source
+  - STL print mesh
+  - 3MF geometry file in millimetres
+  - latch/flexure coupon STL
+  - preview render
+  - validation report and print instructions
+
+uncertainty:
+  - region: hidden-inner-geometry
+    level: high
+    resolution: engineered comb and flexure arrangement
+  - region: exact-camera-and-scale
+    level: high
+    resolution: requirements dimensions take precedence over perspective concept image
+  - region: petg-fatigue-life
+    level: high
+    resolution: experimental status plus coupon and cycle test
+  - region: revision-3-hexagon-scale
+    level: medium
+    resolution: "Approved defaults: 8.0 mm across flats, 0.8 mm groove and 1.2 mm end overhang"

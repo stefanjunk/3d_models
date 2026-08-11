@@ -1,0 +1,19 @@
+{
+  "name": "hair-clip-project",
+  "version": "2.0.0",
+  "description": "Parametric monolithic PETG geometric hair clip",
+  "main": "hair_clip.mjs",
+  "scripts": {
+    "build": "node hair_clip.mjs",
+    "build:preview": "node hair_clip.mjs --preview",
+    "test": "npm run build && python3 validate_stl.py output/masculine-geometric-hair-clip-r2.stl --output validation/mesh-audit-clip.json && python3 validate_stl.py output/hair-clip-latch-coupon-r2.stl --output validation/mesh-audit-coupon.json && python3 validate_3mf.py output/masculine-geometric-hair-clip-r2.3mf --output validation/3mf-audit.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "fflate": "0.8.2",
+    "manifold-3d": "3.5.1"
+  }
+}

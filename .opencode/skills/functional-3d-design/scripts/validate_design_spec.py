@@ -1,362 +1,178 @@
 #!/usr/bin/env python3
-"""Validate the minimum engineering package required before detailed CAD."""
-
+"""Perform structural checks on a design-spec YAML/JSON file."""
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
-from typing import Any
 
-from validate_design_intake import validate_intake_path
+from common import load_structured
 
-
-DECISIONS = {"PRINT", "BUY", "INTEGRATE", "ELIMINATE", "NEEDS_TEST"}
-NOZZLE_CLASSES = {0.4, 0.6, 0.8}
-PRIMARY_MATERIALS = {"PLA", "PETG"}
-SPECIALIST_MATERIALS = {"ABS", "ASA", "TPU", "PA-CF"}
-PLACEHOLDERS = {"tbd", "todo", "unknown", "n/a", "na", "later", "?"}
-TEST_TYPES = {"coupon", "dimensional", "assembly", "load", "life", "wear", "creep", "cycle", "slicer"}
-FUNCTION_TEST_TYPES = {"load", "life", "wear", "creep", "cycle"}
-COMPARATORS = {"<", "<=", "==", ">=", ">"}
-PROCESS_STATUSES = {"supported", "conditional", "unsupported", "unverified"}
-POLICY_PATH = (
-    Path(__file__).parents[2]
-    / "commercial-cad-provenance"
-    / "references"
-    / "commercial-license-policy.json"
-)
-
-
-def missing(record: dict[str, Any], fields: tuple[str, ...], prefix: str) -> list[str]:
-    return [f"{prefix}.{field}" for field in fields if record.get(field) in (None, "", [])]
-
-
-def meaningful(value: Any) -> bool:
-    if isinstance(value, str):
-        return bool(value.strip()) and value.strip().lower() not in PLACEHOLDERS
-    return value not in (None, "", [])
-
-
-def positive_number(value: Any) -> bool:
-    return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0
-
-
-def file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def resolve_inside(root: Path, relative_path: Any, label: str) -> tuple[Path | None, str | None]:
-    if not meaningful(relative_path):
-        return None, f"{label} is required"
-    path = (root / str(relative_path)).resolve()
-    if not path.is_relative_to(root.resolve()):
-        return None, f"{label} escapes project directory"
-    if not path.is_file():
-        return None, f"{label} does not exist"
-    return path, None
-
-
-def measurable_acceptance(value: Any) -> bool:
-    if not isinstance(value, dict):
-        return False
-    return (
-        meaningful(value.get("metric"))
-        and value.get("comparator") in COMPARATORS
-        and isinstance(value.get("value"), (int, float))
-        and not isinstance(value.get("value"), bool)
-        and meaningful(value.get("unit"))
-    )
-
-
-def validate(
-    spec: dict[str, Any],
-    provenance: dict[str, Any],
-    provenance_manifest: dict[str, Any],
-    provenance_manifest_hash: str,
-    manufacturing: dict[str, Any],
-) -> list[str]:
-    blockers = missing(
-        spec,
-        (
-            "project",
-            "intent",
-            "commercial_product",
-            "environment",
-            "customer_claims",
-            "assembly",
-            "design_intake",
-        ),
-        "root",
-    )
-    project = str(spec.get("project") or "")
-    if spec.get("commercial_product") is not True:
-        blockers.append("root.commercial_product must be true")
-    if not meaningful(spec.get("environment")):
-        blockers.append("root.environment")
-    claims = spec.get("customer_claims")
-    if not isinstance(claims, list) or not claims or not all(meaningful(claim) for claim in claims):
-        blockers.append("root.customer_claims must be a nonempty list")
-    assembly = spec.get("assembly")
-    if not isinstance(assembly, dict):
-        blockers.append("root.assembly must be structured")
-    else:
-        order = assembly.get("order")
-        if not isinstance(order, list) or not order or not all(meaningful(step) for step in order):
-            blockers.append("root.assembly.order")
-        for field in ("tool_access", "replacement_access"):
-            if not meaningful(assembly.get(field)):
-                blockers.append(f"root.assembly.{field}")
-    functions = spec.get("functions")
-    components = spec.get("components")
-    tests = spec.get("test_plan")
-    function_ids: set[str] = set()
-    component_ids: set[str] = set()
-    printed_component_ids: set[str] = set()
-
-    if not isinstance(functions, list) or not functions:
-        blockers.append("functions")
-    else:
-        for index, function in enumerate(functions):
-            blockers.extend(
-                missing(
-                    function,
-                    ("id", "description", "load_case", "life_requirement", "failure_modes"),
-                    f"functions[{index}]",
-                )
-            )
-            if meaningful(function.get("id")):
-                function_ids.add(str(function["id"]))
-            load_case = function.get("load_case")
-            if not isinstance(load_case, dict):
-                blockers.append(f"functions[{index}].load_case must be structured")
-            else:
-                if not positive_number(load_case.get("magnitude")):
-                    blockers.append(f"functions[{index}].load_case.magnitude")
-                for field in ("unit", "direction", "duration"):
-                    if not meaningful(load_case.get(field)):
-                        blockers.append(f"functions[{index}].load_case.{field}")
-            life = function.get("life_requirement")
-            if not isinstance(life, dict):
-                blockers.append(f"functions[{index}].life_requirement must be structured")
-            else:
-                if not positive_number(life.get("value")):
-                    blockers.append(f"functions[{index}].life_requirement.value")
-                if not meaningful(life.get("unit")):
-                    blockers.append(f"functions[{index}].life_requirement.unit")
-            modes = function.get("failure_modes")
-            if not isinstance(modes, list) or not modes or not all(meaningful(mode) for mode in modes):
-                blockers.append(f"functions[{index}].failure_modes")
-
-    if not isinstance(components, list) or not components:
-        blockers.append("components")
-    else:
-        for index, component in enumerate(components):
-            blockers.extend(missing(component, ("id", "decision", "reason"), f"components[{index}]"))
-            decision = component.get("decision")
-            if meaningful(component.get("id")):
-                component_ids.add(str(component["id"]))
-            if decision not in DECISIONS:
-                blockers.append(f"components[{index}].decision")
-            if decision == "NEEDS_TEST":
-                blockers.append(f"components[{index}].decision unresolved")
-            if decision in {"PRINT", "INTEGRATE"}:
-                if meaningful(component.get("id")):
-                    printed_component_ids.add(str(component["id"]))
-                blockers.extend(
-                    missing(
-                        component,
-                        ("material_class", "nozzle_classes", "geometry_origin", "provenance_item_id"),
-                        f"components[{index}]",
-                    )
-                )
-                nozzles = component.get("nozzle_classes")
-                if not isinstance(nozzles, list) or not nozzles or not set(nozzles).issubset(NOZZLE_CLASSES):
-                    blockers.append(f"components[{index}].nozzle_classes")
-                material = component.get("material_class")
-                if material not in PRIMARY_MATERIALS | SPECIALIST_MATERIALS:
-                    blockers.append(f"components[{index}].material_class")
-                if material in SPECIALIST_MATERIALS and not meaningful(
-                    component.get("specialist_material_reason")
-                ):
-                    blockers.append(f"components[{index}].specialist_material_reason")
-            if decision == "BUY" and not component.get("interface_dimensions_mm"):
-                blockers.append(f"components[{index}].interface_dimensions_mm")
-            if decision == "BUY" and not meaningful(component.get("dimensional_source")):
-                blockers.append(f"components[{index}].dimensional_source")
-
-    if not isinstance(tests, list) or not tests:
-        blockers.append("test_plan")
-        test_ids: set[str] = set()
-    else:
-        test_ids = set()
-        targeted_ids: set[str] = set()
-        function_tested_ids: set[str] = set()
-        for index, test in enumerate(tests):
-            blockers.extend(
-                missing(test, ("id", "type", "targets", "acceptance"), f"test_plan[{index}]")
-            )
-            if meaningful(test.get("id")):
-                test_ids.add(str(test["id"]))
-            if test.get("type") not in TEST_TYPES:
-                blockers.append(f"test_plan[{index}].type")
-            targets = test.get("targets")
-            if not isinstance(targets, list) or not targets:
-                blockers.append(f"test_plan[{index}].targets")
-            else:
-                for target in targets:
-                    if target not in component_ids | function_ids:
-                        blockers.append(f"test_plan[{index}].targets unknown {target}")
-                    else:
-                        targeted_ids.add(str(target))
-                        if target in function_ids and test.get("type") in FUNCTION_TEST_TYPES:
-                            function_tested_ids.add(str(target))
-            if not measurable_acceptance(test.get("acceptance")):
-                blockers.append(f"test_plan[{index}].acceptance must be measurable")
-        for component_id in sorted(printed_component_ids - targeted_ids):
-            blockers.append(f"component {component_id} has no linked test")
-        for function_id in sorted(function_ids - function_tested_ids):
-            blockers.append(f"function {function_id} has no linked load/life test")
-
-    if provenance.get("status") != "COMMERCIAL_LICENSE_PASS":
-        blockers.append("provenance_report is not COMMERCIAL_LICENSE_PASS")
-    if provenance.get("project") != project:
-        blockers.append("provenance_report project mismatch")
-    if provenance_manifest.get("project") != project:
-        blockers.append("provenance_manifest project mismatch")
-    if provenance.get("manifest_sha256") != provenance_manifest_hash:
-        blockers.append("provenance_report manifest hash mismatch")
-    if provenance.get("policy_sha256") != file_sha256(POLICY_PATH):
-        blockers.append("provenance_report policy hash mismatch")
-    approved_ids = set(provenance.get("approved_item_ids") or [])
-    if provenance.get("checked_items") != len(provenance_manifest.get("items") or []):
-        blockers.append("provenance_report checked_items mismatch")
-    for index, component in enumerate(components or []):
-        if component.get("decision") in {"PRINT", "INTEGRATE"}:
-            provenance_id = component.get("provenance_item_id")
-            if provenance_id not in approved_ids:
-                blockers.append(f"components[{index}].provenance_item_id not approved")
-
-    if manufacturing.get("project") != project:
-        blockers.append("manufacturing_profile project mismatch")
-    if manufacturing.get("strategy") != "generic-customer-qualified-fdm":
-        blockers.append("manufacturing_profile strategy")
-    matrix = manufacturing.get("support_matrix")
-    if not isinstance(matrix, list) or not matrix:
-        blockers.append("manufacturing_profile support_matrix")
-        matrix = []
-    entries: dict[tuple[str, float, str], dict[str, Any]] = {}
-    for index, entry in enumerate(matrix):
-        component_id = entry.get("component_id")
-        nozzle = entry.get("nozzle_mm")
-        material = entry.get("material")
-        status = entry.get("status")
-        if component_id not in printed_component_ids:
-            blockers.append(f"manufacturing_profile.support_matrix[{index}].component_id")
-        if nozzle not in NOZZLE_CLASSES:
-            blockers.append(f"manufacturing_profile.support_matrix[{index}].nozzle_mm")
-        if material not in PRIMARY_MATERIALS | SPECIALIST_MATERIALS:
-            blockers.append(f"manufacturing_profile.support_matrix[{index}].material")
-        if status not in PROCESS_STATUSES:
-            blockers.append(f"manufacturing_profile.support_matrix[{index}].status")
-        if component_id in printed_component_ids and nozzle in NOZZLE_CLASSES and material:
-            entries[(str(component_id), float(nozzle), str(material))] = entry
-        if status == "conditional":
-            coupons = entry.get("required_coupons")
-            if not isinstance(coupons, list) or not coupons:
-                blockers.append(f"manufacturing_profile.support_matrix[{index}].required_coupons")
-            elif not set(coupons).issubset(test_ids):
-                blockers.append(f"manufacturing_profile.support_matrix[{index}] unknown coupon")
-
-    for index, component in enumerate(components or []):
-        if component.get("decision") not in {"PRINT", "INTEGRATE"}:
-            continue
-        component_id = str(component.get("id"))
-        material = str(component.get("material_class"))
-        for nozzle in component.get("nozzle_classes") or []:
-            entry = entries.get((component_id, float(nozzle), material))
-            if not entry:
-                blockers.append(
-                    f"manufacturing_profile support_matrix missing {component_id}/{nozzle}/{material}"
-                )
-            elif entry.get("status") not in {"supported", "conditional"}:
-                blockers.append(
-                    f"manufacturing_profile support_matrix blocks {component_id}/{nozzle}/{material}"
-                )
-    return blockers
+REQUIRED_TOP = ["project", "workflow", "branding", "function", "risk", "fabrication", "printer", "manufacturing", "acceptance"]
+VALID_RISK = {"decorative", "normal-functional", "structural", "safety-critical"}
+VALID_MODE = {"integrated-print", "balanced-hybrid", "standard-hardware"}
+VALID_REQUIREMENTS_APPROVAL = {"pending", "approved", "changes-requested"}
+VALID_CONCEPT_APPROVAL = {"blocked", "pending", "approved", "changes-requested"}
+VALID_WATERMARK_APPROVAL = {"blocked", "pending", "approved", "changes-requested"}
+EXPECTED_WATERMARK_ASSET = "JSI-WM-001-R1"
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("spec")
-    parser.add_argument("--provenance-report", required=True)
-    parser.add_argument("--manufacturing-profile", required=True)
-    parser.add_argument("--report")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("spec")
+    p.add_argument("--json-out")
+    p.add_argument(
+        "--require-final-approval",
+        action="store_true",
+        help="Fail unless requirements, concept, and the current watermarked geometry are approved.",
+    )
+    args = p.parse_args()
 
-    spec_path = Path(args.spec).resolve()
-    project_root = spec_path.parent
-    spec = json.loads(spec_path.read_text(encoding="utf-8"))
-    blockers: list[str] = []
-    provenance_path, error = resolve_inside(
-        project_root, spec.get("provenance_report"), "root.provenance_report"
-    )
-    if error:
-        blockers.append(error)
-    manifest_path, error = resolve_inside(
-        project_root, spec.get("provenance_manifest"), "root.provenance_manifest"
-    )
-    if error:
-        blockers.append(error)
-    manufacturing_path, error = resolve_inside(
-        project_root, spec.get("manufacturing_profile"), "root.manufacturing_profile"
-    )
-    if error:
-        blockers.append(error)
-    intake_path, error = resolve_inside(
-        project_root, spec.get("design_intake"), "root.design_intake"
-    )
-    if error:
-        blockers.append(error)
-    if provenance_path and provenance_path != Path(args.provenance_report).resolve():
-        blockers.append("CLI provenance report differs from design spec")
-    if manufacturing_path and manufacturing_path != Path(args.manufacturing_profile).resolve():
-        blockers.append("CLI manufacturing profile differs from design spec")
-    if intake_path:
-        intake_blockers = validate_intake_path(intake_path, str(spec.get("project")))
-        blockers.extend(
-            "design_intake project mismatch"
-            if blocker == "project does not match expected project"
-            else blocker
-            for blocker in intake_blockers
-        )
+    data = load_structured(args.spec)
+    errors: list[str] = []
+    warnings: list[str] = []
 
-    provenance = json.loads(provenance_path.read_text(encoding="utf-8")) if provenance_path else {}
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path else {}
-    manufacturing = (
-        json.loads(manufacturing_path.read_text(encoding="utf-8"))
-        if manufacturing_path
-        else {}
-    )
-    if not blockers:
-        blockers.extend(
-            validate(
-                spec,
-                provenance,
-                manifest,
-                file_sha256(manifest_path),
-                manufacturing,
-            )
-        )
-    status = "ENGINEERING_DECISION_PASS" if not blockers else "ENGINEERING_DECISION_BLOCKED"
-    report = {"status": status, "project": spec.get("project"), "blockers": blockers}
-    if args.report:
-        target = Path(args.report)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(report, indent=2))
-    return 0 if not blockers else 2
+    for key in REQUIRED_TOP:
+        if key not in data:
+            errors.append(f"missing top-level field: {key}")
+
+    project_revision = data.get("project", {}).get("revision") if isinstance(data.get("project"), dict) else None
+    workflow = data.get("workflow")
+    if not isinstance(workflow, dict):
+        errors.append("workflow must contain requirements_approval, concept_approval, and watermark_approval")
+        requirements_approval = {}
+        concept_approval = {}
+        watermark_approval = {}
+    else:
+        requirements_approval = workflow.get("requirements_approval", {})
+        concept_approval = workflow.get("concept_approval", {})
+        watermark_approval = workflow.get("watermark_approval", {})
+
+    if not isinstance(requirements_approval, dict):
+        errors.append("workflow.requirements_approval must be an object")
+        requirements_approval = {}
+    if not isinstance(concept_approval, dict):
+        errors.append("workflow.concept_approval must be an object")
+        concept_approval = {}
+    if not isinstance(watermark_approval, dict):
+        errors.append("workflow.watermark_approval must be an object")
+        watermark_approval = {}
+
+    requirements_status = requirements_approval.get("status")
+    concept_status = concept_approval.get("status")
+    watermark_status = watermark_approval.get("status")
+    if requirements_status not in VALID_REQUIREMENTS_APPROVAL:
+        errors.append(f"workflow.requirements_approval.status must be one of {sorted(VALID_REQUIREMENTS_APPROVAL)}")
+    if concept_status not in VALID_CONCEPT_APPROVAL:
+        errors.append(f"workflow.concept_approval.status must be one of {sorted(VALID_CONCEPT_APPROVAL)}")
+    if watermark_status not in VALID_WATERMARK_APPROVAL:
+        errors.append(f"workflow.watermark_approval.status must be one of {sorted(VALID_WATERMARK_APPROVAL)}")
+
+    if requirements_status == "approved":
+        if requirements_approval.get("spec_revision") != project_revision:
+            errors.append("requirements approval must reference the current project revision")
+        if not requirements_approval.get("approved_by"):
+            errors.append("approved requirements need approved_by")
+    if requirements_status != "approved" and concept_status != "blocked":
+        errors.append("concept approval must be blocked until requirements are approved")
+    if concept_status != "approved" and watermark_status != "blocked":
+        errors.append("watermark approval must be blocked until concept approval")
+    if concept_status == "approved":
+        if requirements_status != "approved":
+            errors.append("concept cannot be approved before requirements")
+        if concept_approval.get("spec_revision") != project_revision:
+            errors.append("concept approval must reference the current project revision")
+        if not concept_approval.get("asset"):
+            errors.append("approved concept needs an asset reference")
+        if not concept_approval.get("approved_by"):
+            errors.append("approved concept needs approved_by")
+    elif requirements_status == "approved":
+        warnings.append("production CAD remains gated until concept approval")
+
+    if watermark_approval.get("asset_id") != EXPECTED_WATERMARK_ASSET:
+        errors.append(f"watermark approval must use asset_id {EXPECTED_WATERMARK_ASSET}")
+    if watermark_status == "approved":
+        if concept_status != "approved":
+            errors.append("watermark cannot be approved before concept approval")
+        if watermark_approval.get("spec_revision") != project_revision:
+            errors.append("watermark approval must reference the current project revision")
+        if not watermark_approval.get("geometry_revision"):
+            errors.append("approved watermark needs an immutable geometry_revision or hash")
+        if watermark_approval.get("variant") not in {"standard", "compact"}:
+            errors.append("approved watermark variant must be standard or compact")
+        for field in ("placement", "preview_asset", "validation_asset", "approved_by"):
+            if not watermark_approval.get(field):
+                errors.append(f"approved watermark needs {field}")
+    elif concept_status == "approved":
+        warnings.append("final release remains gated until watermark approval")
+
+    branding = data.get("branding")
+    if not isinstance(branding, dict):
+        errors.append("branding must define the mandatory JuSt Innovation watermark")
+        branding = {}
+    if branding.get("required") is not True:
+        errors.append("branding.required must be true")
+    if branding.get("brand") != "JuSt Innovation":
+        errors.append("branding.brand must be JuSt Innovation")
+    if branding.get("asset_id") != EXPECTED_WATERMARK_ASSET:
+        errors.append(f"branding.asset_id must be {EXPECTED_WATERMARK_ASSET}")
+    if branding.get("operation") != "recessed":
+        errors.append("branding.operation must be recessed")
+    if branding.get("preferred_surface") != "print-bed-facing-underside":
+        errors.append("branding.preferred_surface must be print-bed-facing-underside")
+    depth = branding.get("depth_mm")
+    if not isinstance(depth, (int, float)) or not 0.2 <= depth <= 0.8:
+        errors.append("branding.depth_mm must be between 0.2 and 0.8 mm")
+    elif abs(depth - 0.4) > 1e-9:
+        warnings.append("non-default watermark depth requires project-specific validation and approval")
+
+    if args.require_final_approval:
+        if requirements_status != "approved":
+            errors.append("final release requires approved requirements")
+        if concept_status != "approved":
+            errors.append("final release requires approved concept")
+        if watermark_status != "approved":
+            errors.append("final release requires approved watermarked geometry")
+
+    risk = data.get("risk", {}).get("class") if isinstance(data.get("risk"), dict) else None
+    if risk not in VALID_RISK:
+        errors.append(f"risk.class must be one of {sorted(VALID_RISK)}")
+
+    mode = data.get("fabrication", {}).get("preference") if isinstance(data.get("fabrication"), dict) else None
+    if mode not in VALID_MODE:
+        errors.append(f"fabrication.preference must be one of {sorted(VALID_MODE)}")
+
+    nozzle = data.get("manufacturing", {}).get("nozzle_mm") if isinstance(data.get("manufacturing"), dict) else None
+    if nozzle is None or not isinstance(nozzle, (int, float)) or nozzle <= 0:
+        errors.append("manufacturing.nozzle_mm must be positive")
+    elif nozzle not in (0.4, 0.6, 0.8):
+        warnings.append("nonstandard nozzle: ensure an explicit profile and feature calibration")
+
+    build = data.get("printer", {}).get("build_volume_mm") if isinstance(data.get("printer"), dict) else None
+    if not isinstance(build, list) or len(build) != 3 or not all(isinstance(v, (int, float)) and v > 0 for v in build):
+        errors.append("printer.build_volume_mm must contain three positive numbers")
+
+    acceptance = data.get("acceptance")
+    if not isinstance(acceptance, list) or not acceptance:
+        errors.append("acceptance must be a nonempty list")
+    elif not all(isinstance(item, dict) and item.get("id") and item.get("criterion") for item in acceptance):
+        errors.append("every acceptance entry needs id and criterion")
+
+    if risk in {"structural", "safety-critical"}:
+        loads = data.get("loads")
+        if not loads:
+            errors.append("structural/safety-critical design requires loads")
+        if not data.get("test_plan"):
+            warnings.append("structural/safety-critical design should link a test_plan")
+
+    report = {"spec": str(Path(args.spec).resolve()), "errors": errors, "warnings": warnings, "passed": not errors}
+    text = json.dumps(report, indent=2)
+    if args.json_out:
+        out = Path(args.json_out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(text + "\n", encoding="utf-8")
+    print(text)
+    return 0 if report["passed"] else 1
 
 
 if __name__ == "__main__":

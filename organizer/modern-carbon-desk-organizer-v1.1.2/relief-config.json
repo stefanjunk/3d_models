@@ -1,0 +1,27 @@
+{
+  "source_heightmap": "assets/concept/carbon_twill_heightmap_16bit_v1.png",
+  "prepared_samples": "assets/carbon_twill_height_samples_u16.raw",
+  "operation": "engrave",
+  "white_is": "maximum depth",
+  "depth_mm": 0.32,
+  "overlap_mm": 0.08,
+  "tile_size_mm": [36, 36],
+  "geometry_sample_pitch_mm": 0.30,
+  "mapping": {
+    "u": "continuous surface arc length",
+    "v": "world Z",
+    "wrap_u": true,
+    "wrap_v": true,
+    "seam_policy": "periodic source; sorter seam at rear center",
+    "housing": "right side through rear to left side; front corner arcs excluded",
+    "sorter": "complete rounded-rectangle perimeter",
+    "drawer_front": "left front arc through center front to right front arc; cutter extends 0.10 mm beyond top and bottom to avoid internal termination edges"
+  },
+  "excluded_surfaces": [
+    "sorter compartment interiors",
+    "sorter top rim and bottom interfaces",
+    "drawer handles and their clearance borders",
+    "housing drawer-bay interiors",
+    "sliding and mating surfaces"
+  ]
+}

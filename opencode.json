@@ -1,11 +1,98 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "3d-design",
-  "instructions": [".opencode/instructions/3d-design-policy.md"],
-  "plugin": ["opencode-gpt-imagegen@0.1.9"],
-  "agent": {
-    "build": {
-      "disable": true
+  "subagent_depth": 1,
+  "small_model": "kilo/openai/gpt-5.6-luna",
+  "instructions": [
+    ".opencode/instructions/3d-design-policy.md"
+  ],
+  "skills": {
+    "paths": [
+      "/workspace/3d_models/.opencode/skills"
+    ]
+  },
+  "plugin": [
+    "opencode-gpt-imagegen@0.1.9"
+  ],
+  "references": {
+    "workspace-skills": {
+      "path": "/workspace/skills",
+      "description": "Shared modeling, mesh validation, printability, and parameter-sweep skills for the 3D design system."
+    },
+    "commercial-components": {
+      "path": "/workspace/3d_models/libraries/commercial-components",
+      "description": "MIT-licensed original CadQuery interface geometry built from caller-supplied dimensions without third-party CAD."
+    }
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 8000
+  },
+  "permission": {
+    "external_directory": {
+      "*": "ask",
+      "/workspace/skills/**": "allow",
+      "/workspace/.opencode/secrets": "allow"
+    }
+  },
+  "mcp": {
+    "graphiti": {
+      "type": "remote",
+      "url": "https://graphiti.stefanjunk.synology.me/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {file:/workspace/.opencode/secrets/graphiti.token}"
+      }
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_TOKEN}"
+      }
+    }
+  },
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (stefan-laptop)",
+      "options": {
+        "baseURL": "http://stefan-laptop:1234/v1"
+      },
+      "limit": {
+        "context": 120000
+      },
+      "models": {
+        "bottlecapai/ThinkingCap-Qwen3.6-27B-GGUF": {
+          "name": "ThinkingCap-Qwen3.6-27B (local)"
+        }
+      }
+    },
+    "qwencloud": {
+      "name": "qwencloud",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+      },
+      "models": {
+        "qwen3.8-max": {
+          "name": "qwen3.8-max"
+        }
+      }
+    },
+    "qwencloud-pay-as-you-go": {
+      "name": "qwencloud pay-as-you-go",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+      },
+      "models": {
+        "qwen3.8-max": {
+          "name": "qwen3.8-max"
+        }
+      }
     }
   }
 }

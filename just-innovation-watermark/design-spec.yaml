@@ -1,0 +1,229 @@
+project:
+  id: JSI-WM-001
+  name: JuSt Innovation product watermark
+  revision: 1.0
+  owner: Stefan Junk / JuSt Innovation
+  status: production-release-candidate
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.1
+    approved_by: user
+    approved_at: 2026-08-10T18:10:52+02:00
+  concept_approval:
+    status: approved
+    spec_revision: 0.1
+    asset: concept-sheet.png
+    approved_by: user
+    approved_at: 2026-08-10T18:59:21+02:00
+  production_validation:
+    status: passed-with-physical-test-pending
+    release_id: JSI-WM-001-R1
+    validated_at: 2026-08-10T18:59:21+02:00
+
+function:
+  summary: Reusable and recognizable maker watermark recessed into the print-bed side of FDM products.
+  users:
+    - JuSt Innovation
+  interfaces:
+    - Flat product underside at the Z=0 print-bed datum
+
+risk:
+  class: decorative
+  hazards:
+    - Excessive engraving depth could weaken a thin host wall.
+    - Placement on a functional interface could affect fit or sealing.
+  assumptions:
+    - The mark is placed only on a nonfunctional, low-stress surface.
+    - The host wall is at least 1.20 mm thick unless separately validated.
+
+fabrication:
+  preference: integrated-print
+  assembly_target: none
+  repairability: not-applicable
+
+printer:
+  model: Anycubic Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  enclosure: false
+
+goal:
+  function:
+    value: A reusable, recognizable maker watermark for the underside of FDM printed products.
+    source: user-stated
+  brand_name:
+    value: JuSt Innovation
+    source: user-stated
+  name_story:
+    value: JuSt refers to Junk + Stefan.
+    source: user-stated
+  intended_surface:
+    value: Flat product underside placed directly on the print bed.
+    source: user-stated
+  risk_class:
+    value: decorative
+    source: inferred
+
+brand_system:
+  primary_direction:
+    value: Printer-friendly JS monogram with a shared geometric spine, framed by a hexagon; JuSt Innovation wordmark in the standard lockup.
+    source: recommended
+    rationale: The capital J and S encode the founder story; the hexagon signals engineering and matches the user's recurring honeycomb design language.
+  capitalization:
+    value: Preserve the exact spelling JuSt Innovation, with J and S visually emphasized.
+    source: recommended
+  variants:
+    value:
+      - compact hexagonal JS monogram for small products
+      - standard monogram plus JuSt Innovation wordmark
+      - optional standard variant with a short release or batch code
+    source: recommended
+  third_party_marks:
+    value: none
+    source: recommended
+  typography:
+    value: Custom geometric outlines with no runtime font dependency in manufacturing exports.
+    source: recommended
+
+geometry:
+  operation:
+    value: Debossed/recessed into the bottom face; no raised geometry below the product datum.
+    source: recommended
+  reading_orientation:
+    value: Readable when viewing the finished product from underneath.
+    source: inferred
+  standard_size_mm:
+    value:
+      width: 32
+      maximum_height: 10
+    source: recommended
+  standard_microtype_layout:
+    value: INNOVATION is divided into INNO / VATION within the 32 × 10 mm production profile.
+    source: engineering-refinement-after-concept-approval
+    rationale: The two-row layout preserves the approved 0.80 mm stroke and 0.60 mm clear gap at the standard size.
+  compact_size_mm:
+    value:
+      across_flats: 10
+    source: recommended
+  scalable_range_mm:
+    value:
+      compact_across_flats: [8, 16]
+      standard_width: [28, 60]
+    source: recommended
+  default_engraving_depth_mm:
+    value: 0.40
+    source: recommended
+  minimum_stroke_mm_for_0_4_nozzle:
+    value: 0.80
+    source: recommended
+  minimum_clear_gap_mm_for_0_4_nozzle:
+    value: 0.60
+    source: recommended
+  minimum_host_wall_mm:
+    value: 1.20
+    source: recommended
+
+manufacturing:
+  process: fdm-fff
+  material: PLA, PETG, or comparable non-flexible filament
+  nozzle_mm: 0.40
+  layer_height_mm: 0.20
+  supports: none
+  target_formats: [svg, dxf, scad, step, 3mf, stl, png]
+  source_annotations:
+    printer: inferred-from-project-context
+    nozzle_mm: approved-default
+    layer_height_mm: recommended
+    fabrication_preference: recommended
+
+dimensions:
+  units: mm
+  envelope_mm: [32, 10, 0.40]
+  compact_across_flats_mm: 10
+  minimum_stroke_mm: 0.80
+  minimum_clear_gap_mm: 0.60
+  minimum_host_wall_mm: 1.20
+
+loads: []
+
+environment:
+  indoor_outdoor: follows-host-product
+  temperature_c: follows-host-material
+  moisture: follows-host-product
+  uv: follows-host-product
+
+purchased_parts: []
+
+traceability:
+  visible_brand_id:
+    value: JuSt Innovation / JS monogram
+    source: recommended
+  release_code:
+    value: Optional parameter, for example JSI-26A1; omitted automatically when the mark is too small.
+    source: recommended
+  limitation:
+    value: The geometry mark supports identification and provenance but does not itself establish IP ownership or legal compliance.
+    source: recommended
+
+deliverables:
+  files:
+    - master SVG outlines
+    - DXF profile
+    - parametric OpenSCAD module for subtractive engraving
+    - reusable cutter STL and STEP where tool support permits
+    - 3MF/STL depth-and-size test coupon
+    - PNG concept/usage preview
+    - integration and print guidance
+    - validation report
+  source: recommended
+
+acceptance_criteria:
+  - Mark is correctly spelled and readable from the finished underside.
+  - Bottom datum remains planar; the watermark introduces no protrusion below it.
+  - Standard mark is recognizable after printing with the approved 0.4 mm nozzle profile.
+  - Compact monogram is recognizable at 10 mm across flats.
+  - Geometry is manifold and usable as a Boolean cutter.
+  - No required stroke or gap is below the approved process limit.
+  - A coupon compares at least three practical engraving depths before production rollout.
+
+acceptance:
+  - id: spelling-and-orientation
+    criterion: JuSt Innovation is spelled correctly and reads normally when the finished product is viewed from underneath.
+    method: Visual review of the bottom-view render and test print.
+  - id: planar-bottom-datum
+    criterion: No watermark geometry protrudes below the host product Z=0 datum.
+    method: CAD bounding-box and section inspection.
+  - id: standard-legibility
+    criterion: The 32 × 10 mm standard mark remains recognizable with the approved 0.4 mm nozzle profile.
+    method: Slicer preview and physical coupon.
+  - id: compact-legibility
+    criterion: The JS monogram remains recognizable at 10 mm across flats.
+    method: Slicer preview and physical coupon.
+  - id: boolean-cutter-valid
+    criterion: Reusable cutter output is manifold and subtracts cleanly from a valid host body.
+    method: Mesh validation and Boolean integration test.
+  - id: process-limits
+    criterion: No required stroke is below 0.80 mm and no required clear gap is below 0.60 mm.
+    method: Parametric geometry assertions and profile inspection.
+  - id: depth-coupon
+    criterion: A coupon compares at least three practical engraving depths before production rollout.
+    method: 3MF/STL coupon print and recorded visual/tactile assessment.
+
+test_plan: test-plan.yaml
+
+outputs:
+  source: source/
+  exports: exports/
+  validation: validation/
+
+resolved_decisions:
+  - id: U1
+    decision: Use the recommended hexagonal JS monogram plus standard wordmark family.
+    resolution: approved default
+  - id: U2
+    decision: Provide a short release or batch code as an optional parameter.
+    resolution: approved default
+  - id: U3
+    decision: Use 0.4 mm as the reference nozzle diameter.
+    resolution: approved default

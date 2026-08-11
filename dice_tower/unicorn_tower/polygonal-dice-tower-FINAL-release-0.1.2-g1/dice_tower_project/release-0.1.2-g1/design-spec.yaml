@@ -1,0 +1,330 @@
+project:
+  id: polygonal-dice-tower-functionalization
+  name: Polygonal Dice Tower
+  revision: 0.1.2
+  owner: Stefan Junk / JuSt Innovation
+  status: final-digitally-validated
+  source_file: ../upload/polygonal(1).stl
+  source_library_file_id: libfile_02261259b5148191acc3cf0035af9b92
+  source_sha256: fb642c430d34142095107f1f35327568c8f6cb25c6d5e5c4c226d38d68c831e3
+  source_units: normalized-and-unstated
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.1.2
+    approved_by: user
+    approved_at: 2026-08-11T11:14:25+02:00
+    approved_changes:
+      - Shorten the visible rear-upper inlet tube to approximately 5 mm while keeping its angle and clear opening.
+      - Shorten the visible lower-front outlet channel to approximately 8 mm while keeping its rounded opening and dice path.
+    prior_approval:
+      spec_revision: 0.1.0
+      approved_by: user
+      approved_at: 2026-08-10T22:09:54+02:00
+  concept_approval:
+    status: approved
+    spec_revision: 0.1.2
+    asset: concept/dice-tower-channel-shortening-concept-r0.1.2.jpg
+    asset_sha256: 87bacd361563b458fbb58f104a46fe434db0251e4a8a720a08e011be6b459561
+    generated_at: 2026-08-11T11:18:17+02:00
+    approved_by: user
+    approved_at: 2026-08-11T11:24:27+02:00
+    prior_approval:
+      spec_revision: 0.1.0
+      asset: concept/dice-tower-concept-r0.1.0.jpg
+      asset_sha256: cb5011b4f8ee86249fbe15c3f42a54cf17a6f8e9d44033a6432f7f2e09a1b523
+      generated_at: 2026-08-10T22:15:00+02:00
+      approved_by: user
+      approved_at: 2026-08-10T22:52:29+02:00
+  geometry_correction:
+    status: implemented
+    spec_revision: 0.1.2
+    geometry_revision: 0.1.2-g1
+    requested_by: user
+    requested_at: 2026-08-11T11:05:21+02:00
+    implemented_at: 2026-08-11T11:29:35+02:00
+    preview_asset: reports/production-geometry-review-0.1.2-g1.jpg
+    preview_sha256: e5ec670b9819d6caf47097bce83477600875129f1bede498b9ac2e39680d07c9
+    changes:
+      - Reduce the proposed visible inlet projection to approximately 5 mm.
+      - Reduce the proposed visible outlet projection to approximately 8 mm.
+      - Keep clear opening sizes, channel angles, internal transitions, protected exterior, and dice path unchanged.
+    prior_candidate:
+      spec_revision: 0.1.1
+      geometry_revision: 0.1.1-g1
+      preview_asset: reports/production-geometry-review-0.1.1-g1.jpg
+      preview_sha256: 72a49f37f2ff4b0357a96557b76e492acde9c8d67ab831f98759bc9dbd068460
+  watermark_approval:
+    status: approved
+    spec_revision: 0.1.2
+    geometry_revision: 0.1.2-g1
+    asset_id: JSI-WM-001-R1
+    variant: compact
+    placement:
+      surface: underside-forecourt
+      center_working_mm: [0.3313, -52.0, 0.05]
+      scale: 1.2
+      rotation_deg: 0
+      mirrored_world_x: true
+      envelope_mm: [13.70652, 12.0]
+      nominal_recess_depth_mm: 0.40
+    candidate_asset: result/polygonal-dice-tower-DRAFT-watermarked-0.1.2-g1.stl
+    candidate_sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+    preview_asset: reports/watermark-release-review-0.1.2-g1.jpg
+    preview_sha256: 41bf3c2ff8d6d71ba9aa143b6f59b93062971861c0484b9227ecbeb3ed757b76
+    validation_asset: reports/watermark-validation-0.1.2-g1.json
+    validation_sha256: 0d8e0081345c47ed587e619436a2d1428165dfe7e2597b3e461abbd0fd362744
+    generated_at: 2026-08-11T11:29:35+02:00
+    approved_by: user
+    approved_at: 2026-08-11T12:03:42+02:00
+
+requirement_sources:
+  user_stated:
+    - Preserve and functionalize the supplied decorative outer shell.
+    - Hollow the upright tower while keeping the floor closed.
+    - Cut an internal cylindrical volume for a spiral stair path.
+    - Add the spiral stair path so dice tumble downward.
+    - Add a rear upper roof opening for inserting dice.
+    - Add a lower opening from the tower into the front forecourt.
+    - Do not breach or unacceptably thin the decorative side walls.
+    - Preserve the roof horn; do not let the inlet cut remove it.
+    - Place the inlet diagonally at the rear-upper roof and use a short clean channel.
+    - Preserve the rear wall outside the inlet opening.
+    - Use a clean rounded front outlet or a short channel rather than a ragged cut.
+    - Reduce the central cylinder and use only a few fall stages.
+    - Shorten the visible upper inlet tube so it sits closer to the roof.
+    - Shorten the visible lower outlet channel so it sits closer to the tower.
+  inferred:
+    - Source semantic axes are +Y up, +Z front, and +X right.
+    - The protruding disc at low source Y and positive source Z is the forecourt.
+    - The object is intended as a one-piece indoor FDM dice tower.
+    - The known target printer is an Anycubic Kobra 3 Max.
+  recommended:
+    - Uniformly scale the normalized source to 220 mm total height.
+    - Support dice whose maximum physical envelope is 25 mm.
+    - Use staggered, rotated spiral baffles with self-supporting undersides rather than a continuous unsupported helix.
+    - Use a 0.4 mm nozzle, 0.20 mm layers, and PLA/PLA+ as the baseline process.
+    - Preserve at least 3.2 mm structural wall and target at least 3.5 mm around the cylindrical cavity.
+  resolved_by_requirements_approval:
+    - Approved the recommended 220 mm overall height.
+    - Approved the recommended 25 mm maximum die envelope.
+    - Approved the one-piece, supportless spiral-baffle interpretation.
+
+function:
+  summary: >-
+    Accept a die through the rear roof opening, route it through a spiral sequence
+    of internal impact surfaces, and discharge it through the lower front portal
+    into the existing forecourt without allowing escape through the floor or walls.
+  users:
+    - tabletop-game users
+  interfaces:
+    - 45-degree rear-upper round insertion channel
+    - lower front rounded arch channel into forecourt
+    - print-bed-facing closed underside
+  largest_die_envelope_mm: 25.0
+  minimum_free_path_mm: 32.0
+
+risk:
+  class: normal-functional
+  hazards:
+    - dice jam inside an inaccessible cavity
+    - wall breach or weak portal edge
+    - trapped support material
+    - sharp cut edges
+  assumptions:
+    - indoor decorative tabletop use
+    - no children-under-three or food-contact claim
+    - no impact loads beyond repeatedly dropped gaming dice
+
+fabrication:
+  preference: integrated-print
+  assembly_target: one printed body
+  repairability: limited
+  support_policy: no trapped internal supports
+
+printer:
+  model: Anycubic Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  enclosure: false
+
+manufacturing:
+  process: fdm-fff
+  material: PLA-or-PLA-plus
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  preferred_orientation: original base flat on build plate; tower vertical
+  target_formats: [stl, parameterized-source, validation-reports]
+
+dimensions:
+  units: mm
+  source_bounds:
+    min: [-0.679234505, -1.000030279, -0.674614549]
+    max: [0.674879074, 0.991905987, 0.659270585]
+    extents: [1.354113579, 1.991936266, 1.333885133]
+  proposed_uniform_scale_mm_per_source_unit: 110.445300740
+  proposed_envelope_mm: [149.555, 220.0, 152.077]
+  realized_working_envelope_mm: [149.555481, 147.321342, 220.000000]
+  fitted_tower_axis_source_xz: [0.003, -0.258]
+  fitted_min_outer_radius_source_units_y_fraction_0_20_to_0_64: 0.31205
+  proposed_cavity_radius_source_units: 0.2580
+  proposed_cavity_diameter_mm: 57.000
+  predicted_min_wall_around_cylinder_mm: 5.926
+  hard_minimum_finished_wall_mm: 3.2
+  minimum_floor_mm: 3.2
+  portal_edge_reserve_mm: 4.0
+  boolean_epsilon_mm: 0.10
+
+coordinate_frame:
+  source_semantics:
+    up: +Y
+    front: +Z
+    right: +X
+  working_semantics:
+    up: +Z
+    front: -Y
+    right: +X
+  origin_landmark: tower axis projected to the lowest source-Y plane
+  source_to_working_rule: >-
+    Uniform scale after approval; rotate source +Y to working +Z and source +Z
+    to working -Y, preserving handedness.
+  landmarks_source_units:
+    - name: tower-axis-bottom-projection
+      point: [0.003, -1.000030279, -0.258]
+    - name: tower-axis-midbody
+      point: [0.003, 0.0, -0.258]
+    - name: roof-apex
+      point: [-0.003099709, 0.991905987, -0.134498700]
+
+regions:
+  protected: all visible exterior except the approved roof opening, discharge portal, and underside watermark ROI
+  editable: internal cavity plus roof-opening, chute, discharge-portal, and underside-watermark ROIs
+  interface: inner cylindrical wall, portal edges, chute-to-cavity transition, and baffle-to-wall overlaps
+  functional_voids: dice clearance body from insertion opening to forecourt discharge
+
+internal_route:
+  cavity:
+    type: vertical-cylinder-with-local-entry-and-exit-transitions
+    radius_source_units: 0.2580
+    target_diameter_mm: 57.000
+    approximate_vertical_fraction: [0.014, 0.766]
+  staircase:
+    concept: rotated spiral baffles / stair landings
+    target_count: 3
+    realized_count: 3
+    realized_levels_top_down_mm: [128.0, 85.0, 42.0]
+    realized_angles_top_down_deg: [270, 80, 250]
+    rotation_between_levels_deg: 170
+    minimum_vertical_clearance_mm: 38
+    minimum_opening_mm: 34
+    top_surface_drain_slope_deg: 6
+    underside_support_angle_deg_min: 45
+  top_entry:
+    location: rear upper roof
+    target_clear_opening_mm: [38, 38]
+    channel_axis_deg: 45
+    nominal_channel_wall_mm: 4.0
+    proposed_visible_projection_mm: 5.0
+    realized_visible_projection_mm: 5.000004
+    projection_status: implemented-and-validated
+    transition: short round lined chute plus local orientation-clearance bulb
+  bottom_exit:
+    location: lower front tower wall into forecourt
+    target_clear_opening_mm: [40, 33]
+    realized_clear_opening_mm: [40, 33]
+    internal_transition_clearance_mm: 27.5
+    nominal_channel_wall_mm: 4.0
+    previous_channel_length_outside_tower_approx_mm: 16.0
+    proposed_visible_projection_mm: 8.0
+    realized_visible_projection_mm: 8.000000
+    projection_status: implemented-and-validated
+    edge_shape: rounded lined arch with short forecourt channel
+  floor:
+    closed: true
+    minimum_thickness_mm: 3.2
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+
+production_geometry:
+  revision: 0.1.2-g1
+  candidate_status: approved-and-promoted-byte-identically
+  candidate_asset: result/polygonal-dice-tower-FINAL-0.1.2-g1.stl
+  candidate_sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+  bounds_mm: [149.555481, 147.321342, 220.000000]
+  triangle_count: 15982
+  connected_body_count: 1
+  watertight: true
+  positive_volume: true
+  minimum_sampled_structural_wall_mm: 5.926201
+  minimum_floor_mm: 24.0
+  dice_path_25_mm:
+    tested_pose_count: 94
+    intersecting_pose_count: 0
+  watermark:
+    status: approved-in-final-asset
+    candidate_asset: result/polygonal-dice-tower-FINAL-0.1.2-g1.stl
+    candidate_sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+  release:
+    status: final-digitally-validated
+    approved_at: 2026-08-11T12:03:42+02:00
+    approved_by: user
+    approved_candidate_asset: result/polygonal-dice-tower-DRAFT-watermarked-0.1.2-g1.stl
+    final_asset: result/polygonal-dice-tower-FINAL-0.1.2-g1.stl
+    final_sha256: e1bcd78ef49aadfa71c1e82cc8f263b75f39994be50cf12138348411bebe6d6a
+    geometry_changed_after_approval: false
+    byte_identical_to_approved_candidate: true
+  outstanding_evidence:
+    - chosen-slicer G-code preview
+    - physical ten-drop tests with D6, D12, and D20
+
+acceptance:
+  - id: source-preserved
+    criterion: Uploaded source bytes and checksum remain unchanged.
+    method: sha256 comparison
+  - id: geometry-valid
+    criterion: Manufacturing mesh is one intended watertight positive-volume body with consistent winding.
+    method: independent topology inspection
+  - id: exterior-preserved
+    criterion: Exterior outside approved ROIs is unchanged within 0.20 mm p95 and 1.00 mm maximum.
+    method: sampled source/result surface comparison
+  - id: wall-reserve
+    criterion: Finished structural walls and floor are at least 3.2 mm; target cylindrical shell reserve is at least 3.5 mm.
+    method: section sampling and ray/distance checks
+  - id: dice-path
+    criterion: A 25 mm clearance body passes from entry to forecourt with at least 32 mm specified free openings and no trapped pockets.
+    method: swept/rigid-body clearance check plus physical drop test
+  - id: support-access
+    criterion: No inaccessible internal support material is required in the preferred orientation.
+    method: overhang analysis and slicer preview
+  - id: bed-fit
+    criterion: Proposed 149.555 x 152.077 mm footprint fits the configured printer bed.
+    method: bounds check
+  - id: watermark-release
+    criterion: Exact JSI-WM-001-R1 mark is recessed, readable, structurally safe, and explicitly approved on current geometry.
+    method: watermark release gate
+
+test_plan:
+  digital:
+    - topology and component count
+    - outside-ROI change comparison
+    - full-height wall-thickness sections
+    - 25 mm clearance-body path analysis
+    - overhang and trapped-support review
+    - slicer dry run
+  physical:
+    - ten drops each with D6, D12, and D20 at or below the approved envelope
+    - acceptance is zero jams, zero rebounds through the entry, and all dice reaching the forecourt
+
+outputs:
+  source: source/
+  parameters: parameters/
+  cutters: cutters/
+  result: result/
+  reports: reports/
+  scripts: scripts/

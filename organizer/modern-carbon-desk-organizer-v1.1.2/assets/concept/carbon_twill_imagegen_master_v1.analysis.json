@@ -1,0 +1,85 @@
+{
+  "feature_diagnostics": {
+    "components_below_nominal_feature_area": 0,
+    "connected_components": 1,
+    "slope_mm_per_mm_max": 6.3732757568359375,
+    "slope_mm_per_mm_p50": 0.27213314175605774,
+    "slope_mm_per_mm_p95": 2.0036211013793945,
+    "slope_mm_per_mm_p99": 3.553349733352661,
+    "threshold": 0.033349025249481204
+  },
+  "image": {
+    "alpha_mode": "base",
+    "alpha_present": false,
+    "base_level": 0.0,
+    "grayscale": "luma",
+    "luma_space": "srgb",
+    "source": "desk-organizer/assets/concept/carbon_twill_imagegen_master_v1.png",
+    "source_dtype": "uint8",
+    "source_height_px": 1254,
+    "source_mode": "RGB",
+    "source_width_px": 1254,
+    "transparent_fraction": 0.0
+  },
+  "image_stats": {
+    "max": 0.9462149143218994,
+    "mean": 0.4787828028202057,
+    "min": 0.0,
+    "near_black_fraction": 7.058751707454805e-05,
+    "near_white_fraction": 0.0,
+    "p01": 0.125490203499794,
+    "p50": 0.5008439421653748,
+    "p99": 0.8145694136619568,
+    "std": 0.166745126247406
+  },
+  "mesh_estimate": {
+    "closed_patch_triangles": 58560,
+    "closed_patch_vertices": 29282,
+    "grid_u": 121,
+    "grid_v": 121,
+    "practical_working_set_mib_high": 20.66394805908203,
+    "practical_working_set_mib_low": 6.199184417724609,
+    "raw_array_bytes": 2166772,
+    "raw_array_mib": 2.066394805908203
+  },
+  "physical_mapping": {
+    "height_mm": 36.0,
+    "pixels": [
+      1254,
+      1254
+    ],
+    "source_pitch_x_mm_per_px": 0.028708133971291867,
+    "source_pitch_y_mm_per_px": 0.028708133971291867,
+    "width_mm": 36.0
+  },
+  "printer_assumptions": {
+    "layer_height_mm": 0.16,
+    "line_width_mm": 0.44,
+    "note": "Source-image resolution, mesh sampling resolution, and printable XY/Z resolution are separate. These planning values are conservative heuristics, not printer guarantees.",
+    "nozzle_mm": 0.4,
+    "planning_reliable_feature_mm": 0.44,
+    "planning_xy_sample_pitch_mm": 0.22,
+    "relief_depth_in_layers": 2.0,
+    "relief_depth_mm": 0.32
+  },
+  "recommendations": [
+    "The image is strongly oversampled for a typical FDM surface. Keep the source, but generate the mesh at a coarser pitch to avoid unnecessary memory use.",
+    "Use at least four Z steps for smoother tonal relief where geometry permits.",
+    "The 99th-percentile local relief slope is steep (>1.5 mm/mm); preview in the slicer and consider blur, lower depth, or a larger physical image."
+  ],
+  "seams": {
+    "horizontal_adjacent_rms": 0.0671631470322609,
+    "left_right_excess_rms": 0.03384898602962494,
+    "left_right_max": 0.3963819742202759,
+    "left_right_rms": 0.10101213306188583,
+    "left_right_to_adjacent_ratio": 1.5039815363828328,
+    "top_bottom_excess_rms": 0.0,
+    "top_bottom_max": 0.43305572867393494,
+    "top_bottom_rms": 0.062305748462677,
+    "top_bottom_to_adjacent_ratio": 0.9684917547396827,
+    "vertical_adjacent_rms": 0.0643327608704567
+  },
+  "warnings": [
+    "Left/right seam is unusually stronger than ordinary neighboring-pixel variation."
+  ]
+}

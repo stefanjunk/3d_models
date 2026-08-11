@@ -1,11 +1,9 @@
 ---
-description: Review a functional 3D design and its evidence without editing it
-agent: cad-reviewer
+description: Independently review a 3D design against its approved specification
+agent: 3d-design-reviewer
 subtask: true
 ---
 
-Review this design/project/report:
+Load the `functional-3d-design` skill with the native skill tool. Review the current project and any extra scope in `$ARGUMENTS` without modifying files.
 
-$ARGUMENTS
-
-Use the `functional-3d-design` verification ladder. Check specification, source, exports, geometry report, slicer/profile assumptions, BOM, simulation/calculations, and physical-test evidence. Return blockers first and do not infer success from a render.
+Use `design-spec.yaml` as the source of truth. Check approval-state consistency, requirement-to-feature traceability, dimensions and interfaces, geometry evidence, printability, material/profile assumptions, risk, acceptance tests, and whether claims exceed the recorded evidence. Run only safe read-oriented checks. Return findings ordered by severity with file references, evidence, and a concrete next action. State explicitly when a check could not be performed.

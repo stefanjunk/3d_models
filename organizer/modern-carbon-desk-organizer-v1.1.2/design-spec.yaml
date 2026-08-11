@@ -1,0 +1,94 @@
+project: modern-carbon-desk-organizer
+revision: 1.1.2
+units: mm
+risk_class: normal-functional
+fabrication_preference: balanced-hybrid
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 1.1.2
+    approved_by: user
+    approved_at: 2026-08-10
+  concept_approval:
+    status: approved
+    spec_revision: 1.1.2
+    asset: assets/concept/desk_organizer_concept_r1.1.2.png
+    approved_by: user
+    approved_at: 2026-08-10
+function:
+  summary: Two-drawer desktop storage with six open sorting compartments.
+  environment: Indoor desktop use.
+  target_load_assumption: Light stationery, tools, cables, and small electronics; not structurally rated.
+dimensions:
+  assembled_envelope_mm: [320, 230, 213.6]
+  housing_mm: [320, 230, 148.8]
+  sorter_mm: [320, 230, 68]
+  drawer_front_mm: [315.3, 3.6, 65.2]
+geometry_revision:
+  housing_corner_orientation: Vertical Z-axis corners, rounded in plan view to match the top sorter.
+  housing_plan_corner_radius_mm: 12
+  drawer_front_corner_orientation: Vertical Z-axis, matching the housing plan-view curvature; no independent XZ/front-silhouette corner radius.
+  drawer_front_surface_rule: The visible drawer front is a parallel inward offset of the housing front contour so its curvature continues the housing surface across the reveal.
+  drawer_front_plan_radius_mm: 9.65
+  drawer_front_plan_radius_derivation: Housing radius 12.00 minus the centered 2.35 mm side reveal; recompute automatically if either dimension changes.
+  drawer_front_alignment: Centered, with a uniform 2.35 mm side reveal relative to the housing front.
+  drawer_front_width_derivation: 320.00 mm housing width minus two 2.35 mm side reveals equals 315.30 mm; this resolves the obsolete 316 mm pre-revision value in favor of the approved offset geometry.
+interfaces:
+  drawer_side_clearance_each_mm: 0.45
+  drawer_top_clearance_nominal_mm: 3.0
+  sorter_alignment_socket_clearance_each_mm: 0.30
+  carbon_engraving_depth_mm: 0.32
+printer:
+  model: Anycubic Kobra 3 Max
+  nominal_build_volume_mm: [420, 420, 500]
+  nozzle_assumption_mm: 0.4
+  material_assumption: PLA or PLA+
+fabrication:
+  printed_parts:
+    - housing, quantity 1
+    - drawer, quantity 2
+    - top sorter, quantity 1
+  purchased_parts:
+    - optional adhesive felt or TPU feet, quantity 4
+  assembly: Stack sorter on four housing alignment pegs; slide drawers into bays.
+appearance:
+  form_language: Modern, soft vertical corner transitions shared continuously by housing, drawer fronts, and sorter.
+  carbon_texture_source: Newly generated seamless grayscale 2x2 twill carbon-fiber height map.
+  carbon_operation: Recessed image-based engraving, not procedural raised strips.
+  carbon_target_surfaces: Left and right exterior side panels and the outer rear vertical wall of the drawer housing; all four outer vertical walls of the top sorter; plus the visible front face of both drawers.
+  carbon_exclusions: Sorter compartment interiors, sorter top rim, drawer handles, small top/bottom edge fillets, bottom alignment and mating surfaces, clearances, and all sliding/contact faces remain untextured; the broad plan-view curvature of each drawer front is intentionally textured.
+  carbon_mapping: Same 45-degree weave direction and physical scale on every target surface; repeated without visible seams and wrapped continuously across the plan-view curvature of each drawer front.
+  heightmap_policy: White represents maximum engraving depth after inversion in the cutter workflow; tonal shading is treated as geometric depth, not material color.
+  heightmap_master_px: [1024, 1024]
+  heightmap_bit_depth: 16
+  heightmap_physical_tile_mm: [36, 36]
+  geometry_sample_pitch_mm: 0.30
+outputs:
+  editable_source: src/desk_organizer.mjs
+  manufacturing_mesh: binary STL
+  assembly_preview: PNG and STL
+acceptance_criteria:
+  - Each production STL is watertight and consistently wound.
+  - Housing print envelope remains inside 420 x 420 x 500 mm.
+  - Drawers move freely after the selected clearance coupon passes.
+  - Housing and sorter use the same plan-view rounding orientation and 12 mm exterior corner radius.
+  - Drawer fronts are visually centered with a 2.35 mm side reveal and follow the housing front as a parallel inward-offset plan-view curve around the vertical Z-axis.
+  - Drawer fronts have no independent rounded-rectangle silhouette in the XZ/front plane; their curvature orientation matches the housing.
+  - Carbon engraving remains recognizable as 2x2 twill in the slicer toolpath preview.
+  - Both drawer fronts carry the same image-based carbon engraving while handles, edge radii, and functional interfaces remain clear.
+  - "The top sorter carries the same carbon engraving on all four exterior vertical walls: left, right, front, and rear; compartment interiors, the top rim, and bottom interfaces remain smooth."
+  - The drawer housing rear exterior wall carries the same image-based carbon engraving; drawer-bay interiors and all sliding, mating, and edge-radius surfaces remain smooth.
+  - Carbon texture direction and physical scale remain visually consistent across housing, sorter, and drawer fronts.
+  - Repeated texture seams are no stronger than normal local weave variation.
+  - No support is required in the documented orientations, except optional bridge tuning for four sorter sockets.
+status: experimental
+notes:
+  - Dimensions are deliberate assumptions because the user did not specify desk contents.
+  - Physical fit and texture coupons are required before the full print.
+  - No autonomous slicer upload or printer start is authorized.
+  - Revision 1.1.1 adds carbon engraving to the outer front and rear vertical walls of the top sorter. The user approved this revised surface assignment on 2026-08-10.
+  - Revision 1.1.2 adds carbon engraving to the outer rear vertical wall of the lower drawer housing.
+  - The user approved the revision 1.1.2 requirements on 2026-08-10. The concept gate is pending; production CAD and manufacturing exports remain blocked.
+  - The user approved concept sheet `assets/concept/desk_organizer_concept_r1.1.2.png` on 2026-08-10, opening production CAD and manufacturing export.
+  - The previously listed 316 mm drawer-front width conflicted with the approved 2.35 mm side reveal. Production uses the approved offset relationship, yielding 315.30 mm and radius 9.65 mm.
+  - Verified closed assembly height is 213.60 mm because the 3.20 mm sorter sockets overlap the 2.80 mm housing pegs; the obsolete additive 216.80 mm value did not account for this insertion depth.

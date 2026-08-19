@@ -1,0 +1,577 @@
+schema_version: 1
+project:
+  name: Regenwasser-Filterbrunnen fuer Pool
+  revision: 3
+  status: r3-draft-cad-validated
+  date: 2026-08-12
+  objective:
+    value: >-
+      Modularer, 3D-druckbarer Filterbrunnen zur sichtbaren mechanischen
+      Aufbereitung von Regenwasser vor der Einleitung in einen privaten Pool.
+    provenance: user-stated
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 3
+    approved_by: user
+    approved_at: 2026-08-12T15:47:05+02:00
+    reason: >-
+      Hydraulische Wartbarkeit von Stufe 1 und Stufe 2 verbessern: tieferer
+      getauchter Zulauf, weniger verstopfungsanfaelliger Schlammweg und eigener
+      spuelbarer Sedimentablass fuer die Lamellenstufe. Der hydraulische
+      Betriebsbereich soll ohne Mindestdurchfluss von 0 bis 1200 L/h reichen.
+    previous_approved_revision: 2
+  concept_approval:
+    status: approved
+    spec_revision: 3
+    approved_by: user
+    approved_at: 2026-08-12T16:04:00+02:00
+    previous_approved_revision: 2
+    asset: assets/concept-r3.png
+    source_asset: assets/concept-r3.svg
+    generated_with: precise-technical-svg
+    visual_ambiguity: >-
+      Nicht masshaltige Funktionsdarstellung. Die Draufsicht zeigt die
+      tangentiale Richtung, waehrend der Laengsschnitt Fallrohr, Klarwasserweg
+      und beide Sedimentablaesse getrennt darstellt. Verbindliche Masse stehen
+      ausschliesslich in dieser Spezifikation.
+  watermark_approval:
+    status: blocked
+    spec_revision: 3
+    asset_id: JSI-WM-001-R1
+    reason: >-
+      Die R3-Kennzeichnung wurde nach der Primaerverifikation als letzte geplante
+      Geometrieaenderung integriert und die Regression ist bestanden. Fuer die
+      finale Freigabe fehlen noch echter Slicer-Toolpath-Nachweis und ausdrueckliche
+      Nutzerfreigabe der Kennzeichnung.
+    r3_evidence:
+      - build/draft-r3/renders/DRAFT_R3_watermark_underside.png
+      - build/draft-r3/renders/DRAFT_R3_watermark_closeup.png
+      - build/draft-r3/renders/DRAFT_R3_watermark_section.png
+      - build/draft-r3/renders/DRAFT_R3_watermark_geometric_layers.png
+      - build/draft-r3/metadata/stl-validation.md
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.4
+  note: >-
+    In Revision 3 nach stabiler Hauptgeometrie als letzte geplante
+    Geometrieaenderung integriert und geometrisch regressionsgeprueft.
+  current_r3_production_placement:
+    profile: compact
+    uniform_scale: 1.5
+    nominal_envelope_mm: [11.4232449531, 10]
+    actual_envelope_mm: [17.1348674297, 15]
+    rotation_deg: 0
+    mirror_x: true
+    position_xy_mm: [65, 45]
+    safe_rectangle_mm: [70, 22]
+    minimum_rectangle_edge_clearance_mm: 3.5
+    depth_mm: 0.4
+    host_wall_before_mm: 6.0
+    host_wall_after_mm: 5.6
+    marked_primary_parts:
+      - stage1_vortex_body
+      - stage2_lamella_body
+      - stage3_media_body
+    geometry_revision: R3-DRAFT
+    mesh_set_sha256: c5c05d02a42d5b124e874f58f9e567a41fbc67b26e1183eadf1f24843f717bc7
+
+function:
+  value: >-
+    Partikelhaltiges Regenwasser bei 800 L/h durch Wirbelabscheidung,
+    Lamellensedimentation und drei sequenzielle mechanische Filtermedien
+    drucklos fuer die anschliessende Einleitung in den Pool vorfiltern.
+  provenance: user-stated
+
+risk:
+  class: normal-functional
+  class_provenance: recommended
+  boundaries:
+    - value: Das System ist ein druckloser mechanischer Vorfilter, kein Druckbehaelter.
+      provenance: recommended
+    - value: Keine Zusage zur mikrobiologischen oder chemischen Trinkwasserqualitaet.
+      provenance: recommended
+    - value: Pooldesinfektion, pH-Regelung und uebliche Poolfiltration bleiben erforderlich.
+      provenance: recommended
+    - value: Dachablaufwasser soll vor dem System einen Laubfang und First-Flush-Abscheider durchlaufen.
+      provenance: recommended
+
+functional_scope:
+  included:
+    - value: Drei separat druckbare und uebereinander stapelbare Filtermodule.
+      provenance: user-stated
+    - value: Stufe 1 als langsamer Vortex-/Wirbelabscheider mit tangentialem Zulauf.
+      provenance: user-stated
+    - value: Stufe 2 als Absetzstufe mit herausnehmbarer Lamellenkassette.
+      provenance: user-stated
+    - value: Stufe 3 als Durchlauffilter mit von oben entnehmbaren Medienkoerben.
+      provenance: user-stated
+    - value: Wasseruebergabe von Stufe zu Stufe durch Schwerkraft.
+      provenance: user-stated
+    - value: Sichtbarer, reinigbarer Schmutzfang in Wirbel- und Lamellenstufe.
+      provenance: inferred
+    - value: Notueberlauf gegen unkontrolliertes Ueberlaufen bei zugesetztem Filter.
+      provenance: recommended
+  excluded:
+    - value: Aktiver Hochdruck-Hydrozyklon oder motorisierte Zentrifuge.
+      provenance: user-stated
+    - value: Biologischer Langsamsandfilter.
+      provenance: user-stated
+    - value: Vollstaendige Entfernung geloester Metalle, Salze oder organischer Chemikalien.
+      provenance: user-stated
+
+hydraulics:
+  operating_mode:
+    value: Oben gepumpter Zulauf, danach offene drucklose Schwerkraftkaskade zum Pool.
+    provenance: user-stated
+    status: confirmed
+  design_flow_lph:
+    value: 800
+    hydraulic_operating_range: [0, 1200]
+    minimum_required_flow_lph: 0
+    provenance: user-stated
+    status: confirmed
+    rationale: >-
+      800 L/h bleibt der Auslegungs- und Vergleichspunkt. Es gibt keinen
+      hydraulischen Mindestdurchfluss: Bei kleinen Mengen arbeitet Stufe 1
+      zunehmend als ruhiges Absetzbecken statt als ausgepraegter Wirbelabscheider.
+      Bei 0 L/h befindet sich das System im gefuellten Stillstand und es findet
+      naturgemaess kein Wassertransport statt.
+  inlet_interface:
+    value: >-
+      Austauschbarer Halter fuer 25-mm-Schlauch-Nennweite, angenommen Innen-Ø,
+      mit freiem Luftspalt ueber einem offenen Einlaufbecher; der Becher speist
+      ein 32-mm-Fallrohr mit getauchtem tangentialem 28-mm-Auslass.
+    hose_size_provenance: user-stated
+    architecture_provenance: recommended
+    status: confirmed-with-measurement
+    verification: >-
+      Schlauch-Innen-Ø messen und Passcoupon drucken; Luftspalt, Becherueberlauf,
+      Rueckflussfreiheit und 1200-L/h-Kapazitaet vor dem Vollbetrieb pruefen.
+  initial_fill_behavior:
+    value: >-
+      Nach vollstaendiger Entleerung fuellen sich zuerst Stufe 1 und danach
+      Stufe 2 bis zu ihren Standrohrkanten. Erst danach erreicht Wasser Stufe 3.
+      Dies ist ein einmaliges Anfuellvolumen und keine Mindest-Durchflussrate.
+    estimated_volume_to_first_stage3_outflow_l: [20, 27]
+    provenance: recommended
+  outlet_mode:
+    value: Sichtbare Kaskade in den Pool mit austauschbarem optionalem 25-mm-Schlauchanschluss
+    provenance: user-stated
+    status: confirmed
+  max_static_head_m:
+    value: 1.2
+    provenance: recommended
+  pressurized_operation_allowed:
+    value: false
+    provenance: recommended
+
+geometry:
+  coordinate_convention:
+    value: Z nach oben; Wasserfluss im Stapel von oben nach unten
+    provenance: recommended
+  module_envelope_mm:
+    max_x: 330
+    max_y: 330
+    max_z: 300
+    provenance: recommended
+  assembled_envelope_mm:
+    diameter: 330
+    height_target: 850
+    height_max: 1000
+    provenance: recommended
+    built_height: 851
+    installed_footprint_with_cascade: [330, 406]
+  stage_1_vortex:
+    nominal_diameter_mm: 300
+    standpipe_weir_z_mm: 210
+    expected_water_level_at_800_lph_mm: 214
+    expected_water_level_range_standby_to_1200_lph_mm: [210, 219.5]
+    inlet_center_z_mm: 155
+    inlet_passage_id_mm: 28
+    inlet_downcomer_clear_id_mm: 32
+    inlet_receiver_normal_level_max_z_mm: 260
+    inlet_receiver_emergency_overflow_z_mm: 268
+    inlet_hose_outlet_lower_edge_min_z_mm: 283
+    inlet_air_gap_min_mm: 15
+    minimum_inlet_crown_submergence_at_800_lph_mm: 45
+    minimum_inlet_crown_submergence_operating_range_mm: 40
+    standpipe_od_mm: 50
+    sediment_funnel_inner_radius_mm: 35
+    minimum_sludge_annular_gap_mm: 10
+    sludge_drain_clear_id_mm: 25
+    sludge_drain_low_point_max_z_mm: 20
+    features:
+      - offener beluefteter Einlaufbecher als passive Rueckfluss- und Siphonsperre
+      - getauchter tangentialer Innenauslass fuer einen ruhigen Volumenwirbel
+      - sicherer Becherueberlauf in Stufe 1 bei blockiertem Fallrohr
+      - beruhigter zentraler Klarwasserabzug
+      - konischer, herausnehmbarer Schlammfang mit mindestens 10 mm freiem Schlammweg
+      - beruhigter Unterraum gegen Wiederaufwirbelung
+      - bodennaher 25-mm-Vollquerschnitt-Ablass mit externem Ventil
+  stage_2_lamella:
+    nominal_diameter_mm: 300
+    plate_angle_deg: 60
+    plate_gap_mm: 12
+    plate_count_target: 12
+    drop_tube_clear_id_mm: 32
+    sediment_floor_min_slope_deg: 5
+    minimum_clearance_below_lamella_mm: 15
+    sludge_drain_clear_id_mm: 25
+    sludge_drain_low_point_max_z_mm: 20
+    features:
+      - Bodenzulauf mit Stroemungsdiffusor
+      - nach oben gerichtete Stroemung durch Kassette
+      - oberer Sammelring zum naechsten Modul
+      - vom Diffusor geschuetzter, geneigter Sedimentsammelboden
+      - eigener bodennaher 25-mm-Vollquerschnitt-Ablass mit externem Ventil
+      - Routinespuelung ohne Ausbau des Moduls; Kassette bleibt fuer Grundreinigung entnehmbar
+  stage_3_media:
+    nominal_diameter_mm: 300
+    media_sequence:
+      - 300-500 um Edelstahl- oder Kunststoffnetz
+      - grobe waschbare Filtermatte
+      - 50-100 um Feinfiltermatte, nur mit Ueberlaufanzeige
+    features:
+      - drei separat entnehmbare Koerbe
+      - Verteilerplatte gegen Kanalbildung
+      - Reinwassersammelraum
+      - vier optionale 9-mm-Bohrungen fuer eine untergrundspezifische M8-Kippsicherung
+  stacking_interface:
+    value: Zentrierbund plus spritzgeschuetzte Ueberlappung; drei mechanische Sicherungen je Fuge
+    provenance: recommended
+  watertightness_strategy:
+    value: Drucklose Wasserfuehrung; EPDM-Flachdichtungen nur an Ablass- und Schlauchanschluessen
+    provenance: recommended
+
+environment:
+  location:
+    value: Aussenbereich am privaten Pool
+    provenance: user-stated
+  exposure:
+    water: continuous_wet_during_operation
+    uv: outdoor
+    chemicals: chlorinated_pool_splash_possible
+    temperature_c:
+      operating: [5, 40]
+      storage: [-10, 50]
+    provenance: inferred
+  winterization:
+    value: Vollstaendig entleerbar und frostfrei lagern oder demontieren
+    provenance: recommended
+
+manufacturing:
+  fabrication_preference_note: Siehe fabrication.preference.
+  printer:
+    model: Anycubic Kobra 3 Max
+    build_volume_mm: [420, 420, 500]
+    provenance: verified-manufacturer
+  material:
+    value: UV-stabilisiertes PETG, blickdicht
+    provenance: user-stated
+    status: confirmed
+    alternative: ASA nur mit beherrschter Grossformat-Warpingstrategie
+  nozzle_mm: 0.6
+  nozzle_provenance: recommended
+  nozzle_status: proposed-default
+  compatible_alternative_nozzle_mm: 0.4
+  nominal_layer_height_mm: 0.28
+  minimum_wall_mm: 3.6
+  water_holding_wall_target_mm: 4.8
+  purchased_components:
+    - Filtergewebe und Filtermatten
+    - EPDM-Dichtungen
+    - Edelstahl-Schrauben und Muttern fuer wiederholte Demontage
+    - zwei korrosionsbestaendige 25-mm-Vollquerschnitt-Ablassventile und Schlauchanschluesse
+    - Pumpe und Regel-/Bypassventil
+  production_cad:
+    kernel: OpenCascade via Replicad 0.23.1
+    printable_part_types: 17
+    assembly_components: 14
+    complete_set_mass_estimate_petg_g: 10551.7
+    base_configuration_mass_estimate_petg_g: 10274.6
+    current_geometry_revision: 3
+    spec_alignment: revision-3-approved-concept
+    export_status: R3-DRAFT-validated
+    output_root: build/draft-r3
+
+fabrication:
+  preference: balanced-hybrid
+  preference_provenance: recommended
+
+printer:
+  model: Anycubic Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  provenance: verified-manufacturer
+
+maintenance:
+  target:
+    value: Werkzeugloser Ausbau aller Filtereinsaetze von oben; Gehaeusefugen mit Handgriffen loesbar
+    provenance: recommended
+  cleaning:
+    - Stufe 1 bei gestoppter Pumpe ueber den bodennahen Vollquerschnitt-Ablass spuelen
+    - Stufe 2 routinemaessig ueber den eigenen Vollquerschnitt-Ablass spuelen
+    - Lamellenkassette fuer die periodische Grundreinigung herausziehen und abspritzen
+    - Filtermedien einzeln entnehmen, waschen oder ersetzen
+  service_life_target_years:
+    value: 3
+    provenance: recommended
+    evidence_status: requires-field-test
+
+appearance:
+  form_language:
+    value: Technische Wasserreinigungsskulptur mit offen ablesbarem Wasserweg
+    provenance: inferred
+  visibility:
+    value: Offene Einblicke und sichtbare Ueberlaeufe statt behaupteter transparenter FDM-Waende
+    provenance: recommended
+  color:
+    value: Funktional frei waehlbar; Konzeptdarstellung in Anthrazit mit kontrastierenden Wasserwegen
+    provenance: recommended
+
+acceptance_criteria:
+  - id: AC-01
+    criterion: Jedes Einzelteil passt mit mindestens 5 mm Randreserve in 420 x 420 x 500 mm Bauraum.
+    test: CAD-Huellkoerperpruefung und Slicer-Dry-Run
+  - id: AC-02
+    criterion: Der montierte Stapel steht auf ebener Flaeche kippsicher und Module koennen sich nicht unbeabsichtigt verdrehen oder abheben.
+    test: Montagepruefung und Kipppruefung im leeren sowie gefuellten Zustand
+  - id: AC-03
+    criterion: 800 L/h laufen ohne Rueckstau oder unkontrolliertes Ueberlaufen durch alle drei Stufen.
+    test: 30-min-Wassertest, danach Test mit teilweise zugesetzter Feinfiltermatte
+  - id: AC-04
+    criterion: Keine sichtbare Leckage an Schlauch- und Ablassanschluessen bei 1.2 m statischer Wassersaeule.
+    test: 60-min-Dichtheitstest
+  - id: AC-05
+    criterion: Alle Schmutz- und Filtereinsatzteile sind ohne Zerstoerung und mit maximal einem Handwerkzeug entnehmbar.
+    test: Wartungsdurchlauf und dokumentierte Demontagezeit
+  - id: AC-06
+    criterion: System ist vollstaendig entleerbar; keine geschlossenen Frosttaschen groesser als 5 ml.
+    test: CAD-Schnittpruefung und Entleerungstest
+  - id: AC-07
+    criterion: Das System verbessert sichtbar die Partikelfracht, ohne eine hygienische Freigabe zu behaupten.
+    test: Vorher-/Nachher-Proben mit Truebungs- oder Sedimentvergleich; Poolchemie separat pruefen
+  - id: AC-08
+    criterion: >-
+      Der interne tangentiale Stage-1-Auslass bleibt vom gefuellten Stillstand
+      bis 1200 L/h vollstaendig unter Wasser; der externe 25-mm-Schlauch bleibt
+      durch mindestens 15 mm freien Luftspalt hydraulisch vom Behaelter getrennt.
+    test: CAD-Hoehenpruefung sowie Stillstands-, Rueckfluss- und Sichtpruefung bei 1, 10, 100, 400, 800 und 1200 L/h
+  - id: AC-09
+    criterion: Der Schlammweg von Stufe 1 bleibt an jeder Stelle mindestens 10 mm frei und 1 bis 6 mm grosse Testpartikel koennen ohne Ausbau des Trichters ueber den 25-mm-Ablass ausgespuelt werden.
+    test: CAD-Mindestspaltpruefung und Spuelversuch mit definierter Testpartikelmasse
+  - id: AC-10
+    criterion: Stufe 2 besitzt einen ohne Ausbau erreichbaren Sedimentablass; mindestens 80 Prozent einer definierten feinen Testsandmasse werden in einem dokumentierten Spuelzyklus entfernt.
+    test: Sediment einbringen, absetzen lassen, bei gestoppter Pumpe spuelen und rueckgewonnene Trockenmasse bestimmen
+  - id: AC-11
+    criterion: >-
+      Nach dem einmaligen Anfuellen transportiert das System jeden stabilen
+      Zufluss groesser 0 bis 1200 L/h ohne definierte Mindest-Durchflussrate;
+      bei 0 L/h bleibt es rueckflussfrei im gefuellten Stillstand.
+    test: Anfuellvolumen messen, danach stabilen Durchfluss bei 1, 10, 100, 400, 800 und 1200 L/h beobachten
+
+acceptance:
+  - id: AC-01
+    criterion: Jedes Einzelteil passt mit mindestens 5 mm Randreserve in 420 x 420 x 500 mm Bauraum.
+  - id: AC-02
+    criterion: Der montierte Stapel steht kippsicher und die Module sind gegen unbeabsichtigtes Verdrehen oder Abheben gesichert.
+  - id: AC-03
+    criterion: 800 L/h laufen ohne Rueckstau oder unkontrolliertes Ueberlaufen durch alle drei Stufen.
+  - id: AC-04
+    criterion: An Schlauch- und Ablassanschluessen tritt bei 1.2 m statischer Wassersaeule keine sichtbare Leckage auf.
+  - id: AC-05
+    criterion: Alle Schmutz- und Filtereinsatzteile sind ohne Zerstoerung und mit maximal einem Handwerkzeug entnehmbar.
+  - id: AC-06
+    criterion: Das System ist vollstaendig entleerbar und enthaelt keine geschlossenen Frosttaschen groesser als 5 ml.
+  - id: AC-07
+    criterion: Die sichtbare Partikelfracht wird reduziert, ohne eine hygienische Freigabe zu behaupten.
+  - id: AC-08
+    criterion: Der interne Stage-1-Auslass bleibt von 0 bis 1200 L/h getaucht und der externe Zulauf ist durch einen freien Luftspalt rueckflussfrei.
+  - id: AC-09
+    criterion: Der Stage-1-Schlammweg ist mindestens 10 mm frei und ueber einen 25-mm-Ablass spuelbar.
+  - id: AC-10
+    criterion: Stufe 2 besitzt einen eigenen spuelbaren Sedimentfang mit 25-mm-Ablass.
+  - id: AC-11
+    criterion: Nach dem Anfuellen besteht keine hydraulische Mindest-Durchflussrate oberhalb 0 L/h.
+
+verification:
+  digital_geometry:
+    status: passed-r3-draft
+    files_checked: 17
+    mesh_set_sha256: c5c05d02a42d5b124e874f58f9e567a41fbc67b26e1183eadf1f24843f717bc7
+    evidence:
+      - build/draft-r3/metadata/geometry-metadata.json
+      - build/draft-r3/metadata/stl-validation.json
+      - build/draft-r3/metadata/stl-validation.md
+      - build/draft-r3/metadata/engineering-validation.json
+      - build/draft-r3/metadata/engineering-validation.md
+    scope: >-
+      Geschlossene, einteilige, korrekt orientierte STL; B-Rep-/Mesh-Volumen;
+      Bauraum, Montagehoehe und freigegebene R3-Schnittstellen. Keine Aussage
+      zu realem Druck, realer Hydraulik oder Abscheidewirkung.
+  analytical_hydraulics:
+    status: passed-r3-plausibility
+    evidence:
+      - HYDRAULICS.md
+      - build/draft-r3/metadata/engineering-validation.md
+  slicer_dry_run:
+    status: blocked
+    reason: Kein konkreter Anycubic-/Orca-Maschinenslicer in der Ausfuehrungsumgebung.
+  physical_tests:
+    status: not-run-r3
+    evidence: TEST-PLAN.md
+
+deliverables:
+  - design-spec.yaml
+  - decision-log.md
+  - parametric Replicad/OpenCascade source
+  - STEP assembly and individual STEP parts
+  - DRAFT STL or 3MF per printable part before final approval
+  - assembly render and exploded view
+  - BOM and assembly instructions
+  - print profile and orientation report
+  - geometry and manufacturability validation report
+  - hydraulic test plan and calibration coupon
+  - final model result report
+
+unresolved_questions:
+  - id: UQ-001
+    question: Welches konkrete UV-stabilisierte PETG samt Herstellerprofil wird gedruckt?
+    release_impact: Temperatur, Volumenstrom, Kuehlung und Trocknung koennen erst dann finalisiert werden.
+  - id: UQ-002
+    question: Welcher konkrete Anycubic-/Orca-Slicer und welches Maschinenprofil werden verwendet?
+    release_impact: Toolpath-, Zeit-, Material- und Kennzeichnungspruefung bleiben bis dahin blockiert.
+  - id: UQ-003
+    question: Auf welchem Untergrund wird die Kippsicherung montiert?
+    release_impact: M8-Ankerart und zulaessiges Anzugsmoment muessen untergrundsspezifisch festgelegt werden.
+
+decisions:
+  - id: D-001
+    date: 2026-08-11
+    decision: Auslegungspunkt 800 L/h bei drucklosem Betrieb.
+    provenance: user-stated
+  - id: D-002
+    date: 2026-08-11
+    decision: Zulauf ueber austauschbaren Anschluss fuer 25-mm-Schlauch.
+    provenance: user-stated
+  - id: D-003
+    date: 2026-08-11
+    decision: Kaskadenauslauf mit optionalem Schlauchruecklauf.
+    provenance: user-stated
+  - id: D-004
+    date: 2026-08-11
+    decision: Gehaeuse und Druckteile aus UV-stabilisiertem PETG.
+    provenance: user-stated
+  - id: D-005
+    date: 2026-08-11
+    decision: Anforderungen Revision 2 wurden ausdruecklich freigegeben; Konzept-Gate ist zur Pruefung geoeffnet.
+    provenance: user-stated
+  - id: D-006
+    date: 2026-08-11
+    decision: Konzept Revision 2 wurde ausdruecklich freigegeben; Produktions-CAD darf beginnen.
+    provenance: user-stated
+  - id: D-007
+    date: 2026-08-11
+    decision: >-
+      Der parametrische Master wird mit Replicad/OpenCascade erzeugt, weil die
+      verfuegbare Laufzeit keinen CadQuery-Interpreter enthaelt. STEP und STL
+      bleiben neutrale Exporte; Geometrie, Schnittstellen und Druckprozess der
+      freigegebenen Revision 2 bleiben unveraendert.
+    provenance: implementation
+  - id: D-008
+    date: 2026-08-11
+    decision: Drei M6-Verbindungen je Modulfuge statt gedruckter Schnapphaken.
+    provenance: recommended
+  - id: D-009
+    date: 2026-08-11
+    decision: Vier optionale 9-mm-Bohrungen im Standflansch fuer eine M8-Kippsicherung.
+    provenance: recommended
+  - id: D-010
+    date: 2026-08-11
+    decision: Kaskade und optionaler Auslauf werden mit dem Montageflansch auf dem Bett exportiert.
+    provenance: implementation
+  - id: D-011
+    date: 2026-08-11
+    decision: >-
+      JuSt-Asset JSI-WM-001-R1 kompakt, 1.5-fach und 0.40 mm tief wird auf
+      allen drei Primargehaeuse-Unterseiten verwendet.
+    provenance: recommended
+  - id: D-012
+    date: 2026-08-11
+    decision: >-
+      Status bleibt DRAFT, bis Slicer-Toolpaths und physische Pass-, Dichtheits-,
+      Durchfluss-, Ueberlauf- und Standpruefungen vorliegen.
+    provenance: validation
+  - id: D-013
+    date: 2026-08-12
+    decision: >-
+      Funktionale Revision 3 angefordert: getauchter Stage-1-Zulauf,
+      vergroesserter Schlammweg und eigener spuelbarer Stage-2-Sedimentablass.
+    provenance: user-stated
+  - id: D-014
+    date: 2026-08-12
+    decision: >-
+      Stage-1-Zulaufmitte wird als empfohlener Ausgangswert von 220 mm auf
+      160 mm abgesenkt; die Einlasskrone bleibt bei 800 L/h mindestens 40 mm
+      unter dem erwarteten Wasserspiegel.
+    provenance: recommended
+    superseded_by: D-018
+  - id: D-015
+    date: 2026-08-12
+    decision: >-
+      Der Stage-1-Schlammweg wird von 3 mm auf mindestens 10 mm vergroessert
+      und mit einem bodennahen 25-mm-Vollquerschnitt-Ablass verbunden.
+    provenance: recommended
+  - id: D-016
+    date: 2026-08-12
+    decision: >-
+      Stufe 2 erhaelt einen mindestens 5 Grad geneigten Sedimentsammelboden,
+      mindestens 15 mm freien Absetzraum und einen eigenen bodennahen
+      25-mm-Vollquerschnitt-Ablass.
+    provenance: recommended
+  - id: D-017
+    date: 2026-08-12
+    decision: >-
+      Der gewuenschte hydraulische Betriebsbereich wird auf 0 bis 1200 L/h
+      erweitert; es soll keine Mindest-Durchflussrate geben.
+    provenance: user-stated
+  - id: D-018
+    date: 2026-08-12
+    decision: >-
+      Der direkte getauchte Schlauchanschluss wird durch einen offenen,
+      beluefteten Einlaufbecher mit mindestens 15 mm Luftspalt, 32-mm-Fallrohr
+      und getauchtem tangentialem 28-mm-Auslass bei Z=155 mm ersetzt. Dadurch
+      bleiben Stillstand und Kleinstmengen moeglich, ohne Rueckwaertssiphon.
+    provenance: recommended
+  - id: D-019
+    date: 2026-08-12
+    decision: >-
+      Anforderungen Revision 3 einschliesslich 0 bis 1200 L/h,
+      offenem Einlaufbecher, Luftspalt und getrennten Schlammablaessen wurden
+      ausdruecklich freigegeben; das Konzept-Gate ist geoeffnet.
+    provenance: user-stated
+  - id: D-020
+    date: 2026-08-12
+    decision: >-
+      Konzept Revision 3 wurde ausdruecklich freigegeben; parametrisches
+      Produktions-CAD und DRAFT-Fertigungsexporte duerfen erzeugt werden.
+    provenance: user-stated
+  - id: D-021
+    date: 2026-08-12
+    decision: >-
+      Die freigegebene R3-Geometrie ist als 17 druckbare Teiltypen umgesetzt;
+      STL-Regression und elf R3-Schnittstellen-/Hydraulikkriterien sind bestanden.
+      Der Stand bleibt bis Slicer- und physischen Tests DRAFT.
+    provenance: implementation-validation
+
+references:
+  - title: Anycubic Kobra 3 Max official specifications
+    url: https://www.anycubic.com/en/kobra-3-max-combo
+  - title: WHO sanitary inspection package for rainwater collection and storage
+    url: https://cdn.who.int/media/docs/default-source/wash-documents/water-safety-and-quality/water-safety-planning/sanitary-inspection-packages/6.-rainwater-collection-and-storage_web.pdf

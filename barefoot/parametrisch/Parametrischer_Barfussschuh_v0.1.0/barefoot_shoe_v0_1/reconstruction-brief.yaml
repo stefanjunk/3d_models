@@ -1,0 +1,185 @@
+project:
+  name: "Parametrischer Barfussschuh – orange/schwarz"
+  revision: "0.1.0"
+  target_use: "FDM-Prototyp eines alltagstauglichen Minimal-/Barfussschuhs; zwei Konstruktionsvarianten"
+  target_size_mm: {x: 277.0, y: 118.5, z: 66.0}
+  coordinate_system:
+    origin: "Mitte der Zehenkante auf der Bauplatte"
+    x_axis: "Zehe nach Ferse"
+    y_axis: "quer über den Fuß"
+    z_axis: "Bauplatte nach oben"
+
+sources:
+  - id: "IMG-001"
+    file: "ChatGPT Image Jul 30, 2026, 05_05_44 PM(1).png"
+    view: "perspektivische Dreiviertel-Seitenansicht"
+    projection: "unbekannte Perspektive / Konzeptbild"
+    focal_length_mm: null
+    scale_reference: "keine"
+    known_dimension_mm: null
+    original_preserved: true
+    limitations: ["kein Maßstab", "verdeckte Innenseite", "KI-Konzeptbild; Details nicht als Fertigungsnachweis geeignet"]
+  - id: "IMG-002"
+    file: "ChatGPT Image Jul 30, 2026, 05_15_27 PM.png"
+    view: "annähernde Draufsicht"
+    projection: "unbekannt / Konzeptbild"
+    focal_length_mm: null
+    scale_reference: "keine"
+    known_dimension_mm: null
+    original_preserved: true
+    limitations: ["kein Maßstab", "Fußform im Schuh unbekannt", "Verschluss nur visuell interpretierbar"]
+  - id: "IMG-003"
+    file: "ChatGPT Image Jul 30, 2026, 05_17_31 PM.png"
+    view: "seitliche Produktansicht"
+    projection: "annähernd orthografisch, aber nicht kalibriert"
+    focal_length_mm: null
+    scale_reference: "keine"
+    known_dimension_mm: null
+    original_preserved: true
+    limitations: ["kein Maßstab", "untere Profilgeometrie verdeckt", "KI-Konzeptbild"]
+  - id: "IMG-004"
+    file: "ChatGPT Image Aug 15, 2026, 10_03_00 PM.png"
+    view: "Laufsohlenansicht"
+    projection: "annähernd orthografisch, aber nicht kalibriert"
+    focal_length_mm: null
+    scale_reference: "keine"
+    known_dimension_mm: null
+    original_preserved: true
+    limitations: ["kein Maßstab", "Relieftiefe unbekannt", "Profilzonen visuell, nicht tribologisch validiert"]
+
+manufacturing:
+  process: "FDM/FFF"
+  printer: "noch nicht angegeben"
+  material: "TPU 90A–95A; exaktes Produkt noch nicht angegeben"
+  nozzle_mm: 0.4
+  xy_pixel_mm: null
+  layer_height_mm: 0.2
+  intended_orientation: "Sohle unten, Schuh in Gebrauchsposition"
+  measured_effective_feature_mm: 0.8
+
+requirements:
+  - id: "REQ-001"
+    category: "function"
+    statement: "Nullsprengung zwischen Ferse und Ballen; nur 1,2 mm lokale Zehenaufbiegung."
+    status: "requested"
+    source: "Nutzerwunsch Barfußsohle"
+    confidence: "high"
+    nominal_mm: 0.0
+    tolerance_mm: 0.5
+    priority: "critical"
+    validation: "dimension"
+  - id: "REQ-002"
+    category: "shape"
+    statement: "Breite, asymmetrische Zehenbox mit Spreizraum; keine zugespitzte Leistenform."
+    status: "requested"
+    source: "Nutzerwunsch plus IMG-002"
+    confidence: "high"
+    nominal_mm: 112.2
+    tolerance_mm: null
+    priority: "critical"
+    validation: "prototype"
+  - id: "REQ-003"
+    category: "appearance"
+    statement: "Fließend hochgezogene orange Sohlenwand, diagonal zoniertes Profil und schwarze Netzoptik."
+    status: "observed"
+    source: "IMG-001 bis IMG-004"
+    confidence: "high"
+    nominal_mm: null
+    tolerance_mm: null
+    priority: "important"
+    validation: "render"
+  - id: "REQ-004"
+    category: "print"
+    statement: "Sohle und Netzoberschuh müssen einzeln geschlossene, kantenmanifold Druckkörper sein."
+    status: "requested"
+    source: "FDM-Ausgabeanforderung"
+    confidence: "high"
+    nominal_mm: null
+    tolerance_mm: null
+    priority: "critical"
+    validation: "mesh audit"
+  - id: "REQ-005"
+    category: "function"
+    statement: "Blindkanäle belüften den Sohlenraum, ohne die Laufsohle zu perforieren."
+    status: "requested"
+    source: "Nutzerfrage zur Fußsohlenlüftung"
+    confidence: "high"
+    nominal_mm: 0.55
+    tolerance_mm: 0.15
+    priority: "important"
+    validation: "slicer/coupon"
+  - id: "REQ-006"
+    category: "interface"
+    statement: "Textilvariante besitzt umlaufenden Klebesitz und 12-mm-Kleberand im Schnittmuster."
+    status: "inferred"
+    source: "gewählte Klebekonstruktion"
+    confidence: "medium"
+    nominal_mm: 12.0
+    tolerance_mm: 1.0
+    priority: "critical"
+    validation: "prototype"
+  - id: "REQ-007"
+    category: "function"
+    statement: "Vier verstärkte Ösenpaare nehmen elastische 3–4-mm-Schnürung mit Kordelstopper auf."
+    status: "inferred"
+    source: "IMG-001 bis IMG-003 und Anpassungsanforderung"
+    confidence: "medium"
+    nominal_mm: 4.0
+    tolerance_mm: 0.4
+    priority: "important"
+    validation: "coupon/prototype"
+
+appearance:
+  geometry_features:
+    - "hochgezogener Zehen- und Fersenrand"
+    - "breite Barfuß-Zehenbox"
+    - "zonal wechselnde diagonale Laufsohlenrillen"
+    - "Rautengitter im gedruckten Oberteil"
+    - "örtliche Verstärkungsringe am Verschluss"
+  relief_features:
+    - "0,75-mm-Profilrillen"
+    - "0,95-mm-Flexrillen"
+    - "segmentierte seitliche Unterkante"
+  texture_only_features:
+    - "feine Textilgewebestruktur der Vorlagen"
+    - "orange Ziernähte"
+  palette_srgb: ["#FF6500", "#171719"]
+  material_hypotheses: ["orange TPU-Sohle", "schwarzes textiles Spacer-Mesh oder schwarzes TPU-Gitter"]
+  lighting_or_shadow_cues_to_ignore: ["weißer Studiohintergrund", "Bodenschatten", "Glanzkanten"]
+
+uncertainty:
+  hidden_regions:
+    - "Fußbettkontur und tatsächliche Leistenform"
+    - "Innenseite, Fersenfutter und genaue Zungenkonstruktion"
+    - "Profil-/Seitenwandtiefe"
+  conflicting_evidence:
+    - "Laufsohlenmuster und Seitenrelief unterscheiden sich zwischen den KI-Ansichten; als Stil, nicht als identische Geometrie interpretiert."
+  variants_to_model:
+    - "TPU-Sohle plus geklebter Textiloberschuh"
+    - "TPU-Sohle plus in-place gedruckter luftiger TPU-Netzoberschuh"
+  unresolved_questions:
+    - "Messwerte beider Füße"
+    - "Drucker, Bauraum, Extruder und exaktes TPU"
+    - "Hauptnutzung: Alltag, Wandern, Laufen oder Wasser"
+    - "gewünschte Socken-/Einlagenstärke"
+
+validation_views:
+  - id: "VIEW-001"
+    source_id: "IMG-003"
+    camera: "nur qualitative Seitenansicht; mangels Kalibrierung kein metrischer Bildvergleich"
+    landmarks: ["breite Zehenbox", "niedrige Sohle", "hochgezogene Zehenkante", "Verschlusszone", "Fersenrand"]
+    acceptance:
+      silhouette_iou_min: null
+      boundary_mean_px_max: null
+      landmark_error_percent_max: null
+      notes: "Konzeptbilder ohne Maßstab; Passform wird ausschließlich an Nutzermessung und Prototyp geprüft."
+
+deliverables:
+  editable_master: "barefoot_shoe_generator.py + config.json"
+  print_mesh: "generated/**.stl und generated/**.3mf"
+  textured_asset: "nicht erforderlich; OBJ nur als Geometrievorschau"
+  reports: ["generated/validation_report.json", "VALIDATION_AND_TEST_PLAN.md", "README_DE.md"]
+  known_deviations:
+    - "Version 0.1 nutzt angenommene EU-42-nahe Standardwerte, nicht den realen Fuß."
+    - "Textilschnitt ist eine parametrische Näherung und benötigt ein Probemuster auf einem Leisten/Fußmodell."
+    - "Der in-place TPU-Netzoberschuh ist drucktechnisch experimentell und verlangt Coupon-/Supporttests."

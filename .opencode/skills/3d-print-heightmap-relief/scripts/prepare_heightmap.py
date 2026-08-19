@@ -1,297 +1,184 @@
 #!/usr/bin/env python3
-"""Preprocess an image into a physically sampled printable height map."""
 from __future__ import annotations
 
 import argparse
-import json
-import math
 from pathlib import Path
-import sys
 
-import numpy as np
-
-from heightmap_common import (
-    apply_blur_mm,
-    apply_contrast,
-    apply_gamma,
-    apply_highpass_mm,
-    apply_soft_threshold,
-    apply_unsharp_mm,
-    blend_periodic_edges,
-    image_stats,
-    load_image_float,
-    make_preview,
-    parse_pair,
-    percentile_levels,
-    resize_fit,
-    save_dat,
-    save_png,
-    save_scad_array,
-    seam_metrics,
+from _relief_utils import (
+    apply_levels_gamma,
+    default_aspect_tolerance_pct,
+    load_grayscale_float,
+    natural_aspect_from_source_info,
+    rasterize_physical_fit,
+    read_json,
+    recommend_pitch,
+    resize_quality_warnings,
+    save_16bit_png,
+    save_square_pixel_preview,
+    sidecar_path,
     write_json,
 )
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Convert an image into a normalized height map with physical-size-aware "
-            "resampling, levels, gamma, filtering, seam blending, and reports."
-        )
-    )
-    parser.add_argument("input", type=Path)
-    parser.add_argument("output", type=Path, help="Output PNG")
-    parser.add_argument("--physical-width-mm", type=float)
-    parser.add_argument("--physical-height-mm", type=float)
-    parser.add_argument("--sample-pitch-mm", type=float)
-    parser.add_argument("--target-px", help="Explicit WIDTHxHEIGHT; overrides sample-pitch dimensions")
-    parser.add_argument("--fit", choices=("stretch", "cover", "contain", "tile"), default="stretch")
-    parser.add_argument("--repeat-x", type=float, default=1.0)
-    parser.add_argument("--repeat-y", type=float, default=1.0)
-    parser.add_argument("--pad-level", type=float, default=0.0)
-    parser.add_argument(
-        "--grayscale",
-        choices=("luma", "average", "max", "min", "red", "green", "blue", "alpha"),
-        default="luma",
-    )
-    parser.add_argument(
-        "--alpha-mode",
-        choices=("base", "black", "white", "multiply", "ignore"),
-        default="base",
-    )
-    parser.add_argument("--base-level", type=float, default=0.0)
-    parser.add_argument("--luma-space", choices=("srgb", "linear"), default="srgb")
-    parser.add_argument("--invert", action="store_true")
-    parser.add_argument("--rotate", type=int, choices=(0, 90, 180, 270), default=0)
-    parser.add_argument("--flip-x", action="store_true")
-    parser.add_argument("--flip-y", action="store_true")
-    parser.add_argument("--levels", default="0,100", help="Percentiles LOW,HIGH, e.g. 1,99")
-    parser.add_argument("--gamma", type=float, default=1.0)
-    parser.add_argument("--contrast", type=float, default=1.0)
-    parser.add_argument("--blur-mm", type=float, default=0.0)
-    parser.add_argument("--unsharp-radius-mm", type=float, default=0.0)
-    parser.add_argument("--unsharp-amount", type=float, default=0.0)
-    parser.add_argument("--highpass-radius-mm", type=float, default=0.0)
-    parser.add_argument("--highpass-amount", type=float, default=0.0)
-    parser.add_argument("--threshold", type=float)
-    parser.add_argument("--threshold-softness", type=float, default=0.0)
-    parser.add_argument("--seam-blend-mm", default="0,0", help="X,Y physical blend widths")
-    parser.add_argument("--bit-depth", type=int, choices=(8, 16), default=16)
-    parser.add_argument("--preview", type=Path)
-    parser.add_argument("--report", type=Path)
-    parser.add_argument("--npy-output", type=Path)
-    parser.add_argument("--dat-output", type=Path)
-    parser.add_argument("--dat-depth-scale", type=float, default=1.0)
-    parser.add_argument("--scad-output", type=Path)
-    parser.add_argument("--scad-variable", default="heightmap")
-    return parser
+def pair(text: str) -> tuple[float, float]:
+    for sep in ("x", ",", ";"):
+        if sep in text:
+            a, b = text.split(sep, 1)
+            return float(a), float(b)
+    raise argparse.ArgumentTypeError("expected pair like 80x40")
 
 
-def resolve_target(
-    source_shape: tuple[int, int],
-    target_text: str | None,
-    physical_width: float | None,
-    physical_height: float | None,
-    sample_pitch: float | None,
-) -> tuple[int, int, float, float, float, float, list[str]]:
-    src_h, src_w = source_shape
-    warnings: list[str] = []
-    if physical_width is not None and physical_width <= 0:
-        raise ValueError("physical-width-mm must be positive")
-    if physical_height is not None and physical_height <= 0:
-        raise ValueError("physical-height-mm must be positive")
-    if physical_width is None and physical_height is not None:
-        physical_width = physical_height * src_w / max(src_h, 1)
-    if physical_height is None and physical_width is not None:
-        physical_height = physical_width * src_h / max(src_w, 1)
+def main() -> int:
+    p = argparse.ArgumentParser(description="Prepare a 16-bit target heightmap while preserving PHYSICAL aspect ratio.")
+    p.add_argument("input_image")
+    p.add_argument("output_png")
+    p.add_argument("--size-mm", required=True, type=pair, help="Target surface patch width x height in mm")
+    p.add_argument("--source-size-mm", type=pair, help="Source master's intended physical width x height. If omitted, read source manifest or assume square source pixels.")
+    p.add_argument("--source-manifest", help="Optional registered source-master manifest JSON")
+    p.add_argument("--pitch-mm", type=pair, help="Explicit target X/Y mm per pixel")
+    p.add_argument("--process", default="fdm", choices=["fdm", "resin", "sla", "msla", "dlp"])
+    p.add_argument("--nozzle-mm", type=float, default=0.4)
+    p.add_argument("--layer-height-mm", type=float, default=0.2)
+    p.add_argument("--resin-xy-mm", type=float, default=0.05)
+    p.add_argument("--axis-mode", default="xy-z", choices=["xy-xy", "xy-z", "z-xy", "mixed"])
+    p.add_argument("--fit", default="contain", choices=["contain", "cover", "crop", "stretch", "repeat"])
+    p.add_argument("--tile-mm", type=pair, help="Physical repeat tile size for repeat mode")
+    p.add_argument("--image-class", default="subject")
+    p.add_argument("--surface-type", default="plane")
+    p.add_argument("--placement-mode", default="single_patch")
+    p.add_argument("--aspect-policy", default="preserve", choices=["preserve", "allow-distortion"])
+    p.add_argument("--allow-aspect-distortion", action="store_true", help="Explicit opt-in for anisotropic physical stretching")
+    p.add_argument("--aspect-tolerance-pct", type=float, help="Fail if reconstructed physical aspect exceeds this error")
+    p.add_argument("--black-point", type=float, default=0.0)
+    p.add_argument("--white-point", type=float, default=1.0)
+    p.add_argument("--gamma", type=float, default=1.0)
+    p.add_argument("--invert", action="store_true")
+    p.add_argument("--background", type=float, default=0.0, help="Normalized contain padding/background, 0..1")
+    p.add_argument("--preview", help="Optional square-pixel preview path; never use as geometry input")
+    p.add_argument("--preview-ppi", type=float, default=150.0)
+    args = p.parse_args()
 
-    if target_text:
-        target_width, target_height = parse_pair(target_text, cast=int)
-        if target_width < 2 or target_height < 2:
-            raise ValueError("target-px dimensions must both be at least 2")
-    elif sample_pitch is not None:
-        if sample_pitch <= 0:
-            raise ValueError("sample-pitch-mm must be positive")
-        if physical_width is None or physical_height is None:
-            raise ValueError("sample-pitch-mm requires physical width and height")
-        target_width = max(2, int(math.ceil(physical_width / sample_pitch)) + 1)
-        target_height = max(2, int(math.ceil(physical_height / sample_pitch)) + 1)
+    target_w_mm, target_h_mm = args.size_mm
+    arr, src_info = load_grayscale_float(args.input_image)
+    src_h_px, src_w_px = arr.shape
+
+    src_manifest = read_json(args.source_manifest) if args.source_manifest else None
+    if args.source_size_mm:
+        src_w_mm, src_h_mm = args.source_size_mm
+        source_aspect_origin = "explicit --source-size-mm"
     else:
-        target_width, target_height = src_w, src_h
+        _, (src_w_mm, src_h_mm) = natural_aspect_from_source_info(src_manifest, (src_w_px, src_h_px))
+        source_aspect_origin = "source manifest" if src_manifest else "source square-pixel aspect fallback"
 
-    if physical_width is None:
-        physical_width = float(max(1, target_width - 1))
-        warnings.append("No physical width supplied; millimetre filters are interpreted as pixels.")
-    if physical_height is None:
-        physical_height = float(max(1, target_height - 1))
-        warnings.append("No physical height supplied; millimetre filters are interpreted as pixels.")
+    if args.pitch_mm:
+        pitch_x, pitch_y = args.pitch_mm
+        pitch_note = ["Explicit target pitch supplied."]
+        dpi_x, dpi_y = 25.4 / pitch_x, 25.4 / pitch_y
+    else:
+        rec = recommend_pitch(target_w_mm, target_h_mm, args.process, args.nozzle_mm, args.layer_height_mm, args.resin_xy_mm, args.axis_mode)
+        pitch_x, pitch_y = rec.pitch_x_mm, rec.pitch_y_mm
+        dpi_x, dpi_y = rec.dpi_x, rec.dpi_y
+        pitch_note = rec.notes
 
-    pitch_x = physical_width / max(1, target_width - 1)
-    pitch_y = physical_height / max(1, target_height - 1)
-    return (
-        target_width,
-        target_height,
-        float(physical_width),
-        float(physical_height),
-        pitch_x,
-        pitch_y,
-        warnings,
-    )
-
-
-def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
-    heightmap, metadata = load_image_float(
-        args.input,
-        grayscale=args.grayscale,
-        alpha_mode=args.alpha_mode,
-        luma_space=args.luma_space,
-        base_level=args.base_level,
-    )
-    original_shape = heightmap.shape
-    original_stats = image_stats(heightmap)
-    original_seams = seam_metrics(heightmap)
-
-    if args.rotate:
-        # np.rot90 is CCW; the CLI uses conventional clockwise image rotation.
-        heightmap = np.rot90(heightmap, k=(4 - args.rotate // 90) % 4)
-    if args.flip_x:
-        heightmap = np.fliplr(heightmap)
-    if args.flip_y:
-        heightmap = np.flipud(heightmap)
-
-    (
-        target_width,
-        target_height,
-        physical_width,
-        physical_height,
-        pitch_x,
-        pitch_y,
-        warnings,
-    ) = resolve_target(
-        heightmap.shape,
-        args.target_px,
-        args.physical_width_mm,
-        args.physical_height_mm,
-        args.sample_pitch_mm,
-    )
-
-    heightmap = resize_fit(
-        heightmap,
-        target_width,
-        target_height,
+    allow_distortion = args.allow_aspect_distortion or args.aspect_policy == "allow-distortion"
+    built, fit = rasterize_physical_fit(
+        arr,
+        source_size_mm=(src_w_mm, src_h_mm),
+        target_size_mm=(target_w_mm, target_h_mm),
+        pitch_mm=(pitch_x, pitch_y),
         fit=args.fit,
-        pad_level=args.pad_level,
-        repeat_x=args.repeat_x,
-        repeat_y=args.repeat_y,
+        background_value=args.background,
+        aspect_policy=args.aspect_policy,
+        allow_aspect_distortion=allow_distortion,
+        repeat_tile_size_mm=args.tile_mm,
     )
+    built = apply_levels_gamma(built, args.black_point, args.white_point, args.gamma, args.invert)
 
-    low_percent, high_percent = parse_pair(args.levels, cast=float)
-    heightmap, actual_low, actual_high = percentile_levels(
-        heightmap, low_percent, high_percent
-    )
-    if args.invert:
-        heightmap = 1.0 - heightmap
-    if args.gamma != 1.0:
-        heightmap = apply_gamma(heightmap, args.gamma)
-    if args.contrast != 1.0:
-        heightmap = apply_contrast(heightmap, args.contrast)
-    if args.blur_mm > 0:
-        heightmap = apply_blur_mm(heightmap, args.blur_mm, pitch_x, pitch_y)
-    if args.highpass_radius_mm > 0 and args.highpass_amount != 0:
-        heightmap = apply_highpass_mm(
-            heightmap,
-            args.highpass_radius_mm,
-            args.highpass_amount,
-            pitch_x,
-            pitch_y,
-        )
-    if args.unsharp_radius_mm > 0 and args.unsharp_amount != 0:
-        heightmap = apply_unsharp_mm(
-            heightmap,
-            args.unsharp_radius_mm,
-            args.unsharp_amount,
-            pitch_x,
-            pitch_y,
-        )
-    if args.threshold is not None:
-        heightmap = apply_soft_threshold(
-            heightmap, args.threshold, args.threshold_softness
+    tolerance = args.aspect_tolerance_pct if args.aspect_tolerance_pct is not None else default_aspect_tolerance_pct(args.image_class)
+    aspect_error = float(fit.get("rasterization_aspect_error_pct", fit.get("physical_aspect_error_pct", 0.0)))
+    if args.fit != "repeat" and not allow_distortion and aspect_error > tolerance:
+        raise SystemExit(
+            f"Physical aspect validation failed: {aspect_error:.4f}% error exceeds {tolerance:.4f}% tolerance. "
+            "Do not continue to geometry generation."
         )
 
-    seam_x_mm, seam_y_mm = parse_pair(args.seam_blend_mm, cast=float)
-    if seam_x_mm < 0 or seam_y_mm < 0:
-        raise ValueError("seam-blend-mm values cannot be negative")
-    blend_x_px = int(round(seam_x_mm / max(pitch_x, 1.0e-9)))
-    blend_y_px = int(round(seam_y_mm / max(pitch_y, 1.0e-9)))
-    if blend_x_px or blend_y_px:
-        heightmap = blend_periodic_edges(heightmap, blend_x_px, blend_y_px)
-
-    save_png(heightmap, args.output, args.bit_depth)
+    save_16bit_png(built, args.output_png, dpi_x, dpi_y)
+    preview_meta = None
     if args.preview:
-        make_preview(heightmap, args.preview)
-    if args.npy_output:
-        args.npy_output.parent.mkdir(parents=True, exist_ok=True)
-        np.save(args.npy_output, heightmap.astype(np.float32))
-    if args.dat_output:
-        save_dat(heightmap, args.dat_output, args.dat_depth_scale)
-    if args.scad_output:
-        save_scad_array(heightmap, args.scad_output, args.scad_variable)
+        preview_meta = save_square_pixel_preview(built, args.preview, (target_w_mm, target_h_mm), args.preview_ppi)
 
-    report = {
-        "input": str(args.input),
-        "output": str(args.output),
-        "source_metadata": metadata,
-        "source_shape_yx": [int(original_shape[0]), int(original_shape[1])],
-        "source_stats": original_stats,
-        "source_seams": original_seams,
-        "physical_width_mm": physical_width,
-        "physical_height_mm": physical_height,
-        "target_width_px": target_width,
-        "target_height_px": target_height,
-        "actual_pitch_x_mm": pitch_x,
-        "actual_pitch_y_mm": pitch_y,
-        "fit": args.fit,
-        "repeat_x": args.repeat_x,
-        "repeat_y": args.repeat_y,
-        "orientation": {
-            "rotate_clockwise_deg": args.rotate,
-            "flip_x": args.flip_x,
-            "flip_y": args.flip_y,
-            "invert": args.invert,
+    placed_px = (int(fit.get("placed_pixel_width", built.shape[1])), int(fit.get("placed_pixel_height", built.shape[0])))
+    warnings = list(pitch_note)
+    warnings += resize_quality_warnings((src_w_px, src_h_px), placed_px, args.image_class)
+    if args.fit == "stretch" and allow_distortion:
+        warnings.append("Physical aspect distortion was explicitly allowed; verify the subject visually before geometry generation.")
+    if abs(pitch_x - pitch_y) > 1e-9:
+        warnings.append("Geometry raster uses non-square physical pixels. A normal image viewer may look distorted; inspect the square-pixel preview instead.")
+
+    meta = {
+        "schema": "heightmap-relief-build-v2.2",
+        "source": {
+            "path": str(Path(args.input_image)),
+            "manifest": str(Path(args.source_manifest)) if args.source_manifest else None,
+            "source_size_px": [src_w_px, src_h_px],
+            "source_size_mm": [src_w_mm, src_h_mm],
+            "source_physical_aspect": src_w_mm / src_h_mm,
+            "aspect_origin": source_aspect_origin,
+            **src_info,
         },
-        "levels": {
-            "requested_percentiles": [low_percent, high_percent],
-            "actual_values": [actual_low, actual_high],
+        "target": {
+            "width_mm": target_w_mm,
+            "height_mm": target_h_mm,
+            "physical_aspect": target_w_mm / target_h_mm,
+            "pixel_width": built.shape[1],
+            "pixel_height": built.shape[0],
+            "raster_aspect": built.shape[1] / built.shape[0],
+            "pitch_x_mm": pitch_x,
+            "pitch_y_mm": pitch_y,
+            "physical_pixel_aspect": pitch_x / pitch_y,
+            "dpi_x": dpi_x,
+            "dpi_y": dpi_y,
+            "bit_depth": 16,
         },
-        "filters": {
+        "classification": {
+            "image_class": args.image_class,
+            "surface_type": args.surface_type,
+            "placement_mode": args.placement_mode,
+        },
+        "processing": {
+            "fit_mode": args.fit,
+            "aspect_policy": args.aspect_policy,
+            "allow_aspect_distortion": allow_distortion,
+            "aspect_tolerance_pct": tolerance,
+            "black_point": args.black_point,
+            "white_point": args.white_point,
             "gamma": args.gamma,
-            "contrast": args.contrast,
-            "blur_mm": args.blur_mm,
-            "unsharp_radius_mm": args.unsharp_radius_mm,
-            "unsharp_amount": args.unsharp_amount,
-            "highpass_radius_mm": args.highpass_radius_mm,
-            "highpass_amount": args.highpass_amount,
-            "threshold": args.threshold,
-            "threshold_softness": args.threshold_softness,
-            "seam_blend_mm": [seam_x_mm, seam_y_mm],
-            "seam_blend_px": [blend_x_px, blend_y_px],
+            "invert": args.invert,
+            "background": args.background,
         },
-        "output_bit_depth": args.bit_depth,
-        "output_stats": image_stats(heightmap),
-        "output_seams": seam_metrics(heightmap),
+        "physical_fit": fit,
+        "aspect_validation": {
+            "source_physical_aspect": src_w_mm / src_h_mm,
+            "placed_physical_aspect": fit.get("reconstructed_physical_aspect", fit.get("placed_aspect")),
+            "error_pct": aspect_error,
+            "tolerance_pct": tolerance,
+            "passed": allow_distortion or aspect_error <= tolerance,
+        },
+        "preview": preview_meta,
         "warnings": warnings,
     }
-    if args.report:
-        write_json(report, args.report)
-    else:
-        print(json.dumps(report, indent=2, sort_keys=True))
+    write_json(sidecar_path(args.output_png), meta)
+
+    print(f"Wrote geometry heightmap: {args.output_png}")
+    print(f"Physical target: {target_w_mm:g} x {target_h_mm:g} mm")
+    print(f"Raster: {built.shape[1]} x {built.shape[0]} px at {dpi_x:.2f} x {dpi_y:.2f} PPI")
+    print(f"Physical aspect error: {aspect_error:.5f}% (tolerance {tolerance:.3f}%)")
+    if args.preview:
+        print(f"Square-pixel visual preview: {args.preview}")
+    for w in warnings:
+        print(f"warning: {w}")
     return 0
 
 
 if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as exc:
-        print(f"ERROR: {exc}", file=sys.stderr)
-        raise SystemExit(2)
+    raise SystemExit(main())

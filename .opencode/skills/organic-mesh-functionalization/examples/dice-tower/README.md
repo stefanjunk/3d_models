@@ -1,23 +1,11 @@
-# Decorative dice tower functional core
+# Dice tower example
 
-This example assumes an external high-resolution decorative shell whose roughly cylindrical tower axis is Z and whose courtyard projects toward negative Y. The script generates only the parametric functional geometry:
+This example separates the decorated shell from precise functional bodies.
 
-- inner core cutter;
-- roof entry cutter;
-- courtyard exit cutter;
-- alternating inclined baffle/stair insert.
+1. Fit `tower_axis`, `inner_radius`, and `usable_height` from source cross-sections.
+2. Generate `interior-cutter`, `top-opening`, `bottom-opening`, and `stair-insert` with `cadquery_dice_parts.py`.
+3. Update `blender-operations.json` with the generated paths and source mesh.
+4. Run the Blender pipeline.
+5. Validate exterior preservation with `edit-roi.json` and test the die path physically.
 
-The organic source is intentionally not included. Fit `core_radius`, `tower_height`, and transforms from cross-sections of the real mesh. Prototype the baffle insert separately before fusing it.
-
-## Generate
-
-```bash
-python functional_parts.py --out generated
-```
-
-## Suggested integration
-
-1. Validate and orient the source mesh.
-2. Subtract `core-cutter.stl`, `entry-cutter.stl`, and `exit-cutter.stl` with Manifold3D or Blender Exact.
-3. Keep `stair-insert.stl` separate, captured by ledges or an access roof during early tests.
-4. Inspect cross-sections every 10–15 mm and perform repeated drop tests using the largest die.
+The sample dimensions are placeholders and must not be applied to an unmeasured mesh.

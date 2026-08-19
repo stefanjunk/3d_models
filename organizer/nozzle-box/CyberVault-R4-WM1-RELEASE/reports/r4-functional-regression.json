@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "comparison": {
+    "physical_reference": "CYBERVAULT-R3-CAD-B-WM1",
+    "candidate": "CYBERVAULT-R4-CAD-A-WM1"
+  },
+  "scope": "Regression of all fit and motion interfaces after exterior-only R4 relief redesign",
+  "unchanged_interfaces": {
+    "nozzle_fit_clearance_each_side_mm": 0.35,
+    "nozzle_slot_centers_global_y_mm": [-168.4, -157.1, -145.8, -125.4, -114.1, -102.8, -82.4, -71.1, -59.8, -39.4, -28.1, -16.8],
+    "hinge": {
+      "pin_circumradius_mm": 2.0,
+      "hole_radius_mm": 2.35,
+      "radial_clearance_mm": 0.35,
+      "axial_clearance_mm": 0.5
+    },
+    "latch": {
+      "arm_length_mm": 14.5,
+      "arm_thickness_mm": 1.32,
+      "arm_height_mm": 4.6,
+      "design_deflection_mm": 0.8,
+      "estimated_strain_percent": 0.753,
+      "estimated_total_force_n": 2.082
+    }
+  },
+  "intentional_exterior_changes": {
+    "lid_major_engraving_depth_mm": 0.64,
+    "lid_secondary_engraving_depth_mm": 0.32,
+    "side_engraving_depth_mm": 0.48,
+    "side_emboss_height_mm": 0.32,
+    "minimum_side_wall_after_engraving_mm": 1.92,
+    "minimum_lid_plate_after_engraving_mm": 2.36,
+    "open_envelope_change_mm": {
+      "r3_nominal": [73.5, 382.25, 14.5],
+      "r4_validated": [74.14, 382.25, 14.5]
+    }
+  },
+  "digital_regression": {
+    "base_connected_components": 1,
+    "lid_connected_components": 1,
+    "assembly_connected_components": 2,
+    "open_collision_volume_mm3": 0,
+    "closed_rigid_nominal_collision_volume_mm3": 0,
+    "print_bed_fit": true
+  },
+  "physical_evidence_transfer": {
+    "nozzle_fit": "PASS — user selected 0.35 mm each-side coupon",
+    "hinge": "PASS BASIC FUNCTION — unchanged interface; user confirmed fit on 2026-08-11",
+    "latch": "PASS BASIC FUNCTION — unchanged interface; user confirmed fit on 2026-08-11",
+    "limits": [
+      "R4 relief and side emboss have not yet been physically printed.",
+      "Loaded inversion, 40 cm readability, 100-cycle pretest and 1000-cycle target remain unreported."
+    ]
+  }
+}

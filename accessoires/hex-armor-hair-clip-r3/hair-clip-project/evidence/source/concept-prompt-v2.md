@@ -1,3 +1,0 @@
-# Concept Prompt v2 – Monolithic Geometric Hair Clip (No Metal Parts)
-
-Generate a product photograph of a masculine-styled hair clip for ponytails, entirely one single piece (no separate metal spring). The clip is dark anthracite gray PETG plastic with an abstract geometric design language featuring faceted panels, segmented armor-like plates, and angular ridges. It uses a curved bow-arc shape that opens like a spring clip – the material itself provides the clamping force. A small integrated click-lock tab secures the closure. The overall shape is compact and robust, roughly 50-60mm wide. Clean studio lighting on a neutral dark background. No floral, organic, or decorative feminine elements. Photorealistic product shot showing it as one unified molded piece.

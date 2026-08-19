@@ -1,12 +1,18 @@
-# Replace an AI-generated shoe interior and upper
+# Barefoot shoe replacement example
 
-The external AI mesh is used only as a decorative/source envelope. The script creates a parameterized zero-drop sole and broad cutters for removing material above the sole interface. It does not infer a safe or comfortable internal last from the outside shell.
+The source mesh is used as a geometric reference. Do not assume the textile/sole boundary is a horizontal plane.
 
-Recommended sequence:
+## Recommended sequence
 
-1. Establish ground plane, heel-to-toe axis, handedness, and a reviewed sole/upper boundary.
-2. Segment/remove the textile-looking upper with Blender vertex groups or a fitted interface surface; do not rely on a horizontal plane if the rim curves.
-3. Decide whether the original outsole skin/rim is retained.
-4. Fit the generated sole to foot/last data and transform it into the shell.
-5. Add a conformal bonding flange or keep the sole separate.
-6. Validate protected outsole texture, zero drop, internal foot volume, flex, attachment, and full print orientation.
+1. Mark 20–50 seam landmarks around the shoe in Blender.
+2. Extract footprint and seam sections.
+3. Choose:
+   - complete replacement;
+   - skin-preserving core replacement;
+   - reference-only sole rebuild.
+4. Build the sole core and upper flange parametrically.
+5. Create a replacement envelope and clearance cutter.
+6. Combine in Blender/SDF, not by converting the full source mesh into CadQuery.
+7. Check hidden voids, minimum sidewall, zero drop, toe box, and attachment tests.
+
+`sole-parameters.json` is a requirements example, not a finished universal sole generator.

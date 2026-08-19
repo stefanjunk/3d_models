@@ -1,0 +1,825 @@
+{
+  "project": {
+    "name": "Parametrischer Barfussschuh nach orange-schwarzer Referenz",
+    "revision": "0.1.0",
+    "units": "mm"
+  },
+  "units": "millimetres",
+  "validation_scope": [
+    "binary STL structure written deterministically",
+    "undirected edge count for watertightness",
+    "degenerate-triangle check",
+    "signed volume and bounding box",
+    "3MF ZIP/core-file check"
+  ],
+  "not_validated_without_user_profile": [
+    "exact slicer toolpaths and print time",
+    "TPU bridge/support behaviour",
+    "skin comfort, fatigue, abrasion and wet grip",
+    "final anatomical fit"
+  ],
+  "sides": [
+    {
+      "side": "left",
+      "assumed_foot_parameters": {
+        "foot_length_mm": 265.0,
+        "ball_width_mm": 103.0,
+        "heel_width_mm": 67.0,
+        "heel_to_ball_mm": 182.0,
+        "ball_girth_mm": 255.0,
+        "instep_girth_mm": 252.0,
+        "instep_height_mm": 61.0,
+        "toe_height_mm": 27.0,
+        "ankle_opening_girth_mm": 292.0,
+        "toe_splay_mm": 5.0,
+        "big_toe_bias_mm": 3.0
+      },
+      "derived": {
+        "sole_length_mm": 277.0,
+        "maximum_outsole_width_mm": 112.20928883001346,
+        "ball_station_fraction_from_toe": 0.33212996389891697,
+        "solid_geometry_volume_cm3": 158.76753173316516,
+        "solid_tpu_mass_estimate_g_at_1_20_g_cm3": 190.5210380797982,
+        "sole_only_solid_volume_cm3": 125.73612826922924,
+        "sole_only_mass_estimate_g_at_1_20_g_cm3": 150.88335392307508,
+        "best_square_bed_fit": {
+          "rotation_deg": 47.0,
+          "rotated_bbox_xy_mm": [
+            227.62250666313022,
+            227.8250498569649
+          ],
+          "minimum_square_bed_mm_without_brim": 227.8250498569649,
+          "fits_250x250_without_brim": true,
+          "fits_220x220_without_brim": false
+        },
+        "upper_to_sole_overlap_proxy": {
+          "upper_vertices_inside_sole_envelope": 589,
+          "pass": true,
+          "note": "Proxy only; exact slicer union still must be inspected."
+        },
+        "eyelet_to_upper_overlap_proxies": [
+          {
+            "eyelet": "left_eyelet_01",
+            "minimum_vertex_distance_to_upper_mm": 0.0579488234839129,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 86,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_02",
+            "minimum_vertex_distance_to_upper_mm": 0.09476686438259357,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 84,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_03",
+            "minimum_vertex_distance_to_upper_mm": 0.3089001377349953,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 96,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_04",
+            "minimum_vertex_distance_to_upper_mm": 0.29465092597376275,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 71,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_05",
+            "minimum_vertex_distance_to_upper_mm": 0.20555640718823284,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 92,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_06",
+            "minimum_vertex_distance_to_upper_mm": 0.2921675708701946,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 76,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_07",
+            "minimum_vertex_distance_to_upper_mm": 0.1853347214994063,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 96,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "left_eyelet_08",
+            "minimum_vertex_distance_to_upper_mm": 0.20842877880788474,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 75,
+            "overlap_proxy_pass": true
+          }
+        ]
+      },
+      "meshes": [
+        {
+          "name": "left_tpu_outsole",
+          "vertices": 12662,
+          "triangles": 25320,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.11511488741099342,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 125736.12826922924,
+          "bbox_min_mm": [
+            -0.9505264527623825,
+            -54.847144249360724,
+            0.0
+          ],
+          "bbox_max_mm": [
+            277.85595086466566,
+            63.57218842635313,
+            15.164017900027769
+          ],
+          "size_mm": [
+            278.80647731742806,
+            118.41933267571386,
+            15.164017900027769
+          ]
+        },
+        {
+          "name": "left_printed_tpu_lattice_upper",
+          "vertices": 20598,
+          "triangles": 42052,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.00451455308943438,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 32262.710899981565,
+          "bbox_min_mm": [
+            -0.8968270672273655,
+            -53.67240286616906,
+            9.050019996216905
+          ],
+          "bbox_max_mm": [
+            277.7633737202485,
+            62.37985622336907,
+            66.04835236412715
+          ],
+          "size_mm": [
+            278.6602007874759,
+            116.05225908953813,
+            56.99833236791025
+          ]
+        },
+        {
+          "name": "left_eyelet_01",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457681996,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049429227,
+          "bbox_min_mm": [
+            131.47301441992565,
+            -14.070654210080596,
+            49.12144434597916
+          ],
+          "bbox_max_mm": [
+            140.15556973522555,
+            -5.360626853339721,
+            54.562576893493066
+          ],
+          "size_mm": [
+            8.682555315299908,
+            8.710027356740873,
+            5.441132547513909
+          ]
+        },
+        {
+          "name": "left_eyelet_02",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.574315245768202,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049429581,
+          "bbox_min_mm": [
+            131.48943996892305,
+            3.8038838998948905,
+            49.148713719732804
+          ],
+          "bbox_max_mm": [
+            140.1356364725062,
+            12.493837245802753,
+            54.53388374557515
+          ],
+          "size_mm": [
+            8.646196503583155,
+            8.689953345907863,
+            5.385170025842349
+          ]
+        },
+        {
+          "name": "left_eyelet_03",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682067,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049422425,
+          "bbox_min_mm": [
+            153.60294035208838,
+            -21.238833199277163,
+            57.44423243198318
+          ],
+          "bbox_max_mm": [
+            162.32784812018934,
+            -12.518175695062032,
+            63.45427046758145
+          ],
+          "size_mm": [
+            8.724907768100962,
+            8.720657504215131,
+            6.010038035598271
+          ]
+        },
+        {
+          "name": "left_eyelet_04",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682126,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049430275,
+          "bbox_min_mm": [
+            153.5918279281018,
+            9.77397595011538,
+            57.461246948984986
+          ],
+          "bbox_max_mm": [
+            162.33478156696944,
+            18.47310687362442,
+            63.43585862169106
+          ],
+          "size_mm": [
+            8.742953638867647,
+            8.69913092350904,
+            5.974611672706075
+          ]
+        },
+        {
+          "name": "left_eyelet_05",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682005,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049421704,
+          "bbox_min_mm": [
+            175.81404511178727,
+            -25.129010108027845,
+            58.45685874420633
+          ],
+          "bbox_max_mm": [
+            184.28470921057198,
+            -17.148160229245672,
+            65.46732988327237
+          ],
+          "size_mm": [
+            8.47066409878471,
+            7.980849878782173,
+            7.010471139066041
+          ]
+        },
+        {
+          "name": "left_eyelet_06",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682075,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.0865704943784,
+          "bbox_min_mm": [
+            175.8029234571195,
+            13.991662970510026,
+            58.4568020931321
+          ],
+          "bbox_max_mm": [
+            184.29302471334205,
+            21.97965315237867,
+            65.46739971240231
+          ],
+          "size_mm": [
+            8.490101256222545,
+            7.9879901818686445,
+            7.010597619270214
+          ]
+        },
+        {
+          "name": "left_eyelet_07",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682021,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049435195,
+          "bbox_min_mm": [
+            197.76026317307245,
+            -23.265379859248455,
+            55.20856454587465
+          ],
+          "bbox_max_mm": [
+            206.52558000085114,
+            -15.821689815937209,
+            63.24645174145052
+          ],
+          "size_mm": [
+            8.76531682777869,
+            7.443690043311246,
+            8.03788719557587
+          ]
+        },
+        {
+          "name": "left_eyelet_08",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682045,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049426321,
+          "bbox_min_mm": [
+            197.76098429269348,
+            12.370044553654054,
+            55.202375014835404
+          ],
+          "bbox_max_mm": [
+            206.51856932452054,
+            19.823878550953268,
+            63.2539837820328
+          ],
+          "size_mm": [
+            8.757585031827062,
+            7.453833997299213,
+            8.051608767197393
+          ]
+        }
+      ]
+    },
+    {
+      "side": "right",
+      "assumed_foot_parameters": {
+        "foot_length_mm": 265.0,
+        "ball_width_mm": 103.0,
+        "heel_width_mm": 67.0,
+        "heel_to_ball_mm": 182.0,
+        "ball_girth_mm": 255.0,
+        "instep_girth_mm": 252.0,
+        "instep_height_mm": 61.0,
+        "toe_height_mm": 27.0,
+        "ankle_opening_girth_mm": 292.0,
+        "toe_splay_mm": 5.0,
+        "big_toe_bias_mm": 3.0
+      },
+      "derived": {
+        "sole_length_mm": 277.0,
+        "maximum_outsole_width_mm": 112.20928883001346,
+        "ball_station_fraction_from_toe": 0.33212996389891697,
+        "solid_geometry_volume_cm3": 158.79154218332528,
+        "solid_tpu_mass_estimate_g_at_1_20_g_cm3": 190.54985061999034,
+        "sole_only_solid_volume_cm3": 125.75761142530061,
+        "sole_only_mass_estimate_g_at_1_20_g_cm3": 150.90913371036072,
+        "best_square_bed_fit": {
+          "rotation_deg": 43.0,
+          "rotated_bbox_xy_mm": [
+            227.8250498569649,
+            227.62250666313022
+          ],
+          "minimum_square_bed_mm_without_brim": 227.8250498569649,
+          "fits_250x250_without_brim": true,
+          "fits_220x220_without_brim": false
+        },
+        "upper_to_sole_overlap_proxy": {
+          "upper_vertices_inside_sole_envelope": 589,
+          "pass": true,
+          "note": "Proxy only; exact slicer union still must be inspected."
+        },
+        "eyelet_to_upper_overlap_proxies": [
+          {
+            "eyelet": "right_eyelet_01",
+            "minimum_vertex_distance_to_upper_mm": 0.09476686438248387,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 85,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_02",
+            "minimum_vertex_distance_to_upper_mm": 0.057948823484148496,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 84,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_03",
+            "minimum_vertex_distance_to_upper_mm": 0.29465092597353837,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 96,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_04",
+            "minimum_vertex_distance_to_upper_mm": 0.3089001377349947,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 71,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_05",
+            "minimum_vertex_distance_to_upper_mm": 0.20891245205193992,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 92,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_06",
+            "minimum_vertex_distance_to_upper_mm": 0.30026289979524234,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 76,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_07",
+            "minimum_vertex_distance_to_upper_mm": 0.18351212209208342,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 96,
+            "overlap_proxy_pass": true
+          },
+          {
+            "eyelet": "right_eyelet_08",
+            "minimum_vertex_distance_to_upper_mm": 0.20036168210372957,
+            "eyelet_vertices_with_upper_vertex_within_1_5_mm": 75,
+            "overlap_proxy_pass": true
+          }
+        ]
+      },
+      "meshes": [
+        {
+          "name": "right_tpu_outsole",
+          "vertices": 12662,
+          "triangles": 25320,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.1151148865988963,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 125757.61142530061,
+          "bbox_min_mm": [
+            -0.9505264527623825,
+            -63.57218842635313,
+            0.0
+          ],
+          "bbox_max_mm": [
+            277.85595086466566,
+            54.84714424936073,
+            15.164017900027769
+          ],
+          "size_mm": [
+            278.80647731742806,
+            118.41933267571386,
+            15.164017900027769
+          ]
+        },
+        {
+          "name": "right_printed_tpu_lattice_upper",
+          "vertices": 20598,
+          "triangles": 42052,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.0054136203776474,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 32265.238194070098,
+          "bbox_min_mm": [
+            -0.8968270672273655,
+            -62.37985622336907,
+            9.050019996216905
+          ],
+          "bbox_max_mm": [
+            277.7633737202485,
+            53.67240286616906,
+            66.04835236412715
+          ],
+          "size_mm": [
+            278.6602007874759,
+            116.05225908953813,
+            56.99833236791025
+          ]
+        },
+        {
+          "name": "right_eyelet_01",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682035,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049431594,
+          "bbox_min_mm": [
+            131.48943996892305,
+            -12.493837245802753,
+            49.148713719732804
+          ],
+          "bbox_max_mm": [
+            140.1356364725062,
+            -3.8038838998948905,
+            54.53388374557515
+          ],
+          "size_mm": [
+            8.646196503583155,
+            8.689953345907863,
+            5.385170025842349
+          ]
+        },
+        {
+          "name": "right_eyelet_02",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457681996,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049431727,
+          "bbox_min_mm": [
+            131.47301441992565,
+            5.360626853339721,
+            49.12144434597916
+          ],
+          "bbox_max_mm": [
+            140.15556973522555,
+            14.070654210080596,
+            54.562576893493066
+          ],
+          "size_mm": [
+            8.682555315299908,
+            8.710027356740873,
+            5.441132547513909
+          ]
+        },
+        {
+          "name": "right_eyelet_03",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682124,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049430755,
+          "bbox_min_mm": [
+            153.5918279281018,
+            -18.47310687362442,
+            57.461246948984986
+          ],
+          "bbox_max_mm": [
+            162.33478156696944,
+            -9.77397595011538,
+            63.43585862169106
+          ],
+          "size_mm": [
+            8.742953638867647,
+            8.69913092350904,
+            5.974611672706075
+          ]
+        },
+        {
+          "name": "right_eyelet_04",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682081,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049435432,
+          "bbox_min_mm": [
+            153.60294035208838,
+            12.518175695062032,
+            57.44423243198318
+          ],
+          "bbox_max_mm": [
+            162.32784812018934,
+            21.238833199277163,
+            63.45427046758145
+          ],
+          "size_mm": [
+            8.724907768100962,
+            8.720657504215131,
+            6.010038035598271
+          ]
+        },
+        {
+          "name": "right_eyelet_05",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682075,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049432188,
+          "bbox_min_mm": [
+            175.8029234571195,
+            -21.97965315237867,
+            58.4568020931321
+          ],
+          "bbox_max_mm": [
+            184.29302471334205,
+            -13.991662970510026,
+            65.46739971240231
+          ],
+          "size_mm": [
+            8.490101256222545,
+            7.9879901818686445,
+            7.010597619270214
+          ]
+        },
+        {
+          "name": "right_eyelet_06",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049437329,
+          "bbox_min_mm": [
+            175.81404511178727,
+            17.14816022924567,
+            58.45685874420633
+          ],
+          "bbox_max_mm": [
+            184.28470921057198,
+            25.129010108027845,
+            65.46732988327237
+          ],
+          "size_mm": [
+            8.47066409878471,
+            7.980849878782177,
+            7.010471139066041
+          ]
+        },
+        {
+          "name": "right_eyelet_07",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682045,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049427039,
+          "bbox_min_mm": [
+            197.76098429269348,
+            -19.823878550953268,
+            55.202375014835404
+          ],
+          "bbox_max_mm": [
+            206.51856932452054,
+            -12.370044553654054,
+            63.2539837820328
+          ],
+          "size_mm": [
+            8.757585031827062,
+            7.453833997299213,
+            8.051608767197393
+          ]
+        },
+        {
+          "name": "right_eyelet_08",
+          "vertices": 96,
+          "triangles": 192,
+          "components": 1,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "degenerate_triangles": 0,
+          "minimum_triangle_area_mm2": 0.5743152457682033,
+          "watertight_by_edge_count": true,
+          "signed_volume_mm3": 96.08657049430754,
+          "bbox_min_mm": [
+            197.76026317307245,
+            15.821689815937209,
+            55.20856454587465
+          ],
+          "bbox_max_mm": [
+            206.52558000085114,
+            23.265379859248455,
+            63.24645174145052
+          ],
+          "size_mm": [
+            8.76531682777869,
+            7.443690043311246,
+            8.03788719557587
+          ]
+        }
+      ]
+    }
+  ],
+  "test_coupons": [
+    {
+      "name": "flat_tpu_lattice_coupon",
+      "vertices": 1298,
+      "triangles": 2676,
+      "components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_triangles": 0,
+      "minimum_triangle_area_mm2": 1.4,
+      "watertight_by_edge_count": true,
+      "signed_volume_mm3": 2318.4000000000174,
+      "bbox_min_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bbox_max_mm": [
+        60.0,
+        48.0,
+        1.4
+      ],
+      "size_mm": [
+        60.0,
+        48.0,
+        1.4
+      ]
+    },
+    {
+      "name": "flat_tpu_eyelet_coupon_reinforcement",
+      "vertices": 128,
+      "triangles": 256,
+      "components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_triangles": 0,
+      "minimum_triangle_area_mm2": 0.4312754174500649,
+      "watertight_by_edge_count": true,
+      "signed_volume_mm3": 96.56970939798438,
+      "bbox_min_mm": [
+        25.75,
+        19.75,
+        0.44000000000000006
+      ],
+      "bbox_max_mm": [
+        34.25,
+        28.25,
+        2.6400000000000006
+      ],
+      "size_mm": [
+        8.5,
+        8.5,
+        2.2000000000000006
+      ]
+    }
+  ],
+  "three_mf": [
+    {
+      "path": "/workspace/scratch/bd1d04ae9901/barefoot_shoe_v0_1/generated/left/printed_mesh_variant/left_full_printed_barefoot_shoe.3mf",
+      "zip_entries": [
+        "3D/3dmodel.model",
+        "[Content_Types].xml",
+        "_rels/.rels"
+      ],
+      "model_xml_bytes": 4638127,
+      "has_core_files": true
+    },
+    {
+      "path": "/workspace/scratch/bd1d04ae9901/barefoot_shoe_v0_1/generated/right/printed_mesh_variant/right_full_printed_barefoot_shoe.3mf",
+      "zip_entries": [
+        "3D/3dmodel.model",
+        "[Content_Types].xml",
+        "_rels/.rels"
+      ],
+      "model_xml_bytes": 4638852,
+      "has_core_files": true
+    }
+  ]
+}

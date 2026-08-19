@@ -1,0 +1,495 @@
+schema_version: "1.0"
+
+project:
+  id: cyber-nozzle-case
+  title: "Cyber-Schatulle fuer 3D-Druckduesen"
+  revision: 4
+  status: final-release-r4-approved
+  risk_class: normal-functional
+  intended_user: "Privater 3D-Druck-Anwender"
+
+provenance_legend:
+  user-stated: "Direkt vom Benutzer gefordert"
+  inferred: "Aus Projektkontext abgeleitet; noch bestaetigbar"
+  recommended: "Technische Empfehlung; wird erst nach Freigabe verbindlich"
+  unresolved: "Muss vor Produktions-CAD geklaert werden"
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.4
+
+function:
+  summary: "Print-in-place-Schatulle zur geordneten Aufbewahrung von zwoelf Anycubic-Kobra-3-Max-Quick-Swap-Duesen."
+  users:
+    - "Privater 3D-Druck-Anwender"
+  interfaces:
+    - "Zwoelf reale Kobra-3-Max-Quick-Swap-Duesen in vier beschrifteten Dreiergruppen"
+    - "Vollstaendig gedrucktes Print-in-place-Scharnier"
+    - "Vollstaendig gedruckter Rastverschluss"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Verbrennung oder Verformung, falls noch heisse Duesen eingelegt werden"
+    - "Bruch oder Klemmen von Print-in-place-Scharnier beziehungsweise Rastarm bei ungeeigneter Kalibrierung"
+  assumptions:
+    - "Nur fuer abgekuehlte, gereinigte Duesen im trockenen Innenraum"
+    - "Ungefuelltes PETG und 0,4-mm-Druckduese"
+
+fabrication:
+  preference: integrated-print
+  assembly_target: none
+  repairability: limited-by-print-in-place-design
+
+printer:
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420, 420, 500]
+  enclosure: false
+
+manufacturing:
+  process: fdm-fff
+  material: petg
+  nozzle_mm: 0.4
+  layer_height_mm: 0.16
+  target_formats: [step, 3mf, stl]
+
+purchased_parts: []
+
+requirements:
+  goal:
+    - id: G-001
+      source: user-stated
+      text: "Kompakter Sortierkasten mit Deckel und Scharnier, gestaltet wie eine kleine Schatulle."
+    - id: G-002
+      source: user-stated
+      text: "Zwoelf vorhandene Duesen eindeutig geordnet aufbewahren: je drei 0,4 mm Stahl, 0,4 mm gehaerteter Stahl, 0,6 mm und 0,8 mm."
+    - id: G-003
+      source: user-stated
+      text: "Zuordnung muss unmittelbar nach dem Oeffnen ablesbar sein."
+    - id: G-004
+      source: user-stated
+      text: "Schatulle, Deckel, Scharnierachse und Verschluss werden vollstaendig gedruckt; keine Magnete, Metallstifte oder sonstigen Zukaufteile."
+    - id: G-005
+      source: user-stated
+      text: "Die Duesenaufnahmen sind fest in den Unterkasten integriert; kein austauschbarer Einsatz."
+    - id: G-006
+      source: user-stated
+      text: "Die geschlossene Schatulle soll deutlich staerker cyber-/science-fiction-artig wirken; Deckeloberseite und Seiten sollen vollflaechig mit auffaelligen Gravuren, Symbolen und/oder druckbaren Reliefakzenten gestaltet werden."
+
+  printer_and_process:
+    printer:
+      value: "Anycubic Kobra 3 Max"
+      source: inferred
+      note: "Aus vorigem Projektkontext; vom Benutzer zu bestaetigen."
+    build_volume_mm:
+      value: [420, 420, 500]
+      source: inferred
+      note: "Nur als Bauraumkontext; der Entwurf bleibt wesentlich kleiner."
+    fabrication_preference:
+      value: integrated-print
+      source: user-stated
+      note: "Ein Druckjob ohne Montage und ohne Zukaufteile; Deckel und Unterkasten bleiben fuer die Bewegung als zwei unverlierbar gekoppelte Koerper getrennt."
+    assembly:
+      value: "Print-in-place, keine Nachmontage; nach dem Abkuehlen Scharnier vorsichtig freibewegen und Verschluss pruefen."
+      source: inferred
+    print_nozzle_mm:
+      value: 0.4
+      source: recommended
+    layer_height_mm:
+      value: 0.16
+      source: recommended
+      note: "Guter Kompromiss fuer Schrift, Relief und Druckzeit."
+    material:
+      value: PETG
+      source: recommended
+      note: "Zaehere Scharnier- und Rastbereiche als Standard-PLA; ungefuelltes PETG bevorzugen, weil starre Faserfuellungen fuer stark ausgelenkte Rastarme ungeeignet sind."
+    supports:
+      target: "Keine Stuetzen auf Sicht- oder Passflaechen; idealerweise komplett stuetzfrei."
+      source: recommended
+
+  stored_part_interface:
+    part_type:
+      value: "complete-anycubic-kobra-3-max-quick-swap-nozzle"
+      source: user-stated
+      note: "Gelagert wird jeweils das komplette herausnehmbare Schnellwechsel-Duesenmodul, nicht nur eine lose einschraubbare Duesenspitze."
+    actual_variant:
+      value: "Benutzereigene Kobra-3-Max-Quick-Swap-Duesen gemaess der am 2026-08-11 bereitgestellten bemassten Bildreferenz."
+      source: inferred
+      note: "Die Referenz belegt 45 mm Gesamtlaenge und 5 mm am oberen zylindrischen Bereich. Nicht bemaßte Konturen werden nicht eng abgeformt; die Aufnahme wird vor dem Gesamtdruck mit einem Passcoupon an einer realen Duese kalibriert."
+    compatibility_scope:
+      value: "Alle zwoelf vorhandenen Kobra-3-Max-Quick-Swap-Duesen des Benutzers; keine Kompatibilitaetszusage fuer andere Druckermodelle."
+      source: recommended
+    dimensional_capture:
+      value: "Bildreferenz fuer den Passcoupon ausreichend; reale Passung bleibt physisch zu kalibrieren."
+      source: user-stated
+      reference_image: "evidence/IMG-001/original/kobra3max-quick-swap-dimension.png"
+      measured_from_callouts:
+        overall_length_mm:
+          value: 45.0
+          confidence: high
+        upper_cylindrical_diameter_mm:
+          value: 5.0
+          confidence: high
+        shown_orifice_mm:
+          value: 0.4
+          confidence: high
+          note: "Kennzeichnet nur die abgebildete Duesenoeffnung und ist kein Aussenmass."
+      image_derived_non_mating_estimates:
+        lower_body_diameter_mm:
+          value: 5.6
+          tolerance: 0.6
+          confidence: medium
+        maximum_flange_width_mm:
+          value: 9.2
+          tolerance: 0.8
+          confidence: low
+      note: "Die Schaetzwerte stammen aus dem Breitenverhaeltnis zur bemassten 5-mm-Zone. Wegen der einzelnen niedrig aufgeloesten Produktansicht werden sie nur fuer Freiraeume verwendet."
+    fit_strategy:
+      value: "Zwoelf integrierte, horizontal liegende offene Aufnahmen mit zwei axial getrennten Sattelauflagen an den zylindrischen Bereichen, freiem Duesenkragen-/Spitzenbereich und seitlichen Fingermulden."
+      source: recommended
+      note: "Die 5-mm-Zone dient als primaerer Bezug. Fuer den nicht bemaßten Kragen ist mindestens 11 mm freie Breite vorgesehen. Die Geometrie bleibt parametrisch anpassbar, ist im fertigen Druck aber nicht austauschbar."
+    clearance_mm:
+      xy_each_side: 0.35
+      z: 0.5
+      source: user-stated
+      note: "Die mit zwei Punkten markierte Coupon-Variante (0,35 mm Spiel je Seite) wurde vom Benutzer als beste Passung ausgewaehlt."
+    fit_coupon:
+      status: physical-fit-selected
+      clearance_variants_each_side_mm: [0.25, 0.35, 0.45]
+      support_datums: ["upper-5-mm-cylinder", "long-lower-cylinder"]
+      flange_free_width_mm: 11.0
+      source: recommended
+      acceptance: "Die Duese liegt ohne Kraft und ohne deutliches seitliches Klappern in beiden Satteln und kann mit zwei Fingern entnommen werden."
+      draft_files:
+        stl: "exports/draft/kobra3max_fit_coupon_DRAFT.stl"
+        3mf: "exports/draft/kobra3max_fit_coupon_DRAFT.3mf"
+        source: "cad/fit_coupon.py"
+        validation: "reports/fit-coupon-validation.json"
+      digital_validation:
+        status: pass
+        envelope_mm: [56.0, 44.0, 8.0]
+        watertight: true
+        triangle_count: 159296
+        physical_qualification: pass-for-fit-selection
+      selected_variant:
+        marker_count: 2
+        clearance_each_side_mm: 0.35
+        selected_by: user
+        selected_at: "2026-08-11"
+        result: "passt am besten"
+
+  capacity_and_layout:
+    occupied_positions:
+      value: 12
+      source: user-stated
+    total_positions:
+      value: 12
+      source: user-stated
+    layout:
+      value: "Vier klar getrennte und beschriftete Gruppen mit jeweils drei parallel liegenden Quick-Swap-Duesen; vorgesehen als 4x3-Matrix mit einer Material-/Durchmessergruppe pro Reihe."
+      source: recommended
+    provisional_outer_envelope_mm:
+      value: [74.14, 196.35, 18.0]
+      source: derived
+      note: "Geschlossene Nominalhuelle einschliesslich R4-Seitenrelief. Die flach geoeffnete Print-in-place-Drucklage misst 74,14 x 382,25 x 14,5 mm und passt auf das 420-x-420-mm-Druckbett."
+
+  identification:
+    label_location:
+      value: "Jeweils auf einer leicht geneigten Beschriftungsflaeche direkt neben der Kavitaet, nicht unter der Duese."
+      source: recommended
+    labels:
+      value:
+        - "0,4 STAHL x3"
+        - "0,4 HART x3"
+        - "0,6 x3"
+        - "0,8 x3"
+      source: recommended
+      note: "Jede Gruppenbeschriftung bleibt auch bei voll belegten Aufnahmen sichtbar."
+    operation:
+      value: recessed-engraving
+      source: recommended
+    engraving_depth_mm:
+      value: 0.48
+      source: recommended
+    minimum_stroke_width_mm:
+      value: 0.65
+      source: recommended
+    character_height_mm:
+      value: "4.0-5.0"
+      source: recommended
+    readability_target:
+      value: "Bei geoeffnetem Deckel aus ca. 40 cm Entfernung ohne Herausnehmen der Duese lesbar."
+      source: recommended
+
+  lid_hinge_and_closure:
+    lid:
+      value: "Unverlierbar gekoppelter Print-in-place-Klappdeckel mit umlaufender Schutzlippe und leichter Schattenfuge."
+      source: recommended
+    hinge:
+      value: "Print-in-place-Fassscharnier mit im Druck gefangener, vollstaendig gedruckter Achse; keine separate Pin-Montage."
+      source: recommended
+      note: "Teardrop-/Brueckengeometrie und ein Scharniercoupon vermeiden unzugaengliche Stuetzen und pruefen das sichere Freibewegen."
+    hinge_clearance_mm:
+      radial_start: 0.35
+      axial_start: 0.5
+      source: recommended
+      note: "Nur Startwerte fuer PETG und 0,4-mm-Duese; vor dem Gesamtdruck per Coupon zu kalibrieren."
+    opening_angle_deg:
+      value: 180
+      tolerance: 5
+      source: recommended
+      note: "Flach aufklappbar fuer freien Zugriff und eine supportarme Ein-Druck-Ausrichtung."
+    closure:
+      value: "Integrierter, vollstaendig gedruckter Schnappverschluss mit gut greifbarer Drucklasche, grossem Wurzelradius und Ueberlastanschlag."
+      source: user-stated
+      note: "Rastarm wird fuer ungefuelltes PETG und seine reale Druckorientierung ausgelegt; Kraft, Dehnung und Freigang werden per Coupon kalibriert."
+    service_life_cycles:
+      value: 1000
+      source: recommended
+      note: "Zielwert fuer Oeffnen/Schliessen; wegen vollstaendig gedrucktem Scharnier und Rastarm durch Coupon und Prototypentest zu verifizieren."
+
+  appearance:
+    form_language:
+      value: "Dicht gestaltete futuristische Cyber-/Science-Fiction-Schatulle im Stil eines kompakten Quantenreaktor-Datenvaults: zentraler Reaktorkern, segmentierte Panzerpaneele, asymmetrische Leiterbahnen, Hex-Gitter, Messskalen, Warnchevrons und wissenschaftlich-technische Glyphen."
+      source: recommended
+    method:
+      value: hybrid-parametric-plus-heightmap
+      source: recommended
+      decomposition:
+        parametric: "Grundkoerper, Fasen, Mechanik, Kavitaeten, exakte Schrift und Symbole, breite Hauptnuten, Paneelgrenzen sowie alle Freihaltezonen."
+        image_relief: "Nach der Anforderungsfreigabe KI-erzeugte monochrome Cyber-Line-Art als kuenstlerische Vorlage; daraus werden eine vollflaechige planare Deckel-Hoehenkarte und ein nahtloses umlaufendes Seitenmotiv abgeleitet."
+      note: "Die KI-Grafik wird nicht ungeprueft als Roh-Luminanz verwendet. Unleserliche KI-Schrift und zu feine Details werden entfernt; exakte Zeichen entstehen parametrisch."
+    artistic_master:
+      value: "Zwei zusammengehoerige monochrome Vorlagen: ein hochformatiges Deckelmotiv und ein periodisches Seitenband im selben visuellen System."
+      source: recommended
+      image_class: "binary/high-contrast line art, kein fotografisches Graustufenrelief"
+      lid_composition: "Zentraler sechseckiger Quantenreaktor/Tech-Iris mit radialen Datenbahnen; dichte, asymmetrische Paneel- und Schaltkreisstruktur bis nahe an den Rand."
+      side_composition: "Nahtlos wiederholbares Band aus Datenlinien, Hex-Knoten, Chevrons und kurzen Glyphenfeldern; Naht an der Scharnierseite."
+      exact_parametric_marks:
+        - "CYBERVAULT"
+        - "QSW-12"
+        - "NOZZLE ARRAY"
+        - "Phi-, Delta- und Lambda-Glyphen"
+        - "Orbitalsymbol, Kalibrierstriche und Warnchevrons"
+      prohibited_content:
+        - "Keine zufaellige oder unleserliche KI-Schrift"
+        - "Keine realen Markenlogos oder fremden Embleme"
+        - "Keine grossen vollstaendig ausgeraeumten Gravurflaechen"
+    relief_mode:
+      value: "Dichtes zweistufiges Linienrelief: Hauptgravuren tief, Sekundaerlinien flacher; stehen gelassene Symbole und Paneele wirken optisch erhaben. Am Seitenband zusaetzlich wenige echte flache Rippen mit druckbarer Anlauframpe."
+      source: recommended
+    image_relief_depth_mm:
+      major_engraving: 0.64
+      secondary_engraving: 0.32
+      side_engraving_max: 0.48
+      side_emboss_max: 0.32
+      source: recommended
+      note: "0,64 mm entsprechen vier Schichten bei 0,16 mm. Die 3,0-mm-Deckelplatte behaelt lokal mindestens 2,36 mm; die 2,4-mm-Seitenwand behaelt bei 0,48 mm Gravur mindestens 1,92 mm."
+    printable_feature_rules:
+      minimum_primary_line_width_mm: 1.0
+      minimum_secondary_line_width_mm: 0.8
+      maximum_recess_span_on_bed_facing_lid_mm: 1.6
+      minimum_island_width_mm: 1.2
+      keepout_from_hinge_latch_and_flexures_mm: 4.0
+      source: recommended
+      note: "Die vollflaechige Wirkung entsteht durch hohe Musterdichte, nicht durch breite offene Taschen, damit die Deckelgravur in der offenen Print-in-place-Lage sicher schliessende Bahnen erhaelt."
+    visual_coverage:
+      lid_target_percent: "75-85"
+      side_band_target_percent: "65-80"
+      source: recommended
+      note: "Prozentuale Motivabdeckung innerhalb der dekorierbaren Sichtflaeche; Funktions- und Randfreizonen bleiben ausgenommen."
+    image_relief_mesh_pitch_mm:
+      draft: 0.7
+      production: 0.25
+      source: recommended
+    mapping:
+      lid: "Separate planare Hoehenkarte ueber die gesamte dekorierbare Deckeloberseite; 4-mm-Funktionsfreizonen und ein schmaler robuster Rand bleiben erhalten."
+      side_band: "Kontinuierliche Bogenlaengen-Abbildung um den verrundeten Umfang; periodische Naht hinten an der Scharnierseite und lokale Aussparungen an Scharnier sowie Rastverschluss."
+      source: recommended
+    color_strategy:
+      value: "Einfarbig druckbar; optional zweite Farbe/Metallic-Wachs in den Gravuren."
+      source: recommended
+
+  geometry_rules:
+    nominal_wall_mm:
+      value: 2.4
+      source: recommended
+    lid_top_mm:
+      value: 3.0
+      source: recommended
+    minimum_wall_after_engraving_mm:
+      value: 1.8
+      source: recommended
+    external_corner_radius_mm:
+      value: "8-12, abhaengig von finalem Bauraum"
+      source: recommended
+    sharp_edges:
+      value: "Keine scharfen Griffkanten; sichtbare Kanten mit kleiner Fase oder Rundung."
+      source: recommended
+
+  environment_and_use:
+    environment:
+      value: "Innenraum, trocken, normale Werkstatttemperatur"
+      source: inferred
+    maintenance:
+      value: "Feste Kavitaeten mit Pinsel oder Druckluft reinigbar; keine zu engen Sackspalten."
+      source: recommended
+    thermal_rule:
+      value: "Nur vollstaendig abgekuehlte und gereinigte Duesen einlegen."
+      source: recommended
+
+acceptance:
+  - id: A-001
+    criterion: "Alle zwoelf realen Kobra-3-Max-Quick-Swap-Duesen lassen sich ohne Kraft einsetzen und ueber die Fingermulden entnehmen; sie koennen bei geschlossenem Deckel nicht in eine benachbarte Gruppe wechseln."
+    evidence: "Massaufnahme, Passcoupon plus physischer Probebau"
+  - id: A-002
+    criterion: "Jede Beschriftung ist im geoeffneten Zustand aus 40 cm lesbar und bleibt auch bei belegter Kavitaet sichtbar."
+    evidence: "Render, Slicer-Toolpfad und Fotopruefung am Probeteil"
+  - id: A-003
+    criterion: "Das gefangene Druckscharnier laesst sich nach dem Abkuehlen ohne Beschaedigung freibewegen und oeffnet kollisionsfrei auf 180 +/- 5 Grad."
+    evidence: "Clearance-/Brueckencoupon, CAD-Kollisionspruefung und 100-Zyklen-Vorpruefung; Ziel 1000 Zyklen"
+  - id: A-004
+    criterion: "Der gedruckte Rastverschluss ist einhaendig loesbar, besitzt keinen scharfkantigen Griffbereich und haelt die geschlossene, befuellte Schatulle beim vorsichtigen Umdrehen geschlossen."
+    evidence: "Rastarmcoupon, Dehnungsabschaetzung und physischer Funktionstest"
+  - id: A-005
+    criterion: "Das Cyber-/Science-Fiction-Relief bedeckt mindestens 75 % der dekorierbaren Deckelflaeche und 65 % des dekorierbaren Seitenbands, ist auf den gerundeten Seiten kontinuierlich ausgerichtet, bleibt aus Funktionszonen fern und laesst mindestens 1,8 mm Restwand."
+    evidence: "Motivmasken-/Hoehenkartenanalyse, Mappingpruefung, Schnittpruefung, Mesh- und Slicerpruefung"
+  - id: A-006
+    criterion: "Alle Fertigungsmeshes sind geschlossen und manifold; Unterkasten und Deckel bilden zwei getrennt bewegliche, aber unverlierbar gekoppelte Koerper in einem Print-in-place-Druckjob."
+    evidence: "Automatischer Geometriebericht"
+  - id: A-007
+    criterion: "Sichtflaechen und Passungen koennen ohne Supportnarben gedruckt werden."
+    evidence: "Orientierungsanalyse und Slicer-Trockenlauf"
+  - id: A-008
+    criterion: "Reaktorkern, Paneelstruktur und technische Zeichen sind beim einfarbigen PETG-Druck aus etwa 40 cm erkennbar; keine gravierte Deckelzone erzeugt in Drucklage einen zu schliessenden freien Spann ueber 1,6 mm."
+    evidence: "Konzeptansicht, Reliefcoupon, Slicer-Schicht-/Brueckenpruefung und Foto des Probeteils"
+
+deliverables:
+  - design-spec.yaml
+  - decision-log.md
+  - parametric-opencascade-replicad-source
+  - procedural-cyber-heightmap-source-and-16bit-png
+  - relief-mapping-configs-and-reports
+  - print-in-place-base-lid-step-or-assembly
+  - printable-stl-and-3mf
+  - hinge-and-fit-coupons
+  - concept-and-final-renders
+  - geometry-validation-report
+  - print-profile-and-assembly-guide
+  - final-model-result-report
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 4
+    approved_by: user
+    approved_at: "2026-08-11"
+    unresolved_ids: []
+    note: "Der Benutzer fordert eine deutlich dichtere vollflaechige Cyber-/Science-Fiction-Aussenhaut. Funktion, Innenraum, Passung, Scharnier und Rastverschluss bleiben gegenueber Revision 3 unveraendert; nur die Erscheinungs- und Reliefanforderungen werden als Revision 4 neu freigegeben."
+  concept_approval:
+    status: approved
+    spec_revision: 4
+    asset: "concepts/cyber-nozzle-case-R4-concept.png"
+    generated_at: "2026-08-11"
+    approved_by: user
+    approved_at: "2026-08-11"
+    depiction_notes:
+      - "Das Blatt visualisiert die freigegebene Reliefdichte, den zentralen Reaktorkern, die zweistufige Linienhierarchie und das kontinuierliche Seitenband; es ist kein Massnachweis."
+      - "Die kleine Draufsicht enthaelt trotz Korrekturversuch einen KI-bedingten Akzent im Wort CYBERVAULT. Verbindlich ist ausschliesslich die parametrische Schreibweise CYBERVAULT ohne Akzent."
+  watermark_approval:
+    status: approved
+    spec_revision: 4
+    geometry_revision: "CYBERVAULT-R4-CAD-A-WM1"
+    asset_id: JSI-WM-001-R1
+    variant: standard
+    placement:
+      surface: "Unterkasten, druckbettseitige Unterseite"
+      center_mm: [0.0, -96.2, 0.0]
+      nominal_envelope_mm: [32.0, 10.0]
+      actual_outline_envelope_mm: [29.28784, 9.6]
+      depth_mm: 0.4
+      residual_floor_mm: 2.6
+      profile_edge_clearance_mm: [9.0, 5.0]
+    preview_asset: "renders/watermark-01-finished-underside.png"
+    validation_asset: "reports/watermark-evidence.json"
+    approved_by: user
+    approved_at: "2026-08-11"
+  production_model:
+    status: final-r4-release-verified
+    geometry_revision: "CYBERVAULT-R4-CAD-A-WM1"
+    envelope_open_mm: [74.14, 382.25, 14.5]
+    envelope_closed_nominal_mm: [74.14, 196.35, 18.0]
+    note: "R4-Aussenrelief und 0,35-mm-Passung umgesetzt. Unabhaengige STL- und Manifold-Pruefung bestanden: Unterkasten und Deckel je ein geschlossener Koerper, genau zwei Komponenten im Print-in-place-STL, 0 mm3 Kollision offen und geschlossen. Die mechanischen Schnittstellen sind gegenueber dem vom Benutzer physisch bestaetigten Revision-3-Stand unveraendert."
+  physical_qualification:
+    status: basic-function-pass
+    confirmed_by: user
+    confirmed_at: "2026-08-11"
+    evidence_asset: "reports/physical-test-evidence.json"
+    hinge:
+      status: pass-basic-function
+      evidence: "Benutzerrueckmeldung: Scharnier passt."
+    latch:
+      status: pass-basic-function
+      evidence: "Benutzerrueckmeldung: Rastverschluss passt."
+    limitations:
+      - "Keine konkrete Zyklenzahl berichtet; 100-Zyklen-Vorpruefung und 1000-Zyklen-Ziel bleiben unbestaetigt."
+      - "Bestueckter Umdrehtest und Lesbarkeitspruefung aus 40 cm wurden nicht berichtet."
+  watermark_integration:
+    status: pass-approved
+    geometry_revision: "CYBERVAULT-R4-CAD-A-WM1"
+    note: "JSI-WM-001-R1 wurde nach Stabilisierung des R4-Reliefs erneut als letzte geplante Produktgeometrieaenderung integriert. Rezesstiefe, Restboden, Konturen, Mesh und Kollision sind bestanden; der Benutzer hat die Kennzeichnung fuer exakt CYBERVAULT-R4-CAD-A-WM1 freigegeben."
+  final_release_approval:
+    status: approved
+    geometry_revision: "CYBERVAULT-R4-CAD-A-WM1"
+    approved_by: user
+    approved_at: "2026-08-11"
+    note: "Der Benutzer hat Kennzeichnung und finalen Release Revision 4 fuer exakt CYBERVAULT-R4-CAD-A-WM1 ausdruecklich freigegeben. Finale Fertigungsexporte duerfen ohne DRAFT-Kennzeichnung paketiert werden; die dokumentierten physischen Nachweisgrenzen bleiben bestehen."
+
+decision_log:
+  - revision: 1
+    decision: "Hybridroute gewaehlt: CadQuery fuer funktionale Geometrie und Text; Mesh-Hoehenkartenrelief fuer dichte Cyber-Oberflaechen."
+    rationale: "Praezise Passungen bleiben editierbar, waehrend die kuenstlerische Textur ohne fragile B-Rep-Pixelflaechen erzeugt werden kann."
+  - revision: 1
+    decision: "Austauschbarer Dueseneinsatz empfohlen."
+    rationale: "Die konkrete Kobra-3-Max-Duesenvariante kann abweichen; das Gehaeuse bleibt wiederverwendbar."
+    status: superseded-by-revision-2
+  - revision: 2
+    decision: "Alle zwoelf Aufnahmen fest in den Unterkasten integrieren; kein austauschbarer Einsatz und keine Zukaufteile."
+    rationale: "Direkte Benutzeranforderung fuer eine vollstaendig gedruckte Ein-Druck-Loesung."
+  - revision: 3
+    decision: "Offene Drei-Punkt-Aufnahmen fuer komplette Kobra-3-Max-Quick-Swap-Duesen verwenden."
+    rationale: "Sichere Lokalisierung bei besserer Toleranz gegen kleine Unterschiede zwischen alter und neuer Duesenrevision."
+  - revision: 3
+    decision: "Die Zwei-Punkt-Couponvariante mit 0,35 mm Spiel je Seite als Produktionspassung verwenden."
+    rationale: "Der Benutzer hat diese Variante am realen PETG-Coupon als am besten passend ausgewaehlt."
+  - revision: 3
+    decision: "Produktions-CAD mit Replicad 0.23.1 auf OpenCascade und Manifold3D als unabhaengiger Mesh-/Kollisionspruefung erzeugen."
+    rationale: "Im Arbeitsraum war kein CadQuery/OpenSCAD/FreeCAD verfuegbar; die Route liefert weiterhin editierbares parametrisches B-Rep, STEP, STL und unabhaengige Meshvalidierung."
+  - revision: 3
+    decision: "JSI-WM-001-R1 standard mittig auf der druckbettseitigen Unterseite des Unterkastens platzieren."
+    rationale: "Die freie 50-x-20-mm-Zone nimmt das nominale 32-x-10-mm-Profil mit 9 mm horizontalem und 5 mm vertikalem Rand auf; bei 0,40 mm Rezess bleiben 2,60 mm Boden."
+  - revision: 4
+    decision: "Die Aussenhaut als dichtes, vollflaechiges Cyber-/Science-Fiction-Line-Art-Relief neu gestalten und die kuenstlerische Vorlage per Bildgenerierung erzeugen."
+    rationale: "Der Revision-3-Entwurf wirkt durch nur 3,9 % belegte Hoehenkartenpixel zu leer. Eine hierarchische Kombination aus Reaktorkern, Paneelen, Datenbahnen, Hex-Struktur und exakten parametrischen Glyphen erhoeht die visuelle Dichte, ohne Passungen oder Mechanik zu veraendern."
+  - revision: 4
+    decision: "Anforderungen Revision 4 freigegeben; Konzeptphase fuer die neue Aussenhaut entsperrt."
+    rationale: "Explizite Benutzerfreigabe vom 2026-08-11. Produktions-CAD und Fertigungsexporte bleiben bis zur Konzeptfreigabe gesperrt."
+  - revision: 4
+    decision: "Konzeptkandidat mit dichtem Reaktorkern-/Datenbahnrelief und kontinuierlichem Seitenband erzeugt."
+    rationale: "Das Blatt macht die geforderte hohe Flaechenbelegung, zwei Reliefhierarchien und die Funktionsfreizonen sichtbar. KI-Schrift bleibt nicht fertigungsautoritativ und wird im CAD parametrisch ersetzt."
+  - revision: 4
+    decision: "Konzept Revision 4 freigegeben; Produktions-CAD fuer die neue Aussenhaut entsperrt."
+    rationale: "Explizite Benutzerfreigabe vom 2026-08-11. Innenraum, Duesensitze, Scharnier und Rastverschluss bleiben als unveraenderte, physisch bestaetigte Referenz erhalten."
+  - revision: 4
+    decision: "R4 als hybriden Druckmesh-Kandidaten mit OpenCascade-Funktionsmaster und Hoehenkarten-Boolean fuer die dichte Deckelgravur ausgeben."
+    rationale: "Die 85,24-prozentige dekorative Rasterabdeckung ist als robuste B-Rep-Einzelfeatur unnoetig schwer, bleibt im geschlossenen Manifold-Mesh jedoch reproduzierbar und vollstaendig erhalten. STEP bleibt der editierbare Funktionsmaster; 3MF/STL sind die fertigungsautoritativen Reliefdateien."
+  - revision: 4
+    decision: "JSI-WM-001-R1 nach Abschluss der R4-Reliefgeometrie erneut integrieren und den Kandidaten als CYBERVAULT-R4-CAD-A-WM1 sperren."
+    rationale: "Das Wasserzeichen ist damit die letzte geplante Produktgeometrieaenderung. Die erneute Evidenz bestaetigt 0,40 mm Rezess, 2,60 mm Restboden und unveraendertes Bett-Datum."
+  - revision: 4
+    decision: "Kennzeichnung und finalen Release fuer CYBERVAULT-R4-CAD-A-WM1 freigeben."
+    rationale: "Explizite Benutzerfreigabe vom 2026-08-11. Die finale Ausgabe veraendert keine Modellgeometrie; nur Status, Metadaten, Dateinamen, Berichte und Paketmanifest werden auf RELEASE gesetzt."

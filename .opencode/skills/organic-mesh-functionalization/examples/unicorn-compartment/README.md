@@ -1,5 +1,10 @@
-# Toy unicorn belly compartment
+# Unicorn belly compartment example
 
-This example generates a rounded cavity cutter, opening cutter, and separate door. The real mesh must be reviewed to place the compartment in a low-curvature belly region with adequate wall and clearance from legs/decorations.
+Use a capsule or rounded box aligned to the torso, not a sharp rectangular cavity. The cavity, opening, liner, door, hinge, latch, and clearance bodies are separate parametric artifacts.
 
-The rounded cavity avoids sharp internal box corners. The door remains separate so hinge/latch and print orientation can be tested independently. Child-use, choking, pinch, material, and retention requirements need a dedicated safety review beyond this geometry example.
+1. Sample belly wall thickness and place the cavity inside the safe envelope.
+2. Align the seam with a natural belly contour.
+3. Generate a cavity cutter and door interface in CadQuery.
+4. Subtract in Blender/Manifold.
+5. Add hinge/latch supports only where wall reserve permits.
+6. Test movement, repeated cycles, pull-out, impact, pinch points, and age-appropriate safety.

@@ -1,69 +1,109 @@
-# Alignment and fitting
+# Alignment, fitting, and replacement shapes
 
-## Coordinate contract
+## Coordinate-frame discipline
 
-Define in millimetres:
+Record a right-handed coordinate frame in the project specification:
 
-- origin;
+- origin landmark;
 - up axis;
 - forward axis;
-- left/right handedness;
-- functional centerline or rotation axis;
-- datum plane for assembly or printing;
-- at least three non-collinear landmarks when a measured transform is required.
+- left/right convention;
+- units;
+- transform from source file to working frame.
 
-Apply object transforms in Blender before using dimensions. Record every transform as a homogeneous 4×4 matrix.
+Apply object scale/rotation before Boolean operations. Save the transform matrix. Do not trust the imported file's axes or STL units.
 
-## Methods and when to use them
+## Landmark hierarchy
 
-### Explicit datum alignment
+Use the strongest available registration evidence in this order:
 
-Best method. Align to known planes, axes, holes, or measured dimensions. Use for a dice-tower centerline, shoe heel-to-toe axis, or compartment door plane.
+1. explicit mechanical datums or known dimensions;
+2. manually marked landmarks;
+3. planar or cylindrical fitted regions;
+4. multiple cross-section centroids and outlines;
+5. principal axes/PCA;
+6. bounding box alone.
 
-### Primitive fitting
+PCA is only an initial guess. Symmetry, appendages, and decorative mass can rotate principal axes away from the intended functional axis.
 
-Fit a cylinder, plane, sphere, capsule, or box to a selected ROI. Use robust statistics and exclude decorative protrusions. Validate the fit on multiple cross-sections.
+## Cross-section fitting
 
-For a tower interior, estimate a conservative permitted radius:
+For towers and shoe soles, sample many parallel slices. For each section record:
 
-```text
-r_permitted(z) = minimum radial distance to protected exterior at z
-                 - required wall
-                 - mesh/fit uncertainty
-```
+- centroid;
+- area;
+- minimum and maximum radius from candidate axis;
+- fitted circle/ellipse residual;
+- protected-wall distance;
+- local seam position.
 
-Use the minimum over the functional height, not the average.
+A cylinder is appropriate only if the residual and wall reserve are acceptable through the full height. Otherwise use a tapered cylinder, loft, spline tube, or capsule.
 
-### Landmark/Kabsch transform
+## Common replacement/cutter forms
 
-Use corresponding source and target points to solve rigid rotation and translation. Uniform scale may be solved only when units or generation scale are uncertain and independent dimensional evidence permits it.
+### Cylinder or tube
 
-### PCA
+Use for dice towers, bottle cavities, shafts, ducts, hinge bosses, and round sockets. Fit axis and radius from several sections. A single bounding cylinder can breach thin decorative walls.
 
-Useful for a coarse guess on elongated, roughly symmetric objects. PCA axes can flip, swap on near-symmetry, and be dominated by a protruding courtyard or tail. Never treat PCA as a final datum without review.
+### Box or rounded box
 
-### ICP
+Use for electronics, drawers, battery bays, flat doors, and mounting blocks. Rounded boxes reduce stress concentration and are more compatible with organic shells.
 
-Use only after coarse alignment and only where source and target surfaces correspond. ICP can converge to the wrong symmetric location or deform the design intent if used as a substitute for landmarks.
+### Capsule
 
-### Shrinkwrap/conformal fitting
+Use for elongated cavities in toys, handles, limbs, and bellies. It avoids sharp internal corners and distributes wall thickness more smoothly.
 
-Use to conform a flange, patch, or bonding surface to an organic shell. Limit it with vertex groups and offsets. Check self-intersections and local thickness after application.
+### Cone or tapered loft
 
-## Fitting a functional part into an organic envelope
+Use where the organic body changes section gradually. Good for tower interiors, horns, shoe sidewalls, and insertion paths.
 
-1. Define the available-volume envelope and keep-outs.
-2. Select the simplest primitive family that satisfies function.
-3. Fit dimensions conservatively.
-4. Add assembly clearance and Boolean overlap separately.
-5. Generate the parametric part in its own local coordinate system.
-6. apply the recorded transform at handoff.
-7. inspect cross-sections at extrema and transition boundaries.
+### Section-driven loft
 
-Do not conflate these values:
+Use for shoe soles and irregular tunnels. Derive 2D outlines at known stations, simplify them, and loft in CadQuery/FreeCAD/Blender. Keep section order and correspondence stable.
 
-- functional clearance;
-- print fit compensation;
-- Boolean overlap epsilon;
-- decorative preservation margin;
-- minimum structural wall.
+### Offset shell
+
+Use for uniform wall thickness. In mesh workflows use Solidify only after checking self-intersections; for complex geometry use an SDF level-set offset.
+
+### Swept path
+
+Use for cable channels, dice chutes, fluid ducts, and latch paths. Define centerline, cross-section, bend radius, and clearance envelope.
+
+### Convex hull or blended SDF
+
+Use for forgiving internal voids and transitions. A smooth union can avoid thin sliver geometry but changes dimensions; validate the blend radius.
+
+## Fit and interface allowances
+
+Separate these values:
+
+- geometric clearance;
+- printer/process compensation;
+- adhesive gap;
+- assembly lead-in;
+- motion clearance;
+- registration uncertainty;
+- decorative shell reserve.
+
+A robust interface normally includes a lead-in chamfer, overlap or shoulder, anti-rotation feature, and a repeatable datum. Avoid relying on an organic surface as the only datum.
+
+## Protected-wall fitting
+
+To prevent a cutter from breaching exterior walls:
+
+1. define desired minimum remaining wall `w_min`;
+2. add model uncertainty `u` and Boolean tolerance `e`;
+3. require cutter-to-exterior distance at every critical point to exceed `w_min + u + e`;
+4. inspect sections around the full path, not only nearest vertices;
+5. verify final thickness with ray or maximal-sphere sampling.
+
+## Seam selection
+
+Prefer seams that are:
+
+- hidden by existing ornament, fur, clothing, sole sidewall, or belly contour;
+- approximately planar or smoothly developable;
+- accessible for adhesive, screws, pins, or stitching;
+- away from maximum bending stress;
+- wide enough for a flange;
+- printable without trapped supports.

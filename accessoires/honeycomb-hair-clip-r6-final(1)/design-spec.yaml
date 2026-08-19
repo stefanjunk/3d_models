@@ -1,0 +1,334 @@
+project:
+  name: monolithic-geometric-hair-clip
+  revision: 6
+  units: mm
+  reconstruction_claim: functional-redesign
+  risk_class: normal-functional
+  status: experimental
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  selected_surface: "smooth outer face of one complete central honeycomb cell; documented fallback because the bed-facing bands are too narrow for the compact mark"
+  depth_mm: 0.40
+
+function:
+  summary: "Retain a range of hair volumes with a metal-free, print-in-place rotary hair clip and separate snap latch."
+  users: [adult]
+  interfaces: [hair-contact-teeth, captured-rotational-hinge, press-release-latch]
+
+risk:
+  class: normal-functional
+  hazards: [hair-pulling, skin-irritation, pinch-point, latch-or-hinge-fracture]
+  assumptions: [indoor-daily-use, adult-use, deburred-contact-edges, dry-unfilled-petg]
+
+fabrication:
+  preference: integrated-print
+  assembly_target: none
+  repairability: replace-entire-clip
+
+printer:
+  model: Anycubic Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  enclosure: false
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 6
+    approved_by: user
+    approved_at: "2026-08-11T18:14:30+02:00"
+    basis: "The user requested a larger, more strongly curved and parametrically resizable clip, replacement of the integral flexure by a true print-in-place rotational hinge, and larger honeycomb cells sized as exactly three transverse rows. This changes geometry, mechanism, appearance, manufacturing clearances and acceptance criteria."
+  concept_approval:
+    status: approved
+    spec_revision: 6
+    asset: evidence/source/concept-r6.png
+    prompt: evidence/source/concept-prompt-r6.md
+    approved_by: user
+    approved_at: "2026-08-11T18:44:00+02:00"
+    basis: "The user explicitly approved the revision-6 concept sheet showing the larger 85/12 mm form, exactly three transverse honeycomb rows, and the captured print-in-place rotational hinge. Production CAD may proceed."
+  final_release_approval:
+    status: approved
+    spec_revision: 6
+    approved_by: user
+    approved_at: "2026-08-11T21:02:13+02:00"
+    basis: "The user explicitly approved the final Revision 6 release after review of the production candidate, all-preset digital validation, deliverables, and integrated JuSt Innovation mark."
+  watermark_approval:
+    status: approved
+    spec_revision: 6
+    approved_by: user
+    approved_at: "2026-08-11T21:02:13+02:00"
+    asset_id: JSI-WM-001-R1
+    geometry_revision: 8775d6b631bad2bb77bb0bfcc6db1b603e8ce35de8209499a9ea8e71b17c4fb0
+    variant: compact
+    profile: compact
+    candidate_geometry_source_sha256: 8545f013318f4efc35ed92f0951a2739fc939c14bdbfc429c184b1e326a6fb42
+    candidate_large_stl_sha256: a8683d549590a1545555c0509dad59eef935021d8ae341c39fd22de3bc797473
+    final_geometry_source_sha256: 8775d6b631bad2bb77bb0bfcc6db1b603e8ce35de8209499a9ea8e71b17c4fb0
+    final_large_stl_sha256: fe5a492b0ef33202c59e8aa4986ebe74cca546d5f730b3615aee5a2bda9b46a1
+    final_large_3mf_sha256: 9cdf074d878f762d8ecc08101b15ce619b72b0fb05b9a9d06142695d8a905cbf
+    asset_dxf_sha256: d0088456de97fbcb813e815e779f8241e28b94c550837266ee4632e2cc4321eb
+    surface: "smooth outer face of one complete central honeycomb cell; fallback because no print-bed-facing band can safely fit the compact mark"
+    placement: "centered on the smooth outer face of the selected complete central honeycomb cell"
+    placement_center_xz_mm: [42.5, 19.4033333333]
+    actual_envelope_mm: [11.4232449531, 10.0]
+    safe_rectangle_mm: [15.6, 14.0]
+    edge_clearance_mm: 2.0
+    depth_mm: 0.40
+    residual_host_wall_mm: 2.90
+    selector_status: PASS
+    selector_evidence: validation/watermark-selector-r6.json
+    preview: validation/watermark-evidence-r6.png
+    preview_asset: validation/watermark-evidence-r6.png
+    geometric_layer_preview: validation/watermark-layer-preview.png
+    validation_asset: validation/revision6-final-feature-audit.json
+    regression_audit: validation/revision6-final-feature-audit.json
+    geometry_payload_identity_vs_draft_candidate: pass
+    note: "The deterministic 0.20 mm geometric STL sections preserve the recess features. Exact Anycubic slicer toolpaths remain profile-specific and must be checked before printing."
+
+production_release:
+  release_state: FINAL
+  revision: 6
+  standard_preset: large
+  source_sha256: 8775d6b631bad2bb77bb0bfcc6db1b603e8ce35de8209499a9ea8e71b17c4fb0
+  large_stl_sha256: fe5a492b0ef33202c59e8aa4986ebe74cca546d5f730b3615aee5a2bda9b46a1
+  large_3mf_sha256: 9cdf074d878f762d8ecc08101b15ce619b72b0fb05b9a9d06142695d8a905cbf
+  geometry_payload_identity_vs_draft_candidate: pass
+  large_dimensions_mm: [84.9354, 37.8780, 28.6000]
+  large_petg_mass_estimate_g: 16.9033
+  large_honeycomb_cells_per_row: [3, 2, 3]
+  digital_check_count: 132
+  digital_status: pass
+  physical_status: untested
+
+goal:
+  statement: "Metal-free PETG hair clip family for smaller through fuller hair volumes, generated from one parametric source"
+  source: user-stated
+  fabrication_preference: integrated-print
+  service: indoor daily use
+  excluded:
+    - separate elastic band
+    - metal spring or pin
+    - electronics
+    - use by children under 3 years
+
+coordinate_system:
+  x: clip length and hinge-to-latch direction
+  y: opening/closing plane
+  z: clip width and print build direction
+  origin: lower-left of the open-state print orientation
+
+geometry:
+  size_system:
+    user_parameters:
+      clip_length_mm:
+        meaning: "overall hinge-to-latch envelope, including the honeycomb end contour"
+        recommended_default: 85.0
+        validated_generation_range: [65.0, 105.0]
+        source: recommended
+      arch_rise_mm:
+        meaning: "additional crown height above the end chord; larger values provide more enclosed hair volume"
+        recommended_default: 12.0
+        validated_generation_range: [7.0, 18.0]
+        source: recommended
+    presets:
+      small: {clip_length_mm: 68.0, arch_rise_mm: 8.0}
+      medium: {clip_length_mm: 76.0, arch_rise_mm: 10.0}
+      large: {clip_length_mm: 85.0, arch_rise_mm: 12.0}
+      extra_large: {clip_length_mm: 96.0, arch_rise_mm: 15.0}
+    scaling_policy: "length and curvature are independent; functional clearances, wall thickness, hinge pin and latch features do not scale"
+    source: user-stated-and-recommended
+  overall_length_nominal: 85.0
+  overall_height_nominal: 31.0
+  structural_body_width_nominal: 24.0
+  overall_width_with_honeycomb_nominal: 28.6
+  grip_zone_span_nominal: 54.0
+  shell_wall: 2.4
+  latch_tongue_thickness: 1.6
+  lower_comb_teeth: "derived from clip_length_mm at approximately 5.7 mm pitch"
+  upper_comb_teeth: "derived from clip_length_mm at approximately 6.0 mm pitch"
+  lower_rail_non_bed_side:
+    central_functional_width_nominal: 13.0
+    full_end_width_nominal: 24.0
+    full_width_retained_at_hinge_and_latch: true
+    transition: tapered-or-faceted
+    source: recommended
+  armor_hexagons:
+    orientation: pointy-end-along-clip-length-uniform-for-all-cells
+    transverse_row_count: 3
+    across_flats_nominal: 18.53
+    across_flats_policy: "derived from the available armor envelope so exactly three staggered rows span the width"
+    across_flats_formula: "(overall_width_with_honeycomb_nominal - groove_width_nominal) / 1.5"
+    groove_width_nominal: 0.8
+    raised_height_nominal: 0.9
+    longitudinal_fit_scale: "derived per clip_length_mm within 0.94-1.00 to keep complete symmetric end cells"
+    layout: one-continuous-staggered-honeycomb-grid
+    cells_per_row: "derived from clip_length_mm; alternating centered n/(n-1)/n rows form the honeycomb stagger"
+    longitudinal_count_policy: "use the maximum whole-cell count that preserves the hinge/latch clearances and mirrored high-low end contour"
+    rotation_policy: no-separate-or-90-degree-rotated-longitudinal-cells
+    bed_side_edge_policy: half-cells-permitted-at-build-plane
+    non_bed_side_edge_policy: whole-cells-only-with-alternating-high-low-outline
+    end_edge_policy: mirrored-whole-cell-high-low-contours-over-hinge-and-latch
+    minimum_fused_overlap_nominal: 2.0
+    top_rows: 3
+    bed_side_row_center_z_nominal: 0.0
+    dedicated_long_side_row: false
+    hinge_latch_transition: "remove standalone end blocks; continue honeycomb over the structural end zones"
+    source: recommended
+  state_as_exported: open-and-unlatched
+  evidence:
+    overall_length: requested-range
+    armor_language: observed-in-concept
+    concealed_geometry: inferred-functional-redesign
+
+interfaces:
+  hinge:
+    type: captured-print-in-place-rotational-pivot
+    axis: z
+    moving_components: 2
+    pin_diameter_nominal: 4.0
+    radial_clearance_nominal: 0.35
+    diametral_clearance_nominal: 0.70
+    axial_clearance_nominal: 0.40
+    parameters_exposed: [hinge_pin_diameter_mm, hinge_radial_clearance_mm, hinge_axial_clearance_mm]
+    retention: "integrated captive pin/cap geometry; no metal pin and no post-print assembly"
+    exported_pose: "open sufficiently to preserve all gaps and permit first movement after cooling"
+    rotation_target: "at least 28 degrees of collision-free useful travel between open and latched states"
+    hard_stop: true
+    source: user-stated-and-recommended
+  closure:
+    type: integral-cantilever-snap
+    release: press latch tongue inward while opening lower comb
+  hair_contact:
+    edge_policy: flat tooth tips and no knife edges
+
+appearance:
+  language: angular-faceted-masculine
+  shell: continuous bow with a single coherent raised honeycomb field
+  armor_coverage:
+    - full visible upper surface
+    - whole-cell outer edge on the long side opposite the print bed
+    - honeycomb continues over the hinge and latch structural zones instead of separate blocks
+  armor_grooves: clearly visible and continuous between neighboring hexagons
+  armor_edge_finish:
+    bed_side: half hexagons permitted where the build plane clips the first row
+    non_bed_side: complete hexagons with a staggered high-low silhouette along x
+    ends: complete honeycomb cells may form a stepped edge over hinge and latch
+  color_intent: anthracite-or-black
+  finish: matte-to-satin
+  visible_hardware: none
+
+manufacturing:
+  process: FDM-FFF
+  target_printer: Anycubic Kobra 3 Max
+  material: unfilled PETG
+  nozzle_mm: 0.4
+  nozzle_supported: [0.4, 0.6]
+  recommended_nozzle: 0.4
+  layer_height_recommended: 0.20
+  orientation: "large side face on the build plate with the hinge axis vertical; both moving members and the captive pivot are built in place"
+  supports: none_expected
+  walls: 4
+  infill: "20-30% gyroid; local geometry is perimeter dominated"
+  cooling: "use the filament supplier's PETG profile; moderate rather than maximum cooling"
+  seam: "place away from the flexure roots and tooth tips"
+
+engineering_assumptions:
+  hinge_clearance_basis: "0.35 mm radial and 0.40 mm axial starting clearance for calibrated PETG with a 0.4 mm nozzle"
+  closure_behavior: "the rotational hinge guides motion; the latch retains the selected hair volume without relying on a fatigue-loaded main flexure"
+  note: "Print-in-place release and wear remain process-specific; a hinge/latch coupon is mandatory before the full clip."
+
+acceptance:
+  - id: geometry-valid
+    criterion: "All product exports contain exactly two watertight manifold movement bodies; the coupon contains its expected two bodies."
+    method: "validate_stl.py and validation/r6-final-audits"
+  - id: parametric-range
+    criterion: "All four presets and the 65/7 and 105/18 mm parameter boundaries generate without violating fixed functional clearances."
+    method: "validate_r6_features.py"
+  - id: mechanism-clearance
+    criterion: "The rigid hinge/comb core is collision-free through 28 degrees and the closed rigid state has no body intersection."
+    method: "sampled Manifold-3D intersection sweep"
+  - id: three-row-armor
+    criterion: "Every size has exactly three staggered transverse honeycomb rows with cells derived from the armor envelope."
+    method: "generation metrics and validate_r6_features.py"
+  - id: watermark-release
+    criterion: "Exact JSI-WM-001-R1 geometry is recessed 0.40 mm on a documented safe host surface and preserved in geometric layer sections."
+    method: "validation/watermark-selector-r6.json and validation/watermark-evidence-r6.png"
+  - id: physical-qualification
+    criterion: "Coupon survives 100 hinge and 50 latch cycles; the selected full clip holds comfortably for 30 minutes."
+    method: "pending physical test protocol in validation/validation-report.md"
+
+acceptance_detail:
+  digital:
+    - exactly two intentionally separate moving components, each watertight and manifold
+    - no unintended mesh contact across the print-in-place hinge or latch gaps in the exported open pose
+    - clip_length_mm generates models from 65 through 105 mm without changing functional wall or clearance values
+    - arch_rise_mm generates models from 7 through 18 mm independently of clip length
+    - large preset overall length 85 +/- 0.5 mm and crown rise 12 +/- 0.3 mm
+    - toothed grip zone scales with clip length while keeping printable tooth pitch and blunt tips
+    - hinge radial clearance 0.35 +/- 0.05 mm and axial clearance at least 0.40 mm in source geometry
+    - collision-free hinge rotation of at least 28 degrees between exported-open and latched configurations
+    - minimum designed latch thickness 1.6 mm
+    - positive volume and mass estimate below 30 g with PETG density 1.27 g/cm3 for the large preset
+    - armor cells use one uniform orientation and a true staggered honeycomb grid
+    - exactly three transverse honeycomb rows are generated for every size preset
+    - large-preset armor cell size is 18.53 mm across flats, derived from the 28.6 mm armor envelope and 0.8 mm groove
+    - the longitudinal whole-cell count is derived from clip_length_mm and centered symmetrically instead of being hard-coded
+    - no dedicated 90-degree-rotated longitudinal armor row remains
+    - only the build-plate-side boundary may contain half hexagons
+    - the opposite long-side boundary contains whole hexagons and may alternate high-low along the clip axis
+    - nominal armor groove is at least 0.8 mm wide for a 0.4 mm nozzle
+    - standalone decorative blocks over the hinge and latch are absent
+    - whole honeycomb cells continue over the structural hinge/latch end zones without entering moving or release clearances
+    - hinge and latch ends have matching complete-cell high-low contours for every generated length preset
+    - the generated armor envelope follows clip_length_mm without retaining the obsolete revision-5 limit of 65 mm
+    - unused central lower-rail material is removed on the non-bed side while full-width material remains at the hinge and latch interfaces
+    - all armor cells are fused to the main body with at least 2.0 mm designed overlap
+  physical:
+    - print-in-place hinge releases without cutting, drilling, added pin or destructive separation
+    - hinge turns through the useful travel without layer cracking and with no more than light break-in force
+    - latch engages and releases without whitening or cracks
+    - 100 hinge rotations and 50 latch cycles on the coupon before the full clip is accepted
+    - no sharp or rough skin-contact edges after deburring
+    - holds the intended ponytail for 30 minutes without painful pulling
+
+deliverables:
+  - parametric Manifold-3D JavaScript source
+  - named CLI parameters and small/medium/large/extra-large presets
+  - STL print-in-place assembly
+  - 3MF print-in-place assembly in millimetres
+  - hinge/latch clearance coupon STL
+  - preview render
+  - validation report and print instructions
+
+uncertainty:
+  - region: desired-personal-size
+    level: medium
+    resolution: "Recommended default is the 85 mm / 12 mm large preset; the parametric source also generates 68, 76 and 96 mm presets."
+  - region: print-in-place-pivot-release
+    level: high
+    resolution: "Use 0.35 mm radial and 0.40 mm axial start clearances, validate on the exact PETG/printer profile with a coupon, and expose both values as parameters."
+  - region: hidden-inner-geometry
+    level: high
+    resolution: engineered comb and flexure arrangement
+  - region: exact-camera-and-scale
+    level: high
+    resolution: requirements dimensions take precedence over perspective concept image
+  - region: petg-fatigue-life
+    level: high
+    resolution: experimental status plus coupon and cycle test
+  - region: revision-4-hexagon-scale
+    level: resolved-by-revision-6
+    resolution: "Superseded by the three-row sizing rule; the 85 mm large preset uses approximately 18.53 mm across flats with a 0.8 mm groove."
+  - region: revision-4-high-low-interpretation
+    level: medium
+    resolution: "Interpreted as a staggered outer edge made from whole cells, not alternating relief thickness"
+  - region: revision-5-longitudinal-fit
+    level: resolved-by-revision-6
+    resolution: "Superseded by an automatic longitudinal whole-cell count and per-size fit factor; revision 6 no longer has a 65 mm overall-length ceiling."
+  - region: revision-6-three-row-honeycomb
+    level: low
+    resolution: "Exactly three transverse rows are fixed. Cell size is derived from the armor width, while the number of complete cells along the clip is derived from clip_length_mm."

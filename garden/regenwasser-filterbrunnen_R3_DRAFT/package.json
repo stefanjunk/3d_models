@@ -1,0 +1,20 @@
+{
+  "name": "regenwasser-filterbrunnen",
+  "version": "0.3.0-draft",
+  "private": true,
+  "type": "module",
+  "description": "Parametrisches OpenCascade-CAD fuer einen dreistufigen Regenwasser-Filterbrunnen",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "check": "node src/build.mjs --check-only",
+    "validate": "python3 scripts/validate_stl.py build/draft-r3/stl --metadata build/draft-r3/metadata/geometry-metadata.json --json build/draft-r3/metadata/stl-validation.json --markdown build/draft-r3/metadata/stl-validation.md",
+    "validate:engineering": "node scripts/validate_engineering.mjs",
+    "render": "python3 scripts/render_assembly.py --metadata build/draft-r3/metadata/geometry-metadata.json --output-dir build/draft-r3/renders",
+    "render:watermark": "python3 scripts/render_watermark_evidence.py --metadata build/draft-r3/metadata/geometry-metadata.json --output-dir build/draft-r3/renders",
+    "verify": "npm run build && npm run validate && npm run validate:engineering && npm run render && npm run render:watermark"
+  },
+  "dependencies": {
+    "replicad": "0.23.1",
+    "replicad-opencascadejs": "0.23.0"
+  }
+}

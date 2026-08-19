@@ -1,0 +1,89 @@
+{
+  "schema": "heightmap-relief-source-v2.2",
+  "schema_version": 2.2,
+  "stage": "registered_source_master",
+  "asset_id": "sha256:1e396a4ac704fdbb",
+  "sha256": "1e396a4ac704fdbb5b937e2297c98987c5ca19d98ab381b5f797c7b769d5e05c",
+  "source_kind": "supplied",
+  "input": {
+    "path": "/workspace/scratch/47bf535f53f1/r1.3-work/schubladen-organizer/texture/steel1-source-R1.3.png",
+    "sha256": "9339836cc00d1f978f61845c6a0c3eb1eddbcb7035db676b030d0589e8460b4a",
+    "input_mode": "RGBA",
+    "pixel_width": 1536,
+    "pixel_height": 1024,
+    "embedded_dpi": null,
+    "source_precision_bit_depth_guess": 8
+  },
+  "generation_spec": {
+    "path": "source/source-spec.json",
+    "content": {
+      "schema": "heightmap-relief-source-spec-v2.2",
+      "schema_version": 2.2,
+      "image_class": "texture",
+      "physical_authoring": {
+        "width_mm": 180.0,
+        "height_mm": 120.0,
+        "authoring_ppi": 300.0,
+        "replacement_height_policy": "derive_from_square_pixel_source_aspect"
+      },
+      "requested_raster": {
+        "pixel_width": 2126,
+        "pixel_height": 1417
+      },
+      "semantic": {
+        "description": "irregular steel plates, rivet seams, repair patches, subtle dents, no regular checkerboard",
+        "polarity": "white-high",
+        "seamless_x": true,
+        "seamless_y": true,
+        "continuous_grayscale": true,
+        "posterization_allowed": false
+      },
+      "generation_prompt": "Create one orthographic grayscale displacement texture authored as a 180 x 120 mm seamless tile at 300 PPI (minimum 2126 x 1417 pixels). Use continuous grayscale with dark engraved joints, middle-gray plate fields, and bright embossed rivets/patch edges. Preserve fine tonal ramps; no binary thresholding, posterization, perspective lighting, rust, text, or regular checkerboard repetition. Replacement images keep their own square-pixel aspect and derive physical height from the fixed 180 mm width anchor."
+    }
+  },
+  "semantic": {
+    "image_class": "texture",
+    "polarity": "white-high",
+    "seamless_x": true,
+    "seamless_y": true
+  },
+  "requested_authoring": {
+    "width_mm": 180.0,
+    "height_mm": 120.0,
+    "authoring_ppi": 300.0,
+    "replacement_height_policy": "derive_from_square_pixel_source_aspect",
+    "pixel_width": 2126,
+    "pixel_height": 1417,
+    "square_pixels": true,
+    "resolved_width_mm": 180.0,
+    "resolved_height_mm": 120.0
+  },
+  "registered_master": {
+    "path": "source/source-master.png",
+    "container_bit_depth": 16,
+    "source_precision_bit_depth_guess": 8,
+    "pixel_width": 1536,
+    "pixel_height": 1024,
+    "effective_ppi_x": 216.74666666666664,
+    "effective_ppi_y": 216.74666666666664,
+    "physical_width_mm": 180.0,
+    "physical_height_mm": 120.0,
+    "natural_raster_aspect": 1.5,
+    "physical_aspect": 1.5,
+    "physical_aspect_error_pct": 0.0,
+    "physical_aspect_origin": "square-pixel source aspect with configured physical width anchor",
+    "physical_pixel_width_mm": 0.1171875,
+    "physical_pixel_height_mm": 0.1171875,
+    "pixel_policy": "preserve"
+  },
+  "seam_metrics_normalized": {
+    "x_mean_abs": 0.15778502374387254,
+    "x_max_abs": 0.5591372549019609,
+    "y_mean_abs": 0.2191703880718954,
+    "y_max_abs": 0.6885490196078431
+  },
+  "warnings": [
+    "The source has approximately 8-bit tonal precision. It is stored in a 16-bit master container, but missing source tones are not invented.",
+    "The supplied master is not natively seamless; configured build-stage seam blending will be applied."
+  ]
+}

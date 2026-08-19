@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "EXAMPLE_DECORATIVE_ENCLOSURE",
+    "title": "Serviceable electronics enclosure with organic owl façade",
+    "source_modes": ["design_description", "sketch", "measurements"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {"technology": "FDM", "printer": "enclosed FDM printer", "nozzle_mm": 0.4, "line_width_mm": 0.45, "layer_height_mm": 0.2, "profile_id": "ASA-0.4-0.20"},
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "rear-bottom-left corner of the chassis outer envelope",
+      "x_axis": "+X to the product right",
+      "y_axis": "+Y from rear toward front façade",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major component source-to-project matrix"
+    },
+    "master_envelope_mm": {"min": [0, 0, 0], "max": [180, 105, 125]},
+    "requirements": [
+      {"id": "REQ-SERVICE", "statement": "The enclosure shall open and the PCB shall be removable without damaging the organic façade.", "evidence_class": "requested", "source": "design description", "priority": "critical", "verification": "exploded assembly and repeated service test"},
+      {"id": "REQ-THERMAL", "statement": "Generated ornament shall not reduce the parametric intake/exhaust free area or block the fan swept volume.", "evidence_class": "requested", "source": "thermal concept and PCB/fan envelope", "priority": "critical", "verification": "exact keep-out collision, free-area calculation, and temperature test"},
+      {"id": "REQ-STYLE", "statement": "The replaceable façade shall depict an Art Nouveau owl surrounding, but not defining, the display and vent openings.", "evidence_class": "requested", "source": "design concept", "priority": "important", "verification": "matched concept views and trim preview"}
+    ],
+    "global_style": {
+      "summary": "Art Nouveau owl façade with broad feather arcs framing functional openings",
+      "motifs": ["symmetrical owl brow", "broad layered feathers", "one continuous outer contour"],
+      "exclude": ["literal holes used as final vents", "text", "buttons", "PCB", "cables", "thin wire feathers", "photographic fur"],
+      "generation_material": "matte neutral clay",
+      "detail_hierarchy": "outer owl silhouette, eye/brow masses, broad feathers, sparse shallow lines"
+    },
+    "assembly_sequence": [
+      "Install PCB, fan, display, and cable hardware into CHASSIS and verify service/tool paths.",
+      "Slide FRONT_BACKER into CHASSIS and secure its stop.",
+      "Attach OWL_FACADE to FRONT_BACKER after fit and adhesive-gap coupon approval.",
+      "Remove FRONT_BACKER with OWL_FACADE intact for future service."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-ELECTRONICS-001",
+      "topic": "Freeze the electronics, connector, cable, and thermal envelopes.",
+      "status": "provisional",
+      "current_basis": "Example COTS envelopes are illustrative.",
+      "evidence_needed": "Supplier drawings, measured samples, cable bend radius, and worst-case thermal test plan.",
+      "blocks_gates": ["proxy", "integration", "physical", "release"]
+    },
+    {
+      "id": "DEC-FACADE-001",
+      "topic": "Approve the owl facade generation plates and protected silhouette.",
+      "status": "open",
+      "current_basis": "The written concept defines style but no approved source plates exist.",
+      "evidence_needed": "Approved orthographic plates, review render, masks, and landmark check.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "CHASSIS",
+      "name": "Parametric electronics chassis",
+      "role": "structural enclosure, PCB/fan mounts, rear connectors, thermal and service authority",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "measurements", "refs": ["PCB drawing", "fan drawing", "connector drawing", "REQ-SERVICE", "REQ-THERMAL"], "confidence": "high"},
+      "functions": ["protect electronics", "mount PCB/fan", "route air", "locate removable front"],
+      "envelope_mm": {"min": [0, 0, 0], "max": [180, 92, 125]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "FDM", "material": "ASA", "color_body": "chassis", "orientation": "chosen for rails, heat, and support-free vents"},
+      "interface_ids": ["IF-FRONT", "IF-PCB"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["PCB/fan/connector fit", "service access", "thermal path", "front rails"]}
+    },
+    {
+      "id": "FRONT_BACKER",
+      "name": "Parametric removable front and façade backer",
+      "role": "display/vent opening authority, sliding interface, exact organic seat, and service boundary",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["CHASSIS rails", "display/fan keep-outs", "REQ-SERVICE", "REQ-THERMAL"], "confidence": "high"},
+      "functions": ["close chassis", "preserve vent/display openings", "locate façade", "remain removable"],
+      "envelope_mm": {"min": [4, 88, 4], "max": [176, 101, 121]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM body", "material": "ASA", "color_body": "front backer", "orientation": "front face upward or edge-on after surface/rail comparison"},
+      "interface_ids": ["IF-FRONT", "IF-FACADE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["rail fit", "end stop", "display/vent geometry", "façade keys and adhesive channel"]}
+    },
+    {
+      "id": "OWL_FACADE",
+      "name": "Organic replaceable owl façade",
+      "role": "customer-selectable appearance body around parametric openings",
+      "authority": "organic",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-STYLE", "style sketch SK-OWL-01"], "confidence": "medium"},
+      "functions": ["create visual identity", "frame display and vent without defining them", "remain replaceable with front"],
+      "envelope_mm": {"min": [10, 96, 8], "max": [170, 105, 117]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM decorative body", "material": "PLA or PETG after enclosure-temperature review", "color_body": "façade", "orientation": "hero face protected from supports"},
+      "interface_ids": ["IF-FACADE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 1.5, "checks": ["owl silhouette", "one coherent rear root", "openings remain trim-safe", "no vent/display collision"]},
+      "image_to_3d": {
+        "generation_mode": "multiview_component",
+        "input_views": ["front orthographic", "right orthographic", "front-right three-quarter"],
+        "positive_prompt": "One coherent shallow Art Nouveau owl façade, symmetrical brow and eye masses, broad layered feather arcs, quiet flat rear root and quiet margins around two marked future opening zones, matte neutral clay, printable medium-scale detail.",
+        "exclude": ["complete enclosure", "PCB", "display graphics", "buttons", "cables", "literal final vent holes", "text", "thin wire feathers", "floating pieces", "deep backside"],
+        "sacrificial_interface_band_mm": 7,
+        "protected_features": ["outer owl silhouette", "symmetrical brow mass", "three broad feather tiers"],
+        "negative_spaces": ["rough eye/display and lower vent zones remain visually quiet for later parametric cutting"],
+        "landmarks": [
+          {"id": "LM-BROW-L", "point_mm": [55, 102, 88], "meaning": "left brow crest"},
+          {"id": "LM-BROW-R", "point_mm": [125, 102, 88], "meaning": "right brow crest"},
+          {"id": "LM-BEAK", "point_mm": [90, 104, 62], "meaning": "center beak tip"},
+          {"id": "LM-BASE", "point_mm": [90, 98, 14], "meaning": "center of sacrificial base"}
+        ]
+      }
+    },
+    {
+      "id": "PCB_ASSEMBLY",
+      "name": "Purchased PCB, fan, display, and connectors",
+      "role": "purchased functional assembly and authoritative clearance/tool envelopes",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["supplier STEP/drawings and physical assembly"], "confidence": "high"},
+      "functions": ["provide electronics", "produce heat", "define connectors/display/fan"],
+      "envelope_mm": {"min": [15, 10, 12], "max": [165, 86, 112]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "electronics", "orientation": "supplier/thermal layout"},
+      "interface_ids": ["IF-PCB"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["supplier dimensions", "connector/fan/display envelopes", "tool and cable paths"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-FRONT",
+      "a": "CHASSIS",
+      "b": "FRONT_BACKER",
+      "owner": "CHASSIS",
+      "kind": "dovetail_slide",
+      "local_frame": {"origin_mm": [90, 90, 62.5], "x_axis": [1, 0, 0], "y_axis": [0, 0, 1], "z_axis": [0, 1, 0]},
+      "nominal_geometry": {"type": "two vertical dovetail rails plus bottom stop", "rail_length_mm": 105, "engagement_mm": 4},
+      "joining": {"method": "vertical slide with removable stop", "assembly_direction": "+Z", "anti_rotation": "two separated rails", "lead_in_mm": 1, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.2, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-ELECTRONICS", "KEEP-SERVICE"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4, "load_or_flow": "front retention and service access"},
+      "verification": ["orientation-matched rail coupon", "assembly/removal cycles", "stop retention", "service path"]
+    },
+    {
+      "id": "IF-FACADE",
+      "a": "FRONT_BACKER",
+      "b": "OWL_FACADE",
+      "owner": "FRONT_BACKER",
+      "kind": "adhesive_backer",
+      "local_frame": {"origin_mm": [90, 99, 62.5], "x_axis": [1, 0, 0], "y_axis": [0, 0, 1], "z_axis": [0, 1, 0]},
+      "nominal_geometry": {"type": "planar backer with three keys and bounded adhesive channel", "width_mm": 160, "height_mm": 109},
+      "joining": {"method": "keys locate; controlled adhesive gap retains", "assembly_direction": "+Y", "anti_rotation": "three non-collinear asymmetric keys", "lead_in_mm": 0.8, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0.2, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.3, "solver_margin_mm": 0.1},
+      "seam_band_mm": 6,
+      "keepout_ids": ["KEEP-VENT", "KEEP-DISPLAY"],
+      "requirements": {"minimum_wall_mm": 1.8, "minimum_ligament_mm": 3, "load_or_flow": "appearance retention only; vent/display remain parametric"},
+      "verification": ["key/adhesive coupon", "trim preview", "vent/display collision", "surface-preservation report"]
+    },
+    {
+      "id": "IF-PCB",
+      "a": "CHASSIS",
+      "b": "PCB_ASSEMBLY",
+      "owner": "PCB_ASSEMBLY",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [90, 45, 62], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "supplier mounting holes, standoffs, fan/display/connector envelopes"},
+      "joining": {"method": "purchased screws and standoffs", "assembly_direction": "+Z", "anti_rotation": "supplier hole pattern", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.05, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-ELECTRONICS", "KEEP-SERVICE"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4, "load_or_flow": "PCB/fan support, airflow, cable and service access"},
+      "verification": ["supplier gauge/sample", "standoff and screw access", "cable/fan clearance", "service test"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-ELECTRONICS", "type": "aabb", "purpose": "coarse electronics occupancy; exact supplier bodies live in CAD", "min_mm": [12, 8, 8], "max_mm": [168, 88, 116], "source": "supplier assembly"},
+    {"id": "KEEP-SERVICE", "type": "aabb", "purpose": "coarse tool/hand/removal path behind front", "min_mm": [5, 70, 0], "max_mm": [175, 115, 125], "source": "service sequence"},
+    {"id": "KEEP-VENT", "type": "aabb", "purpose": "coarse fan/vent free-area proxy; exact duct and swept fan body live in CAD", "min_mm": [55, 94, 10], "max_mm": [125, 108, 55], "source": "thermal design"},
+    {"id": "KEEP-DISPLAY", "type": "aabb", "purpose": "display/window and bezel clearance", "min_mm": [50, 94, 67], "max_mm": [130, 108, 105], "source": "display drawing"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "function/physical/appearance and service-sequence review", "acceptance": "chassis/front own all function; façade is replaceable appearance"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble chassis, front, COTS, tool, vent, and façade envelopes", "acceptance": "no trapped electronics or blocked air/service path"},
+    {"id": "VAL-COMP", "gate": "component", "method": "façade mesh intake, landmarks, silhouette, and quiet-opening zones", "acceptance": "one coherent body within envelope and with sufficient sacrificial back"},
+    {"id": "VAL-INT", "gate": "integration", "method": "rail/key/gap sections, trim, keep-out, and surface-preservation checks", "acceptance": "all three interface contracts pass"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "slice chassis/front/façade with named profiles and inspect support/material boundaries", "acceptance": "rails, vents, detail, and separate bodies slice as intended"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "rail coupon, key/adhesive coupon, service cycles, thermal test, then enclosure prototype", "acceptance": "fit, access, retention, and temperature targets pass"}
+  ]
+}

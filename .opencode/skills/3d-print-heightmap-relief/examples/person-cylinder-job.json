@@ -1,0 +1,77 @@
+{
+  "schema": "heightmap-relief-job-v2.4",
+  "name": "person-cylinder-example",
+  "source": {
+    "spec": "source/source-spec.json",
+    "prompt": "source/generation-prompt.txt",
+    "master": "source/source-master.png",
+    "manifest": "source/source-master.png.source.json"
+  },
+  "target": {
+    "width_mm": 80.0,
+    "height_mm": 40.0,
+    "surface_type": "cylinder",
+    "placement_mode": "front_patch",
+    "axis_mode": "xy-z",
+    "pitch_x_mm": 0.2,
+    "pitch_y_mm": 0.12,
+    "dpi_x": 127.0,
+    "dpi_y": 211.6666666667
+  },
+  "image": {
+    "class": "person",
+    "repeating": false,
+    "fit_mode": "contain",
+    "aspect_policy": "preserve",
+    "allow_aspect_distortion": false,
+    "aspect_tolerance_pct": 0.75,
+    "bit_depth": 16,
+    "black_point": 0.0,
+    "white_point": 1.0,
+    "gamma": 1.0,
+    "invert": false,
+    "background": 0.0,
+    "tile_mm": null
+  },
+  "printer": {
+    "process": "fdm",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.12,
+    "resin_xy_mm": 0.05
+  },
+  "relief": {
+    "mode": "emboss",
+    "depth_mm": 1.0,
+    "wall_thickness_mm": 2.4
+  },
+  "complexity_budget": {
+    "triangle_target": 1000000,
+    "triangle_stop": 5000000,
+    "memory_budget_gib": 8.0,
+    "working_bytes_per_triangle": 1024.0,
+    "max_mesh_mib": 100.0,
+    "max_slicer_seconds": 120.0
+  },
+  "mesh_acceptance": {
+    "max_abs_volume_delta_pct": 0.1,
+    "min_relief_correlation": 0.98,
+    "max_relief_contrast_loss_pct": 5.0,
+    "max_rms_nozzle_fraction": 0.05
+  },
+  "build": {
+    "heightmap": "build/current-heightmap.png",
+    "heightmap_metadata": "build/current-heightmap.png.json",
+    "preview": "build/current-heightmap.preview.png",
+    "manifest": "build/current-heightmap.build.json"
+  },
+  "geometry": {
+    "reference_mesh_path": "build/reference-master-mesh.stl",
+    "manufacturing_mesh_path": "build/manufacturing-mesh.stl",
+    "comparison_report_path": "build/relief-mesh-comparison.json",
+    "budget_report_path": "build/relief-mesh-budget.json",
+    "slicer_report_path": "build/slicer-report.json",
+    "output_path": "build/manufacturing-mesh.stl",
+    "cwd": ".",
+    "command": []
+  }
+}

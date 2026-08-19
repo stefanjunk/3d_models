@@ -1,0 +1,157 @@
+project:
+  name: "Kobra-3-Max-Quick-Swap-Duesenaufnahme fuer Cyber-Schatulle"
+  revision: "IMG-A"
+  target_use: "Funktionale Rekonstruktion nur der fuer eine offene Lageraufnahme relevanten Duesenkontur"
+  target_size_mm: {x: 45.0, y: null, z: null}
+  coordinate_system:
+    origin: "Mitte der flachen Rueckseite des oberen Zylinders"
+    x_axis: "entlang der Duesenachse von der Rueckseite zur Duesenspitze"
+    y_axis: "quer zur Duesenachse in der Bildbreite"
+    z_axis: "quer zur Duesenachse aus der Bildebene"
+
+sources:
+  - id: "IMG-001"
+    file: "evidence/IMG-001/original/kobra3max-quick-swap-dimension.png"
+    view: "seitliche Produktansicht entlang einer Querachse"
+    projection: "nahezu orthografische Produktgrafik; nicht kamerakalibriert"
+    focal_length_mm: null
+    scale_reference: "Eingezeichnete Gesamtlaenge 45 mm und obere Breite/Durchmesser 5 mm"
+    known_dimension_mm: 45.0
+    original_preserved: true
+    limitations:
+      - "Nur eine Ansicht; Tiefe ist nicht direkt sichtbar."
+      - "Niedrige Rasteraufloesung 131 x 432 Pixel."
+      - "Produktgrafik kann nichtuniform skaliert oder stilisiert sein."
+      - "Maximaler Duesenkragen ist nicht bemaßt."
+
+manufacturing:
+  process: "FDM"
+  printer: "Anycubic Kobra 3 Max"
+  material: "PETG, ungefuellt"
+  nozzle_mm: 0.4
+  xy_pixel_mm: null
+  layer_height_mm: 0.16
+  intended_orientation: "Passcoupon flach; Schatulle spaeter print-in-place flach aufgeklappt"
+  measured_effective_feature_mm: 0.65
+
+requirements:
+  - id: "NZ-001"
+    category: "dimension"
+    statement: "Gesamtlaenge des Moduls betraegt nominal 45,0 mm."
+    status: "measured"
+    source: "IMG-001, vertikale Maßangabe"
+    confidence: "high"
+    nominal_mm: 45.0
+    tolerance_mm: 1.0
+    priority: "critical"
+    validation: "coupon"
+  - id: "NZ-002"
+    category: "interface"
+    statement: "Der obere zylindrische Bezug hat nominal 5,0 mm Durchmesser."
+    status: "measured"
+    source: "IMG-001, obere 5-mm-Maßangabe"
+    confidence: "high"
+    nominal_mm: 5.0
+    tolerance_mm: 0.3
+    priority: "critical"
+    validation: "coupon"
+  - id: "NZ-003"
+    category: "shape"
+    statement: "Der lange untere Zylinder ist aus dem Bildbreitenverhaeltnis etwa 5,6 mm breit."
+    status: "inferred"
+    source: "IMG-001, Breitenverhaeltnis zur 5-mm-Zone"
+    confidence: "medium"
+    nominal_mm: 5.6
+    tolerance_mm: 0.6
+    priority: "important"
+    validation: "coupon"
+  - id: "NZ-004"
+    category: "shape"
+    statement: "Der maximale Kragen ist aus dem Bildbreitenverhaeltnis etwa 9,2 mm breit und erhaelt mindestens 11 mm Freiraum."
+    status: "inferred"
+    source: "IMG-001, maximale Silhouettenbreite relativ zur 5-mm-Zone"
+    confidence: "low"
+    nominal_mm: 9.2
+    tolerance_mm: 0.8
+    priority: "important"
+    validation: "coupon"
+  - id: "NZ-005"
+    category: "shape"
+    statement: "Die zylindrischen Bereiche werden fuer die Lageraufnahme als rotationssymmetrisch behandelt."
+    status: "assumed"
+    source: "IMG-001, sichtbare Drehkoerperform; zweite Ansicht fehlt"
+    confidence: "medium"
+    nominal_mm: null
+    tolerance_mm: null
+    priority: "important"
+    validation: "prototype"
+  - id: "NZ-006"
+    category: "interface"
+    statement: "Die Angabe 0,4 mm bezeichnet nur die Duesenoeffnung und bestimmt nicht die Lagerkontur."
+    status: "observed"
+    source: "IMG-001, Spitzenbeschriftung"
+    confidence: "high"
+    nominal_mm: 0.4
+    tolerance_mm: null
+    priority: "important"
+    validation: "dimension"
+  - id: "FIT-001"
+    category: "print"
+    statement: "Ein Coupon prueft 0,25, 0,35 und 0,45 mm Spiel pro Seite an denselben zwei Sattelbezugspunkten."
+    status: "requested"
+    source: "design-spec.yaml, freigegebene Couponstrategie"
+    confidence: "high"
+    nominal_mm: 0.35
+    tolerance_mm: 0.10
+    priority: "critical"
+    validation: "coupon"
+
+appearance:
+  geometry_features:
+    - "mehrstufiger rotationssymmetrischer Metallkoerper"
+    - "breiter Duesenkragen nahe der Spitze"
+  relief_features: []
+  texture_only_features:
+    - "eingeblendete und graviert wirkende Maß-/Duesenbeschriftungen"
+  palette_srgb: ["#898989", "#C4C4C4", "#D6D6D6"]
+  material_hypotheses: ["Metall; Material ist fuer die Lagerkontur nicht entscheidend"]
+  lighting_or_shadow_cues_to_ignore:
+    - "vertikale Glanzstreifen"
+    - "weiche Schlagschatten an den Silhouettenkanten"
+
+uncertainty:
+  hidden_regions:
+    - "Tiefe und exakte Polygonform des breiten Kragens"
+    - "Rueckseitige Detailkonturen"
+  conflicting_evidence: []
+  variants_to_model:
+    - "Passspiel 0,25 mm pro Seite"
+    - "Passspiel 0,35 mm pro Seite"
+    - "Passspiel 0,45 mm pro Seite"
+  unresolved_questions:
+    - "Welche Coupon-Variante sitzt auf dem konkreten PETG-Prozess am besten?"
+
+validation_views:
+  - id: "VIEW-001"
+    source_id: "IMG-001"
+    camera: "orthografische Vergleichsansicht nur fuer axiale Proportionen"
+    landmarks:
+      - "Rueckseite oberer Zylinder"
+      - "Beginn langer unterer Zylinder"
+      - "maximale Kragenbreite"
+      - "Duesenspitze"
+    acceptance:
+      silhouette_iou_min: null
+      boundary_mean_px_max: null
+      landmark_error_percent_max: null
+      notes: "Keine visuelle Vollrekonstruktion gefordert; Bilddaten dienen nur der offenen Lageraufnahme."
+
+deliverables:
+  editable_master: "cad/fit_coupon.py"
+  print_mesh: "exports/draft/kobra3max_fit_coupon_DRAFT.stl und .3mf"
+  textured_asset: ""
+  reports:
+    - "reports/image-evidence.md"
+    - "reports/fit-coupon-validation.json"
+  known_deviations:
+    - "Der Coupon rekonstruiert nicht die komplette Duesenform; er prueft nur zwei offene Sattelauflagen und den Kragenfreiraum."

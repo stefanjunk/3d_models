@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+  <defs>
+    <linearGradient id="shell" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#334155" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#64748b" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#334155" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#0284c7" stop-opacity="0.22"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrowBrown" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9a3412"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style type="text/css"><![CDATA[
+      .title { font: 700 42px system-ui, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 21px system-ui, sans-serif; fill: #475569; }
+      .stage { font: 700 25px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 600 18px system-ui, sans-serif; fill: #1e293b; }
+      .small { font: 500 16px system-ui, sans-serif; fill: #475569; }
+      .note { font: 500 18px system-ui, sans-serif; fill: #334155; }
+      .shell { fill: url(#shell); stroke: #334155; stroke-width: 4; }
+      .rim { fill: none; stroke: #334155; stroke-width: 7; }
+      .pipe { fill: #dbeafe; stroke: #075985; stroke-width: 5; }
+      .water { fill: url(#water); stroke: #0284c7; stroke-width: 2; }
+      .flow { fill: none; stroke: #0284c7; stroke-width: 7; marker-end: url(#arrowBlue); }
+      .sludge { fill: none; stroke: #9a3412; stroke-width: 6; marker-end: url(#arrowBrown); }
+      .call { fill: none; stroke: #475569; stroke-width: 3; marker-end: url(#arrowGray); }
+      .box { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 3; rx: 18; }
+    ]]></style>
+  </defs>
+
+  <rect width="1600" height="1200" fill="#f8fafc"/>
+  <text x="70" y="70" class="title">Filterbrunnen · Konzept Revision 3</text>
+  <text x="70" y="106" class="subtitle">Schnitt durch den Turm und Detail des offenen, rückflussfreien Stage-1-Zulaufs</text>
+
+  <!-- Left: complete tower cutaway -->
+  <rect x="70" y="140" width="900" height="990" class="box"/>
+  <text x="105" y="184" class="stage">Gesamtübersicht</text>
+
+  <!-- Stage 1 shell and water -->
+  <path d="M245 235 Q245 210 270 210 H675 Q700 210 700 235 V500 H245 Z" class="shell"/>
+  <path d="M255 296 H690 V490 H255 Z" class="water"/>
+  <path d="M245 235 Q245 210 270 210 H675 Q700 210 700 235" class="rim"/>
+  <text x="115" y="260" class="stage">STAGE 1</text>
+  <text x="115" y="287" class="small">Wirbel + Grobsediment</text>
+
+  <!-- Hose, air gap, receiver and downcomer -->
+  <path d="M375 160 V206" class="pipe"/>
+  <path d="M375 164 V196" class="flow"/>
+  <path d="M333 221 H417 L405 273 H345 Z" fill="#e0f2fe" stroke="#075985" stroke-width="5"/>
+  <path d="M375 272 V402" class="pipe"/>
+  <path d="M375 283 V378" class="flow"/>
+  <path d="M375 390 V423 H444" class="pipe"/>
+  <path d="M397 410 H442" class="flow"/>
+  <text x="505" y="158" class="label">25-mm-Pumpenschlauch</text>
+  <path d="M495 154 H393" class="call"/>
+  <text x="505" y="215" class="label">freier Luftspalt</text>
+  <path d="M495 210 H393" class="call"/>
+  <text x="505" y="252" class="label">offener Einlaufbecher</text>
+  <path d="M495 247 H410" class="call"/>
+  <text x="720" y="380" class="label">Tangentialauslass</text>
+  <path d="M710 375 L448 410" class="call"/>
+
+  <!-- Surface vortex arrows -->
+  <path d="M465 335 C540 300 625 320 647 360" class="flow"/>
+  <path d="M630 377 C570 417 494 406 464 371" class="flow"/>
+
+  <!-- Central standpipe -->
+  <path d="M568 300 H625 V509 H568 Z" class="pipe"/>
+  <path d="M596 313 V480" class="flow"/>
+  <text x="720" y="324" class="label">zentraler Klarwasserabzug</text>
+  <path d="M710 319 H628" class="call"/>
+
+  <!-- Funnel and sludge drain -->
+  <path d="M275 400 L555 468 H637 L675 400" fill="#fed7aa" stroke="#9a3412" stroke-width="5"/>
+  <path d="M315 414 L548 472" class="sludge"/>
+  <path d="M646 414 L619 471" class="sludge"/>
+  <path d="M555 476 H286 V503 H220" fill="none" stroke="#9a3412" stroke-width="16"/>
+  <path d="M344 489 H222" class="sludge"/>
+  <text x="720" y="438" class="label">Schlammtrichter</text>
+  <path d="M710 433 H669" class="call"/>
+  <text x="115" y="525" class="label">25-mm-Schlammablass 1</text>
+
+  <!-- Stage 2 shell -->
+  <path d="M245 510 H700 V805 H245 Z" class="shell"/>
+  <path d="M255 525 H690 V795 H255 Z" class="water"/>
+  <path d="M245 510 H700" class="rim"/>
+  <text x="115" y="574" class="stage">STAGE 2</text>
+  <text x="115" y="601" class="small">Lamellenabscheidung</text>
+
+  <!-- Drop tube and diffuser -->
+  <path d="M568 510 H625 V690 H568 Z" class="pipe"/>
+  <path d="M596 527 V662" class="flow"/>
+  <ellipse cx="596" cy="691" rx="70" ry="17" fill="#bae6fd" stroke="#075985" stroke-width="5"/>
+  <path d="M584 704 C520 730 458 720 418 686" class="flow"/>
+  <path d="M607 704 C656 730 674 711 675 684" class="flow"/>
+  <text x="720" y="654" class="label">Fallrohr unter Lamellen</text>
+  <path d="M710 649 H629" class="call"/>
+
+  <!-- Lamella cassette -->
+  <g stroke="#475569" stroke-width="8">
+    <line x1="337" y1="700" x2="420" y2="565"/>
+    <line x1="370" y1="716" x2="453" y2="581"/>
+    <line x1="403" y1="732" x2="486" y2="597"/>
+    <line x1="436" y1="748" x2="519" y2="613"/>
+    <line x1="469" y1="764" x2="552" y2="629"/>
+  </g>
+  <path d="M365 718 C365 660 384 625 405 590" class="flow"/>
+  <path d="M430 743 C430 687 454 647 477 610" class="flow"/>
+  <path d="M505 760 C505 706 525 675 548 640" class="flow"/>
+  <path d="M410 620 L382 676" class="sludge"/>
+  <path d="M483 648 L448 710" class="sludge"/>
+  <text x="720" y="712" class="label">Aufstrom durch Lamellen</text>
+  <path d="M710 707 H557" class="call"/>
+
+  <!-- Stage 2 side overflow to stage 3 -->
+  <path d="M637 575 H678 V812 H637 Z" class="pipe"/>
+  <path d="M658 589 V785" class="flow"/>
+
+  <!-- sloped sediment floor and stage 2 drain -->
+  <path d="M270 781 L654 760 L654 790 L270 805 Z" fill="#fed7aa" stroke="#9a3412" stroke-width="5"/>
+  <path d="M558 771 H294" class="sludge"/>
+  <path d="M294 789 H220" fill="none" stroke="#9a3412" stroke-width="16"/>
+  <path d="M292 789 H222" class="sludge"/>
+  <text x="115" y="829" class="label">25-mm-Schlammablass 2</text>
+
+  <!-- Stage 3 shell -->
+  <path d="M245 815 H700 V1085 H245 Z" class="shell"/>
+  <path d="M255 828 H690 V1075 H255 Z" class="water"/>
+  <path d="M245 815 H700" class="rim"/>
+  <text x="115" y="875" class="stage">STAGE 3</text>
+  <text x="115" y="902" class="small">mechanische Filtermedien</text>
+
+  <!-- distributor and baskets -->
+  <rect x="330" y="845" width="285" height="18" rx="6" fill="#cbd5e1" stroke="#475569" stroke-width="4"/>
+  <rect x="320" y="880" width="305" height="52" rx="13" fill="#fde68a" stroke="#a16207" stroke-width="5"/>
+  <rect x="320" y="943" width="305" height="52" rx="13" fill="#86efac" stroke="#15803d" stroke-width="5"/>
+  <rect x="320" y="1006" width="305" height="52" rx="13" fill="#c4b5fd" stroke="#6d28d9" stroke-width="5"/>
+  <path d="M472 831 V874" class="flow"/>
+  <path d="M472 891 V936" class="flow"/>
+  <path d="M472 954 V999" class="flow"/>
+  <path d="M472 1017 V1063" class="flow"/>
+  <text x="720" y="900" class="label">300–500 µm Netz</text>
+  <text x="720" y="963" class="label">grobe Filtermatte</text>
+  <text x="720" y="1026" class="label">50–100 µm Feinmatte</text>
+  <path d="M700 1070 H815" class="pipe"/>
+  <path d="M708 1070 H812" class="flow"/>
+  <text x="720" y="1105" class="label">Kaskade / Poolrücklauf</text>
+
+  <!-- Right: plan view detail and operating explanation -->
+  <rect x="1005" y="140" width="525" height="530" class="box"/>
+  <text x="1040" y="184" class="stage">Stage 1 · Draufsicht</text>
+  <circle cx="1268" cy="405" r="184" fill="url(#water)" stroke="#334155" stroke-width="7"/>
+  <circle cx="1268" cy="405" r="34" fill="#dbeafe" stroke="#075985" stroke-width="6"/>
+  <path d="M1080 336 H1160 Q1180 336 1180 356 V382" class="pipe"/>
+  <path d="M1095 349 H1165 Q1180 349 1180 372" class="flow"/>
+  <path d="M1188 318 C1310 256 1435 330 1440 430" class="flow"/>
+  <path d="M1425 466 C1350 565 1193 563 1119 469" class="flow"/>
+  <path d="M1109 441 C1079 382 1093 343 1136 318" class="flow"/>
+  <text x="1050" y="625" class="note">Der Innenauslass trifft die Außenwand tangential.</text>
+  <text x="1050" y="649" class="note">Das Wasser rotiert um den ruhigen Mittelabzug.</text>
+
+  <rect x="1005" y="700" width="525" height="430" class="box"/>
+  <text x="1040" y="744" class="stage">Betriebszustände 0–1.200 L/h</text>
+  <circle cx="1060" cy="799" r="10" fill="#0284c7"/>
+  <text x="1090" y="806" class="note">0 L/h: gefüllter Stillstand, kein Rücksiphon</text>
+  <circle cx="1060" cy="854" r="10" fill="#0284c7"/>
+  <text x="1090" y="861" class="note">kleine Menge: ruhiges Absetzbecken</text>
+  <circle cx="1060" cy="909" r="10" fill="#0284c7"/>
+  <text x="1090" y="916" class="note">800 L/h: Auslegungs-Wirbelbetrieb</text>
+  <circle cx="1060" cy="964" r="10" fill="#0284c7"/>
+  <text x="1090" y="971" class="note">1.200 L/h: hydraulischer Maximaltest</text>
+  <line x1="1040" y1="1006" x2="1495" y2="1006" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="1040" y="1046" class="note">Braune Pfeile: Sedimentweg</text>
+  <text x="1040" y="1077" class="note">Blaue Pfeile: Wasserweg</text>
+  <text x="1040" y="1108" class="small">Konzeptbild – nicht maßhaltig, noch kein Drucknachweis</text>
+</svg>

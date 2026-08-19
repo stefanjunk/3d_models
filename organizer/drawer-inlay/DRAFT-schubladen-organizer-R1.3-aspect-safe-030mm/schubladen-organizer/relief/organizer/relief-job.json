@@ -1,0 +1,87 @@
+{
+  "schema": "heightmap-relief-job-v2.2",
+  "schema_version": 2.2,
+  "job_name": "drawer-organizer-steel-rivets",
+  "source": {
+    "master_path": "source/source-master.png",
+    "manifest_path": "source/source-master.png.source.json",
+    "generation_spec_path": "source/source-spec.json",
+    "asset_id": "sha256:1e396a4ac704fdbb"
+  },
+  "target": {
+    "width_mm": 180.0,
+    "height_mm": 180.0,
+    "pitch_mm": [
+      0.2,
+      0.2
+    ]
+  },
+  "printer": {
+    "process": "fdm",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "axis_mode": "xy-xy canonical tile; remapped to XY-Z on vertical bands"
+  },
+  "mapping": {
+    "surface_type": "organizer floors and planar wall bands",
+    "placement_mode": "repeating object-space tile",
+    "axis_mode": "mixed",
+    "intended_surface_mapping": "repeat over enabled floor, inner-wall, and recessed outer-wall patches"
+  },
+  "classification": {
+    "image_class": "texture",
+    "polarity": "white-high",
+    "repeating": true,
+    "seamless_x": true,
+    "seamless_y": true
+  },
+  "image": {
+    "class": "texture",
+    "repeating": true,
+    "fit_mode": "repeat",
+    "aspect_policy": "preserve",
+    "allow_aspect_distortion": false,
+    "aspect_tolerance_pct": 1.5,
+    "bit_depth": 16
+  },
+  "processing": {
+    "repeat_tile": {
+      "size_policy": "preserve_source_aspect",
+      "anchor_axis": "width",
+      "anchor_mm": 180.0
+    },
+    "seam_blend_mm": [
+      7.0,
+      7.0
+    ],
+    "black_point": 0.0,
+    "white_point": 1.0,
+    "gamma": 1.0,
+    "invert": false,
+    "background_gray": 32768
+  },
+  "relief": {
+    "mode": "signed engrave and emboss",
+    "parameter_file": "../../config/model-params.json",
+    "minimum_remaining_material_mm": 2.0
+  },
+  "outputs": {
+    "heightmap": "build/current-heightmap.png",
+    "heightmap_metadata": "build/current-heightmap.png.json",
+    "build_manifest": "build/current-heightmap.png.build.json",
+    "preview": "build/current-heightmap.preview.png",
+    "preview_ppi": 150.0
+  },
+  "geometry": {
+    "parameter_file": "../../config/model-params.json",
+    "relief_adapter_config": "../../config/relief-config.json",
+    "cwd": "../..",
+    "command": [
+      "python3",
+      "src/build_pipeline.py"
+    ],
+    "output_path": "../../output/DRAFT/DRAFT-R1.3-aspect-safe-030mm-assembly.3mf",
+    "execution_strategy": "one module per process; one relief surface patch at a time"
+  },
+  "notes": "The 180 x 180 mm canonical surface build stays at 0.20 mm/pixel (127 PPI). A supplied square-pixel image keeps its natural physical aspect: the configured 180 mm tile width derives its height uniformly (steel1.png becomes 180 x 120 mm). The Manifold3D adapter extracts that periodic tile and samples it at the separately parameterized 0.30 mm geometry pitch without tonal thresholding."
+}

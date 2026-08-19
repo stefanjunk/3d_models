@@ -1,0 +1,65 @@
+status: DRAFT-r4-watermark-and-release-approval-pending
+geometry_revision: CYBERVAULT-R4-CAD-A-WM1
+
+tests:
+  - id: T-FIT-01
+    part: nozzle-fit-coupon
+    status: pass
+    evidence: "Benutzer waehlt Zwei-Punkt-Variante; 0,35 mm Spiel je Seite."
+
+  - id: T-HINGE-01
+    part: hinge-coupon
+    status: pass-basic-function
+    evidence: "Benutzer bestaetigt am 2026-08-11: Scharnier passt. Eine konkrete Zyklenzahl wurde nicht berichtet."
+    method:
+      - "Mit Produktions-PETG-Profil drucken und vollstaendig abkuehlen."
+      - "Ohne Werkzeug vorsichtig freibewegen."
+      - "100 Zyklen zwischen 0 und 180 Grad."
+    acceptance:
+      - "Kein Riss, kein weisslicher Dauerstress und keine bleibende Achsverlagerung."
+      - "Nach Zyklus 100 frei beweglich; kein selbststaendiges Auseinanderfallen."
+
+  - id: T-LATCH-01
+    part: full-case-latch
+    status: pass-basic-function
+    evidence: "Benutzer bestaetigt am 2026-08-11: Rastverschluss passt. Eine konkrete Zyklenzahl wurde nicht berichtet."
+    method:
+      - "25 unbeladene Vorzyklen, danach 100 kombinierte Schliess-/Oeffnungszyklen."
+      - "Einhaendige Loesung und Sichtpruefung am Wurzelradius."
+    acceptance:
+      - "Kein Riss oder bleibender Versatz."
+      - "Geschaetzte Nominalkraft etwa 2,08 N; reale Bedienkraft subjektiv gut kontrollierbar."
+
+  - id: T-CASE-01
+    part: full-case
+    status: partial
+    evidence: "Grundfunktion von Scharnier und Rastverschluss bestaetigt; Bestueckung, Umdrehtest, Lesbarkeit und Langzeitzyklen nicht berichtet."
+    method:
+      - "Alle zwoelf realen Duesen einsetzen und Zuordnung pruefen."
+      - "Geschlossen ueber gepolsterter Flaeche langsam umdrehen."
+      - "Zielpruefung auf 1000 kombinierte Zyklen erweitern."
+    acceptance:
+      - "Keine Duese wechselt die Gruppe oder faellt heraus."
+      - "Alle vier Beschriftungen bleiben mit Inhalt lesbar."
+      - "Scharnier und Rastverschluss bleiben funktionsfaehig."
+
+  - id: T-MARK-01
+    part: marked-base
+    status: pending-physical-print
+    method:
+      - "Erste drei wasserzeichentragende Schichten in der Vorschau pruefen."
+      - "Unterseite nach dem Druck direkt ansehen."
+    acceptance:
+      - "Alle 18 Konturen offen und JuSt Innovation lesbar."
+      - "Bett-Datum und Auflageflaeche ohne stoerende Erhebung."
+
+  - id: T-RELIEF-01
+    part: r4-exterior-relief
+    status: pass-digital-pending-physical-print
+    evidence: "Hoehenkarten-, Restwand-, Topologie- und Orientierungspruefung bestanden; physischer R4-Reliefdruck noch nicht berichtet."
+    method:
+      - "Deckel und Seiten in der Slicer-Vorschau schichtweise pruefen."
+      - "Gedrucktes Teil bei diffusem und streifendem Licht aus etwa 40 cm betrachten."
+    acceptance:
+      - "CYBERVAULT, NOZZLE ARRAY und QSW-12 sind normal herum lesbar."
+      - "Reaktorkern, Paneele und Seitenband sind erkennbar; keine lose Insel und keine verschlossene Funktionsfuge."

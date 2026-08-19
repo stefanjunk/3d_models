@@ -1,0 +1,444 @@
+{
+  "schema_version": "1.0",
+  "_template_notes": [
+    "Replace all TEMPLATE values and evidence references.",
+    "Keep nominal interface geometry separate from printer/process compensation.",
+    "The 16 placement_transform values are a row-major source-to-project matrix.",
+    "Add exact keep-out meshes or swept volumes in the CAD project; AABBs are planning proxies.",
+    "A structurally valid plan may still be blocked from later gates; record that distinction in decision_log."
+  ],
+  "project": {
+    "id": "TEMPLATE_HYBRID_PRODUCT",
+    "title": "Template hybrid printable product",
+    "source_modes": ["concept_image", "design_description"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "TEMPLATE_PRINTER",
+      "nozzle_mm": 0.6,
+      "line_width_mm": 0.68,
+      "layer_height_mm": 0.3,
+      "profile_id": "TEMPLATE_PROFILE"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "center of primary mounting datum at lowest product plane",
+      "x_axis": "+X right when viewing product front",
+      "y_axis": "+Y from rear/mounting surface toward user",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {
+      "min": [-75.0, -20.0, 0.0],
+      "max": [75.0, 80.0, 250.0]
+    },
+    "requirements": [
+      {
+        "id": "REQ-001",
+        "statement": "The parametric core shall carry all primary service loads without relying on generated ornament.",
+        "evidence_class": "requested",
+        "source": "design brief",
+        "priority": "critical",
+        "verification": "load-path review and physical prototype test"
+      },
+      {
+        "id": "REQ-002",
+        "statement": "The front ornament shall preserve the approved hero-view silhouette and remain replaceable.",
+        "evidence_class": "requested",
+        "source": "concept image IMG-001 and design brief",
+        "priority": "important",
+        "verification": "matched clay renders and assembly test"
+      },
+      {
+        "id": "REQ-003",
+        "statement": "No printed component may enter the functional keep-out volume.",
+        "evidence_class": "requested",
+        "source": "functional architecture",
+        "priority": "critical",
+        "verification": "exact CAD collision test and slicer review"
+      }
+    ],
+    "global_style": {
+      "summary": "TEMPLATE_STYLE: coherent medium-scale organic relief over a restrained functional core",
+      "motifs": ["one primary flowing gesture", "secondary nested ridges", "quiet seam zone"],
+      "exclude": ["random spikes", "floating fragments", "text", "micro-noise", "copied background objects"],
+      "generation_material": "matte neutral clay with broad diffuse lighting",
+      "detail_hierarchy": "primary silhouette first, secondary forms second, sparse printable relief last"
+    },
+    "assembly_sequence": [
+      "Install purchased mounting hardware into CORE.",
+      "Attach BACKER to CORE or manufacture it as part of CORE.",
+      "Insert ORNAMENT into the keyed BACKER after fit coupon approval.",
+      "Verify access, keep-outs, and removal without damaging CORE."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-PROCESS-001",
+      "topic": "Freeze the printer, material, orientation, and profile used for interface compensation.",
+      "status": "provisional",
+      "current_basis": "Template FDM process values are planning assumptions only.",
+      "evidence_needed": "Named production profile and process-matched fit coupon results.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-SOURCE-001",
+      "topic": "Approve the immutable concept image, component mask, and view set for ORNAMENT.",
+      "status": "open",
+      "current_basis": "IMG-001 and related references are placeholders.",
+      "evidence_needed": "Attached source image, evidence crop, mask, and approved generation plates.",
+      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "CORE",
+      "name": "Primary parametric core",
+      "role": "structural, functional, mounting, and datum authority",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": ["design brief", "REQ-001", "REQ-003"],
+        "confidence": "high"
+      },
+      "functions": ["carry load", "protect keep-out", "locate backer", "mount product"],
+      "envelope_mm": {
+        "min": [-70.0, -15.0, 0.0],
+        "max": [70.0, 45.0, 250.0]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "FDM",
+        "material": "PETG",
+        "color_body": "core",
+        "orientation": "defined by structural layer direction and bed fit"
+      },
+      "interface_ids": ["IF-CORE-BACKER", "IF-CORE-HARDWARE"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": ["protected load path", "minimum walls", "mounting dimensions", "keep-out clearance"]
+      }
+    },
+    {
+      "id": "BACKER",
+      "name": "Parametric ornament backer",
+      "role": "exact seat, key, anti-rotation, and load-spreading transition",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "derived",
+        "refs": ["CORE interface skeleton", "IF-CORE-BACKER", "IF-BACKER-ORNAMENT"],
+        "confidence": "high"
+      },
+      "functions": ["locate ornament", "spread local load", "provide trim and clearance bodies"],
+      "envelope_mm": {
+        "min": [-45.0, 38.0, 70.0],
+        "max": [45.0, 52.0, 190.0]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "FDM or fused with CORE before export",
+        "material": "PETG",
+        "color_body": "core",
+        "orientation": "inherit CORE unless printed as separate coupon"
+      },
+      "interface_ids": ["IF-CORE-BACKER", "IF-BACKER-ORNAMENT"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": ["key geometry", "lead-in", "minimum ligament", "tool/removal access"]
+      }
+    },
+    {
+      "id": "ORNAMENT",
+      "name": "Replaceable organic front ornament",
+      "role": "appearance and customer-specific identity only",
+      "authority": "organic",
+      "representation": "mesh",
+      "source": {
+        "kind": "concept_image",
+        "refs": ["IMG-001", "MASK-ORNAMENT-001", "STYLE-001"],
+        "confidence": "medium"
+      },
+      "functions": ["create visual identity", "support customization", "remain replaceable"],
+      "envelope_mm": {
+        "min": [-48.0, 45.0, 65.0],
+        "max": [48.0, 78.0, 195.0]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "FDM as a separate replaceable body",
+        "material": "silk PLA or compatible decorative filament after fit testing",
+        "color_body": "ornament",
+        "orientation": "choose for visible surface and root strength; validate support access"
+      },
+      "interface_ids": ["IF-BACKER-ORNAMENT"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 2.0,
+        "checks": ["three-view silhouette", "negative spaces", "one coherent root", "no keep-out collision"]
+      },
+      "image_to_3d": {
+        "generation_mode": "multiview_component",
+        "input_views": ["front orthographic", "right orthographic", "front-right three-quarter"],
+        "positive_prompt": "One coherent sculptural ornament with a strong readable silhouette, medium-scale flowing forms, sparse printable relief, matte neutral clay, and a thick quiet rear root for later trimming.",
+        "exclude": ["product core", "mounting wall", "ruler", "labels", "floating fragments", "metal reflections", "micro-noise", "thin sheet back"],
+        "sacrificial_interface_band_mm": 6.0,
+        "protected_features": ["outer hero-view silhouette", "primary central negative space", "three major ridges"],
+        "negative_spaces": ["central opening shall remain open and connected"],
+        "landmarks": [
+          {"id": "LM-TOP", "point_mm": [0.0, 60.0, 190.0], "meaning": "top crest"},
+          {"id": "LM-LEFT", "point_mm": [-42.0, 55.0, 100.0], "meaning": "left silhouette extremum"},
+          {"id": "LM-RIGHT", "point_mm": [42.0, 55.0, 100.0], "meaning": "right silhouette extremum"}
+        ]
+      }
+    },
+    {
+      "id": "HARDWARE",
+      "name": "Purchased mounting hardware",
+      "role": "standard fastener and installation tool envelope",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {
+        "kind": "measurements",
+        "refs": ["supplier drawing and physical sample"],
+        "confidence": "high"
+      },
+      "functions": ["transfer product load to installation surface"],
+      "envelope_mm": {
+        "min": [-6.0, -20.0, 115.0],
+        "max": [6.0, 15.0, 135.0]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier specification",
+        "color_body": "hardware",
+        "orientation": "supplier installation axis"
+      },
+      "interface_ids": ["IF-CORE-HARDWARE"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": ["supplier dimensions", "tool access", "installation depth"]
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-CORE-BACKER",
+      "a": "CORE",
+      "b": "BACKER",
+      "owner": "CORE",
+      "kind": "fused_overlap",
+      "local_frame": {
+        "origin_mm": [0.0, 40.0, 130.0],
+        "x_axis": [1.0, 0.0, 0.0],
+        "y_axis": [0.0, 0.0, 1.0],
+        "z_axis": [0.0, 1.0, 0.0]
+      },
+      "nominal_geometry": {
+        "type": "curved_backer_patch",
+        "width_mm": 90.0,
+        "height_mm": 120.0,
+        "backer_thickness_mm": 3.0
+      },
+      "joining": {
+        "method": "final mesh/BRep union with positive overlap",
+        "assembly_direction": "+Y",
+        "anti_rotation": "curved seat and asymmetric patch",
+        "lead_in_mm": 0.0,
+        "serviceable": false
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.0,
+        "process_compensation_per_side_mm": 0.0,
+        "assembly_allowance_per_side_mm": 0.0,
+        "adhesive_gap_per_side_mm": 0.0,
+        "boolean_overlap_mm": 0.6,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.1
+      },
+      "seam_band_mm": 4.0,
+      "keepout_ids": ["KEEP-FUNCTION"],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 3.0,
+        "load_or_flow": "spread only local ornament handling load; primary service load stays in CORE"
+      },
+      "verification": ["section review", "positive overlap volume", "round-trip watertightness", "outside-seam preservation"]
+    },
+    {
+      "id": "IF-BACKER-ORNAMENT",
+      "a": "BACKER",
+      "b": "ORNAMENT",
+      "owner": "BACKER",
+      "kind": "keyed_insert",
+      "local_frame": {
+        "origin_mm": [0.0, 50.0, 130.0],
+        "x_axis": [1.0, 0.0, 0.0],
+        "y_axis": [0.0, 0.0, 1.0],
+        "z_axis": [0.0, 1.0, 0.0]
+      },
+      "nominal_geometry": {
+        "type": "two_keyed_rectangular_pins_plus_shoulder",
+        "pin_width_mm": 10.0,
+        "pin_depth_mm": 6.0,
+        "pin_engagement_mm": 8.0,
+        "pin_spacing_mm": 48.0
+      },
+      "joining": {
+        "method": "replaceable keyed insertion with optional removable adhesive",
+        "assembly_direction": "+Y",
+        "anti_rotation": "two asymmetrically spaced rectangular keys",
+        "lead_in_mm": 1.0,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.2,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0.0,
+        "boolean_overlap_mm": 0.0,
+        "registration_uncertainty_mm": 0.25,
+        "solver_margin_mm": 0.1
+      },
+      "seam_band_mm": 6.0,
+      "keepout_ids": ["KEEP-FUNCTION"],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 3.0,
+        "load_or_flow": "retention and handling only; no primary structural load"
+      },
+      "verification": ["process-matched fit coupon", "assembly/removal test", "keep-out collision", "visual seam review"]
+    },
+    {
+      "id": "IF-CORE-HARDWARE",
+      "a": "CORE",
+      "b": "HARDWARE",
+      "owner": "HARDWARE",
+      "kind": "purchased_mate",
+      "local_frame": {
+        "origin_mm": [0.0, 0.0, 125.0],
+        "x_axis": [1.0, 0.0, 0.0],
+        "y_axis": [0.0, 0.0, 1.0],
+        "z_axis": [0.0, -1.0, 0.0]
+      },
+      "nominal_geometry": {
+        "type": "supplier_defined_fastener_envelope",
+        "source": "supplier drawing and measured sample"
+      },
+      "joining": {
+        "method": "purchased fastener",
+        "assembly_direction": "-Y",
+        "anti_rotation": "supplier head/tool interface",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.05,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0.0,
+        "boolean_overlap_mm": 0.0,
+        "registration_uncertainty_mm": 0.0,
+        "solver_margin_mm": 0.05
+      },
+      "seam_band_mm": 0.0,
+      "keepout_ids": ["KEEP-TOOL"],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "primary mounting load according to project-specific verification"
+      },
+      "verification": ["supplier gauge/sample fit", "tool access", "ligament section", "physical installation test"]
+    }
+  ],
+  "keepouts": [
+    {
+      "id": "KEEP-FUNCTION",
+      "type": "aabb",
+      "purpose": "planning proxy for the product's primary functional volume; replace with exact CAD body",
+      "min_mm": [-55.0, -5.0, 20.0],
+      "max_mm": [55.0, 38.0, 230.0],
+      "source": "functional blockout"
+    },
+    {
+      "id": "KEEP-TOOL",
+      "type": "aabb",
+      "purpose": "planning proxy for mounting tool and fastener insertion path",
+      "min_mm": [-12.0, -35.0, 105.0],
+      "max_mm": [12.0, 10.0, 145.0],
+      "source": "purchased hardware and tool envelope"
+    }
+  ],
+  "validation": [
+    {
+      "id": "VAL-ARCH-001",
+      "gate": "architecture",
+      "method": "run plan_hybrid_design.py and review requirement/component/interface matrices",
+      "acceptance": "no unresolved IDs, one owner per interface, every organic component has an interface and generation brief"
+    },
+    {
+      "id": "VAL-PROXY-001",
+      "gate": "proxy",
+      "method": "assemble proxy bodies and exact keep-outs in the project frame",
+      "acceptance": "no unintended collisions; assembly and removal paths remain open"
+    },
+    {
+      "id": "VAL-COMP-001",
+      "gate": "component",
+      "method": "mesh intake report plus matched clay renders",
+      "acceptance": "identity, bounds, topology, negative spaces, and seam reserve pass component acceptance"
+    },
+    {
+      "id": "VAL-INT-001",
+      "gate": "integration",
+      "method": "sections, wall/ligament measurement, interface geometry and surface-distance reports",
+      "acceptance": "all interface requirements pass and changes remain inside declared edit bands"
+    },
+    {
+      "id": "VAL-MFG-001",
+      "gate": "manufacturing",
+      "method": "slice exact bodies with named profile and inspect seam/material boundaries",
+      "acceptance": "expected bodies/toolpaths, no trapped support, bed fit, and no thin-feature loss"
+    },
+    {
+      "id": "VAL-PHY-001",
+      "gate": "physical",
+      "method": "fit coupon, representative subassembly, then full prototype",
+      "acceptance": "chosen allowance and joining method meet the project-specific functional test"
+    }
+  ]
+}

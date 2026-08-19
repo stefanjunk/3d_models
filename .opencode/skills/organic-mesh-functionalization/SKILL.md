@@ -1,201 +1,240 @@
 ---
 name: organic-mesh-functionalization
-description: Add, replace, align, and validate parametric functional geometry inside high-resolution organic STL/OBJ/3MF/GLB meshes while preserving protected decorative surfaces. Use for AI-generated or scanned meshes that need cavities, openings, stairs, doors, compartments, soles, mounting interfaces, inserts, or other printable functional features using Blender, OpenSCAD, CadQuery, FreeCAD, Trimesh, Manifold, voxel/SDF methods, or hybrid workflows.
+description: Add precise parametric or functional geometry to high-resolution organic AI-generated meshes. Use for hollowing, cutting openings, replacing regions, fitting inserts, adding compartments, stairs, hinges, soles, mounts, ducts, threads, or other engineered features to STL/OBJ/GLB meshes while preserving ornamented surfaces and validating topology, wall thickness, fit, printability, and unintended changes. Covers Blender, CadQuery, FreeCAD, OpenSCAD, Trimesh, Manifold3D, voxel/SDF workflows, hybrids, memory control, and automated acceptance tests.
 license: MIT
-compatibility: opencode
+compatibility: opencode and portable Agent Skills clients; optional Blender, OpenSCAD, FreeCAD, CadQuery, Trimesh, Manifold3D
 metadata:
-  domain: mesh-cad-hybrid-dfam
-  manufacturing: fdm-fff-resin-optional
-  inputs: stl-obj-3mf-glb-ply-scan-ai-mesh
-  outputs: editable-functional-source-step-stl-3mf-validation-report
-  version: 1.0.0
-  complements: functional-3d-design
+  audience: "3D-printing and computational-design agents"
+  workflow: "organic mesh plus parametric functional geometry"
+  primary-tools: "Blender, Trimesh, Manifold3D, CadQuery"
 ---
 
-# Organic mesh functionalization operating procedure
+# Organic Mesh Functionalization
 
-## Purpose
+Use this skill when an existing model is primarily an organic triangle mesh—often generated from images—and must receive functional, measurable, repeatable geometry without losing its visible surface character.
 
-Turn an existing dense, non-parametric organic mesh into a functional 3D-printable design without treating its decorative surface as disposable. Preserve the source mesh, define where change is allowed, generate the functional geometry parametrically, combine the representations with the least destructive method, and prove that the result satisfies both geometric and functional acceptance criteria.
+## Core principle
 
-This skill is standalone. When `functional-3d-design` is also installed, load it for material, fastener, print-vs-buy, slicer, mechanical-feature, and physical-test decisions.
+Treat the project as two coupled representations:
 
-## Never edit the only copy
+1. **Organic source mesh:** visual exterior, ornament, sculpture, textile-like or anatomical form.
+2. **Parametric functional geometry:** cutters, inserts, interfaces, cavities, stairs, flanges, hinges, closures, channels, soles, mounts, or test gauges.
 
-Create these artifacts before changing geometry:
+Do not force the entire organic mesh into parametric CAD. Create precise functional geometry separately, register it to the mesh, combine them with an appropriate mesh or volume method, and verify the result quantitatively.
 
-- immutable source mesh and hash;
-- `operation-plan.yaml` with units, coordinate system, intended change, protected region, transition band, and acceptance tests;
-- low-resolution proxy mesh when the source is too dense for interactive work;
-- transform/landmark file that records scale, origin, axes, and alignment;
-- baseline mesh report.
+## Required first actions
 
-Do not silently apply automatic repair, remesh, decimation, smoothing, or unit scaling to the archival source. Every destructive preprocessing step must produce a new file and a before/after report.
+1. Preserve the original file unchanged and record its checksum, units, bounds, vertex count, face count, connected components, watertightness, and volume.
+2. Read or create a machine-readable specification using `assets/project-spec.template.yaml`.
+3. Establish a named coordinate frame and at least three stable landmarks. Never infer semantic front/up solely from file axes.
+4. Define:
+   - **protected region:** surface that must remain unchanged;
+   - **edit region / ROI:** where changes are permitted;
+   - **interface region:** where organic and functional geometry meet;
+   - **functional voids:** spaces that must remain empty;
+   - **minimum walls, clearances, and overlap allowances**.
+5. Choose the method using `references/method-selection.md` before changing geometry.
+6. Build a low-resolution proxy for placement and iteration. Execute the final operation on the full-resolution source only after the plan passes proxy validation.
 
-## Model the intervention, not only the final shape
+## Non-negotiable rules
 
-Every modification must define four zones:
+- Never overwrite the source mesh.
+- Never rely on visual inspection alone.
+- Never apply a full-model remesh merely to fix a local Boolean unless loss of detail is explicitly accepted.
+- Never scale an inner copy to create constant wall thickness; use an offset, Solidify, or SDF distance operation.
+- Never place cutter faces exactly coplanar or tangent to target faces. Extend cutters through the target and use a documented epsilon.
+- Never convert a multi-million-triangle mesh to B-Rep unless a small test proves the result remains tractable.
+- Never run FEM directly on the decorative production mesh. Build a simplified analysis surrogate.
+- Keep cutters and inserts as separate named artifacts even after the final mesh is exported.
 
-1. **Functional region of interest (ROI)** — material may be removed, replaced, or added.
-2. **Protected region** — visible surface or critical interface that must remain within a stated deviation.
-3. **Transition band** — controlled overlap where blending, flange, fillet, sealing land, or sacrificial cleanup is allowed.
-4. **Keep-out region** — thin details, limbs, texture, existing cavities, moving clearances, or safety-sensitive geometry that cutters and inserts must not enter.
+## Default tool routing
 
-Prefer a local operation over a whole-model remesh. The default protected-surface tolerance for a decorative FDM model is not universal: derive it from nozzle, layer height, visible texture scale, and the user's acceptance criteria.
+| Input and task | Preferred route |
+|---|---|
+| Raw organic STL/OBJ/GLB, local cavity or opening | Blender Boolean Exact/Manifold, then Trimesh validation |
+| Dirty, self-intersecting AI mesh | Blender voxel remesh or SDF/OpenVDB repair, preferably limited to ROI |
+| Precise cutter, insert, staircase, hinge, flange, sole core | CadQuery, export STEP plus STL/3MF |
+| Existing STEP/B-Rep or moderate repaired mesh | FreeCAD or CadQuery |
+| Clean manifold mesh and simple primitive subtraction | OpenSCAD acceptable |
+| Very complex hollowing, constant offset, graded cells | SDF/voxel/OpenVDB pipeline |
+| High-volume automated mesh Booleans on valid solids | Manifold3D through Trimesh |
 
-## Required workflow
+Read the matching tool reference before implementing:
 
-1. **Triage input** — inspect units, bounds, face count, body count, watertightness, winding, duplicate/degenerate faces, holes, self-intersection risk, and whether the mesh represents a surface or a solid.
-2. **Establish coordinates** — define landmarks, main axes, datum planes, and handedness. Apply object scale before dimensioning cutters.
-3. **Choose preservation strategy** — exact mesh Boolean, local remesh, shell patch, split-and-replace, separate assembly, or conformal interface.
-4. **Create parametric functional geometry** — use OpenSCAD/CadQuery/FreeCAD/Blender Python according to representation needs. Keep parameters and export tolerances explicit.
-5. **Fit and align** — use datums first, landmarks second, PCA/ICP only as an aid. Record the final 4×4 transform.
-6. **Preflight the Boolean** — valid closed operands, real volumetric overlap, non-coplanar intersections, cutter overshoot, positive volume, and sufficient residual wall.
-7. **Execute on a copy** — preserve the source, cutter, insert, intermediate fragments, and logs.
-8. **Validate topology and intent** — watertightness, components, open boundaries, volume, sections, protected-surface deviation, overcut/undercut, collisions, trapped bodies, and assembly clearances.
-9. **Validate printing and function** — orientation, support access, wall/feature size, drainage, material, interface coupon, and physical functional test.
-10. **Package evidence** — source mesh hash, parameters, transformations, functional CAD source/STEP, final 3MF/STL, reports, previews, slicer profile, and decision log.
+- `references/tools/blender.md`
+- `references/tools/cadquery.md`
+- `references/tools/freecad.md`
+- `references/tools/openscad.md`
+- `references/hybrid-workflows.md`
 
-## Tool routing
+## Generic workflow
 
-Read `references/tool-selection.md` and use `scripts/route_operation.py` when uncertain.
+### Phase 0 — Intake and baseline
 
-- **Blender** is the default host for dense organic meshes, segmentation, local sculpt/remesh, visual inspection, Shrinkwrap, and mesh Booleans.
-- **CadQuery** is the default generator for precise parametrically defined inserts, stairs, doors, flanges, mounts, hinge features, and STEP masters. Do not force a dense STL through face-per-triangle B-Rep conversion.
-- **OpenSCAD** is suitable when the source mesh is already clean and the functional operation is simple CSG with primitive or 2D-extruded cutters. It is not the repair stage.
-- **FreeCAD** is useful for interactive assembly, STEP-based functional parts, Mesh Workbench inspection/repair, measured placement, drawings, and FEM. Avoid converting a multi-million-triangle mesh to a Part shape unless a tested reduction strategy makes it practical.
-- **Trimesh + Manifold3D** is preferred for deterministic headless inspection and robust Boolean operations on already valid closed meshes.
-- **Voxel/SDF** methods are preferred for badly intersecting organic topology, uniform offsets, complex hollowing, or highly blended replacement boundaries; localize them to the ROI whenever possible.
-- **Hybrid** is the normal answer: parametric B-Rep source for functional components, tessellated only at the handoff, then mesh integration and validation.
-
-## Preservation strategy selection
-
-Use the least destructive option that meets the requirement:
-
-- **Separate insert/assembly**: best when serviceability, different material, replacement, or Boolean risk matters.
-- **Subtractive cavity plus insert**: robust for electronics, compartments, stair cores, mounting pockets, and replaceable soles.
-- **Window/patch replacement**: cut a controlled opening, retain a rim, and attach a parametric door or patch.
-- **Split-and-rebuild**: remove everything on one side of a datum or fitted surface, retain a transition band, and replace that region.
-- **Conformal shell/interface**: derive a fitted surface from the organic mesh, offset it, then add a flange, gasket land, or bonded interface.
-- **Direct union**: only when both meshes are valid, overlap is intentional, and the seam can be verified.
-- **Local voxel fusion**: use when exact surface intersections remain unstable; protect fine decoration outside the local volume.
-
-Read `references/replacement-patterns.md` before choosing a primitive. A cylinder is appropriate only when the preserved shell has enough radial clearance everywhere. Use a capsule, rounded box, loft, spline extrusion, fitted offset surface, convex envelope, or compound cutter when it better matches the available volume and stress/print constraints.
-
-## Boolean rules
-
-Read `references/boolean-best-practices.md`.
-
-- Both operands should be closed, consistently oriented positive volumes for a solid Boolean.
-- Never rely on surfaces that merely touch. Add a documented overshoot/overlap epsilon appropriate to model scale.
-- Avoid long coplanar coincident faces; move or extend the cutter so intersections cross cleanly.
-- Keep cutters simpler and lower-resolution than the preserved mesh unless detail is functionally required.
-- Use one logical operation at a time and validate each intermediate result.
-- Prefer a union of cutters followed by one subtraction over hundreds of serial cuts, but preserve individual diagnostic cutters.
-- When a Boolean fails, do not increase tolerances blindly. Inspect operand validity, overlap, scale, local triangle quality, duplicate/internal shells, and near-zero residual walls.
-- A successful Boolean return is not proof that the intended region was changed and only that region.
-
-## Alignment and fitting
-
-Read `references/alignment-and-fitting.md`.
-
-Use this priority:
-
-1. known units and explicit dimensions;
-2. datum plane/axis and measured landmarks;
-3. cross-section fitting or primitive fit in a selected ROI;
-4. coarse PCA alignment;
-5. landmark Kabsch transform;
-6. ICP only for final local refinement when the surfaces truly correspond.
-
-Record transforms. Do not use global object scaling as a substitute for a uniform wall offset. Do not infer a shoe's internal fit only from its decorative external shell.
-
-## Validation contract
-
-At minimum, validate:
-
-- final mesh loads and contains expected bodies;
-- watertightness/solid state when a closed print is required;
-- winding and positive volume;
-- no unexpected disconnected fragments;
-- intended openings are open and unintended holes are absent;
-- protected source surface remains within allowed deviation outside the ROI/transition band;
-- the cut reaches the intended target but not keep-out geometry;
-- residual walls and interface lands meet declared minima;
-- functional parts have clearances and no collisions in every required state;
-- cross-sections show no hidden slivers, internal membranes, duplicate shells, or blocked passages;
-- output fits the build volume and slicer preview matches intended cavities/openings.
-
-Use:
+Run:
 
 ```bash
-python scripts/inspect_mesh.py input.stl --json-out baseline.json
-python scripts/estimate_memory.py --mesh input.stl --voxel-mm 0.4
-python scripts/validate_edit.py source.stl result.stl --plan operation-plan.yaml --json-out edit-report.json
-python scripts/section_report.py result.stl --axis z --positions 20 40 60 --json-out sections.json
+python scripts/inspect_mesh.py source.stl --json reports/source.json
 ```
 
-The supplied protected-surface comparison is a sampling-based geometric check, not a proof of exact surface identity. For critical work, combine it with visual overlays and tool-specific diagnostics.
+Record units explicitly. STL has no reliable unit metadata. If size is uncertain, compare known dimensions or request one real measurement.
 
-## High-resolution and memory policy
+Create a preview proxy. Preserve silhouette and the edit interface more accurately than distant ornament. Store the decimation settings in the project record.
 
-Read `references/memory-and-performance.md` before voxelizing or loading multiple copies.
+### Phase 1 — Functional decomposition
 
-- Make a proxy for alignment and planning; retain the full-resolution source for final local operations.
-- Crop to the ROI plus transition margin before voxel/SDF work.
-- Use `float32` scalar fields and broadcasting/chunked slabs rather than full `float64` meshgrids.
-- Estimate memory before allocation. Dense voxel memory grows cubically as voxel size shrinks.
-- Preserve a non-remeshed exterior whenever possible. Voxel Remesh reconstructs the surface and can erase fine decoration.
-- Decimation is allowed for proxies and may be allowed in hidden regions; quantify deviation before using it on visible surfaces.
-- Do not keep every cached normal, proximity tree, voxel field, and duplicate mesh alive simultaneously in long-running agents.
+Break the desired modification into separate solids:
 
-## Example-specific routing
+- **removal cutters**: cavity, portal, top opening, textile removal volume;
+- **preserved shell**: exterior skin or decorative band to retain;
+- **replacement envelope**: volume removed and replaced;
+- **functional inserts**: stairs, sole core, compartment liner, hinge blocks;
+- **clearance cutters**: moving-part gaps, dice path clearance, glue gap;
+- **test gauges**: coupons or interface-only test pieces.
 
-### Decorative dice tower shell
+Prefer one unioned cutter per Boolean stage rather than hundreds of sequential cuts.
 
-- Fit/declare a tower axis and conservative inner radius from multiple cross-sections.
-- Subtract an interior cylinder or tapered loft that leaves the minimum wall at every sampled height.
-- Create roof entry and courtyard exit as separate overshooting cutters.
-- Generate staircase/baffles parametrically in CadQuery/OpenSCAD/Blender Python; prefer a separate insert during prototyping.
-- Validate clear dice path, no internal membranes, wall thickness, entry/exit dimensions, and repeated drop tests.
+### Phase 2 — Registration and fit
 
-### AI-generated barefoot shoe shell
+Use stable landmarks and cross-sections. Fit simple geometry only when the object genuinely resembles it:
 
-- Treat textile-looking geometry and sole as segmentation targets, not materials inferred from appearance alone.
-- Define a fitted sole-interface surface or transition band; a single horizontal cut is valid only when the interface is truly planar.
-- Remove the upper and old sole interior while retaining a controlled outsole/rand if desired.
-- Generate the new parametric sole separately, then bond, mechanically retain, or mesh-union it with deliberate overlap.
-- Validate foot volume, zero-drop intent, flex zones, attachment edge, symmetry/handedness, and printable wall/textile replacement strategy.
+- cylinder for towers, handles, limbs, bottles;
+- box or rounded box for compartments and electronics;
+- capsule for elongated organic cavities;
+- loft through measured cross-sections for shoes and irregular tunnels;
+- offset shell for uniform wall thickness;
+- custom SDF for blended organic transitions.
 
-### Toy unicorn compartment
+Validate the fitted primitive against multiple sections, not only the bounding box. Read `references/alignment-and-fitting.md`.
 
-- Choose a low-curvature belly region with sufficient wall thickness and distance from legs/details.
-- Use a capsule/rounded-box compartment, not a sharp box that creates thin corner walls.
-- Cut a window with a retained seating rim; generate a separate door with hinge/latch/clearance or a captive snap fit.
-- Validate door sweep, pinch/edge risks, retained wall, loose fragments, and child-use requirements separately from geometry.
+### Phase 3 — Dry run on proxy
 
-Detailed plans are in `examples/` and `references/example-workflows.md`.
+Generate separate preview files:
 
-## Evidence-driven self-learning
+- source proxy;
+- cutters;
+- inserts;
+- expected retained body;
+- expected removed volume;
+- combined preview.
 
-Read `references/self-learning.md`. Record operation parameters, tool versions, validation results, slicer evidence, and physical outcomes. Promote a reusable intervention pattern only after deterministic checks and relevant physical tests pass. Failed Booleans and protected-surface breaches are valuable regression cases; do not "learn" by silently relaxing tolerances.
+Inspect orthographic views and section cuts through every critical interface. Do not continue if the cutter touches a protected wall or if the interface is narrower than the minimum printable wall plus registration uncertainty.
 
-## Subagents and external skills
+### Phase 4 — Execute with a fallback ladder
 
-Use a fast coding/research subagent for bounded tasks such as mesh-report interpretation, formula checks, OpenSCAD syntax fixes, transform calculations, source lookup, and test generation. Keep architecture, destructive operations, acceptance criteria, and final review in the primary agent. A model such as GPT-5.3 Codex Spark can be configured in the included microtask agent example; never delegate an unbounded high-resolution Boolean job without memory and output limits.
+1. Direct Boolean on a valid manifold mesh.
+2. Repair normals, tiny holes, duplicate faces, and separate components; retry.
+3. Simplify or remesh only the ROI; retry.
+4. Switch solver: Blender Exact/Manifold or Manifold3D.
+5. Convert the operation to a narrow-band SDF/voxel operation.
+6. Redesign the interface or split the model into printable assemblies.
 
-Load external skills or MCPs only when they add an actual capability: Blender control, FreeCAD/CadQuery execution, OpenSCAD rendering, slicer CLI, or parts libraries. Pin versions and treat arbitrary code execution as privileged. Read `references/external-integrations.md`.
+Do not repeatedly apply random repair commands. Preserve reports from each attempt.
 
-## Stop conditions
+### Phase 5 — Add functional geometry
 
-Stop and redesign the method when:
+Keep exact parts parametric. Prefer mechanical retention plus adhesive over adhesive alone where possible. Add fillets at load-bearing transitions, but perform filleting in the CAD insert before mesh union when possible.
 
-- the source cannot be interpreted as a valid volume and the intended inside/outside is ambiguous;
-- the requested residual wall is smaller than both mesh uncertainty and practical print resolution;
-- segmentation cannot distinguish the part to remove from protected decoration;
-- Boolean results vary materially with tiny epsilon changes;
-- the operation requires global remesh but the user requires preservation of sub-voxel detail;
-- alignment lacks enough independent constraints;
-- a functional/safety requirement cannot be tested with the available model and evidence.
+For moving parts, create separate bodies and explicit clearances. Never fuse a door or hinge pin into the main body unless a print-in-place joint is deliberately designed and tested.
 
-Do not hide these limits. Offer a separate insert, larger transition band, local manual segmentation, higher-quality source, scan landmarks, or a redesigned interface.
+### Phase 6 — Validation gates
+
+Run both topology and change-preservation checks:
+
+```bash
+python scripts/inspect_mesh.py result.stl --json reports/result.json --require-watertight --max-components 1
+python scripts/validate_edit.py source.stl result.stl \
+  --roi assets/edit-roi.json \
+  --max-outside-p95 0.20 \
+  --max-outside-max 1.00 \
+  --json reports/edit-validation.json
+```
+
+A result is not accepted until all applicable gates pass:
+
+1. **Topology:** manifold/watertight target, consistent winding, expected component count, positive volume.
+2. **Preservation:** surface outside ROI remains within tolerance.
+3. **Functional geometry:** openings, cavity dimensions, clearances, wall thickness, path continuity, door motion, or sole interface meet specification.
+4. **Manufacturing:** printable wall/detail size, overhangs, trapped supports, drainage, orientation, bed fit.
+5. **Use-case test:** physical or simulation test appropriate to the part.
+
+Read `references/validation.md`.
+
+### Phase 7 — Package reproducibly
+
+Deliver at minimum:
+
+```text
+source/                 original reference or checksum record
+parameters/             YAML/JSON parameter files
+cutters/                STEP/STL/3MF cutter solids
+inserts/                STEP plus print mesh
+result/                  final 3MF/STL and optional blend/FCStd
+reports/                 baseline, validation, slicer, screenshots
+scripts/                 exact commands used
+README.md                coordinate frame, units, assembly and test notes
+```
+
+## Memory and performance policy
+
+Before a dense voxel/SDF operation, run:
+
+```bash
+python scripts/estimate_voxel_memory.py --mesh source.stl --voxel 0.30 --buffers 6
+```
+
+If projected peak memory exceeds 60% of available RAM, change the plan. Prefer ROI cropping, sparse OpenVDB, a narrow-band field, float32/bool grids, chunking, or a larger voxel size. Read `references/memory-performance.md`.
+
+## Case-specific routes
+
+### Dice tower
+
+Use the decorative shell only as the protected exterior. Fit a tower axis from several horizontal cross-sections. Create:
+
+- an inner cylindrical or lofted cutter with explicit remaining wall thickness;
+- top and bottom portal cutters extending fully through the shell;
+- a separate parametric staircase or baffle insert;
+- a dice clearance body representing the largest supported die plus margin.
+
+Validate wall thickness around the full circumference, portal edge strength, uninterrupted dice path, overhang/support strategy, and a physical drop test. Use `examples/dice-tower/`.
+
+### Barefoot shoe
+
+Do not classify textile versus sole only by color or a single Z plane unless the input is known to support it. Identify the sole seam from geometry, materials, connected components, cross-sections, or manual landmarks. Choose one route:
+
+- **complete replacement:** remove everything inside a replacement envelope and fit a new sole;
+- **skin-preserving core replacement:** retain a thin decorative outsole/sidewall shell and replace its interior with a parametric sole core;
+- **reference-only rebuild:** use the AI mesh only to derive outline and upper interface, then rebuild the sole entirely.
+
+Validate toe-box shape, zero drop if required, sole thickness, flex zones, upper attachment flange, no hidden voids, and left/right symmetry policy. Use `examples/barefoot-shoe/`.
+
+### Unicorn compartment
+
+Create a rounded cavity or capsule that respects minimum wall thickness. Generate the door opening, compartment liner, door, lip, hinge/latch, and clearance cutters as separate parametric bodies. Prefer a seam aligned with natural belly contours. Validate door sweep, pin clearance, latch retention, choking hazards, wall thickness, and sharp edges. Use `examples/unicorn-compartment/`.
+
+## Script usage
+
+- `scripts/inspect_mesh.py`: baseline and final topology/geometry report.
+- `scripts/validate_edit.py`: compare source and result outside the permitted ROI.
+- `scripts/estimate_voxel_memory.py`: estimate dense field memory and suggested chunking.
+- `scripts/blender_functionalize.py`: config-driven Blender headless Boolean pipeline.
+- `scripts/cadquery_primitives.py`: generate precise cutters/inserts from JSON.
+- `scripts/run_pipeline.sh`: example orchestration.
+
+Run scripts with `--help`. Pin dependency versions in a project lockfile before production use.
+
+## Failure reporting
+
+When a step fails, report:
+
+- exact tool and version;
+- input mesh statistics;
+- operation and solver;
+- cutter overlap and epsilon;
+- peak memory if known;
+- error message;
+- last valid artifact;
+- which fallback was attempted;
+- whether exterior detail loss occurred.
+
+Never claim success merely because a preview renders.

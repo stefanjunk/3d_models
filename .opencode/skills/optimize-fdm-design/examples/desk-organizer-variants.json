@@ -1,0 +1,98 @@
+{
+  "baseline": "baseline-04",
+  "objectives": [
+    {"metric": "print_time_min", "goal": "min"},
+    {"metric": "material_g", "goal": "min"}
+  ],
+  "constraints": [
+    {"metric": "drawer_deflection_mm", "op": "<=", "value": 1.0},
+    {"metric": "relief_amplitude_retained_pct", "op": ">=", "value": 95.0},
+    {"metric": "passed_mesh_checks", "op": "==", "value": 1}
+  ],
+  "protected_geometry": [
+    "drawer guide runners and rear stops",
+    "perimeter and opening frames",
+    "smooth drawer sliding faces",
+    "divider junctions and load-path ties",
+    "bed-contact pads",
+    "exterior relief skin and seams"
+  ],
+  "cell_strategy": {
+    "preferred": "few large print- and load-oriented radiused windows with explicit edge beams and diagonal straps",
+    "avoid_as_first_choice": "dense grids of small holes that add perimeter length and short toolpaths"
+  },
+  "thin_plate_checks": [
+    {
+      "region": "drawer side",
+      "plate_thickness_mm": 2.72,
+      "wall_lines_per_side": 2,
+      "line_width_mm": 0.675,
+      "layer_height_mm": 0.30,
+      "expected_status": "SUB_LINE_WIDTH_CORE",
+      "decision": "Do not count infill percentage as a meaningful bulk-saving lever until the exact slicer shows a real core."
+    },
+    {
+      "region": "three-millimetre divider",
+      "plate_thickness_mm": 3.0,
+      "wall_lines_per_side": 3,
+      "line_width_mm": 0.675,
+      "layer_height_mm": 0.30,
+      "expected_status": "NO_INFILL_CORE",
+      "decision": "Change geometry, wall paths, or thickness instead of tuning nominal infill."
+    }
+  ],
+  "variants": [
+    {
+      "name": "baseline-04",
+      "metrics": {
+        "print_time_min": 2160,
+        "material_g": 2500,
+        "drawer_deflection_mm": 0.6,
+        "relief_amplitude_retained_pct": 100.0,
+        "passed_mesh_checks": 1
+      },
+      "notes": ["Illustrative values only; replace with the exact slicer and test results."]
+    },
+    {
+      "name": "process-06",
+      "metrics": {
+        "print_time_min": 1500,
+        "material_g": 2470,
+        "drawer_deflection_mm": 0.6,
+        "relief_amplitude_retained_pct": 97.0,
+        "passed_mesh_checks": 1
+      }
+    },
+    {
+      "name": "geometry-04",
+      "metrics": {
+        "print_time_min": 1740,
+        "material_g": 1780,
+        "drawer_deflection_mm": 0.82,
+        "relief_amplitude_retained_pct": 100.0,
+        "passed_mesh_checks": 1
+      }
+    },
+    {
+      "name": "combined-06",
+      "metrics": {
+        "print_time_min": 1120,
+        "material_g": 1750,
+        "drawer_deflection_mm": 0.88,
+        "relief_amplitude_retained_pct": 96.0,
+        "passed_mesh_checks": 1
+      }
+    },
+    {
+      "name": "aggressive-windows-06",
+      "metrics": {
+        "print_time_min": 1060,
+        "material_g": 1580,
+        "drawer_deflection_mm": 1.35,
+        "relief_amplitude_retained_pct": 96.0,
+        "passed_mesh_checks": 1
+      },
+      "notes": ["Expected to be rejected by the deflection constraint."]
+    }
+  ]
+}

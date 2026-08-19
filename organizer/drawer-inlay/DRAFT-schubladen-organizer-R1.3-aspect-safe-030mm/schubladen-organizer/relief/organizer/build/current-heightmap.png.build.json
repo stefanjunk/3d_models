@@ -1,0 +1,283 @@
+{
+  "schema": "heightmap-relief-job-build-v2.2",
+  "schema_version": 2.2,
+  "stage": "relief_job_build",
+  "job_name": "drawer-organizer-steel-rivets",
+  "job_path": "/workspace/scratch/47bf535f53f1/r1.3-work/schubladen-organizer/relief/organizer/relief-job.json",
+  "job_sha256": "3e32b9f622be348e71df7ff8402dc2619275fd8e91ac7e95ae5ad65b12e200e3",
+  "source": {
+    "schema": "heightmap-relief-source-v2.2",
+    "schema_version": 2.2,
+    "stage": "registered_source_master",
+    "asset_id": "sha256:1e396a4ac704fdbb",
+    "sha256": "1e396a4ac704fdbb5b937e2297c98987c5ca19d98ab381b5f797c7b769d5e05c",
+    "source_kind": "supplied",
+    "input": {
+      "path": "/workspace/scratch/47bf535f53f1/r1.3-work/schubladen-organizer/texture/steel1-source-R1.3.png",
+      "sha256": "9339836cc00d1f978f61845c6a0c3eb1eddbcb7035db676b030d0589e8460b4a",
+      "input_mode": "RGBA",
+      "pixel_width": 1536,
+      "pixel_height": 1024,
+      "embedded_dpi": null,
+      "source_precision_bit_depth_guess": 8
+    },
+    "generation_spec": {
+      "path": "source/source-spec.json",
+      "content": {
+        "schema": "heightmap-relief-source-spec-v2.2",
+        "schema_version": 2.2,
+        "image_class": "texture",
+        "physical_authoring": {
+          "width_mm": 180.0,
+          "height_mm": 120.0,
+          "authoring_ppi": 300.0,
+          "replacement_height_policy": "derive_from_square_pixel_source_aspect"
+        },
+        "requested_raster": {
+          "pixel_width": 2126,
+          "pixel_height": 1417
+        },
+        "semantic": {
+          "description": "irregular steel plates, rivet seams, repair patches, subtle dents, no regular checkerboard",
+          "polarity": "white-high",
+          "seamless_x": true,
+          "seamless_y": true,
+          "continuous_grayscale": true,
+          "posterization_allowed": false
+        },
+        "generation_prompt": "Create one orthographic grayscale displacement texture authored as a 180 x 120 mm seamless tile at 300 PPI (minimum 2126 x 1417 pixels). Use continuous grayscale with dark engraved joints, middle-gray plate fields, and bright embossed rivets/patch edges. Preserve fine tonal ramps; no binary thresholding, posterization, perspective lighting, rust, text, or regular checkerboard repetition. Replacement images keep their own square-pixel aspect and derive physical height from the fixed 180 mm width anchor."
+      }
+    },
+    "semantic": {
+      "image_class": "texture",
+      "polarity": "white-high",
+      "seamless_x": true,
+      "seamless_y": true
+    },
+    "requested_authoring": {
+      "width_mm": 180.0,
+      "height_mm": 120.0,
+      "authoring_ppi": 300.0,
+      "replacement_height_policy": "derive_from_square_pixel_source_aspect",
+      "pixel_width": 2126,
+      "pixel_height": 1417,
+      "square_pixels": true,
+      "resolved_width_mm": 180.0,
+      "resolved_height_mm": 120.0
+    },
+    "registered_master": {
+      "path": "source/source-master.png",
+      "container_bit_depth": 16,
+      "source_precision_bit_depth_guess": 8,
+      "pixel_width": 1536,
+      "pixel_height": 1024,
+      "effective_ppi_x": 216.74666666666664,
+      "effective_ppi_y": 216.74666666666664,
+      "physical_width_mm": 180.0,
+      "physical_height_mm": 120.0,
+      "natural_raster_aspect": 1.5,
+      "physical_aspect": 1.5,
+      "physical_aspect_error_pct": 0.0,
+      "physical_aspect_origin": "square-pixel source aspect with configured physical width anchor",
+      "physical_pixel_width_mm": 0.1171875,
+      "physical_pixel_height_mm": 0.1171875,
+      "pixel_policy": "preserve"
+    },
+    "seam_metrics_normalized": {
+      "x_mean_abs": 0.15778502374387254,
+      "x_max_abs": 0.5591372549019609,
+      "y_mean_abs": 0.2191703880718954,
+      "y_max_abs": 0.6885490196078431
+    },
+    "warnings": [
+      "The source has approximately 8-bit tonal precision. It is stored in a 16-bit master container, but missing source tones are not invented.",
+      "The supplied master is not natively seamless; configured build-stage seam blending will be applied."
+    ]
+  },
+  "surface_build": {
+    "schema": "heightmap-relief-build-v2.2",
+    "schema_version": 2.2,
+    "stage": "surface_build_heightmap",
+    "job_name": "drawer-organizer-steel-rivets",
+    "source_asset_id": "sha256:1e396a4ac704fdbb",
+    "source_path": "source/source-master.png",
+    "source_sha256": "1e396a4ac704fdbb5b937e2297c98987c5ca19d98ab381b5f797c7b769d5e05c",
+    "width_mm": 180.0,
+    "height_mm": 180.0,
+    "pitch_x_mm": 0.2,
+    "pitch_y_mm": 0.2,
+    "dpi_x": 126.99999999999999,
+    "dpi_y": 126.99999999999999,
+    "pixel_width": 900,
+    "pixel_height": 900,
+    "bit_depth": 16,
+    "fit_mode": "repeat",
+    "invert": false,
+    "gamma": 1.0,
+    "black_point": 0.0,
+    "white_point": 1.0,
+    "image_class": "texture",
+    "surface_type": "organizer floors and planar wall bands",
+    "placement_mode": "repeating object-space tile",
+    "intended_surface_mapping": "repeat over enabled floor, inner-wall, and recessed outer-wall patches",
+    "tile_mm": [
+      180.0,
+      120.0
+    ],
+    "tile_pixel_size": [
+      900,
+      600
+    ],
+    "seam_blend_mm": [
+      7.0,
+      7.0
+    ],
+    "seam_metrics_before": {
+      "x_mean_abs": 0.15300947471832235,
+      "x_max_abs": 0.5012432187795639,
+      "y_mean_abs": 0.2183087771054771,
+      "y_max_abs": 0.7063126713037491
+    },
+    "seam_metrics_after": {
+      "x_mean_abs": 0.0,
+      "x_max_abs": 0.0,
+      "y_mean_abs": 0.0,
+      "y_max_abs": 0.0
+    },
+    "output_path": "build/current-heightmap.png",
+    "output_sha256": "1f3bd94ae57470384bbc7632db9efbdfb845024794d973d84d51d181365b6a06",
+    "source": {
+      "size_px": [
+        1536,
+        1024
+      ],
+      "size_mm": [
+        180.0,
+        120.0
+      ],
+      "raster_aspect": 1.5,
+      "physical_aspect": 1.5,
+      "aspect_origin": "square-pixel source aspect with configured physical width anchor"
+    },
+    "target": {
+      "width_mm": 180.0,
+      "height_mm": 180.0,
+      "physical_aspect": 1.0,
+      "pixel_width": 900,
+      "pixel_height": 900,
+      "raster_aspect": 1.0,
+      "pitch_x_mm": 0.2,
+      "pitch_y_mm": 0.2,
+      "physical_pixel_aspect": 1.0,
+      "dpi_x": 126.99999999999999,
+      "dpi_y": 126.99999999999999,
+      "bit_depth": 16
+    },
+    "physical_fit": {
+      "fit_mode": "repeat",
+      "tile_policy": {
+        "size_policy": "preserve_source_aspect",
+        "anchor_axis": "width",
+        "anchor_mm": 180.0,
+        "requested_aspect_error_pct": 0.0
+      },
+      "tile_width_mm": 180.0,
+      "tile_height_mm": 120.0,
+      "tile_physical_aspect": 1.5,
+      "tile_pixel_width": 900,
+      "tile_pixel_height": 600,
+      "geometry_raster_tile_aspect": 1.5,
+      "reconstructed_tile_width_mm": 180.0,
+      "reconstructed_tile_height_mm": 120.0,
+      "reconstructed_physical_aspect": 1.5,
+      "repeat_counts": [
+        1,
+        2
+      ],
+      "visible_repeat_counts": [
+        1.0,
+        1.5
+      ],
+      "uniform_physical_scale": 1.0,
+      "independent_axis_scaling": false
+    },
+    "aspect_validation": {
+      "source_physical_aspect": 1.5,
+      "placed_physical_aspect": 1.5,
+      "reconstructed_physical_aspect": 1.5,
+      "error_pct": 0.0,
+      "tolerance_pct": 1.5,
+      "aspect_policy": "preserve",
+      "allow_aspect_distortion": false,
+      "passed": true
+    },
+    "preview": {
+      "path": "build/current-heightmap.preview.png",
+      "pixel_width": 1063,
+      "pixel_height": 1063,
+      "ppi": 150.0,
+      "geometry_input": false
+    },
+    "warnings": [
+      "The source has approximately 8-bit tonal precision. It is stored in a 16-bit master container, but missing source tones are not invented.",
+      "The supplied master is not natively seamless; configured build-stage seam blending will be applied.",
+      "The supplied image is treated as luminance-derived relief; photographic lighting is not calibrated geometric depth."
+    ]
+  },
+  "printer": {
+    "process": "fdm",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "axis_mode": "xy-xy canonical tile; remapped to XY-Z on vertical bands"
+  },
+  "mapping": {
+    "surface_type": "organizer floors and planar wall bands",
+    "placement_mode": "repeating object-space tile",
+    "axis_mode": "mixed",
+    "intended_surface_mapping": "repeat over enabled floor, inner-wall, and recessed outer-wall patches"
+  },
+  "processing": {
+    "repeat_tile": {
+      "size_policy": "preserve_source_aspect",
+      "anchor_axis": "width",
+      "anchor_mm": 180.0
+    },
+    "seam_blend_mm": [
+      7.0,
+      7.0
+    ],
+    "black_point": 0.0,
+    "white_point": 1.0,
+    "gamma": 1.0,
+    "invert": false,
+    "background_gray": 32768
+  },
+  "classification": {
+    "image_class": "texture",
+    "polarity": "white-high",
+    "repeating": true,
+    "seamless_x": true,
+    "seamless_y": true
+  },
+  "relief": {
+    "mode": "signed engrave and emboss",
+    "parameter_file": "../../config/model-params.json",
+    "minimum_remaining_material_mm": 2.0
+  },
+  "geometry": {
+    "parameter_file": "../../config/model-params.json",
+    "relief_adapter_config": "../../config/relief-config.json",
+    "cwd": "../..",
+    "command": [
+      "python3",
+      "src/build_pipeline.py"
+    ],
+    "output_path": "../../output/DRAFT/DRAFT-R1.3-aspect-safe-030mm-assembly.3mf",
+    "execution_strategy": "one module per process; one relief surface patch at a time"
+  },
+  "warnings": [
+    "The source has approximately 8-bit tonal precision. It is stored in a 16-bit master container, but missing source tones are not invented.",
+    "The supplied master is not natively seamless; configured build-stage seam blending will be applied.",
+    "The supplied image is treated as luminance-derived relief; photographic lighting is not calibrated geometric depth."
+  ]
+}

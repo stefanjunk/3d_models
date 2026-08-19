@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1024" viewBox="0 0 720 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17191c"/>
+      <stop offset="1" stop-color="#0c0d0f"/>
+    </linearGradient>
+    <linearGradient id="upper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#59616b"/>
+      <stop offset="1" stop-color="#343a42"/>
+    </linearGradient>
+    <linearGradient id="lower" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d4249"/>
+      <stop offset="1" stop-color="#22262b"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8f9aa5"/>
+      <stop offset="0.5" stop-color="#d5dce2"/>
+      <stop offset="1" stop-color="#77818b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9aa5af"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="1024" rx="24" fill="url(#bg)"/>
+  <text x="44" y="62" fill="#f0f2f4" font-family="Arial, sans-serif" font-size="30" font-weight="700">Print-in-Place-Drehgelenk</text>
+  <text x="44" y="96" fill="#a9b0b7" font-family="Arial, sans-serif" font-size="18">eine Achse · ein gefangener Zapfen · drei Laschen</text>
+
+  <g transform="translate(0,16)" filter="url(#shadow)">
+    <!-- Lower-comb outer knuckles -->
+    <path d="M80 190 H260 Q300 190 300 230 V318 Q300 344 328 344 H354 V190 Z" fill="url(#lower)" stroke="#737b84" stroke-width="2"/>
+    <path d="M80 608 H260 Q300 608 300 568 V480 Q300 454 328 454 H354 V608 Z" fill="url(#lower)" stroke="#737b84" stroke-width="2"/>
+    <rect x="294" y="184" width="120" height="160" rx="48" fill="url(#lower)" stroke="#7c858e" stroke-width="3"/>
+    <rect x="294" y="454" width="120" height="160" rx="48" fill="url(#lower)" stroke="#7c858e" stroke-width="3"/>
+
+    <!-- Upper-bow center knuckle -->
+    <path d="M626 344 H468 Q430 344 430 382 V416 Q430 454 468 454 H626 Z" fill="url(#upper)" stroke="#9aa3ac" stroke-width="3"/>
+    <rect x="294" y="344" width="120" height="110" rx="42" fill="url(#upper)" stroke="#aab3bc" stroke-width="3"/>
+
+    <!-- Print-in-place axial gaps -->
+    <rect x="286" y="337" width="136" height="14" rx="7" fill="#08090a"/>
+    <rect x="286" y="447" width="136" height="14" rx="7" fill="#08090a"/>
+
+    <!-- Captive single pin and caps -->
+    <rect x="337" y="160" width="34" height="484" rx="17" fill="url(#pin)" stroke="#e3e7ea" stroke-width="2"/>
+    <ellipse cx="354" cy="160" rx="42" ry="18" fill="url(#pin)" stroke="#e3e7ea" stroke-width="2"/>
+    <ellipse cx="354" cy="644" rx="42" ry="18" fill="url(#pin)" stroke="#e3e7ea" stroke-width="2"/>
+
+    <!-- Gap accents -->
+    <path d="M319 229 A35 35 0 0 1 337 205" fill="none" stroke="#54d6c3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M319 399 A35 35 0 0 1 337 375" fill="none" stroke="#54d6c3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M319 535 A35 35 0 0 1 337 510" fill="none" stroke="#54d6c3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Arial, sans-serif" font-size="18" fill="#d7dce1">
+    <text x="54" y="738">Unterkamm: zwei äußere Laschen</text>
+    <line x1="286" y1="724" x2="316" y2="594" stroke="#9aa5af" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="394" y="738">Oberbogen: mittlere Lasche</text>
+    <line x1="534" y1="714" x2="440" y2="427" stroke="#9aa5af" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Radial section -->
+  <g transform="translate(70,790)">
+    <text x="0" y="0" fill="#f0f2f4" font-family="Arial, sans-serif" font-size="22" font-weight="700">Radialschnitt</text>
+    <circle cx="112" cy="110" r="76" fill="url(#lower)" stroke="#89929b" stroke-width="3"/>
+    <circle cx="112" cy="110" r="36" fill="#08090a" stroke="#54d6c3" stroke-width="5"/>
+    <circle cx="112" cy="110" r="27" fill="url(#pin)" stroke="#e3e7ea" stroke-width="2"/>
+    <line x1="151" y1="110" x2="260" y2="110" stroke="#9aa5af" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="276" y="103" fill="#d7dce1" font-family="Arial, sans-serif" font-size="18">umlaufender</text>
+    <text x="276" y="127" fill="#d7dce1" font-family="Arial, sans-serif" font-size="18">Druckspalt</text>
+    <text x="470" y="72" fill="#d7dce1" font-family="Arial, sans-serif" font-size="18">Zapfen und Kappen</text>
+    <text x="470" y="97" fill="#a9b0b7" font-family="Arial, sans-serif" font-size="16">werden mitgedruckt</text>
+    <path d="M455 88 C420 95 390 110 358 126" fill="none" stroke="#9aa5af" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <text x="44" y="990" fill="#7f8992" font-family="Arial, sans-serif" font-size="15">Schema zur Topologie; Maße und Freigänge folgen später aus dem parametrischen CAD.</text>
+</svg>

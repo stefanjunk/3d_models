@@ -1,0 +1,215 @@
+{
+  "status": "PASS",
+  "revision": "R1.3-aspect-safe-030mm",
+  "source_asset_id": "sha256:1e396a4ac704fdbb",
+  "relief_job": "relief/organizer/relief-job.json",
+  "height_transfer": {
+    "source_dtype": "uint16",
+    "source_grid": [
+      900,
+      900
+    ],
+    "source_unique_u16_values": 46214,
+    "surface_build_pitch_mm": [
+      0.2,
+      0.2
+    ],
+    "surface_build_dpi": [
+      126.99999999999999,
+      126.99999999999999
+    ],
+    "geometry_grid": [
+      601,
+      401
+    ],
+    "geometry_pitch_mm": [
+      0.3,
+      0.3
+    ],
+    "geometry_sample_count": 241001,
+    "geometry_unique_u16_values": 39402,
+    "manifest_retained_height_bits": 16,
+    "additional_height_level_quantization": false,
+    "thresholds_or_depth_classes": false,
+    "mapping": {
+      "neutral_policy": "median",
+      "neutral_u16": 25214,
+      "input_min_u16": 0,
+      "input_max_u16": 65535,
+      "curve_exponent": 1.0,
+      "dark_direction": "engrave",
+      "bright_direction": "emboss"
+    },
+    "stl_coordinate_encoding": "IEEE-754 Float32 required by binary STL"
+  },
+  "physical_aspect": {
+    "validation": {
+      "source_physical_aspect": 1.5,
+      "placed_physical_aspect": 1.5,
+      "reconstructed_physical_aspect": 1.5,
+      "error_pct": 0.0,
+      "tolerance_pct": 1.5,
+      "aspect_policy": "preserve",
+      "allow_aspect_distortion": false,
+      "passed": true
+    },
+    "source_tile_mm": [
+      180.0,
+      120.0
+    ],
+    "geometry_domain_mm": [
+      180.0,
+      120.0
+    ],
+    "diagnostic": {
+      "schema": "heightmap-aspect-diagnostic-v2.2",
+      "status": "PASS",
+      "mapping_model": "planar millimetre coordinates; target domain sampled directly by Manifold3D",
+      "source": {
+        "physical_size_mm": [
+          180.0,
+          120.0
+        ],
+        "physical_aspect": 1.5
+      },
+      "target": {
+        "physical_size_mm": [
+          180.0,
+          180.0
+        ],
+        "build_grid": [
+          900,
+          900
+        ]
+      },
+      "repeat_tile": {
+        "policy": {
+          "size_policy": "preserve_source_aspect",
+          "anchor_axis": "width",
+          "anchor_mm": 180.0,
+          "requested_aspect_error_pct": 0.0
+        },
+        "physical_size_mm": [
+          180.0,
+          120.0
+        ],
+        "raster_size_px": [
+          900,
+          600
+        ],
+        "reconstructed_physical_aspect": 1.5,
+        "aspect_error_pct": 0.0
+      },
+      "geometry_grid": {
+        "grid": [
+          601,
+          401
+        ],
+        "pitch_mm": [
+          0.3,
+          0.3
+        ],
+        "nominal_marker_mm": 20.0,
+        "square_measured_mm": [
+          19.8,
+          20.099999999999998
+        ],
+        "circle_measured_diameter_mm": [
+          19.8,
+          20.099999999999998
+        ],
+        "dimension_error_pct": [
+          1.0000000000000009,
+          0.49999999999998934,
+          1.0000000000000009,
+          0.49999999999998934
+        ],
+        "circle_ellipticity_pct": 1.492537313432818
+      },
+      "tolerance_pct": 1.5,
+      "artifacts": {
+        "build_heightmap": "reports/aspect-diagnostic-build.png",
+        "geometry_preview": "reports/aspect-diagnostic-geometry-preview.png"
+      }
+    }
+  },
+  "physical_relief": {
+    "engrave_depth_mm": 0.5,
+    "emboss_depth_mm": 0.55,
+    "extreme_to_extreme_span_mm": 1.05,
+    "nominal_layer_height_mm": 0.2,
+    "minimum_residual_material_mm": {
+      "floor_mm": 2.1,
+      "double_sided_divider_mm": 2.2,
+      "inner_outer_wall_mm": 2.2
+    },
+    "wall_thickness_increase_required": false
+  },
+  "exported_stl_evidence": [
+    {
+      "file": "DRAFT-driver-back-textured.stl",
+      "floor_relief_vertex_samples": 870706,
+      "floor_band_unique_float32_z": 138901,
+      "floor_band_min_z_mm": 2.15518856048584,
+      "floor_band_max_z_mm": 3.127676486968994
+    },
+    {
+      "file": "DRAFT-driver-front-textured.stl",
+      "floor_relief_vertex_samples": 918195,
+      "floor_band_unique_float32_z": 145305,
+      "floor_band_min_z_mm": 2.1449716091156006,
+      "floor_band_max_z_mm": 3.128512382507324
+    },
+    {
+      "file": "DRAFT-hardware-back-textured.stl",
+      "floor_relief_vertex_samples": 1219923,
+      "floor_band_unique_float32_z": 190705,
+      "floor_band_min_z_mm": 2.1401796340942383,
+      "floor_band_max_z_mm": 3.1334028244018555
+    },
+    {
+      "file": "DRAFT-hardware-front-textured.stl",
+      "floor_relief_vertex_samples": 1222078,
+      "floor_band_unique_float32_z": 189830,
+      "floor_band_min_z_mm": 2.14398193359375,
+      "floor_band_max_z_mm": 3.1486852169036865
+    }
+  ],
+  "three_mf": {
+    "file": "DRAFT-R1.3-aspect-safe-030mm-assembly.3mf",
+    "zip_entries": [
+      "3D/3dmodel.model",
+      "[Content_Types].xml",
+      "_rels/.rels"
+    ],
+    "crc_pass": true,
+    "core_namespace": true,
+    "objects": 4,
+    "build_items": 4,
+    "assembly_bounds_mm": {
+      "min": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max": [
+        227.0,
+        357.0,
+        64.0
+      ]
+    }
+  },
+  "acceptance": {
+    "manifest_is_continuous_u16": true,
+    "surface_build_is_16_bit": true,
+    "surface_build_is_127_ppi": true,
+    "geometry_pitch_is_030_mm": true,
+    "physical_aspect_metadata_pass": true,
+    "circle_square_aspect_diagnostic_pass": true,
+    "more_than_three_geometry_heights": true,
+    "every_module_has_more_than_three_exported_floor_heights": true,
+    "minimum_residual_material_at_least_2_mm": true,
+    "three_mf_four_named_objects": true,
+    "three_mf_crc_and_namespace": true
+  }
+}

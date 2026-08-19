@@ -1,0 +1,24 @@
+{
+  "schema": "organizer-relief-adapter-v2.2",
+  "schema_version": 2.2,
+  "relief_job": "../relief/organizer/relief-job.json",
+  "manifest_output": "../texture/steel-rivets-relief-manifest.json",
+  "preview_output": "../texture/steel-rivets-vector-preview.png",
+  "geometry_pitch_mm": 0.30,
+  "neutral_policy": "median",
+  "input_min_u16": null,
+  "input_max_u16": null,
+  "height_curve_exponent": 1.0,
+  "repeat_x": true,
+  "repeat_y": true,
+  "dark_is_engraved": true,
+  "bright_is_embossed": true,
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "sequential",
+    "node_old_space_mb": 4096,
+    "indexed_mesh_cache": true,
+    "stream_3mf_xml": true
+  },
+  "notes": "Retain one unsigned 16-bit sample per 0.30 mm geometry-grid vertex. The canonical surface build asset remains 900 x 900 at 0.20 mm/pixel (127 PPI); the geometry adapter extracts the aspect-preserved physical repeat tile recorded in build metadata. No thresholds, depth classes, run-length quantization, or other height-level reduction are permitted. Peak memory is bounded by building one module per Node/WASM process and applying one relief surface patch at a time."
+}

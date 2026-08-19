@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "id": "lotus-framed-infill-panel",
+  "intent": {
+    "effect": ["lotus silhouette", "porous nozzle-scale screen", "one bonded physical panel"],
+    "not_claimed": ["hydrophobic lotus effect", "rated safety guard"]
+  },
+  "source": {
+    "type": "design-description",
+    "classification": "vector floral boundary plus manufacturing-defined lattice"
+  },
+  "process": {
+    "technology": "FDM",
+    "nozzle_mm": 0.4,
+    "line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "surface": "plane",
+    "patch_mm": [100, 100]
+  },
+  "components": [
+    {"name": "FRAME", "authority": "parametric", "owns": ["outer dimensions", "safe edge", "mounting", "load path", "capture band"]},
+    {"name": "LATTICE_ENVELOPE", "authority": "vector-plus-slicer", "owns": ["lotus occupancy", "local infill settings"]}
+  ],
+  "slicer_contract": {
+    "group_as_one_multi_part_object": true,
+    "lattice_walls": 0,
+    "lattice_top_layers": 0,
+    "lattice_bottom_layers": 0,
+    "automatic_solid_infill": "off locally",
+    "pattern_candidates": ["rectilinear", "lines", "gyroid"],
+    "pitch_candidates": ["coarse", "medium", "fine"],
+    "preserve_exact_3mf": true
+  },
+  "integration": {
+    "physical_result": "one bonded object",
+    "logical_result": "FRAME and LATTICE_ENVELOPE remain selectable",
+    "connection": "strand endpoints captured inside a verified frame overlap band"
+  },
+  "acceptance": [
+    "lotus silhouette reads at intended distance",
+    "every strand is anchored or intentionally free",
+    "no unexpected walls or skins appear",
+    "nozzle does not strike same-layer crossing buildup",
+    "aperture/open area and frame pull-out meet project limits",
+    "exact project reopens with part settings intact"
+  ]
+}

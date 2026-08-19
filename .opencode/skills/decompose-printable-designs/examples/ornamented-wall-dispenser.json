@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "EXAMPLE_WALL_DISPENSER",
+    "title": "Wall-mounted FIFO dispenser with replaceable wave ornament",
+    "source_modes": ["concept_image", "design_description", "measurements"],
+    "claim": "functional_redesign",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "large-format Cartesian FDM printer",
+      "nozzle_mm": 0.6,
+      "line_width_mm": 0.68,
+      "layer_height_mm": 0.3,
+      "profile_id": "PETG-0.6-0.30"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "center of lower rear mounting datum at product bottom",
+      "x_axis": "+X right from front view",
+      "y_axis": "+Y away from wall toward user",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major component source-to-project matrix"
+    },
+    "master_envelope_mm": {"min": [-75, -25, 0], "max": [75, 155, 700]},
+    "requirements": [
+      {
+        "id": "REQ-FIFO",
+        "statement": "Five rolls shall move downward by gravity and remain removable from the bottom without contacting ornament.",
+        "evidence_class": "requested",
+        "source": "design description",
+        "priority": "critical",
+        "verification": "full-height clearance body and physical multi-roll test"
+      },
+      {
+        "id": "REQ-MOUNT",
+        "statement": "The parametric spine shall transfer all product and roll load to the wall.",
+        "evidence_class": "requested",
+        "source": "design description",
+        "priority": "critical",
+        "verification": "load-path review, fastener coupon, and conservative physical test"
+      },
+      {
+        "id": "REQ-ORN",
+        "statement": "The concept-image wave shall be a replaceable decorative body with no critical structural role.",
+        "evidence_class": "requested",
+        "source": "concept image IMG-WAVE-01",
+        "priority": "important",
+        "verification": "matched views, assembly/removal test, and keep-out collision"
+      }
+    ],
+    "global_style": {
+      "summary": "Japanese-inspired stone body with one large flowing wave and sparse gold-compatible ridges",
+      "motifs": ["large curling wave", "quiet asymmetry", "broad carved ridges"],
+      "exclude": ["tiny foam particles", "floating droplets", "fine text", "wall scenery", "toilet rolls in generation plate"],
+      "generation_material": "matte neutral clay",
+      "detail_hierarchy": "outer wave silhouette, three foam curls, broad ridges, no microtexture"
+    },
+    "assembly_sequence": [
+      "Install structural modules and verify the exact roll-path clearance body.",
+      "Fuse or fasten the parametric backer to the spine outside the roll path.",
+      "Insert the wave ornament into the keyed backer.",
+      "Load five rolls from the top and perform repeated bottom-removal tests."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-SOURCE-001",
+      "topic": "Approve the concept image, wave mask, and isolated generation plates.",
+      "status": "open",
+      "current_basis": "The example references IMG-WALL-001 but does not ship that image.",
+      "evidence_needed": "Immutable source, evidence crop, mask, and approved component-only plates.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-MOUNT-001",
+      "topic": "Select mounting hardware for the actual wall substrate and service load.",
+      "status": "provisional",
+      "current_basis": "The example mounting envelope is illustrative.",
+      "evidence_needed": "Substrate identification, purchased hardware data, installed load case, and proof test.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "SPINE",
+      "name": "Parametric structural FIFO spine",
+      "role": "wall mounting, roll guidance, module interfaces, and structural authority",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["REQ-FIFO", "REQ-MOUNT"], "confidence": "high"},
+      "functions": ["mount to wall", "guide rolls", "protect roll path", "support backer"],
+      "envelope_mm": {"min": [-70, -20, 0], "max": [70, 48, 690]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "modular FDM", "material": "PETG", "color_body": "stone core", "orientation": "module-specific, structural rails aligned with extrusion paths"},
+      "interface_ids": ["IF-SPINE-BACKER"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["roll-path clearance", "wall mount", "module alignment", "minimum wall"]}
+    },
+    {
+      "id": "WAVE_BACKER",
+      "name": "Curved parametric wave backer",
+      "role": "exact seat, keys, and load spreader outside the roll path",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["SPINE exterior patch", "IF-WAVE"], "confidence": "high"},
+      "functions": ["locate ornament", "provide trim body", "prevent rotation", "spread handling load"],
+      "envelope_mm": {"min": [60, 30, 170], "max": [70, 140, 340]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "FDM or fused with SPINE", "material": "PETG", "color_body": "stone core", "orientation": "inherit supporting module"},
+      "interface_ids": ["IF-SPINE-BACKER", "IF-WAVE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["positive core overlap", "key dimensions", "minimum ligament", "no roll-path breach"]}
+    },
+    {
+      "id": "WAVE_ORNAMENT",
+      "name": "Replaceable sculptural wave",
+      "role": "organic visual identity and customer-selectable decorative body",
+      "authority": "organic",
+      "representation": "mesh",
+      "source": {"kind": "concept_image", "refs": ["IMG-WAVE-01", "MASK-WAVE-01"], "confidence": "medium"},
+      "functions": ["create visual focus", "support color/material customization", "remain replaceable"],
+      "envelope_mm": {"min": [63, 25, 160], "max": [75, 145, 350]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM body", "material": "silk PLA after temperature/adhesion review", "color_body": "wave ornament", "orientation": "choose for visible crest and thick root; support kept off hero face"},
+      "interface_ids": ["IF-WAVE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 2, "checks": ["front/side silhouette", "open curl", "thick root", "no roll-path collision"]},
+      "image_to_3d": {
+        "generation_mode": "multiview_component",
+        "input_views": ["lateral hero orthographic", "front orthographic", "lateral-front three-quarter"],
+        "positive_prompt": "One coherent stylized breaking ocean wave, broad carved ridges, three large foam curls, a clear open central curl, thick quiet rear root for later trimming, matte neutral clay, printable medium-scale forms.",
+        "exclude": ["dispenser body", "wall", "toilet paper", "text", "ruler", "floating droplets", "thin sheet", "micro-noise"],
+        "sacrificial_interface_band_mm": 8,
+        "protected_features": ["outer breaking-wave silhouette", "open central curl", "three primary foam curls"],
+        "negative_spaces": ["central curl opening remains connected and no smaller than the process-tested gap"],
+        "landmarks": [
+          {"id": "LM-CREST", "point_mm": [70, 105, 338], "meaning": "highest crest"},
+          {"id": "LM-REAR", "point_mm": [68, 30, 220], "meaning": "rear silhouette extremum in the lateral view"},
+          {"id": "LM-ROOT", "point_mm": [64, 85, 175], "meaning": "center of sacrificial root"}
+        ]
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-SPINE-BACKER",
+      "a": "SPINE",
+      "b": "WAVE_BACKER",
+      "owner": "SPINE",
+      "kind": "fused_overlap",
+      "local_frame": {"origin_mm": [60, 85, 255], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
+      "nominal_geometry": {"type": "curved patch", "width_mm": 110, "height_mm": 170, "backer_thickness_mm": 3},
+      "joining": {"method": "positive-volume union", "assembly_direction": "+X", "anti_rotation": "asymmetric curved patch", "lead_in_mm": 0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0.7, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.1},
+      "seam_band_mm": 3,
+      "keepout_ids": ["KEEP-ROLL-PATH"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4, "load_or_flow": "ornament handling load only"},
+      "verification": ["positive intersection volume", "wall sections", "round-trip watertightness", "roll-path collision"]
+    },
+    {
+      "id": "IF-WAVE",
+      "a": "WAVE_BACKER",
+      "b": "WAVE_ORNAMENT",
+      "owner": "WAVE_BACKER",
+      "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [67, 85, 250], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
+      "nominal_geometry": {"type": "two rectangular keys plus shoulder", "key_width_mm": 12, "key_depth_mm": 7, "engagement_mm": 10, "spacing_mm": 62},
+      "joining": {"method": "keyed removable insertion", "assembly_direction": "+X", "anti_rotation": "asymmetric key spacing", "lead_in_mm": 1, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.2, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.3, "solver_margin_mm": 0.1},
+      "seam_band_mm": 6,
+      "keepout_ids": ["KEEP-ROLL-PATH"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.5, "load_or_flow": "retention and handling, no primary load"},
+      "verification": ["same-process key coupon", "assembly/removal cycles", "roll-path collision", "seam review"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-ROLL-PATH", "type": "aabb", "purpose": "coarse central proxy only; exact swept cylinder and exit path live in CAD", "min_mm": [-58, 24, 45], "max_mm": [58, 152, 660], "source": "122 mm roll clearance body plus motion allowance"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "component/interface matrix and requirement allocation", "acceptance": "single authority per interface and no structural dependence on ornament"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble spine, roll swept body, backer, and ornament envelopes", "acceptance": "assembly and five-roll path remain clear"},
+    {"id": "VAL-COMP", "gate": "component", "method": "mesh intake and matched clay views", "acceptance": "identity, envelope, open curl, root, and topology pass"},
+    {"id": "VAL-INT", "gate": "integration", "method": "sections, intersection/gap, wall, and surface-preservation checks", "acceptance": "all interface requirements pass"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "slice all bodies with the named profile", "acceptance": "expected walls, no trapped support, and separate color bodies"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "key coupon, two-module FIFO test, then full tower", "acceptance": "repeatable insertion/removal and gravity feed without jams"}
+  ]
+}

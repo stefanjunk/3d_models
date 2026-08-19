@@ -1,0 +1,20 @@
+{
+  "name": "hair-clip-project",
+  "version": "6.0.0",
+  "description": "Parametric PETG honeycomb hair-clip family with a captured print-in-place rotational hinge",
+  "main": "hair_clip.mjs",
+  "scripts": {
+    "build": "node hair_clip.mjs --preset=large --output-dir=output-r6-final/large",
+    "build:preview": "node hair_clip.mjs --preview --preset=large --output-dir=output-r6-preview",
+    "build:presets": "node hair_clip.mjs --all-presets --output-dir=output-r6-final",
+    "test": "npm run build:presets && python3 validate_stl.py output-r6-final/large/masculine-honeycomb-hair-clip-r6-large.stl --expect-components 2 --output validation/r6-final-audits/mesh-large.json && python3 validate_stl.py output-r6-final/large/hair-clip-hinge-latch-coupon-r6.stl --expect-components 2 --output validation/r6-final-audits/mesh-coupon.json && python3 validate_3mf.py output-r6-final/large/masculine-honeycomb-hair-clip-r6-large.3mf --output validation/r6-final-audits/3mf-large.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "fflate": "0.8.2",
+    "manifold-3d": "3.5.1"
+  }
+}

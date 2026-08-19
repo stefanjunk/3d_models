@@ -1,0 +1,176 @@
+project: monolithic-geometric-hair-clip
+revision: 6
+claim: functional-redesign
+units: mm
+
+evidence:
+  - id: IMG-001
+    file: evidence/source/concept-v2.png
+    class: observed
+    notes: "Single perspective AI concept image; no calibrated camera or hidden views."
+  - id: REQ-SOURCE-001
+    file: evidence/source/requirements-summary.md
+    class: requested
+  - id: PROMPT-001
+    file: evidence/source/concept-prompt-v2.md
+    class: requested
+  - id: IMG-002
+    file: evidence/source/concept-r6.png
+    class: approved-concept
+    notes: "User-approved revision-6 concept sheet; authoritative for the three-row armor language and captured rotational hinge intent."
+  - id: PROMPT-002
+    file: evidence/source/concept-prompt-r6.md
+    class: requested
+
+requirements:
+  - id: REQ-001
+    statement: "Overall clip length is a parameter from 65 to 105 mm; the recommended large preset is 85 mm."
+    category: geometry
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    nominal: 85.0
+    tolerance: "range 65-105; large preset 85 +/- 0.5"
+    priority: critical
+    validation: CAD bounds and STL audit
+  - id: REQ-002
+    statement: "The crown rise is independently parameterized from 7 to 18 mm; the recommended large preset is 12 mm."
+    category: geometry
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    nominal: 12.0
+    tolerance: "range 7-18; large preset 12 +/- 0.3"
+    priority: important
+    validation: lower-tooth center span in source and prototype fit
+  - id: REQ-003
+    statement: "The clip is a metal-free print-in-place PETG assembly with two captured moving components and no post-print pin assembly."
+    category: function
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    priority: critical
+    validation: two watertight mesh components, captured-pivot section review, and BOM
+  - id: REQ-004
+    statement: "The main motion comes from a true captured rotational hinge; PETG compliance is retained only in the snap latch."
+    category: function
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    priority: critical
+    validation: hinge clearance/motion audit plus combined hinge-and-latch cycle coupon
+  - id: REQ-005
+    statement: "Visible surfaces use angular segmented armor-like panels."
+    category: appearance
+    evidence_class: observed
+    source: IMG-001
+    confidence: high
+    priority: important
+    validation: canonical render review
+  - id: REQ-006
+    statement: "The inner gripping geometry uses opposing comb teeth."
+    category: function
+    evidence_class: inferred
+    source: IMG-001
+    confidence: medium
+    priority: important
+    validation: CAD review and hair-holding prototype test
+  - id: REQ-007
+    statement: "Minimum designed flexure, latch and shell thickness is 1.6 mm."
+    category: manufacturing
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    priority: critical
+    validation: source assertions and parameter review
+  - id: REQ-008
+    statement: "Estimated PETG mass remains below 30 g for the large preset."
+    category: manufacturing
+    evidence_class: requested
+    source: REQ-SOURCE-001
+    confidence: high
+    priority: important
+    validation: manifold volume times 1.27 g/cm3
+  - id: REQ-009
+    statement: "The print needs no generated supports in the supplied orientation."
+    category: manufacturing
+    evidence_class: recommended
+    source: design decision
+    confidence: medium
+    priority: important
+    validation: geometry review and exact slicer dry run
+  - id: REQ-010
+    statement: "The visible upper bow uses exactly three uniformly oriented staggered transverse rows; the large preset derives approximately 18.533 mm across flats from the 28.6 mm armor width, separated by nominal 0.8 mm grooves."
+    category: appearance
+    evidence_class: requested
+    source: user revision request and approved revision-4 requirements
+    confidence: high
+    priority: critical
+    validation: source parameters, canonical top render, and slicer preview
+  - id: REQ-011
+    statement: "The non-bed boundary uses complete hexagons with a staggered high-low outline; the build-plane boundary may use half cells."
+    category: appearance
+    evidence_class: requested
+    source: user revision request and approved revision-4 concept
+    confidence: high
+    priority: critical
+    validation: canonical side and isometric render review
+  - id: REQ-012
+    statement: "The unused central portion of the lower rail is reduced to 13.0 mm on the non-bed side, with the full 24.0 mm structural body width retained at both functional ends."
+    category: geometry
+    evidence_class: requested
+    source: user revision request and approved revision-3 requirements
+    confidence: high
+    priority: important
+    validation: source parameter and section review
+  - id: REQ-013
+    statement: "No separate 90-degree-rotated side row or decorative shoulder blocks remain; the single honeycomb field continues over the hinge and latch end zones."
+    category: appearance
+    evidence_class: requested
+    source: user revision request and approved revision-4 concept
+    confidence: high
+    priority: critical
+    validation: source feature audit plus canonical side and isometric render review
+  - id: REQ-014
+    statement: "The complete-cell high-low contour is mirrored at the hinge and latch ends, with equal decorative overhang over the structural shell while the latch release remains accessible."
+    category: appearance-and-interface
+    evidence_class: requested
+    source: user revision-5 correction and approved revision-4 concept
+    confidence: high
+    priority: critical
+    validation: source feature audit, CAD bounds, top render, and isometric render
+  - id: REQ-015
+    statement: "The upper armor contains exactly three staggered transverse honeycomb rows for every generated size; cell size derives from the armor width and longitudinal whole-cell count derives from clip length."
+    category: appearance-and-parametric-geometry
+    evidence_class: requested
+    source: user revision-6 request and approved revision-6 requirements
+    confidence: high
+    priority: critical
+    validation: source assertions, top render, and generated-preset audit
+  - id: REQ-016
+    statement: "The hinge is a captured print-in-place rotational pivot with a nominal 4.0 mm pin, 0.35 mm radial clearance, 0.40 mm axial clearance, and at least 28 degrees useful travel."
+    category: mechanism-and-manufacturing
+    evidence_class: requested
+    source: user revision-6 request and approved revision-6 requirements
+    confidence: high
+    priority: critical
+    validation: section/clearance audit, collision sweep, and physical coupon
+
+camera_and_scale:
+  calibrated: false
+  source_projection: perspective-concept-render
+  scale_authority: requested dimensions, not image pixels
+  comparison_policy: qualitative shape-language comparison only
+
+uncertainty_map:
+  visible_armor_shell: low
+  hidden_inner_geometry: high
+  exact_latch_motion: high
+  exact_petg_fatigue_life: high
+  unseen_back_surface: medium
+
+model_route:
+  selected: parametric-mesh-csg
+  kernel: Manifold 3D 3.5.1
+  status: revision-6-final-release
+  rationale: "Functional geometry is prismatic and dimension-driven; robust manifold mesh output is more useful here than an unverified organic image-to-3D mesh."

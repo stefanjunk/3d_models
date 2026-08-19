@@ -1,0 +1,78 @@
+profile_status: DRAFT-candidate
+geometry_revision: CYBERVAULT-R4-CAD-A-WM1
+printer: Anycubic Kobra 3 Max
+process: FDM-FFF
+
+material:
+  type: PETG
+  constraint: unfilled
+  note: "Kein CF-/GF-PETG fuer Rastarme oder das Print-in-place-Scharnier."
+
+geometry_input:
+  preferred: exports/draft/cyber_nozzle_case_R4_DRAFT.3mf
+  fallback: exports/draft/cyber_nozzle_case_R4_DRAFT_print_in_place.stl
+  units: mm
+  orientation: "Unveraendert importieren; Unterkasten und Deckel liegen flach geoeffnet auf Z=0."
+  expected_envelope_mm: [74.14, 382.25, 14.5]
+  expected_objects: 2
+
+quality:
+  nozzle_mm: 0.4
+  layer_height_mm: 0.16
+  first_layer_height_mm: 0.16
+  line_width_mm: 0.44
+  wall_loops: 4
+  top_layers: 6
+  bottom_layers: 6
+  infill_percent: 20
+  infill_pattern: gyroid
+
+temperature_starting_points_c:
+  nozzle: 245
+  bed: 80
+  note: "Herstellerbereich des konkreten PETG beachten; denselben temperatur-/flusskalibrierten Profilkern wie beim bestandenen Zwei-Punkt-Passcoupon verwenden."
+
+speed_starting_points_mm_s:
+  first_layer: 20
+  external_perimeter: 35
+  internal_perimeter: 45
+  sparse_infill: 55
+  bridge: 20
+  small_perimeter: 25
+
+cooling:
+  part_fan_percent_after_layer_3: 30
+  bridge_fan_percent: 70
+  avoid_drafts: true
+
+supports:
+  enabled: false
+  reason: "Das Modell und das flachseitige Sechskant-Scharnier sind fuer einen stuetzfreien Druck ausgelegt."
+
+adhesion:
+  continuous_brim: false
+  skirt_loops: 2
+  optional_mouse_ears:
+    diameter_mm: 8
+    placement: "Nur an den vier weit vom Scharnier entfernten Aussenkanten."
+  warning: "Keinen Brim in den 0,30- bis 0,50-mm-Scharnier-/Koerperspalten erzeugen; er wuerde die zwei beweglichen Koerper verbinden."
+
+seam_and_motion:
+  seam_preference: "Scharnierseite / Rueckseite"
+  z_hop: "Nur aus bewaehrtem PETG-Profil uebernehmen; nicht allein fuer dieses Modell erhoehen."
+  retraction: "Bewaehrtes direktes PETG-Profil des Druckers beibehalten."
+
+critical_checks:
+  - "Slicer meldet genau zwei Modellobjekte bzw. zwei getrennte Meshkomponenten."
+  - "Keine Stuetze und kein Brim befindet sich in Scharnier, Rastarm oder Deckelspalt."
+  - "Drei wasserzeichentragende Vorschauhoehen zeigen alle 18 Konturen des JuSt-Innovation-Unterseitenzeichens offen."
+  - "Die Deckel-Hauptgravuren reichen 0,64 mm beziehungsweise vier Schichten tief; Sekundaergravuren 0,32 mm beziehungsweise zwei Schichten."
+  - "CYBERVAULT, NOZZLE ARRAY und QSW-12 sind in der geschlossenen Orientierung normal herum lesbar."
+  - "Druckvorschau zeigt 0,35 mm radialen Scharnierfreigang und 0,50 mm axiale Trennfugen ohne Extrusionsbruecke."
+  - "Gesamthuellenmass bleibt innerhalb 420 x 420 x 500 mm."
+
+qualification:
+  nozzle_fit_coupon: pass-user-selected-0.35-mm-each-side
+  hinge_coupon: pass-basic-function-user-confirmed-2026-08-11
+  latch: pass-basic-function-user-confirmed-2026-08-11
+  full_case: partial-loaded-inversion-and-long-term-cycles-not-reported

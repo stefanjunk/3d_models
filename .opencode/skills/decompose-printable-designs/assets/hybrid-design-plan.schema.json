@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/decompose-printable-designs/hybrid-design-plan.schema.json",
+  "title": "Hybrid printable design plan",
+  "type": "object",
+  "required": ["schema_version", "project", "decision_log", "components", "interfaces", "keepouts", "validation"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project": {"$ref": "#/$defs/project"},
+    "decision_log": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/decision"}
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/component"}
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/interface"}
+    },
+    "keepouts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/keepout"}
+    },
+    "validation": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/validation"}
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"type": "number"}
+    },
+    "matrix4": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {"type": "number"}
+    },
+    "envelope": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": {"$ref": "#/$defs/vec3"},
+        "max": {"$ref": "#/$defs/vec3"}
+      },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "id", "title", "source_modes", "claim", "units", "process",
+        "coordinate_frame", "master_envelope_mm", "requirements",
+        "global_style", "assembly_sequence"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+        "title": {"type": "string", "minLength": 1},
+        "source_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "concept_image", "product_photo", "sketch", "design_description",
+              "existing_mesh", "measurements"
+            ]
+          }
+        },
+        "claim": {
+          "enum": [
+            "measured_reconstruction", "visual_interpretation", "plausible_completion",
+            "functional_redesign", "new_design"
+          ]
+        },
+        "units": {"const": "mm"},
+        "process": {
+          "type": "object",
+          "required": ["technology", "printer", "nozzle_mm", "line_width_mm", "layer_height_mm"],
+          "properties": {
+            "technology": {"type": "string"},
+            "printer": {"type": "string"},
+            "nozzle_mm": {"type": "number", "exclusiveMinimum": 0},
+            "line_width_mm": {"type": "number", "exclusiveMinimum": 0},
+            "layer_height_mm": {"type": "number", "exclusiveMinimum": 0},
+            "profile_id": {"type": "string"}
+          },
+          "additionalProperties": true
+        },
+        "coordinate_frame": {
+          "type": "object",
+          "required": ["handedness", "origin", "x_axis", "y_axis", "z_axis", "transform_convention"],
+          "properties": {
+            "handedness": {"const": "right"},
+            "origin": {"type": "string", "minLength": 1},
+            "x_axis": {"type": "string", "minLength": 1},
+            "y_axis": {"type": "string", "minLength": 1},
+            "z_axis": {"type": "string", "minLength": 1},
+            "transform_convention": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        "master_envelope_mm": {"$ref": "#/$defs/envelope"},
+        "requirements": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/requirement"}
+        },
+        "global_style": {
+          "type": "object",
+          "required": ["summary", "motifs", "exclude", "generation_material", "detail_hierarchy"],
+          "properties": {
+            "summary": {"type": "string"},
+            "motifs": {"type": "array", "items": {"type": "string"}},
+            "exclude": {"type": "array", "items": {"type": "string"}},
+            "generation_material": {"type": "string"},
+            "detail_hierarchy": {"type": "string"}
+          },
+          "additionalProperties": true
+        },
+        "assembly_sequence": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "requirement": {
+      "type": "object",
+      "required": ["id", "statement", "evidence_class", "source", "priority", "verification"],
+      "properties": {
+        "id": {"type": "string"},
+        "statement": {"type": "string", "minLength": 1},
+        "evidence_class": {"enum": ["observed", "measured", "inferred", "assumed", "requested"]},
+        "source": {"type": "string"},
+        "priority": {"enum": ["critical", "important", "cosmetic"]},
+        "verification": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "decision": {
+      "type": "object",
+      "required": ["id", "topic", "status", "current_basis", "evidence_needed", "blocks_gates"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+        "topic": {"type": "string", "minLength": 1},
+        "status": {"enum": ["open", "provisional", "resolved"]},
+        "current_basis": {"type": "string"},
+        "evidence_needed": {"type": "string"},
+        "blocks_gates": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["architecture", "proxy", "component", "integration", "manufacturing", "physical", "release"]
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": ["kind", "refs", "confidence"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "concept_image", "product_photo", "sketch", "design_description",
+            "existing_mesh", "measurements", "derived"
+          ]
+        },
+        "refs": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"enum": ["low", "medium", "high"]}
+      },
+      "additionalProperties": true
+    },
+    "manufacturing": {
+      "type": "object",
+      "required": ["method", "material", "color_body", "orientation"],
+      "properties": {
+        "method": {"type": "string"},
+        "material": {"type": "string"},
+        "color_body": {"type": "string"},
+        "orientation": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["expected_components", "require_watertight", "max_bounds_error_mm", "checks"],
+      "properties": {
+        "expected_components": {"type": "integer", "minimum": 1},
+        "require_watertight": {"type": "boolean"},
+        "max_bounds_error_mm": {"type": "number", "minimum": 0},
+        "checks": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "image_to_3d": {
+      "type": "object",
+      "required": [
+        "generation_mode", "input_views", "positive_prompt", "exclude",
+        "sacrificial_interface_band_mm", "protected_features", "negative_spaces",
+        "landmarks"
+      ],
+      "properties": {
+        "generation_mode": {
+          "enum": ["isolated_single_component", "part_aware_masked", "multiview_component", "relief_heightmap"]
+        },
+        "input_views": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "positive_prompt": {"type": "string", "minLength": 1},
+        "exclude": {"type": "array", "items": {"type": "string"}},
+        "sacrificial_interface_band_mm": {"type": "number", "minimum": 0},
+        "protected_features": {"type": "array", "items": {"type": "string"}},
+        "negative_spaces": {"type": "array", "items": {"type": "string"}},
+        "landmarks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "point_mm", "meaning"],
+            "properties": {
+              "id": {"type": "string"},
+              "point_mm": {"$ref": "#/$defs/vec3"},
+              "meaning": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "id", "name", "role", "authority", "representation", "source", "functions",
+        "envelope_mm", "source_to_mm_scale", "placement_transform", "manufacturing",
+        "interface_ids", "acceptance"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+        "name": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "authority": {"enum": ["parametric", "organic", "hybrid", "purchased", "negative/tooling"]},
+        "representation": {"enum": ["brep", "mesh", "heightmap", "texture", "cots", "negative_volume", "mixed"]},
+        "source": {"$ref": "#/$defs/source"},
+        "functions": {"type": "array", "items": {"type": "string"}},
+        "envelope_mm": {"$ref": "#/$defs/envelope"},
+        "source_to_mm_scale": {"type": "number", "exclusiveMinimum": 0},
+        "placement_transform": {"$ref": "#/$defs/matrix4"},
+        "manufacturing": {"$ref": "#/$defs/manufacturing"},
+        "interface_ids": {"type": "array", "items": {"type": "string"}},
+        "acceptance": {"$ref": "#/$defs/acceptance"},
+        "image_to_3d": {"$ref": "#/$defs/image_to_3d"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"authority": {"const": "organic"}}, "required": ["authority"]},
+          "then": {"required": ["image_to_3d"]}
+        }
+      ],
+      "additionalProperties": true
+    },
+    "local_frame": {
+      "type": "object",
+      "required": ["origin_mm", "x_axis", "y_axis", "z_axis"],
+      "properties": {
+        "origin_mm": {"$ref": "#/$defs/vec3"},
+        "x_axis": {"$ref": "#/$defs/vec3"},
+        "y_axis": {"$ref": "#/$defs/vec3"},
+        "z_axis": {"$ref": "#/$defs/vec3"}
+      },
+      "additionalProperties": false
+    },
+    "allowances": {
+      "type": "object",
+      "required": [
+        "functional_clearance_per_side_mm", "process_compensation_per_side_mm",
+        "assembly_allowance_per_side_mm", "adhesive_gap_per_side_mm",
+        "boolean_overlap_mm", "registration_uncertainty_mm", "solver_margin_mm"
+      ],
+      "properties": {
+        "functional_clearance_per_side_mm": {"type": "number", "minimum": 0},
+        "process_compensation_per_side_mm": {"type": "number", "minimum": 0},
+        "assembly_allowance_per_side_mm": {"type": "number", "minimum": 0},
+        "adhesive_gap_per_side_mm": {"type": "number", "minimum": 0},
+        "boolean_overlap_mm": {"type": "number", "minimum": 0},
+        "registration_uncertainty_mm": {"type": "number", "minimum": 0},
+        "solver_margin_mm": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "interface": {
+      "type": "object",
+      "required": [
+        "id", "a", "b", "owner", "kind", "local_frame", "nominal_geometry",
+        "joining", "allowances", "seam_band_mm", "keepout_ids", "requirements", "verification"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+        "a": {"type": "string"},
+        "b": {"type": "string"},
+        "owner": {"type": "string"},
+        "kind": {
+          "enum": [
+            "fused_overlap", "keyed_insert", "adhesive_backer", "dovetail_slide",
+            "shell_over_core", "relief_substrate", "fastener", "flexible_flange",
+            "purchased_mate", "other"
+          ]
+        },
+        "local_frame": {"$ref": "#/$defs/local_frame"},
+        "nominal_geometry": {"type": "object", "minProperties": 1},
+        "joining": {
+          "type": "object",
+          "required": ["method", "assembly_direction", "anti_rotation", "lead_in_mm", "serviceable"],
+          "properties": {
+            "method": {"type": "string"},
+            "assembly_direction": {"type": "string"},
+            "anti_rotation": {"type": "string"},
+            "lead_in_mm": {"type": "number", "minimum": 0},
+            "serviceable": {"type": "boolean"}
+          },
+          "additionalProperties": true
+        },
+        "allowances": {"$ref": "#/$defs/allowances"},
+        "seam_band_mm": {"type": "number", "minimum": 0},
+        "keepout_ids": {"type": "array", "items": {"type": "string"}},
+        "requirements": {
+          "type": "object",
+          "required": ["minimum_wall_mm", "minimum_ligament_mm", "load_or_flow"],
+          "properties": {
+            "minimum_wall_mm": {"type": "number", "minimum": 0},
+            "minimum_ligament_mm": {"type": "number", "minimum": 0},
+            "load_or_flow": {"type": "string"}
+          },
+          "additionalProperties": true
+        },
+        "verification": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "keepout": {
+      "type": "object",
+      "required": ["id", "type", "purpose"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+        "type": {"enum": ["aabb", "cylinder", "swept_volume", "mesh"]},
+        "purpose": {"type": "string"},
+        "min_mm": {"$ref": "#/$defs/vec3"},
+        "max_mm": {"$ref": "#/$defs/vec3"},
+        "source": {"type": "string"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"type": {"const": "aabb"}}, "required": ["type"]},
+          "then": {"required": ["min_mm", "max_mm"]}
+        }
+      ],
+      "additionalProperties": true
+    },
+    "validation": {
+      "type": "object",
+      "required": ["id", "gate", "method", "acceptance"],
+      "properties": {
+        "id": {"type": "string"},
+        "gate": {"enum": ["architecture", "proxy", "component", "integration", "manufacturing", "physical"]},
+        "method": {"type": "string"},
+        "acceptance": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  }
+}

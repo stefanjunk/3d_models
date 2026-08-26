@@ -1,0 +1,109 @@
+{
+  "schema_version": 3,
+  "profile_id": "carbon-wave",
+  "label": "reference 0/90 carbon basket weave",
+  "representation": "deterministic-reference-basket-weave-tow-cell-field",
+  "coverage_metric": "tow_cells",
+  "intent": "deep-black satin carbon appearance derived from carbonfiber1.png: compact paired tow bundles alternate 0/90 in a stepped basket weave, with horizontal bundles visually dominant",
+  "enabled": true,
+  "seed": 160823,
+  "boolean_overlap_mm": 0.06,
+  "surfaces": {
+    "floor": {
+      "enabled": true,
+      "edge_margin_mm": 0.90,
+      "maximum_depth_mm": 0.18,
+      "weave": {
+        "cell_pitch_mm": 2.20,
+        "tow_length_mm": 3.92,
+        "tow_width_mm": 1.78,
+        "horizontal_depth_mm": 0.15,
+        "vertical_depth_mm": 0.10,
+        "edge_depth_mm": 0.015,
+        "strand_depth_mm": 0.03,
+        "strand_count": 3,
+        "offset_u_mm": 0.37,
+        "offset_v_mm": 0.23,
+        "phase_blocks": 0,
+        "segments": 16,
+        "radial_rings": 3
+      }
+    },
+    "inner_walls": {
+      "enabled": true,
+      "edge_margin_mm": 0.90,
+      "bottom_keepout_mm": 7.40,
+      "top_keepout_mm": 2.00,
+      "maximum_depth_mm": 0.16,
+      "weave": {
+        "cell_pitch_mm": 2.25,
+        "tow_length_mm": 4.00,
+        "tow_width_mm": 1.82,
+        "horizontal_depth_mm": 0.135,
+        "vertical_depth_mm": 0.09,
+        "edge_depth_mm": 0.012,
+        "strand_depth_mm": 0.025,
+        "strand_count": 3,
+        "offset_u_mm": 0.31,
+        "offset_v_mm": 0.17,
+        "phase_blocks": 1,
+        "segments": 16,
+        "radial_rings": 3
+      }
+    },
+    "wall_tops": {
+      "enabled": true,
+      "edge_margin_mm": 0.55,
+      "maximum_depth_mm": 0.09,
+      "weave": {
+        "cell_pitch_mm": 2.30,
+        "tow_length_mm": 3.80,
+        "tow_width_mm": 0.72,
+        "horizontal_depth_mm": 0.07,
+        "vertical_depth_mm": 0.05,
+        "edge_depth_mm": 0.008,
+        "strand_depth_mm": 0.02,
+        "strand_count": 2,
+        "offset_u_mm": 0.27,
+        "offset_v_mm": 0.11,
+        "phase_blocks": 0,
+        "segments": 16,
+        "radial_rings": 3
+      }
+    },
+    "outer_walls": {
+      "enabled": false,
+      "maximum_depth_mm": 0.0
+    }
+  },
+  "protected_regions": {
+    "floor_to_wall_margin_mm": 3.0,
+    "connector_margin_mm": 3.0,
+    "junction_margin_mm": 4.5,
+    "access_groove_margin_mm": 1.5,
+    "gusset_margin_mm": 1.5,
+    "watermark_margin_mm": 1.5,
+    "minimum_residual_wall_mm": 2.0,
+    "wall_top_smooth_edge_mm": 0.55
+  },
+  "slicer_finish": {
+    "material_intent": "deep-black satin PETG or PLA; geometry defines the reference-derived basket weave while material and toolpaths complete fibre-scale sheen",
+    "horizontal_top_path": "monotonic left-to-right, parallel to the dominant horizontal tow direction where the slicer permits",
+    "vertical_wall_finish": "normal perimeters; no global fuzzy skin",
+    "micro_detail_policy": "three shallow longitudinal cues per broad tow are geometric; individual carbon filaments remain a material/toolpath effect",
+    "optional_finish": "thin satin clear coat only after coupon compatibility and dimensional checks",
+    "truth_in_material": "carbon-look surface only; no carbon-laminate structural claim"
+  },
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "sequential",
+    "feature_union_batch": 32,
+    "node_old_space_mb": 2048,
+    "target_peak_rss_mib": 1536,
+    "stop_peak_rss_mib": 3072,
+    "target_triangles_per_module": 750000,
+    "review_triangles_per_module": 1000000,
+    "mesh_stop_mib_per_module": 100,
+    "exact_slicer_stop_seconds": 120
+  }
+}

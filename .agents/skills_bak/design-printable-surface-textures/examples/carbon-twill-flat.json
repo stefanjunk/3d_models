@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "id": "carbon-twill-flat-top",
+  "intent": {
+    "effect": ["stylized 2x2 twill", "directional gloss", "dark composite look"],
+    "not_claimed": ["real carbon laminate structure", "real fibre-scale geometry"]
+  },
+  "source": {
+    "type": "concept-image",
+    "classification": "repeating directional appearance",
+    "action": "extract band directions and repeat; do not displace the photo directly"
+  },
+  "process": {
+    "technology": "FDM",
+    "nozzle_mm": 0.4,
+    "line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "surface": "horizontal-top",
+    "patch_mm": [80, 40]
+  },
+  "components": [
+    {"name": "CORE", "authority": "parametric", "owns": ["wall", "fits", "edge", "load"]},
+    {"name": "TEXTURE_SKIN", "authority": "vector-and-process", "owns": ["twill scale", "path direction", "material assignment"]}
+  ],
+  "candidates": [
+    {
+      "id": "A",
+      "method": "directed top paths",
+      "parameters": {"zones_deg": [45, -45], "geometric_relief_mm": 0}
+    },
+    {
+      "id": "B",
+      "method": "vector twill shallow relief",
+      "parameters": {"pitch_mm": [1.8, 2.4, 3.2], "stroke_mm": 0.45, "relief_mm": [0.1, 0.2]}
+    },
+    {
+      "id": "C",
+      "method": "material or film baseline",
+      "parameters": {"geometry": "plain"}
+    }
+  ],
+  "integration": {
+    "mode": "one in-place physical print",
+    "retain_part_identity_until_slicing": true,
+    "interface": "positive capture/overlap band verified in layer preview and coupon"
+  },
+  "acceptance": [
+    "twill reads at intended distance under three light angles",
+    "no missing short bands or crossing buildup",
+    "texture skin bonds continuously to core",
+    "mesh and slice time remain below recorded limits",
+    "protected wall and edge dimensions remain in tolerance"
+  ]
+}

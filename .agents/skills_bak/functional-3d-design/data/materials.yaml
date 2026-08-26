@@ -1,0 +1,680 @@
+_meta:
+  version: 1.0.0
+  units: millimetres-celsius
+  warning: Broad filtering data only. Exact supplier datasheet and qualified printer profile override every range or property label.
+  printability_scale: "1=easiest, 5=industrial/specialized"
+materials:
+  pla:
+    display_name: PLA
+    aliases: [polylactic-acid]
+    category: rigid
+    printability: 1
+    enclosure: none
+    drying: optional
+    abrasive: false
+    min_nozzle_mm: 0.25
+    typical_nozzle_c: [190, 230]
+    typical_bed_c: [0, 70]
+    heat_class: low
+    uv_class: poor
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: rigid
+    strengths: [easy-detail, low-warp, stiff, inexpensive]
+    limitations: [creep, heat, brittle-impact, outdoor-aging]
+    uses: [prototype, organizer, display, fixture, low-heat-indoor]
+  pla-plus:
+    display_name: PLA+ / Tough PLA
+    aliases: [pla-plus, tough-pla, impact-pla]
+    category: rigid
+    printability: 1
+    enclosure: none
+    drying: optional
+    abrasive: false
+    min_nozzle_mm: 0.25
+    typical_nozzle_c: [200, 240]
+    typical_bed_c: [40, 70]
+    heat_class: low
+    uv_class: poor
+    impact_class: medium
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: rigid
+    strengths: [easy, often-tougher-than-basic-pla, good-detail]
+    limitations: [not-standardized, supplier-specific, creep, heat]
+    uses: [indoor-functional, toys, organizer, prototype]
+    notes: Never transfer properties between brands without data.
+  petg:
+    display_name: PETG
+    aliases: [pet-g, copolyester]
+    category: rigid-tough
+    printability: 2
+    enclosure: none-or-recommended
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.25
+    typical_nozzle_c: [220, 260]
+    typical_bed_c: [60, 95]
+    heat_class: moderate
+    uv_class: fair
+    impact_class: medium-high
+    fatigue_class: medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: semi-rigid
+    strengths: [tough, layer-adhesion, moisture-resistance, low-warp]
+    limitations: [stringing, bridging, creep, sticky-supports]
+    uses: [housing, bracket, mechanism, wet-environment, container]
+  cpe:
+    display_name: CPE / Co-polyester
+    aliases: [cpe, ht-copolyester]
+    category: rigid-tough
+    printability: 2
+    enclosure: recommended
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [240, 285]
+    typical_bed_c: [70, 110]
+    heat_class: moderate-high
+    uv_class: fair
+    impact_class: high
+    fatigue_class: medium
+    wear_class: medium
+    chemical_class: medium-high
+    flexibility: semi-rigid
+    strengths: [tough, chemical-resistance, layer-adhesion]
+    limitations: [supplier-specific, moisture, higher-temperature]
+    uses: [technical-housing, fixture, chemical-environment]
+  petg-cf:
+    display_name: PETG-CF
+    aliases: [petg-carbon-fiber]
+    category: rigid-composite
+    printability: 2
+    enclosure: none-or-recommended
+    drying: required
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [230, 280]
+    typical_bed_c: [60, 100]
+    heat_class: moderate
+    uv_class: fair
+    impact_class: medium
+    fatigue_class: low-medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: rigid
+    strengths: [stiff, dimensionally-stable, matte-finish]
+    limitations: [abrasive, reduced-ductility, anisotropic, supplier-specific]
+    uses: [fixture, rigid-housing, jig, panel]
+  petg-gf:
+    display_name: PETG-GF
+    aliases: [petg-glass-fiber]
+    category: rigid-composite
+    printability: 2
+    enclosure: recommended
+    drying: required
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [230, 285]
+    typical_bed_c: [65, 105]
+    heat_class: moderate
+    uv_class: fair
+    impact_class: medium
+    fatigue_class: low-medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: rigid
+    strengths: [stiff, dimensionally-stable]
+    limitations: [abrasive, reduced-ductility, anisotropic]
+    uses: [fixture, rigid-bracket, housing]
+  abs:
+    display_name: ABS
+    aliases: [acrylonitrile-butadiene-styrene]
+    category: rigid-tough
+    printability: 3
+    enclosure: required
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [230, 270]
+    typical_bed_c: [85, 115]
+    heat_class: high
+    uv_class: poor
+    impact_class: high
+    fatigue_class: medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: semi-rigid
+    strengths: [impact, heat, machinable, solvent-weldable]
+    limitations: [warp, odor-emissions, enclosure, uv]
+    uses: [enclosure, appliance-part, automotive-interior, functional-prototype]
+  asa:
+    display_name: ASA
+    aliases: [acrylic-styrene-acrylonitrile]
+    category: rigid-tough
+    printability: 3
+    enclosure: required
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [235, 280]
+    typical_bed_c: [85, 120]
+    heat_class: high
+    uv_class: good
+    impact_class: high
+    fatigue_class: medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: semi-rigid
+    strengths: [outdoor, uv, heat, impact]
+    limitations: [warp, odor-emissions, enclosure]
+    uses: [outdoor-housing, wall-mount, garden, vehicle-exterior-noncritical]
+  hips:
+    display_name: HIPS
+    aliases: [high-impact-polystyrene]
+    category: rigid-light
+    printability: 3
+    enclosure: required
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [220, 250]
+    typical_bed_c: [85, 110]
+    heat_class: moderate
+    uv_class: poor
+    impact_class: medium
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: semi-rigid
+    strengths: [light, machinable, support-option]
+    limitations: [warp, solvent-handling, lower-strength]
+    uses: [support, lightweight-model, prototype]
+  pa6:
+    display_name: PA6 Nylon
+    aliases: [nylon-6, pa6]
+    category: tough-engineering
+    printability: 4
+    enclosure: required
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [250, 300]
+    typical_bed_c: [70, 110]
+    heat_class: high
+    uv_class: fair
+    impact_class: very-high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: high
+    flexibility: semi-rigid
+    strengths: [tough, fatigue, wear, heat]
+    limitations: [very-hygroscopic, warp, dimensional-change]
+    uses: [gear, snap-fit, bushing, mechanism, durable-tool]
+  pa12:
+    display_name: PA12 Nylon
+    aliases: [nylon-12, pa12]
+    category: tough-engineering
+    printability: 4
+    enclosure: recommended
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [245, 295]
+    typical_bed_c: [60, 100]
+    heat_class: high
+    uv_class: fair
+    impact_class: high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: high
+    flexibility: semi-rigid
+    strengths: [tough, fatigue, lower-moisture-than-pa6, chemical]
+    limitations: [hygroscopic, cost, supplier-specific]
+    uses: [gear, clip, bushing, functional-part]
+  copa:
+    display_name: CoPA / Nylon copolymer
+    aliases: [copa, nylon-copolymer]
+    category: tough-engineering
+    printability: 3
+    enclosure: recommended
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [240, 285]
+    typical_bed_c: [50, 100]
+    heat_class: high
+    uv_class: fair
+    impact_class: very-high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: high
+    flexibility: semi-rigid
+    strengths: [tough, layer-adhesion, lower-warp-than-some-nylons]
+    limitations: [hygroscopic, expensive, formulation-specific]
+    uses: [snap-fit, gear, mechanism, durable-part]
+  pa-cf:
+    display_name: PA-CF
+    aliases: [nylon-carbon-fiber, pa6-cf, pa12-cf]
+    category: rigid-engineering-composite
+    printability: 4
+    enclosure: required
+    drying: required
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [255, 310]
+    typical_bed_c: [70, 115]
+    heat_class: high
+    uv_class: fair
+    impact_class: medium-high
+    fatigue_class: medium
+    wear_class: high
+    chemical_class: high
+    flexibility: rigid
+    strengths: [stiff, stable, heat, technical-finish]
+    limitations: [abrasive, anisotropic, lower-elongation, very-hygroscopic]
+    uses: [fixture, rigid-bracket, tool, housing]
+  pa-gf:
+    display_name: PA-GF
+    aliases: [nylon-glass-fiber]
+    category: rigid-engineering-composite
+    printability: 4
+    enclosure: required
+    drying: required
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [255, 315]
+    typical_bed_c: [70, 120]
+    heat_class: high
+    uv_class: fair
+    impact_class: medium-high
+    fatigue_class: medium
+    wear_class: high
+    chemical_class: high
+    flexibility: rigid
+    strengths: [stiff, heat, stable]
+    limitations: [abrasive, anisotropic, lower-elongation, hygroscopic]
+    uses: [rigid-bracket, fixture, housing]
+  pc:
+    display_name: Polycarbonate
+    aliases: [pc]
+    category: tough-engineering
+    printability: 4
+    enclosure: required
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [270, 320]
+    typical_bed_c: [100, 130]
+    heat_class: very-high
+    uv_class: fair
+    impact_class: very-high
+    fatigue_class: medium-high
+    wear_class: medium
+    chemical_class: medium
+    flexibility: semi-rigid
+    strengths: [impact, heat, strength]
+    limitations: [warp, chamber, moisture, adhesion]
+    uses: [hot-housing, strong-fixture, protective-part]
+  pc-blend:
+    display_name: PC blend
+    aliases: [pc-abs, easy-pc]
+    category: tough-engineering
+    printability: 3
+    enclosure: required
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [250, 305]
+    typical_bed_c: [90, 120]
+    heat_class: high
+    uv_class: fair
+    impact_class: high
+    fatigue_class: medium
+    wear_class: medium
+    chemical_class: medium
+    flexibility: semi-rigid
+    strengths: [impact, heat, easier-than-pure-pc]
+    limitations: [not-standardized, warp, supplier-specific]
+    uses: [technical-housing, fixture, enclosure]
+  tpu-95a:
+    display_name: TPU 95A
+    aliases: [flex-95a, tpu]
+    category: flexible
+    printability: 3
+    enclosure: none
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [215, 250]
+    typical_bed_c: [30, 70]
+    heat_class: moderate
+    uv_class: fair
+    impact_class: very-high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: medium-high
+    flexibility: flexible
+    strengths: [grip, impact, abrasion, flex, gasket]
+    limitations: [slow, stringing, dimensional-compliance, bridge-poor]
+    uses: [foot, tire, gasket, shoe-sole, bumper, hinge]
+  tpu-soft:
+    display_name: Soft TPU/TPE 60A–90A
+    aliases: [soft-tpu, tpe]
+    category: very-flexible
+    printability: 4
+    enclosure: none
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [210, 255]
+    typical_bed_c: [20, 70]
+    heat_class: moderate
+    uv_class: fair
+    impact_class: very-high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: medium
+    flexibility: very-flexible
+    strengths: [soft-touch, seal, damping, flex]
+    limitations: [very-slow, feed-path, dimensional-control]
+    uses: [seal, pad, wearable, soft-grip]
+  pp:
+    display_name: Polypropylene
+    aliases: [pp]
+    category: semi-rigid
+    printability: 4
+    enclosure: recommended
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [220, 270]
+    typical_bed_c: [70, 110]
+    heat_class: moderate-high
+    uv_class: poor-fair
+    impact_class: high
+    fatigue_class: very-high
+    wear_class: medium-high
+    chemical_class: very-high
+    flexibility: semi-rigid
+    strengths: [living-hinge, fatigue, chemical, low-density]
+    limitations: [bed-adhesion, warp, bonding]
+    uses: [living-hinge, container, chemical-part, flexure]
+  pvb:
+    display_name: PVB
+    aliases: [polyvinyl-butyral]
+    category: visual
+    printability: 2
+    enclosure: none
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [205, 235]
+    typical_bed_c: [60, 85]
+    heat_class: low
+    uv_class: fair
+    impact_class: low-medium
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: rigid
+    strengths: [translucency, solvent-smoothing, visual-finish]
+    limitations: [not-structural-default, solvent-safety, moisture]
+    uses: [lamp-shade, visual-model, decorative]
+  pom:
+    display_name: POM / Acetal
+    aliases: [pom, acetal]
+    category: tribological-engineering
+    printability: 5
+    enclosure: required
+    drying: supplier-specific
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [210, 240]
+    typical_bed_c: [100, 130]
+    heat_class: high
+    uv_class: poor
+    impact_class: high
+    fatigue_class: high
+    wear_class: very-high
+    chemical_class: high
+    flexibility: semi-rigid
+    strengths: [low-friction, wear, fatigue]
+    limitations: [very-poor-adhesion, warp, specialized-process]
+    uses: [specialized-bushing, gear]
+    notes: Often better purchased as machined acetal for precision wear parts.
+  wood-fill:
+    display_name: Wood-filled PLA/PHA
+    aliases: [woodfill, wood]
+    category: decorative-composite
+    printability: 2
+    enclosure: none
+    drying: recommended
+    abrasive: mild
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [190, 230]
+    typical_bed_c: [0, 70]
+    heat_class: low
+    uv_class: poor
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: rigid
+    strengths: [wood-appearance, sandable]
+    limitations: [clog-risk, weaker, moisture, variable-fill]
+    uses: [display, ornament, organizer-skin]
+  metal-fill:
+    display_name: Metal-filled polymer
+    aliases: [bronze-fill, copper-fill, steel-fill]
+    category: decorative-composite
+    printability: 3
+    enclosure: supplier-specific
+    drying: recommended
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [190, 260]
+    typical_bed_c: [0, 90]
+    heat_class: polymer-dependent
+    uv_class: polymer-dependent
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: low
+    flexibility: rigid
+    strengths: [weight, polishable, appearance]
+    limitations: [abrasive, brittle, dense, clog-risk]
+    uses: [decorative, prop, counterweight-noncritical]
+  glow-fill:
+    display_name: Glow-in-the-dark composite
+    aliases: [glow]
+    category: decorative-composite
+    printability: 2
+    enclosure: polymer-dependent
+    drying: polymer-dependent
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [190, 260]
+    typical_bed_c: [0, 90]
+    heat_class: polymer-dependent
+    uv_class: fair
+    impact_class: polymer-dependent
+    fatigue_class: polymer-dependent
+    wear_class: low
+    chemical_class: polymer-dependent
+    flexibility: rigid
+    strengths: [luminescence]
+    limitations: [very-abrasive, nozzle-wear]
+    uses: [marker, toy-detail, sign]
+  conductive-esd:
+    display_name: Conductive / ESD filament
+    aliases: [conductive, esd]
+    category: specialty
+    printability: 3
+    enclosure: polymer-dependent
+    drying: supplier-specific
+    abrasive: often
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [200, 285]
+    typical_bed_c: [40, 110]
+    heat_class: polymer-dependent
+    uv_class: polymer-dependent
+    impact_class: supplier-specific
+    fatigue_class: supplier-specific
+    wear_class: supplier-specific
+    chemical_class: supplier-specific
+    flexibility: supplier-specific
+    strengths: [static-dissipation, sensing-prototype]
+    limitations: [not-wire, resistance-variability, certification-specific]
+    uses: [esd-fixture, low-current-sensor-prototype]
+  pva:
+    display_name: PVA soluble support
+    aliases: [pva]
+    category: support
+    printability: 4
+    enclosure: none
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [185, 225]
+    typical_bed_c: [40, 70]
+    heat_class: not-service-material
+    uv_class: poor
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: water-soluble
+    flexibility: semi-rigid
+    strengths: [water-soluble-support]
+    limitations: [very-hygroscopic, compatibility, storage]
+    uses: [support-interface]
+  bvoh:
+    display_name: BVOH soluble support
+    aliases: [bvoh]
+    category: support
+    printability: 4
+    enclosure: none
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [185, 225]
+    typical_bed_c: [40, 70]
+    heat_class: not-service-material
+    uv_class: poor
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: water-soluble
+    flexibility: semi-rigid
+    strengths: [water-soluble-support, often-fast-dissolve]
+    limitations: [very-hygroscopic, cost, compatibility]
+    uses: [support-interface]
+  breakaway-support:
+    display_name: Breakaway support filament
+    aliases: [breakaway]
+    category: support
+    printability: 3
+    enclosure: polymer-dependent
+    drying: recommended
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [210, 260]
+    typical_bed_c: [40, 100]
+    heat_class: not-service-material
+    uv_class: not-applicable
+    impact_class: low
+    fatigue_class: low
+    wear_class: low
+    chemical_class: not-applicable
+    flexibility: semi-rigid
+    strengths: [clean-support-interface, no-dissolving]
+    limitations: [material-pair-compatibility, dual-extrusion]
+    uses: [support-interface]
+  pei-ultem:
+    display_name: PEI / ULTEM family
+    aliases: [pei, ultem]
+    category: high-performance
+    printability: 5
+    enclosure: industrial-heated
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [350, 410]
+    typical_bed_c: [140, 180]
+    heat_class: extreme
+    uv_class: high
+    impact_class: high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: very-high
+    flexibility: rigid
+    strengths: [heat, chemical, dimensional, engineering]
+    limitations: [industrial-printer, heated-chamber, cost, qualification]
+    uses: [qualified-aerospace-medical-industrial-only]
+  peek:
+    display_name: PEEK
+    aliases: [peek]
+    category: high-performance
+    printability: 5
+    enclosure: industrial-heated
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [360, 430]
+    typical_bed_c: [130, 170]
+    heat_class: extreme
+    uv_class: high
+    impact_class: high
+    fatigue_class: high
+    wear_class: very-high
+    chemical_class: extreme
+    flexibility: rigid
+    strengths: [heat, chemical, wear, engineering]
+    limitations: [industrial-printer, crystallization-control, cost, qualification]
+    uses: [qualified-high-performance-only]
+  pekk:
+    display_name: PEKK
+    aliases: [pekk]
+    category: high-performance
+    printability: 5
+    enclosure: industrial-heated
+    drying: required
+    abrasive: false
+    min_nozzle_mm: 0.4
+    typical_nozzle_c: [340, 420]
+    typical_bed_c: [120, 170]
+    heat_class: extreme
+    uv_class: high
+    impact_class: high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: extreme
+    flexibility: rigid
+    strengths: [heat, chemical, engineering]
+    limitations: [industrial-printer, process-control, cost, qualification]
+    uses: [qualified-high-performance-only]
+  pps-cf:
+    display_name: PPS-CF
+    aliases: [pps-carbon-fiber]
+    category: high-performance-composite
+    printability: 5
+    enclosure: industrial-heated
+    drying: required
+    abrasive: true
+    min_nozzle_mm: 0.6
+    typical_nozzle_c: [310, 360]
+    typical_bed_c: [120, 160]
+    heat_class: extreme
+    uv_class: high
+    impact_class: medium-high
+    fatigue_class: high
+    wear_class: high
+    chemical_class: extreme
+    flexibility: rigid
+    strengths: [heat, chemical, stiffness, dimensional]
+    limitations: [industrial-printer, abrasive, cost, qualification]
+    uses: [qualified-high-performance-fixture]

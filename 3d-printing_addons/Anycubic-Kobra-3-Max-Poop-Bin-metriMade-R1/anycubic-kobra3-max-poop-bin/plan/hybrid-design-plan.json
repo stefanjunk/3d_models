@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "ANYCUBIC-K3MAX-POOP-BIN-R1",
+    "title": "Original removable purge-waste bin for Anycubic Kobra 3 Max",
+    "source_modes": ["design_description", "measurements"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "USER-K3MAX-PETG-0.20-TO-BE-VERIFIED"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "center of bin outer bottom plane",
+      "x_axis": "+X across bin width",
+      "y_axis": "+Y toward high rear shield and printer",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major 4x4 source-to-project matrix"
+    },
+    "master_envelope_mm": {"min": [-84.0, -59.0, 0.0], "max": [84.0, 59.0, 152.0]},
+    "requirements": [
+      {"id": "REQ-001", "statement": "Catch purge waste without entering the printer motion envelope.", "evidence_class": "requested", "source": "user brief", "priority": "critical", "verification": "physical full-travel and three-cycle purge test"},
+      {"id": "REQ-002", "statement": "Use an original design and no third-party model geometry.", "evidence_class": "requested", "source": "user brief", "priority": "critical", "verification": "provenance and package audit"},
+      {"id": "REQ-003", "statement": "Remain support-free with 0.4 mm nozzle PETG defaults.", "evidence_class": "requested", "source": "printability objective", "priority": "important", "verification": "slicer preview and prototype"},
+      {"id": "REQ-004", "statement": "Carry metriMade branding and literal metrimade.com text with up to four logo colors.", "evidence_class": "requested", "source": "user brief and supplied SVG", "priority": "important", "verification": "3MF material/solid audit and appearance review"},
+      {"id": "REQ-005", "statement": "Unknown machine hole spacing shall be isolated from the large print through a low-cost fit gauge and adjustable bracket.", "evidence_class": "inferred", "source": "official repair guide lacks dimensions", "priority": "critical", "verification": "gauge fit and measured hole spacing"}
+    ],
+    "global_style": {
+      "summary": "restrained rounded utility form with navy body and metriMade four-color side badges",
+      "motifs": ["tapered walls", "high rear catch shield", "rounded continuous rim", "flat brand plaque"],
+      "exclude": ["copied community geometry", "thin unsupported hooks", "texture noise", "deep side-wall engraving"],
+      "generation_material": "navy PETG body; color-matched PETG or PLA badge",
+      "detail_hierarchy": "functional catch envelope first, removable interface second, branding third"
+    },
+    "assembly_sequence": [
+      "Print and verify the machine-side fit gauge.",
+      "Print and install the bracket with verified M3 hardware.",
+      "Print the bin upright and engage both rim hooks.",
+      "Print one or two four-color badges and bond them to clean side faces.",
+      "Run full-motion and supervised purge tests before unattended use."
+    ]
+  },
+  "decision_log": [
+    {"id": "DEC-001", "topic": "Machine screw spacing and local keep-out", "status": "open", "current_basis": "Official guide confirms screws and positioning holes but gives no spacing.", "evidence_needed": "Printed gauge fit and physical measurement.", "blocks_gates": ["physical", "release"]},
+    {"id": "DEC-002", "topic": "Replacement screw length", "status": "provisional", "current_basis": "Official bundle lists M3x7; a 3.2 mm added plate suggests M3x10 as a starting point.", "evidence_needed": "Verify thread engagement and no bottoming on the printer.", "blocks_gates": ["physical", "release"]},
+    {"id": "DEC-003", "topic": "Balanced versus compact body", "status": "resolved", "current_basis": "Balanced provides 1.86 l geometric capacity at about 263 g PETG and fits the official build area.", "evidence_needed": "Slicer time/material comparison remains useful but does not change the selected geometry.", "blocks_gates": []}
+  ],
+  "components": [
+    {
+      "id": "BIN", "name": "Tapered catch bin", "role": "capture, store and permit clean removal of purge waste", "authority": "parametric", "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-001", "params/bin-balanced.json"], "confidence": "high"},
+      "functions": ["catch waste", "provide high rear shield", "provide reinforced hook rim"],
+      "envelope_mm": {"min": [-84.0, -59.0, 0.0], "max": [84.0, 59.0, 152.0]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM", "material": "PETG", "color_body": "navy or user choice", "orientation": "bottom on build plate"},
+      "interface_ids": ["IF-BRACKET-BIN", "IF-BIN-BADGE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.05, "checks": ["2.4 mm wall", "2.6 mm floor", "open cavity", "continuous rim", "bed fit"]}
+    },
+    {
+      "id": "BRACKET", "name": "Adjustable machine bracket", "role": "carry the removable bin from the purge-wiper sheet metal", "authority": "parametric", "representation": "mesh",
+      "source": {"kind": "measurements", "refs": ["official purge-wiper repair guide", "params/mount-bracket.json"], "confidence": "medium"},
+      "functions": ["accept two M3 screws", "hook under bin rim", "spread local load"],
+      "envelope_mm": {"min": [-34.0, 0.0, 0.0], "max": [34.0, 42.0, 14.0]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM", "material": "PETG", "color_body": "teal or body color", "orientation": "machine-facing plate flat on bed"},
+      "interface_ids": ["IF-HARDWARE-BRACKET", "IF-BRACKET-BIN"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.4, "checks": ["open M3 slot", "two connected hooks", "no support"]}
+    },
+    {
+      "id": "GAUGE", "name": "Machine-side fit gauge", "role": "low-material physical calibration before bracket production", "authority": "parametric", "representation": "mesh",
+      "source": {"kind": "derived", "refs": ["BRACKET", "IF-HARDWARE-BRACKET"], "confidence": "high"},
+      "functions": ["check two-screw compatibility", "record actual spacing"],
+      "envelope_mm": {"min": [-34.0, -8.0, 0.0], "max": [34.0, 8.0, 1.2]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM coupon", "material": "PETG", "color_body": "aqua or scrap color", "orientation": "flat"},
+      "interface_ids": ["IF-HARDWARE-BRACKET"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.4, "checks": ["52 x 4 mm slot", "1.2 mm thickness", "physical fit"]}
+    },
+    {
+      "id": "BADGE", "name": "Four-color metriMade badge", "role": "brand identity without weakening the catch wall", "authority": "parametric", "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["evidence/metrimade-lockup-horizontal-color.svg", "REQ-004"], "confidence": "high"},
+      "functions": ["display metriMade logo", "display metrimade.com", "permit four-filament output"],
+      "envelope_mm": {"min": [-50.0, -22.0, 0.0], "max": [50.0, 22.0, 2.0]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "four-color FDM as separate flat plaque", "material": "same-family PETG or PLA", "color_body": "sand/navy/teal/aqua", "orientation": "sand backing flat on bed"},
+      "interface_ids": ["IF-BIN-BADGE"],
+      "acceptance": {"expected_components": 33, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["four named solids", "0.6 mm color relief", "readable URL", "manual color mapping"]}
+    },
+    {
+      "id": "HARDWARE", "name": "Two M3 screws", "role": "purchased mounting hardware", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["official ACE 2 bundle lists 2x M3x7"], "confidence": "medium"},
+      "functions": ["clamp bracket to printer sheet metal"],
+      "envelope_mm": {"min": [-3.0, -10.0, 0.0], "max": [3.0, 10.0, 10.0]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased", "material": "steel", "color_body": "hardware", "orientation": "normal to machine sheet metal"},
+      "interface_ids": ["IF-HARDWARE-BRACKET"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["thread engagement", "no bottoming", "head support"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-HARDWARE-BRACKET", "a": "HARDWARE", "b": "BRACKET", "owner": "BRACKET", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,33], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "horizontal_capsule_slot", "length_mm": 52.0, "width_mm": 4.0, "nominal_fastener": "M3"},
+      "joining": {"method": "two M3 screws", "assembly_direction": "normal to printer sheet metal", "anti_rotation": "two screw heads clamping a single slot", "lead_in_mm": 0.4, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.5, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 20.0, "solver_margin_mm": 0.2},
+      "seam_band_mm": 0.0, "keepout_ids": ["KEEP-MACHINE"],
+      "requirements": {"minimum_wall_mm": 3.2, "minimum_ligament_mm": 4.0, "load_or_flow": "carry bin self-weight and accumulated purge waste"},
+      "verification": ["fit gauge", "measure hole spacing", "verify screw engagement", "full travel test"]
+    },
+    {
+      "id": "IF-BRACKET-BIN", "a": "BRACKET", "b": "BIN", "owner": "BIN", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [0,59,140], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "continuous_rim_with_two_hooks", "hook_center_spacing_mm": 44.0, "hook_depth_mm": 14.0},
+      "joining": {"method": "drop bin rim into two hooks", "assembly_direction": "-Z", "anti_rotation": "two laterally spaced hooks", "lead_in_mm": 1.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.4, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.2, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.4, "solver_margin_mm": 0.2},
+      "seam_band_mm": 3.0, "keepout_ids": ["KEEP-PURGE-STREAM", "KEEP-MACHINE"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4.0, "load_or_flow": "support removable bin while leaving purge path open"},
+      "verification": ["two-hook engagement", "retention pull test", "bin removal test", "supervised purge test"]
+    },
+    {
+      "id": "IF-BIN-BADGE", "a": "BIN", "b": "BADGE", "owner": "BIN", "kind": "adhesive_backer",
+      "local_frame": {"origin_mm": [81,0,62], "x_axis": [0,1,0], "y_axis": [0,0,1], "z_axis": [1,0,0]},
+      "nominal_geometry": {"type": "flat_badge_on_planar_tapered_side", "width_mm": 100.0, "height_mm": 44.0},
+      "joining": {"method": "thin PETG-compatible tape or adhesive", "assembly_direction": "normal to side face", "anti_rotation": "full rectangular bond area", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.2, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 0.2},
+      "seam_band_mm": 2.0, "keepout_ids": ["KEEP-MACHINE"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 2.4, "load_or_flow": "appearance only; no structural load"},
+      "verification": ["clean flat bond", "appearance review", "no machine collision"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-MACHINE", "type": "aabb", "purpose": "conservative planning proxy for toolhead, bed, cable, wiper and sheet-metal motion; replace through physical check", "min_mm": [-120,-90,0], "max_mm": [120,90,200], "source": "official images plus physical verification"},
+    {"id": "KEEP-PURGE-STREAM", "type": "aabb", "purpose": "planning proxy for fall path from purge chute into bin opening", "min_mm": [-30,40,110], "max_mm": [30,80,190], "source": "official purge-wiper documentation plus supervised test"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "validate hybrid plan and trace requirements to components and interfaces", "acceptance": "no unresolved references and one declared interface owner"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "review parameter envelopes and machine-side fit-gauge coverage", "acceptance": "all components remain independently replaceable and uncertainty is isolated in the gauge/bracket"},
+    {"id": "VAL-COMP", "gate": "component", "method": "deterministic STL edge/topology/volume audit", "acceptance": "all solids closed, positive volume, no boundary/non-manifold/degenerate/duplicate faces"},
+    {"id": "VAL-INT", "gate": "integration", "method": "validate hook spacing, continuous rim, M3 slot and common badge coordinate frame", "acceptance": "declared digital interfaces pass; physical machine-fit stays visible"},
+    {"id": "VAL-3MF", "gate": "manufacturing", "method": "validate package XML, object/material references and triangle indices", "acceptance": "all structural checks pass and four badge materials exist"},
+    {"id": "VAL-SLICE", "gate": "manufacturing", "method": "Anycubic Slicer Next preview and G-code analysis", "acceptance": "correct walls, no unsupported toolpaths, correct colors, safe purge estimate"},
+    {"id": "VAL-PHYSICAL", "gate": "physical", "method": "fit gauge, full travel, retention and three supervised purge cycles", "acceptance": "all checklist items pass without interference or loosening"}
+  ]
+}

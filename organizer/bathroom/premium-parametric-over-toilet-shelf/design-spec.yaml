@@ -1,0 +1,477 @@
+schema_version: 2
+
+project:
+  id: premium-parametric-over-toilet-shelf
+  name: Premium Parametric Over-Toilet Shelf
+  revision: 0.2.0
+  previous_revision: 0.1.0
+  owner: Stefan
+  claim: new-design
+  state: digitally-validated-draft
+  units: mm
+  note: >-
+    Revision 0.1.0 liegt als nicht freigegebener digitaler Alt-Prototyp vor.
+    Seine Geometrie und Exporte sind keine Freigabegrundlage für Revision 0.2.0.
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.2.0
+    approved_by: Stefan
+    approved_at: 2026-08-20
+  concept_approval:
+    status: approved
+    spec_revision: 0.2.0
+    asset: assets/concept/premium_over_toilet_shelf_r0.2.0_concept.png
+    approved_by: Stefan
+    approved_at: 2026-08-20
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: JSI-WM-001-R1
+    variant: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    approved_by: null
+    approved_at: null
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+  integration_stage: last-planned-solid-geometry-change
+
+requirements_basis:
+  user_stated:
+    - id: USR-001
+      statement: Ein vollständiges, druckbares Premium-Regal für den Raum über dem WC entwerfen.
+    - id: USR-002
+      statement: Das Modell soll stark parametrierbar und individuell anpassbar sein.
+    - id: USR-003
+      statement: Oberflächenfinish, Gravuren, Bildgravur und Dekoelemente sollen anpassbar sein.
+    - id: USR-004
+      statement: Die Regalaufteilung soll Shelf, Bin, Drawer, Hanger und freie Bereiche unterstützen.
+  inferred:
+    - id: INF-001
+      statement: Das Produkt wird in einem feuchten Innenraum genutzt und muss reinigbar sein.
+    - id: INF-002
+      statement: Dekoration und Personalisierung dürfen Lastpfade, Passungen und Montageflächen nicht verändern.
+    - id: INF-003
+      statement: Das System soll zerlegbar, reparierbar und ohne Kleben der Primärstruktur montierbar sein.
+  recommended:
+    - id: REC-001
+      statement: Ausgewogene Hybridfertigung aus gedruckten PETG-Bauteilen und gekauften Metallverbindern/Wandankern.
+    - id: REC-002
+      statement: Ein universelles 256 x 256 x 300 mm Druckbett bleibt das Segmentierungsziel.
+    - id: REC-003
+      statement: Zwei höhenverstellbare Ebenen bilden die Standardkonfiguration.
+    - id: REC-004
+      statement: Personalisierung liegt auf austauschbaren Fronten, Header-Inserts und Dekoelementen.
+  resolved_by_user:
+    - id: RES-001
+      source_message: A A A
+      selected: floor-standing-with-wall-restraint
+      resolved_at: 2026-08-20
+    - id: RES-002
+      source_message: A A A
+      selected: universal-256mm-petg-0.6mm
+      resolved_at: 2026-08-20
+    - id: RES-003
+      source_message: A A A
+      selected: two-level-4kg-udl-premium-layout
+      resolved_at: 2026-08-20
+  unresolved: []
+
+function:
+  summary: >-
+    Modulares Stauraumsystem über einem WC mit verstellbaren Regalböden,
+    austauschbaren Organisationsmodulen und getrennten Personalisierungsflächen.
+  users:
+    - erwachsene Haushaltsnutzer
+  included_functions:
+    - zwei oder mehr konfigurierbare Regalebenen innerhalb des freigegebenen Rahmens
+    - offene Ablageflächen
+    - herausnehmbare Bins und Trays
+    - vollständig entnehmbare Drawer mit gedrucktem Housing
+    - umsetzbare Hanger und Divider
+    - austauschbare Frontblenden und Header-Inserts
+    - Textgravur oder Textprägung
+    - optionale kontinuierliche Bildgravur oder Bildprägung
+    - montagefreundliche Segmentierung für den Zieldruckraum
+  excluded_functions:
+    - Sitz, Tritt, Griff, Kletterhilfe oder Kindersicherung
+    - ungesicherter freistehender Betrieb
+    - Lebensmittel- oder Medizinproduktkontakt
+    - Lastfreigabe ohne physische Prüfung
+  interfaces:
+    - floor-standing-load-bearing-feet
+    - wall-anti-tip-restraint
+    - segmented-side-frame-joints
+    - adjustable-shelf-brackets
+    - shelf-tile-seams
+    - module-grid
+    - replaceable-decor-skins
+
+risk:
+  class: structural
+  rationale: >-
+    Das Regal trägt Gegenstände über einem WC und benötigt eine sichere Trag- und
+    Anti-Kipp-Struktur; Versagen kann zu herabfallenden Gegenständen oder Kippen führen.
+  hazards:
+    - Kippen bei fehlender oder ungeeigneter Wandbefestigung
+    - Herabfallen von Bauteilen oder gelagerten Gegenständen
+    - Kriechen oder Bruch gedruckter Lastpfade in warmer, feuchter Umgebung
+    - Quetschen an Drawer und modularen Verbindungen
+  assumptions:
+    - Montage erfolgt durch eine erwachsene Person.
+    - Wandaufbau und geeignete Anker werden vor Montage identifiziert.
+    - Keine Person stützt sich auf das Regal.
+  required_human_review:
+    - Wand- und Ankerwahl
+    - reale Aufstands- oder Bodenmaße
+    - physische Last-, Kipp- und Dauertests
+
+fabrication:
+  preference: balanced-hybrid
+  assembly_target: moderate-serviceable
+  repairability: required
+  printed:
+    - frame segments
+    - shelf tiles and brackets
+    - module bodies
+    - decor skins and relief inserts
+    - spacers, feet and alignment parts
+  purchased:
+    - M4 and M5 screws, washers and locking nuts
+    - heat-set inserts where repeated service is required
+    - substrate-specific wall anchors and screws
+    - optional TPU anti-slip pads or sheet stock
+  prohibited_primary_joints:
+    - untestable printed snap-fits in the main load path
+    - adhesive-only structural joints
+
+printer:
+  model: universal-256mm-class
+  build_volume_mm: [256, 256, 300]
+  basis: user-selected-recommendation
+  enclosure: false
+  hardened_nozzle_available: not-required-for-unfilled-petg
+  drying_available: recommended
+
+manufacturing:
+  process: fdm-fff
+  structural_material: PETG
+  decorative_materials:
+    - PETG
+    - PLA for nonstructural replaceable inserts only
+  flexible_material: TPU-95A optional
+  nozzle_mm: 0.6
+  line_width_mm: 0.68
+  layer_height_mm:
+    structural: 0.30
+    decorative: [0.20, 0.24]
+  supports_target: none-or-local-only
+  target_formats:
+    - editable-cad-source
+    - STEP
+    - 3MF
+    - STL
+    - assembly-preview
+    - validation-reports
+  profile_status: provisional-until-printer-confirmed
+
+dimensions:
+  units: mm
+  coordinate_datum: rear frame plane Y=0; +Y toward user; +Z upward; X centered
+  configurable_envelope:
+    overall_width_mm: [580, 850]
+    overall_depth_mm: [220, 350]
+    overall_height_mm: [1400, 1900]
+    toilet_clear_width_mm: [480, 700]
+    toilet_clear_height_mm: [850, 1150]
+    shelf_depth_mm: [180, 300]
+    wall_gap_mm: [0, 80]
+    status: user-selected-floor-standing-family
+  default_floor_standing_configuration:
+    overall_width_mm: 680
+    overall_depth_mm: 300
+    overall_height_mm: 1650
+    toilet_clear_width_mm: 560
+    toilet_clear_height_mm: 950
+    shelf_clear_width_mm: 620
+    shelf_depth_mm: 240
+    shelf_levels_from_floor_mm: [1050, 1400]
+    wall_gap_mm: 20
+    baseboard_keepout_mm: [20, 100]
+    floor_contact: four-load-spreading-feet-with-optional-tpu-pads
+    wall_restraint: two-height-adjustable-rear-brackets-minimum
+    status: user-selected-recommended-default
+  legacy_cistern_top_default:
+    frame_outer_width_mm: 480
+    shelf_clear_width_mm: 427
+    shelf_depth_mm: 230
+    height_above_cistern_mm: 566.2
+    cistern_top_width_mm: 540
+    cistern_top_depth_mm: 190
+    wall_gap_mm: 8
+    status: prior-digital-prototype-only
+  required_site_measurements:
+    - WC and cistern maximum width
+    - cistern depth and lid service path
+    - floor-to-cistern and desired total height
+    - clear wall width and wall gap
+    - baseboard/pipe/flush-button keep-outs
+    - wall substrate and anchor limits
+
+architecture:
+  representation_authority:
+    frame-and-load-path: parametric-brep
+    fit-and-fastener-interfaces: parametric-brep
+    bins-drawers-trays-hangers: parametric-brep
+    repeatable-surface-patterns: vector-or-procedural
+    continuous-tone-image-relief: localized-16bit-heightmap
+    standard-fasteners-and-anchors: purchased
+  modules:
+    allowed_types:
+      - open
+      - shelf
+      - bin
+      - tray
+      - drawer
+      - divider
+      - hanger
+    grid_columns_default: 6
+    level_count_default: 2
+    default_layout:
+      lower: [drawer-3-columns, bin-3-columns, hanger-2]
+      upper: [open-shelf, tray-optional, hanger-1]
+    layout_basis: recommended
+  protected_geometry:
+    - frame and shelf load paths
+    - bolt, nut, washer and insert seats
+    - drawer rails and swept volume
+    - shelf top datum and module seating faces
+    - wall-restraint axes and bearing faces
+    - base contact and anti-slip faces
+    - seams, keys and alignment datums
+
+appearance:
+  style: quiet-premium-bathroom-furniture
+  basis: inferred-and-recommended
+  form_language:
+    - softened edges
+    - clean modular rhythm
+    - concealed or orderly visible hardware
+    - replaceable accent surfaces
+  finish_options:
+    smooth: material-or-slicer-finish
+    matte: filament-and-process-finish
+    fluted: procedural-macro-relief
+    ribs: procedural-macro-relief
+    diamond: vector-or-procedural-relief
+    wood-look: material-or-vector-grain; no dense raster by default
+    stone-look: material-finish or shallow localized texture after coupon
+    fuzzy: slicer-defined only on nonfunctional outer faces
+  text_personalization:
+    modes: [engrave, emboss, inlay]
+    replaceable_surfaces_preferred: true
+  image_personalization:
+    modes: [engrave, emboss]
+    representation: replaceable-localized-continuous-tone-heightmap-insert
+    source_master: immutable-16bit-grayscale
+    default_patch_mm: [180, 70]
+    default_pitch_mm: [0.60, 0.60]
+    default_depth_mm: 0.45
+    minimum_remaining_wall_mm: 1.20
+    physical_aspect_error_max_pct: 0.75
+    functional_keepouts_required: true
+  decorative_elements:
+    strategy: separate-keyed-or-captured-inserts
+    allowed_examples:
+      - botanical motif
+      - geometric badge
+      - monogram
+      - replaceable side accent
+
+loads:
+  - id: shelf-service-load
+    value: 4
+    unit: kg
+    distribution: evenly-distributed-per-shelf
+    status: recommended-target-not-rated
+  - id: shelf-proof-load
+    value: 8
+    unit: kg
+    duration: 1 hour
+    status: planned-physical-test
+  - id: anti-tip-load
+    value: 100
+    unit: N
+    application: horizontal-pull-at-upper-front-edge-for-60-seconds
+    status: internal-design-target-not-a-certified-rating
+
+duty:
+  service_life_target_years: 5
+  drawer_cycles_target: 5000
+  shelf_load_cycles_test: 1000
+  maintenance:
+    - modules removable for cleaning
+    - primary fasteners inspectable and retightenable
+    - decor replaceable without dismantling the load path
+  status: approved-targets-unverified-by-long-term-evidence
+
+environment:
+  indoor_outdoor: indoor
+  location: bathroom
+  temperature_c: [10, 40]
+  moisture: high-humidity-and-occasional-splash
+  uv: low
+  chemicals:
+    allowed: mild-household-bathroom-cleaner-after-material-check
+    excluded: aggressive-solvents-and-unknown-disinfectants
+
+purchased_parts:
+  - item: M4/M5 fasteners
+    authority: supplier-dimensions-and-material
+    status: exact-part-numbers-pending
+  - item: wall anchors and screws
+    authority: substrate-specific-supplier-data-and-installer
+    status: release-blocking
+  - item: heat-set inserts
+    authority: measured-supplier-part
+    status: coupon-required
+
+optimization:
+  status: pending
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: reports/optimization-baseline.md
+  rationale: Digital baseline exists; exact process comparison is blocked because no target slicer/profile is installed or confirmed.
+  mesh_simplification:
+    status: pending
+    master_mesh: null
+    manufacturing_mesh: null
+    method: null
+    tolerance_mm: null
+    protected_regions:
+      - functional interfaces
+      - bed-contact faces
+      - text and image relief
+      - seams and datums
+    comparison_report: reports/mesh-complexity.md
+    resource_budget:
+      triangle_target: 1000000
+      triangle_stop: 5000000
+      peak_memory_gib: 4
+      max_mesh_mib: 60
+      max_slicer_seconds: 120
+    slicer_resolution_check:
+      status: pending
+      report: null
+    rationale: Ordinary CAD meshes are modest and lossy decimation is not beneficial; final policy remains blocked by exact slicing, separate immutable mesh packaging and watermark regression.
+
+acceptance:
+  - id: requirements-current
+    criterion: Requirements approval explicitly references project revision 0.2.0.
+    method: workflow gate review
+  - id: concept-current
+    criterion: Approved concept image explicitly references the approved project revision.
+    method: workflow gate review
+  - id: geometry-valid
+    criterion: Every manufacturing mesh is watertight, positive-volume and has the intended body count.
+    method: automated mesh validation plus independent review
+  - id: bed-fit
+    criterion: Every part fits the confirmed build volume in its intended print orientation.
+    method: bounds check and exact target slicer
+  - id: interface-fit
+    criterion: Segment, fascia, drawer and insert interfaces pass process-matched coupons without damage or unintended looseness.
+    method: physical coupon matrix
+  - id: shelf-deflection
+    criterion: At 4 kg evenly distributed service load, measured midspan deflection is at most 2.0 mm after 24 hours and residual set is at most 0.5 mm after unloading.
+    method: physical creep test on production process
+  - id: proof-load
+    criterion: The assembly sustains 8 kg evenly distributed for one hour without cracking, slip or permanent set above 0.5 mm.
+    method: guarded physical proof test
+  - id: cycle-test
+    criterion: Shelf/load interfaces survive 1000 load cycles and the drawer survives 5000 full travel cycles without functional failure.
+    method: physical cycle tests
+  - id: anti-tip
+    criterion: Wall-restraint and selected anchors withstand a 100 N horizontal pull at the upper front edge for 60 seconds without cracking, release, visible anchor movement or frame slip.
+    method: guarded substrate-specific installation test
+  - id: site-fit
+    criterion: Base contact, service clearances, flush control, pipes and lid paths are collision-free on the measured installation.
+    method: measurement review and installation mockup
+  - id: texture-safety
+    criterion: No finish, engraving or decoration enters protected functional geometry.
+    method: CAD keep-out and section review
+  - id: image-relief
+    criterion: Physical aspect error is at most 0.75%, remaining wall at least 1.20 mm, and geometry/mesh/slicer budgets pass independently.
+    method: heightmap metadata, mesh comparison and exact slicer report
+  - id: cleanability
+    criterion: User-accessible modules can be removed and wiped without inaccessible residue traps judged unacceptable in concept review.
+    method: design review and physical cleaning check
+  - id: watermark-release
+    criterion: The exact JSI-WM-001-R1 mark is recessed, readable from the finished underside, process-safe and approved on the current geometry revision.
+    method: references/watermark-release-gate.md
+
+legacy_digital_evidence:
+  revision: 0.1.0
+  status: informative-only-not-current-approval
+  passed:
+    - default build reports 25 watertight positive-volume printable files
+    - image-relief demo reports 25 watertight positive-volume printable files
+    - reported shelf/bracket axis error 0.10 mm against 0.20 mm limit
+    - demo relief reports 142068 triangles, 6.77 MiB and 0.0 percent physical aspect error
+  blocked_or_unknown:
+    - no requirements or concept approval was recorded
+    - compact and wide build evidence is missing
+    - exact target slicer review is missing
+    - physical fit, load, creep, cycle, site-fit and anti-tip tests are missing
+    - wall and ligament measurements are not reported
+    - M4 quantity and image-relief manifest counts are inconsistent
+    - print-time/material and mesh-simplification decisions are incomplete
+
+current_draft_evidence:
+  revision: 0.2.0
+  geometry_revision: r0.2.0-draft.2
+  geometry_candidate: output/rev-0.2.0-draft/
+  status: digital-pass-manufacturing-and-physical-blocked
+  passed:
+    - 42 revision-bound printable files are watertight, consistently wound, positive-volume and within the configured build volume
+    - 69 configured instances include three process coupons; the assembly contains 63 named bodies
+    - four floor contacts, seven side segments per side, three shelf tiles per level and two wall-restraint spacers are present
+    - shelf top datums are 1050 and 1400 mm; shelf/bracket and 50-mm frame-grid axes pass digital checks
+    - hardware-stack planning, locked foot/TPU geometry, complete split-module drawer travel, front module stops, header recess and DRAFT integration checks pass
+    - all six M3 wide-module seam plates have zero modeled gap to their boss tops with open coaxial fastener axes
+  blocked_or_unknown:
+    - no exact target slicer or revision-bound reviewed 3MF is available
+    - exact filament, printer profile, purchased fasteners and wall anchors are unconfirmed
+    - all process coupons, site-fit, creep, proof, cycle, drawer and anti-tip tests are unrun
+    - optimization selection, final mesh packaging, watermark integration and final approval remain open
+
+test_plan: test-plan.yaml
+
+outputs:
+  source: src/
+  configuration: parameters.json
+  editable_cad: output/<variant>/step/
+  manufacturing_meshes: output/<variant>/stl/
+  slicer_project: output/<variant>/3mf/
+  concept_assets: assets/concept/
+  validation: output/<variant>/reports/
+  final_model_report: reports/final-model-result.md
+
+release_blockers:
+  - measured site envelope and keep-outs for each manufacturing configuration
+  - confirmed printer/material/nozzle/profile
+  - exact purchased M3/M4/M5 hardware dimensions and qualified coupons
+  - exact target slicer review
+  - process-matched fit coupons
+  - physical creep, proof, cycle and anti-tip tests
+  - optimization and manufacturing-mesh decisions
+  - JuSt Innovation watermark integration and final release approval

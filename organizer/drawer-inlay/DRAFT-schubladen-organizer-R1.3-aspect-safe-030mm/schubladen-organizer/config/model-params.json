@@ -1,8 +1,8 @@
 {
-  "schema_version": 1,
-  "model_revision": "R1.3-aspect-safe-030mm",
+  "schema_version": 2,
+  "model_revision": "R2-procedural-wood",
   "units": "mm",
-  "quality": "final",
+  "quality": "production-draft",
   "drawer": {
     "inside_width_x": 230.0,
     "inside_depth_y": 360.0,
@@ -37,7 +37,7 @@
     "access_groove_width": 22.0,
     "access_groove_depth": 8.0,
     "access_groove_bottom_radius": 4.0,
-    "floor_relief_margin": 3.0
+    "floor_texture_margin": 2.0
   },
   "connectors": {
     "type": "planar_jigsaw",
@@ -54,23 +54,16 @@
     "slot_radius": 4.2,
     "base_thickness": 3.0
   },
-  "relief": {
+  "surface_texture": {
     "enabled": true,
-    "representation": "continuous-heightfield-u16",
-    "manifest": "../texture/steel-rivets-relief-manifest.json",
-    "emboss_depth": 0.55,
-    "engrave_depth": 0.50,
-    "wall_engrave_depth": 0.50,
-    "outer_panel_recess": 0.35,
-    "outer_wall_engrave_depth": 0.15,
-    "boolean_overlap": 0.08,
-    "wall_band_bottom": 8.0,
-    "wall_band_top": 58.0,
-    "tile_scale": 1.0,
+    "representation": "procedural-vector-wood-grooves",
+    "config": "../config/wood-texture-params.json",
     "watermark_keepout": 1.5,
     "apply_floor": true,
     "apply_inner_walls": true,
-    "apply_outer_walls": true
+    "apply_top_faces": true,
+    "apply_comb_top_faces": true,
+    "apply_outer_walls": false
   },
   "watermark": {
     "enabled": true,
@@ -102,8 +95,8 @@
     "stl_simplify_tolerance_mm": 0.0001,
     "segments_preview": 20,
     "segments_final": 36,
-    "assembly_filename": "DRAFT-R1.3-aspect-safe-030mm-assembly.3mf",
-    "assembly_title": "Schubladen-Organizer R1.3 aspect-safe rebuildable 16-bit 0.30-mm DRAFT",
-    "release_zip_filename": "DRAFT-schubladen-organizer-R1.3-aspect-safe-030mm.zip"
+    "assembly_filename": "DRAFT-R2-procedural-wood-assembly.3mf",
+    "assembly_title": "Schubladen-Organizer R2 compact procedural wood texture DRAFT",
+    "release_zip_filename": "DRAFT-schubladen-organizer-R2-procedural-wood.zip"
   }
 }

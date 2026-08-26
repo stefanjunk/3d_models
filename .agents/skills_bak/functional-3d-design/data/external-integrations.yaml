@@ -1,0 +1,57 @@
+_meta:
+  version: 1.0.0
+  policy: Plan only; do not auto-install or execute third-party code.
+integrations:
+  cadquery-llm-skill:
+    type: skill
+    repository: jmwright/cadquery-llm-skill
+    purpose: B-Rep mindset, CadQuery patterns, examples, documentation guidance.
+    priority: high
+  text-to-cad:
+    type: skill-collection
+    repository: earthtojake/text-to-cad
+    purpose: STEP-first CAD, standard-part search, and slicer/G-code skills.
+    priority: high
+  cadquery-contrib-mcp:
+    type: mcp
+    repository: CadQuery/cadquery-contrib
+    path: mcp-server
+    purpose: Execute/render/inspect/export CadQuery models.
+    priority: high
+  build123d-mcp:
+    type: mcp
+    repository: Ooza/build123d-mcp
+    purpose: build123d and bd_warehouse inspection/rendering.
+    priority: medium
+  freecad-mcp:
+    type: mcp
+    repository: neka-nat/freecad-mcp
+    purpose: FreeCAD document control and experimental FEM automation.
+    priority: medium
+    caution: Review arbitrary Python execution and all FEM assumptions.
+  blender-mcp:
+    type: mcp
+    repository: ahujasid/blender-mcp
+    purpose: Organic mesh editing, scene operations, Python automation.
+    priority: medium
+    caution: Restrict Python, file, and network permissions.
+  ocp-viewer-mcp:
+    type: mcp
+    repository: eddielat/cq-mcp
+    purpose: Visual feedback for CadQuery/OpenCascade geometry.
+    priority: medium
+  step-parts:
+    type: parts-library
+    repository: earthtojake/step.parts
+    purpose: Search off-the-shelf STEP components.
+    priority: high
+  bosl2:
+    type: openscad-library
+    repository: BelfrySCAD/BOSL2
+    purpose: Gears, threads, hinges, joiners, shapes, attachments.
+    priority: high
+  nopscadlib:
+    type: openscad-library
+    repository: nophead/NopSCADlib
+    purpose: Purchased-component vitamins and OpenSCAD framework.
+    priority: high

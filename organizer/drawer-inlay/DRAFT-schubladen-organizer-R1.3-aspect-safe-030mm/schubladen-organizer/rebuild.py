@@ -25,8 +25,9 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def require_python_packages() -> None:
-    missing = [name for name in ("numpy", "PIL") if importlib.util.find_spec(name) is None]
+def require_python_packages(*, r2: bool = False) -> None:
+    required = ("numpy",) if r2 else ("numpy", "PIL")
+    missing = [name for name in required if importlib.util.find_spec(name) is None]
     if missing:
         raise SystemExit(
             "Missing Python dependencies. Run: python3 -m pip install -r requirements.txt"
@@ -38,6 +39,18 @@ def ensure_node_dependencies() -> None:
         return
     print("Installing locked Node.js dependencies (first rebuild only)...", flush=True)
     subprocess.run(["npm", "ci"], cwd=ROOT, check=True, shell=False)
+
+
+def select_rebuild_route(model_revision: str) -> str:
+    return "r2-procedural-wood-draft" if model_revision.startswith("R2-procedural-wood") else "legacy-r1-relief"
+
+
+def validate_r2_arguments(image: Path | None, prepare_only: bool) -> None:
+    if image is not None or prepare_only:
+        raise ValueError(
+            "R2 procedural wood has no raster/heightmap preparation route; "
+            "positional images and --prepare-only are rejected. Run `python3 rebuild.py` with no image."
+        )
 
 
 def main() -> int:
@@ -57,6 +70,28 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    params = load_json(ROOT / "config" / "model-params.json")
+    route = select_rebuild_route(str(params.get("model_revision", "")))
+    if route == "r2-procedural-wood-draft":
+        try:
+            validate_r2_arguments(args.image, args.prepare_only)
+        except ValueError as exc:
+            parser.error(str(exc))
+        require_python_packages(r2=True)
+        ensure_node_dependencies()
+        subprocess.run(
+            [sys.executable, str(ROOT / "src" / "build_pipeline.py")],
+            cwd=ROOT,
+            check=True,
+            shell=False,
+        )
+        print(
+            "R2 DRAFT rebuild complete. No raster/heightmap or release ZIP route was called; "
+            "see reports/build-pipeline-R2-procedural-wood-unmarked.json."
+        )
+        return 0
+
+    # Explicit legacy non-R2 image/heightmap branch.
     require_python_packages()
     relief_cfg_path = ROOT / "config" / "relief-config.json"
     relief_cfg = load_json(relief_cfg_path)

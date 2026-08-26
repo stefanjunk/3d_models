@@ -1,54 +1,60 @@
 project:
-  name: "Parametrischer Schubladen-Organizer mit Stahlplatten-/Nietenrelief"
-  revision: "R1"
+  name: "Parametrischer Schubladen-Organizer mit kompakter Holzoptik"
+  revision: "R2"
   units: "mm"
-  status: "production-R1.3-aspect-safe-030mm-DRAFT"
+  status: "production-R2-procedural-wood-full-module-DRAFT-digital-PASS"
 
 workflow:
   requirements_approval:
     status: "approved"
-    spec_revision: "R1"
+    spec_revision: "R2"
     requested_by: "user"
-    requested_at: "2026-08-11"
+    requested_at: "2026-08-20"
     approved_by: "user"
-    approved_at: "2026-08-11"
-    approval_note: "Vom Nutzer mit 'Anforderungen R1 freigeben.' ausdruecklich freigegeben. R1 umfasst breitere gerundete Griffnuten, vollhoehenverrundete Wandkreuzungen, parametrierbare Wandstaerken und eine tiefere, unregelmaessigere Stahlplatten-/Nietenstruktur."
-    prior_approved_revision: "R0"
+    approved_at: "2026-08-20"
+    approval_note: "Vom Nutzer ueber die Auswahl 'Approve R2 (Recommended)' ausdruecklich freigegeben. Freigegeben sind die sichtbaren Innen-/Oberflaechen einschliesslich Rand-, Trennwand- und Kammoberseiten, die kompakte prozedurale Vektormaserung und ungefuelltes warmbraunes PETG als Standard."
+    prior_approved_revision: "R1"
   concept_approval:
     status: "approved"
-    spec_revision: "R1"
-    concept_asset: "concept-R1.png"
-    asset: "concept-R1.png"
-    texture_concept_asset: "texture/steel-rivets-source-R1.png"
+    spec_revision: "R2"
+    concept_asset: "concept-R2-v5.png"
+    asset: "concept-R2-v5.png"
+    texture_concept_asset: null
     approved_by: "user"
-    approved_at: "2026-08-11"
-    approval_note: "Vom Nutzer mit 'Konzept R1 freigeben' ausdruecklich freigegeben. Produktionsgeometrie und Fertigungs-Heightmap duerfen fuer R1 umgesetzt werden."
-    prior_approved_revision: "R0"
+    approved_at: "2026-08-20"
+    generated_at: "2026-08-20"
+    asset_sha256: "155485877169eb512eaf00240d37b87efd9e20bbe79e41d8d872bcc614fc71b4"
+    approval_note: "Vom Nutzer mit 'Konzept R2 freigeben' ausdruecklich freigegeben. Produktionscode, DRAFT-Geometrie und Fertigungsvalidierung duerfen fuer genau diese R2-Spezifikation beginnen."
+    depiction_limitations:
+      - "Die sehr schmalen sicheren Kammoberseiten zeigen die Maserung perspektivisch nur undeutlich."
+      - "Das Bild beweist weder Nutbreite/-tiefe noch Passung, Slicebarkeit oder Materialzusammensetzung; dafuer gelten Spezifikation und spaetere Fertigungsevidenz."
+    prior_approved_revision: "R1"
     prior_concept_asset: "concept-R0-v2.png"
+    prior_r1_concept_asset: "concept-R1.png"
   watermark_release_gate:
     status: "blocked"
-    spec_revision: "R1"
-    geometry_stage: "reintegrated-after-R1.3-aspect-safe-memory-efficient-030mm-rebuild"
+    spec_revision: "R2"
+    geometry_stage: "R2 procedural-wood full-module DRAFT digitally verified; exact slicer and physical coupons pending"
     asset_id: "JSI-WM-001-R1"
     profile: "compact, scale 1.4, 15.991 x 14.000 mm, 0.40 mm recessed"
     marked_parts: ["driver-front", "driver-back", "hardware-front", "hardware-back"]
     residual_floor: 2.2
     evidence: "reports/watermark-evidence.md"
-    reason: "Digitale R1-Kennzeichnung und geometrische Schichtsimulation PASS; verpflichtende echte Slicer-Vorschau der ersten kennzeichnungstragenden Schichten ist in dieser Umgebung nicht erzeugbar."
+    reason: "Die unmarkierte R2-Vollgeometrie und 3MF sind digital verifiziert. Kennzeichnung bleibt bis zur exakten Slicerpruefung und den physischen Pass-/Holztexturproben gesperrt und wird danach als letzte geplante Geometrieaenderung integriert."
   watermark_approval:
     status: "blocked"
-    spec_revision: "R1"
+    spec_revision: "R2"
     asset_id: "JSI-WM-001-R1"
     variant: "compact"
-    geometry_revision: "reports/geometry-sha256.txt (R1.3 regenerated hashes)"
+    geometry_revision: null
     placement: "druckbettseitige Unterseite aller vier Hauptmodule"
     preview_asset: "reports/watermark-underside.png"
     validation_asset: "reports/watermark-evidence.md"
-    reason: "Digitale Geometrie PASS; echte Slicer-Vorschau fehlt."
+    reason: "Die vier R2-Produktionsmodule sind als absichtlich unmarkierter DRAFT digital stabil. Vor der R2-Kennzeichnungsintegration fehlen noch exakte Slicer- und physische Couponnachweise; alte R1-Freigabeevidenz ist nicht uebertragbar."
   final_release_approval:
     status: "blocked"
-    spec_revision: "R1"
-    reason: "R1 ist digital validiert; echte Slicer-Vorschau und finale Nutzerfreigabe stehen aus."
+    spec_revision: "R2"
+    reason: "R2-Anforderungen und R2-Konzept sind freigegeben; Vollmodule, neun STL-Dateien und die unmarkierte Vierobjekt-3MF bestehen die digitale Pruefung. Exakte Slicer-Evidenz, physische Coupons, Kennzeichnung, Regressionspruefung und finale Nutzerfreigabe stehen noch aus."
 
 branding:
   required: true
@@ -149,7 +155,7 @@ construction:
   floor_thickness:
     value: 2.6
     basis: "recommended"
-    rationale: "Die kontinuierliche R1.3-Gravur bis 0.50 mm behaelt damit mindestens 2.10 mm tragenden Restboden."
+    rationale: "Die geplanten rein vertieften R2-Holzmaserungsnuten bis 0.20 mm behalten mindestens 2.40 mm tragenden Restboden."
   outer_wall_thickness:
     value: 3.2
     basis: "recommended"
@@ -164,7 +170,7 @@ construction:
       recommended_adjustment_step: 0.4
       validated_parameter_range: [2.8, 4.0]
     basis: "user-stated-and-recommended"
-    rationale: "Ein gemeinsamer Basisparameter erlaubt schnelle Varianten; getrennte Overrides erhalten spaeter die Feinsteuerung. 3.2 mm gibt doppelseitigem Relief und PETG-Waenden mehr Reserve. Werte unter 3.2 mm erfordern eine erneute Restwandpruefung."
+    rationale: "Ein gemeinsamer Basisparameter erlaubt schnelle Varianten; getrennte Overrides erhalten spaeter die Feinsteuerung. Bei beidseitig maximal 0.16 mm vertieften Innenwandnuten bleiben nominell 2.88 mm Restwand. Werte unter 3.2 mm erfordern eine erneute Restwandpruefung."
   divider_height:
     value: 55.0
     basis: "recommended"
@@ -198,65 +204,104 @@ construction:
 
 appearance_and_relief:
   visual_language:
-    value: "Deutliche industrielle Stahlplatten- und Nietenoptik auf Innen- und sichtbaren Oberflaechen."
-    basis: "user-stated"
-  source_texture:
-    value: "Registrierter 16-Bit-Quellmaster `relief/organizer/source/source-master.png`; daraus wird ueber den v2.2-Reliefjob deterministisch die 900-x-900-Fertigungs-Heightmap abgeleitet. Ein beliebiges neues PNG/JPEG/TIFF wird mit `python3 rebuild.py NEUES_BILD` ausgetauscht und behaelt standardmaessig sein natuerliches physisches Seitenverhaeltnis."
+    value: "Warme, matte und klar als Holz erkennbare Innenoptik mit langen, ruhig driftenden Maserungslinien und wenigen grossen Astkonturen; keine Stahlplatten, Nieten oder fotorealistische Mikroporen."
     basis: "user-stated-and-recommended"
-  texture_composition:
+  intended_effect:
     value:
-      physical_master_tile: "Breite 180.0 mm; Hoehe aus dem natuerlichen Quadratpixel-Seitenverhaeltnis der Quelle abgeleitet (steel1.png: 120.0 mm)"
-      plate_layout: "verschieden grosse, leicht versetzte Stahlplatten ohne regelmaessiges Raster"
-      rivet_layout: "unregelmaessige Nietnaehte mit bewusst einzelnen Luecken, wechselnden Abstaenden und wenigen Doppelungen"
-      repairs: "vereinzelte aufgesetzte oder eingesetzte Patchplatten mit eigener Nietung"
-      imperfections: "dezente Kantenabweichungen, leichte Beulen und Gebrauchsspuren; kein Rost, keine scharfen Schaeden"
-      repetition_constraint: "keine schachbrettartige Wiederholung; Kachelnaht schwaecher als normale lokale Texturvariation"
+      geometric: "Flache, rein vertiefte und abgerundete Makro-Maserungsnuten; wenige ebenfalls vertiefte Astkonturen nur auf ausreichend grossen Bodenfeldern."
+      optical: "Warmer Holzfarbton und matte Oberflaeche; feine Fasern und Poren werden nicht als Geometrie modelliert."
+      tactile: "Leicht fuehlbar, aber glatt genug fuer Entnahme und Reinigung; keine erhabenen oder scharfkantigen Rippen."
+      not_claimed: ["keine Kopie einer bestimmten Holzart oder eines konkreten Brettes", "keine strukturellen Eigenschaften von Holz"]
+    basis: "recommended"
+  source_texture:
+    value: "Kein Rasterbild und keine vollflaechige Heightmap in der R2-Produktionsgeometrie. Die Holzmaserung wird aus kompakten, deterministischen Vektor-/Splineparametern mit gespeichertem Seed erzeugt. Die R1-Stahlbilder und 16-Bit-Master bleiben nur als unveraenderte Provenienz-/Baseline-Artefakte erhalten."
+    basis: "recommended"
+  representation:
+    value:
+      CORE: "Exakte parametrische Organizer-Geometrie, Modulverbinder, Wandknoten, Griffnuten, Pass- und Bettflaechen."
+      MACRO_TEXTURE: "Sparsame prozedurale Vektorkurven und wenige verschachtelte Astkonturen als negative Cutter; keine dichte Flaechentessellation."
+      MESO_TOOLPATH: "Gerichtete Deckschichtbahnen duerfen die Holzrichtung optisch unterstuetzen, muessen dann aber im exakten 3MF/Slicerprojekt reproduzierbar gespeichert werden."
+      MATERIAL_FINISH: "Standardmaessig ungefuelltes warmbraunes PETG; Mikrofasern, Farbvariation und Glanz sind Material-/Finishaufgabe."
+      KEEP_OUTS: "Verbinder, Modultrennflaechen, Unterseite, Wasserzeichen, Griffnut-Radien, Wandwurzel- und Knotenverrundungen sowie schmale Sicherheitsraender bleiben geometrisch glatt."
+    basis: "recommended"
+  r2_surface_scope:
+    value:
+      included:
+        - "Alle nach oben offenen Fachboeden und der Boden der Schraubendreherzone, mit 2.0-mm-Reinigungsrand zu Wandwurzeln und Funktionsmerkmalen."
+        - "Alle inneren senkrechten Wandseiten, die bei geoeffneter Schublade sichtbar sind; Maserungsband ab 4.0 mm ueber der Bodenwurzel bis 2.0 mm unter der Oberkante."
+        - "Nach oben gerichtete Aussenrand-, Trennwand- und Knotenoberseiten sowie sichere Oberseiten des herausnehmbaren Schraubendreherkamms."
+      appearance_only_on_smooth_keepouts:
+        - "Griffnut-Radien, vollhohe Wandknoten-/Wurzelverrundungen und zu schmale Topflaechen bleiben nutfrei, erhalten aber denselben Holzfarbton."
+      excluded:
+        - "Aussenseiten der vier Module, Unterseiten, Bettaufstands- und Wasserzeichenflaechen."
+        - "Puzzleverbinder, Modultrenn- und Passflaechen, Kammsteck-/Schlitzflaechen und sonstige Gleit-/Kontaktflaechen."
     basis: "user-stated-and-recommended"
-  mapping:
-    value: "Separate Reliefkonfiguration je Flaechengruppe; Bodenfelder und sichtbare Wandbaender koennen unabhaengig ein-/ausgeschaltet oder ersetzt werden."
+    rationale: "Damit tragen genau die beim Oeffnen sichtbaren Innen- und Oberseiten die Holzoptik, ohne Passung, Reinigung oder Verbinder zu gefaehrden."
+  procedural_grain:
+    value:
+      seed: 20260820
+      grain_direction: "Auf grossen horizontalen Flaechen global Front-zu-Ruecken (+Y); auf senkrechten Flaechen entlang der jeweiligen langen lokalen Flaechenrichtung, mit kontrollierter Phase an Ecken."
+      repeat_policy: "Kein Bild-Tiling; deterministische Kurven werden in Millimetern erzeugt, kontrolliert beschnitten und nicht anisotrop gestreckt."
+      groove_width_mm: 0.90
+      floor_groove_depth_mm: 0.20
+      inner_wall_groove_depth_mm: 0.16
+      top_groove_depth_mm: 0.20
+      nominal_spacing_range_mm: [3.0, 6.5]
+      wavelength_range_mm: [28.0, 70.0]
+      lateral_drift_range_mm: [0.5, 1.8]
+      knot_count_assembly_max: 3
+      knot_diameter_range_mm: [12.0, 24.0]
+      knot_location: "Nur grosse Bodenfelder; keine Knoten auf Waenden, Topkappen, Griff-/Knotenradien oder Funktionsflaechen."
+      minimum_printed_feature_mm: 0.90
+      curve_and_groove_roots: "abgerundet; keine spitzen Enden oder tangentialen Nullkontakte"
     basis: "recommended"
   operation:
-    value: "Kontinuierliches, signiertes 16-Bit-Relief: dunkle Tonwerte proportional vertieft, Median neutral, helle Tonwerte proportional erhaben; keine Schwellwerte oder Tiefenklassen."
-    basis: "user-stated-and-implementation-corrected"
+    value: "Rein vertiefte prozedurale Nuten und Astkonturen; kein Emboss, keine bildbasierte Gravur, keine kontinuierliche Heightmap."
+    basis: "recommended"
   provisional_depth:
-    value: "Plattenstoesse, Fugen und kleine Beulen bis 0.50 mm vertieft; Nieten und einzelne Patchkanten bis 0.55 mm erhaben. Beide Werte sind getrennte Parameter."
-    basis: "user-stated-and-recommended"
-    rationale: "Spuerbar deutlicher als R0 (0.35/0.40 mm), aber noch flach genug fuer 0.4-mm-Duese, 0.2-mm-Schichten und Reinigung."
+    value: "0.20 mm auf horizontalen Boden-/Topflaechen und 0.16 mm auf senkrechten Innenwandflaechen; keine Erhoehung."
+    basis: "recommended"
+    rationale: "Eine Schicht Tiefe auf horizontalen Flaechen und eine sehr flache Seitenwandmodulation erzeugen eine sichtbare Maserung bei deutlich geringerer Geometrie- und Schmutzlast."
   minimum_printed_feature:
     value: 0.9
     basis: "recommended"
   cleanability_constraint:
-    value: "Keine Reliefvertiefung tiefer als 0.50 mm auf Kleinteilboeden; Griffnuten und vollhoehenverrundete Wandknoten bleiben reliefarm und glatt."
+    value: "Keine Nut tiefer als 0.20 mm; Nutwurzeln und Enden sind abgerundet; 2.0-mm-Rand zu Bodenfillets und funktionalen Merkmalen; Griffnuten und vollhoehenverrundete Wandknoten bleiben geometrisch glatt."
     basis: "recommended"
   interchangeability:
-    value: "Bildregistrierung, physische Kachelgroesse, 127-PPI-Build-Map, 0.30-mm-Geometriepitch, Neutralwert, Hoehenkurve, Reliefhoehe, Kachelung und Flaechenmasken sind externe Parameter; Bildwechsel und Vollbuild erfolgen mit einem Befehl."
-    basis: "user-stated"
-  continuous_height_transfer:
+    value: "Seed, Kurvenabstand, Breite, Tiefe, Wellenlaenge, Drift, Astanzahl, Flaechenmasken und Keep-outs sind externe Parameter; ein Vollbuild erfolgt deterministisch mit einem Befehl ohne Bildvorbereitung."
+    basis: "recommended"
+  material_finish:
     value:
-      surface_build_grid: [900, 900]
-      source_grid: [900, 600]
-      source_pitch_mm: 0.20
-      source_ppi: 127.0
-      source_unique_u16_values: 46214
-      geometry_grid: [601, 401]
-      geometry_pitch_mm: 0.30
-      geometry_unique_u16_values: 39402
-      retained_height_bits: 16
-      thresholds_or_depth_classes: false
-      additional_height_quantization: false
-      neutral_u16: 25214
-      stl_encoding_limit: "Binary STL uses Float32 coordinates; adjacent numeric levels may coincide, but no deliberate depth quantization is applied."
-    basis: "user-stated-and-digitally-verified"
+      default: "Ungefuelltes warmbraunes PETG mit mattem oder seidenmattem Finish; vorhandene 0.4-mm-Duese bleibt zulaessig."
+      optional_process_candidate: "Holzgefuelltes Filament nur als spaetere, getrennt zu couponende Prozessvariante mit Herstellerdaten, Trocknung und passender Duese; nicht Bestandteil der R2-Standardfreigabe."
+      color_scope: "Einheitlicher Holzfarbton auf allen sichtbaren Innen-, Ober- und glatt gehaltenen Keep-out-Flaechen."
+    basis: "recommended"
+  mesh_and_resource_budget:
+    value:
+      r1_3_baseline: "4 Hauptmodule zusammen 6,029,222 Dreiecke, 301,461,436 STL-Bytes und 2,083.953 MiB Worst-Case Peak-RSS."
+      r2_target: "Mindestens 70 % weniger Dreiecke und STL-Bytes als R1.3, Ziel <= 1.50 Mio. Dreiecke und <= 90 MiB fuer alle vier Hauptmodule zusammen."
+      r2_stop_limit: "Kein Hauptmodul > 0.75 Mio. Dreiecke; gemessener Peak-RSS je Modul <= 1.20 GiB. Bei Ueberschreitung Muster weiter vereinfachen statt Raster/Heightmap wieder einzufuehren."
+      slicer_gate: "Im identischen Slicerprofil keine fehlenden Waende/Nuten, keine neuen Warnungen und mindestens 50 % geringere Import-plus-Slice-Zeit als die R1.3-Baseline auf demselben Rechner."
+    basis: "recommended"
+  planning_evidence:
+    value:
+      - "reports/R2-wood-texture-plan-floor.json"
+      - "reports/R2-wood-texture-plan-inner-wall.json"
+      - "reports/R2-wood-texture-plan-top-cap.json"
+    finding: "Der Surface-Texture-Planer klassifiziert 0.90-mm-Merkmale bei 0.45-mm-Linienbreite als path-scale, empfiehlt fuer Holz Vektor/prozedural plus Material-/Deckschichtwirkung und warnt ausdruecklich vor einer ungefilterten Fotohöhenkarte auf allen sichtbaren Flaechen."
+    basis: "tool-derived-planning"
 
 marking:
   value: "Kompakte JuSt-Innovation-Kennzeichnung erst nach stabiler Produktionsgeometrie als letzte Geometrieaenderung, vertieft auf einer sicheren druckbettseitigen Unterseite; keine sichtbare Innen- oder Nutzflaeche."
   basis: "required-by-workflow"
-  status: "R1-integrated-last; digital-PASS; release-blocked-by-missing-real-slicer-preview"
+  status: "R2-full-module-digital-PASS; blocked until exact-slicer and physical-coupon evidence"
 
 manufacturing:
   nozzle_mm: 0.4
+  nominal_line_width_mm: 0.45
   layer_height_mm: 0.2
-  material: "PETG"
+  material: "warm wood-tone, unfilled PETG"
   provisional_printer_build_volume:
     value: [220.0, 220.0, 250.0]
     basis: "approved-default"
@@ -267,8 +312,8 @@ manufacturing:
     value: 0.2
     basis: "recommended"
   provisional_material:
-    value: "PETG"
-    basis: "approved-default"
+    value: "Ungefuelltes warmbraunes PETG"
+    basis: "recommended-R2; PETG base material previously approved"
   print_orientation:
     value: "Module flach mit Schubladenboden auf dem Druckbett; supportfrei konstruiert."
     basis: "recommended"
@@ -278,52 +323,129 @@ manufacturing:
 
 parametric_deliverables:
   cad_route:
-    value: "Parametrische JavaScript-Quelle mit Manifold3D-WASM; persistenter Relief-Job mit registriertem Quellmaster und 16-Bit-Build-Map; ein Modul pro Prozess und ein Reliefpatch pro Boolean-Stufe fuer gemessene speichereffiziente 0.30-mm-Abtastung."
-    basis: "implementation-verified"
+    value: "Bestehende parametrische JavaScript-/Manifold3D-Kerngeometrie; neuer kompakter prozeduraler Vektor-/Spline-Maserungsgenerator mit benannten Flaechenmasken. Die R1-Heightmap-Pipeline bleibt nur als archivierte Baseline und wird von R2 nicht aufgerufen."
+    basis: "recommended"
   files:
     value:
       - "design-spec.yaml und decision-log.md"
       - "Parametrische JavaScript-/Manifold3D-Quelle"
-      - "Austauschbares Masterbild und vorbereitetes 16-bit Hoehenbild"
-      - "Relief-/Mapping-Konfiguration"
-      - "Ein-Befehl-Rebuild `python3 rebuild.py NEUES_BILD`"
-      - "DRAFT-STL/3MF der reliefierten Druckmodule"
-      - "Pass-/Relief-Testcoupon"
+      - "Editierbare prozedurale Maserungsparameter mit gespeichertem Seed und Flaechenmasken"
+      - "Ein-Befehl-Rebuild `python3 rebuild.py` ohne Rasterbild"
+      - "DRAFT-STL/3MF der holztexturierten Druckmodule"
+      - "Pass-/Holztextur-Testcoupon mit Boden-, Innenwand-, Eck- und Topkappenprobe"
       - "Geometrie- und Druckbarkeitsbericht, BOM und Druckprofil"
       - "Uebersichtsrender und Montageplan"
     basis: "recommended"
 
 production_candidate:
-  status: "R1.3-aspect-safe-030mm-DRAFT-digitally-validated"
-  generated_at: "2026-08-12"
+  status: "R2 procedural-wood full-module DRAFT digital PASS; unmarked"
+  generated_at: "2026-08-21"
   backend: "manifold-3d 3.5.1 via Node.js"
-  assembly_envelope: [227.0, 357.0, 64.0]
-  module_count: 4
-  hardware_compartments: 8
-  separate_screwdriver_comb: true
-  connector_type: "planar jigsaw, 0.30 mm nominal clearance"
-  digital_validation: "PASS for 9/9 STL files; alle Einzelkoerper watertight/manifold/einteilig; R1.3-3MF CRC, Core-Namespace, 4 Objekte/Build-Items und Huelle PASS; physischer Aspekt 1.5 mit 0.000000 % Fehler und 20-mm-Kreis-/Quadratdiagnose PASS; 900-x-900-16-Bit-Build-Map bei 127 PPI und kontinuierliche 0.30-mm-Tonwertuebertragung PASS"
-  r1_features:
-    access_grooves: "8 x U-Profil, 22 x 8 mm, 4-mm-Bodenradius"
-    junctions: "3 Kreuzungshubs Radius 5.5 mm und 6 T-Blenden Radius 4.0 mm; z=2.6..55.0 mm"
-    resolved_wall_thickness: "Basis/Aussen/Trennwand 3.2 mm; separate Overrides aktivierbar"
-    relief: "steel1.png als aspekt-erhaltene 180 x 120 mm Wiederholkachel; 900 x 900 16-Bit-Zielmap bei 0.20 mm/px (127 PPI); 601 x 401 kontinuierliche unsigned-16-Bit-Geometriewerte bei 0.30 mm Pitch; 0.50 mm Gravur, 0.55 mm Erhoehung; keine Schwellwerte/Tiefenklassen"
-    memory: "Peak-RSS pro isoliertem Modul gemessen: 1276.1 / 1494.6 / 2084.0 / 1929.3 MiB; Worst Case 2083.953 MiB = 2.035 GiB = 2.185 GB dezimal."
-    minimum_residual_material: "2.10 mm Bodenrelief; 2.20 mm Waende; 2.20 mm unter der Kennzeichnung"
+  unchanged_architecture:
+    assembly_envelope: [227.0, 357.0, 64.0]
+    module_count: 4
+    hardware_compartments: 8
+    separate_screwdriver_comb: true
+    connector_type: "planar jigsaw, 0.30 mm nominal clearance"
+  planned_r2_change: "Nur die sichtbare Oberflaechenrepraesentation wechselt von dichter Stahl-Heightmap zu kompakter prozeduraler Holzmaserung; Layout, Huelle, Verbinder, Griffnuten und Wandknoten bleiben geometrisch unveraendert."
+  r2_coupon:
+    status: "DRAFT digital PASS"
+    source: "src/procedural_wood.mjs"
+    source_sha256: "cd521060135fdfbad0a34524d028720d01b11121c18743a0ef663a6629aa990e"
+    config: "config/wood-texture-params.json"
+    config_sha256: "9b47360ab98a2b1f37a1d740b003aa14414b08154822e83e473d323f1f1e9654"
+    mesh: "output/DRAFT/DRAFT-R2-procedural-wood-coupon.stl"
+    mesh_sha256: "0fdd9021008eea15bef261391edd6c040b63d71e4b6013d20af2d2f0a6ee7924"
+    preview: "reports/R2-procedural-wood-coupon-preview.png"
+    build_report: "reports/build-final-wood-coupon.json"
+    mesh_validation: "reports/R2-procedural-wood-coupon-mesh-validation.json"
+    dimensions_mm: [122.0, 80.0, 20.6]
+    triangles: 7252
+    stl_bytes: 362684
+    peak_rss_mib: "measured per build; below 1228.8 MiB budget"
+    topology: "PASS: watertight, manifold, consistently wound, positive-volume single body; bed plane z=0"
+    test_scope: "Plain baseline; horizontal 0.12/0.16/0.20-mm grooves; 0.16-mm vertical wall; 90-degree phase-transition corner; 0.20-mm safe top cap."
+    exclusions: "No R1 raster/heightmap, no emboss, no watermark, no slicer or physical-print evidence."
+  r2_full_module_candidate:
+    status: "DRAFT digital PASS"
+    source_revision: "R2-procedural-wood"
+    rebuild_command: "python3 rebuild.py"
+    digital_validation: "reports/R2-procedural-wood-digital-validation.json"
+    mesh_validation: "reports/R2-procedural-wood-unmarked-mesh-validation.json"
+    build_report: "reports/build-pipeline-R2-procedural-wood-unmarked.json"
+    three_mf_report: "reports/three-mf-package-R2-procedural-wood-unmarked.json"
+    three_mf: "output/DRAFT/DRAFT-R2-procedural-wood-assembly.3mf"
+    stl_count: 9
+    main_module_triangles: 426832
+    main_module_stl_bytes: 21341936
+    triangle_reduction_vs_r1_3: "92.9206 %"
+    stl_byte_reduction_vs_r1_3: "92.9205 %"
+    assembly_envelope_mm: [227.0, 357.0, 64.0]
+    topology: "PASS: 9/9 watertight, manifold, consistently wound, positive-volume single bodies; no zero-area or duplicate faces"
+    surface_scope: "PASS: alle freigegebenen Boden-, Innenwand- und sicheren Topflaechengruppen geplant; Keep-outs und Restmaterialgrenzen geprueft"
+    export_sanitation: "Exakte Float32-Vertex-Zusammenfuehrung und ausschliessliche Aufhebung exakt gegenlaeufiger interner Flaechenpaare; mehrdeutige Duplikate brechen den Build ab."
+    external_evidence: "Exact slicer NOT_RUN; physical coupons and drawer fit NOT_RUN"
+  r1_3_baseline:
+    status: "superseded baseline; DRAFT digitally validated"
+    generated_at: "2026-08-12"
+    digital_validation: "PASS for 9/9 STL files; alle Einzelkoerper watertight/manifold/einteilig; R1.3-3MF CRC, Core-Namespace, 4 Objekte/Build-Items und Huelle PASS."
+    triangles_four_main_modules: 6029222
+    stl_bytes_four_main_modules: 301461436
+    worst_case_peak_rss_mib: 2083.953
+    relief: "steel1.png, kontinuierliches 0.30-mm-Heightfield, 0.50 mm Gravur und 0.55 mm Erhoehung."
   source_of_truth:
+    - "design-spec.yaml (freigegebene R2-Anforderungen, aktueller Gate- und Produktionsstatus)"
+    - "config/model-params.json und config/wood-texture-params.json (Fertigungsparameter)"
+  r2_implementation_files:
     - "config/model-params.json"
-    - "config/relief-config.json"
-    - "relief/organizer/relief-job.json"
+    - "config/wood-texture-params.json"
     - "rebuild.py"
-    - "src/prepare_relief.py"
     - "src/build_pipeline.py"
     - "src/manifold_model.mjs"
     - "src/manifold_build.mjs"
+    - "src/procedural_wood.mjs"
+    - "src/mesh_export.mjs"
+    - "src/package_3mf.py"
+    - "src/validate_r2_procedural_wood.py"
+  archived_r1_3_baseline_files:
+    - "config/relief-config.json"
+    - "relief/organizer/relief-job.json"
+    - "src/prepare_relief.py"
     - "src/vectorize_heightmap.py"
-    - "src/repair_stl.py"
   limitations:
+    - "R2-Anforderungen und Konzept sind freigegeben; vier Hauptmodule, Kamm, drei Passproben, Holztexturcoupon und Vierobjekt-3MF sind als unmarkierter DRAFT digital verifiziert."
     - "Kein STEP-Export: In der Ausfuehrungsumgebung war kein STEP-faehiges parametrisches CAD-Backend vorhanden; die vollparametrische Quelle bleibt enthalten."
-    - "Keine reale Slicer-/Druckerpruefung und keine physische Couponmessung in dieser Umgebung."
+    - "Keine exakte Slicer-/Druckerpruefung und keine physische Couponmessung in dieser Umgebung; deshalb keine finale Fertigungs- oder Erscheinungsfreigabe."
+
+optimization:
+  status: "pending"
+  objective: "Bildbasierte Oberflaechentessellation und kurze Druckpfadsegmente deutlich reduzieren, ohne Huelle, Passung, Stabilitaet, Reinigbarkeit oder sichtbare Holzoptik zu verschlechtern."
+  baseline_slicer_report: null
+  selected_variant: "R2 compact procedural-vector wood grooves"
+  comparison_report: "reports/R2-procedural-wood-digital-validation.json"
+  mesh_simplification:
+    status: "not-beneficial"
+    rationale: "R2 entfernt die dichte Heightmap bereits parametrisch und unterschreitet mit 426832 Dreiecken und 21.34 MB die Budgets deutlich. Eine weitere verlustbehaftete Decimation bietet ohne exakten Slicernachweis keinen angemessenen Nutzen gegenueber dem Risiko fuer Passungen, Bettflaechen und 0.16/0.20-mm-Holznuten. Die 0.0001-mm-Manifold-Exportbereinigung und exakte interne Flaechenpaaraufhebung sind deterministische Exporthygiene, keine kosmetische Decimation."
+    master_mesh: "output/DRAFT/DRAFT-R2-*-procedural-wood-unmarked.stl (reference manufacturing set; no lossy candidate selected)"
+    master_geometry: "Parametrische JavaScript-/Manifold3D-Quelle plus versionierte JSON-Parameter"
+    manufacturing_meshes: "output/DRAFT/DRAFT-R2-*-procedural-wood-unmarked.stl und zugehoerige R2-Coupons"
+    decision_report: "reports/R2-mesh-simplification-decision.md"
+    protected_regions:
+      - "Gesamthuelle und Modultrennflaechen"
+      - "Puzzleverbinder und 0.30-mm-Passung"
+      - "Bettkontakt-Unterseiten und Wasserzeichenregionen"
+      - "Wandwurzel-, T-/Kreuzungsknoten- und Griffnutgeometrie"
+      - "Maserungsgrenzen, Astkonturen, Topkanten und sichtbare Silhouetten"
+      - "Mindestboden und doppelseitige Mindestrestwand"
+    resource_budget:
+      triangle_target: 1500000
+      triangle_stop: 1810000
+      peak_memory_gib: 1.20
+      max_mesh_mib: 90
+      max_slicer_seconds: 120
+    slicer_resolution_check:
+      status: "pending"
+      report: null
 
 acceptance_criteria:
   dimensional_fit:
@@ -336,10 +458,16 @@ acceptance_criteria:
     value: "Alle Trennwaende besitzen durchgehende Bodenanbindung; T- und Kreuzungsknoten sind vom Boden bis zur Wandoberkante tangential verrundet. Keine freie Wandlaenge ueber 120 mm ohne Anschluss oder Rippe."
     basis: "recommended"
   printability:
-    value: "Supportfrei in Zielorientierung; kleinste Reliefmerkmale >= 2 Linienbreiten oder durch Testcoupon im Zielprozess nachgewiesen."
+    value: "Supportfrei in Zielorientierung; kleinste geometrische Maserungsmerkmale >= 2 nominelle Linienbreiten oder durch Testcoupon im Zielprozess nachgewiesen."
     basis: "recommended"
   texture:
-    value: "Relief ist am Endmaß klarer als R0 erkennbar; Plattenaufteilung und Nietnaehte wirken bewusst unregelmaessig, ohne schachbrettartige Wiederholung. Kachelnaehte sind unauffaellig, dunkle/helle Hoehenkonvention ist dokumentiert und Restboden/-wand bleibt >= 2.0 mm."
+    value: "Die Oberflaeche ist bei 400-700 mm Betrachtungsabstand als ruhige Holzmaserung erkennbar; Richtung und Phase wirken ueber benachbarte sichtbare Flaechen kohaerent. Keine Stahl-/Nietenreste, kein Raster-Tiling, keine erhabenen Spitzen. Restboden >= 2.40 mm und doppelseitig genutete Restwand >= 2.88 mm."
+    basis: "recommended"
+  texture_scope:
+    value: "Holzoptik auf offenen Innenboeden, sichtbaren inneren Wandseiten und nach oben gerichteten Rand-/Trennwand-/Kammoberseiten; Aussenseiten, Unterseiten, Verbinder und Passflaechen bleiben ohne geometrische Maserung."
+    basis: "user-stated-and-recommended"
+  texture_efficiency:
+    value: "Vier Hauptmodule zusammen Ziel <= 1.50 Mio. Dreiecke und <= 90 MiB STL; mindestens 70 % Reduktion gegen R1.3. Kein Modul > 0.75 Mio. Dreiecke oder > 1.20 GiB Peak-RSS."
     basis: "recommended"
   ergonomic_grooves:
     value: "Alle vorgesehenen Kleinteilfaecher besitzen eine zentrierte 22 x 8 mm breite U-Griffnut mit 4 mm unteren Rundungen; keine scharfkantigen rechteckigen Ausschnitte."
@@ -350,7 +478,8 @@ acceptance_criteria:
   physical_tests:
     value:
       - "Spiel-/Eckcoupon in der realen Schublade"
-      - "Reliefcoupon mit drei Tiefenstufen"
+      - "Holztexturcoupon mit glatter Baseline sowie 0.12/0.16/0.20-mm-Tiefen auf horizontaler Flaeche und senkrechter Innenwand"
+      - "Eck-/Topkappencoupon fuer Phasenkontinuitaet, schmale Oberseite, Reinigung und Kantensicherheit"
       - "Probemodul mit mindestens einer Kreuzung, Verbindung und Griffmulde"
     basis: "recommended"
 
@@ -365,8 +494,10 @@ acceptance:
     criterion: "Vollhoehe glatte T-/Kreuzungsblenden ohne Stufen oder Selbstueberschneidung."
   - id: "mesh"
     criterion: "Alle neun STL-Dateien watertight, manifold, einteilig und volumenhaltig."
-  - id: "relief"
-    criterion: "Nahtlose unregelmaessige R1-Textur und mindestens 2,0 mm Restmaterial."
+  - id: "wood-texture"
+    criterion: "Kompakte, richtungsstabile R2-Holzmaserung auf allen definierten sichtbaren Innen-/Oberflaechen; keine R1-Stahltextur; mindestens 2.40 mm Restboden und 2.88 mm Restwand."
+  - id: "texture-complexity"
+    criterion: "Mindestens 70 % weniger Dreiecke und STL-Bytes als R1.3 sowie Einhaltung der per-Modul-Ressourcenlimits."
 
 resolved_decisions:
   - id: "printer"
@@ -426,6 +557,15 @@ revision_history:
       - "Repeat-Fit wird zuerst in Millimetern berechnet; die 900 x 600-Kachel wird ohne unabhaengige Achsenskalierung in der 900 x 900-Zielmap wiederholt."
       - "Harter Metadaten-Gate und 20-mm-Kreis-/Quadratdiagnose laufen vor Geometrie; Aspektfehler 0.000000 %, Diagnose PASS."
       - "Manifold verwendet die echte 180 x 120-mm-Kachel als 601 x 401-Heightfield bei 0.30 mm."
+  - revision: "R2"
+    status: "requirements and concept approved; full-module unmarked DRAFT digital PASS; slicer/physical/watermark/final release pending"
+    date: "2026-08-20"
+    requested_changes:
+      - "Schwere bildbasierte Stahlplatten-/Nieten-Heightmap vollstaendig aus der R2-Produktion entfernen."
+      - "Kompakte, prozedurale Holzoptik auf offenen Innenboeden, sichtbaren Innenwandseiten und nach oben gerichteten Oberseiten erzeugen."
+      - "Aussenseiten und Funktions-/Passflaechen geometrisch glatt halten; sichtbare glatte Keep-outs ueber denselben Holzfarbton integrieren."
+      - "Mesh-, Datei-, Speicher- und Slicerlast gegen die R1.3-Baseline deutlich reduzieren."
+    gate_effect: "R1-Anforderungs-, Konzept- und Kennzeichnungsfreigaben gelten nicht fuer R2. Nach R2-Anforderungsfreigabe ist ein neues R2-Konzeptbild erforderlich; erst danach darf Produktionsgeometrie entstehen."
 
 assumptions_and_limitations:
   - value: "Die Fotos waren in der aktuellen Arbeitsansicht nicht verfuegbar; Auslegung basiert auf den angegebenen Innenmaßen."
@@ -434,5 +574,5 @@ assumptions_and_limitations:
     basis: "inferred"
   - value: "Alle Exporte bleiben bis zur finalen Freigabe als DRAFT gekennzeichnet."
     basis: "required-by-workflow"
-  - value: "Die Stahlplatten-/Nietenoptik wird ohne Tiefenklassen aus einer registrierten 16-Bit-Quelle als aspekt-erhaltene 180-x-120-mm-Kachel in eine 900-x-900-Build-Map bei 127 PPI und weiter in ein kontinuierliches 601-x-401-Heightfield bei 0.30 mm Geometriepitch umgesetzt."
-    basis: "implementation-verified"
+  - value: "R2 verwendet keine bildbasierte Fertigungs-Heightmap. Bestehende R1.3-Dateien bleiben unveraenderte DRAFT-Baselines; nur eindeutig als R2 und DRAFT benannte aktuelle Dateien gehoeren zum neuen Fertigungskandidaten."
+    basis: "required-by-workflow"

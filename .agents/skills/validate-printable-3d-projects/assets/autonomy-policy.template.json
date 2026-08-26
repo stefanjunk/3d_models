@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "example-part-autonomous-to-print-candidate-v1",
+  "project_id": "example-part",
+  "mode": "autonomous-to-print-candidate",
+  "authorization": {
+    "type": "human-delegation",
+    "authorized_by": "project-owner",
+    "scope": "workflow-stages-only"
+  },
+  "stages": [
+    {"id": "requirements-normalization", "approval": "agent", "evidence_mode": "agent-attestation", "require_hashed_report_inputs": false},
+    {"id": "concept", "approval": "agent", "evidence_mode": "agent-attestation", "require_hashed_report_inputs": false},
+    {"id": "decomposition", "approval": "agent", "evidence_mode": "agent-attestation", "require_hashed_report_inputs": false},
+    {"id": "parametric-source", "approval": "agent", "evidence_mode": "deterministic-pass", "require_hashed_report_inputs": true},
+    {"id": "mesh-generation", "approval": "agent", "evidence_mode": "deterministic-pass", "require_hashed_report_inputs": true},
+    {"id": "interface-validation", "approval": "agent", "evidence_mode": "deterministic-pass", "require_hashed_report_inputs": true},
+    {"id": "slicer-preflight", "approval": "agent", "evidence_mode": "deterministic-pass", "require_hashed_report_inputs": true},
+    {"id": "print-candidate", "approval": "agent", "evidence_mode": "deterministic-pass", "require_hashed_report_inputs": true},
+    {"id": "physical-print", "approval": "human", "evidence_mode": "human-evidence", "require_hashed_report_inputs": false},
+    {"id": "fit-and-function", "approval": "human", "evidence_mode": "human-evidence", "require_hashed_report_inputs": false},
+    {"id": "appearance", "approval": "human", "evidence_mode": "human-evidence", "require_hashed_report_inputs": false},
+    {"id": "safety", "approval": "human", "evidence_mode": "human-evidence", "require_hashed_report_inputs": false},
+    {"id": "commercial-release", "approval": "human", "evidence_mode": "human-evidence", "require_hashed_report_inputs": false}
+  ],
+  "auto_approval_conditions": {
+    "require_all_evidence_pass": true,
+    "block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"],
+    "require_evidence_sha256": true
+  },
+  "human_approval_proof": "hmac-sha256",
+  "tool_policy": {
+    "local_workspace_write": "allow",
+    "local_build_export_test": "allow",
+    "network": "ask",
+    "dependency_install": "ask",
+    "destructive_overwrite": "deny",
+    "external_upload": "ask",
+    "printer_upload": "deny",
+    "printer_start": "deny"
+  }
+}

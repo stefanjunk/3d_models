@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "ZEN_KINTSUGI_WAVE_V21",
+    "title": "ZEN KINTSUGI WAVE premium wall-mounted FIFO tower",
+    "source_modes": ["concept_image", "design_description", "existing_mesh", "measurements"],
+    "claim": "functional_redesign",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max with ACE 2 Pro",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "PETG-0.4-0.20-premium-DRAFT"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "centre of rear wall datum at the bottom assembly plane",
+      "x_axis": "+X right in the front view",
+      "y_axis": "+Y from the wall toward the user",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major source-to-project matrix in millimetres"
+    },
+    "master_envelope_mm": {"min": [-71, 0, 0], "max": [106, 121, 666]},
+    "requirements": [
+      {"id": "REQ-FIFO", "statement": "A 122 x 107 mm proxy shall descend through the complete five-roll shaft without decorative collision.", "evidence_class": "requested", "source": "approved design-spec 2.1", "priority": "critical", "verification": "121-position robust mesh Boolean sweep and physical cycle test"},
+      {"id": "REQ-SHELL", "statement": "Both sides shall be closed, curved and raised while retaining at least 1.4 mm local wall after texture pockets.", "evidence_class": "requested", "source": "approved design-spec 2.1", "priority": "critical", "verification": "surface parameter audit, sections and STL round trip"},
+      {"id": "REQ-STYLE", "statement": "The visible product shall reproduce five oval ribbons, leaf-like side massing, kintsugi branches, seigaiha relief and an open crown without an industrial X cage.", "evidence_class": "requested", "source": "approved concept sheet and source concept image", "priority": "important", "verification": "matched four-view generated-geometry review"},
+      {"id": "REQ-MOUNT", "statement": "A central parametric spine and non-crossing curved rear struts shall carry mounting and anti-racking loads independently of the ornament bodies.", "evidence_class": "requested", "source": "approved architecture", "priority": "critical", "verification": "load-path review and wall-specific physical proof test"},
+      {"id": "REQ-COLOR", "statement": "Up to four PETG colours shall be represented by named positive-volume solids in one common coordinate system.", "evidence_class": "requested", "source": "approved design-spec 2.1", "priority": "important", "verification": "STL topology report, 3MF validation and destination slicer review"}
+    ],
+    "global_style": {
+      "summary": "warm ivory ceramic-stone tower with flowing oval ribbons, overlapping side leaves, antique-gold repair lines, dark slender spines and restrained sand wave relief",
+      "motifs": ["continuous oval cadence", "asymmetric leaf shoulders", "seigaiha waves", "open interwoven crown", "zen pebble shelf"],
+      "exclude": ["industrial X braces", "boxy slabs", "fine porous lattice", "random spikes", "micro-noise on roll contact faces", "floating ornament fragments"],
+      "generation_material": "four real PETG colour bodies with matte ceramic-stone intent",
+      "detail_hierarchy": "functional shaft and silhouette first, freeform ribbons and shells second, sparse kintsugi and printable microtexture last"
+    },
+    "assembly_sequence": [
+      "Print and test the connector and colour-boundary coupons in the final PETG profile.",
+      "Print each 124 mm module upright as an aligned four-colour project or as separately grouped colour bodies.",
+      "Install wall-specific anchors, mount modules from bottom to top and insert four pins at every interface.",
+      "Attach the removable fragrance-stone tray to middle module B.",
+      "Load five representative rolls and complete twenty FIFO cycles before service."
+    ]
+  },
+  "decision_log": [
+    {"id": "DEC-CONCEPT", "topic": "Approve the revised v2.1 product concept.", "status": "resolved", "current_basis": "User approved the generated three-view concept on 2026-08-21.", "evidence_needed": "none", "blocks_gates": []},
+    {"id": "DEC-ORGANIC", "topic": "Choose whether the previous raw organic GLBs remain geometry authorities.", "status": "resolved", "current_basis": "They are non-watertight style donors and remain immutable references only; production geometry is rebuilt parametrically.", "evidence_needed": "raw-source hash manifest", "blocks_gates": []},
+    {"id": "DEC-SLICER", "topic": "Approve final ACE slot mapping, purge and supports in Anycubic Slicer Next.", "status": "provisional", "current_basis": "The slicer is unavailable in the current validated environment.", "evidence_needed": "saved destination-slicer project and layer preview", "blocks_gates": ["manufacturing", "release"]},
+    {"id": "DEC-PHYSICAL", "topic": "Approve physical FIFO, texture, fit and wall-mount evidence.", "status": "provisional", "current_basis": "Digital geometry is testable but no physical print has been run.", "evidence_needed": "coupon results, twenty FIFO cycles and wall-specific proof test", "blocks_gates": ["physical", "release"]}
+  ],
+  "components": [
+    {
+      "id": "CORE_IVORY",
+      "name": "Parametric ivory functional core",
+      "role": "closed roll-guiding side shells, output cradle, module bosses and organic rear load paths",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-FIFO", "REQ-SHELL", "REQ-MOUNT"], "confidence": "high"},
+      "functions": ["protect FIFO keep-out", "connect modules", "stop output roll", "tie side shells to spine"],
+      "envelope_mm": {"min": [-71, 4.8, 0], "max": [71, 121, 124]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+      "manufacturing": {"method": "upright modular FDM", "material": "PETG", "color_body": "stone_ivory_body", "orientation": "module Z axis vertical"},
+      "interface_ids": ["IF-MODULE", "IF-ENVELOPE-CORE", "IF-SPINE", "IF-INLAYS", "IF-TRAY", "IF-HARDWARE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["FIFO keep-out", "1.4 mm wall reserve", "no X braces", "positive connector bosses"]}
+    },
+    {
+      "id": "FREEFORM_ENVELOPE",
+      "name": "Freeform side and ribbon envelope",
+      "role": "premium silhouette, five continuous-looking oval bands, leaf shoulders and open crown",
+      "authority": "hybrid",
+      "representation": "mesh",
+      "source": {"kind": "concept_image", "refs": ["source concept image", "approved v2.1 concept sheet", "immutable organic GLBs"], "confidence": "medium"},
+      "functions": ["create product character", "close both sides", "keep top visually open", "retain roll visibility"],
+      "envelope_mm": {"min": [-71, 4.8, 0], "max": [71, 121, 666]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+      "manufacturing": {"method": "procedural spline sweeps and sampled thin shells", "material": "PETG", "color_body": "stone_ivory_body", "orientation": "same as module core"},
+      "interface_ids": ["IF-ENVELOPE-CORE", "IF-INLAYS"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.25, "checks": ["fair highlight flow", "no faceting at print scale", "open crown", "matched silhouette"]}
+    },
+    {
+      "id": "COLOR_INLAYS",
+      "name": "Gold kintsugi and sand seigaiha colour solids",
+      "role": "printable decorative repair branches and selected wave relief",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "derived", "refs": ["FREEFORM_ENVELOPE surface coordinates", "REQ-COLOR"], "confidence": "high"},
+      "functions": ["carry gold accents", "carry warm-sand wave lines", "remain outside functional faces"],
+      "envelope_mm": {"min": [-70, 7, 2], "max": [70, 121, 124]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+      "manufacturing": {"method": "ACE in-place colour solids or same-coordinate separate print", "material": "PETG", "color_body": "antique_gold_kintsugi and warm_sand_relief", "orientation": "inherit host module"},
+      "interface_ids": ["IF-INLAYS"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.12, "checks": ["minimum 0.9 mm width", "positive volume", "registered pockets", "no floating islands"]}
+    },
+    {
+      "id": "BRONZE_SPINE",
+      "name": "Walnut-bronze mounting spine and corner reeds",
+      "role": "wall datum, screw bearing and slender dark visual accents",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-MOUNT", "approved concept"], "confidence": "high"},
+      "functions": ["transfer mounting load", "locate modules", "provide counterbores", "create dark vertical accents"],
+      "envelope_mm": {"min": [-70, 0, 0], "max": [70, 9, 124]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+      "manufacturing": {"method": "aligned FDM colour solid", "material": "PETG", "color_body": "walnut_bronze_spines", "orientation": "inherit module"},
+      "interface_ids": ["IF-MODULE", "IF-SPINE", "IF-HARDWARE"],
+      "acceptance": {"expected_components": 3, "require_watertight": true, "max_bounds_error_mm": 0.12, "checks": ["5.2 mm spine thickness", "wall-hole geometry", "roll rear clearance"]}
+    },
+    {
+      "id": "SCENT_TRAY",
+      "name": "Removable zen-stone fragrance tray",
+      "role": "small functional-decorative shelf shown in the concept",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "concept_image", "refs": ["approved concept sheet"], "confidence": "medium"},
+      "functions": ["hold one dry fragrance stone", "remain removable for cleaning"],
+      "envelope_mm": {"min": [65, 42, 57], "max": [106, 83, 73]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+      "manufacturing": {"method": "separate FDM part", "material": "PETG", "color_body": "warm_sand_relief", "orientation": "bowl opening upward"},
+      "interface_ids": ["IF-TRAY"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["drain-free dry use", "peg coupon", "wipe access", "removability"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-MODULE", "a": "CORE_IVORY", "b": "BRONZE_SPINE", "owner": "CORE_IVORY", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [0, 19, 124], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "four round pins", "pin_diameter_mm": 4.8, "hole_diameter_mm": 5.2, "engagement_each_side_mm": 5.1},
+      "joining": {"method": "dry pin connection plus independent wall screws", "assembly_direction": "+Z", "anti_rotation": "four asymmetric corner locations", "lead_in_mm": 1.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.2, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 3, "keepout_ids": ["KEEP-FIFO"], "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 2.0, "load_or_flow": "alignment and anti-racking; wall screws carry service load"},
+      "verification": ["4.7/4.8/4.9 mm pin coupon", "STL sections", "assembled shaft sweep"]
+    },
+    {
+      "id": "IF-ENVELOPE-CORE", "a": "CORE_IVORY", "b": "FREEFORM_ENVELOPE", "owner": "CORE_IVORY", "kind": "fused_overlap",
+      "local_frame": {"origin_mm": [65, 60, 62], "x_axis": [0,1,0], "y_axis": [0,0,1], "z_axis": [1,0,0]},
+      "nominal_geometry": {"type": "procedural shell and ribbon union", "nominal_shell_mm": 1.8, "reinforced_ribbon_mm": 4.6},
+      "joining": {"method": "robust positive-volume mesh union", "assembly_direction": "generated in common frame", "anti_rotation": "continuous shell boundary", "lead_in_mm": 0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0.25, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.03},
+      "seam_band_mm": 3, "keepout_ids": ["KEEP-FIFO", "KEEP-SEAMS"], "requirements": {"minimum_wall_mm": 1.4, "minimum_ligament_mm": 1.4, "load_or_flow": "side containment and appearance"},
+      "verification": ["watertight union", "minimum-wall calculation", "matched-view render", "shaft sweep"]
+    },
+    {
+      "id": "IF-INLAYS", "a": "CORE_IVORY", "b": "COLOR_INLAYS", "owner": "CORE_IVORY", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [67, 60, 62], "x_axis": [0,1,0], "y_axis": [0,0,1], "z_axis": [1,0,0]},
+      "nominal_geometry": {"type": "conformal curve pockets", "colour_width_mm": 1.05, "pocket_width_mm": 1.28, "insert_embed_mm": 0.32, "pocket_depth_mm": 0.38},
+      "joining": {"method": "ACE in-place boundary or adhesive after coupon", "assembly_direction": "surface normal", "anti_rotation": "asymmetric conformal path", "lead_in_mm": 0.1, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0.02, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.03},
+      "seam_band_mm": 1.5, "keepout_ids": ["KEEP-FIFO", "KEEP-SEAMS"], "requirements": {"minimum_wall_mm": 1.4, "minimum_ligament_mm": 1.4, "load_or_flow": "decorative only"},
+      "verification": ["separate-solid topology", "common-origin 3MF", "colour-boundary coupon", "wall reserve"]
+    },
+    {
+      "id": "IF-SPINE", "a": "CORE_IVORY", "b": "BRONZE_SPINE", "owner": "CORE_IVORY", "kind": "shell_over_core",
+      "local_frame": {"origin_mm": [0, 5.2, 62], "x_axis": [1,0,0], "y_axis": [0,0,1], "z_axis": [0,1,0]},
+      "nominal_geometry": {"type": "central spine plus two corner reeds", "spine_width_mm": 20, "spine_thickness_mm": 5.2, "reed_diameter_mm": 5.3},
+      "joining": {"method": "aligned colour solids with 0.15 mm radial clearance at reeds", "assembly_direction": "common print frame", "anti_rotation": "three non-collinear regions", "lead_in_mm": 0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.075, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.03},
+      "seam_band_mm": 1, "keepout_ids": ["KEEP-FIFO"], "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 2.4, "load_or_flow": "mounting and anti-racking load path"},
+      "verification": ["clearance section", "common-origin 3MF", "wall-specific proof test"]
+    },
+    {
+      "id": "IF-TRAY", "a": "CORE_IVORY", "b": "SCENT_TRAY", "owner": "CORE_IVORY", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [67.5, 62.5, 63], "x_axis": [0,1,0], "y_axis": [0,0,1], "z_axis": [1,0,0]},
+      "nominal_geometry": {"type": "two round side pegs", "peg_diameter_mm": 4.0, "hole_diameter_mm": 4.5, "engagement_mm": 5.0, "spacing_mm": 16.0},
+      "joining": {"method": "removable press/slide fit", "assembly_direction": "-X", "anti_rotation": "two spaced pegs and shoulder", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.25, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 2, "keepout_ids": ["KEEP-FIFO"], "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 2.0, "load_or_flow": "one dry fragrance stone only"},
+      "verification": ["peg coupon", "removal cycle", "shaft sweep"]
+    },
+    {
+      "id": "IF-HARDWARE", "a": "BRONZE_SPINE", "b": "CORE_IVORY", "owner": "BRONZE_SPINE", "kind": "fastener",
+      "local_frame": {"origin_mm": [0, 2.6, 62], "x_axis": [1,0,0], "y_axis": [0,0,1], "z_axis": [0,1,0]},
+      "nominal_geometry": {"type": "wall screw through-hole and counterbore", "through_diameter_mm": 4.7, "counterbore_diameter_mm": 9.4},
+      "joining": {"method": "purchased wall-specific screw and anchor", "assembly_direction": "-Y", "anti_rotation": "two vertical fasteners per full module", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 3, "keepout_ids": ["KEEP-TOOL"], "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.0, "load_or_flow": "wall-specific product and roll load"},
+      "verification": ["fastener section", "tool access", "wall-substrate-specific proof test"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-FIFO", "type": "aabb", "purpose": "coarse proxy for the exact 122 x 107 mm swept roll volume", "min_mm": [-61, 9, 13], "max_mm": [61, 116, 608], "source": "approved conservative roll proxy and gravity path"},
+    {"id": "KEEP-SEAMS", "type": "aabb", "purpose": "3 mm texture-free bands at every module plane", "min_mm": [-71, 0, -3], "max_mm": [71, 121, 3], "source": "registered module-interface contract"},
+    {"id": "KEEP-TOOL", "type": "aabb", "purpose": "screwdriver access before rolls are loaded", "min_mm": [-8, 0, 20], "max_mm": [8, 80, 104], "source": "mounting sequence"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "component/interface/keep-out cross-reference validation", "acceptance": "one clear owner per interface and no functional authority in decorative colour bodies"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "121-position 122 x 107 mm robust mesh Boolean sweep", "acceptance": "zero free-shaft intersections and positive intentional output stop"},
+    {"id": "VAL-COMP", "gate": "component", "method": "four matched views and STL topology inspection", "acceptance": "approved motifs, watertight bodies and intended component counts"},
+    {"id": "VAL-INT", "gate": "integration", "method": "pocket reserve, common-origin colour solids and connector sections", "acceptance": "minimum 1.4 mm shell, no overlap and no keep-out breach"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "Anycubic Slicer Next layer review and fit/texture coupons", "acceptance": "all walls present, supported crown arches, approved colour slots and purge"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "twenty five-roll FIFO cycles, oval roll, wipe test and wall proof test", "acceptance": "no jam, snag, creep, crack or pull-through"}
+  ]
+}

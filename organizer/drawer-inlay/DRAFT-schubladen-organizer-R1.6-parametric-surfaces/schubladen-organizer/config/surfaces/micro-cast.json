@@ -1,0 +1,97 @@
+{
+  "schema_version": 3,
+  "profile_id": "micro-cast",
+  "label": "hole-free matte micro-cast",
+  "representation": "deterministic-additive-band-limited-micro-cast-facet-field",
+  "coverage_metric": "facets",
+  "intent": "continuous irregular matte cast micro-facets that break FDM line coherence without recessed holes on horizontal surfaces",
+  "enabled": true,
+  "seed": 160824,
+  "embed_mm": 0.06,
+  "surface_policy": {
+    "required_enabled": ["floor", "inner_walls"],
+    "required_disabled": ["wall_tops", "outer_walls"]
+  },
+  "surfaces": {
+    "floor": {
+      "enabled": true,
+      "operation": "additive-raised-only",
+      "edge_margin_mm": 0.95,
+      "maximum_depth_mm": 0.0,
+      "maximum_protrusion_mm": 0.24,
+      "field": {
+        "cell_pitch_mm": 1.60,
+        "coarse_scale_mm": 6.4,
+        "fine_scale_mm": 2.2,
+        "coarse_weight": 0.34,
+        "node_weight": 0.46,
+        "height_min_mm": 0.025,
+        "height_max_mm": 0.24,
+        "edge_height_mm": 0.015,
+        "fade_distance_mm": 2.2,
+        "keepout_clearance_mm": 0.25
+      }
+    },
+    "inner_walls": {
+      "enabled": true,
+      "operation": "additive-raised-only",
+      "edge_margin_mm": 0.90,
+      "bottom_keepout_mm": 7.40,
+      "top_keepout_mm": 2.00,
+      "maximum_depth_mm": 0.0,
+      "maximum_protrusion_mm": 0.20,
+      "field": {
+        "cell_pitch_mm": 1.60,
+        "coarse_scale_mm": 5.8,
+        "fine_scale_mm": 2.1,
+        "coarse_weight": 0.30,
+        "node_weight": 0.50,
+        "height_min_mm": 0.022,
+        "height_max_mm": 0.20,
+        "edge_height_mm": 0.012,
+        "fade_distance_mm": 2.1,
+        "keepout_clearance_mm": 0.25
+      }
+    },
+    "wall_tops": {
+      "enabled": false,
+      "operation": "finish-only-smooth",
+      "maximum_depth_mm": 0.0,
+      "maximum_protrusion_mm": 0.0
+    },
+    "outer_walls": {
+      "enabled": false,
+      "maximum_depth_mm": 0.0,
+      "maximum_protrusion_mm": 0.0
+    }
+  },
+  "protected_regions": {
+    "floor_to_wall_margin_mm": 3.0,
+    "connector_margin_mm": 3.0,
+    "junction_margin_mm": 4.5,
+    "access_groove_margin_mm": 1.5,
+    "gusset_margin_mm": 1.5,
+    "watermark_margin_mm": 1.5,
+    "minimum_residual_wall_mm": 2.0,
+    "wall_top_smooth_edge_mm": 0.55
+  },
+  "slicer_finish": {
+    "material_intent": "matte PLA or PETG; low-gloss material completes the sub-path line masking",
+    "horizontal_top_path": "monotonic lines with one fixed direction per module; optional topmost-surface ironing only after coupon",
+    "vertical_wall_finish": "geometry supplies macro masking; optional very mild painted Perlin fuzzy skin only after a dimensional coupon",
+    "micro_detail_policy": "do not add recessed micro-pits or white-noise displacement; keep pore-scale detail in material and toolpaths",
+    "hole_free_horizontal_policy": "all CAD relief on floors is additive and raised above the nominal surface; wall tops remain geometrically smooth"
+  },
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "sequential",
+    "facet_union_batch": 96,
+    "node_old_space_mb": 2048,
+    "target_peak_rss_mib": 1536,
+    "stop_peak_rss_mib": 3072,
+    "target_triangles_per_module": 750000,
+    "review_triangles_per_module": 1000000,
+    "mesh_stop_mib_per_module": 100,
+    "exact_slicer_stop_seconds": 120
+  }
+}

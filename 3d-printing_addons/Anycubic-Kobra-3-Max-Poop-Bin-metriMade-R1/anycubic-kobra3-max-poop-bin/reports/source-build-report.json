@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "tool": "parametric-source-contract",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/src/generate_poop_bin.py",
+      "sha256": "7238d408365e621f2ae85ffedcb0322f32937e6982eaa65610596c4d6489b29e",
+      "size_bytes": 54742
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/params/badge.json",
+      "sha256": "b216af08162d0850359776ad4871a50aca31c5ff557c66c2f9050e9e74d3d1c0",
+      "size_bytes": 249
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/params/bin-balanced.json",
+      "sha256": "348a1d0f2a4073b3645169d8729575b7c45a498eed9286b08c994856a2809cb5",
+      "size_bytes": 488
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/params/bin-compact.json",
+      "sha256": "06c3ccc28ed1ed4eacd9cd6d5b2f1bbb0070b960b0ecac6daebf91d31ac3adca",
+      "size_bytes": 487
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/params/bin-high-capacity.json",
+      "sha256": "1d46055f118788ce8bce3f355edfc5e555dce9b0533387ecca008fa134ea0e02",
+      "size_bytes": 494
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/params/mount-bracket.json",
+      "sha256": "fae37db64f5da87ec8e9ffc336bb5a824047f50551608b965396ace0c37e8fc7",
+      "size_bytes": 421
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/evidence/metrimade-lockup-horizontal-color.svg",
+      "sha256": "030602129f236af1fa2bfb9a016831be60be10acec82587b5d352f65824db2b5",
+      "size_bytes": 16638
+    }
+  ],
+  "checks": [
+    {
+      "id": "selected-variant",
+      "required": true,
+      "status": "PASS",
+      "message": "Exactly one bin variant is selected",
+      "metrics": {
+        "selected": "balanced"
+      },
+      "evidence": [
+        "src/generate_poop_bin.py",
+        "params/bin-balanced.json"
+      ]
+    },
+    {
+      "id": "manufacturing-minima",
+      "required": true,
+      "status": "PASS",
+      "message": "Declared walls, floor and badge relief meet the project FDM minima",
+      "metrics": {
+        "wall_mm": 2.4,
+        "floor_mm": 2.6,
+        "badge_relief_mm": 0.6
+      },
+      "evidence": [
+        "params/bin-balanced.json",
+        "params/badge.json"
+      ]
+    },
+    {
+      "id": "logo-provenance",
+      "required": true,
+      "status": "PASS",
+      "message": "Packaged logo matches the user-provided source hash",
+      "metrics": {
+        "sha256": "030602129f236af1fa2bfb9a016831be60be10acec82587b5d352f65824db2b5"
+      },
+      "evidence": [
+        "evidence/metrimade-lockup-horizontal-color.svg"
+      ]
+    }
+  ],
+  "metrics": {
+    "generator": "src/generate_poop_bin.py",
+    "units": "mm"
+  },
+  "limitations": []
+}

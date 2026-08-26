@@ -1,0 +1,50 @@
+$fn=24;
+difference(){
+  import("v6_curved_lip_smooth_left.stl", convexity=20);
+  union(){
+    translate([3.10673,2.00000,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-11.59997,2.59087,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-24.15091,10.51425,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-32.08283,22.89181,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-35.37868,37.29095,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-36.50038,52.10738,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-37.03542,66.95562,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-36.82545,81.81346,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-36.66572,96.67169,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-37.17345,111.52164,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-38.20380,126.34527,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-40.34910,141.03452,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-43.93142,155.45509,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-47.17568,169.95331,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-50.02013,184.53708,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-51.44690,199.32039,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-51.93098,214.16763,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-50.55157,228.95315,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-47.88829,243.55599,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-39.68313,255.84572,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-26.70570,262.87216,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([-12.42131,266.00000,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([2.43853,266.00000,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([17.29837,266.00000,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([31.92599,264.71556,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([45.56304,258.84416,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([55.03833,247.76161,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([56.50992,233.12728,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([55.50688,218.30313,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([53.21747,203.62661,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([50.01877,189.11780,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([45.36600,175.00881,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([40.51889,160.96302,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([35.09188,147.12997,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([30.94276,132.88357,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([29.58112,118.09205,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([28.80877,103.25312,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([28.88282,88.40148,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([30.98300,73.69587,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([32.84638,58.96307,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([33.07627,44.10686,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([32.64544,29.25698,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([28.17441,15.18361,2.8]) cylinder(h=9.0,r=0.90000);
+    translate([16.99001,5.68132,2.8]) cylinder(h=9.0,r=0.90000);
+  }
+}

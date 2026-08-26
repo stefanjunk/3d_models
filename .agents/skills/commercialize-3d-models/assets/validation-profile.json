@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "skill": "commercialize-3d-models",
+  "artifact_roles": [
+    {"id": "release-model", "kind": "mesh", "required": true},
+    {"id": "technical-summary", "kind": "report", "required": true},
+    {"id": "rights-graph", "kind": "report", "required": true},
+    {"id": "customer-package", "kind": "document", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "technical-evidence", "type": "external_report", "required": true, "artifact_roles": ["release-model", "technical-summary"]},
+    {"id": "rights-evidence", "type": "external_report", "required": true, "artifact_roles": ["rights-graph"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "engineering-approval", "kind": "approval", "required": true},
+    {"id": "ip-legal-approval", "kind": "approval", "required": true},
+    {"id": "safety-compliance-approval", "kind": "approval", "required": true},
+    {"id": "business-approval", "kind": "approval", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

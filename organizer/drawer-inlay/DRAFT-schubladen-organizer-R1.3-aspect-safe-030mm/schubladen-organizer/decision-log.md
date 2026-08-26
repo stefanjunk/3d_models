@@ -139,3 +139,58 @@
 - Geometrie: Die echte 180 × 120-mm-Wiederholkachel wird als kontinuierliches 601 × 401-u16-Heightfield mit 241.001 Samples und 39.402 unterschiedlichen Werten an Manifold3D übergeben. Die 180 × 180-Zielmap wird nicht mehr als falsche Wiederholperiode verwendet.
 - Speicher: Driver vorn 1276,1 MiB, Driver hinten 1494,6 MiB, Hardware vorn 2084,0 MiB, Hardware hinten 1929,3 MiB, Zubehör 216,1 MiB. Exakter Worst Case: 2083,953 MiB = 2,035 GiB = 2,185 GB dezimal.
 - Topologie/3MF: 9/9 STLs PASS; nur Hardware vorn benötigte einen lokalen Mikro-Kantenkollaps. `DRAFT-R1.3-aspect-safe-030mm-assembly.3mf` enthält vier Objekte/Build-Items, CRC und Core-Namensraum PASS, Hülle 227 × 357 × 64 mm.
+
+## 2026-08-20 – Änderungsanforderung R2: kompakte Holzoptik
+
+- Nutzerwunsch: Die schwere und schwer druckbare bildbasierte Stahlgravur wird durch eine Holzoptik auf den beim Öffnen sichtbaren Flächen ersetzt: offene Innenböden, innere Wandseiten und nach oben gerichtete Rand-/Trennwand-/Kammoberseiten.
+- Repräsentationsentscheidung zur Anforderungsfreigabe: keine neue Holz-Heightmap. Vorgesehen sind wenige deterministische Vektor-/Spline-Maserungslinien und höchstens drei große Astkonturen, ausschließlich vertieft und mit abgerundeten Wurzeln. Material/Farbe trägt Mikrofasern und Glanz.
+- Empfohlene Startwerte: 0,90 mm Nutbreite, 0,20 mm Tiefe auf horizontalen Flächen, 0,16 mm auf senkrechten Innenwänden, 3,0–6,5 mm Linienabstand, Seed `20260820`.
+- Schutzumfang: Modulaußenseiten, Unterseiten, Wasserzeichen, Verbinder, Pass-/Trennflächen, Griffnutradien und Wandknoten-/Wurzelverrundungen bleiben geometrisch glatt. Sichtbare glatte Schutzflächen erhalten denselben Holzfarbton.
+- Effizienzziel gegenüber R1.3: mindestens 70 % weniger Dreiecke und STL-Bytes; Ziel höchstens 1,50 Mio. Dreiecke und 90 MiB für die vier Hauptmodule zusammen, höchstens 1,20 GiB Peak-RSS je Modul.
+- Gate-Status: `design-spec.yaml` wurde auf R2-Anforderungsprüfung gesetzt. R1-Konzept- und Kennzeichnungsfreigaben sind für R2 ungültig. Vor ausdrücklicher R2-Anforderungsfreigabe werden weder Konzeptbild noch Produktionscode, Geometrie oder Fertigungsexporte erzeugt.
+
+## 2026-08-20 – Anforderungen R2 freigegeben
+
+- Nutzerfreigabe: Auswahl „Approve R2 (Recommended)“.
+- Freigegebener sichtbarer Umfang: offene Innenböden, sichtbare innere Wandseiten, nach oben gerichtete Rand-/Trennwand-/Knotenoberseiten und sichere Oberseiten des herausnehmbaren Kamms.
+- Freigegebene Repräsentation: kompakte deterministische Vektor-/Spline-Maserung ohne Rasterbild oder Fertigungs-Heightmap; rein vertiefte Nuten mit 0,90 mm Breite, 0,20 mm horizontaler und 0,16 mm senkrechter Tiefe.
+- Freigegebener Standardprozess: warmes ungefülltes PETG, 0,4-mm-Düse, 0,20-mm-Schichthöhe; geometrisch glatte Schutzflächen bleiben farblich Teil der Holzoptik.
+- Gate-Status: Anforderungen R2 `approved`; Konzept R2 `pending`. Produktionscode, Produktionsgeometrie und Fertigungsexporte bleiben bis zur separaten R2-Konzeptfreigabe gesperrt.
+
+## 2026-08-20 – Konzept R2 erstellt
+
+- Ausgewähltes Konzeptasset: `concept-R2-v5.png`, 1536 × 1024 px, SHA-256 `155485877169eb512eaf00240d37b87efd9e20bbe79e41d8d872bcc614fc71b4`.
+- Referenz: `concept-R1.png` wurde nur für unveränderte Architektur, Ansicht und Komposition verwendet; Stahlplatten, Nieten und metallische Materialwirkung wurden vollständig entfernt.
+- Sichtbare R2-Zuordnung: warme matte PETG-Holzfarbe; sparsame vertiefte Maserung auf Fach-/Werkzeugböden, sichtbaren inneren Wandseiten und breiten nach oben gerichteten Rand-/Trennflächen; glatte äußere Modulwände, Verbinder- und Funktionsbereiche.
+- Architekturprüfung: vier Module, exakt acht Hardwarefächer in 2 × 4, eine lange Schraubendreherzone, separater Kamm, U-Griffnuten und gerundete Wandknoten bleiben dargestellt.
+- Verworfen wurden frühere Bildvarianten: zu fotorealistische/dichte Gesamtmaserung (`concept-R2.png`), fehlende Innenwand-/Topmaserung (`concept-R2-v2.png`, `concept-R2-v4.png`) und irreführende äußere Wandmaserung (`concept-R2-v3.png`).
+- Darstellungsgrenze: Die Maserung auf sehr schmalen sicheren Kammoberseiten ist perspektivisch nur undeutlich. Das Konzeptbild ist kein Nachweis für Nutbreite/-tiefe, Passung, Slicebarkeit oder Materialzusammensetzung.
+- Gate-Status: Konzept R2 `pending`; Produktionscode, Geometrie und Fertigungsexporte bleiben bis zur ausdrücklichen Nutzerfreigabe gesperrt.
+
+## 2026-08-20 – Konzept R2 freigegeben
+
+- Nutzerfreigabe: „Konzept R2 freigeben“.
+- Freigabebasis: `concept-R2-v5.png` und `design-spec.yaml` Revision R2.
+- Gate-Status: Anforderungen R2 und Konzept R2 `approved`. Produktionscode, DRAFT-Geometrie, Coupons und digitale Fertigungsvalidierung dürfen beginnen. Finale Freigabe und Kennzeichnungsfreigabe bleiben bis zur stabilen, nachgewiesenen R2-Ausgabe blockiert.
+
+## 2026-08-20 – R2-Holztexturprimitive und DRAFT-Coupon digital verifiziert
+
+- Neue reine Parameter-/Planungsquelle: `src/procedural_wood.mjs`; strikte Prüfung von Millimetereinheiten, Seed, prozessbezogener Mindestbreite, maximalen Tiefen, engrave-only/no-repeat/no-outer-wall-Policy, Astplatzierung und Ressourcenbudget.
+- Deterministische Planung: Seed `20260820`, lange niedrig gekrümmte Maserungslinien in physischen Koordinaten, globale +Y-Richtung auf Böden, lokale Längsrichtung auf Wand-/Topflächen und ausschließlich bodenseitige verschachtelte Astkonturen.
+- DRAFT-Coupon: `output/DRAFT/DRAFT-R2-procedural-wood-coupon.stl` mit glatter Baseline, horizontalen 0,12/0,16/0,20-mm-Proben, 0,16-mm-Innenwand, 90°-Eckübergang und 0,20-mm-Topkappe. R1-Raster-/Heightmapdaten und Kennzeichnung werden von diesem Couponpfad nicht geladen.
+- V0: 29/29 Node-Tests PASS; deterministische Ausgabe, geänderte Seed-Ausgabe, Grenzwertfehler, floor-only-Astkonturen, Clipping und parameter-only/engrave-only-Metadaten geprüft.
+- V1: 122,0 × 80,0 × 20,6 mm, 7.252 Dreiecke, 362.684 Bytes und 136,598 MiB Peak-RSS. Unabhängiger STL-Audit PASS: geschlossen, manifold, konsistente Orientierung, positives Volumen, ein zusammenhängender Körper und unveränderte Bettfläche z=0.
+- Hashes: Quelle `7c5bed40593cb387e11b980a51615b93c5b801067e638aab46bc698d29dc2a9c`; Parameter `9b47360ab98a2b1f37a1d740b003aa14414b08154822e83e473d323f1f1e9654`; STL `0fdd9021008eea15bef261391edd6c040b63d71e4b6013d20af2d2f0a6ee7924`.
+- Verbleibende Grenze: Der Coupon ist keine Vollmodul-, Slicer-, Druck-, Reinigungs- oder Haptikfreigabe. Vollintegration, Ressourcenvergleich, physischer Coupon und die abschließende Kennzeichnungsstufe bleiben offen.
+
+## 2026-08-21 – R2-Vollmodule und Holzoberfläche digital verifiziert
+
+- Gate-Basis: Anforderungen R2 und `concept-R2-v5.png` bleiben unverändert freigegeben. Die Umsetzung ändert weder Erscheinungsumfang noch Nutbreite/-tiefe, Material, Hülle oder Schnittstellen und benötigt deshalb keine erneute Anforderungen-/Konzeptfreigabe.
+- Vollintegration: Vier Hauptmodule, holztexturierter Schraubendreherkamm, Eck-/Verbinderproben und Holztexturcoupon werden mit `python3 rebuild.py` ohne R1-Raster- oder Heightmapdaten erzeugt.
+- Oberflächenumfang: Böden nutzen ein einziges deterministisches globales +Y-Maserungsfeld; sichtbare Innenwände und sichere Oberseiten verwenden lokale Längsrichtungen. Außen-, Unter-, Verbinder-, Pass-, Griffnut-, Wurzel- und Knotenflächen bleiben geometrische Keep-outs.
+- Exportkorrektur: Ein gleich tiefer Schnittpunkt aus Maserungslinie und Astkontur erzeugte im Float32-Export ein exakt gegenläufiges internes Dreieckspaar. `src/mesh_export.mjs` vereinigt nur exakt identische Float32-Koordinaten, hebt nur exakt gegenläufige interne Flächenpaare auf, prüft anschließend jeden Rand auf Zweifachbelegung und bricht bei mehrdeutigen Duplikaten ab. Der sichtbare/protected Außenrand bleibt unverändert.
+- Tests: 48 Node-Tests und 10 Python-Unit-Tests PASS. Der unabhängige STL-Audit meldet 9/9 PASS: je ein geschlossener, manifold, konsistent orientierter, volumenhaltiger Körper ohne Nullflächen oder Duplikate.
+- Effizienz: Vier Hauptmodule zusammen 426.832 Dreiecke und 21.341.936 STL-Bytes; Reduktion gegenüber R1.3 um 92,9206 % beziehungsweise 92,9205 %. Alle Module bleiben deutlich unter 0,75 Mio. Dreiecken und 1,20 GiB Peak-RSS.
+- 3MF: `output/DRAFT/DRAFT-R2-procedural-wood-assembly.3mf` enthält vier benannte Objekte/Build-Items mit Transformationen aus den Modellparametern; CRC, Core-Namensraum und Hülle 227 × 357 × 64 mm PASS.
+- Meshentscheidung: Zusätzliche verlustbehaftete Decimation ist `not-beneficial`; die kompakte parametrische Repräsentation erreicht die Ressourcenziele bereits. Exakte Slicer- und physische Nachweise bleiben davon unabhängig offen.
+- Gate-Status: Vollmodule sind als absichtlich unmarkierter `DRAFT` digital stabil. Exakte Slicerprüfung, Pass-/Holztextur-/Reinigungscoupons, anschließend die letzte Kennzeichnungsgeometrie und finale Nutzerfreigabe bleiben blockierend.

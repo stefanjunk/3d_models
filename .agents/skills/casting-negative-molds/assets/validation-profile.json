@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "skill": "casting-negative-molds",
+  "artifact_roles": [
+    {"id": "master", "kind": "mesh", "required": true},
+    {"id": "mold-parts", "kind": "mesh", "required": true},
+    {"id": "interface-contract", "kind": "contract", "required": true},
+    {"id": "sweep-report", "kind": "report", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "mold-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["mold-parts"]},
+    {"id": "parting-and-pull", "type": "interfaces", "required": true, "artifact_roles": ["interface-contract"]},
+    {"id": "parameter-envelope", "type": "external_report", "required": true, "artifact_roles": ["master", "mold-parts", "sweep-report"]},
+    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "demold-trial", "kind": "physical", "required": true},
+    {"id": "fill-drain-vent-review", "kind": "review", "required": true},
+    {"id": "shrinkage-trial", "kind": "physical", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

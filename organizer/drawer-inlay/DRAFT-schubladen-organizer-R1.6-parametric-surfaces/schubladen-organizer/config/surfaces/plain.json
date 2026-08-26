@@ -1,0 +1,45 @@
+{
+  "schema_version": 3,
+  "profile_id": "plain",
+  "label": "plain untextured",
+  "representation": "none-parametric-baseline",
+  "coverage_metric": "features",
+  "intent": "unchanged organizer core with all optional surface geometry disabled",
+  "enabled": false,
+  "seed": 0,
+  "boolean_overlap_mm": 0.0,
+  "surfaces": {
+    "floor": {"enabled": false, "edge_margin_mm": 0.90, "maximum_depth_mm": 0.0},
+    "inner_walls": {"enabled": false, "edge_margin_mm": 0.90, "bottom_keepout_mm": 7.40, "top_keepout_mm": 2.00, "maximum_depth_mm": 0.0},
+    "wall_tops": {"enabled": false, "edge_margin_mm": 0.55, "maximum_depth_mm": 0.0},
+    "outer_walls": {"enabled": false, "maximum_depth_mm": 0.0}
+  },
+  "protected_regions": {
+    "floor_to_wall_margin_mm": 3.0,
+    "connector_margin_mm": 3.0,
+    "junction_margin_mm": 4.5,
+    "access_groove_margin_mm": 1.5,
+    "gusset_margin_mm": 1.5,
+    "watermark_margin_mm": 1.5,
+    "minimum_residual_wall_mm": 2.0,
+    "wall_top_smooth_edge_mm": 0.55
+  },
+  "slicer_finish": {
+    "material_intent": "any material already qualified for the R1.5 organizer geometry",
+    "horizontal_top_path": "standard profile",
+    "vertical_wall_finish": "standard perimeters; no fuzzy skin",
+    "micro_detail_policy": "none"
+  },
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "none",
+    "feature_union_batch": 1,
+    "node_old_space_mb": 2048,
+    "target_peak_rss_mib": 1536,
+    "stop_peak_rss_mib": 3072,
+    "target_triangles_per_module": 750000,
+    "review_triangles_per_module": 1000000,
+    "mesh_stop_mib_per_module": 100,
+    "exact_slicer_stop_seconds": 120
+  }
+}

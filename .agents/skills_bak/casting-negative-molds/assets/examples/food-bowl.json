@@ -1,0 +1,75 @@
+{
+  "project": {
+    "name": "220 mm decorated food-serving bowl",
+    "units": "mm",
+    "revision": "concept-1",
+    "notes": "Fine ornament outside; smooth qualified interior; printed cases create plaster working-mold sections."
+  },
+  "final_object": {
+    "dimensions_mm": [220, 220, 80],
+    "quantity": 24,
+    "food_contact": true,
+    "dishwasher_target": true,
+    "assembly_allowed": false
+  },
+  "casting": {
+    "final_material": "porcelain",
+    "route": "printed_case_to_plaster",
+    "fill_mode": "hollow_slip_fill_dwell_drain",
+    "body_or_product": "Exact porcelain slip, glaze, decoration, and firing schedule to be locked",
+    "target_cycles": 30
+  },
+  "source": {
+    "type": "hybrid",
+    "path": "models/bowl.step + textures/ornament-16bit.png",
+    "watertight": true,
+    "face_count": null
+  },
+  "printer": {
+    "process": "FDM",
+    "build_volume_mm": [250, 250, 250],
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.1,
+    "xy_pitch_mm": null,
+    "material": "PETG/PLA printed case, sealed and released only at case-plaster interface"
+  },
+  "mold": {
+    "architecture": "printed_case",
+    "parting_strategy": "Two side plaster sections plus foot section; add more side sections if exterior relief locks.",
+    "planned_parts": 3,
+    "split_axis": "custom",
+    "shell_mm": 3.2,
+    "rib_mm": 3.2,
+    "key_clearance_mm": 0.25,
+    "funnel": true,
+    "reservoir": true,
+    "vents": true,
+    "drain_cradle": true
+  },
+  "shrinkage": {
+    "status": "provisional",
+    "percent_xyz": [12.0, 12.0, 13.0],
+    "coupon_id": "porcelain-body-fired-ring-and-bar-coupons-required"
+  },
+  "detail": {
+    "smallest_feature_mm": 0.6,
+    "relief_depth_mm": 0.35,
+    "heightmap_pitch_mm": 0.2,
+    "placement": "exterior",
+    "continuous_mapping": true
+  },
+  "validation": {
+    "detail_coupon": true,
+    "demolding_test": true,
+    "leak_test": false,
+    "migration_lab_test": true,
+    "dishwasher_cycle_test": true,
+    "acceptance": [
+      "No undercut below rim in any rigid plaster section",
+      "Complete drain without retained slip pockets",
+      "Final interior has no crazing, pinholes, crawling, shivering, or sharp defects",
+      "Representative final articles pass current applicable migration testing",
+      "Dishwasher qualification passes the declared cycle count and conditions"
+    ]
+  }
+}

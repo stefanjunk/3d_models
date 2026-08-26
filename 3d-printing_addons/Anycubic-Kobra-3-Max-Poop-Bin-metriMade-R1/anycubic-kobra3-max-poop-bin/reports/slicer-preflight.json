@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "tool": "slicer-preflight",
+  "tool_version": "1.0.0",
+  "status": "NOT_RUN",
+  "inputs": [
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/kobra3-max-poop-bin-balanced.stl",
+      "sha256": "34310c00fa5045d7515dcdfb74dd79f909ba09a16a131ce023664043c35f2bb5",
+      "size_bytes": 110484
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/kobra3-max-poop-bin-mount-bracket.stl",
+      "sha256": "88f08478312f292ad8ad86516080418df6fab0b3d6ee007d0c3db952b535ce76",
+      "size_bytes": 3364884
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/metrimade-badge-4color.3mf",
+      "sha256": "51cd6891a01256666fde2d4cf5f4a1ffdc05fd89e88a2e4cc80f1c6ee2a05758",
+      "size_bytes": 720709
+    }
+  ],
+  "checks": [
+    {
+      "id": "slicer-cli",
+      "required": true,
+      "status": "NOT_RUN",
+      "message": "Anycubic Slicer Next / Orca CLI not available in this runtime",
+      "metrics": {},
+      "evidence": []
+    },
+    {
+      "id": "orientation-contract",
+      "required": true,
+      "status": "PASS",
+      "message": "Bin bottom, bracket mounting face and badge backing are all exported on Z=0 bed planes",
+      "metrics": {},
+      "evidence": [
+        "build/exports/kobra3-max-poop-bin-balanced.stl",
+        "build/exports/kobra3-max-poop-bin-mount-bracket.stl",
+        "build/exports/metrimade-badge-4color.3mf"
+      ]
+    }
+  ],
+  "metrics": {},
+  "limitations": [
+    "Layer-by-layer preview, actual wall paths, purge volume and G-code analysis remain blocked."
+  ]
+}

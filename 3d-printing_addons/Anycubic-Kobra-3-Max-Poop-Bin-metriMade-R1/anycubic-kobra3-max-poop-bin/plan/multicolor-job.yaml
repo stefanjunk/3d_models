@@ -1,0 +1,70 @@
+version: 1
+project:
+  name: metrimade-poop-bin-side-badge
+  purpose: optional branded side plaque for a functional purge-waste bin
+  risk_class: decorative
+  units: mm
+
+printer:
+  model: Anycubic Kobra 3 Max
+  material_changer: ACE Pro or ACE 2 Pro
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  max_filaments: 4
+  slicer: Anycubic Slicer Next
+
+source:
+  path: evidence/metrimade-lockup-horizontal-color.svg
+  kind: parametric_cad
+  preserve_immutable: true
+  units: mm
+  texture_paths: []
+  source_sha256: 030602129f236af1fa2bfb9a016831be60be10acec82587b5d352f65824db2b5
+
+representation:
+  method: separate_solids
+  authoritative_color_data: named_solids
+  destination_format: 3mf
+  slicer_project_required: false
+
+palette:
+  path: plan/filament-palette.yaml
+  maximum_colors: 4
+  mapping_method: manual
+  dither: false
+  island_cleanup:
+    enabled: true
+    minimum_area_mm2: 0.04
+    minimum_width_mm: 0.2
+    reassignment: deterministic_diagonal_bridge
+
+geometry:
+  minimum_color_width_mm: 0.8
+  minimum_inlay_depth_mm: 0.6
+  interface_clearance_mm: 0.0
+  overlap_allowed: false
+  gap_allowed_mm: 0.03
+  shell_depth_mm: 1.4
+  voxel_pitch_mm: 0.2
+
+materials:
+  require_same_polymer_family: true
+  allowed_family: PETG
+  opacity_review_required: true
+
+purge:
+  matrix_path: null
+  maximum_changes: 20
+  maximum_purge_volume_mm3: 10000
+  permit_flush_into_infill: false
+  light_wall_show_through_review: true
+
+acceptance:
+  all_color_parts_manifold: true
+  preserve_common_coordinate_frame: true
+  final_slicer_slot_mapping_reviewed: false
+  final_slicer_preview_reviewed: false
+  color_boundary_coupon_required: true
+  maximum_mean_delta_e: 18.0
+  maximum_p95_delta_e: 35.0
+

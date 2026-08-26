@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "id": "wood-grain-rounded-sidewall",
+  "intent": {
+    "effect": ["coherent long grain", "sparse knots", "subtle tactile roughness", "warm wood color"],
+    "not_claimed": ["measured copy of a specific board", "structural wood behavior"]
+  },
+  "source": {
+    "type": "design-description-plus-reference-photo",
+    "classification": "directional organic pattern with localized continuous features",
+    "action": "derive splines and knot masks; treat illumination and pores as non-geometric unless proven"
+  },
+  "process": {
+    "technology": "FDM",
+    "nozzle_mm": 0.4,
+    "line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "surface": "rounded-perimeter",
+    "patch_mm": [160, 70]
+  },
+  "components": [
+    {"name": "CORE", "authority": "parametric", "owns": ["rounded perimeter", "wall reserve", "mounting", "seam datum"]},
+    {"name": "GRAIN_CURVES", "authority": "procedural-vector", "owns": ["direction", "wavelength", "spacing", "seed"]},
+    {"name": "KNOT_RELIEF", "authority": "localized-heightmap-or-vector", "owns": ["knot contours", "local height"]},
+    {"name": "MATERIAL_FINISH", "authority": "process", "owns": ["color", "micrograin", "surface sheen"]}
+  ],
+  "mapping": {
+    "coordinate": "accumulated rounded-perimeter arc length",
+    "seam": "rear low-attention zone",
+    "repeat_policy": "controlled crop; no independent X/Y stretch",
+    "protected_margin_mm": 3.0
+  },
+  "candidates": [
+    {"id": "A", "method": "wood-filled material plus subtle wall roughness", "geometry": "plain core"},
+    {"id": "B", "method": "mapped vector grain", "parameters": {"spacing_mm": [0.9, 1.5, 2.4], "relief_mm": [0.1, 0.2]}},
+    {"id": "C", "method": "B plus two localized adaptive knot patches", "heightmap_scope": "knots only"}
+  ],
+  "acceptance": [
+    "grain remains coherent through rounded corners",
+    "seam does not create a scale or phase jump",
+    "no texture enters mounting, fit, or hand-comfort keep-outs",
+    "knots remain recognizable after simplification and slicing",
+    "surface passes cleaning, touch, and wear coupon"
+  ]
+}

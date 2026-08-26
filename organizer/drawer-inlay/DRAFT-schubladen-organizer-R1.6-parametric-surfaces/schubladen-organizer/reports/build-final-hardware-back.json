@@ -1,0 +1,120 @@
+{
+  "status": "DRAFT",
+  "quality": "final",
+  "engine": "manifold-3d",
+  "revision": "R1.6-parametric-surfaces",
+  "execution_strategy": "one-module-per-process; one-procedural-texture-patch-at-a-time",
+  "params": "config/model-params.json",
+  "resolved_wall_thickness_mm": {
+    "base": 3.2,
+    "outer": 3.2,
+    "divider": 3.2
+  },
+  "surface_texture_index": "config/surface-texture.json",
+  "surface_texture_config": "config/surfaces/micro-cast.json",
+  "surface_texture": {
+    "profile_id": "micro-cast",
+    "representation": "deterministic-additive-band-limited-micro-cast-facet-field",
+    "seed": 160824,
+    "protected_regions": {
+      "floor_to_wall_margin_mm": 3,
+      "connector_margin_mm": 3,
+      "junction_margin_mm": 4.5,
+      "access_groove_margin_mm": 1.5,
+      "gusset_margin_mm": 1.5,
+      "watermark_margin_mm": 1.5,
+      "minimum_residual_wall_mm": 2,
+      "wall_top_smooth_edge_mm": 0.55
+    },
+    "outer_walls_textured": false
+  },
+  "watermark": {
+    "enabled": true,
+    "asset_id": "JSI-WM-001-R1",
+    "variant": "compact",
+    "dxf": "../assets/just-innovation-watermark/exports/dxf/just-innovation-compact.dxf",
+    "source_bounds": {
+      "min": [
+        -5.7116,
+        -5
+      ],
+      "max": [
+        5.7105,
+        5
+      ]
+    },
+    "actual_envelope_mm": [
+      15.99094,
+      14
+    ],
+    "scale": 1.4,
+    "depth_mm": 0.4,
+    "residual_floor_mm": 2.2
+  },
+  "modules": [
+    {
+      "id": "hardware-back",
+      "file": "DRAFT-hardware-back-surface.stl",
+      "mesh_cache": "reports/mesh-cache/hardware-back.meshbin",
+      "texture_stats": {
+        "profile_id": "micro-cast",
+        "representation": "deterministic-additive-band-limited-micro-cast-facet-field",
+        "operation": "additive-raised-only",
+        "patches": 17,
+        "facets": 18804,
+        "by_surface": {
+          "floor": {
+            "patches": 7,
+            "facets": 5468,
+            "height_min_mm": 0.019585315584765447,
+            "height_max_mm": 0.22104533024119438
+          },
+          "inner_walls": {
+            "patches": 6,
+            "facets": 13336,
+            "height_min_mm": 0.019391566948159022,
+            "height_max_mm": 0.1903991123325881
+          },
+          "wall_tops": {
+            "patches": 4,
+            "facets": 0,
+            "height_min_mm": null,
+            "height_max_mm": 0
+          }
+        }
+      },
+      "status": "NoError",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          135,
+          178.5,
+          64
+        ]
+      },
+      "size_mm": [
+        135,
+        178.5,
+        64
+      ],
+      "volume_mm3": 181514.78573533148,
+      "triangles": 47230,
+      "vertices": 23617,
+      "export_mesh": {
+        "triangles": 47230,
+        "vertices": 23617,
+        "dropped_zero_area_triangles": 0
+      }
+    }
+  ],
+  "process_memory": {
+    "mode": "hardware-back",
+    "pid": 166,
+    "max_rss_mib": 243.734375,
+    "measurement": "process.resourceUsage().maxRSS; peak resident set for this isolated Node/WASM process"
+  }
+}

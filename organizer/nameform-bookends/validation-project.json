@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-PER-001",
+    "revision": "0.3.0",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [220, 220, 250]
+  },
+  "artifacts": [
+    {"id": "left-step", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.step", "kind": "step", "revision": "0.3.0"},
+    {"id": "left-stl", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.stl", "kind": "mesh", "revision": "0.3.0"},
+    {"id": "left-3mf", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.3mf", "kind": "3mf", "revision": "0.3.0"},
+    {"id": "right-step", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.step", "kind": "step", "revision": "0.3.0"},
+    {"id": "right-stl", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.stl", "kind": "mesh", "revision": "0.3.0"},
+    {"id": "right-3mf", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.3mf", "kind": "3mf", "revision": "0.3.0"},
+    {"id": "assembly-step", "path": "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-assembly-candidate.step", "kind": "step-assembly", "revision": "0.3.0"},
+    {"id": "source", "path": "source/v0.3.0/nameform_bookends.py", "kind": "source", "revision": "0.3.0"},
+    {"id": "candidate-build-script", "path": "scripts/build_v030_candidate.py", "kind": "source", "revision": "0.3.0"},
+    {"id": "font", "path": "source/v0.3.0/assets/fonts/DejaVuSansCondensed-Bold.ttf", "kind": "font", "revision": "0.3.0"},
+    {"id": "design-spec", "path": "design-spec.yaml", "kind": "specification", "revision": "0.3.0"},
+    {"id": "print-profile", "path": "print-profile-v0.3.0.json", "kind": "print-profile", "revision": "0.3.0"},
+    {"id": "test-plan", "path": "test-plan.yaml", "kind": "test-plan", "revision": "0.3.0"},
+    {"id": "pair-image", "path": "validation/v0.3.0/pair-overview-candidate.png", "kind": "image", "revision": "0.3.0"},
+    {"id": "text-sweep", "path": "validation/v0.3.0/text-sweep.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "stiffness-report", "path": "validation/v0.3.0/stiffness-comparison.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "source-report", "path": "validation/v0.3.0/parametric-source.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "interface-report", "path": "validation/v0.3.0/interface-validation.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "optimization-report", "path": "validation/v0.3.0/optimization-comparison.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "reproducibility-report", "path": "validation/v0.3.0/reproducibility-candidate.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "slicer-report", "path": "validation/v0.3.0/slicer-preflight.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "watermark-report", "path": "validation/v0.3.0/watermark-candidate.json", "kind": "report", "revision": "0.3.0"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.3.0"},
+    {"id": "agent-approval-ledger", "path": "validation/v0.3.0/agent-approvals.json", "kind": "approval-ledger", "revision": "0.3.0"}
+  ],
+  "checks": [
+    {
+      "id": "left-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "left-stl",
+      "report": "validation/v0.3.0/project-left-mesh.json",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [220, 220, 250],
+        "allow_axis_permutation": false,
+        "max_faces": 250000,
+        "max_file_mib": 25
+      }
+    },
+    {
+      "id": "right-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "right-stl",
+      "report": "validation/v0.3.0/project-right-mesh.json",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [220, 220, 250],
+        "allow_axis_permutation": false,
+        "max_faces": 250000,
+        "max_file_mib": 25
+      }
+    },
+    {
+      "id": "left-3mf",
+      "type": "3mf",
+      "required": true,
+      "artifact": "left-3mf",
+      "report": "validation/v0.3.0/project-left-3mf.json",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 1,
+        "max_package_members": 10000,
+        "max_uncompressed_mib": 512,
+        "max_compression_ratio": 200
+      }
+    },
+    {
+      "id": "right-3mf",
+      "type": "3mf",
+      "required": true,
+      "artifact": "right-3mf",
+      "report": "validation/v0.3.0/project-right-3mf.json",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 1,
+        "max_package_members": 10000,
+        "max_uncompressed_mib": 512,
+        "max_compression_ratio": 200
+      }
+    },
+    {"id": "parametric-source", "type": "external_report", "required": true, "artifact": "source-report", "expected_inputs": ["source", "font", "design-spec", "candidate-build-script", "text-sweep"]},
+    {"id": "interfaces", "type": "external_report", "required": true, "artifact": "interface-report", "expected_inputs": ["left-stl", "right-stl", "pair-image"]},
+    {"id": "optimization", "type": "external_report", "required": true, "artifact": "optimization-report", "expected_inputs": ["left-stl", "right-stl", "stiffness-report"]},
+    {"id": "reproducibility", "type": "external_report", "required": true, "artifact": "reproducibility-report", "expected_inputs": ["left-step", "left-stl", "left-3mf", "right-step", "right-stl", "right-3mf", "assembly-step"]},
+    {"id": "digital-watermark", "type": "review", "required": true, "status": "PASS", "criterion": "Digital watermark selector, 2/2 coverage, removed volume, unchanged bounds, bed datum, and 1.6 mm residual wall pass", "evidence_artifact": "watermark-report"},
+    {"id": "agent-workflow-through-interfaces", "type": "approvals", "required": true, "policy_artifact": "autonomy-policy", "agent_ledger_artifact": "agent-approval-ledger", "target_stage": "interface-validation"},
+    {"id": "exact-slicer", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["print-profile", "left-3mf", "right-3mf"]},
+    {"id": "watermark-coupon", "type": "physical", "required": true, "status": "NOT_RUN", "criterion": "Process-matched watermark coupon is readable, durable, and approved", "evidence_artifact": null},
+    {"id": "complete-pair", "type": "physical", "required": true, "status": "NOT_RUN", "criterion": "Unchanged pair passes TP-01 through TP-06, including 2 kg book row, 5 N proof load, slide, cycles, and appearance", "evidence_artifact": null}
+  ],
+  "release": {
+    "required_approvals": ["final-model-release"],
+    "approvals": {"final-model-release": "pending"}
+  }
+}

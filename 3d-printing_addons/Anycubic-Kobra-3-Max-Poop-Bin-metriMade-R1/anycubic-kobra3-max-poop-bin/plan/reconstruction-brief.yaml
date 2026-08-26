@@ -1,0 +1,101 @@
+project:
+  name: anycubic-kobra3-max-poop-bin
+  revision: R1
+  target_use: removable purge-waste catcher
+  target_size_mm: {x: 168.0, y: 118.0, z: 152.0}
+  coordinate_system: {origin: center of bin bottom, x_axis: width, y_axis: toward printer, z_axis: upward}
+
+sources:
+  - id: DOC-ANYCUBIC-PURGE-WIPER
+    file: https://wiki.anycubic.com/en/fdm-3d-printer/kobra-3-max/purge-wiper-components-replace-guide
+    view: repair sequence and mounting description
+    projection: unknown
+    focal_length_mm: null
+    scale_reference: M3 fixing screws only
+    known_dimension_mm: 3.0
+    original_preserved: true
+    limitations: [no hole spacing, no orthographic drawing, no machine keep-out dimensions]
+  - id: DOC-ANYCUBIC-PRODUCT
+    file: https://store.anycubic.com/products/kobra-3-max
+    view: official product views and specifications
+    projection: perspective product photography
+    focal_length_mm: null
+    scale_reference: official 420 x 420 x 500 mm build volume
+    known_dimension_mm: 420.0
+    original_preserved: true
+    limitations: [not suitable for exact local mounting dimensions]
+
+manufacturing:
+  process: FDM
+  printer: Anycubic Kobra 3 Max
+  material: PETG
+  nozzle_mm: 0.4
+  xy_pixel_mm: null
+  layer_height_mm: 0.2
+  intended_orientation: bin upright; bracket machine-facing plate flat; gauge and badge flat
+  measured_effective_feature_mm: null
+
+requirements:
+  - id: REQ-001
+    category: interface
+    statement: Use two documented purge-wiper fixing points without assuming an undocumented spacing.
+    status: inferred
+    source: DOC-ANYCUBIC-PURGE-WIPER
+    confidence: medium
+    nominal_mm: null
+    tolerance_mm: null
+    priority: critical
+    validation: coupon
+  - id: REQ-002
+    category: print
+    statement: Keep all printed parts support-free at 0.2 mm layers and a 0.4 mm nozzle.
+    status: requested
+    source: project design objective
+    confidence: high
+    nominal_mm: 0.4
+    tolerance_mm: null
+    priority: important
+    validation: slicer
+  - id: REQ-003
+    category: function
+    statement: Preserve the purge fall path and machine motion envelope.
+    status: inferred
+    source: DOC-ANYCUBIC-PURGE-WIPER and official product views
+    confidence: low
+    nominal_mm: null
+    tolerance_mm: null
+    priority: critical
+    validation: prototype
+
+appearance:
+  geometry_features: [rounded tapered bin, high rear shield, continuous reinforced rim]
+  relief_features: [separate 0.6 mm four-color badge relief]
+  texture_only_features: []
+  palette_srgb: ['#112431', '#08777D', '#7FD5D3', '#C7AB82']
+  material_hypotheses: [opaque PETG body, same-family opaque badge filaments]
+  lighting_or_shadow_cues_to_ignore: [product-photo reflections, cast shadows, perspective foreshortening]
+
+uncertainty:
+  hidden_regions: [rear face of purge-wiper sheet metal, threaded-hole depth, local cable path]
+  conflicting_evidence: [official replacement hardware may differ from factory-installed screw length]
+  variants_to_model: [compact, balanced, high-capacity]
+  unresolved_questions: [actual two-hole spacing, exact sheet-metal keep-out, screw depth, preferred badge side]
+
+validation_views:
+  - id: VIEW-PHYSICAL-001
+    source_id: DOC-ANYCUBIC-PURGE-WIPER
+    camera: physical fit-gauge alignment at machine-side sheet metal
+    landmarks: [left screw center, right screw center, purge chute centerline]
+    acceptance:
+      silhouette_iou_min: null
+      boundary_mean_px_max: null
+      landmark_error_percent_max: null
+      notes: Quantitative image comparison is inappropriate; use direct physical fit and measured spacing.
+
+deliverables:
+  editable_master: src/generate_poop_bin.py plus params/*.json
+  print_mesh: build/exports/kobra3-max-poop-bin-balanced.stl
+  textured_asset: build/exports/metrimade-badge-4color.3mf
+  reports: [reports/mesh-audit.json, reports/three-mf-validation.json, reports/interface-report.json]
+  known_deviations: [machine interface remains adjustable and physically unverified]
+

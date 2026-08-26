@@ -1,0 +1,25 @@
+{
+  "input": "source/model.stl",
+  "output": "result/model-functionalized.stl",
+  "working_units": "MM",
+  "target_object": null,
+  "save_blend": "result/checkpoint.blend",
+  "apply_transform": true,
+  "decimate_ratio": null,
+  "operations": [
+    {
+      "name": "example-cavity",
+      "operation": "DIFFERENCE",
+      "solver": "EXACT",
+      "cutter": {
+        "type": "cylinder",
+        "radius": 20.0,
+        "depth": 80.0,
+        "location": [0.0, 0.0, 0.0],
+        "rotation_deg": [0.0, 0.0, 0.0],
+        "vertices": 96
+      },
+      "keep_cutter": false
+    }
+  ]
+}

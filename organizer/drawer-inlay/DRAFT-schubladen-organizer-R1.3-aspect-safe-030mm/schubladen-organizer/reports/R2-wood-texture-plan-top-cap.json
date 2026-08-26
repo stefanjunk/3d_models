@@ -1,0 +1,85 @@
+{
+  "coupon": {
+    "candidates": [
+      "material-or-process",
+      "vector-or-procedural",
+      "localized-adaptive-heightmap",
+      "custom-path-if-needed"
+    ],
+    "hold_constant": [
+      "printer",
+      "nozzle",
+      "material",
+      "orientation",
+      "profile",
+      "lighting",
+      "viewing-distance"
+    ],
+    "inspect": [
+      "toolpath-continuity",
+      "short-segments",
+      "bond-to-core",
+      "appearance",
+      "touch",
+      "wear",
+      "cleanability"
+    ]
+  },
+  "inputs": {
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.45,
+    "nozzle_mm": 0.4,
+    "patch_mm": [
+      3.2,
+      170.0
+    ],
+    "pattern": "wood-grain",
+    "relief_mm": 0.2,
+    "smallest_feature_mm": 0.9,
+    "source": "design-description",
+    "surface": "horizontal-top"
+  },
+  "integration": {
+    "named_parts": [
+      "CORE",
+      "TEXTURE_SKIN"
+    ],
+    "one_piece_print_rule": "Use a slicer-verified capture/overlap band when separate parts must fuse in place.",
+    "preserve_part_identity_until_slicing": true,
+    "project_rule": "Preserve common origin, transforms, part assignments, slicer version, and exact 3MF/project."
+  },
+  "representation": {
+    "motif_pitch_start_mm": [
+      1.35,
+      3.6
+    ],
+    "recommended_methods": [
+      "vector-plus-localized-relief",
+      "material-or-fuzzy-wall",
+      "slicer-top-surface-pattern"
+    ],
+    "relief_in_nominal_layers": 1.0,
+    "resolution_band": {
+      "band": "path-scale",
+      "feature_to_line_width": 2.0,
+      "guidance": "Prefer slicer or authored extrusion paths and prove continuity on a coupon."
+    },
+    "shallow_relief_start_mm": [
+      0.1,
+      0.4
+    ]
+  },
+  "schema_version": "1.0",
+  "uniform_heightfield_worst_case": {
+    "displaced_area_mm2": 544.0,
+    "estimated_relief_triangles": 27200,
+    "gate": "PASS",
+    "note": "This is a planning lower bound for a uniform grid, not a recommendation to build one.",
+    "portable_pass_limit": 1500000,
+    "portable_stop_limit": 7500000,
+    "sample_pitch_mm": 0.2
+  },
+  "warnings": [
+    "Avoid: unfiltered photo heightmap over every visible face."
+  ]
+}

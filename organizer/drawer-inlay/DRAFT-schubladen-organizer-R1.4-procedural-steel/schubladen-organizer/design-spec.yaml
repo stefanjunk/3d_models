@@ -1,0 +1,441 @@
+project:
+  name: "Parametrischer Schubladen-Organizer mit prozeduraler Stahltextur"
+  revision: "R1.4-procedural-steel"
+  units: "mm"
+  status: "production-R1.4-procedural-steel-DRAFT"
+
+workflow:
+  requirements_approval:
+    status: "approved"
+    spec_revision: "R1.4-procedural-steel"
+    requested_by: "user"
+    requested_at: "2026-08-11"
+    approved_by: "user"
+    approved_at: "2026-08-21"
+    approval_note: "Der Nutzer genehmigte die Ablösung der Bildgravur durch eine hochdetaillierte, nahezu realistische Metall-/Stahltextur auf Innenboden, inneren Seitenwänden und Wandoberseiten mit glatten Funktions-Keep-outs."
+    prior_approved_revision: "R1"
+  concept_approval:
+    status: "approved"
+    spec_revision: "R1.4-procedural-steel"
+    concept_asset: "concept-R1.4-procedural-steel.png"
+    asset: "concept-R1.4-procedural-steel.png"
+    approved_by: "user"
+    approved_at: "2026-08-21"
+    approval_note: "Vom Nutzer mit 'concept approved' ausdrücklich freigegeben. Produktionsgeometrie darf als deterministische mehrskalige Schmiede-/Gussstahltextur umgesetzt werden."
+    prior_approved_revision: "R1"
+    prior_concept_asset: "concept-R1.png"
+  watermark_release_gate:
+    status: "blocked"
+    spec_revision: "R1.4-procedural-steel"
+    geometry_stage: "reintegrated-after-procedural-steel-texture-rebuild"
+    asset_id: "JSI-WM-001-R1"
+    profile: "compact, scale 1.4, 15.991 x 14.000 mm, 0.40 mm recessed"
+    marked_parts: ["driver-front", "driver-back", "hardware-front", "hardware-back"]
+    residual_floor: 2.2
+    evidence: "reports/watermark-evidence.md"
+    reason: "R1.4 ist digital neu aufgebaut; echte Slicer-Vorschau der ersten kennzeichnungstragenden Schichten und finale Nutzerfreigabe stehen aus."
+  watermark_approval:
+    status: "blocked"
+    spec_revision: "R1.4-procedural-steel"
+    asset_id: "JSI-WM-001-R1"
+    variant: "compact"
+    geometry_revision: "reports/geometry-sha256.txt (R1.4 regenerated hashes)"
+    placement: "druckbettseitige Unterseite aller vier Hauptmodule"
+    preview_asset: "reports/watermark-underside.png"
+    validation_asset: "reports/watermark-evidence.md"
+    reason: "Digitale Geometrie PASS; echte Slicer-Vorschau fehlt."
+  final_release_approval:
+    status: "blocked"
+    spec_revision: "R1.4-procedural-steel"
+    reason: "R1.4 ist digital validiert; physischer Texturcoupon, echte Slicer-Vorschau und finale Nutzerfreigabe stehen aus."
+
+branding:
+  required: true
+  brand: "JuSt Innovation"
+  asset_id: "JSI-WM-001-R1"
+  operation: "recessed"
+  preferred_surface: "print-bed-facing-underside"
+  depth_mm: 0.4
+
+function:
+  summary: "Parametrische Schubladeneinlage fuer Schraubendreher und acht Kleinteilfaecher."
+  environment: "Innenschublade, normale funktionale Haushalts-/Werkstattnutzung."
+
+risk:
+  class: "normal-functional"
+  hazards: ["Klemmende Modulverbinder", "Verzug oder Passungsabweichung", "scharfe Druckfehlerkanten"]
+
+fabrication:
+  preference: "integrated-print"
+  purchased_parts: []
+
+printer:
+  build_volume_mm: [220.0, 220.0, 250.0]
+  process: "FDM/FFF"
+
+goal_and_scope:
+  function:
+    value: "Herausnehmbare, flächenoptimierte Schubladeneinlage für Schraubendreher, Schrauben, Unterlegscheiben und Muttern."
+    basis: "user-stated"
+  intended_use:
+    value: "Werkzeug- und Kleinteileaufbewahrung in einer vorhandenen Innenschublade."
+    basis: "inferred"
+  risk_class:
+    value: "normal-functional"
+    basis: "recommended"
+  excluded:
+    value:
+      - "Keine tragende oder sicherheitskritische Funktion."
+      - "Kein automatischer Druckerupload oder Druckstart."
+    basis: "recommended"
+
+drawer_interface:
+  inside_depth_front_to_back:
+    value: 360.0
+    basis: "user-stated"
+  inside_width_left_to_right:
+    value: 230.0
+    basis: "user-stated"
+  inside_height:
+    value: 80.0
+    basis: "user-stated"
+  coordinate_convention:
+    value: "X = links/rechts, Y = Front/Ruecken, Z = unten/oben"
+    basis: "recommended"
+  target_outer_envelope:
+    value: [227.0, 357.0, 64.0]
+    tolerance: "+0.0/-0.6 pro Achse"
+    basis: "recommended"
+    rationale: "1.5 mm umlaufendes XY-Spiel und 16 mm oberer Freiraum; geringere Bauhoehe verbessert Zugriff und spart Material."
+  fit_verification:
+    value: "Zuerst 20 mm hohe Eck-/Spielprobe; Endmaß nach realer Schubladenmessung an Vorderseite, Mitte und Ruecken anpassen."
+    basis: "recommended"
+
+layout:
+  strategy:
+    value: "Parametrische Zonenaufteilung: eine lange Schraubendreherzone plus Raster aus Hardwarefaechern."
+    basis: "recommended"
+  provisional_screwdriver_zone_width:
+    value: 92.0
+    basis: "recommended"
+  provisional_hardware_zone_width:
+    value: 135.0
+    basis: "production-derived"
+  provisional_hardware_grid:
+    value: "2 Spalten x 4 Reihen = 8 Faecher; Trennwandpositionen als Parameter"
+    basis: "recommended"
+  screwdriver_insert:
+    value: "Austauschbarer, parametrischer Einsatz bzw. Kamm statt fest angenommener Einzelkonturen"
+    basis: "recommended"
+  storage_ergonomics:
+    value:
+      - "Vordere Griffmulden an Kleinteilfaechern."
+      - "Abgerundete Innenuebergaenge fuer Entnahme und Reinigung."
+      - "Keine tiefen Sacktaschen oder unzugaenglichen Spalte."
+    basis: "recommended"
+
+construction:
+  architecture:
+    value: "Mehrteilige, formschluessig ausgerichtete Module mit ebenen runden Puzzleverbindern; parametrische Grundkoerper plus separat zuschaltbare prozedurale Innenflächentextur."
+    basis: "recommended"
+  fabrication_preference:
+    value: "integrated-print pro Modul, ohne Zukaufteile"
+    basis: "recommended"
+  provisional_module_split:
+    value: "2 x 2 Module; groesster Druck-Footprint inklusive Verbinder 135 x 186.5 mm; Trennlinien und Verbinder parametrisch"
+    basis: "recommended"
+    rationale: "Passt mit Reserve auf weit verbreitete 220 x 220 mm Druckbetten."
+  floor_thickness:
+    value: 2.6
+    basis: "recommended"
+    rationale: "Die tiefste R1.4-Oberflächendelle von 0.28 mm lässt 2.32 mm tragenden Restboden; unter der 0.40-mm-Unterseitenkennzeichnung bleiben 2.20 mm."
+  outer_wall_thickness:
+    value: 3.2
+    basis: "recommended"
+  divider_thickness:
+    value: 3.2
+    basis: "recommended"
+  wall_thickness_parameters:
+    value:
+      base_wall_thickness: 3.2
+      outer_wall_override: null
+      divider_wall_override: null
+      recommended_adjustment_step: 0.4
+      validated_parameter_range: [2.8, 4.0]
+    basis: "user-stated-and-recommended"
+    rationale: "Ein gemeinsamer Basisparameter erlaubt schnelle Varianten; getrennte Overrides erhalten spaeter die Feinsteuerung. 3.2 mm gibt doppelseitigem Relief und PETG-Waenden mehr Reserve. Werte unter 3.2 mm erfordern eine erneute Restwandpruefung."
+  divider_height:
+    value: 55.0
+    basis: "recommended"
+  wall_transition:
+    value: "Durchgehende, optisch weiche Vertikalblenden an allen T- und Kreuzungsknoten vom Boden bis zur Wandoberkante; zusaetzlich verrundete Bodenwurzeln."
+    basis: "user-stated"
+  continuous_junction_blend:
+    value:
+      vertical_blend_radius: 4.0
+      cross_hub_radius: 5.5
+      start_height: 2.6
+      end_height: 55.0
+      blend_profile: "tangential/quarter-round"
+    basis: "recommended"
+    rationale: "4.0 mm macht die Verrundung im Druck sichtbar und gut reinigbar, ohne die Fachflaeche an den Knoten unnoetig stark zu verkleinern."
+  compartment_access_groove:
+    value:
+      width: 22.0
+      depth_from_top: 8.0
+      bottom_corner_radius: 4.0
+      profile: "breite U-Nut mit gerundetem Boden und weichen Seitenuebergaengen"
+      placement: "zentriert auf den vorderen sichtbaren Trennwaenden der acht Kleinteilfaecher"
+    basis: "user-stated-and-recommended"
+    rationale: "Entspricht der breiteren, leicht gerundeten Wirkung des freigegebenen R0-Konzeptbilds und verbessert den Fingereingriff gegenueber den schmalen rechteckigen DRAFT-Ausschnitten."
+  corner_radius:
+    value: 3.0
+    basis: "recommended"
+  load_case:
+    value: "Handwerkzeug und lose Kleinteile; keine definierte Stapel- oder Stoßlast."
+    basis: "inferred"
+
+appearance_and_relief:
+  visual_language:
+    value: "Hochdetaillierte, nahezu realistische satinierte Schmiede-/Gussstahloptik ohne fotografische Plattennähte, Nieten oder Beleuchtung als Geometrie."
+    basis: "user-stated-and-approved"
+  representation:
+    value: "Deterministisches mehrskaliges analytisches Dimple-Feld; Material und Extrusionsrichtung tragen die optische Mikrostruktur. Keine Heightmap und kein Bildaustauschpfad."
+    basis: "approved-and-skill-routed"
+  seed:
+    value: 140421
+    basis: "recommended"
+  approved_surfaces:
+    value: ["Innenboden", "innere Seitenwände", "mittlerer Streifen der Wandoberseiten"]
+    basis: "user-stated-and-approved"
+  excluded_surfaces:
+    value: ["Außenwände", "Unterseiten", "Verbinder", "Passflächen", "Griffnuten", "Gussets und Wandknoten", "Wandoberkanten-Komfortband"]
+    basis: "recommended-and-approved"
+  physical_pattern:
+    value:
+      floor_macro_diameter_mm: [4.0, 8.5]
+      floor_macro_depth_mm: [0.18, 0.28]
+      floor_meso_diameter_mm: [1.3, 2.8]
+      floor_meso_depth_mm: [0.10, 0.15]
+      wall_macro_diameter_mm: [3.5, 7.5]
+      wall_macro_depth_mm: [0.15, 0.23]
+      wall_meso_diameter_mm: [1.3, 2.7]
+      wall_meso_depth_mm: [0.10, 0.14]
+      wall_top_diameter_mm: [1.1, 1.6]
+      wall_top_depth_mm: [0.10, 0.13]
+    basis: "approved-intent-and-process-scaled"
+  material_finish:
+    value: "Metallisch-graphitfarbenes PETG plus monotone gerichtete Deckbahnen; optionale milde Wandrauheit erst nach Coupon."
+    basis: "recommended"
+  cleanability_constraint:
+    value: "Nur flache runde Vertiefungen; keine scharfen Kratzer, Poren, Rostlöcher oder Hinterschneidungen."
+    basis: "recommended"
+  one_command_rebuild:
+    value: "python3 rebuild.py"
+    basis: "user-stated-and-implemented"
+
+marking:
+  value: "Kompakte JuSt-Innovation-Kennzeichnung erst nach stabiler Produktionsgeometrie als letzte Geometrieaenderung, vertieft auf einer sicheren druckbettseitigen Unterseite; keine sichtbare Innen- oder Nutzflaeche."
+  basis: "required-by-workflow"
+  status: "R1-integrated-last; digital-PASS; release-blocked-by-missing-real-slicer-preview"
+
+manufacturing:
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  material: "PETG"
+  provisional_printer_build_volume:
+    value: [220.0, 220.0, 250.0]
+    basis: "approved-default"
+  provisional_nozzle:
+    value: 0.4
+    basis: "approved-default"
+  provisional_layer_height:
+    value: 0.2
+    basis: "recommended"
+  provisional_material:
+    value: "PETG"
+    basis: "approved-default"
+  print_orientation:
+    value: "Module flach mit Schubladenboden auf dem Druckbett; supportfrei konstruiert."
+    basis: "recommended"
+  wall_strategy:
+    value: "Mindestens 3 Perimeter bei 0.4-mm-Duese; Wandstaerken als Vielfache der Linienbreite abstimmen."
+    basis: "recommended"
+  mesh_simplification:
+    status: "not-beneficial"
+    rationale: "Die Komplexität wurde bereits parametrisch durch den Ersatz der Heightmap mit analytischen Mehrskalenmerkmalen reduziert. Zusätzliche globale Decimation gefährdet Funktionsflächen ohne relevanten Nutzen bei höchstens rund 161000 Dreiecken je Hauptmodul."
+    export_cleanup_tolerance_mm: 0.0001
+    protected_regions: ["Connectoren", "Bettauflage", "Wandtops", "Texturgrenzen", "Kennzeichnung"]
+
+parametric_deliverables:
+  cad_route:
+    value: "Parametrische JavaScript-Quelle mit Manifold3D-WASM; deterministische analytische Textur aus JSON; ein Modul pro Prozess und ein Texturpatch pro Boolean-Stufe."
+    basis: "implementation-verified"
+  files:
+    value:
+      - "design-spec.yaml und decision-log.md"
+      - "Parametrische JavaScript-/Manifold3D-Quelle"
+      - "Prozedurale Textur- und Keep-out-Konfiguration"
+      - "Parameterloser Ein-Befehl-Rebuild `python3 rebuild.py`"
+      - "DRAFT-STL/3MF der texturierten Druckmodule"
+      - "Pass-, Connector- und Stahltextur-Coupons"
+      - "Geometrie- und Druckbarkeitsbericht, BOM und Druckprofil"
+      - "Uebersichtsrender und Montageplan"
+    basis: "recommended"
+
+production_candidate:
+  status: "R1.4-procedural-steel-DRAFT-digitally-validated"
+  generated_at: "2026-08-21"
+  backend: "manifold-3d 3.5.1 via Node.js"
+  assembly_envelope: [227.0, 357.0, 64.0]
+  module_count: 4
+  hardware_compartments: 8
+  separate_screwdriver_comb: true
+  connector_type: "planar jigsaw, 0.30 mm nominal clearance"
+  digital_validation: "PASS für 9/9 STL-Dateien; alle Einzelkoerper watertight/manifold/einteilig; R1.4-3MF CRC, Core-Namespace, 4 Objekte/Build-Items und Huelle PASS; Texturflächen/Keep-outs/Restwände/Connector-Regression/Speicherbudgets PASS."
+  r1_features:
+    access_grooves: "8 x U-Profil, 22 x 8 mm, 4-mm-Bodenradius"
+    junctions: "3 Kreuzungshubs Radius 5.5 mm und 6 T-Blenden Radius 4.0 mm; z=2.6..55.0 mm"
+    resolved_wall_thickness: "Basis/Aussen/Trennwand 3.2 mm; separate Overrides aktivierbar"
+    surface_texture: "Deterministisches Mehrskalen-Dellenfeld mit Seed 140421; Boden bis 0.28 mm, Innenwände bis 0.23 mm, Wandtops bis 0.13 mm; keine Bild-/Heightmap-Verarbeitung."
+    memory: "Ein Modul pro Prozess und ein Patch pro Stufe; gemessener Worst Case 326.215 MiB = 0.319 GiB = 0.342 GB dezimal."
+    minimum_residual_material: "2.32 mm unter Bodentextur; 2.74 mm doppelseitige Trennwand; 2.20 mm unter der Kennzeichnung"
+    connector_status: "Runde Lug-Geometrie in X/Y und byte-identische R1.3-Coupons; physischer Nicht-Fit bleibt bis zum gemessenen Coupon offen."
+  source_of_truth:
+    - "config/model-params.json"
+    - "config/surface-texture.json"
+    - "rebuild.py"
+    - "src/build_pipeline.py"
+    - "src/manifold_model.mjs"
+    - "src/manifold_build.mjs"
+    - "src/surface_texture.mjs"
+    - "src/validate_surface_texture.py"
+    - "src/repair_stl.py"
+  limitations:
+    - "Kein STEP-Export: In der Ausfuehrungsumgebung war kein STEP-faehiges parametrisches CAD-Backend vorhanden; die vollparametrische Quelle bleibt enthalten."
+    - "Keine reale Slicer-/Druckerpruefung und keine physische Couponmessung in dieser Umgebung."
+
+acceptance_criteria:
+  dimensional_fit:
+    value: "Gesamtaußenmaß ueberschreitet 227 x 357 x 76 mm nicht; an jeder Schubladenseite nominell 1.5 mm Spiel."
+    basis: "recommended"
+  geometry:
+    value: "Jedes Druckmodul ist geschlossen, manifold/watertight, volumenhaltig und einzeln slicebar; keine unbeabsichtigten Koerper oder Kollisionen."
+    basis: "recommended"
+  stability:
+    value: "Alle Trennwaende besitzen durchgehende Bodenanbindung; T- und Kreuzungsknoten sind vom Boden bis zur Wandoberkante tangential verrundet. Keine freie Wandlaenge ueber 120 mm ohne Anschluss oder Rippe."
+    basis: "recommended"
+  printability:
+    value: "Supportfrei in Zielorientierung; kleinste Reliefmerkmale >= 2 Linienbreiten oder durch Testcoupon im Zielprozess nachgewiesen."
+    basis: "recommended"
+  texture:
+    value: "Prozedurale Stahltextur liegt nur auf den drei freigegebenen Innenflächengruppen; keine Bildstreckung oder Kachelnaht; Restboden/-wand bleibt >= 2.0 mm."
+    basis: "recommended"
+  ergonomic_grooves:
+    value: "Alle vorgesehenen Kleinteilfaecher besitzen eine zentrierte 22 x 8 mm breite U-Griffnut mit 4 mm unteren Rundungen; keine scharfkantigen rechteckigen Ausschnitte."
+    basis: "recommended"
+  junction_aesthetics:
+    value: "Vollhoehenblenden an T- und Kreuzungsknoten sind in Vorschau und Mesh sichtbar gleichmaessig, tangential und frei von Stufen oder Selbstueberschneidungen."
+    basis: "recommended"
+  physical_tests:
+    value:
+      - "Spiel-/Eckcoupon in der realen Schublade"
+      - "L-förmiger Stahltexturcoupon mit glattem Vergleichsfeld sowie niedriger, freigegebener und hoher Dichte"
+      - "Probemodul mit mindestens einer Kreuzung, Verbindung und Griffmulde"
+    basis: "recommended"
+
+acceptance:
+  - id: "envelope"
+    criterion: "Zusammengebaute Huelle maximal 227 x 357 x 76 mm."
+  - id: "compartments"
+    criterion: "Exakt acht Hardwarefaecher plus durchgehende Schraubendreherzone."
+  - id: "r1-grooves"
+    criterion: "Acht U-Griffnuten mit 22 mm Breite, 8 mm Tiefe und 4 mm Bodenradius."
+  - id: "r1-junctions"
+    criterion: "Vollhoehe glatte T-/Kreuzungsblenden ohne Stufen oder Selbstueberschneidung."
+  - id: "mesh"
+    criterion: "Alle neun STL-Dateien watertight, manifold, einteilig und volumenhaltig."
+  - id: "surface-texture"
+    criterion: "Deterministische Stahltextur auf Innenboden, Innenwänden und Wandoberseiten; glatte Außen- und Funktionsflächen; mindestens 2,0 mm Restmaterial."
+
+resolved_decisions:
+  - id: "printer"
+    accepted_value: "220 x 220 mm, 0.4-mm-Duese; 2 x 2 modulare Teilung"
+    resolution: "recommended-default-approved-with-R0"
+    impact: "Bestimmt Modulteilung, Verbinder und nutzbare Reliefdetails."
+  - id: "inventory"
+    accepted_value: "Universalfach 92 x 350 mm mit austauschbarem Kamm statt fest modellierter Einzelkonturen"
+    resolution: "recommended-default-approved-with-R0"
+    impact: "Bestimmt Breite und Teilung der Werkzeugzone."
+  - id: "material"
+    accepted_value: "PETG"
+    resolution: "recommended-default-approved-with-R0"
+    impact: "Beeinflusst Passung, Wandstaerke, Druckprofil und Reliefschaerfe."
+
+revision_history:
+  - revision: "R0"
+    status: "requirements-and-concept-approved; DRAFT digitally validated"
+    date: "2026-08-11"
+  - revision: "R1"
+    status: "requirements and concept approved; DRAFT production digitally validated; final release blocked by slicer evidence"
+    date: "2026-08-11"
+    requested_changes:
+      - "Breitere, gerundete Griffnuten an den Kleinteilfachwaenden."
+      - "Vollhoehenverrundete T- und Kreuzungsknoten mit Parametern."
+      - "Parametrierbare Basis-, Aussen- und Trennwandstaerken."
+      - "Deutlichere und weniger regelmaessige Stahlplatten-/Nieten-Heightmap."
+  - revision: "R1.1 implementation correction"
+    status: "approved R1 appearance implemented without binary depth thresholds; DRAFT digitally validated"
+    date: "2026-08-12"
+    requested_changes:
+      - "Volle 16-Bit-Tonwerte nutzen und weitere Hoehenquantisierung vermeiden."
+      - "Bei unzureichender Wandreserve Emboss oder groessere Wandstaerke verwenden."
+    resolution:
+      - "Kontinuierliches signiertes Relief nutzt Engrave und Emboss gemeinsam."
+      - "2.6-mm-Boden und 3.2-mm-Waende lassen 2.10 bzw. 2.20 mm Restmaterial; Wandverdickung ist bei den freigegebenen Tiefen nicht erforderlich."
+  - revision: "R1.2 rebuildable 0.30-mm implementation"
+    status: "approved R1 geometry preserved; one-command image replacement and memory-efficient 0.30-mm pipeline digitally validated as DRAFT"
+    date: "2026-08-12"
+    requested_changes:
+      - "Bild mit einem einfachen Befehl verarbeiten; Werte aus Parameterdateien beziehen."
+      - "Buildreihenfolge fuer geringeren Speicherbedarf anpassen."
+      - "0.30-mm-Geometriepitch umsetzen und neues ZIP bereitstellen."
+    resolution:
+      - "`python3 rebuild.py NEUES_BILD` registriert, verarbeitet, baut, repariert, paketiert und validiert ohne weitere Parameter."
+      - "900-x-900-Build-Map bleibt bei 0.20 mm/Pixel und 127 PPI getrennt vom 0.30-mm-Manifold-Raster."
+      - "Ein Modul pro Prozess, ein Reliefpatch pro Boolean-Stufe, blockweiser STL-Export und gestreamte 3MF; gemessener Worst Case 2124.7 MiB Peak-RSS."
+  - revision: "R1.3 physical-aspect correction"
+    status: "approved R1 geometry and relief depths preserved; replacement-image stretching corrected and digitally validated as DRAFT"
+    date: "2026-08-12"
+    requested_changes:
+      - "Aktuelle Implementierung gegen Heightmap-Relief-Skill v2.2 vergleichen."
+      - "Streckung beliebiger Ersatzbilder und falsches Seitenverhaeltnis korrigieren."
+      - "steel1.png verarbeiten und neues ZIP bereitstellen."
+    resolution:
+      - "Die Quelle 1536 x 1024 wird mit isotroper Skala als 180 x 120 mm registriert; X/Y-PPI betragen beide 216.75."
+      - "Repeat-Fit wird zuerst in Millimetern berechnet; die 900 x 600-Kachel wird ohne unabhaengige Achsenskalierung in der 900 x 900-Zielmap wiederholt."
+      - "Harter Metadaten-Gate und 20-mm-Kreis-/Quadratdiagnose laufen vor Geometrie; Aspektfehler 0.000000 %, Diagnose PASS."
+      - "Manifold verwendet die echte 180 x 120-mm-Kachel als 601 x 401-Heightfield bei 0.30 mm."
+  - revision: "R1.4 procedural steel texture"
+    status: "requirements and concept approved; production geometry digitally validated as DRAFT; physical coupon and final release approval pending"
+    date: "2026-08-21"
+    requested_changes:
+      - "Bildgravur vollständig durch den Printable-Surface-Textures-Ansatz ersetzen."
+      - "Nahezu realistische Stahl-/Metalloptik auf Innenboden, Innenwänden und Wandoberseiten."
+      - "Hohe druckbare Detaildichte ohne Seitenverhältnis-, Heightmap- oder Speicherproblem."
+    resolution:
+      - "Deterministisches zweiskaliges analytisches Dimple-Feld mit Seed 140421; keine aktive Raster-/Heightmap-Verarbeitung."
+      - "Verbinder, Passflächen, Außenwände, Griffnuten, Gussets, Wandknoten und Komfortkanten sind geschützt."
+      - "Module werden sequenziell und Texturpatches einzeln verarbeitet; gemessener Peak-RSS liegt unter 0.35 GiB."
+
+assumptions_and_limitations:
+  - value: "Die Fotos waren in der aktuellen Arbeitsansicht nicht verfuegbar; Auslegung basiert auf den angegebenen Innenmaßen."
+    basis: "inferred"
+  - value: "Die Schublade ist innen hinreichend rechtwinklig und besitzt keine Schienen, Schraubkoepfe oder Einzuege im angegebenen Volumen."
+    basis: "inferred"
+  - value: "Alle Exporte bleiben bis zur finalen Freigabe als DRAFT gekennzeichnet."
+    basis: "required-by-workflow"
+  - value: "Die prozedurale Geometrie erzeugt die druckbare Makro-/Mesostruktur; realistische Mikroreflexe hängen von Filament, Deckbahnen, Licht und optionaler Nachbearbeitung ab."
+    basis: "implementation-verified"
+  - value: "Die Connector-Geometrie ist byte-identisch zu R1.3; der bereits gemeldete physische Nicht-Fit bleibt bis zu einem gemessenen Coupon ungelöst."
+    basis: "physical-test-required"

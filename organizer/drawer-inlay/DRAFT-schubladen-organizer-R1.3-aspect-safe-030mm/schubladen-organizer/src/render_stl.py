@@ -23,7 +23,11 @@ def main() -> None:
     parser.add_argument("output", type=Path)
     parser.add_argument("--width", type=int, default=1600)
     parser.add_argument("--height", type=int, default=1100)
-    parser.add_argument("--view", choices=("overall", "hardware"), default="overall")
+    parser.add_argument(
+        "--view",
+        choices=("overall", "hardware", "wood-coupon", "r2-driver-front", "r2-overall"),
+        default="overall",
+    )
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parent.parent
@@ -38,7 +42,37 @@ def main() -> None:
         ("DRAFT-hardware-back-textured.stl", np.array([zone, split, 0.0]), np.array([97, 103, 109])),
         ("DRAFT-screwdriver-comb.stl", np.array([4.0, split - 5.0, floor]), np.array([115, 121, 126])),
     ]
-    if args.view == "hardware":
+    if args.view == "r2-overall":
+        files = [
+            ("DRAFT-R2-driver-front-procedural-wood-unmarked.stl", np.array([0.0, 0.0, 0.0]), np.array([142, 94, 54])),
+            ("DRAFT-R2-driver-back-procedural-wood-unmarked.stl", np.array([0.0, split, 0.0]), np.array([148, 99, 57])),
+            ("DRAFT-R2-hardware-front-procedural-wood-unmarked.stl", np.array([zone, 0.0, 0.0]), np.array([151, 102, 60])),
+            ("DRAFT-R2-hardware-back-procedural-wood-unmarked.stl", np.array([zone, split, 0.0]), np.array([157, 107, 64])),
+            ("DRAFT-R2-screwdriver-comb-procedural-wood-unmarked.stl", np.array([4.0, split - 5.0, floor]), np.array([165, 116, 72])),
+        ]
+        center = np.array([params["organizer"]["width_x"] / 2, params["organizer"]["depth_y"] / 2, 32.0])
+        camera = center + np.array([420.0, -520.0, 390.0])
+    elif args.view == "r2-driver-front":
+        files = [
+            (
+                "DRAFT-R2-driver-front-procedural-wood-unmarked.stl",
+                np.array([0.0, 0.0, 0.0]),
+                np.array([142, 94, 54]),
+            )
+        ]
+        center = np.array([50.0, 93.25, 32.0])
+        camera = center + np.array([175.0, -230.0, 175.0])
+    elif args.view == "wood-coupon":
+        files = [
+            (
+                "DRAFT-R2-procedural-wood-coupon.stl",
+                np.array([0.0, 0.0, 0.0]),
+                np.array([142, 94, 54]),
+            )
+        ]
+        center = np.array([61.0, 40.0, 10.3])
+        camera = center + np.array([150.0, -180.0, 135.0])
+    elif args.view == "hardware":
         files = files[2:4]
         center = np.array([(zone + params["organizer"]["width_x"]) / 2, split, 30.0])
         camera = center + np.array([300.0, -390.0, 250.0])

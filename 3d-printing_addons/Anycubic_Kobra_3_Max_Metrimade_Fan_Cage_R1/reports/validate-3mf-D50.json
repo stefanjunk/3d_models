@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "3mf-structure",
+      "message": "3MF package and references are valid",
+      "metrics": {
+        "error_count": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "3mf-mesh-topology",
+      "message": "required embedded mesh topology check not run: ModuleNotFoundError: No module named 'trimesh'",
+      "metrics": {},
+      "required": true,
+      "status": "NOT_RUN"
+    },
+    {
+      "evidence": [],
+      "id": "3mf-part-count",
+      "message": "Mesh objects 4; minimum 1",
+      "metrics": {
+        "actual": 4,
+        "minimum": 1
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/workspace/scratch/48853c409d66/kobra3max-fan-cage/exports/fan_cage_metrimade_D50_multicolor.3mf",
+      "sha256": "aecf3f32e3d478a745ea1800ecdfd3b0b91afca08ac6019491708376e7aefc5f",
+      "size_bytes": 3323591
+    }
+  ],
+  "limitations": [
+    "Standard 3MF structure does not prove destination-slicer slot mapping or vendor project metadata behavior.",
+    "Pairwise color-body overlap and clearance belong in an interface contract."
+  ],
+  "metrics": {
+    "build_items": [
+      6
+    ],
+    "materials": [
+      {
+        "displaycolor": "#112431FF",
+        "group_id": 1,
+        "index": 0,
+        "name": "body_navy"
+      },
+      {
+        "displaycolor": "#08777DFF",
+        "group_id": 1,
+        "index": 1,
+        "name": "brand_teal"
+      },
+      {
+        "displaycolor": "#7FD5D3FF",
+        "group_id": 1,
+        "index": 2,
+        "name": "brand_aqua"
+      },
+      {
+        "displaycolor": "#C7AB82FF",
+        "group_id": 1,
+        "index": 3,
+        "name": "brand_sand"
+      }
+    ],
+    "model_unit": "millimeter",
+    "objects": [
+      {
+        "faces": 392236,
+        "id": 2,
+        "kind": "mesh",
+        "name": "body_navy",
+        "pid": 1,
+        "pindex": 0,
+        "type": "model",
+        "vertices": 196064
+      },
+      {
+        "faces": 13464,
+        "id": 3,
+        "kind": "mesh",
+        "name": "brand_teal",
+        "pid": 1,
+        "pindex": 1,
+        "type": "model",
+        "vertices": 6728
+      },
+      {
+        "faces": 1876,
+        "id": 4,
+        "kind": "mesh",
+        "name": "brand_aqua",
+        "pid": 1,
+        "pindex": 2,
+        "type": "model",
+        "vertices": 940
+      },
+      {
+        "faces": 50984,
+        "id": 5,
+        "kind": "mesh",
+        "name": "brand_sand",
+        "pid": 1,
+        "pindex": 3,
+        "type": "model",
+        "vertices": 25482
+      },
+      {
+        "component_object_ids": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "id": 6,
+        "kind": "components",
+        "name": "fan_cage_assembly",
+        "type": "model"
+      }
+    ],
+    "package_members": [
+      "3D/3dmodel.model",
+      "[Content_Types].xml",
+      "_rels/.rels"
+    ],
+    "uncompressed_size_bytes": 30040292,
+    "warnings": [
+      "required embedded mesh topology check not run: ModuleNotFoundError: No module named 'trimesh'"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "NOT_RUN",
+  "tool": "validate-3mf",
+  "tool_version": "1.1.0"
+}

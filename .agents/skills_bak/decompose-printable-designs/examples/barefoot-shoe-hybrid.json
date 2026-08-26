@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "EXAMPLE_BAREFOOT_SHOE",
+    "title": "Barefoot sole with parametric mechanics and organic sidewall skin",
+    "source_modes": ["product_photo", "sketch", "measurements", "design_description"],
+    "claim": "functional_redesign",
+    "units": "mm",
+    "process": {"technology": "FDM", "printer": "direct-drive FDM printer", "nozzle_mm": 0.4, "line_width_mm": 0.45, "layer_height_mm": 0.2, "profile_id": "TPU-95A-0.4-0.20"},
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "heel center on the ground datum",
+      "x_axis": "+X toward lateral side for the right shoe",
+      "y_axis": "+Y from heel to toe",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major component source-to-project matrix"
+    },
+    "master_envelope_mm": {"min": [-60, -5, 0], "max": [70, 285, 55]},
+    "requirements": [
+      {"id": "REQ-FOOT", "statement": "The parametric sole shall preserve the measured foot outline, toe splay, zero-drop policy, thickness zones, and upper attachment interface.", "evidence_class": "requested", "source": "foot measurements and design brief", "priority": "critical", "verification": "dimension report, foot/last overlay, and physical fitting prototype"},
+      {"id": "REQ-FLEX", "statement": "Organic sidewall decoration shall not bridge or stiffen protected flex grooves beyond the accepted bending target.", "evidence_class": "requested", "source": "functional concept", "priority": "critical", "verification": "keep-out collision, section checks, and bend/torsion coupons"},
+      {"id": "REQ-VIS", "statement": "The sidewall shall carry a continuous flowing honeycomb-to-vine motif while the tread and attachment lip remain parametrically controlled.", "evidence_class": "requested", "source": "design description and photo references", "priority": "important", "verification": "matched wrap renders and slicer detail review"}
+    ],
+    "global_style": {
+      "summary": "low, fast, flowing barefoot silhouette with medium-scale hexagonal/vine texture wrapping the sidewall",
+      "motifs": ["stretched honeycomb", "flow lines from heel to toe", "quiet attachment rim"],
+      "exclude": ["shoe upper", "foot", "laces", "brand logos", "isolated spikes", "fine porous texture"],
+      "generation_material": "single-color matte clay TPU appearance",
+      "detail_hierarchy": "sole outline and lip first, flowing bands second, sparse cells third"
+    },
+    "assembly_sequence": [
+      "Approve the measured sole core and protected foot/flex volumes.",
+      "Generate the sidewall skin only inside the exported occupancy envelope.",
+      "Register and trim the skin to the parametric curved rim/backer.",
+      "Fuse as one TPU body or validate a multi-material TPU union in the target slicer.",
+      "Print bending, tear, and upper-attachment coupons before a full shoe."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-LAST-001",
+      "topic": "Freeze the intended foot last and size range.",
+      "status": "provisional",
+      "current_basis": "Example last and envelope are illustrative.",
+      "evidence_needed": "Measured last or scan, target size range, and wearer fit trial.",
+      "blocks_gates": ["proxy", "integration", "physical", "release"]
+    },
+    {
+      "id": "DEC-TPU-001",
+      "topic": "Qualify TPU grade, print profile, and skin-to-sole joining route.",
+      "status": "open",
+      "current_basis": "TPU 95A profile is a starting point, not a durability claim.",
+      "evidence_needed": "Material coupons, bond or mechanical-retention trials, flex and wear testing.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "SOLE_CORE",
+      "name": "Parametric barefoot sole core",
+      "role": "measured outline, thickness, tread mechanics, flex zones, and foot/upper interface",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "measurements", "refs": ["foot scan/outline", "REQ-FOOT", "REQ-FLEX"], "confidence": "high"},
+      "functions": ["support foot", "provide traction", "bend at protected zones", "locate upper rim"],
+      "envelope_mm": {"min": [-55, 0, 0], "max": [65, 280, 28]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "FDM", "material": "TPU 95A", "color_body": "sole core", "orientation": "outsole on bed unless coupon evidence supports another route"},
+      "interface_ids": ["IF-CORE-RIM"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["toe-box outline", "zero drop", "thickness map", "flex grooves", "tread continuity"]}
+    },
+    {
+      "id": "SIDEWALL_RIM",
+      "name": "Parametric curved sidewall rim and skin backer",
+      "role": "upper attachment lip, controlled curvature, trim body, and structural transition",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["SOLE_CORE perimeter", "upper pattern", "IF-SKIN"], "confidence": "high"},
+      "functions": ["attach upper", "own curved substrate", "locate organic skin", "protect flex zones"],
+      "envelope_mm": {"min": [-58, 5, 12], "max": [68, 278, 42]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "fused FDM with SOLE_CORE", "material": "TPU 95A", "color_body": "sole core", "orientation": "inherit sole"},
+      "interface_ids": ["IF-CORE-RIM", "IF-SKIN"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["upper flange", "curved substrate", "flex keep-outs", "minimum ligament"]}
+    },
+    {
+      "id": "ORGANIC_SKIN",
+      "name": "Organic sidewall motif skin",
+      "role": "appearance-dominant curved sidewall surface outside functional zones",
+      "authority": "organic",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-VIS", "style references STYLE-SHOE-01"], "confidence": "medium"},
+      "functions": ["create unique visual wrap", "permit color/material variants", "preserve protected flex zones"],
+      "envelope_mm": {"min": [-60, 2, 10], "max": [70, 282, 48]},
+      "source_to_mm_scale": 1,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "fused mesh body or verified multi-material body", "material": "TPU compatible with core", "color_body": "sidewall skin", "orientation": "inherit sole after union; validate toolpaths around relief"},
+      "interface_ids": ["IF-SKIN"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 1.5, "checks": ["continuous heel-to-toe flow", "no foot/flex collision", "printable cells", "quiet seam margin"]},
+      "image_to_3d": {
+        "generation_mode": "multiview_component",
+        "input_views": ["lateral orthographic", "medial orthographic", "heel orthographic", "toe orthographic", "lateral three-quarter"],
+        "positive_prompt": "A continuous shallow sculptural sidewall skin for a barefoot shoe, elongated honeycomb cells flowing into vine-like bands from heel to toe, low aerodynamic relief, thick sacrificial inner skirt, quiet top and bottom seam bands, matte neutral clay.",
+        "exclude": ["complete shoe", "foot", "fabric upper", "laces", "tread", "brand text", "sharp spikes", "thin floating lattice", "deep undercuts"],
+        "sacrificial_interface_band_mm": 5,
+        "protected_features": ["continuous main flow band", "large elongated cell rhythm", "smooth heel-to-toe transition"],
+        "negative_spaces": ["cell openings remain above the process-tested minimum and do not cross seam bands"],
+        "landmarks": [
+          {"id": "LM-HEEL", "point_mm": [0, 8, 28], "meaning": "heel-center skin station"},
+          {"id": "LM-MTP1", "point_mm": [-45, 205, 26], "meaning": "medial forefoot station"},
+          {"id": "LM-MTP5", "point_mm": [52, 205, 26], "meaning": "lateral forefoot station"},
+          {"id": "LM-TOE", "point_mm": [0, 275, 24], "meaning": "toe-center skin station"}
+        ]
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-CORE-RIM",
+      "a": "SOLE_CORE",
+      "b": "SIDEWALL_RIM",
+      "owner": "SOLE_CORE",
+      "kind": "fused_overlap",
+      "local_frame": {"origin_mm": [0, 140, 18], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "perimeter loft and continuous overlap band", "overlap_band_height_mm": 4},
+      "joining": {"method": "parametric solid union", "assembly_direction": "+Z", "anti_rotation": "shared perimeter loft", "lead_in_mm": 0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0.8, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.05},
+      "seam_band_mm": 2,
+      "keepout_ids": ["KEEP-FOOT", "KEEP-FLEX"],
+      "requirements": {"minimum_wall_mm": 2, "minimum_ligament_mm": 3, "load_or_flow": "foot support and upper attachment load"},
+      "verification": ["continuous overlap", "wall/thickness map", "flex keep-out collision", "bending coupon"]
+    },
+    {
+      "id": "IF-SKIN",
+      "a": "SIDEWALL_RIM",
+      "b": "ORGANIC_SKIN",
+      "owner": "SIDEWALL_RIM",
+      "kind": "fused_overlap",
+      "local_frame": {"origin_mm": [0, 140, 28], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "curved wrap substrate plus clipped relief occupancy", "target_relief_max_mm": 2.2, "quiet_border_mm": 5},
+      "joining": {"method": "registered mesh trimmed to backer then unioned", "assembly_direction": "normal to local substrate", "anti_rotation": "distributed curved substrate and landmarks", "lead_in_mm": 0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0.5, "registration_uncertainty_mm": 0.4, "solver_margin_mm": 0.1},
+      "seam_band_mm": 4,
+      "keepout_ids": ["KEEP-FOOT", "KEEP-FLEX"],
+      "requirements": {"minimum_wall_mm": 1.8, "minimum_ligament_mm": 2.5, "load_or_flow": "appearance skin; shall not become the sole flexure authority"},
+      "verification": ["landmark registration", "curved distortion heat map", "keep-out collision", "wall sections", "slicer path continuity"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-FOOT", "type": "aabb", "purpose": "coarse foot/upper occupancy proxy; exact last/foot surface lives in CAD", "min_mm": [-50, 5, 20], "max_mm": [60, 275, 55], "source": "foot measurements"},
+    {"id": "KEEP-FLEX", "type": "aabb", "purpose": "coarse union of protected flex-groove volumes; exact swept regions live in CAD", "min_mm": [-55, 70, 0], "max_mm": [65, 235, 24], "source": "flex-zone plan"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "map support/flex/appearance requirements to owners", "acceptance": "sole/rim own function and organic skin owns appearance only"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble last, sole, rim, flex keep-outs, and skin envelope", "acceptance": "no foot or protected-flex collision"},
+    {"id": "VAL-COMP", "gate": "component", "method": "mesh intake, wrap views, landmarks, and feature budget", "acceptance": "continuous skin, correct envelope, and quiet seam bands"},
+    {"id": "VAL-INT", "gate": "integration", "method": "curved registration, overlap, distortion, and wall checks", "acceptance": "all interface requirements pass without flex-zone bridging"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "TPU slicer review and multi-material boundary test if selected", "acceptance": "continuous walls, retained cells, and no trapped support"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "relief strip, bend/torsion, upper attachment, then wearable prototype", "acceptance": "project-specific flexibility, tear resistance, fit, and comfort targets pass"}
+  ]
+}

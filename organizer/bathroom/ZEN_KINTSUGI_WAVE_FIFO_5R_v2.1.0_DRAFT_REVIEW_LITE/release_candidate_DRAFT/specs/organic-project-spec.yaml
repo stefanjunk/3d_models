@@ -1,0 +1,49 @@
+project:
+  name: ZEN KINTSUGI WAVE v2.1 reference-only organic reconstruction
+  purpose: preserve style evidence while rebuilding dimensionally authoritative freeform surfaces and interfaces
+  source_file: raw_organic/*.glb
+  source_sha256: see organic-source-manifest.json
+  units: source-normalized; production model is millimetres
+coordinate_frame:
+  origin_landmark: production origin is centre of rear wall datum at bottom assembly plane
+  up_axis: +Z
+  forward_axis: +Y
+  right_axis: +X
+  source_to_working_transform_4x4: null
+  landmarks:
+    - {name: lower-module-plane, point_mm: [0, 0, 0]}
+    - {name: shaft-centre, point_mm: [0, 62.5, 62]}
+    - {name: front-ribbon-centre, point_mm: [0, 119.35, 62]}
+regions:
+  protected: all raw GLB bytes; never repaired, rescaled or overwritten
+  editable: none in the raw assets; production curves and shells live in generate_zen_kintsugi_v21.py
+  interface: raw assets own no production interface and are not Booleaned into the tower
+requirements:
+  minimum_wall_mm: 1.4
+  minimum_clearance_mm: 0.1
+  boolean_epsilon_mm: 0.03
+  expected_components: 1
+  require_watertight: true
+  preserve_outside_roi_p95_mm: 0.0
+  preserve_outside_roi_max_mm: 0.0
+manufacturing:
+  process: FDM
+  material: PETG
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  build_volume_mm: [420, 420, 500]
+  preferred_orientation: each production module upright; raw GLBs are non-manufacturing references
+validation:
+  physical_test: coupons, five-roll FIFO cycles, wipe test and mounting proof test
+  simulation: exact keep-out mesh sweep plus dimensional and topology inspection
+  acceptance_notes: raw GLBs are known non-watertight 40k-triangle references and cannot pass manufacturing topology; derived production bodies must pass independently
+route_decision:
+  selected: reference-only reconstruction
+  rejected:
+    - direct Boolean because every raw GLB is non-watertight and owns no exact interface
+    - global voxel reconstruction because it would preserve the wrong flat relief architecture and lose editable freeform intent
+  production_authorities:
+    functional_geometry: parametric mesh generator
+    freeform_envelope: sampled fair curves and thin shell fields
+    colour: registered volumetric solids
+    texture: compact band-limited procedural surface

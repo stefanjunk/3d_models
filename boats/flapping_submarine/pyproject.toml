@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flapping-submarine"
+version = "1.0.0"
+description = "Parametric toy submarine with flexible hinged segments, crank-driven flapping tail fin and an adjustable displacement bladder"
+requires-python = ">=3.11"
+dependencies = ["cadquery>=2.8,<3"]
+
+[project.optional-dependencies]
+validation = ["trimesh>=4"]
+
+[project.scripts]
+generate-submarine = "generate_submarine:main"
+
+[tool.setuptools]
+py-modules = ["generate_submarine"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["submarine*"]

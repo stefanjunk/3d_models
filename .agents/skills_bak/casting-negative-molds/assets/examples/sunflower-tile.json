@@ -1,0 +1,74 @@
+{
+  "project": {
+    "name": "200 mm marble-look tile with sunflower engraving",
+    "units": "mm",
+    "revision": "concept-1",
+    "notes": "Open-face precision insert in a reusable flat frame."
+  },
+  "final_object": {
+    "dimensions_mm": [200, 200, 10],
+    "quantity": 12,
+    "food_contact": false,
+    "dishwasher_target": false,
+    "assembly_allowed": false
+  },
+  "casting": {
+    "final_material": "stoneware",
+    "route": "printed_master_to_plaster",
+    "fill_mode": "press",
+    "body_or_product": "Exact tile body to be qualified",
+    "target_cycles": 25
+  },
+  "source": {
+    "type": "image_heightmap",
+    "path": "textures/sunflower-marble-16bit.png",
+    "watertight": null,
+    "face_count": null
+  },
+  "printer": {
+    "process": "FDM",
+    "build_volume_mm": [250, 250, 250],
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.1,
+    "xy_pitch_mm": null,
+    "material": "PLA master or high-resolution insert"
+  },
+  "mold": {
+    "architecture": "precision_insert_frame",
+    "parting_strategy": "One-sided open face with perimeter trim/screed band.",
+    "planned_parts": 2,
+    "split_axis": "open_face",
+    "shell_mm": 3.0,
+    "rib_mm": 3.0,
+    "key_clearance_mm": 0.2,
+    "funnel": false,
+    "reservoir": false,
+    "vents": false,
+    "drain_cradle": false
+  },
+  "shrinkage": {
+    "status": "provisional",
+    "percent_xyz": [11.5, 11.5, 12.5],
+    "coupon_id": "tile-body-xy-coupon-required"
+  },
+  "detail": {
+    "smallest_feature_mm": 0.6,
+    "relief_depth_mm": 0.4,
+    "heightmap_pitch_mm": 0.2,
+    "placement": "face",
+    "continuous_mapping": true
+  },
+  "validation": {
+    "detail_coupon": true,
+    "demolding_test": true,
+    "leak_test": false,
+    "migration_lab_test": false,
+    "dishwasher_cycle_test": false,
+    "acceptance": [
+      "Petal grooves at 0.6 mm remain separate after firing",
+      "Tile bow and twist meet project specification",
+      "No quadrant or insert step visible on face",
+      "Finished surface is separately qualified for intended flooring use"
+    ]
+  }
+}

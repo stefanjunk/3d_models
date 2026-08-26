@@ -1,0 +1,9 @@
+; generated deterministic example
+;LAYER:0
+G90
+M82
+G1 X10 Y10 Z0.20 F1200
+G1 X30 Y10 E1.00 F600
+;LAYER:1
+G1 Z0.40 F600
+G1 X30 Y30 E2.00 F600

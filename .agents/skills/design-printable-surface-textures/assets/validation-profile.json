@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "skill": "design-printable-surface-textures",
+  "artifact_roles": [
+    {"id": "texture-master", "kind": "source", "required": true},
+    {"id": "protected-mask", "kind": "image", "required": true},
+    {"id": "manufacturing-mesh", "kind": "mesh", "required": true},
+    {"id": "mapping-report", "kind": "report", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "textured-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["manufacturing-mesh"]},
+    {"id": "mapping-and-budget", "type": "external_report", "required": true, "artifact_roles": ["texture-master", "protected-mask", "manufacturing-mesh", "mapping-report"]},
+    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "appearance-tactility-coupon", "kind": "physical", "required": true},
+    {"id": "protected-surface-review", "kind": "review", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "revision": "R1.4-procedural-steel",
+  "representation": "deterministic-multiscale-analytic-dimple-field",
+  "seed": 140421,
+  "checks": {
+    "procedural_representation": true,
+    "image_relief_inactive": true,
+    "approved_surfaces_enabled": true,
+    "outer_walls_smooth": true,
+    "wall_reserves": true,
+    "connector_keepout_defined": true,
+    "wall_top_comfort_band_defined": true,
+    "all_modules_floor_textured": true,
+    "all_modules_inner_walls_textured": true,
+    "all_modules_wall_tops_textured": true,
+    "triangle_budget": true,
+    "mesh_validation": true,
+    "connectors_byte_identical_to_r1_3": true,
+    "memory_stop_gate": true,
+    "three_mf_crc": true
+  },
+  "nominal_depths_mm": {
+    "floor": 0.28,
+    "inner_walls": 0.23,
+    "wall_tops": 0.13
+  },
+  "minimum_residual_wall_mm": 2.0,
+  "calculated_reserves_mm": {
+    "floor_below_top_texture_mm": 2.3200000000000003,
+    "floor_below_watermark_mm": 2.2,
+    "double_sided_divider_mm": 2.74,
+    "single_sided_outer_wall_mm": 2.97,
+    "wall_top_vertical_reserve_mm": 54.87
+  },
+  "coverage_dimples": {
+    "driver-front": {
+      "floor": 297,
+      "inner_walls": 710,
+      "wall_tops": 37
+    },
+    "driver-back": {
+      "floor": 287,
+      "inner_walls": 692,
+      "wall_tops": 45
+    },
+    "hardware-front": {
+      "floor": 394,
+      "inner_walls": 1013,
+      "wall_tops": 50
+    },
+    "hardware-back": {
+      "floor": 363,
+      "inner_walls": 827,
+      "wall_tops": 54
+    }
+  },
+  "connector_regression": {
+    "DRAFT-connector-coupon-male.stl": {
+      "expected_r1_3": "996c6ef061463fb6c57e5ea31cf2c27fa9c425a2e501428f53030a1d0e6c57a4",
+      "actual_r1_4": "996c6ef061463fb6c57e5ea31cf2c27fa9c425a2e501428f53030a1d0e6c57a4",
+      "unchanged": true
+    },
+    "DRAFT-connector-coupon-female.stl": {
+      "expected_r1_3": "6834bfccc6cf07aac31455583f76e6e8f99417d3c63d29a5e3dc5308179d0676",
+      "actual_r1_4": "6834bfccc6cf07aac31455583f76e6e8f99417d3c63d29a5e3dc5308179d0676",
+      "unchanged": true
+    }
+  },
+  "peak_module_process_rss_mib": 326.21484375,
+  "target_peak_rss_mib": 1536,
+  "stop_peak_rss_mib": 3072,
+  "triangle_review_gate_per_module": 1000000,
+  "three_mf": {
+    "file": "output/DRAFT/DRAFT-R1.4-procedural-steel-assembly.3mf",
+    "crc_bad_file": null
+  },
+  "limitations": [
+    "Visual realism, directional sheen, and cleanability still require the supplied process-matched coupon.",
+    "Connector geometry is unchanged; the previously reported physical fit remains unqualified until a real coupon is measured."
+  ]
+}

@@ -1,0 +1,40 @@
+version: 1
+project: ZEN KINTSUGI WAVE v2.1
+intent:
+  macro: low-frequency leaf shoulders that change side highlights without consuming a thick wall
+  micro: fine cleanable ceramic-stone peen
+  motif: selected warm-sand seigaiha arcs in shallow conformal pockets
+representation:
+  macro: analytic periodic field on the exterior side-shell surface
+  micro: band-limited two-frequency procedural displacement, exterior-positive only
+  motif: vector centreline sweeps as named colour solids
+  dense_heightmap: false
+process:
+  material: PETG
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.2
+parameters_mm:
+  shell_nominal: 1.8
+  macro_relief_max: 2.25
+  micro_relief_max: 0.22
+  micro_pitch: [2.15, 2.35]
+  seigaiha_width: 0.96
+  seigaiha_embed: 0.24
+  seigaiha_protrusion: 0.18
+  pocket_depth_max: 0.38
+  calculated_minimum_remaining_wall: 1.42
+keep_outs:
+  - all roll-facing inner surfaces
+  - module planes plus 3 mm margin
+  - connector bores and bosses
+  - wall mounting faces and counterbores
+  - output extraction touch lip and cradle contact faces
+  - fragrance-tray peg holes
+acceptance:
+  physical_coupon_required: true
+  wipe_test: no snagging of dry tissue and no inaccessible dirt-trapping undercuts
+  visual_test: texture remains visible at 0.20 mm layers without reading as random fuzzy skin
+  wall_test: no local wall below 1.4 mm
+  slicer_test: no missing side walls or fragmented seigaiha paths
+  status: digital geometry complete; physical and slicer checks pending

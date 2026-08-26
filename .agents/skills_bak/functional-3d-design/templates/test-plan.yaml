@@ -1,0 +1,33 @@
+project_id: replace-me
+revision: 0.1.0
+tests:
+  - id: mesh-validation
+    level: V1
+    specimen: final-export
+    setup: Run validate_mesh.py with intended body-count and bed limits.
+    measurement: JSON report
+    pass: All configured checks pass.
+  - id: slicer-review
+    level: V2
+    specimen: final-export
+    setup: Slice with exact printer/material/nozzle profile.
+    measurement: Visual layer review and profile record.
+    pass: No missing walls, trapped supports, unintended bridges, or bed collision.
+  - id: optimization-comparison
+    level: V2
+    specimen: baseline-and-selected-candidate
+    setup: Slice unchanged baseline and process/geometry candidates with controlled profiles.
+    measurement: Time, model/support material, layer/path/flow metrics, constraints, and Pareto decision.
+    pass: Selected candidate violates no protected requirement and has a measured benefit, or the no-change decision is documented.
+  - id: mesh-simplification-gate
+    level: V1-V2
+    specimen: high-fidelity-reference-and-manufacturing-mesh
+    setup: Apply references/mesh-simplification.md and mesh_simplification_gate.py when a candidate is generated; record the exact-slicer resolution/path check separately.
+    measurement: Triangles, topology, bidirectional surface/protected error, wall/bed/relief metrics, and exact-slicer comparison.
+    pass: Candidate passes every configured gate, or not-beneficial/not-applicable is documented and the reference is retained.
+  - id: physical-prototype
+    level: V5
+    specimen: final-assembly
+    setup: Define application-specific fixture and safe procedure.
+    measurement: Dimensions, function, deformation, failure mode.
+    pass: Link to acceptance criteria.

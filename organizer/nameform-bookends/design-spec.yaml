@@ -1,0 +1,294 @@
+# NameForm Bookends — active design specification (single source of truth)
+# Revision 0.3.0 replaces the product architecture while preserving release 0.2.0.
+
+project:
+  id: MM-PER-001
+  name: "NameForm Split-Pair Bookends"
+  sku: MM-PER-001
+  revision: 0.3.0
+  owner: "Stefan"
+  created: "2026-08-26"
+  supersedes: "0.2.0 (historical M prototype retained under release/)"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-002"
+  tool_route: "CadQuery B-Rep source of truth; vector font outlines; Trimesh and validate-printable-3d-projects evidence"
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.3.0
+    approved_by: "Stefan — 'fix it, follow your recommendations and go on'"
+    approved_at: "2026-08-26"
+  concept_approval:
+    status: approved
+    spec_revision: 0.3.0
+    asset: "concept/nameform-bookends-v0.3.0-concept.png"
+    approved_by: "Stefan — 'freigegeben'"
+    approved_at: "2026-08-26"
+  watermark_approval:
+    status: blocked
+    spec_revision: 0.3.0
+    asset_id: MM-WM-001-R1
+    product_id: MM-PER-001
+    version: 0.3.0
+    digital_status: "PASS on both parts; exact profile and physical coupon pending"
+    generated_profile: "assets/metrimade-watermark/generated/MM-PER-001_v0.3.0/"
+    manifest_asset: "assets/metrimade-watermark/generated/MM-PER-001_v0.3.0/manifest.sha256"
+    placement: "centered on each inward-foot underside; selector rotation 90 degrees; scale 1.0"
+    preview_asset: "validation/v0.3.0/watermark/finished-underside.png"
+    validation_asset: "validation/v0.3.0/watermark-candidate.json"
+    reason: "Exact slicer layers and the physical watermark coupon are not yet approved"
+  digital_candidate:
+    status: completed
+    evidence: "validation/v0.3.0/build-summary-candidate.json"
+  slicer_preflight:
+    status: blocked
+    evidence: "validation/v0.3.0/slicer-preflight.json"
+    reason: "No supported exact slicer executable is installed on the build host"
+  physical_validation:
+    status: blocked
+    evidence_plan: "test-plan.yaml"
+    reason: "Human-operated coupon and complete-pair tests TP-01 through TP-06 are not run"
+  final_release_approval:
+    status: blocked
+    reason: "Slicer, physical, watermark, and final human approval gates remain open"
+
+provenance:
+  user_stated:
+    - "Fix the audited design and continue using the recommended improvements"
+    - "Support different letters, whole names, and a name split between left and right ends"
+  recommended_and_approved:
+    - "True mechanically mirrored left/right pair with books between the ends"
+    - "Inward feet under the books so book weight stabilizes the pair"
+    - "Fixed functional stop height independent of text length"
+    - "Shared font size and baseline for split-name halves"
+    - "Shell/rib construction instead of a 100%-solid ballast slab"
+    - "Valid per-side 3MFs, exact print profile, deterministic validation, and physical test plan"
+  inferred:
+    - "Front viewing direction is -Y; the complete split name reads left-to-right across the book row"
+    - "First demonstration name is STEFAN, split STE | FAN"
+    - "Indoor adult decorative/normal-functional use only"
+  unresolved_nonblocking:
+    - "Final color/material finish and optional heavy-duty fillable-ballast derivative"
+
+function:
+  summary: >
+    A coordinated pair of distinct left and right bookends. Books stand between
+    the two ends along X. Each part has a vertical side blade beside the books,
+    a thin inward foot beneath the books, and a front-facing decorative wing.
+    The left and right text halves read as one name from the front; neither text
+    half is mirrored. Functional stop height does not change with the name.
+  users:
+    - "Adults retaining an indoor book row on a flat shelf or desk"
+    - "3D-printer owners generating or printing a personalized pair"
+  modes:
+    split_name:
+      description: "Automatic rendered-width split with shared font size and baseline"
+      example: "STEFAN -> STE | FAN"
+      default: true
+    explicit_pair:
+      description: "Independent --left-text and --right-text values, including initials"
+    whole_name_each_side:
+      description: "Optional same full name on both wings using shallow raised text"
+  text_contract:
+    default_text: STEFAN
+    font: "Bundled DejaVu Sans Bold or Condensed Bold, SIL OFL 1.1; exact file and hash recorded"
+    normalization: "Unicode NFC"
+    supported_initial_set: "A-Z, a-z, digits, space, hyphen, apostrophe, ÄÖÜäöüẞß"
+    unsupported_glyph_behavior: "Fail closed with the missing code point; never substitute silently"
+    split_rule: "Choose a character boundary minimizing the larger rendered half width, then use one common scale"
+    minimum_printed_stroke_mm: 1.8
+    raised_depth_mm: 2.0
+  interfaces:
+    - "Shelf/desk: flat underside; optional anti-slip pads are a later accessory, not assumed in the load claim"
+    - "Books: side blade contacts the outer book cover; inward foot lies beneath the book row"
+    - "Pair: no connector; spacing adapts to book-row width"
+  excluded:
+    - "No wall mounting, stacking, child-directed use, structural shelving, or book rows above the tested range"
+    - "No claim that recessed dimples alone provide anti-slip performance"
+    - "No automatic printer upload or start"
+
+coordinate_system:
+  units: mm
+  x: "book-row direction; left to right when viewed from the front"
+  y: "shelf depth; +Y moves away from the front viewer"
+  z: "up; print-bed datum z=0"
+  handedness:
+    left: "decorative wing extends toward -X; foot extends inward toward +X"
+    right: "decorative wing extends toward +X; foot extends inward toward -X"
+
+geometry:
+  fixed_parameters_mm:
+    overall_height: 160
+    side_blade_height: 150
+    side_blade_depth: 115
+    decorative_wing_width: 125
+    inward_foot_length: 70
+    inward_foot_thickness: "2.0 with a 15 mm support-free taper to a 0.6 mm inner toe"
+    nominal_plate_thickness: 3.2
+    nominal_rib_thickness: 2.4
+    corner_radius: 3.0
+    text_edge_margin: 8.0
+  maximum_part_envelope_mm: [200, 120, 165]
+  build_margin_on_220_mm_bed: ">=10 mm on each XY axis without brim"
+  architecture:
+    - "Continuous side blade and inward foot form the primary L-shaped book load path"
+    - "Front wing is a perpendicular framed skin carrying shallow raised text"
+    - "Rounded triangular gussets connect side blade, front wing, and foot"
+    - "No decorative text controls stop height, foot length, or side-blade depth"
+
+duty:
+  book_row_mass_kg: 2.0
+  representative_book_row_width_mm: [100, 400]
+  book_height_mm: [100, 240]
+  service: "static indoor use for years; occasional repositioning"
+  acceptance_load_case: >
+    Pair supports a 2.0 kg row between the side blades with books resting on
+    both inward feet; no tip, fracture, permanent deformation, or slide beyond
+    5 mm during the defined physical test.
+  design_safety_factor_min: 1.5
+  note: "Book/foot contact distribution and shelf friction require physical validation"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Book row falls if the pair slides or tips"
+    - "Thin plate or gusset cracks under lateral load"
+    - "Sharp printed edges scratch books or hands"
+  mitigations:
+    - "Inward feet use book weight; rounded edges; continuous side-blade/foot load path"
+    - "Deterministic geometry checks plus process-matched prototype and load/slide tests"
+  environment:
+    indoor_outdoor: indoor
+    temperature_c: [10, 30]
+    moisture: normal
+    uv: limited
+
+fabrication:
+  preference: integrated-print
+  process: fdm-fff
+  printer:
+    operator_model: "Anycubic Kobra 3 Max"
+    common_build_volume_mm: [220, 220, 250]
+  primary_material: "PLA matte"
+  alternative_material: "PETG after separate profile and creep/fit verification"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  orientation: "Each side upright on its foot/front-wing base; z=0 underside on bed"
+  supports: none
+  target_formats: [step, stl, 3mf]
+  manufacturing_delivery: "Separate left and right 3MFs for sequential printing plus an assembly STEP/preview"
+
+printer:
+  model: "Anycubic Kobra 3 Max (operator); common-printer design contract"
+  build_volume_mm: [220, 220, 250]
+  enclosure: false
+
+manufacturing:
+  process: fdm-fff
+  material: "PLA matte; PETG only after separate qualification"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  supports: none
+  orientation: "upright on the designed bed datum"
+  target_formats: [step, stl, 3mf]
+
+optimization:
+  status: pending
+  measured_geometry_result:
+    candidate_pair_mass_g_at_pla_1_24: 319.98
+    historical_pair_mass_g_at_pla_1_24: 3682.4
+    cad_mass_reduction_percent: 91.31
+    report: "validation/v0.3.0/optimization-comparison.json"
+    note: "Geometry candidate selected; print-time/process selection remains pending exact slicer evidence"
+  protected_regions:
+    - "Side blade/book contact face"
+    - "Inward foot top and bed datum"
+    - "Side-blade/foot/gusset load path"
+    - "Front text faces and shared baseline"
+    - "Watermark safe region after geometry lock"
+  baseline: "Historical 0.2.0 M: 1484.805 cm3 and 1841.2 g per part at PLA density 1.24 g/cm3"
+  candidates:
+    - "A process-only: current geometry with a faster qualified nozzle/profile — historical comparison only"
+    - "B geometry-only: fixed-height thin plates, feet, framed wing, and local gussets"
+    - "C combined: candidate B plus the fastest qualified 0.4/0.6 mm process retaining text and watermark"
+  acceptance: "No candidate selected without exact slicer metrics and all protected constraints passing"
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh:
+      - "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.stl"
+      - "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.stl"
+    comparison_report: "validation/v0.3.0/mesh-simplification.json"
+    rationale: "Marked meshes are already below 8,000 faces and 0.4 MiB each; lossy decimation would risk protected text and watermark geometry without useful savings"
+    protected_regions:
+      - "Side blade/book contact face"
+      - "Inward foot top and bed datum"
+      - "Front text and watermark region"
+    resource_budget:
+      triangle_target: 250000
+      triangle_stop: 1000000
+      peak_memory_gib: 4
+      max_mesh_mib: 25
+      max_slicer_seconds: 120
+    slicer_resolution_check:
+      status: not-run
+      report: "validation/v0.3.0/slicer-preflight.json"
+
+acceptance:
+  - id: paired-function
+    criterion: "Left and right are mechanically mirrored; feet point inward; text reads normally from -Y"
+    method: "Exact bounds/orientation assertions, assembly render, and interface contract"
+  - id: geometry-valid
+    criterion: "Each side is one positive watertight body with no nonmanifold or degenerate faces"
+    method: "fdm_ci audit-mesh"
+  - id: bed-fit
+    criterion: "Each sequential print fits 200x120x165 mm and the 220x220x250 contract"
+    method: "mesh bounds plus exact slicer bed check"
+  - id: text-valid
+    criterion: "Requested glyphs exist, outlines preserve holes, minimum printed stroke >=1.8 mm, common split scale/baseline"
+    method: "Font sweep, polygon validity, generated-mesh checks, and slicer thin-wall review"
+  - id: supports
+    criterion: "No generated support; bridges/overhangs remain within the qualified profile"
+    method: "CAD construction and exact slicer layer review"
+  - id: stability
+    criterion: "2.0 kg test row: no tip/fracture/permanent set and <=5 mm slide"
+    method: "Calculation/FEM for comparison plus physical pair test"
+  - id: package
+    criterion: "Standards-valid left/right 3MFs bind exact geometry, units, profile identity, and hashes"
+    method: "fdm_ci validate-3mf, freeze-project, and release manifest"
+  - id: reproducibility
+    criterion: "Default plus text/side parameter sweep rebuilds deterministically"
+    method: "fdm_ci run-sweep and hash-bound reports"
+  - id: physical-gate
+    criterion: "Process-matched prototype passes visual, book-contact, load, slide, and handling tests"
+    method: "test-plan.yaml with human evidence"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-PER-001
+  version: 0.3.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+deliverables:
+  - "Parametric CadQuery source and deterministic build script"
+  - "Left/right STEP, STL, standards-valid 3MF, and assembly STEP/preview"
+  - "Bundled font and license/source register"
+  - "Print profile and orientation rationale"
+  - "Validation project, locked hashes, mesh/3MF/sweep/slicer reports"
+  - "Optimization comparison and decision"
+  - "Physical test plan and human evidence placeholders"
+  - "Current product-specific metriMade.com watermark package and evidence"
+
+paths:
+  historical_release: "release/manifest.json and release/design-spec-0.2.0.yaml"
+  concept: "concept/nameform-bookends-v0.3.0-concept.png"
+  source: "source/v0.3.0/"
+  exports: "exports/v0.3.0/"
+  validation: "validation/v0.3.0/"
+  test_plan: "test-plan.yaml"

@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "revision": "R1.5-procedural-walnut",
+  "representation": "deterministic-vector-grain-and-knot-grooves",
+  "seed": 150521,
+  "checks": {
+    "procedural_representation": true,
+    "image_relief_inactive": true,
+    "approved_surfaces_enabled": true,
+    "outer_walls_smooth": true,
+    "wall_reserves": true,
+    "connector_keepout_defined": true,
+    "wall_top_comfort_band_defined": true,
+    "all_modules_floor_textured": true,
+    "all_modules_inner_walls_textured": true,
+    "all_modules_wall_tops_textured": true,
+    "sparse_knot_limit": true,
+    "triangle_budget": true,
+    "mesh_size_budget": true,
+    "mesh_validation": true,
+    "connectors_byte_identical_to_r1_4": true,
+    "memory_stop_gate": true,
+    "three_mf_crc": true
+  },
+  "nominal_maximum_depths_mm": {
+    "floor": 0.2,
+    "inner_walls": 0.17,
+    "wall_tops": 0.12
+  },
+  "minimum_residual_wall_mm": 2.0,
+  "calculated_reserves_mm": {
+    "floor_below_top_texture_mm": 2.4,
+    "floor_below_watermark_mm": 2.2,
+    "double_sided_divider_mm": 2.8600000000000003,
+    "single_sided_outer_wall_mm": 3.0300000000000002,
+    "wall_top_vertical_reserve_mm": 54.88
+  },
+  "coverage": {
+    "driver-front": {
+      "floor": {
+        "grooves": 17,
+        "grain_lines": 14,
+        "knots": 1
+      },
+      "inner_walls": {
+        "grooves": 55,
+        "grain_lines": 40,
+        "knots": 0
+      },
+      "wall_tops": {
+        "grooves": 4,
+        "grain_lines": 3,
+        "knots": 0
+      }
+    },
+    "driver-back": {
+      "floor": {
+        "grooves": 16,
+        "grain_lines": 13,
+        "knots": 1
+      },
+      "inner_walls": {
+        "grooves": 56,
+        "grain_lines": 39,
+        "knots": 0
+      },
+      "wall_tops": {
+        "grooves": 4,
+        "grain_lines": 3,
+        "knots": 0
+      }
+    },
+    "hardware-front": {
+      "floor": {
+        "grooves": 49,
+        "grain_lines": 41,
+        "knots": 1
+      },
+      "inner_walls": {
+        "grooves": 157,
+        "grain_lines": 69,
+        "knots": 0
+      },
+      "wall_tops": {
+        "grooves": 16,
+        "grain_lines": 5,
+        "knots": 0
+      }
+    },
+    "hardware-back": {
+      "floor": {
+        "grooves": 42,
+        "grain_lines": 41,
+        "knots": 0
+      },
+      "inner_walls": {
+        "grooves": 106,
+        "grain_lines": 51,
+        "knots": 0
+      },
+      "wall_tops": {
+        "grooves": 10,
+        "grain_lines": 4,
+        "knots": 0
+      }
+    }
+  },
+  "connector_regression": {
+    "DRAFT-connector-coupon-male.stl": {
+      "expected_r1_4": "996c6ef061463fb6c57e5ea31cf2c27fa9c425a2e501428f53030a1d0e6c57a4",
+      "actual_r1_5": "996c6ef061463fb6c57e5ea31cf2c27fa9c425a2e501428f53030a1d0e6c57a4",
+      "unchanged": true
+    },
+    "DRAFT-connector-coupon-female.stl": {
+      "expected_r1_4": "6834bfccc6cf07aac31455583f76e6e8f99417d3c63d29a5e3dc5308179d0676",
+      "actual_r1_5": "6834bfccc6cf07aac31455583f76e6e8f99417d3c63d29a5e3dc5308179d0676",
+      "unchanged": true
+    }
+  },
+  "peak_module_process_rss_mib": 164.75,
+  "target_peak_rss_mib": 1536,
+  "stop_peak_rss_mib": 3072,
+  "triangle_review_gate_per_module": 1000000,
+  "mesh_stop_mib_per_module": 100,
+  "three_mf": {
+    "file": "output/DRAFT/DRAFT-R1.5-procedural-walnut-assembly.3mf",
+    "crc_bad_file": null
+  },
+  "exact_slicer_resolution_check": {
+    "status": "BLOCKED",
+    "limit_seconds": 120,
+    "reason": "No exact target slicer executable/profile is available in this environment; inspect the supplied 3MF with the intended printer profile."
+  },
+  "mesh_simplification_gate": {
+    "status": "not-beneficial",
+    "policy": "retain deterministic high-fidelity manufacturing meshes; no lossy decimation",
+    "reason": "All module meshes remain below the declared triangle and file-size stop gates; exact connectors, bed plane, watermark, and shallow wood grooves stay protected."
+  },
+  "limitations": [
+    "Wood realism, directional sheen, cleanability, and comfort require the supplied process-matched coupon.",
+    "Connector geometry is unchanged; the previously reported physical non-fit remains unresolved until a real connector coupon is measured."
+  ]
+}

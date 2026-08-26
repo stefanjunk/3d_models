@@ -1,0 +1,42 @@
+name: rc-car-sporty-envelope-reference
+units: mm
+length_mm: 360.0
+body_ground_mm: 18.0
+station_s: [0.0, 0.035, 0.10, 0.22, 0.35, 0.48, 0.62, 0.75, 0.88, 0.96, 1.0]
+half_width_profile:
+  s: [0.0, 0.06, 0.20, 0.38, 0.58, 0.78, 0.92, 1.0]
+  mm: [4.0, 48.0, 79.0, 87.0, 90.0, 86.0, 58.0, 4.0]
+roof_height_profile:
+  s: [0.0, 0.08, 0.24, 0.38, 0.52, 0.66, 0.82, 0.94, 1.0]
+  mm_above_ground: [16.0, 25.0, 42.0, 82.0, 104.0, 108.0, 82.0, 34.0, 18.0]
+side_height_ratio: 0.36
+roof_cross_exponent: 2.4
+roof_roundness_exponent: 0.58
+shoulder_bulge_mm: 5.0
+underbody_camber_mm: 2.0
+body_section_points_draft: 64
+body_section_points_print: 128
+hardpoints:
+  front_axle_x_mm: 104.0
+  rear_axle_x_mm: 266.0
+  axle_z_mm: 34.0
+  axle_axis_half_length_mm: 78.0
+  chassis_mounts:
+    - [132.0, 44.0, 4.0]
+    - [132.0, -44.0, 4.0]
+    - [238.0, 44.0, 4.0]
+    - [238.0, -44.0, 4.0]
+chassis:
+  thickness_mm: 4.0
+  half_width_profile:
+    x_mm: [18.0, 72.0, 104.0, 170.0, 220.0, 266.0, 324.0, 346.0]
+    mm: [32.0, 50.0, 61.0, 53.0, 52.0, 61.0, 47.0, 30.0]
+  outline_samples_draft: 56
+  outline_samples_print: 128
+acceptance:
+  minimum_body_volume_mm3: 120000.0
+  minimum_chassis_volume_mm3: 25000.0
+  maximum_degenerate_faces: 0
+  connected_components_each: 1
+  watertight: true
+  hardpoint_drift_mm_max: 0.000001

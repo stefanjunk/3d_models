@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "skill": "organic-mesh-functionalization",
+  "artifact_roles": [
+    {"id": "original-mesh", "kind": "mesh", "required": true},
+    {"id": "edited-mesh", "kind": "mesh", "required": true},
+    {"id": "roi-report", "kind": "report", "required": true},
+    {"id": "interface-contract", "kind": "contract", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "edited-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["edited-mesh"]},
+    {"id": "global-regression", "type": "mesh_compare", "required": true, "artifact_roles": ["original-mesh", "edited-mesh"]},
+    {"id": "roi-preservation", "type": "external_report", "required": true, "artifact_roles": ["original-mesh", "edited-mesh", "roi-report"]},
+    {"id": "insert-interfaces", "type": "interfaces", "required": true, "artifact_roles": ["interface-contract"]},
+    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [{"id": "insert-fit-coupon", "kind": "physical", "required": true}],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

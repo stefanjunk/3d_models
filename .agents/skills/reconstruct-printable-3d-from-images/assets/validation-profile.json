@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "skill": "reconstruct-printable-3d-from-images",
+  "artifact_roles": [
+    {"id": "source-images", "kind": "image", "required": true},
+    {"id": "camera-mask-contract", "kind": "contract", "required": true},
+    {"id": "manufacturing-mesh", "kind": "mesh", "required": true},
+    {"id": "view-comparison-report", "kind": "report", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "manufacturing-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["manufacturing-mesh"]},
+    {"id": "view-comparison-freshness", "type": "external_report", "required": true, "artifact_roles": ["source-images", "camera-mask-contract", "manufacturing-mesh", "view-comparison-report"]},
+    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "hidden-geometry-review", "kind": "review", "required": true},
+    {"id": "critical-fit-and-scale-test", "kind": "physical", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

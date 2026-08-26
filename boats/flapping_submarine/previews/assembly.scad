@@ -1,0 +1,17 @@
+import("world/nose_body.stl");
+import("world/bladder_piston.stl");
+import("world/segment_01.stl");
+import("world/segment_02.stl");
+import("world/segment_03.stl");
+import("world/segment_04.stl");
+import("world/capsule_body.stl");
+import("world/capsule_cap.stl");
+import("world/pivot_pin.stl");
+import("world/crank_disc.stl");
+import("world/shaft_sleeve.stl");
+import("world/tail_rocker.stl");
+import("world/tail_fin.stl");
+import("world/keel_plug.stl");
+import("world/ballast_box.stl");
+import("world/ballast_lid.stl");
+import("world/hinge_pin.stl");

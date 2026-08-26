@@ -1,0 +1,35 @@
+{
+  "status": "not-beneficial",
+  "decision": "retain high-fidelity manufacturing meshes without decimation",
+  "basis": {
+    "largest_manufacturing_part": "MODULE_OUTPUT_ivory.stl",
+    "largest_triangles": 188464,
+    "largest_stl_bytes": 9423284,
+    "largest_compressed_module_3mf_bytes_approx": 2350000,
+    "round_trip_topology": "pass",
+    "import_and_validation": "completed within the project resource budget",
+    "exact_slicer_timing": "not measured"
+  },
+  "resource_budget": {
+    "triangle_target": 750000,
+    "triangle_stop": 1500000,
+    "peak_memory_gib": 4.0,
+    "max_mesh_mib": 120,
+    "max_slicer_seconds": 180
+  },
+  "protected_regions": [
+    "0.22 mm exterior microtexture",
+    "0.38 mm colour pockets",
+    "1.42 mm minimum remaining side wall",
+    "FIFO inner faces",
+    "connector bores and bed planes",
+    "front/crown silhouette",
+    "complete JSI-WM-001-R1 mark and surrounding datum"
+  ],
+  "reason": "The files are modest for the target workflow and already compressed efficiently in 3MF. An unconstrained reducer cannot lock all shallow relief and exact interfaces; risk exceeds a likely controller or slicer benefit.",
+  "slicer_resolution_check": {
+    "status": "pending",
+    "target": "Anycubic Slicer Next",
+    "report": "slicer-preflight-DRAFT.json"
+  }
+}

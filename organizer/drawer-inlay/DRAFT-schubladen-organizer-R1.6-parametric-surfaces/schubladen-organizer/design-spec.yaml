@@ -1,0 +1,101 @@
+project:
+  name: "Schubladen-Organizer – parametrische Oberflächen"
+  revision: "R1.6-parametric-surfaces"
+  parent_revision: "R1.5-procedural-walnut"
+  units: "mm"
+  status: "draft"
+
+scope:
+  requested_change: "Add selectable carbon surfaces plus a hole-free line-masking micro-cast option, while keeping walnut, steel, and no-texture rebuildable."
+  change_class: "surface-only variant; not a complete redesign"
+  default_surface: "carbon"
+  excluded_changes:
+    - organizer envelope
+    - compartment layout
+    - floor and wall nominal thickness
+    - access grooves
+    - screwdriver comb
+    - connector geometry and clearance
+    - watermark geometry
+
+geometry:
+  assembly_envelope_mm: [227.0, 357.0, 64.0]
+  module_count: 4
+  floor_thickness_mm: 2.6
+  base_wall_thickness_mm: 3.2
+  connector_clearance_mm: 0.30
+  unchanged_from_parent: true
+
+surface_profiles:
+  carbon:
+    representation: "deterministic 2x2 twill lenticular cell field"
+    intended_effect: ["diagonal tow rhythm", "over-under phase", "angle-dependent satin highlights", "dark composite look"]
+    not_claimed: ["individual fibre geometry", "real carbon laminate structure", "carbon laminate strength"]
+    floor_pitch_mm: 3.00
+    wall_pitch_mm: 3.15
+    wall_top_pitch_mm: 2.60
+    maximum_depth_mm: {floor: 0.18, inner_walls: 0.16, wall_tops: 0.10}
+    seed: 160622
+  carbon-wave:
+    source_reference: "libraries/carbonfiber1.png"
+    representation: "deterministic paired 0/90 basket-weave tow-cell field"
+    intended_effect: ["paired broad tow bundles", "stepped diagonal alternation", "horizontal visual dominance", "strand-direction highlights"]
+    not_claimed: ["individual carbon filament geometry", "real carbon laminate structure", "carbon laminate strength"]
+    floor_cell_pitch_mm: 2.20
+    wall_cell_pitch_mm: 2.25
+    maximum_depth_mm: {floor: 0.18, inner_walls: 0.16, wall_tops: 0.09}
+    seed: 160823
+  micro-cast:
+    representation: "deterministic additive band-limited shared-node micro-facet field"
+    intended_effect: ["break coherent FDM line highlights", "matte irregular cast appearance", "continuous surface without recessed pits"]
+    not_claimed: ["pore-scale CAD geometry", "guaranteed line masking before process-matched coupon", "forged or cast metal material properties"]
+    cell_pitch_mm: 1.60
+    maximum_depth_mm: {floor: 0.00, inner_walls: 0.00, wall_tops: 0.00}
+    maximum_protrusion_mm: {floor: 0.24, inner_walls: 0.20, wall_tops: 0.00}
+    wall_tops: "geometry disabled; smooth finish-only surface"
+    seed: 160824
+  walnut:
+    source: "R1.5 procedural grain and knot profile"
+  steel:
+    source: "R1.4 procedural forged-steel dimple profile"
+  plain:
+    representation: "all optional surface geometry disabled"
+
+mapping:
+  generally_included: ["inner compartment floors", "inner wall faces", "wall tops"]
+  micro_cast_included: ["inner compartment floors", "inner wall faces"]
+  micro_cast_disabled: ["wall tops"]
+  excluded: ["outer walls", "connectors", "junction blends", "finger grooves", "gussets", "wall roots", "bed plane", "watermark zones"]
+  repeat_policy: "physical millimetre coordinates; deterministic crop; no raster stretching"
+
+manufacturing:
+  technology: "FDM/FFF"
+  nozzle_mm: 0.4
+  line_width_mm: 0.44
+  layer_height_mm: 0.20
+  supports: false
+  carbon_material_start: "deep-black satin PETG or PLA"
+  carbon_top_path: "monotonic +45 degrees where supported"
+  micro_cast_material_start: "matte PLA or PETG"
+  micro_cast_top_path: "monotonic with one fixed direction per module; optional topmost ironing only after coupon"
+  exact_slicer_profile: "pending"
+
+acceptance:
+  digital:
+    - all nine STLs watertight, manifold, single-body, positive-volume
+    - four-object 3MF CRC and 227 x 357 x 64 mm envelope pass
+    - selected profile recorded consistently in reports and package
+    - residual walls and protected surface regions pass
+    - connector coupon hashes remain identical to R1.4
+    - triangle, file-size, and memory stop gates pass
+  physical:
+    - surface coupon reads as the intended family at 300–700 mm
+    - carbon coupon is inspected under at least three light angles
+    - no snagging, sharp cells, dirt traps, or lost short paths
+    - micro-cast floors show no visually objectionable holes and wall tops remain smooth
+    - connector pair and drawer corner pass in target material
+    - exact target-slicer first layers and textured paths are inspected
+
+release:
+  status: "blocked-pending-physical-and-slicer-validation"
+  reason: "Digital geometry validation passes; surface appearance and connector fit require process-matched coupons, and the exact target slicer is not yet qualified."

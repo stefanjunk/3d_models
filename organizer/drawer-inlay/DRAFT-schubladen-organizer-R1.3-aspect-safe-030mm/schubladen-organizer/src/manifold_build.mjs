@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs'
+import crypto from 'node:crypto'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Manifold } from 'manifold-3d/manifoldCAD'
@@ -10,12 +11,23 @@ import {
   buildConnectorCouponManifold,
   buildFitCouponManifold,
   buildModulesManifold,
+  buildProceduralWoodCouponManifold,
+  buildR2AccessoriesManifolds,
+  buildR2ProceduralWoodModuleManifold,
   buildReliefCouponManifold,
   resolveModelParameters
 } from './manifold_model.mjs'
+import { loadProceduralWoodConfig } from './procedural_wood.mjs'
+import { sanitizeMeshForFloat32 } from './mesh_export.mjs'
 import { watermarkOutline } from './watermark.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const R2_MODULE_IDS = [
+  'driver-front',
+  'driver-back',
+  'hardware-front',
+  'hardware-back'
+]
 
 function parseArgs () {
   const args = process.argv.slice(2)
@@ -26,12 +38,51 @@ function parseArgs () {
   return {
     quality: valueAfter('--quality', 'final'),
     module: valueAfter('--module'),
-    accessories: args.includes('--accessories')
+    r2Module: valueAfter('--r2-module'),
+    r2ModuleFlag: args.includes('--r2-module'),
+    r2Accessories: args.includes('--r2-accessories'),
+    accessories: args.includes('--accessories'),
+    woodCoupon: args.includes('--wood-coupon')
   }
 }
 
 function readJson (file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'))
+}
+
+function sha256File (file) {
+  const hash = crypto.createHash('sha256')
+  const fd = fs.openSync(file, 'r')
+  const buffer = Buffer.allocUnsafe(1024 * 1024)
+  try {
+    while (true) {
+      const bytesRead = fs.readSync(fd, buffer, 0, buffer.length, null)
+      if (bytesRead === 0) break
+      hash.update(buffer.subarray(0, bytesRead))
+    }
+  } finally {
+    fs.closeSync(fd)
+  }
+  return hash.digest('hex')
+}
+
+function fileIdentity (file) {
+  return {
+    path: path.relative(root, file),
+    sha256: sha256File(file)
+  }
+}
+
+function r2InputIdentities (paramsPath, textureConfigPath) {
+  return {
+    design_spec: fileIdentity(path.join(root, 'design-spec.yaml')),
+    model_params: fileIdentity(paramsPath),
+    wood_config: fileIdentity(textureConfigPath),
+    build_source: fileIdentity(path.join(root, 'src', 'manifold_build.mjs')),
+    mesh_export: fileIdentity(path.join(root, 'src', 'mesh_export.mjs')),
+    model_source: fileIdentity(path.join(root, 'src', 'manifold_model.mjs')),
+    wood_planner: fileIdentity(path.join(root, 'src', 'procedural_wood.mjs'))
+  }
 }
 
 function writeHeader (fd, headerText, triangleCount) {
@@ -95,7 +146,9 @@ function writeBinaryStl (file, manifold, headerText, simplifyTolerance = 0, mesh
   const roundedMesh = exportManifold.getMesh()
   roundedMesh.merge()
   const reconstructed = Manifold.ofMesh(roundedMesh)
-  const mesh = reconstructed.getMesh()
+  const rawMesh = reconstructed.getMesh()
+  const sanitized = sanitizeMeshForFloat32(rawMesh)
+  const mesh = sanitized.mesh
   const fd = fs.openSync(file, 'w')
   const chunkTriangles = 32768
   try {
@@ -134,7 +187,12 @@ function writeBinaryStl (file, manifold, headerText, simplifyTolerance = 0, mesh
     fs.closeSync(fd)
   }
   if (meshCacheFile) writeIndexedMeshCache(meshCacheFile, mesh)
-  const result = { triangles: mesh.numTri, vertices: mesh.numVert, dropped_zero_area_triangles: 0 }
+  const result = {
+    triangles: mesh.numTri,
+    vertices: mesh.numVert,
+    dropped_zero_area_triangles: sanitized.report.dropped_zero_area_triangles,
+    float32_sanitization: sanitized.report
+  }
   reconstructed.delete()
   if (exportManifold !== manifold) exportManifold.delete()
   return result
@@ -153,12 +211,23 @@ function statsWithoutMeshCopy (manifold, meshStats) {
 }
 
 function memoryReport (mode) {
-  const resources = process.resourceUsage()
+  let maxRssMib
+  let measurement
+  try {
+    const status = fs.readFileSync('/proc/self/status', 'utf8')
+    const match = /^VmHWM:\s+(\d+)\s+kB$/m.exec(status)
+    if (!match) throw new Error('VmHWM is unavailable')
+    maxRssMib = Number(match[1]) / 1024
+    measurement = '/proc/self/status VmHWM; peak resident set for this isolated Linux Node/WASM process'
+  } catch {
+    maxRssMib = process.resourceUsage().maxRSS / 1024
+    measurement = 'process.resourceUsage().maxRSS fallback; peak resident set for this isolated Node/WASM process'
+  }
   return {
     mode,
     pid: process.pid,
-    max_rss_mib: resources.maxRSS / 1024,
-    measurement: "process.resourceUsage().maxRSS; peak resident set for this isolated Node/WASM process"
+    max_rss_mib: maxRssMib,
+    measurement
   }
 }
 
@@ -195,16 +264,325 @@ function baseReport (params, paramsPath, manifestPath, preview, markOutline) {
 
 function main () {
   const args = parseArgs()
-  if (args.module && args.accessories) throw new Error('--module and --accessories are mutually exclusive')
-  if (args.quality === 'final' && !args.module && !args.accessories) {
-    throw new Error('final builds must select exactly one --module or --accessories; use python3 src/build_pipeline.py')
+  if (args.r2ModuleFlag && !args.r2Module) throw new Error(`--r2-module requires one of: ${R2_MODULE_IDS.join(', ')}`)
+  const routeCount = [Boolean(args.module), args.r2ModuleFlag, args.r2Accessories, args.accessories, args.woodCoupon].filter(Boolean).length
+  if (routeCount > 1) throw new Error('--module, --r2-module, --r2-accessories, --accessories, and --wood-coupon are mutually exclusive')
+  if (args.quality === 'final' && routeCount === 0) {
+    throw new Error('final builds must select exactly one --module, --r2-module, --r2-accessories, --accessories, or --wood-coupon; use python3 src/build_pipeline.py')
   }
   const paramsPath = path.join(root, 'config', 'model-params.json')
   const params = resolveModelParameters(readJson(paramsPath))
-  const manifestPath = path.resolve(path.dirname(paramsPath), params.relief.manifest)
-  const manifest = readJson(manifestPath)
   const preview = args.quality === 'preview'
   const segments = preview ? params.export.segments_preview : params.export.segments_final
+
+  if (args.r2ModuleFlag) {
+    if (!R2_MODULE_IDS.includes(args.r2Module)) {
+      throw new Error(`--r2-module supports only: ${R2_MODULE_IDS.join(', ')}`)
+    }
+    if (!params.surface_texture?.enabled) throw new Error('--r2-module requires enabled surface_texture parameters')
+    if (params.surface_texture.representation !== 'procedural-vector-wood-grooves') {
+      throw new Error('--r2-module requires procedural-vector-wood-grooves representation')
+    }
+    if (params.surface_texture.apply_outer_walls !== false) throw new Error('--r2-module requires smooth outer wall faces')
+    const textureConfigPath = path.resolve(path.dirname(paramsPath), params.surface_texture.config)
+    const textureConfig = loadProceduralWoodConfig(textureConfigPath)
+    const outputDir = path.join(root, 'output', 'DRAFT')
+    const reportDir = path.join(root, 'reports')
+    const cacheDir = path.join(reportDir, 'mesh-cache')
+    fs.mkdirSync(outputDir, { recursive: true })
+    fs.mkdirSync(reportDir, { recursive: true })
+    fs.mkdirSync(cacheDir, { recursive: true })
+    const built = buildR2ProceduralWoodModuleManifold(params, textureConfig, args.r2Module, { segments })
+    const globalBounds = built.solid.boundingBox()
+    if (Math.abs(globalBounds.min[2]) > 1.0e-6) throw new Error('R2 module assembly geometry no longer preserves bed plane z=0')
+    const localTranslation = [-built.def.bounds[0], -built.def.bounds[2], 0]
+    const local = built.solid.translate(localTranslation)
+    const outputFile = path.join(outputDir, `DRAFT-R2-${args.r2Module}-procedural-wood-unmarked.stl`)
+    const cacheFile = path.join(cacheDir, `R2-${args.r2Module}-procedural-wood-unmarked.meshbin`)
+    const meshStats = writeBinaryStl(
+      outputFile,
+      local,
+      `DRAFT R2 ${args.r2Module} procedural wood unmarked`,
+      params.export.stl_simplify_tolerance_mm,
+      cacheFile
+    )
+    const metrics = statsWithoutMeshCopy(local, meshStats)
+    if (Math.abs(metrics.bounds.min[2]) > 1.0e-6) throw new Error('R2 module local export no longer preserves bed plane z=0')
+    const report = {
+      status: 'DRAFT',
+      quality: args.quality,
+      engine: 'manifold-3d',
+      revision: params.model_revision,
+      route: 'r2-procedural-wood-module-only',
+      execution_strategy: 'one-module-per-process; one-planned-surface-patch-per-boolean',
+      params: path.relative(root, paramsPath),
+      surface_texture_config: path.relative(root, textureConfigPath),
+      surface_texture_config_identity: {
+        schema: textureConfig.schema,
+        representation: textureConfig.representation,
+        seed: textureConfig.seed
+      },
+      surface_plan_identity: {
+        schema: built.plan.schema,
+        revision: built.plan.revision,
+        module_id: built.plan.module.id,
+        group_ids: built.plan.groups.map(group => group.id)
+      },
+      relief_loaded: false,
+      watermark: { loaded: false, applied: false },
+      module: {
+        id: built.def.id,
+        file: path.relative(root, outputFile),
+        mesh_cache: path.relative(root, cacheFile),
+        file_bytes: fs.statSync(outputFile).size,
+        mesh_cache_bytes: fs.statSync(cacheFile).size,
+        global_bounds_before_translation: globalBounds,
+        local_translation_mm: localTranslation,
+        ...metrics,
+        export_mesh: meshStats,
+        surface_plan: built.plan
+      },
+      identities: {
+        inputs: r2InputIdentities(paramsPath, textureConfigPath),
+        artifacts: {
+          stl: fileIdentity(outputFile),
+          mesh_cache: fileIdentity(cacheFile)
+        }
+      },
+      process_memory: null,
+      resource_budget: null
+    }
+    const reportFile = path.join(reportDir, `build-final-R2-${args.r2Module}-procedural-wood-unmarked.json`)
+    JSON.stringify(report)
+    report.process_memory = memoryReport(`r2-module:${args.r2Module}`)
+    const peakBudget = textureConfig.resource_budget.max_peak_rss_mib_per_module
+    report.resource_budget = {
+      max_peak_rss_mib_per_module: peakBudget,
+      measured_max_rss_mib: report.process_memory.max_rss_mib,
+      status: report.process_memory.max_rss_mib <= peakBudget ? 'PASS' : 'FAIL'
+    }
+    fs.writeFileSync(reportFile, JSON.stringify(report, null, 2) + '\n')
+    local.delete()
+    built.solid.delete()
+    if (report.resource_budget.status === 'FAIL') {
+      const message = `R2 module resource budget exceeded: ${report.process_memory.max_rss_mib.toFixed(3)} MiB > ${peakBudget.toFixed(3)} MiB for ${args.r2Module}; DRAFT artifact and report retained`
+      console.error(message)
+      console.log(JSON.stringify({
+        status: 'budget-error',
+        quality: args.quality,
+        r2_module: args.r2Module,
+        file: report.module.file,
+        report: path.relative(root, reportFile),
+        process_memory: report.process_memory,
+        resource_budget: report.resource_budget
+      }))
+      process.exitCode = 1
+      return
+    }
+    console.log(JSON.stringify({
+      status: 'ok',
+      quality: args.quality,
+      r2_module: args.r2Module,
+      file: report.module.file,
+      file_bytes: report.module.file_bytes,
+      triangles: meshStats.triangles,
+      mesh_cache: report.module.mesh_cache,
+      bounds: metrics.bounds,
+      volume_mm3: metrics.volume_mm3,
+      process_memory: report.process_memory,
+      resource_budget: report.resource_budget
+    }))
+    return
+  }
+
+  if (args.r2Accessories) {
+    if (!params.surface_texture?.enabled) throw new Error('--r2-accessories requires enabled surface_texture parameters')
+    if (params.surface_texture.representation !== 'procedural-vector-wood-grooves') {
+      throw new Error('--r2-accessories requires procedural-vector-wood-grooves representation')
+    }
+    if (params.surface_texture.apply_comb_top_faces !== true) {
+      throw new Error('--r2-accessories requires enabled comb top-face texture')
+    }
+    const textureConfigPath = path.resolve(path.dirname(paramsPath), params.surface_texture.config)
+    const textureConfig = loadProceduralWoodConfig(textureConfigPath)
+    const outputDir = path.join(root, 'output', 'DRAFT')
+    const reportDir = path.join(root, 'reports')
+    fs.mkdirSync(outputDir, { recursive: true })
+    fs.mkdirSync(reportDir, { recursive: true })
+    const built = buildR2AccessoriesManifolds(params, textureConfig, { segments })
+    const filenames = {
+      'screwdriver-comb': 'DRAFT-R2-screwdriver-comb-procedural-wood-unmarked.stl',
+      'drawer-fit-corner-coupon': 'DRAFT-R2-drawer-fit-corner-coupon.stl',
+      'connector-coupon-male': 'DRAFT-R2-connector-coupon-male.stl',
+      'connector-coupon-female': 'DRAFT-R2-connector-coupon-female.stl'
+    }
+    const report = {
+      status: 'DRAFT',
+      quality: args.quality,
+      engine: 'manifold-3d',
+      revision: params.model_revision,
+      route: 'r2-accessories-only',
+      execution_strategy: 'accessories-only; one-comb-top-bridge-per-boolean; fit-and-connector-coupons-untextured',
+      params: path.relative(root, paramsPath),
+      surface_texture_config: path.relative(root, textureConfigPath),
+      surface_texture_config_identity: {
+        schema: textureConfig.schema,
+        representation: textureConfig.representation,
+        seed: textureConfig.seed
+      },
+      surface_plan_identity: {
+        schema: built.plan.schema,
+        revision: built.plan.revision,
+        comb_bridge_region_ids: built.plan.comb.bridge_regions.map(region => region.id),
+        artifact_ids: built.plan.artifacts.map(artifact => artifact.id)
+      },
+      relief_loaded: false,
+      watermark: { loaded: false, applied: false },
+      comb_smooth_keepouts: built.plan.comb.smooth_keepouts,
+      comb_texture_plan: built.plan,
+      artifacts: {},
+      identities: {
+        inputs: r2InputIdentities(paramsPath, textureConfigPath),
+        artifacts: {}
+      },
+      process_memory: null,
+      resource_budget: null
+    }
+    for (const artifact of built.artifacts) {
+      const filename = filenames[artifact.id]
+      if (!filename) throw new Error(`R2 accessory output name is unavailable for ${artifact.id}`)
+      const outputFile = path.join(outputDir, filename)
+      const meshStats = writeBinaryStl(
+        outputFile,
+        artifact.solid,
+        `DRAFT R2 ${artifact.id} procedural wood unmarked`,
+        params.export.stl_simplify_tolerance_mm
+      )
+      const metrics = statsWithoutMeshCopy(artifact.solid, meshStats)
+      if (Math.abs(metrics.bounds.min[2]) > 1.0e-6) {
+        throw new Error(`R2 accessory ${artifact.id} no longer preserves bed plane z=0`)
+      }
+      if (metrics.bounds.min[0] < -1.0e-6 || metrics.bounds.min[1] < -1.0e-6) {
+        throw new Error(`R2 accessory ${artifact.id} is not in non-negative local bed coordinates`)
+      }
+      if (artifact.id === 'screwdriver-comb') {
+        const expectedMaximum = [params.comb.width, params.comb.depth, params.comb.height]
+        for (let axis = 0; axis < 3; axis += 1) {
+          if (Math.abs(metrics.bounds.min[axis]) > 1.0e-6 || Math.abs(metrics.bounds.max[axis] - expectedMaximum[axis]) > 1.0e-6) {
+            throw new Error('R2 comb texture changed the approved comb bounds')
+          }
+        }
+      }
+      report.artifacts[artifact.id] = {
+        file: path.relative(root, outputFile),
+        file_bytes: fs.statSync(outputFile).size,
+        ...metrics,
+        export_mesh: meshStats,
+        texture_plan_count: built.plan.artifacts.find(item => item.id === artifact.id).texture_plans.length,
+        textured: artifact.id === 'screwdriver-comb'
+      }
+      report.identities.artifacts[artifact.id] = fileIdentity(outputFile)
+    }
+    JSON.stringify(report)
+    report.process_memory = memoryReport('r2-accessories')
+    const peakBudget = textureConfig.resource_budget.max_peak_rss_mib_per_module
+    report.resource_budget = {
+      source_config_key: 'resource_budget.max_peak_rss_mib_per_module',
+      max_peak_rss_mib: peakBudget,
+      measured_max_rss_mib: report.process_memory.max_rss_mib,
+      status: report.process_memory.max_rss_mib <= peakBudget ? 'PASS' : 'FAIL'
+    }
+    const reportFile = path.join(reportDir, 'build-final-R2-accessories-procedural-wood-unmarked.json')
+    fs.writeFileSync(reportFile, JSON.stringify(report, null, 2) + '\n')
+    for (const artifact of built.artifacts) artifact.solid.delete()
+    if (report.resource_budget.status === 'FAIL') {
+      console.error(`R2 accessories resource budget exceeded: ${report.process_memory.max_rss_mib.toFixed(3)} MiB > ${peakBudget.toFixed(3)} MiB; DRAFT artifacts and report retained`)
+      console.log(JSON.stringify({
+        status: 'budget-error',
+        quality: args.quality,
+        r2_accessories: true,
+        report: path.relative(root, reportFile),
+        artifacts: report.artifacts,
+        process_memory: report.process_memory,
+        resource_budget: report.resource_budget
+      }))
+      process.exitCode = 1
+      return
+    }
+    console.log(JSON.stringify({
+      status: 'ok',
+      quality: args.quality,
+      r2_accessories: true,
+      report: path.relative(root, reportFile),
+      artifacts: report.artifacts,
+      process_memory: report.process_memory,
+      resource_budget: report.resource_budget
+    }))
+    return
+  }
+
+  if (args.woodCoupon) {
+    if (!params.surface_texture?.enabled) throw new Error('--wood-coupon requires enabled surface_texture parameters')
+    if (params.surface_texture.representation !== 'procedural-vector-wood-grooves') {
+      throw new Error('--wood-coupon requires procedural-vector-wood-grooves representation')
+    }
+    if (params.surface_texture.apply_outer_walls !== false) throw new Error('--wood-coupon requires smooth outer walls')
+    const textureConfigPath = path.resolve(path.dirname(paramsPath), params.surface_texture.config)
+    const textureConfig = loadProceduralWoodConfig(textureConfigPath)
+    const outputDir = path.join(root, 'output', 'DRAFT')
+    const reportDir = path.join(root, 'reports')
+    fs.mkdirSync(outputDir, { recursive: true })
+    fs.mkdirSync(reportDir, { recursive: true })
+    const built = buildProceduralWoodCouponManifold(params, textureConfig)
+    const outputFile = path.join(outputDir, 'DRAFT-R2-procedural-wood-coupon.stl')
+    const meshStats = writeBinaryStl(
+      outputFile,
+      built.solid,
+      'DRAFT R2 procedural wood coupon manifold-3d',
+      params.export.stl_simplify_tolerance_mm
+    )
+    const metrics = statsWithoutMeshCopy(built.solid, meshStats)
+    if (Math.abs(metrics.bounds.min[2]) > 1.0e-6) throw new Error('wood coupon no longer preserves bed plane z=0')
+    const report = {
+      status: 'DRAFT',
+      quality: args.quality,
+      engine: 'manifold-3d',
+      revision: params.model_revision,
+      route: 'wood-coupon-only',
+      params: path.relative(root, paramsPath),
+      surface_texture_config: path.relative(root, textureConfigPath),
+      relief_loaded: false,
+      watermark: { loaded: false, applied: false },
+      coupon: {
+        file: path.relative(root, outputFile),
+        file_bytes: fs.statSync(outputFile).size,
+        ...metrics,
+        export_mesh: meshStats,
+        plan: built.plan
+      },
+      identities: {
+        inputs: r2InputIdentities(paramsPath, textureConfigPath),
+        artifacts: {
+          stl: fileIdentity(outputFile)
+        }
+      },
+      process_memory: memoryReport('wood-coupon')
+    }
+    fs.writeFileSync(path.join(reportDir, 'build-final-wood-coupon.json'), JSON.stringify(report, null, 2) + '\n')
+    built.solid.delete()
+    console.log(JSON.stringify({
+      status: 'ok',
+      quality: args.quality,
+      wood_coupon: true,
+      file: report.coupon.file,
+      triangles: meshStats.triangles,
+      process_memory: report.process_memory
+    }))
+    return
+  }
+
+  const manifestPath = path.resolve(path.dirname(paramsPath), params.relief.manifest)
+  const manifest = readJson(manifestPath)
   const watermarkPath = path.resolve(path.dirname(paramsPath), params.watermark.dxf)
   const markOutline = watermarkOutline(watermarkPath, params.watermark)
   const outputDir = path.join(root, 'output', 'DRAFT')

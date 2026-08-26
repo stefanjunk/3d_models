@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "anycubic-kobra3-max-poop-bin",
+    "revision": "R1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420, 420, 500]
+  },
+  "artifacts": [
+    {"id": "body", "path": "build/exports/kobra3-max-poop-bin-balanced.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "bracket", "path": "build/exports/kobra3-max-poop-bin-mount-bracket.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "gauge", "path": "build/exports/kobra3-max-poop-bin-mount-fit-gauge.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "badge-sand", "path": "build/exports/metrimade-badge-sand.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "badge-navy", "path": "build/exports/metrimade-badge-navy.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "badge-teal", "path": "build/exports/metrimade-badge-teal.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "badge-aqua", "path": "build/exports/metrimade-badge-aqua.stl", "kind": "mesh", "revision": "R1"},
+    {"id": "kit-3mf", "path": "build/exports/kobra3-max-poop-bin-kit.3mf", "kind": "3mf", "revision": "R1"},
+    {"id": "badge-3mf", "path": "build/exports/metrimade-badge-4color.3mf", "kind": "3mf", "revision": "R1"},
+    {"id": "mesh-report", "path": "reports/mesh-audit.json", "kind": "report", "revision": "R1"},
+    {"id": "three-mf-report", "path": "reports/three-mf-validation.json", "kind": "report", "revision": "R1"},
+    {"id": "interface-report", "path": "reports/interface-report.json", "kind": "report", "revision": "R1"},
+    {"id": "slicer-report", "path": "reports/slicer-preflight.json", "kind": "report", "revision": "R1"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "R1"},
+    {"id": "agent-ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "R1"},
+    {"id": "physical-fit-form", "path": "reports/physical-fit-results.md", "kind": "human-evidence-form", "revision": "R1"}
+  ],
+  "checks": [
+    {
+      "id": "deterministic-mesh-suite",
+      "type": "external_report",
+      "required": true,
+      "artifact": "mesh-report",
+      "expected_inputs": ["body", "bracket", "gauge", "badge-sand", "badge-navy", "badge-teal", "badge-aqua"],
+      "report": "reports/aggregate-mesh-check.json"
+    },
+    {
+      "id": "deterministic-3mf-suite",
+      "type": "external_report",
+      "required": true,
+      "artifact": "three-mf-report",
+      "expected_inputs": ["kit-3mf", "badge-3mf"],
+      "report": "reports/aggregate-3mf-check.json"
+    },
+    {
+      "id": "digital-interface-suite",
+      "type": "external_report",
+      "required": true,
+      "artifact": "interface-report",
+      "expected_inputs": ["bracket", "gauge", "body"],
+      "report": "reports/aggregate-interface-check.json"
+    },
+    {
+      "id": "slicer-preflight",
+      "type": "external_report",
+      "required": true,
+      "artifact": "slicer-report",
+      "expected_inputs": ["body", "bracket", "badge-3mf"],
+      "report": "reports/aggregate-slicer-check.json"
+    },
+    {
+      "id": "workflow-approvals",
+      "type": "approvals",
+      "required": true,
+      "policy_artifact": "autonomy-policy",
+      "agent_ledger_artifact": "agent-ledger",
+      "target_stage": "print-candidate",
+      "report": "reports/aggregate-approvals-check.json"
+    },
+    {
+      "id": "physical-fit-and-function",
+      "type": "physical",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Print the fit gauge, verify hardware and machine clearance, then run full travel and three supervised purge cycles.",
+      "evidence_artifact": "physical-fit-form",
+      "report": "reports/aggregate-physical-check.json"
+    },
+    {
+      "id": "appearance-and-commercial-review",
+      "type": "review",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Confirm logo rights, printed color appearance, safety information and outgoing license before commercial release.",
+      "evidence_artifact": null,
+      "report": "reports/aggregate-commercial-check.json"
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {}
+  }
+}
+

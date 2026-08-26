@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "environment-inventory",
+      "message": "Environment inventory completed",
+      "metrics": {},
+      "required": false,
+      "status": "PASS"
+    }
+  ],
+  "environment": {
+    "capability_groups": {
+      "camera": {
+        "available": false,
+        "missing": [
+          "cv2"
+        ],
+        "modules": [
+          "numpy",
+          "cv2"
+        ]
+      },
+      "mesh": {
+        "available": false,
+        "missing": [
+          "trimesh"
+        ],
+        "modules": [
+          "numpy",
+          "trimesh"
+        ]
+      },
+      "mesh-boolean": {
+        "available": false,
+        "missing": [
+          "trimesh",
+          "manifold3d"
+        ],
+        "modules": [
+          "numpy",
+          "trimesh",
+          "manifold3d"
+        ]
+      },
+      "mesh-distance": {
+        "available": false,
+        "missing": [
+          "trimesh",
+          "rtree"
+        ],
+        "modules": [
+          "numpy",
+          "trimesh",
+          "scipy",
+          "rtree"
+        ]
+      },
+      "vision": {
+        "available": false,
+        "missing": [
+          "skimage"
+        ],
+        "modules": [
+          "numpy",
+          "PIL",
+          "skimage"
+        ]
+      },
+      "yaml": {
+        "available": true,
+        "missing": [],
+        "modules": [
+          "yaml"
+        ]
+      }
+    },
+    "executables": {
+      "FreeCADCmd": null,
+      "blender": null,
+      "freecadcmd": null,
+      "openscad": null,
+      "orca-slicer": null,
+      "prusa-slicer": null,
+      "prusaslicer": null
+    },
+    "implementation": "CPython",
+    "modules": {
+      "PIL": {
+        "available": true,
+        "version": "12.3.0"
+      },
+      "cv2": {
+        "available": false,
+        "error": "ModuleNotFoundError: No module named 'cv2'",
+        "version": null
+      },
+      "manifold3d": {
+        "available": false,
+        "error": "ModuleNotFoundError: No module named 'manifold3d'",
+        "version": null
+      },
+      "numpy": {
+        "available": true,
+        "version": "2.3.5"
+      },
+      "rtree": {
+        "available": false,
+        "error": "ModuleNotFoundError: No module named 'rtree'",
+        "version": null
+      },
+      "scipy": {
+        "available": true,
+        "version": "1.17.0"
+      },
+      "skimage": {
+        "available": false,
+        "error": "ModuleNotFoundError: No module named 'skimage'",
+        "version": null
+      },
+      "trimesh": {
+        "available": false,
+        "error": "ModuleNotFoundError: No module named 'trimesh'",
+        "version": null
+      },
+      "yaml": {
+        "available": true,
+        "version": "6.0.3"
+      }
+    },
+    "note": "No packages were installed and no executable was invoked.",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "python": "3.12.13",
+    "skill_directory_writable": false
+  },
+  "inputs": [],
+  "limitations": [],
+  "metrics": {},
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "doctor",
+  "tool_version": "1.1.0"
+}

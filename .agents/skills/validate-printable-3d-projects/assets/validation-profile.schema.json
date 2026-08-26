@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/validate-printable-3d-projects/validation-profile.schema.json",
+  "title": "Companion skill deterministic validation profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "skill", "artifact_roles", "checks", "manual_gates", "release_policy"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "skill": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "artifact_roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "required"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "required": {"type": "boolean"}
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "required", "artifact_roles"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "type": {"enum": ["mesh", "mesh_compare", "gcode", "3mf", "interfaces", "skill", "external_report", "approvals", "physical", "review"]},
+          "required": {"type": "boolean"},
+          "artifact_roles": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "manual_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "required"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["physical", "review", "approval"]},
+          "required": {"type": "boolean"}
+        }
+      }
+    },
+    "release_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["block_statuses", "require_sha256", "require_fresh_external_reports"],
+      "properties": {
+        "block_statuses": {
+          "type": "array",
+          "uniqueItems": true,
+          "contains": {"const": "FAIL"},
+          "items": {"enum": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"]}
+        },
+        "require_sha256": {"const": true},
+        "require_fresh_external_reports": {"const": true}
+      }
+    }
+  }
+}

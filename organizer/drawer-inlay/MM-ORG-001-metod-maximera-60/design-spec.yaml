@@ -1,0 +1,358 @@
+# MM-ORG-001 METOD/MAXIMERA 60 — single source of truth
+# Skill: functional-3d-design | Gate policy: requirements-concept-approval.md
+project:
+  id: MM-ORG-001-metod-maximera-60
+  product_id: MM-ORG-001
+  working_name: "DrawerFit Modular — METOD/MAXIMERA 60"
+  public_title_policy: "descriptive title plus product ID; DrawerFit remains an internal working label"
+  variant_id: METOD-MAXIMERA-60
+  revision: 0.1.0-requirements
+  units: mm
+  owner: "Stefan Junk Holding UG (haftungsbeschränkt)"
+  created: "2026-08-25"
+  status: production-draft-in-progress
+  rollback:
+    reactivated_at: "2026-08-26"
+    requested_by: "Stefan Junk (explicit chat direction: 'nein gehe zurück auf 0.1.0 mache dort weiter.')"
+    preserved_later_spec: "history/design-spec-0.3.0-before-rollback.yaml"
+  parent_source:
+    path: "organizer/drawer-inlay/DRAFT-schubladen-organizer-R1.6-parametric-surfaces/schubladen-organizer"
+    revision: R1.6-parametric-surfaces
+    treatment: "source candidate to fork after concept approval; never overwrite the parent draft; rebuild all system-scale seam positions"
+  tool_route: "forked R1.6 Manifold3D/JavaScript parametric mesh pipeline; Trimesh validation and 3MF packaging"
+  research: "research/common-drawer-sizes.md"
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.1.0-requirements
+    approved_by: "Stefan Junk (original approval 2026-08-25; explicitly reactivated by chat rollback on 2026-08-26)"
+    approved_at: "2026-08-26"
+  concept_approval:
+    status: approved
+    spec_revision: 0.1.0-requirements
+    asset: "concept/MM-ORG-001-concept-sheet-v1.png"
+    approved_by: "Stefan Junk (explicit chat approval: 'freigegebne')"
+    approved_at: "2026-08-26"
+  approval_history:
+    - gate: requirements
+      status: approved
+      spec_revision: 0.1.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: 'freigegeben')"
+      approved_at: "2026-08-25"
+      later_superseded_by: "0.2.0 requirement change"
+    - gate: concept
+      status: not-approved-before-change
+      spec_revision: 0.1.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v1.png"
+    - gate: requirements
+      status: approved
+      spec_revision: 0.2.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: '0.2.0 freigegeben: Kobra-420, mixed set')"
+      approved_at: "2026-08-26"
+      invalidated_by: "0.3.0 requirement change"
+    - gate: concept
+      status: not-approved-before-change
+      spec_revision: 0.2.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v2.png"
+    - gate: requirements
+      status: approved
+      spec_revision: 0.3.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: 'freigegeben')"
+      approved_at: "2026-08-26"
+      invalidated_by: "explicit rollback to 0.1.0 on 2026-08-26"
+    - gate: concept
+      status: not-approved-before-rollback
+      spec_revision: 0.3.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v3.png"
+    - gate: requirements
+      status: approved
+      spec_revision: 0.1.0-requirements
+      approved_by: "Stefan Junk (explicit chat direction: 'nein gehe zurück auf 0.1.0 mache dort weiter.')"
+      approved_at: "2026-08-26"
+      reactivated: true
+    - gate: concept
+      status: approved
+      spec_revision: 0.1.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v1.png"
+      approved_by: "Stefan Junk (explicit chat approval: 'freigegebne')"
+      approved_at: "2026-08-26"
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: MM-WM-001-R1
+    preview_asset: null
+    approved_by: null
+    approved_at: null
+
+requirements:
+  labels:
+    user_stated:
+      - "Use the current drawer inlay as the source design."
+      - "Research common drawer sizes, including IKEA and DIN/ISO context."
+      - "Create a variant for the selected common drawer size after the required approvals."
+      - "Return to revision 0.1.0 and continue from that baseline."
+    inferred:
+      - "The original tool-and-hardware purpose, screwdriver lane, removable comb, connector direction and nine-module common-printer architecture are all reactivated."
+      - "Later connector-free, general-purpose and Kobra-first revisions remain historical only."
+    recommended:
+      - "Target IKEA METOD/MAXIMERA nominal 60 × 60 cm first."
+      - "Use a 512 × 491 × 50 mm assembled envelope derived from the published 516 × 495 × 50 mm UPPDATERA reference."
+      - "Use a 3 × 3 manufacturing grid of nine modules for a common 220 mm printer profile."
+      - "Preserve one full-depth screwdriver/hand-tool lane with a removable comb and one 3-column × 6-row field of 18 small-parts compartments."
+      - "Use low-profile planar jigsaw connectors, regenerated from seam-relative parameters rather than scaling the R1.6 coordinates."
+      - "Qualify connector clearances by coupon because the inherited R1.6 physical connector non-fit remains unresolved."
+      - "Build and validate plain geometry first; decorative surfaces remain a later noncritical derivative."
+    unresolved: []
+
+goal_and_scope:
+  function: >
+    A full-footprint tool and hardware drawer organizer derived from the rounded
+    R1.6 architecture and sized for the published insert envelope of an IKEA
+    METOD/MAXIMERA 60 × 60 cm drawer system. Nine common-printer modules join
+    into one organizer containing a full-depth screwdriver/hand-tool lane and
+    eighteen small-parts compartments.
+  intended_users:
+    - "Adults organizing screwdrivers, hand tools, fixings and small workshop hardware"
+    - "3D-printer owners using the fixed safe-core 3MF through metriCreate"
+    - "Future metriMade printed-product customers after fulfillment qualification"
+  included:
+    - "Nine FDM modules in a 3 × 3 manufacturing grid"
+    - "One full-depth screwdriver/hand-tool lane"
+    - "One removable eight-slot screwdriver comb derived from R1.6"
+    - "Exactly eighteen small-parts compartments in a 3 × 6 functional grid"
+    - "Low-profile planar seam connectors regenerated parametrically"
+    - "Rounded transitions and finger-access grooves derived from R1.6"
+    - "Generated product-specific metriMade underside marking at final geometry gate"
+  excluded:
+    - "No universal-DIN, universal-600-mm or all-METOD compatibility claim"
+    - "No 37 cm-deep MAXIMERA variant in this revision"
+    - "No food-contact, dishwasher-safe, child-directed or load-bearing claim"
+    - "No live self-service resize in the first fixed revision"
+    - "No general-purpose mixed open-tray set from revisions 0.2/0.3"
+    - "No Kobra-first four-tray architecture from revisions 0.2/0.3"
+    - "No surface texture before plain fit and connector architecture pass"
+
+geometry:
+  coordinate_convention:
+    origin: "front-left-bottom of assembled organizer"
+    axes: {x: "left-to-right", y: "front-to-back", z: "up"}
+  target_system:
+    status: approved
+    manufacturer: IKEA
+    cabinet_family: METOD
+    drawer_family: MAXIMERA
+    nominal_cabinet_mm: [600, 600]
+    reference_accessory: "UPPDATERA 52 × 50 cm combination"
+    published_reference_envelope_mm: [516, 495, 50]
+    note: "Reference accessory dimensions are not asserted to be the exact clear drawer cavity."
+  assembly_envelope_mm:
+    value: [512, 491, 50]
+    status: approved-recommended
+    rationale: "2 mm nominal clearance per side relative to the published 516 × 495 mm reference envelope"
+  maximum_release_envelope_mm:
+    value: [514, 493, 50.5]
+    status: recommended
+    rationale: "Fail-closed manufactured/assembled maximum; real-drawer coupon remains mandatory"
+  structure:
+    floor_thickness_mm: {value: 2.6, status: inherited-recommended}
+    base_wall_thickness_mm: {value: 3.2, status: inherited-recommended}
+    outer_wall_height_mm: {value: 50.0, status: recommended}
+    divider_height_mm: {value: 44.0, status: recommended}
+    outer_corner_radius_mm: {value: 3.0, status: inherited-recommended}
+  functional_layout:
+    status: approved
+    purpose: "tool and small-hardware organization"
+    screwdriver_lane:
+      count: 1
+      span: "full assembled depth"
+      removable_comb: true
+      comb_slot_count: 8
+    small_parts_field:
+      columns: 3
+      rows: 6
+      compartment_count: 18
+    manufacturing_seam_policy: "seams may cross functional zones, but assembled floors and wall edges must remain flush and snag-free"
+  segmentation_profiles:
+    policy: "fixed common-printer 3 × 3 manufacturing grid for revision 0.1.0"
+    common_220:
+      status: approved-first-prototype
+      usable_footprint_mm: [216, 216]
+      columns: 3
+      rows: 3
+      module_count: 9
+      nominal_module_mm: [170.667, 163.667]
+
+interfaces:
+  drawer_fit:
+    type: "drop-in; no screws, adhesive or drawer modification"
+    nominal_clearance_per_side_mm: 2.0
+    evidence_required: "real target drawer/revision plus fit-corner coupon and assembled set"
+  module_connection:
+    type: planar_jigsaw
+    status: "DRAFT architecture resolved; physical fit not qualified"
+    source: "R1.6 connector principle; absolute legacy positions prohibited"
+    placement_policy: "all connector locations derived from the 3 × 3 seam topology and local keep-outs"
+    z_policy: "low-profile floor-plane connection; no feature below the drawer-contact datum"
+    legacy_reference:
+      lug_radius_mm: 4.0
+      neck_length_mm: 5.0
+      neck_width_mm: 4.0
+      nominal_clearance_per_side_mm: 0.30
+      qualification: "documented physical non-fit; reference only"
+    coupon_required: true
+    draft_architecture:
+      mating_locations: 12
+      count_policy: "one location on each of the twelve necessary 3 × 3 seam segments"
+      lug_radius_mm: 4.5
+      neck_length_mm: 5.5
+      neck_width_mm: 4.8
+      provisional_clearance_per_side_mm: 0.45
+      clearance_coupon_sweep_mm: [0.30, 0.45, 0.60]
+      qualification: "0.45 mm is a DRAFT generation value, not an approved fit"
+    assembly: "hand-assembled without screws, glue or separate purchased hardware"
+  comb_interface:
+    type: "removable drop-in comb inside the screwdriver lane"
+    inherited_slot_count: 8
+    qualification: "retain accessible insertion/removal and print a dedicated fit coupon if the lane wall interface changes"
+  protected_regions:
+    - "drawer-contact perimeter and bottom datum"
+    - "connector roots, sockets and seam-adjacent floors"
+    - "finger-access grooves"
+    - "comb seating and screwdriver slots"
+    - "wall roots and internal divider junctions"
+    - "watermark safe regions and remaining floor wall"
+
+duty:
+  status: recommended
+  contents: "screwdrivers, hand tools, fixings and small workshop hardware within the released compartment envelope"
+  maximum_distributed_content_mass_kg: 5.0
+  maximum_single_bin_mass_kg: 0.5
+  loaded_drawer_cycles_for_prototype: 100
+  service: "static indoor drawer organizer; multi-year intended use"
+
+environment:
+  status: recommended
+  indoor_outdoor: indoor
+  temperature_c: [10, 35]
+  moisture: "normally dry; occasional damp-cloth cleaning"
+  uv: limited
+  chemicals: "mild household cleaner only"
+  prohibited: ["dishwasher", "direct food contact claim", "solvents", "outdoor exposure"]
+
+fabrication:
+  preference: integrated-print
+  purchased_parts: []
+  assembly_target: "nine connected organizer modules plus one removable screwdriver comb; no tools or separate hardware"
+  repairability: "replace one manufacturing module or the comb without reprinting the entire organizer"
+
+manufacturing:
+  process: FDM/FFF
+  source_parameter_profiles: [common-220]
+  first_release_profile: common-220
+  material:
+    primary: "PETG, matte/satin"
+    alternative: "PLA after identical connector, fit and stability qualification"
+    status: recommended
+  nozzle_mm: 0.4
+  line_width_mm: 0.44
+  layer_height_mm: 0.20
+  supports: false
+  orientation: "all modules with local drawer-contact floor on the build plate"
+  surface_first_prototype: plain
+  later_surface_candidates: [carbon, carbon-wave, micro-cast, walnut, steel]
+  exact_slicer_profile: unresolved
+
+appearance:
+  status: approved-direction
+  form_language: "R1.6 rounded functional geometry; calm, precise, premium utility"
+  first_prototype: "plain surfaces so fit, seams, tool access and connectors remain inspectable"
+  final_color_direction: "metriMade navy/teal/sand family; exact filament choice is non-geometric"
+  visible_hardware: none
+  ergonomic_constraints:
+    - "no sharp or proud exposed seam edges"
+    - "finger access remains usable in every small-parts compartment"
+    - "screwdrivers can be inserted and removed without snagging adjacent walls"
+
+branding:
+  status: blocked-until-final-geometry
+  brand: metriMade
+  asset_id: MM-WM-001-R1
+  visible_content:
+    - metriMade.com
+    - "MM-ORG-001 · v<VERSION>"
+  operation: recessed
+  preferred_surface: "largest safe print-bed-facing underside regions"
+  rule: "generate from release identity; do not scale legacy JuSt placements"
+
+risk_and_evidence:
+  risk_class: normal-functional
+  hazards:
+    - "fit too tight may jam or mark the drawer"
+    - "cumulative nine-module tolerance may exceed the published reference envelope"
+    - "connector fit may be too tight, too loose or induce rocking"
+    - "manufacturing seams crossing functional compartments may create proud or snagging edges"
+    - "comb slots may be too tight or weak for the intended screwdriver range"
+    - "sharp print defects may cut or scratch the user, tools or drawer"
+    - "unqualified material/finish may be mistaken for food-safe or dishwasher-safe"
+  assumptions:
+    - "the published UPPDATERA envelope is a reliable system-fit reference"
+    - "actual drawer revisions may vary and therefore require physical evidence"
+    - "a common-220 usable footprint of 216 × 216 mm is the revision 0.1.0 manufacturing target"
+  stop_rules:
+    - "no compatibility claim before real-drawer fit evidence"
+    - "no full nine-module print before connector and fit-corner coupons pass"
+    - "no forced connector or comb assembly; non-fitting coupons require measured revisions"
+    - "no texture if it invades fit, connectors, comb, marking or minimum-wall keep-outs"
+    - "no release if any module exceeds 216 × 216 mm"
+
+acceptance:
+  digital:
+    - id: module-validity
+      criterion: "All nine modules and the removable comb are watertight, manifold, positive-volume bodies."
+    - id: bed-fit
+      criterion: "Every module fits the common-220 usable footprint of 216 × 216 mm in its release orientation."
+    - id: assembly-envelope
+      criterion: "The assembled set is nominally 512 × 491 × 50 mm and never exceeds 514 × 493 × 50.5 mm."
+    - id: layout
+      criterion: "The assembled organizer contains one full-depth tool lane, one removable eight-slot comb and exactly eighteen small-parts compartments."
+    - id: protected-geometry
+      criterion: "Minimum walls, drawer-contact datums, connector/comb interfaces, finger access and watermark keep-outs pass deterministic checks."
+    - id: package
+      criterion: "The common-220 safe-core 3MF contains exactly nine positioned modules plus the intended comb object and matches the manifest."
+  physical:
+    - id: connector-fit
+      criterion: "Every connector pair seats by hand without tools or forcing; joined floors remain coplanar with no objectionable looseness, proud seams or rocking."
+    - id: comb-fit
+      criterion: "The removable comb installs/removes without damage and retains the qualified screwdriver sample range without snagging."
+    - id: drawer-fit
+      criterion: "The assembled set inserts/removes without tools or damage, lies flat, and the exact target drawer opens/closes fully."
+    - id: loaded-use
+      criterion: "Five kilograms distributed contents and 100 drawer cycles cause no jamming, fracture, rocking or unacceptable migration."
+    - id: edge-safety
+      criterion: "No sharp burrs, proud wall edges or snagging seams remain after finishing."
+    - id: repeatability
+      criterion: "Three unchanged-revision final sets meet dimensions, fit, connector/comb function and loaded-use criteria."
+    - id: watermark
+      criterion: "Domain, product ID and version are readable on the intended printer/material/bed coupon and match the release record."
+
+deliverables:
+  after_requirements_and_concept_approval:
+    editable_source: "forked Manifold3D/JavaScript parametric source and configuration"
+    design_neutral: ["not native to the mesh master; no STEP promise in reactivated revision 0.1.0"]
+    manufacturing: ["common-220 safe-core 3MF", "internal validation STLs for nine modules, comb and coupons"]
+    documentation: ["assembly guide", "measurement guide", "print profile", "coupon/test plan", "validation report", "release manifest"]
+    visuals: ["approved concept sheet", "model renders", "dimensioned fit diagram", "connector, comb and underside marking evidence"]
+  step: "not required for the reactivated R1.6-derived mesh pipeline"
+
+implementation_state:
+  research: complete
+  current_model_audit: complete
+  concept_image: approved-revision-0.1.0
+  geometry_revision: 0.1.0-draft.1
+  cad_geometry: draft-generated-digital-checks-pass
+  manufacturing_exports: draft-only-not-print-candidate
+  exact_slicer_preflight: not-run-no-supported-slicer-or-fixed-profile
+  physical_tests: not-run
+  release_gate: blocked

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "tool": "poop-bin-interface-contract-check",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/kobra3-max-poop-bin-mount-bracket.stl",
+      "sha256": "88f08478312f292ad8ad86516080418df6fab0b3d6ee007d0c3db952b535ce76",
+      "size_bytes": 3364884
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/kobra3-max-poop-bin-mount-fit-gauge.stl",
+      "sha256": "4400a17ba59b2c64e4e777d135534c20ec35be02c7f55311a50767fdf3fe867c",
+      "size_bytes": 1300084
+    },
+    {
+      "path": "/workspace/scratch/2763df9e0353/anycubic-kobra3-max-poop-bin/build/exports/kobra3-max-poop-bin-balanced.stl",
+      "sha256": "34310c00fa5045d7515dcdfb74dd79f909ba09a16a131ce023664043c35f2bb5",
+      "size_bytes": 110484
+    }
+  ],
+  "checks": [
+    {
+      "id": "hook-spacing",
+      "required": true,
+      "status": "PASS",
+      "message": "Two hooks engage the continuous reinforced rear rim",
+      "metrics": {
+        "hook_center_spacing_mm": 44.0
+      },
+      "evidence": [
+        "build/exports/kobra3-max-poop-bin-mount-bracket.stl",
+        "build/exports/kobra3-max-poop-bin-balanced.stl"
+      ]
+    },
+    {
+      "id": "m3-slot",
+      "required": true,
+      "status": "PASS",
+      "message": "Horizontal M3 slot remains open and within the declared adjustment range",
+      "metrics": {
+        "slot_length_mm": 52.0,
+        "slot_width_mm": 4.0,
+        "supported_screw_spacing_mm": [
+          8.0,
+          48.0
+        ]
+      },
+      "evidence": [
+        "build/exports/kobra3-max-poop-bin-mount-fit-gauge.stl"
+      ]
+    },
+    {
+      "id": "machine-fit",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "message": "Official sources do not publish the two-hole spacing; print and test the thin gauge before the bracket/bin",
+      "metrics": {},
+      "evidence": [
+        "build/exports/kobra3-max-poop-bin-mount-fit-gauge.stl"
+      ]
+    }
+  ],
+  "metrics": {
+    "nominal_screw": "M3x10 proposed after adding 3.2 mm bracket; verify engagement and bottoming on the physical printer"
+  },
+  "limitations": [
+    "Machine-side screw position and local keep-out remain a physical fit gate."
+  ]
+}

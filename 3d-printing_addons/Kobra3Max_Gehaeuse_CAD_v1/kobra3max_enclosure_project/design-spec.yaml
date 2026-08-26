@@ -1,0 +1,383 @@
+schema_version: "1.0"
+
+project:
+  name: "Kobra 3 Max enclosure – camera-ready white-box revision"
+  revision: "1.3-camera-reconstruction-draft"
+  parent_design: "Kobra3Max_Gehaeuse_CAD_v1"
+  date: "2026-08-26"
+  language: "de"
+
+workflow:
+  autonomy_policy:
+    status: "present-guided"
+    note: "autonomy-policy.json liegt vor; Kamera-Anforderungen und Konzept benötigen menschliche Freigabe."
+  requirements_approval:
+    status: "approved"
+    spec_revision: "1.3-camera-reconstruction-draft"
+    approved_by: "user"
+    approved_at: "2026-08-26"
+    note: "Der Nutzer hat die in Revision 1.3 dokumentierte, lizenzgetrennte Kamera-Neukonstruktion ausdrücklich freigegeben. Die Gehäuseanforderungen aus 1.2 bleiben unverändert."
+  concept_approval:
+    status: "approved"
+    spec_revision: "1.3-camera-reconstruction-draft"
+    concept_asset: "concept/camera_subsystem_concept_v1.png"
+    concept_asset_sha256: "2b4c17be4bac9881f2e5476f0e904e2daae7b224979bf8fe367dce629f95948b"
+    approved_by: "user"
+    approved_at: "2026-08-26"
+    note: "Der Nutzer hat Kamera-Konzepttafel v1 ausdrücklich freigegeben. Das zuvor freigegebene Enclosure-Konzept v1 bleibt für das vollständige Gehäuse weiterhin maßgeblich."
+  final_release_approval:
+    status: "blocked"
+    reason: "Exact slicer preflight, physical fit/lighting tests and final watermark integration are not complete."
+
+classification:
+  risk_class:
+    value: "normal-functional"
+    basis: "recommended"
+  fabrication_preference:
+    value: "balanced-hybrid"
+    basis: "recommended"
+  intended_use:
+    value: "Indoor enclosure and controlled visual environment for observing and recording prints"
+    basis: "user-stated"
+  excluded_claims:
+    - value: "No fire-protection or unattended-printing claim"
+      basis: "recommended"
+
+existing_baseline:
+  outer_envelope_mm:
+    width: 900
+    depth: 1050
+    height: 900
+    basis: "existing-design"
+  clear_interior_mm:
+    width: 860
+    depth: 1010
+    height: 860
+    basis: "existing-design"
+  printer_keepout_mm:
+    width: 706
+    depth: 940
+    height: 753
+    basis: "existing-design"
+    note: "Conservative planning envelope; real swept volume must be measured."
+  current_construction:
+    value: "20 x 20 mm timber frame, 4 mm acrylic panels, printed rails and brackets, removable front panel, floor board"
+    basis: "existing-design"
+  current_camera_asset:
+    value: "Workspace camera-arm artifacts exist only as segregated measurement/provenance references; no meshes or source blocks will be imported into this project"
+    basis: "existing-design"
+
+requirements:
+  enclosure_form:
+    bottomless_slip_over_hood:
+      value: true
+      basis: "user-stated"
+    separate_floor_panel:
+      value: false
+      basis: "user-stated"
+    lower_perimeter_stiffening_ring:
+      value: true
+      basis: "recommended"
+      note: "A ring is still needed to keep the large bottomless hood square; it may sit on a gasket on the table."
+    target_outer_envelope_mm:
+      value: [900, 1050, 900]
+      basis: "inferred"
+      unresolved: false
+      note: "Retain the existing envelope and clear interior unless the measured printer swept volume requires a change."
+
+  wall_system:
+    internal_appearance:
+      value: "continuous matte neutral white, with minimal visible frames, rails and dark seams"
+      basis: "user-stated"
+    structural_support_location:
+      value: "outside the visual interior"
+      basis: "user-stated"
+    recommended_architecture:
+      value: "budget external timber frame with panels on its inner face; flush or lightly radiused white internal seams and no dark internal rails"
+      basis: "recommended"
+    preferred_panel_family:
+      value: "2.5–3 mm one-side white-coated hardboard/HDF for sides and rear, opal PMMA or polycarbonate only for the roof diffuser, clear PMMA for the door"
+      basis: "recommended"
+      unresolved: false
+      note: "No panels have been purchased. This mix minimizes cost while reserving the expensive translucent sheet for the illuminated roof."
+    true_glass:
+      value: false
+      basis: "recommended"
+      note: "A full glass hood at this size would be too heavy and awkward for regular slip-over handling."
+    external_corner_profiles:
+      value: true
+      basis: "user-stated"
+      note: "Bonded-only corners are not accepted without mechanical retention or a validated adhesive joint."
+    frame_material:
+      value: "straight spruce/pine battens; 20 x 20 mm baseline with local reinforcement at hinge, handles and lower ring"
+      basis: "recommended"
+    interior_color_target:
+      value: "neutral white without obvious tint"
+      basis: "recommended"
+    interior_surface_target:
+      value: "matte/satin, non-mirrored"
+      basis: "recommended"
+
+  door:
+    location:
+      value: "front/display side"
+      basis: "user-stated"
+    form:
+      value: "hinged door rather than removable full panel"
+      basis: "user-confirmed"
+      unresolved: false
+    recommended_layout:
+      value: "left-hinged main door with a narrow fixed right-side camera/service stile above the display"
+      basis: "recommended"
+    visibility:
+      value: "clear front door is acceptable because it lies behind the inward-facing camera"
+      basis: "user-confirmed"
+    sealing:
+      value: "replaceable closed-cell perimeter gasket and mechanical latch"
+      basis: "recommended"
+
+  camera:
+    purpose:
+      value: "capture the enclosure interior and print process against a clean background"
+      basis: "user-stated"
+    nominal_location:
+      value: "elevated front-right position near/above the display, aimed diagonally at the printed object"
+      basis: "user-stated"
+    mount_location:
+      value: "vertically adjustable fixed frame/service stile, not on the moving door"
+      basis: "recommended"
+    thermal_strategy:
+      value: "camera body preferably outside the hot chamber with lens through a small flush optical opening; internal mounting only after temperature check"
+      basis: "recommended"
+    exact_camera_model:
+      value: "purchased original Anycubic Live View Camera module compatible with Kobra 3 Max; electronics and cable are not redistributed"
+      basis: "user-stated-and-official-product-page"
+    reconstruction_scope:
+      value: "new project-local two-part protective housing, rear ball, matching socket adapter and fit coupons; generated parametrically without imported mesh geometry"
+      basis: "user-stated-and-recommended"
+    official_reference_files:
+      value:
+        - "camera_mount/external/1.stl"
+        - "camera_mount/external/2.stl"
+        - "camera_mount/external/3.stl"
+      basis: "verified-official-download-hash-match"
+      note: "Anycubic links these files from its official camera product page. They are measurement-only inputs and are excluded from all enclosure source and release artifacts."
+    official_reference_measurements_mm:
+      value:
+        camera_body_face_outer_xy: [22.50, 38.50]
+        camera_body_full_reference_extents_xyz: [22.50, 43.50, 25.00]
+        internal_clear_cavity_xy_at_mid_depth: [19.30, 35.30]
+        lens_aperture_d: 14.30
+        lens_center_xy_from_body_face_center: [0.00, 5.57]
+        led_aperture_d: 5.50
+        led_centers_xy_from_body_face_center:
+          - [-3.00, -8.83]
+          - [3.00, -8.83]
+        official_rear_cover_full_extents_xyz: [22.36, 38.36, 13.60]
+      basis: "independently-measured-from-official-reference-STLs"
+      note: "Values are interface/envelope measurements, not copied surface geometry. Physical camera verification remains mandatory before a full print."
+    excluded_legacy_measurements:
+      value: "40.71 x 23.42 x 18.63 mm housing envelope and related cavity/opening values from the legacy v6 design"
+      basis: "license-audit"
+      note: "These values trace to a separate archive without proven license or official provenance and are not accepted as Anycubic-defined dimensions."
+    ball_joint:
+      value: "new independent 11.0 mm ball with 5.0 mm stem and matching coupon-calibrated socket; no mesh or code copied from the legacy arm"
+      basis: "recommended-for-compatibility-with-local-design-reference"
+      note: "Nominal socket clearance starts at 0.28 mm radial and must be tuned by a three-value fit coupon before release."
+    arm_strategy:
+      value: "retain the already modelled 2020 vertical slider; add a new short hinge-to-ball-socket adapter, with optional project-local extension arm only if the FOV test requires it"
+      basis: "recommended"
+    horizontal_fov_deg:
+      value: null
+      basis: "unresolved"
+    vertical_fov_deg:
+      value: null
+      basis: "unresolved"
+    desired_framing:
+      value: "printed object is the primary subject; printer interior only as secondary context"
+      basis: "user-stated"
+    background_view_cone:
+      value: "no dark fan, service plate, cable bundle, internal frame or direct LED emitters behind the normal object framing"
+      basis: "recommended"
+    acceptance_test:
+      value: "camera-body fit frame and ball/socket clearance coupons first; then temporary camera placement records all required print-volume extrema before final arm length is frozen"
+      basis: "recommended"
+
+  lighting:
+    primary_system:
+      value: "large diffuse roof light mounted outside the chamber above an opal diffuser"
+      basis: "recommended"
+    fill_system:
+      value: "two separately dimmable vertical or angled front-side light zones"
+      basis: "recommended"
+    full_led_walls:
+      value: "not selected as the baseline; retain only as an optional premium experiment"
+      basis: "recommended"
+      rationale: "Higher cost, heat and power; harder door/service integration; flatter image contrast; more maintenance points."
+    color_temperature_k:
+      value: 5000
+      tolerance: 500
+      basis: "recommended"
+    color_rendering_index_min:
+      value: 95
+      basis: "recommended"
+    flicker_requirement:
+      value: "constant-current or PWM above 20 kHz; no visible banding at the intended camera shutter rates"
+      basis: "recommended"
+    dimming:
+      value: "independent roof/left-fill/right-fill control"
+      basis: "recommended"
+    electrical_location:
+      value: "drivers, dimmers and connectors outside the heated chamber"
+      basis: "recommended"
+    preliminary_installed_power_w:
+      value: "roof 40–70 W plus 10–20 W per fill zone"
+      basis: "recommended"
+      note: "Final power depends on panel transmission, camera exposure and measured lux."
+    lighting_acceptance:
+      value: "manual exposure and white balance remain stable; no visible flicker bands; no objectionable hot spots or hard double shadows in sample footage"
+      basis: "recommended"
+
+  thermal_and_airflow:
+    existing_120_mm_exhaust:
+      value: "retain a controllable exhaust provision"
+      basis: "user-confirmed"
+      unresolved: false
+    exhaust_location:
+      value: "high and outside the normal camera background, preferably roof-rear or side-rear, with a matte-white internal baffle"
+      basis: "recommended"
+    maximum_operating_chamber_temperature_c:
+      value: null
+      basis: "unresolved"
+    supplemental_heater:
+      value: false
+      basis: "user-confirmed-current-revision"
+      note: "A future heater is conceivable but is excluded from this revision and requires a new thermal, electrical and fire-safety requirements review."
+    monitoring:
+      value: "temperature sensor near the camera and roof diffuser during first long prints"
+      basis: "recommended"
+
+  handling_and_service:
+    lift_method:
+      value: "two external side handles and defined two-person lift unless verified below the one-person mass/size target"
+      basis: "recommended"
+    removable_light_module:
+      value: true
+      basis: "recommended"
+    replaceable_panels_and_leds:
+      value: true
+      basis: "recommended"
+    cable_routing:
+      value: "external corner/service channel with strain relief"
+      basis: "recommended"
+
+manufacturing:
+  printer:
+    value: "Anycubic Kobra 3 Max"
+    basis: "existing-project"
+  nozzle_mm:
+    value: 0.6
+    basis: "existing-project-recommendation"
+  printed_material:
+    value: "PETG baseline; ASA after enclosure/process validation"
+    basis: "existing-project-recommendation"
+  panel_and_frame_process:
+    value: "purchased timber and sheet materials plus printed custom brackets and camera/light interfaces"
+    basis: "recommended"
+  supports_target:
+    value: "no supports for standard print orientations"
+    basis: "recommended"
+
+implementation_candidate:
+  status: "DRAFT-implemented-pending-physical-validation"
+  body_outer_mm: [900, 1050, 900]
+  total_height_with_removable_light_cassette_mm: 960
+  approximate_clear_after_wall_skins_mm: [854, 1007, 860]
+  fixed_front_service_bay_width_mm: 140
+  clear_main_door_mm: [740, 880, 4]
+  roof_diffuser_mm: [860, 1010, 3]
+  camera_vertical_rail_mm: 500
+  camera_fork_gap_mm: 6.65
+  camera_hinge_hole_mm: 4.5
+  camera_housing: "independently authored 34 x 50 x 13.5 mm front shell plus overlapping ventilated rear cover; 25.3 mm protected assembled depth for the official 25.0 mm reference extent; 22.50 x 38.50 mm face envelope with 0.30 mm radial fit allowance"
+  camera_ball_joint: "independently authored 11.0 mm ball, 5.0 mm stem and 0.28 mm nominal radial socket clearance; 0.15/0.28/0.40 mm coupon required"
+  camera_optical_window_mm: [80, 90, 2]
+  camera_optical_window_tilt_deg: 7
+  camera_service_panel_cutout_mm: [72, 82]
+  camera_nominal_window_center_mm_from_front_left_and_table: [820, 590]
+  exhaust_baffle_mm: [170, 170, 60]
+  generated_mesh_count: 24
+  mesh_validation: "PASS in DRAFT profile: 24/24 meshes watertight, one component, positive volume, within topology/complexity/build-volume policies"
+  exact_slicer_preflight: "NOT_RUN"
+  physical_tests: "REVIEW_REQUIRED"
+
+licensing_and_provenance:
+  goal:
+    value: "independent project-local camera housing and mount with a traceable measurement chain"
+    basis: "user-stated"
+  prohibited_inputs:
+    - "No imported or Boolean-combined Anycubic, Thingiverse, MakerOnline, Printables or other third-party mesh geometry"
+    - "No copied source-code blocks from the legacy Python camera-arm generator"
+    - "No Anycubic logo, stylized branding or claim of endorsement"
+    - "No redistribution of the purchased camera electronics, official reference STLs or third-party archives"
+  allowed_inputs:
+    - "User-stated compatibility target and intended camera location"
+    - "Independently measured functional envelope, keep-out, aperture and mating dimensions from the official reference files"
+    - "Physical measurements from the user's purchased camera and printed fit coupons"
+    - "Independently authored OpenSCAD geometry and generic M4/ball-joint engineering dimensions"
+  outgoing_license_scope:
+    value: "CC BY 4.0 applies only to original project-authored CAD, meshes and documentation identified in the release manifest"
+    basis: "existing-project-license-with-scope-clarification"
+  unresolved_rights:
+    value: "Anycubic reference-file modification and digital redistribution rights are not evidenced; patent, design and trademark clearance is not granted by the download link"
+    basis: "license-audit"
+  evidence:
+    source_register: "provenance/camera-source-register.csv"
+    review: "provenance/CAMERA_PROVENANCE_DRAFT.md"
+
+acceptance_criteria:
+  - id: "AC-01"
+    requirement: "The hood can be placed over and removed from the printer without a floor panel and without contacting the measured swept printer volume."
+    method: "full manual motion check with printer powered off"
+  - id: "AC-02"
+    requirement: "The lower ring remains square and no wall visibly bows into the printer keep-out."
+    method: "diagonal measurement and deflection inspection"
+  - id: "AC-03"
+    requirement: "The camera captures the approved framing at all tested bed and Z positions."
+    method: "temporary mount framing matrix before final bracket manufacture"
+  - id: "AC-04"
+    requirement: "Lighting produces no visible banding, hot spots or unacceptable hard shadows at the selected recording settings."
+    method: "recorded grey/white target and sample print test"
+  - id: "AC-04B"
+    requirement: "Normal object framing contains no dark fan, service panel, cable bundle, internal rail or directly visible LED points."
+    method: "camera view-cone overlay and test recording at the low, nominal and high object positions"
+  - id: "AC-05"
+    requirement: "Door opens fully without collision with the display, camera, printer or light wiring."
+    method: "assembly motion check"
+  - id: "AC-06"
+    requirement: "Camera and LED component temperatures remain within their manufacturer ratings."
+    method: "instrumented worst-case long-print test"
+  - id: "AC-07"
+    requirement: "The original Anycubic camera module fits without PCB bending, lens/LED obstruction or cable pinching."
+    method: "physical fit-frame test followed by assembled housing inspection"
+  - id: "AC-08"
+    requirement: "The 11 mm ball joint holds the camera angle without creep while remaining hand-adjustable."
+    method: "three-clearance coupon test and 24-hour loaded hold test at the maximum intended chamber temperature"
+  - id: "AC-09"
+    requirement: "Released camera parts contain no imported reference-mesh triangles or Anycubic branding."
+    method: "source audit, dependency manifest and mesh-comparison review"
+
+deliverables:
+  requirements_spec: true
+  decision_log: true
+  concept_sheet: "concept/camera_subsystem_concept_v1.png – approved"
+  updated_parametric_source: "production implementation authorized"
+  cut_list_and_bom: "production update authorized"
+  printable_parts_stl_or_3mf: "DRAFT until final release approval"
+  validation_report: "after production model verification"
+  camera_fit_coupon: "required before full housing release"
+  ball_socket_clearance_coupon: "required before full camera-arm release"
+  provenance_register: "provenance/camera-source-register.csv"
+  camera_provenance_review: "provenance/CAMERA_PROVENANCE_DRAFT.md"
+
+open_questions: []

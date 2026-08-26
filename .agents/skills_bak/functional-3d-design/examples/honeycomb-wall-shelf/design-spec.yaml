@@ -1,0 +1,110 @@
+project:
+  id: honeycomb-wall-shelf
+  revision: 1.0.0
+  owner: example
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 1.0.0
+    approved_by: example-fixture
+    approved_at: null
+  concept_approval:
+    status: pending
+    spec_revision: 1.0.0
+    asset: null
+    approved_by: null
+    approved_at: null
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: JSI-WM-001-R1
+    variant: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    approved_by: null
+    approved_at: null
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+function:
+  summary: A single honeycomb display cell for small, nonvaluable art pieces.
+  users: [adult-home-user]
+  interfaces:
+    - two keyhole slots to purchased screws and wall-specific anchors
+risk:
+  class: structural
+  hazards: [falling-object, wall-anchor-failure, creep]
+  assumptions:
+    - The example does not claim a safe load.
+    - The user verifies wall substrate, screw-head dimensions, and anchor rating.
+fabrication:
+  preference: balanced-hybrid
+  assembly_target: low
+  repairability: preferred
+printer:
+  model: generic-fdm
+  build_volume_mm: [300, 300, 300]
+  enclosure: false
+manufacturing:
+  process: fdm-fff
+  material: petg
+  nozzle_mm: 0.6
+  layer_height_mm: 0.30
+  target_formats: [step, stl]
+optimization:
+  status: pending
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  rationale: null
+  mesh_simplification:
+    status: pending
+    master_mesh: null
+    manufacturing_mesh: null
+    method: null
+    tolerance_mm: null
+    protected_regions: []
+    comparison_report: null
+    rationale: null
+dimensions:
+  units: mm
+  envelope_mm: [168, 146, 74]
+loads:
+  - case: shelf contents plus handling
+    value: unknown-until-user-defines
+    direction: gravity-and-accidental
+    note: A proof-load plan is required before service.
+environment:
+  indoor_outdoor: indoor
+  temperature_c: [10, 35]
+  moisture: normal
+  uv: none
+purchased_parts:
+  - item: screw
+    requirement: Head and shank must match the printed keyhole coupon.
+  - item: wall-anchor
+    requirement: Rated for actual substrate and intended load.
+acceptance:
+  - id: geometry-valid
+    criterion: Shelf STL and coupon STL are watertight single-body meshes.
+    method: scripts/validate_mesh.py
+  - id: keyhole-fit
+    criterion: Actual screw head enters the large opening and retains in the narrow slot without cracking.
+    method: print keyhole-fit-coupon and test
+  - id: wall-system-reviewed
+    criterion: Wall material, anchor, screw, spacing, edge distances, and proof load are documented.
+    method: human structural review
+  - id: proof-load
+    criterion: Installed shelf survives the user-defined proof load without cracking, pullout, or unacceptable creep.
+    method: guarded physical test with nonvaluable ballast
+test_plan: acceptance-tests.yaml
+outputs:
+  source: model.py
+  exports: generated/
+  validation: generated/

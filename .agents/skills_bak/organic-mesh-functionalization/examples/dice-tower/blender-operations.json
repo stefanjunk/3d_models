@@ -1,0 +1,32 @@
+{
+  "input": "decorated-tower.stl",
+  "output": "generated/tower-functionalized.stl",
+  "save_blend": "generated/tower-functionalized.blend",
+  "apply_transform": true,
+  "operations": [
+    {
+      "name": "interior",
+      "operation": "DIFFERENCE",
+      "solver": "EXACT",
+      "cutter": {"type": "import", "path": "generated/interior-cutter.stl"}
+    },
+    {
+      "name": "top-opening",
+      "operation": "DIFFERENCE",
+      "solver": "EXACT",
+      "cutter": {"type": "import", "path": "generated/top-opening.stl"}
+    },
+    {
+      "name": "bottom-opening",
+      "operation": "DIFFERENCE",
+      "solver": "EXACT",
+      "cutter": {"type": "import", "path": "generated/bottom-opening.stl"}
+    },
+    {
+      "name": "stairs",
+      "operation": "UNION",
+      "solver": "EXACT",
+      "cutter": {"type": "import", "path": "generated/stair-insert.stl"}
+    }
+  ]
+}

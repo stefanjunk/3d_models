@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "tool": "two-build-byte-comparison",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "inputs": [
+    {"path": "src/generate_poop_bin.py", "sha256": "7238d408365e621f2ae85ffedcb0322f32937e6982eaa65610596c4d6489b29e"},
+    {"path": "params/bin-balanced.json", "sha256": "348a1d0f2a4073b3645169d8729575b7c45a498eed9286b08c994856a2809cb5"},
+    {"path": "params/mount-bracket.json", "sha256": "fae37db64f5da87ec8e9ffc336bb5a824047f50551608b965396ace0c37e8fc7"},
+    {"path": "params/badge.json", "sha256": "b216af08162d0850359776ad4871a50aca31c5ff557c66c2f9050e9e74d3d1c0"},
+    {"path": "evidence/metrimade-lockup-horizontal-color.svg", "sha256": "030602129f236af1fa2bfb9a016831be60be10acec82587b5d352f65824db2b5"}
+  ],
+  "checks": [
+    {"id": "byte-identical-second-build", "required": true, "status": "PASS", "message": "A second clean generator run produced identical hashes for every exported STL, both 3MF packages and build/manifest.json.", "metrics": {}, "evidence": ["build/manifest.json"]}
+  ],
+  "metrics": {
+    "selected_body_sha256": "34310c00fa5045d7515dcdfb74dd79f909ba09a16a131ce023664043c35f2bb5",
+    "bracket_sha256": "88f08478312f292ad8ad86516080418df6fab0b3d6ee007d0c3db952b535ce76",
+    "gauge_sha256": "4400a17ba59b2c64e4e777d135534c20ec35be02c7f55311a50767fdf3fe867c",
+    "kit_3mf_sha256": "86db4bee6d53603cd01a9ad169c40b8ea0011e429081ac13d0d5895e260054a6",
+    "badge_3mf_sha256": "51cd6891a01256666fde2d4cf5f4a1ffdc05fd89e88a2e4cc80f1c6ee2a05758",
+    "manifest_sha256": "cc40a017a4af7149bde44c8f2b0d33563b0501b547f8a2f9d619a46a3fccff1f"
+  },
+  "limitations": []
+}
+

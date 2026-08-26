@@ -1,0 +1,93 @@
+{
+  "schema": "organizer-procedural-wood-texture-v1",
+  "representation": "procedural-vector-wood-grooves",
+  "units": "mm",
+  "seed": 20260820,
+  "process": {
+    "nozzle_mm": 0.4,
+    "nominal_line_width_mm": 0.45,
+    "layer_height_mm": 0.2
+  },
+  "grain": {
+    "groove_width_mm": 0.9,
+    "floor_depth_mm": 0.2,
+    "inner_wall_depth_mm": 0.16,
+    "top_depth_mm": 0.2,
+    "spacing_min_mm": 3.0,
+    "spacing_max_mm": 6.5,
+    "wavelength_min_mm": 28.0,
+    "wavelength_max_mm": 70.0,
+    "lateral_drift_min_mm": 0.5,
+    "lateral_drift_max_mm": 1.8,
+    "path_segment_max_mm": 18.0,
+    "tube_segments": 12,
+    "endpoint_segments": 12,
+    "segment_overlap_mm": 0.12,
+    "floor_margin_mm": 2.0,
+    "wall_end_margin_mm": 4.0,
+    "wall_bottom_clearance_from_floor_mm": 4.0,
+    "wall_top_clearance_mm": 2.0,
+    "top_end_margin_mm": 4.0,
+    "top_centerline_drift_mm": 0.15
+  },
+  "knots": {
+    "assembly_max": 3,
+    "nested_contours": 2,
+    "diameter_range_mm": [12.0, 24.0],
+    "placements": [
+      {
+        "module": "driver-front",
+        "center_global_xy_mm": [46.0, 118.0],
+        "diameter_mm": 22.0,
+        "aspect_y_over_x": 0.62,
+        "rotation_deg": 8.0
+      },
+      {
+        "module": "hardware-front",
+        "center_global_xy_mm": [125.0, 132.0],
+        "diameter_mm": 16.0,
+        "aspect_y_over_x": 0.68,
+        "rotation_deg": -11.0
+      },
+      {
+        "module": "hardware-back",
+        "center_global_xy_mm": [190.0, 312.0],
+        "diameter_mm": 18.0,
+        "aspect_y_over_x": 0.64,
+        "rotation_deg": 14.0
+      }
+    ]
+  },
+  "surface_policy": {
+    "floor_direction": "global-positive-y",
+    "inner_wall_direction": "local-long-axis",
+    "top_direction": "wall-centerline",
+    "outer_walls": "smooth-no-geometric-texture",
+    "operation": "engrave-only",
+    "repeat": "none-deterministic-global-field",
+    "smooth_keepouts": [
+      "module-connectors-and-split-faces",
+      "underside-and-bed-contact",
+      "watermark-opposite-floor-region",
+      "access-groove-radii",
+      "wall-root-fillets",
+      "junction-blend-radii",
+      "comb-slots-and-fit-faces"
+    ]
+  },
+  "memory_strategy": {
+    "node_old_space_mb": 2048,
+    "one_module_per_process": true,
+    "one_surface_patch_per_boolean": true
+  },
+  "resource_budget": {
+    "r1_3_baseline_triangles": 6029222,
+    "r1_3_baseline_stl_bytes": 301461436,
+    "r1_3_baseline_peak_rss_mib": 2083.953,
+    "triangle_target_total": 1500000,
+    "triangle_stop_total": 1810000,
+    "max_stl_bytes_total": 94371840,
+    "max_peak_rss_mib_per_module": 1228.8,
+    "minimum_triangle_and_byte_reduction_fraction": 0.7
+  }
+}

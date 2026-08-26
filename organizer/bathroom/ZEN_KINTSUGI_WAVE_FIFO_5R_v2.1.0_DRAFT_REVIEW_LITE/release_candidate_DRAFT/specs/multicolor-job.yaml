@@ -1,0 +1,61 @@
+version: 1
+project:
+  name: ZEN KINTSUGI WAVE v2.1
+  purpose: premium four-colour functional bathroom storage
+  risk_class: normal-functional
+  units: mm
+printer:
+  model: Anycubic Kobra 3 Max
+  material_changer: ACE 2 Pro
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  max_filaments: 4
+  slicer: Anycubic Slicer Next
+source:
+  path: source/generate_zen_kintsugi_v21.py
+  kind: parametric_cad
+  preserve_immutable: true
+  units: mm
+  source_sha256: null
+representation:
+  method: separate_solids
+  authoritative_color_data: named watertight volumetric solids in a common origin
+  destination_format: 3mf
+  slicer_project_required: true
+palette:
+  path: filament-palette.yaml
+  maximum_colors: 4
+  mapping_method: manual
+  dither: false
+  island_cleanup:
+    enabled: true
+    minimum_area_mm2: 0.8
+    minimum_width_mm: 0.9
+    reassignment: remove-or-merge-before-export
+geometry:
+  minimum_color_width_mm: 0.9
+  minimum_inlay_depth_mm: 0.32
+  interface_clearance_mm: 0.10
+  overlap_allowed: false
+  gap_allowed_mm: 0.12
+  shell_depth_mm: 1.8
+  voxel_pitch_mm: 0.45
+materials:
+  require_same_polymer_family: true
+  allowed_family: PETG
+  opacity_review_required: true
+purge:
+  matrix_path: null
+  maximum_changes: 2200
+  maximum_purge_volume_mm3: 90000
+  permit_flush_into_infill: false
+  light_wall_show_through_review: true
+  strategy: print one module at a time; omit sand bodies from modules where visual value does not justify extra changes
+acceptance:
+  all_color_parts_manifold: true
+  preserve_common_coordinate_frame: true
+  final_slicer_slot_mapping_reviewed: false
+  final_slicer_preview_reviewed: false
+  color_boundary_coupon_required: true
+  maximum_mean_delta_e: 18.0
+  maximum_p95_delta_e: 35.0

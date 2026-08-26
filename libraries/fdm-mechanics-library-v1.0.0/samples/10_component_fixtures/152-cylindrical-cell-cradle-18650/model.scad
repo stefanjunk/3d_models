@@ -1,0 +1,25 @@
+/*
+Sample 152: Zylindrischer Zellhalter — 1 x 18650
+Generated from the FDM Mechanical Sample Library.
+Units: millimetres.
+
+Override examples:
+  openscad -o custom.stl -D 'view="plate"' -D 'render_fn=64' model.scad
+  openscad -o preview.png -D 'view="assembly"' model.scad
+*/
+use <../../../library/fdm_mechanisms.scad>
+
+render_fn = is_undef(render_fn) ? 48 : render_fn;
+view = is_undef(view) ? "plate" : view;
+$fn = render_fn;
+
+sample_cell_cradle(
+    view=view,
+    cell_d=18.6,
+    cell_l=65,
+    count=1,
+    cell_gap=2,
+    clearance=0.45,
+    strap_w=10,
+    contact_keepout=8
+);

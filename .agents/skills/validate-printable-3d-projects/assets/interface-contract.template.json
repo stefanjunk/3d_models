@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "parts": [
+    {"id": "core", "path": "parts/core.stl"},
+    {"id": "insert", "path": "parts/insert.stl"}
+  ],
+  "interfaces": [
+    {
+      "id": "insert-capture",
+      "a": "core",
+      "b": "insert",
+      "mode": "overlap",
+      "min_overlap_volume_mm3": 1.0,
+      "max_overlap_volume_mm3": 100.0,
+      "required": true
+    }
+  ],
+  "motions": [
+    {
+      "id": "assembly-path",
+      "moving": "insert",
+      "stationary": ["core"],
+      "translation_mm": [0, 0, 20],
+      "steps": 80,
+      "max_step_mm": 0.25,
+      "ignore_step_zero": true,
+      "accept_discrete": false,
+      "max_intersection_volume_mm3": 0.001,
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "Premium Parametric Over-Toilet Shelf",
+    "units": "mm",
+    "revision": "0.2.0",
+    "spec_revision": "0.2.0",
+    "geometry_revision": "r0.2.0-draft.2",
+    "release_status": "DRAFT"
+  },
+  "printer": {
+    "model": "universal 256 mm class",
+    "build_volume": [256.0, 256.0, 300.0],
+    "nozzle": 0.6,
+    "line_width": 0.68,
+    "layer_height": 0.3,
+    "material": "PETG"
+  },
+  "installation": {
+    "mode": "floor_standing_with_wall_restraint",
+    "overall_width": 680.0,
+    "overall_depth": 300.0,
+    "overall_height": 1650.0,
+    "toilet_clear_width": 560.0,
+    "toilet_clear_height": 950.0,
+    "shelf_clear_width": 620.0,
+    "shelf_depth": 240.0,
+    "wall_gap": 20.0,
+    "baseboard_keepout_depth": 20.0,
+    "baseboard_keepout_height": 100.0,
+    "clear_wall_width": 760.0
+  },
+  "frame": {
+    "side_depth": 240.0,
+    "side_thickness": 20.0,
+    "side_rail_width": 20.0,
+    "side_segment_max_height": 238.0,
+    "grid_pitch": 50.0,
+    "grid_start_from_floor": 30.0,
+    "grid_hole_diameter": 5.6,
+    "connector_clearance": 0.30,
+    "connector_pin_height": 12.0,
+    "foot_width": 40.0,
+    "foot_depth": 100.0,
+    "foot_height": 16.0,
+    "foot_slot_depth": 6.0,
+    "tpu_pad_thickness": 1.2,
+    "wall_restraint_hole_min_z": 1230.0,
+    "wall_restraint_hole_max_z": 1580.0,
+    "wall_restraint_nominal_lower_hole_z": 1480.0,
+    "wall_restraint_hole_spacing": 50.0,
+    "wall_restraint_bracket_width": 34.0,
+    "wall_restraint_bracket_height": 80.0
+  },
+  "shelf": {
+    "depth": 240.0,
+    "total_height": 32.0,
+    "top_skin": 3.0,
+    "edge_beam_thickness": 14.0,
+    "rib_thickness": 2.7,
+    "cross_rib_spacing": 85.0,
+    "rear_lip_height": 12.0,
+    "max_tile_width": 235.0,
+    "joiner_length": 100.0,
+    "joiner_width": 18.0,
+    "joiner_height": 6.0,
+    "fit_clearance": 0.30,
+    "nominal_load_kg_evenly_distributed": 4.0
+  },
+  "module_grid": {
+    "columns": 6,
+    "gap": 4.0,
+    "side_margin": 10.0,
+    "default_depth": 198.0,
+    "wall": 2.6,
+    "bottom": 2.8,
+    "drawer_clearance_each_side": 0.45,
+    "drawer_clearance_vertical": 0.50,
+    "drawer_rear_clearance": 2.0,
+    "max_monolithic_print_width": 245.0,
+    "wide_module_policy": "split_center_with_bolted_joiners",
+    "wide_module_seam": {
+      "plate_length": 60.0,
+      "plate_width": 18.0,
+      "plate_thickness": 3.0,
+      "plate_hole_diameter": 3.4,
+      "m3_axis_offset": 18.0,
+      "boss_height": 6.0,
+      "boss_diameter": 9.0,
+      "provisional_insert_hole_diameter": 4.2,
+      "station_edge_offset": 30.0,
+      "plate_boss_contact_gap": 0.0
+    }
+  },
+  "levels": [
+    {
+      "name": "care",
+      "shelf_top_z": 1050.0,
+      "fascia_finish": "fluted",
+      "fascia_label": "SPA",
+      "modules": [
+        {
+          "type": "drawer",
+          "span": 3,
+          "height": 92.0,
+          "label": "CARE",
+          "finish": "fluted"
+        },
+        {
+          "type": "bin",
+          "span": 3,
+          "height": 104.0,
+          "label": "TEXTILES",
+          "finish": "smooth"
+        }
+      ],
+      "hangers": 2
+    },
+    {
+      "name": "display",
+      "shelf_top_z": 1400.0,
+      "fascia_finish": "ribs",
+      "fascia_label": "",
+      "modules": [
+        {
+          "type": "tray",
+          "span": 2,
+          "height": 36.0,
+          "label": "",
+          "finish": "smooth"
+        },
+        {
+          "type": "open",
+          "span": 4,
+          "height": 0.0,
+          "label": "",
+          "finish": "smooth"
+        }
+      ],
+      "hangers": 1
+    }
+  ],
+  "personalization": {
+    "material_finish": "matte",
+    "text_font": "Liberation Sans",
+    "text_mode": "engrave",
+    "text_depth": 0.60,
+    "header": {
+      "enabled": true,
+      "outer_width": 220.0,
+      "outer_height": 94.0,
+      "insert_width": 180.0,
+      "insert_height": 70.0,
+      "backer_thickness": 5.0,
+      "insert_base_thickness": 2.2,
+      "finish": "diamond",
+      "text": "DEIN SPA",
+      "text_mode": "engrave",
+      "mount_level": 1
+    },
+    "image_relief": {
+      "enabled": false,
+      "source_image": "",
+      "mode": "engrave",
+      "depth": 0.45,
+      "sample_pitch": 0.60,
+      "triangle_budget": 1000000,
+      "memory_budget_gib": 4.0,
+      "max_mesh_mib": 60.0,
+      "max_slicer_seconds": 120.0,
+      "invert": false,
+      "fit": "contain"
+    }
+  },
+  "hardware": {
+    "shelf_bracket_bolt": "M5 x 45 + two washers + locking nut",
+    "shelf_insert": "M4 heat-set insert, OD 5.4 mm",
+    "shelf_to_bracket_screw": "M4 x 20 + washer",
+    "shelf_joiner_screw": "M4 x 16 + washer",
+    "segment_lock": "M4 x 30 + washer + nyloc nut",
+    "foot_lock": "M4 x 50 + two washers + locking nut",
+    "module_seam_fastener": "M3 x 10 plus heat-set insert or captive nut after coupon",
+    "wall_fastener": "wall-specific screw and anchor, selected by installer"
+  },
+  "export": {
+    "stl_tolerance": 0.10,
+    "stl_angular_tolerance": 0.15
+  }
+}

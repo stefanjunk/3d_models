@@ -1,0 +1,60 @@
+version: 1
+project: ZEN KINTSUGI WAVE v2.1 DRAFT
+tests:
+  - id: FIT-01
+    stage: coupon
+    specimen: FIT_COUPON ivory+bronze+gold
+    method: print in final PETG profile; try 4.7/4.8/4.9 mm pins and all inlay strips
+    pass: selected pin inserts by hand without splitting and does not fall out under its own weight; inlay boundary is continuous
+    status: NOT_RUN
+  - id: TEX-01
+    stage: coupon
+    specimen: TEXTURE_COUPON_ivory
+    method: wipe with dry toilet tissue and a damp lint-free cloth; inspect under raking light
+    pass: no tissue snagging, no sharp peaks, texture remains readable and cleanable
+    status: NOT_RUN
+  - id: FIFO-01
+    stage: digital
+    specimen: 122 x 107 mm proxy
+    method: 121-position robust mesh Boolean sweep through the full free shaft
+    pass: zero intersections above the intentional output stop
+    status: PASS
+    evidence: reports/validation_report_DRAFT.json
+  - id: FIFO-02
+    stage: subassembly
+    specimen: two printed modules plus two representative rolls
+    method: twenty removals/refills including one slightly oval roll
+    pass: each roll descends without manual correction or visible abrasion
+    status: NOT_RUN
+  - id: FIFO-03
+    stage: full-assembly
+    specimen: five printed modules, crown and five rolls
+    method: twenty complete FIFO cycles; repeat after 24 hours in bathroom humidity
+    pass: no jam, no connector migration and no wall contact by a roll
+    status: NOT_RUN
+  - id: MOUNT-01
+    stage: full-assembly
+    specimen: actual wall substrate, chosen anchors and empty tower
+    method: installer-defined conservative proof load behind a barrier, then 24-hour creep inspection
+    pass: no cracking, pull-through, anchor movement or permanent deformation
+    status: NOT_RUN
+    warning: no universal proof load or anchor type is specified without the actual wall construction
+  - id: COLOR-01
+    stage: slicer
+    specimen: each module 3MF
+    method: map four actual PETG filaments in Anycubic Slicer Next and inspect every layer
+    pass: no missing bodies, no overlap warning, acceptable purge and no light-wall show-through
+    status: NOT_RUN
+  - id: WM-01
+    stage: digital
+    specimen: marked bronze module body
+    method: topology, volume-delta, orthographic, dimensioned, section and 0.20 mm geometric layer checks
+    pass: exact compact mark remains readable; 0.40 mm recess; 4.80 mm residual spine; bed datum unchanged
+    status: PASS-DIGITAL
+    evidence: reports/watermark/watermark_validation_DRAFT.json
+  - id: WM-02
+    stage: slicer-and-coupon
+    specimen: marked bronze module
+    method: inspect mark-bearing layers in Anycubic Slicer Next and verify on the first printed module
+    pass: no lost stroke, closed gap or unreadable monogram
+    status: NOT_RUN

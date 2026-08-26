@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/validate-printable-3d-projects/approval-ledger.schema.json",
+  "title": "Hash-chained stage approval ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "ledger_type", "project_id", "policy_id", "policy_sha256", "events"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "ledger_type": {"enum": ["agent", "human"]},
+    "project_id": {"type": "string", "minLength": 1},
+    "policy_id": {"type": "string", "minLength": 1},
+    "policy_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["event_id", "previous_event_id", "stage", "decision", "decided_by", "authority", "evidence", "reasons"],
+        "properties": {
+          "event_id": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "previous_event_id": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "stage": {"type": "string", "minLength": 1},
+          "decision": {"enum": ["AUTO_APPROVED", "HUMAN_APPROVED", "BLOCKED", "REJECTED"]},
+          "decided_by": {"type": "object"},
+          "authority": {"type": "object"},
+          "evidence": {"type": "array"},
+          "reasons": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

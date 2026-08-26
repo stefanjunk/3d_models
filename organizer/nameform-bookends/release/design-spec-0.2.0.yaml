@@ -1,0 +1,206 @@
+# HISTORICAL SNAPSHOT — NameForm Bookends 0.2.0 design specification
+# Skill: functional-3d-design | Gates per references/requirements-concept-approval.md
+project:
+  id: MM-PER-001-nameform-bookends
+  name: "NameForm Bookends"
+  sku: MM-PER-001
+  revision: 0.2.0
+  owner: "Stefan (JuSt Innovation)"
+  created: "2026-08-21"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-002"
+  first_release_variant: "word=M (fixed revision 0.2.0)"
+  tool_route: "CadQuery 2.9 B-Rep source of truth (glyphs via matplotlib TextPath); Trimesh validation; fontTools glyph metrics. (0.1.0 OpenSCAD source archived — defective: letter missing)"
+
+workflow:
+  gate_policy: >
+    User instruction 2026-08-21 (Stefan): all approval gates for this product are
+    pre-approved in advance to test the full pipeline end-to-end
+    ("uebergehen alle Freigaben und Approvals und fuehre es zu Ende").
+    All open options were resolved to the recommended defaults below; traceability
+    is preserved by recording the user's blanket pre-approval as approver.
+  requirements_approval:
+    status: approved
+    spec_revision: 0.2.0
+    approved_by: "Stefan (pre-approval per 2026-08-21 pipeline-test instruction)"
+    approved_at: "2026-08-21"
+  concept_approval:
+    status: approved
+    spec_revision: 0.2.0
+    asset: "concept/concept-sheet.png"
+    approved_by: "Stefan (pre-approval per 2026-08-21 pipeline-test instruction)"
+    approved_at: "2026-08-21"
+  watermark_approval:
+    status: approved
+    spec_revision: 0.2.0
+    geometry_revision: ff0fb59b876314e0732933f7e61919d81a520f5b6e31660451aa59ce2f819353
+    asset_id: JSI-WM-001-R1
+    variant: standard
+    placement: "recessed 0.40 mm on print-bed-facing-underside, centered (x=0, y=-28 mm); uniform scale 1.6875 (standard 32x10 -> 54x16.875 mm selector envelope), rotation 0 deg; asset X-mirrored to read normally from the finished underside"
+    preview_asset: "validation/watermark/underside-view.png"
+    validation_asset: "validation/watermark.json"
+    approved_by: "Stefan (pre-approval per 2026-08-21 pipeline-test instruction)"
+    approved_at: "2026-08-25"
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+
+function:
+  summary: >
+    Pair of personalized bookends (two identical parts). Each part is a single
+    solid: a ballast base plate; bold 3D letterforms of a personalized word
+    standing on the base with the word face toward the viewer; and a full-height
+    4 mm rear stop panel bonded to the letters that carries the book row.
+    The word is the design parameter (uppercase A-Z, auto-scaled to the bed);
+    the first fixed release revision uses the word "M".
+  users:
+    - "Adults keeping a book row upright on shelf, desk, or windowsill (indoor)"
+    - "3D-printer owners printing the licensed 3MF (MVP digital delivery)"
+  personalization:
+    text: "1-10 uppercase A-Z; practical tier H>=40 mm cap (approx. up to 6-7 chars, word-dependent); first fixed revision: M"
+    font: "DejaVu Sans Bold (SIL OFL 1.1), recorded in source register"
+    height_rule: "cap H = min(180, 192/advance_em); word width + 24 mm margin must fit 216 mm"
+  interfaces:
+    - "Flat shelf/desk surface: base underside, anti-slip texture, no fasteners"
+    - "Book row: rear full-height stop panel; books up to stop top height"
+  included:
+    - "2 identical bookends, single solid part each; one 3MF holds one marked part (the pair = two sequential prints of the identical file)"
+    - "Solid (100% infill) construction: functional ballast"
+    - "JuSt Innovation watermark recessed in base underside"
+  excluded:
+    - "No stacking, wall mounting, food contact, child-directed use, structural claims"
+    - "No multi-material (no TPU pads); anti-slip via base texture + mass"
+    - "Book rows > 2 kg or books taller than stop height: out of stated duty"
+  duty:
+    book_row_mass_kg: 2.0
+    book_row_cm_offset_past_stop_mm: 25
+    contact_point: "stop top"
+    safety_factor_tipover_min: 1.5
+    service: "static, indoor, years"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Tip-over under book push (mitigated: ballast base; SF>=1.5 verified by calculation + physical static test)"
+    - "Falling books when overloaded (stated limit in listing)"
+    - "Corners/edges (mitigated: 2 mm corner fillets)"
+    - "Part mass ~1.84 kg (handling only; 100% solid PLA ballast)"
+  assumptions:
+    - "Indoor, dry, 10-30 C"
+    - "Books <= stop height lean against the stop; taller books only partially retained"
+    - "Flat, stable shelf surface"
+
+fabrication:
+  preference: integrated-print
+  assembly_target: none
+  repairability: preferred
+  parts_count: 2
+  purchased_parts: 0
+
+printer:
+  model: "Anycubic Kobra 3 Max (operator); design constraint: 220x220x250 common customer bed"
+  build_volume_mm: [220, 220, 250]
+  enclosure: false
+  note: >
+    Business decision (default planning assumption): digital catalog parts must fit
+    220x220x250. Operator Kobra 3 Max (300x300x310) prints the identical file.
+
+manufacturing:
+  process: fdm-fff
+  material: "PLA matte (first release profile); PETG acceptable alternative"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  infill: "100% solid (functional ballast)"
+  supports: none
+  orientation: "upright, base on bed, word face +Y, stop panel -Y (book side)"
+  target_formats: [stl, 3mf]
+  step_note: "N/A - no precise functional interfaces; business release format is 3MF"
+
+optimization:
+  status: not-applicable
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  rationale: >
+    Geometry is already minimal (base + letters + panel; no lattice, decorative
+    density, or supports). Solid infill is functional ballast required by the
+    tip-over duty (SF>=1.5 at 2.0 kg); hollowing would require a pourable ballast
+    (hybrid variant) and is recorded as a future optimization candidate pending
+    duty evidence. No geometry-only candidate expected to be beneficial.
+  mesh_simplification:
+    status: not-applicable
+    master_mesh: null
+    manufacturing_mesh: null
+    method: null
+    tolerance_mm: null
+    protected_regions:
+      - "stop panel face (book contact)"
+      - "base bed datum (underside)"
+      - "watermark recess"
+      - "letter front faces (appearance)"
+    comparison_report: null
+    resource_budget:
+      triangle_target: null
+      triangle_stop: null
+      peak_memory_gib: null
+      max_mesh_mib: null
+      max_slicer_seconds: null
+    slicer_resolution_check:
+      status: not-applicable
+      report: null
+    rationale: >
+      Low-complexity CSG solid (estimated < 150k triangles); master and
+      manufacturing mesh are identical; no relief/density field to decimate.
+
+dimensions:
+  units: mm
+  envelope_mm: [216, 152, 160.66]
+  note: "hero word M: 216x152 footprint, 160.66 total height (base 20 + cap 140.66); exact values in validation/geometry.json"
+  single_3mf_layout: "one part centered on bed (216x152 footprint, z=0 datum); the pair = two sequential prints of the identical file; each print fits 220x220x250"
+
+loads:
+  - id: book-row-push
+    description: "2.0 kg book row, CM 25 mm past stop face, contact at stop top, static"
+    verification: "hand calculation from exact mesh mass/CM (validation/stability.json) + physical static test (test-plan.yaml TP-04)"
+
+environment:
+  indoor_outdoor: indoor
+  temperature_c: [10, 30]
+  moisture: normal
+  uv: limited
+
+purchased_parts: []
+
+acceptance:
+  - id: geometry-valid
+    criterion: "Each exported part watertight, 1 body, correct units; 3MF opens clean"
+    method: "scripts/validate_mesh.py"
+  - id: bed-fit
+    criterion: "Part <= 216x216x240; pair layout <= 220x220x250"
+    method: "trimesh bounding box (validation/geometry.json)"
+  - id: stability
+    criterion: "Tip-over SF >= 1.5 at 2.0 kg / 25 mm CM offset / contact at stop top, using exact mesh mass and CM"
+    method: "validation/stability.json + physical test TP-04"
+  - id: min-feature
+    criterion: "All letter strokes >= 4 mm at 0.4 mm nozzle / 0.2 mm layer"
+    method: "glyph metric check (DejaVu Sans Bold stem ratio) + section render"
+  - id: no-supports
+    criterion: "Print upright with no supports (all overhangs <= 45 deg)"
+    method: "geometry construction (vertical extrusion of letters + panel on base)"
+  - id: watermark-release
+    criterion: "Exact JSI-WM-001-R1 mark recessed 0.4 mm, readable from finished underside, process-safe, approved on current geometry revision"
+    method: "references/watermark-release-gate.md + scripts/select_watermark.py (validation/watermark.json)"
+  - id: release-consistency
+    criterion: "3MF contains exactly 1 body (single marked part); manifest SHA-256 matches all 5 release files"
+    method: "scripts/build.py --finalize + trimesh scene check"
+
+test_plan: "test-plan.yaml"
+outputs:
+  source: "source/"
+  exports: "exports/"
+  validation: "validation/"
+  release: "release/"

@@ -1,0 +1,42 @@
+version: 1
+status: DRAFT-starting-profile
+printer: Anycubic Kobra 3 Max
+material_changer: ACE 2 Pro
+process:
+  technology: FDM/FFF
+  material_family: PETG
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  first_layer_mm: 0.24
+  walls: 4
+  top_layers: 5
+  bottom_layers: 5
+  infill_percent: [12, 18]
+  infill_pattern: gyroid
+  seam: rear-low-attention-zone
+  supports: localized-organic-only-after-layer-review
+  fuzzy_skin: disabled
+  flush_into_infill: false
+  purge_tower: enabled-outside-part
+  brim_mm: 6
+orientation:
+  body_modules: upright on Z0 joint plane
+  crown: upright on Z0 joint plane
+  connector_pins: vertical
+  scent_tray: bowl opening upward
+materials:
+  slots:
+    1: stone_ivory_body
+    2: antique_gold_kintsugi
+    3: walnut_bronze_spines
+    4: warm_sand_relief
+  require_same_polymer_family: true
+  dry_filament: true
+validation:
+  exact_temperature_c: user-filament-profile
+  exact_speed_mm_s: user-filament-profile
+  exact_max_volumetric_flow_mm3_s: measure-or-use-vendor-profile
+  target_slicer: Anycubic Slicer Next
+  status: NOT_RUN
+  required_reviews: [thin-shell-detection, crown-overhangs, front-ribbon-arches, inlay-islands, purge, first-layer, time, mass]

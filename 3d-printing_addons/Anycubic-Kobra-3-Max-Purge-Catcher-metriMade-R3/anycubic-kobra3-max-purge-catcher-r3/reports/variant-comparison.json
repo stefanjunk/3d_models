@@ -1,0 +1,47 @@
+{
+  "status": "SELECTED_R3_COMPACT_IMPACT_HOOD",
+  "candidates": [
+    {
+      "id": "R2_PREVIOUS",
+      "upper_opening_mm": [88.0, 60.0],
+      "front_height_mm": 84.0,
+      "impact_hood_depth_mm": 0.0,
+      "mounted_mass_proxy_g": 62.59622736,
+      "result": "rejected_as_too_large_by_user"
+    },
+    {
+      "id": "R3_COMPACT_SELECTED",
+      "upper_opening_mm": [68.0, 46.0],
+      "front_height_mm": 64.0,
+      "side_height_mm": 52.0,
+      "impact_hood_start_z_mm": 48.0,
+      "impact_hood_depth_mm": 10.0,
+      "impact_hood_max_overhang_from_vertical_deg": 43.15238973400541,
+      "mounted_mass_proxy_g": 40.94305756,
+      "logo_width_mm": 32.0,
+      "result": "selected_digital_print_candidate"
+    },
+    {
+      "id": "R3_AGGRESSIVE_CONCEPT",
+      "upper_opening_mm": [60.0, 40.0],
+      "front_height_mm": 60.0,
+      "impact_hood_depth_mm": 8.0,
+      "logo_width_mm": 32.0,
+      "result": "not_selected",
+      "reason": "Only 4 mm side margin remains around the unchanged 32 mm logo and the undocumented spring-eject trajectory would have too little tolerance."
+    }
+  ],
+  "selected_deltas_vs_r2_percent": {
+    "upper_opening_area_reduction": 40.75757575757576,
+    "front_height_reduction": 23.809523809523814,
+    "mounted_mass_reduction": 34.59181281879733
+  },
+  "selected_honeycomb": {
+    "architecture": "1.0 mm continuous side skin with 1.5 mm-deep outer honeycomb ribs; solid impact wall, hood, funnel, mount and logo backers",
+    "body_volume_reduction_vs_r3_solid_side_wall_percent": 2.6591123991974275,
+    "missing_required_skin_voxels": 0,
+    "honeycomb_rib_voxels": 20152
+  },
+  "not_run": ["Anycubic Slicer Next time", "sliced filament", "purge waste", "physical impact capture", "mount fit"],
+  "decision": "R3 compact selected as the smallest balanced candidate that preserves the complete three-side 32 mm logo and a useful capture envelope. The solid impact wall and inward hood respond to the documented spring-loaded ejector; physical trajectory remains an explicit gate."
+}

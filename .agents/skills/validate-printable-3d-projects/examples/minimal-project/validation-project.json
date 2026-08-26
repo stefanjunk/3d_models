@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "minimal-gcode-example",
+    "revision": "R1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [100, 100, 100]
+  },
+  "artifacts": [
+    {
+      "id": "gcode",
+      "path": "sample.gcode",
+      "kind": "gcode",
+      "revision": "R1"
+    }
+  ],
+  "checks": [
+    {
+      "id": "gcode-audit",
+      "type": "gcode",
+      "required": true,
+      "artifact": "gcode",
+      "policy": {
+        "bed_mm": [100, 100, 100],
+        "max_tool_changes": 0,
+        "max_flow_mm3_s": 20,
+        "require_layer_markers": true
+      },
+      "report": "reports/gcode.json"
+    },
+    {
+      "id": "physical-proof",
+      "type": "physical",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Print and inspect a process-matched coupon",
+      "evidence_artifact": null
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {}
+  }
+}

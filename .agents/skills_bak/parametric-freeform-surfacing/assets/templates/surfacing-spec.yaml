@@ -1,0 +1,87 @@
+schema_version: 1
+project:
+  name: example-freeform-product
+  units: mm
+  product_family: product-shell
+  language: auto
+  manufacturing: fdm-fff
+  risk_class: normal-functional
+
+intent:
+  visual_language:
+    keywords: [smooth, organic, restrained]
+    forbidden_characteristics: [boxy, faceted, arbitrary-waves]
+  symmetry: bilateral
+  visible_surfaces: [outer-envelope]
+  reference_role: none  # none | inspiration | fit-target | protected-source | deformable-master
+  reference_provenance: []
+
+semantic_parameters:
+  - name: overall_length
+    value: 240.0
+    min: 200.0
+    max: 300.0
+    unit: mm
+    affects: [stations, envelope]
+  - name: style_tension
+    value: 0.5
+    min: 0.0
+    max: 1.0
+    unit: ratio
+    affects: [guide_curves, sections]
+
+hardpoints:
+  tolerance_mm: 0.10
+  datum_planes: []
+  points: []
+  axes: []
+  protected_faces: []
+  keep_out_volumes: []
+
+surface_strategy:
+  primary: bspline-loft  # bspline-loft | nurbs-network | subd | ffd | morph | sdf-local | hybrid
+  continuity_default: G2
+  intentional_creases: []
+  section_count_target: 8
+  controls_per_curve_target: 6
+  closed_section_seam_landmark: null
+
+reference_fitting:
+  enabled: false
+  target_file: null
+  fit_region: null
+  maximum_rms_error_mm: 1.0
+  maximum_local_error_mm: 3.0
+  preserve_target_noise: false
+
+fdm:
+  printer_build_volume_mm: [300.0, 300.0, 300.0]
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.12, 0.24]
+  intended_orientation: unspecified
+  visible_orientation_sensitive_regions: []
+  minimum_wall_mm: 1.2
+  maximum_overhang_deg_from_vertical: 50.0
+  mesh_export:
+    chord_tolerance_mm: 0.05
+    angular_tolerance_deg: 3.0
+    maximum_edge_mm: 1.5
+
+acceptance:
+  hardpoint_drift_mm_max: 0.10
+  watertight_when_solid: true
+  connected_components_expected: 1
+  degenerate_face_count_max: 0
+  curvature_spikes_allowed: 0
+  unexplained_curvature_extrema_per_primary_curve_max: 4
+  self_intersections_allowed: false
+  minimum_signed_volume_mm3: 1.0
+  slicer_review_required: true
+  physical_coupon_required: false
+
+outputs:
+  editable_source_required: true
+  step_required: false
+  obj_required: true
+  stl_or_3mf_required: true
+  reports_required: true

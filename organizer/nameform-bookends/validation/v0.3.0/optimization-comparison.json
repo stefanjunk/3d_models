@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "tool": "nameform-cad-material-comparison",
+  "tool_version": "MM-PER-001-v0.3.0",
+  "profile": "release",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/release/design-spec-0.2.0.yaml",
+      "sha256": "7397433c8665dd6c96719d3de2a1f5d86131b40380318103b8d3535ad4830c7b",
+      "size_bytes": 8961
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.stl",
+      "sha256": "5b99d8bd2576020c3902c178e573f1d7459b60539494d5dfa0e3137e034a7032",
+      "size_bytes": 385684
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.stl",
+      "sha256": "6bf9e6558a26330d2314fef98348c7c13b30c231d02d82b171c77916afe2b621",
+      "size_bytes": 377484
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/validation/v0.3.0/stiffness-comparison.json",
+      "sha256": "9ccb2e233206cb032b404f2f915d755178ac214e28b40c890f99fc240c1025cc",
+      "size_bytes": 659
+    }
+  ],
+  "checks": [
+    {
+      "id": "cad-material",
+      "status": "PASS",
+      "required": true,
+      "message": "Pair CAD mass is reduced by more than 90% versus 0.2.0",
+      "metrics": {
+        "baseline_pair_mass_g": 3682.4,
+        "candidate_pair_mass_g": 319.98071149836846,
+        "reduction_percent": 91.31053900992916
+      },
+      "evidence": []
+    },
+    {
+      "id": "protected-bounds",
+      "status": "PASS",
+      "required": true,
+      "message": "Book faces, inward feet, bed datum, text, and watermark remain present",
+      "metrics": {},
+      "evidence": []
+    },
+    {
+      "id": "comparison-load",
+      "status": "PASS",
+      "required": true,
+      "message": "Conservative 5 N stiffness comparison remains within its digital thresholds",
+      "metrics": {},
+      "evidence": []
+    }
+  ],
+  "metrics": {},
+  "limitations": [
+    "No print-time claim is selected until the exact slicer/profile is available."
+  ],
+  "required_capabilities": []
+}

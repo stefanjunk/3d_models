@@ -1,0 +1,2823 @@
+{
+  "status": "DRAFT",
+  "quality": "final",
+  "engine": "manifold-3d",
+  "revision": "R2-procedural-wood",
+  "route": "r2-accessories-only",
+  "execution_strategy": "accessories-only; one-comb-top-bridge-per-boolean; fit-and-connector-coupons-untextured",
+  "params": "config/model-params.json",
+  "surface_texture_config": "config/wood-texture-params.json",
+  "surface_texture_config_identity": {
+    "schema": "organizer-procedural-wood-texture-v1",
+    "representation": "procedural-vector-wood-grooves",
+    "seed": 20260820
+  },
+  "surface_plan_identity": {
+    "schema": "organizer-r2-procedural-wood-accessories-plan-v1",
+    "revision": "R2",
+    "comb_bridge_region_ids": [
+      "screwdriver-comb-top-bridge-01",
+      "screwdriver-comb-top-bridge-02",
+      "screwdriver-comb-top-bridge-03",
+      "screwdriver-comb-top-bridge-04",
+      "screwdriver-comb-top-bridge-05",
+      "screwdriver-comb-top-bridge-06",
+      "screwdriver-comb-top-bridge-07"
+    ],
+    "artifact_ids": [
+      "screwdriver-comb",
+      "drawer-fit-corner-coupon",
+      "connector-coupon-male",
+      "connector-coupon-female"
+    ]
+  },
+  "relief_loaded": false,
+  "watermark": {
+    "loaded": false,
+    "applied": false
+  },
+  "comb_smooth_keepouts": [
+    "comb-slot-bores-and-cut-faces",
+    "comb-slot-boundaries-plus-positive-clearance",
+    "comb-fit-and-contact-faces",
+    "comb-front-back-and-side-outer-faces",
+    "comb-underside-and-bed-contact",
+    "comb-non-upward-facing-surfaces"
+  ],
+  "comb_texture_plan": {
+    "schema": "organizer-r2-procedural-wood-accessories-plan-v1",
+    "revision": "R2",
+    "units": "mm",
+    "config_identity": {
+      "schema": "organizer-procedural-wood-texture-v1",
+      "representation": "procedural-vector-wood-grooves",
+      "seed": 20260820
+    },
+    "policy": {
+      "operation": "engrave-only",
+      "texture_additions": false,
+      "top_depth_mm": 0.2,
+      "groove_width_mm": 0.9,
+      "direction": {
+        "mode": "local-long-axis-positive-y",
+        "vector": [
+          0,
+          1
+        ]
+      },
+      "knots": "none-on-comb",
+      "smooth_keepouts": [
+        "comb-slot-bores-and-cut-faces",
+        "comb-slot-boundaries-plus-positive-clearance",
+        "comb-fit-and-contact-faces",
+        "comb-front-back-and-side-outer-faces",
+        "comb-underside-and-bed-contact",
+        "comb-non-upward-facing-surfaces"
+      ],
+      "excluded_surface_classes": [
+        "floor",
+        "wall",
+        "outer-face",
+        "underside-bed-plane",
+        "slot-bore-and-cut-face",
+        "fit-and-contact-face"
+      ]
+    },
+    "comb": {
+      "body_size_mm": [
+        84,
+        10,
+        20
+      ],
+      "bed_plane_z_mm": 0,
+      "connected_body_required": true,
+      "slot_count": 8,
+      "slot_radius_mm": 4.2,
+      "slot_pitch_mm": 10.799999999999999,
+      "slot_centers_x_mm": [
+        4.2,
+        15,
+        25.799999999999997,
+        36.6,
+        47.4,
+        58.199999999999996,
+        69,
+        79.8
+      ],
+      "bridge_count": 7,
+      "bridge_regions": [
+        {
+          "id": "screwdriver-comb-top-bridge-01",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            1,
+            2
+          ],
+          "slot_centers_x_mm": [
+            4.2,
+            15
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 8.4,
+            "right_slot_left_edge": 10.8
+          },
+          "material_bridge_width_mm": 2.4000000000000004,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.0999999999999996,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              8.55,
+              4
+            ],
+            "max": [
+              10.65,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-01",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  8.55,
+                  4
+                ],
+                "max": [
+                  10.65,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-01",
+              "source_rectangle_mm": {
+                "min": [
+                  8.55,
+                  4
+                ],
+                "max": [
+                  10.65,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-01",
+                  "rectangle_mm": {
+                    "min": [
+                      8.55,
+                      4
+                    ],
+                    "max": [
+                      10.65,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      9,
+                      4.45
+                    ],
+                    "max": [
+                      10.2,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-01-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-01-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-01-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 55.973817,
+                "lateral_drift_mm": 0.112341,
+                "points_mm": [
+                  [
+                    9.991407,
+                    4.45
+                  ],
+                  [
+                    9.977555,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-02",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            2,
+            3
+          ],
+          "slot_centers_x_mm": [
+            15,
+            25.799999999999997
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 19.2,
+            "right_slot_left_edge": 21.599999999999998
+          },
+          "material_bridge_width_mm": 2.3999999999999986,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.1000000000000014,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              19.349999999999998,
+              4
+            ],
+            "max": [
+              21.45,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-02",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  19.35,
+                  4
+                ],
+                "max": [
+                  21.45,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-02",
+              "source_rectangle_mm": {
+                "min": [
+                  19.35,
+                  4
+                ],
+                "max": [
+                  21.45,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-02",
+                  "rectangle_mm": {
+                    "min": [
+                      19.35,
+                      4
+                    ],
+                    "max": [
+                      21.45,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      19.8,
+                      4.45
+                    ],
+                    "max": [
+                      21,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-02-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-02-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-02-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 32.185462,
+                "lateral_drift_mm": 0.102675,
+                "points_mm": [
+                  [
+                    20.405632,
+                    4.45
+                  ],
+                  [
+                    20.421335,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-03",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            3,
+            4
+          ],
+          "slot_centers_x_mm": [
+            25.799999999999997,
+            36.6
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 29.999999999999996,
+            "right_slot_left_edge": 32.4
+          },
+          "material_bridge_width_mm": 2.400000000000002,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.100000000000005,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              30.149999999999995,
+              4
+            ],
+            "max": [
+              32.25,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-03",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  30.15,
+                  4
+                ],
+                "max": [
+                  32.25,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-03",
+              "source_rectangle_mm": {
+                "min": [
+                  30.15,
+                  4
+                ],
+                "max": [
+                  32.25,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-03",
+                  "rectangle_mm": {
+                    "min": [
+                      30.15,
+                      4
+                    ],
+                    "max": [
+                      32.25,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      30.6,
+                      4.45
+                    ],
+                    "max": [
+                      31.8,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-03-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-03-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-03-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 61.920313,
+                "lateral_drift_mm": 0.125761,
+                "points_mm": [
+                  [
+                    30.9283,
+                    4.45
+                  ],
+                  [
+                    30.942193,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-04",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            4,
+            5
+          ],
+          "slot_centers_x_mm": [
+            36.6,
+            47.4
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 40.800000000000004,
+            "right_slot_left_edge": 43.199999999999996
+          },
+          "material_bridge_width_mm": 2.3999999999999915,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.0999999999999943,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              40.95,
+              4
+            ],
+            "max": [
+              43.05,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-04",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  40.95,
+                  4
+                ],
+                "max": [
+                  43.05,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-04",
+              "source_rectangle_mm": {
+                "min": [
+                  40.95,
+                  4
+                ],
+                "max": [
+                  43.05,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-04",
+                  "rectangle_mm": {
+                    "min": [
+                      40.95,
+                      4
+                    ],
+                    "max": [
+                      43.05,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      41.4,
+                      4.45
+                    ],
+                    "max": [
+                      42.6,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-04-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-04-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-04-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 52.629579,
+                "lateral_drift_mm": 0.109328,
+                "points_mm": [
+                  [
+                    41.722417,
+                    4.45
+                  ],
+                  [
+                    41.727138,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-05",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            5,
+            6
+          ],
+          "slot_centers_x_mm": [
+            47.4,
+            58.199999999999996
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 51.6,
+            "right_slot_left_edge": 53.99999999999999
+          },
+          "material_bridge_width_mm": 2.3999999999999915,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.0999999999999943,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              51.75,
+              4
+            ],
+            "max": [
+              53.849999999999994,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-05",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  51.75,
+                  4
+                ],
+                "max": [
+                  53.85,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-05",
+              "source_rectangle_mm": {
+                "min": [
+                  51.75,
+                  4
+                ],
+                "max": [
+                  53.85,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-05",
+                  "rectangle_mm": {
+                    "min": [
+                      51.75,
+                      4
+                    ],
+                    "max": [
+                      53.85,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      52.2,
+                      4.45
+                    ],
+                    "max": [
+                      53.4,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-05-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-05-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-05-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 38.457321,
+                "lateral_drift_mm": 0.087133,
+                "points_mm": [
+                  [
+                    52.688319,
+                    4.45
+                  ],
+                  [
+                    52.687523,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-06",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            6,
+            7
+          ],
+          "slot_centers_x_mm": [
+            58.199999999999996,
+            69
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 62.4,
+            "right_slot_left_edge": 64.8
+          },
+          "material_bridge_width_mm": 2.3999999999999986,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.0999999999999943,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              62.55,
+              4
+            ],
+            "max": [
+              64.64999999999999,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-06",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  62.55,
+                  4
+                ],
+                "max": [
+                  64.65,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-06",
+              "source_rectangle_mm": {
+                "min": [
+                  62.55,
+                  4
+                ],
+                "max": [
+                  64.65,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-06",
+                  "rectangle_mm": {
+                    "min": [
+                      62.55,
+                      4
+                    ],
+                    "max": [
+                      64.65,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      63,
+                      4.45
+                    ],
+                    "max": [
+                      64.2,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-06-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-06-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-06-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 47.429171,
+                "lateral_drift_mm": 0.14302,
+                "points_mm": [
+                  [
+                    64.081345,
+                    4.45
+                  ],
+                  [
+                    64.065172,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        },
+        {
+          "id": "screwdriver-comb-top-bridge-07",
+          "face_class": "comb-safe-upward-top-bridge",
+          "adjacent_slot_numbers": [
+            7,
+            8
+          ],
+          "slot_centers_x_mm": [
+            69,
+            79.8
+          ],
+          "slot_boundaries_x_mm": {
+            "left_slot_right_edge": 73.2,
+            "right_slot_left_edge": 75.6
+          },
+          "material_bridge_width_mm": 2.3999999999999915,
+          "groove_half_width_mm": 0.45,
+          "slot_edge_clearance_mm": 0.15,
+          "centerline_reserve_from_each_slot_boundary_mm": 0.6,
+          "remaining_safe_width_mm": 2.09999999999998,
+          "front_back_end_margin_mm": 4,
+          "rectangle_mm": {
+            "min": [
+              73.35000000000001,
+              4
+            ],
+            "max": [
+              75.44999999999999,
+              6
+            ]
+          },
+          "plan": {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-07",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  73.35,
+                  4
+                ],
+                "max": [
+                  75.45,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-07",
+              "source_rectangle_mm": {
+                "min": [
+                  73.35,
+                  4
+                ],
+                "max": [
+                  75.45,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-07",
+                  "rectangle_mm": {
+                    "min": [
+                      73.35,
+                      4
+                    ],
+                    "max": [
+                      75.45,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      73.8,
+                      4.45
+                    ],
+                    "max": [
+                      75,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-07-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-07-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-07-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 29.3673,
+                "lateral_drift_mm": 0.13227,
+                "points_mm": [
+                  [
+                    74.684253,
+                    4.45
+                  ],
+                  [
+                    74.715223,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        }
+      ],
+      "smooth_keepouts": [
+        "comb-slot-bores-and-cut-faces",
+        "comb-slot-boundaries-plus-positive-clearance",
+        "comb-fit-and-contact-faces",
+        "comb-front-back-and-side-outer-faces",
+        "comb-underside-and-bed-contact",
+        "comb-non-upward-facing-surfaces"
+      ],
+      "texture_plans": [
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-01",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                8.55,
+                4
+              ],
+              "max": [
+                10.65,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-01",
+            "source_rectangle_mm": {
+              "min": [
+                8.55,
+                4
+              ],
+              "max": [
+                10.65,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-01",
+                "rectangle_mm": {
+                  "min": [
+                    8.55,
+                    4
+                  ],
+                  "max": [
+                    10.65,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    9,
+                    4.45
+                  ],
+                  "max": [
+                    10.2,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-01-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-01-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-01-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 55.973817,
+              "lateral_drift_mm": 0.112341,
+              "points_mm": [
+                [
+                  9.991407,
+                  4.45
+                ],
+                [
+                  9.977555,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-02",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                19.35,
+                4
+              ],
+              "max": [
+                21.45,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-02",
+            "source_rectangle_mm": {
+              "min": [
+                19.35,
+                4
+              ],
+              "max": [
+                21.45,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-02",
+                "rectangle_mm": {
+                  "min": [
+                    19.35,
+                    4
+                  ],
+                  "max": [
+                    21.45,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    19.8,
+                    4.45
+                  ],
+                  "max": [
+                    21,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-02-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-02-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-02-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 32.185462,
+              "lateral_drift_mm": 0.102675,
+              "points_mm": [
+                [
+                  20.405632,
+                  4.45
+                ],
+                [
+                  20.421335,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-03",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                30.15,
+                4
+              ],
+              "max": [
+                32.25,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-03",
+            "source_rectangle_mm": {
+              "min": [
+                30.15,
+                4
+              ],
+              "max": [
+                32.25,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-03",
+                "rectangle_mm": {
+                  "min": [
+                    30.15,
+                    4
+                  ],
+                  "max": [
+                    32.25,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    30.6,
+                    4.45
+                  ],
+                  "max": [
+                    31.8,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-03-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-03-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-03-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 61.920313,
+              "lateral_drift_mm": 0.125761,
+              "points_mm": [
+                [
+                  30.9283,
+                  4.45
+                ],
+                [
+                  30.942193,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-04",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                40.95,
+                4
+              ],
+              "max": [
+                43.05,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-04",
+            "source_rectangle_mm": {
+              "min": [
+                40.95,
+                4
+              ],
+              "max": [
+                43.05,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-04",
+                "rectangle_mm": {
+                  "min": [
+                    40.95,
+                    4
+                  ],
+                  "max": [
+                    43.05,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    41.4,
+                    4.45
+                  ],
+                  "max": [
+                    42.6,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-04-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-04-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-04-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 52.629579,
+              "lateral_drift_mm": 0.109328,
+              "points_mm": [
+                [
+                  41.722417,
+                  4.45
+                ],
+                [
+                  41.727138,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-05",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                51.75,
+                4
+              ],
+              "max": [
+                53.85,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-05",
+            "source_rectangle_mm": {
+              "min": [
+                51.75,
+                4
+              ],
+              "max": [
+                53.85,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-05",
+                "rectangle_mm": {
+                  "min": [
+                    51.75,
+                    4
+                  ],
+                  "max": [
+                    53.85,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    52.2,
+                    4.45
+                  ],
+                  "max": [
+                    53.4,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-05-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-05-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-05-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 38.457321,
+              "lateral_drift_mm": 0.087133,
+              "points_mm": [
+                [
+                  52.688319,
+                  4.45
+                ],
+                [
+                  52.687523,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-06",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                62.55,
+                4
+              ],
+              "max": [
+                64.65,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-06",
+            "source_rectangle_mm": {
+              "min": [
+                62.55,
+                4
+              ],
+              "max": [
+                64.65,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-06",
+                "rectangle_mm": {
+                  "min": [
+                    62.55,
+                    4
+                  ],
+                  "max": [
+                    64.65,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    63,
+                    4.45
+                  ],
+                  "max": [
+                    64.2,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-06-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-06-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-06-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 47.429171,
+              "lateral_drift_mm": 0.14302,
+              "points_mm": [
+                [
+                  64.081345,
+                  4.45
+                ],
+                [
+                  64.065172,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "screwdriver-comb-top-bridge-07",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                73.35,
+                4
+              ],
+              "max": [
+                75.45,
+                6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "screwdriver-comb-top-bridge-07",
+            "source_rectangle_mm": {
+              "min": [
+                73.35,
+                4
+              ],
+              "max": [
+                75.45,
+                6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "screwdriver-comb-top-bridge-07",
+                "rectangle_mm": {
+                  "min": [
+                    73.35,
+                    4
+                  ],
+                  "max": [
+                    75.45,
+                    6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    73.8,
+                    4.45
+                  ],
+                  "max": [
+                    75,
+                    5.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "screwdriver-comb-top-bridge-07-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "screwdriver-comb-top-bridge-07-grain-01",
+              "parent_path_id": "screwdriver-comb-top-bridge-07-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 29.3673,
+              "lateral_drift_mm": 0.13227,
+              "points_mm": [
+                [
+                  74.684253,
+                  4.45
+                ],
+                [
+                  74.715223,
+                  5.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        }
+      ]
+    },
+    "artifacts": [
+      {
+        "id": "screwdriver-comb",
+        "texture_plans": [
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-01",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  8.55,
+                  4
+                ],
+                "max": [
+                  10.65,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-01",
+              "source_rectangle_mm": {
+                "min": [
+                  8.55,
+                  4
+                ],
+                "max": [
+                  10.65,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-01",
+                  "rectangle_mm": {
+                    "min": [
+                      8.55,
+                      4
+                    ],
+                    "max": [
+                      10.65,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      9,
+                      4.45
+                    ],
+                    "max": [
+                      10.2,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-01-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-01-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-01-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 55.973817,
+                "lateral_drift_mm": 0.112341,
+                "points_mm": [
+                  [
+                    9.991407,
+                    4.45
+                  ],
+                  [
+                    9.977555,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-02",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  19.35,
+                  4
+                ],
+                "max": [
+                  21.45,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-02",
+              "source_rectangle_mm": {
+                "min": [
+                  19.35,
+                  4
+                ],
+                "max": [
+                  21.45,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-02",
+                  "rectangle_mm": {
+                    "min": [
+                      19.35,
+                      4
+                    ],
+                    "max": [
+                      21.45,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      19.8,
+                      4.45
+                    ],
+                    "max": [
+                      21,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-02-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-02-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-02-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 32.185462,
+                "lateral_drift_mm": 0.102675,
+                "points_mm": [
+                  [
+                    20.405632,
+                    4.45
+                  ],
+                  [
+                    20.421335,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-03",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  30.15,
+                  4
+                ],
+                "max": [
+                  32.25,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-03",
+              "source_rectangle_mm": {
+                "min": [
+                  30.15,
+                  4
+                ],
+                "max": [
+                  32.25,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-03",
+                  "rectangle_mm": {
+                    "min": [
+                      30.15,
+                      4
+                    ],
+                    "max": [
+                      32.25,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      30.6,
+                      4.45
+                    ],
+                    "max": [
+                      31.8,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-03-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-03-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-03-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 61.920313,
+                "lateral_drift_mm": 0.125761,
+                "points_mm": [
+                  [
+                    30.9283,
+                    4.45
+                  ],
+                  [
+                    30.942193,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-04",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  40.95,
+                  4
+                ],
+                "max": [
+                  43.05,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-04",
+              "source_rectangle_mm": {
+                "min": [
+                  40.95,
+                  4
+                ],
+                "max": [
+                  43.05,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-04",
+                  "rectangle_mm": {
+                    "min": [
+                      40.95,
+                      4
+                    ],
+                    "max": [
+                      43.05,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      41.4,
+                      4.45
+                    ],
+                    "max": [
+                      42.6,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-04-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-04-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-04-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 52.629579,
+                "lateral_drift_mm": 0.109328,
+                "points_mm": [
+                  [
+                    41.722417,
+                    4.45
+                  ],
+                  [
+                    41.727138,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-05",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  51.75,
+                  4
+                ],
+                "max": [
+                  53.85,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-05",
+              "source_rectangle_mm": {
+                "min": [
+                  51.75,
+                  4
+                ],
+                "max": [
+                  53.85,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-05",
+                  "rectangle_mm": {
+                    "min": [
+                      51.75,
+                      4
+                    ],
+                    "max": [
+                      53.85,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      52.2,
+                      4.45
+                    ],
+                    "max": [
+                      53.4,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-05-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-05-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-05-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 38.457321,
+                "lateral_drift_mm": 0.087133,
+                "points_mm": [
+                  [
+                    52.688319,
+                    4.45
+                  ],
+                  [
+                    52.687523,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-06",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  62.55,
+                  4
+                ],
+                "max": [
+                  64.65,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-06",
+              "source_rectangle_mm": {
+                "min": [
+                  62.55,
+                  4
+                ],
+                "max": [
+                  64.65,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-06",
+                  "rectangle_mm": {
+                    "min": [
+                      62.55,
+                      4
+                    ],
+                    "max": [
+                      64.65,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      63,
+                      4.45
+                    ],
+                    "max": [
+                      64.2,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-06-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-06-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-06-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 47.429171,
+                "lateral_drift_mm": 0.14302,
+                "points_mm": [
+                  [
+                    64.081345,
+                    4.45
+                  ],
+                  [
+                    64.065172,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          },
+          {
+            "schema": "organizer-procedural-wood-plan-v1",
+            "representation": "procedural-vector-wood-grooves",
+            "units": "mm",
+            "seed": 20260820,
+            "region": {
+              "id": "screwdriver-comb-top-bridge-07",
+              "surface": "top",
+              "coordinate_space": "local-uv-mm",
+              "rectangle_mm": {
+                "min": [
+                  73.35,
+                  4
+                ],
+                "max": [
+                  75.45,
+                  6
+                ]
+              },
+              "direction": {
+                "mode": "local-long-axis",
+                "vector": [
+                  0,
+                  1
+                ]
+              }
+            },
+            "policy": {
+              "operation": "engrave-only",
+              "repeat": "none-deterministic-global-field",
+              "outer_walls": "smooth-no-geometric-texture",
+              "rounded_cutters": true,
+              "input_mode": "parameters-only",
+              "input_dependencies": []
+            },
+            "coherence": {
+              "coherence_policy": "plan-once-then-clip",
+              "source_field_id": "screwdriver-comb-top-bridge-07",
+              "source_rectangle_mm": {
+                "min": [
+                  73.35,
+                  4
+                ],
+                "max": [
+                  75.45,
+                  6
+                ]
+              },
+              "clip_rectangles": [
+                {
+                  "id": "screwdriver-comb-top-bridge-07",
+                  "rectangle_mm": {
+                    "min": [
+                      73.35,
+                      4
+                    ],
+                    "max": [
+                      75.45,
+                      6
+                    ]
+                  },
+                  "inset_centerline_rectangle_mm": {
+                    "min": [
+                      73.8,
+                      4.45
+                    ],
+                    "max": [
+                      75,
+                      5.55
+                    ]
+                  }
+                }
+              ],
+              "parent_path_ids": [
+                "screwdriver-comb-top-bridge-07-grain-01"
+              ]
+            },
+            "groove": {
+              "width_mm": 0.9,
+              "depth_mm": 0.2
+            },
+            "paths": [
+              {
+                "id": "screwdriver-comb-top-bridge-07-grain-01",
+                "parent_path_id": "screwdriver-comb-top-bridge-07-grain-01",
+                "kind": "grain-centerline",
+                "surface": "top",
+                "closed": false,
+                "width_mm": 0.9,
+                "depth_mm": 0.2,
+                "wavelength_mm": 29.3673,
+                "lateral_drift_mm": 0.13227,
+                "points_mm": [
+                  [
+                    74.684253,
+                    4.45
+                  ],
+                  [
+                    74.715223,
+                    5.55
+                  ]
+                ]
+              }
+            ],
+            "knots": []
+          }
+        ]
+      },
+      {
+        "id": "drawer-fit-corner-coupon",
+        "texture_plans": []
+      },
+      {
+        "id": "connector-coupon-male",
+        "texture_plans": []
+      },
+      {
+        "id": "connector-coupon-female",
+        "texture_plans": []
+      }
+    ]
+  },
+  "artifacts": {
+    "screwdriver-comb": {
+      "file": "output/DRAFT/DRAFT-R2-screwdriver-comb-procedural-wood-unmarked.stl",
+      "file_bytes": 74084,
+      "status": "NoError",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          84,
+          10,
+          20
+        ]
+      },
+      "size_mm": [
+        84,
+        10,
+        20
+      ],
+      "volume_mm3": 14593.043406281755,
+      "triangles": 1480,
+      "vertices": 742,
+      "export_mesh": {
+        "triangles": 1480,
+        "vertices": 742,
+        "dropped_zero_area_triangles": 0,
+        "float32_sanitization": {
+          "policy": "merge-exact-float32-vertices-and-cancel-exact-opposite-face-pairs-v1",
+          "source_vertices": 742,
+          "manufacturing_vertices": 742,
+          "merged_float32_vertices": 0,
+          "source_triangles": 1480,
+          "manufacturing_triangles": 1480,
+          "dropped_zero_area_triangles": 0,
+          "canceled_opposite_face_pairs": 0
+        }
+      },
+      "texture_plan_count": 7,
+      "textured": true
+    },
+    "drawer-fit-corner-coupon": {
+      "file": "output/DRAFT/DRAFT-R2-drawer-fit-corner-coupon.stl",
+      "file_bytes": 5084,
+      "status": "NoError",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          40,
+          40,
+          12
+        ]
+      },
+      "size_mm": [
+        40,
+        40,
+        12
+      ],
+      "volume_mm3": 6446.619201629516,
+      "triangles": 100,
+      "vertices": 52,
+      "export_mesh": {
+        "triangles": 100,
+        "vertices": 52,
+        "dropped_zero_area_triangles": 0,
+        "float32_sanitization": {
+          "policy": "merge-exact-float32-vertices-and-cancel-exact-opposite-face-pairs-v1",
+          "source_vertices": 52,
+          "manufacturing_vertices": 52,
+          "merged_float32_vertices": 0,
+          "source_triangles": 100,
+          "manufacturing_triangles": 100,
+          "dropped_zero_area_triangles": 0,
+          "canceled_opposite_face_pairs": 0
+        }
+      },
+      "texture_plan_count": 0,
+      "textured": false
+    },
+    "connector-coupon-male": {
+      "file": "output/DRAFT/DRAFT-R2-connector-coupon-male.stl",
+      "file_bytes": 7684,
+      "status": "NoError",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          28,
+          20,
+          2.6
+        ]
+      },
+      "size_mm": [
+        28,
+        20,
+        2.6
+      ],
+      "volume_mm3": 1171.9431344654483,
+      "triangles": 152,
+      "vertices": 78,
+      "export_mesh": {
+        "triangles": 152,
+        "vertices": 78,
+        "dropped_zero_area_triangles": 0,
+        "float32_sanitization": {
+          "policy": "merge-exact-float32-vertices-and-cancel-exact-opposite-face-pairs-v1",
+          "source_vertices": 78,
+          "manufacturing_vertices": 78,
+          "merged_float32_vertices": 0,
+          "source_triangles": 152,
+          "manufacturing_triangles": 152,
+          "dropped_zero_area_triangles": 0,
+          "canceled_opposite_face_pairs": 0
+        }
+      },
+      "texture_plan_count": 0,
+      "textured": false
+    },
+    "connector-coupon-female": {
+      "file": "output/DRAFT/DRAFT-R2-connector-coupon-female.stl",
+      "file_bytes": 7284,
+      "status": "NoError",
+      "bounds": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          20,
+          20,
+          2.6
+        ]
+      },
+      "size_mm": [
+        20,
+        20,
+        2.6
+      ],
+      "volume_mm3": 890.6209022966742,
+      "triangles": 144,
+      "vertices": 74,
+      "export_mesh": {
+        "triangles": 144,
+        "vertices": 74,
+        "dropped_zero_area_triangles": 0,
+        "float32_sanitization": {
+          "policy": "merge-exact-float32-vertices-and-cancel-exact-opposite-face-pairs-v1",
+          "source_vertices": 74,
+          "manufacturing_vertices": 74,
+          "merged_float32_vertices": 0,
+          "source_triangles": 144,
+          "manufacturing_triangles": 144,
+          "dropped_zero_area_triangles": 0,
+          "canceled_opposite_face_pairs": 0
+        }
+      },
+      "texture_plan_count": 0,
+      "textured": false
+    }
+  },
+  "identities": {
+    "inputs": {
+      "design_spec": {
+        "path": "design-spec.yaml",
+        "sha256": "47926a145d67bb8513f3f93501af6711192334982ae3fb865e39b29e2106a11e"
+      },
+      "model_params": {
+        "path": "config/model-params.json",
+        "sha256": "80666d96b2fee0ebcf17d26290a80383263b7c5d3a5a5715ac943ebd0c0acddb"
+      },
+      "wood_config": {
+        "path": "config/wood-texture-params.json",
+        "sha256": "9b47360ab98a2b1f37a1d740b003aa14414b08154822e83e473d323f1f1e9654"
+      },
+      "build_source": {
+        "path": "src/manifold_build.mjs",
+        "sha256": "9771255e3add72b6be60ac4159c987df8a27eb42add07af59e7696f231c31906"
+      },
+      "mesh_export": {
+        "path": "src/mesh_export.mjs",
+        "sha256": "9efde4ca0166787d7f94ae159bc002b2bc18936480c4ae28e91ecbe4067cd364"
+      },
+      "model_source": {
+        "path": "src/manifold_model.mjs",
+        "sha256": "385ba080acac780ea82ad3ebf0f30ff98cb2e6e25e2535f1e372ef81d7f01018"
+      },
+      "wood_planner": {
+        "path": "src/procedural_wood.mjs",
+        "sha256": "cd521060135fdfbad0a34524d028720d01b11121c18743a0ef663a6629aa990e"
+      }
+    },
+    "artifacts": {
+      "screwdriver-comb": {
+        "path": "output/DRAFT/DRAFT-R2-screwdriver-comb-procedural-wood-unmarked.stl",
+        "sha256": "079a6b8205a5b121233daabecb8ff798b573b45b50ab7784cf6c6b673bee0481"
+      },
+      "drawer-fit-corner-coupon": {
+        "path": "output/DRAFT/DRAFT-R2-drawer-fit-corner-coupon.stl",
+        "sha256": "bd2edbcc3e98dd28e80aa629c378fba2e1236c8e461ae5a0ece61d7e938ba40a"
+      },
+      "connector-coupon-male": {
+        "path": "output/DRAFT/DRAFT-R2-connector-coupon-male.stl",
+        "sha256": "94aca765ebde1b60cd96bf92aeb588da259a5ab54808f79a25f0d30bed88e216"
+      },
+      "connector-coupon-female": {
+        "path": "output/DRAFT/DRAFT-R2-connector-coupon-female.stl",
+        "sha256": "8ead08d92c9e68983e96a3ca96e1c45c166b04854e0384eff0b8c462fb971f1e"
+      }
+    }
+  },
+  "process_memory": {
+    "mode": "r2-accessories",
+    "pid": 177,
+    "max_rss_mib": 119.453125,
+    "measurement": "/proc/self/status VmHWM; peak resident set for this isolated Linux Node/WASM process"
+  },
+  "resource_budget": {
+    "source_config_key": "resource_budget.max_peak_rss_mib_per_module",
+    "max_peak_rss_mib": 1228.8,
+    "measured_max_rss_mib": 119.453125,
+    "status": "PASS"
+  }
+}

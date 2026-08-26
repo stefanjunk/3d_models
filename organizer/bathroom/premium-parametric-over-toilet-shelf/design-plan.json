@@ -1,0 +1,1997 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "PREMIUM_OVER_TOILET_SHELF_R02",
+    "title": "Premium Parametric Over-Toilet Shelf",
+    "revision": "0.2.0",
+    "geometry_revision": "r0.2.0-draft.2",
+    "source_modes": [
+      "concept_image",
+      "design_description",
+      "measurements"
+    ],
+    "claim": "new_design",
+    "units": "mm",
+    "source_assets": {
+      "approved_spec": "design-spec.yaml",
+      "parameters": "parameters.json",
+      "decision_log": "decision-log.md",
+      "approved_concept": "assets/concept/premium_over_toilet_shelf_r0.2.0_concept.png"
+    },
+    "process": {
+      "technology": "FDM/FFF",
+      "printer": "universal 256 mm class",
+      "structural_material": "PETG",
+      "nozzle_mm": 0.6,
+      "line_width_mm": 0.68,
+      "layer_height_mm": 0.3,
+      "structural_layer_height_mm": 0.3,
+      "profile_status": "provisional",
+      "evidence_status": "open; exact printer, material, process coupons, and exact slicer evidence required"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "floor at the centered rear-frame datum",
+      "x_axis": "+X right from the centered datum when viewed from the user side",
+      "y_axis": "+Y from the rear frame toward the user",
+      "z_axis": "+Z upward from the floor",
+      "transform_convention": "row-major 4x4 maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {
+      "min": [
+        -340,
+        -80,
+        0
+      ],
+      "max": [
+        340,
+        300,
+        1650
+      ]
+    },
+    "requirements": [
+      {
+        "id": "REQ-R02-ENVELOPE",
+        "statement": "The selected default architecture is 680 mm wide, 300 mm deep, and 1650 mm high within the recorded master envelope.",
+        "evidence_class": "requested",
+        "source": "design-spec.yaml revision 0.2.0 and parameters.json",
+        "priority": "critical",
+        "verification": "parametric bounds check; site-fit evidence remains open"
+      },
+      {
+        "id": "REQ-R02-FRAME",
+        "statement": "The floor-standing load path uses two 20 mm thick by 240 mm deep side frames, seven printable segments per side locked with M4 hardware, and four PETG feet with replaceable TPU pads.",
+        "evidence_class": "requested",
+        "source": "DEC-011",
+        "priority": "critical",
+        "verification": "future source inspection, interface coupons, assembly review, and physical tests"
+      },
+      {
+        "id": "REQ-R02-SHELVES",
+        "statement": "The 620 mm clear shelves have top datums at Z=1050 mm and Z=1400 mm; each shelf is 32 mm high with two 14 x 32 mm edge beams, three tiles, and underside joiners.",
+        "evidence_class": "requested",
+        "source": "DEC-011 and parameters.json",
+        "priority": "critical",
+        "verification": "future parametric section check plus creep, proof, and cycle tests"
+      },
+      {
+        "id": "REQ-R02-MODULES",
+        "statement": "Modules use a six-column grid; any wider-than-245 mm three-column module is split at its centerline and joined with test-required M3 seam hardware.",
+        "evidence_class": "requested",
+        "source": "DEC-011 and parameters.json",
+        "priority": "critical",
+        "verification": "revision-bound configuration and drawer swept-volume digital checks pass; exact M3 seam coupon remains pending"
+      },
+      {
+        "id": "REQ-R02-WALL",
+        "statement": "Two rear height-adjustable wall-restraint spacers are required in total, one per side, using adjacent 50 mm frame holes and purchased substrate-specific wall anchors.",
+        "evidence_class": "requested",
+        "source": "DEC-011",
+        "priority": "critical",
+        "verification": "site substrate identification, supplier anchor review, installation check, and guarded anti-tip test"
+      },
+      {
+        "id": "REQ-R02-DECOR",
+        "statement": "Fascias and the header remain replaceable, and any optional continuous-tone image relief is localized to a replaceable heightmap-controlled insert outside protected functional geometry.",
+        "evidence_class": "requested",
+        "source": "design-spec.yaml revision 0.2.0 and DEC-003/DEC-004",
+        "priority": "important",
+        "verification": "future interface review, relief metadata check, coupon, and exact slicer review"
+      },
+      {
+        "id": "REQ-R02-HARDWARE",
+        "statement": "M4, M5, M3, and wall anchoring hardware are purchased parts; supplier or measured geometry owns purchased mating details.",
+        "evidence_class": "requested",
+        "source": "parameters.json and DEC-005/DEC-011",
+        "priority": "critical",
+        "verification": "exact purchased-part identification, measurement, and coupon evidence"
+      },
+      {
+        "id": "REQ-R02-EVIDENCE",
+        "statement": "Architecture integrity may be checked now, but manufacturing, physical, and release acceptance remain blocked pending the recorded evidence decisions.",
+        "evidence_class": "inferred",
+        "source": "design-spec.yaml release_blockers and DEC-011",
+        "priority": "critical",
+        "verification": "decision-log blocker review"
+      },
+      {
+        "id": "REQ-R02-LEGACY",
+        "statement": "Revision 0.1 output evidence is retained as informative legacy evidence and is not current approval evidence for revision 0.2.0.",
+        "evidence_class": "inferred",
+        "source": "design-spec.yaml legacy_digital_evidence and DEC-000",
+        "priority": "important",
+        "verification": "no revision 0.1 evidence is deleted or promoted by this architecture edit"
+      }
+    ],
+    "global_style": {
+      "summary": "quiet premium bathroom furniture with replaceable accent surfaces kept separate from structural and service geometry",
+      "motifs": [
+        "softened edges",
+        "clean modular rhythm",
+        "replaceable fascias and header"
+      ],
+      "exclude": [
+        "decoration on load paths",
+        "decoration on fits or fastener seats",
+        "heightmap outside the localized optional insert"
+      ],
+      "generation_material": "matte PETG structural bodies with optional nonstructural replaceable accents",
+      "detail_hierarchy": "load path and site clearance first, module rhythm second, replaceable decoration third"
+    },
+    "assembly_sequence": [
+      "Confirm the measured site, wall substrate, purchased hardware, and process-matched coupons before production assembly.",
+      "Assemble seven M4-locked frame segments per side and engage each side frame with its two PETG feet and TPU floor pads.",
+      "Install shelf brackets at the selected frame positions for shelf top datums Z=1050 mm and Z=1400 mm.",
+      "Assemble three tiles and underside joiners for each shelf, then fasten each shelf to its brackets.",
+      "Install six-column modules; center-split any wider-than-245 mm three-column module and use only coupon-qualified M3 seam hardware.",
+      "Install the replaceable fascias, header, and optional localized heightmap insert without entering protected geometry.",
+      "Install one rear wall-restraint spacer per side on adjacent 50 mm holes with substrate-specific purchased wall anchors before loading.",
+      "Do not treat the assembly as manufacturing-, physical-, load-, or release-accepted until all open blockers are closed."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-R02-PROCESS",
+      "topic": "Confirm the target FDM process and dimensional compensation",
+      "status": "provisional",
+      "current_basis": "Approved PETG, 0.6 mm nozzle, 0.68 mm line width, and 0.30 mm structural layer target on a universal 256 mm class printer.",
+      "evidence_needed": "Exact printer, filament, profile identity, drying state, and process-matched interface coupons.",
+      "blocks_gates": [
+        "component",
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-WALL-ANCHOR",
+      "topic": "Select and verify substrate-specific wall anchors",
+      "status": "open",
+      "current_basis": "The architecture requires two rear restraints, but anchor capacity belongs to the measured wall substrate and purchased anchor system.",
+      "evidence_needed": "Site substrate identification, exact anchor and screw supplier data, installation method, edge-distance review, and guarded pull/anti-tip test.",
+      "blocks_gates": [
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-MODULE-SEAM",
+      "topic": "Qualify the M3 center seam for wide three-column modules",
+      "status": "provisional",
+      "current_basis": "Modules wider than 245 mm split at center; geometry revision r0.2.0-draft.2 seats each removable 3 mm plate directly on two 6 mm boss tops with zero modeled gap and open coaxial M3 axes.",
+      "evidence_needed": "Exact M3 insert or captive-nut selection, seam geometry, process coupon, tool access, assembly-cycle, and module-load checks.",
+      "blocks_gates": [
+        "component",
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-SHELF-LOAD",
+      "topic": "Verify shelf creep, service load, proof load, and cycle behavior",
+      "status": "provisional",
+      "current_basis": "The selected 32 mm shelf architecture and two 14 x 32 mm edge beams have only preliminary analytical support.",
+      "evidence_needed": "Production-process shelf assembly tests for creep, service deflection, proof load, residual set, seam behavior, and load cycles.",
+      "blocks_gates": [
+        "physical",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-SITE-FIT",
+      "topic": "Confirm toilet, service, baseboard, pipe, wall-gap, and floor fit",
+      "status": "open",
+      "current_basis": "The default envelope is approved, but each installation requires measured keep-outs and floor contacts.",
+      "evidence_needed": "Measured site envelope, toilet and lid service path, flush controls, pipes, baseboard, wall gap, floor flatness, and installation mockup.",
+      "blocks_gates": [
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-EXACT-SLICER",
+      "topic": "Run the exact target slicer review",
+      "status": "open",
+      "current_basis": "No revision 0.2.0 manufacturing geometry or exact-profile slicer evidence is approved.",
+      "evidence_needed": "Exact target profile import and toolpath review for bed fit, thin walls, supports, seams, hardware features, and optional relief budget.",
+      "blocks_gates": [
+        "manufacturing",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-OPTIMIZATION",
+      "topic": "Complete print-time, material, and manufacturing-mesh optimization evidence",
+      "status": "open",
+      "current_basis": "No stable revision 0.2.0 production geometry, exact slicer baseline, comparison, or selected mesh policy exists.",
+      "evidence_needed": "Protected-region baseline, process/geometry comparison, selected or no-change decision, mesh policy, and independent slicer-resolution evidence.",
+      "blocks_gates": [
+        "manufacturing",
+        "release"
+      ]
+    },
+    {
+      "id": "DEC-R02-WATERMARK",
+      "topic": "Integrate and approve the JuSt Innovation watermark on current production geometry",
+      "status": "open",
+      "current_basis": "The specification requires JSI-WM-001-R1 as the last planned solid-geometry feature; no revision 0.2.0 placement or validation evidence exists.",
+      "evidence_needed": "Current-geometry placement, protected-wall review, readable underside preview, manufacturing validation, and explicit final approval.",
+      "blocks_gates": [
+        "release"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "FRAME",
+      "name": "Segmented left and right side frames",
+      "role": "Primary floor-standing vertical load path, bracket grid, and wall-restraint transfer path",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "design-spec.yaml",
+          "parameters.json",
+          "decision-log.md#DEC-011",
+          "REQ-R02-FRAME"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "provide two 20 mm thick by 240 mm deep side frames",
+        "divide each side into seven printable segments",
+        "own parametric frame holes and structural mating geometry",
+        "carry shelf reactions to the floor and restraint reactions to the wall"
+      ],
+      "envelope_mm": {
+        "min": [
+          -330,
+          0,
+          0
+        ],
+        "max": [
+          330,
+          240,
+          1650
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future segmented FDM plus purchased locks; no geometry generated by this plan edit",
+        "material": "PETG",
+        "color_body": "structural",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-SEGMENT-SEAM",
+        "IF-FEET-FRAME",
+        "IF-BRACKET-FRAME",
+        "IF-WALL-RESTRAINT-FRAME"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "logical component contains two sides and seven segments per side",
+          "20 mm thickness and 240 mm depth",
+          "M4 seam ownership and tool access",
+          "future bed-fit, straightness, and guarded physical checks"
+        ]
+      }
+    },
+    {
+      "id": "FLOOR_FEET",
+      "name": "Four load-spreading feet and TPU pads",
+      "role": "Transfer side-frame loads to four floor contacts without using the toilet as a load path",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "parameters.json",
+          "decision-log.md#DEC-011",
+          "REQ-R02-FRAME"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "provide four PETG feet",
+        "locate replaceable TPU pads",
+        "define floor contacts",
+        "keep the toilet outside the structural load path"
+      ],
+      "envelope_mm": {
+        "min": [
+          -340,
+          0,
+          0
+        ],
+        "max": [
+        340,
+          300,
+          16
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future FDM feet with replaceable flexible pads; no geometry generated by this plan edit",
+        "material": "PETG feet with TPU pads",
+        "color_body": "structural and floor-contact",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-FEET-FRAME"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "four discrete PETG feet",
+          "replaceable four-nub TPU pads",
+          "one M4 frame lock per foot",
+          "four stable floor contacts",
+          "future floor-flatness and slip evidence"
+        ]
+      }
+    },
+    {
+      "id": "SHELF_SYSTEM",
+      "name": "Two three-tile shelves with edge beams and underside joiners",
+      "role": "Provide two 620 mm clear storage planes and carry module loads into brackets",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "parameters.json",
+          "decision-log.md#DEC-011",
+          "REQ-R02-SHELVES"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "set shelf top datums at Z=1050 mm and Z=1400 mm",
+        "provide 32 mm high shelf sections",
+        "provide two 14 x 32 mm edge beams per shelf",
+        "divide each shelf into three tiles with underside joiners",
+        "own shelf top and module seating geometry"
+      ],
+      "envelope_mm": {
+        "min": [
+          -310,
+          0,
+          1018
+        ],
+        "max": [
+          310,
+          240,
+          1400
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future segmented FDM with purchased fasteners; no geometry generated by this plan edit",
+        "material": "PETG",
+        "color_body": "structural",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-SHELF-BRACKET",
+        "IF-TILE-SEAM",
+        "IF-MODULE-GRID",
+        "IF-DRAWER-TRAVEL",
+        "IF-DECOR-FASCIA",
+        "IF-DECOR-HEADER"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "two 620 mm clear shelf levels",
+          "three tiles per shelf and underside joiners",
+          "32 mm total height and two 14 x 32 mm edge beams per shelf",
+          "future creep, proof, cycle, and exact slicer evidence"
+        ]
+      }
+    },
+    {
+      "id": "SHELF_BRACKETS",
+      "name": "Adjustable shelf brackets",
+      "role": "Transfer shelf shear and front-edge moment into the side frames",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "parameters.json",
+          "REQ-R02-SHELVES",
+          "REQ-R02-HARDWARE"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "mate to parametric frame holes",
+        "support shelf undersides",
+        "retain shelves with purchased hardware",
+        "remain height-adjustable"
+      ],
+      "envelope_mm": {
+        "min": [
+          -330,
+          0,
+          1018
+        ],
+        "max": [
+          330,
+          240,
+          1400
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future FDM plus purchased M4/M5 hardware; no geometry generated by this plan edit",
+        "material": "PETG",
+        "color_body": "structural",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-BRACKET-FRAME",
+        "IF-SHELF-BRACKET"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "parametric frame-hole alignment",
+          "parametric shelf-hole alignment",
+          "purchased hardware tool access",
+          "future proof and cycle evidence"
+        ]
+      }
+    },
+    {
+      "id": "MODULES",
+      "name": "Six-column organization modules",
+      "role": "Provide removable bins, trays, drawers, open areas, dividers, and hangers",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "design-spec.yaml",
+          "parameters.json",
+          "decision-log.md#DEC-011",
+          "REQ-R02-MODULES"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "occupy a six-column shelf grid",
+        "provide removable storage functions",
+        "center-split wider-than-245 mm three-column modules",
+        "own the parametric M3 module seam and drawer travel geometry"
+      ],
+      "envelope_mm": {
+        "min": [
+          -310,
+          0,
+          1050
+        ],
+        "max": [
+          310,
+          240,
+          1650
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "revision-bound DRAFT FDM geometry with purchased M3 seam hardware where required; exact profile and hardware remain pending",
+        "material": "PETG",
+        "color_body": "module",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-MODULE-GRID",
+        "IF-MODULE-SEAM",
+        "IF-DRAWER-TRAVEL"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "six-column packing",
+          "center split for each wider-than-245 mm three-column module",
+          "M3 seam coupon and tool access",
+          "drawer travel and cleaning access"
+        ]
+      }
+    },
+    {
+      "id": "DECOR_SKINS",
+      "name": "Replaceable fascias and header",
+      "role": "Carry nonstructural finish, text, and optional localized image-relief presentation",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "concept_image",
+        "refs": [
+          "assets/concept/premium_over_toilet_shelf_r0.2.0_concept.png",
+          "design-spec.yaml",
+          "REQ-R02-DECOR"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "provide replaceable shelf fascias",
+        "provide a replaceable header",
+        "host optional localized image relief",
+        "remain outside load paths, fits, shelf tops, and hardware access"
+      ],
+      "envelope_mm": {
+        "min": [
+          -310,
+          0,
+          1018
+        ],
+        "max": [
+          310,
+          240,
+          1650
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future separate replaceable FDM skins; no geometry generated by this plan edit",
+        "material": "PETG or nonstructural decorative material allowed by the approved specification",
+        "color_body": "accent",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-DECOR-FASCIA",
+        "IF-DECOR-HEADER",
+        "IF-IMAGE-RELIEF"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "fascia and header replaceability",
+          "no protected-geometry intrusion",
+          "cleanability",
+          "future process coupon and exact slicer evidence"
+        ]
+      }
+    },
+    {
+      "id": "IMAGE_RELIEF",
+      "name": "Optional localized continuous-tone heightmap insert",
+      "role": "Provide optional image engraving or embossing only on a replaceable decorative insert",
+      "authority": "hybrid",
+      "representation": "heightmap",
+      "source": {
+        "kind": "design_description",
+        "refs": [
+          "design-spec.yaml#appearance.image_personalization",
+          "parameters.json#personalization.image_relief",
+          "REQ-R02-DECOR"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "preserve a localized heightmap-controlled image field",
+        "remain replaceable",
+        "avoid structural and service interfaces",
+        "remain optional"
+      ],
+      "envelope_mm": {
+        "min": [
+          -90,
+          0,
+          1400
+        ],
+        "max": [
+          90,
+          240,
+          1650
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future localized heightmap-to-watertight-insert workflow; no geometry generated by this plan edit",
+        "material": "nonstructural replaceable PETG or approved decorative material",
+        "color_body": "accent",
+        "orientation": "provisional pending relief coupon and exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-IMAGE-RELIEF"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "localized insert only",
+          "physical scale and aspect metadata",
+          "remaining-wall and protected-region review",
+          "independent mesh and exact slicer evidence"
+        ]
+      }
+    },
+    {
+      "id": "WALL_RESTRAINT",
+      "name": "Two rear height-adjustable wall-restraint spacers",
+      "role": "Bridge the rear wall gap and transfer horizontal anti-tip restraint from each side frame to purchased wall anchors",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "design-spec.yaml",
+          "parameters.json",
+          "decision-log.md#DEC-011",
+          "REQ-R02-WALL"
+        ],
+        "confidence": "high"
+      },
+      "functions": [
+        "provide exactly two rear spacers total",
+        "provide one spacer per side",
+        "use adjacent 50 mm frame holes",
+        "keep wall-anchor capacity under purchased supplier and substrate authority"
+      ],
+      "envelope_mm": {
+        "min": [
+          -340,
+          -80,
+          1230
+        ],
+        "max": [
+          340,
+          0,
+          1580
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "future FDM spacers plus purchased substrate-specific wall anchors; no geometry generated by this plan edit",
+        "material": "PETG spacers",
+        "color_body": "structural",
+        "orientation": "provisional pending exact slicer evidence"
+      },
+      "interface_ids": [
+        "IF-WALL-RESTRAINT-FRAME",
+        "IF-WALL-ANCHOR"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "exactly two spacers total and one per side",
+          "adjacent 50 mm frame-hole use",
+          "measured wall gap and tool access",
+          "future substrate-specific guarded test"
+        ]
+      }
+    },
+    {
+      "id": "HARDWARE",
+      "name": "Purchased M4, M5, M3, and wall hardware",
+      "role": "Provide serviceable clamping and substrate-specific wall anchoring under supplier or measured authority",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "parameters.json#hardware",
+          "design-spec.yaml#purchased_parts",
+          "REQ-R02-HARDWARE"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "lock frame segments with M4 hardware",
+        "fasten frame, brackets, shelves, and tile joiners with selected M4/M5 hardware",
+        "join qualifying split modules with test-required M3 hardware",
+        "anchor each rear restraint with substrate-specific purchased wall hardware"
+      ],
+      "envelope_mm": {
+        "min": [
+          -340,
+          -80,
+          0
+        ],
+        "max": [
+          340,
+          300,
+          1650
+        ]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier-specified hardware materials",
+        "color_body": "hardware",
+        "orientation": "supplier installation axis"
+      },
+      "interface_ids": [
+        "IF-SEGMENT-SEAM",
+        "IF-BRACKET-FRAME",
+        "IF-SHELF-BRACKET",
+        "IF-TILE-SEAM",
+        "IF-MODULE-SEAM",
+        "IF-WALL-ANCHOR"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "exact purchased part identification",
+          "supplier or measured dimensions",
+          "thread engagement and tool access",
+          "substrate compatibility and coupon evidence"
+        ]
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-SEGMENT-SEAM",
+      "a": "FRAME",
+      "b": "HARDWARE",
+      "owner": "FRAME",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; each of the parametric segment seams owns its instance placement",
+      "nominal_geometry": {
+        "type": "parametric frame segment seam with purchased M4 lock",
+        "count_basis": "seven segments per side"
+      },
+      "joining": {
+        "method": "parametric registration plus purchased M4 locking hardware",
+        "assembly_direction": "parametric along the side-frame segment axis",
+        "anti_rotation": "owned by FRAME parametric seam geometry",
+        "lead_in_mm": 1.2,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; process coupon required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-SEGMENT-SEAMS",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric FRAME",
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 4.0,
+        "purchased_detail_authority": "HARDWARE supplier or measured M4 geometry",
+        "load_or_flow": "side-frame compression and bending continuity"
+      },
+      "verification": [
+        "process-matched seam coupon",
+        "M4 tool access",
+        "assembled straightness",
+        "future proof and cycle tests"
+      ]
+    },
+    {
+      "id": "IF-FEET-FRAME",
+      "a": "FLOOR_FEET",
+      "b": "FRAME",
+      "owner": "FLOOR_FEET",
+      "owner_authority": "parametric",
+      "kind": "keyed_insert",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; four parametric foot instances own placement",
+      "nominal_geometry": {
+        "type": "parametric PETG foot receiver with M4 through-lock and replaceable four-nub TPU floor pad",
+        "contact_count": 4,
+        "foot_lock": "one M4 x 50 purchased through-bolt per foot",
+        "pad_retention": "four printed TPU nubs per pad in parametric receiver holes"
+      },
+      "joining": {
+        "method": "serviceable receiver engagement plus purchased M4 through-lock",
+        "assembly_direction": "+Z/-Z",
+        "anti_rotation": "owned by FLOOR_FEET parametric receiver geometry",
+        "lead_in_mm": 1.0,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; process coupon and floor-fit evidence required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-FLOOR-CONTACTS",
+        "KEEP-BASEBOARD",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric FLOOR_FEET",
+        "minimum_wall_mm": 4.0,
+        "minimum_ligament_mm": 6.0,
+        "load_or_flow": "vertical frame load into four floor contacts"
+      },
+      "verification": [
+        "production-representative foot/rail/TPU/M4 coupon",
+        "four-contact stability",
+        "TPU shear and pull-off retention",
+        "M4 lock alignment and service cycles",
+        "measured floor and baseboard fit"
+      ]
+    },
+    {
+      "id": "IF-BRACKET-FRAME",
+      "a": "SHELF_BRACKETS",
+      "b": "FRAME",
+      "owner": "FRAME",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; selected shelf levels own parametric instance coordinates",
+      "nominal_geometry": {
+        "type": "parametric frame grid and bracket mate with purchased M5 hardware"
+      },
+      "joining": {
+        "method": "serviceable bolted bracket-to-frame joint",
+        "assembly_direction": "parametric across the side frame",
+        "anti_rotation": "owned by FRAME parametric hole pattern and SHELF_BRACKETS bearing geometry",
+        "lead_in_mm": 0.2,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; purchased M5 measurement and process coupon required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-BRACKET-GRID",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric FRAME",
+        "minimum_wall_mm": 4.0,
+        "minimum_ligament_mm": 6.0,
+        "purchased_detail_authority": "HARDWARE supplier or measured M5 geometry",
+        "load_or_flow": "shelf shear and moment into the side frames"
+      },
+      "verification": [
+        "parametric axis equality",
+        "purchased M5 measurement",
+        "tool access",
+        "future proof and cycle tests"
+      ]
+    },
+    {
+      "id": "IF-SHELF-BRACKET",
+      "a": "SHELF_SYSTEM",
+      "b": "SHELF_BRACKETS",
+      "owner": "SHELF_SYSTEM",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; each shelf owns parametric interface placement",
+      "nominal_geometry": {
+        "type": "parametric shelf underside and bracket bearing mate with purchased M4 hardware"
+      },
+      "joining": {
+        "method": "serviceable bolted shelf-to-bracket joint",
+        "assembly_direction": "parametric normal to the shelf bearing face",
+        "anti_rotation": "owned by SHELF_SYSTEM interface geometry and bracket bearing faces",
+        "lead_in_mm": 0.2,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; purchased M4 measurement and process coupon required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-SHELF-TOP",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric SHELF_SYSTEM",
+        "minimum_wall_mm": 4.0,
+        "minimum_ligament_mm": 5.0,
+        "purchased_detail_authority": "HARDWARE supplier or measured M4 geometry",
+        "load_or_flow": "shelf reaction into brackets"
+      },
+      "verification": [
+        "parametric axis equality",
+        "bearing-face contact review",
+        "tool access",
+        "future proof and cycle tests"
+      ]
+    },
+    {
+      "id": "IF-TILE-SEAM",
+      "a": "SHELF_SYSTEM",
+      "b": "HARDWARE",
+      "owner": "SHELF_SYSTEM",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; three-tile shelf layout owns seam instances",
+      "nominal_geometry": {
+        "type": "parametric shelf tile seam with underside joiners and purchased M4 hardware",
+        "tile_count_per_shelf": 3
+      },
+      "joining": {
+        "method": "parametric tile registration plus serviceable underside joiners",
+        "assembly_direction": "parametric across the shelf width",
+        "anti_rotation": "owned by SHELF_SYSTEM tile and joiner geometry",
+        "lead_in_mm": 0.8,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; seam coupon and load evidence required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-TILE-SEAMS",
+        "KEEP-SHELF-TOP",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric SHELF_SYSTEM",
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "purchased_detail_authority": "HARDWARE supplier or measured M4 geometry",
+        "load_or_flow": "shelf bending continuity and top-datum alignment"
+      },
+      "verification": [
+        "process-matched tile seam coupon",
+        "top-datum continuity",
+        "underside tool access",
+        "future creep, proof, and cycle tests"
+      ]
+    },
+    {
+      "id": "IF-MODULE-GRID",
+      "a": "SHELF_SYSTEM",
+      "b": "MODULES",
+      "owner": "SHELF_SYSTEM",
+      "owner_authority": "parametric",
+      "kind": "other",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; each shelf top owns its six-column grid instance",
+      "nominal_geometry": {
+        "type": "parametric shelf-top datum and six-column module grid with rear lip and front stop rail",
+        "columns": 6,
+        "front_stop": "continuous 6 mm high parametric rail"
+      },
+      "joining": {
+        "method": "removable gravity placement between the rear lip and front stop rail",
+        "assembly_direction": "+Z",
+        "anti_rotation": "module footprint, rear lip and front stop rail limit fore-aft motion; lateral retention remains a physical acceptance item",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; process and configuration evidence required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-MODULE-GRID",
+        "KEEP-SHELF-TOP",
+        "KEEP-DRAWER-TRAVEL"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric SHELF_SYSTEM",
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 2.4,
+        "load_or_flow": "removable module loads into the shelf top"
+      },
+      "verification": [
+        "six-column configuration packing",
+        "module seating and initial stop clearance",
+        "10 N horizontal retention and 5 mm travel limit",
+        "one-hand removal",
+        "cleaning access"
+      ]
+    },
+    {
+      "id": "IF-MODULE-SEAM",
+      "a": "MODULES",
+      "b": "HARDWARE",
+      "owner": "MODULES",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; qualifying module centerline owns the seam instance",
+      "nominal_geometry": {
+        "type": "parametric center split with purchased M3 seam hardware",
+        "trigger": "three-column module width greater than 245 mm"
+      },
+      "joining": {
+        "method": "serviceable test-required M3 seam joint",
+        "assembly_direction": "parametric normal to the center split",
+        "anti_rotation": "owned by MODULES parametric seam geometry",
+        "lead_in_mm": 1.0,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; exact M3 hardware and seam coupon required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-MODULE-SEAMS",
+        "KEEP-DRAWER-TRAVEL",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric MODULES",
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 4.0,
+        "purchased_detail_authority": "HARDWARE supplier or measured M3 geometry",
+        "load_or_flow": "split-module assembly continuity"
+      },
+      "verification": [
+        "M3 seam coupon",
+        "tool access",
+        "module-load check",
+        "assembly-cycle check"
+      ]
+    },
+    {
+      "id": "IF-DRAWER-TRAVEL",
+      "a": "MODULES",
+      "b": "SHELF_SYSTEM",
+      "owner": "MODULES",
+      "owner_authority": "parametric",
+      "kind": "other",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; configured drawer module owns housing and travel placement",
+      "nominal_geometry": {
+        "type": "parametric removable drawer, housing, and swept travel region"
+      },
+      "joining": {
+        "method": "removable sliding travel within the configured module housing",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "owned by MODULES parametric housing and drawer geometry",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; process-matched drawer coupon required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-DRAWER-TRAVEL",
+        "KEEP-MODULE-GRID",
+        "KEEP-TOILET-SERVICE"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric MODULES",
+        "minimum_wall_mm": 2.2,
+        "minimum_ligament_mm": 2.4,
+        "load_or_flow": "drawer insertion, travel, and complete removal"
+      },
+      "verification": [
+        "swept-volume collision check",
+        "process-matched fit coupon",
+        "full removal path",
+        "future drawer cycle test"
+      ]
+    },
+    {
+      "id": "IF-DECOR-FASCIA",
+      "a": "DECOR_SKINS",
+      "b": "SHELF_SYSTEM",
+      "owner": "SHELF_SYSTEM",
+      "owner_authority": "parametric",
+      "kind": "keyed_insert",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; each shelf owns fascia-host placement",
+      "nominal_geometry": {
+        "type": "serviceable parametric host interface for a replaceable fascia"
+      },
+      "joining": {
+        "method": "removable parametric retention; exact retention geometry remains a source-level decision",
+        "assembly_direction": "parametric outside the shelf load path",
+        "anti_rotation": "owned by SHELF_SYSTEM host geometry",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; retention choice and process coupon remain open",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-DECOR-HEADER",
+        "KEEP-SHELF-TOP",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric SHELF_SYSTEM host",
+        "minimum_wall_mm": 1.6,
+        "minimum_ligament_mm": 2.0,
+        "decorative_geometry_authority": "parametric DECOR_SKINS",
+        "load_or_flow": "nonstructural replaceable appearance interface"
+      },
+      "verification": [
+        "replaceability review",
+        "process coupon",
+        "protected-geometry check",
+        "cleanability check"
+      ]
+    },
+    {
+      "id": "IF-DECOR-HEADER",
+      "a": "DECOR_SKINS",
+      "b": "SHELF_SYSTEM",
+      "owner": "SHELF_SYSTEM",
+      "owner_authority": "parametric",
+      "kind": "keyed_insert",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; header host placement remains parametric",
+      "nominal_geometry": {
+        "type": "serviceable parametric host interface for a replaceable header"
+      },
+      "joining": {
+        "method": "removable parametric retention; exact retention geometry remains a source-level decision",
+        "assembly_direction": "parametric outside structural frame seams and wall restraint",
+        "anti_rotation": "owned by upper-shelf socket geometry",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; retention choice and process coupon remain open",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-DECOR-HEADER",
+        "KEEP-WALL-RESTRAINT",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric SHELF_SYSTEM upper-shelf sockets",
+        "minimum_wall_mm": 2.0,
+        "minimum_ligament_mm": 2.0,
+        "decorative_geometry_authority": "parametric DECOR_SKINS",
+        "load_or_flow": "nonstructural replaceable header interface"
+      },
+      "verification": [
+        "replaceability review",
+        "process coupon",
+        "upper-shelf and wall-restraint keep-out check",
+        "cleanability check"
+      ]
+    },
+    {
+      "id": "IF-IMAGE-RELIEF",
+      "a": "IMAGE_RELIEF",
+      "b": "DECOR_SKINS",
+      "owner": "DECOR_SKINS",
+      "owner_authority": "parametric",
+      "kind": "relief_substrate",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; replaceable header or decor skin owns localized relief placement",
+      "nominal_geometry": {
+        "type": "parametric localized relief substrate with optional heightmap field"
+      },
+      "joining": {
+        "method": "localized heightmap integration into a replaceable nonstructural insert",
+        "assembly_direction": "parametric normal to the decorative substrate",
+        "anti_rotation": "owned by DECOR_SKINS substrate and aspect lock",
+        "lead_in_mm": 0.25,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "no relief generated or accepted; source metadata, wall reserve, mesh, coupon, and exact slicer evidence remain open",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-DECOR-HEADER",
+        "KEEP-SHELF-TOP",
+        "KEEP-TOOL-ACCESS"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric DECOR_SKINS substrate",
+        "minimum_wall_mm": 1.2,
+        "minimum_ligament_mm": 2.0,
+        "surface_field_authority": "optional localized IMAGE_RELIEF heightmap",
+        "load_or_flow": "appearance only"
+      },
+      "verification": [
+        "physical scale and aspect metadata",
+        "remaining-wall review",
+        "protected-geometry check",
+        "independent mesh and exact slicer review"
+      ]
+    },
+    {
+      "id": "IF-WALL-RESTRAINT-FRAME",
+      "a": "WALL_RESTRAINT",
+      "b": "FRAME",
+      "owner": "FRAME",
+      "owner_authority": "parametric",
+      "kind": "fastener",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; one parametric instance per side uses adjacent 50 mm holes",
+      "nominal_geometry": {
+        "type": "parametric rear spacer-to-frame interface using adjacent frame holes",
+        "hole_spacing_mm": 50,
+        "spacer_count_total": 2
+      },
+      "joining": {
+        "method": "serviceable spacer attachment at adjacent 50 mm frame holes",
+        "assembly_direction": "parametric toward the rear wall",
+        "anti_rotation": "two adjacent frame-hole axes per side",
+        "lead_in_mm": 0.2,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "not selected in this architecture record; process and site evidence required",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-WALL-RESTRAINT",
+        "KEEP-TOOL-ACCESS",
+        "KEEP-TOILET-SERVICE",
+        "KEEP-BASEBOARD"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "parametric FRAME",
+        "minimum_wall_mm": 4.0,
+        "minimum_ligament_mm": 6.0,
+        "spacer_geometry_authority": "parametric WALL_RESTRAINT",
+        "load_or_flow": "horizontal anti-tip reaction from frame to rear spacer"
+      },
+      "verification": [
+        "exactly one spacer per side",
+        "adjacent 50 mm hole-axis check",
+        "tool and service access",
+        "future guarded anti-tip test"
+      ]
+    },
+    {
+      "id": "IF-WALL-ANCHOR",
+      "a": "WALL_RESTRAINT",
+      "b": "HARDWARE",
+      "owner": "HARDWARE",
+      "owner_authority": "purchased",
+      "kind": "purchased_mate",
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          0
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_status": "symbolic project-axis frame; exact wall-axis placement follows measured site and selected purchased anchor",
+      "nominal_geometry": {
+        "type": "substrate-specific purchased wall anchor and screw mating to each rear spacer",
+        "selection_status": "open"
+      },
+      "joining": {
+        "method": "installer-selected purchased anchor system matched to measured substrate",
+        "assembly_direction": "toward the rear wall",
+        "anti_rotation": "owned by purchased anchor system and substrate installation",
+        "lead_in_mm": 0.0,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0,
+        "process_compensation_per_side_mm": 0,
+        "assembly_allowance_per_side_mm": 0,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0,
+        "solver_margin_mm": 0
+      },
+      "allowance_status": "owned by the selected purchased wall hardware and measured substrate; unresolved",
+      "seam_band_mm": 0,
+      "keepout_ids": [
+        "KEEP-WALL-RESTRAINT",
+        "KEEP-TOOL-ACCESS",
+        "KEEP-TOILET-SERVICE",
+        "KEEP-BASEBOARD"
+      ],
+      "requirements": {
+        "nominal_geometry_authority": "purchased HARDWARE supplier and measured substrate",
+        "minimum_wall_mm": 0.0,
+        "minimum_ligament_mm": 0.0,
+        "printed_spacer_authority": "parametric WALL_RESTRAINT only",
+        "load_or_flow": "horizontal anti-tip reaction into the building substrate"
+      },
+      "verification": [
+        "substrate identification",
+        "exact supplier anchor review",
+        "installation and tool-access review",
+        "guarded pull and anti-tip test"
+      ]
+    }
+  ],
+  "keepouts": [
+    {
+      "id": "KEEP-SEGMENT-SEAMS",
+      "type": "aabb",
+      "purpose": "Reserve every frame segment seam, M4 lock path, registration feature, and seam-adjacent load path from decoration or unrelated geometry.",
+      "min_mm": [-330, 0, 0],
+      "max_mm": [330, 240, 1650],
+      "definition": "Derived from seven-segment-per-side FRAME instances; no new seam dimension is selected in this plan."
+    },
+    {
+      "id": "KEEP-FLOOR-CONTACTS",
+      "type": "aabb",
+      "purpose": "Reserve four PETG foot contacts and replaceable TPU pad faces as uninterrupted floor-bearing regions.",
+      "min_mm": [-340, 0, 0],
+      "max_mm": [340, 300, 18],
+      "definition": "Derived from four FLOOR_FEET instances and the measured floor; do not texture, pierce, or obstruct."
+    },
+    {
+      "id": "KEEP-BRACKET-GRID",
+      "type": "aabb",
+      "purpose": "Protect frame grid holes, bracket bearing faces, and shelf bracket fastener paths.",
+      "min_mm": [-330, 0, 950],
+      "max_mm": [330, 240, 1400],
+      "definition": "Derived from FRAME and SHELF_BRACKETS parameters at selected shelf levels."
+    },
+    {
+      "id": "KEEP-TILE-SEAMS",
+      "type": "aabb",
+      "purpose": "Protect all three-tile shelf seams, underside joiners, M4 hardware, and seam load-transfer regions.",
+      "min_mm": [-310, 0, 1018],
+      "max_mm": [310, 240, 1400],
+      "definition": "Derived from each three-tile SHELF_SYSTEM configuration."
+    },
+    {
+      "id": "KEEP-MODULE-GRID",
+      "type": "aabb",
+      "purpose": "Protect the six-column seating grid and module locating surfaces on both shelves.",
+      "min_mm": [-310, 0, 1050],
+      "max_mm": [310, 240, 1504],
+      "definition": "Derived from the six-column SHELF_SYSTEM and MODULES configuration."
+    },
+    {
+      "id": "KEEP-MODULE-SEAMS",
+      "type": "aabb",
+      "purpose": "Protect center seams, M3 fastener paths, bearing regions, and tool access in qualifying wide three-column modules.",
+      "min_mm": [-310, 0, 1050],
+      "max_mm": [310, 240, 1154],
+      "definition": "Active only when a three-column module exceeds 245 mm and is split at center."
+    },
+    {
+      "id": "KEEP-DRAWER-TRAVEL",
+      "type": "swept_volume",
+      "purpose": "Reserve the full configured drawer insertion, operation, and removal path from shelf, decor, seam hardware, toilet, and adjacent-module collision.",
+      "definition": "Derived from MODULES drawer and housing parameters; dimensions require process coupon confirmation."
+    },
+    {
+      "id": "KEEP-DECOR-HEADER",
+      "type": "aabb",
+      "purpose": "Constrain replaceable fascia, header, and optional localized heightmap work to nonstructural decorative host regions.",
+      "min_mm": [-310, 0, 1018],
+      "max_mm": [310, 245, 1650],
+      "definition": "Excludes frame seams, shelf tops, module seats, wall restraint, fastener seats, and tool paths."
+    },
+    {
+      "id": "KEEP-WALL-RESTRAINT",
+      "type": "aabb",
+      "purpose": "Protect the two rear spacer locations, adjacent 50 mm frame holes, wall-fastener axes, bearing faces, and installer access.",
+      "min_mm": [-340, -80, 1230],
+      "max_mm": [340, 20, 1580],
+      "definition": "Exactly one rear spacer per side; final wall interface follows measured site and purchased anchor authority."
+    },
+    {
+      "id": "KEEP-TOILET-SERVICE",
+      "type": "aabb",
+      "purpose": "Keep the toilet, cistern, lid/service path, flush controls, pipes, and required user access collision-free.",
+      "min_mm": [-280, 0, 0],
+      "max_mm": [280, 300, 950],
+      "definition": "Must be generated from installation measurements; default architecture is not site-fit evidence."
+    },
+    {
+      "id": "KEEP-BASEBOARD",
+      "type": "aabb",
+      "purpose": "Keep frame, feet, wall restraint, tools, and service paths clear of the measured baseboard and rear-wall obstructions.",
+      "min_mm": [-340, -20, 0],
+      "max_mm": [340, 20, 100],
+      "definition": "Must be generated from installation measurements; no release inference from default parameters."
+    },
+    {
+      "id": "KEEP-TOOL-ACCESS",
+      "type": "aabb",
+      "purpose": "Reserve installation, tightening, inspection, and removal access for M4, M5, M3, and wall hardware.",
+      "min_mm": [-340, -80, 0],
+      "max_mm": [340, 300, 1650],
+      "definition": "Derived from exact purchased tools and hardware plus measured site access; unresolved until parts are selected."
+    },
+    {
+      "id": "KEEP-SHELF-TOP",
+      "type": "aabb",
+      "purpose": "Protect both shelf top datums, module seating faces, and cleanable storage surfaces from seams, decoration, and uncontrolled texture.",
+      "min_mm": [-310, 0, 1048],
+      "max_mm": [310, 240, 1402],
+      "definition": "Derived from 620 mm clear shelves with top datums Z=1050 mm and Z=1400 mm."
+    }
+  ],
+  "validation": [
+    {
+      "id": "VAL-R02-ARCHITECTURE",
+      "gate": "architecture",
+      "method": "Run plan_hybrid_design.py against design-plan.json using the supplied acceptance command.",
+      "acceptance": "Command exits 0 and reports plan integrity PASS with unique IDs, valid references, exact interface ownership, valid transforms, and component envelopes inside the master envelope."
+    },
+    {
+      "id": "VAL-R02-PROXY",
+      "gate": "proxy",
+      "method": "Review the revision-bound CAD assembly preview and build manifest for frame, feet, shelves, brackets, modules, decor, wall restraint, and configured keep-outs; measured site keep-outs remain pending.",
+      "acceptance": "All selected architecture facts and assembly paths are represented without treating the proxy as engineering evidence."
+    },
+    {
+      "id": "VAL-R02-COMPONENT",
+      "gate": "component",
+      "method": "Run unit, source, STEP/STL topology, body-count, bounds, bed-fit, and hash checks on the revision-bound DRAFT; process-matched coupons and purchased-part qualification remain pending.",
+      "acceptance": "Each component meets its recorded count, bounds, material authority, interface ownership, and coupon criteria."
+    },
+    {
+      "id": "VAL-R02-INTEGRATION",
+      "gate": "integration",
+      "method": "Run the revision-bound digital integration checks for assembly identity, collision proxies, hardware axes/stacks, seam seating, drawer travel, module stops, floor contacts, header capture, and wall-restraint geometry; measured site fit and exact tool/hardware access remain pending.",
+      "acceptance": "No unintended collision or protected-region intrusion and all serviceable assembly paths remain accessible."
+    },
+    {
+      "id": "VAL-R02-MANUFACTURING",
+      "gate": "manufacturing",
+      "method": "Run digital mesh and configured bed-fit checks now, then complete exact target slicer, support, thin-wall, 3MF, time/material, mesh-policy, and optimization review on the unchanged DRAFT candidate.",
+      "acceptance": "All manufacturing blockers are evidenced and closed before any manufacturing acceptance claim."
+    },
+    {
+      "id": "VAL-R02-PHYSICAL",
+      "gate": "physical",
+      "method": "Future process coupons, shelf creep/service/proof/cycle tests, drawer cycle test, floor/site mockup, and substrate-specific guarded anti-tip test; not performed by this edit.",
+      "acceptance": "All approved physical criteria pass on production-process parts at the measured installation before any load or release claim."
+    }
+  ]
+}

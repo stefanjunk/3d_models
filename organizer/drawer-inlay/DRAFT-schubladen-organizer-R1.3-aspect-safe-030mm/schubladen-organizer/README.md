@@ -1,128 +1,93 @@
-# Schubladen-Organizer R1.3 – aspekt-sicheres 16-Bit-Relief bei 0,30 mm (DRAFT)
+# Schubladen-Organizer R2 – kompakte prozedurale Holzoptik (DRAFT)
 
-Parametrische, vierteilige FDM-Einlage für eine Schublade mit 360 × 230 × 80 mm Innenmaß. Der Kandidat nutzt 227 × 357 × 64 mm und lässt nominell 1,5 mm Spiel an jeder XY-Seite.
+Parametrische, vierteilige FDM-Schubladeneinlage für 360 × 230 × 80 mm Innenmaß. Der Organizer nutzt 227 × 357 × 64 mm und lässt nominell 1,5 mm Spiel je XY-Seite.
 
-> **Status:** Anforderungen und Konzept R1 sind freigegeben. R1.3 behält Geometrie, Reliefhöhe und speichereffiziente 0,30-mm-Abtastung bei und korrigiert die frühere anisotrope Bildskalierung. Ersatzbilder behalten jetzt ihr natürliches quadratisches-Pixel-Seitenverhältnis in physischen Millimetern. Alle neun STL-Netze sind digital geprüft. Die Dateien bleiben `DRAFT`, bis reale Slicer-/Couponprüfungen bestätigt wurden.
+> **Status:** R2-Anforderungen und `concept-R2-v5.png` sind freigegeben. Vier Hauptmodule, Kamm, Coupons und Vierobjekt-3MF bestehen die digitale Prüfung. Die Dateien bleiben `DRAFT`: exakte Slicerprüfung, physische Pass-/Holztexturproben, R2-Wasserzeichenintegration und finale Freigabe fehlen noch.
 
-![Render der geometrisch unveränderten R1.1/R1.2/R1.3-Grundform](reports/DRAFT-R1.1-continuous16-model-preview.png)
+![R2-Holztexturcoupon mit Boden-, Innenwand-, Eck- und Topflächenprobe](reports/R2-procedural-wood-coupon-preview.png)
 
 ## Aufbau
 
 - Vier steckbare Hauptmodule, jeweils höchstens 135 × 186,5 mm Druckfläche.
 - Linke 92-mm-Zone für lange Schraubendreher; separater Kamm mit acht Schaftplätzen.
-- Rechte 135-mm-Zone mit acht Hardwarefächern (2 Spalten × 4 Reihen) und jeweils einer 22 × 8-mm-U-Griffnut mit 4-mm-Bodenradius.
-- 2,6-mm-Boden und 3,2-mm-Basiswandstärke mit optionalen Außen-/Trennwand-Overrides.
-- Vollhohe Wandknoten: 4,0-mm-T-Blenden und 5,5-mm-Kreuzungshubs von 2,6 bis 55 mm.
-- Supportfreie flache Druckorientierung; ebene Puzzleverbinder mit 0,30 mm Nennspiel.
-- Innenböden sowie sichtbare Innen-/Außenwandbänder tragen die unregelmäßige R1-Stahlplatten-/Nietenstruktur.
+- Rechte 135-mm-Zone mit acht Hardwarefächern in 2 × 4 Anordnung.
+- 2,6-mm-Boden und 3,2-mm-Basiswandstärke.
+- Acht U-Griffnuten mit 22 mm Breite, 8 mm Tiefe und 4-mm-Bodenradius.
+- Vollhohe glatte Wandknoten mit 4,0-mm-T- und 5,5-mm-Kreuzungsblenden.
+- Flache, supportfreie Druckorientierung und Puzzleverbinder mit 0,30 mm Nennspiel.
 
-## Oberflächenbild mit einem Befehl austauschen
+## Holzoberfläche
 
-Für ein neues PNG, JPEG oder TIFF genügt im Projektverzeichnis:
+R2 verwendet keine Bildtextur und keine Fertigungs-Heightmap. Die sichtbare Holzoptik entsteht aus deterministischen Vektor-/Splinekurven mit gespeichertem Seed `20260820`:
 
-```bash
-python3 rebuild.py /pfad/zur/neuen-textur.png
-```
+- 0,90 mm breite, rein vertiefte und abgerundete Maserungsnuten;
+- 0,20 mm Tiefe auf Böden und sicheren Oberseiten;
+- 0,16 mm Tiefe auf sichtbaren inneren Wandseiten;
+- wenige große, verschachtelte Astkonturen nur auf geeigneten Bodenfeldern;
+- globale Front-zu-Rücken-Richtung auf Böden, lokale Längsrichtung auf Wänden und Oberseiten;
+- warme, matte Holzfarbe über ungefülltes PETG; Mikrofaser-/Poreneffekte werden nicht geometrisch modelliert.
 
-Der Befehl erledigt ohne weitere Parameter:
+Außenwände, Unterseiten, Modultrennflächen, Verbinder, Kamm-Passflächen, Griffnutradien, Wandwurzeln und verrundete Knoten bleiben geometrisch glatt.
 
-1. das Bild als wiederverwendbaren 16-Bit-Quellmaster registrieren;
-2. das natürliche Quellseitenverhältnis physisch erhalten und vor Geometrie hart validieren;
-3. die 16-Bit-Fertigungs-Heightmap, Quadratpixel-Vorschau und das kontinuierliche 0,30-mm-Geometriemanifest erzeugen;
-4. einen 20-mm-Kreis-/Quadrat-Diagnosetest durch dieselbe Rasterpipeline führen;
-5. alle Module speichereffizient bauen und numerische Float32-Mikrokanten reparieren;
-6. 3MF und Revisions-ZIP erzeugen und alle neun STL-Dateien, Tonwertübertragung, Seitenverhältnis und 3MF prüfen.
+## Rebuild und Prüfung
 
-Ein Build mit dem bereits registrierten Master lautet:
+Im Projektverzeichnis:
 
 ```bash
 python3 rebuild.py
 ```
 
-Nur Bild und Heightfield neu aufbereiten, ohne Geometrie:
+Der Befehl baut die vier Module nacheinander, erzeugt Kamm und Coupons, exportiert neun R2-STLs, paketiert die Vierobjekt-3MF und führt Hash-, Topologie-, Oberflächenumfang-, Restwand-, Ressourcen- und 3MF-Prüfungen aus. R2 akzeptiert absichtlich kein Texturbild und kein `--prepare-only`.
+
+Nur vorhandene Ausgaben erneut prüfen:
 
 ```bash
-python3 rebuild.py /pfad/zur/neuen-textur.png --prepare-only
+python3 src/build_pipeline.py --validate-only
 ```
 
-Einmalige Python-Abhängigkeiten, falls sie noch fehlen:
+Quelltests:
 
 ```bash
-python3 -m pip install -r requirements.txt
+node src/test_mesh_export.mjs
+node src/test_procedural_wood.mjs
+python3 -m unittest src.test_r2_pipeline
 ```
 
-Fehlende gesperrte Node-Abhängigkeiten installiert `rebuild.py` beim ersten vollständigen Build automatisch mit `npm ci`.
+## Digitales Ergebnis
 
-## Parameter statt Kommandozeilen-Kette
-
-- `relief/organizer/relief-job.json`: 180-mm-Kachelbreitenanker, aus dem Quellseitenverhältnis abgeleitete Kachelhöhe, 0,20-mm-Bildpitch, 127 PPI, Repeat-Fit, 7-mm-Nahtüberblendung, Gamma/Pegel, Polarität, 1,5-%-Validierungsschwelle und stabile Zielpfade.
-- `config/relief-config.json`: 0,30-mm-Geometriepitch, Neutralwert/Höhenkurve und Speicherstrategie.
-- `config/model-params.json`: 0,50-mm-Gravur, 0,55-mm-Emboss, Wand-/Bodenstärken, Flächenmasken und Organizermaße.
-
-Nach einer reinen Geometrieänderung mit bereits vorbereitetem Relief:
-
-```bash
-npm run build
-npm run validate
-```
-
-## Bild- und Geometrieauflösung
-
-| Stufe | Physische Größe | Raster | Pitch | PPI | Tonwerte |
-|---|---:|---:|---:|---:|---:|
-| Registrierter Quellmaster | 180 × 120 mm | 1536 × 1024 | 0,1171875 mm effektiv | 216,75 effektiv, isotrop | 16-Bit-Container; Quelle besitzt 8-Bit-Ursprungspräzision |
-| Fertigungs-Heightmap | 180 × 180 mm Zielbereich | 900 × 900 | 0,20 mm | 127 | enthält 1,0 × 1,5 Wiederholungen der unverzerrten Kachel |
-| Physische Wiederholkachel | 180 × 120 mm | 900 × 600 | 0,20 mm | 127 | 46.214 unterschiedliche uint16-Werte nach Nahtüberblendung |
-| Manifold-Heightfield | 180 × 120 mm | 601 × 401 | 0,30 mm | 84,67 | 39.402 unterschiedliche uint16-Werte |
-| Exportierte Modulböden | objektabhängig | Float32-STL | – | – | 138.901–190.705 verschiedene Z-Werte |
-
-Es gibt keine Schwellwerte, Tiefenklassen, Rasterläufe oder bewusste Höhenquantisierung. Dunkle Werte werden kontinuierlich bis 0,50 mm graviert, helle bis 0,55 mm erhaben. Auf Außenwänden bleibt das Relief in einem 0,35-mm-Rezess innerhalb der Einbauhülle.
-
-Für einen neuen 3:2-AI-Master nennt `relief/organizer/source/source-spec.json` vor der Erzeugung 180 × 120 mm bei 300 PPI beziehungsweise mindestens 2126 × 1417 Pixel. Bei einem beliebigen späteren Ersatzbild bleibt die Breite 180 mm; die Höhe wird aus dessen natürlichem Quadratpixel-Seitenverhältnis abgeleitet. Tatsächliche Pixelzahl, physische Größe, effektive isotrope PPI, Bitpräzision, Quelle und Hash werden neu registriert.
-
-`aspect_policy=preserve` und `allow_aspect_distortion=false` sind verbindlich. Ein `stretch`-Fit oder eine explizite Kachelgröße mit falschem Seitenverhältnis bricht vor dem teuren Geometrieaufbau ab. Für `steel1.png` lauten Quell-, platzierter und rekonstruierter physischer Aspekt jeweils exakt 1,5; der Metadatenfehler beträgt 0,000000 %. Der 20-mm-Diagnosetest ergibt bei der 0,30-mm-Geometrieabtastung 19,8 × 20,1 mm und bleibt innerhalb der 1,5-%-Texturtoleranz.
-
-## Speicherstrategie und gemessener Bedarf
-
-- Jedes Hauptmodul läuft in einem eigenen Node/WASM-Prozess.
-- Innerhalb eines Moduls wird jeweils nur ein Boden- oder Wand-Reliefpatch gleichzeitig erzeugt und boolesch angewendet.
-- STL wird blockweise geschrieben; die 3MF wird aus reparierten indexierten Mesh-Caches direkt in ZIP/XML gestreamt.
-- Die Topologieprüfung läuft pro STL in einem frischen Python-Prozess.
-
-| Prozess bei 0,30 mm | Gemessene Peak-RSS |
+| Kennwert | R2 DRAFT |
 |---|---:|
-| Driver vorn | 1.276,1 MiB |
-| Driver hinten | 1.494,6 MiB |
-| Hardware vorn | 2.084,0 MiB |
-| Hardware hinten | 1.929,3 MiB |
-| Zubehör | 216,1 MiB |
+| Hauptmodule | 4 |
+| STLs einschließlich Kamm/Coupons | 9/9 PASS |
+| Dreiecke der vier Hauptmodule | 426.832 |
+| STL-Bytes der vier Hauptmodule | 21.341.936 |
+| Dreiecksreduktion gegen R1.3 | 92,9206 % |
+| STL-Byte-Reduktion gegen R1.3 | 92,9205 % |
+| Baugruppenhülle | 227 × 357 × 64 mm |
+| 3MF | 4 benannte Objekte und Build-Items; CRC/Core-Namensraum PASS |
 
-Der gemessene Worst Case beträgt exakt 2.083,953 MiB = 2,035 GiB = 2,185 GB dezimal. Für diesen Parametersatz sind 4 GB **verfügbarer** RAM eine vernünftige Untergrenze; ein System mit 8 GB Gesamt-RAM lässt deutlich mehr Reserve für Betriebssystem und Slicer.
+Jede STL ist watertight/manifold, konsistent orientiert, volumenhaltig, einteilig und frei von Null- oder Duplikatflächen. Zusätzliche verlustbehaftete Mesh-Decimation wurde als nicht vorteilhaft verworfen; die parametrische Holzrepräsentation erreicht die Ressourcenbudgets bereits.
 
-## Drucken
+## Drucken und Qualifikation
 
-1. Zuerst `DRAFT-drawer-fit-corner-coupon.stl`, beide Connector-Coupons und `DRAFT-relief-depth-coupon.stl` drucken.
-2. Passung, Steckspiel und Reliefwirkung im realen Prozess prüfen.
-3. `output/DRAFT/DRAFT-R1.3-aspect-safe-030mm-assembly.3mf` im Slicer öffnen oder die vier Modul-STLs einzeln laden.
-4. Die Module flach mit der geschlossenen Unterseite auf dem Druckbett und ohne Supports drucken.
-5. Den Schraubendreherkamm separat drucken und einsetzen.
+1. Eckcoupon in der realen Schublade prüfen.
+2. Männlichen und weiblichen Connector-Coupon drucken und Steckspiel bewerten.
+3. Holztexturcoupon unter dem geplanten PETG-Profil drucken; Erkennbarkeit, Haptik, Reinigung und Eck-/Topübergang prüfen.
+4. Im Slicer alle Wände, Nuten, ersten Schichten, Verbinder und Supportfreiheit kontrollieren und die R1.3-/R2-Import- plus Slice-Zeit vergleichen.
+5. Erst danach ein Hauptmodul als Probemodul drucken.
 
-Das PETG-Ausgangsprofil steht in `print-profile.md`. Temperaturen und Fluss müssen dem konkreten Filamentprofil folgen.
+Die Hauptmodule liegen mit der geschlossenen Unterseite flach auf dem Bett. Standard ist ungefülltes warmbraunes PETG, 0,4-mm-Düse, 0,45-mm-Nennlinienbreite und 0,20-mm-Schichthöhe. Herstellerprofil und reale Kalibrierung bleiben maßgeblich.
 
 ## Wichtige Dateien
 
-- `rebuild.py` – einfacher Bildwechsel und vollständiger Rebuild
-- `src/prepare_relief.py` – Quellregistrierung und 127-PPI-Fertigungs-Heightmap
-- `src/validate_aspect_ratio.py` – harter physischer Seitenverhältnis-Gate vor Geometrie
-- `src/validate_aspect_diagnostic.py` – 20-mm-Kreis-/Quadrat-Regressionsprüfung
-- `src/vectorize_heightmap.py` – kontinuierliches 16-Bit-Geometriemanifest
-- `src/manifold_model.mjs` – parametrische Produktionsgeometrie und sequenzielle Reliefpatches
-- `src/manifold_build.mjs` – isolierter Modulbuild und blockweiser Export
-- `src/build_pipeline.py` – sequenzielle Build-, Reparatur-, Paket- und Prüfsteuerung
-- `src/package_3mf.py` – gestreamte 3MF aus reparierten indexierten Meshes
-- `relief/organizer/relief-job.json` – persistenter Bild-/PPI-/Mappingvertrag
-- `reports/build-pipeline.json` – Laufzeiten und gemessener RAM-Peak
-- `reports/mesh-validation.json` – unabhängige Prüfung aller neun STLs
-- `reports/continuous16-validation.json` – 16-Bit-, Höhen-, Struktur- und 3MF-Nachweis
+- `design-spec.yaml` – freigegebene Anforderungen und aktueller Gate-Status
+- `config/model-params.json` – Organizer- und Exportparameter
+- `config/wood-texture-params.json` – Holzmaserung, Seed, Keep-outs und Ressourcenbudgets
+- `src/procedural_wood.mjs` – deterministische Oberflächenplanung
+- `src/manifold_model.mjs` – parametrische Kern- und Texturgeometrie
+- `src/mesh_export.mjs` – strikte Float32-Exportsanitation
+- `src/build_pipeline.py` – Build-, Paket- und Validierungssteuerung
+- `reports/R2-procedural-wood-digital-validation.json` – maßgeblicher digitaler Prüfbericht
+- `output/DRAFT/DRAFT-R2-procedural-wood-assembly.3mf` – unmarkierte DRAFT-Baugruppe
 
-Ein STEP-Export ist nicht enthalten, weil kein STEP-fähiges parametrisches CAD-Backend verfügbar war. Die JavaScript-/Manifold3D-Quelle ist der parametrierbare Master.
+R1.3 bleibt als unveränderte bildbasierte Stahl-Heightmap-Baseline erhalten. R2 ruft diese Pipeline nicht auf.

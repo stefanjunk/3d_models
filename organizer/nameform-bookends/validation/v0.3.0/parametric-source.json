@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "tool": "nameform-parametric-source",
+  "tool_version": "MM-PER-001-v0.3.0",
+  "profile": "release",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/source/v0.3.0/nameform_bookends.py",
+      "sha256": "521b45a3f80c63e6572693c9c590195537da66eef34897a780a9092a706d3fc6",
+      "size_bytes": 21404
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/source/v0.3.0/assets/fonts/DejaVuSansCondensed-Bold.ttf",
+      "sha256": "586556501565e46ad356a5efcc2f6e81375230323ad5a2a1c4cc8211a6c5ef2e",
+      "size_bytes": 667844
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/design-spec.yaml",
+      "sha256": "491250ec3582c570541820aea9ad2eed5f0e11c13d0b91dd5ba9e4a92cd83f37",
+      "size_bytes": 13148
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/scripts/build_v030_candidate.py",
+      "sha256": "d69ae09e339efc421dd482f5aad4edf3c01bb92ed732a0290b1fc82d5e0206b8",
+      "size_bytes": 24427
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/organizer/nameform-bookends/validation/v0.3.0/text-sweep.json",
+      "sha256": "93839b40c4f2257093bb802289724571678bca59cf543f04ff64b74a279f0619",
+      "size_bytes": 11841
+    }
+  ],
+  "checks": [
+    {
+      "id": "candidate-build",
+      "status": "PASS",
+      "required": true,
+      "message": "Source imported and produced both marked B-Rep bodies",
+      "metrics": {},
+      "evidence": []
+    },
+    {
+      "id": "text-sweep",
+      "status": "PASS",
+      "required": true,
+      "message": "All declared glyph/name/mode cases passed",
+      "metrics": {
+        "cases": 38,
+        "passed": 38
+      },
+      "evidence": []
+    },
+    {
+      "id": "watermark-identity",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated mark identity matches MM-PER-001 v0.3.0",
+      "metrics": {},
+      "evidence": []
+    }
+  ],
+  "metrics": {},
+  "limitations": [
+    "Exact thin-wall behavior remains an exact-slicer gate."
+  ],
+  "required_capabilities": []
+}

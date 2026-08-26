@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/validate-printable-3d-projects/validation-project.schema.json",
+  "title": "Printable 3D validation project",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project", "artifacts", "checks", "release"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "revision", "units", "risk_class"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "units": {"const": "mm"},
+        "risk_class": {"enum": ["decorative", "normal-functional", "structural", "safety-critical"]},
+        "build_volume_mm": {
+          "type": "array",
+          "prefixItems": [{"type": "number", "exclusiveMinimum": 0}, {"type": "number", "exclusiveMinimum": 0}, {"type": "number", "exclusiveMinimum": 0}],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "path", "kind"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "revision": {"type": "string"},
+          "required": {"type": "boolean"}
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "type"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "type": {"enum": ["mesh", "mesh_compare", "gcode", "3mf", "interfaces", "skill", "external_report", "approvals", "physical", "review"]},
+          "required": {"type": "boolean"},
+          "policy": {"type": "object"},
+          "report": {"type": "string"}
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["required_approvals", "approvals"],
+      "properties": {
+        "required_approvals": {"type": "array", "items": {"type": "string"}},
+        "approvals": {"type": "object"}
+      }
+    },
+    "lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "source_project_sha256", "tool"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "source_project_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool": {"const": "validate-printable-3d-projects"}
+      }
+    }
+  }
+}

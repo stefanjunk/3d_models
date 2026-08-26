@@ -1,0 +1,112 @@
+project_id: premium-parametric-over-toilet-shelf
+revision: 0.2.0
+status: DRAFT-evidence-plan
+tests:
+  - id: source-and-configuration
+    level: V0
+    specimen: parameters.json-and-parametric-source
+    setup: Run the revision 0.2.0 unit suite and design-spec/architecture validators.
+    measurement: Exit status, rejected invalid configurations, derived dimensions and inventory.
+    pass: All automated tests pass and both approvals reference revision 0.2.0.
+  - id: geometry-and-mesh
+    level: V1
+    specimen: output/rev-0.2.0-draft
+    setup: Run validate.py against the revision-bound DRAFT output.
+    measurement: Body count, bounds, topology, volume, bed fit, interface axes and collision report.
+    pass: Digital validation PASS with no geometry failure; manufacturing/release may remain blocked.
+  - id: exact-slicer-review
+    level: V2
+    specimen: revision-bound-3mf
+    setup: Slice every oriented part with the exact printer, PETG, 0.6 mm nozzle and recorded profile.
+    measurement: Import/slice seconds, layers, time, model/support material, wall paths, bridges, supports, seams, retractions, peak flow and warnings.
+    pass: All parts fit; no missing walls, trapped support or unintended weak paths; exact profile and 3MF are archived.
+  - id: frame-and-shelf-fit-coupon
+    level: V4
+    specimen: fit_coupon_020_030_040_050_print
+    setup: Print in production PETG, orientation and profile; condition at least 24 hours before measurement.
+    measurement: Smallest hand-assemblable clearance, damage, insertion/removal force and post-cycle looseness.
+    pass: Selected clearance assembles without cracking and remains serviceable after 25 cycles.
+  - id: m3-wide-module-seam-coupon
+    level: V4
+    specimen: wide_module_m3_seam_coupon_print
+    setup: Use the exact selected M3 insert or captive nut, seam joiner and tightening method.
+    measurement: Dry-fit plate-to-boss gap, alignment, tool access, tightening damage, 25 assembly cycles and 5 kg module-seam proof load for 60 seconds.
+    pass: Plate sits flat on both boss tops before tightening; no crack, pull-out, harmful slip or permanent seam step above 0.5 mm.
+  - id: floor-foot-tpu-lock-coupon
+    level: V4
+    specimen: floor_foot_tpu_lock_coupon_print
+    setup: Print the receiver and rail stub in production PETG plus the four-nub pad in production TPU; install the selected M4 x 50 lock.
+    measurement: Receiver insertion/removal force, bolt seating, 25 service cycles, TPU nub damage, 100 N pad shear and 50 N pad pull-off checks.
+    pass: Hand assembly without cracking; no lock slip; all nubs retained; pad displacement <= 1.0 mm and no release.
+  - id: heat-set-and-fastener-coupon
+    level: V4
+    specimen: process-matched-M4-M5-boss-samples-or-sacrificial-frame-offcut
+    setup: Install measured purchased inserts/bolts with the production tool and heat procedure.
+    measurement: Hole fit, remaining ligament, installation damage, seating and repeated screw cycles.
+    pass: No split, breakthrough, spin or pull-out during 25 service cycles and guarded interface proof check.
+  - id: assembly-and-site-fit
+    level: V5
+    specimen: complete-unloaded-assembly
+    setup: Assemble on a level mock floor against a measured non-service wall mockup before bathroom installation.
+    measurement: Overall envelope, four contacts, level/plumb, lid/service/pipe/baseboard/flush clearances, tool access and module removal.
+    pass: All measured keep-outs are collision-free; all four pads bear without rocking; shelf front stop/rear lip retain modules without initial interference.
+  - id: shelf-creep
+    level: V6
+    specimen: complete-production-process-shelf-and-frame
+    setup: Guard the assembly; apply 4 kg nonfragile ballast evenly over one shelf for 24 hours.
+    measurement: Initial, 1 h and 24 h midspan deflection; residual set 1 h after unloading; cracks and seam movement.
+    pass: 24 h deflection <= 2.0 mm, residual set <= 0.5 mm, no crack, slip or joint damage.
+  - id: shelf-proof
+    level: V6
+    specimen: shelf-that-passed-creep
+    setup: Behind a barrier and outside the bathroom, increase evenly distributed ballast to 8 kg and hold one hour.
+    measurement: Deflection, residual set, cracks, joint motion and fastener seating.
+    pass: No cracking or slip and residual set <= 0.5 mm after unloading.
+  - id: shelf-cycle
+    level: V6
+    specimen: production-process-shelf-assembly
+    setup: Cycle an evenly distributed 0-to-4 kg load 1000 times without impact.
+    measurement: Cycle count, stiffness/deflection trend, seam motion, cracks and fastener retorque.
+    pass: Completes 1000 cycles without functional failure or acceptance-limit drift.
+  - id: drawer-cycle
+    level: V6
+    specimen: assembled-split-drawer-and-housing
+    setup: Load the drawer with 1.0 kg distributed contents and cycle full insertion/removal 5000 times; keep total shelf load within 4 kg.
+    measurement: Force trend, rubbing, seam condition, wear, jams and retained removability.
+    pass: Completes 5000 cycles without jam, seam release or functional failure.
+  - id: module-retention-and-hanger
+    level: V5-V6
+    specimen: assembled-bin-tray-drawer-housing-and-hangers
+    setup: Load drawer to 1.0 kg, bin or tray to 2.0 kg individually and each hanger to 0.5 kg while keeping total shelf load <= 4 kg; apply a 10 N horizontal pull to each seated module and cycle each hanger 500 times at 0.5 kg, then proof each hanger at 1.0 kg for 60 seconds.
+    measurement: Module travel/tip, front-stop damage, hanger deflection, cracks, permanent set and removal force.
+    pass: Module travel <= 5.0 mm without crossing the front stop or tipping; no crack/release; each hanger completes cycles and proof load with residual set <= 0.5 mm.
+  - id: anti-tip-and-anchor
+    level: V6
+    specimen: complete-assembly-on-actual-substrate-and-selected-anchors
+    setup: Qualified adult installation review; guard the area and apply 100 N horizontally at the upper front edge for 60 seconds.
+    measurement: Applied force, anchor movement, frame slip, restraint cracking and permanent displacement.
+    pass: No release, crack, visible anchor movement or frame slip.
+  - id: cleaning-and-moisture
+    level: V6
+    specimen: representative-modules-and-decor
+    setup: Expose to normal bathroom humidity/splash and the selected mild cleaner according to material data.
+    measurement: Cleaning access, trapped residue, swelling, cracking, discoloration and fit change.
+    pass: Modules remain removable/cleanable and no unacceptable damage or residue trap is observed.
+  - id: service-life-evidence
+    level: V6
+    specimen: production-process-assembly-and-retained-material-samples
+    setup: Keep five-year life explicitly unverified until a material/process-specific long-term creep/temperature method, periodic inspection interval and replacement criteria are approved; record at least 90-day sustained-load trend before any durability statement.
+    measurement: Deflection trend, joint preload, cracks, material aging, humidity/temperature exposure and inspection findings.
+    pass: No five-year claim is permitted from the short tests alone; any later claim requires an approved extrapolation/field-evidence basis and documented inspection plan.
+  - id: optimization-and-mesh-policy
+    level: V1-V2
+    specimen: baseline-and-candidates
+    setup: Complete exact-slicer A/B/C comparison and the independent mesh-resolution check.
+    measurement: Time/material/support/path metrics, topology, protected geometry and slicer behavior.
+    pass: Selected candidate passes every constraint with measured benefit, or a documented no-change/not-beneficial decision is retained.
+  - id: watermark-regression
+    level: V1-V2
+    specimen: final-marked-candidate
+    setup: Apply JSI-WM-001-R1 last, then repeat affected geometry, wall, bed-contact, readability and exact-slicer checks.
+    measurement: Placement, recess depth, host reserve, orientation, topology and slicer layers.
+    pass: Current geometry and process pass and the final release gate is explicitly approved.

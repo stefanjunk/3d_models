@@ -1,0 +1,84 @@
+schema_version: 1
+project:
+  name: ZEN KINTSUGI WAVE v2.1
+  units: mm
+  product_family: wall-mounted FIFO bathroom storage
+  manufacturing: modular four-colour FDM/FFF
+  risk_class: normal-functional
+intent:
+  visual_language:
+    keywords: [zen-wave, ceramic-stone, kintsugi, layered-leaf, continuous-oval-ribbon]
+    forbidden_characteristics: [boxy, faceted, industrial-X-cage, random-noise, thick-solid-side-slabs]
+  symmetry: near-bilateral-with-controlled-asymmetry
+  visible_surfaces: [front-ribbons, closed-side-envelopes, crown, fragrance-tray]
+  reference_role: inspiration
+  reference_provenance:
+    - source concept image SHA256 30da8eb50b5df055bc381fff16f35034892f90e887916889a6057a1acbab1cad
+    - approved v2.1 concept sheet generated_images/exec-aac29bb2-3398-46cb-a4d0-aeda2e99d638.png
+    - prior raw organic GLBs retained unchanged as low-authority style donors
+semantic_parameters:
+  - {name: roll_diameter, value: 120.0, min: 100.0, max: 125.0, unit: mm, affects: [module_pitch, oval_ribbons, shaft]}
+  - {name: roll_count, value: 5.0, min: 3.0, max: 8.0, unit: count, affects: [assembly_height, module_instances]}
+  - {name: shell_nominal, value: 1.8, min: 1.8, max: 2.4, unit: mm, affects: [side_shells, weight]}
+  - {name: leaf_relief, value: 2.25, min: 1.0, max: 3.0, unit: mm, affects: [side_highlight_flow]}
+  - {name: microtexture_height, value: 0.22, min: 0.18, max: 0.28, unit: mm, affects: [side_surface]}
+  - {name: ribbon_width_radius, value: 4.6, min: 4.0, max: 5.2, unit: mm, affects: [front_ribbons, crown]}
+hardpoints:
+  tolerance_mm: 0.10
+  datum_planes:
+    - {id: WALL, plane: Y0}
+    - {id: MODULE_BOTTOM, plane: Z0}
+    - {id: MODULE_TOP, plane: Z124}
+  points:
+    - {id: SHAFT_CENTER, point_mm: [0.0, 62.5, 62.0]}
+    - {id: LEFT_INNER_SHELL, point_mm: [-65.0, 62.5, 62.0]}
+    - {id: RIGHT_INNER_SHELL, point_mm: [65.0, 62.5, 62.0]}
+  axes:
+    - {id: ROLL_AXIS, origin_mm: [0.0, 62.5, 62.0], direction: [0.0, 1.0, 0.0]}
+  protected_faces: [roll-facing-inner-shells, wall-mount-plane, connector-bores, module-seams, extraction-touch-lip]
+  keep_out_volumes:
+    - {id: FIFO_PROXY, type: swept-cylinder, diameter_mm: 122.0, axial_width_mm: 107.0}
+surface_strategy:
+  primary: hybrid
+  continuity_default: G2
+  intentional_creases: [module-joint-shadow-gap, inlay-boundary]
+  section_count_target: 64
+  controls_per_curve_target: 4
+  closed_section_seam_landmark: rear-low-attention-zone
+reference_fitting:
+  enabled: false
+  target_file: null
+  fit_region: null
+  maximum_rms_error_mm: 1.5
+  maximum_local_error_mm: 3.0
+  preserve_target_noise: false
+fdm:
+  printer_build_volume_mm: [420.0, 420.0, 500.0]
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.16, 0.24]
+  intended_orientation: each 124 mm module upright on its bottom joint plane
+  visible_orientation_sensitive_regions: [front-ribbon-arches, crown-loops, side-microtexture]
+  minimum_wall_mm: 1.4
+  maximum_overhang_deg_from_vertical: 55.0
+  mesh_export:
+    chord_tolerance_mm: 0.04
+    angular_tolerance_deg: 3.0
+    maximum_edge_mm: 1.0
+acceptance:
+  hardpoint_drift_mm_max: 0.10
+  watertight_when_solid: true
+  connected_components_expected: 1
+  degenerate_face_count_max: 0
+  curvature_spikes_allowed: 0
+  unexplained_curvature_extrema_per_primary_curve_max: 4
+  self_intersections_allowed: false
+  minimum_signed_volume_mm3: 1.0
+  slicer_review_required: true
+  physical_coupon_required: true
+outputs:
+  editable_source_required: true
+  step_required: false
+  step_note: dense freeform mesh architecture retained as reproducible Python source; no validated B-Rep kernel was available
+  obj_required: true
+  stl_or_3mf_required: true
+  reports_required: true

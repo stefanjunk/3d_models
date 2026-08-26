@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f9fb"/>
+      <stop offset="1" stop-color="#e8edf1"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#e97916"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#607d94"/>
+      <stop offset="1" stop-color="#263b4a"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dbf7ff" stop-opacity="0.86"/>
+      <stop offset="1" stop-color="#78cfe6" stop-opacity="0.45"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#1a2730" flood-opacity="0.18"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#314756"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e97916"/>
+    </marker>
+    <style>
+      .title { font: 700 34px sans-serif; fill: #1d2e39; }
+      .subtitle { font: 400 17px sans-serif; fill: #526774; }
+      .panelTitle { font: 700 22px sans-serif; fill: #243844; }
+      .label { font: 600 15px sans-serif; fill: #263b47; }
+      .small { font: 400 13px sans-serif; fill: #526774; }
+      .tiny { font: 400 11px sans-serif; fill: #526774; }
+      .dim { font: 600 13px sans-serif; fill: #24495d; }
+      .num { font: 700 14px sans-serif; fill: white; text-anchor: middle; dominant-baseline: middle; }
+      .card { fill: white; stroke: #d2dce2; stroke-width: 1.5; rx: 18; }
+      .call { fill: #e97916; stroke: white; stroke-width: 2; }
+      .leader { stroke: #526774; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .dimline { stroke: #24495d; stroke-width: 1.25; fill: none; marker-start: url(#arrow); marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <text x="60" y="62" class="title">Kobra 3 Max Whitebox · Kamera-Subsystem Konzept v1</text>
+  <text x="60" y="91" class="subtitle">Anforderung 1.3 · Original-Anycubic-Kameramodul · vollständig neu modellierte Aufnahme · keine Referenz-Meshflächen</text>
+
+  <!-- Main enclosure corner overview -->
+  <rect x="45" y="125" width="900" height="700" class="card" filter="url(#shadow)"/>
+  <text x="75" y="164" class="panelTitle">A · Einbau an der festen Display-/Servicesäule</text>
+
+  <!-- simplified white chamber corner -->
+  <polygon points="105,250 600,180 845,315 350,390" fill="#ffffff" stroke="#c5d0d7" stroke-width="2"/>
+  <polygon points="105,250 350,390 350,755 105,610" fill="#f9fbfc" stroke="#c5d0d7" stroke-width="2"/>
+  <polygon points="350,390 845,315 845,680 350,755" fill="#edf2f5" stroke="#c5d0d7" stroke-width="2"/>
+  <!-- door and service stile -->
+  <polygon points="135,285 330,397 330,706 135,590" fill="url(#glass)" stroke="#78b4c8" stroke-width="2"/>
+  <text x="155" y="610" class="small" transform="rotate(29 155 610)">klare Tür</text>
+  <polygon points="350,390 455,374 455,739 350,755" fill="#ffffff" stroke="#b9c6ce" stroke-width="2"/>
+  <text x="361" y="696" class="small" transform="rotate(-8 361 696)">feste weiße Servicesäule</text>
+  <!-- optical window -->
+  <polygon points="374,446 430,438 430,514 374,523" fill="url(#glass)" stroke="#479bb7" stroke-width="3"/>
+  <polygon points="384,456 420,451 420,502 384,508" fill="#1e2a31" opacity="0.72"/>
+  <!-- external rail and mount -->
+  <polygon points="468,330 492,326 492,676 468,681" fill="url(#blue)" stroke="#1d303d" stroke-width="2"/>
+  <line x1="474" y1="340" x2="474" y2="670" stroke="#8ba1af" stroke-width="2"/>
+  <line x1="486" y1="338" x2="486" y2="668" stroke="#8ba1af" stroke-width="2"/>
+  <polygon points="451,439 509,431 509,503 451,512" fill="url(#orange)" stroke="#b85b11" stroke-width="2"/>
+  <!-- short hinge arm -->
+  <circle cx="508" cy="467" r="13" fill="#f59a2f" stroke="#b85b11" stroke-width="3"/>
+  <line x1="515" y1="462" x2="574" y2="429" stroke="#e97916" stroke-width="17" stroke-linecap="round"/>
+  <circle cx="581" cy="425" r="17" fill="#344d5d" stroke="#1c303d" stroke-width="3"/>
+  <!-- camera outside -->
+  <g transform="rotate(-10 612 430)">
+    <rect x="589" y="385" width="55" height="90" rx="9" fill="url(#orange)" stroke="#b85b11" stroke-width="3"/>
+    <circle cx="617" cy="414" r="17" fill="#17242c"/>
+    <circle cx="609" cy="451" r="6" fill="#fff1a8" stroke="#d8b34d"/>
+    <circle cx="625" cy="451" r="6" fill="#fff1a8" stroke="#d8b34d"/>
+  </g>
+  <!-- sight line to object -->
+  <polygon points="405,477 730,460 710,640" fill="#65b883" opacity="0.20" stroke="#4d9f6e" stroke-width="2" stroke-dasharray="8 7"/>
+  <rect x="665" y="575" width="82" height="80" rx="5" fill="#d8dde1" stroke="#738794" stroke-width="2"/>
+  <polygon points="665,575 706,552 788,552 747,575" fill="#eef1f3" stroke="#738794" stroke-width="2"/>
+  <polygon points="747,575 788,552 788,628 747,655" fill="#bcc8cf" stroke="#738794" stroke-width="2"/>
+  <path d="M 687 572 C 677 548, 704 528, 717 548 C 732 526, 758 548, 744 572 Z" fill="#ee8651"/>
+  <text x="675" y="687" class="label">Druckobjekt im Hauptmotiv</text>
+
+  <!-- callouts -->
+  <circle cx="488" cy="302" r="15" class="call"/><text x="488" y="302" class="num">1</text>
+  <path d="M 488 317 L 482 349" class="leader"/>
+  <text x="515" y="304" class="label">2020-Höhenschiene außen</text>
+
+  <circle cx="548" cy="525" r="15" class="call"/><text x="548" y="525" class="num">2</text>
+  <path d="M 548 510 L 526 476" class="leader"/>
+  <text x="572" y="530" class="label">kurzer M4-Hingeadapter</text>
+
+  <circle cx="640" cy="346" r="15" class="call"/><text x="640" y="346" class="num">3</text>
+  <path d="M 634 360 L 611 393" class="leader"/>
+  <text x="665" y="351" class="label">11-mm-Kugelgelenk außen</text>
+
+  <circle cx="332" cy="438" r="15" class="call"/><text x="332" y="438" class="num">4</text>
+  <path d="M 346 443 L 381 460" class="leader"/>
+  <text x="135" y="431" class="label">klare, leicht geneigte Sichtscheibe</text>
+  <text x="135" y="451" class="small">Innenblende mattweiß; Kamera-LEDs aus</text>
+
+  <circle cx="762" cy="438" r="15" class="call"/><text x="762" y="438" class="num">5</text>
+  <path d="M 746 439 L 420 478" class="leader"/>
+  <text x="700" y="405" class="label">FOV diagonal zur Druckmitte</text>
+  <text x="700" y="424" class="small">finale Armposition erst nach Kameratest</text>
+
+  <rect x="75" y="746" width="840" height="54" rx="10" fill="#edf6f0" stroke="#9bc6a9"/>
+  <text x="95" y="769" class="label">Thermische Baseline:</text>
+  <text x="248" y="769" class="small">Elektronik, Kabel und Kugelgelenk außerhalb des warmen Innenraums.</text>
+  <text x="95" y="790" class="small">Das Dach-/Fülllicht übernimmt die Beleuchtung; dadurch entstehen keine LED-Spiegelungen in der Sichtscheibe.</text>
+
+  <!-- Exploded concept -->
+  <rect x="975" y="125" width="580" height="395" class="card" filter="url(#shadow)"/>
+  <text x="1005" y="164" class="panelTitle">B · Explosionsprinzip der Neukonstruktion</text>
+  <line x1="1025" y1="332" x2="1510" y2="332" stroke="#b8c6cf" stroke-width="2" stroke-dasharray="7 8"/>
+  <!-- socket adapter -->
+  <rect x="1018" y="298" width="95" height="26" rx="13" fill="url(#orange)" stroke="#b85b11" stroke-width="2"/>
+  <circle cx="1115" cy="311" r="28" fill="#344d5d" stroke="#1d303d" stroke-width="3"/>
+  <path d="M 1115 284 A 28 28 0 0 1 1134 332" fill="none" stroke="#f7f9fb" stroke-width="10"/>
+  <!-- ball + rear -->
+  <circle cx="1185" cy="311" r="23" fill="url(#orange)" stroke="#b85b11" stroke-width="2"/>
+  <rect x="1206" y="300" width="28" height="22" rx="8" fill="#ed8d25" stroke="#b85b11" stroke-width="2"/>
+  <rect x="1230" y="276" width="35" height="70" rx="8" fill="#f0922b" stroke="#b85b11" stroke-width="2"/>
+  <!-- PCB -->
+  <rect x="1300" y="268" width="42" height="86" rx="5" fill="#253f38" stroke="#132c25" stroke-width="2"/>
+  <circle cx="1321" cy="294" r="14" fill="#15252d"/>
+  <circle cx="1313" cy="333" r="5.5" fill="#fff2a5"/>
+  <circle cx="1329" cy="333" r="5.5" fill="#fff2a5"/>
+  <!-- front shell -->
+  <rect x="1380" y="260" width="54" height="101" rx="9" fill="none" stroke="#e97916" stroke-width="8"/>
+  <circle cx="1407" cy="291" r="17" fill="none" stroke="#e97916" stroke-width="4"/>
+  <circle cx="1397" cy="337" r="6" fill="none" stroke="#e97916" stroke-width="3"/>
+  <circle cx="1417" cy="337" r="6" fill="none" stroke="#e97916" stroke-width="3"/>
+  <!-- optical seal/window -->
+  <path d="M 1460 264 L 1476 270 L 1476 352 L 1460 359 Z" fill="#334955" stroke="#172a35" stroke-width="2"/>
+  <path d="M 1500 261 L 1510 264 L 1510 355 L 1500 359 Z" fill="url(#glass)" stroke="#479bb7" stroke-width="2"/>
+  <!-- arrows -->
+  <line x1="1146" y1="311" x2="1159" y2="311" stroke="#e97916" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <line x1="1270" y1="311" x2="1286" y2="311" stroke="#e97916" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <line x1="1348" y1="311" x2="1366" y2="311" stroke="#e97916" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <line x1="1439" y1="311" x2="1452" y2="311" stroke="#e97916" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <line x1="1481" y1="311" x2="1492" y2="311" stroke="#e97916" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <text x="1018" y="382" class="small">Hingeadapter +</text><text x="1018" y="400" class="small">neue Gegenpfanne</text>
+  <text x="1160" y="382" class="small">Ø11 Kugel</text><text x="1160" y="400" class="small">am Rückdeckel</text>
+  <text x="1283" y="382" class="tiny">gekauftes</text><text x="1283" y="398" class="tiny">Kameramodul</text>
+  <text x="1362" y="382" class="tiny">neue Frontschale</text><text x="1362" y="398" class="tiny">freie Optiken</text>
+  <text x="1444" y="430" class="tiny">Lichtdichtung</text><text x="1482" y="449" class="tiny">Sichtscheibe</text>
+  <rect x="1005" y="458" width="520" height="45" rx="8" fill="#fff3e8" stroke="#e9b783"/>
+  <text x="1020" y="477" class="tiny">Orange Bauteile: vollständig neue parametrische Geometrie.</text>
+  <text x="1020" y="494" class="tiny">Referenz-STLs bleiben außerhalb des Projekts.</text>
+
+  <!-- Dimensioned face view -->
+  <rect x="975" y="545" width="580" height="360" class="card" filter="url(#shadow)"/>
+  <text x="1005" y="584" class="panelTitle">C · Verifizierte Funktionsmaße der Front</text>
+  <text x="1005" y="608" class="small">Messwerte aus Anycubics offiziell verlinkter Datei 2.stl; keine Konturübernahme</text>
+
+  <g transform="translate(1120 663)">
+    <rect x="0" y="0" width="135" height="231" rx="16" fill="#f7fafb" stroke="#2f4b5b" stroke-width="3"/>
+    <circle cx="67.5" cy="82" r="42.9" fill="none" stroke="#263d4b" stroke-width="3"/>
+    <circle cx="49.5" cy="169" r="16.5" fill="none" stroke="#263d4b" stroke-width="3"/>
+    <circle cx="85.5" cy="169" r="16.5" fill="none" stroke="#263d4b" stroke-width="3"/>
+    <line x1="67.5" y1="-18" x2="67.5" y2="249" stroke="#aab8c0" stroke-width="1" stroke-dasharray="5 5"/>
+    <line x1="-18" y1="115.5" x2="153" y2="115.5" stroke="#aab8c0" stroke-width="1" stroke-dasharray="5 5"/>
+    <!-- overall width -->
+    <line x1="0" y1="-25" x2="135" y2="-25" class="dimline"/>
+    <text x="67.5" y="-34" class="dim" text-anchor="middle">22,50 mm</text>
+    <!-- overall height -->
+    <line x1="160" y1="0" x2="160" y2="231" class="dimline"/>
+    <text x="181" y="116" class="dim" transform="rotate(90 181 116)" text-anchor="middle">38,50 mm</text>
+  </g>
+
+  <line x1="1210" y1="715" x2="1335" y2="683" class="leader"/>
+  <text x="1344" y="681" class="label">Linse Ø14,30</text>
+  <text x="1344" y="700" class="small">Mitte: X 0,00 / Y +5,57</text>
+  <line x1="1205" y1="832" x2="1335" y2="797" class="leader"/>
+  <text x="1344" y="794" class="label">LEDs je Ø5,50</text>
+  <text x="1344" y="813" class="small">Mitten: X ±3,00 / Y −8,83</text>
+  <text x="1344" y="850" class="small">Innenkontur: 19,30 × 35,30 mm</text>
+  <text x="1344" y="870" class="small">Fit-Coupon vor Vollgehäuse zwingend</text>
+
+  <rect x="45" y="850" width="900" height="105" rx="16" fill="#263b47"/>
+  <text x="70" y="880" style="font:700 18px sans-serif;fill:#fff">Konzeptstatus</text>
+  <text x="70" y="904" style="font:400 14px sans-serif;fill:#dbe7ed">KONZEPT · KEIN FERTIGUNGSMODELL. Konturen, Rastung und Wandstärken folgen erst nach Freigabe.</text>
+  <text x="70" y="926" style="font:400 14px sans-serif;fill:#dbe7ed">Baseline: Kamera außen, Kamera-LEDs aus, matte weiße Innenblende und 11-mm-Kugel.</text>
+  <text x="70" y="948" style="font:400 14px sans-serif;fill:#dbe7ed">Armlänge und Sichtfenster werden nach dem realen Sichtfeldtest festgelegt.</text>
+
+  <text x="1005" y="940" class="tiny">Lizenzgrenze: nur Messwerte/Sperrräume; keine Meshflächen, Logos</text>
+  <text x="1005" y="957" class="tiny">oder Herstellerfreigabe. Maßgeblich bleibt design-spec.yaml Rev. 1.3.</text>
+</svg>

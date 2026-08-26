@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "kobra3max-camera-whitebox",
+    "revision": "1.3-DRAFT",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420, 420, 500]
+  },
+  "artifacts": [
+    {"id": "design-spec", "path": "design-spec.yaml", "kind": "source", "revision": "1.3-DRAFT"},
+    {"id": "openscad-source", "path": "kobra3max_enclosure.scad", "kind": "source", "revision": "1.3-DRAFT"},
+    {"id": "complete-source", "path": "kobra3max_enclosure_complete.scad", "kind": "source", "revision": "1.3-DRAFT"},
+    {"id": "assembly-preview-source", "path": "camera_whitebox_assembly_preview.scad", "kind": "source", "revision": "1.3-DRAFT"},
+    {"id": "dimensions-source", "path": "camera_whitebox_dimensions.py", "kind": "source", "revision": "1.3-DRAFT"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "1.3-DRAFT"},
+    {"id": "dimensional-contract-report", "path": "reports/camera-whitebox-contract.json", "kind": "report", "revision": "1.3-DRAFT"},
+
+    {"id": "camera-fork-coupon", "path": "exports/DRAFT/STL/DRAFT_camera_fork_fit_coupon.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-fit-coupon", "path": "exports/DRAFT/STL/DRAFT_camera_fit_frame_coupon.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-ball-pin", "path": "exports/DRAFT/STL/DRAFT_camera_ball_test_pin.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-socket-coupon", "path": "exports/DRAFT/STL/DRAFT_camera_ball_socket_coupon.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-slider", "path": "exports/DRAFT/STL/DRAFT_camera_2020_slider_fork.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-arm", "path": "exports/DRAFT/STL/DRAFT_camera_short_socket_arm.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-front-shell", "path": "exports/DRAFT/STL/DRAFT_camera_front_shell.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "camera-back-cover", "path": "exports/DRAFT/STL/DRAFT_camera_back_cover_ball.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "window-inner-bezel", "path": "exports/DRAFT/STL/DRAFT_camera_window_inner_bezel.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "window-wedge", "path": "exports/DRAFT/STL/DRAFT_camera_window_outer_wedge.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "window-clamp", "path": "exports/DRAFT/STL/DRAFT_camera_window_clamp_frame.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "led-clip", "path": "exports/DRAFT/STL/DRAFT_led_profile_clip_17x8.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "roof-locator", "path": "exports/DRAFT/STL/DRAFT_roof_cassette_corner_locator.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "exhaust-baffle", "path": "exports/DRAFT/STL/DRAFT_exhaust_camera_baffle_120.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "corner-gusset", "path": "exports/DRAFT/STL/DRAFT_corner_gusset_3way.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "roof-t-bracket", "path": "exports/DRAFT/STL/DRAFT_flat_t_bracket.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "panel-retainer", "path": "exports/DRAFT/STL/DRAFT_panel_retainer_clip.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "turn-clip", "path": "exports/DRAFT/STL/DRAFT_turn_clip.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "turn-clip-spacer", "path": "exports/DRAFT/STL/DRAFT_turn_clip_spacer.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "service-panel", "path": "exports/DRAFT/STL/DRAFT_service_panel_120_ports.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "fan-adapter", "path": "exports/DRAFT/STL/DRAFT_fan_adapter_120_to_100.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "fan-guard", "path": "exports/DRAFT/STL/DRAFT_fan_guard_120.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "grommet-a", "path": "exports/DRAFT/STL/DRAFT_cable_grommet_half_A.stl", "kind": "mesh", "revision": "1.3-DRAFT"},
+    {"id": "grommet-b", "path": "exports/DRAFT/STL/DRAFT_cable_grommet_half_B.stl", "kind": "mesh", "revision": "1.3-DRAFT"}
+  ],
+  "checks": [
+    {
+      "id": "dimensional-contract",
+      "type": "external_report",
+      "required": true,
+      "artifact": "dimensional-contract-report",
+      "expected_inputs": ["design-spec", "openscad-source", "complete-source", "dimensions-source"]
+    },
+    {
+      "id": "camera-fork-coupon-mesh", "type": "mesh", "required": true, "artifact": "camera-fork-coupon",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-fit-coupon-mesh", "type": "mesh", "required": true, "artifact": "camera-fit-coupon",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-ball-pin-mesh", "type": "mesh", "required": true, "artifact": "camera-ball-pin",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-socket-coupon-mesh", "type": "mesh", "required": true, "artifact": "camera-socket-coupon",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-slider-mesh", "type": "mesh", "required": true, "artifact": "camera-slider",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-arm-mesh", "type": "mesh", "required": true, "artifact": "camera-arm",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-front-shell-mesh", "type": "mesh", "required": true, "artifact": "camera-front-shell",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "camera-back-cover-mesh", "type": "mesh", "required": true, "artifact": "camera-back-cover",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "window-inner-bezel-mesh", "type": "mesh", "required": true, "artifact": "window-inner-bezel",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "window-wedge-mesh", "type": "mesh", "required": true, "artifact": "window-wedge",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "window-clamp-mesh", "type": "mesh", "required": true, "artifact": "window-clamp",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "led-clip-mesh", "type": "mesh", "required": true, "artifact": "led-clip",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "roof-locator-mesh", "type": "mesh", "required": true, "artifact": "roof-locator",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "exhaust-baffle-mesh", "type": "mesh", "required": true, "artifact": "exhaust-baffle",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "corner-gusset-mesh", "type": "mesh", "required": true, "artifact": "corner-gusset",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "roof-t-bracket-mesh", "type": "mesh", "required": true, "artifact": "roof-t-bracket",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "panel-retainer-mesh", "type": "mesh", "required": true, "artifact": "panel-retainer",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "turn-clip-mesh", "type": "mesh", "required": true, "artifact": "turn-clip",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "turn-clip-spacer-mesh", "type": "mesh", "required": true, "artifact": "turn-clip-spacer",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "service-panel-mesh", "type": "mesh", "required": true, "artifact": "service-panel",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "fan-adapter-mesh", "type": "mesh", "required": true, "artifact": "fan-adapter",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "fan-guard-mesh", "type": "mesh", "required": true, "artifact": "fan-guard",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "grommet-a-mesh", "type": "mesh", "required": true, "artifact": "grommet-a",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "grommet-b-mesh", "type": "mesh", "required": true, "artifact": "grommet-b",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420, 420, 500], "allow_axis_permutation": true, "max_faces": 100000, "max_file_mib": 20}
+    },
+    {
+      "id": "physical-camera-module-fit", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Purchased Anycubic camera fits without PCB bending, optical obstruction or cable pinch",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-ball-socket-fit", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Selected 11 mm socket is hand-adjustable and holds the camera angle without creep",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-printer-clearance", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Bottomless hood clears the complete powered-off printer motion envelope and cable sweep",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-door-motion", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Door, display, camera, latches and wiring do not collide over the full opening range",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-lighting-camera", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Framing, white background, exposure, reflections, flicker and LED/camera temperature pass the test matrix",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-handling", "type": "physical", "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Two-person lift, handles, lower ring and roof retention remain stable without panel damage",
+      "evidence_artifact": null
+    },
+    {
+      "id": "exact-slicer-preflight", "type": "review", "required": false,
+      "status": "NOT_RUN",
+      "criterion": "All selected meshes are sliced with the exact local Anycubic Kobra 3 Max PETG profile"
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "inputs": {
+    "pattern": "stone/cast microtexture",
+    "source": "design-description plus documented FDM line-masking practice",
+    "surfaces": ["horizontal-top", "vertical-inner-wall"],
+    "patch_mm": [[80.0, 40.0], [80.0, 28.0]],
+    "nozzle_mm": 0.4,
+    "line_width_mm": 0.44,
+    "layer_height_mm": 0.2,
+    "smallest_feature_mm": [1.6, 1.6],
+    "maximum_relief_mm": [0.20, 0.24]
+  },
+  "intent": {
+    "macro_geometry": "continuous band-limited irregular matte cast surface with shared-node micro-facets",
+    "line_masking": "break coherent FDM highlights without a directional repeat",
+    "horizontal_policy": "raised-only CAD geometry; no recessed dimples or pits",
+    "wall_top_policy": "geometrically smooth; monotonic top paths and optional ironing remain slicer responsibilities",
+    "not_modeled": "sub-nozzle pores or photographic white noise"
+  },
+  "representation": {
+    "resolution_band": "macro-geometry",
+    "feature_to_line_width": [3.6364, 3.6364],
+    "recommended_methods": ["procedural-low-frequency-relief", "fuzzy-wall-or-material", "slicer-top-surface-pattern"],
+    "relief_in_nominal_layers": [1.0, 1.2],
+    "selected": "deterministic additive shared-node micro-facet field with positive core embed"
+  },
+  "warning": "Appearance remains process-dependent; validate matte material, top paths, cleaning, and dimensional effects on the supplied coupon."
+}

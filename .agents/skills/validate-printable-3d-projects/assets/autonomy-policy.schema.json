@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/validate-printable-3d-projects/autonomy-policy.schema.json",
+  "title": "Printable project autonomy policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy_id", "project_id", "mode", "authorization", "stages", "auto_approval_conditions", "human_approval_proof", "tool_policy"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "policy_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "mode": {"enum": ["manual", "guided", "autonomous-to-print-candidate", "custom"]},
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "authorized_by", "scope"],
+      "properties": {
+        "type": {"const": "human-delegation"},
+        "authorized_by": {"type": "string", "minLength": 1},
+        "scope": {"const": "workflow-stages-only"}
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "approval", "evidence_mode", "require_hashed_report_inputs"],
+        "properties": {
+          "id": {"enum": ["requirements-normalization", "concept", "decomposition", "parametric-source", "mesh-generation", "interface-validation", "slicer-preflight", "print-candidate", "physical-print", "fit-and-function", "appearance", "safety", "commercial-release"]},
+          "approval": {"enum": ["agent", "human"]},
+          "evidence_mode": {"enum": ["agent-attestation", "deterministic-pass", "human-evidence"]},
+          "require_hashed_report_inputs": {"type": "boolean"}
+        }
+      }
+    },
+    "auto_approval_conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["require_all_evidence_pass", "block_statuses", "require_evidence_sha256"],
+      "properties": {
+        "require_all_evidence_pass": {"const": true},
+        "block_statuses": {"type": "array", "uniqueItems": true, "items": {"enum": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"]}},
+        "require_evidence_sha256": {"const": true}
+      }
+    },
+    "human_approval_proof": {"enum": ["manual-assertion", "hmac-sha256"]},
+    "tool_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["local_workspace_write", "local_build_export_test", "network", "dependency_install", "destructive_overwrite", "external_upload", "printer_upload", "printer_start"],
+      "properties": {
+        "local_workspace_write": {"enum": ["allow", "ask", "deny"]},
+        "local_build_export_test": {"enum": ["allow", "ask", "deny"]},
+        "network": {"enum": ["allow", "ask", "deny"]},
+        "dependency_install": {"enum": ["ask", "deny"]},
+        "destructive_overwrite": {"enum": ["ask", "deny"]},
+        "external_upload": {"enum": ["ask", "deny"]},
+        "printer_upload": {"enum": ["ask", "deny"]},
+        "printer_start": {"const": "deny"}
+      }
+    }
+  }
+}

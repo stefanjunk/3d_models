@@ -1,0 +1,123 @@
+project:
+  name: kobra3max-metrimade-fan-cage
+  revision: R1
+  target_use: reversible fan guard and camera-visible brand marker on Anycubic Kobra 3 Max
+  target_size_mm: {x: 62.0, y: 65.2, z: 6.6}
+  coordinate_system:
+    origin: center of visible fan-cage face
+    x_axis: right in camera view
+    y_axis: down in camera view
+    z_axis: rearward toward printer
+
+sources:
+  - id: IMG-OFFICIAL-GUIDE
+    file: https://wiki.anycubic.com/en/fdm-3d-printer/kobra-3-max/print-head-cooling-fan-replacement-guide
+    view: multiple service photographs including front and opened shell
+    projection: perspective, uncalibrated
+    focal_length_mm: null
+    scale_reference: none published
+    known_dimension_mm: null
+    original_preserved: false
+    limitations:
+      - no calibrated scale
+      - no dimensioned bezel drawing
+      - perspective and hand-held framing
+  - id: BRAND-METRIMADE-SVG
+    file: assets/metrimade-lockup-horizontal-color.svg
+    view: authoritative horizontal color lockup with outlined wordmark
+    projection: orthographic vector artwork
+    scale_reference: 610 by 214 SVG viewBox scaled to 56.0 mm width
+    original_preserved: true
+    limitations:
+      - display sRGB colors require physical filament swatch matching
+
+manufacturing:
+  process: FDM
+  printer: Anycubic Kobra 3 Max
+  material: same-family PETG, up to four colors
+  nozzle_mm: 0.4
+  xy_pixel_mm: null
+  layer_height_mm: 0.2
+  intended_orientation: visible face flat on build plate, clips upward
+  measured_effective_feature_mm: null
+
+requirements:
+  - id: REQ-001
+    category: interface
+    statement: Cage shall mount reversibly on the raised circular front bezel without modifying factory screws or shell.
+    status: requested
+    source: user brief and official service guide
+    confidence: high
+    nominal_mm: null
+    tolerance_mm: null
+    priority: critical
+    validation: coupon and prototype
+  - id: REQ-002
+    category: print
+    statement: Complete cage shall print without support, visible face down, using a 0.4 mm nozzle.
+    status: requested
+    source: user brief
+    confidence: high
+    nominal_mm: 0.4
+    tolerance_mm: null
+    priority: critical
+    validation: geometry and slicer
+  - id: REQ-003
+    category: function
+    statement: Added guard shall retain at least 60 percent projected open area over an assumed 40 mm intake disc.
+    status: assumed
+    source: design airflow proxy
+    confidence: medium
+    nominal_mm: 60.0
+    tolerance_mm: null
+    priority: critical
+    validation: dimension and prototype
+  - id: REQ-004
+    category: appearance
+    statement: Camera-facing side shall reproduce the supplied four-color M mark as an air-permeable grille and place its outlined wordmark on a closed plate above the fan intake.
+    status: requested
+    source: user brief and BRAND-METRIMADE-SVG
+    confidence: high
+    nominal_mm: null
+    tolerance_mm: null
+    priority: important
+    validation: render and camera test
+
+appearance:
+  geometry_features: [outer guard ring, perforated four-color M mark, four short cardinal support links, upper sand wordmark plate]
+  relief_features: [0.6 mm first-layer color inlay]
+  texture_only_features: []
+  palette_srgb: ["#112431", "#08777D", "#7FD5D3", "#C7AB82"]
+  material_hypotheses: [opaque PETG in one polymer family]
+  lighting_or_shadow_cues_to_ignore: [factory photo highlights, cast shadows, fan-blade shading]
+
+uncertainty:
+  hidden_regions: [bezel cross-section and undercut, exact protrusion depth]
+  conflicting_evidence: []
+  variants_to_model: [D50, D52, D54 clip targets]
+  unresolved_questions:
+    - exact measured outer diameter of the user's raised front bezel
+    - production PETG matches for the four supplied SVG colors
+    - physical clearance between the upper wordmark plate and the printer front shell
+    - airflow and camera readability on the user's installation
+
+validation_views:
+  - id: VIEW-FRONT
+    source_id: IMG-OFFICIAL-GUIDE
+    camera: uncalibrated front service photograph; qualitative placement only
+    landmarks: [fan center, raised bezel extremities, lower shell openings]
+    acceptance:
+      silhouette_iou_min: null
+      boundary_mean_px_max: null
+      landmark_error_percent_max: null
+      notes: Physical fit and camera view supersede uncalibrated image comparison.
+
+deliverables:
+  editable_master: source/fan_cage_metrimade.scad
+  print_mesh: exports/fan_cage_singlecolor_D52.stl
+  textured_asset: exports/fan_cage_metrimade_D52_multicolor.3mf
+  reports: [reports/generator-mesh-report.json, reports/research.md, reports/release-status.md]
+  known_deviations:
+    - bezel diameter is a three-variant hypothesis, not a recovered measurement
+    - M mark is intentionally perforated with printable contour and lamellae; wordmark paths remain closed and are moved above the intake
+    - SVG paths are voxelized at 0.20 mm pitch; microscopic edge antialiasing is intentionally omitted

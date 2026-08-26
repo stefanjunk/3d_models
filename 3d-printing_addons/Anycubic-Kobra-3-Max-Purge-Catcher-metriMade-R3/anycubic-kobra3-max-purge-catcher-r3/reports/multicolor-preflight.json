@@ -1,0 +1,26 @@
+{
+  "status": "CONDITIONAL",
+  "job": "metriMade-purge-catcher-3sides-5material-core.3mf",
+  "materials": [
+    {"slot": 1, "name": "white body", "hex": "#F2F2ED"},
+    {"slot": 2, "name": "navy", "hex": "#112431"},
+    {"slot": 3, "name": "teal", "hex": "#08777D"},
+    {"slot": 4, "name": "aqua", "hex": "#7FD5D3"},
+    {"slot": 5, "name": "sand", "hex": "#C7AB82"}
+  ],
+  "digital_checks": {
+    "one_core_mesh_object": true,
+    "identity_registration": true,
+    "logo_faces": ["-Y front", "-X left", "+X display/right"],
+    "accent_depth_mm": 0.6,
+    "source_path_count": 13,
+    "source_viewbox_preserved": true,
+    "mask_overlap_pixels": 0,
+    "all_color_solids_watertight": true,
+    "required_material_assignments": 5
+  },
+  "risk": "Three vertical full-color logos require many material changes. Exact source colors plus a neutral body exceed a four-slot system.",
+  "required_slicer_metrics": ["color_change_count", "purge_tower_volume", "purge_waste_g", "print_time"],
+  "fallback": "Import the five aligned STL parts. For a first functional print, map them to one filament; for four slots, explicitly choose one merged/substituted color.",
+  "release": "Do not export G-code until manual mapping, every-layer skin inspection and purge metrics are accepted."
+}

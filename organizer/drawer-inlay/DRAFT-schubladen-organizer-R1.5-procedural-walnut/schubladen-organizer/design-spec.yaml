@@ -1,0 +1,212 @@
+project:
+  name: "Schubladen-Organizer – prozedurale Walnussholz-Variante"
+  revision: "R1.5-procedural-walnut"
+  units: "mm"
+  status: "digitally-validated-draft"
+  parent_revision: "R1.4-procedural-steel"
+
+workflow:
+  requirements_approval:
+    status: "approved"
+    spec_revision: "R1.5-procedural-walnut"
+    requested_by: "user"
+    requested_at: "2026-08-21"
+    approved_by: "user"
+    approved_at: "2026-08-21"
+    approval_note: "User approved the recommended matte walnut-brown PETG and 0.4-mm profile requirements."
+  concept_approval:
+    status: "approved"
+    spec_revision: "R1.5-procedural-walnut"
+    concept_asset: "concept-R1.5-procedural-walnut.png"
+    asset_sha256: "dae8c81c010a8cf9162090d82066c4806fd6bfc684500d9b8ff54bba6dce160f"
+    approved_by: "user"
+    approved_at: "2026-08-21"
+    approval_note: "User explicitly approved the R1.5 walnut concept sheet."
+    visible_correspondence:
+      - "Large overview preserves one long left screwdriver zone and eight right-side hardware compartments."
+      - "Floor grain runs front-to-back; wall and wall-top grain follows each wall direction."
+      - "Lower-left detail shows shallow fine grain and a smooth reinforced corner."
+      - "Lower-right detail shows rounded junction and round puzzle-connector language with smooth interface borders."
+    visual_limitations:
+      - "Rendered tonal variation and microfibres are material/lighting cues, not literal CAD displacement."
+      - "Production geometry remains governed by the millimetre limits in this specification."
+  watermark_release_gate:
+    status: "blocked"
+    spec_revision: "R1.5-procedural-walnut"
+    reason: "Digital watermark geometry passes, but an exact target-slicer preview and explicit final approval are still missing."
+  final_release_approval:
+    status: "blocked"
+    spec_revision: "R1.5-procedural-walnut"
+    reason: "Physical wood, connector, and drawer-fit coupons plus exact target-slicer inspection remain open."
+
+production_candidate:
+  status: "DRAFT"
+  built_at: "2026-08-21"
+  command: "python3 rebuild.py"
+  digital_validation: "PASS"
+  stl_count: 9
+  assembly_3mf: "output/DRAFT/DRAFT-R1.5-procedural-walnut-assembly.3mf"
+  assembly_envelope_mm: [227.0, 357.0, 64.0]
+  module_triangle_range: [27374, 40384]
+  peak_rss_mib: 164.75
+  connector_regression: "male and female coupons byte-identical to R1.4"
+  exact_slicer_resolution_check: "BLOCKED: target slicer/profile unavailable in build environment"
+  physical_qualification: "pending"
+
+goal_and_scope:
+  function:
+    value: "One wood-textured appearance variant of the validated four-module drawer organizer."
+    basis: "user-stated"
+  appearance_goal:
+    value: "Fine-grained, near-realistic wood appearance with coherent directional grain and sparse natural knots."
+    basis: "user-stated"
+  included_surfaces:
+    value: ["inner compartment floors", "inner side walls", "wall tops"]
+    basis: "inferred-from-approved-R1.4-surface-scope"
+  excluded_changes:
+    value: ["organizer envelope", "compartment layout", "wall geometry", "finger grooves", "connectors", "screwdriver comb"]
+    basis: "recommended"
+  risk_class:
+    value: "normal-functional"
+    basis: "inherited"
+
+geometry_and_interfaces:
+  assembly_envelope_mm:
+    value: [227.0, 357.0, 64.0]
+    basis: "inherited-R1.4"
+  module_count:
+    value: 4
+    basis: "inherited-R1.4"
+  largest_module_footprint_mm:
+    value: [135.0, 186.5]
+    basis: "inherited-R1.4"
+  floor_thickness_mm:
+    value: 2.6
+    basis: "inherited-R1.4"
+  wall_thickness_mm:
+    value: 3.2
+    basis: "inherited-R1.4"
+  connector_clearance_mm:
+    value: 0.30
+    basis: "inherited-R1.4"
+    limitation: "Previously reported physical non-fit remains open; wood texture must not enter connector keep-outs."
+
+surface_system:
+  intended_effect:
+    value: ["coherent long grain", "fine visual fibres", "sparse knots", "warm satin walnut appearance", "light tactile relief"]
+    basis: "user-stated-and-recommended"
+  species_language:
+    value: "quarter-sawn European walnut"
+    basis: "recommended"
+    rationale: "Walnut supports a fine, elegant grain and realistic dark tonal variation without requiring exaggerated deep grooves."
+  representation:
+    value: "hybrid: procedural vector/CAD grain and knot contours plus material/toolpath micrograin"
+    basis: "recommended"
+    rejected: ["full-surface photographic heightmap", "white-noise displacement", "anisotropic image stretching"]
+  mapping:
+    floor_direction: "global Y, continuous front-to-back"
+    vertical_wall_direction: "parallel to each wall's longest axis"
+    wall_top_direction: "parallel to each wall centerline"
+    repeat_policy: "deterministic controlled crop; no independent X/Y scaling"
+    seam_policy: "phase-continuous where surfaces meet; fade out before functional keep-outs"
+  macro_grain:
+    groove_width_mm: [0.9, 1.4]
+    groove_depth_mm: [0.10, 0.18]
+    nominal_spacing_mm: [3.0, 7.0]
+    wavelength_mm: [35.0, 110.0]
+    seed: 150521
+    basis: "recommended-process-scaled"
+  knots:
+    count_per_module: [0, 2]
+    diameter_mm: [12.0, 26.0]
+    contour_width_mm: [0.9, 1.3]
+    maximum_depth_mm: 0.20
+    exclusion: "No knots on wall tops, connector margins, junctions, grooves, gussets, or watermark zones."
+    basis: "recommended"
+  micrograin:
+    value: "Sub-path fibres and sheen belong to filament, monotonic top paths, perimeter direction, and optional finish; they are not modeled as tiny scratches."
+    basis: "recommended"
+  protected_regions:
+    value: ["connectors", "junction blends", "finger grooves", "gussets", "wall roots", "bed-contact plane", "watermark", "0.6-mm comfort band on wall-top edges"]
+    basis: "recommended"
+  minimum_residual_wall_mm:
+    value: 2.0
+    basis: "inherited-acceptance"
+
+manufacturing:
+  printer_class:
+    value: "FDM/FFF, at least 220 x 220 x 250 mm"
+    basis: "inherited-R1.4"
+  recommended_profile:
+    material: "matte walnut-brown PETG"
+    nozzle_mm: 0.4
+    line_width_mm: 0.44
+    layer_height_mm: 0.20
+    supports: false
+    orientation: "closed module underside flat on the bed"
+    basis: "recommended"
+    rationale: "Keeps the current functional baseline and fine-detail capability while material color and matte sheen supply realistic micrograin."
+  optional_material_candidate:
+    material: "wood-filled PLA"
+    nozzle_mm: 0.6
+    status: "not-selected"
+    tradeoff: "More authentic fibres and stainability, but greater clog/abrasion risk, coarser geometry, changed connector calibration, and a new manufacturing profile."
+  fabrication_preference:
+    value: "integrated-print"
+    basis: "inherited-R1.4"
+  memory_strategy:
+    value: "one module per process; one grain patch per Boolean stage"
+    basis: "recommended"
+  budgets:
+    triangle_target_per_module: 750000
+    triangle_review_per_module: 1000000
+    peak_rss_target_mib: 1536
+    peak_rss_stop_mib: 3072
+    mesh_stop_mib_per_module: 100
+    exact_slicer_import_slice_stop_seconds: 120
+    basis: "inherited-and-recommended"
+
+appearance_acceptance:
+  target_viewing_distance_mm: [300, 700]
+  criteria:
+    - "Reads as coherent fine walnut grain, not random scratches or stretched noise."
+    - "Grain direction remains continuous and intentional on every approved surface."
+    - "Sparse knots remain recognizable without becoming deep dirt traps."
+    - "No sharp peaks, snagging, or uncomfortable wall-top edges."
+    - "Functional keep-outs remain visibly and geometrically smooth."
+    - "Texture remains cleanable with a cloth or soft brush."
+  basis: "recommended"
+
+verification:
+  digital:
+    - "All nine STLs watertight, manifold, single-body, positive-volume."
+    - "3MF CRC and four-object assembly envelope pass."
+    - "Minimum residual walls and protected-region clearances pass."
+    - "Connector coupon hashes remain unchanged from R1.4 unless separately approved."
+    - "Triangle, file-size, and peak-memory budgets pass."
+  physical_coupon:
+    value: "L-shaped wood coupon reproducing floor, vertical wall, wall top, one mapped corner, plain baseline, fine/medium/coarse grain, and one knot."
+    basis: "recommended"
+  physical_release_tests:
+    - "Fixed-light photographs at three rotations."
+    - "Touch, snag, cleaning, and dust-retention check."
+    - "Connector pair and drawer-corner coupon remain required."
+    - "Target-slicer inspection of first three layers and textured wall/top paths."
+
+deliverables:
+  value:
+    - "One R1.5 DRAFT ZIP"
+    - "Parameterized Manifold3D source and JSON texture parameters"
+    - "Four module STLs and positioned assembly 3MF"
+    - "Wood-grain coupon, connector coupons, and drawer-fit coupon"
+    - "Concept image, actual-STL previews, BOM, print profile, decision log, and validation reports"
+  basis: "user-stated-and-required"
+
+resolved_decision:
+  id: "material-profile"
+  question: "Use the recommended matte walnut-brown PETG with the existing 0.4-mm profile, or switch to wood-filled PLA with a 0.6-mm nozzle?"
+  recommended: "matte walnut-brown PETG, 0.4-mm nozzle"
+  selected: "matte walnut-brown PETG, 0.4-mm nozzle"
+  status: "approved"
+  reason: "Preserves fine geometric detail, wall/connector behavior, and the validated manufacturing baseline."
+  tradeoff: "Less genuine fibre content than wood-filled PLA, but substantially lower clogging and recalibration risk."

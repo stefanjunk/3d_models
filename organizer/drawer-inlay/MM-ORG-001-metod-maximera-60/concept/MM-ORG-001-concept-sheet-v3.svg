@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1450" viewBox="0 0 1600 1450">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#112431" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .title { font: 700 39px Inter, Arial, sans-serif; letter-spacing: .5px; fill: #112431; }
+      .sub { font: 650 20px Inter, Arial, sans-serif; letter-spacing: 1.5px; fill: #08777D; }
+      .head { font: 700 17px Inter, Arial, sans-serif; letter-spacing: 1.4px; fill: #112431; }
+      .body { font: 500 15px Inter, Arial, sans-serif; fill: #365363; }
+      .small { font: 650 13px Inter, Arial, sans-serif; letter-spacing: .8px; fill: #365363; }
+      .tray { fill: #C7AB82; stroke: #112431; stroke-width: 15; }
+      .divider { fill: none; stroke: #112431; stroke-width: 13; stroke-linecap: round; }
+      .seam { stroke: #7FD5D3; stroke-width: 3; stroke-dasharray: 8 8; opacity: .85; }
+      .conn { fill: #08777D; stroke: #7FD5D3; stroke-width: 3; }
+      .socket { fill: #FBFAF7; stroke: #7FD5D3; stroke-width: 4; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1450" fill="#FBFAF7"/>
+  <circle cx="1515" cy="75" r="180" fill="#C7AB82" opacity="0.10"/>
+  <circle cx="55" cy="1360" r="230" fill="#7FD5D3" opacity="0.09"/>
+
+  <text x="64" y="72" class="title">MM-ORG-001 · KOBRA-420 MIXED SET</text>
+  <text x="64" y="106" class="sub">KONZEPT 0.3.0 · VIER MAXIMAL GROSSE TRAYS · PLANARE VERBINDER</text>
+  <line x1="64" y1="132" x2="1536" y2="132" stroke="#D5E0E2" stroke-width="2"/>
+
+  <text x="64" y="170" class="head">ZUSAMMENGEBAUT · 2 × 2</text>
+  <text x="850" y="170" class="head">EXPLODIERT · 2 VERBINDERPAARE JE NAHTSEGMENT</text>
+
+  <!-- Exact assembled 2x2 mixed set -->
+  <g filter="url(#shadow)">
+    <!-- open tray -->
+    <rect x="72" y="198" width="322" height="270" rx="28" class="tray"/>
+    <!-- two-compartment tray -->
+    <rect x="406" y="198" width="322" height="270" rx="28" class="tray"/>
+    <path d="M567 211 V455" class="divider"/>
+    <!-- four-compartment tray -->
+    <rect x="72" y="480" width="322" height="270" rx="28" class="tray"/>
+    <path d="M233 493 V737 M85 615 H381" class="divider"/>
+    <!-- four-compartment tray -->
+    <rect x="406" y="480" width="322" height="270" rx="28" class="tray"/>
+    <path d="M567 493 V737 M419 615 H715" class="divider"/>
+  </g>
+
+  <!-- Four shared seam segments -->
+  <line x1="400" y1="218" x2="400" y2="448" class="seam"/>
+  <line x1="400" y1="500" x2="400" y2="730" class="seam"/>
+  <line x1="92" y1="474" x2="374" y2="474" class="seam"/>
+  <line x1="426" y1="474" x2="708" y2="474" class="seam"/>
+
+  <!-- Exactly eight connector-location markers: 2 per segment -->
+  <g aria-label="eight connector locations">
+    <!-- A: top vertical seam -->
+    <g transform="translate(400 286)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <g transform="translate(400 386)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <!-- B: bottom vertical seam -->
+    <g transform="translate(400 558)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <g transform="translate(400 668)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <!-- C: left horizontal seam -->
+    <g transform="translate(168 474) rotate(90)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <g transform="translate(298 474) rotate(90)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <!-- D: right horizontal seam -->
+    <g transform="translate(502 474) rotate(90)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+    <g transform="translate(632 474) rotate(90)"><rect x="-20" y="-7" width="40" height="14" rx="7" class="conn"/><circle cx="0" cy="0" r="11" class="conn"/></g>
+  </g>
+
+  <g>
+    <rect x="86" y="775" width="14" height="14" rx="4" fill="#08777D" stroke="#7FD5D3" stroke-width="2"/>
+    <text x="112" y="788" class="body">8 Verbindungsstellen gesamt · je 2 auf A, B, C und D</text>
+    <text x="86" y="817" class="small">1× OFFEN</text>
+    <text x="222" y="817" class="small">1× 2 FÄCHER</text>
+    <text x="394" y="817" class="small">2× 4 FÄCHER</text>
+    <text x="566" y="817" class="small">11 FÄCHER</text>
+  </g>
+
+  <!-- Exploded exact interface mapping -->
+  <g filter="url(#shadow)">
+    <rect x="874" y="206" width="252" height="196" rx="24" class="tray"/>
+    <rect x="1230" y="206" width="252" height="196" rx="24" class="tray"/>
+    <path d="M1356 219 V389" class="divider"/>
+    <rect x="874" y="500" width="252" height="196" rx="24" class="tray"/>
+    <path d="M1000 513 V683 M887 598 H1113" class="divider"/>
+    <rect x="1230" y="500" width="252" height="196" rx="24" class="tray"/>
+    <path d="M1356 513 V683 M1243 598 H1469" class="divider"/>
+  </g>
+
+  <!-- A: open right male, split left female -->
+  <g>
+    <g transform="translate(1126 270)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <g transform="translate(1126 340)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <circle cx="1230" cy="270" r="13" class="socket"/><rect x="1218" y="263" width="17" height="14" fill="#FBFAF7"/>
+    <circle cx="1230" cy="340" r="13" class="socket"/><rect x="1218" y="333" width="17" height="14" fill="#FBFAF7"/>
+  </g>
+  <!-- B: lower-left right male, lower-right left female -->
+  <g>
+    <g transform="translate(1126 558)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <g transform="translate(1126 642)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <circle cx="1230" cy="558" r="13" class="socket"/><rect x="1218" y="551" width="17" height="14" fill="#FBFAF7"/>
+    <circle cx="1230" cy="642" r="13" class="socket"/><rect x="1218" y="635" width="17" height="14" fill="#FBFAF7"/>
+  </g>
+  <!-- C: open bottom male, lower-left top female -->
+  <g>
+    <g transform="translate(950 402) rotate(90)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <g transform="translate(1050 402) rotate(90)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <circle cx="950" cy="500" r="13" class="socket"/><rect x="943" y="488" width="14" height="17" fill="#FBFAF7"/>
+    <circle cx="1050" cy="500" r="13" class="socket"/><rect x="1043" y="488" width="14" height="17" fill="#FBFAF7"/>
+  </g>
+  <!-- D: split bottom male, lower-right top female -->
+  <g>
+    <g transform="translate(1306 402) rotate(90)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <g transform="translate(1406 402) rotate(90)"><rect x="-4" y="-7" width="28" height="14" class="conn"/><circle cx="24" cy="0" r="12" class="conn"/></g>
+    <circle cx="1306" cy="500" r="13" class="socket"/><rect x="1299" y="488" width="14" height="17" fill="#FBFAF7"/>
+    <circle cx="1406" cy="500" r="13" class="socket"/><rect x="1399" y="488" width="14" height="17" fill="#FBFAF7"/>
+  </g>
+
+  <!-- Connector detail and flat underside proof -->
+  <g transform="translate(850 746)">
+    <rect x="0" y="0" width="664" height="184" rx="22" fill="#FFFFFF" stroke="#BFD1D4" stroke-width="2"/>
+    <text x="22" y="32" class="head">PLANARER PUZZLEVERBINDER · BODENBÜNDIG</text>
+    <g transform="translate(48 62)">
+      <path d="M0 12 H100 V3 H126 A24 24 0 1 1 126 51 H100 V42 H0 Z" class="conn"/>
+      <path d="M208 0 H330 V54 H208 V42 H232 A24 24 0 1 0 232 12 H208 Z" fill="#112431"/>
+      <path d="M208 12 H232 A24 24 0 1 1 232 42 H208" fill="none" stroke="#7FD5D3" stroke-width="4"/>
+      <path d="M160 27 H194" stroke="#08777D" stroke-width="3"/>
+      <path d="M184 18 L195 27 L184 36" fill="none" stroke="#08777D" stroke-width="3"/>
+    </g>
+    <g transform="translate(420 64)">
+      <text x="0" y="0" class="small">SEITENANSICHT</text>
+      <rect x="0" y="28" width="92" height="24" rx="4" fill="#112431"/>
+      <rect x="98" y="28" width="92" height="24" rx="4" fill="#112431"/>
+      <line x1="-4" y1="54" x2="194" y2="54" stroke="#7FD5D3" stroke-width="4"/>
+      <text x="0" y="80" class="body">gemeinsame flache Auflage</text>
+    </g>
+  </g>
+
+  <g transform="translate(64 913)">
+    <rect x="0" y="0" width="20" height="20" rx="4" fill="#112431"/><text x="30" y="16" class="body">Wände</text>
+    <rect x="120" y="0" width="20" height="20" rx="4" fill="#C7AB82"/><text x="150" y="16" class="body">Fachböden</text>
+    <rect x="280" y="0" width="20" height="20" rx="4" fill="#08777D" stroke="#7FD5D3" stroke-width="2"/><text x="310" y="16" class="body">Verbinder / Buchsen</text>
+  </g>
+  <line x1="64" y1="988" x2="1536" y2="988" stroke="#D5E0E2" stroke-width="2"/>
+  <text x="64" y="1030" class="head">DREIVIERTEL-ANSICHT · FORM- UND MONTAGEWIRKUNG</text>
+  <g>
+    <rect x="64" y="1052" width="770" height="318" rx="24" fill="#FFFFFF" stroke="#BFD1D4" stroke-width="2"/>
+    <clipPath id="threeQuarterClip"><rect x="76" y="1064" width="746" height="294" rx="16"/></clipPath>
+    <g clip-path="url(#threeQuarterClip)">
+      <svg x="76" y="1064" width="746" height="294" viewBox="0 118 820 560" preserveAspectRatio="xMidYMid slice">
+        <image href="MM-ORG-001-concept-sheet-v3-imagegen-reference.png" x="0" y="0" width="1536" height="1024"/>
+      </svg>
+    </g>
+  </g>
+  <g transform="translate(884 1070)">
+    <text x="0" y="0" class="head">KORRESPONDENZ</text>
+    <circle cx="8" cy="38" r="6" fill="#08777D"/><text x="26" y="43" class="body">Vier große Trays bilden eine ruhige 2 × 2 Einheit.</text>
+    <circle cx="8" cy="76" r="6" fill="#08777D"/><text x="26" y="81" class="body">Mixed Set: offen, zweigeteilt, zweimal viergeteilt.</text>
+    <circle cx="8" cy="114" r="6" fill="#08777D"/><text x="26" y="119" class="body">Planare Puzzleverbinder liegen nur in der Bodenebene.</text>
+    <circle cx="8" cy="152" r="6" fill="#08777D"/><text x="26" y="157" class="body">Flache Unterseiten bleiben ohne Füße oder Schienen.</text>
+    <text x="0" y="211" class="small">HINWEIS</text>
+    <text x="0" y="237" class="body">Die Dreiviertelansicht vermittelt Form und Material.</text>
+    <text x="0" y="263" class="body">Anzahl, Zuordnung und Geschlecht der Verbinder werden</text>
+    <text x="0" y="289" class="body">durch die exakte Schemaansicht oben festgelegt.</text>
+  </g>
+  <text x="1220" y="1412" class="small">DESIGNINTENT · KEIN MASS- ODER DRUCKNACHWEIS</text>
+</svg>

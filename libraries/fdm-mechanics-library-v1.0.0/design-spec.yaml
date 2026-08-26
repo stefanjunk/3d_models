@@ -1,0 +1,357 @@
+project:
+  id: fdm-mechanics-library-extension
+  revision: 1.1.0-draft.2
+  owner: Stefan
+  state: requirements-changes-requested
+  release_status: experimental-draft
+
+provenance:
+  base_release:
+    version: 1.0.0
+    release_date: "2026-08-20"
+  draft_checkpoint:
+    revision: 1.1.0-draft.1
+    artifact_date: "2026-08-21"
+    status: experimental-draft
+    final: false
+    scope: prior-packaged-artifact; not yet revised for 1.1.0-draft.2
+
+workflow:
+  requirements_approval:
+    status: changes-requested
+    spec_revision: 1.1.0-draft.2
+    approved_by: null
+    approved_at: null
+    requested_by: user
+    requested_at: 2026-08-21
+  concept_approval:
+    status: blocked
+    spec_revision: 1.1.0-draft.2
+    asset: null
+    approved_by: null
+    approved_at: null
+  watermark_approval:
+    status: blocked
+    spec_revision: 1.1.0-draft.2
+    geometry_revision: null
+    asset_id: JSI-WM-001-R1
+    variant: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    approved_by: null
+    approved_at: null
+  approval_history:
+    - spec_revision: 1.1.0-draft.1
+      requirements_approval:
+        status: approved
+        approved_by: user
+        approved_at: 2026-08-21
+      concept_approval:
+        status: approved
+        asset: concept/families-31-39-r1.1.0-draft.1.png
+        asset_sha256: 4827bae0290786e22d9dec3902d1fc50cda7a16aa1a557520d2e96631af3c6bc
+        approved_by: user
+        approved_at: 2026-08-21
+      superseded_by: 1.1.0-draft.2-requirements-change
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+
+requirements_basis:
+  user_stated:
+    - Implement the nine recommended mechanism families as samples 121-156.
+    - Retain four variants per family and the existing parametric library layout.
+    - Continue implementation when clear next steps exist.
+    - These are samples; skip physical qualification as an integration and reuse prerequisite, and integrate them so other designs can reuse them.
+  inferred:
+    - The extension should remain compatible with the existing OpenSCAD, catalog, preview, and validation toolchain.
+    - The samples are reusable calibration and integration primitives rather than product-specific certified parts.
+  recommended:
+    - Integrate families 31-39 internally as reusable `experimental-draft` / `unqualified` samples without waiting for physical qualification.
+    - Keep the existing large package directory in place and expose it through the local skill and library root rather than renaming or moving it unless a later integration constraint requires that change.
+    - Correct the public parameter APIs and sealing descriptions before concept and production-candidate approval.
+    - Use purchased O-rings, shafts, screws, cells, electrical contacts, magnets, and sensors where precision, wear, sealing, or electrical behavior matters.
+  unresolved:
+    - Exact supplier part numbers and dimensions for O-rings, shafts, elastomer inserts, cells, contacts, magnets, and switches.
+    - Exact printer model, slicer profile, duty loads, speeds, environments, and required service lives.
+
+function:
+  summary: >-
+    Extend the existing FDM mechanical sample library from 120 samples in 30
+    families to 156 samples in 39 families, adding sealing, compact-drive,
+    service-interface, and component-fixture principles with four variants each,
+    and make the complete experimental/unqualified library reusable by other
+    local designs without requiring prior physical qualification.
+  users:
+    - designers selecting FDM mechanism principles
+    - prototype builders calibrating fit and motion
+    - integrators adapting parametric OpenSCAD samples
+  included_families:
+    - id: 31
+      samples: 121-124
+      name: radial O-ring shaft gland
+      purpose: low-speed rotating-shaft seal coupon
+      required_public_parameters: [shaft_d, oring_id, oring_cs, radial_squeeze, clearance, land_l, lead_in, grease_reservoir, wall]
+      required_purchased_parts: [supplier-defined O-ring, measured metal shaft, compatible grease]
+    - id: 32
+      samples: 125-128
+      name: O-ring-preloaded ramped bayonet
+      purpose: reusable low-pressure closure coupon with radial O-ring squeeze and axial ramp preload
+      required_public_parameters: [core_d, running_clearance, lug_w, ramp_h, turn_deg, oring_id, oring_cs, radial_squeeze, hard_stop]
+      required_purchased_parts: [supplier-defined O-ring]
+    - id: 33
+      samples: 129-132
+      name: compact asymmetric micro-shaft coupler
+      purpose: low-speed joining of unlike measured shafts
+      required_public_parameters: [input_d, output_d, input_clearance, output_clearance, length, outer_d, fastener, axial_stop]
+      required_purchased_parts: [two M2 fasteners, measured shafts]
+    - id: 34
+      samples: 133-136
+      name: crank-pin to slotted-rocker oscillator
+      purpose: low-speed rotation-to-oscillation conversion
+      required_public_parameters: [crank_r, pivot_offset, slot_w, pin_d, rocker_r, plate_t]
+      required_purchased_parts: []
+    - id: 35
+      samples: 137-140
+      name: dual O-ring friction piston
+      purpose: sealed low-pressure displacement and friction coupon
+      required_public_parameters: [bore_d, travel, oring_id, oring_cs, groove_depth, groove_spacing, lead_in, anti_loss_stop]
+      required_purchased_parts: [two supplier-defined O-rings, compatible grease]
+    - id: 36
+      samples: 141-144
+      name: captive serviceable hinge pin
+      purpose: destructively removable-free joint retention coupon
+      required_public_parameters: [pin_d, bearing_clearance, head_d, retainer_clearance, grip_l]
+      required_purchased_parts: []
+    - id: 37
+      samples: 145-148
+      name: compression cable gland
+      purpose: low-voltage cable pass-through and sealing coupon
+      required_public_parameters: [cable_d, seal_clearance, compression_l, thread_d, pitch, strain_relief, wall]
+      required_purchased_parts: [measured cable, qualified elastomer or potting insert]
+    - id: 38
+      samples: 149-152
+      name: cylindrical-cell cradle
+      purpose: mechanical retention coupon without electrical safety function
+      required_public_parameters: [cell_d, cell_l, count, cell_gap, clearance, strap_w, contact_keepout]
+      required_purchased_parts: [measured cells, nonconductive strap, supplier-specific contacts]
+    - id: 39
+      samples: 153-156
+      name: sealed magnetic actuator pocket
+      purpose: non-penetrating external magnetic actuation coupon
+      required_public_parameters: [wall_t, magnet_d, magnet_l, switch_keepout, travel, retention, clearance]
+      required_purchased_parts: [supplier-specific magnet, reed or Hall sensor]
+  interfaces:
+    - all dimensions use millimetres
+    - every family has four catalog variants and named semantic OpenSCAD parameters
+    - every sample exports one print plate plus separated connected-body STLs
+    - purchased-part dimensions and datasheets override nominal library placeholders
+  excluded_claims:
+    - pressure-vessel or certified IP rating
+    - mains-voltage suitability
+    - battery electrical protection
+    - safety-critical load capacity
+    - universal fit, sealing, wear, or service-life qualification
+
+integration:
+  target: reusable-internal-experimental-sample-library
+  status: blocked-pending-requirements-and-concept-approval
+  recommended_route: expose the current package in place through the local skill and library root
+  directory_policy: do not rename or move libraries/fdm-mechanics-library-v1.0.0 unless a later verified integration constraint requires it
+  physical_qualification_prerequisite: false
+  sample_status_required: experimental-draft
+  qualification_status_required: unqualified
+  dependency_policy: all runtime/source dependencies must be local or explicitly declared; no hidden dependency is allowed
+  reuse_boundary: reuse transfers geometry and documentation only, never sealing, IP, load, electrical-safety, or service-life qualification
+
+qualification:
+  physical_testing: optional-future-evidence
+  prerequisite_for_internal_integration: false
+  prerequisite_for_internal_reuse: false
+  required_for_status_promotion: qualified-local
+  required_for_service_claims: [sealing, IP, load, electrical safety, service life, product-specific suitability]
+  test_plan: PHYSICAL_TEST_PLAN_DE.md
+
+risk:
+  class: normal-functional
+  hazards:
+    - leakage or flooding if an unqualified seal is treated as proven
+    - shaft, linkage, pinch, and entanglement hazards during powered tests
+    - battery wrapper damage, short circuit, heating, or incorrect contact geometry
+    - magnet ingestion, unexpected actuation, or sensor false triggering
+    - snap, clip, thread, or coupler fracture and projectile release
+  assumptions:
+    - samples are bench coupons for low-load and low-speed prototyping
+    - users add guards, stops, strain relief, and product-specific safety controls
+    - digital mesh validation is not physical qualification
+
+fabrication:
+  preference: balanced-hybrid
+  assembly_target: low
+  repairability: preferred
+  print_vs_buy:
+    printed: [sample bodies, guides, retainers, low-load demonstration mechanisms]
+    purchased: [O-rings, precision shafts, M2 fasteners, cells, contacts, cables, elastomer inserts, magnets, sensors]
+
+printer:
+  model: unresolved-generic-fdm
+  build_volume_mm: [220, 220, 250]
+  enclosure: false
+
+manufacturing:
+  process: fdm-fff
+  material: PETG-baseline-with-family-specific-alternatives
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  target_formats: [scad, stl, png, json, csv, html]
+  supports: avoid where possible; document any family-specific exception
+  export_status: DRAFT-until-final-release-approval
+
+optimization:
+  status: pending
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  rationale: Exact printer and slicer profile remain unresolved.
+  mesh_simplification:
+    status: pending
+    interim_disposition: retain deterministic source STLs; no lossy simplification attempted or planned
+    master_mesh: library/fdm_mechanisms.scad and samples/*/model.scad
+    manufacturing_mesh: samples/*/print_plate.stl
+    method: deterministic OpenSCAD tessellation
+    tolerance_mm: null
+    protected_regions: [fits, bores, threads, O-ring glands, sealing walls, flexures, gear and linkage contacts]
+    comparison_report: validation/extension-validation.json
+    resource_budget:
+      triangle_target: null
+      triangle_stop: null
+      peak_memory_gib: null
+      max_mesh_mib: null
+      max_slicer_seconds: null
+    slicer_resolution_check:
+      status: pending
+      report: null
+    rationale: The analytic parametric OpenSCAD source is the master and packaged STL exports are low-complexity functional CSG meshes, so the current DRAFT retains them without a lossy step. The formal decision remains pending because mandatory exact-slicer behavior cannot be measured until an exact printer, profile, and slicer are named.
+
+dimensions:
+  units: mm
+  maximum_allowed_print_plate_envelope_mm: [220, 220, 250]
+  current_validated_maximum_mm: [146.031, 96.870, 54.000]
+  build_plane: Z0
+
+loads:
+  - state: unresolved
+    scope: family-specific force, torque, pressure, speed, shock, and cycle limits
+    release_rule: no load or life rating without measured evidence
+
+environment:
+  indoor_outdoor: mixed-prototype-use
+  temperature_c: [5, 50]
+  moisture: dry baseline; wet use only after family-specific leakage and material testing
+  uv: supplier-and-material-specific
+  chemicals: grease, potting, cable jacket, battery, and seal compatibility must be checked
+
+purchased_parts:
+  - category: dynamic and static seals
+    decision: buy
+    evidence_required: supplier dimensions, material, datasheet, lot or part number
+  - category: precision shafts and cyclic pins
+    decision: prefer-buy
+    evidence_required: measured diameter, runout, material, surface condition
+  - category: screws and inserts
+    decision: buy
+    evidence_required: exact M2 interface and tightening method
+  - category: batteries and electrical contacts
+    decision: buy
+    evidence_required: supplier dimensions, insulation and electrical safety design outside this library
+  - category: magnets and sensors
+    decision: buy
+    evidence_required: exact geometry, polarity, activation map, retention method
+
+acceptance:
+  - id: gates-current
+    criterion: Requirements and concept approvals both reference project revision 1.1.0-draft.2 before any concept, integration, or production change; this criterion is currently unmet.
+    method: workflow gate review
+  - id: catalog-complete
+    criterion: Catalog contains exactly 156 unique contiguous sample IDs and 39 families with four variants each.
+    method: tools/validate_library.py
+  - id: geometry-valid
+    criterion: Every print plate and separated body is watertight, winding-consistent, positive-volume, nondegenerate, on or above Z0, and within the 220-mm XY bed.
+    method: tools/build_library.py and tools/validate_library.py
+  - id: source-export-reproducible
+    criterion: A forced fresh render of all 36 new sources is geometrically equivalent to the packaged plates and refreshes all reports.
+    method: forced OpenSCAD render and mesh hash/equivalence regression
+  - id: parameter-contract
+    criterion: Families 31-39 expose the required semantic parameters, coupled dimensions, and range assertions listed in this specification.
+    method: source review plus boundary-value render matrix
+  - id: claims-bounded
+    criterion: Documentation labels all new samples experimental and makes no sealing, IP, load, electrical-safety, or service-life claim without physical evidence.
+    method: tools/validate_extension.py deterministic record, README, catalog JSON/CSV/HTML/Markdown, and sealing-disclaimer checks
+  - id: physical-evidence
+    criterion: Physical testing is optional for internal experimental/unqualified integration and reuse, but measured printer/material/profile and purchased-part evidence is mandatory before any `qualified-local` promotion or product-specific sealing, IP, load, electrical, or life claim.
+    method: ROADMAP_RECOMMENDATIONS.md and PHYSICAL_TEST_PLAN_DE.md
+  - id: reuse-discoverable
+    criterion: All 156 unique sample IDs are discoverable in the generated catalog and return a reusable record through tools/query_catalog.py.
+    method: tools/validate_library.py plus deterministic catalog/query smoke test for IDs 001-156
+  - id: reuse-library-surface
+    criterion: Families 31-39 and samples 121-156 are reusable from both the local fdm-mechanical-sample-library skill surface and the shared library/fdm_mechanisms.scad root without moving the package directory.
+    method: local skill/root path checks plus one source import/render smoke test per family
+  - id: reuse-provenance-license
+    criterion: Every reusable record preserves source provenance and explicit code/generated-geometry licenses.
+    method: catalog/metadata audit for 156/156 records and package license-file checks
+  - id: reuse-package-state
+    criterion: The integrated package exposes an explicit version and `experimental-draft` status that agree across VERSION, design-spec.yaml, generated records, and package manifest.
+    method: deterministic cross-file version/status check
+  - id: reuse-dependency-closure
+    criterion: All dependencies needed to query, import, validate, or render the library are local or explicitly declared, with zero hidden dependency findings.
+    method: dependency inventory and clean-environment smoke test
+  - id: reuse-digital-green
+    criterion: After integration, current-input contract/claims validation, full 156-sample library validation, package integrity, and representative family import/render smoke tests all pass.
+    method: tools/validate_extension.py, tools/validate_library.py, tools/build_package_manifest.py --check, and integration smoke report
+  - id: package-integrity
+    criterion: Package manifest and SHA-256 list reproduce deterministically independent of the verification date.
+    method: tools/build_package_manifest.py --check
+  - id: watermark-release
+    criterion: The exact JSI-WM-001-R1 mark is recessed, readable from the finished underside, process-safe, and explicitly approved on the current geometry revision.
+    method: functional-3d-design watermark release gate
+
+test_plan: PHYSICAL_TEST_PLAN_DE.md
+
+evidence:
+  prior_digital_checkpoint:
+    status: passed-draft
+    spec_revision: 1.1.0-draft.1
+    extension_build_report: validation/extension-build-summary.json
+    extension_contract_report: validation/extension-validation.json
+    extension_claims_report: validation/extension-claims-validation.json
+    full_library_build_report: validation/build-summary.json
+    full_library_structure_report: validation/library-validation.json
+    fresh_extension_source_renders: 36
+    canonical_geometry_equivalence: 36/36
+    parameter_boundary_cases: 27/27
+    claims_bounded_records: 36/36
+    full_library_mesh_checks: 156/156
+    preview_backend: openscad-assembly-stl-plus-matplotlib-agg
+    concept_asset_sha256: 4827bae0290786e22d9dec3902d1fc50cda7a16aa1a557520d2e96631af3c6bc
+    physical_qualification: pending
+    slicer_resolution_check: pending
+    final_release_approval: blocked
+  current_revision_gate:
+    spec_revision: 1.1.0-draft.2
+    requirements_status: changes-requested
+    concept_status: blocked
+    concept_asset: null
+    integration_status: blocked-pending-requirements-and-concept-approval
+
+outputs:
+  source: library/fdm_mechanisms.scad and samples/*/model.scad
+  exports: samples/*/print_plate.stl and samples/*/parts/
+  validation: validation/
+  catalog: catalog/ and CATALOG.html
+  package_integrity: PACKAGE_MANIFEST.json and CHECKSUMS.sha256

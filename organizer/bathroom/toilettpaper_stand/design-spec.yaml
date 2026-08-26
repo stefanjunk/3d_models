@@ -1,0 +1,490 @@
+schema_version: 2
+
+project:
+  id: zen-kintsugi-wave-fifo
+  name: ZEN KINTSUGI WAVE FIFO Toilet-Paper Stand
+  revision: 3.0.0
+  previous_revision: 2.0.0-legacy-hybrid
+  owner: Stefan
+  claim: functional-redesign
+  state: production-design
+  units: mm
+  note: >-
+    The existing v2.0.0 GLB-derived package is informative legacy evidence only.
+    Revision 3.0.0 will not use image-to-3D meshes as production geometry.
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 3.0.0
+    approved_by: Stefan
+    approved_at: 2026-08-21
+  concept_approval:
+    status: approved
+    spec_revision: 3.0.0
+    asset: concept/zen_kintsugi_wave_fifo_r3.0.0_concept.png
+    approved_by: Stefan
+    approved_at: 2026-08-21
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: JSI-WM-001-R1
+    variant: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    approved_by: null
+    approved_at: null
+
+branding:
+  required: true
+  brand: JuSt Innovation
+  asset_id: JSI-WM-001-R1
+  operation: recessed
+  preferred_surface: print-bed-facing-underside
+  depth_mm: 0.40
+  integration_stage: last-planned-solid-geometry-change
+
+requirements_basis:
+  user_stated:
+    - id: USR-001
+      statement: Review the toilet-paper stand and its concept image.
+    - id: USR-002
+      statement: Recommend design improvements and simplify the product.
+    - id: USR-003
+      statement: Redesign without an image-to-3D AI model.
+  inferred:
+    - id: INF-001
+      statement: Preserve the recognizable ivory, wave and gold-kintsugi visual identity.
+    - id: INF-002
+      statement: Preserve the wall-mounted five-roll gravity-FIFO function unless corrected by the user.
+    - id: INF-003
+      statement: Bathroom use requires cleanable, moisture-tolerant surfaces and serviceable mounting.
+  recommended:
+    - id: REC-001
+      statement: Use an exact parametric functional core and deterministic spline/vector decoration.
+    - id: REC-002
+      statement: Replace the six legacy body pieces with three structural modules holding at most two rolls each.
+    - id: REC-003
+      statement: Keep the scent tray as an optional removable accessory, not part of the base product.
+    - id: REC-004
+      statement: Use shallow procedural side waves and buffered spline kintsugi channels; use filament/finish for microtexture.
+  resolved_by_user:
+    - id: RES-001
+      source_message: approved
+      selected: five-roll FIFO with maximum roll envelope diameter 120 x width 105 mm
+      resolved_at: 2026-08-21
+    - id: RES-002
+      source_message: approved
+      selected: drilled wall fasteners with substrate-specific purchased anchors; no adhesive-only primary mounting
+      resolved_at: 2026-08-21
+    - id: RES-003
+      source_message: approved
+      selected: scent tray optional and removable
+      resolved_at: 2026-08-21
+  unresolved: []
+
+function:
+  summary: >-
+    Wall-mounted vertical gravity-FIFO storage column for five spare toilet-paper
+    rolls, loaded from the top and removed one at a time from the lower front.
+  users:
+    - adult household users
+  included_functions:
+    - five-roll vertical storage
+    - gravity FIFO advancement
+    - top loading and lower-front single-roll removal
+    - visible roll inventory
+    - serviceable wall mounting
+    - optional removable dry-scent-stone tray
+    - replaceable or separately printable decorative accent bodies
+  excluded_functions:
+    - adhesive-only primary wall mounting
+    - open flame, candles or liquid fragrance oils
+    - child-safety certification
+    - load rating without substrate-specific physical testing
+    - production dependence on AI-generated STL, OBJ or GLB geometry
+  interfaces:
+    - roll-to-shaft-clearance
+    - top-loading-swept-volume
+    - bottom-output-stop-and-removal-path
+    - structural-module-joints
+    - wall-fastener-and-anchor-system
+    - optional-decor-skin-or-inlay
+    - optional-scent-tray-retention
+
+risk:
+  class: structural
+  rationale: A tall wall-mounted object can fall if its printed mounting path, fasteners or wall anchors fail.
+  hazards:
+    - falling assembly after anchor or printed-back failure
+    - roll jams or unintended double release
+    - finger pinch or sharp snagging edges at the output
+    - moisture and residue trapped in deep relief or module seams
+    - scent tray detachment or misuse with liquid or flame
+  assumptions:
+    - installation is performed by an adult
+    - actual roll dimensions are checked against the approved envelope
+    - wall substrate and suitable anchors are identified before installation
+  required_human_review:
+    - wall substrate, purchased fasteners and anchors
+    - installed proof-test procedure
+    - physical FIFO and jam testing
+
+fabrication:
+  preference: balanced-hybrid
+  assembly_target: low-to-moderate
+  repairability: required
+  printed:
+    - three structural body modules
+    - deterministic decorative skins or inlays
+    - optional scent tray
+    - fit and FIFO coupons
+  purchased:
+    - substrate-specific wall anchors and screws
+    - washers where required by the final bearing design
+    - eight M5 module-joint bolts with washers and nuts
+    - six M3 decorative-skin screws with matching heat-set inserts
+  prohibited_primary_joints:
+    - decorative GLB or raster-relief geometry in the wall-mount load path
+    - adhesive-only structural joints
+    - untested printed snap fits carrying the complete assembly
+
+printer:
+  model: Anycubic Kobra 3 Max from legacy documentation; user confirmation required
+  build_volume_mm: [420, 420, 500]
+  basis: legacy-project-documentation-not-yet-user-confirmed
+  enclosure: false
+  drying_available: recommended
+
+manufacturing:
+  process: fdm-fff
+  structural_material: PETG
+  decorative_materials:
+    - PETG
+    - PLA or Silk PLA for nonstructural removable accents only
+  nozzle_mm: 0.60
+  line_width_mm: 0.68
+  layer_height_mm:
+    structural: 0.30
+    decorative: [0.20, 0.24, 0.30]
+  supports_target: none-or-local-only
+  target_formats:
+    - editable-parametric-source
+    - STEP where the selected backend supports it
+    - 3MF
+    - STL
+    - assembly-preview
+    - validation-reports
+  profile_status: provisional-until-printer-and-slicer-confirmed
+
+dimensions:
+  units: mm
+  coordinate_datum: rear mounting plane Y=0; +Y away from wall; +Z upward; X centered
+  roll_envelope:
+    nominal_max_diameter_mm: 120
+    nominal_max_width_mm: 105
+    digital_gauge_diameter_mm: 122
+    digital_gauge_width_mm: 107
+    status: legacy-values-pending-user-confirmation
+  capacity_rolls: 5
+  legacy_reference_envelope_mm:
+    body: [140, 121, 664]
+    total_with_crown_height_mm: 735
+    total_width_with_tray_mm: 196
+    status: informative-only
+  proposed_envelope_target_mm:
+    width_without_accessory_max: 150
+    depth_max: 130
+    height_without_optional_crown_max: 680
+  proposed_module_architecture:
+    structural_module_count: 3
+    maximum_roll_positions_per_module: 2
+    structural_joint_count: 2
+    maximum_module_height_mm: 260
+    status: recommended-for-approval
+
+architecture:
+  representation_authority:
+    fifo-shaft-output-and-loading-clearances: parametric-brep-or-deterministic-solid
+    wall-mount-load-path: parametric-brep-or-deterministic-solid
+    module-joints: parametric-brep-or-deterministic-solid
+    visible-wave-envelope: cubic-bspline-bezier-or-low-order-analytic-curves
+    kintsugi-grooves-and-inlays: buffered-parametric-spline-network
+    microtexture: material-finish-or-slicer-process
+    standard-fasteners-and-anchors: purchased
+  source_policy:
+    concept_images: visual-inspiration-only
+    legacy_glb_meshes: archived-reference-only
+    image_to_3d_production_geometry: prohibited
+  protected_geometry:
+    - wall mounting holes, bearing pads and tool access
+    - complete roll shaft and roll swept volumes
+    - output stop and finger-access edges
+    - module mating faces and alignment axes
+    - print-bed faces
+    - scent-tray retention interface when enabled
+
+production_parameters:
+  geometry_revision: r3.0.0-candidate-02
+  roll:
+    maximum_diameter_mm: 120.0
+    maximum_width_mm: 105.0
+    gauge_diameter_mm: 122.0
+    gauge_width_mm: 107.0
+    shaft_clear_width_mm: 136.0
+    shaft_clear_depth_mm: 115.0
+    rear_clearance_mm: 5.0
+    front_clearance_mm: 3.0
+  body:
+    outer_width_mm: 146.0
+    total_depth_mm: 123.9
+    back_thickness_mm: 3.4
+    side_frame_thickness_mm: 5.0
+    front_thickness_mm: 5.5
+    bottom_module_height_mm: 253.2
+    middle_module_height_mm: 252.0
+    top_module_height_mm: 130.2
+    total_body_height_mm: 635.4
+    optional_crown_height_mm: 40.0
+  output_stop:
+    rail_center_x_mm: 34.0
+    rail_width_mm: 11.0
+    rail_height_mm: 12.0
+    gauge_rest_center_z_mm: 65.933
+  module_joint:
+    fastener: M5 x 20 preliminary
+    fasteners_per_seam: 4
+    hole_diameter_mm: 5.8
+    pad_diameter_mm: 14.0
+    pad_thickness_mm: 4.2
+    alignment_boss_diameter_mm: 10.0
+    alignment_boss_height_mm: 1.5
+    alignment_recess_diameter_mm: 10.6
+    alignment_recess_depth_mm: 1.8
+    axis_x_mm: [-67.5, 67.5]
+    axis_y_mm: [10.0, 111.0]
+    status: preliminary-requires-coupon-and-tool-access-review
+  wall_mount:
+    axis_x_mm: [-40.0, 40.0]
+    lower_axis_z_mm: 36.0
+    upper_axis_z_from_top_mm: 36.0
+    through_hole_diameter_mm: 5.5
+    head_counterbore_diameter_mm: 10.5
+    head_counterbore_depth_mm: 4.0
+    local_boss_depth_mm: 8.0
+    status: geometry-envelope-only-anchor-selection-blocked
+  decorative_skin:
+    side: right
+    base_thickness_mm: 2.4
+    edge_margin_mm: 5.0
+    wave_groove_width_mm: 1.4
+    wave_groove_depth_mm: 0.45
+    gold_groove_depth_mm: 0.70
+    gold_width_mm: 2.1
+    gold_proud_mm: 0.05
+    attachment: two M3 countersunk screws per module into heat-set inserts
+    status: preliminary-requires-inlay-and-insert-coupons
+  process:
+    nozzle_mm: 0.60
+    line_width_mm: 0.68
+    structural_layer_height_mm: 0.30
+    decorative_layer_height_mm: 0.24
+    tessellation_tolerance_mm: 0.10
+    tessellation_angular_tolerance_rad: 0.15
+
+surfacing:
+  method: sparse-cubic-curves-with-extrusion-or-sweep
+  functional_core_separation: required
+  semantic_parameters:
+    - wave_amplitude
+    - wave_wavelength
+    - wave_phase
+    - crown_height
+    - crown_curl
+    - kintsugi_trunk_offsets
+    - kintsugi_branch_count
+    - kintsugi_width
+  continuity_targets:
+    visible-wave-curves: G2-preferred
+    structural-mating-edges: exact-or-intentionally-sharp
+  validation:
+    - silhouette review
+    - curvature-comb review for crown and dominant waves
+    - no unexplained curvature spikes
+    - no drift of protected functional hardpoints
+
+surface_texture:
+  side_waves:
+    representation: procedural-vector-or-analytic-relief
+    minimum_feature_policy: at least two reliable extrusion paths where geometry is intended to remain distinct
+    relief_depth_mm: [0.4, 1.2]
+  kintsugi:
+    representation: buffered-spline-groove-plus-separate-inlay-body
+    nominal_width_mm: [1.8, 2.4]
+    nominal_exposed_thickness_mm: [0.55, 0.80]
+  microtexture:
+    representation: filament-material-or-finish
+    dense-raster-displacement: prohibited
+  keepouts_required: true
+
+loads:
+  - id: stored-roll-weight
+    value: measured-actual-five-roll-set
+    status: measurement-required
+  - id: assembly-self-weight
+    value: exact-slicer-estimate-and-measured-print
+    status: measurement-required
+  - id: wall-mount-proof
+    value: substrate-specific-human-approved-test-protocol
+    status: release-blocking
+
+duty:
+  service_life_target_years: 5
+  fifo_cycle_target: 100
+  cleaning_access: tool-free-decor-access-preferred
+  status: approved-in-revision-3.0.0
+
+environment:
+  indoor_outdoor: indoor
+  location: bathroom
+  temperature_c: [10, 40]
+  moisture: high-humidity-and-occasional-splash
+  uv: low
+  chemicals:
+    allowed: mild-household-bathroom-cleaner-after-material-check
+    excluded: aggressive-solvents-and-unknown-disinfectants
+
+purchased_parts:
+  - item: wall anchors and screws
+    authority: substrate-specific-supplier-data-and-installer
+    status: release-blocking
+  - item: washers if required
+    authority: measured-supplier-parts
+    status: pending-interface-design
+  - item: M5 x 20 bolts, washers and nuts for module seams
+    quantity: 8 sets
+    authority: measured-supplier-parts
+    status: preliminary-length-requires-coupon
+  - item: M3 countersunk screws and heat-set inserts for decorative skins
+    quantity: 6 sets
+    authority: measured-supplier-parts
+    status: preliminary-interface-requires-coupon
+
+optimization:
+  status: pending
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  rationale: Compare the legacy six-body GLB-derived package against the three-module fully parametric candidate.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exact STEP and CadQuery B-Rep source; no triangle mesh is design authority
+    manufacturing_mesh: exports/draft/stl/DRAFT_*.stl
+    method: direct-cadquery-tessellation-no-lossy-decimation
+    tolerance_mm: 0.10
+    protected_regions:
+      - functional interfaces
+      - wall mount load path
+      - roll swept volume
+      - inlay boundaries
+      - bed-contact faces
+    comparison_report: validation/digital-validation-r3.json
+    resource_budget:
+      triangle_target: 50000
+      triangle_stop: 200000
+      peak_memory_gib: 4
+      max_mesh_mib: 50
+      max_slicer_seconds: 120
+    slicer_resolution_check:
+      status: pending
+      report: null
+    rationale: >-
+      Candidate-02 directly tessellates exact B-Reps at 0.10 mm chordal and
+      0.15 rad angular tolerance. All 15 draft meshes are watertight,
+      single-component and positive-volume; the largest is 11,792 triangles
+      and 589,684 bytes, with 60,150 triangles and 3,008,760 bytes total.
+      Lossy decimation would add interface, bed-plane and shallow-relief risk
+      without a meaningful handling benefit. Exact-slicer resolution remains
+      a separate pending gate.
+
+acceptance:
+  - id: requirements-current
+    criterion: Requirements approval explicitly references project revision 3.0.0.
+    method: workflow gate review
+  - id: concept-current
+    criterion: Approved concept image explicitly references the approved project revision.
+    method: workflow gate review
+  - id: geometry-valid
+    criterion: Every manufacturing mesh is watertight, positive-volume and has the intended body count.
+    method: automated mesh validation plus independent review
+  - id: bed-fit
+    criterion: Every part fits the confirmed build volume in its intended orientation.
+    method: bounds check and exact target slicer
+  - id: roll-envelope
+    criterion: The approved digital gauge and physical worst-case roll samples clear loading, storage, descent and removal paths.
+    method: CAD swept-volume review plus physical gauge and roll tests
+  - id: fifo-reliability
+    criterion: One hundred full five-roll cycles complete without a jam, double release, torn paper or manual intervention inside the shaft.
+    method: physical cycle test with representative and adverse roll samples
+  - id: module-joints
+    criterion: Structural modules align without unintended play, separation or roll-catching seam steps.
+    method: fit coupon, assembled section review and handling test
+  - id: wall-mount
+    criterion: The selected printed load path, screws and substrate-specific anchors pass the human-approved installed proof protocol without crack, slip or anchor movement.
+    method: guarded physical installation test
+  - id: cleanability
+    criterion: User-accessible surfaces can be wiped and dried without unacceptable trapped liquid or inaccessible residue pockets.
+    method: section review and physical cleaning test
+  - id: surface-process
+    criterion: Wave relief and gold inlay retain intended paths in the exact slicer and pass a process-matched appearance/fit coupon.
+    method: exact slicer plus physical coupon
+  - id: watermark-release
+    criterion: The exact JSI-WM-001-R1 mark is recessed, readable from the finished underside, process-safe and approved on the current geometry revision.
+    method: references/watermark-release-gate.md
+
+legacy_evidence:
+  package: 2/ZEN_KINTSUGI_WAVE_FIFO_5R_HYBRID_v2.0.0(2)/ZEN_KINTSUGI_WAVE_FIFO_5R_HYBRID_v2.0.0
+  status: informative-only-not-current-approval
+  useful:
+    - watertight manufacturing meshes were reported for the default package
+    - a diameter 122 x width 107 mm gauge reported zero static vertical intersections at 98 positions
+    - side-panel rail geometry and coupons exist
+  blocked_or_unknown:
+    - no exact slicer result
+    - no physical FIFO, roll-variation or jam test
+    - no physical joint, rail or dovetail coupon results
+    - no wall substrate, anchor or installed proof evidence
+    - no requirements, concept or final release approval record
+
+test_plan:
+  status: active-draft-validation
+  digital:
+    - source parameter assertions and deterministic rebuild
+    - B-Rep validity and single-solid checks
+    - five-position rigid roll-gauge clearance regression
+    - module seam non-intersection check
+    - draft STL topology, bounds and manifest-integrity checks
+  manufacturing:
+    - exact confirmed-printer slicer dry run
+    - joint and decorative-skin coupons
+  physical:
+    - representative/adverse-roll FIFO cycle test
+    - installed substrate-specific guarded proof test
+    - cleaning and optional-accessory checks
+
+outputs:
+  source: source/
+  concept_assets: concept/
+  exports: exports/
+  validation: validation/
+  final_model_report: reports/final-model-result.md
+
+release_blockers:
+  - confirmed roll envelope and adverse roll samples
+  - confirmed printer, build volume, material and exact slicer profile
+  - substrate-specific wall fasteners and guarded proof test
+  - fit, FIFO, cleaning and accessory coupons/tests
+  - optimization and manufacturing-mesh decisions
+  - JuSt Innovation watermark integration and final release approval

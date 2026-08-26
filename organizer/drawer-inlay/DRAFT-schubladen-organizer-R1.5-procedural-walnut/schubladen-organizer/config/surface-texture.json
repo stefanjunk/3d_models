@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "representation": "deterministic-vector-grain-and-knot-grooves",
+  "intent": "fine coherent quarter-sawn walnut grain on drawer-open interior surfaces",
+  "enabled": true,
+  "seed": 150521,
+  "boolean_overlap_mm": 0.06,
+  "surfaces": {
+    "floor": {
+      "enabled": true,
+      "edge_margin_mm": 0.9,
+      "grain": {
+        "pitch_mm": 4.8,
+        "probability": 0.94,
+        "cross_jitter_fraction": 0.24,
+        "width_mm": [0.9, 1.35],
+        "depth_mm": [0.10, 0.18],
+        "amplitude_mm": [0.30, 0.95],
+        "wavelength_mm": [42.0, 105.0],
+        "secondary_amplitude_ratio": 0.32,
+        "segment_length_mm": 4.5
+      },
+      "knots": {
+        "enabled": true,
+        "probability_per_patch": 0.28,
+        "diameter_mm": [12.0, 26.0],
+        "aspect_ratio": [1.25, 1.85],
+        "contours": 3,
+        "width_mm": [0.9, 1.25],
+        "depth_mm": [0.14, 0.20],
+        "segments": 36,
+        "clearance_mm": 2.0
+      }
+    },
+    "inner_walls": {
+      "enabled": true,
+      "edge_margin_mm": 0.9,
+      "bottom_keepout_mm": 7.4,
+      "top_keepout_mm": 2.0,
+      "grain": {
+        "pitch_mm": 4.7,
+        "probability": 0.92,
+        "cross_jitter_fraction": 0.22,
+        "width_mm": [0.9, 1.30],
+        "depth_mm": [0.10, 0.17],
+        "amplitude_mm": [0.25, 0.80],
+        "wavelength_mm": [38.0, 96.0],
+        "secondary_amplitude_ratio": 0.28,
+        "segment_length_mm": 4.2
+      },
+      "knots": {
+        "enabled": false
+      }
+    },
+    "wall_tops": {
+      "enabled": true,
+      "edge_margin_mm": 0.60,
+      "grain": {
+        "pitch_mm": 1.8,
+        "probability": 0.78,
+        "cross_jitter_fraction": 0.12,
+        "width_mm": [0.9, 1.05],
+        "depth_mm": [0.10, 0.12],
+        "amplitude_mm": [0.08, 0.22],
+        "wavelength_mm": [34.0, 88.0],
+        "secondary_amplitude_ratio": 0.20,
+        "segment_length_mm": 4.0
+      },
+      "knots": {
+        "enabled": false
+      }
+    },
+    "outer_walls": {
+      "enabled": false
+    }
+  },
+  "protected_regions": {
+    "floor_to_wall_margin_mm": 3.0,
+    "connector_margin_mm": 3.0,
+    "junction_margin_mm": 4.5,
+    "access_groove_margin_mm": 1.5,
+    "gusset_margin_mm": 1.5,
+    "watermark_margin_mm": 1.5,
+    "minimum_residual_wall_mm": 2.0,
+    "wall_top_smooth_edge_mm": 0.60
+  },
+  "slicer_finish": {
+    "material_intent": "matte walnut-brown PETG; exact supplier profile remains authoritative",
+    "horizontal_top_path": "monotonic, globally front-to-back where the slicer permits",
+    "vertical_wall_finish": "normal perimeters; no global fuzzy skin",
+    "micro_detail_policy": "filament color, matte sheen, and extrusion direction; never sub-nozzle CAD scratches",
+    "optional_finish": "very light brown/black wash and matte clear coat only after material compatibility test"
+  },
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "sequential",
+    "feature_union_batch": 32,
+    "node_old_space_mb": 2048,
+    "target_peak_rss_mib": 1536,
+    "stop_peak_rss_mib": 3072,
+    "target_triangles_per_module": 750000,
+    "review_triangles_per_module": 1000000,
+    "mesh_stop_mib_per_module": 100,
+    "exact_slicer_stop_seconds": 120
+  }
+}

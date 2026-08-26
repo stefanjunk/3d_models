@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "command": [
+    "python3",
+    "model.py",
+    "--width",
+    "{width}",
+    "--wall",
+    "{wall}",
+    "--output",
+    "{workdir}/model.stl"
+  ],
+  "parameters": {
+    "width": {"default": 60, "min": 40, "max": 100},
+    "wall": {"default": 2.4, "min": 1.8, "max": 4.0}
+  },
+  "timeout_seconds": 300,
+  "environment": {
+    "PYTHONHASHSEED": "0"
+  },
+  "output_root": "validation/sweep",
+  "validators": [
+    {
+      "type": "mesh",
+      "path": "model.stl",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1
+      }
+    }
+  ]
+}

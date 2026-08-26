@@ -1,0 +1,43 @@
+{
+  "test_id": "spec-and-architecture-validation",
+  "part_revision": "0.2.0",
+  "geometry_revision": "r0.2.0-draft.2",
+  "passed": true,
+  "executed_at": "2026-08-21",
+  "setup": {
+    "commands": [
+      "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py design-spec.yaml",
+      "python jsonschema validation against hybrid-design-plan.schema.json",
+      "python .agents/skills/decompose-printable-designs/scripts/plan_hybrid_design.py design-plan.json --report reports/architecture.md --briefs-dir briefs"
+    ]
+  },
+  "material_process": {
+    "printer": null,
+    "slicer": null,
+    "profile_id": null,
+    "material": null,
+    "filament_batch": null,
+    "drying": null,
+    "nozzle_mm": null,
+    "layer_height_mm": null,
+    "orientation": null
+  },
+  "measurements": {
+    "design_spec_errors": 0,
+    "design_spec_warnings": 3,
+    "architecture_schema": "PASS",
+    "architecture_errors": 0,
+    "architecture_warnings": 0,
+    "unresolved_architecture_decisions": 8
+  },
+  "failure_mode": null,
+  "evidence": [
+    "design-spec.yaml",
+    "design-plan.json",
+    "reports/architecture.md"
+  ],
+  "limitations": [
+    "Warnings correctly retain optimization, mesh-policy and watermark/release blockers",
+    "Architecture integrity is not physical or manufacturing acceptance"
+  ]
+}

@@ -1,0 +1,1537 @@
+{
+  "status": "DRAFT",
+  "quality": "final",
+  "engine": "manifold-3d",
+  "revision": "R2-procedural-wood",
+  "route": "wood-coupon-only",
+  "params": "config/model-params.json",
+  "surface_texture_config": "config/wood-texture-params.json",
+  "relief_loaded": false,
+  "watermark": {
+    "loaded": false,
+    "applied": false
+  },
+  "coupon": {
+    "file": "output/DRAFT/DRAFT-R2-procedural-wood-coupon.stl",
+    "file_bytes": 362684,
+    "status": "NoError",
+    "bounds": {
+      "min": [
+        0,
+        0,
+        0
+      ],
+      "max": [
+        122,
+        80,
+        20.6
+      ]
+    },
+    "size_mm": [
+      122,
+      80,
+      20.6
+    ],
+    "volume_mm3": 35430.40543266742,
+    "triangles": 7252,
+    "vertices": 3628,
+    "export_mesh": {
+      "triangles": 7252,
+      "vertices": 3628,
+      "dropped_zero_area_triangles": 0,
+      "float32_sanitization": {
+        "policy": "merge-exact-float32-vertices-and-cancel-exact-opposite-face-pairs-v1",
+        "source_vertices": 3628,
+        "manufacturing_vertices": 3628,
+        "merged_float32_vertices": 0,
+        "source_triangles": 7252,
+        "manufacturing_triangles": 7252,
+        "dropped_zero_area_triangles": 0,
+        "canceled_opposite_face_pairs": 0
+      }
+    },
+    "plan": {
+      "schema": "organizer-procedural-wood-coupon-plan-v1",
+      "revision": "R2",
+      "units": "mm",
+      "seed": 20260820,
+      "body": {
+        "size_mm": [
+          122,
+          80,
+          20.6
+        ],
+        "bed_plane_z_mm": 0,
+        "connected_body_required": true
+      },
+      "policy": {
+        "operation": "engrave-only",
+        "texture_additions": false,
+        "rounded_cutters": true,
+        "input_mode": "parameters-only",
+        "input_dependencies": []
+      },
+      "samples": [
+        {
+          "id": "plain-baseline",
+          "surface": "floor",
+          "rectangle_mm": {
+            "min": [
+              4,
+              4
+            ],
+            "max": [
+              28,
+              37
+            ]
+          },
+          "depth_mm": 0
+        },
+        {
+          "id": "horizontal-depth-0.12",
+          "surface": "floor",
+          "rectangle_mm": {
+            "min": [
+              34,
+              4
+            ],
+            "max": [
+              58,
+              37
+            ]
+          },
+          "depth_mm": 0.12
+        },
+        {
+          "id": "horizontal-depth-0.16",
+          "surface": "floor",
+          "rectangle_mm": {
+            "min": [
+              64,
+              4
+            ],
+            "max": [
+              88,
+              37
+            ]
+          },
+          "depth_mm": 0.16
+        },
+        {
+          "id": "horizontal-depth-0.20",
+          "surface": "floor",
+          "rectangle_mm": {
+            "min": [
+              94,
+              4
+            ],
+            "max": [
+              118,
+              37
+            ]
+          },
+          "depth_mm": 0.2
+        },
+        {
+          "id": "vertical-wall-depth-0.16",
+          "surface": "wall",
+          "depth_mm": 0.16
+        },
+        {
+          "id": "corner-phase-transition-depth-0.16",
+          "surface": "wall-corner-90-degree",
+          "depth_mm": 0.16
+        },
+        {
+          "id": "safe-top-cap-depth-0.20",
+          "surface": "top",
+          "depth_mm": 0.2
+        }
+      ],
+      "plans": [
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "horizontal-depth-0.12",
+            "surface": "floor",
+            "coordinate_space": "global-xy-mm",
+            "rectangle_mm": {
+              "min": [
+                34,
+                4
+              ],
+              "max": [
+                58,
+                37
+              ]
+            },
+            "direction": {
+              "mode": "global-positive-y",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "horizontal-depth-0.12",
+            "source_rectangle_mm": {
+              "min": [
+                34,
+                4
+              ],
+              "max": [
+                58,
+                37
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "horizontal-depth-0.12",
+                "rectangle_mm": {
+                  "min": [
+                    34,
+                    4
+                  ],
+                  "max": [
+                    58,
+                    37
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    34.45,
+                    4.45
+                  ],
+                  "max": [
+                    57.55,
+                    36.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "horizontal-depth-0.12-grain-01",
+              "horizontal-depth-0.12-grain-02",
+              "horizontal-depth-0.12-grain-03",
+              "horizontal-depth-0.12-grain-04",
+              "horizontal-depth-0.12-grain-05"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.12
+          },
+          "paths": [
+            {
+              "id": "horizontal-depth-0.12-grain-01",
+              "parent_path_id": "horizontal-depth-0.12-grain-01",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.12,
+              "wavelength_mm": 69.789389,
+              "lateral_drift_mm": 0.509315,
+              "points_mm": [
+                [
+                  38.926587,
+                  4.45
+                ],
+                [
+                  38.61219,
+                  12.475
+                ],
+                [
+                  38.492345,
+                  20.5
+                ],
+                [
+                  38.626937,
+                  28.525
+                ],
+                [
+                  38.94871,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.12-grain-02",
+              "parent_path_id": "horizontal-depth-0.12-grain-02",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.12,
+              "wavelength_mm": 38.626242,
+              "lateral_drift_mm": 0.831097,
+              "points_mm": [
+                [
+                  43.225586,
+                  4.45
+                ],
+                [
+                  43.215277,
+                  9.035714
+                ],
+                [
+                  43.618696,
+                  13.621429
+                ],
+                [
+                  44.221587,
+                  18.207143
+                ],
+                [
+                  44.703754,
+                  22.792857
+                ],
+                [
+                  44.809118,
+                  27.378571
+                ],
+                [
+                  44.48172,
+                  31.964286
+                ],
+                [
+                  43.895442,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.12-grain-03",
+              "parent_path_id": "horizontal-depth-0.12-grain-03",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.12,
+              "wavelength_mm": 32.184317,
+              "lateral_drift_mm": 1.626856,
+              "points_mm": [
+                [
+                  47.612402,
+                  4.45
+                ],
+                [
+                  46.370566,
+                  8.4625
+                ],
+                [
+                  45.506848,
+                  12.475
+                ],
+                [
+                  45.524693,
+                  16.4875
+                ],
+                [
+                  46.413698,
+                  20.5
+                ],
+                [
+                  47.655681,
+                  24.5125
+                ],
+                [
+                  48.526715,
+                  28.525
+                ],
+                [
+                  48.519093,
+                  32.5375
+                ],
+                [
+                  47.637257,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.12-grain-04",
+              "parent_path_id": "horizontal-depth-0.12-grain-04",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.12,
+              "wavelength_mm": 62.285206,
+              "lateral_drift_mm": 1.300971,
+              "points_mm": [
+                [
+                  49.422503,
+                  4.45
+                ],
+                [
+                  50.229457,
+                  10.87
+                ],
+                [
+                  50.984671,
+                  17.29
+                ],
+                [
+                  51.382303,
+                  23.71
+                ],
+                [
+                  51.261323,
+                  30.13
+                ],
+                [
+                  50.670725,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.12-grain-05",
+              "parent_path_id": "horizontal-depth-0.12-grain-05",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.12,
+              "wavelength_mm": 68.155164,
+              "lateral_drift_mm": 0.782744,
+              "points_mm": [
+                [
+                  56.334675,
+                  4.45
+                ],
+                [
+                  56.23679,
+                  12.475
+                ],
+                [
+                  55.788688,
+                  20.5
+                ],
+                [
+                  55.224648,
+                  28.525
+                ],
+                [
+                  54.839559,
+                  36.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "horizontal-depth-0.16",
+            "surface": "floor",
+            "coordinate_space": "global-xy-mm",
+            "rectangle_mm": {
+              "min": [
+                64,
+                4
+              ],
+              "max": [
+                88,
+                37
+              ]
+            },
+            "direction": {
+              "mode": "global-positive-y",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "horizontal-depth-0.16",
+            "source_rectangle_mm": {
+              "min": [
+                64,
+                4
+              ],
+              "max": [
+                88,
+                37
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "horizontal-depth-0.16",
+                "rectangle_mm": {
+                  "min": [
+                    64,
+                    4
+                  ],
+                  "max": [
+                    88,
+                    37
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    64.45,
+                    4.45
+                  ],
+                  "max": [
+                    87.55,
+                    36.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "horizontal-depth-0.16-grain-01",
+              "horizontal-depth-0.16-grain-02",
+              "horizontal-depth-0.16-grain-03",
+              "horizontal-depth-0.16-grain-04",
+              "horizontal-depth-0.16-grain-05"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.16
+          },
+          "paths": [
+            {
+              "id": "horizontal-depth-0.16-grain-01",
+              "parent_path_id": "horizontal-depth-0.16-grain-01",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 50.299837,
+              "lateral_drift_mm": 1.762251,
+              "points_mm": [
+                [
+                  67.312346,
+                  4.45
+                ],
+                [
+                  66.156444,
+                  9.8
+                ],
+                [
+                  65.247183,
+                  15.15
+                ],
+                [
+                  64.975763,
+                  20.5
+                ],
+                [
+                  65.458959,
+                  25.85
+                ],
+                [
+                  66.488882,
+                  31.2
+                ],
+                [
+                  67.622418,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.16-grain-02",
+              "parent_path_id": "horizontal-depth-0.16-grain-02",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 60.972738,
+              "lateral_drift_mm": 0.889916,
+              "points_mm": [
+                [
+                  69.347562,
+                  4.45
+                ],
+                [
+                  69.520715,
+                  10.87
+                ],
+                [
+                  69.996173,
+                  17.29
+                ],
+                [
+                  70.573317,
+                  23.71
+                ],
+                [
+                  71.008621,
+                  30.13
+                ],
+                [
+                  71.11841,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.16-grain-03",
+              "parent_path_id": "horizontal-depth-0.16-grain-03",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 42.595496,
+              "lateral_drift_mm": 0.600555,
+              "points_mm": [
+                [
+                  76.448605,
+                  4.45
+                ],
+                [
+                  76.689557,
+                  9.035714
+                ],
+                [
+                  76.67873,
+                  13.621429
+                ],
+                [
+                  76.420891,
+                  18.207143
+                ],
+                [
+                  76.029587,
+                  22.792857
+                ],
+                [
+                  75.677139,
+                  27.378571
+                ],
+                [
+                  75.518755,
+                  31.964286
+                ],
+                [
+                  75.624185,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.16-grain-04",
+              "parent_path_id": "horizontal-depth-0.16-grain-04",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 47.549881,
+              "lateral_drift_mm": 0.641633,
+              "points_mm": [
+                [
+                  80.661993,
+                  4.45
+                ],
+                [
+                  80.262704,
+                  9.8
+                ],
+                [
+                  79.832671,
+                  15.15
+                ],
+                [
+                  79.578007,
+                  20.5
+                ],
+                [
+                  79.620773,
+                  25.85
+                ],
+                [
+                  79.94047,
+                  31.2
+                ],
+                [
+                  80.383869,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.16-grain-05",
+              "parent_path_id": "horizontal-depth-0.16-grain-05",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 68.301576,
+              "lateral_drift_mm": 0.538138,
+              "points_mm": [
+                [
+                  85.138287,
+                  4.45
+                ],
+                [
+                  85.344659,
+                  12.475
+                ],
+                [
+                  85.275938,
+                  20.5
+                ],
+                [
+                  84.967906,
+                  28.525
+                ],
+                [
+                  84.58095,
+                  36.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "horizontal-depth-0.20",
+            "surface": "floor",
+            "coordinate_space": "global-xy-mm",
+            "rectangle_mm": {
+              "min": [
+                94,
+                4
+              ],
+              "max": [
+                118,
+                37
+              ]
+            },
+            "direction": {
+              "mode": "global-positive-y",
+              "vector": [
+                0,
+                1
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "horizontal-depth-0.20",
+            "source_rectangle_mm": {
+              "min": [
+                94,
+                4
+              ],
+              "max": [
+                118,
+                37
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "horizontal-depth-0.20",
+                "rectangle_mm": {
+                  "min": [
+                    94,
+                    4
+                  ],
+                  "max": [
+                    118,
+                    37
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    94.45,
+                    4.45
+                  ],
+                  "max": [
+                    117.55,
+                    36.55
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "horizontal-depth-0.20-grain-01",
+              "horizontal-depth-0.20-grain-02",
+              "horizontal-depth-0.20-grain-03",
+              "horizontal-depth-0.20-grain-04"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "horizontal-depth-0.20-grain-01",
+              "parent_path_id": "horizontal-depth-0.20-grain-01",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 39.278247,
+              "lateral_drift_mm": 1.132411,
+              "points_mm": [
+                [
+                  96.592406,
+                  4.45
+                ],
+                [
+                  97.346001,
+                  9.035714
+                ],
+                [
+                  97.702972,
+                  13.621429
+                ],
+                [
+                  97.479693,
+                  18.207143
+                ],
+                [
+                  96.791018,
+                  22.792857
+                ],
+                [
+                  95.991208,
+                  27.378571
+                ],
+                [
+                  95.491689,
+                  31.964286
+                ],
+                [
+                  95.549418,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.20-grain-02",
+              "parent_path_id": "horizontal-depth-0.20-grain-02",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 52.741673,
+              "lateral_drift_mm": 1.240379,
+              "points_mm": [
+                [
+                  103.073588,
+                  4.45
+                ],
+                [
+                  103.851053,
+                  10.87
+                ],
+                [
+                  104.064067,
+                  17.29
+                ],
+                [
+                  103.593983,
+                  23.71
+                ],
+                [
+                  102.702633,
+                  30.13
+                ],
+                [
+                  101.886491,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.20-grain-03",
+              "parent_path_id": "horizontal-depth-0.20-grain-03",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 39.786985,
+              "lateral_drift_mm": 1.250437,
+              "points_mm": [
+                [
+                  105.834462,
+                  4.45
+                ],
+                [
+                  105.29911,
+                  9.035714
+                ],
+                [
+                  105.36573,
+                  13.621429
+                ],
+                [
+                  106.000884,
+                  18.207143
+                ],
+                [
+                  106.885781,
+                  22.792857
+                ],
+                [
+                  107.57628,
+                  27.378571
+                ],
+                [
+                  107.72581,
+                  31.964286
+                ],
+                [
+                  107.259321,
+                  36.55
+                ]
+              ]
+            },
+            {
+              "id": "horizontal-depth-0.20-grain-04",
+              "parent_path_id": "horizontal-depth-0.20-grain-04",
+              "kind": "grain-centerline",
+              "surface": "floor",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 54.764277,
+              "lateral_drift_mm": 1.071554,
+              "points_mm": [
+                [
+                  112.247996,
+                  4.45
+                ],
+                [
+                  112.986537,
+                  10.87
+                ],
+                [
+                  113.38363,
+                  17.29
+                ],
+                [
+                  113.2334,
+                  23.71
+                ],
+                [
+                  112.613734,
+                  30.13
+                ],
+                [
+                  111.8459,
+                  36.55
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "vertical-wall-depth-0.16",
+            "surface": "wall",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                8,
+                6.6
+              ],
+              "max": [
+                50,
+                18.6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                1,
+                0
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "vertical-wall-depth-0.16",
+            "source_rectangle_mm": {
+              "min": [
+                8,
+                6.6
+              ],
+              "max": [
+                50,
+                18.6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "vertical-wall-depth-0.16",
+                "rectangle_mm": {
+                  "min": [
+                    8,
+                    6.6
+                  ],
+                  "max": [
+                    50,
+                    18.6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    8.45,
+                    7.05
+                  ],
+                  "max": [
+                    49.55,
+                    18.15
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "vertical-wall-depth-0.16-grain-01",
+              "vertical-wall-depth-0.16-grain-02"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.16
+          },
+          "paths": [
+            {
+              "id": "vertical-wall-depth-0.16-grain-01",
+              "parent_path_id": "vertical-wall-depth-0.16-grain-01",
+              "kind": "grain-centerline",
+              "surface": "wall",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 59.879015,
+              "lateral_drift_mm": 0.844794,
+              "points_mm": [
+                [
+                  8.45,
+                  10.023459
+                ],
+                [
+                  15.3,
+                  10.21776
+                ],
+                [
+                  22.15,
+                  9.994217
+                ],
+                [
+                  29,
+                  9.463436
+                ],
+                [
+                  35.85,
+                  8.888036
+                ],
+                [
+                  42.7,
+                  8.552714
+                ],
+                [
+                  49.55,
+                  8.623381
+                ]
+              ]
+            },
+            {
+              "id": "vertical-wall-depth-0.16-grain-02",
+              "parent_path_id": "vertical-wall-depth-0.16-grain-02",
+              "kind": "grain-centerline",
+              "surface": "wall",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 53.99796,
+              "lateral_drift_mm": 1.636217,
+              "points_mm": [
+                [
+                  8.45,
+                  11.965983
+                ],
+                [
+                  14.321429,
+                  11.498945
+                ],
+                [
+                  20.192857,
+                  11.762818
+                ],
+                [
+                  26.064286,
+                  12.639154
+                ],
+                [
+                  31.935714,
+                  13.734579
+                ],
+                [
+                  37.807143,
+                  14.557375
+                ],
+                [
+                  43.678571,
+                  14.738203
+                ],
+                [
+                  49.55,
+                  14.195891
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "safe-top-cap-depth-0.20",
+            "surface": "top",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                8,
+                51.5
+              ],
+              "max": [
+                50,
+                56.5
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                1,
+                0
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "safe-top-cap-depth-0.20",
+            "source_rectangle_mm": {
+              "min": [
+                8,
+                51.5
+              ],
+              "max": [
+                50,
+                56.5
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "safe-top-cap-depth-0.20",
+                "rectangle_mm": {
+                  "min": [
+                    8,
+                    51.5
+                  ],
+                  "max": [
+                    50,
+                    56.5
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    8.45,
+                    51.95
+                  ],
+                  "max": [
+                    49.55,
+                    56.05
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "safe-top-cap-depth-0.20-grain-01"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.2
+          },
+          "paths": [
+            {
+              "id": "safe-top-cap-depth-0.20-grain-01",
+              "parent_path_id": "safe-top-cap-depth-0.20-grain-01",
+              "kind": "grain-centerline",
+              "surface": "top",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.2,
+              "wavelength_mm": 55.878144,
+              "lateral_drift_mm": 0.136658,
+              "points_mm": [
+                [
+                  8.45,
+                  53.939453
+                ],
+                [
+                  15.3,
+                  54.011874
+                ],
+                [
+                  22.15,
+                  54.114536
+                ],
+                [
+                  29,
+                  54.189482
+                ],
+                [
+                  35.85,
+                  54.194406
+                ],
+                [
+                  42.7,
+                  54.126526
+                ],
+                [
+                  49.55,
+                  54.024164
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        },
+        {
+          "schema": "organizer-procedural-wood-plan-v1",
+          "representation": "procedural-vector-wood-grooves",
+          "units": "mm",
+          "seed": 20260820,
+          "region": {
+            "id": "corner-phase-transition-depth-0.16",
+            "surface": "wall",
+            "coordinate_space": "local-uv-mm",
+            "rectangle_mm": {
+              "min": [
+                0,
+                6.6
+              ],
+              "max": [
+                52,
+                18.6
+              ]
+            },
+            "direction": {
+              "mode": "local-long-axis",
+              "vector": [
+                1,
+                0
+              ]
+            }
+          },
+          "policy": {
+            "operation": "engrave-only",
+            "repeat": "none-deterministic-global-field",
+            "outer_walls": "smooth-no-geometric-texture",
+            "rounded_cutters": true,
+            "input_mode": "parameters-only",
+            "input_dependencies": []
+          },
+          "coherence": {
+            "coherence_policy": "plan-once-then-clip",
+            "source_field_id": "corner-phase-transition-depth-0.16",
+            "source_rectangle_mm": {
+              "min": [
+                0,
+                6.6
+              ],
+              "max": [
+                52,
+                18.6
+              ]
+            },
+            "clip_rectangles": [
+              {
+                "id": "corner-phase-transition-depth-0.16",
+                "rectangle_mm": {
+                  "min": [
+                    0,
+                    6.6
+                  ],
+                  "max": [
+                    52,
+                    18.6
+                  ]
+                },
+                "inset_centerline_rectangle_mm": {
+                  "min": [
+                    0.45,
+                    7.05
+                  ],
+                  "max": [
+                    51.55,
+                    18.15
+                  ]
+                }
+              }
+            ],
+            "parent_path_ids": [
+              "corner-phase-transition-depth-0.16-grain-01",
+              "corner-phase-transition-depth-0.16-grain-02"
+            ]
+          },
+          "groove": {
+            "width_mm": 0.9,
+            "depth_mm": 0.16
+          },
+          "paths": [
+            {
+              "id": "corner-phase-transition-depth-0.16-grain-01",
+              "parent_path_id": "corner-phase-transition-depth-0.16-grain-01",
+              "kind": "grain-centerline",
+              "surface": "wall",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 34.750601,
+              "lateral_drift_mm": 1.45918,
+              "points_mm": [
+                [
+                  0.45,
+                  10.624331
+                ],
+                [
+                  4.708333,
+                  9.555784
+                ],
+                [
+                  8.966667,
+                  8.958103
+                ],
+                [
+                  13.225,
+                  9.168439
+                ],
+                [
+                  17.483333,
+                  10.068141
+                ],
+                [
+                  21.741667,
+                  11.149692
+                ],
+                [
+                  26,
+                  11.802993
+                ],
+                [
+                  30.258333,
+                  11.659519
+                ],
+                [
+                  34.516667,
+                  10.800204
+                ],
+                [
+                  38.775,
+                  9.709784
+                ],
+                [
+                  43.033333,
+                  9.00336
+                ],
+                [
+                  47.291667,
+                  9.079423
+                ],
+                [
+                  51.55,
+                  9.895066
+                ]
+              ]
+            },
+            {
+              "id": "corner-phase-transition-depth-0.16-grain-02",
+              "parent_path_id": "corner-phase-transition-depth-0.16-grain-02",
+              "kind": "grain-centerline",
+              "surface": "wall",
+              "closed": false,
+              "width_mm": 0.9,
+              "depth_mm": 0.16,
+              "wavelength_mm": 36.746179,
+              "lateral_drift_mm": 0.766665,
+              "points_mm": [
+                [
+                  0.45,
+                  13.854996
+                ],
+                [
+                  4.708333,
+                  14.389497
+                ],
+                [
+                  8.966667,
+                  14.862572
+                ],
+                [
+                  13.225,
+                  15.034299
+                ],
+                [
+                  17.483333,
+                  14.817585
+                ],
+                [
+                  21.741667,
+                  14.322338
+                ],
+                [
+                  26,
+                  13.799725
+                ],
+                [
+                  30.258333,
+                  13.514793
+                ],
+                [
+                  34.516667,
+                  13.612047
+                ],
+                [
+                  38.775,
+                  14.042164
+                ],
+                [
+                  43.033333,
+                  14.587007
+                ],
+                [
+                  47.291667,
+                  14.970256
+                ],
+                [
+                  51.55,
+                  14.997544
+                ]
+              ]
+            }
+          ],
+          "knots": []
+        }
+      ]
+    }
+  },
+  "identities": {
+    "inputs": {
+      "design_spec": {
+        "path": "design-spec.yaml",
+        "sha256": "47926a145d67bb8513f3f93501af6711192334982ae3fb865e39b29e2106a11e"
+      },
+      "model_params": {
+        "path": "config/model-params.json",
+        "sha256": "80666d96b2fee0ebcf17d26290a80383263b7c5d3a5a5715ac943ebd0c0acddb"
+      },
+      "wood_config": {
+        "path": "config/wood-texture-params.json",
+        "sha256": "9b47360ab98a2b1f37a1d740b003aa14414b08154822e83e473d323f1f1e9654"
+      },
+      "build_source": {
+        "path": "src/manifold_build.mjs",
+        "sha256": "9771255e3add72b6be60ac4159c987df8a27eb42add07af59e7696f231c31906"
+      },
+      "mesh_export": {
+        "path": "src/mesh_export.mjs",
+        "sha256": "9efde4ca0166787d7f94ae159bc002b2bc18936480c4ae28e91ecbe4067cd364"
+      },
+      "model_source": {
+        "path": "src/manifold_model.mjs",
+        "sha256": "385ba080acac780ea82ad3ebf0f30ff98cb2e6e25e2535f1e372ef81d7f01018"
+      },
+      "wood_planner": {
+        "path": "src/procedural_wood.mjs",
+        "sha256": "cd521060135fdfbad0a34524d028720d01b11121c18743a0ef663a6629aa990e"
+      }
+    },
+    "artifacts": {
+      "stl": {
+        "path": "output/DRAFT/DRAFT-R2-procedural-wood-coupon.stl",
+        "sha256": "0fdd9021008eea15bef261391edd6c040b63d71e4b6013d20af2d2f0a6ee7924"
+      }
+    }
+  },
+  "process_memory": {
+    "mode": "wood-coupon",
+    "pid": 188,
+    "max_rss_mib": 140.15234375,
+    "measurement": "/proc/self/status VmHWM; peak resident set for this isolated Linux Node/WASM process"
+  }
+}

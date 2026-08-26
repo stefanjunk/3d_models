@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/functional-3d-design/design-spec.schema.json",
+  "title": "Functional 3D Design Specification",
+  "type": "object",
+  "required": ["project", "workflow", "branding", "function", "risk", "fabrication", "printer", "manufacturing", "optimization", "acceptance"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["id", "revision"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 32,
+          "pattern": "^[A-Z0-9]+(?:-[A-Z0-9]+)+$"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "required": ["requirements_approval", "concept_approval", "watermark_approval"],
+      "properties": {
+        "requirements_approval": {
+          "type": "object",
+          "required": ["status", "spec_revision"],
+          "properties": {
+            "status": {"enum": ["pending", "approved", "changes-requested"]},
+            "spec_revision": {"type": ["string", "null"]},
+            "approved_by": {"type": ["string", "null"]},
+            "approved_at": {"type": ["string", "null"]}
+          }
+        },
+        "concept_approval": {
+          "type": "object",
+          "required": ["status", "spec_revision", "asset"],
+          "properties": {
+            "status": {"enum": ["blocked", "pending", "approved", "changes-requested"]},
+            "spec_revision": {"type": ["string", "null"]},
+            "asset": {"type": ["string", "null"]},
+            "approved_by": {"type": ["string", "null"]},
+            "approved_at": {"type": ["string", "null"]}
+          }
+        },
+        "watermark_approval": {
+          "type": "object",
+          "required": ["status", "spec_revision", "geometry_revision", "asset_id", "product_id", "version", "generated_profile", "manifest_asset", "placement", "preview_asset", "validation_asset", "physical_test_asset"],
+          "properties": {
+            "status": {"enum": ["blocked", "pending", "approved", "changes-requested"]},
+            "spec_revision": {"type": ["string", "null"]},
+            "geometry_revision": {"type": ["string", "null"]},
+            "asset_id": {"const": "MM-WM-001-R1"},
+            "product_id": {"type": "string", "pattern": "^[A-Z0-9]+(?:-[A-Z0-9]+)+$"},
+            "version": {"type": "string"},
+            "generated_profile": {"type": ["string", "null"]},
+            "manifest_asset": {"type": ["string", "null"]},
+            "placement": {"type": ["string", "null"]},
+            "preview_asset": {"type": ["string", "null"]},
+            "validation_asset": {"type": ["string", "null"]},
+            "physical_test_asset": {"type": ["string", "null"]},
+            "approved_by": {"type": ["string", "null"]},
+            "approved_at": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "branding": {
+      "type": "object",
+      "required": ["required", "brand", "domain", "asset_id", "product_id", "version", "operation", "preferred_surface", "depth_mm", "minimum_host_wall_mm", "minimum_remaining_wall_mm"],
+      "properties": {
+        "required": {"const": true},
+        "brand": {"const": "metriMade"},
+        "domain": {"const": "metriMade.com"},
+        "asset_id": {"const": "MM-WM-001-R1"},
+        "product_id": {"type": "string", "pattern": "^[A-Z0-9]+(?:-[A-Z0-9]+)+$"},
+        "version": {"type": "string"},
+        "operation": {"const": "recessed"},
+        "preferred_surface": {"const": "flat-nonfunctional-low-stress-underside"},
+        "depth_mm": {"type": "number", "minimum": 0.4, "maximum": 0.8},
+        "minimum_host_wall_mm": {"const": 1.2},
+        "minimum_remaining_wall_mm": {"const": 0.8}
+      }
+    },
+    "function": {"type": "object", "required": ["summary"]},
+    "risk": {
+      "type": "object",
+      "required": ["class"],
+      "properties": {"class": {"enum": ["decorative", "normal-functional", "structural", "safety-critical"]}}
+    },
+    "fabrication": {
+      "type": "object",
+      "required": ["preference"],
+      "properties": {"preference": {"enum": ["integrated-print", "balanced-hybrid", "standard-hardware"]}}
+    },
+    "printer": {
+      "type": "object",
+      "required": ["build_volume_mm"],
+      "properties": {
+        "build_volume_mm": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "manufacturing": {
+      "type": "object",
+      "required": ["material", "nozzle_mm"],
+      "properties": {"nozzle_mm": {"type": "number", "exclusiveMinimum": 0}}
+    },
+    "optimization": {
+      "type": "object",
+      "required": ["status", "mesh_simplification"],
+      "properties": {
+        "status": {"enum": ["pending", "applied", "not-beneficial", "not-applicable"]},
+        "baseline_slicer_report": {"type": ["string", "null"]},
+        "selected_variant": {"type": ["string", "null"]},
+        "comparison_report": {"type": ["string", "null"]},
+        "rationale": {"type": ["string", "null"]},
+        "mesh_simplification": {
+          "type": "object",
+          "required": ["status", "protected_regions"],
+          "properties": {
+            "status": {"enum": ["pending", "applied", "not-beneficial", "not-applicable"]},
+            "master_mesh": {"type": ["string", "null"]},
+            "manufacturing_mesh": {"type": ["string", "null"]},
+            "method": {"type": ["string", "null"]},
+            "tolerance_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+            "protected_regions": {"type": "array", "items": {"type": "string"}},
+            "comparison_report": {"type": ["string", "null"]},
+            "resource_budget": {
+              "type": ["object", "null"],
+              "properties": {
+                "triangle_target": {"type": ["integer", "null"], "exclusiveMinimum": 0},
+                "triangle_stop": {"type": ["integer", "null"], "exclusiveMinimum": 0},
+                "peak_memory_gib": {"type": ["number", "null"], "exclusiveMinimum": 0},
+                "max_mesh_mib": {"type": ["number", "null"], "exclusiveMinimum": 0},
+                "max_slicer_seconds": {"type": ["number", "null"], "exclusiveMinimum": 0}
+              }
+            },
+            "slicer_resolution_check": {
+              "type": ["object", "null"],
+              "properties": {
+                "status": {"enum": ["pending", "passed", "failed", "not-applicable"]},
+                "report": {"type": ["string", "null"]}
+              }
+            },
+            "rationale": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "acceptance": {"type": "array", "minItems": 1}
+  }
+}

@@ -1,0 +1,69 @@
+project_id: MM-PER-001
+revision: 0.3.0
+status: NOT_RUN
+human_boundary: >
+  Printing, physical fit/function, appearance, safety, and commercial release
+  require human evidence. An agent may prepare files but may not claim these
+  tests passed or start a printer.
+
+process_identity_required:
+  - printer and firmware
+  - exact filament product, color, batch, and conditioning
+  - nozzle and measured diameter
+  - slicer/version and immutable profile hash
+  - layer height, line widths, wall generator, speeds, flow, cooling, and bed surface
+
+tests:
+  - id: TP-01
+    name: first-layer-and-bed-contact
+    specimen: "left and right production parts or a bed-contact coupon"
+    method: >
+      Inspect that the foot, front-wing edge, blade edge, all vertical ribs,
+      and both gussets begin on the bed without lifted islands or clipped paths.
+    pass: "Continuous intended first-layer contact; no detached islands; no bed clipping"
+
+  - id: TP-02
+    name: text-and-surface-coupon
+    specimen: "process-matched front-wing coupon containing B, O, Q, S, Ü, ß and ẞ"
+    method: >
+      Print upright with the production text depth and inspect counters,
+      bottom overhangs, shared baseline, sharp edges, and legibility at 500 mm.
+    pass: "All counters open; no detached strokes; readable; no hazardous burrs"
+
+  - id: TP-03
+    name: unloaded-pair-fit
+    specimen: "complete left/right pair"
+    method: >
+      Place both parts on a flat shelf. Verify inward feet, normally readable
+      text, side-blade parallelism, flatness, and easy spacing adjustment.
+    pass: "Correct handedness; no rocking; no permanent deformation; text reads normally"
+
+  - id: TP-04
+    name: two-kilogram-book-row
+    specimen: "complete pair and representative 2.0 kg row, 100-400 mm wide"
+    method: >
+      Put the outer books fully on the inward feet. Apply the most unfavorable
+      ordinary lean and a gradual 5 N lateral proof push at 120 mm height in
+      both directions, behind a barrier. Hold 60 seconds per direction.
+    pass: >
+      No tip, crack, layer separation, or permanent set; total slide <=5 mm;
+      books remain retained after load removal.
+
+  - id: TP-05
+    name: repeated-repositioning
+    specimen: "complete tested pair"
+    method: "Perform 100 ordinary spacing/repositioning cycles, then repeat TP-03"
+    pass: "No crack, delamination, objectionable wear, rocking, or text damage"
+
+  - id: TP-06
+    name: appearance-and-handling
+    specimen: "complete tested pair"
+    method: >
+      Inspect at normal viewing distance and handle every exposed edge; check
+      book-cover contact surfaces for snagging or marking.
+    pass: "Appearance accepted by owner; no sharp edge, snag, or visible book damage"
+
+release_rule: >
+  A physical PASS applies only to the exact geometry and recorded process
+  identity. Any geometry, orientation, material, nozzle, line width, layer
+  height, or watermark change repeats affected tests.

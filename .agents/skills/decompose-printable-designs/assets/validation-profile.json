@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "skill": "decompose-printable-designs",
+  "artifact_roles": [
+    {"id": "component-manifest", "kind": "contract", "required": true},
+    {"id": "component-meshes", "kind": "mesh", "required": true},
+    {"id": "interface-contract", "kind": "contract", "required": true},
+    {"id": "integration-report", "kind": "report", "required": true},
+    {"id": "assembly-3mf", "kind": "3mf", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "component-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["component-meshes"]},
+    {"id": "assembly-interfaces", "type": "interfaces", "required": true, "artifact_roles": ["interface-contract"]},
+    {"id": "integration-evidence", "type": "external_report", "required": true, "artifact_roles": ["component-manifest", "component-meshes", "integration-report"]},
+    {"id": "assembly-package", "type": "3mf", "required": true, "artifact_roles": ["assembly-3mf"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "service-access-review", "kind": "review", "required": true},
+    {"id": "interface-coupon", "kind": "physical", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

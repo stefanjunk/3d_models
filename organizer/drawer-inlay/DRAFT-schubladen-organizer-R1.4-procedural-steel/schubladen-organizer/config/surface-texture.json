@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "representation": "deterministic-multiscale-analytic-dimple-field",
+  "intent": "near-realistic satin forged/cast steel on drawer-open interior surfaces",
+  "enabled": true,
+  "seed": 140421,
+  "boolean_overlap_mm": 0.06,
+  "surfaces": {
+    "floor": {
+      "enabled": true,
+      "edge_margin_mm": 0.8,
+      "bands": [
+        {
+          "name": "forging-macro",
+          "pitch_mm": 11.5,
+          "probability": 0.72,
+          "jitter_fraction": 0.34,
+          "diameter_mm": [4.0, 8.5],
+          "depth_mm": [0.18, 0.28],
+          "aspect_ratio": [0.78, 1.28],
+          "segments": 20,
+          "radial_rings": 4,
+          "spacing_factor": 0.78
+        },
+        {
+          "name": "forging-meso",
+          "pitch_mm": 4.2,
+          "probability": 0.52,
+          "jitter_fraction": 0.32,
+          "diameter_mm": [1.3, 2.8],
+          "depth_mm": [0.10, 0.15],
+          "aspect_ratio": [0.72, 1.38],
+          "segments": 16,
+          "radial_rings": 3,
+          "spacing_factor": 0.82
+        }
+      ]
+    },
+    "inner_walls": {
+      "enabled": true,
+      "edge_margin_mm": 0.8,
+      "bottom_keepout_mm": 7.4,
+      "top_keepout_mm": 2.0,
+      "bands": [
+        {
+          "name": "forging-macro",
+          "pitch_mm": 12.0,
+          "probability": 0.66,
+          "jitter_fraction": 0.34,
+          "diameter_mm": [3.5, 7.5],
+          "depth_mm": [0.15, 0.23],
+          "aspect_ratio": [0.78, 1.30],
+          "segments": 20,
+          "radial_rings": 4,
+          "spacing_factor": 0.82
+        },
+        {
+          "name": "forging-meso",
+          "pitch_mm": 4.4,
+          "probability": 0.48,
+          "jitter_fraction": 0.32,
+          "diameter_mm": [1.3, 2.7],
+          "depth_mm": [0.10, 0.14],
+          "aspect_ratio": [0.70, 1.40],
+          "segments": 16,
+          "radial_rings": 3,
+          "spacing_factor": 0.88
+        }
+      ]
+    },
+    "wall_tops": {
+      "enabled": true,
+      "edge_margin_mm": 0.55,
+      "bands": [
+        {
+          "name": "forging-top-detail",
+          "pitch_mm": 2.8,
+          "probability": 0.68,
+          "jitter_fraction": 0.28,
+          "diameter_mm": [1.1, 1.6],
+          "depth_mm": [0.10, 0.13],
+          "aspect_ratio": [0.82, 1.22],
+          "segments": 16,
+          "radial_rings": 3,
+          "spacing_factor": 0.85
+        }
+      ]
+    },
+    "outer_walls": {
+      "enabled": false
+    }
+  },
+  "protected_regions": {
+    "floor_to_wall_margin_mm": 3.0,
+    "connector_margin_mm": 3.0,
+    "junction_margin_mm": 4.5,
+    "access_groove_margin_mm": 1.5,
+    "gusset_margin_mm": 1.5,
+    "watermark_margin_mm": 1.5,
+    "minimum_residual_wall_mm": 2.0,
+    "wall_top_smooth_edge_mm": 0.55
+  },
+  "slicer_finish": {
+    "material_intent": "metallic graphite PETG; verify manufacturer abrasion guidance",
+    "horizontal_top_path": "monotonic, one direction per module",
+    "vertical_wall_finish": "retain normal perimeters; optional mild slicer roughness only after coupon",
+    "micro_detail_policy": "material and extrusion sheen, never sub-nozzle CAD scratches"
+  },
+  "memory_strategy": {
+    "module_processes": "sequential",
+    "surface_patches": "sequential",
+    "dimple_union_batch": 48,
+    "node_old_space_mb": 2048,
+    "target_peak_rss_mib": 1536,
+    "stop_peak_rss_mib": 3072,
+    "target_triangles_per_module": 750000,
+    "review_triangles_per_module": 1000000
+  }
+}

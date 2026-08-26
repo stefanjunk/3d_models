@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Multicolor FDM Job",
+  "type": "object",
+  "required": ["version", "project", "printer", "source", "representation", "palette", "geometry", "materials", "purge", "acceptance"],
+  "properties": {
+    "version": {"type": "integer", "minimum": 1},
+    "project": {
+      "type": "object",
+      "required": ["name", "purpose", "risk_class", "units"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "purpose": {"type": "string", "minLength": 1},
+        "risk_class": {"enum": ["decorative", "normal-functional", "structural", "safety-critical"]},
+        "units": {"const": "mm"}
+      },
+      "additionalProperties": true
+    },
+    "printer": {
+      "type": "object",
+      "required": ["model", "nozzle_mm", "layer_height_mm", "max_filaments", "slicer"],
+      "properties": {
+        "model": {"type": "string", "minLength": 1},
+        "material_changer": {"type": ["string", "null"]},
+        "nozzle_mm": {"type": "number", "exclusiveMinimum": 0},
+        "layer_height_mm": {"type": "number", "exclusiveMinimum": 0},
+        "max_filaments": {"type": "integer", "minimum": 1},
+        "slicer": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": ["path", "kind", "preserve_immutable", "units"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["parametric_cad", "textured_mesh", "plain_mesh", "existing_3mf"]},
+        "preserve_immutable": {"type": "boolean"},
+        "units": {"const": "mm"},
+        "texture_paths": {"type": "array", "items": {"type": "string"}},
+        "source_sha256": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "representation": {
+      "type": "object",
+      "required": ["method", "destination_format"],
+      "properties": {
+        "method": {"enum": ["layer_change", "separate_solids", "slicer_paint", "texture_paint_handoff", "voxel_partitions"]},
+        "authoritative_color_data": {"type": "string"},
+        "destination_format": {"enum": ["3mf", "stl_parts", "obj_parts", "slicer_project"]},
+        "slicer_project_required": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "palette": {
+      "type": "object",
+      "required": ["path", "maximum_colors", "mapping_method", "dither"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "maximum_colors": {"type": "integer", "minimum": 1},
+        "mapping_method": {"enum": ["ciede2000_fixed_palette", "lab_euclidean_fixed_palette", "manual", "slicer_paint"]},
+        "dither": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["minimum_color_width_mm", "minimum_inlay_depth_mm", "overlap_allowed"],
+      "properties": {
+        "minimum_color_width_mm": {"type": "number", "minimum": 0},
+        "minimum_inlay_depth_mm": {"type": "number", "minimum": 0},
+        "interface_clearance_mm": {"type": "number", "minimum": 0},
+        "overlap_allowed": {"type": "boolean"},
+        "gap_allowed_mm": {"type": "number", "minimum": 0},
+        "shell_depth_mm": {"type": "number", "minimum": 0},
+        "voxel_pitch_mm": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "materials": {
+      "type": "object",
+      "required": ["require_same_polymer_family"],
+      "properties": {
+        "require_same_polymer_family": {"type": "boolean"},
+        "allowed_family": {"type": ["string", "null"]},
+        "opacity_review_required": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "purge": {
+      "type": "object",
+      "required": ["maximum_changes", "maximum_purge_volume_mm3"],
+      "properties": {
+        "matrix_path": {"type": ["string", "null"]},
+        "maximum_changes": {"type": "integer", "minimum": 0},
+        "maximum_purge_volume_mm3": {"type": "number", "minimum": 0},
+        "permit_flush_into_infill": {"type": "boolean"},
+        "light_wall_show_through_review": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["all_color_parts_manifold", "preserve_common_coordinate_frame", "final_slicer_preview_reviewed"],
+      "properties": {
+        "all_color_parts_manifold": {"type": "boolean"},
+        "preserve_common_coordinate_frame": {"type": "boolean"},
+        "final_slicer_slot_mapping_reviewed": {"type": "boolean"},
+        "final_slicer_preview_reviewed": {"type": "boolean"},
+        "color_boundary_coupon_required": {"type": "boolean"},
+        "maximum_mean_delta_e": {"type": "number", "minimum": 0},
+        "maximum_p95_delta_e": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

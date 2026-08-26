@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "skill": "multicolor-fdm-design",
+  "artifact_roles": [
+    {"id": "color-solids", "kind": "mesh", "required": true},
+    {"id": "interface-contract", "kind": "contract", "required": true},
+    {"id": "palette-map", "kind": "report", "required": true},
+    {"id": "manufacturing-3mf", "kind": "3mf", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "color-solid-audit", "type": "mesh", "required": true, "artifact_roles": ["color-solids"]},
+    {"id": "color-boundaries", "type": "interfaces", "required": true, "artifact_roles": ["interface-contract"]},
+    {"id": "palette-freshness", "type": "external_report", "required": true, "artifact_roles": ["color-solids", "palette-map"]},
+    {"id": "3mf-material-model", "type": "3mf", "required": true, "artifact_roles": ["manufacturing-3mf"]},
+    {"id": "tool-change-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [
+    {"id": "purge-color-boundary-coupon", "kind": "physical", "required": true},
+    {"id": "slicer-preview-review", "kind": "review", "required": true}
+  ],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

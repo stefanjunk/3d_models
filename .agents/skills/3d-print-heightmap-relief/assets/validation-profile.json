@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "skill": "3d-print-heightmap-relief",
+  "artifact_roles": [
+    {"id": "source-image", "kind": "image", "required": true},
+    {"id": "height-master-16bit", "kind": "image", "required": true},
+    {"id": "reference-mesh", "kind": "mesh", "required": true},
+    {"id": "manufacturing-mesh", "kind": "mesh", "required": true},
+    {"id": "relief-report", "kind": "report", "required": true},
+    {"id": "gcode", "kind": "gcode", "required": true},
+    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
+    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
+    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+  ],
+  "checks": [
+    {"id": "manufacturing-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["manufacturing-mesh"]},
+    {"id": "master-regression", "type": "mesh_compare", "required": true, "artifact_roles": ["reference-mesh", "manufacturing-mesh"]},
+    {"id": "relief-metrics", "type": "external_report", "required": true, "artifact_roles": ["source-image", "height-master-16bit", "reference-mesh", "manufacturing-mesh", "relief-report"]},
+    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
+    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+  ],
+  "manual_gates": [{"id": "printed-relief-coupon", "kind": "physical", "required": true}],
+  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+}

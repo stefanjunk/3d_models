@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parametric Freeform Surfacing Specification",
+  "type": "object",
+  "required": ["schema_version", "project", "intent", "semantic_parameters", "hardpoints", "surface_strategy", "fdm", "acceptance", "outputs"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "project": {
+      "type": "object",
+      "required": ["name", "units", "product_family", "manufacturing", "risk_class"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "units": {"const": "mm"},
+        "product_family": {"type": "string"},
+        "manufacturing": {"type": "string"},
+        "risk_class": {"enum": ["decorative", "normal-functional", "structural", "safety-critical"]}
+      }
+    },
+    "semantic_parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "value"],
+        "properties": {
+          "name": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"},
+          "value": {"type": "number"},
+          "min": {"type": "number"},
+          "max": {"type": "number"},
+          "unit": {"type": "string"},
+          "affects": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "hardpoints": {
+      "type": "object",
+      "required": ["tolerance_mm", "points", "axes", "keep_out_volumes"],
+      "properties": {
+        "tolerance_mm": {"type": "number", "minimum": 0.0},
+        "points": {"type": "array"},
+        "axes": {"type": "array"},
+        "keep_out_volumes": {"type": "array"}
+      }
+    },
+    "surface_strategy": {
+      "type": "object",
+      "required": ["primary", "continuity_default"],
+      "properties": {
+        "primary": {"enum": ["bspline-loft", "nurbs-network", "subd", "ffd", "morph", "sdf-local", "hybrid"]},
+        "continuity_default": {"enum": ["G0", "G1", "G2", "G3", "intentional-sharp"]}
+      }
+    },
+    "fdm": {
+      "type": "object",
+      "required": ["printer_build_volume_mm", "nozzle_mm", "layer_height_range_mm", "minimum_wall_mm", "mesh_export"],
+      "properties": {
+        "printer_build_volume_mm": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "exclusiveMinimum": 0.0}},
+        "nozzle_mm": {"type": "number", "exclusiveMinimum": 0.0},
+        "layer_height_range_mm": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "exclusiveMinimum": 0.0}},
+        "minimum_wall_mm": {"type": "number", "exclusiveMinimum": 0.0}
+      }
+    },
+    "acceptance": {"type": "object"},
+    "outputs": {"type": "object"}
+  }
+}

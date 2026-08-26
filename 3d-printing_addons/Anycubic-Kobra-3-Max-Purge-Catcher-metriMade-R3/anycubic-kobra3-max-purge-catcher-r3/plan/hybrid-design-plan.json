@@ -1,0 +1,261 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "ANYCUBIC-K3MAX-PURGE-CATCHER-R3",
+    "title": "Compact spring-eject purge catcher and freestanding lower bin for Anycubic Kobra 3 Max",
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "USER-K3MAX-PETG-0.20-TO-BE-VERIFIED"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "center of catcher outlet on its lowest plane",
+      "x_axis": "+X toward the printer display/right side",
+      "y_axis": "+Y toward the printer/wiper mounting sheet",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major 4x4 source-to-project matrix"
+    },
+    "requirements": [
+      {
+        "id": "REQ-001",
+        "statement": "A compact mounted catcher shall stop fragments accelerated by the spring-loaded ejector and redirect them downward.",
+        "source": "user correction",
+        "priority": "critical",
+        "verification": "geometry review and three supervised purge cycles"
+      },
+      {
+        "id": "REQ-002",
+        "statement": "A separate freestanding bin shall collect waste below without loading the printer-side mount.",
+        "source": "user correction",
+        "priority": "critical",
+        "verification": "assembly preview and physical placement check"
+      },
+      {
+        "id": "REQ-003",
+        "statement": "The supplied stacked metriMade lockup shall remain internally unchanged and shall be printed directly on the front, left and right catcher faces.",
+        "source": "user correction and supplied stacked SVG",
+        "priority": "critical",
+        "verification": "source path/color/transform inventory, uniform viewBox mapping, three-face registration and 3MF material audit"
+      },
+      {
+        "id": "REQ-004",
+        "statement": "The project shall load in Anycubic Slicer Next through a minimal core 3MF and shall include aligned STL parts as a fallback.",
+        "source": "user-reported R1 import failure",
+        "priority": "critical",
+        "verification": "ZIP/XML/reference audit plus documented Slicer Next import check"
+      },
+      {
+        "id": "REQ-005",
+        "statement": "Unknown machine-side hole spacing and keep-outs shall stay explicit and shall be tested with a low-material gauge before the catcher is printed.",
+        "source": "official repair documentation omits dimensions",
+        "priority": "critical",
+        "verification": "fit gauge, physical measurement and full-motion check"
+      },
+      {
+        "id": "REQ-006",
+        "statement": "Both functional parts shall print upright without generated supports using 0.4 mm nozzle PETG defaults.",
+        "source": "manufacturing objective",
+        "priority": "important",
+        "verification": "overhang proxy review and slicer preview"
+      },
+      {
+        "id": "REQ-007",
+        "statement": "The two side walls shall use visible honeycomb reinforcement over a continuous containment skin; the wall opposite the wiper and its 10 mm inward hood shall remain solid for impact resistance.",
+        "source": "user lightweighting request",
+        "priority": "important",
+        "verification": "baseline/candidate mass comparison, skin continuity, honeycomb scale report and physical wall coupon"
+      }
+    ],
+    "architecture": {
+      "summary": "Two independent stages: a compact three-side-branded impact catcher with side-wall honeycomb and an inward rolled hood above, plus a freestanding bin below.",
+      "mounted_load_owner": "CATCHER_BODY",
+      "collection_capacity_owner": "LOWER_BIN",
+      "brand_owner": "CATCHER_BODY",
+      "uncertainty_owner": "MOUNT_GAUGE",
+      "explicit_non_interface": "No latch, hook or fastener joins the catcher to the lower bin; only the gravity drop path relates them."
+    },
+    "assembly_sequence": [
+      "Print the mount gauge and verify that the two existing wiper-side screws are vertically aligned, covered by the paired slots, and clear of the moving ejector.",
+      "Print the white catcher body and the four unchanged SVG color regions on three faces in one aligned multicolor job.",
+      "Install only the catcher at the verified wiper-side mounting points with correctly engaged M3 hardware; do not obstruct the spring-loaded paddle.",
+      "Confirm one upright, non-mirrored stacked lockup on each available face: front -Y, left -X and right/display +X.",
+      "Place the separate lower bin on the printer table directly under the catcher outlet with an unobstructed air gap.",
+      "Run full-motion checks and three supervised purge cycles before unattended use."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-001",
+      "topic": "R1 attached-bin architecture",
+      "status": "rejected",
+      "basis": "User clarified that only a small interceptor belongs at the purge outlet and the container must sit below."
+    },
+    {
+      "id": "DEC-002",
+      "topic": "Logo faces and source fidelity",
+      "status": "resolved",
+      "basis": "The user requires the supplied stacked lockup without internal rearrangement on all three available exterior faces; the machine-side rear face remains reserved for mounting."
+    },
+    {
+      "id": "DEC-003",
+      "topic": "Machine hole spacing and local keep-out",
+      "status": "open_physical",
+      "basis": "Official replacement images show two vertically aligned fixing screws and a moving spring-loaded ejector, but no dimensioned mounting drawing. The 20 mm nominal spacing is image-derived and remains a physical-gauge value.",
+      "blocks_gates": ["physical_release"]
+    },
+    {
+      "id": "DEC-004",
+      "topic": "3MF compatibility",
+      "status": "digital_redesign",
+      "basis": "R1 used nested component assembly objects. R3 retains direct mesh build items in a core 3MF and aligned STL fallbacks; actual Slicer Next import remains a user-side check."
+    },
+    {
+      "id": "DEC-005",
+      "topic": "Honeycomb versus open holes",
+      "status": "resolved",
+      "basis": "Open cells could release thin purge fragments. Selected architecture uses a 1.0 mm continuous skin with side-wall honeycomb ribs; the front impact wall, 10 mm inward hood, funnel, mount and exact logo footprints remain solid."
+    },
+    {
+      "id": "DEC-006",
+      "topic": "Exact four-color logo contrast",
+      "status": "resolved_with_machine_constraint",
+      "basis": "A neutral white body keeps all four supplied SVG colors visible. The exact visual variant therefore uses five materials and requires a five-or-more material workflow; four-slot machines cannot reproduce the exact logo plus distinct body color in one uninterrupted print."
+    },
+    {
+      "id": "DEC-007",
+      "topic": "Catcher envelope and spring-eject containment",
+      "status": "digital_redesign_physical_test_open",
+      "basis": "R3 reduces the intake from 88 x 60 mm to 68 x 46 mm and the nominal height from 84 mm to 64 mm. The last 16 mm of the impact wall curve inward by 10 mm at a self-supporting 43.2 degree maximum slope. No official fragment trajectory is published, so three supervised purge cycles remain mandatory."
+    }
+  ],
+  "components": [
+    {
+      "id": "CATCHER_BODY",
+      "name": "Mounted funnel catcher",
+      "role": "intercept flying fragments and redirect them through a lower outlet",
+      "authority": "parametric",
+      "representation": "closed mesh",
+      "source": {"kind": "new_geometry", "refs": ["REQ-001", "params/catcher.json"], "confidence": "medium"},
+      "manufacturing": {"method": "FDM", "material": "PETG", "color": "neutral white", "orientation": "outlet ring on build plate"},
+      "interface_ids": ["IF-MACHINE-CATCHER", "IF-CATCHER-LOGO"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "checks": ["68 x 46 mm upper envelope", "open upper intake", "open lower outlet", "continuous 1.0 mm containment skin", "procedural side-wall honeycomb ribs", "solid 64 mm impact wall", "10 mm inward hood", "support-free funnel and hood", "mounted mass below solid-wall baseline"]}
+    },
+    {
+      "id": "LOGO_ACCENTS",
+      "name": "Exact stacked metriMade color lockups",
+      "role": "all four supplied SVG color regions printed directly and identically on front, left and right catcher faces",
+      "authority": "image_to_parametric_mask",
+      "representation": "three closed color solids",
+      "source": {"kind": "supplied_svg", "refs": ["evidence/metrimade-lockup-stacked-color.svg", "REQ-003"], "confidence": "high"},
+      "manufacturing": {"method": "five-material multicolor FDM including white body", "material": "PETG", "color": "navy/teal/aqua/sand", "orientation": "common catcher orientation"},
+      "interface_ids": ["IF-CATCHER-LOGO"],
+      "acceptance": {"expected_color_files": 4, "require_watertight": true, "checks": ["source viewBox and transforms preserved", "no crop or internal rearrangement", "same uniform scale on all three faces", "outward views upright and non-mirrored", "0.6 mm positive face depth", "five total filaments including neutral body"]}
+    },
+    {
+      "id": "LOWER_BIN",
+      "name": "Freestanding lower collection bin",
+      "role": "store redirected purge waste without printer-side structural load",
+      "authority": "parametric",
+      "representation": "closed mesh",
+      "source": {"kind": "new_geometry", "refs": ["REQ-002", "params/lower-bin.json"], "confidence": "high"},
+      "manufacturing": {"method": "FDM", "material": "PETG", "color": "user choice", "orientation": "floor on build plate"},
+      "interface_ids": [],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "checks": ["open top", "stable floor", "flared opening larger than catcher outlet", "fits Kobra 3 Max bed"]}
+    },
+    {
+      "id": "MOUNT_GAUGE",
+      "name": "Machine-side fit gauge",
+      "role": "cheap physical check for the uncertain mounting interface",
+      "authority": "parametric",
+      "representation": "closed mesh",
+      "source": {"kind": "derived", "refs": ["IF-MACHINE-CATCHER", "REQ-005"], "confidence": "high"},
+      "manufacturing": {"method": "FDM coupon", "material": "PETG", "color": "scrap color", "orientation": "flat"},
+      "interface_ids": ["IF-MACHINE-CATCHER"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "checks": ["two vertical 8 x 4.2 mm capsule slots", "20 mm image-derived nominal spacing", "16.2-23.8 mm adjustable spacing range", "1.2 mm thickness", "physical fit before catcher print"]}
+    },
+    {
+      "id": "HARDWARE",
+      "name": "Verified M3 mounting screws",
+      "role": "purchased hardware for the catcher only",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "official_replacement_documentation", "refs": ["IF-MACHINE-CATCHER"], "confidence": "high for M3 and vertical pair; low for required added-part screw length"},
+      "manufacturing": {"method": "purchased", "material": "steel", "color": "hardware", "orientation": "normal to mounting sheet"},
+      "interface_ids": ["IF-MACHINE-CATCHER"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "checks": ["thread engagement", "no bottoming", "head fully supported"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-MACHINE-CATCHER",
+      "a": "HARDWARE",
+      "b": "CATCHER_BODY",
+      "owner": "CATCHER_BODY",
+      "kind": "fastener",
+      "nominal_geometry": {"type": "vertical_capsule_slot_pair", "slot_length_mm": 8.0, "slot_width_mm": 4.2, "image_derived_nominal_spacing_mm": 20.0, "adjustable_spacing_range_mm": [16.2, 23.8], "nominal_fastener": "M3"},
+      "joining": {"method": "two existing wiper-side M3 locations after gauge verification", "assembly_direction": "normal to printer sheet", "serviceable": true},
+      "allowances": {"registration_uncertainty_mm": 20.0, "solver_margin_mm": 0.2},
+      "requirements": {"minimum_plate_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "catcher self-weight and intermittent purge impacts only"},
+      "verification": ["fit gauge", "measure centers", "verify screw length", "full-motion test"]
+    },
+    {
+      "id": "IF-CATCHER-LOGO",
+      "a": "CATCHER_BODY",
+      "b": "LOGO_ACCENTS",
+      "owner": "CATCHER_BODY",
+      "kind": "direct_multicolor_surface",
+      "nominal_geometry": {"type": "coincident_registered_color_solids", "faces": ["-Y front", "-X left", "+X display/right"], "accent_depth_mm": 0.6, "source_mapping": "uniform full-viewBox scale, no crop, no mirror in outward view"},
+      "joining": {"method": "co-printed touching color volumes", "assembly_direction": "none", "serviceable": false},
+      "allowances": {"boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.0, "solver_margin_mm": 0.2},
+      "requirements": {"minimum_feature_mm": 0.6, "minimum_containment_skin_mm": 1.0, "load_or_flow": "appearance plus local logo-to-skin bond"},
+      "verification": ["source element inventory", "three-face outward-orientation audit", "no color overlap", "material mapping review", "slicer preview"]
+    }
+  ],
+  "flow_relationships": [
+    {
+      "id": "FLOW-CATCHER-TO-BIN",
+      "from": "CATCHER_BODY",
+      "to": "LOWER_BIN",
+      "kind": "gravity_drop_only",
+      "nominal_air_gap_mm": [10.0, 40.0],
+      "constraint": "Lower-bin opening must fully cover the catcher outlet projection; no physical connector is permitted."
+    }
+  ],
+  "keepouts": [
+    {
+      "id": "KEEP-MACHINE",
+      "type": "physical_check_required",
+      "purpose": "toolhead, bed, cable, wiper lever and sheet-metal motion near the purge station",
+      "source": "official images are not dimensioned",
+      "verification": "gauge plus power-off full-motion test"
+    },
+    {
+      "id": "KEEP-DROP-PATH",
+      "type": "rectangular_prism",
+      "purpose": "unobstructed drop path between catcher outlet and lower-bin opening",
+      "nominal_size_mm": [44.0, 28.0, 40.0],
+      "verification": "assembly preview and supervised purge test"
+    },
+    {
+      "id": "KEEP-EJECTOR",
+      "type": "dynamic_physical_check_required",
+      "purpose": "spring-loaded ejector paddle, tension spring and toolhead actuation path",
+      "source": "official abnormal-discharge troubleshooting guide documents rebound and spring motion but gives no swept envelope",
+      "verification": "power-off paddle actuation plus three supervised purge cycles"
+    }
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "acceptance": "two functional stages remain independent and every interface has one owner"},
+    {"id": "VAL-MESH", "gate": "component", "acceptance": "all generated STL solids are nonempty, closed, consistently wound and positive-volume"},
+    {"id": "VAL-LOGO", "gate": "integration", "acceptance": "the complete stacked source lockup is preserved at identical scale on front, left and right faces with no crop, rearrangement or outward-view mirroring"},
+    {"id": "VAL-3MF", "gate": "manufacturing", "acceptance": "core package has only direct mesh build objects, valid XML and valid material/object/triangle references"},
+    {"id": "VAL-SLICE", "gate": "manufacturing", "acceptance": "Anycubic Slicer Next opens the file and shows one aligned multicolor catcher plus one separate bin"},
+    {"id": "VAL-PHYSICAL", "gate": "physical_release", "acceptance": "gauge, full motion and three supervised purge cycles pass"}
+  ]
+}

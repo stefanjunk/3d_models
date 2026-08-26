@@ -1,0 +1,47 @@
+project:
+  name: "replace-me"
+  purpose: "functional modification of an organic AI-generated mesh"
+  source_file: "source/model.stl"
+  source_sha256: ""
+  units: "mm"
+
+coordinate_frame:
+  origin_landmark: "describe"
+  up_axis: "+Z"
+  forward_axis: "+Y"
+  right_axis: "+X"
+  source_to_working_transform_4x4: null
+  landmarks:
+    - name: "landmark-a"
+      point_mm: [0, 0, 0]
+    - name: "landmark-b"
+      point_mm: [0, 0, 0]
+    - name: "landmark-c"
+      point_mm: [0, 0, 0]
+
+regions:
+  protected: "description and mask/ROI file"
+  editable: "description and assets/edit-roi.json"
+  interface: "description"
+
+requirements:
+  minimum_wall_mm: 2.0
+  minimum_clearance_mm: 0.4
+  boolean_epsilon_mm: 0.05
+  expected_components: 1
+  require_watertight: true
+  preserve_outside_roi_p95_mm: 0.20
+  preserve_outside_roi_max_mm: 1.00
+
+manufacturing:
+  process: "FDM"
+  material: "PLA"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  build_volume_mm: [300, 300, 300]
+  preferred_orientation: "describe"
+
+validation:
+  physical_test: "describe"
+  simulation: "none / rigid body / FEM surrogate"
+  acceptance_notes: ""

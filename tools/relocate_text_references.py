@@ -50,7 +50,7 @@ MOVES = {
     "bowls": "products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray",
     "cup": "products/home-kitchen-garden/mm-home-001-cup-and-measuring-spoon",
     "garden": "products/home-kitchen-garden/mm-gar-001-rainwater-filter-well",
-    "household": "products/home-kitchen-garden/unregistered-shower-drain-hairtrap",
+    "household": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap",
     "deco/duftspender": "products/home-kitchen-garden/unregistered-aroma-diffuser",
     "Fox": "products/art-decor/mm-art-001-fox-mesh-collection",
     "Opel_Grandland_2018": "products/art-decor/mm-auto-001-opel-grandland-2018-mesh",

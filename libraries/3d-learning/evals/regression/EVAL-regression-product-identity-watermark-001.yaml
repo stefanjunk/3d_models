@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-product-identity-watermark-001
+title: Catalog identity and canonical geometry mark remain synchronized and fit-gated
+category: regression
+status: draft
+trigger: A provisional printable product is registered, renamed, versioned, or prepared for a canonical visible geometry mark.
+risk: Portfolio, folder, specification, watermark text and release artifacts can identify different products, or a canonical mark can be scaled or forced into an unsafe host region.
+given:
+  required_identity_sources: portfolio row, canonical product folder, design specification, release version, generated watermark metadata and release manifest
+  generated_mark_policy: exact canonical profile at scale 1.0 with required edge clearance and residual wall
+  history_policy: historical provisional artifacts remain identifiable and are not silently rewritten as a new release
+expected:
+  - The immutable product ID and official name agree across the current portfolio, canonical product path, design specification and release-facing records.
+  - The exact generated watermark contains the owned domain plus the same product ID and version as the candidate release.
+  - A deterministic selector checks the generated profile against an obstruction-free host rectangle, edge clearance, host wall and residual wall before CAD integration.
+  - A blocked fit causes another safe surface or an approved geometry revision; the profile is not scaled, cropped, split, distorted or substituted with live text.
+  - Historical draft assets retain their original identity and are clearly separated from the current candidate.
+  - Final approval remains blocked until marked CAD/mesh, slicer-layer and process-matched coupon evidence exist.
+failure_conditions:
+  - Any current release-facing identity source uses a different product ID, official name or version.
+  - The mark is redrawn, text-edited, scaled below 1.0, cropped, split across loose parts or placed on a functional/protected surface.
+  - Gross wall dimensions are treated as usable without subtracting edge and feature clearances.
+  - A concept image or generator preview is presented as production integration, slicer or physical evidence.
+  - Historical evidence is overwritten so the original provisional identity can no longer be reconstructed.
+fixtures:
+  - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml
+  - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/identity-watermark-trace.yaml
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: Compare current identity fields and paths; run the canonical profile generator and selector; inspect marked CAD/mesh, slicer layers and the exact-process coupon before release approval.
+  measurement_method: Deterministic field/path/profile/selector checks plus CAD section, slicer-layer and human physical legibility review.
+relationships:
+  lessons:
+    - EXP-00003
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - regression
+  - product-identity
+  - watermark
+  - folder-identity
+  - host-fit
+  - release-gate

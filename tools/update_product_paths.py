@@ -24,6 +24,7 @@ PRODUCT_PATHS = {
     "MM-ORG-003": "products/organization-storage/mm-org-003-modern-carbon-desk-organizer",
     "MM-BTH-001": "products/organization-storage/mm-bth-001-premium-over-toilet-shelf",
     "MM-BTH-002": "products/organization-storage/mm-bth-002-toilet-paper-fifo-system",
+    "MM-BTH-003": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap",
     "MM-MKR-001": "products/printer-workshop/mm-mkr-001-cybervault-nozzle-case",
     "MM-TOOL-001": "products/printer-workshop/mm-tool-001-kobra3max-enclosure",
     "MM-TOOL-002": "products/printer-workshop/mm-tool-002-filament-drybox-system",

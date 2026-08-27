@@ -162,7 +162,7 @@ move_path 3d-printing_addons/printhead_cover_singlecolor_D52.stl products/printe
 move_path cup products/home-kitchen-garden/mm-home-001-cup-and-measuring-spoon
 move_path garden products/home-kitchen-garden/mm-gar-001-rainwater-filter-well
 move_path bowls products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray
-move_path household products/home-kitchen-garden/unregistered-shower-drain-hairtrap
+move_path household products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap
 move_path deco/duftspender products/home-kitchen-garden/unregistered-aroma-diffuser
 
 # Toys and games.

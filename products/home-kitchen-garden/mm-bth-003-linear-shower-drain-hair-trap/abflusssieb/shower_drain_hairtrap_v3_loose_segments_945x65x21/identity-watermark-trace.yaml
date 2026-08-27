@@ -1,0 +1,74 @@
+schema_version: 1.0.0
+kind: trace
+id: TRACE-MM-BTH-003-IDENTITY-WATERMARK-3-1
+project: MM-BTH-003-linear-shower-drain-hair-trap
+revision: 3.1.0-draft.1
+started_at: 2026-08-27T21:40:04+02:00
+completed_at: null
+requirements: design-spec.yaml
+scope:
+  process: FFF
+  machine: intended Anycubic Kobra 3 Max; exact unit and profile unknown
+  material: PETG recommended from baseline; manufacturer, product, color and batch unknown
+  nozzle: 0.4 mm recommended; exact nozzle identity unknown
+  orientation: proposed +90 degrees about assembly Y onto a complete U-profile end
+  slicer: Anycubic Slicer Next 1.3.9.4 selected; exact machine, filament and process profile unknown
+  geometry: loose inverted-U shower-drain segments with preserved 46 mm funnel modules
+identity:
+  original_provisional_product_id: SHOWER-DRAIN-HAIRTRAP
+  original_folder: products/home-kitchen-garden/unregistered-shower-drain-hairtrap
+  user_correction: Register the drain sieve in the portfolio, assign an official product designation, rename the folder, and use the correct product designation in a watermark on the inner side wall.
+  accepted_product_id: MM-BTH-003
+  accepted_product_name: Linear Shower Drain Hair Trap
+  accepted_folder: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap
+events:
+  - at: 2026-08-27T21:40:04+02:00
+    type: user-feedback
+    summary: The user corrected the provisional product state and requested an official portfolio identity, canonical folder name, and correctly identified inner-side watermark.
+    expected: The prior draft retained an unregistered folder and used the provisional identity SHOWER-DRAIN-HAIRTRAP for watermark generation.
+    actual: The required identity is MM-BTH-003 — Linear Shower Drain Hair Trap, consistently applied to the portfolio, product path, specification and future canonical watermark.
+    refs:
+      - design-spec.yaml
+      - DECISION-LOG.md
+      - ../../../../../business/02-portfolio/product-portfolio.csv
+  - at: 2026-08-27T21:40:04+02:00
+    type: design-analysis
+    summary: The scale-1.0 canonical profile does not fit the existing 52.5 × 16.8 mm single-segment inner wall after mandatory clearance; the smallest function-preserving host is a 105 mm two-funnel segment.
+    expected: Place the exact two-line product mark on an inner side without scaling or reducing the eighteen catcher fields.
+    actual: Sixteen 52.5 mm single segments plus one 105 mm double segment preserve the 945 mm row and eighteen catcher fields while providing a 101 × 12.8 mm safe rectangle.
+    refs:
+      - design-spec.yaml
+      - DECISION-LOG.md
+  - at: 2026-08-27T21:40:04+02:00
+    type: user-feedback
+    summary: The user instructed the project to continue with the proposed watermark and drain-sieve revision.
+    expected: Explicit approval or correction of the proposed sixteen-single-plus-one-double requirement set.
+    actual: Requirements revision 3.1.0-draft.1 was accepted; the concept gate is pending.
+    refs:
+      - design-spec.yaml
+  - at: 2026-08-27T21:40:04+02:00
+    type: concept
+    summary: A precise review sheet was created from the approved requirements without generating production CAD or the exact watermark profile.
+    expected: Show the assembly decomposition, double-segment function, inner-side placement, remaining wall and print intent before CAD work.
+    actual: The SVG/PNG concept set and correspondence notes were created and await explicit concept approval.
+    refs:
+      - concept/DRAFT-concept-sheet-3.1.0-draft.1.png
+      - concept/DRAFT-concept-sheet-3.1.0-draft.1.svg
+      - concept/CONCEPT-NOTES-3.1.0-draft.1.md
+  - at: 2026-08-27T21:51:13+02:00
+    type: validation
+    summary: Anycubic Slicer Next 1.3.9.4 imported and reported model information for the last validated 3.0 on-end STL.
+    expected: Confirm the user-selected slicer CLI can read the historical baseline without treating it as a 3.1 slice result.
+    actual: The command returned one manifold 21 × 65 × 52.5 mm part with 25,780 facets and exit code 0; a retained calc_exclude_triangles warning prevents interpreting this as a full slicer pass.
+    refs:
+      - validation/anycubic-slicer-next-baseline-import-3.0.md
+      - exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl
+artifacts:
+  - design-spec.yaml
+  - DECISION-LOG.md
+  - concept/DRAFT-concept-sheet-3.1.0-draft.1.png
+  - concept/DRAFT-concept-sheet-3.1.0-draft.1.svg
+  - concept/CONCEPT-NOTES-3.1.0-draft.1.md
+  - validation/anycubic-slicer-next-baseline-import-3.0.md
+  - ../../../../../business/02-portfolio/product-portfolio.csv
+outcome: concept-approval-pending

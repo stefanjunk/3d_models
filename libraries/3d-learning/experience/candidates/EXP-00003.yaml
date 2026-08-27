@@ -1,0 +1,149 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00003
+title: Anycubic Slicer Next 1.3.9.4 supports local hash-bound CLI export with metadata caveats
+captured_at: 2026-08-27
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Tested on one host and slicer build; no physical print, firmware, cloud, or cross-version validation.
+feature:
+  type: slicer-cli-integration
+  geometry: external-profile STL and embedded-profile 3MF
+  design_parameters:
+    adapter_version: 1.2.0
+    external_profile_layer_height_mm: 0.2
+    embedded_profile_layer_height_mm: 0.24
+    independent_external_profile_runs: 2
+  named_datums:
+    - slicer-input-hash
+    - profile-set-hashes
+    - native-result-json
+    - exact-gcode-hash
+  constraints:
+    - Use a fresh output directory for every run.
+    - Require machine, process, and filament profiles for STL or OBJ input.
+    - Preserve authored 3MF plate layout unless a separate reviewed arrangement step is intended.
+    - Keep printer upload and print start outside the adapter.
+scope:
+  process: FFF headless slicing
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max profiles
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: Anycubic
+    product: bundled PLA profiles
+    variant: external 0.4 mm profile and embedded 0.6 mm hardened-steel-nozzle project
+    color: null
+    batch: null
+    conditioning: not-applicable-no-physical-print
+  nozzle:
+    diameter_mm: null
+    material: standard 0.4 mm profile and hardened-steel 0.6 mm embedded profile
+    geometry: unknown
+    hotend: unknown
+    wear_state: unknown
+  orientation: adapter arranged and placed STL on bed; authored 3MF plate transform was preserved
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: Kobra 3 Max bundled 0.20 mm/0.4 mm set and embedded 0.24 mm/0.6 mm project
+    profile_hash: null
+  geometry_class: slicer calibration STL and functional test-tile 3MF
+  environment: Manjaro Linux x86-64, kernel 7.1.8-1-MANJARO, AUR package anycubicslicernext-bin 1.3.9600-3
+  transfer_limits:
+    - Vendor Linux support is Ubuntu 24.04 only; Manjaro compatibility is a local observation.
+    - Does not establish behavior for another Anycubic Slicer Next version or package.
+    - Does not qualify print quality, firmware compatibility, remote actions, or physical safety.
+observation:
+  summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp and layer-summary metadata differences.
+  expected: A headless local slicer could export G-code with exact input/profile provenance and no printer action.
+  actual: Both input routes returned native success and parseable G-code; repeated STL G-code differed only by its generation timestamp, and the 3MF footer reported 95 layers while 94 executable markers and the header agreed.
+  outcome: mixed
+  parameter: cli_export_and_metadata_behavior
+  recommended_value: Use the fail-closed adapter, retain raw hashes, compare parsed metrics, and keep metadata warnings visible.
+  units: null
+explanation:
+  hypothesis: The Orca-derived CLI is suitable for local automated export when its version, profile semantics, output freshness, and non-deterministic metadata are explicitly handled.
+  mechanism: The CLI accepts explicit settings/filament JSON or embedded 3MF settings, writes native result.json plus G-code, and exposes toolpath metadata that a deterministic wrapper can hash and analyze.
+  alternatives:
+    - Another packaging build or operating system may parse flags or locate resources differently.
+    - The 3MF footer mismatch may depend on this project, adaptive layers, supports, or version-specific summary code.
+    - Additional nondeterministic fields may appear in multicolor, timelapse, or cloud-enabled jobs not tested here.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 3
+  same_scope_repetitions: 2
+  geometry_count: 2
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 2
+  measured: true
+  measurement_method: CLI exit/native-result checks, SHA-256 comparison, normalized diagnostic diff, and deterministic G-code parsing.
+  uncertainty: One host and internal slicer version; no physical printer or multicolor tool change was exercised.
+  sources:
+    - type: research
+      ref: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+      hash: fd17b9850fa6aaca0b2996d1becd6291cdb2bdca19c6521a3de6f552cf663aa8
+      notes: Exact local tool, profile, source, output hashes, metrics, and known limitations.
+    - type: manufacturer
+      ref: https://www.anycubic.com/slicerNextDownload
+      hash: null
+      notes: Manufacturer identifies the Orca-based product and Ubuntu 24.04 Linux support boundary.
+    - type: manufacturer
+      ref: https://github.com/ANYCUBIC-3D/AnycubicSlicerNext
+      hash: null
+      notes: Manufacturer-owned source repository and AGPL-3.0 provenance.
+  artifacts:
+    - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+applicability:
+  triggers:
+    - An Anycubic FDM project needs a local exact-profile slicer dry run with machine-readable evidence.
+    - An authored Anycubic 3MF needs batch export without changing its plate arrangement.
+  exclusions:
+    - Resin slicing.
+    - Authoring or correcting color painting and ACE slot mapping.
+    - Autonomous upload, print start, or physical acceptance.
+    - Byte-identical G-code regression without first accounting for the generation header.
+  transfer_limits:
+    - Re-run the live capability test after any slicer, package, profile, or OS change.
+    - Treat missing version/profile/native-result/G-code evidence as fail-closed.
+    - Require GUI preview for layers, supports, seams, tools/colors, and purge.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-core-anycubic-slicer-next-cli-001
+  patterns: []
+  references:
+    - .agents/skills/validate-printable-3d-projects/references/anycubic-slicer-next.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+provenance:
+  project: Anycubic Slicer Next CLI workflow integration
+  part_revision: adapter 1.2.0
+  trace: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+  source_commit: 292b9fb8692b8dca96a2328bea31737d654e59d2
+  created_by: Codex from local controlled tool tests and manufacturer sources
+tags:
+  - anycubic-slicer-next
+  - slicer-cli
+  - kobra-3-max
+  - gcode
+  - reproducibility
+  - metadata
+  - negative-transfer

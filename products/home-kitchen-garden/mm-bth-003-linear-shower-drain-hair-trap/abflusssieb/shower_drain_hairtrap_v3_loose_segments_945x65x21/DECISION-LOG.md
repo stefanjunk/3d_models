@@ -1,6 +1,26 @@
-# Decision log — shower drain hair trap v3
+# Decision log — MM-BTH-003 Linear Shower Drain Hair Trap
 
 Status: primary production candidate digitally validated; watermark, exact-slicer review, and physical tests remain open.
+
+## 2026-08-27 — official portfolio identity and proposed marked revision
+
+- Registered the product as `MM-BTH-003` with the official descriptive name **Linear Shower Drain Hair Trap** and canonical product folder `products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap`.
+- The canonical `MM-WM-001-R1` profile for `MM-BTH-003 · v3.1.0-draft.1` measures 80.97 × 12.8 × 0.4 mm. It still cannot fit the 52.5 × 16.8 mm inner wall of an unchanged single segment at scale 1.0 with the required edge clearance.
+- Proposed the smallest geometry change that preserves the 945 mm installed envelope and all 18 funnel fields: sixteen 52.5 mm single segments plus one 105.0 mm double segment containing two unchanged funnel modules.
+- The double segment provides a 105.0 × 16.8 mm inner side wall and a 101.0 × 12.8 mm safe rectangle after 2.0 mm edge clearance. The exact mark is intended to be recessed 0.4 mm into that inner wall, leaving 2.6 mm of the 3.0 mm wall.
+- Revision `3.1.0-draft.1` is at requirements `changes-requested`; concept, CAD generation, watermark integration, revised exports, and validation are blocked until explicit user approval.
+
+## 2026-08-27 — revision 3.1 requirements approved
+
+- The user instructed the project to continue with the watermark and drain sieve after reviewing the proposed sixteen-single-plus-one-double solution.
+- This instruction is recorded as explicit requirements approval for `3.1.0-draft.1`: sixteen 52.5 mm single segments, one 105.0 mm double segment, eighteen preserved catcher fields, no connectors, and the canonical product mark recessed into the double segment's inner side wall.
+- The concept gate is now `pending`. Production CAD, exact watermark generation/integration, and revised manufacturing exports remain blocked until the user approves the revision 3.1 concept sheet.
+
+## 2026-08-27 — revision 3.1 concept issued for review
+
+- Created `concept/DRAFT-concept-sheet-3.1.0-draft.1.png` as a precise schematic of the approved requirements, not as production geometry.
+- The sheet shows the exact 16 + 1 part decomposition and 945 mm length equation, a two-funnel 105 mm segment, the intended inner-side-wall mark location, the 3.0 mm wall / 0.4 mm recess / 2.6 mm residual-wall relationship, and the retained on-end print intent.
+- The canonical watermark profile is represented only as a placement envelope. Its exact vector geometry will be generated and integrated after concept approval.
 
 ## 2026-08-27 — revision basis
 

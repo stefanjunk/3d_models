@@ -18,6 +18,7 @@ PORTFOLIO_CSV = ROOT / "02-portfolio" / "product-portfolio.csv"
 RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
+RESEARCH_PRIORITY_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
 RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
@@ -122,6 +123,81 @@ def validate_research_additions(
         raise ValueError(f"Invalid opportunity score for: {', '.join(invalid_scores)}")
 
 
+def validate_research_priority(
+    rows: list[list[str]],
+    expected_ids: set[str],
+    research_status: dict[str, dict[str, str]],
+) -> None:
+    """Fail closed when the generated 200-idea implementation queue is stale or malformed."""
+    if not rows:
+        raise ValueError(f"Research priority source is empty: {RESEARCH_PRIORITY_CSV}")
+    header = rows[0]
+    required = {
+        "Implementation_Order",
+        "New_Build_Rank",
+        "Next_Candidate_Rank",
+        "SKU_ID",
+        "Product",
+        "Implementation_Status",
+        "Mapped_Working_SKU",
+        "Decision_Tier",
+        "Priority_Score_0_100",
+        "Creation_Effort_1_5",
+        "Validation_Effort_1_5",
+        "Commercial_Risk_1_5",
+        "Estimated_Market_Fit_1_5",
+        "Market_Evidence_Confidence_1_5",
+        "Strategy_Fit_1_5",
+        "AM_Differentiation_1_5",
+        "Portfolio_Leverage_1_5",
+        "Digital_First_Fit_1_5",
+        "Economics_1_5",
+        "Score_Status",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Research priority source is missing columns: {', '.join(missing)}")
+    if len(rows) != 201 or any(len(row) != len(header) for row in rows):
+        raise ValueError("Research priority source must contain a 26-column header and exactly 200 complete idea rows")
+
+    index = {name: header.index(name) for name in required}
+    ids = [row[index["SKU_ID"]] for row in rows[1:]]
+    if set(ids) != expected_ids or len(ids) != len(set(ids)):
+        raise ValueError("Research priority IDs do not match the combined 200-idea research register")
+    orders = [int(row[index["Implementation_Order"]]) for row in rows[1:]]
+    if orders != list(range(1, 201)):
+        raise ValueError("Research priority implementation order must be sequential from 1 through 200")
+
+    five_point_fields = [
+        "Creation_Effort_1_5",
+        "Validation_Effort_1_5",
+        "Commercial_Risk_1_5",
+        "Estimated_Market_Fit_1_5",
+        "Market_Evidence_Confidence_1_5",
+        "Strategy_Fit_1_5",
+        "AM_Differentiation_1_5",
+        "Portfolio_Leverage_1_5",
+        "Digital_First_Fit_1_5",
+        "Economics_1_5",
+    ]
+    for row in rows[1:]:
+        sku_id = row[index["SKU_ID"]]
+        priority = float(row[index["Priority_Score_0_100"]])
+        if not 0 <= priority <= 100:
+            raise ValueError(f"Research priority score is outside 0–100 for {sku_id}")
+        for field in five_point_fields:
+            value = int(row[index[field]])
+            if not 1 <= value <= 5:
+                raise ValueError(f"Research priority {field} is outside 1–5 for {sku_id}")
+        expected_overlay = research_status.get(sku_id, {})
+        expected_status = expected_overlay.get("Implementation_Status", "NOT_STARTED")
+        expected_working_sku = expected_overlay.get("Mapped_Working_SKU", "")
+        if row[index["Implementation_Status"]] != expected_status or row[index["Mapped_Working_SKU"]] != expected_working_sku:
+            raise ValueError(f"Research priority implementation mapping is stale for {sku_id}")
+        if row[index["Score_Status"]] != "PLANNING ESTIMATE — NOT RELEASE APPROVAL":
+            raise ValueError(f"Research priority status disclaimer is missing for {sku_id}")
+
+
 def add_research_overlay(
     rows: list[list[object]],
     sku_column: str,
@@ -222,11 +298,11 @@ def style_for(value: object, row_index: int) -> int:
     if row_index == 1:
         return 1
     text = str(value).upper()
-    if text in {"COMPLETE", "YES", "PASS", "P7 LIVE", "P6 STAGED", "P5 COMMERCIAL RELEASE"}:
+    if text in {"COMPLETE", "YES", "PASS", "P7 LIVE", "P6 STAGED", "P5 COMMERCIAL RELEASE"} or text.startswith(("0 FINISH", "1 NEXT")):
         return 3
     if "BLOCK" in text or text in {"EXCLUDED", "VERY HIGH"}:
         return 5
-    if text.startswith("P0 ") or text.startswith("P1 ") or text in {"HOLD", "UNKNOWN", "NOT STARTED", "NOT_STARTED"}:
+    if text.startswith(("P0 ", "P1 ", "2 VALIDATE", "4 HOLD")) or text in {"HOLD", "UNKNOWN", "NOT STARTED", "NOT_STARTED"}:
         return 4
     return 6
 
@@ -364,6 +440,15 @@ def main() -> None:
     if unknown_source_ids:
         raise ValueError(f"Research additions reference unknown source IDs: {', '.join(unknown_source_ids)}")
     research_status = read_research_status(RESEARCH_STATUS_CSV)
+    research_priority = read_csv(RESEARCH_PRIORITY_CSV)
+    legacy_sku_index = legacy_product_matrix[0].index("SKU ID")
+    additional_sku_index = additional_research[0].index("SKU_ID")
+    combined_research_ids = {
+        str(row[legacy_sku_index]) for row in legacy_product_matrix[1:]
+    } | {
+        str(row[additional_sku_index]) for row in additional_research[1:]
+    }
+    validate_research_priority(research_priority, combined_research_ids, research_status)
     add_research_overlay(
         legacy_product_matrix,
         "SKU ID",
@@ -390,6 +475,20 @@ def main() -> None:
     additional_core_count = sum(
         1 for row in additional_research[1:] if str(row[additional_strategy_index]).startswith("Core")
     )
+    priority_header = research_priority[0]
+    priority_tier_index = priority_header.index("Decision_Tier")
+    next_rank_index = priority_header.index("Next_Candidate_Rank")
+    priority_sku_index = priority_header.index("SKU_ID")
+    priority_product_index = priority_header.index("Product")
+    finish_current_count = sum(
+        1 for row in research_priority[1:] if row[priority_tier_index].startswith("0 FINISH")
+    )
+    next_candidate_rows = [
+        row for row in research_priority[1:] if row[priority_tier_index].startswith("1 NEXT")
+    ]
+    first_new_candidate = next(
+        row for row in next_candidate_rows if row[next_rank_index] == "1"
+    )
     summary = [
         ["Metric", "Value", "Interpretation"],
         ["Review date", "2026-08-27", "Repository-evidence snapshot"],
@@ -402,6 +501,10 @@ def main() -> None:
         ["Addendum scoring", "Opportunity 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
         ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
         ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
+        ["Ranked research ideas", len(research_priority) - 1, "Comparable implementation planning queue; not release approval"],
+        ["Finish-current research models", finish_current_count, "Close slicer, physical, rights and commercial evidence before expanding CAD work"],
+        ["Gated next-candidate pool", len(next_candidate_rows), "Candidate pool only; demand-test and select at most one new CAD workstream"],
+        ["First gated new candidate", f"{first_new_candidate[priority_sku_index]} — {first_new_candidate[priority_product_index]}", "Highest-ranked unstarted idea passing effort, validation, risk, strategy, market-fit and evidence-confidence gates"],
         ["Commercially existing P5+", 0, "No product may be sold yet"],
         ["Staged P6", 0, "No real release staged"],
         ["Live P7", 0, "No live product"],
@@ -420,6 +523,7 @@ def main() -> None:
         ("Stage Definitions", stages),
         ("MVP Tasks", tasks),
         ("Research Backlog", research),
+        ("Implementation Priority", research_priority),
         ("Research Ideas 100", legacy_product_matrix),
         ("Research Ideas +100", additional_research),
         ("Research Economics", legacy_unit_economics),

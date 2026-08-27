@@ -1,0 +1,58 @@
+schema_version: 1.0.0
+kind: trace
+id: TRACE-MM-ORG-014-CLEARANCE-CONTRACT
+project: MM-ORG-014-embroidery-floss-project-palette-dock
+revision: 0.1.0-draft.1
+started_at: 2026-08-28T00:20:00+02:00
+completed_at: 2026-08-28T00:32:00+02:00
+requirements: Every declared floss-card class must retain its own side clearance and at least 4.0 mm receiver engagement.
+scope:
+  process: parametric CadQuery interface calculation and deterministic pytest
+  machine: digital-only; Anycubic Kobra 3 Max profile used only downstream
+  material: virtual 0.6 mm cardstock plus 2.0 and 3.0 mm acrylic envelopes
+  nozzle_mm: 0.4
+  orientation: dock lattice datum down
+design_intent:
+  coordinate_frame: X card-edge span, Y ordered positions, Z seating depth
+  named_datums:
+    - receiver-top-z-12.0
+    - slot-bottom-z-3.0
+    - tapered-shoulder-z-8.4
+  parameters:
+    thin_cardstock_side_clearance_mm: 0.15
+    rectangular_acrylic_side_clearance_mm: 0.1
+    square_acrylic_side_clearance_mm: 0.1
+    minimum_engagement_mm: 4.0
+  constraints:
+    - Calculate effective width from card thickness plus twice that class's declared side clearance.
+    - Reuse the same class record in CAD, interface evidence and tests.
+  feature_relationships:
+    - A larger effective width seats higher in the tapered receiver and reduces engagement.
+events:
+  - at: 2026-08-28T00:20:00+02:00
+    type: failure
+    summary: A newly aligned unit test applied the 0.15 mm thin-card clearance globally and rejected the 3.0 mm acrylic class at 3.816 mm engagement.
+    expected: All three declared classes retain at least 4.0 mm engagement.
+    actual: The test substituted a clearance from a different interface class.
+    refs:
+      - reports/class-specific-clearance-iteration.json
+  - at: 2026-08-28T00:24:00+02:00
+    type: design
+    summary: Side clearance became an explicit parameter on each card-class record and the CAD helper now consumes the complete record.
+    refs:
+      - config/model-parameters.json
+      - cad/build.py
+  - at: 2026-08-28T00:32:00+02:00
+    type: validation
+    summary: Ten parameter tests and the regenerated parametric/interface reports passed; the 3.0 mm class retained 4.032 mm nominal engagement.
+    refs:
+      - tests/test_parameters.py
+      - validation/parametric-source-report.json
+      - validation/interface-report.json
+artifacts:
+  - reports/class-specific-clearance-iteration.json
+  - config/model-parameters.json
+  - tests/test_parameters.py
+  - validation/parametric-source-report.json
+  - validation/interface-report.json
+outcome: accepted

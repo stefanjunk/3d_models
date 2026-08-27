@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-014",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "A test that applied the global 0.15 mm thin-card clearance to every card class rejected the declared 3.0 mm acrylic class even though that class uses 0.10 mm per side in the design contract.",
+  "initial_calculation": {
+    "card_thickness_mm": 3.0,
+    "incorrect_side_clearance_mm": 0.15,
+    "effective_slot_width_mm": 3.3,
+    "seat_z_mm": 8.184,
+    "engagement_mm": 3.816,
+    "required_engagement_mm": 4.0,
+    "result": "FAIL"
+  },
+  "corrected_calculation": {
+    "card_thickness_mm": 3.0,
+    "declared_side_clearance_mm": 0.1,
+    "effective_slot_width_mm": 3.2,
+    "seat_z_mm": 7.968,
+    "engagement_mm": 4.032,
+    "required_engagement_mm": 4.0,
+    "result": "PASS"
+  },
+  "correction": [
+    "Store side_clearance_mm on every declared card interface class.",
+    "Use the same class record in parameter validation, virtual placement, interface reporting and tests.",
+    "Do not silently substitute a global clearance for heterogeneous interface classes."
+  ],
+  "evidence": {
+    "parameter_file_sha256": "297dfc1a99165f1dd3011db3c8b6220460dd37ad6c91f00926bfac4fa4df46dc",
+    "test_file_sha256": "2c7e6738694da9dd69ea20eb2b8227271e81e8fd8b0abc30a40f096b94719e63",
+    "parametric_report_sha256": "9cdea7b73e9d5d99e8ce16332976912db8d8f74813e144d968e54af698cf2acf",
+    "pytest_result": "10 passed"
+  },
+  "limitations": [
+    "One slot profile and three virtual card classes were checked.",
+    "No physical insertion force, polymer compliance or card-thickness distribution was measured."
+  ]
+}

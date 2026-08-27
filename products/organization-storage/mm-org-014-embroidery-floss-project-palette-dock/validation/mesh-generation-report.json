@@ -1,0 +1,199 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "palette-dock:watertight",
+      "message": "palette-dock is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-dock:winding",
+      "message": "palette-dock winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-dock:volume",
+      "message": "palette-dock has positive volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-dock:component",
+      "message": "palette-dock is one component",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-dock:triangles",
+      "message": "Triangle budget",
+      "metrics": {
+        "actual": 3604,
+        "limit": 100000
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-dock:file",
+      "message": "File budget",
+      "metrics": {
+        "actual_mib": 0.17193222045898438,
+        "limit_mib": 8.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:watertight",
+      "message": "fit-coupon is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:winding",
+      "message": "fit-coupon winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:volume",
+      "message": "fit-coupon has positive volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:component",
+      "message": "fit-coupon is one component",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:triangles",
+      "message": "Triangle budget",
+      "metrics": {
+        "actual": 236,
+        "limit": 100000
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-coupon:file",
+      "message": "File budget",
+      "metrics": {
+        "actual_mib": 0.011333465576171875,
+        "limit_mib": 8.0
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "297dfc1a99165f1dd3011db3c8b6220460dd37ad6c91f00926bfac4fa4df46dc",
+      "size_bytes": 1704
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "5d8724a57115c5903b3707177b8d6eaa7cea630c64c5f1c714e6be941c89707e",
+      "size_bytes": 24471
+    }
+  ],
+  "limitations": [
+    "Topology does not prove loaded-card fit, fiber snagging, retrieval force, tip or slip."
+  ],
+  "metrics": {
+    "meshes": {
+      "fit-coupon": {
+        "bounds_mm": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            70.0,
+            34.0,
+            12.0
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          70.0,
+          34.0,
+          12.0
+        ],
+        "file_bytes": 11884,
+        "file_mib": 0.011333465576171875,
+        "path": "exports/coupons/DRAFT-MM-ORG-014-three-card-fit-coupon-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "a30ecc1b749bfbd5e5b7019a11c8f0089c033b875155fbe9f16c301e24bf8900",
+        "surface_area_mm2": 11232.139516051655,
+        "triangles": 236,
+        "vertices": 120,
+        "volume_mm3": 9261.818382557969,
+        "watertight": true,
+        "winding_consistent": true
+      },
+      "palette-dock": {
+        "bounds_mm": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            220.0,
+            110.0,
+            12.0
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          220.0,
+          110.0,
+          12.0
+        ],
+        "file_bytes": 180284,
+        "file_mib": 0.17193222045898438,
+        "path": "exports/manufacturing/DRAFT-MM-ORG-014-palette-dock-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "586735115bed6977e9befce579c4c6565af0ed571a8b301f0413018702313607",
+        "surface_area_mm2": 102626.91044382975,
+        "triangles": 3604,
+        "vertices": 1796,
+        "volume_mm3": 84636.99743447689,
+        "watertight": true,
+        "winding_consistent": true
+      }
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-014-mesh-generation",
+  "tool_version": "0.1.0-draft.1"
+}

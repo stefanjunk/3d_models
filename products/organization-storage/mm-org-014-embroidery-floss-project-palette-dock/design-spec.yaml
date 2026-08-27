@@ -1,0 +1,264 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-014
+  name: Embroidery floss project palette dock
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-148
+  opportunity_score: 92.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-014-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: passed
+    evidence: validation/parametric-source-report.json
+  slicer_preflight:
+    status: passed
+    evidence: validation/slicer-anycubic-next.json
+  print_candidate:
+    status: digitally-approved-draft
+    evidence: validation/print-candidate-report.json
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-014
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-014
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Park up to thirty labelled floss cards in active-project sequence with separated, visible retrieval positions.
+  intended_users:
+    - adult embroidery, cross-stitch and needlepoint hobbyists
+  included:
+    - one-piece three-lane desktop dock
+    - thirty stepped tapered card receivers
+    - one/two/three-dot lane markers
+    - three-position production-derived fit coupon
+    - virtual interface checks for three card classes
+  excluded:
+    - needles, sharp tools or child use
+    - a portable lid or loaded-floss retention claim
+    - universal compatibility without measuring and coupon-testing actual cards
+    - printer control or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: one dock and one optional fit coupon
+  purchased_parts: user-owned labelled floss cards or drops
+  assembly: insert one card edge into each selected receiver
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Keep the working palette for one embroidery project ordered, visible and less prone to shared-bag tangles.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: One skeleton chassis keeps every receiver aligned and avoids thirty loose printed adapters.
+  included:
+    value:
+      - 220 x 110 mm maximum default footprint
+      - three lanes of ten positions
+      - 0.6, 2.0 and 3.0 mm declared card classes
+      - STEP, STL and DRAFT 3MF outputs
+    source: design-gate-and-research
+  excluded:
+    value:
+      - needle parking or child product
+      - universal card fit, loaded-floss retention or portability claim
+      - final physical validation, watermark or release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - sharp printed slot edges can mark cards or snag fibers
+    - a loose or overly tight class can wobble, crease or become difficult to retrieve
+    - dangling floss can cross between positions despite geometric separation
+    - users could incorrectly treat the open slots as needle storage
+  limits:
+    - adult dry-indoor craft use only
+    - no needles or sharp tools in any receiver
+    - measure loaded card edge and run the coupon before the full dock
+    - physical card damage, fiber snagging, tip, slip and cycle tests remain mandatory before release
+
+geometry_contract:
+  coordinate_frame:
+    x: three lane centres and inserted card-edge span
+    y: ten ordered positions per lane
+    z: height from shared lattice bed datum
+  maximum_single_part_envelope_mm: [220.0, 110.0, 12.0]
+  default_dock:
+    width_mm: 220.0
+    depth_mm: 110.0
+    height_mm: 12.0
+    lanes: 3
+    positions_per_lane: 10
+    total_positions: 30
+  customer_parameters:
+    - loaded card edge thickness and width
+    - colour count and lane assignment
+    - slot pitch and receiver depth
+    - label scheme and desktop footprint
+  interfaces:
+    thin_cardstock: 0.6 mm card in 0.9 mm throat with 0.15 mm nominal clearance per side
+    rectangular_acrylic: 2.0 mm card seats in tapered region below the 3.4 mm shoulder
+    square_acrylic: 3.0 mm card seats at least 4.0 mm below the receiver top
+    card_edge_width: up to 50.0 mm in a 54.0 mm slot-length cut, with 2.0 mm nominal clearance at each end
+  protected_geometry:
+    - slot throat, shoulder, lip and seating depths
+    - receiver end walls and inter-slot web
+    - lane spines and perimeter load paths
+    - three-lane separation and marker count
+    - production-derived coupon geometry
+
+duty:
+  environment: dry indoor desktop, nominal 15-30 C
+  load: up to thirty user-owned labelled floss cards with light embroidery floss
+  service_life_target: 500 insert/remove cycles on the worst-fitting card class for later qualification
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA for dry indoor prototype
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; dock and coupon print lattice base down
+  orientation:
+    dock: shared lattice bed datum down
+    coupon: production-derived spine and receiver bars down
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP dock, coupon and virtual-card assembly masters
+    - STL dock and coupon
+    - DRAFT two-object 3MF build set
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving thirty isolated receivers, web thickness and a stable connected chassis.
+  baseline: full 220 x 110 x 12 mm bounding block
+  candidate: low perimeter and three spines with local transverse receiver bars
+  selection_rule: Dock must be one watertight solid, fit the envelope and reduce CAD volume at least 60 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: The connected lattice candidate reduces CAD volume by 70.855 percent and passes the exact-profile slice; exact-profile A/B variants remain deferred because they would alter protected receiver geometry without measured card-fit evidence.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-014-palette-dock-0.1.0-draft.1.stl
+    protected_regions:
+      - all tapered slot profiles and lead-ins
+      - receiver end walls and slot web
+      - perimeter and lane-spine intersections
+      - bed-contact faces and lane marker wells
+    resource_budget:
+      triangle_target: 60000
+      triangle_stop: 100000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 90.0
+    rationale: Direct analytic tessellation should remain below budget; decimation risks the card-fit profile.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameter relations generate valid single-solid dock and coupon.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: IF-001
+    criterion: The exact stepped profile admits 0.6, 2.0 and 3.0 mm classes with declared seating and side clearances.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: LAYOUT-001
+    criterion: Thirty receivers retain at least 5.0 mm web at the mouth and at least 6.0 mm clear gap between lane bars.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Dock and coupon meshes are each one watertight positive-volume component.
+    method: independent mesh audit
+    status: pass
+    evidence:
+      - validation/fdm-mesh-dock.json
+      - validation/fdm-mesh-coupon.json
+  - id: SLC-001
+    criterion: Exact local machine/material/profile slices unchanged two-object 3MF without native warnings.
+    method: slicer preflight
+    status: pass
+    evidence: validation/slicer-anycubic-next.json
+  - id: PHY-001
+    criterion: Three actual loaded card classes seat and retrieve without card/fiber damage; a 30-card workflow remains ordered through 500 worst-case cycles.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - STEP, STL and DRAFT 3MF outputs are generated
+    - both printed parts independently pass topology and resource checks
+    - card, slot, web, lane and coupon interfaces satisfy declared envelopes
+    - exact local slicer preflight passes without native warnings
+  deferred_physical:
+    - test actual loaded 0.6, 2.0 and 3.0 mm card examples in the coupon
+    - inspect every card/fiber contact edge
+    - load thirty cards and run representative colour changes
+    - cycle the worst-fitting card 500 times and verify desk stability
+
+unresolved:
+  - Exact customer card widths, loaded-edge thicknesses and floss bundle volumes were not supplied.
+  - Card marking, fiber snagging, lane visibility, tip and slip remain untested.
+  - The open product must never be represented as needle storage.
+  - Final watermark and commercial release remain deferred.

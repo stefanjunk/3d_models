@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-class-specific-clearance-001
+title: Heterogeneous insert classes retain their declared clearance in seating checks
+category: interfaces
+status: draft
+trigger: A receiver supports multiple insert classes with different clearances and derives seating depth or engagement from effective width.
+risk: Substituting one class's clearance for another can create a false pass or false failure at a fit boundary while CAD, preview and evidence disagree.
+given:
+  project: products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock
+  slot_profile: 0.9 mm throat to 3.4 mm shoulder over Z 3.0 to 8.4 mm
+  card_classes: 0.6 mm plus 0.15 mm each side; 2.0 and 3.0 mm plus 0.10 mm each side
+  minimum_engagement_mm: 4.0
+expected:
+  - Every card-class record owns an explicit side_clearance_mm value.
+  - The seating calculation uses thickness plus twice the clearance from that same record.
+  - The 3.0 mm class calculates a 3.2 mm effective width, 7.968 mm seat Z and at least 4.0 mm engagement.
+  - The deterministic test and generated interface report agree on the pass decision.
+failure_conditions:
+  - A global minimum or maximum clearance silently replaces a class-specific value.
+  - CAD placement, unit tests and interface evidence use different effective-width formulas.
+  - The declared 3.0 mm class reports less than 4.0 mm engagement without failing the build.
+fixtures:
+  - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/config/model-parameters.json
+  - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/tests/test_parameters.py::test_three_card_classes_seat_with_positive_engagement -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Recalculate effective width and linearly interpolated seating depth from each class record, then compare the generated interface report.
+relationships:
+  lessons:
+    - EXP-00010
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/validation/parametric-source-report.json
+  artifact_hashes:
+    - 297dfc1a99165f1dd3011db3c8b6220460dd37ad6c91f00926bfac4fa4df46dc
+    - 2c7e6738694da9dd69ea20eb2b8227271e81e8fd8b0abc30a40f096b94719e63
+    - 9cdea7b73e9d5d99e8ce16332976912db8d8f74813e144d968e54af698cf2acf
+tags:
+  - interfaces
+  - clearance
+  - parameter-contract
+  - regression

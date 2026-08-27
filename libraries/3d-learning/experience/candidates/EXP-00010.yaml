@@ -1,0 +1,146 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00010
+title: Keep clearance values on each heterogeneous interface class
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digital tapered-slot design, three virtual card classes and no physical fit measurements.
+feature:
+  type: heterogeneous-class-clearance-contract
+  geometry: stepped-tapered-card-receiver-with-three-thickness-classes
+  design_parameters:
+    throat_width_mm: 0.9
+    mid_width_mm: 3.4
+    slot_bottom_z_mm: 3.0
+    shoulder_z_mm: 8.4
+    receiver_top_z_mm: 12.0
+    thin_card_clearance_each_side_mm: 0.15
+    acrylic_clearance_each_side_mm: 0.1
+    minimum_engagement_mm: 4.0
+  named_datums:
+    - card-class-record
+    - slot-width-profile
+    - seated-bottom-z
+    - receiver-top-z
+  constraints:
+    - Preserve each interface class's own tolerance rather than substituting a global value.
+    - Feed the same class record to parameter checks, CAD placement, evidence generation and unit tests.
+    - Do not treat the nominal clearances as physically validated fit recommendations.
+scope:
+  process: FFF parametric CAD interface calculation
+  machine:
+    manufacturer: not-specific
+    model: digital-only
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: not-specific
+    product: virtual-card-envelopes
+    variant: cardstock-and-acrylic
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: receiver base down
+  slicer:
+    name: not-applicable-to-interface-calculation
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: tapered-slot-with-multiple-insert-thickness-and-clearance-classes
+  environment: digital-only
+  transfer_limits:
+    - One tapered profile and three virtual card classes.
+    - Does not prescribe the numeric clearance for other materials, printers or insertion-force targets.
+    - Physical compliance, surface finish and thickness variation remain unmeasured.
+observation:
+  summary: Applying the thin-card 0.15 mm clearance to every class falsely reduced calculated 3.0 mm card engagement below 4.0 mm; explicit 0.10 mm acrylic-class clearance restored agreement across CAD, report and test.
+  expected: The 3.0 mm acrylic class passes its declared 4.0 mm engagement requirement.
+  actual: Global 0.15 mm clearance calculated 3.816 mm engagement; the declared 0.10 mm class clearance calculated 4.032 mm.
+  outcome: correction
+  parameter: side_clearance_mm_ownership
+  recommended_value: per-interface-class
+  units: data-model-scope
+explanation:
+  hypothesis: A shared global clearance is unsafe when interface classes intentionally use different fit allowances.
+  mechanism: In a tapered slot, effective insert width determines seating height; adding 0.10 mm excessive total allowance moves the calculated seat upward and can change a boundary decision.
+  alternatives:
+    - Define separate named global parameters for every material family and map classes explicitly.
+    - Compute clearance from a validated material/process lookup once physical evidence exists.
+    - Use a parameter sweep over class-specific clearance ranges rather than one nominal value.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic interpolation of effective class width through the declared slot profile, followed by ten passing pytest checks and regenerated interface evidence.
+  uncertainty: The software-contract correction is deterministic, but the numeric clearances and minimum engagement have not been validated with physical cards or prints.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/learning-trace.yaml
+      hash: null
+      notes: Owns the failed calculation, correction and rerun scope.
+    - type: other
+      ref: products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/reports/class-specific-clearance-iteration.json
+      hash: null
+      notes: Records the before/after calculation and current artifact hashes.
+  artifacts:
+    - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/config/model-parameters.json
+    - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/tests/test_parameters.py
+    - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/validation/parametric-source-report.json
+    - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/validation/interface-report.json
+applicability:
+  triggers:
+    - Multiple insert classes share one tapered or compliant receiver but require different clearances.
+    - A unit test or report derives seating depth from both thickness and clearance.
+    - CAD, preview and validation code consume overlapping interface parameters.
+  exclusions:
+    - A truly single-class interface with one validated process-specific clearance.
+    - A clearance sweep whose class identity is already an explicit independent variable.
+  transfer_limits:
+    - Transfer only the ownership pattern, not these numeric card clearances.
+    - Re-evaluate whether clearance belongs to the class, material/process record or measured fit profile in other architectures.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-interfaces-class-specific-clearance-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/validation/parametric-source-report.json
+provenance:
+  project: MM-ORG-014-embroidery-floss-project-palette-dock
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags:
+  - interface-clearance
+  - parameter-ownership
+  - tapered-slot
+  - regression-test
+  - digital-only

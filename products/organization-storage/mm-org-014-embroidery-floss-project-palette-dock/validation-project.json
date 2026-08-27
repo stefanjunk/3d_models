@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-ORG-014",
+    "revision": "0.1.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [426, 420, 501]
+  },
+  "artifacts": [
+    {"id": "dock", "path": "exports/manufacturing/DRAFT-MM-ORG-014-palette-dock-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "coupon", "path": "exports/coupons/DRAFT-MM-ORG-014-three-card-fit-coupon-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "build-3mf", "path": "exports/3mf/DRAFT-MM-ORG-014-palette-dock-and-fit-coupon-0.1.0-draft.1.3mf", "kind": "3mf", "revision": "0.1.0-draft.1"},
+    {"id": "parametric-report", "path": "validation/parametric-source-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "mesh-generation-report", "path": "validation/mesh-generation-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "interface-report", "path": "validation/interface-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-dock-report", "path": "validation/fdm-mesh-dock.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-coupon-report", "path": "validation/fdm-mesh-coupon.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-3mf-report", "path": "validation/fdm-3mf.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "slicer-report", "path": "validation/slicer-anycubic-next.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "approvals-slicer", "path": "validation/approvals-through-slicer.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "print-candidate-report", "path": "validation/print-candidate-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "autonomy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.1.0-draft.1"},
+    {"id": "ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {
+      "id": "dock-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "dock",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 100000, "max_file_mib": 8}
+    },
+    {
+      "id": "coupon-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "coupon",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 100000, "max_file_mib": 8}
+    },
+    {
+      "id": "build-3mf-structure",
+      "type": "3mf",
+      "required": true,
+      "artifact": "build-3mf",
+      "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 2, "max_package_members": 20, "max_uncompressed_mib": 40, "max_compression_ratio": 200}
+    },
+    {"id": "slicer", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["build-3mf"]},
+    {"id": "print-candidate", "type": "external_report", "required": true, "artifact": "print-candidate-report", "expected_inputs": ["parametric-report", "mesh-generation-report", "interface-report", "fdm-dock-report", "fdm-coupon-report", "fdm-3mf-report", "slicer-report", "approvals-slicer"]},
+    {"id": "approvals-through-print-candidate", "type": "approvals", "required": true, "policy_artifact": "autonomy", "agent_ledger_artifact": "ledger", "target_stage": "print-candidate"},
+    {"id": "physical-card-fit-snagging-workflow-cycles-stability", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Actual loaded 0.6, 2.0 and 3.0 mm cards fit without card or fiber damage; thirty positions remain ordered; worst case survives 500 cycles; loaded dock remains stable", "evidence_artifact": null}
+  ]
+}

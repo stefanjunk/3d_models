@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "Dock and coupon B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Dock and coupon are each one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives lanes, receivers, slot profile, coupon, card classes and exports",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "297dfc1a99165f1dd3011db3c8b6220460dd37ad6c91f00926bfac4fa4df46dc",
+      "size_bytes": 1704
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "5d8724a57115c5903b3707177b8d6eaa7cea630c64c5f1c714e6be941c89707e",
+      "size_bytes": 24471
+    }
+  ],
+  "limitations": [
+    "A parameter change requires rebuilding all downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "card_classes": 3,
+    "dock_dimensions_mm": [
+      220.0,
+      110.0,
+      12.0
+    ],
+    "positions": 30,
+    "python": "3.11.15"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-014-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

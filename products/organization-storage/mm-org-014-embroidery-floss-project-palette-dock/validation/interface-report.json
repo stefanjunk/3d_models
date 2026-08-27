@@ -1,0 +1,360 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "thirty-positions",
+      "message": "Three lanes generate thirty receivers",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-profile",
+      "message": "Slot profile widens monotonically",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "thin-card-clearance",
+      "message": "Thin cardstock has minimum throat clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "three-card-classes",
+      "message": "All three card classes have non-negative nominal seating clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "card-engagement",
+      "message": "Every declared card class engages at least 4 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-web",
+      "message": "Adjacent slot mouths retain at least 5 mm web",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "lane-gap",
+      "message": "Receiver bars retain at least 6 mm clear lane gap",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "receiver-end-walls",
+      "message": "Every slot retains 3 mm end walls",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-derived",
+      "message": "Coupon reuses production slot and pitch",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "lane-markers",
+      "message": "Front rail contains one/two/three-dot lane markers",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "297dfc1a99165f1dd3011db3c8b6220460dd37ad6c91f00926bfac4fa4df46dc",
+      "size_bytes": 1704
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "5d8724a57115c5903b3707177b8d6eaa7cea630c64c5f1c714e6be941c89707e",
+      "size_bytes": 24471
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "97ae72e7e9ade4db18c79365fdac3d01f5c87523620e9caae2dfbaed77787a86",
+      "size_bytes": 10525
+    }
+  ],
+  "limitations": [
+    "Virtual card blocks represent only edge envelope and thickness; real loaded cards and floss require the deferred coupon test."
+  ],
+  "metrics": {
+    "cards": [
+      {
+        "dimensions_mm": [
+          40.0,
+          0.6,
+          50.0
+        ],
+        "engagement_mm": 9.0,
+        "id": "thin-cardstock",
+        "local_slot_width_mm": 0.9,
+        "nominal_clearance_each_side_mm": 0.15000000000000002,
+        "seat_z_mm": 3.0
+      },
+      {
+        "dimensions_mm": [
+          25.4,
+          2.0,
+          50.8
+        ],
+        "engagement_mm": 6.191999999999999,
+        "id": "rectangular-acrylic",
+        "local_slot_width_mm": 2.2,
+        "nominal_clearance_each_side_mm": 0.10000000000000009,
+        "seat_z_mm": 5.808000000000001
+      },
+      {
+        "dimensions_mm": [
+          40.0,
+          3.0,
+          40.0
+        ],
+        "engagement_mm": 4.031999999999999,
+        "id": "square-acrylic",
+        "local_slot_width_mm": 3.2,
+        "nominal_clearance_each_side_mm": 0.10000000000000009,
+        "seat_z_mm": 7.968000000000001
+      }
+    ],
+    "coupon": {
+      "outer_dimensions_mm": [
+        70.0,
+        34.0,
+        12.0
+      ],
+      "positions": 3,
+      "production_profile_reused": true,
+      "slot_pitch_mm": 10.0
+    },
+    "dock": {
+      "lane_marker_counts": [
+        1,
+        2,
+        3
+      ],
+      "lanes": 3,
+      "minimum_lane_gap_mm": 12.0,
+      "minimum_slot_web_mm": 5.6,
+      "outer_dimensions_mm": [
+        220.0,
+        110.0,
+        12.0
+      ],
+      "positions_per_lane": 10,
+      "receiver_end_wall_each_mm": 3.0,
+      "total_positions": 30
+    },
+    "virtual_placements": [
+      {
+        "lane": 1,
+        "position": 1,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 1,
+        "position": 2,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 3,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 4,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 1,
+        "position": 5,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 6,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 7,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 1,
+        "position": 8,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 9,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 1,
+        "position": 10,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 2,
+        "position": 1,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 2,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 3,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 2,
+        "position": 4,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 5,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 6,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 2,
+        "position": 7,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 8,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 2,
+        "position": 9,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 2,
+        "position": 10,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 1,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 2,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 3,
+        "position": 3,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 4,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 5,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 3,
+        "position": 6,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 7,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 8,
+        "seat_z_mm": 3.0,
+        "standard": "thin-cardstock"
+      },
+      {
+        "lane": 3,
+        "position": 9,
+        "seat_z_mm": 5.808000000000001,
+        "standard": "rectangular-acrylic"
+      },
+      {
+        "lane": 3,
+        "position": 10,
+        "seat_z_mm": 7.968000000000001,
+        "standard": "square-acrylic"
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-014-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

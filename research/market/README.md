@@ -9,6 +9,7 @@ Desk-Research-Berichte (2026-08-17 bis 2026-08-19) zu hochindividuellen, paramet
 | `bericht-top20-fdm-massanfertigung.md` | Bericht 1: 20 Produkttypen quer durch alle Nischen (Fahrzeug, Hobby, Geräte-Long-Tail), Kriterien, Ranking, Prompts |
 | `bericht-top20-alltags-organizer-kleine-wohnraeume.md` | Bericht 2 (Vertiefung): 20 Alltags-Organizer für kleine Wohnräume — platzsparend, integriert, personalisiert, deko-tauglich |
 | `bericht-top20-systemmoebel-zubehoer-ikea.md` | Bericht 3 (Vertiefung): 20 konfigurierte FDM-Zubehörprodukte für IKEA- und vergleichbare Systemmöbel, inklusive Ranking und je einem Image-Prompt |
+| `nozzle-material-temperature-mvs-research-2026-08-12.md` | Technische Recherche zu Düsenmaterial, Temperatur und MVS sowie zur Übertragung auf Kobra-3-Max-Filamentprofile |
 | `../../products/furniture-systems/` | 20 eigenständige Produktpakete zu Bericht 3 mit lokalem CAD-Generator, STL-/STEP-Datei, Vorschau und Prüfnachweisen |
 | `konzeptbilder/bildprompts.md` | Bildprompts und erzeugte Top-6-Konzeptbilder zu Bericht 1 |
 | `konzeptbilder/alltags-organizer-top20/` | Vollstaendiger Satz aus 20 Konzeptbildern zu Bericht 2, inklusive Bildindex |

@@ -221,6 +221,7 @@ def slice_anycubic_next(
                 timeout=min(timeout_s, 30),
                 check=False,
                 env=environment,
+                cwd=temporary_root,
             )
         except (OSError, subprocess.TimeoutExpired) as exc:
             checks.append(check("slicer-version", "NOT_RUN", f"Could not probe Anycubic Slicer Next: {exc}"))
@@ -262,6 +263,7 @@ def slice_anycubic_next(
                 timeout=timeout_s,
                 check=False,
                 env=environment,
+                cwd=temporary_root,
             )
             process_error = None
         except subprocess.TimeoutExpired as exc:

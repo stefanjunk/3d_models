@@ -282,15 +282,17 @@ class CoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             slicer = root / "AnycubicSlicerNext"
+            probe_side_effect = f"anycubic-probe-side-effect-{root.name}.json"
             slicer.write_text(
                 "#!/usr/bin/env python3\n"
                 "import json, pathlib, sys\n"
                 "if '--help' in sys.argv:\n"
+                f"    pathlib.Path({probe_side_effect!r}).write_text('probe', encoding='utf-8')\n"
                 "    print('AnycubicSlicerNext-9.8.7:')\n"
                 "    raise SystemExit(0)\n"
                 "out = pathlib.Path(sys.argv[sys.argv.index('--outputdir') + 1])\n"
                 "(out / 'plate_1.gcode').write_text('; total layer number: 1\\n;LAYER_CHANGE\\n;Z:0.2\\nG90\\nM83\\nG1 X1 Y1 Z0.2 E0.1 F600\\n; total layers count = 2\\n; estimated printing time (normal mode) = 1s\\n', encoding='utf-8')\n"
-                "(out / 'result.json').write_text(json.dumps({'return_code': 0, 'error_string': 'Success.', 'plate_index': 0, 'sliced_plates': [{'id': 1, 'triangle_count': 12, 'warning_message': ''}]}), encoding='utf-8')\n",
+                "(out / 'result.json').write_text(json.dumps({'return_code': 0, 'error_string': 'Success.', 'plate_index': 0, 'sliced_plates': [{'id': 1, 'triangle_count': 12, 'warning_message': str(pathlib.Path.cwd())}]}), encoding='utf-8')\n",
                 encoding="utf-8",
             )
             slicer.chmod(0o755)
@@ -314,6 +316,10 @@ class CoreTests(unittest.TestCase):
             )
             self.assertEqual(result["status"], "PASS", result)
             self.assertEqual(result["slicer"]["version"], "9.8.7")
+            self.assertFalse((Path.cwd() / probe_side_effect).exists())
+            slicer_cwd = Path(result["native_result"]["sliced_plates"][0]["warning_message"])
+            self.assertNotEqual(slicer_cwd, Path.cwd())
+            self.assertTrue(slicer_cwd.name.startswith("fdm-anycubic-next-"))
             invocation = result["slicer"]["invocation"]
             flag_index = invocation.index("--load-defaultfila")
             self.assertNotEqual(invocation[flag_index + 1], "1")

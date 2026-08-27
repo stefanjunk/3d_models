@@ -40,7 +40,7 @@ For multicolor work, author or correct painting and ACE slot mapping in the GUI,
 
 The adapter:
 
-- uses temporary XDG configuration/cache/data directories plus an isolated slicer datadir;
+- uses a temporary working directory, temporary XDG configuration/cache/data directories, and an isolated slicer datadir so native side files cannot pollute the project;
 - refuses an existing output directory instead of overwriting prior evidence;
 - records source, executable, and profile hashes;
 - requires CLI version discovery, process exit 0, native `result.json` success, and non-empty G-code;

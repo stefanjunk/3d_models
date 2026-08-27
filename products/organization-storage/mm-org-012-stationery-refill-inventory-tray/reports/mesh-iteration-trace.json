@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-ORG-012",
+  "revision": "0.1.0-draft.1",
+  "toolchain": {
+    "python": "3.11.15",
+    "cadquery": "2.9.0.dev0",
+    "independent_mesh_audit": "fdm_ci.py audit-mesh 1.2.1"
+  },
+  "iterations": [
+    {
+      "id": "r1-triangular-ramps-and-tangent-notches",
+      "brep_valid": true,
+      "tray_nonmanifold_edges": 8,
+      "coupon_nonmanifold_edges": 3,
+      "interpretation_at_time": "Exact ramp contact was suspected because the count matched the number of ramps."
+    },
+    {
+      "id": "r2-base-grown-ramps-and-tangent-notches",
+      "brep_valid": true,
+      "tray_stl_sha256": "f3195082cb03abdd99e3e7a7314bd3643c5ab4fd82cdd62d9caa267eaa9c13fb",
+      "coupon_stl_sha256": "3ae618fdaf19dcb708880fceeb799a54d61b9f3b8ee8a767e3b920aa4b2ec26e",
+      "tray_nonmanifold_edges": 8,
+      "coupon_nonmanifold_edges": 3,
+      "coordinate_result": "Every four-face edge lay on a notch-centre chord at the wall top, not on a ramp seam.",
+      "interpretation": "The cylindrical notch cutter was exactly tangent to the top boundary."
+    },
+    {
+      "id": "r3-base-grown-ramps-and-open-notches",
+      "change": "Raise each notch cutter centre by 0.6 mm so the cylinder extends beyond the wall top.",
+      "tray_stl_sha256": "e9f16c931ad6ceea9a5cd0a4f05ddaf38c7735f811b81e18564e51ed1f6a8c48",
+      "coupon_stl_sha256": "94f719e909aa0a3cb8a6f953d194827612d81a2282ebfa78e910cca368e158e8",
+      "tray_nonmanifold_edges": 0,
+      "coupon_nonmanifold_edges": 0,
+      "tray_boundary_edges": 0,
+      "coupon_boundary_edges": 0,
+      "tray_watertight": true,
+      "coupon_watertight": true,
+      "outcome": "PASS"
+    }
+  ],
+  "limitations": [
+    "The 0.6 mm overlap is qualified only for these two CadQuery solids and this tessellation path.",
+    "No physical surface or retrieval result was measured.",
+    "The trace does not prove that every exact CAD tangency causes a nonmanifold export."
+  ]
+}

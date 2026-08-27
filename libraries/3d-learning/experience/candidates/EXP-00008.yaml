@@ -1,0 +1,140 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00008
+title: Open a tangent cylindrical notch beyond the host boundary before mesh export
+captured_at: 2026-08-27
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Eleven notch instances across two related digital solids; one CadQuery/OpenCascade build and no physical print.
+feature:
+  type: cylindrical-thumb-notch-open-at-wall-top
+  geometry: horizontal-cylinder-cut-through-vertical-wall-ending-at-top-boundary
+  design_parameters:
+    wall_thickness_mm: 2.4
+    notch_radius_mm: 8.0
+    initial_top_overlap_mm: 0.0
+    passing_top_overlap_mm: 0.6
+    tray_notch_count: 8
+    coupon_notch_count: 3
+  named_datums:
+    - wall-top-boundary
+    - notch-cylinder-axis
+    - continuous-base-print-datum
+  constraints:
+    - Preserve the intended notch depth after adding exterior overlap.
+    - Require an independent mesh audit rather than relying on B-Rep validity alone.
+    - Do not treat 0.6 mm as a universal minimum without a parameter sweep.
+scope:
+  process: FFF digital CAD and mesh export
+  machine:
+    manufacturer: not applicable
+    model: digital topology audit
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: not applicable
+    product: digital topology audit
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: tray and coupon continuous base down
+  slicer:
+    name: not applicable
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: shallow-divided-trays-with-open-thumb-notches
+  environment: digital-only
+  transfer_limits:
+    - Two related CadQuery solids using the same helper and tessellation settings.
+    - No isolated overlap sweep, alternate CAD kernel or physical print.
+    - Does not imply that all exact tangencies fail in every exporter.
+observation:
+  summary: Eight tray notches and three coupon notches each exported one nonmanifold chord when the cylindrical cutter was tangent to the wall top; a 0.6 mm exterior overlap cleared every edge.
+  expected: Two valid one-solid B-Reps would export as watertight positive-volume STL meshes.
+  actual: The tangent revision had 8 and 3 nonmanifold edges respectively; after the one-variable cutter-height change both independent audits reported watertight positive volumes and zero boundary or nonmanifold edges.
+  outcome: mixed
+  parameter: cutter_top_overlap_mm
+  recommended_value: 0.6
+  units: mm
+explanation:
+  hypothesis: Exact tangency between a Boolean cutter and an exterior boundary can create an ambiguous tessellated chord even when the source B-Rep remains valid.
+  mechanism: Moving the cylinder beyond the wall top changes the tangential contact into a positive open cut, removing the four-face mesh edge.
+  alternatives:
+    - Build the notch from a profile cut that crosses the top boundary explicitly.
+    - Apply a small chamfered opening instead of a tangent cylinder.
+    - Repair the mesh after export, while retaining CAD-level audits to prevent recurrence.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 11
+  same_scope_repetitions: 10
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Exact-coordinate STL edge incidence inspection plus fail-closed independent mesh audits before and after a controlled 0.6 mm cutter-height change.
+  uncertainty: The edge-location evidence strongly identifies the local cause, but the passing overlap value and transfer mechanism have not been swept or replicated outside this project.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-012-stationery-refill-inventory-tray/learning-trace.yaml
+      hash: null
+      notes: Owns the exact design, scope and iteration record.
+    - type: other
+      ref: products/organization-storage/mm-org-012-stationery-refill-inventory-tray/reports/mesh-iteration-trace.json
+      hash: null
+      notes: Records failing and passing mesh counts and retained artifact hashes.
+  artifacts:
+    - products/organization-storage/mm-org-012-stationery-refill-inventory-tray/validation/fdm-mesh-tray.json
+    - products/organization-storage/mm-org-012-stationery-refill-inventory-tray/validation/fdm-mesh-coupon.json
+    - products/organization-storage/mm-org-012-stationery-refill-inventory-tray/renders/MM-ORG-012-digital-candidate.png
+applicability:
+  triggers:
+    - A cylindrical scoop or notch is intended to open exactly at a wall boundary.
+    - B-Rep validity passes but the exported mesh has one nonmanifold edge per repeated notch.
+  exclusions:
+    - Closed holes that do not intersect an exterior boundary.
+    - Toolchains or geometries already qualified with a different overlap rule.
+  transfer_limits:
+    - Treat 0.6 mm as the passing value for this geometry, not a production standard.
+    - Re-audit after changing wall thickness, radius, tessellation tolerance or CAD kernel.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: []
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-ORG-012-stationery-refill-inventory-tray
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-012-stationery-refill-inventory-tray/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow
+tags:
+  - cadquery
+  - boolean-tangency
+  - thumb-notch
+  - nonmanifold-edge
+  - mesh-export
+  - digital-only

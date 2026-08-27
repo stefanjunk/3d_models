@@ -1,0 +1,269 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-012
+  name: Stationery-refill inventory tray
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-196
+  opportunity_score: 93.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-012-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: passed-local-reference-profile
+    evidence: validation/slicer-anycubic-next.json
+    profile: Anycubic Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
+    limitation: The workspace profile proves local slicability, not the user's exact filament batch or physical result.
+  print_candidate:
+    status: digitally-approved-draft
+    reason: Parametric, mesh, interface, package and exact local-profile slicer checks pass without native slicer warnings.
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-012
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process coupon qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-012
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Make packaged pencil leads, pen cartridges, erasers and clips visible and deliberately replenishable in one shallow labelled tray.
+  intended_users:
+    - adult student, teacher or home-office user
+  included:
+    - five rear sloped packet lanes
+    - three front sloped scoop pockets
+    - embedded permanent labels
+    - representative three-cell retrieval coupon
+  excluded:
+    - child-use or choking-safety claims
+    - loose unprotected graphite lead dispensing
+    - universal package fit without measurement
+    - printer control or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: one inventory tray plus optional first-print retrieval coupon
+  purchased_parts: none
+  assembly: none
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Expose refill stock by type and let the user retrieve the last package without dumping a mixed drawer.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: Passive labelled storage needs no purchased hardware.
+  included:
+    value:
+      - mechanical-pencil lanes for 0.3, 0.5, 0.7 and 2.0 mm packets
+      - wider ink-refill lane
+      - eraser, clip and cartridge pockets
+      - forward-sloping floors, thumb scoops and geometric labels
+      - retrieval coupon, STEP, STL and DRAFT 3MF outputs
+    source: design-gate-and-research
+  excluded:
+    value:
+      - exact branded-package compatibility without customer measurements
+      - loose graphite or liquid-ink containment
+      - final validation, watermark or release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - small refills and clips are choking-size items
+    - brittle leads can break if removed from protective packaging
+    - a mismatched package can bind in a lane
+    - drawer closure can strike overfilled pockets
+  limits:
+    - adult dry-indoor stationery storage only
+    - keep leads and cartridges in their protective retail cases
+    - measure drawer and packages before customisation
+    - physical retrieval and drawer-clearance tests remain mandatory before a release claim
+
+geometry_contract:
+  coordinate_frame:
+    x: tray width left to right
+    y: depth from labelled front wall to rear wall
+    z: height from flat bed datum
+  maximum_single_part_envelope_mm: [180.0, 140.0, 45.0]
+  default_tray:
+    width_mm: 180.0
+    depth_mm: 140.0
+    height_mm: 45.0
+    wall_mm: 2.4
+    base_mm: 3.0
+    rear_lanes: 5
+    front_pockets: 3
+  customer_parameters:
+    - tray envelope
+    - refill package width, length and thickness
+    - lane and pocket count
+    - label text
+    - ramp rise and package clearance
+  interfaces:
+    drawer: continuous planar base within 180 x 140 x 45 mm
+    rear_package: measured lane with at least 1.0 mm default XY allowance and forward-sloping floor
+    front_package: measured scoop pocket with forward-sloping floor and thumb notch
+    coupon: production wall and retrieval-notch dimensions
+  protected_geometry:
+    - base, perimeter and divider load paths
+    - package clearance and front-stop height
+    - forward ramps and thumb notches
+    - label pixel minimum
+    - coupon-to-production parameter links
+
+duty:
+  environment: dry indoor drawer or desktop, nominal 15-30 C
+  load: packaged stationery refills and loose paper clips only
+  service_life_target: 500 representative package retrieval cycles for later qualification
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; all floors grow from the base as continuous ramps
+  orientation:
+    tray: continuous base on bed
+    retrieval_coupon: continuous base on bed
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP masters
+    - STL manufacturing meshes
+    - DRAFT 3MF build set
+
+optimization:
+  status: pending
+  objective: Minimize material while preserving package visibility, divider load paths and continuous retrieval ramps.
+  baseline: full 180 x 140 x 45 mm bounding block
+  candidate: thin common base, local walls and solid low-rise retrieval wedges
+  selection_rule: Candidate must be one watertight solid, fit the envelope and reduce CAD volume at least 65 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: CAD volume comparison passes the selection threshold; a baseline full-block slice would have no product value and exact print-time A/B optimization remains deferred.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-012-inventory-tray-0.1.0-draft.1.stl
+    protected_regions:
+      - package lanes and pockets
+      - ramps and thumb notches
+      - label pixels
+      - bed-contact faces
+    resource_budget:
+      triangle_target: 60000
+      triangle_stop: 100000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 60.0
+    rationale: Direct analytic tessellation should remain below budget; decimation risks package and label interfaces.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameter relations generate valid single-solid tray and coupon.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: IF-001
+    criterion: All eight default package envelopes retain at least 1.0 mm XY allowance.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: COUPON-001
+    criterion: Coupon reuses production wall and notch parameters for lead, eraser and clip retrieval trials.
+    method: deterministic interface report
+    status: pass-digital-profile-simulation
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Tray and coupon are each one watertight positive-volume component.
+    method: independent mesh audit
+    status: pass
+    evidence: validation/fdm-mesh-tray.json and validation/fdm-mesh-coupon.json
+  - id: SLC-001
+    criterion: Exact local machine/material/profile slices unchanged 3MF without native warnings.
+    method: slicer preflight
+    status: pass-local-reference-profile
+    evidence: validation/slicer-anycubic-next.json
+  - id: PHY-001
+    criterion: Lead, eraser and clip packages retrieve without binding through 500 representative cycles.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - STEP, STL and DRAFT 3MF outputs are generated
+    - tray and coupon independently pass topology and resource checks
+    - eight simulated packages satisfy declared envelopes
+    - exact local slicer preflight passes without native warnings
+  deferred_physical:
+    - print coupon and trial mechanical-pencil, eraser and clip packages
+    - inspect label legibility and ramp surface
+    - cycle representative retrieval 500 times
+    - verify loaded tray fits and clears the target drawer
+
+unresolved:
+  - Default package envelopes are generic because no exact refill inventory or drawer was supplied.
+  - Physical grip, visibility, label contrast and drawer closure remain untested.
+  - Final validation, watermark and commercial release remain deferred.

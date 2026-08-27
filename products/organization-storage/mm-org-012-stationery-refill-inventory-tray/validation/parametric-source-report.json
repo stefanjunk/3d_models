@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "Tray and coupon B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives layout, ramps, labels, coupon and exports",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "cc3e2db9a958b21dd81e33e9798f5f7ae8812bc7db6f5d696272269b0702fdf0",
+      "size_bytes": 2117
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "24df7a55966b8b37b659c7cfb8d13f1d35307517eac0d6c8a1931e323795f22b",
+      "size_bytes": 24119
+    }
+  ],
+  "limitations": [
+    "A parameter change requires rebuilding all downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "front_pockets": 3,
+    "python": "3.11.15",
+    "rear_lanes": 5,
+    "tray_dimensions_mm": [
+      180.0,
+      140.0,
+      45.0
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-012-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

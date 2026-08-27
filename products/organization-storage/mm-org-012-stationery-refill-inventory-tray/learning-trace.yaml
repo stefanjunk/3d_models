@@ -1,0 +1,41 @@
+schema_version: 1.0.0
+project_id: MM-ORG-012
+revision: 0.1.0-draft.1
+captured_at: 2026-08-27
+scope:
+  process: CadQuery B-Rep construction and STL tessellation for FFF
+  machine: not applicable; digital topology audit
+  material: not applicable; digital topology audit
+  nozzle_mm: null
+  orientation: tray and coupon continuous base down
+feature: cylindrical-thumb-notch-open-at-wall-top
+observation:
+  summary: Eleven cylindrical thumb notches that were tangent to a wall top produced one four-face nonmanifold STL edge per notch even though both source B-Reps were valid single solids.
+  expected: Valid single-solid B-Reps would export as watertight one-component STL meshes.
+  actual:
+    - Eight tray notches produced eight nonmanifold edges.
+    - Three coupon notches produced three nonmanifold edges.
+    - Extending every cutter 0.6 mm above the wall top reduced both counts to zero.
+  outcome: mixed-then-success
+explanation:
+  hypothesis: An exact cutter tangency at the exterior boundary leaves an ambiguous tessellated chord with four incident faces.
+  mechanism: Positive cutter overlap beyond the wall top turns the tangency into an unambiguous open Boolean cut.
+  validated: false
+evidence:
+  observations: 11
+  same_scope_repetitions: 10
+  measured: true
+  measurement_method: Exact nonmanifold-edge coordinates from independent STL audits before and after one controlled cutter-overlap change.
+  uncertainty: Only two related solids, one CadQuery/OpenCascade build and one tessellation configuration were tested.
+  artifacts:
+    - reports/mesh-iteration-trace.json
+    - validation/fdm-mesh-tray.json
+    - validation/fdm-mesh-coupon.json
+    - decision-log.md
+promotion:
+  maturity: E0
+  state: candidate
+  required_next:
+    - Reproduce with an isolated notch coupon and at least one other CAD/export toolchain.
+    - Sweep top overlap and wall/radius combinations to find the minimum robust margin.
+    - Confirm no unwanted notch-depth or edge-finish effect on a physical print.

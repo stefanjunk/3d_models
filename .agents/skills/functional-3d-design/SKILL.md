@@ -152,7 +152,7 @@ Follow this order:
 12. **Watermark integration** — as the last planned design-feature/solid-geometry change, generate the exact `MM-WM-001-R1` profile containing `metriMade.com` plus the current product ID and version, place it without scaling in the largest safe underside region, subtract it at the approved depth, and verify identity match, host-wall reserve, and finished-underside reading direction.
 13. **Final derived mesh export and release regression checks** — apply only the prevalidated tessellation/simplification policy, with protected interfaces, bed datum, and watermark locked; rerun affected mesh, surface-error, wall, bed-contact, mark-readability, and exact-slicer checks.
 14. **Final release approval and packaging** — present the model-centered candidate and its deliverables first, include the watermark as a compact release note, obtain explicit approval, then run `scripts/validate_design_spec.py design-spec.yaml --require-final-approval` before final packaging.
-15. **Revision and learning** — store measured results, failure mode, printer/material/profile hash, and promote only evidenced designs.
+15. **Revision and learning** — invoke the sibling `3d-skill-maintainer`; preserve the trace, store measured results and failures with exact process scope, turn actionable user corrections into eval candidates, and promote only reviewed evidence-backed explanations.
 16. **Final model result report** — finish with the actual model outcome, validation status, print guidance, complete deliverable links, open limitations, one compact marking note, and the next model-focused action or readiness statement.
 
 Read `references/validation-testing.md` and `references/simulation-model-fidelity.md` for the verification ladder and appropriate analysis fidelity.
@@ -193,7 +193,11 @@ Record source, version/commit, license, supplier part number, and whether geomet
 
 ## Self-learning and local parts library
 
-Read `references/self-learning.md`. Use `scripts/parts_library.py` and `scripts/record_test_result.py`.
+Read `references/self-learning.md`. Use `scripts/parts_library.py` and
+`scripts/record_test_result.py` for product-local part qualification. Use the
+sibling `3d-skill-maintainer` for repository-wide lesson candidates, design
+patterns, evals, conflict checks, and just-in-time retrieval from
+`libraries/3d-learning/`.
 
 Statuses are:
 
@@ -203,6 +207,10 @@ Statuses are:
 - `deprecated`: superseded or failed.
 
 Never promote from `experimental` to `qualified-local` without geometry validation, a linked test record, and the printer/material/nozzle/profile identity. A locally qualified part is not universally certified.
+
+Every meaningful user correction must create or link a targeted eval in the same
+design phase. A new success or failure starts as a scoped E0 candidate; it must
+not directly rewrite this skill, a material reference, or a validated pattern.
 
 ## Recommended extensions
 

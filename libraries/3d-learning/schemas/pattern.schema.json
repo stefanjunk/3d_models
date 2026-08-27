@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://metrimade.local/schemas/3d-learning/pattern.schema.json",
+  "title": "Validated 3D design pattern",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "id", "title", "version", "status", "problem", "use_when", "avoid_when", "parametric_structure", "critical_parameters", "failure_modes", "variants", "evidence", "evals"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "kind": {"const": "pattern"},
+    "id": {"type": "string", "pattern": "^PAT-[A-Za-z0-9-]+$"},
+    "title": {"type": "string", "minLength": 5},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["candidate", "validated", "deprecated"]},
+    "problem": {"type": "string"},
+    "use_when": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "avoid_when": {"type": "array", "items": {"type": "string"}},
+    "parametric_structure": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "critical_parameters": {"type": "object", "minProperties": 1},
+    "failure_modes": {"type": "array", "items": {"type": "string"}},
+    "variants": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "string", "pattern": "^EXP-[0-9]{5}$"}},
+    "evals": {"type": "array", "items": {"type": "string", "pattern": "^EVAL-[A-Za-z0-9-]+$"}}
+  }
+}

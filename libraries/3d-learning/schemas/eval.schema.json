@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://metrimade.local/schemas/3d-learning/eval.schema.json",
+  "title": "3D learning eval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "id", "title", "category", "status", "trigger", "given", "expected", "failure_conditions", "grader", "relationships", "last_run", "tags"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "kind": {"const": "eval"},
+    "id": {"type": "string", "pattern": "^EVAL-[A-Za-z0-9-]+$"},
+    "title": {"type": "string", "minLength": 8},
+    "category": {"enum": ["core", "geometry", "dfam", "interfaces", "visual", "print", "regression"]},
+    "status": {"enum": ["draft", "active", "retired"]},
+    "trigger": {"type": "string", "minLength": 8},
+    "risk": {"type": "string"},
+    "given": {"type": "object", "minProperties": 1},
+    "expected": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "failure_conditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "fixtures": {"type": "array", "items": {"type": "string"}},
+    "grader": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {"enum": ["deterministic", "visual-rubric", "physical-manual", "hybrid"]},
+        "command": {"type": ["string", "null"]},
+        "expected_exit_code": {"type": ["integer", "null"]},
+        "rubric": {"type": ["string", "null"]},
+        "measurement_method": {"type": ["string", "null"]}
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lessons", "regression_suites"],
+      "properties": {
+        "lessons": {"type": "array", "items": {"type": "string", "pattern": "^EXP-[0-9]{5}$"}},
+        "regression_suites": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "last_run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result"],
+      "properties": {
+        "result": {"enum": ["not-run", "pass", "fail", "review-required"]},
+        "date": {"type": ["string", "null"], "format": "date"},
+        "report": {"type": ["string", "null"]},
+        "artifact_hashes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}

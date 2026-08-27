@@ -1,0 +1,133 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00001
+title: Exact SUNLU PLA+ Silver roll range overrides broader family data
+captured_at: 2026-08-27
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: high
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Awaiting repeat prints and profile validation on each nozzle combination.
+feature:
+  type: filament-profile
+  geometry: temperature-range-authority
+  design_parameters:
+    label_min_c: 195
+    label_max_c: 220
+  named_datums: []
+  constraints:
+    - nozzle_temperature_c <= 220
+scope:
+  process: FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU
+    product: PLA+
+    variant: standard, not High Speed and not 2.0
+    color: Silver
+    batch: unknown
+    conditioning: unknown
+  nozzle:
+    diameter_mm: null
+    material: brass, stainless-steel, or hardened-steel
+    geometry: standard-bore Kobra 3 Max-compatible
+    hotend: stock-compatible
+    wear_state: unknown
+  orientation: not-applicable
+  slicer:
+    name: Anycubic Slicer Next
+    version: 2.3.0
+    profile: SUNLU PLA+ Silver safe-start variants
+    profile_hash: null
+  geometry_class: filament-profile
+  environment: unknown
+  transfer_limits:
+    - Exact SUNLU PLA+ Silver roll labeled 195-220 °C only.
+    - Does not cover SUNLU High Speed PLA+, PLA+ 2.0, or another color/batch with a different label.
+observation:
+  summary: The user's physical Silver roll specifies 195-220 °C, below the previously proposed range.
+  expected: A profile derived from broader/current family data.
+  actual: The exact physical roll label and exact-color archived evidence cap the range at 220 °C.
+  outcome: correction
+  parameter: nozzle_temperature_c
+  recommended_value: 220
+  units: °C maximum
+explanation:
+  hypothesis: The previous recommendation conflated the exact older standard PLA+ Silver formulation with broader or newer SUNLU PLA+ products.
+  mechanism: Supplier formulations and published ranges can change while product-family names remain similar; exact physical identity is therefore the controlling scope.
+  alternatives:
+    - The label could belong to a regional or batch-specific formulation.
+    - A different SUNLU PLA+ Silver batch may carry a different range.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 0
+  measured: false
+  measurement_method: Physical roll-label reading supplied by the user.
+  uncertainty: Batch/lot number is not yet recorded.
+  sources:
+    - type: user-statement
+      ref: "User correction dated 2026-08-27: physical roll label 195-220 °C."
+      hash: null
+      notes: Authority for the exact physical roll.
+    - type: research
+      ref: research/market/anycubic-kobra-3-max-filament-settings.md
+      hash: null
+      notes: Corrected profile rationale and exact-product scope.
+    - type: research
+      ref: research/market/nozzle-material-temperature-mvs-research-2026-08-12.md
+      hash: null
+      notes: Nozzle-material and temperature/MVS transfer limits.
+  artifacts: []
+applicability:
+  triggers:
+    - A physical filament roll label conflicts with a broader web page, newer TDS, or similarly named product variant.
+    - A steel-nozzle fallback would exceed the exact roll's maximum temperature.
+  exclusions:
+    - Filament identity cannot be established.
+    - The exact roll label or exact-batch datasheet specifies a different range.
+  transfer_limits:
+    - Do not generalize the 220 °C ceiling to every SUNLU PLA+ product.
+    - Temperature authority does not validate maximum volumetric speed, flow ratio, or pressure advance.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-material-identity-001
+  patterns: []
+  references:
+    - research/market/anycubic-kobra-3-max-filament-settings.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+provenance:
+  project: Kobra 3 Max filament profile research
+  part_revision: SUNLU PLA+ Silver correction 2026-08-27
+  trace: research/market/anycubic-kobra-3-max-filament-settings.md
+  source_commit: 815cd7ce
+  created_by: Codex from explicit user correction
+tags:
+  - filament-profile
+  - material-identity
+  - supplier-range
+  - sunlu
+  - pla-plus
+  - negative-transfer

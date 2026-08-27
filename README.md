@@ -34,3 +34,8 @@ Run `python3 tools/validate_product_layout.py` after adding or moving a product.
 
 See [`products/README.md`](products/README.md) for the product contract and
 [`templates/product/README.md`](templates/product/README.md) for the template.
+
+Repository-wide, evidence-gated 3D learning lives in
+[`libraries/3d-learning/`](libraries/3d-learning/). Product folders retain their
+raw traces and physical-test evidence; the learning library stores only scoped,
+reviewed links, lesson candidates, reusable patterns, and regression evals.

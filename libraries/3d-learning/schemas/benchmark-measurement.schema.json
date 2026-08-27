@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://metrimade.local/schemas/3d-learning/benchmark-measurement.schema.json",
+  "title": "3D benchmark measurement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "id", "coupon", "printed_at", "scope", "method", "measurements", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "kind": {"const": "benchmark-measurement"},
+    "id": {"type": "string", "pattern": "^BENCH-[A-Za-z0-9-]+$"},
+    "coupon": {
+      "type": "object",
+      "required": ["id", "revision", "source"],
+      "properties": {
+        "id": {"type": "string"},
+        "revision": {"type": "string"},
+        "source": {"type": "string"},
+        "source_hash": {"type": ["string", "null"]}
+      }
+    },
+    "printed_at": {"type": "string", "format": "date-time"},
+    "scope": {"type": "object", "minProperties": 1},
+    "method": {
+      "type": "object",
+      "required": ["instrument", "procedure"],
+      "properties": {
+        "instrument": {"type": "string"},
+        "resolution": {"type": ["string", "null"]},
+        "procedure": {"type": "string"},
+        "operator": {"type": ["string", "null"]},
+        "environment": {"type": ["string", "null"]}
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["feature", "nominal", "measured", "unit"],
+        "properties": {
+          "feature": {"type": "string"},
+          "nominal": {"type": "number"},
+          "measured": {"type": "number"},
+          "unit": {"type": "string"},
+          "uncertainty": {"type": ["number", "null"]},
+          "result": {"enum": ["pass", "fail", "informational"]}
+        }
+      }
+    },
+    "artifacts": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+  }
+}

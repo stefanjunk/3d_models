@@ -1,0 +1,49 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-material-identity-001
+title: Exact roll identity and temperature ceiling survive profile derivation
+category: interfaces
+status: active
+trigger: A physical filament label conflicts with a broader or similarly named supplier source.
+risk: Product conflation or a generic nozzle offset can exceed the exact roll's documented temperature range.
+given:
+  fixture: libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+  exact_product: SUNLU PLA+ Silver standard
+  excluded_products:
+    - SUNLU High Speed PLA+
+    - SUNLU PLA+ 2.0
+  label_range_c:
+    min: 195
+    max: 220
+expected:
+  - The proposed product identity matches SUNLU PLA+ Silver standard.
+  - Every proposed nozzle temperature remains between 195 °C and 220 °C.
+  - Brass, stainless-steel, and hardened-steel proposals do not use a generic offset above 220 °C.
+  - A thermal shortfall beyond 220 °C is handled by reducing flow and requiring validation.
+failure_conditions:
+  - The profile is based on High Speed PLA+ or PLA+ 2.0.
+  - Any proposed temperature is below 195 °C or above 220 °C.
+  - Product ambiguity is silently ignored.
+fixtures:
+  - libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+grader:
+  type: deterministic
+  command: python .agents/skills/3d-skill-maintainer/scripts/evaluate_filament_identity.py libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare normalized product identity and all proposed nozzle temperatures against the exact physical-label range.
+relationships:
+  lessons:
+    - EXP-00001
+  regression_suites:
+    - EVAL-regression-material-scope-001
+last_run:
+  result: pass
+  date: 2026-08-27
+  report: libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+  artifact_hashes: []
+tags:
+  - material-identity
+  - temperature-ceiling
+  - user-correction
+  - regression-seed

@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-material-scope-001
+title: Material recommendations retain exact product and label scope
+category: regression
+status: active
+trigger: A material, nozzle, slicer, or filament-profile reference is changed.
+risk: A local or exact-product rule is silently generalized to another formulation.
+given:
+  required_fields:
+    - manufacturer
+    - product
+    - variant
+    - color
+    - batch_or_unknown
+    - authority
+    - documented_range
+expected:
+  - Exact physical-product evidence outranks broader family guidance when they conflict.
+  - Conflicts and unknown identity fields remain visible.
+  - Recommendations do not exceed an exact product's documented bounds.
+failure_conditions:
+  - A family name alone is used to transfer a bounded temperature or process rule.
+  - An unvalidated candidate is presented as a universal or validated rule.
+fixtures:
+  - libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+grader:
+  type: hybrid
+  command: python .agents/skills/3d-skill-maintainer/scripts/evaluate_filament_identity.py libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+  expected_exit_code: 0
+  rubric: Verify new material records preserve exact identity, conflicts, exclusions, and maturity language.
+  measurement_method: Deterministic fixture plus human review of changed material prose.
+relationships:
+  lessons:
+    - EXP-00001
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-27
+  report: libraries/3d-learning/evals/interfaces/fixtures/sunlu-pla-plus-silver-label.json
+  artifact_hashes: []
+tags:
+  - regression
+  - material-scope
+  - negative-transfer

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://metrimade.local/schemas/3d-learning/trace.schema.json",
+  "title": "Normalized 3D design/print trace manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "id", "project", "revision", "started_at", "requirements", "scope", "events", "artifacts", "outcome"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "kind": {"const": "trace"},
+    "id": {"type": "string", "pattern": "^TRACE-[A-Za-z0-9-]+$"},
+    "project": {"type": "string", "minLength": 1},
+    "revision": {"type": "string"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "requirements": {"type": "string", "minLength": 1},
+    "scope": {"type": "object", "minProperties": 1},
+    "design_intent": {
+      "type": "object",
+      "properties": {
+        "coordinate_frame": {"type": ["string", "null"]},
+        "named_datums": {"type": "array", "items": {"type": "string"}},
+        "parameters": {"type": "object"},
+        "constraints": {"type": "array", "items": {"type": "string"}},
+        "feature_relationships": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["at", "type", "summary"],
+        "properties": {
+          "at": {"type": "string", "format": "date-time"},
+          "type": {"enum": ["requirement", "design", "validation", "print", "measurement", "user-feedback", "decision", "failure"]},
+          "summary": {"type": "string"},
+          "expected": {},
+          "actual": {},
+          "refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "artifacts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "outcome": {"enum": ["accepted", "rejected", "partial", "blocked", "open"]}
+  }
+}

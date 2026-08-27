@@ -1,0 +1,125 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "grid-watertight",
+      "message": "grid watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "grid-winding",
+      "message": "grid winding",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "grid-volume",
+      "message": "grid positive volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "grid-component",
+      "message": "grid one component",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "diameter-guide-watertight",
+      "message": "diameter-guide watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "diameter-guide-winding",
+      "message": "diameter-guide winding",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "diameter-guide-volume",
+      "message": "diameter-guide positive volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "diameter-guide-component",
+      "message": "diameter-guide one component",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "36dcf433c15e0fe008b29af577b33a81ddd06b6c7f46036b703f9181820b89b1",
+      "size_bytes": 658
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "7586a23b671501992adbde3398d380b862fa38640fd5e818f025f1032dda6fff",
+      "size_bytes": 9891
+    }
+  ],
+  "limitations": [
+    "Topology does not prove tube fit, tip resistance or cleanability."
+  ],
+  "metrics": {
+    "meshes": {
+      "diameter-guide": {
+        "components": 1,
+        "extents_mm": [
+          154.0,
+          38.0,
+          5.0
+        ],
+        "file_bytes": 114884,
+        "path": "exports/coupons/DRAFT-MM-ORG-008-diameter-guide-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "95a2e563f56b92a8565762045fa4667b4039a8d7f93f2830c9e4f66a7e7f5b4b",
+        "triangles": 2296,
+        "volume_mm3": 17978.190975075908,
+        "watertight": true,
+        "winding_consistent": true
+      },
+      "grid": {
+        "components": 1,
+        "extents_mm": [
+          161.0,
+          107.0,
+          34.0
+        ],
+        "file_bytes": 248684,
+        "path": "exports/manufacturing/DRAFT-MM-ORG-008-grid-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "dc6313d1cbc4d5e579c377b1bbd47b3b6d49d5bece3634dea694cf5a6aff5c5c",
+        "triangles": 4972,
+        "volume_mm3": 192846.38705771562,
+        "watertight": true,
+        "winding_consistent": true
+      }
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-008-mesh-generation",
+  "tool_version": "0.1.0-draft.1"
+}

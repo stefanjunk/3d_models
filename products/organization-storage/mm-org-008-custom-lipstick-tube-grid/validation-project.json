@@ -1,0 +1,16 @@
+{
+  "schema_version":"1.0","project":{"id":"MM-ORG-008","revision":"0.1.0-draft.1","units":"mm","risk_class":"normal-functional-low","build_volume_mm":[220,220,250]},
+  "artifacts":[
+    {"id":"grid","path":"exports/manufacturing/DRAFT-MM-ORG-008-grid-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"guide","path":"exports/coupons/DRAFT-MM-ORG-008-diameter-guide-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"draft-3mf","path":"exports/3mf/DRAFT-MM-ORG-008-custom-lipstick-tube-grid-0.1.0-draft.1.3mf","kind":"3mf","revision":"0.1.0-draft.1"},
+    {"id":"autonomy","path":"autonomy-policy.json","kind":"autonomy-policy","revision":"0.1.0-draft.1"},{"id":"ledger","path":"validation/agent-approvals.json","kind":"approval-ledger","revision":"0.1.0-draft.1"}
+  ],
+  "checks":[
+    {"id":"grid-mesh","type":"mesh","required":true,"artifact":"grid","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":120000,"max_file_mib":10}},
+    {"id":"guide-mesh","type":"mesh","required":true,"artifact":"guide","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":120000,"max_file_mib":10}},
+    {"id":"draft-3mf-structure","type":"3mf","required":true,"artifact":"draft-3mf","policy":{"inspect_meshes":true,"require_watertight_meshes":true,"require_positive_volume":true,"require_unit":"millimeter","min_mesh_objects":2,"max_package_members":20,"max_uncompressed_mib":40,"max_compression_ratio":200}},
+    {"id":"approvals-through-interface","type":"approvals","required":true,"policy_artifact":"autonomy","agent_ledger_artifact":"ledger","target_stage":"interface-validation"},
+    {"id":"physical-fit-tip-cleanability","type":"physical","required":false,"status":"REVIEW_REQUIRED","criterion":"Guide-derived tube fit, cycles, loaded tip and cleanability tests pass","evidence_artifact":null}
+  ],"release":{"required_approvals":[],"approvals":{}}
+}

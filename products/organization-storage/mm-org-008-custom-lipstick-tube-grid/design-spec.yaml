@@ -1,0 +1,18 @@
+schema_version: 1
+project: {id: MM-ORG-008, name: Custom Lipstick and Tube Grid, revision: 0.1.0-draft.1, units: mm, portfolio_source: research-ideas-100/SKU-006, status: requirements-auto-approved}
+workflow: {delegated_authority: autonomous-to-print-candidate, physical_print: deferred-human, fit_and_function: deferred-human, commercial_release: blocked}
+requirements:
+  goal: Hold twelve contained cosmetic tubes upright in diameter-matched pockets.
+  included: [single PETG lattice grid, seven-hole diameter capture guide]
+  excluded: [direct contact with uncontained formulations, child-use claim, travel retention claim]
+geometry_contract:
+  maximum_envelope_mm: [190, 110, 50]
+  default_grid_mm: [161, 107, 34]
+  diameters_mm: [16,18,20,23,16,18,20,23,14,17,19,22]
+  radial_clearance_mm: 0.5
+  protected_geometry: [4 mm base, 4 mm perforated top deck, outer walls, orthogonal support ribs, pocket axes and floors]
+manufacturing: {process: FDM/FFF, material: PETG, nozzle_mm: 0.4, layer_height_mm: 0.2, supports: none, orientation: base down}
+acceptance:
+  digital_required: [parameter assertions pass, grid and guide STEP/STL exist, meshes are watertight one-component positive-volume, valid two-object 3MF exists]
+  deferred_physical: [capture real tube diameters, print guide, confirm fit and removal, tip test loaded grid, inspect cleanability and sharp edges]
+unresolved: [Real tube profiles may be non-circular or tapered, exact slicer metrics are unavailable, physical fit and cleanability are deferred.]

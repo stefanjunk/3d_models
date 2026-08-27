@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-016",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "The initial analytic Pulse silhouette used an intersecting polygon path. Its cutter reported isValid=false and the combined Signal-12 subtraction could not produce a valid single-solid plate.",
+  "initial_design": {
+    "profile": "pulse",
+    "cutter_valid": false,
+    "combined_plate_valid": false,
+    "result": "FAIL"
+  },
+  "corrected_design": {
+    "profile": "seven-vertex non-self-intersecting pulse silhouette",
+    "cutter_valid": true,
+    "all_signal_cutters_valid": 12,
+    "combined_plate_watertight": true,
+    "combined_plate_components": 1,
+    "result": "PASS"
+  },
+  "correction": [
+    "Validate each generated analytic cutter before it enters a compound Boolean.",
+    "Keep a targeted regression test over the complete named signal set.",
+    "Retain the downstream whole-plate B-Rep and independent mesh audits."
+  ],
+  "evidence": {
+    "signal_plate_stl_sha256": "9aaa1b628d46846d813a0f55403246d94a036bffcc0412e52ca9f589c8fe323e",
+    "mesh_audit_sha256": "5244e71c69cb64630486946ac76a01b1cbad71f5fe6d215cd32f74a7ff35df94",
+    "pytest_result": "12 passed"
+  },
+  "limitations": [
+    "One CadQuery/OpenCascade model and twelve project-specific profiles were checked.",
+    "Validity does not prove minimum physical trace width or pen ergonomics."
+  ]
+}

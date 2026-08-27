@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "project": {"id": "MM-ORG-016", "revision": "0.1.0-draft.1", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [426, 420, 501]},
+  "artifacts": [
+    {"id": "layout-5mm", "path": "exports/manufacturing/DRAFT-MM-ORG-016-layout-5mm-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "layout-4mm", "path": "exports/manufacturing/DRAFT-MM-ORG-016-layout-4mm-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "signal-12", "path": "exports/manufacturing/DRAFT-MM-ORG-016-signal-12-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "feature-coupon", "path": "exports/coupons/DRAFT-MM-ORG-016-minimum-feature-coupon-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "build-3mf", "path": "exports/3mf/DRAFT-MM-ORG-016-stencil-ruler-bookmark-set-0.1.0-draft.1.3mf", "kind": "3mf", "revision": "0.1.0-draft.1"},
+    {"id": "parametric-report", "path": "validation/parametric-source-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "mesh-generation-report", "path": "validation/mesh-generation-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "interface-report", "path": "validation/interface-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-layout-5mm-report", "path": "validation/fdm-mesh-layout-5mm.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-layout-4mm-report", "path": "validation/fdm-mesh-layout-4mm.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-signal-report", "path": "validation/fdm-mesh-signal-12.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-coupon-report", "path": "validation/fdm-mesh-feature-coupon.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-3mf-report", "path": "validation/fdm-3mf.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "slicer-report", "path": "validation/slicer-anycubic-next.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "approvals-slicer", "path": "validation/approvals-through-slicer.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "print-candidate-report", "path": "validation/print-candidate-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "autonomy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.1.0-draft.1"},
+    {"id": "ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id": "layout-5mm-mesh", "type": "mesh", "required": true, "artifact": "layout-5mm", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 60000, "max_file_mib": 8}},
+    {"id": "layout-4mm-mesh", "type": "mesh", "required": true, "artifact": "layout-4mm", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 60000, "max_file_mib": 8}},
+    {"id": "signal-12-mesh", "type": "mesh", "required": true, "artifact": "signal-12", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 60000, "max_file_mib": 8}},
+    {"id": "feature-coupon-mesh", "type": "mesh", "required": true, "artifact": "feature-coupon", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 60000, "max_file_mib": 8}},
+    {"id": "build-3mf-structure", "type": "3mf", "required": true, "artifact": "build-3mf", "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 4, "max_package_members": 20, "max_uncompressed_mib": 40, "max_compression_ratio": 200}},
+    {"id": "slicer", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["build-3mf"]},
+    {"id": "print-candidate", "type": "external_report", "required": true, "artifact": "print-candidate-report", "expected_inputs": ["parametric-report", "mesh-generation-report", "interface-report", "fdm-layout-5mm-report", "fdm-layout-4mm-report", "fdm-signal-report", "fdm-coupon-report", "fdm-3mf-report", "slicer-report", "approvals-slicer"]},
+    {"id": "approvals-through-print-candidate", "type": "approvals", "required": true, "policy_artifact": "autonomy", "agent_ledger_artifact": "ledger", "target_stage": "print-candidate"},
+    {"id": "physical-edge-paper-ink-flex-cycles", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Coupon and three production plates pass dimensional, edge, paper, pen, ink, flatness and 250-cycle tests", "evidence_artifact": null}
+  ]
+}

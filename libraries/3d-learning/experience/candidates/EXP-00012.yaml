@@ -1,0 +1,139 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00012
+title: Validate every analytic profile before compound Boolean subtraction
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One thin-plate CadQuery design and twelve project-specific analytic cutters.
+feature:
+  type: analytic-profile-validity-gate
+  geometry: twelve-extruded-silhouettes-subtracted-from-one-thin-plate
+  design_parameters:
+    profile_count: 12
+    plate_thickness_mm: 0.8
+    failed_profiles_initial: 1
+    failed_profiles_final: 0
+  named_datums:
+    - local-profile-origin
+    - cutter-bottom-z
+    - plate-top-z
+  constraints:
+    - Every named profile cutter is a valid single solid before compound subtraction.
+    - Whole-part B-Rep and independent manufacturing-mesh audits remain required downstream.
+scope:
+  process: CadQuery and OpenCascade polygon extrusion and compound Boolean subtraction
+  machine:
+    manufacturer: not-specific
+    model: digital-only
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: not-specific
+    product: digital-geometry
+    variant: thin-stencil-apertures
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: broad face down
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20 mm Standard
+    profile_hash: null
+  geometry_class: repeated-analytic-through-cutters-on-thin-plate
+  environment: digital-only
+  transfer_limits:
+    - One CadQuery/OpenCascade toolchain and one twelve-profile set.
+    - Individual validity is necessary but not sufficient for a successful combined Boolean.
+    - Physical traceability and minimum printed aperture remain outside this result.
+observation:
+  summary: One self-intersecting Pulse polygon was invalid and caused the combined Signal-12 plate to fail; replacing it with a simple seven-vertex path and checking all twelve cutters yielded a watertight single-component plate.
+  expected: Twelve named cutter solids subtract from one plate without invalid topology.
+  actual: The initial set contained eleven valid cutters and one invalid self-intersecting cutter; the corrected set contains twelve valid single solids.
+  outcome: correction
+  parameter: analytic_profile_validity
+  recommended_value: valid-single-solid-before-compound-boolean
+  units: gate-state
+explanation:
+  hypothesis: Checking generated analytic cutter validity individually localizes profile defects that otherwise surface only as a failed compound Boolean.
+  mechanism: A self-intersecting 2D wire can extrude into an invalid solid; including that solid in a compound subtraction propagates the defect to the result.
+  alternatives:
+    - Validate and repair source wires before extrusion.
+    - Subtract cutters serially with an indexed failure report.
+    - Use a planar polygon library to detect intersections before CadQuery construction.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: CadQuery isValid and solid-count assertions for twelve cutters followed by independent watertight mesh audit of the combined plate.
+  uncertainty: Only one defect type, geometry set and CAD kernel were observed.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/learning-trace.yaml
+      hash: null
+      notes: Owns the failed profile, correction and validation scope.
+    - type: other
+      ref: products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/reports/signal-profile-validity-iteration.json
+      hash: null
+      notes: Records before/after validity and artifact evidence.
+  artifacts:
+    - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/cad/build.py
+    - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/tests/test_parameters.py
+    - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/validation/fdm-mesh-signal-12.json
+applicability:
+  triggers:
+    - Multiple generated polygon or spline cutters enter one compound Boolean.
+    - A final-part failure does not identify which repeated profile is defective.
+    - Analytic symbol, vent, texture or stencil paths are created parametrically.
+  exclusions:
+    - Trusted kernel-native primitives with no generated wire path.
+    - Workflows already performing a stronger source-wire intersection and orientation proof.
+  transfer_limits:
+    - Transfer the staged validation gate, not the Pulse coordinates or stencil dimensions.
+    - Retain whole-part and mesh validation because individually valid cutters can still interact badly.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-geometry-analytic-profile-validity-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/reports/signal-profile-validity-iteration.json
+provenance:
+  project: MM-ORG-016-stencil-ruler-bookmark-set
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags:
+  - analytic-profile
+  - boolean-validation
+  - cadquery
+  - regression-test
+  - digital-only

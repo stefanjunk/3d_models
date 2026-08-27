@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All four B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives three independent production styles",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "Geometry uses no third-party vector, font or mesh assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "e0026cdadd48b754ab0de7c43b315d6787f89deb4fb28f42552fa5ecf1a60ca3",
+      "size_bytes": 2228
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "6b0cae8949e6b651c42e2d6a708ac8ce28046287c1ed2fcab782390453220efc",
+      "size_bytes": 25579
+    }
+  ],
+  "limitations": [
+    "Any parameter or analytic icon-path change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "parts": [
+      "layout-5mm",
+      "layout-4mm",
+      "signal-12",
+      "minimum-feature-coupon"
+    ],
+    "plate_dimensions_mm": [
+      40.0,
+      142.0,
+      0.8
+    ],
+    "python": "3.11.15"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-016-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

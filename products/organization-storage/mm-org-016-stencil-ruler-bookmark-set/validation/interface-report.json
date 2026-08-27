@@ -1,0 +1,307 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "three-production-plates",
+      "message": "Three production plates are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "native-grid-pitches",
+      "message": "Independent 5 mm and 4 mm systems are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "registration-length",
+      "message": "Both grid plates cover a 120 mm registration run",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "production-openings",
+      "message": "Production holes and rule slots meet the minimum opening",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "paper-boundary",
+      "message": "Registration holes preserve the paper-edge boundary",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "signal-count",
+      "message": "Twelve named analytic signal silhouettes are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "identity-codes",
+      "message": "One/two/three-hole codes distinguish the plates without fonts",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-sweep",
+      "message": "Coupon sweeps five slot and round-opening sizes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "clip-free",
+      "message": "No page clip or paper-pinching interface is generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "e0026cdadd48b754ab0de7c43b315d6787f89deb4fb28f42552fa5ecf1a60ca3",
+      "size_bytes": 2228
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "6b0cae8949e6b651c42e2d6a708ac8ce28046287c1ed2fcab782390453220efc",
+      "size_bytes": 25579
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "825febcdd1430055059a96eb307d68f6301a25096bed31b5548df65600ea31bf",
+      "size_bytes": 10946
+    }
+  ],
+  "limitations": [
+    "Feature rules are digital design minima, not a validated pen/process capability claim."
+  ],
+  "metrics": {
+    "interfaces": {
+      "layout-4mm": {
+        "box_openings": 4,
+        "grid_pitch_mm": 4.0,
+        "horizontal_rule_slots": 7,
+        "id": "layout-4mm",
+        "identity_holes": 2,
+        "kind": "layout",
+        "registration_holes": 31,
+        "total_cutters": 48,
+        "vertical_rule_slots": 4
+      },
+      "layout-5mm": {
+        "box_openings": 4,
+        "grid_pitch_mm": 5.0,
+        "horizontal_rule_slots": 6,
+        "id": "layout-5mm",
+        "identity_holes": 1,
+        "kind": "layout",
+        "registration_holes": 25,
+        "total_cutters": 39,
+        "vertical_rule_slots": 3
+      },
+      "minimum-feature-coupon": {
+        "outer_dimensions_mm": [
+          90.0,
+          32.0,
+          0.8
+        ],
+        "production_minimum_mm": 1.2,
+        "round_diameters_mm": [
+          0.8,
+          1.0,
+          1.2,
+          1.4,
+          1.6
+        ],
+        "slot_widths_mm": [
+          0.8,
+          1.0,
+          1.2,
+          1.4,
+          1.6
+        ],
+        "subminimum_features_are_coupon_only": true
+      },
+      "signal-12": {
+        "external_assets": [],
+        "icons": [
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              10.0,
+              20.0
+            ],
+            "name": "orbit"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              21.0,
+              20.0
+            ],
+            "name": "facet"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              32.0,
+              20.0
+            ],
+            "name": "seed"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              10.0,
+              48.0
+            ],
+            "name": "gate"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              21.0,
+              48.0
+            ],
+            "name": "ribbon"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              32.0,
+              48.0
+            ],
+            "name": "pulse"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              10.0,
+              76.0
+            ],
+            "name": "bracket"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              21.0,
+              76.0
+            ],
+            "name": "comet"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              32.0,
+              76.0
+            ],
+            "name": "tile"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              10.0,
+              104.0
+            ],
+            "name": "flare"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              21.0,
+              104.0
+            ],
+            "name": "pin"
+          },
+          {
+            "cell_mm": [
+              11.0,
+              28.0
+            ],
+            "center_mm": [
+              32.0,
+              104.0
+            ],
+            "name": "bridge"
+          }
+        ],
+        "id": "signal-12",
+        "identity_holes": 3,
+        "kind": "icons",
+        "registration_holes": 25,
+        "total_cutters": 42
+      }
+    },
+    "plate": {
+      "minimum_features": {
+        "coupon_only_minimum_mm": 0.8,
+        "paper_edge_boundary_mm": 2.4,
+        "production_ligament_mm": 1.2,
+        "production_opening_mm": 1.2,
+        "recommended_pen_tip_max_mm": 0.5
+      },
+      "outer_dimensions_mm": [
+        40.0,
+        142.0,
+        0.8
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-016-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

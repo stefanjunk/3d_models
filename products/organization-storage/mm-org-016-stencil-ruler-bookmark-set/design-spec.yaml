@@ -1,0 +1,265 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-016
+  name: Stencil-ruler bookmark set
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-idea-priority/SKU-026
+  opportunity_score: 91.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-016-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: passed
+    evidence: validation/parametric-source-report.json
+  slicer_preflight:
+    status: passed
+    evidence: validation/slicer-anycubic-next.json
+  print_candidate:
+    status: digitally-approved-draft
+    evidence: validation/print-candidate-report.json
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-016
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-016
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Keep 4 mm, 5 mm and original signal-mark layout tools inside an A5 or A6 journal without a paper-pinching clip.
+  intended_users:
+    - adult journaling, planning and stationery users
+  included:
+    - independent 4 mm and 5 mm grid-layout bookmark plates
+    - twelve original project-owned analytic signal silhouettes
+    - 120 mm registration runs and straight ruler edges
+    - minimum-feature slot and round-opening coupon
+  excluded:
+    - copied icons, fonts, third-party vector art, logos or themed licensed imagery
+    - page clip, child use, cutting use or precision-instrument claim
+    - universal pen, fountain-pen, no-smear, no-mark or lifetime claim
+    - printer control or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: three independent stencil bookmarks and one optional feature coupon
+  purchased_parts: user-owned notebook, paper and pen plus calipers for dimensional checks
+  assembly: none; use one plate at a time flat against a sacrificial test page before journal use
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Provide stable grid-native journal layout aids that remain in the notebook and avoid paper-pinching clips.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: Every plate is one flat support-free solid with no joints or consumables.
+  included:
+    value:
+      - three 142 x 40 x 0.8 mm production plates
+      - one 90 x 32 x 0.8 mm process coupon
+      - exact 4 mm and 5 mm pitch variants
+      - twelve original analytic signals
+      - STEP, STL and DRAFT 3MF outputs
+    source: design-gate-and-research
+  excluded:
+    value:
+      - clip, sharp metal edge or paper-pinching feature
+      - third-party art and font dependencies
+      - final physical validation, watermark or release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - rough printed edges can catch or mark paper and pen tips
+    - thin plates can flex, creep or deform under heat and storage load
+    - wet ink can bleed under or smear when the plate moves
+    - undersized apertures can close or be untraceable on a specific printer/pen pair
+  limits:
+    - adult dry-indoor stationery use only
+    - test coupon and every pen/paper combination on sacrificial paper first
+    - no page clip, cutting edge, precision scale or fountain-pen claim
+    - edge, page, ink, flex and cycle tests remain mandatory before release
+
+geometry_contract:
+  coordinate_frame:
+    x: 40 mm bookmark width and stencil-cell columns
+    y: 142 mm bookmark/ruler length and registration direction
+    z: four 0.20 mm layers from the broad bed-contact datum
+  maximum_single_part_envelope_mm: [142.0, 90.0, 0.8]
+  default_plate:
+    width_mm: 40.0
+    length_mm: 142.0
+    height_mm: 0.8
+    corner_radius_mm: 3.0
+  customer_parameters:
+    - native journal grid pitch
+    - plate length, width and thickness within printer/process constraints
+    - registration length and opening size
+    - layout box and rule-slot collection
+    - selected project-owned signal set
+  interfaces:
+    paper_contact: broad flat underside and rounded outer corners; physical abrasion remains unqualified
+    registration: 1.4 mm holes at exact 4 mm or 5 mm pitch over 120 mm
+    trace_slots: 1.4 mm rounded slots with declared 1.2 mm minimum adjacent ligament
+    plate_identity: one, two or three through-holes at the top end distinguish styles without text
+    coupon: 0.8/1.0/1.2/1.4/1.6 mm slot and round-opening sweep; sub-1.2 mm features are coupon-only
+  protected_geometry:
+    - outer paper-contact boundary and rounded corners
+    - exact grid pitches and 120 mm run
+    - all production apertures and declared ligaments
+    - straight ruler edge and flat bed-contact datum
+    - all twelve project-owned signal paths
+
+duty:
+  environment: dry indoor stationery use, nominal 15-30 C
+  load: hand-held tracing and passive storage between notebook pages
+  service_life_target: 250 trace/store/retrieve cycles on each plate
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA for dry indoor prototype; PETG is an unvalidated physical branch
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; all four parts print broad face down
+  orientation:
+    production_plates: shared broad paper-contact face down
+    minimum_feature_coupon: broad face down
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP masters for every plate, coupon and virtual set
+    - three production STL files plus coupon STL
+    - DRAFT four-object 3MF build set
+
+optimization:
+  status: pending
+  objective: Minimize material and page bulk while preserving stiffness, paper boundaries and traceable apertures.
+  baseline: three solid 142 x 40 x 0.8 mm rounded-envelope plates
+  candidate: three useful perforated plates with bounded cutout density
+  selection_rule: Every part must remain one watertight solid and useful openings must reduce production-plate CAD volume at least 8 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: Generated candidate reduces production-plate CAD volume by 9.902 percent and the exact four-object reference slice passes; material/stiffness A/B variants remain deferred because physical paper and flex evidence is required.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-016-signal-12-0.1.0-draft.1.stl
+    protected_regions:
+      - every stencil aperture and grid-registration hole
+      - paper boundaries, rounded corners and bed-contact faces
+      - plate identity holes and coupon features
+    resource_budget:
+      triangle_target: 40000
+      triangle_stop: 60000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 120.0
+    rationale: Analytic tessellation should remain under budget; decimation can distort small apertures.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameters generate four valid single-solid parts from project-owned analytic geometry.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: GRID-001
+    criterion: Native 4 mm and 5 mm registration runs preserve exact pitch and production feature minima.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: ICON-001
+    criterion: Twelve unique named analytic signal silhouettes fit independent non-overlapping cells.
+    method: deterministic interface report and preview
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: All four meshes are independently watertight positive-volume single components.
+    method: independent mesh audit
+    status: pass
+    evidence:
+      - validation/fdm-mesh-layout-5mm.json
+      - validation/fdm-mesh-layout-4mm.json
+      - validation/fdm-mesh-signal-12.json
+      - validation/fdm-mesh-feature-coupon.json
+  - id: SLC-001
+    criterion: Exact local profile slices unchanged four-object 3MF without native warnings.
+    method: slicer preflight
+    status: pass
+    evidence: validation/slicer-anycubic-next.json
+  - id: PHY-001
+    criterion: Coupon and plates pass edge, paper, ink, trace, flex and 250-cycle tests.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - STEP, STL and DRAFT 3MF outputs are generated
+    - all four parts independently pass topology and resource checks
+    - grid pitches, production minima, identity codes and icon count satisfy declared contracts
+    - exact local slicer preflight passes without native warnings
+  deferred_physical:
+    - measure coupon and registration pitch with calipers
+    - inspect every outer and inner edge for paper or pen-tip damage
+    - test intended pen/paper pairs for bleed, smear and trace readability
+    - bend, heat-store and cycle each production plate 250 times
+
+unresolved:
+  - Printer-specific closure of 0.8-1.6 mm features remains unmeasured.
+  - Plate stiffness, paper marking, ink behavior and trace ergonomics remain untested.
+  - Basic geometric marks are original project paths but are not claimed as exclusive symbols.
+  - Final watermark and commercial release remain deferred.

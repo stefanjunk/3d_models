@@ -1,0 +1,46 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-analytic-profile-validity-001
+title: Every named Signal-12 analytic cutter is a valid single solid
+category: geometry
+status: draft
+trigger: A parametric part subtracts multiple generated polygon or spline profiles in one compound Boolean.
+risk: One self-intersecting or otherwise invalid profile can make the final Boolean invalid while obscuring the defective source path.
+given:
+  project: products/organization-storage/mm-org-016-stencil-ruler-bookmark-set
+  named_profiles: orbit, facet, seed, gate, ribbon, pulse, bracket, comet, tile, flare, pin, bridge
+  cutter_height_mm: 1.0
+expected:
+  - Each of the twelve generated cutter objects reports valid geometry.
+  - Each cutter contains exactly one solid.
+  - The downstream Signal-12 STL remains one watertight positive-volume component.
+failure_conditions:
+  - Any named cutter reports invalid geometry.
+  - A cutter contains zero or multiple solids before the compound Boolean.
+  - The combined production mesh fails its independent topology audit.
+fixtures:
+  - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/cad/build.py
+  - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/config/model-parameters.json
+  - products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/tests/test_parameters.py::test_all_twelve_signal_profiles_are_valid_single_solids -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Construct every named profile at the origin and assert CadQuery validity plus exactly one solid.
+relationships:
+  lessons:
+    - EXP-00012
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/reports/signal-profile-validity-iteration.json
+  artifact_hashes:
+    - 9aaa1b628d46846d813a0f55403246d94a036bffcc0412e52ca9f589c8fe323e
+    - 5244e71c69cb64630486946ac76a01b1cbad71f5fe6d215cd32f74a7ff35df94
+tags:
+  - geometry
+  - analytic-profile
+  - boolean-validation
+  - regression

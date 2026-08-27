@@ -1,0 +1,54 @@
+schema_version: 1.0.0
+kind: trace
+id: TRACE-MM-ORG-016-SIGNAL-PROFILE-VALIDITY
+project: MM-ORG-016-stencil-ruler-bookmark-set
+revision: 0.1.0-draft.1
+started_at: 2026-08-28T01:35:00+02:00
+completed_at: 2026-08-28T02:05:00+02:00
+requirements: Twelve named project-owned analytic signal cutters must each be valid before their compound subtraction yields one valid plate.
+scope:
+  process: CadQuery and OpenCascade analytic polygon extrusion and Boolean subtraction
+  machine: digital-only; Anycubic Kobra 3 Max profile used only downstream
+  material: digital geometry; Anycubic PLA used only downstream
+  nozzle_mm: 0.4
+  orientation: signal plate broad face down
+design_intent:
+  coordinate_frame: local icon center in XY, through-cutter along Z
+  named_datums:
+    - signal-cell-center
+    - plate-top-z-0.8
+    - through-cutter-bottom-z-minus-0.1
+  parameters:
+    signal_count: 12
+    nominal_cell_width_mm: 11.0
+    nominal_cell_height_mm: 28.0
+  constraints:
+    - Every named signal cutter must be a valid single solid.
+    - The combined plate must remain one valid watertight positive-volume component.
+  feature_relationships:
+    - All cutters are subtracted from one thin rounded plate in one compound Boolean.
+events:
+  - at: 2026-08-28T01:35:00+02:00
+    type: failure
+    summary: The initial Pulse polygon self-intersected, reported invalid and caused the Signal-12 plate build to fail closed.
+    expected: Twelve valid cutters yield one valid production plate.
+    actual: Eleven cutters were valid; Pulse was invalid and the final plate failed its B-Rep gate.
+    refs:
+      - reports/signal-profile-validity-iteration.json
+  - at: 2026-08-28T01:43:00+02:00
+    type: design
+    summary: Pulse became a simple non-self-intersecting seven-vertex silhouette while retaining its distinct visual role.
+    refs:
+      - cad/build.py
+  - at: 2026-08-28T02:05:00+02:00
+    type: validation
+    summary: All twelve cutters pass individual validity/single-solid checks and the Signal-12 STL independently passes watertight topology audit.
+    refs:
+      - tests/test_parameters.py
+      - validation/fdm-mesh-signal-12.json
+artifacts:
+  - reports/signal-profile-validity-iteration.json
+  - cad/build.py
+  - tests/test_parameters.py
+  - validation/fdm-mesh-signal-12.json
+outcome: accepted

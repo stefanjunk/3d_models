@@ -37,3 +37,7 @@ The user reports that the earlier coupon worked after a 90° rotation. The exact
 - `build/build-report.json`: deterministic source/export evidence
 
 Do not add a gap, connector or scaling compensation to all eighteen pieces without a measured installed-fit test; cumulative process error must be handled from physical evidence.
+
+## Release status
+
+The canonical `MM-WM-001-R1` product watermark for this identity measures 113.466 × 12.8 mm and does not fit at scale 1.0 on a 52.5 mm single-funnel segment. The functional geometry is intentionally unchanged. This remains a DRAFT manufacturing candidate; final release is blocked by watermark placement, the exact-slicer review, and physical installed-fit/function tests.

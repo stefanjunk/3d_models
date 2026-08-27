@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "tool": "watermark-placement-review",
+  "tool_version": "MM-WM-001-R1",
+  "status": "REVIEW_REQUIRED",
+  "inputs": [
+    {
+      "path": "assets/metrimade-watermark/manifest.sha256",
+      "sha256": "71cdd33ba8dac3cad45cb38c50770d8a9769e412f575810a0b6c1dd0afe5f853",
+      "size_bytes": 2185
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/manifest.sha256",
+      "sha256": "9aae90feb39ad722fbcca88f074698fe8bebdc88afca2fcea3236302310d5d5a",
+      "size_bytes": 1054
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/metrimade-watermark-SHOWER-DRAIN-HAIRTRAP-v3.0.0-draft.1.json",
+      "sha256": "e3fac21a1fb4d37dc1d71a4a9fb3b44320022ef76fa1bdcbbd50d113f19bd8f6",
+      "size_bytes": 1733
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/metrimade-watermark-SHOWER-DRAIN-HAIRTRAP-v3.0.0-draft.1-coupon-d040.stl",
+      "sha256": "4f1d8255a7752731b3d45fd175e14634d5d1a033cc5ee59919405f496402d601",
+      "size_bytes": 1556787
+    },
+    {
+      "path": "validation/watermark/side-wall-selector.json",
+      "sha256": "4f12311e1c4501a7ea5588361662776a46844441e826c4245ca37b9e808b7b15",
+      "size_bytes": 953
+    },
+    {
+      "path": "validation/watermark/full-top-envelope-overapproximation.json",
+      "sha256": "8f2ea59d106e80a7a37aae5fb88ea0b3b9e2a17004d6a63a45dc6ea87e69dc53",
+      "size_bytes": 953
+    },
+    {
+      "path": "validation/watermark/print-bed-envelope-overapproximation.json",
+      "sha256": "bb6d70d84e2281ff134e463b36e69f789e8cc54c3a98024e695e93e3582bc9f3",
+      "size_bytes": 953
+    },
+    {
+      "path": "build/build-report.json",
+      "sha256": "cc9832d7bc856a704933c60aa4073b6a8a8321f44457125721cc78efa0f8af1b",
+      "size_bytes": 8905
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl",
+      "sha256": "79cc8c705df8a7f96ae196d05f78b41d4e3155473335a4f897c50115bff79f64",
+      "size_bytes": 1289084
+    }
+  ],
+  "checks": [
+    {
+      "id": "canonical-package-integrity",
+      "status": "PASS",
+      "required": true,
+      "message": "The complete copied MM-WM-001-R1 package passes its SHA-256 manifest.",
+      "metrics": {
+        "asset_revision": "MM-WM-001-R1"
+      }
+    },
+    {
+      "id": "exact-profile-generation",
+      "status": "PASS",
+      "required": true,
+      "message": "The generator produced the fixed domain and exact approved product ID/version without scaling.",
+      "metrics": {
+        "visible_text": [
+          "metriMade.com",
+          "SHOWER-DRAIN-HAIRTRAP · v3.0.0-draft.1"
+        ],
+        "layout_envelope_mm": [
+          113.466,
+          12.8,
+          0.4
+        ],
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "safe-placement",
+      "status": "REVIEW_REQUIRED",
+      "required": true,
+      "message": "All actual and conservative candidate rectangles return BLOCK in both permitted rotations; no watermark was integrated.",
+      "metrics": {
+        "actual_side_wall_mm": [
+          52.5,
+          16.8
+        ],
+        "actual_side_wall_safe_rectangle_mm": [
+          48.5,
+          12.8
+        ],
+        "conservative_top_envelope_mm": [
+          52.5,
+          65.0
+        ],
+        "conservative_print_bed_envelope_mm": [
+          65.0,
+          21.0
+        ],
+        "allowed_rotations_degrees": [
+          0,
+          90
+        ],
+        "selector_statuses": [
+          "BLOCK",
+          "BLOCK",
+          "BLOCK"
+        ]
+      }
+    },
+    {
+      "id": "functional-geometry-preserved",
+      "status": "PASS",
+      "required": true,
+      "message": "The digitally validated 18-segment candidate was not altered to force an unsafe or nonconforming mark placement.",
+      "metrics": {
+        "segment_count": 18,
+        "segment_length_mm": 52.5,
+        "catcher_count": 18,
+        "watermark_geometry_integrated": false
+      }
+    },
+    {
+      "id": "exact-process-coupon",
+      "status": "NOT_RUN",
+      "required": true,
+      "message": "The generated coupon exists, but the exact successful printer/material/nozzle/profile/bed process is unknown and no physical result was supplied.",
+      "metrics": {
+        "coupon_status": "DIGITAL_PRODUCTION_CANDIDATE_PHYSICAL_TEST_PENDING"
+      }
+    }
+  ],
+  "metrics": {
+    "decision": "BLOCK_FINAL_RELEASE_KEEP_FUNCTIONAL_DRAFT",
+    "watermark_integrated": false,
+    "geometry_changed_in_phase": false
+  },
+  "limitations": [
+    "The conservative top and bed envelopes overstate usable flat area; their selector failure proves that their smaller real subregions cannot fit the profile.",
+    "Final release needs an authorized geometry or identity strategy, regenerated placement evidence, an exact-slicer preview, a passed exact-process coupon, and explicit approval."
+  ],
+  "required_capabilities": [
+    "watermark-generator",
+    "watermark-selector",
+    "physical-print-test"
+  ]
+}

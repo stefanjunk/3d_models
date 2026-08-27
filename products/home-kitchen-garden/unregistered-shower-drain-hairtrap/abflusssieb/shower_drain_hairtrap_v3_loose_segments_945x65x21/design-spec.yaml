@@ -4,7 +4,7 @@ project:
   name: Shower drain hair trap — loose single-funnel segments
   revision: 3.0.0-draft.1
   units: mm
-  status: primary-candidate-digitally-validated-watermark-pending
+  status: draft-watermark-placement-blocked
   baseline:
     revision: funnel-edge-v1.3
     source: ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/build_shower_drain_hairtrap_945x65_funnel_edge.py
@@ -31,6 +31,13 @@ workflow:
     version: 3.0.0-draft.1
     approved_by: null
     approved_at: null
+    generated_profile: assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/metrimade-watermark-SHOWER-DRAIN-HAIRTRAP-v3.0.0-draft.1.svg
+    manifest_asset: assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/manifest.sha256
+    selector_evidence:
+      - validation/watermark/side-wall-selector.json
+      - validation/watermark/full-top-envelope-overapproximation.json
+      - validation/watermark/print-bed-envelope-overapproximation.json
+    blocker: The exact 113.466 × 12.8 mm profile does not fit at scale 1.0 on any segment candidate surface; changing the approved 18-piece geometry solely to add branding is not authorized.
 
 branding:
   required: true
@@ -44,7 +51,14 @@ branding:
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
-  status: blocked-until-concept-and-production-geometry
+  generated_envelope_mm: [113.466, 12.8, 0.4]
+  generated_status: digital-production-candidate-physical-test-pending
+  placement_status: blocked-no-safe-region
+  largest_actual_flat_candidate_mm: [52.5, 16.8]
+  conservative_envelope_candidates_mm:
+    - [52.5, 65.0]
+    - [65.0, 21.0]
+  placement_rationale: All actual and conservative over-approximation rectangles fail the exact 0°/90° selector with the required 2.0 mm edge clearance.
 
 function:
   goal: Catch hair while allowing shower water to drain through a 945 mm linear drain channel.
@@ -143,13 +157,14 @@ manufacturing:
     - 3MF only after exact slicer/profile confirmation
 
 optimization:
-  status: applied-geometry-only
+  status: pending
+  geometry_count_status: applied
   objective: Maximize identical single-funnel segment count while preserving at least 3.0 mm solid material from the 46 mm funnel tangent to each segment end and keeping the nominal total exactly 945 mm.
   baseline_slicer_report: null
   selected_variant: 18-identical-segments
   comparison_report: build/segment-count-optimization.json
   mesh_simplification:
-    status: not-applied
+    status: not-applicable
     master_mesh: exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.stl
     manufacturing_mesh: exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl
     protected_regions:
@@ -198,6 +213,11 @@ acceptance:
     criterion: The selected 90-degree orientation is checked in the exact successful coupon slicer profile for continuous bed contact and no required supports.
     method: Exact slicer dry run and layer-preview review.
     status: blocked-exact-profile-unknown
+  - id: WM-001
+    criterion: The exact canonical metriMade.com profile fits at scale 1.0 on a safe, nonfunctional surface of every independently printed segment design.
+    method: Canonical generator plus 0°/90° placement selector on actual and conservative candidate rectangles.
+    status: blocked-no-safe-region
+    evidence: validation/watermark/watermark-placement-report.json
   - id: PHY-001
     criterion: Eighteen printed pieces fit the real drain without buckling, excessive cumulative gap, rocking, or sharp exposed edges.
     method: Human physical installed-fit inspection.
@@ -209,3 +229,4 @@ acceptance:
 
 unresolved:
   - Exact machine, PETG product/color/batch, nozzle, slicer version, and successful coupon profile are not yet recorded.
+  - The mandatory 113.466 × 12.8 mm watermark profile does not fit on a 52.5 mm single-funnel segment without changing the approved geometry or identity policy.

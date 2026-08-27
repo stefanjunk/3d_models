@@ -116,6 +116,62 @@
       "kind": "learning-trace",
       "revision": "3.0.0-draft.1",
       "required": true
+    },
+    {
+      "id": "watermark-package-manifest",
+      "path": "assets/metrimade-watermark/manifest.sha256",
+      "kind": "asset-manifest",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-generated-manifest",
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/manifest.sha256",
+      "kind": "asset-manifest",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-metadata",
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/metrimade-watermark-SHOWER-DRAIN-HAIRTRAP-v3.0.0-draft.1.json",
+      "kind": "watermark-metadata",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-coupon",
+      "path": "assets/metrimade-watermark/generated/SHOWER-DRAIN-HAIRTRAP_v3.0.0-draft.1/metrimade-watermark-SHOWER-DRAIN-HAIRTRAP-v3.0.0-draft.1-coupon-d040.stl",
+      "kind": "physical-test-coupon",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-side-selector",
+      "path": "validation/watermark/side-wall-selector.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-top-selector",
+      "path": "validation/watermark/full-top-envelope-overapproximation.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-bed-selector",
+      "path": "validation/watermark/print-bed-envelope-overapproximation.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "watermark-placement-report",
+      "path": "validation/watermark/watermark-placement-report.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
     }
   ],
   "checks": [
@@ -224,11 +280,21 @@
     },
     {
       "id": "watermark-integration-and-approval",
-      "type": "review",
+      "type": "external_report",
       "required": true,
-      "status": "NOT_RUN",
-      "criterion": "Integrate and approve the canonical metriMade.com watermark after primary geometry verification.",
-      "evidence_artifact": null
+      "artifact": "watermark-placement-report",
+      "expected_inputs": [
+        "watermark-package-manifest",
+        "watermark-generated-manifest",
+        "watermark-metadata",
+        "watermark-coupon",
+        "watermark-side-selector",
+        "watermark-top-selector",
+        "watermark-bed-selector",
+        "build-report",
+        "manufacturing-mesh"
+      ],
+      "report": "validation/watermark/aggregate-placement-report.json"
     },
     {
       "id": "physical-installed-fit",

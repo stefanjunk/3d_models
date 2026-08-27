@@ -43,3 +43,11 @@ Preliminary selection: **18 identical segments, 18 funnels, 52.5 mm per segment,
 - Master and print-oriented meshes pass watertightness, winding, positive-volume, component-count, boundary-edge, non-manifold-edge, degenerate-face, duplicate-face, triangle-budget, file-budget, and build-volume checks.
 - A coarser STL tessellation was evaluated but rejected because the exact indexed triangle-distance backend is unavailable. The nearest-vertex diagnostic is not a valid surface-error acceptance method. The selected manufacturing STL therefore uses the byte-identical master tessellation and only the approved rigid +90° Y rotation.
 - The exact slicer/profile and physical installed-fit, drainage, cleaning, and hair-retention checks remain blocked. The candidate is still a draft and not a released manufacturing package.
+
+## 2026-08-27 — watermark placement block
+
+- Canonical asset `MM-WM-001-R1` generated the exact two-line profile `metriMade.com` / `SHOWER-DRAIN-HAIRTRAP · v3.0.0-draft.1` at 113.466 × 12.8 × 0.4 mm.
+- The actual flat side wall provides 52.5 × 16.8 mm before clearance and 48.5 × 12.8 mm after the mandatory 2.0 mm edge clearance. The selector returns `BLOCK` in both allowed rotations.
+- Even conservative rectangular over-approximations of the whole 52.5 × 65 mm top envelope and 65 × 21 mm print-bed envelope return `BLOCK`. Their true usable regions are smaller because of the funnel, holes, U-profile void, and required bed-contact lands.
+- The profile must not be scaled, cropped, distorted, split across loose pieces, or placed in functional openings. No watermark was cut into the validated candidate.
+- The 18-piece functional design remains unchanged. Final release is blocked until the user authorizes a materially different product geometry/identity strategy that produces a valid host region, followed by regenerated evidence, a slicer preview, an exact-process watermark coupon, and explicit watermark approval.

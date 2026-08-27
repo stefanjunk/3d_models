@@ -679,7 +679,7 @@ def write_build_report(segment: cq.Workplane, print_segment: cq.Workplane) -> No
         "limitations": [
             "No exact slicer/profile was available; toolpath, support and time metrics are not asserted.",
             "Physical installed fit, cumulative gaps, drainage, cleaning and hair retention remain human gates.",
-            "Watermark integration is intentionally deferred until after primary candidate verification.",
+            "The exact watermark profile does not fit a safe region on one segment; no watermark geometry is integrated and final release remains blocked.",
         ],
         "required_capabilities": ["cadquery", "trimesh"],
     }
@@ -730,6 +730,10 @@ The user reports that the earlier coupon worked after a 90° rotation. The exact
 - `build/build-report.json`: deterministic source/export evidence
 
 Do not add a gap, connector or scaling compensation to all eighteen pieces without a measured installed-fit test; cumulative process error must be handled from physical evidence.
+
+## Release status
+
+The canonical `MM-WM-001-R1` product watermark for this identity measures 113.466 × 12.8 mm and does not fit at scale 1.0 on a 52.5 mm single-funnel segment. The functional geometry is intentionally unchanged. This remains a DRAFT manufacturing candidate; final release is blocked by watermark placement, the exact-slicer review, and physical installed-fit/function tests.
 """
     (ROOT / "README.md").write_text(text, encoding="utf-8")
 

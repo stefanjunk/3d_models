@@ -1,6 +1,6 @@
 # Decision log — shower drain hair trap v3
 
-Status: requirements review; no v3 production CAD or manufacturing export exists yet.
+Status: primary production candidate digitally validated; watermark, exact-slicer review, and physical tests remain open.
 
 ## 2026-08-27 — revision basis
 
@@ -33,4 +33,13 @@ Preliminary selection: **18 identical segments, 18 funnels, 52.5 mm per segment,
 
 - Digital baseline coupon audit: watertight, one component, positive volume, consistent winding, 80 × 65 × 21 mm.
 - User observation: the coupon printed successfully when rotated 90°. Exact machine, material, nozzle, slicer, profile, and measured result are unknown and must not be inferred.
-- The 18-segment selection is a design recommendation pending explicit requirements approval; it is not yet a produced or physically validated model.
+- The 18-segment selection was approved and has been produced as a digitally validated draft; it is not yet slicer- or physically validated.
+
+## 2026-08-27 — approved production candidate
+
+- Requirements and the concept sheet were explicitly approved by the user for revision `3.0.0-draft.1`.
+- The deterministic count optimization selected 18 identical 52.5 mm segments with one 46 mm funnel and 3.25 mm solid material at each end. The adjacent 19-segment candidate was rejected because its 1.8684 mm end margin violates the approved 3.0 mm minimum.
+- The generated STEP master re-imports as one valid solid. The nominal 18-part STEP reference re-imports as 18 valid, unconnected solids with a 945 × 65 × 21 mm envelope.
+- Master and print-oriented meshes pass watertightness, winding, positive-volume, component-count, boundary-edge, non-manifold-edge, degenerate-face, duplicate-face, triangle-budget, file-budget, and build-volume checks.
+- A coarser STL tessellation was evaluated but rejected because the exact indexed triangle-distance backend is unavailable. The nearest-vertex diagnostic is not a valid surface-error acceptance method. The selected manufacturing STL therefore uses the byte-identical master tessellation and only the approved rigid +90° Y rotation.
+- The exact slicer/profile and physical installed-fit, drainage, cleaning, and hair-retention checks remain blocked. The candidate is still a draft and not a released manufacturing package.

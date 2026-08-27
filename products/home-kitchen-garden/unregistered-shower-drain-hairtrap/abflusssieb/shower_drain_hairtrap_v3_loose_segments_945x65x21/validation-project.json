@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "SHOWER-DRAIN-HAIRTRAP",
+    "revision": "3.0.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [
+      420,
+      420,
+      500
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "generator-source",
+      "path": "build_shower_drain_hairtrap_v3.py",
+      "kind": "source",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "design-spec",
+      "path": "design-spec.yaml",
+      "kind": "design-contract",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "parameters",
+      "path": "build/parameters.json",
+      "kind": "parameter-contract",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "optimization-report",
+      "path": "build/segment-count-optimization.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "build-report",
+      "path": "build/build-report.json",
+      "kind": "validation-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "master-step",
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.step",
+      "kind": "neutral-cad",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "assembly-step",
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-18x-assembly-reference.step",
+      "kind": "assembly-reference",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "master-mesh",
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.stl",
+      "kind": "mesh",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "manufacturing-reference-mesh",
+      "path": "exports/validation/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-manufacturing-tessellation-reference.stl",
+      "kind": "validation-mesh",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "manufacturing-mesh",
+      "path": "exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl",
+      "kind": "mesh",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "mesh-policy",
+      "path": "validation/mesh-policy.json",
+      "kind": "validation-policy",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "autonomy-policy",
+      "path": "autonomy-policy.json",
+      "kind": "autonomy-policy",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "environment-report",
+      "path": "validation/environment.json",
+      "kind": "environment-report",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "concept-image",
+      "path": "concept/DRAFT-concept-sheet-3.0.0-draft.1.png",
+      "kind": "approved-concept",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    },
+    {
+      "id": "learning-trace",
+      "path": "learning-trace.yaml",
+      "kind": "learning-trace",
+      "revision": "3.0.0-draft.1",
+      "required": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "parametric-build-and-neutral-cad",
+      "type": "external_report",
+      "required": true,
+      "artifact": "build-report",
+      "expected_inputs": [
+        "generator-source",
+        "parameters",
+        "optimization-report",
+        "master-step",
+        "master-mesh",
+        "assembly-step",
+        "manufacturing-reference-mesh",
+        "manufacturing-mesh"
+      ],
+      "report": "validation/aggregate-build-report.json"
+    },
+    {
+      "id": "segment-count-optimization",
+      "type": "external_report",
+      "required": true,
+      "artifact": "optimization-report",
+      "expected_inputs": [
+        "design-spec"
+      ],
+      "report": "validation/aggregate-optimization-report.json"
+    },
+    {
+      "id": "master-mesh-audit",
+      "type": "mesh",
+      "required": true,
+      "artifact": "master-mesh",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [
+          420,
+          420,
+          500
+        ],
+        "allow_axis_permutation": false,
+        "max_faces": 100000,
+        "max_file_mib": 10,
+        "require_self_intersection_check": false
+      },
+      "report": "validation/master-mesh-audit.json"
+    },
+    {
+      "id": "manufacturing-mesh-audit",
+      "type": "mesh",
+      "required": true,
+      "artifact": "manufacturing-mesh",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [
+          420,
+          420,
+          500
+        ],
+        "allow_axis_permutation": false,
+        "max_faces": 100000,
+        "max_file_mib": 10,
+        "require_self_intersection_check": false
+      },
+      "report": "validation/manufacturing-mesh-audit.json"
+    },
+    {
+      "id": "requirements-approval",
+      "type": "review",
+      "required": true,
+      "status": "PASS",
+      "criterion": "The user explicitly approved requirements revision 3.0.0-draft.1.",
+      "evidence_artifact": "design-spec"
+    },
+    {
+      "id": "concept-approval",
+      "type": "review",
+      "required": true,
+      "status": "PASS",
+      "criterion": "The user explicitly approved the concept asset for revision 3.0.0-draft.1.",
+      "evidence_artifact": "concept-image"
+    },
+    {
+      "id": "exact-slicer-orientation-review",
+      "type": "review",
+      "required": true,
+      "status": "NOT_RUN",
+      "criterion": "Open the on-end STL in the exact successful coupon profile and confirm continuous first-layer contact and no required support.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "watermark-integration-and-approval",
+      "type": "review",
+      "required": true,
+      "status": "NOT_RUN",
+      "criterion": "Integrate and approve the canonical metriMade.com watermark after primary geometry verification.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-installed-fit",
+      "type": "physical",
+      "required": true,
+      "status": "NOT_RUN",
+      "criterion": "Print eighteen process-matched parts and confirm real-drain fit, cumulative gaps, rocking, and edge condition.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-drainage-and-hair-test",
+      "type": "physical",
+      "required": true,
+      "status": "NOT_RUN",
+      "criterion": "Run a process-matched water, cleaning, and hair-retention test with the installed segment row.",
+      "evidence_artifact": null
+    }
+  ],
+  "release": {
+    "required_approvals": [
+      "watermark",
+      "final-model"
+    ],
+    "approvals": {
+      "watermark": null,
+      "final-model": null
+    }
+  }
+}

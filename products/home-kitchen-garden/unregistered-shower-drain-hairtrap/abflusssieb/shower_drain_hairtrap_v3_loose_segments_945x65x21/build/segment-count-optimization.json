@@ -1,0 +1,91 @@
+{
+  "checks": [
+    {
+      "id": "candidate-count",
+      "message": "Compared the approved baseline and adjacent integer segment counts.",
+      "metrics": {
+        "candidate_count": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "maximum-feasible-catcher-count",
+      "message": "Selected the highest catcher count retaining at least the approved 3.0 mm end margin.",
+      "metrics": {
+        "first_rejected_end_margin_mm": 1.8684210526315788,
+        "first_rejected_segment_count": 19,
+        "selected_end_margin_mm": 3.25,
+        "selected_segment_count": 18,
+        "selected_segment_length_mm": 52.5
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "exact-nominal-total-length",
+      "message": "Selected identical segments sum exactly to the 945 mm nominal drain length.",
+      "metrics": {
+        "calculated_total_length_mm": 945.0,
+        "target_total_length_mm": 945.0
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "design-spec.yaml",
+      "sha256": "cd28305d28155fcf473b126838190251e3566e894ef8ba070a2723084ca746a2",
+      "size_bytes": 8944
+    }
+  ],
+  "limitations": [
+    "This report selects segment/catcher count geometrically; it does not provide exact-slicer time or material metrics.",
+    "Cumulative installed-fit error remains a physical gate because the loose parts have no connectors or prescribed gaps."
+  ],
+  "metrics": {
+    "candidates": [
+      {
+        "catcher_count": 16,
+        "end_margin_each_side_mm": 6.53125,
+        "feasible": true,
+        "minimum_margin_pass": true,
+        "segment_count": 16,
+        "segment_length_mm": 59.0625
+      },
+      {
+        "catcher_count": 17,
+        "end_margin_each_side_mm": 4.7941176470588225,
+        "feasible": true,
+        "minimum_margin_pass": true,
+        "segment_count": 17,
+        "segment_length_mm": 55.588235294117645
+      },
+      {
+        "catcher_count": 18,
+        "end_margin_each_side_mm": 3.25,
+        "feasible": true,
+        "minimum_margin_pass": true,
+        "segment_count": 18,
+        "segment_length_mm": 52.5
+      },
+      {
+        "catcher_count": 19,
+        "end_margin_each_side_mm": 1.8684210526315788,
+        "feasible": false,
+        "minimum_margin_pass": false,
+        "segment_count": 19,
+        "segment_length_mm": 49.73684210526316
+      }
+    ],
+    "constraint": "end_margin_each_side_mm >= 3.0",
+    "objective": "maximize catcher count",
+    "selected_variant": "18-identical-segments"
+  },
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "build_shower_drain_hairtrap_v3.py",
+  "tool_version": "3.0.0-draft.1"
+}

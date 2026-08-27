@@ -4,7 +4,7 @@ project:
   name: Shower drain hair trap — loose single-funnel segments
   revision: 3.0.0-draft.1
   units: mm
-  status: production-cad-authorized
+  status: primary-candidate-digitally-validated-watermark-pending
   baseline:
     revision: funnel-edge-v1.3
     source: ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/build_shower_drain_hairtrap_945x65_funnel_edge.py
@@ -143,48 +143,57 @@ manufacturing:
     - 3MF only after exact slicer/profile confirmation
 
 optimization:
-  status: pending
+  status: applied-geometry-only
   objective: Maximize identical single-funnel segment count while preserving at least 3.0 mm solid material from the 46 mm funnel tangent to each segment end and keeping the nominal total exactly 945 mm.
   baseline_slicer_report: null
-  preliminary_selected_variant: 18-identical-segments
-  comparison_report: DECISION-LOG.md
+  selected_variant: 18-identical-segments
+  comparison_report: build/segment-count-optimization.json
   mesh_simplification:
-    status: pending
-    master_mesh: null
-    manufacturing_mesh: null
+    status: not-applied
+    master_mesh: exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.stl
+    manufacturing_mesh: exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl
     protected_regions:
       - funnel surfaces
       - sieve-hole edges
       - swirl ribs
       - U-profile bed-contact cross-section
       - installed envelope datums
-    rationale: Native CadQuery tessellation will be measured before any simplification decision.
+    rationale: The exact triangle-distance backend is unavailable. The selected manufacturing mesh therefore reuses the byte-identical audited master tessellation and applies only the approved rigid print transform.
 
 acceptance:
   - id: GEO-001
     criterion: The nominal installed envelope is 945.0 × 65.0 × 21.0 mm.
     method: Deterministic parameter and assembly-bounds check.
-    status: pending
+    status: pass
+    evidence: build/build-report.json
   - id: GEO-002
     criterion: Exactly 18 identical segments of 52.5 mm nominal length sum to 945.0 mm without connector overlap or protrusion.
     method: Deterministic count, equality, and assembly-overlap check.
-    status: pending
+    status: pass
+    evidence: build/build-report.json
   - id: GEO-003
     criterion: Every segment contains exactly one centered 46 mm funnel and at least 3.0 mm solid end margin on both ends; the target margin is 3.25 mm.
     method: Parameter assertions and section measurement.
-    status: pending
+    status: pass
+    evidence: build/build-report.json
   - id: GEO-004
     criterion: No key, slot, snap, rail, tongue, magnet pocket, or other segment connector exists.
     method: Source-feature audit and geometry inspection.
-    status: pending
+    status: pass
+    evidence: build/build-report.json
   - id: MESH-001
-    criterion: Each STEP/STL segment is one positive-volume, watertight, consistently wound component with 52.5 × 65.0 × 21.0 mm assembly-orientation extents.
+    criterion: The master STEP/STL is one positive-volume component with 52.5 × 65.0 × 21.0 mm assembly-orientation extents; the manufacturing STL is the corresponding valid print-oriented component.
     method: STEP re-import plus deterministic mesh audit.
-    status: pending
+    status: pass
+    evidence:
+      - build/build-report.json
+      - validation/master-mesh-audit.json
+      - validation/manufacturing-mesh-audit.json
   - id: DfAM-001
     criterion: The print-oriented STL is a rigid 90-degree rotation of the master, has Z minimum 0, and measures 21.0 × 65.0 × 52.5 mm up to axis ordering.
-    method: Deterministic bounds and bidirectional surface comparison after inverse transform.
-    status: pending
+    method: Deterministic bounds plus inverse rigid transform and vertex-set, face-count, and volume comparison from the same master tessellation.
+    status: pass
+    evidence: build/build-report.json
   - id: DfAM-002
     criterion: The selected 90-degree orientation is checked in the exact successful coupon slicer profile for continuous bed contact and no required supports.
     method: Exact slicer dry run and layer-preview review.

@@ -1,0 +1,346 @@
+{
+  "checks": [
+    {
+      "id": "parameter-assertions",
+      "message": "Approved dimension, margin, catcher-count and no-connector assertions passed before geometry generation.",
+      "metrics": {
+        "connector_feature_count": 0,
+        "end_margin_each_side_mm": 3.25,
+        "nominal_total_length_mm": 945.0,
+        "segment_count": 18,
+        "segment_length_mm": 52.5
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "assembly-brep",
+      "message": "Assembly-orientation segment is one valid positive-volume B-Rep with approved extents.",
+      "metrics": {
+        "bounds": {
+          "extents_mm": [
+            52.5,
+            65.0,
+            21.000000000000007
+          ],
+          "maximum_mm": [
+            52.5,
+            65.0,
+            21.000000000000007
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "solid_count": 1,
+        "valid": true,
+        "volume_mm3": 16253.725919563778
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "loose-segment-layout",
+      "message": "Eighteen unconnected segment intervals meet only at nominal end planes, with zero nominal gap, overlap or protrusion across 945 mm.",
+      "metrics": {
+        "maximum_neighbor_gap_mm": 0.0,
+        "minimum_neighbor_gap_mm": 0.0,
+        "neighbor_gap_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "segment_intervals_mm": [
+          [
+            0.0,
+            52.5
+          ],
+          [
+            52.5,
+            105.0
+          ],
+          [
+            105.0,
+            157.5
+          ],
+          [
+            157.5,
+            210.0
+          ],
+          [
+            210.0,
+            262.5
+          ],
+          [
+            262.5,
+            315.0
+          ],
+          [
+            315.0,
+            367.5
+          ],
+          [
+            367.5,
+            420.0
+          ],
+          [
+            420.0,
+            472.5
+          ],
+          [
+            472.5,
+            525.0
+          ],
+          [
+            525.0,
+            577.5
+          ],
+          [
+            577.5,
+            630.0
+          ],
+          [
+            630.0,
+            682.5
+          ],
+          [
+            682.5,
+            735.0
+          ],
+          [
+            735.0,
+            787.5
+          ],
+          [
+            787.5,
+            840.0
+          ],
+          [
+            840.0,
+            892.5
+          ],
+          [
+            892.5,
+            945.0
+          ]
+        ],
+        "total_layout_length_mm": 945.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "print-brep",
+      "message": "Print-oriented segment is one valid B-Rep with 21 x 65 x 52.5 mm extents and Z minimum at the bed.",
+      "metrics": {
+        "bounds": {
+          "extents_mm": [
+            21.000000000000007,
+            65.0,
+            52.5
+          ],
+          "maximum_mm": [
+            21.000000000000007,
+            65.0,
+            52.5
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            -2.3314683517128287e-15
+          ]
+        },
+        "solid_count": 1,
+        "valid": true,
+        "volume_mm3": 16253.725919563778
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "rigid-print-transform",
+      "message": "The declared 90-degree rigid transform preserves B-Rep volume and places one U-profile end on Z=0.",
+      "metrics": {
+        "angle_degrees": 90.0,
+        "axis": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "print_z_min_mm": -2.3314683517128287e-15,
+        "volume_delta_mm3": 0.0,
+        "volume_delta_percent": 0.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "neutral-step-reimport",
+      "message": "Re-imported STEP exports retain one valid segment solid and eighteen valid loose assembly solids with nominal extents.",
+      "metrics": {
+        "assembly_all_solids_valid": true,
+        "assembly_bounds": {
+          "extents_mm": [
+            945.0,
+            65.0,
+            21.0
+          ],
+          "maximum_mm": [
+            945.0,
+            65.0,
+            21.0
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "assembly_solid_count": 18,
+        "master_bounds": {
+          "extents_mm": [
+            52.5,
+            65.0,
+            21.0
+          ],
+          "maximum_mm": [
+            52.5,
+            65.0,
+            21.0
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "master_solid_count": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "stored-mesh-orientation",
+      "message": "Inverse-transforming the stored on-end STL reproduces the selected assembly-oriented manufacturing tessellation within numeric STL precision.",
+      "metrics": {
+        "maximum_inverse_vertex_delta_mm": 1.9073486328125e-06,
+        "print_face_count": 25780,
+        "print_mesh_bounds": {
+          "extents_mm": [
+            21.0,
+            65.0,
+            52.5
+          ],
+          "maximum_mm": [
+            21.0,
+            65.0,
+            52.5
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "print_vertex_count": 12772,
+        "print_volume_mm3": 16256.547828199744,
+        "reference_face_count": 25780,
+        "reference_vertex_count": 12772,
+        "reference_volume_mm3": 16256.547832169717
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "manufacturing-tessellation-source",
+      "message": "The assembly-oriented manufacturing reference is a byte-identical copy of the audited master STL; no unverified mesh simplification is used.",
+      "metrics": {
+        "byte_identical": true,
+        "manufacturing_reference_sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339",
+        "master_sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "environment": {
+    "cadquery": "2.9.0.dev0",
+    "trimesh": "4.4.1"
+  },
+  "inputs": [
+    {
+      "path": "build_shower_drain_hairtrap_v3.py",
+      "sha256": "fe9d3b2f3b6c8d6cd7cc3c0d7f6f268c1fa53c06a8e364049c95a545b067abd8",
+      "size_bytes": 31503
+    },
+    {
+      "path": "build/parameters.json",
+      "sha256": "4e49d4ee96ab70331a2c72439a89cdc7005f620b080eb0ded6d87f7eaf2a8ecd",
+      "size_bytes": 1339
+    },
+    {
+      "path": "build/segment-count-optimization.json",
+      "sha256": "9ab7587050225acea7e5cf28dab3d11f125e7288837c8b8e6d5eb534fa375260",
+      "size_bytes": 2742
+    },
+    {
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.step",
+      "sha256": "1e27e9e1c2ef57498dad195c95715bfe61c9ea80d516939381495ae346a8f42a",
+      "size_bytes": 1596021
+    },
+    {
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.stl",
+      "sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339",
+      "size_bytes": 1289084
+    },
+    {
+      "path": "exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-18x-assembly-reference.step",
+      "sha256": "c2e391b5408548546f7e2e409f729106c9c6a257e9a2d62e5ece341cc5f9f2b7",
+      "size_bytes": 1607892
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl",
+      "sha256": "79cc8c705df8a7f96ae196d05f78b41d4e3155473335a4f897c50115bff79f64",
+      "size_bytes": 1289084
+    },
+    {
+      "path": "exports/validation/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-manufacturing-tessellation-reference.stl",
+      "sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339",
+      "size_bytes": 1289084
+    }
+  ],
+  "limitations": [
+    "No exact slicer/profile was available; toolpath, support and time metrics are not asserted.",
+    "Physical installed fit, cumulative gaps, drainage, cleaning and hair retention remain human gates.",
+    "Watermark integration is intentionally deferred until after primary candidate verification."
+  ],
+  "metrics": {
+    "catchers_total": 18,
+    "holes_per_catcher": 55,
+    "ribs_per_catcher": 5
+  },
+  "required_capabilities": [
+    "cadquery",
+    "trimesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "build_shower_drain_hairtrap_v3.py",
+  "tool_version": "3.0.0-draft.1"
+}

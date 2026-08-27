@@ -4,11 +4,11 @@
 
 - Finalize operator and remaining brand-clearance decisions; metriMade V10 `08` / `MM-BRAND-001-R1` is already selected.
 - Freeze three launch SKUs and one delivery mode: German digital 3MF on `metriCreate`.
-- Fix and qualify DrawerFit; design NameForm and ShelfFit Mini.
+- Slice and physically qualify the existing DrawerFit, NameForm and ShelfFit digital candidates.
 - Validate real customer measurement behavior and product interest.
 - Put CI, staging, legal, payment and support foundations in place.
 
-Outcome: three controlled manufacturing candidates, a shared two-brand product schema and an operable `metriCreate` staging foundation.
+Outcome: three controlled digital candidates advanced through exact slicing and physical qualification, plus a shared two-brand product schema and an operable `metriCreate` staging foundation.
 
 ## Next: prove commercial releases and transactions
 
@@ -26,7 +26,8 @@ Outcome: one fully traceable digital customer journey and three honest products.
 2. Connected `metriMade` product discovery and exact-SKU handoff to `metriCreate`.
 3. A manually approved dimensional-variant pilot in `metriCreate`.
 4. Server-validated self-service configuration and configured print/download orders.
-5. Additional EU digital countries.
-6. Broaden `metriCreate` one qualified category at a time; promote only premium consumer-suitable releases into `metriMade`.
+5. Physically qualify the completed MM-ORG-003 Compact reserve candidate before any catalog promotion.
+6. Additional EU digital countries.
+7. Broaden `metriCreate` one qualified category at a time; promote only premium consumer-suitable releases into `metriMade`.
 
 Outcome: the two-brand, three-path vision grows from evidence rather than launch-time scope.

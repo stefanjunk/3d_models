@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "common-bed-margin",
+      "message": "Selected envelope replaces zero-margin 220 mm width with 2 mm per-side margin.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "floor-protected",
+      "message": "Pocket floor ligament remains protected.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-budget",
+      "message": "Direct CAD tessellation is within budget.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "e2441ce7b5d82e422b381dbe24695df0a9896432ffa4ffa82c596f61263124b3",
+      "size_bytes": 1587
+    },
+    {
+      "path": "cad/build_bror_tray.py",
+      "sha256": "6128d55640b285d5133ccab9f069be64189156758080a7a7885abdebf6de2dd7",
+      "size_bytes": 17254
+    },
+    {
+      "path": "../../exports/stl/02_bror_tool_shadow_tray.stl",
+      "sha256": "af02a43d2a6f8b2fb03ce50c4e3618a238f22aaf68bc9c11652e07a932a855eb",
+      "size_bytes": 230084
+    }
+  ],
+  "limitations": [
+    "No deposited-material or print-time claim is made."
+  ],
+  "metrics": {
+    "baseline_extents_mm": [
+      220.0,
+      180.0,
+      28.0
+    ],
+    "baseline_triangles": 4600,
+    "baseline_volume_mm3": 322691.7547137204,
+    "exact_slicer_metrics": "NOT_RUN",
+    "mesh_simplification": "NOT_BENEFICIAL",
+    "selected_extents_mm": [
+      216.0,
+      180.0,
+      28.0
+    ],
+    "selected_triangles": 4600,
+    "selected_volume_mm3": 304620.03390958684,
+    "selection": "216 mm common-printer measurement pilot plus gauges"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-SYS-002-optimization-comparison",
+  "tool_version": "0.2.0"
+}

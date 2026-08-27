@@ -1,0 +1,266 @@
+project:
+  id: MM-ORG-003
+  name: Modern Carbon Desk Organizer Compact
+  revision: 2.0.0-draft.1
+  units: mm
+  lineage:
+    portfolio_record: PORT-004
+    derivative_of: modern-carbon-desk-organizer-v1.1.2
+    reason: smaller modular derivative for common 220 mm printers
+  status: experimental-digital-candidate
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 2.0.0-draft.1
+    basis: User directed autonomous priority-based modeling and explicitly deferred physical print validation.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 2.0.0-draft.1
+    asset: assets/concept/MM-ORG-003-compact-concept-v2.png
+    sha256: 178918f8b0e475fd8431e87453fd5e8aadcd5d8eb2d2c80e43bf068c6a03896e
+    basis: Concept visibly maps the compact envelope, two identical drawers, removable six-bin sorter and sparse inset twill treatment; exact dimensions remain controlled by this specification.
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  digital_candidate:
+    status: geometry-and-interface-approved
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence: validation/approvals-through-interface.json
+  slicer_preflight:
+    status: blocked
+    reason: No supported exact slicer CLI and destination printer/material profile is installed.
+  print_candidate_gate:
+    status: blocked
+    reason: Exact slicer preflight was explicitly left open; geometry files remain DRAFT engineering candidates.
+  physical_print:
+    status: blocked
+    owner: human
+    reason: Explicitly deferred by user; no printer upload or start is authorized.
+  fit_and_function:
+    status: blocked
+    owner: human
+  appearance:
+    status: blocked
+    owner: human
+  commercial_release:
+    status: blocked
+    owner: human
+
+requirements:
+  goal:
+    value: Compact two-drawer desktop organizer with removable six-compartment top sorter.
+    source: inferred
+  intended_user:
+    value: Adult indoor desk/workbench user storing stationery, cables, small tools and electronics.
+    source: inherited-and-inferred
+  included:
+    value:
+      - one housing with two drawer bays
+      - two identical removable drawers
+      - one removable six-compartment top sorter
+      - fit-clearance coupon
+      - texture-scale coupon
+    source: recommended
+  excluded:
+    value:
+      - structural or safety-rated storage
+      - child-use claim
+      - food contact
+      - liquids, heat sources or outdoor exposure
+      - autonomous printer upload/start
+    source: recommended
+
+risk:
+  class: normal-functional
+  hazards:
+    - drawer interference or binding
+    - tip risk when a drawer is extended and heavily loaded
+    - sharp or snagging texture
+  limits:
+    - no load rating before physical testing
+    - no commercial release before rights, safety, physical and release gates pass
+
+geometry:
+  coordinate_frame:
+    x: width, left to right
+    y: depth, front to rear
+    z: height, bottom to top
+    origin: front-left-bottom of each part in assembly coordinates
+  assembled_envelope_mm: [210.0, 190.0, 173.0]
+  housing:
+    envelope_mm: [210.0, 190.0, 108.0]
+    shell_wall_mm: 3.0
+    rear_wall_mm: 2.4
+    bottom_mm: 3.0
+    intermediate_shelf_mm: 3.0
+    top_mm: 3.0
+    opening_height_mm: 49.5
+    plan_corner_radius_mm: 10.0
+    deck_side_rail_mm: 12.0
+    deck_front_beam_mm: 12.0
+    deck_rear_beam_mm: 12.0
+    deck_construction: open-center perimeter frames at bottom, intermediate shelf and top; continuous drawer guide rails retained
+  drawer:
+    quantity: 2
+    body_width_mm: 203.1
+    body_depth_mm: 181.9
+    body_height_mm: 46.5
+    front_width_mm: 205.6
+    front_height_mm: 49.0
+    front_depth_mm: 3.2
+    wall_mm: 2.0
+    bottom_mm: 2.0
+    side_clearance_each_mm: 0.45
+    rear_clearance_mm: 2.5
+    top_clearance_mm: 3.0
+    finger_scoop_width_mm: 36.0
+    finger_scoop_depth_mm: 10.0
+  sorter:
+    envelope_mm: [210.0, 190.0, 65.0]
+    bottom_mm: 2.0
+    outer_wall_mm: 2.4
+    divider_wall_mm: 1.8
+    rows: 3
+    columns: 2
+    compartment_count: 6
+    plan_corner_radius_mm: 10.0
+  stack_interface:
+    peg_size_mm: 8.0
+    peg_height_mm: 3.0
+    socket_size_mm: 8.7
+    socket_depth_mm: 3.2
+    clearance_each_mm: 0.35
+    count: 4
+  modularity:
+    rule: Housing and sorter share the same 210 x 190 mm registered footprint; the sorter is removable and replaceable without changing the housing.
+    future_module_keepout: Four-peg pattern and 8 mm perimeter band remain controlled interfaces.
+
+duty:
+  environment: indoor, nominal 15-30 C, dry desktop use
+  contents: light stationery, cables, small hand tools and small electronics
+  service_life: experimental until physical evidence exists
+  drawer_cycles_target: 500 cycles for later physical qualification
+  working_load_target_per_drawer_kg: 0.75
+  note: Targets define future tests and are not current ratings.
+
+manufacturing:
+  fabrication_preference: integrated-print
+  printer_class: common Cartesian/CoreXY FDM
+  build_volume_mm: [220.0, 220.0, 250.0]
+  material_assumption: ordinary PLA or supplier-specific Tough PLA for indoor use
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support in documented orientations
+  orientations:
+    housing: rear wall on print bed; openings face upward in machine Z
+    drawers: bottom down
+    sorter: bottom down
+    coupons: largest flat face down
+  target_formats:
+    - editable CadQuery source
+    - JSON parameter source
+    - STEP neutral masters
+    - STL manufacturing meshes
+    - multi-object 3MF DRAFT print set
+
+appearance:
+  form_language: compact modern rounded vertical corners with continuous reveals
+  color: dark charcoal or black recommended; color is not encoded as geometry
+  carbon_effect:
+    intent: stylized directional twill cue, shallow tactile engraving and directed highlights
+    representation: procedural vector/CAD grooves, not raster heightmap
+    nominal_product_pitch_mm: 9.6
+    coupon_fine_pitch_mm: 4.8
+    sorter_side_badge_pitch_mm: 19.2
+    groove_width_mm: 0.80
+    groove_depth_mm: 0.24
+    directions_deg: [45, -45]
+    phase: two interleaved diagonal families; 9.6 mm on drawer, housing and sorter-front badges and 19.2 mm on the narrow sorter side badges
+    target_surfaces:
+      - drawer front inset panels
+      - housing left and right exterior badge panels
+      - sorter front and side exterior badge panels
+    keepouts:
+      - all drawer sliding/contact faces
+      - stack pegs and sockets
+      - part bottoms and bed datums
+      - finger scoops and hand-contact edges
+      - 4 mm around all panel borders
+    claim_boundary: carbon-look only; no carbon-composite structural claim
+
+optimization:
+  baseline_identity: modern-carbon-desk-organizer-v1.1.2
+  objective:
+    - every production part fits a 220 x 220 x 250 mm build volume
+    - reduce deposited-material opportunity while preserving shell, rails, stops, bottom skins and anti-tip footprint
+    - eliminate dense image-heightmap mesh burden
+  protected_geometry:
+    - drawer guide and contact faces
+    - front/handle zones
+    - rear stops and housing shelf edges
+    - top and bottom perimeter frames
+    - divider junctions
+    - stack pegs, sockets and registered footprint
+    - all bed-contact planes
+    - texture borders and remaining wall reserve
+  candidates:
+    A_process_only: original geometry with 0.4 mm nozzle and 0.20 mm layers; retained only as process reference
+    B_geometry_only: compact envelope, thin shells and ribbed broad skins with original process
+    C_combined: B plus procedural texture replacing dense heightmap; selected for digital development
+  selection_status: selected-digital-geometry
+  selection_limit: Exact slicer time/material comparison remains NOT_RUN because no supported slicer CLI is installed.
+
+mesh_policy:
+  native_master: STEP B-Rep per part
+  manufacturing_mesh: STL generated from native CadQuery solids
+  chordal_tolerance_mm: 0.05
+  angular_tolerance_rad: 0.15
+  simplification_decision: not-beneficial
+  reason: Analytic CAD is tessellated directly at process-appropriate tolerance; no global lossy decimation is allowed.
+  max_triangles_per_part: 500000
+  max_mesh_file_mib_per_part: 25
+  peak_memory_budget_gib: 2
+  exact_slicer_seconds_budget: 120
+
+acceptance:
+  digital_required:
+    - named parameter assertions pass at default and boundary configurations
+    - expected STEP/STL files exist for housing, drawer and sorter
+    - each manufacturing mesh is one watertight, consistently wound, positive-volume component
+    - each production orientation fits 220 x 220 x 250 mm
+    - assembled envelope remains within 210 x 190 x 173 mm plus 0.2 mm tolerance
+    - side clearance is exactly 0.45 mm per side in source calculations
+    - drawer depth stack is exactly 3.2 mm front + 181.9 mm body + 2.5 mm rear clearance inside the 187.6 mm housing cavity
+    - functional drawer products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/bottom are at least 2.0 mm; sorter dividers are explicit 1.8 mm two-to-four-path-class webs
+    - engraved host-wall reserve is at least 2.16 mm
+    - 3MF package is structurally valid and contains four build items: housing, drawer twice, sorter
+    - no texture intersects protected interfaces or bed faces
+  physical_deferred:
+    - print clearance and texture coupons
+    - verify drawer travel and 500 cycles
+    - verify loaded anti-tip behavior and floor flatness
+    - judge texture direction, snagging and appearance under three light angles
+    - print unchanged full assembly and confirm use
+
+deliverables:
+  design_spec: design-spec.yaml
+  parameters: model-parameters.json
+  editable_source: cad/build_compact_organizer.py
+  build_script: cad/build.py
+  neutral_cad: exports/master/*.step
+  manufacturing_mesh: exports/manufacturing/*.stl
+  print_package: exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf
+  concept: assets/concept/MM-ORG-003-compact-concept-v2.png
+  reports: reports/
+
+unresolved:
+  - Exact stationery dimensions were not supplied; compartment sizes are parametric assumptions.
+  - Exact printer and filament profiles were not supplied; generic 0.4 mm PLA guidance is provisional.
+  - Physical validation is intentionally deferred by the user.
+  - Commercial rights, safety, branding and final-release approval are outside this modeling pass.

@@ -1,0 +1,73 @@
+project:
+  id: MM-SYS-001
+  portfolio_record: PORT-039
+  name: Inventory Workplace Tray — ALEX measurement pilot
+  revision: 0.2.0-draft.1
+  status: provisional-digital-geometry
+  lineage: ../../systemmoebel_top20/models/group_a.py model 01
+  compatibility_claim: none; ALEX identifies only the intended measurement pilot
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  physical_validation: deferred-by-user
+  exact_slicer: not-run
+
+requirements:
+  function: removable asymmetric small-item tray for a desk drawer
+  envelope_mm: [210.0, 160.0, 32.0]
+  intended_use: adult indoor desk storage for stationery and small tools
+  target_printer_mm: [220.0, 220.0, 250.0]
+  output_quantity:
+    tray: 1
+    width_fit_gauges: 3
+  exclusions:
+    - guaranteed furniture compatibility
+    - structural drawer component
+    - food, body, child or heat use
+    - load rating before physical evidence
+
+geometry:
+  source_of_truth: model-parameters.json
+  architecture:
+    - one rounded open tray body
+    - asymmetric full-root divider network
+    - one integrated circular tool zone
+    - three independent full-width fit gauges at nominal width plus/minus 0.70 mm
+  minimum_ordinary_wall_mm: 2.4
+  nominal_wall_and_divider_mm: 2.7
+  floor_mm: 2.4
+  protected:
+    - outer envelope and bed face
+    - continuous perimeter and floor
+    - divider roots and branch junctions
+    - circular-zone root
+    - gauge end faces defining the tested width
+
+manufacturing:
+  material_assumption: PLA or PETG for prototype
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.2
+  support_intent: none
+  orientation: continuous tray floor on bed; gauge bases on bed
+  print_package: inventory 3MF; arrange tray and one selected gauge on separate plates
+
+acceptance:
+  digital:
+    - parameter contract passes
+    - STEP master exists
+    - every STL is one watertight positive-volume component
+    - tray and every gauge fit 220 x 220 x 250 mm
+    - tray envelope is 210 x 160 x 32 mm within 0.05 mm
+    - divider and perimeter nominal width equals six 0.45 mm lines
+    - 3MF package is structurally valid and contains tray plus three gauges
+  deferred:
+    - exact identified furniture revision and measurements
+    - fit-gauge print and drawer close/removal checks
+    - exact slicer/G-code review
+    - full print, point load, cleaning and 100 removal cycles
+
+claim_boundary:
+  - Treat all furniture dimensions as PROVISIONAL_UNVERIFIED.
+  - Do not title or sell the artifact as guaranteed compatible.
+  - A real measurement can change only the envelope and gauge parameters; regenerate all evidence afterward.

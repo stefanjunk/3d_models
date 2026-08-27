@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SYS-002-slicer-preflight",
+  "tool_version": "0.2.0",
+  "status": "NOT_RUN",
+  "profile": "draft",
+  "inputs": [
+    {
+      "path": "exports/3mf/DRAFT-MM-SYS-002-bror-measurement-pilot-0.2.0-draft.1.3mf",
+      "sha256": "9c542953be26a5d92555c329391430400882b864469bfe3c9b72a068cc541412",
+      "size_bytes": 62163
+    }
+  ],
+  "checks": [
+    {
+      "id": "exact-slicer-profile",
+      "status": "NOT_RUN",
+      "required": true,
+      "message": "No supported exact slicer CLI and destination printer/material profile is installed.",
+      "metrics": {},
+      "evidence": []
+    }
+  ],
+  "metrics": {
+    "geometry_preflight": "PASS",
+    "three_mf_structure": "PASS",
+    "exact_slicer": "NOT_RUN",
+    "planned_nozzle_mm": 0.4,
+    "planned_layer_height_mm": 0.2,
+    "planned_line_width_mm": 0.45
+  },
+  "limitations": [
+    "No G-code, support, time or deposited-material metrics are claimed.",
+    "The user explicitly deferred final print validation."
+  ],
+  "required_capabilities": ["exact_slicer_cli", "destination_printer_profile"]
+}

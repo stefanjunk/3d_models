@@ -1,0 +1,181 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "brep-valid",
+      "message": "texture_coupon B-Rep is valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "solid-count",
+      "message": "texture_coupon has 1 expected solid(s)",
+      "metrics": {
+        "solids": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-watertight",
+      "message": "texture_coupon STL is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-winding",
+      "message": "texture_coupon STL winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-volume",
+      "message": "texture_coupon STL has positive signed volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-components",
+      "message": "texture_coupon STL component count matches",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "texture_coupon documented orientation fits 220 x 220 x 250 mm",
+      "metrics": {
+        "extents_mm": [
+          78.00279738084643,
+          34.002797380846424,
+          3.0027973808464337
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "texture_coupon stays within triangle budget",
+      "metrics": {
+        "triangles": 348
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "texture_coupon stays within mesh file budget",
+      "metrics": {
+        "file_mib": 0.016674041748046875
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "size_bytes": 1703
+    },
+    {
+      "path": "cad/build_compact_organizer.py",
+      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
+      "size_bytes": 49663
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1-assembly-source.stl",
+    "assembly_source_stl_sha256": "da56faf52c046ceaa125557e0b7f7efb84bc41a3defea6b14b7fc9d6b79e3dc2",
+    "baseline_volume_mm3": null,
+    "cad": {
+      "bounds_mm": [
+        [
+          -0.0013986904232102708,
+          -0.0013986904232105497,
+          -0.0013986904232169287
+        ],
+        [
+          78.00139869042322,
+          34.001398690423215,
+          3.001398690423217
+        ]
+      ],
+      "center_of_mass_mm": [
+        39.0,
+        17.000000000000004,
+        1.5
+      ],
+      "extents_mm": [
+        78.00279738084643,
+        34.002797380846424,
+        3.0027973808464337
+      ],
+      "solids": 1,
+      "valid_brep": true,
+      "volume_mm3": 7945.699111843077
+    },
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1.stl",
+    "mesh": {
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          78.0,
+          34.0,
+          3.0
+        ]
+      ],
+      "center_mass_mm": [
+        39.0,
+        17.0,
+        1.5
+      ],
+      "components": 1,
+      "extents_mm": [
+        78.0,
+        34.0,
+        3.0
+      ],
+      "file_bytes": 17484,
+      "file_mib": 0.016674041748046875,
+      "positive_volume": true,
+      "sha256": "a6e01df8cc056cd64204884a839f3f52e1f304f06bd806ae83366bf1d19d4944",
+      "surface_area_mm2": 5958.7996374269915,
+      "triangles": 348,
+      "vertices": 176,
+      "volume_mm3": 7945.663969008632,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "name": "texture_coupon",
+    "quantity": 1,
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1.step",
+    "step_sha256": "e727b345d6f27554868d6abdacdc8b7cfba511b70795a4cae505522d1cf4997b"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-003-isolated-texture_coupon-build",
+  "tool_version": "2.0.0"
+}

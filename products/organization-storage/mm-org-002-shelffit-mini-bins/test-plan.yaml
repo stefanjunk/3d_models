@@ -1,0 +1,42 @@
+project_id: MM-ORG-002
+revision: 0.1.0
+status: NOT_RUN
+boundary: "All tests require human operation and evidence; autonomous printer upload/start is prohibited"
+
+tests:
+  - id: TP-01
+    name: "Shelf measurement and clearance coupon"
+    method: "Record shelf internal width/depth/height at front and rear; print the supplied corner/clearance coupon with the intended process"
+    pass: "Declared reference envelope is valid and the selected clearance inserts/removes without binding"
+  - id: TP-02
+    name: "Watermark process coupon"
+    method: "Print the generated MM-WM-001-R1 coupon on the exact printer/material/nozzle/layer/bed process"
+    pass: "Both lines are readable without guessing; no closed gaps, lost strokes or first-layer damage"
+  - id: TP-03
+    name: "Full-bin fit and removal"
+    method: "Print one unchanged marked bin, insert it at left/right/front/rear shelf positions and perform ten removals"
+    pass: "No binding, shelf damage or grip discomfort; clearances recorded"
+  - id: TP-04
+    name: "Pair fit"
+    method: "Print the second unchanged bin and insert the pair in the measured shelf"
+    pass: "Both bins fit simultaneously with the declared inter-bin and side clearances"
+  - id: TP-05
+    name: "Distributed load and floor deflection"
+    method: "Support the bin as in service, apply 1.5 kg distributed nonfragile load for 24 h, measure floor center before/during/after"
+    pass: "No crack or permanent set; maximum center deflection <=2.0 mm"
+  - id: TP-06
+    name: "Loaded pull/replace cycles"
+    method: "With 1.5 kg distributed contents, perform 100 controlled pull/replace cycles using the front scoop"
+    pass: "No grip/rim crack, delamination, sharp edge or shelf damage"
+  - id: TP-07
+    name: "Cleaning and appearance"
+    method: "Wipe with a damp household cloth, dry and inspect all inner corners, edges, bed face and watermark"
+    pass: "No trapped debris, snagging edge, unacceptable warp or unreadable identity mark"
+
+required_records:
+  - printer, firmware, nozzle and bed surface
+  - filament product, lot, conditioning and color
+  - slicer/version/profile hash and 3MF/G-code hashes
+  - shelf measurements and measurement-tool identity
+  - photos, dimensions, loads, durations, cycles, failures and operator/date
+

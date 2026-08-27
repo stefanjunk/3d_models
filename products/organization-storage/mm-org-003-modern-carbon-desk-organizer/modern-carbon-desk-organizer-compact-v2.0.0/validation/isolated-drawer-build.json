@@ -1,0 +1,181 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "brep-valid",
+      "message": "drawer B-Rep is valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "solid-count",
+      "message": "drawer has 1 expected solid(s)",
+      "metrics": {
+        "solids": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-watertight",
+      "message": "drawer STL is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-winding",
+      "message": "drawer STL winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-volume",
+      "message": "drawer STL has positive signed volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-components",
+      "message": "drawer STL component count matches",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "drawer documented orientation fits 220 x 220 x 250 mm",
+      "metrics": {
+        "extents_mm": [
+          205.60167850850786,
+          185.10293723988877,
+          49.002937239888766
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "drawer stays within triangle budget",
+      "metrics": {
+        "triangles": 1324
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "drawer stays within mesh file budget",
+      "metrics": {
+        "file_mib": 0.06321334838867188
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "size_bytes": 1703
+    },
+    {
+      "path": "cad/build_compact_organizer.py",
+      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
+      "size_bytes": 49663
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1-assembly-source.stl",
+    "assembly_source_stl_sha256": "64b378752a8191ae4f0391a66ecb1e9b87a6820bd1c3c5517fea7522b50d9d27",
+    "baseline_volume_mm3": 173524.0473031649,
+    "cad": {
+      "bounds_mm": [
+        [
+          -0.0008392542539221359,
+          -0.0008392542539424185,
+          -0.0020979856348251396
+        ],
+        [
+          205.60083925425394,
+          185.10209798563483,
+          49.00083925425394
+        ]
+      ],
+      "center_of_mass_mm": [
+        102.80111688025293,
+        77.062815984843,
+        14.389434499831891
+      ],
+      "extents_mm": [
+        205.60167850850786,
+        185.10293723988877,
+        49.002937239888766
+      ],
+      "solids": 1,
+      "valid_brep": true,
+      "volume_mm3": 173355.1708703679
+    },
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.stl",
+    "mesh": {
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          205.60001,
+          185.10001,
+          49.0
+        ]
+      ],
+      "center_mass_mm": [
+        102.80112,
+        77.06279,
+        14.38936
+      ],
+      "components": 1,
+      "extents_mm": [
+        205.60001,
+        185.10001,
+        49.0
+      ],
+      "file_bytes": 66284,
+      "file_mib": 0.06321334838867188,
+      "positive_volume": true,
+      "sha256": "cca482580a34b330ac2fd5bb448d8e1156e0df7d7fdbe840c3eba590d6f1b7e0",
+      "surface_area_mm2": 146760.59680068257,
+      "triangles": 1324,
+      "vertices": 664,
+      "volume_mm3": 173353.7413511714,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "name": "drawer",
+    "quantity": 2,
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.step",
+    "step_sha256": "4181417400bdb6baef0356ca93c179fde41299439e100c041a5a536e2fc96f80"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-003-isolated-drawer-build",
+  "tool_version": "2.0.0"
+}

@@ -1,0 +1,181 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "brep-valid",
+      "message": "fit_coupon B-Rep is valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "solid-count",
+      "message": "fit_coupon has 6 expected solid(s)",
+      "metrics": {
+        "solids": 6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-watertight",
+      "message": "fit_coupon STL is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-winding",
+      "message": "fit_coupon STL winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-volume",
+      "message": "fit_coupon STL has positive signed volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-components",
+      "message": "fit_coupon STL component count matches",
+      "metrics": {
+        "components": 6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "fit_coupon documented orientation fits 220 x 220 x 250 mm",
+      "metrics": {
+        "extents_mm": [
+          83.00000019999999,
+          52.00000020000001,
+          10.000000200000013
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "fit_coupon stays within triangle budget",
+      "metrics": {
+        "triangles": 120
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "fit_coupon stays within mesh file budget",
+      "metrics": {
+        "file_mib": 0.005802154541015625
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "size_bytes": 1703
+    },
+    {
+      "path": "cad/build_compact_organizer.py",
+      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
+      "size_bytes": 49663
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-fit-coupon-2.0.0-draft.1-assembly-source.stl",
+    "assembly_source_stl_sha256": "d513bb72ebbe8776c3d9947ae2ef2af053c4fd7dc12548e9d19e1b8b1b7dd19a",
+    "baseline_volume_mm3": null,
+    "cad": {
+      "bounds_mm": [
+        [
+          -1e-07,
+          -1.0000000716072334e-07,
+          -1.0000000710542735e-07
+        ],
+        [
+          83.0000001,
+          52.0000001,
+          10.000000100000006
+        ]
+      ],
+      "center_of_mass_mm": [
+        41.323432199704285,
+        17.735452726798304,
+        4.226189440723668
+      ],
+      "extents_mm": [
+        83.00000019999999,
+        52.00000020000001,
+        10.000000200000013
+      ],
+      "solids": 6,
+      "valid_brep": true,
+      "volume_mm3": 17245.499999999996
+    },
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-fit-coupon-2.0.0-draft.1.stl",
+    "mesh": {
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          83.0,
+          52.0,
+          10.0
+        ]
+      ],
+      "center_mass_mm": [
+        41.32343,
+        17.73545,
+        4.22619
+      ],
+      "components": 6,
+      "extents_mm": [
+        83.0,
+        52.0,
+        10.0
+      ],
+      "file_bytes": 6084,
+      "file_mib": 0.005802154541015625,
+      "positive_volume": true,
+      "sha256": "d513bb72ebbe8776c3d9947ae2ef2af053c4fd7dc12548e9d19e1b8b1b7dd19a",
+      "surface_area_mm2": 9562.200029373169,
+      "triangles": 120,
+      "vertices": 72,
+      "volume_mm3": 17245.50036716461,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "name": "fit_coupon",
+    "quantity": 1,
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-fit-coupon-2.0.0-draft.1.step",
+    "step_sha256": "31305d01cbad41eb380af7e36b4b20d9a0d60b3367b2959a92f5cc2372303037"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-003-isolated-fit_coupon-build",
+  "tool_version": "2.0.0"
+}

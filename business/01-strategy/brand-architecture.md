@@ -51,7 +51,7 @@ Stefan Junk selected V10 concept `08` on 2026-08-25. The reproducible vector can
 
 The compact mark, stacked logo, horizontal website lockup and monochrome versions share the same source geometry. The wordmark spelling is always `metriMade`. Selection is complete; name/device-mark searches, similarity review and the signed rights/risk decision remain open under `BRD-001`.
 
-For physical product traceability, new metriMade product revisions use the [product-specific engraving standard](../../metrimade-watermark/README.md): `metriMade.com` plus the exact product ID and `v`-prefixed semantic version. This manufacturing mark is monochrome and deliberately omits the color-only aqua micro-edge at small size.
+For physical product traceability, new metriMade product revisions use the [product-specific engraving standard](../../tools/metrimade-watermark/README.md): `metriMade.com` plus the exact product ID and `v`-prefixed semantic version. This manufacturing mark is monochrome and deliberately omits the color-only aqua micro-edge at small size.
 
 ## Naming system
 

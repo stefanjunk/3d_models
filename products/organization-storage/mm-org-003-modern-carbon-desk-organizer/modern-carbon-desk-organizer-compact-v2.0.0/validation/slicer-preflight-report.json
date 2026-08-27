@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-ORG-003-slicer-preflight",
+  "tool_version": "2.0.0",
+  "status": "NOT_RUN",
+  "profile": "draft",
+  "inputs": [
+    {
+      "path": "exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf",
+      "sha256": "1ab8b66524610c5a2a59cbbf096e14fff2333c385ede7703772fe131671acc4d",
+      "size_bytes": 32441
+    }
+  ],
+  "checks": [
+    {
+      "id": "exact-slicer-profile",
+      "status": "NOT_RUN",
+      "required": true,
+      "message": "No supported exact slicer CLI and destination printer/material profile is installed in the workspace environment.",
+      "metrics": {},
+      "evidence": []
+    }
+  ],
+  "metrics": {
+    "geometry_preflight": "PASS",
+    "three_mf_structure": "PASS",
+    "exact_slicer": "NOT_RUN",
+    "planned_nozzle_mm": 0.4,
+    "planned_layer_height_mm": 0.2,
+    "planned_line_width_mm": 0.45
+  },
+  "limitations": [
+    "No G-code, print-time, deposited-material or support metrics are claimed.",
+    "The user explicitly deferred final print validation."
+  ],
+  "required_capabilities": [
+    "exact_slicer_cli",
+    "destination_printer_profile"
+  ]
+}

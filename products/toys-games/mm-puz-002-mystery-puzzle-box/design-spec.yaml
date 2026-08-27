@@ -1,0 +1,236 @@
+# Mystery Puzzle Box — active design specification
+
+project:
+  id: MM-PUZ-002
+  name: "Mystery Puzzle Box"
+  sku: MM-PUZ-002
+  revision: 1.2.0
+  candidate: 1.2.0-draft.1
+  owner: Stefan
+  created: "2026-08-10"
+  revised: "2026-08-26"
+  supersedes: "v1.1 requirements-only project; archived at history/design-spec-v1.1.yaml"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-034"
+  tool_route: "CadQuery B-Rep core/mechanism; compact vector question-mark relief; STEP/STL/3MF; deterministic mesh/interface checks"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 1.2.0
+    authorized_by: "Stefan — 2026-08-26 autonomous portfolio-completion instruction"
+    basis: "Retains the already user-approved v1.1 appearance/function while replacing the unimplemented ratchet with three directly verifiable independent latch sliders"
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 1.2.0
+    asset: concept_v1-v2.png
+    asset_sha256: "8c7d2a7c049c7eff1b3024ab3c54c58d323c8e49b984575ef37aaf61707d7163"
+    basis: "External form, hidden seam and question-mark camouflage remain unchanged"
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    evidence: [BOM.md, decision-log.md]
+  digital_candidate:
+    status: approved
+    decision: AUTO_APPROVED
+    scope: "P2 DRAFT candidate through deterministic interface-validation"
+    aggregate_report: validation/aggregate-draft.json
+  slicer_preflight:
+    status: blocked
+    reason: "No supported exact slicer/profile identity is available in the workspace"
+  physical_validation:
+    status: blocked
+    reason: "No autonomous print; fit, spring, latch, cycle and appearance evidence is not run"
+  watermark_approval:
+    status: blocked
+    digital_status: PASS
+    asset_id: MM-WM-001-R1
+    product_id: MM-PUZ-002
+    version: 1.2.0
+    reason: "Marked body exists and passes digital checks; exact sliced layers and the physical process coupon remain open"
+  final_release_approval:
+    status: blocked
+    reason: "Exact slicer, physical mechanism, appearance, watermark, safety and commercial human gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Create every missing portfolio model autonomously with the 3D-design skills"
+    - "Existing v1.1 requirements/concept: hidden-seam puzzle box covered in question marks with three functional buttons"
+  retained_from_v1_1:
+    - "250 x 75 x 75 mm external envelope"
+    - "Body cavity and visually merged lid"
+    - "Three buttons on different faces; all three release the lid in any press order"
+    - "Single-color exterior with dense question-mark camouflage"
+    - "No electronics or magnets"
+  recommended_and_auto_approved:
+    - "Three direct independent latch sliders replace the unimplemented central ratchet"
+    - "The buttons must be held simultaneously; releasing any one lets its local latch re-engage"
+    - "Separate process-matched printed leaf springs remain replaceable and coupon-gated"
+    - "Compact vector macro-relief replaces any image-heightmap or dense displaced mesh"
+    - "Current outputs are DRAFT digital candidates, not proof that the hidden mechanism works physically"
+  unresolved_nonblocking:
+    - "Exact printer/material/profile compensation for slider and lid clearances"
+    - "Measured PETG flexure modulus, allowable strain, force and creep"
+    - "Whether the final appearance needs a finer question-mark pitch after the texture coupon"
+
+function:
+  summary: >
+    A decorative desktop puzzle box whose lid is retained at three locations.
+    Each question-mark button is on a different exterior face and retracts one
+    local catch. All three must be held, in any order, while the lid is lifted.
+  users: ["adult desk-display owner", "occasional puzzle user"]
+  included:
+    - "Hollow body and removable hidden-seam lid"
+    - "Front, rear and left-face slider buttons"
+    - "Three replaceable printed return leaves"
+    - "Integrated guide pockets and three lid catch ledges"
+    - "Procedural question-mark relief on body and lid"
+  excluded:
+    - "No sequential code, electronics, magnets, metal springs or secure valuables lock"
+    - "No child-directed use, safety lock or claim that the seam is invisible under every light"
+    - "No automatic printer upload or start"
+
+coordinate_system:
+  units: mm
+  origin: "center of body footprint on the bed datum"
+  x: "length, left to right"
+  y: "depth, front is negative Y"
+  z: "up; body underside is z=0"
+
+geometry:
+  external_envelope_mm: [250.0, 75.0, 75.0]
+  body:
+    height_mm: 65.0
+    wall_mm: 2.5
+    floor_mm: 3.0
+    outer_corner_radius_mm: 4.0
+    inner_corner_radius_mm: 1.5
+  lid:
+    external_height_mm: 10.0
+    top_plate_mm: 3.0
+    skirt_overlap_mm: 7.0
+    skirt_wall_mm: 2.5
+    radial_clearance_each_side_mm: 0.35
+    vertical_clearance_mm: 0.25
+  mechanism:
+    button_count: 3
+    button_faces: [front, rear, left]
+    travel_mm: 1.5
+    slider_running_clearance_mm: 0.30
+    button_face_mm: [12.0, 14.0]
+    replaceable_leaf_mm: [20.0, 6.0, 1.2]
+    guide_keepout_from_corner_mm: 18.0
+  texture:
+    owner: "compact vector/procedural CAD"
+    motif: "question mark"
+    target_count_range: [40, 60]
+    actual_count: 56
+    sizes_mm: [8.0, 11.0, 15.0]
+    relief_mm: 0.60
+    smallest_stroke_target_mm: 1.0
+    protected_margin_mm: 4.0
+    mapping: "metric planar maps on top/front/rear/ends; deterministic positions and rotations"
+    keep_outs:
+      - "lid/body seating surfaces and 4 mm seam band"
+      - "button apertures, guide pockets, latch ledges and travel envelopes"
+      - "bed face and watermark region"
+  protected_regions:
+    - "External envelope, body bed datum and cavity"
+    - "Lid skirt/seating clearance and all three catch ledges"
+    - "Button openings, guide bores and 1.5 mm motion envelopes"
+    - "Leaf spring roots/contact pads"
+    - "Complete watermark plus surrounding underside land"
+
+mechanism:
+  type: "three independent direct latch sliders"
+  operation: >
+    Each external button translates inward by 1.5 mm. Its internal hook moves
+    clear of one lid ledge. The user may press in any order but must hold all
+    three while lifting. A replaceable printed leaf biases each slider outward.
+  assembly: >
+    Insert each slider from the open body interior through its face aperture,
+    seat its return leaf and guide retainer, verify travel, then install the lid.
+  kinematic_status: "Digitally bounded; friction, force, return and reliable release require physical coupons/prototype"
+
+duty:
+  load_class: "decorative, light handling"
+  cycle_target: 50
+  service_life_target: "2 years of occasional indoor use pending qualification"
+  stored_contents: "nonvaluable, nonfragile desk items only"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Pinch/jam at lid or button"
+    - "Printed leaf cracks or creeps and leaves a latch disengaged"
+    - "Loose slider/spring becomes a small part when disassembled"
+    - "Rough question-mark relief snags skin or collects dirt"
+  mitigations:
+    - "Low-energy bounded 1.5 mm travel, rounded edges, replaceable springs and explicit adult decorative scope"
+    - "Fit/flexure coupons, 50-cycle mechanism test and visual/cleaning review before qualification"
+
+fabrication:
+  preference: integrated-print
+  process: fdm-fff
+  operator_printer: "Anycubic Kobra 3 Max; inventory record still open"
+  common_build_volume_mm: [260.0, 220.0, 250.0]
+  packaged_set_build_volume_mm: [420.0, 420.0, 500.0]
+  body_lid_material: "PLA candidate; exact product/profile unresolved"
+  slider_leaf_material: "PETG candidate; exact product/profile and conditioning unresolved"
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  supports: "none intended for exported print orientations"
+  target_formats: [step, stl, 3mf]
+
+optimization:
+  objective: "Keep the hollow product and repeated relief efficient without weakening interfaces or multiplying tiny cells"
+  baseline: "Plain 2.5 mm shell without relief plus solid-body reference volume"
+  candidates:
+    - "A material/process-only: plain shell with matte filament"
+    - "B compact geometry: deterministic vector question-mark relief"
+    - "C dense image relief: rejected unless vector appearance fails a coupon"
+  selected_geometry_direction: "B for digital candidate; exact print-time selection blocked until slicing"
+  mesh_simplification:
+    status: accepted_not_beneficial
+    evidence: validation/optimization-report.json
+    triangle_target: 250000
+    triangle_stop: 750000
+    peak_memory_gib: 4
+    max_mesh_mib: 25
+    max_slicer_seconds: 180
+
+acceptance:
+  digital:
+    - "Body, lid, generic slider and return leaf each export as one positive watertight body"
+    - "Closed assembly stays inside 250 x 75 x 75 mm; every print orientation fits 260 x 220 x 250 mm"
+    - "Lid skirt/body clearance is 0.35 mm each side and button travel envelope is 1.5 mm without CAD collision"
+    - "Texture stays outside keep-outs and the complete manufacturing mesh remains below 250,000 triangles per part"
+    - "STEP, STL and one multi-object DRAFT 3MF reopen successfully"
+  physical:
+    - "Slider clearance coupon returns freely on the exact process"
+    - "Leaf coupon survives 50 operating cycles without crack or unacceptable permanent set"
+    - "All six press-order permutations open and re-lock three times each"
+    - "Repeated presses of one/two buttons never release the lid"
+    - "Closed seam and camouflage are acceptable from 0.5 m; relief is comfortable and cleanable"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-PUZ-002
+  version: 1.2.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: "centered body underside, clear of walls and mechanism"
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+deliverables:
+  - "Parametric CadQuery source and deterministic build"
+  - "Body, lid, generic slider and return-leaf STEP/STL plus multi-object DRAFT 3MF"
+  - "Assembly render/exploded view, BOM, print profile and revised test plan"
+  - "Texture, mesh, interface, watermark and aggregate validation evidence"

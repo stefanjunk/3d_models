@@ -16,7 +16,7 @@ CI, Firebase/security setup, legal drafting, support runbooks and product work s
 - [ ] Create release/source/component/decision templates, require the `metriMade.com · <PRODUCT_ID> · v<VERSION>` geometry-mark invariant for physical metriMade releases, and dry-run them.
 - [x] Reactivate approved `MM-ORG-001` requirements `0.1.0-requirements`: common-220 nine-module tool organizer, full-depth tool lane, removable comb, 18 small-parts compartments and seam-relative planar connectors. The 0.2/0.3 branches remain historical. Reactivated by Stefan Junk and concept v1 approved at Gate 0B on 2026-08-26. Freeze the other two product requirements separately.
 - [ ] Correct DrawerFit connector evidence and print coupons.
-- [ ] Begin NameForm and ShelfFit controlled CAD.
+- [x] Build controlled `P2` digital candidates for NameForm and ShelfFit; both have frozen validation contracts and open exact-slicer/physical gates.
 - [ ] Interview target users and test the measurement guide.
 - [ ] Reconcile the website development branch; add CI.
 - [ ] Establish staging/prod environments, tax/payment decision, legal work and support/incident runbooks.

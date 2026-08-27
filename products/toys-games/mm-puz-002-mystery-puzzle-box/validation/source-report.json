@@ -1,0 +1,178 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "source-import",
+      "message": "CadQuery source imports and builds without exception",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "brep-validity",
+      "message": "Body, lid, slider and leaf are each one valid OpenCascade solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "parameter-contract",
+      "message": "Default dimensions and minimum wall assertions pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "source/puzzle_box.py",
+      "sha256": "a67034cc850524db36e1d919101ac8bff9775259d30df5a22c9ee646c96d2f0e",
+      "size_bytes": 15334
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "ddcfdf72ef9756a08f5e13801db0b70c82bf113c486c6c08e6254be81b7fa3b3",
+      "size_bytes": 10249
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "cad_metrics": {
+      "body": {
+        "body_count": 1,
+        "bounds_mm": [
+          250.0485253084333,
+          75.04852530843331,
+          65.01096392196342
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          125.02426265421666,
+          37.524262654216656,
+          65.00548196098171
+        ],
+        "min_mm": [
+          -125.02426265421666,
+          -37.524262654216656,
+          -0.005481960981712875
+        ],
+        "surface_area_mm2": 120624.04402254468,
+        "volume_mm3": 153241.02014814634
+      },
+      "leaf": {
+        "body_count": 1,
+        "bounds_mm": [
+          24.500000200000002,
+          8.0000002,
+          3.0000002000000006
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          24.5000001,
+          4.0000001,
+          3.0000001000000003
+        ],
+        "min_mm": [
+          -1.000000002220446e-07,
+          -4.0000001,
+          -1.000000004440892e-07
+        ],
+        "surface_area_mm2": 438.79999999999995,
+        "volume_mm3": 260.40000000000003
+      },
+      "lid": {
+        "body_count": 1,
+        "bounds_mm": [
+          250.0,
+          75.0,
+          17.000000099999994
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          125.0,
+          37.5,
+          75.0000001
+        ],
+        "min_mm": [
+          -125.0,
+          -37.5,
+          58.0
+        ],
+        "surface_area_mm2": 57915.70672346869,
+        "volume_mm3": 90481.21264187356
+      },
+      "plain_body": {
+        "body_count": 1,
+        "bounds_mm": [
+          250.0,
+          75.0,
+          65.0
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          125.0,
+          37.5,
+          65.0
+        ],
+        "min_mm": [
+          -125.0,
+          -37.5,
+          0.0
+        ],
+        "surface_area_mm2": 118899.7353783493,
+        "volume_mm3": 153969.60418455765
+      },
+      "plain_lid": {
+        "body_count": 1,
+        "bounds_mm": [
+          250.0,
+          75.0,
+          17.0
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          125.0,
+          37.5,
+          75.0
+        ],
+        "min_mm": [
+          -125.0,
+          -37.5,
+          58.0
+        ],
+        "surface_area_mm2": 57165.82385664508,
+        "volume_mm3": 90799.10095102093
+      },
+      "slider": {
+        "body_count": 1,
+        "bounds_mm": [
+          14.300000200000005,
+          16.000000200000002,
+          10.219712571253913
+        ],
+        "brep_valid": true,
+        "max_mm": [
+          7.300000100000002,
+          8.000000100000001,
+          10.200000200000003
+        ],
+        "min_mm": [
+          -7.000000100000003,
+          -8.000000100000001,
+          -0.01971237125390892
+        ],
+        "surface_area_mm2": 802.3688976526505,
+        "volume_mm3": 772.2823625226905
+      }
+    },
+    "cadquery_version": "2.9.0.dev0"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "puzzle-box-source-check",
+  "tool_version": "1.0.0"
+}

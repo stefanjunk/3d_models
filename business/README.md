@@ -1,10 +1,10 @@
 # metriMade / metriCreate business workspace
 
-Status: working business source of truth, reviewed 2026-08-25.
+Status: working business source of truth, reviewed 2026-08-26.
 
 Legal operator: `Stefan Junk Holding UG (haftungsbeschränkt)`, founded in 2019; umbrella business designation: `JuSt Innovation`. The intended public names are `metriMade` and `metriCreate`. See the [operator profile](06-legal-compliance/operator-profile.md), [responsibility matrix](06-legal-compliance/responsibility-and-signing-matrix.md) and [brand/domain clearance record](06-legal-compliance/brand-and-domain-clearance.md); launch remains blocked pending the remaining verification and approvals.
 
-This folder turns the material in `market_research/`, the local 3D-model workspace, and the webshop snapshot into one focused plan. It supersedes the scattered task lists for business prioritization; those files remain research inputs, not current commitments.
+This folder turns the material in `research/market/`, the local 3D-model workspace, and the webshop snapshot into one focused plan. It supersedes the scattered task lists for business prioritization; those files remain research inputs, not current commitments.
 
 ## Business in one paragraph
 
@@ -14,11 +14,11 @@ This folder turns the material in `market_research/`, the local 3D-model workspa
 
 Launch only after three low-risk products have a complete commercial release package. They form the first technical `metriCreate` digital catalog and, where their presentation and use fit the premium consumer promise, the first eligible `metriMade` subset:
 
-1. `MM-ORG-001` DrawerFit Modular — existing digital draft, physical and commercial gates open.
-2. `MM-PER-001` NameForm Bookends — research-backed concept, CAD not yet created.
-3. `MM-ORG-002` ShelfFit Mini Bins — research-backed concept, CAD not yet created.
+1. `MM-ORG-001` DrawerFit Modular — `P2` digital candidate; slicer, physical and commercial gates open.
+2. `MM-PER-001` NameForm Bookends — `P2` parametric digital candidate; slicer, physical and commercial gates open.
+3. `MM-ORG-002` ShelfFit Mini Bins — `P2` parametric digital candidate; slicer, physical and commercial gates open.
 
-There are currently **zero live or commercially release-ready products** under the stricter definition in [product lifecycle and release gates](02-portfolio/product-lifecycle-and-release-gates.md). `MM-MKR-001` CyberVault is the closest technical release-pipeline pilot, but it is not a launch hero for the small-space value proposition.
+The deterministic portfolio audit now finds at least one local neutral/manufacturing 3D artifact for **58 of 58 records**; 42 also have detected parametric source and 24 have at least one 3MF. That is model coverage, not release readiness: there are still **zero live or commercially release-ready products** under the stricter definition in [product lifecycle and release gates](02-portfolio/product-lifecycle-and-release-gates.md). `MM-MKR-001` CyberVault is the closest technical release-pipeline pilot, but it is not a launch hero for the small-space value proposition.
 
 The first transactional release remains digital-only, Germany-only, with one safe-core 3MF per revision and therefore belongs to `metriCreate`. `metriMade` may present the curated consumer proposition honestly, but `as-is` printed checkout remains disabled until one SKU passes printed-fulfillment qualification. Advanced parameterization remains disabled until the `metriCreate` configuration pipeline passes its own gate. This staging implements the two-brand architecture without pretending that all three fulfillment modes are ready at once.
 
@@ -33,7 +33,7 @@ The first transactional release remains digital-only, Germany-only, with one saf
 | Revenue and channels | [Business model](01-strategy/business-model.md) |
 | Decisions and risks | [Decisions/open questions](01-strategy/decisions-and-open-questions.md), [risk register](07-roadmap/risk-register.md) |
 | Initial portfolio | [Initial portfolio](02-portfolio/initial-portfolio.md) |
-| Every local model reviewed | [Current portfolio review](02-portfolio/current-portfolio-review.md) and `product-portfolio.xlsx` |
+| Every local model reviewed | [Current portfolio review](02-portfolio/current-portfolio-review.md), [artifact audit](02-portfolio/model-artifact-audit.md) and `product-portfolio.xlsx` |
 | Status meanings | [Product lifecycle](02-portfolio/product-lifecycle-and-release-gates.md) |
 | Unknown downloads | [External-model exclusion](02-portfolio/external-model-exclusion.md) |
 | Research findings | [Market synthesis](03-market/market-research-synthesis.md) |

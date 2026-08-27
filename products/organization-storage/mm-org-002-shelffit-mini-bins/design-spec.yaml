@@ -1,0 +1,232 @@
+# ShelfFit Mini Bins — active design specification (single source of truth)
+
+project:
+  id: MM-ORG-002
+  name: "ShelfFit Mini Bins"
+  sku: MM-ORG-002
+  revision: 0.1.0
+  candidate: 0.1.0-draft.1
+  owner: Stefan
+  created: "2026-08-26"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-003"
+  tool_route: "CadQuery B-Rep source of truth; STEP/STL/3MF exports; Trimesh and validate-printable-3d-projects evidence"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0
+    authorized_by: "Stefan — 2026-08-26 autonomous portfolio-completion instruction"
+    basis: "User selected the portfolio product and explicitly delegated workflow-stage approvals through the local print-candidate boundary"
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0
+    asset: "concept/shelffit-mini-bins-v0.1.0-concept.png"
+    asset_sha256: "006762516309f7fafbb1afd266350a191a3d6770b2f412ffb6235ebe48ea43af"
+    approved_by: "codex-root under autonomy-policy.json"
+    approved_at: "2026-08-26"
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    evidence: [BOM.md, decision-log.md]
+  digital_candidate:
+    status: approved
+    decision: AUTO_APPROVED
+    scope: "P2 DRAFT candidate through deterministic interface-validation"
+    aggregate_report: validation/aggregate-draft.json
+  slicer_preflight:
+    status: blocked
+    reason: "No supported exact slicer/profile identity is currently available in the workspace"
+  physical_validation:
+    status: blocked
+    reason: "No autonomous printer upload/start; shelf-fit, load and use tests require human-operated evidence"
+  watermark_approval:
+    status: blocked
+    digital_status: PASS
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-002
+    version: 0.1.0
+    reason: "Marked candidate exists and passes digital checks; exact sliced layers and the physical watermark coupon remain open"
+  final_release_approval:
+    status: blocked
+    reason: "Slicer, physical, appearance, safety, watermark and commercial human gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Use the next portfolio product without a 3D model and create its model"
+    - "Update the portfolio after the model exists and continue until every listed product has a model"
+    - "Use the 3D-design skills and exercise delegated workflow-stage approvals without interruption"
+  inferred:
+    - "The portfolio order and P0 NOW priority select MM-ORG-002 ShelfFit Mini Bins"
+    - "The first revision should match the business constraint for low-risk, non-stacking, common-printer storage"
+    - "One fixed manufacturing body is printed twice to form the reference two-bin set"
+  recommended:
+    - "Open-top one-piece bins without lid, stacking interface, snap-fit panel or printed load claim"
+    - "A fixed 420 x 210 x 150 mm reference shelf contract with explicit provisional clearances"
+    - "A smooth, cleanable shell with a reinforced top rim and centered front finger scoop"
+    - "0.6 mm functional nozzle route with three-path walls and support-free upright printing"
+  unresolved_nonblocking:
+    - "Exact shelf revision and measurement uncertainty"
+    - "Exact filament manufacturer, printer profile and calibrated dimensional compensation"
+    - "Final color/finish, label treatment and any later decorative front texture"
+
+function:
+  summary: >
+    A pair of identical open-top mini storage bins that uses the measured width,
+    depth and height of a reference shelf efficiently. Each bin prints as one
+    support-free body and is removed with a centered front finger scoop.
+  intended_users:
+    - "Adults organizing light indoor household, office or hobby items"
+  included:
+    - "One parametric bin body; reference set quantity two"
+    - "Fixed reference-layout calculation and dimensional clearance contract"
+    - "Smooth interior, rounded plan corners, reinforced top rim and front grip scoop"
+  excluded:
+    - "No lid, stacking, wall mounting, hanging, child-directed or food-contact use"
+    - "No liquid containment, structural shelf function or certified load rating"
+    - "No unbounded customer-generated manufacturing files in the commercial release"
+
+coordinate_system:
+  units: mm
+  origin: "center of the bin footprint on the print-bed datum"
+  x: "left-to-right across the shelf opening"
+  y: "front-to-back; front face is negative Y"
+  z: "up; original bed datum is z=0"
+
+reference_layout:
+  shelf_internal_mm: [420.0, 210.0, 150.0]
+  count_across: 2
+  side_clearance_each_mm: 1.0
+  inter_bin_gap_mm: 1.0
+  depth_clearance_total_mm: 2.0
+  top_clearance_mm: 2.0
+  body_outer_mm: [208.5, 208.0, 148.0]
+  set_width_check_mm: "2 * 208.5 + 1.0 + 2 * 1.0 = 420.0"
+  nominal_shelf_volume_utilization_percent: 97.3
+  qualification_note: "Clearances are provisional until the exact shelf and printed process are measured"
+
+geometry:
+  architecture:
+    - "Rounded-rectangle continuous shell with a closed smooth floor"
+    - "Open top; no unsupported roof and no generated support"
+    - "Local top perimeter beam carries pull and handling loads"
+    - "Centered semicircular front scoop is open to the top"
+  parameters_mm:
+    body_width: 208.5
+    body_depth: 208.0
+    body_height: 148.0
+    wall: 1.92
+    floor: 1.8
+    outer_corner_radius: 8.0
+    top_rim_height: 3.6
+    top_rim_overhang_each_side: 0.75
+    grip_radius: 24.0
+    grip_center_z: 148.0
+    elephant_foot_relief: 0.4
+  maximum_part_envelope_mm: [210.0, 209.5, 148.0]
+  minimum_nominal_wall_mm: 1.92
+  watermark_host_floor_mm: 1.8
+  protected_regions:
+    - "Outer reference envelope and print-bed datum"
+    - "Smooth floor and all inner containment surfaces"
+    - "Top perimeter beam and both grip shoulders"
+    - "Rounded exposed edges and the front scoop"
+    - "Underside watermark safe region after geometry lock"
+
+duty:
+  item_scope: "light household, office and hobby contents"
+  provisional_distributed_content_mass_kg_per_bin: 1.5
+  handling_cycles_target: 100
+  service_environment: "static indoor use, 10–30 °C, normal residential moisture, limited UV"
+  service_life_target: "2 years pending physical qualification"
+  acceptance_load_note: "No public load claim until the exact printed revision passes the physical test plan"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Poor measurement or process drift can cause shelf jamming or insufficient clearance"
+    - "Bottom or grip can crack when overloaded or pulled abruptly"
+    - "Rough printed edges can snag hands or stored items"
+  mitigations:
+    - "Fail-closed envelope checks, fit coupon, rounded edges, reinforced rim and explicit non-stacking scope"
+    - "Physical distributed-load, pull-cycle, edge and cleaning tests before qualification"
+
+fabrication:
+  preference: integrated-print
+  process: fdm-fff
+  operator_printer: "Anycubic Kobra 3 Max; inventory record still open"
+  common_build_volume_mm: [220.0, 220.0, 250.0]
+  primary_material: "Matte PLA candidate; exact supplier/profile not yet identified"
+  alternative_material: "PETG only after separate dimensional and creep qualification"
+  nozzle_mm: 0.6
+  line_width_mm: 0.68
+  layer_height_mm: 0.30
+  orientation: "upright, closed floor on z=0"
+  supports: none
+  infill_starting_point_percent: 0
+  target_formats: [step, stl, 3mf]
+  delivery: "One marked bin file with set quantity two"
+
+optimization:
+  objective: "Reduce material and print time while preserving containment, pull path, bed fit and cleanability"
+  protected_constraints:
+    - "Reference envelope and clearances unchanged"
+    - "Continuous three-path nominal side wall and six-layer floor"
+    - "Continuous top rim around the grip shoulders"
+    - "No openings in floor or side walls and no exposed infill"
+  baseline: "Conservative 2.72 mm shell and 2.4 mm floor at the same outer envelope"
+  candidates:
+    - "A process-only: conservative geometry with 0.6 mm nozzle / 0.30 mm layer"
+    - "B geometry-only: 1.92 mm walls, 1.8 mm floor and local top rim at the baseline process"
+    - "C combined: candidate B with the defined 0.6 mm process"
+  selection_rule: "CAD volume may select the geometry direction; exact print-time selection remains blocked until identical-profile slicing"
+  mesh_simplification:
+    status: accepted_not_beneficial
+    evidence: validation/mesh-simplification.json
+    policy: "Retain direct CadQuery tessellation unless a measured alternative gives meaningful handling benefit within 0.05 mm surface deviation"
+    resource_budget:
+      triangle_target: 100000
+      triangle_stop: 250000
+      peak_memory_gib: 2
+      max_mesh_mib: 10
+      max_slicer_seconds: 120
+
+acceptance:
+  digital:
+    - "One positive watertight body; consistent winding; no degenerate faces"
+    - "Bounds equal 210.0 x 209.5 x 148.0 mm within 0.10 mm"
+    - "Fits 220 x 220 x 250 mm with at least 5.0 mm XY margin"
+    - "Nominal body wall 1.92 mm, floor 1.8 mm, watermark residual floor at least 1.2 mm"
+    - "Reference set layout satisfies the declared shelf equation and at least 95% nominal volume utilization"
+    - "STEP, STL and 3MF reopen successfully; source rebuild is deterministic"
+  slicer:
+    - "No support, missing walls, unintended gap fill or lost watermark strokes"
+    - "Three wall paths and six floor layers confirmed with the exact profile"
+    - "Peak volumetric flow stays within the measured printer/material limit"
+  physical:
+    - "Fit coupon and unchanged pair insert/remove without binding in the measured shelf"
+    - "Each bin carries 1.5 kg distributed load for 24 h with no crack or permanent set and <=2.0 mm center deflection"
+    - "100 loaded pull/replace cycles with no grip or rim damage"
+    - "No sharp/snaggable edge; interior can be wiped clean and dried"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-002
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: "centered on the nonfunctional underside, clear of the perimeter bed land"
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+deliverables:
+  - "Parametric CadQuery source and deterministic build entry point"
+  - "Unmarked master plus marked DRAFT STEP, STL and standards-valid 3MF"
+  - "Concept sheet, BOM/decomposition, print profile and physical test plan"
+  - "Optimization, mesh, interface, watermark and aggregate validation reports"
+  - "Portfolio CSV/XLSX and review updates tied to the delivered model"

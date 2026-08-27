@@ -4,14 +4,14 @@
 
 Each product has a stable folder/record keyed by SKU and revision. The same revision identifier appears in CAD parameters, exports, checksums, tests, catalog data, customer package, orders, support cases, and takedowns.
 
-For every newly manufactured metriMade revision, the same identity also appears as a recessed geometry mark on the product: `metriMade.com` and `<PRODUCT_ID> · v<VERSION>`. Generate it with the versioned [metriMade watermark package](../../metrimade-watermark/README.md); never type or edit the trace line independently.
+For every newly manufactured metriMade revision, the same identity also appears as a recessed geometry mark on the product: `metriMade.com` and `<PRODUCT_ID> · v<VERSION>`. Generate it with the versioned [metriMade watermark package](../../tools/metrimade-watermark/README.md); never type or edit the trace line independently.
 
 ## Workflow
 
 1. **Select:** product owner records customer problem, fit envelope, intended use, excluded uses, markets, and delivery modes.
 2. **Specify:** requirements, measurable acceptance criteria, printer/material constraints, safety questions, and configuration limits are approved.
 3. **Design:** editable source of truth, components, datums, parameters, licenses, and deterministic build are established.
-4. **Digitally validate:** geometry, dimensions, interfaces, walls/features, build volume, orientation, formats, and hashes are checked.
+4. **Digitally validate:** geometry, dimensions, interfaces, products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/features, build volume, orientation, formats, and hashes are checked.
 5. **Prototype:** coupons first, then a complete intended-profile print. Failures become revisions, not undocumented sanding/scaling instructions.
 6. **Qualify:** three reproducible final-revision prints; dimensional, fit, use, misuse, stability, wear/cycles, and appearance evidence appropriate to claims.
 7. **Commercialize:** rights, product-safety decision, instructions, warnings, license, price/cost, media, alt text, translations, support and release manifest.

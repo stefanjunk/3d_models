@@ -1,0 +1,137 @@
+project:
+  id: systemmoebel-top20-cad
+  revision: R0.2-DRAFT
+  approval_basis: user-request-2026-08-20
+  geometry_scope_approved: true
+  production_release: false
+  units: mm
+  target_build_volume: [256, 256, 256]
+  source_report: ../bericht-top20-systemmoebel-zubehoer-ikea.md
+
+global_requirements:
+  - exactly 20 numbered concept products
+  - one connected printable body per product STL
+  - editable STEP plus parametric CadQuery source
+  - ordinary functional walls nominally at least 2.4 mm
+  - support-free design intent with broad bed contact
+  - no structural furniture replacement or safety claim
+  - furniture interfaces remain provisional until measured
+  - physical fit, load, creep, marking and slicer gates block production release
+
+manufacturing_baseline:
+  material_primary: PETG
+  nozzle: 0.6
+  line_width: 0.68
+  layer_height: 0.28
+  nominal_xy_clearance_per_side: 0.35
+  process_status: UNSLICED_UNPRINTED
+
+models:
+  - id: 1
+    function: exact-fit asymmetric workplace drawer tray
+    protected: [outer envelope, floor, perimeter, divider roots]
+    interface: provisional drawer envelope
+    physical_gate: drawer fit and close-cycle test
+  - id: 2
+    function: recessed workshop tool shadow tray
+    protected: [floor ligament, perimeter, tool-pocket bridges]
+    interface: provisional drawer envelope
+    physical_gate: tool fit and point-load test
+  - id: 3
+    function: asymmetric wardrobe accessory grid
+    protected: [floor, perimeter, divider intersections]
+    interface: provisional drawer envelope
+    physical_gate: drawer fit and removal test
+  - id: 4
+    function: three-level collection riser
+    protected: [base, vertical webs, tread load paths]
+    interface: freestanding provisional shelf envelope
+    physical_gate: bridge-quality and deflection test
+  - id: 5
+    function: tool-holder workflow cluster
+    protected: [backplate, holder roots, paired strap slots]
+    interface: purchased straps through board, routing provisional
+    physical_gate: strap routing, pull-off and 100-cycle test
+  - id: 6
+    function: vertical board-game library matrix
+    protected: [base frame, 3.2 mm dividers, full-height rear brace]
+    interface: freestanding provisional cube envelope
+    physical_gate: full-height print and lateral-deflection test
+  - id: 7
+    function: asymmetric collection cells
+    protected: [base, 3.0 mm dividers, full-height rear brace]
+    interface: freestanding provisional cabinet envelope
+    physical_gate: full-height print and lateral-deflection test
+  - id: 8
+    function: precision-tool workflow cluster
+    protected: [backplate, holder roots, slotted retention flanges]
+    interface: purchased straps or M4 hardware, routing provisional
+    physical_gate: hardware routing, pull-off and 100-cycle test
+  - id: 9
+    function: ventilated passive media platform
+    protected: [perimeter grid, device rails, vent and cable keep-outs]
+    interface: freestanding provisional cabinet envelope
+    physical_gate: device mapping and worst-case temperature test
+  - id: 10
+    function: small-item-retaining wire-shelf overlay
+    protected: [continuous deck, maximum 6 mm vents, wire jaws, front lip]
+    interface: provisional wire diameter and pitch
+    physical_gate: object-retention, coating and jaw-cycle test
+  - id: 11
+    function: light cleaning-accessory docking rail
+    protected: [backplate, dock roots, dual-slot strap flanges]
+    interface: purchased straps, routing provisional
+    physical_gate: routing, pull-off and 100-cycle test
+  - id: 12
+    function: controller and media drawer tray
+    protected: [floor, perimeter, device nests]
+    interface: provisional drawer and device envelopes
+    physical_gate: drawer and device fit test
+  - id: 13
+    function: adult workshop compartment insert
+    protected: [floor, perimeter, divider roots, captive wells]
+    interface: provisional bin envelope
+    physical_gate: bin fit and adult-use risk assessment
+  - id: 14
+    function: vertical creative-material cassette
+    protected: [ribbed base, 3.2 mm combs, full-height rear brace, front sill]
+    interface: freestanding provisional cube envelope
+    physical_gate: full-height print and lateral-deflection test
+  - id: 15
+    function: basket microsorter
+    protected: [open perimeter, divider grid, wire clips]
+    interface: provisional basket-wire geometry
+    physical_gate: wire fit, coating and slide-cycle test
+  - id: 16
+    function: open-bottom fold-size drawer grid
+    protected: [perimeter, intersections, widened roots]
+    interface: provisional drawer envelope
+    physical_gate: full-height print and drawer fit test
+  - id: 17
+    function: no-drill side-frame inventory rail
+    protected: [C-clips, reinforced roots, continuous rail]
+    interface: provisional timber-post section
+    physical_gate: fit, marking, creep and low-load test
+  - id: 18
+    function: three-level open display matrix
+    protected: [base runners, support webs, 56-degree shoulders]
+    interface: freestanding provisional shelf envelope
+    physical_gate: overhang toolpath and deflection test
+  - id: 19
+    function: reversible cable-parking desk clamp
+    protected: [C-channel, broad pad lands, cable slots]
+    interface: provisional desk thickness and optional TPU pads
+    physical_gate: marking, creep, insertion and cable-retention test
+  - id: 20
+    function: low-load two-pocket leg dock
+    protected: [C-clip, root pad, gussets, pocket floor]
+    interface: provisional square-leg section
+    physical_gate: insertion, creep, cantilever and table-tip test
+
+release_gates:
+  digital_geometry: required
+  step_reimport: required
+  slicer_toolpaths: blocked
+  fit_coupons: blocked
+  physical_load: blocked
+  production: blocked

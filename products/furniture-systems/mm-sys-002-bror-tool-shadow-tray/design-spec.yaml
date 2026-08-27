@@ -1,0 +1,66 @@
+project:
+  id: MM-SYS-002
+  portfolio_record: PORT-040
+  name: BROR Tool Shadow Tray measurement pilot
+  revision: 0.2.0-draft.1
+  status: provisional-digital-geometry
+  lineage: ../../systemmoebel_top20/models/group_a.py model 02
+  compatibility_claim: none; BROR identifies only the intended measurement pilot
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  physical_validation: deferred-by-user
+  exact_slicer: not-run
+
+requirements:
+  function: removable recessed tool-layout tray for an adult workshop drawer
+  envelope_mm: [216.0, 180.0, 28.0]
+  target_printer_mm: [220.0, 220.0, 250.0]
+  bed_margin_each_x_mm: 2.0
+  included:
+    - one parametric shadow tray
+    - three full-width measurement gauges
+    - hammer, screwdriver, open-wrench and three socket-zone concept recesses
+  excluded:
+    - guaranteed BROR or tool compatibility
+    - sharp-tool retention or transport claim
+    - structural drawer function
+    - child use or load rating
+
+geometry:
+  source_of_truth: model-parameters.json
+  floor_ligament_mm: 2.4
+  pocket_depth_mm: 5.4
+  perimeter_wall_mm: 2.7
+  protected:
+    - external envelope and bed face
+    - continuous perimeter and floor ligament
+    - material bridges between all recesses
+    - gauge end faces defining width
+
+manufacturing:
+  material_assumption: PETG or PLA prototype
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.2
+  support_intent: none
+  orientation: recessed floor on bed; gauge bases on bed
+  print_package: inventory 3MF; arrange parts on separate plates
+
+acceptance:
+  digital:
+    - every functional dimension and recess is parameterized
+    - tray and gauges fit a 220 mm build plate with the tray retaining 2 mm X margin per side
+    - tray has one connected watertight positive-volume mesh
+    - floor ligament is at least 2.4 mm
+    - all recesses stay inside the protected perimeter and do not overlap
+    - three gauges encode 215.30, 216.00 and 216.70 mm
+    - valid four-object 3MF exists
+  deferred:
+    - exact furniture revision and three-point drawer measurements
+    - exact tools/clearances and gauge/recess coupons
+    - slicer/G-code, full print, point load, cleaning and removal cycles
+
+claim_boundary:
+  - PROVISIONAL_UNVERIFIED furniture and tool geometry.
+  - The 216 mm width is a common-printer measurement pilot, not a BROR specification.

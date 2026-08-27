@@ -1,0 +1,184 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "Tray fits the configured build volume.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-margin",
+      "message": "Tray retains the configured X bed margin.",
+      "metrics": {
+        "margin_each_mm": 2.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "wall-line-alignment",
+      "message": "Perimeter equals six nominal line widths.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "floor-ligament",
+      "message": "Pocket floor ligament is at least 2.4 mm.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pocket-depth",
+      "message": "Recess deck leaves a positive upper tray cavity.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-ladder",
+      "message": "Gauge ladder encodes nominal plus/minus twice provisional per-side clearance.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-parts",
+      "message": "Tray and three gauges built successfully.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "print-package",
+      "message": "Four-object DRAFT 3MF exists.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "interface-contract",
+      "message": "Digital interface contract passes.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "e2441ce7b5d82e422b381dbe24695df0a9896432ffa4ffa82c596f61263124b3",
+      "size_bytes": 1587
+    },
+    {
+      "path": "cad/build_bror_tray.py",
+      "sha256": "6128d55640b285d5133ccab9f069be64189156758080a7a7885abdebf6de2dd7",
+      "size_bytes": 17254
+    }
+  ],
+  "limitations": [
+    "Exact slicer, furniture/tool fit and physical validation are deferred."
+  ],
+  "metrics": {
+    "artifacts": {
+      "gauge-high-216p70": {
+        "mesh": {
+          "components": 1,
+          "extents_mm": [
+            216.7,
+            14.0,
+            5.1
+          ],
+          "file_bytes": 24684,
+          "positive_volume": true,
+          "surface_area_mm2": 7933.49689083312,
+          "triangles": 492,
+          "volume_mm3": 12150.477006888705,
+          "watertight": true,
+          "winding_consistent": true
+        },
+        "report": "validation/build-gauge-high-216p70.json",
+        "step": "exports/master/DRAFT-MM-SYS-002-gauge-high-216p70-0.2.0-draft.1.step",
+        "stl": "exports/manufacturing/DRAFT-MM-SYS-002-gauge-high-216p70-0.2.0-draft.1.stl"
+      },
+      "gauge-low-215p30": {
+        "mesh": {
+          "components": 1,
+          "extents_mm": [
+            215.3,
+            14.0,
+            5.1
+          ],
+          "file_bytes": 23084,
+          "positive_volume": true,
+          "surface_area_mm2": 7855.817033717891,
+          "triangles": 460,
+          "volume_mm3": 12052.717267820237,
+          "watertight": true,
+          "winding_consistent": true
+        },
+        "report": "validation/build-gauge-low-215p30.json",
+        "step": "exports/master/DRAFT-MM-SYS-002-gauge-low-215p30-0.2.0-draft.1.step",
+        "stl": "exports/manufacturing/DRAFT-MM-SYS-002-gauge-low-215p30-0.2.0-draft.1.stl"
+      },
+      "gauge-nominal-216p00": {
+        "mesh": {
+          "components": 1,
+          "extents_mm": [
+            216.0,
+            14.0,
+            5.1
+          ],
+          "file_bytes": 23884,
+          "positive_volume": true,
+          "surface_area_mm2": 7894.6569518980095,
+          "triangles": 476,
+          "volume_mm3": 12101.597126980307,
+          "watertight": true,
+          "winding_consistent": true
+        },
+        "report": "validation/build-gauge-nominal-216p00.json",
+        "step": "exports/master/DRAFT-MM-SYS-002-gauge-nominal-216p00-0.2.0-draft.1.step",
+        "stl": "exports/manufacturing/DRAFT-MM-SYS-002-gauge-nominal-216p00-0.2.0-draft.1.stl"
+      },
+      "tray": {
+        "mesh": {
+          "components": 1,
+          "extents_mm": [
+            216.0,
+            180.0,
+            28.0
+          ],
+          "file_bytes": 230084,
+          "positive_volume": true,
+          "surface_area_mm2": 120629.01520228338,
+          "triangles": 4600,
+          "volume_mm3": 304620.03390958684,
+          "watertight": true,
+          "winding_consistent": true
+        },
+        "report": "validation/build-tray.json",
+        "step": "exports/master/DRAFT-MM-SYS-002-bror-tool-shadow-tray-0.2.0-draft.1.step",
+        "stl": "exports/manufacturing/DRAFT-MM-SYS-002-bror-tool-shadow-tray-0.2.0-draft.1.stl"
+      }
+    },
+    "print_set": "exports/3mf/DRAFT-MM-SYS-002-bror-measurement-pilot-0.2.0-draft.1.3mf"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-SYS-002-parametric-source",
+  "tool_version": "0.2.0"
+}

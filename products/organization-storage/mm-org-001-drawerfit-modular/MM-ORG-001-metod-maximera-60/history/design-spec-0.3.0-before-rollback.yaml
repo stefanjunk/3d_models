@@ -1,0 +1,351 @@
+# MM-ORG-001 METOD/MAXIMERA 60 — single source of truth
+# Skill: functional-3d-design | Gate policy: requirements-concept-approval.md
+project:
+  id: MM-ORG-001-metod-maximera-60
+  product_id: MM-ORG-001
+  working_name: "DrawerFit Modular — METOD/MAXIMERA 60"
+  public_title_policy: "descriptive title plus product ID; DrawerFit remains an internal working label"
+  variant_id: METOD-MAXIMERA-60
+  revision: 0.3.0-requirements
+  units: mm
+  owner: "Stefan Junk Holding UG (haftungsbeschränkt)"
+  created: "2026-08-25"
+  status: concept-pending-approval
+  parent_source:
+    path: "products/organization-storage/mm-org-001-drawerfit-modular/DRAFT-schubladen-organizer-R1.6-parametric-surfaces/schubladen-organizer"
+    revision: R1.6-parametric-surfaces
+    treatment: "visual/functional reference only; new CadQuery source after approval; never overwrite the parent draft"
+  tool_route: "CadQuery 2.9 B-Rep source of truth; STEP export; Trimesh validation and 3MF packaging"
+  research: "research/common-drawer-sizes.md"
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 0.3.0-requirements
+    approved_by: "Stefan Junk (explicit chat approval: 'freigegeben', replying to the 0.3.0 two-connectors-per-seam approval request)"
+    approved_at: "2026-08-26"
+  concept_approval:
+    status: pending
+    spec_revision: 0.3.0-requirements
+    asset: "concept/MM-ORG-001-concept-sheet-v3.png"
+    approved_by: null
+    approved_at: null
+  approval_history:
+    - gate: requirements
+      status: approved
+      spec_revision: 0.1.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: 'freigegeben')"
+      approved_at: "2026-08-25"
+      invalidated_by: "0.2.0 requirement change: no tool-only layout, remove comb, minimize segmentation and eliminate inter-module connectors by default"
+    - gate: concept
+      status: not-approved-before-change
+      spec_revision: 0.1.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v1.png"
+    - gate: requirements
+      status: approved
+      spec_revision: 0.2.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: '0.2.0 freigegeben: Kobra-420, mixed set')"
+      approved_at: "2026-08-26"
+      invalidated_by: "0.3.0 requirement change: reintroduce inter-module connectors while retaining the largest possible Kobra-420 tray parts"
+    - gate: concept
+      status: not-approved-before-change
+      spec_revision: 0.2.0-requirements
+      asset: "concept/MM-ORG-001-concept-sheet-v2.png"
+      invalidated_by: "0.3.0 connector requirement"
+    - gate: requirements
+      status: approved
+      spec_revision: 0.3.0-requirements
+      approved_by: "Stefan Junk (explicit chat approval: 'freigegeben', replying to the 0.3.0 two-connectors-per-seam approval request)"
+      approved_at: "2026-08-26"
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: MM-WM-001-R1
+    preview_asset: null
+    approved_by: null
+    approved_at: null
+
+requirements:
+  labels:
+    user_stated:
+      - "Use the current drawer inlay as the source design."
+      - "Research common drawer sizes, including IKEA and DIN/ISO context."
+      - "Create a variant for the selected common drawer size after the required approvals."
+      - "Minimize connectors because they make the finished product unstable."
+      - "Use connectors only when segmentation is otherwise required by the printer."
+      - "The inlay is no longer required to be tool-specific."
+      - "Remove the screwdriver comb."
+      - "Reintroduce connectors between the necessary printed sections."
+      - "Keep the individual part inlays as large as possible."
+    inferred:
+      - "The variant should remain eligible for the MM-ORG-001 digital MVP rather than become a large-printer-only internal print."
+      - "The Kobra 3 Max first prototype should remain a four-part 2 × 2 layout because four is the minimum rectangular part count for the selected usable footprint."
+    recommended:
+      - "Target IKEA METOD/MAXIMERA nominal 60 × 60 cm first."
+      - "Use a 512 × 491 × 50 mm assembled envelope derived from the published 516 × 495 × 50 mm UPPDATERA reference."
+      - "Generate the fewest tray modules that fit the selected printer profile: one piece on a sufficiently large bed, four pieces for Kobra 3 Max, or nine pieces for a common 220 mm bed."
+      - "For the Kobra 3 Max profile retain four approximately 256 × 245.5 mm trays and join only their four shared seam segments."
+      - "Reuse the R1.6 planar-jigsaw principle, but regenerate it seam-relatively in CadQuery and qualify new clearances because the inherited R1.6 coupon has a documented physical non-fit."
+      - "Use two flush planar connector pairs per shared seam segment as the default: eight mating locations total prevent each seam from pivoting around a single connector."
+      - "Use CadQuery as the new source of truth; use R1.6 as a form and connector-principle reference rather than extending or scaling its Manifold3D geometry."
+      - "Build and validate plain geometry first; decorative surfaces remain a later noncritical derivative."
+    unresolved: []
+
+goal_and_scope:
+  function: >
+    A full-footprint general-purpose drawer organizer derived from the calm,
+    rounded R1.6 form language and sized for the published insert envelope of
+    an IKEA METOD/MAXIMERA 60 × 60 cm drawer system. It is generated as the
+    fewest independent closed trays that fit a selected printer profile. The
+    four maximally large Kobra-profile trays join across the necessary internal
+    seams with flush, coupon-qualified planar connectors.
+  intended_users:
+    - "Adults organizing household, office, hobby, utility or kitchen-adjacent non-food-contact items"
+    - "3D-printer owners using the fixed safe-core 3MF through metriCreate"
+    - "Future metriMade printed-product customers after fulfillment qualification"
+  included:
+    - "Four large FDM tray modules forming one connector-aligned fixed-size organizer on the Kobra 3 Max profile"
+    - "General-purpose compartment mix selected at requirements approval"
+    - "Rounded internal transitions and finger-access features derived from R1.6 where useful"
+    - "Flush planar connectors at required internal seams plus optional outer-perimeter fit shims"
+    - "Generated product-specific metriMade underside marking at final geometry gate"
+  excluded:
+    - "No universal-DIN, universal-600-mm or all-METOD compatibility claim"
+    - "No 37 cm-deep MAXIMERA variant in this revision"
+    - "No food-contact, dishwasher-safe, child-directed or load-bearing claim"
+    - "No live self-service resize in the first fixed revision"
+    - "No screwdriver comb or dedicated tool lane"
+    - "No additional subdivision beyond the minimum four Kobra-profile trays"
+    - "No proud, under-floor, snap, dovetail or separate-hardware connector system"
+    - "No surface texture before the plain fit architecture passes"
+
+geometry:
+  coordinate_convention:
+    origin: "front-left-bottom of assembled organizer"
+    axes: {x: "left-to-right", y: "front-to-back", z: "up"}
+  target_system:
+    status: approved
+    manufacturer: IKEA
+    cabinet_family: METOD
+    drawer_family: MAXIMERA
+    nominal_cabinet_mm: [600, 600]
+    reference_accessory: "UPPDATERA 52 × 50 cm combination"
+    published_reference_envelope_mm: [516, 495, 50]
+    note: "Reference accessory dimensions are not asserted to be the exact clear drawer cavity."
+  assembly_envelope_mm:
+    value: [512, 491, 50]
+    status: recommended
+    rationale: "2 mm nominal clearance per side relative to the published 516 × 495 mm reference envelope"
+  maximum_release_envelope_mm:
+    value: [514, 493, 50.5]
+    status: recommended
+    rationale: "Fail-closed manufactured/assembled maximum; real-drawer coupon remains mandatory"
+  structure:
+    floor_thickness_mm: {value: 2.6, status: inherited-recommended}
+    base_wall_thickness_mm: {value: 3.2, status: inherited-recommended}
+    outer_wall_height_mm: {value: 50.0, status: recommended}
+    divider_height_mm: {value: 44.0, status: recommended}
+    outer_corner_radius_mm: {value: 3.0, status: inherited-recommended}
+  functional_layout:
+    status: approved
+    dedicated_tool_lane: false
+    screwdriver_comb: false
+    selected_profile: kobra_3_max_420
+    selected_set:
+      open_trays: 1
+      two_compartment_trays: 1
+      four_compartment_trays: 2
+      total_trays: 4
+      total_compartments: 11
+    recommended_sets:
+      common_220:
+        open_trays: 3
+        two_compartment_trays: 3
+        four_compartment_trays: 3
+      kobra_3_max_420:
+        open_trays: 1
+        two_compartment_trays: 1
+        four_compartment_trays: 2
+      one_piece:
+        layout: "mixed fixed compartments derived from the selected general-purpose concept; no internal manufacturing seams"
+  segmentation_profiles:
+    policy: "fewest parts that fit the selected usable print footprint; connectors only at the resulting necessary seams"
+    common_220:
+      usable_footprint_mm: [216, 216]
+      columns: 3
+      rows: 3
+      module_count: 9
+      nominal_module_mm: [170.667, 163.667]
+    kobra_3_max_420:
+      status: approved-first-prototype
+      official_build_volume_mm: [420, 420, 500]
+      usable_footprint_mm: [416, 416]
+      columns: 2
+      rows: 2
+      module_count: 4
+      nominal_module_mm: [256, 245.5]
+    one_piece:
+      minimum_recommended_usable_footprint_mm: [516, 495]
+      columns: 1
+      rows: 1
+      module_count: 1
+
+interfaces:
+  drawer_fit:
+    type: "drop-in; no screws, adhesive or drawer modification"
+    nominal_clearance_per_side_mm: 2.0
+    evidence_required: "real target drawer/revision plus fit-corner coupon and assembled set"
+  module_connection:
+    type: planar_jigsaw
+    status: approved
+    source: "R1.6 principle only; positions and dimensions regenerated from seam-relative CadQuery parameters"
+    shared_seam_segments: 4
+    recommended_connectors_per_segment: 2
+    recommended_total_mating_locations: 8
+    placement: "spaced symmetrically along each shared edge segment, outside corner and divider-root keep-outs"
+    z_policy: "integrated only within the floor plane; no feature below the drawer-contact datum"
+    assembled_envelope_policy: "male lugs and female sockets mate inside the nominal 512 × 491 mm packed envelope"
+    legacy_reference:
+      type: planar_jigsaw
+      lug_radius_mm: 4.0
+      neck_length_mm: 5.0
+      neck_width_mm: 4.0
+      nominal_clearance_per_side_mm: 0.30
+      qualification: "not inherited as production geometry; documented real coupon non-fit"
+    coupon_clearance_sweep_mm: [0.30, 0.40, 0.50]
+    rationale: "two points on each necessary seam resist relative rotation while the four-part minimum keeps each tray as large as the Kobra profile permits"
+  packed-set-stability:
+    primary: "two flush planar connector pairs per shared seam segment, supplemented by drawer-perimeter constraint"
+    adjustment: "optional non-connecting perimeter shims in 0.5, 1.0 and 2.0 mm"
+    prohibited: "proud seam connectors, under-floor features or forced-fit connector geometry that can rock on the drawer bottom"
+  protected_regions:
+    - "drawer-contact perimeter and bottom datum"
+    - "flat tray undersides, abutting module walls and connector root keep-outs"
+    - "finger-access grooves"
+    - "wall roots and internal divider junctions"
+    - "watermark safe region and remaining floor wall"
+
+duty:
+  status: recommended
+  contents: "general household, office, hobby and utility items within the released compartment envelope"
+  maximum_distributed_content_mass_kg: 5.0
+  maximum_single_bin_mass_kg: 0.5
+  loaded_drawer_cycles_for_prototype: 100
+  service: "static indoor drawer organizer; multi-year intended use"
+
+environment:
+  status: recommended
+  indoor_outdoor: indoor
+  temperature_c: [10, 35]
+  moisture: "normally dry; occasional damp-cloth cleaning"
+  uv: limited
+  chemicals: "mild household cleaner only"
+  prohibited: ["dishwasher", "direct food contact claim", "solvents", "outdoor exposure"]
+
+fabrication:
+  preference: integrated-print
+  purchased_parts: []
+  assembly_target: "one, four or nine trays according to selected printer profile; Kobra first prototype is four connected trays with no tools or separate hardware"
+  repairability: "replace one module without reprinting the full organizer"
+
+manufacturing:
+  process: FDM/FFF
+  source_parameter_profiles: [common-220, kobra-3-max-420, one-piece]
+  first_release_profile: kobra-3-max-420
+  material:
+    primary: "PETG, matte/satin"
+    alternative: "PLA after identical fit and packed-set stability qualification"
+    status: recommended
+  nozzle_mm: 0.4
+  line_width_mm: 0.44
+  layer_height_mm: 0.20
+  supports: false
+  orientation: "all modules with drawer-contact floor on the build plate"
+  surface_first_prototype: plain
+  later_surface_candidates: [carbon, carbon-wave, micro-cast, walnut, steel]
+  exact_slicer_profile: unresolved
+
+appearance:
+  status: recommended
+  form_language: "R1.6 rounded functional geometry; calm, precise, premium utility"
+  first_prototype: "plain surfaces so fit and seams remain inspectable"
+  final_color_direction: "metriMade navy/teal/sand family; exact filament choice is non-geometric"
+  visible_hardware: none
+  ergonomic_constraints:
+    - "no sharp or proud exposed seam edges"
+    - "finger access remains usable in every divided tray"
+
+branding:
+  status: blocked-until-final-geometry
+  brand: metriMade
+  asset_id: MM-WM-001-R1
+  visible_content:
+    - metriMade.com
+    - "MM-ORG-001 · v<VERSION>"
+  operation: recessed
+  preferred_surface: "largest safe print-bed-facing underside regions"
+  rule: "generate from release identity; do not scale legacy JuSt placements"
+
+risk_and_evidence:
+  risk_class: normal-functional
+  hazards:
+    - "fit too tight may jam or mark the drawer"
+    - "cumulative module tolerance may exceed the published reference envelope"
+    - "connector fit may be too tight, too loose or induce rocking if printer/material compensation is unqualified"
+    - "male connector roots or locally opened mating walls may crack under forced assembly"
+    - "sharp print defects may cut or scratch the user/drawer"
+    - "unqualified material/finish may be mistaken for food-safe or dishwasher-safe"
+  assumptions:
+    - "the published UPPDATERA envelope is a reliable system-fit reference"
+    - "actual drawer revisions may vary and therefore require physical evidence"
+    - "the first prototype targets the approved Kobra 3 Max 420 mm profile; common-220 remains a later parameter profile"
+  stop_rules:
+    - "no compatibility claim before real-drawer fit evidence"
+    - "no full tray-set print before a same-profile planar-connector clearance coupon passes"
+    - "no forced connector assembly; a non-fitting coupon requires a measured clearance revision"
+    - "no texture if it invades fit, abutting walls, marking or minimum-wall keep-outs"
+    - "no release if a module exceeds the selected printer profile's usable footprint"
+
+acceptance:
+  digital:
+    - id: module-validity
+      criterion: "Every generated tray and shim is a watertight, manifold, positive-volume single body."
+    - id: bed-fit
+      criterion: "Every tray fits the selected profile: common-220 ≤216 × 216 mm; Kobra-420 ≤416 × 416 mm; one-piece only when the usable bed fits the full envelope."
+    - id: assembly-envelope
+      criterion: "The packed set is nominally 512 × 491 × 50 mm and never exceeds 514 × 493 × 50.5 mm."
+    - id: protected-geometry
+      criterion: "Minimum walls, flat drawer-contact datums, abutting walls, finger access and watermark keep-outs pass deterministic checks."
+    - id: package
+      criterion: "One profile-specific safe-core 3MF contains the exact generated tray count and matches the manifest."
+  physical:
+    - id: connector-fit
+      criterion: "Every connector pair seats by hand without tools or forcing; joined tray floors remain coplanar and the packed set has no objectionable seam rotation, looseness or rocking."
+    - id: drawer-fit
+      criterion: "Assembled set inserts/removes without tools or damage, lies flat, and drawer opens/closes fully in the exact target revision."
+    - id: loaded-use
+      criterion: "5 kg distributed contents; 100 open/close cycles without jamming, fracture, rocking or unacceptable migration."
+    - id: edge-safety
+      criterion: "No sharp burrs, proud wall edges or snagging seams after finishing."
+    - id: repeatability
+      criterion: "Three unchanged-revision final sets meet dimensions, fit, packed-set stability and use criteria."
+    - id: watermark
+      criterion: "Domain, product ID and version are readable on the intended printer/material/bed coupon and match the release record."
+
+deliverables:
+  after_requirements_and_concept_approval:
+    editable_source: "CadQuery/Python parametric B-Rep source and profile configuration"
+    design_neutral: ["STEP assembly", "STEP files per unique tray geometry"]
+    manufacturing: ["one profile-specific safe-core 3MF", "internal validation STLs per generated tray"]
+    documentation: ["assembly guide", "measurement guide", "print profile", "test plan", "validation report", "release manifest"]
+    visuals: ["approved concept sheet", "model renders", "dimensioned fit diagram", "packed-set stability and underside marking evidence"]
+  step: "required design-neutral B-Rep export from the CadQuery master"
+
+implementation_state:
+  research: complete
+  current_model_audit: complete
+  concept_image: pending-approval-revision-0.3.0
+  cad_geometry: blocked-pending-concept-approval
+  manufacturing_exports: blocked
+  physical_tests: blocked

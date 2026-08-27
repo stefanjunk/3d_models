@@ -1,0 +1,247 @@
+# Racehorse Display Trophy — active design specification
+
+project:
+  id: MM-ART-007
+  name: "Racehorse Display Trophy"
+  sku: MM-ART-007
+  revision: 0.1.0
+  candidate: 0.1.0-draft.1
+  owner: Stefan
+  created: "2026-08-26"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-035"
+  tool_route: "Trimesh baseline/transform + CadQuery base/support + Manifold3D mesh union + deterministic STL/3MF validation"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0
+    authorized_by: "Stefan — continuing autonomous portfolio-design instruction"
+    basis: "The user asked to follow the 3D workflow for the next portfolio product; the existing project-scoped policy delegates semantic and digital gates through print-candidate"
+  concept_approval:
+    status: pending
+  decomposition:
+    status: pending
+  digital_candidate:
+    status: pending
+  slicer_preflight:
+    status: blocked
+    reason: "No supported exact slicer/profile identity is installed"
+  physical_validation:
+    status: blocked
+    reason: "No autonomous print; stability, support removal, fragility and appearance tests require a physical prototype"
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ART-007
+    version: 0.1.0
+    reason: "Stable production geometry and exact-process watermark coupon do not yet exist"
+  final_release_approval:
+    status: blocked
+    reason: "Source provenance, slicer, physical, appearance, safety, watermark and commercial human gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Follow the 3D-design workflow and design a model for the next product in the portfolio list"
+  inferred:
+    - "Continue after PORT-034, selecting PORT-035 / MM-ART-007 Racehorse Mesh Collection"
+    - "Convert the unclassified mesh into one controlled printable product rather than replacing or deleting the historical files"
+    - "Reuse the existing local products/art-decor/mm-art-007-racehorse-mesh-collection/rider mesh only as a private DRAFT source until provenance is documented"
+  recommended_and_auto_approved:
+    - "Define an adult indoor display trophy with a low rounded base and a sculptural central speed-ribbon support"
+    - "Preserve the largest watertight horse/rider component; reject five tiny disconnected source fragments as generation debris"
+    - "Uniformly scale the organic source to 180 mm length and map semantic source +Y to working +Z"
+    - "Produce one fused single-color manufacturing body for simple inventory and assembly"
+    - "Use PLA, 0.4 mm nozzle and 0.20 mm layers as a provisional detail-focused starting point"
+  unresolved_nonblocking:
+    - "Exact source/reference rights and whether commercial derivative use is permitted"
+    - "Exact filament, printer and slicer profile identities"
+    - "Physical support-removal quality around legs, reins and tail"
+    - "Final color, patina and whether the source texture should be retained for a future multicolor edition"
+
+function:
+  summary: >
+    A freestanding indoor display trophy showing a galloping racehorse and
+    jockey. The preserved organic sculpture is fused to a parametric rounded
+    base through a central curved-looking speed-ribbon support so the airborne
+    pose has a stable, reproducible datum.
+  intended_users: ["adult collectors", "desktop or shelf display users"]
+  included:
+    - "Largest connected horse/rider source component"
+    - "Rounded rectangular display base"
+    - "Single central tapered support with broad root and concealed torso overlap"
+    - "Recessed underside product identity mark"
+  excluded:
+    - "No toy, child-directed, load-bearing, outdoor, body-contact or food-contact use"
+    - "No claim that historical source rights are cleared"
+    - "No promise of support-free printing or reliable survival of every thin bridle/rein detail"
+
+coordinate_system:
+  units: mm
+  source_frame:
+    x: "horse length; head toward negative X, tail toward positive X"
+    y: "semantic vertical"
+    z: "body depth"
+  working_frame:
+    origin: "center of base footprint on print-bed datum"
+    x: "horse length"
+    y: "front-to-back depth; mapped from negative source Z"
+    z: "up; mapped from source Y"
+  source_to_working:
+    operation: "uniform scale, +90 degree rotation about X, center in X/Y, then lift source minimum to z=22 mm"
+    target_organic_length_mm: 180.0
+  landmarks:
+    - {id: L1_HEAD, definition: "largest-component minimum X silhouette"}
+    - {id: L2_TAIL, definition: "largest-component maximum X silhouette"}
+    - {id: L3_LOW_HOOF, definition: "largest-component minimum source Y / minimum working Z"}
+    - {id: L4_TORSO, definition: "largest-component center of mass; support registration neighborhood"}
+
+source_mesh:
+  authoritative_archive: ../textured_mesh.stl
+  sha256: bf503e18fecc7828ccacbe05b52b51c5699bb4e3c22df08c7b3e5b971b8e65fc
+  assumed_source_units: m
+  source_extents: [1.9874797463, 1.2519702911, 0.6448919773]
+  source_faces: 40000
+  source_vertices: 19964
+  source_components: 6
+  largest_component_faces: 39900
+  policy: "Never overwrite; transform only the largest component into the controlled project"
+  provenance_status: UNKNOWN
+  commercial_effect: "Blocks commercial release and any rights-cleared derivative claim"
+
+geometry:
+  architecture:
+    - "Organic horse/rider sculpture is the protected visible region"
+    - "Base and support are exact parametric functional geometry"
+    - "Support penetrates a small underside torso ROI to guarantee a fused manifold union"
+  target_envelope_max_mm: [205.0, 85.0, 140.0]
+  base:
+    length_mm: 200.0
+    depth_mm: 80.0
+    height_mm: 8.0
+    corner_radius_mm: 10.0
+    edge_fillet_mm: 2.0
+  support:
+    type: "tapered swept speed ribbon"
+    root_center_x_mm: 15.0
+    top_center_x_mm: -10.0
+    width_y_mm: 18.0
+    root_length_x_mm: 34.0
+    top_length_x_mm: 18.0
+    top_target_z_mm: 78.0
+    minimum_section_mm: 8.0
+    minimum_horse_overlap_mm: 2.0
+  organic:
+    target_length_mm: 180.0
+    minimum_z_mm: 22.0
+    source_cleanup: "retain largest connected component; discard five components totaling 100 faces"
+  protected_regions:
+    - "All largest-component organic surface outside the underside torso support ROI"
+    - "Base bed plane and complete perimeter"
+    - "Support root and entire load path"
+    - "Underside watermark and surrounding bed-contact land after geometry lock"
+  edit_roi:
+    description: "support intersection with the underside torso plus the newly added base/support"
+    center_working_mm: [-10.0, 0.0, 72.0]
+    radius_mm: 18.0
+  preservation_tolerance_outside_roi_mm:
+    p95: 0.05
+    max: 0.20
+
+duty:
+  load_class: "self-weight and light adult handling only"
+  handling_cycles_target: 50
+  service_environment: "static indoor display, 10–30 °C, normal residential humidity, limited UV"
+  service_life_target: "2 years pending physical qualification"
+  stability_target: "center-of-mass projection remains at least 10 mm inside the base perimeter on a level surface"
+
+risk:
+  class: decorative
+  hazards:
+    - "Thin legs, tail, reins or rider details may snap during support removal or handling"
+    - "A tall narrow sculpture can tip from an edge impact"
+    - "Broken fragments can become sharp or small loose pieces"
+    - "Unknown source provenance blocks distribution"
+  mitigations:
+    - "Broad base, central support, adult display scope and rounded exposed base edges"
+    - "Digital center-of-mass/stability screen and physical tip/handling test"
+    - "Tree/manual supports and careful removal procedure evaluated on the exact slicer"
+
+fabrication:
+  preference: integrated-print
+  process: fdm-fff
+  operator_printer: "Anycubic Kobra 3 Max; exact machine/profile record remains open"
+  qualification_build_volume_mm: [220.0, 220.0, 250.0]
+  primary_material: "PLA candidate; exact supplier/profile unresolved"
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  orientation: "base flat on z=0; horse upright"
+  supports: "required and exact-slicer-dependent around airborne organic features"
+  target_formats: [step, stl, 3mf]
+
+optimization:
+  objective: "Minimize avoidable base/support material and mesh burden without weakening stability or erasing the organic silhouette"
+  protected_constraints:
+    - "200 x 80 mm stability footprint and z=0 bed datum"
+    - "At least 8 mm support section and 2 mm torso overlap"
+    - "Organic surface outside ROI within preservation tolerance"
+    - "Watermark and surrounding bed land"
+  baseline: "solid rounded base plus untapered rectangular support and full source mesh"
+  candidates:
+    - "A process-only: same geometry at exact 0.4 mm profile"
+    - "B geometry-only: hollowed/ribbed base plus tapered support"
+    - "C combined: selected geometry at exact profile"
+  selection_rule: "Select geometry by CAD/mesh/stability evidence; print-time selection remains blocked until identical-profile slicing"
+  mesh_simplification:
+    status: pending
+    master_mesh: "exports/master/DRAFT-racehorse-display-trophy-0.1.0-master.stl"
+    manufacturing_mesh: "exports/candidate/DRAFT-racehorse-display-trophy-0.1.0-manufacturing.stl"
+    triangle_target: 100000
+    triangle_stop: 250000
+    peak_memory_gib: 2
+    max_mesh_mib: 15
+    max_exact_slicer_seconds: 180
+
+acceptance:
+  digital:
+    - "One positive watertight manufacturing component with consistent winding"
+    - "Final bounds remain within 205 x 85 x 140 mm and fit 220 x 220 x 250 mm"
+    - "Organic largest-component surface outside ROI stays within P95 0.05 mm and max 0.20 mm after rigid registration"
+    - "Base/support is one valid CAD body before organic union; base bed datum remains z=0"
+    - "Support/horse overlap is at least 2.0 mm and fused output has no disconnected island"
+    - "Center-of-mass projection has at least 10 mm base-perimeter margin"
+    - "Manufacturing mesh remains below 100,000 target triangles and 15 MiB"
+    - "STEP functional insert, master STL, marked manufacturing STL and valid one-object 3MF reopen"
+  slicer:
+    - "Exact profile imports within 180 s and reports no out-of-bed geometry"
+    - "No missing support-root, base wall, watermark stroke or isolated first-layer island"
+    - "All required support is removable without inaccessible trapped regions"
+  physical:
+    - "Prototype stands level without rocking and survives a 10° static tilt without toppling"
+    - "Support and sculpture survive 50 lift/set-down cycles without crack or permanent looseness"
+    - "Supports remove without breaking critical silhouette details; remaining edges are comfortable"
+    - "Appearance is acceptable from 0.5 m and the watermark coupon is readable"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ART-007
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: "centered on the base underside"
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+deliverables:
+  - "Preserved source hash/baseline and coordinate/landmark record"
+  - "Concept sheet and requirement correspondence"
+  - "Parametric CadQuery base/support STEP/STL and deterministic hybrid build script"
+  - "Unmarked master and marked DRAFT manufacturing STL/3MF"
+  - "Source-preservation, topology, interface, stability, optimization and watermark reports"
+  - "Print profile, BOM, physical test plan, renders and final model result report"
+

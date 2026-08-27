@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-PUZ-002",
+    "revision": "1.2.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420.0, 420.0, 500.0]
+  },
+  "artifacts": [
+    {"id": "editable-source", "path": "source/puzzle_box.py", "kind": "source", "revision": "1.2.0-draft.1"},
+    {"id": "design-spec", "path": "design-spec.yaml", "kind": "contract", "revision": "1.2.0-draft.1"},
+    {"id": "test-plan", "path": "test-plan.yaml", "kind": "contract", "revision": "1.2.0-draft.1"},
+    {"id": "print-profile", "path": "print-profile-v1.2.0.json", "kind": "contract", "revision": "1.2.0-draft.1"},
+    {"id": "texture-plan", "path": "validation/texture-plan.json", "kind": "contract", "revision": "1.2.0-draft.1"},
+    {"id": "unmarked-body", "path": "exports/master/DRAFT-mystery-puzzle-box-1.2.0-body-unmarked.stl", "kind": "mesh", "revision": "1.2.0-draft.1"},
+    {"id": "body", "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-body-marked.stl", "kind": "mesh", "revision": "1.2.0-draft.1"},
+    {"id": "lid", "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-lid.stl", "kind": "mesh", "revision": "1.2.0-draft.1"},
+    {"id": "slider", "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-slider-print-x3.stl", "kind": "mesh", "revision": "1.2.0-draft.1"},
+    {"id": "return-leaf", "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-return-leaf-print-x3.stl", "kind": "mesh", "revision": "1.2.0-draft.1"},
+    {"id": "print-set", "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-print-set.3mf", "kind": "3mf", "revision": "1.2.0-draft.1"},
+    {"id": "watermark-metadata", "path": "assets/metrimade-watermark/generated/MM-PUZ-002_v1.2.0/metrimade-watermark-MM-PUZ-002-v1.2.0.json", "kind": "contract", "revision": "1.2.0-draft.1"},
+    {"id": "source-report", "path": "validation/source-report.json", "kind": "report", "revision": "1.2.0-draft.1"},
+    {"id": "interface-report", "path": "validation/interface-report.json", "kind": "report", "revision": "1.2.0-draft.1"},
+    {"id": "flexure-report", "path": "validation/flexure-screen.json", "kind": "report", "revision": "1.2.0-draft.1"},
+    {"id": "texture-report", "path": "validation/texture-report.json", "kind": "report", "revision": "1.2.0-draft.1"},
+    {"id": "watermark-report", "path": "validation/watermark-digital.json", "kind": "report", "revision": "1.2.0-draft.1"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "1.2.0-draft.1"},
+    {"id": "agent-ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "1.2.0-draft.1"}
+  ],
+  "checks": [
+    {
+      "id": "body-mesh", "type": "mesh", "required": true, "artifact": "body",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420.0, 420.0, 500.0], "allow_axis_permutation": false, "max_faces": 250000, "max_file_mib": 25, "require_self_intersection_check": false}
+    },
+    {
+      "id": "lid-mesh", "type": "mesh", "required": true, "artifact": "lid",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420.0, 420.0, 500.0], "allow_axis_permutation": false, "max_faces": 250000, "max_file_mib": 25, "require_self_intersection_check": false}
+    },
+    {
+      "id": "slider-mesh", "type": "mesh", "required": true, "artifact": "slider",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420.0, 420.0, 500.0], "allow_axis_permutation": false, "max_faces": 250000, "max_file_mib": 25, "require_self_intersection_check": false}
+    },
+    {
+      "id": "leaf-mesh", "type": "mesh", "required": true, "artifact": "return-leaf",
+      "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [420.0, 420.0, 500.0], "allow_axis_permutation": false, "max_faces": 250000, "max_file_mib": 25, "require_self_intersection_check": false}
+    },
+    {
+      "id": "manufacturing-package", "type": "3mf", "required": true, "artifact": "print-set",
+      "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 4, "max_package_members": 20, "max_uncompressed_mib": 80, "max_compression_ratio": 200}
+    },
+    {"id": "parametric-source", "type": "external_report", "required": true, "artifact": "source-report", "expected_inputs": ["editable-source", "design-spec"]},
+    {"id": "mechanism-interface", "type": "external_report", "required": true, "artifact": "interface-report", "expected_inputs": ["editable-source", "body", "lid", "slider"]},
+    {"id": "flexure-screen", "type": "external_report", "required": true, "artifact": "flexure-report", "expected_inputs": ["editable-source", "test-plan", "print-profile"]},
+    {"id": "procedural-texture", "type": "external_report", "required": true, "artifact": "texture-report", "expected_inputs": ["editable-source", "texture-plan", "body", "lid"]},
+    {"id": "watermark-digital", "type": "external_report", "required": true, "artifact": "watermark-report", "expected_inputs": ["watermark-metadata", "unmarked-body", "body"]},
+    {"id": "stage-provenance-through-interface", "type": "approvals", "required": true, "policy_artifact": "autonomy-policy", "agent_ledger_artifact": "agent-ledger", "target_stage": "interface-validation"},
+    {"id": "exact-slicer", "type": "review", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Slice the exact multi-object revision and inspect all functional/texture layers", "evidence_artifact": null},
+    {"id": "physical-fit-function-cycles", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Pass TP-01 through TP-08 on the unchanged revision", "evidence_artifact": null}
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {},
+    "scope": "DRAFT digital candidate through interface-validation only; not a manufacturing or commercial release"
+  }
+}

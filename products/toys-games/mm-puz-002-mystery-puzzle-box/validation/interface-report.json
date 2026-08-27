@@ -1,0 +1,104 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "closed-envelope",
+      "message": "Body/lid closed assembly is bounded by 250 x 75 x 75 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "lid-clearance",
+      "message": "Lid skirt has 0.35 mm radial clearance per side",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "guide-skirt-clearance",
+      "message": "Guide rails stop 0.30 mm below the lid skirt",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "locked-overlap",
+      "message": "Every locked slider has positive catch engagement",
+      "metrics": {
+        "front": 5.70000000000001,
+        "left": 5.699999999999942,
+        "rear": 5.700000000000008
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "retracted-clearance",
+      "message": "Every slider clears its lid ledge after 1.5 mm travel",
+      "metrics": {
+        "front": 0,
+        "left": 0,
+        "rear": 0
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "source/puzzle_box.py",
+      "sha256": "a67034cc850524db36e1d919101ac8bff9775259d30df5a22c9ee646c96d2f0e",
+      "size_bytes": 15334
+    },
+    {
+      "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-body-marked.stl",
+      "sha256": "ced75045af77db4e536ccd737071587227f7e0b62975def7f9c7c9e36974b12c",
+      "size_bytes": 2182284
+    },
+    {
+      "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-lid.stl",
+      "sha256": "1562012c8dfecf0061df3af9758c968a50bd1b1968d4f1352192f848e8080efe",
+      "size_bytes": 892084
+    },
+    {
+      "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-slider-print-x3.stl",
+      "sha256": "5c6d5b2004a8f8cc3fc0d10dfdf26f3a75c8714460a3635f5ffff1c9828e4d35",
+      "size_bytes": 24884
+    }
+  ],
+  "limitations": [
+    "Positive locked intersection is the intended local catch engagement, not an assembly collision"
+  ],
+  "metrics": {
+    "button_travel_mm": 1.5,
+    "external_envelope_mm": [
+      250.0,
+      75.0,
+      75.0
+    ],
+    "guide_to_skirt_vertical_clearance_mm": 0.3,
+    "lid_radial_clearance_each_side_mm": 0.35,
+    "locked_intersection_volume_mm3": {
+      "front": 5.70000000000001,
+      "left": 5.699999999999942,
+      "rear": 5.700000000000008
+    },
+    "physical_friction_and_release": "PENDING",
+    "retracted_intersection_volume_mm3": {
+      "front": 0,
+      "left": 0,
+      "rear": 0
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "puzzle-box-interface-check",
+  "tool_version": "1.0.0"
+}

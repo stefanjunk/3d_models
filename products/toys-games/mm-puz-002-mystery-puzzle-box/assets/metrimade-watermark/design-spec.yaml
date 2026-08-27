@@ -1,0 +1,55 @@
+project:
+  id: MM-WM-001
+  name: metriMade product-specific watermark
+  revision: 1.0
+  owner: Stefan Junk Holding UG (haftungsbeschränkt)
+  brand: metriMade
+  asset_release: MM-WM-001-R1
+  status: digital-production-candidate-physical-test-pending
+
+identity:
+  domain: metriMade.com
+  product_id:
+    required: true
+    example: MM-ORG-001
+  version:
+    required: true
+    format: Semantic Versioning 2.0.0
+    example: 0.1.0
+  visible_layout:
+    - metriMade.com
+    - "<PRODUCT_ID> · v<VERSION>"
+
+geometry:
+  operation: recessed/subtractive engraving
+  default_surface: flat nonfunctional low-stress underside
+  default_depth_mm: 0.40
+  qualified_depth_range_mm: [0.40, 0.80]
+  profile_scaling: prohibited below generated size
+  minimum_host_wall_mm: 1.20
+  minimum_remaining_wall_mm: 0.80
+  reading_orientation: normal when viewing the finished product from underneath
+
+manufacturing:
+  process: FDM/FFF
+  reference_nozzle_mm: 0.40
+  reference_layer_height_mm: 0.20
+  supports_in_mark: prohibited
+  physical_coupon_required_per_material_first_layer_bed_combination: true
+
+traceability:
+  invariants:
+    - watermark product ID equals release-manifest product ID
+    - watermark version equals release-manifest version
+    - watermark identity equals file/package/catalog identity
+    - exact generated profile and integrated manufacturing mesh are hashed
+  historical_release_policy: never mutate; introduce the new mark only through a new revision
+
+acceptance:
+  - domain reads exactly metriMade.com
+  - product ID and v-prefixed version are visible and legible
+  - mark reads normally from the finished underside
+  - cutter and coupon meshes are manifold with positive volume
+  - no watermark geometry protrudes below the product datum
+  - slicer preview and physical coupon pass for the intended production profile
+  - watermark placement does not weaken or interfere with the host product

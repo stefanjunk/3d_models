@@ -1,0 +1,208 @@
+{
+  "artifacts": [
+    {
+      "id": "editable-source",
+      "kind": "source",
+      "path": "source/shelffit_mini_bins.py",
+      "revision": "0.1.0-draft.1",
+      "sha256": "503b9eb4f2a1c8e8f1ce2a8aebf5d2df3a5b51e4153e01350ba8ec5678157d65"
+    },
+    {
+      "id": "design-spec",
+      "kind": "contract",
+      "path": "design-spec.yaml",
+      "revision": "0.1.0-draft.1",
+      "sha256": "e07c53d5e179a29f63884fab491eb4ed079eff6a6f143de77f5d1d2e1988fbfa"
+    },
+    {
+      "id": "unmarked-master-mesh",
+      "kind": "mesh",
+      "path": "exports/master/DRAFT-shelffit-mini-bin-0.1.0-unmarked-master.stl",
+      "revision": "0.1.0-draft.1",
+      "sha256": "3e70d05c900675bc3b2f5afc3ee9ef42748d7a8dad56fe676fb17e559bf2a7e8"
+    },
+    {
+      "id": "marked-reference-mesh",
+      "kind": "mesh",
+      "path": "exports/candidate/high-fidelity/DRAFT-shelffit-mini-bin-0.1.0-marked-reference.stl",
+      "revision": "0.1.0-draft.1",
+      "sha256": "22fb2d5f38b13940d5d187485d681acbb1ef42c7a4576c620cf0cd63074b1903"
+    },
+    {
+      "id": "manufacturing-mesh",
+      "kind": "mesh",
+      "path": "exports/candidate/manufacturing/DRAFT-shelffit-mini-bin-0.1.0-manufacturing.stl",
+      "revision": "0.1.0-draft.1",
+      "sha256": "22fb2d5f38b13940d5d187485d681acbb1ef42c7a4576c620cf0cd63074b1903"
+    },
+    {
+      "id": "manufacturing-3mf",
+      "kind": "3mf",
+      "path": "exports/candidate/manufacturing/DRAFT-shelffit-mini-bin-0.1.0-print-two.3mf",
+      "revision": "0.1.0-draft.1",
+      "sha256": "ae53366647bf0b04e6a770bf7e9b2b0c8239857af00c353b6c13da54402a6037"
+    },
+    {
+      "id": "watermark-metadata",
+      "kind": "contract",
+      "path": "assets/metrimade-watermark/generated/MM-ORG-002_v0.1.0/metrimade-watermark-MM-ORG-002-v0.1.0.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "59f23a98bac9b990212258611d759cc62ef61117fb006cab3ff397ffa6779b91"
+    },
+    {
+      "id": "source-report",
+      "kind": "report",
+      "path": "validation/source-report.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "5f3d5eb8f5ffcd0c7170efdb526572f13f6a68f7b06772afcba6f92d5b15dd5f"
+    },
+    {
+      "id": "interface-report",
+      "kind": "report",
+      "path": "validation/interface-report.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "06c398241e238df1886b3c3d61e44a5161b9b324f62e9be6d35adbf4dffe603c"
+    },
+    {
+      "id": "watermark-report",
+      "kind": "report",
+      "path": "validation/watermark-digital.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "a061170b66170c6d3a38b87955f35a3b1657e4ee31c25b31c54fbe3db6456d2a"
+    },
+    {
+      "id": "autonomy-policy",
+      "kind": "autonomy-policy",
+      "path": "autonomy-policy.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "1216aeb8f6e560d83a0b83a2b9e06dfe18584e9c69a12bdbd439075405e4fa10"
+    },
+    {
+      "id": "agent-approval-ledger",
+      "kind": "approval-ledger",
+      "path": "validation/agent-approvals.json",
+      "revision": "0.1.0-draft.1",
+      "sha256": "b2badb77b416c99dccd0d83f89bf6cd8b231f431c03d6b3fe587f6770d0c0310"
+    }
+  ],
+  "checks": [
+    {
+      "artifact": "manufacturing-mesh",
+      "id": "manufacturing-mesh-audit",
+      "policy": {
+        "allow_axis_permutation": false,
+        "bed_mm": [
+          220.0,
+          220.0,
+          250.0
+        ],
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "max_faces": 100000,
+        "max_file_mib": 10,
+        "max_nonmanifold_edges": 0,
+        "require_positive_volume": true,
+        "require_self_intersection_check": false,
+        "require_watertight": true,
+        "require_winding_consistent": true
+      },
+      "required": true,
+      "type": "mesh"
+    },
+    {
+      "artifact": "manufacturing-3mf",
+      "id": "manufacturing-package",
+      "policy": {
+        "inspect_meshes": true,
+        "max_compression_ratio": 200,
+        "max_package_members": 20,
+        "max_uncompressed_mib": 30,
+        "min_mesh_objects": 1,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "require_watertight_meshes": true
+      },
+      "required": true,
+      "type": "3mf"
+    },
+    {
+      "artifact": "source-report",
+      "expected_inputs": [
+        "editable-source",
+        "design-spec"
+      ],
+      "id": "parametric-source",
+      "required": true,
+      "type": "external_report"
+    },
+    {
+      "artifact": "interface-report",
+      "expected_inputs": [
+        "editable-source",
+        "marked-reference-mesh"
+      ],
+      "id": "reference-interface",
+      "required": true,
+      "type": "external_report"
+    },
+    {
+      "artifact": "watermark-report",
+      "expected_inputs": [
+        "watermark-metadata",
+        "unmarked-master-mesh",
+        "marked-reference-mesh"
+      ],
+      "id": "watermark-digital",
+      "required": true,
+      "type": "external_report"
+    },
+    {
+      "agent_ledger_artifact": "agent-approval-ledger",
+      "id": "stage-provenance-through-interface",
+      "policy_artifact": "autonomy-policy",
+      "required": true,
+      "target_stage": "interface-validation",
+      "type": "approvals"
+    },
+    {
+      "criterion": "Run the exact printer/material/nozzle/profile and inspect every relevant layer",
+      "evidence_artifact": null,
+      "id": "exact-slicer",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "type": "review"
+    },
+    {
+      "criterion": "Pass TP-01 through TP-07 on the unchanged revision",
+      "evidence_artifact": null,
+      "id": "physical-fit-load-cycles",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "type": "physical"
+    }
+  ],
+  "lock": {
+    "schema_version": "1.0",
+    "source_project_sha256": "bfd943486c842f4bc754b51f5bdb7cb05398b8328520d12a1d3d62c84114e85a",
+    "tool": "validate-printable-3d-projects"
+  },
+  "project": {
+    "build_volume_mm": [
+      220.0,
+      220.0,
+      250.0
+    ],
+    "id": "MM-ORG-002",
+    "revision": "0.1.0-draft.1",
+    "risk_class": "normal-functional",
+    "units": "mm"
+  },
+  "release": {
+    "approvals": {},
+    "required_approvals": [],
+    "scope": "DRAFT digital candidate through interface-validation only; not a manufacturing or commercial release"
+  },
+  "schema_version": "1.0"
+}

@@ -7,14 +7,14 @@
 - Founder brand/offer clarification supplied 2026-08-25 — `metriMade` is the premium guided non-technical consumer subset for aesthetic smart decor, space savers and practical home/office integration; `metriCreate` is the broader maker/technical catalog, parameterization and digital-download storefront. The connected-storefront and shared-product/revision architecture is now a binding strategy decision.
 - OpenAI-generated `metriMade` and `metriCreate` logo concept sheets dated 2026-08-25 — source copies, hashes, prompts and selection/clearance limits are recorded in `business/01-strategy/logo-concepts/README.md`.
 
-- `market_research/DingGenau_Global_Digital_EU_Print_Business_Report_2026.docx` and PDF — old-name business structure, dual delivery, curated/versioned portfolio and country sequencing.
-- `market_research/JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx` — 100 research concepts and preliminary commercial fields; concept selection is not product release evidence.
-- `market_research/MetriMade_International_Naming_Report_2026.md` — MetriMade naming direction.
-- `market_research/Namensrecherche_MetriCreate_Metreation_2026.md` — MetriCreate naming direction.
-- `market_research/bericht-top20-alltags-organizer-kleine-wohnraeume.md` — small-space/everyday concept ranking.
-- `market_research/bericht-top20-fdm-massanfertigung.md` — later mass-customization opportunities.
-- `market_research/bericht-top20-systemmoebel-zubehoer-ikea.md` and `systemmoebel_top20_cad/` — system-furniture concepts and provisional CAD.
-- legacy task/plan files throughout `market_research/` — reviewed as inputs; superseded for execution by `business/07-roadmap/`.
+- `research/market/DingGenau_Global_Digital_EU_Print_Business_Report_2026.docx` and PDF — old-name business structure, dual delivery, curated/versioned portfolio and country sequencing.
+- `research/market/JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx` — 100 research concepts and preliminary commercial fields; concept selection is not product release evidence.
+- `research/market/MetriMade_International_Naming_Report_2026.md` — MetriMade naming direction.
+- `research/market/Namensrecherche_MetriCreate_Metreation_2026.md` — MetriCreate naming direction.
+- `research/market/bericht-top20-alltags-organizer-kleine-wohnraeume.md` — small-space/everyday concept ranking.
+- `research/market/bericht-top20-fdm-massanfertigung.md` — later mass-customization opportunities.
+- `research/market/bericht-top20-systemmoebel-zubehoer-ikea.md` and `products/furniture-systems/` — system-furniture concepts and their self-contained product packages.
+- legacy task/plan files throughout `research/market/` — reviewed as inputs; superseded for execution by `business/07-roadmap/`.
 
 ## Model review scope
 

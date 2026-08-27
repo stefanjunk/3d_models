@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "gauge-high-210p70 mesh is watertight.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "gauge-high-210p70 winding is consistent.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "gauge-high-210p70 has positive volume.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "one-component",
+      "message": "gauge-high-210p70 is one connected component.",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "expected-envelope",
+      "message": "gauge-high-210p70 matches the controlled envelope.",
+      "metrics": {
+        "actual_mm": [
+          210.7,
+          14.0,
+          5.1
+        ],
+        "expected_mm": [
+          210.7,
+          14.0,
+          5.1000000000000005
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "gauge-high-210p70 fits the target build volume.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-budget",
+      "message": "gauge-high-210p70 stays within mesh budgets.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "55a365d69fb3dd3a4f8a0e080f67cbb885d4a33e43abaefeefdeb37afd9f6f3a",
+      "size_bytes": 985
+    },
+    {
+      "path": "cad/build_alex_tray.py",
+      "sha256": "e8829f2298f468d445053ef71b0eb931addd5b575781bf342b871449bf9e908d",
+      "size_bytes": 18664
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "mesh": {
+      "components": 1,
+      "extents_mm": [
+        210.7,
+        14.0,
+        5.1
+      ],
+      "file_bytes": 24684,
+      "positive_volume": true,
+      "surface_area_mm2": 7717.49689083312,
+      "triangles": 492,
+      "volume_mm3": 11814.477006888705,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "step": "exports/master/DRAFT-MM-SYS-001-gauge-high-210p70-0.2.0-draft.1.step",
+    "stl": "exports/manufacturing/DRAFT-MM-SYS-001-gauge-high-210p70-0.2.0-draft.1.stl"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-SYS-001-build-gauge-high-210p70",
+  "tool_version": "0.2.0"
+}

@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "representation",
+      "message": "Compact procedural vector recesses replace a dense image heightfield",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "motif-count",
+      "message": "Exactly 56 deterministic question-mark motifs are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-budget",
+      "message": "Every tessellated part stays below 250,000 triangles",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-surfaces",
+      "message": "Bed face, seam band, interfaces and watermark region remain untextured",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "source/puzzle_box.py",
+      "sha256": "a67034cc850524db36e1d919101ac8bff9775259d30df5a22c9ee646c96d2f0e",
+      "size_bytes": 15334
+    },
+    {
+      "path": "validation/texture-plan.json",
+      "sha256": "c71c86e5f5aad6e2d6fe4d02cf30c1a9e562403b8fbf6b4702c44ff503a8b059",
+      "size_bytes": 2273
+    },
+    {
+      "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-body-marked.stl",
+      "sha256": "ced75045af77db4e536ccd737071587227f7e0b62975def7f9c7c9e36974b12c",
+      "size_bytes": 2182284
+    },
+    {
+      "path": "exports/candidate/DRAFT-mystery-puzzle-box-1.2.0-lid.stl",
+      "sha256": "1562012c8dfecf0061df3af9758c968a50bd1b1968d4f1352192f848e8080efe",
+      "size_bytes": 892084
+    }
+  ],
+  "limitations": [
+    "Slicer survival, tactile comfort and camouflage quality remain physical/appearance gates"
+  ],
+  "metrics": {
+    "appearance_coupon": "NOT_RUN",
+    "body_triangles": 43644,
+    "lid_triangles": 17840,
+    "motif_count": 56,
+    "perimeter_slit_depth_mm": 0.3,
+    "recess_depth_mm": 0.6,
+    "sizes_mm": [
+      8.0,
+      11.0,
+      15.0
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "puzzle-box-texture-check",
+  "tool_version": "1.0.0"
+}

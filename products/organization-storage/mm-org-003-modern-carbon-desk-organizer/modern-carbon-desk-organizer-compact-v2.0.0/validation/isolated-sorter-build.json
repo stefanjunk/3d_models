@@ -1,0 +1,181 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "brep-valid",
+      "message": "sorter B-Rep is valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "solid-count",
+      "message": "sorter has 1 expected solid(s)",
+      "metrics": {
+        "solids": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-watertight",
+      "message": "sorter STL is watertight",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-winding",
+      "message": "sorter STL winding is consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-volume",
+      "message": "sorter STL has positive signed volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-components",
+      "message": "sorter STL component count matches",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "build-volume",
+      "message": "sorter documented orientation fits 220 x 220 x 250 mm",
+      "metrics": {
+        "extents_mm": [
+          210.01251220756996,
+          190.01251220756996,
+          65.01251220756996
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "sorter stays within triangle budget",
+      "metrics": {
+        "triangles": 1068
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "sorter stays within mesh file budget",
+      "metrics": {
+        "file_mib": 0.051006317138671875
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "size_bytes": 1703
+    },
+    {
+      "path": "cad/build_compact_organizer.py",
+      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
+      "size_bytes": 49663
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1-assembly-source.stl",
+    "assembly_source_stl_sha256": "350636fcfed861be61db92f6c2e53a699b55986c03900767113c2287172a6776",
+    "baseline_volume_mm3": 262232.7367855098,
+    "cad": {
+      "bounds_mm": [
+        [
+          -0.006256103784973356,
+          -0.006256103784973356,
+          -0.006256103784973356
+        ],
+        [
+          210.00625610378498,
+          190.00625610378498,
+          65.00625610378498
+        ]
+      ],
+      "center_of_mass_mm": [
+        104.99991525203696,
+        95.03832938858407,
+        23.491768025718294
+      ],
+      "extents_mm": [
+        210.01251220756996,
+        190.01251220756996,
+        65.01251220756996
+      ],
+      "solids": 1,
+      "valid_brep": true,
+      "volume_mm3": 262078.31667157463
+    },
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.stl",
+    "mesh": {
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          210.0,
+          190.0,
+          65.0
+        ]
+      ],
+      "center_mass_mm": [
+        104.99989,
+        95.03831,
+        23.49134
+      ],
+      "components": 1,
+      "extents_mm": [
+        210.0,
+        190.0,
+        65.0
+      ],
+      "file_bytes": 53484,
+      "file_mib": 0.051006317138671875,
+      "positive_volume": true,
+      "sha256": "2b1795035d534ec5ad3cf4e883c9f8aa0b2a691595e9844ca29abef38a528c05",
+      "surface_area_mm2": 253674.38913605164,
+      "triangles": 1068,
+      "vertices": 536,
+      "volume_mm3": 262064.9832573182,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "name": "sorter",
+    "quantity": 1,
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.step",
+    "step_sha256": "8769c8cd0e2841be7e2cf78ab8efc648f70e98c90af819b9cb3dffd3fef05618"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-003-isolated-sorter-build",
+  "tool_version": "2.0.0"
+}

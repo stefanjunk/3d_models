@@ -1,0 +1,57 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "nominal-width",
+      "message": "Nominal gauge width equals tray width.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-widths",
+      "message": "Three full-width gauges encode the controlled measurement ladder.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-compatibility-claim",
+      "message": "Furniture fit remains explicitly PROVISIONAL_UNVERIFIED until measured and printed.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "55a365d69fb3dd3a4f8a0e080f67cbb885d4a33e43abaefeefdeb37afd9f6f3a",
+      "size_bytes": 985
+    },
+    {
+      "path": "cad/build_alex_tray.py",
+      "sha256": "e8829f2298f468d445053ef71b0eb931addd5b575781bf342b871449bf9e908d",
+      "size_bytes": 18664
+    }
+  ],
+  "limitations": [
+    "The gauge set provides measurement evidence only after printing; no ALEX revision was supplied."
+  ],
+  "metrics": {
+    "gauge_widths_mm": [
+      209.3,
+      210.0,
+      210.7
+    ],
+    "provisional_clearance_each_mm": 0.35
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-SYS-001-interface-contract",
+  "tool_version": "0.2.0"
+}

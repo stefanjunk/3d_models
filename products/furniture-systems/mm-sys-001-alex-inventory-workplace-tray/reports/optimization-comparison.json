@@ -1,0 +1,63 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-envelope",
+      "message": "Product-specific tray preserves the shared concept envelope.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "process-aligned-walls",
+      "message": "Selected divider is process-aligned for six nominal lines.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-budget",
+      "message": "Direct CAD tessellation is already within budget.",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "model-parameters.json",
+      "sha256": "55a365d69fb3dd3a4f8a0e080f67cbb885d4a33e43abaefeefdeb37afd9f6f3a",
+      "size_bytes": 985
+    },
+    {
+      "path": "cad/build_alex_tray.py",
+      "sha256": "e8829f2298f468d445053ef71b0eb931addd5b575781bf342b871449bf9e908d",
+      "size_bytes": 18664
+    },
+    {
+      "path": "../../exports/stl/01_alex_inventory_workplace_tray.stl",
+      "sha256": "96175b169c3180ca1f3bc9c2fdc64369e206e7c2821d453f22d89aaefa32f498",
+      "size_bytes": 89884
+    }
+  ],
+  "limitations": [
+    "No print-time or deposited-material claim is made."
+  ],
+  "metrics": {
+    "baseline_triangles": 1796,
+    "baseline_volume_mm3": 178921.62898567808,
+    "exact_slicer_metrics": "NOT_RUN",
+    "mesh_simplification": "NOT_BENEFICIAL",
+    "selected_tray_volume_mm3": 174254.5193063598,
+    "selected_triangles": 1796,
+    "selection": "product-specific parametric control plus fit gauges"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-SYS-001-optimization-comparison",
+  "tool_version": "0.2.0"
+}

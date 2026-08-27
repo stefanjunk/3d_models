@@ -1,0 +1,54 @@
+# Mystery Puzzle Box — physical test plan, revision 1.2.0-draft.1
+
+project_id: MM-PUZ-002
+revision: 1.2.0-draft.1
+status: NOT_RUN
+scope: >
+  Qualify the exact printed body, lid, three sliders and three replaceable PETG
+  return leaves. Digital evidence does not substitute for these tests.
+
+process_lock:
+  profile: print-profile-v1.2.0.json
+  requirement: "Record exact printer, slicer, filament lot, drying, nozzle and compensation before testing"
+
+coupons:
+  - id: TP-01-slider-fit
+    quantity: 1
+    feature: "12 x 14 mm button aperture, 16 mm shoulder pocket and 0.30 mm radial running clearance"
+    pass: "1.5 mm inward travel and full gravity-free return within 1 s, without sanding or lubricant"
+  - id: TP-02-return-leaf
+    quantity: 3
+    feature: "20 x 6 x 1.2 mm effective PETG cantilever plus printed root"
+    preload_mm: 1.5
+    analytical_screen_only:
+      assumed_modulus_mpa: 1800
+      nominal_outer_fiber_strain_percent: 0.675
+      nominal_force_n: 0.875
+    pass: "Measured force is usable, all specimens survive 50 cycles without crack, and permanent set remains <=0.30 mm after 24 h"
+  - id: TP-03-texture-watermark
+    quantity: 1
+    feature: "8/11/15 mm recessed question marks, 0.30 mm perimeter slit and 0.40 mm underside watermark"
+    pass: "Smallest strokes survive slicing and printing; edges are comfortable; marks are legible and cleanable"
+
+assembly_prototype:
+  parts: ["body x1", "lid x1", "slider x3", "return leaf x3"]
+  tests:
+    - id: TP-04-lid-fit
+      pass: "Lid seats at the z=65 seam without binding, excessive rocking or visible damage"
+    - id: TP-05-release-orders
+      method: "Test all six press-order permutations three times while holding all three buttons"
+      pass: "18/18 opening cycles and 18/18 relock cycles succeed without tools or jamming"
+    - id: TP-06-false-release
+      method: "Press every single button and every two-button combination three times"
+      pass: "The lid never releases"
+    - id: TP-07-endurance
+      method: "Run 50 complete open/relock cycles, then repeat TP-04 through TP-06"
+      pass: "No crack, loose part, unacceptable creep, snag, or degraded latch behavior"
+    - id: TP-08-appearance-cleaning
+      method: "Inspect the closed seam and camouflage at 0.5 m; wipe with a damp cloth and dry"
+      pass: "Appearance is acceptable, relief does not snag, and no inaccessible debris remains"
+
+release_boundary:
+  current: "DRAFT digital candidate only"
+  required: "All tests PASS on the unchanged revision plus human appearance, safety, watermark and commercial approvals"
+

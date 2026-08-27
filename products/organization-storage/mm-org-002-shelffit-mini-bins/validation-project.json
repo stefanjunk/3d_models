@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-ORG-002",
+    "revision": "0.1.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [220.0, 220.0, 250.0]
+  },
+  "artifacts": [
+    {
+      "id": "editable-source",
+      "path": "source/shelffit_mini_bins.py",
+      "kind": "source",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "design-spec",
+      "path": "design-spec.yaml",
+      "kind": "contract",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "unmarked-master-mesh",
+      "path": "exports/master/DRAFT-shelffit-mini-bin-0.1.0-unmarked-master.stl",
+      "kind": "mesh",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "marked-reference-mesh",
+      "path": "exports/candidate/high-fidelity/DRAFT-shelffit-mini-bin-0.1.0-marked-reference.stl",
+      "kind": "mesh",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "manufacturing-mesh",
+      "path": "exports/candidate/manufacturing/DRAFT-shelffit-mini-bin-0.1.0-manufacturing.stl",
+      "kind": "mesh",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "manufacturing-3mf",
+      "path": "exports/candidate/manufacturing/DRAFT-shelffit-mini-bin-0.1.0-print-two.3mf",
+      "kind": "3mf",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "watermark-metadata",
+      "path": "assets/metrimade-watermark/generated/MM-ORG-002_v0.1.0/metrimade-watermark-MM-ORG-002-v0.1.0.json",
+      "kind": "contract",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "source-report",
+      "path": "validation/source-report.json",
+      "kind": "report",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "interface-report",
+      "path": "validation/interface-report.json",
+      "kind": "report",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "watermark-report",
+      "path": "validation/watermark-digital.json",
+      "kind": "report",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "autonomy-policy",
+      "path": "autonomy-policy.json",
+      "kind": "autonomy-policy",
+      "revision": "0.1.0-draft.1"
+    },
+    {
+      "id": "agent-approval-ledger",
+      "path": "validation/agent-approvals.json",
+      "kind": "approval-ledger",
+      "revision": "0.1.0-draft.1"
+    }
+  ],
+  "checks": [
+    {
+      "id": "manufacturing-mesh-audit",
+      "type": "mesh",
+      "required": true,
+      "artifact": "manufacturing-mesh",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [220.0, 220.0, 250.0],
+        "allow_axis_permutation": false,
+        "max_faces": 100000,
+        "max_file_mib": 10,
+        "require_self_intersection_check": false
+      }
+    },
+    {
+      "id": "manufacturing-package",
+      "type": "3mf",
+      "required": true,
+      "artifact": "manufacturing-3mf",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 1,
+        "max_package_members": 20,
+        "max_uncompressed_mib": 30,
+        "max_compression_ratio": 200
+      }
+    },
+    {
+      "id": "parametric-source",
+      "type": "external_report",
+      "required": true,
+      "artifact": "source-report",
+      "expected_inputs": ["editable-source", "design-spec"]
+    },
+    {
+      "id": "reference-interface",
+      "type": "external_report",
+      "required": true,
+      "artifact": "interface-report",
+      "expected_inputs": ["editable-source", "marked-reference-mesh"]
+    },
+    {
+      "id": "watermark-digital",
+      "type": "external_report",
+      "required": true,
+      "artifact": "watermark-report",
+      "expected_inputs": ["watermark-metadata", "unmarked-master-mesh", "marked-reference-mesh"]
+    },
+    {
+      "id": "stage-provenance-through-interface",
+      "type": "approvals",
+      "required": true,
+      "policy_artifact": "autonomy-policy",
+      "agent_ledger_artifact": "agent-approval-ledger",
+      "target_stage": "interface-validation"
+    },
+    {
+      "id": "exact-slicer",
+      "type": "review",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Run the exact printer/material/nozzle/profile and inspect every relevant layer",
+      "evidence_artifact": null
+    },
+    {
+      "id": "physical-fit-load-cycles",
+      "type": "physical",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Pass TP-01 through TP-07 on the unchanged revision",
+      "evidence_artifact": null
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {},
+    "scope": "DRAFT digital candidate through interface-validation only; not a manufacturing or commercial release"
+  }
+}

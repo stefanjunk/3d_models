@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "strain-calculation",
+      "message": "Nominal outer-fiber strain is explicitly calculated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "force-calculation",
+      "message": "Nominal cantilever force is explicitly calculated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-required",
+      "message": "A process-matched three-specimen 50-cycle coupon is specified",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "source/puzzle_box.py",
+      "sha256": "a67034cc850524db36e1d919101ac8bff9775259d30df5a22c9ee646c96d2f0e",
+      "size_bytes": 15334
+    },
+    {
+      "path": "test-plan.yaml",
+      "sha256": "3fc8605db00194ce65bf7d88d84e934ace38419d9c606b4a188268931846bef8",
+      "size_bytes": 2578
+    },
+    {
+      "path": "print-profile-v1.2.0.json",
+      "sha256": "0616fcfdb8188829a3895b261bfefae1e47b78c1ac959b89b5b5c56898d725c4",
+      "size_bytes": 1286
+    }
+  ],
+  "limitations": [
+    "Material modulus, root behavior, anisotropy, creep and safe strain require printed evidence"
+  ],
+  "metrics": {
+    "assumed_petg_modulus_mpa": 1800.0,
+    "beam_mm": [
+      20.0,
+      6.0,
+      1.2
+    ],
+    "deflection_mm": 1.5,
+    "nominal_force_n": 0.8747999999999999,
+    "nominal_outer_fiber_strain_percent": 0.6749999999999999,
+    "physical_status": "NOT_RUN"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "puzzle-box-flexure-screen",
+  "tool_version": "1.0.0"
+}

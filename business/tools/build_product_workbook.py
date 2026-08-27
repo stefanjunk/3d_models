@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PORTFOLIO_CSV = ROOT / "02-portfolio" / "product-portfolio.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
-RESEARCH_WORKBOOK = ROOT.parent / "market_research" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
+RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
@@ -163,10 +163,21 @@ def main() -> None:
     ]
 
     external_paths = [
-        "art/external_models", "blasters/external", "boats/external", "bowls/external",
-        "camera_mount/external", "clips/external", "dough_cutter/external", "fidgets/external",
-        "gravity_knife/external", "music/external", "organizer/external", "puzzles/external",
-        "shoes/external", "stamps/external", "walls/external",
+        "research/third-party/art-models",
+        "products/toys-games/mm-toy-001-rubber-ball-toy-popper/external",
+        "research/third-party/boats",
+        "products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/external",
+        "products/printer-workshop/mm-tool-003-kobra3max-camera-arm/external",
+        "research/third-party/clips/external",
+        "research/third-party/dough-cutters/external",
+        "research/third-party/fidgets/external",
+        "research/third-party/gravity-knife-fidgets/external",
+        "research/third-party/music-boxes/external",
+        "research/third-party/organization-storage",
+        "research/third-party/puzzles",
+        "research/third-party/shoes/external",
+        "research/third-party/stamps/external",
+        "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/external",
     ]
     exclusions = [["Path", "Status", "Reason", "Re-entry rule"]] + [
         [path, "EXCLUDED", "User-defined unknown-source download; never a portfolio candidate", "New documented source acquisition plus explicit business decision"]

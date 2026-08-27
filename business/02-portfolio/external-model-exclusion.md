@@ -8,21 +8,21 @@ This is a stronger rule than “license review pending.” Re-entry requires a s
 
 ## Excluded product-source directories
 
-- `art/external_models`
-- `blasters/external`
-- `boats/external`
-- `bowls/external`
-- `camera_mount/external`
-- `clips/external`
-- `dough_cutter/external`
-- `fidgets/external`
-- `gravity_knife/external`
-- `music/external`
-- `organizer/external`
-- `puzzles/external`
-- `shoes/external`
-- `stamps/external`
-- `walls/external`
+- `research/third-party/art-models`
+- `products/toys-games/mm-toy-001-rubber-ball-toy-popper/external`
+- `research/third-party/boats`
+- `products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/external`
+- `products/printer-workshop/mm-tool-003-kobra3max-camera-arm/external`
+- `research/third-party/clips/external`
+- `research/third-party/dough-cutters/external`
+- `research/third-party/fidgets/external`
+- `research/third-party/gravity-knife-fidgets/external`
+- `research/third-party/music-boxes/external`
+- `research/third-party/organization-storage`
+- `research/third-party/puzzles`
+- `research/third-party/shoes/external`
+- `research/third-party/stamps/external`
+- `products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/external`
 
 Directories named `external` inside installed Python dependencies are not product assets and are ignored by the product inventory.
 
@@ -32,4 +32,3 @@ Directories named `external` inside installed Python dependencies are not produc
 - Future inventory scripts must prune all external-named subtrees before classifying models.
 - Shop ingestion must accept only files referenced by an approved release manifest; it must never crawl the workspace.
 - Provenance review of a non-external folder is still required. For example, a folder named `FROM_ORIGINAL_MODEL` is blocked until the original source and commercial rights are documented even though it is not under `external`.
-

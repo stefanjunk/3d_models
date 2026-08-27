@@ -1,0 +1,176 @@
+{
+  "report_contract_version": "1.0",
+  "tool": "src/generate_purge_catcher.py",
+  "status": "PASS",
+  "inputs": [
+    "params/catcher.json",
+    "params/lower-bin.json",
+    "params/mount-gauge.json",
+    "plan/hybrid-design-plan.json",
+    "evidence/metrimade-lockup-stacked-color.svg"
+  ],
+  "checks": {
+    "architecture": true,
+    "all_meshes": true,
+    "all_3mf": true,
+    "logo_masks_do_not_overlap": true,
+    "exact_source_path_count": true,
+    "analytic_logo_path_count": true,
+    "full_viewbox_not_cropped": true,
+    "logo_on_three_faces": true,
+    "logo_background_removed": true,
+    "logo_not_voxelized": true,
+    "logo_components_have_start_support": true,
+    "all_four_logo_colors_present": true,
+    "body_not_voxelized": true,
+    "honeycomb_is_through_open": true,
+    "analytic_honeycomb_ribs_present": true,
+    "honeycomb_open_area_proxy_above_20_percent": true,
+    "catcher_bottom_open": true,
+    "catcher_top_open": true,
+    "slot_cut_present": true,
+    "mount_slots_are_vertical_pair": true,
+    "mount_side_is_right": true,
+    "impact_side_is_left": true,
+    "solid_impact_band_present": true,
+    "impact_hood_present": true,
+    "impact_hood_support_free_proxy": true
+  },
+  "metrics": {
+    "catcher": {
+      "geometry_method": "analytic planar prisms, smooth hexagonal ribs and ruled hood surfaces; no voxel body geometry",
+      "body_uses_voxels": false,
+      "face_x_mm": 31.0,
+      "face_y_mm": 22.0,
+      "drop_opening_clear_mm": [
+        57.0,
+        39.0
+      ],
+      "drop_probe_occupied_faces": 0,
+      "center_top_open": true,
+      "open_bottom": true,
+      "mount_side_viewed_from_printer_front": "right",
+      "mount_side_project_axis": "-X",
+      "impact_side_viewed_from_printer_front": "left",
+      "impact_side_project_axis": "+X",
+      "mount_slot_axis": "vertical pair in right-side plate",
+      "mount_slots_count": 2,
+      "mount_hole_spacing_nominal_mm": 20.0,
+      "mount_hole_spacing_adjustable_range_mm": [
+        16.2,
+        23.8
+      ],
+      "impact_wall_height_mm": 58.0,
+      "impact_solid_band_start_z_mm": 38.0,
+      "impact_solid_band_present": true,
+      "impact_hood_start_z_mm": 46.0,
+      "impact_hood_depth_mm": 8.0,
+      "impact_hood_max_overhang_from_vertical_deg": 45.0,
+      "honeycomb_is_through_open": true,
+      "honeycomb_cell_radius_mm": 4.6,
+      "honeycomb_rib_width_mm": 1.5,
+      "analytic_honeycomb_cells": 106,
+      "analytic_honeycomb_rib_segments": 390,
+      "panel_open_area_proxy_percent": 70.04962192816635,
+      "logo_background_present": false,
+      "logo_support_ribs_count": 3,
+      "logo_support_ribs_are_lattice_extensions": true
+    },
+    "logo": {
+      "viewbox": [
+        0.0,
+        0.0,
+        340.0,
+        360.0
+      ],
+      "source_path_count": 13,
+      "source_color_path_counts": {
+        "#112431": 10,
+        "#08777D": 1,
+        "#7FD5D3": 1,
+        "#C7AB82": 1
+      },
+      "uniform_scale_mm_per_svg_unit": 0.09411764705882353,
+      "logo_width_mm": 32.0,
+      "logo_height_mm": 33.88235294117647,
+      "raster_panel_mm": [
+        32.0,
+        34.0
+      ],
+      "panel_pixels": [
+        160,
+        170
+      ],
+      "cropped": false,
+      "rearranged": false,
+      "mirrored": false,
+      "preserved": [
+        "viewBox",
+        "group transforms",
+        "path order",
+        "path coordinates",
+        "fill colors"
+      ],
+      "geometry_method": "analytic SVG polygon extrusion; no logo voxels",
+      "background_present": false,
+      "mask_overlap_pixels": 0,
+      "faces": [
+        "+Y printer front",
+        "+X impact/left",
+        "-X display/right"
+      ],
+      "face_x_mm": 31.0,
+      "face_y_mm": 22.0,
+      "extrusion_mm": 0.6,
+      "embed_mm": 0.2,
+      "start_support": {
+        "method": "0.2 mm raster contact proxy; manufacturing geometry remains analytic",
+        "components_across_three_faces": 42,
+        "start_supported_components": 42,
+        "unsupported_components": 0,
+        "minimum_start_contact_pixels": 5,
+        "per_face": {
+          "front": {
+            "components": 14,
+            "start_supported": 14
+          },
+          "impact": {
+            "components": 14,
+            "start_supported": 14
+          },
+          "mount": {
+            "components": 14,
+            "start_supported": 14
+          }
+        }
+      }
+    },
+    "lower_bin": {
+      "usable_capacity_l": 1.74850314533658,
+      "max_wall_taper_from_vertical_deg": 4.628137537732351
+    },
+    "mounted_material_volume_cm3": 16.220788647844774,
+    "estimated_mounted_petg_mass_g": 20.600401582762863,
+    "estimated_lower_bin_petg_mass_g": 212.54690721546984,
+    "smooth_honeycomb": {
+      "geometry_method": "analytic planar prisms, smooth hexagonal ribs and ruled hood surfaces; no voxel body geometry",
+      "analytic_cells": 106,
+      "analytic_rib_segments": 390,
+      "open_area_proxy_percent": 70.04962192816635,
+      "slicer_time_and_filament": "NOT_RUN \u2014 Anycubic Slicer Next unavailable"
+    },
+    "revision": "R5"
+  },
+  "limitations": [
+    "Anycubic Slicer Next is not installed in the validation runtime; import and sliced-toolpath checks remain NOT_RUN.",
+    "Official Anycubic sources do not provide the wiper-side hole spacing or local motion envelope; gauge and physical clearance checks remain required.",
+    "The 20.0 mm nominal vertical screw spacing is an image-derived starting value, not an Anycubic specification; the paired slots cover 16.2-23.8 mm and must be checked with the gauge.",
+    "Purge fragment velocity and trajectory are undocumented; the 58 mm impact wall and 8 mm inward hood require three supervised purge cycles before unattended use.",
+    "Mass values are geometric PETG estimates, not slicer extrusion estimates.",
+    "Exact source colors plus a neutral body require five material assignments; four-slot systems need a deliberate color compromise or a separate secondary operation.",
+    "The honeycomb cells are true openings. Fine strings or very small fragments can escape sideways; this must be checked during supervised purge tests.",
+    "The logo has no background plate and bridges only between intersected honeycomb ribs. The digital first-layer contact proxy passes, but exact slicer bridge paths still require visual layer-preview inspection.",
+    "The analytic rib and frame solids overlap inside the single 3MF mesh object. Standards-compliant slicers normally union these volumes during slicing; Anycubic Slicer Next import and layer preview remain mandatory.",
+    "The catcher has no floor or storage volume. A separate bin must stand below the 57 x 39 mm clear drop opening."
+  ]
+}

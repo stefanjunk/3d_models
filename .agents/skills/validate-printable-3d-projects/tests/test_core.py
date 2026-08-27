@@ -24,6 +24,7 @@ from fdm_validation.gcode import analyze  # noqa: E402
 from fdm_validation.freeze import freeze_project  # noqa: E402
 from fdm_validation.profile import validate_profile  # noqa: E402
 from fdm_validation.project import validate_project  # noqa: E402
+from fdm_validation.slicer import slice_anycubic_next  # noqa: E402
 from fdm_validation.skillcheck import validate as validate_skill  # noqa: E402
 from fdm_validation.sweep import generate_cases, run as run_sweep  # noqa: E402
 from fdm_validation.threemf import REL_NS, validate as validate_3mf  # noqa: E402
@@ -240,6 +241,101 @@ class CoreTests(unittest.TestCase):
             self.assertEqual(result["metrics"]["tool_changes"], 1)
             self.assertEqual(result["metrics"]["layers_from_comments"], 2)
 
+    def test_anycubic_gcode_layer_and_normal_time_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "anycubic.gcode"
+            path.write_text(
+                "; total layer number: 2\n"
+                ";LAYER_CHANGE\n;Z:0.2\nG90\nM83\nG1 X1 Y1 Z0.2 E0.1 F600\n"
+                ";LAYER_CHANGE\n;Z:0.4\nG1 X2 Y2 Z0.4 E0.1 F600\n"
+                "; total layers count = 2\n"
+                "; estimated printing time (normal mode) = 10m 2s\n"
+                "; estimated printing time (silent mode) = 14m 22s\n"
+                "; estimated printing time (sport mode) = 9m 26s\n",
+                encoding="utf-8",
+            )
+            result = analyze(path, {"require_layer_markers": True})
+            self.assertEqual(result["status"], "PASS", result)
+            self.assertEqual(result["metrics"]["layers_from_comments"], 2)
+            self.assertEqual(result["metrics"]["layers_declared"], 2)
+            self.assertEqual(result["metrics"]["slicer_metadata_time_s"], 602)
+
+    def test_anycubic_off_by_one_footer_is_reported_without_discarding_executable_markers(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "anycubic-summary.gcode"
+            path.write_text(
+                "; total layer number: 2\n"
+                ";LAYER_CHANGE\n;Z:0.2\nG90\nM83\nG1 X1 Y1 Z0.2 E0.1 F600\n"
+                ";LAYER_CHANGE\n;Z:0.4\nG1 X2 Y2 Z0.4 E0.1 F600\n"
+                "; total layers count = 3\n",
+                encoding="utf-8",
+            )
+            result = analyze(path, {"require_layer_markers": True})
+            self.assertEqual(result["status"], "PASS", result)
+            self.assertEqual(result["metrics"]["layers_declared"], 2)
+            self.assertEqual(result["metrics"]["layers_declared_summary"], 3)
+            summary_check = next(item for item in result["checks"] if item["id"] == "layer-summary-consistency")
+            self.assertEqual(summary_check["status"], "REVIEW_REQUIRED")
+            self.assertFalse(summary_check["required"])
+
+    def test_anycubic_slicer_adapter_uses_boolean_default_filament_flag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            slicer = root / "AnycubicSlicerNext"
+            slicer.write_text(
+                "#!/usr/bin/env python3\n"
+                "import json, pathlib, sys\n"
+                "if '--help' in sys.argv:\n"
+                "    print('AnycubicSlicerNext-9.8.7:')\n"
+                "    raise SystemExit(0)\n"
+                "out = pathlib.Path(sys.argv[sys.argv.index('--outputdir') + 1])\n"
+                "(out / 'plate_1.gcode').write_text('; total layer number: 1\\n;LAYER_CHANGE\\n;Z:0.2\\nG90\\nM83\\nG1 X1 Y1 Z0.2 E0.1 F600\\n; total layers count = 2\\n; estimated printing time (normal mode) = 1s\\n', encoding='utf-8')\n"
+                "(out / 'result.json').write_text(json.dumps({'return_code': 0, 'error_string': 'Success.', 'plate_index': 0, 'sliced_plates': [{'id': 1, 'triangle_count': 12, 'warning_message': ''}]}), encoding='utf-8')\n",
+                encoding="utf-8",
+            )
+            slicer.chmod(0o755)
+            source = root / "part.stl"
+            source.write_text("solid part\nendsolid part\n", encoding="utf-8")
+
+            profiles = {}
+            for kind in ("machine", "process", "filament"):
+                path = root / f"{kind}.json"
+                path.write_text(json.dumps({"type": kind, "name": f"Test {kind}"}), encoding="utf-8")
+                profiles[kind] = path
+
+            output = root / "slice"
+            result = slice_anycubic_next(
+                source,
+                output,
+                machine_profile=profiles["machine"],
+                process_profile=profiles["process"],
+                filament_profiles=[profiles["filament"]],
+                executable=str(slicer),
+            )
+            self.assertEqual(result["status"], "PASS", result)
+            self.assertEqual(result["slicer"]["version"], "9.8.7")
+            invocation = result["slicer"]["invocation"]
+            flag_index = invocation.index("--load-defaultfila")
+            self.assertNotEqual(invocation[flag_index + 1], "1")
+            self.assertEqual(result["gcode_reports"]["plate_1.gcode"]["metrics"]["layers_from_comments"], 1)
+            self.assertTrue(any(item["relative_path"] == "plate_1.gcode" for item in result["outputs"]))
+            detail = next(item for item in result["checks"] if item["id"].endswith("layer-summary-consistency"))
+            self.assertEqual(detail["status"], "REVIEW_REQUIRED")
+            self.assertFalse(detail["required"])
+
+    def test_anycubic_slicer_adapter_refuses_existing_output(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "project.3mf"
+            source.write_bytes(b"fixture")
+            output = root / "slice"
+            output.mkdir()
+            sentinel = output / "keep.txt"
+            sentinel.write_text("keep", encoding="utf-8")
+            result = slice_anycubic_next(source, output, executable="missing-anycubic-slicer")
+            self.assertEqual(result["status"], "FAIL", result)
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "keep")
+
     def test_gcode_tracks_extrusion_per_tool_and_units(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "multi.gcode"
@@ -301,9 +397,11 @@ class CoreTests(unittest.TestCase):
             self.assertEqual(exit_code(draft["status"], "draft"), 0)
 
     def test_skill_validation_uses_ast_without_cache_writes(self) -> None:
+        cache_directories_before = {path.resolve() for path in ROOT.rglob("__pycache__")}
         result = validate_skill(ROOT, runtime="opencode", profile="draft")
         self.assertNotEqual(result["status"], "FAIL", result)
-        self.assertFalse(any(ROOT.rglob("__pycache__")))
+        cache_directories_after = {path.resolve() for path in ROOT.rglob("__pycache__")}
+        self.assertEqual(cache_directories_after, cache_directories_before)
 
 
 if __name__ == "__main__":

@@ -35,3 +35,12 @@
 - The `3d-skill-maintainer` may create or update candidates, evals, conflict reports, and proposed patches. It must not silently promote records or directly rewrite production skills.
 - Retrieve learning context just in time: filter structured scope first, then rank feature match, evidence level, textual similarity, and recency. Never load the full experience store by default.
 - Run `python .agents/skills/3d-skill-maintainer/scripts/learning_records.py validate` before completing a learning-system change.
+
+## 3. Exact FDM slicer workflow
+
+- For Anycubic FDM work, use the sibling `validate-printable-3d-projects` command `fdm_ci.py slice-anycubic-next` as the supported headless Anycubic Slicer Next adapter.
+- Slice STL/OBJ only with explicit machine, process, and filament JSON profiles. A 3MF may use its embedded profiles; if external profiles are supplied, require the complete set.
+- Write every run to a new output directory. Preserve the source, slicer version, executable/profile/input hashes, native `result.json`, exact G-code hash, and G-code analysis report.
+- Anycubic Slicer Next embeds a generation timestamp and may also vary path segmentation or ordering between same-scope runs. Do not demand raw or normalized byte identity and do not rewrite manufacturing G-code to hide differences; retain each exact artifact, compare exact-input reports and approved metric tolerances, and review diagnostic path diffs separately.
+- Required slicer absence, unreadable version, missing profile, failed native result, or missing G-code is fail-closed. Final layer, support, seam, tool/color, and purge review remains human-controlled.
+- The adapter may export local files only. Printer upload and print start are outside this workflow and require separate explicit human action.

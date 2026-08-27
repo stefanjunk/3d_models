@@ -128,6 +128,40 @@ class ScriptTests(unittest.TestCase):
         self.assertLessEqual(profile["layer_height_mm"], 0.45)
         self.assertGreaterEqual(profile["perimeters"], 3)
 
+    def test_anycubic_slicer_preflight_routes_through_validation_adapter(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            source = root / "part.stl"
+            source.write_text("solid part\nendsolid part\n", encoding="utf-8")
+            profiles = {}
+            for kind in ("machine", "process", "filament"):
+                path = root / f"{kind}.json"
+                path.write_text(json.dumps({"type": kind, "name": kind}), encoding="utf-8")
+                profiles[kind] = path
+            result = run_json(
+                "slicer_preflight.py",
+                str(source),
+                "--slicer", "AnycubicSlicerNext",
+                "--machine-profile", str(profiles["machine"]),
+                "--process-profile", str(profiles["process"]),
+                "--filament-profile", str(profiles["filament"]),
+                "--output-dir", str(root / "slice"),
+            )
+            self.assertEqual(result["backend"], "anycubic-slicer-next")
+            self.assertIn("slice-anycubic-next", result["command"])
+            self.assertFalse(result["execute_requested"])
+
+            project = root / "project.3mf"
+            project.write_bytes(b"fixture")
+            incomplete = run_json(
+                "slicer_preflight.py",
+                str(project),
+                "--slicer", "AnycubicSlicerNext",
+                "--machine-profile", str(profiles["machine"]),
+                expected=1,
+            )
+            self.assertIn("requires --machine-profile", incomplete["error"])
+
     def test_print_buy_fit_snap_gear(self) -> None:
         bearing = run_json("print_vs_buy.py", "--component", "bearing", "--json")
         self.assertEqual(bearing["recommendation"], "buy")

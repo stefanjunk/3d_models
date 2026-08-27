@@ -33,6 +33,9 @@ Resolve this skill directory and run:
 
 ```bash
 python3 scripts/fdm_ci.py doctor --json-out reports/environment.json
+python3 scripts/fdm_ci.py slice-anycubic-next model.stl build/anycubic-slice \
+  --machine-profile printer.json --process-profile process.json \
+  --filament-profile filament.json --json-out reports/anycubic-slice.json
 python3 scripts/fdm_ci.py init-autonomy example-part autonomy-policy.json \
   --mode autonomous-to-print-candidate --authorized-by project-owner
 python3 scripts/fdm_ci.py validate-project validation-project.json \
@@ -57,6 +60,7 @@ python3 scripts/fdm_ci.py validate-project validation-project.lock.json \
 - `compare-meshes`: seeded bidirectional surface-distance, bounds, and volume regression.
 - `check-interfaces`: exact or conservative overlap, separation, and motion-sweep checks from a contract.
 - `analyze-gcode`: layers, tools, extrusion, bounds, approximate time and peak flow from local G-code.
+- `slice-anycubic-next`: isolated local Anycubic Slicer Next CLI export with exact source/profile/binary/output hashes, native-result checks, and G-code analysis; no upload/start capability.
 - `validate-3mf`: package/XML/reference/material/mesh structure.
 - `run-sweep`: deterministic default/min/max/pairwise parameter execution with artifact checks.
 - `validate-skill`: OpenCode/portable layout, references, Python AST syntax, and dependency declaration checks without writing into the installed skill.
@@ -104,6 +108,7 @@ Do not use an overall score. One failed protected constraint blocks the candidat
 - Read `references/project-contract.md` when creating or editing the validation manifest.
 - Read `references/validation-architecture.md` when integrating another skill or CI system.
 - Read `references/opencode-runtime.md` for installation, dependency, and read-only portability.
+- Read `references/anycubic-slicer-next.md` before using the Anycubic Slicer Next CLI adapter or comparing its G-code across runs.
 - Read `references/autonomy-and-approvals.md` before selecting autonomy or recording an approval.
 
 ## Safety boundary

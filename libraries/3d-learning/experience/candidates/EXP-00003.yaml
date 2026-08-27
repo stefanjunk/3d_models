@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 kind: lesson
 id: EXP-00003
-title: Anycubic Slicer Next 1.3.9.4 supports local hash-bound CLI export with metadata caveats
+title: Anycubic Slicer Next 1.3.9.4 supports local hash-bound CLI export with bounded reproducibility
 captured_at: 2026-08-27
 source_type: design-trace
 lifecycle:
@@ -64,9 +64,9 @@ scope:
     - Does not establish behavior for another Anycubic Slicer Next version or package.
     - Does not qualify print quality, firmware compatibility, remote actions, or physical safety.
 observation:
-  summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp and layer-summary metadata differences.
+  summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp, toolpath-repeatability, and layer-summary differences.
   expected: A headless local slicer could export G-code with exact input/profile provenance and no printer action.
-  actual: Both input routes returned native success and parseable G-code; repeated STL G-code differed only by its generation timestamp, and the 3MF footer reported 95 layers while 94 executable markers and the header agreed.
+  actual: Both input routes returned native success and parseable G-code. The simple STL repeat differed only by generation timestamp, but the support-bearing 3MF repeat retained nine path segmentation/order differences after removing timestamp and progress metadata, with about 0.8 mm extrusion, 56.8 mm travel, and 1 s estimate deltas. Its footer reported 95 layers while 94 executable markers and the header agreed.
   outcome: mixed
   parameter: cli_export_and_metadata_behavior
   recommended_value: Use the fail-closed adapter, retain raw hashes, compare parsed metrics, and keep metadata warnings visible.
@@ -77,23 +77,24 @@ explanation:
   alternatives:
     - Another packaging build or operating system may parse flags or locate resources differently.
     - The 3MF footer mismatch may depend on this project, adaptive layers, supports, or version-specific summary code.
-    - Additional nondeterministic fields may appear in multicolor, timelapse, or cloud-enabled jobs not tested here.
+    - Internal support scheduling, path traversal, or geometry iteration order may explain the observed 3MF path variation.
+    - Additional nondeterministic fields or paths may appear in multicolor, timelapse, or cloud-enabled jobs not tested here.
   validated: false
   validation_method: null
 evidence:
-  observations: 3
+  observations: 4
   same_scope_repetitions: 2
   geometry_count: 2
   machine_count: 1
   material_count: 1
   nozzle_count: 2
   measured: true
-  measurement_method: CLI exit/native-result checks, SHA-256 comparison, normalized diagnostic diff, and deterministic G-code parsing.
+  measurement_method: CLI exit/native-result checks, SHA-256 comparison, timestamp/progress-stripped diagnostic diffs, and deterministic G-code parsing.
   uncertainty: One host and internal slicer version; no physical printer or multicolor tool change was exercised.
   sources:
     - type: research
       ref: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
-      hash: fd17b9850fa6aaca0b2996d1becd6291cdb2bdca19c6521a3de6f552cf663aa8
+      hash: 26fb4f771132fb192f0244ed2ff94a6c7f85f33e37e406cfae3dc0b97517352a
       notes: Exact local tool, profile, source, output hashes, metrics, and known limitations.
     - type: manufacturer
       ref: https://www.anycubic.com/slicerNextDownload
@@ -113,9 +114,11 @@ applicability:
     - Resin slicing.
     - Authoring or correcting color painting and ACE slot mapping.
     - Autonomous upload, print start, or physical acceptance.
-    - Byte-identical G-code regression without first accounting for the generation header.
+    - Byte-identical or normalized-byte-identical G-code regression assumptions.
   transfer_limits:
     - Re-run the live capability test after any slicer, package, profile, or OS change.
+    - Do not generalize the simple-STL timestamp-only repeat result to support-bearing, complex, or multicolor jobs.
+    - Define explicit metric tolerances and review path diffs when same-scope reproducibility matters.
     - Treat missing version/profile/native-result/G-code evidence as fail-closed.
     - Require GUI preview for layers, supports, seams, tools/colors, and purge.
 relationships:

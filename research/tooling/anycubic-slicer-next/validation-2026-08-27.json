@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "tool-validation-trace",
+  "captured_at": "2026-08-27",
+  "source_commit": "292b9fb8692b8dca96a2328bea31737d654e59d2",
+  "tool": {
+    "name": "Anycubic Slicer Next",
+    "internal_version": "1.3.9.4",
+    "package": "anycubicslicernext-bin 1.3.9600-3",
+    "launcher": {
+      "path": "/usr/bin/AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2"
+    },
+    "binary": {
+      "path": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+      "sha256": "30e57f5edfb4cd6c9754aaf7a0f4f626b3ba856625e13f6311fe2ba3093d1e1d"
+    },
+    "license": "AGPL-3.0",
+    "upstream": "https://github.com/ANYCUBIC-3D/AnycubicSlicerNext",
+    "manufacturer_download": "https://www.anycubic.com/slicerNextDownload"
+  },
+  "host": {
+    "os": "Manjaro Linux rolling",
+    "architecture": "x86_64",
+    "kernel": "7.1.8-1-MANJARO",
+    "vendor_supported_linux": "Ubuntu 24.04 only",
+    "compatibility_interpretation": "Observed local compatibility on Manjaro; not vendor support."
+  },
+  "adapter": {
+    "command": "fdm_ci.py slice-anycubic-next",
+    "version": "1.2.0",
+    "datadir_policy": "Temporary isolated slicer/XDG data directories",
+    "output_policy": "Refuse every pre-existing output directory",
+    "remote_actions": "No upload or print-start capability implemented"
+  },
+  "tests": [
+    {
+      "id": "kobra-3-max-external-profile-stl",
+      "status": "PASS",
+      "input": {
+        "path": "/opt/AnycubicSlicerNext/share/resources/calib/tolerance_test/OrcaToleranceTest.stl",
+        "sha256": "4c4c453a20714468ef5e54a87414068b498e968bb90bc7ee4f9f137220a291f5",
+        "size_bytes": 228684
+      },
+      "profiles": [
+        {
+          "type": "machine",
+          "name": "Anycubic Kobra 3 Max 0.4 nozzle",
+          "sha256": "7e80addb1aff5418c3018207ec6e59d50913030568901c760db0db599072cee7"
+        },
+        {
+          "type": "process",
+          "name": "0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+          "sha256": "dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81"
+        },
+        {
+          "type": "filament",
+          "name": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle",
+          "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b"
+        }
+      ],
+      "native_result": {
+        "return_code": 0,
+        "error_string": "Success.",
+        "triangle_count": 4572
+      },
+      "outputs": [
+        {
+          "role": "gcode",
+          "sha256": "559e7fc55c100c49f87c4a3fa09c81ecb95b6cd0b883dbf595d8fc18ffcb3bf7",
+          "size_bytes": 540162
+        },
+        {
+          "role": "native-result",
+          "sha256": "02c1e50165e2dd49ed27c783d1be69b3c0d596b8db1f9160c1a0d082d64f1af1",
+          "size_bytes": 336
+        }
+      ],
+      "gcode_metrics": {
+        "layers_from_comments": 32,
+        "layers_declared_header": 32,
+        "layers_declared_summary": 32,
+        "normal_mode_time_s": 602.0,
+        "tool_changes": 0,
+        "peak_flow_mm3_s": 12.92994485003427
+      }
+    },
+    {
+      "id": "repeatability-external-profile-stl",
+      "status": "PASS_WITH_KNOWN_BYTE_VARIATION",
+      "same_scope_repetitions": 2,
+      "raw_gcode_sha256": [
+        "19d776d3c727968793ed6cd63ba869d5dca635a9e0bee2ada8220a7154bc55be",
+        "1ed2e8c8e43be93a767b8ce969ea8b099c3bb69893058be3a7553135e383f659"
+      ],
+      "normalized_diagnostic_sha256": [
+        "ac947fb86363a61fbbd95bee895e5dd5a2f06b48ffda8e7d3bdfa42606772357",
+        "ac947fb86363a61fbbd95bee895e5dd5a2f06b48ffda8e7d3bdfa42606772357"
+      ],
+      "difference": "Only the generated-by wall-clock header differed after independent runs.",
+      "manufacturing_rule": "Retain exact raw G-code; normalize only a separate diagnostic copy."
+    },
+    {
+      "id": "embedded-profile-3mf",
+      "status": "PASS_WITH_METADATA_REVIEW",
+      "input": {
+        "source_commit_path": "git:292b9fb8692b8dca96a2328bea31737d654e59d2:products/home-kitchen-garden/unregistered-shower-drain-hairtrap/abflusssieb/shower_drain_hairtrap_945x65_funnel_open_v1_2/shower_drain_hairtrap_945x65_funnel_open/functional_test_tile_75mm.3mf",
+        "observed_worktree_path": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_945x65_funnel_open_v1_2/shower_drain_hairtrap_945x65_funnel_open/functional_test_tile_75mm.3mf",
+        "sha256": "76f7e76f74831aad8159cf36fc3e0693528cea03cd57306b198408b94af524a5",
+        "size_bytes": 212351
+      },
+      "embedded_profile": {
+        "printer": "Anycubic Kobra 3 Max 0.6 hardened steel nozzle",
+        "process": "0.24mm Standard @Anycubic Kobra 3 Max 0.6 nozzle",
+        "filament": "Anycubic PLA new@Anycubic Kobra 3 Max 0.6 hardened steel nozzle",
+        "active_filament_type": "PLA"
+      },
+      "native_result": {
+        "return_code": 0,
+        "error_string": "Success.",
+        "triangle_count": 16186
+      },
+      "outputs": [
+        {
+          "role": "gcode",
+          "sha256": "15a9a22ed5288dbe996ac5158484cf2eb6d07b202e8853874ebc2e99ae4e4fdd",
+          "size_bytes": 2423773
+        },
+        {
+          "role": "native-result",
+          "sha256": "8dbcafdbde569c33c656417860933296f997c53cbe88b6a6c6c01d0958719b15",
+          "size_bytes": 337
+        }
+      ],
+      "gcode_metrics": {
+        "layers_from_comments": 94,
+        "layers_declared_header": 94,
+        "layers_declared_summary": 95,
+        "normal_mode_time_s": 3308.0,
+        "tool_changes": 0,
+        "peak_flow_mm3_s": 14.966961890998792
+      },
+      "review_item": "Footer layer summary is off by one while executable LAYER_CHANGE markers and the header agree."
+    },
+    {
+      "id": "repeatability-embedded-profile-3mf",
+      "status": "PASS_WITH_TOOLPATH_VARIATION",
+      "same_scope_repetitions": 2,
+      "input_sha256": "76f7e76f74831aad8159cf36fc3e0693528cea03cd57306b198408b94af524a5",
+      "raw_gcode_sha256": [
+        "15a9a22ed5288dbe996ac5158484cf2eb6d07b202e8853874ebc2e99ae4e4fdd",
+        "1332b85d7219bd5a72d875cf78d2ffced66a2ed2c4f3ea247f47095e2ef683db"
+      ],
+      "timestamp_normalized_sha256": [
+        "f61f90201e19291adebe6a0842fa67e168b55497927a93cff389f79be5c95a7e",
+        "a379235f20e670c586867fc5ec25382c3e54b48415f09b7272ff09453650969c"
+      ],
+      "noncomment_non_m73_sha256": [
+        "f9c65075adce0de86f2340e113354c691322433241d80714061458f09a66b34d",
+        "434c50ea25585d40bbf1dd1eec86e793d8db102188f59d87953a3e72948d004"
+      ],
+      "diagnostic_diff_hunks": 9,
+      "metrics": [
+        {
+          "positive_extrusion_mm": 12614.234909998082,
+          "travel_mm": 23859.036172441796,
+          "normal_mode_time_s": 3308.0,
+          "peak_flow_mm3_s": 14.966961890998792
+        },
+        {
+          "positive_extrusion_mm": 12615.034919998081,
+          "travel_mm": 23915.818089027973,
+          "normal_mode_time_s": 3309.0,
+          "peak_flow_mm3_s": 14.966961890998792
+        }
+      ],
+      "difference": "Timestamp/progress metadata and nine path-segmentation or ordering hunks differed, including support-related paths.",
+      "regression_rule": "Do not generalize the simple-STL timestamp-only result; retain exact artifacts, compare approved metric tolerances, and inspect separate diagnostic path diffs."
+    }
+  ],
+  "validation": {
+    "adapter_unit_tests": {
+      "result": "PASS",
+      "count": 23
+    },
+    "skill_quick_validation": {
+      "result": "PASS",
+      "skills": [
+        "validate-printable-3d-projects",
+        "functional-3d-design",
+        "multicolor-fdm-design"
+      ]
+    },
+    "portable_skill_validation": "PASS",
+    "functional_targeted_preflight_test": "PASS",
+    "unrelated_workspace_test_state": "Three existing watermark-path tests fail because they expect a root metrimade-watermark directory while the workspace contains tools/metrimade-watermark; no Anycubic assertion failed."
+  },
+  "limitations": [
+    "No physical print was started or evaluated.",
+    "No printer firmware or network/cloud compatibility was tested.",
+    "The successful 3MF was single-tool despite carrying four PLA slots; multicolor slot mapping and purge remain untested.",
+    "A repeated support-bearing 3MF was not byte-identical after timestamp/progress removal; path segmentation or ordering and small aggregate metrics varied.",
+    "Results do not transfer automatically to another Anycubic Slicer Next version, OS package, printer, profile, or material."
+  ]
+}

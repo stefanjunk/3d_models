@@ -27,6 +27,7 @@ from fdm_validation.interfaces import validate_contract  # noqa: E402
 from fdm_validation.mesh import audit as audit_mesh  # noqa: E402
 from fdm_validation.profile import validate_profile  # noqa: E402
 from fdm_validation.project import validate_project  # noqa: E402
+from fdm_validation.slicer import slice_anycubic_next  # noqa: E402
 from fdm_validation.skillcheck import validate as validate_skill  # noqa: E402
 from fdm_validation.sweep import run as run_sweep  # noqa: E402
 from fdm_validation.threemf import validate as validate_3mf  # noqa: E402
@@ -72,6 +73,17 @@ def parser() -> argparse.ArgumentParser:
     item = commands.add_parser("analyze-gcode", help="Parse local G-code without uploading or starting a printer.")
     item.add_argument("gcode", type=Path)
     item.add_argument("--policy", type=Path)
+    output_args(item)
+
+    item = commands.add_parser("slice-anycubic-next", help="Slice locally with Anycubic Slicer Next and record exact profile/output hashes.")
+    item.add_argument("source", type=Path)
+    item.add_argument("output_dir", type=Path)
+    item.add_argument("--machine-profile", type=Path)
+    item.add_argument("--process-profile", type=Path)
+    item.add_argument("--filament-profile", action="append", type=Path, default=[])
+    item.add_argument("--slicer", default="AnycubicSlicerNext")
+    item.add_argument("--plate", type=int, default=0, help="0 slices all plates; positive values select one plate.")
+    item.add_argument("--timeout-s", type=int, default=600)
     output_args(item)
 
     item = commands.add_parser("validate-3mf", help="Validate standard 3MF package, references, materials, and optional topology.")
@@ -169,6 +181,18 @@ def main() -> int:
             result = validate_contract(args.contract, args.profile)
         elif args.command == "analyze-gcode":
             result = analyze_gcode(args.gcode, policy(args.policy), args.profile)
+        elif args.command == "slice-anycubic-next":
+            result = slice_anycubic_next(
+                args.source,
+                args.output_dir,
+                machine_profile=args.machine_profile,
+                process_profile=args.process_profile,
+                filament_profiles=args.filament_profile,
+                executable=args.slicer,
+                plate=args.plate,
+                timeout_s=args.timeout_s,
+                profile=args.profile,
+            )
         elif args.command == "validate-3mf":
             result = validate_3mf(args.file, policy(args.policy), args.profile)
         elif args.command == "run-sweep":

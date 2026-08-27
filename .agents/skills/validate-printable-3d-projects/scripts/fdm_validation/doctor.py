@@ -20,7 +20,7 @@ MODULE_GROUPS: dict[str, list[str]] = {
     "yaml": ["yaml"],
 }
 
-EXECUTABLES = ["openscad", "freecadcmd", "FreeCADCmd", "blender", "prusa-slicer", "prusaslicer", "orca-slicer"]
+EXECUTABLES = ["openscad", "freecadcmd", "FreeCADCmd", "blender", "prusa-slicer", "prusaslicer", "orca-slicer", "AnycubicSlicerNext"]
 
 
 def module_version(name: str) -> dict[str, Any]:

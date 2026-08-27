@@ -9,8 +9,13 @@ from .common import check, report
 
 TOKEN = re.compile(r"([A-Za-z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 TIME_PATTERNS = [
-    re.compile(r"estimated printing time.*?=\s*(.+)", re.I),
-    re.compile(r"TIME:\s*(\d+(?:\.\d+)?)", re.I),
+    (re.compile(r"estimated printing time\s*\(normal mode\).*?=\s*(.+)", re.I), 3),
+    (re.compile(r"TIME:\s*(\d+(?:\.\d+)?)", re.I), 2),
+    (re.compile(r"estimated printing time.*?=\s*(.+)", re.I), 1),
+]
+DECLARED_LAYER_PATTERNS = [
+    ("header", re.compile(r"total layer number:\s*(\d+)", re.I)),
+    ("summary", re.compile(r"total layers count\s*=\s*(\d+)", re.I)),
 ]
 
 
@@ -51,6 +56,8 @@ def analyze(path: Path, policy: dict[str, Any] | None = None, profile: str = "re
     filament_diameter = float(policy.get("filament_diameter_mm", 1.75))
     filament_area = math.pi * (filament_diameter / 2.0) ** 2
     metadata_time = None
+    metadata_time_priority = -1
+    declared_layer_values: dict[str, set[int]] = {"header": set(), "summary": set()}
     warnings: list[str] = []
 
     with path.open("r", encoding="utf-8", errors="replace") as handle:
@@ -58,15 +65,22 @@ def analyze(path: Path, policy: dict[str, Any] | None = None, profile: str = "re
             stripped = raw.strip()
             if stripped.startswith(";"):
                 upper = stripped.upper()
-                if upper.startswith(";LAYER:") or upper.startswith("; LAYER "):
+                if upper == ";LAYER_CHANGE":
+                    layers += 1
+                elif upper.startswith(";LAYER:") or upper.startswith("; LAYER "):
                     marker = stripped
                     if marker != last_layer_marker:
                         layers += 1
                         last_layer_marker = marker
-                for pattern in TIME_PATTERNS:
+                for pattern, priority in TIME_PATTERNS:
+                    match = pattern.search(stripped)
+                    if match and priority > metadata_time_priority:
+                        metadata_time = _duration(match.group(1).strip())
+                        metadata_time_priority = priority
+                for location, pattern in DECLARED_LAYER_PATTERNS:
                     match = pattern.search(stripped)
                     if match:
-                        metadata_time = _duration(match.group(1).strip())
+                        declared_layer_values[location].add(int(match.group(1)))
                 continue
             code = stripped.split(";", 1)[0].strip()
             if not code:
@@ -144,8 +158,17 @@ def analyze(path: Path, policy: dict[str, Any] | None = None, profile: str = "re
     }
     if layers == 0:
         warnings.append("No recognized layer comments were found; layer count is unknown")
+    header_layers = next(iter(declared_layer_values["header"])) if len(declared_layer_values["header"]) == 1 else None
+    summary_layers = next(iter(declared_layer_values["summary"])) if len(declared_layer_values["summary"]) == 1 else None
+    declared_layers = header_layers if header_layers is not None else summary_layers
+    all_declared_layers = declared_layer_values["header"] | declared_layer_values["summary"]
+    if len(all_declared_layers) > 1:
+        warnings.append(f"Conflicting declared layer counts: header={sorted(declared_layer_values['header'])}, summary={sorted(declared_layer_values['summary'])}")
     metrics = {
         "layers_from_comments": layers or None,
+        "layers_declared": declared_layers,
+        "layers_declared_header": header_layers,
+        "layers_declared_summary": summary_layers,
         "tools_seen": sorted(tools),
         "tool_changes": tool_changes,
         "arc_moves": arc_moves,
@@ -165,6 +188,20 @@ def analyze(path: Path, policy: dict[str, Any] | None = None, profile: str = "re
     }
     checks = [check("gcode-parse", "PASS", "G-code parsed without executing or uploading it")]
     checks.append(check("filament-diameter", "PASS" if filament_diameter > 0 else "FAIL", f"Filament diameter {filament_diameter:g} mm"))
+    if all_declared_layers:
+        consistent = layers == 0 or layers in all_declared_layers
+        checks.append(check(
+            "layer-count-consistency",
+            "PASS" if consistent else "FAIL",
+            f"Layer markers {layers or 'unknown'}; header {sorted(declared_layer_values['header']) or 'unknown'}; summary {sorted(declared_layer_values['summary']) or 'unknown'}",
+        ))
+    if header_layers is not None and summary_layers is not None and header_layers != summary_layers:
+        checks.append(check(
+            "layer-summary-consistency",
+            "REVIEW_REQUIRED",
+            f"Anycubic header declares {header_layers} layers while the footer summary declares {summary_layers}; executable markers match {layers or 'unknown'}",
+            required=False,
+        ))
     strict_motion = bool(policy.get("require_complete_motion")) or any(key in policy for key in ("bed_mm", "max_flow_mm3_s"))
     if arc_moves:
         checks.append(check("arc-motion", "NOT_RUN" if strict_motion else "REVIEW_REQUIRED", f"{arc_moves} arc move(s) were reduced to endpoint chords; bounds, time, and flow are incomplete", required=strict_motion))

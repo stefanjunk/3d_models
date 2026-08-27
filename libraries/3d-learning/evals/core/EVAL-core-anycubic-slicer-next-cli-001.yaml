@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-anycubic-slicer-next-cli-001
+title: Anycubic Slicer Next CLI export remains fail-closed and metadata-aware
+category: core
+status: active
+trigger: The Anycubic slicer adapter, G-code metadata parser, functional preflight route, or Anycubic workflow guidance changes.
+risk: A missing profile or failed slice could be accepted, existing evidence could be overwritten, timestamps or path-order variation could create false regressions, or conflicting footer metadata could be mistaken for executable layers.
+given:
+  adapter: .agents/skills/validate-printable-3d-projects/scripts/fdm_ci.py slice-anycubic-next
+  unit_suite: .agents/skills/validate-printable-3d-projects/tests
+  live_trace: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+  observed_slicer_version: 1.3.9.4
+  observed_host: Manjaro Linux x86-64
+expected:
+  - Missing executable, source, complete mesh profile set, version, native success, or non-empty G-code blocks the run.
+  - A pre-existing output directory is refused without deleting or overwriting its contents.
+  - The boolean --load-defaultfila switch is emitted without a following value.
+  - Source, executable, profile, native-result, and G-code hashes remain in the report.
+  - Anycubic ;LAYER_CHANGE markers and the normal-mode time are parsed.
+  - When executable markers and the header agree but the footer is off by one, the executable/header count remains primary and a visible non-required review item records the footer conflict.
+  - Timestamp and path-order variation are documented without rewriting the manufacturing file or assuming normalized byte identity.
+  - Reproducibility checks retain exact artifacts, use explicit metric tolerances, and keep path diffs diagnostic.
+  - No adapter or preflight command implements printer upload or print start.
+failure_conditions:
+  - A mesh is sliced without machine, process, and filament profile evidence.
+  - An existing output directory is reused or overwritten.
+  - Any required slicer/native/G-code failure is reported as PASS.
+  - The adapter passes --load-defaultfila 1 or treats 1 as a valid boolean value.
+  - Sport or silent time overwrites the normal-mode estimate.
+  - A conflicting footer adds a synthetic executable layer or hides the warning.
+  - The simple-STL timestamp-only result is generalized into a determinism guarantee for complex, support-bearing, or multicolor jobs.
+  - Raw G-code is normalized in place or remote printer action is added implicitly.
+fixtures:
+  - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+grader:
+  type: hybrid
+  command: python3 -B -m unittest discover -s .agents/skills/validate-printable-3d-projects/tests -p 'test_*.py'
+  expected_exit_code: 0
+  rubric: If the exact local binary and profiles are available, repeat both external-profile STL and embedded-profile 3MF smoke tests into new temporary output directories; unavailable live capability is NOT_RUN, never inferred from unit mocks.
+  measurement_method: Deterministic fake-backend and parser tests plus hash-bound live CLI evidence when the exact tool is present.
+relationships:
+  lessons:
+    - EXP-00003
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-27
+  report: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+  artifact_hashes:
+    - 26fb4f771132fb192f0244ed2ff94a6c7f85f33e37e406cfae3dc0b97517352a
+tags:
+  - anycubic-slicer-next
+  - slicer-cli
+  - fail-closed
+  - gcode-metadata
+  - regression

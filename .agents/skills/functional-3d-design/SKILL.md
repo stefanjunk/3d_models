@@ -145,7 +145,7 @@ Follow this order:
 5. **Calibration check** — identify missing printer/material data and generate coupons first where needed.
 6. **Parametric source** — named parameters, units in millimetres, assertions, deterministic exports.
 7. **Geometry checks** — dimensions, body count, manifold/watertight state, normals, wall/feature rules, collisions.
-8. **Manufacturing baseline** — orientation, support access, bridging, overhangs, seams, bed fit, material/support volume, mesh burden, and an exact-profile slicer dry run.
+8. **Manufacturing baseline** — orientation, support access, bridging, overhangs, seams, bed fit, material/support volume, mesh burden, and an exact-profile slicer dry run. For Anycubic printers, route the dry run through the sibling validation skill's `slice-anycubic-next` command (or this skill's `slicer_preflight.py --slicer AnycubicSlicerNext`) so source/profile/output hashes and native slicer status are retained.
 9. **Engineering characterization** — hand calculations, kinematics, contact, FEM, thermal/flow analysis only at useful fidelity; establish the baseline constraints that optimization may not violate.
 10. **Efficiency and mesh-simplification gate** — invoke `optimize-fdm-design` where applicable; compare process/geometry candidates; inspect every manufacturing mesh using `references/mesh-simplification.md`; set dense-job resource budgets; preserve separate master/manufacturing artifacts; run the geometric gate; then run the independent slicer-resolution gate. Select and validate an export policy or record `not-beneficial`/`not-applicable`. Rerun affected geometry, manufacturing, and engineering checks on the selected candidate.
 11. **Selected model candidate verification** — gather coupon, interface, subassembly, prototype, or field evidence for the selected optimized or unchanged production geometry.
@@ -233,5 +233,7 @@ A missing, unreadable, mirrored, protruding, structurally unsafe, identity-misma
 ## Deterministic validation handoff
 
 Use the sibling `validate-printable-3d-projects` skill as the final release orchestrator and apply `assets/validation-profile.json`. Register source, parameters, dependencies, mesh/3MF, slicer profile, G-code, interface contracts, coupons, and reports with hashes in `validation-project.json`. Run mesh audits, exact interface checks, motion and parameter sweeps, G-code/3MF checks, report-freshness checks, and named approvals. Existing calculators and validators are component checks, not release proof. Required `NOT_RUN`, `REVIEW_REQUIRED`, stale evidence, missing watermark approval, or failed physical gate blocks release.
+
+For Anycubic Slicer Next specifics, read the dedicated Anycubic reference in the sibling validation skill. Its CLI adapter is the authoritative automated path; final GUI preview remains required for layers, supports, seams, and multicolor tool/purge interpretation.
 
 At project start, read the project autonomy policy before changing artifacts. Record only `AUTO_APPROVED` or `BLOCKED` in the agent ledger and only for stages assigned to the agent. Never write `HUMAN_APPROVED`; physical, safety, appearance, watermark, and commercial stages remain in the separate human ledger. Workflow autonomy does not authorize dependency installation, upload, or printer start.

@@ -25,7 +25,7 @@ Fail CI when a change exceeds explicit tolerances rather than merely when a rend
 
 ## 3. Slicer adapters
 
-Add adapters for the user's actual slicer—OrcaSlicer, PrusaSlicer, Bambu Studio CLI where available, CuraEngine, or vendor tooling—to extract time, mass, support volume, tool changes, flow peaks, and warnings. Keep printer upload/start behind human confirmation.
+Use the sibling validation skill's tested Anycubic Slicer Next adapter for Anycubic FDM work. Add equivalent fail-closed adapters for other slicers actually present in the fleet—OrcaSlicer, PrusaSlicer, Bambu Studio CLI where available, CuraEngine, or other vendor tooling—to extract time, mass, support volume, tool changes, flow peaks, and warnings. Keep printer upload/start behind human confirmation.
 
 ## 4. Materials test database
 

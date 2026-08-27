@@ -27,6 +27,14 @@ class CliTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 1)
         self.assertEqual(json.loads(completed.stdout)["status"], "FAIL")
 
+    def test_anycubic_slice_missing_source_fails_without_output(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "slice"
+            completed = self.run_cli("slice-anycubic-next", "missing.stl", str(output), "--slicer", "missing-slicer")
+            self.assertEqual(completed.returncode, 1, completed.stdout + completed.stderr)
+            self.assertEqual(json.loads(completed.stdout)["status"], "FAIL")
+            self.assertFalse(output.exists())
+
     def test_validate_skill_from_arbitrary_cwd(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             completed = subprocess.run(

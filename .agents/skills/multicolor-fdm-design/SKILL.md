@@ -2,11 +2,11 @@
 name: multicolor-fdm-design
 description: Design, convert, validate, and optimize multicolor single-nozzle FDM/FFF models and textured OBJ/GLB assets for 3MF handoff. Use for color decomposition, real-filament palette mapping, parametric color solids and inlays, slicer painting, layer changes, texture quantization, purge and color-change optimization, ACE/AMS/MMU-class systems, and multicolor validation.
 license: MIT
-compatibility: OpenCode with project file access and Python 3.10+. Optional OpenSCAD, Blender, CadQuery, Trimesh, scikit-image, and slicer GUIs or CLIs improve automation.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   domain: "multicolor fdm design and textured asset conversion"
   manufacturing: "single-nozzle multi-filament fdm-fff"
+  compatibility: "OpenCode with project file access and Python 3.10+; optional CAD, mesh, image, and slicer tools improve automation"
   inputs: "parametric CAD, STL, OBJ+MTL+textures, GLB, glTF, 3MF, actual filament palette"
   outputs: "named color solids, standard multi-part 3MF, palette report, purge budget, slicer handoff, validation evidence"
   complements: "functional-3d-design, organic-mesh-functionalization, parametric-freeform-surfacing, 3d-print-heightmap-relief"
@@ -196,5 +196,7 @@ Read `references/12-examples.md` and each example README.
 ## Deterministic validation handoff
 
 Before release, load the sibling `validate-printable-3d-projects` skill and apply `assets/validation-profile.json`. Hash all color solids, palette/filament mappings, 3MF, slicer profile, G-code, previews, and coupon reports. Require watertight positive-volume parts, deterministic 3MF material/build references, exact overlap/clearance checks where available, and G-code tool-change, bounds, time, and flow checks. Color-boundary contamination, purge sufficiency, filament identity, and final slicer interpretation remain named review or physical gates. A required `NOT_RUN`, `REVIEW_REQUIRED`, stale report, or missing coupon blocks release.
+
+For an already-authored destination-slicer 3MF, use the sibling `fdm_ci.py slice-anycubic-next` adapter for headless batch export and hash-bound G-code checks. Do not use that CLI step to author painting or infer ACE slot correctness; retain the authoritative 3MF and complete the final color/tool/wipe-tower preview in Anycubic Slicer Next.
 
 At project start, read the project autonomy policy before changing artifacts. Record only `AUTO_APPROVED` or `BLOCKED` in the agent ledger and only for stages assigned to the agent. Never write `HUMAN_APPROVED`; physical color/purge checks, appearance, safety, and commercial stages remain in the separate human ledger. Workflow autonomy does not authorize dependency installation, upload, or printer start.

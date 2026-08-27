@@ -38,6 +38,8 @@ Every manufacturing mesh also needs the decision gate in `mesh-simplification.md
 
 ## Slicing checks
 
+For Anycubic printer/profile work, use the sibling `validate-printable-3d-projects` command `fdm_ci.py slice-anycubic-next`, directly or through `scripts/slicer_preflight.py --slicer AnycubicSlicerNext`. Require a new output directory and exact machine/process/filament JSON profiles for STL/OBJ. An authored 3MF may use embedded profiles. Preserve the adapter report and each exact G-code hash. Same-scope runs can differ in timestamps and, for complex/support-bearing jobs, path segmentation or ordering; compare approved metric tolerances and inspect separate path diffs instead of assuming raw or normalized byte identity.
+
 - exact printer, nozzle, and material profile;
 - first-layer contact and elephant foot;
 - missing thin walls;

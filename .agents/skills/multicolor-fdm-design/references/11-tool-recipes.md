@@ -41,6 +41,16 @@ Create a master product and semantic cutters. Build each accent as `product.inte
 
 Anycubic Slicer Next is Orca-based and provides Color Painting. Use separate parts for robust parametric models and painting for local corrections. Assign each part/paint color to the intended ACE slot, then inspect the sliced color/tool view and wipe tower.
 
+After saving the authoritative Anycubic 3MF, batch-slice it through the sibling validation skill:
+
+```bash
+python3 "$FDM_VALIDATION_SKILL/scripts/fdm_ci.py" slice-anycubic-next \
+  model-anycubic.3mf build/anycubic-slice-r1 \
+  --json-out reports/anycubic-slice-r1.json
+```
+
+The command uses embedded 3MF profiles unless a complete external machine/process/filament set is supplied. It records exact hashes and analyzes G-code, but it neither creates paint data nor proves ACE slot mapping or purge quality. Keep GUI preview and a physical color/purge coupon as separate gates.
+
 ## Python helpers
 
 ```text

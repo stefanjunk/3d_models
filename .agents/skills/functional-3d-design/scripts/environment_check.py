@@ -14,7 +14,11 @@ def command_version(command: str, args: list[str]) -> dict:
         return {"available": False, "path": None, "version": None}
     try:
         result = subprocess.run([path, *args], capture_output=True, text=True, timeout=10, check=False)
-        version = (result.stdout or result.stderr).strip().splitlines()[0]
+        lines = (result.stdout + "\n" + result.stderr).strip().splitlines()
+        version = next(
+            (line.strip().rstrip(":") for line in lines if "AnycubicSlicerNext-" in line),
+            next((line.strip() for line in lines if line.strip() and not line.startswith("[")), "unknown"),
+        )
     except Exception as exc:  # pragma: no cover
         version = f"error: {exc}"
     return {"available": True, "path": path, "version": version}
@@ -40,6 +44,7 @@ def main() -> int:
             "blender": command_version("blender", ["--version"]),
             "prusa-slicer": command_version("prusa-slicer", ["--version"]),
             "orca-slicer": command_version("orca-slicer", ["--version"]),
+            "anycubic-slicer-next": command_version("AnycubicSlicerNext", ["--help"]),
         },
         "python_modules": {
             name: module_version(name)

@@ -64,9 +64,9 @@ scope:
     - Does not establish behavior for another Anycubic Slicer Next version or package.
     - Does not qualify print quality, firmware compatibility, remote actions, or physical safety.
 observation:
-  summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp, toolpath-repeatability, and layer-summary differences.
+  summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp, toolpath-repeatability, layer-summary, and isolated-working-directory path differences.
   expected: A headless local slicer could export G-code with exact input/profile provenance and no printer action.
-  actual: Both input routes returned native success and parseable G-code. The simple STL repeat differed only by generation timestamp, but the support-bearing 3MF repeat retained nine path segmentation/order differences after removing timestamp and progress metadata, with about 0.8 mm extrusion, 56.8 mm travel, and 1 s estimate deltas. Its footer reported 95 layers while 94 executable markers and the header agreed.
+  actual: Both original input routes returned native success and parseable G-code. The simple STL repeat differed only by generation timestamp, but the support-bearing 3MF repeat retained nine path segmentation/order differences after removing timestamp and progress metadata, with about 0.8 mm extrusion, 56.8 mm travel, and 1 s estimate deltas. Its footer reported 95 layers while 94 executable markers and the header agreed. A later product run passed adapter existence checks with relative mesh/profile paths but failed inside the isolated slicer working directory; a fresh run with absolute paths passed.
   outcome: mixed
   parameter: cli_export_and_metadata_behavior
   recommended_value: Use the fail-closed adapter, retain raw hashes, compare parsed metrics, and keep metadata warnings visible.
@@ -79,6 +79,7 @@ explanation:
     - The 3MF footer mismatch may depend on this project, adaptive layers, supports, or version-specific summary code.
     - Internal support scheduling, path traversal, or geometry iteration order may explain the observed 3MF path variation.
     - Additional nondeterministic fields or paths may appear in multicolor, timelapse, or cloud-enabled jobs not tested here.
+    - The relative-path failure is attributable to wrapper path handling in the observed adapter revision, not to the source mesh or Anycubic profile contents.
   validated: false
   validation_method: null
 evidence:
@@ -104,8 +105,14 @@ evidence:
       ref: https://github.com/ANYCUBIC-3D/AnycubicSlicerNext
       hash: null
       notes: Manufacturer-owned source repository and AGPL-3.0 provenance.
+    - type: product-trace
+      ref: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
+      hash: 24f9ec6a14ec4995141cfa14f460e908972b3a6b88dfa258c5f3b90cbe9e8cff
+      notes: Relative-path run failed after the adapter changed to its isolated working directory; the fresh absolute-path report passed.
   artifacts:
     - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1-r2.json
 applicability:
   triggers:
     - An Anycubic FDM project needs a local exact-profile slicer dry run with machine-readable evidence.
@@ -120,6 +127,7 @@ applicability:
     - Do not generalize the simple-STL timestamp-only repeat result to support-bearing, complex, or multicolor jobs.
     - Define explicit metric tolerances and review path diffs when same-scope reproducibility matters.
     - Treat missing version/profile/native-result/G-code evidence as fail-closed.
+    - Resolve all slicer source, output and profile paths before entering an isolated temporary working directory; retain the failed report until the adapter regression is fixed.
     - Require GUI preview for layers, supports, seams, tools/colors, and purge.
 relationships:
   duplicates: []

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "scope": "Digital visual review of the actual marked double-segment master STL from the selected inner side wall",
+  "product_id": "MM-BTH-003",
+  "product_name": "Linear Shower Drain Hair Trap",
+  "revision": "3.1.0-draft.1",
+  "renderer": {
+    "name": "Blender",
+    "version": "5.2.0 LTS",
+    "script": "render_watermark_previews.py",
+    "script_sha256": "b185444c95ae2b9fada21b157457df60dad681f3f31eeca75030e45d3251abfc"
+  },
+  "source_mesh": {
+    "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.stl",
+    "sha256": "8290d06e669a138faf43eb3178ad23afa6de267540e7338565c90cfdc3cdff35"
+  },
+  "evidence": {
+    "path": "validation/previews/DRAFT-MM-BTH-003-3.1.0-draft.1-watermark-inner-side-render.png",
+    "sha256": "8a804ddf6c1effbf40fa9bc17ca76516c0d6c5999f37e55050cb9e135439072d",
+    "pixels": [1800, 600]
+  },
+  "checks": [
+    {
+      "id": "selected-surface",
+      "status": "PASS",
+      "criterion": "The mark is visibly recessed into a lateral inner wall of the marked 105 mm double segment."
+    },
+    {
+      "id": "reading-direction",
+      "status": "PASS",
+      "criterion": "The two identity lines read left-to-right from the drain cavity."
+    },
+    {
+      "id": "visible-identity",
+      "status": "PASS",
+      "criterion": "The render visibly reads 'metriMade.com' and 'MM-BTH-003 · v3.1.0-draft.1'."
+    },
+    {
+      "id": "physical-readability",
+      "status": "NOT_RUN",
+      "criterion": "The same identity remains readable on a process-matched physical coupon and printed double segment."
+    }
+  ],
+  "boundary": "This digital render validates orientation and modeled legibility only. It does not approve physical watermark quality or product release."
+}

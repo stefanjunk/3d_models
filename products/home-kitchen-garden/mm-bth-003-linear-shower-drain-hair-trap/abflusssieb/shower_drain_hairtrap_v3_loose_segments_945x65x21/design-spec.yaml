@@ -4,7 +4,7 @@ project:
   name: Linear Shower Drain Hair Trap
   revision: 3.1.0-draft.1
   units: mm
-  status: draft-concept-review
+  status: draft-production-candidate-review
   baseline:
     revision: funnel-edge-v1.3
     source: ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/build_shower_drain_hairtrap_945x65_funnel_edge.py
@@ -18,23 +18,27 @@ workflow:
     approved_by: user
     approved_at: 2026-08-27T21:40:04+02:00
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 3.1.0-draft.1
     asset: concept/DRAFT-concept-sheet-3.1.0-draft.1.png
-    approved_by: null
-    approved_at: null
+    approved_by: user
+    approved_at: 2026-08-27T21:59:33+02:00
   watermark_approval:
     status: blocked
-    spec_revision: null
+    spec_revision: 3.1.0-draft.1
     asset_id: MM-WM-001-R1
     product_id: MM-BTH-003
     version: 3.1.0-draft.1
     approved_by: null
     approved_at: null
-    generated_profile: null
-    manifest_asset: null
-    selector_evidence: []
-    blocker: Concept approval is required before generating or integrating the proposed marked double-segment geometry.
+    generated_profile: assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/metrimade-watermark-MM-BTH-003-v3.1.0-draft.1.json
+    manifest_asset: assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/manifest.sha256
+    selector_evidence:
+      - validation/watermark/side-wall-selector-3.1.0-draft.1.json
+      - validation/watermark/watermark-placement-report-3.1.0-draft.1.json
+      - validation/watermark/watermark-visual-review-3.1.0-draft.1.json
+      - validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
+    blocker: The modeled placement and retained Anycubic toolpath passed digital review, but the exact-process physical watermark coupon and explicit human watermark approval are still required.
 
 branding:
   required: true
@@ -50,12 +54,14 @@ branding:
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
-  provisional_generated_envelope_mm: [80.97, 12.8, 0.4]
-  generated_status: pending-after-concept-approval
-  placement_status: proposed-requires-approval
+  generated_envelope_mm: [79.802, 12.8, 0.4]
+  generated_status: digital-production-candidate-physical-test-pending
+  placement_status: digital-pass-physical-coupon-pending
+  placement_side: left-inner-wall-viewed-from-drain-cavity
+  reading_direction_transform: rigid local-X reflection; canonical geometry preserved at scale 1.0
   rejected_single_segment_inside_wall_mm: [52.5, 16.8]
-  proposed_double_segment_inside_wall_mm: [105.0, 16.8]
-  proposed_safe_rectangle_mm: [101.0, 12.8]
+  selected_double_segment_inside_wall_mm: [105.0, 16.8]
+  selected_safe_rectangle_mm: [101.0, 12.8]
   placement_rationale: The exact MM-BTH-003 draft profile cannot fit the single-segment wall. A 105 mm two-funnel segment provides the smallest flat inner side wall that retains the canonical profile at scale 1.0 with 2.0 mm edge clearance.
 
 function:
@@ -143,16 +149,20 @@ interfaces:
 manufacturing:
   process: FFF
   material: PETG
-  material_status: recommended-from-baseline-not-user-confirmed
+  material_status: local SUNLU PETG Black user preset selected; physical product/color/batch unconfirmed
   nozzle_mm: 0.4
-  nozzle_status: recommended-for-preserved-2.8-mm-holes-not-user-confirmed
+  nozzle_status: local Kobra 3 Max 0.4 mm hardened-steel preset selected; physical nozzle identity unconfirmed
   layer_height_mm: 0.2
   slicer:
     name: Anycubic Slicer Next
     version: 1.3.9.4
     executable: /usr/bin/AnycubicSlicerNext
-    status: user-selected; command-line model info is available, but the exact Kobra 3 Max machine, PETG filament and process profiles remain unknown
-  profile: use Anycubic Slicer Next; reproduce the successful coupon settings if they can be identified, otherwise create and physically qualify an explicit Kobra 3 Max PETG profile
+    status: local draft slice PASS for both manufacturing STLs; GUI layer-by-layer and physical reviews remain pending
+  profile:
+    machine: Anycubic Kobra 3 Max 0.4 hardened steel nozzle
+    process: 0.20mm PETG Tool @AC K3 Max
+    filament: SUNLU PETG Black new @Anycubic Kobra 3 Max 0.4 nozzle
+    evidence: validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
   orientation:
     assembly_source: X length, Y width, Z height
     print_export: rotate 90 degrees about global Y and translate to Z minimum 0
@@ -166,15 +176,15 @@ manufacturing:
     - 3MF only after exact slicer/profile confirmation
 
 optimization:
-  status: pending
-  geometry_count_status: changes-requested
+  status: pass-selected-variant
+  geometry_count_status: selected-and-digitally-validated
   objective: Preserve the approved 945 mm envelope and eighteen catcher fields while creating one scale-1.0 host surface for the canonical MM-BTH-003 watermark on an inner side wall.
   baseline_slicer_report: null
   previous_selected_variant: 18-identical-segments
   proposed_variant: 16-single-segments-plus-one-marked-double-segment
-  comparison_report: build/segment-count-optimization.json
+  comparison_report: build/segment-count-optimization-3.1.0-draft.1.json
   mesh_simplification:
-    status: pending
+    status: pass-no-simplification
     baseline_master_mesh: exports/master/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-master.stl
     baseline_manufacturing_mesh: exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl
     protected_regions:
@@ -183,48 +193,57 @@ optimization:
       - swirl ribs
       - U-profile bed-contact cross-section
       - installed envelope datums
-    rationale: The historical 3.0 manufacturing mesh reused the byte-identical audited master tessellation. The rtree distance backend is now available, but the revised 3.1 single- and double-segment meshes do not exist before concept approval; select and validate their export policy after CAD generation.
+    rationale: Each manufacturing STL uses the byte-identical audited master tessellation followed by only the declared rigid +90-degree transform. No independent simplification is used on protected funnel or watermark geometry.
 
 acceptance:
   - id: GEO-001
     criterion: The nominal installed envelope is 945.0 × 65.0 × 21.0 mm.
     method: Deterministic parameter and assembly-bounds check.
-    status: pending-revised-geometry
-    baseline_evidence: build/build-report.json
+    status: pass
+    evidence: build/build-report-3.1.0-draft.1.json
   - id: GEO-002
     criterion: Exactly sixteen 52.5 mm single segments and one 105.0 mm double segment sum to 945.0 mm without connector overlap or protrusion.
     method: Deterministic count, equality, and assembly-overlap check.
-    status: pending-revised-geometry
-    evidence: null
+    status: pass
+    evidence: build/build-report-3.1.0-draft.1.json
   - id: GEO-003
     criterion: Single segments contain one centered 46 mm funnel; the double segment contains two unchanged funnel modules at 26.25 and 78.75 mm; every exposed or inter-module tangent retains at least 3.0 mm solid material.
     method: Parameter assertions and section measurement.
-    status: pending-revised-geometry
-    evidence: null
+    status: pass
+    evidence: build/build-report-3.1.0-draft.1.json
   - id: GEO-004
     criterion: No key, slot, snap, rail, tongue, magnet pocket, or other segment connector exists.
     method: Source-feature audit and geometry inspection.
-    status: pending-revised-geometry
-    baseline_evidence: build/build-report.json
+    status: pass
+    evidence: build/build-report-3.1.0-draft.1.json
   - id: MESH-001
     criterion: Single and marked-double STEP/STL exports are each one positive-volume component with the specified assembly-orientation extents; their manufacturing STLs are the corresponding valid print-oriented components.
     method: STEP re-import plus deterministic mesh audit.
-    status: pending-revised-geometry
-    evidence: null
+    status: pass
+    evidence:
+      - validation/single-master-mesh-audit-3.1.0-draft.1.json
+      - validation/double-master-mesh-audit-3.1.0-draft.1.json
+      - validation/single-manufacturing-mesh-audit-3.1.0-draft.1.json
+      - validation/double-manufacturing-mesh-audit-3.1.0-draft.1.json
   - id: DfAM-001
     criterion: Each print-oriented STL is a rigid 90-degree rotation of its master, has Z minimum 0, and preserves the respective single- or double-segment geometry.
     method: Deterministic bounds plus inverse rigid transform and vertex-set, face-count, and volume comparison from the same master tessellation.
-    status: pending-revised-geometry
-    evidence: null
+    status: pass
+    evidence: build/build-report-3.1.0-draft.1.json
   - id: DfAM-002
     criterion: The selected 90-degree orientation is checked in the exact successful coupon slicer profile for continuous bed contact and no required supports.
     method: Exact slicer dry run and layer-preview review.
-    status: blocked-exact-profile-unknown
+    status: pass-retained-gcode-review; GUI-layer-review-pending
+    evidence: validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
   - id: WM-001
     criterion: The exact canonical metriMade.com / MM-BTH-003 / v3.1.0-draft.1 profile is recessed at scale 1.0 into the marked double segment's inner side wall with compliant edge clearance and remaining wall.
     method: Canonical generator, selector, B-Rep section, readable interior-side preview, mesh audit, slicer preview and exact-process coupon.
-    status: blocked-concept-approval
-    evidence: null
+    status: blocked-physical-coupon-and-human-watermark-approval
+    evidence:
+      - validation/watermark/side-wall-selector-3.1.0-draft.1.json
+      - validation/watermark/watermark-placement-report-3.1.0-draft.1.json
+      - validation/watermark/watermark-visual-review-3.1.0-draft.1.json
+      - validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
   - id: PHY-001
     criterion: Seventeen printed pieces fit the real drain without buckling, excessive cumulative gap, rocking, or sharp exposed edges.
     method: Human physical installed-fit inspection.
@@ -235,5 +254,5 @@ acceptance:
     status: blocked-physical-test
 
 unresolved:
-  - Exact machine unit/firmware, PETG product/color/batch, nozzle identity, and successful coupon profile are not yet recorded; Anycubic Slicer Next 1.3.9.4 is selected.
-  - User approval is required for concept/DRAFT-concept-sheet-3.1.0-draft.1.png before CAD geometry, the exact generated watermark profile, or manufacturing exports may be produced.
+  - The local Anycubic user presets are recorded and slice successfully, but the physical machine unit/firmware, nozzle identity, and PETG product/color/batch remain unconfirmed.
+  - A GUI layer-by-layer review, exact-process watermark coupon, representative part prints, installed fit, drainage, cleaning, hair-retention, sharp-edge inspection, and explicit watermark/final-model approvals remain required.

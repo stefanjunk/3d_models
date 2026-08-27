@@ -17,6 +17,7 @@ expected:
   - A pre-existing output directory is refused without deleting or overwriting its contents.
   - The boolean --load-defaultfila switch is emitted without a following value.
   - Source, executable, profile, native-result, and G-code hashes remain in the report.
+  - Source, output-directory, machine, process and filament paths are resolved before the slicer changes to its isolated temporary working directory.
   - Anycubic ;LAYER_CHANGE markers and the normal-mode time are parsed.
   - When executable markers and the header agree but the footer is off by one, the executable/header count remains primary and a visible non-required review item records the footer conflict.
   - Timestamp and path-order variation are documented without rewriting the manufacturing file or assuming normalized byte identity.
@@ -26,6 +27,7 @@ failure_conditions:
   - A mesh is sliced without machine, process, and filament profile evidence.
   - An existing output directory is reused or overwritten.
   - Any required slicer/native/G-code failure is reported as PASS.
+  - A path that passed the adapter's existence check becomes invisible to the slicer only because it remained relative when the subprocess working directory changed.
   - The adapter passes --load-defaultfila 1 or treats 1 as a valid boolean value.
   - Sport or silent time overwrites the normal-mode estimate.
   - A conflicting footer adds a synthetic executable layer or hides the warning.
@@ -44,11 +46,12 @@ relationships:
     - EXP-00003
   regression_suites: []
 last_run:
-  result: pass
+  result: fail
   date: 2026-08-27
-  report: research/tooling/anycubic-slicer-next/validation-2026-08-27.json
+  report: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
   artifact_hashes:
-    - 26fb4f771132fb192f0244ed2ff94a6c7f85f33e37e406cfae3dc0b97517352a
+    - 24f9ec6a14ec4995141cfa14f460e908972b3a6b88dfa258c5f3b90cbe9e8cff
+    - 1089be82dc35bd4ab1fc5144875fd2ac11e9a9963e9ba7785c41ad09dbf77859
 tags:
   - anycubic-slicer-next
   - slicer-cli

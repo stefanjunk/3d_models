@@ -1,0 +1,153 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00006
+title: A canonical underside watermark required an inspection-side orientation check when mapped to one inner side wall
+captured_at: 2026-08-27
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digitally modeled and sliced product; physical coupon and printed-wall readability remain untested.
+feature:
+  type: recessed-visible-geometry-mark-placement
+  geometry: flat-inner-side-wall-of-open-u-profile-double-segment
+  design_parameters:
+    canonical_layout_envelope_mm: [79.802, 12.8, 0.4]
+    actual_cutter_extents_mm: [78.280112, 11.200012, 0.4]
+    host_surface_mm: [105.0, 16.8]
+    host_wall_mm: 3.0
+    recess_depth_mm: 0.4
+    residual_wall_mm: 2.6
+    selector_edge_clearance_mm: 2.0
+    uniform_scale: 1.0
+    selector_rotation_deg: 0
+    corrected_reading_transform: rigid-local-x-reflection
+  named_datums:
+    - selected-inner-side-wall
+    - drain-cavity-inspection-side
+    - canonical-profile-local-x
+    - residual-host-wall
+  constraints:
+    - Keep the canonical profile at scale 1.0 without redrawing or text substitution.
+    - Evaluate legibility from the declared finished inspection side, not only in profile-source coordinates.
+    - Rebuild every STEP/STL and rerun hash-bound checks after an orientation correction.
+    - Keep physical coupon readability as a release gate.
+scope:
+  process: FFF digital design and headless slicing
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max user preset
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU preset name; physical label not confirmed
+    product: PETG Black preset
+    variant: unknown
+    color: black in preset name; physical spool not confirmed
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: hardened-steel preset; physical nozzle not confirmed
+    geometry: unknown
+    hotend: unknown
+    wear_state: unknown
+  orientation: product prints +90 degrees about assembly Y; mark is inspected from the drain cavity before that print transform
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: Kobra 3 Max hardened 0.4 / 0.20mm PETG Tool / SUNLU PETG Black
+    profile_hash: null
+  geometry_class: open-bottom-linear-drain-hair-trap-double-segment
+  environment: digital validation on Manjaro Linux; intended wet shower-drain service not physically tested
+  transfer_limits:
+    - One canonical asset revision, one inner wall normal and one product geometry.
+    - Does not prove that every underside-authored mark needs reflection on every side wall.
+    - Does not qualify physical legibility, cleaning resistance, stress, or service life.
+observation:
+  summary: The selector-approved scale-1.0 watermark first rendered mirrored from the declared drain-cavity inspection side; a rigid local-X placement reflection corrected reading direction without changing profile dimensions.
+  expected: The integrated inner-wall mark would read metriMade.com and MM-BTH-003 · v3.1.0-draft.1 left-to-right from the drain cavity.
+  actual: The first actual-STL render was mirrored. After the local-X placement reflection and a complete rebuild, the final actual-STL render read both lines correctly; selector fit, 0.4 mm depth, 2.6 mm residual wall, mesh audits and retained slicer toolpaths still passed.
+  outcome: mixed
+  parameter: inspection_side_reading_orientation
+  recommended_value: Validate the actual marked manufacturing geometry from the declared finished inspection side before release; treat orientation as a rigid placement transform distinct from scale.
+  units: null
+explanation:
+  hypothesis: A 2D cutter's apparent handedness depends on the surface normal, extrusion direction and selected inspection side, so a profile authored for an underside can become mirrored under a valid side-wall rotation.
+  mechanism: Mapping profile axes onto a different face changes the relationship between local profile X and the viewer's screen-right direction. Fit selectors verify envelope, rotation, clearance and wall thickness but do not by themselves prove viewer-facing handedness.
+  alternatives:
+    - The initial render camera basis rather than the placement could have introduced the apparent mirror; a second camera and the final geometry render reduced but did not eliminate this general risk.
+    - A generator could emit separate named view-normal variants rather than relying on a placement reflection.
+    - Placing the mark on the opposite inner wall could change handedness and vertical orientation differently.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Canonical metadata and selector checks, B-Rep subtraction/volume and residual-wall calculation, actual-STL Blender renders, independent mesh audits, and retained Anycubic G-code layer plots.
+  uncertainty: No physical coupon or printed inner wall has been inspected; camera/display contrast can overstate modeled legibility.
+  sources:
+    - type: product-trace
+      ref: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/identity-watermark-trace.yaml
+      hash: null
+      notes: Owns the exact product identity, geometry, profiles, correction and evidence scope.
+    - type: other
+      ref: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/watermark/watermark-visual-review-3.1.0-draft.1.json
+      hash: null
+      notes: Hash-binds the final actual-STL render and source mesh.
+  artifacts:
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/previews/DRAFT-MM-BTH-003-3.1.0-draft.1-watermark-inner-side-render.png
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/watermark/watermark-placement-report-3.1.0-draft.1.json
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
+applicability:
+  triggers:
+    - A canonical recessed or raised mark is mapped from its default face to a differently oriented side wall.
+    - A mark must be readable from a declared assembled inspection direction.
+  exclusions:
+    - Hidden forensic marks with no human reading-direction requirement.
+    - Marks whose generator explicitly emits and validates the target surface/view-normal variant.
+    - Any conclusion about physical readability before a process-matched coupon passes.
+  transfer_limits:
+    - Test the actual candidate geometry from every declared inspection side; do not prescribe reflection from face names alone.
+    - Preserve scale, depth and wall-clearance checks independently of handedness correction.
+    - Retain the failed render or trace and rebuild all manufacturing artifacts after correction.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00003
+  evals:
+    - EVAL-regression-product-identity-watermark-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/references/watermark-release-gate.md
+validation:
+  targeted: pass
+  regression: review-required
+  reports:
+    - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/project-validation-3.1.0-draft.1.json
+provenance:
+  project: MM-BTH-003-linear-shower-drain-hair-trap
+  part_revision: 3.1.0-draft.1
+  trace: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/identity-watermark-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design and 3d-skill-maintainer workflow
+tags:
+  - watermark
+  - inspection-side
+  - mirrored-text
+  - side-wall
+  - product-identity
+  - digital-only
+  - negative-transfer

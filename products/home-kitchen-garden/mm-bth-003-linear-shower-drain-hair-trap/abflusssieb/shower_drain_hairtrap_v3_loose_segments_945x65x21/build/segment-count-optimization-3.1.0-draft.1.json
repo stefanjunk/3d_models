@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "id": "preserve-catcher-count",
+      "message": "The 17-part variant preserves all 18 approved catcher modules.",
+      "metrics": {
+        "double_catchers": 2,
+        "single_catchers": 16,
+        "total": 18
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "preserve-total-length",
+      "message": "Sixteen 52.5 mm pieces plus one 105.0 mm piece equal 945.0 mm.",
+      "metrics": {
+        "calculated_mm": 945.0,
+        "target_mm": 945.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "canonical-watermark-host",
+      "message": "The smallest changed host is one 105 mm double segment; the canonical profile fits at scale 1.0.",
+      "metrics": {
+        "old_single_host_mm": [
+          52.5,
+          16.8
+        ],
+        "part_count_reduction": 1,
+        "selected_host_mm": [
+          105.0,
+          16.8
+        ],
+        "selected_scale": 1.0
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "design-spec.yaml",
+      "sha256": "7c68c754ef369c9e281ff5146d7835ae501c02ce3f717a7b2848645ff75f9aa9",
+      "size_bytes": 13142
+    },
+    {
+      "path": "validation/watermark/side-wall-selector-3.1.0-draft.1.json",
+      "sha256": "3018cf46aaec1173eeb8c199eb0ab6bfaa8f4c5ebc57255e64812dc7e66a37c3",
+      "size_bytes": 1540
+    }
+  ],
+  "limitations": [
+    "Physical installed fit and process-matched watermark readability remain human gates."
+  ],
+  "metrics": {
+    "connector_feature_count": 0,
+    "previous_variant": "18 identical 52.5 mm single segments",
+    "selected_variant": "16 single segments plus one marked 105 mm double segment"
+  },
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "build_shower_drain_hairtrap_v3.py",
+  "tool_version": "3.1.0-draft.1"
+}

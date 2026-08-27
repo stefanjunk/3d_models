@@ -1,0 +1,380 @@
+{
+  "checks": [
+    {
+      "id": "approved-parameter-contract",
+      "message": "Approved counts, lengths, catcher tangents, shell dimensions, and no-connector contract passed.",
+      "metrics": {
+        "catcher_count": 18,
+        "connector_feature_count": 0,
+        "end_margin_mm": 3.25,
+        "inter_catcher_tangent_mm": 6.5,
+        "part_count": 17
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "single-brep",
+      "message": "Single segment is one valid positive-volume B-Rep.",
+      "metrics": {
+        "bounds": {
+          "extents_mm": [
+            52.5,
+            65.0,
+            21.000000000000007
+          ],
+          "maximum_mm": [
+            52.5,
+            65.0,
+            21.000000000000007
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "volume_mm3": 16253.725919563778
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "marked-double-brep",
+      "message": "Marked double segment is one valid positive-volume B-Rep with two preserved catchers.",
+      "metrics": {
+        "bounds": {
+          "extents_mm": [
+            105.0,
+            65.0,
+            21.000000000000007
+          ],
+          "maximum_mm": [
+            105.0,
+            65.0,
+            21.000000000000007
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "volume_mm3": 32399.542978288966
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "loose-layout",
+      "message": "Seventeen unconnected intervals meet only at nominal end planes across exactly 945 mm.",
+      "metrics": {
+        "assembly_bounds": {
+          "extents_mm": [
+            945.0,
+            65.0,
+            21.0
+          ],
+          "maximum_mm": [
+            945.0,
+            65.0,
+            21.0
+          ],
+          "minimum_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "parts": [
+          {
+            "end_mm": 52.5,
+            "length_mm": 52.5,
+            "name": "single_01",
+            "start_mm": 0.0
+          },
+          {
+            "end_mm": 105.0,
+            "length_mm": 52.5,
+            "name": "single_02",
+            "start_mm": 52.5
+          },
+          {
+            "end_mm": 157.5,
+            "length_mm": 52.5,
+            "name": "single_03",
+            "start_mm": 105.0
+          },
+          {
+            "end_mm": 210.0,
+            "length_mm": 52.5,
+            "name": "single_04",
+            "start_mm": 157.5
+          },
+          {
+            "end_mm": 262.5,
+            "length_mm": 52.5,
+            "name": "single_05",
+            "start_mm": 210.0
+          },
+          {
+            "end_mm": 315.0,
+            "length_mm": 52.5,
+            "name": "single_06",
+            "start_mm": 262.5
+          },
+          {
+            "end_mm": 367.5,
+            "length_mm": 52.5,
+            "name": "single_07",
+            "start_mm": 315.0
+          },
+          {
+            "end_mm": 420.0,
+            "length_mm": 52.5,
+            "name": "single_08",
+            "start_mm": 367.5
+          },
+          {
+            "end_mm": 525.0,
+            "length_mm": 105.0,
+            "name": "marked_double_01",
+            "start_mm": 420.0
+          },
+          {
+            "end_mm": 577.5,
+            "length_mm": 52.5,
+            "name": "single_09",
+            "start_mm": 525.0
+          },
+          {
+            "end_mm": 630.0,
+            "length_mm": 52.5,
+            "name": "single_10",
+            "start_mm": 577.5
+          },
+          {
+            "end_mm": 682.5,
+            "length_mm": 52.5,
+            "name": "single_11",
+            "start_mm": 630.0
+          },
+          {
+            "end_mm": 735.0,
+            "length_mm": 52.5,
+            "name": "single_12",
+            "start_mm": 682.5
+          },
+          {
+            "end_mm": 787.5,
+            "length_mm": 52.5,
+            "name": "single_13",
+            "start_mm": 735.0
+          },
+          {
+            "end_mm": 840.0,
+            "length_mm": 52.5,
+            "name": "single_14",
+            "start_mm": 787.5
+          },
+          {
+            "end_mm": 892.5,
+            "length_mm": 52.5,
+            "name": "single_15",
+            "start_mm": 840.0
+          },
+          {
+            "end_mm": 945.0,
+            "length_mm": 52.5,
+            "name": "single_16",
+            "start_mm": 892.5
+          }
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "neutral-step-reimport",
+      "message": "STEP re-import retains one single solid, one marked-double solid, and seventeen assembly solids.",
+      "metrics": {
+        "assembly_solids": 17,
+        "double_solids": 1,
+        "single_solids": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "single-rigid-print-transform",
+      "message": "Single manufacturing STL is only the declared +90 degree rigid transform.",
+      "metrics": {
+        "maximum_inverse_vertex_delta_mm": 1.9073486328125e-06,
+        "print_bounds_mm": {
+          "extents": [
+            21.0,
+            65.0,
+            52.5
+          ],
+          "maximum": [
+            21.0,
+            65.0,
+            52.5
+          ],
+          "minimum": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "print_faces": 25780,
+        "print_vertices": 12772,
+        "print_volume_mm3": 16256.547828199744,
+        "reference_faces": 25780,
+        "reference_vertices": 12772,
+        "reference_volume_mm3": 16256.547832169717
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "double-rigid-print-transform",
+      "message": "Marked-double manufacturing STL is only the declared +90 degree rigid transform.",
+      "metrics": {
+        "maximum_inverse_vertex_delta_mm": 3.814697265625e-06,
+        "print_bounds_mm": {
+          "extents": [
+            21.0,
+            65.0,
+            105.0
+          ],
+          "maximum": [
+            21.0,
+            65.0,
+            105.0
+          ],
+          "minimum": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "print_faces": 60268,
+        "print_vertices": 29896,
+        "print_volume_mm3": 32405.186947176466,
+        "reference_faces": 60268,
+        "reference_vertices": 29896,
+        "reference_volume_mm3": 32405.186925626156
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": "validation/watermark/watermark-placement-report-3.1.0-draft.1.json",
+      "id": "watermark-digital-placement",
+      "message": "Canonical watermark placement passed deterministic geometry checks; physical coupon remains open.",
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "environment": {
+    "cadquery": "2.9.0.dev0",
+    "trimesh": "4.4.1"
+  },
+  "inputs": [
+    {
+      "path": "build_shower_drain_hairtrap_v3.py",
+      "sha256": "2a0d5c2e35dff3948dfafd0ea9e8c5fb4b09d3a01190092bd0df62d57ae0bb00",
+      "size_bytes": 31675
+    },
+    {
+      "path": "build/parameters-3.1.0-draft.1.json",
+      "sha256": "e2bf12a7a233fa5ea82a96d1df62a271f0605a0d90bdf72c8aaa1d47c243c7cd",
+      "size_bytes": 1609
+    },
+    {
+      "path": "build/segment-count-optimization-3.1.0-draft.1.json",
+      "sha256": "279d3bc7a7c65891d693a8f0e3d72cd759241cb2285a3912973310fae791002d",
+      "size_bytes": 1884
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-single-52p5mm-master.step",
+      "sha256": "4e42eb23f64b35780228772fb65a489a031482c9116026649e0c42d12ee02b4c",
+      "size_bytes": 1596021
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-single-52p5mm-master.stl",
+      "sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339",
+      "size_bytes": 1289084
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.step",
+      "sha256": "ce2dcd68d1e2bdf6203fcbe322cc673f7f20a4eb35a850b93b1b1c677b6076be",
+      "size_bytes": 12777801
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.stl",
+      "sha256": "8290d06e669a138faf43eb3178ad23afa6de267540e7338565c90cfdc3cdff35",
+      "size_bytes": 3013484
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-17-part-assembly-reference.step",
+      "sha256": "42c830f8fe0048b872b3d21c8af0f6a6d0b29729f214be4ce0243dda26dd367f",
+      "size_bytes": 14483392
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-BTH-003-3.1.0-draft.1-single-52p5mm-on-end.stl",
+      "sha256": "79cc8c705df8a7f96ae196d05f78b41d4e3155473335a4f897c50115bff79f64",
+      "size_bytes": 1289084
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-on-end.stl",
+      "sha256": "80e007c637c674c8aa5fc3878496d02cc51199bb52ae364af15a4bdeb21e1baf",
+      "size_bytes": 3013484
+    },
+    {
+      "path": "exports/validation/DRAFT-MM-BTH-003-3.1.0-draft.1-single-52p5mm-tessellation-reference.stl",
+      "sha256": "5ddf1025798d81423601be594fb07b3fcb93c0c6e406916d3b1618157699e339",
+      "size_bytes": 1289084
+    },
+    {
+      "path": "exports/validation/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-tessellation-reference.stl",
+      "sha256": "8290d06e669a138faf43eb3178ad23afa6de267540e7338565c90cfdc3cdff35",
+      "size_bytes": 3013484
+    },
+    {
+      "path": "validation/watermark/watermark-placement-report-3.1.0-draft.1.json",
+      "sha256": "14d3deee9e6886bbb59fccd3a059026de046232130f6318f52e9a6a53e757563",
+      "size_bytes": 4574
+    },
+    {
+      "path": "validation/previews/DRAFT-MM-BTH-003-3.1.0-draft.1-marked-inner-side.svg",
+      "sha256": "51d662b8f10b40df02a839576a72cd9f621f746df9cb282a134650fa3f0a1b2b",
+      "size_bytes": 686
+    },
+    {
+      "path": "validation/previews/DRAFT-MM-BTH-003-3.1.0-draft.1-marked-double-isometric.svg",
+      "sha256": "2744b2521e204b12bf006f4119d6b582c4bf7644c5c466f9c4dd30aef6c5d5fd",
+      "size_bytes": 386107
+    }
+  ],
+  "limitations": [
+    "Physical installed fit, cumulative gap, drainage, cleaning, hair retention, edge condition, and exact-process watermark readability remain human gates.",
+    "Slicer evidence qualifies only the named local user profiles and cannot identify the physical printer unit, nozzle serial identity, or filament batch."
+  ],
+  "metrics": {
+    "holes_per_catcher": 55,
+    "holes_total": 990,
+    "ribs_per_catcher": 5
+  },
+  "required_capabilities": [
+    "cadquery",
+    "trimesh",
+    "manifold3d",
+    "rtree"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "build_shower_drain_hairtrap_v3.py",
+  "tool_version": "3.1.0-draft.1"
+}

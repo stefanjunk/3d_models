@@ -1,0 +1,122 @@
+{
+  "checks": [
+    {
+      "id": "identity",
+      "message": "Canonical visible identity is metriMade.com / MM-BTH-003 / v3.1.0-draft.1.",
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "selector",
+      "message": "Canonical selector accepts the 105.0 x 16.8 mm inner side wall at scale 1.0.",
+      "metrics": {
+        "actual_envelope_mm": [
+          79.802,
+          12.8
+        ],
+        "depth_mm": 0.4,
+        "generated_directory": "/home/stefan/orca/workspaces/3d_models/3D-Design/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1",
+        "metadata": "/home/stefan/orca/workspaces/3d_models/3D-Design/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/metrimade-watermark-MM-BTH-003-v3.1.0-draft.1.json",
+        "rotation_deg": 0,
+        "uniform_scale": 1.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "subtractive-placement",
+      "message": "The exact generated DXF profile is rigidly oriented for side-wall reading and subtracted from the left inner wall.",
+      "metrics": {
+        "depth_mm": 0.4,
+        "operation": "recessed",
+        "removed_volume_mm3": 107.90886083854639,
+        "selector_rotation_deg": 0,
+        "sidewall_mirror_x": true,
+        "tool_bounds": {
+          "extents_mm": [
+            78.280112,
+            0.4100000000000015,
+            11.200012
+          ],
+          "maximum_mm": [
+            91.640056,
+            3.0100000000000007,
+            14.000005999999999
+          ],
+          "minimum_mm": [
+            13.359943999999999,
+            2.599999999999999,
+            2.799994
+          ]
+        },
+        "uniform_scale": 1.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "residual-wall",
+      "message": "The 3.0 mm wall retains 2.6 mm behind the 0.4 mm recess.",
+      "metrics": {
+        "host_wall_mm": 3.0,
+        "minimum_required_mm": 0.8,
+        "recess_mm": 0.4,
+        "remaining_wall_mm": 2.6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence_source": "render_watermark_previews.py",
+      "id": "inner-side-readability-review",
+      "message": "Render the actual marked STL from the drain cavity and confirm left-to-right identity before watermark approval.",
+      "required": true,
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "exact-process-coupon",
+      "message": "Print and inspect the generated coupon in the selected Kobra 3 Max PETG process before watermark approval.",
+      "required": true,
+      "status": "NOT_RUN"
+    }
+  ],
+  "digital_geometry_status": "PASS",
+  "inputs": [
+    {
+      "path": "assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/metrimade-watermark-MM-BTH-003-v3.1.0-draft.1.json",
+      "sha256": "823b0ae0b9b2d91e47bac8955898343f09c271a177ada8ef45cfb2b47aa1f329",
+      "size_bytes": 1708
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/metrimade-watermark-MM-BTH-003-v3.1.0-draft.1.dxf",
+      "sha256": "a9d78c22e2cfc575dde00dac7adc0bf004de3a5b09b98414d6755447ae9d8816",
+      "size_bytes": 136780
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-BTH-003_v3.1.0-draft.1/manifest.sha256",
+      "sha256": "6bb8b7a86e8351399182dc1607db9bf1cc338693d52c493a2b11dbbaa5647eed",
+      "size_bytes": 966
+    },
+    {
+      "path": "validation/watermark/side-wall-selector-3.1.0-draft.1.json",
+      "sha256": "3018cf46aaec1173eeb8c199eb0ab6bfaa8f4c5ebc57255e64812dc7e66a37c3",
+      "size_bytes": 1540
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.step",
+      "sha256": "ce2dcd68d1e2bdf6203fcbe322cc673f7f20a4eb35a850b93b1b1c677b6076be",
+      "size_bytes": 12777801
+    },
+    {
+      "path": "exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.stl",
+      "sha256": "8290d06e669a138faf43eb3178ad23afa6de267540e7338565c90cfdc3cdff35",
+      "size_bytes": 3013484
+    }
+  ],
+  "physical_qualification": "NOT_RUN",
+  "release_decision": "BLOCKED until the exact-process coupon and human readability review pass.",
+  "schema_version": "1.0",
+  "status": "REVIEW_REQUIRED",
+  "tool": "build_shower_drain_hairtrap_v3.py",
+  "tool_version": "3.1.0-draft.1"
+}

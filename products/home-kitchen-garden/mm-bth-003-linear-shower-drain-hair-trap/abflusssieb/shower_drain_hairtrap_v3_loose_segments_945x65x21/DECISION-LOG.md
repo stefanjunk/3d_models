@@ -1,6 +1,24 @@
 # Decision log — MM-BTH-003 Linear Shower Drain Hair Trap
 
-Status: primary production candidate digitally validated; watermark, exact-slicer review, and physical tests remain open.
+Status: revision 3.1 production candidate digitally validated; GUI layer review, physical watermark coupon, final approvals, and physical fit/function tests remain open.
+
+## 2026-08-27 — revision 3.1 concept approved and production CAD generated
+
+- The user explicitly approved `concept/DRAFT-concept-sheet-3.1.0-draft.1.png` at `2026-08-27T21:59:33+02:00` by replying “freigeben”.
+- Production revision `3.1.0-draft.1` implements sixteen unconnected 52.5 mm single segments and one unconnected 105 mm double segment, arranged as eight singles, the double, and eight singles. The row remains exactly 945 × 65 × 21 mm with 17 parts and 18 preserved catcher modules.
+- The official product identity is `MM-BTH-003` — **Linear Shower Drain Hair Trap**. The exact generated mark reads `metriMade.com` and `MM-BTH-003 · v3.1.0-draft.1`.
+- The canonical selector passes the 105 × 16.8 mm inner wall at scale 1.0 and 0° selector rotation. The mark is recessed 0.4 mm into the 3.0 mm wall, leaving 2.6 mm; the modeled removal is 107.91 mm³.
+- A first interior render exposed a mirrored reading direction. The placement transform was corrected by a rigid local-X reflection and every STEP/STL artifact was rebuilt. The final render from the drain cavity reads left-to-right without resizing or redrawing the canonical profile.
+- Both STEP masters re-import as one valid solid; the assembly reference re-imports as 17 valid solids. All four master/manufacturing mesh audits pass watertightness, winding, positive volume, one-component topology, zero boundary/non-manifold/degenerate/duplicate faces, build volume, and file/triangle budgets.
+
+## 2026-08-27 — Anycubic Slicer Next draft slice passed
+
+- Anycubic Slicer Next 1.3.9.4 sliced the single and marked-double on-end STLs with the local user presets `Anycubic Kobra 3 Max 0.4 hardened steel nozzle`, `0.20mm PETG Tool @AC K3 Max`, and `SUNLU PETG Black new @Anycubic Kobra 3 Max 0.4 nozzle`.
+- The GUI-authored presets omit schema `type`; project-local snapshots add only that discriminator. A deterministic comparison confirms every slicer setting and inheritance field is otherwise identical to the user files.
+- The first attempt retained a FAIL report because relative source paths were evaluated from the isolated temporary working directory. Fresh absolute-path runs passed, generated one non-empty G-code per part, and passed G-code parsing and layer-count consistency.
+- Single segment: 262 layers, 18.64 g, 1 h 10 min 1 s. Marked double: 525 layers, 36.71 g, 2 h 21 min 21 s. Estimated complete 16+1 row: 334.95 g and 21 h 1 min 37 s in normal mode.
+- The retained first-layer toolpath shows the connected U-profile end footprint plus the configured outer brim. A retained Z=52.44 mm layer intersects the recessed watermark and contains its side-wall contour changes. Supports are disabled in the retained G-code configuration.
+- No G-code was uploaded or executed. GUI layer-by-layer review, exact-process coupon, representative prints, real-drain fit/function tests, and explicit watermark/final-model approval remain human gates.
 
 ## 2026-08-27 — official portfolio identity and proposed marked revision
 

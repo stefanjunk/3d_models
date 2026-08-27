@@ -8,11 +8,11 @@ completed_at: null
 requirements: design-spec.yaml
 scope:
   process: FFF
-  machine: intended Anycubic Kobra 3 Max; exact unit and profile unknown
-  material: PETG recommended from baseline; manufacturer, product, color and batch unknown
-  nozzle: 0.4 mm recommended; exact nozzle identity unknown
-  orientation: proposed +90 degrees about assembly Y onto a complete U-profile end
-  slicer: Anycubic Slicer Next 1.3.9.4 selected; exact machine, filament and process profile unknown
+  machine: Anycubic Kobra 3 Max user preset selected; exact physical unit and firmware unknown
+  material: SUNLU PETG Black user preset selected; exact product/color/batch confirmation pending
+  nozzle: 0.4 mm hardened-steel user preset selected; exact physical nozzle identity unknown
+  orientation: +90 degrees about assembly Y onto a complete U-profile end
+  slicer: Anycubic Slicer Next 1.3.9.4; exact local machine, filament and process preset snapshots retained
   geometry: loose inverted-U shower-drain segments with preserved 46 mm funnel modules
 identity:
   original_provisional_product_id: SHOWER-DRAIN-HAIRTRAP
@@ -63,6 +63,41 @@ events:
     refs:
       - validation/anycubic-slicer-next-baseline-import-3.0.md
       - exports/manufacturing/DRAFT-SHOWER-DRAIN-HAIRTRAP-3.0.0-draft.1-segment-on-end.stl
+  - at: 2026-08-27T21:59:33+02:00
+    type: user-feedback
+    summary: The user explicitly approved the revision 3.1 concept by replying “freigeben”.
+    expected: Explicit concept approval before production CAD, canonical watermark generation, or manufacturing exports.
+    actual: Concept revision 3.1.0-draft.1 was approved without correction and the production-CAD phase was authorized.
+    refs:
+      - design-spec.yaml
+      - concept/DRAFT-concept-sheet-3.1.0-draft.1.png
+  - at: 2026-08-27T22:15:00+02:00
+    type: design
+    summary: Generated the approved 16-single-plus-one-double production candidate and integrated the exact official watermark into the double segment's left inner wall.
+    expected: Preserve the 945 mm row, all eighteen catcher modules, no connectors, the on-end print orientation, and a scale-1.0 canonical mark with at least 0.8 mm residual wall.
+    actual: STEP/STL exports contain 17 parts and 18 catchers; the 0.4 mm recess leaves 2.6 mm of the 3.0 mm side wall. All STEP re-import and mesh checks pass.
+    refs:
+      - build/build-report-3.1.0-draft.1.json
+      - validation/watermark/watermark-placement-report-3.1.0-draft.1.json
+      - validation/double-master-mesh-audit-3.1.0-draft.1.json
+  - at: 2026-08-27T22:20:00+02:00
+    type: validation
+    summary: The first actual-model interior render exposed a mirrored side-wall reading direction; the placement orientation was corrected and all geometry artifacts were rebuilt.
+    expected: Both official identity lines read left-to-right from the drain cavity without resizing or redrawing the canonical profile.
+    actual: "A rigid local-X placement reflection at scale 1.0 produces a readable final render: metriMade.com / MM-BTH-003 · v3.1.0-draft.1."
+    refs:
+      - validation/previews/DRAFT-MM-BTH-003-3.1.0-draft.1-watermark-inner-side-render.png
+      - validation/watermark/watermark-visual-review-3.1.0-draft.1.json
+      - render_watermark_previews.py
+  - at: 2026-08-27T22:28:00+02:00
+    type: validation
+    summary: Anycubic Slicer Next 1.3.9.4 sliced both manufacturing STLs with the retained Kobra 3 Max hardened-0.4 / 0.20 mm PETG Tool / SUNLU PETG Black user preset snapshots.
+    expected: Produce local G-code only, prove layer-count consistency, inspect the first-layer U-profile contact and a watermark-intersecting layer, and perform no upload or print start.
+    actual: Both fresh absolute-path runs passed and produced analyzed G-code; retained toolpath plots show the connected end footprint and modeled watermark contours. No upload or execution occurred.
+    refs:
+      - validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
+      - validation/slice-anycubic-next-single-3.1.0-draft.1-r2.json
+      - validation/slice-anycubic-next-double-3.1.0-draft.1-r1.json
 artifacts:
   - design-spec.yaml
   - DECISION-LOG.md
@@ -70,5 +105,11 @@ artifacts:
   - concept/DRAFT-concept-sheet-3.1.0-draft.1.svg
   - concept/CONCEPT-NOTES-3.1.0-draft.1.md
   - validation/anycubic-slicer-next-baseline-import-3.0.md
+  - build/build-report-3.1.0-draft.1.json
+  - exports/master/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-master.step
+  - exports/manufacturing/DRAFT-MM-BTH-003-3.1.0-draft.1-single-52p5mm-on-end.stl
+  - exports/manufacturing/DRAFT-MM-BTH-003-3.1.0-draft.1-double-105mm-marked-on-end.stl
+  - validation/watermark/watermark-visual-review-3.1.0-draft.1.json
+  - validation/anycubic-slicer-next-summary-3.1.0-draft.1.json
   - ../../../../../business/02-portfolio/product-portfolio.csv
-outcome: concept-approval-pending
+outcome: digital-production-candidate-pass; physical-watermark-and-product-validation-pending

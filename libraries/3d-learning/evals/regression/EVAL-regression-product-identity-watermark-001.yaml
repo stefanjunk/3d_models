@@ -14,6 +14,7 @@ expected:
   - The immutable product ID and official name agree across the current portfolio, canonical product path, design specification and release-facing records.
   - The exact generated watermark contains the owned domain plus the same product ID and version as the candidate release.
   - A deterministic selector checks the generated profile against an obstruction-free host rectangle, edge clearance, host wall and residual wall before CAD integration.
+  - The actual marked CAD or manufacturing mesh is rendered or inspected from the declared finished inspection side so handedness and reading direction are explicit.
   - A blocked fit causes another safe surface or an approved geometry revision; the profile is not scaled, cropped, split, distorted or substituted with live text.
   - Historical draft assets retain their original identity and are clearly separated from the current candidate.
   - Final approval remains blocked until marked CAD/mesh, slicer-layer and process-matched coupon evidence exist.
@@ -22,6 +23,7 @@ failure_conditions:
   - The mark is redrawn, text-edited, scaled below 1.0, cropped, split across loose parts or placed on a functional/protected surface.
   - Gross wall dimensions are treated as usable without subtracting edge and feature clearances.
   - A concept image or generator preview is presented as production integration, slicer or physical evidence.
+  - The integrated mark is mirrored or upside down from its declared finished inspection side even though its source profile and selector fit are correct.
   - Historical evidence is overwritten so the original provisional identity can no longer be reconstructed.
 fixtures:
   - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml
@@ -35,12 +37,17 @@ grader:
 relationships:
   lessons:
     - EXP-00003
+    - EXP-00006
   regression_suites: []
 last_run:
-  result: not-run
-  date: null
-  report: null
-  artifact_hashes: []
+  result: review-required
+  date: 2026-08-27
+  report: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/project-validation-3.1.0-draft.1.json
+  artifact_hashes:
+    - 8a804ddf6c1effbf40fa9bc17ca76516c0d6c5999f37e55050cb9e135439072d
+    - 8e311cbfbc952eb9388d03b2c450f5d4282913ed146140dc86c94ca77f4a6cbe
+    - 14d3deee9e6886bbb59fccd3a059026de046232130f6318f52e9a6a53e757563
+    - b688da81f2fb9fa341d3bcefd6c5caf86e27072bfe6b9526afea89f49473ae62
 tags:
   - regression
   - product-identity

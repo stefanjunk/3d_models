@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-009
+  revision: 0.1.0-draft.1
+  source_idea: business/02-portfolio/research-ideas-additions.csv#SKU-102
+  source_commit: null
+requirement_trace:
+  user_direction: Select the highest-opportunity not-started research idea and autonomously produce a fully parametric printable model while deferring final print validation.
+  normalized_spec: design-spec.yaml
+  concept: assets/concept/MM-ORG-009-concept-v1.svg
+design_trace:
+  tool: CadQuery
+  source: cad/build.py
+  parameters: config/model-parameters.json
+  selected_geometry: open-underside tapered shell with perimeter walls, cross-ribs, top skin and lift scallops
+  baseline_geometry: equivalent full-height solid tapered wedges with the same outer envelope and lift scallops
+  protected_geometry: protected-geometry-map.md
+digital_observation:
+  expected: Reduce CAD volume materially while keeping each rail one valid body, preserving the two taper datums and bounding unsupported roof spans to 12 mm.
+  actual:
+    left_cad_volume_reduction_percent: 55.525088170920576
+    right_cad_volume_reduction_percent: 50.0091671596155
+    unsupported_roof_span_max_mm: 9.6
+    rail_components_each: 1
+    manufacturing_mesh_status: PASS
+    aggregate_draft_validation_status: PASS
+  evidence:
+    - reports/optimization-comparison.json
+    - validation/interface-report.json
+    - validation/fdm-mesh-left.json
+    - validation/fdm-mesh-right.json
+    - reports/validation-summary.json
+process_scope:
+  process: FFF
+  printer: unknown
+  firmware: unknown
+  slicer: unknown
+  profile: unknown
+  material: unfilled PLA assumption
+  material_product_color_batch: unknown
+  nozzle_diameter_mm: 0.4
+  nozzle_material: unknown
+  layer_height_mm: 0.2
+  line_width_mm: 0.45
+  orientation: rail walls and cross-ribs on bed, open underside down
+  physical_measurement: NOT_RUN
+limitations:
+  - CAD volume is not deposited mass or print time.
+  - No exact slicer/profile established the bridge paths, material or time.
+  - No physical print established flatness, bridge quality, fit, finish contact or cycles.
+learning_action:
+  candidate: libraries/3d-learning/experience/candidates/EXP-00004.yaml
+  maturity: E0
+  promotion: prohibited-until-repeated-and-physically-validated
+  user_correction_eval_required: false

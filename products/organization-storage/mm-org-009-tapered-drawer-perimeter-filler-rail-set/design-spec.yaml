@@ -1,0 +1,292 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-009
+  name: Tapered Drawer Perimeter Filler Rail Set
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-102
+  opportunity_score: 94.0
+  status: digital-candidate-through-interface-validation
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-009-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: deferred
+    reason: Exact printer, filament and slicer profile were not supplied; physical validation is user-deferred.
+  print_candidate:
+    status: blocked
+    reason: Exact slicer and physical fit evidence are intentionally deferred; manufacturing files must remain DRAFT.
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    spec_revision: 0.1.0-draft.1
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-009
+    version: 0.1.0-draft.1
+    generated_profile: null
+    manifest_asset: null
+    approved_by: null
+    approved_at: null
+    reason: Final release marking and its exact-process coupon are intentionally deferred with the physical validation step; DRAFT exports are not a release package.
+  final_release_approval:
+    status: blocked
+    reason: Exact slicing, physical tests, watermark qualification and human release approval remain open.
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-009
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Close wedge-shaped side gaps between a rectangular drawer-organizer grid and tapered or out-of-square drawer walls using two independently parameterized loose rails.
+  intended_users:
+    - adult indoor organizer user
+  included:
+    - left tapered filler rail
+    - right tapered filler rail
+    - front/rear taper gauge
+  excluded:
+    - clamps, adhesives or load-bearing attachment
+    - interference-fit or drawer-stop claims
+    - child-use, food-contact or liquid-containment claims
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: two rails plus one gauge
+  purchased_parts: none
+  assembly: Place each loose rail between the organizer and its measured drawer wall after gauge confirmation.
+
+printer:
+  assumed_machine: unknown 220 mm class FDM printer
+  build_volume_mm: [220.0, 220.0, 250.0]
+  enclosure: not-required-for-PLA-assumption
+  nozzle_mm: 0.4
+  exact_profile: unresolved
+
+requirements:
+  goal:
+    value: Close wedge-shaped side gaps between a rectangular drawer-organizer grid and tapered or out-of-square drawer walls without rebuilding the organizer.
+    source: user-stated-via-ranked-research-idea
+  intended_user:
+    value: Adult indoor user fitting an existing DrawerFit-style organizer into an older, custom or out-of-square drawer.
+    source: inferred
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: The product is a passive custom wedge with no wear, precision or purchased-hardware need.
+  included:
+    value:
+      - independently parameterized left and right loose filler rails
+      - front-to-rear taper for each rail
+      - finger-lift scallops and end reliefs for pinch-free removal
+      - compact front/rear taper and clearance gauge
+      - STEP, STL and multi-object DRAFT 3MF outputs
+    source: recommended
+  excluded:
+    value:
+      - clamping, adhesive, snap or load-bearing attachment
+      - child-use, structural or drawer-stop claims
+      - direct food contact or liquid containment
+      - printer upload or start
+    source: recommended
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - finger pinch if a filler is forced into a zero-clearance gap
+    - drawer-finish marking from sharp edges or excessive interference
+    - loose part movement from customer measurement error
+  limits:
+    - loose passive filler only
+    - no interference fit or load rating
+    - physical finish-contact and removal tests remain mandatory before a release claim
+
+geometry_contract:
+  coordinate_frame:
+    x: rail length from drawer front to rear
+    y: gap width from organizer toward drawer wall
+    z: height from the flat print bed
+  maximum_single_part_envelope_mm: [220.0, 45.0, 70.0]
+  default_rails:
+    length_mm: 210.0
+    height_mm: 32.0
+    left_front_gap_mm: 11.0
+    left_rear_gap_mm: 22.0
+    right_front_gap_mm: 18.0
+    right_rear_gap_mm: 9.0
+  customer_parameters:
+    - length_mm
+    - height_mm
+    - left_front_gap_mm
+    - left_rear_gap_mm
+    - right_front_gap_mm
+    - right_rear_gap_mm
+    - wall_clearance_mm
+    - organizer_clearance_mm
+    - end_relief_mm
+    - lift_scallop_radius_mm
+  interfaces:
+    organizer_face: straight datum with explicit loose clearance
+    drawer_wall: tapered datum with explicit loose clearance
+    drawer_bottom: planar bed-contact datum; first-layer compensation belongs to the calibrated slicer profile
+  protected_geometry:
+    - planar bed-contact ribs
+    - organizer-side and drawer-side clearance datums
+    - minimum wall and top skin
+    - lift-scallop root radii
+    - end relief and rounded hand-contact edges
+
+duty:
+  environment: dry indoor drawer, nominal 15-30 C
+  load: no structural load; incidental contact from lightweight organizer contents only
+  service_life_target: 100 removal/reinstallation cycles for later qualification
+  surface_contact_target: no visible marking on three representative drawer finishes after later physical tests
+  note: Targets define future tests; they are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [220.0, 220.0, 250.0]
+  material_assumption: PLA for dimensionally stable dry-indoor use
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support
+  orientation:
+    rails: open ribbed underside on bed, taper in XY
+    gauge: largest flat face on bed
+  target_outputs:
+    - CadQuery source
+    - JSON parameters
+    - STEP neutral masters
+    - STL manufacturing meshes
+    - DRAFT 3MF print set
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving bed contact, edge comfort, dimensional datums and removal features.
+  baseline: solid wedge rails at the full configured envelope
+  candidate: perimeter shell with longitudinal ribs and cross-ribs, open only on the hidden underside
+  selection_rule: Select the ribbed candidate only if it remains one watertight solid, meets minimum walls, fits the build volume and materially reduces CAD volume.
+  evidence: reports/optimization-comparison.json
+  pending_reason: Geometry B is selected by CAD volume/topology evidence, but exact-profile slicer comparison is intentionally deferred.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/master/DRAFT-MM-ORG-009-left-rail-0.1.0-draft.1-master.stl
+    manufacturing_mesh: exports/manufacturing/DRAFT-MM-ORG-009-left-rail-0.1.0-draft.1.stl
+    master_meshes:
+      - exports/master/DRAFT-MM-ORG-009-left-rail-0.1.0-draft.1-master.stl
+      - exports/master/DRAFT-MM-ORG-009-right-rail-0.1.0-draft.1-master.stl
+      - exports/master/DRAFT-MM-ORG-009-taper-gauge-0.1.0-draft.1-master.stl
+    manufacturing_meshes:
+      - exports/manufacturing/DRAFT-MM-ORG-009-left-rail-0.1.0-draft.1.stl
+      - exports/manufacturing/DRAFT-MM-ORG-009-right-rail-0.1.0-draft.1.stl
+      - exports/coupons/DRAFT-MM-ORG-009-taper-gauge-0.1.0-draft.1.stl
+    protected_regions:
+      - planar bed-contact walls and ribs
+      - organizer and drawer-wall fit datums
+      - lift scallops and top-skin bridge bays
+      - gauge taper and reference notches
+    resource_budget:
+      triangle_target: 20000
+      triangle_stop: 25000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 2.0
+      max_slicer_seconds: 30.0
+    rationale: Direct analytic tessellations are already small and below budget; further lossy processing has no measured benefit.
+
+acceptance:
+  - id: SRC-001
+    criterion: Default and boundary parameter assertions pass and generate two valid rails plus one valid gauge.
+    method: pytest and deterministic CadQuery build.
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: MESH-001
+    criterion: Every manufacturing STL is one watertight consistently wound positive-volume component within the declared build volume and resource budgets.
+    method: Independent FDM mesh audits.
+    status: pass
+    evidence: reports/validation-summary.json
+  - id: IFACE-001
+    criterion: Effective widths stay positive, loose clearances remain explicit, scallop reserve is at least 1.8 mm and roof bridge span is at most 12 mm.
+    method: Deterministic source/interface report.
+    status: pass
+    evidence: validation/interface-report.json
+  - id: PKG-001
+    criterion: The DRAFT 3MF contains exactly the left rail, right rail and taper gauge as valid millimetre mesh objects.
+    method: Independent 3MF structure and mesh inspection.
+    status: pass
+    evidence: validation/fdm-3mf.json
+  - id: SLC-001
+    criterion: Exact printer/material/profile imports and slices the unchanged geometry without missing walls, failed roof bridges or out-of-bed items.
+    method: Exact slicer preflight and layer review.
+    status: blocked-exact-profile-unknown
+  - id: PHY-001
+    criterion: Gauge, fit, removal, finish-contact, drawer-operation, cycle and cleaning tests TP-01 through TP-08 pass.
+    method: Physical test plan.
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical MM-WM-001-R1 identity is safely placed, digitally checked and physically qualified on the exact process.
+    method: Watermark release gate and coupon.
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - default and boundary parameter assertions pass
+    - left rail, right rail and taper gauge STEP/STL pairs are generated
+    - each manufacturing STL is one watertight positive-volume component
+    - each part fits 220 x 220 x 250 mm with at least 5 mm XY process margin where the research envelope permits
+    - configured effective gaps remain positive after loose clearances
+    - rail top skin, side walls and ribs are at least 1.8 mm
+    - unsupported roof spans remain at or below 12 mm
+    - DRAFT 3MF contains exactly the left rail, right rail and taper gauge
+  deferred_physical:
+    - print taper and clearance gauge
+    - verify measured front and rear gap selection
+    - verify pinch-free removal and no finish marking on three drawer finishes
+    - complete 100 removal/reinstallation cycles
+    - slice and print the unchanged selected revision
+
+unresolved:
+  - No exact drawer or organizer measurements were supplied; defaults demonstrate the parameter contract only.
+  - No exact printer, filament brand, slicer or profile was supplied.
+  - Clearance, finish contact and removal comfort require the printed gauge and physical rails.
+  - Final validation, watermark approval and commercial release are outside this modeling pass.

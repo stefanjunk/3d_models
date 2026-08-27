@@ -1,0 +1,117 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "loose-clearance",
+      "message": "Both interface clearances are explicitly loose",
+      "metrics": {
+        "organizer_clearance_mm": 0.5,
+        "wall_clearance_mm": 0.6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "effective-widths",
+      "message": "All effective front/rear widths are positive",
+      "metrics": {
+        "left_mm": [
+          9.9,
+          20.9
+        ],
+        "right_mm": [
+          16.9,
+          7.9
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "scallop-reserve",
+      "message": "Lift scallops retain at least 1.8 mm outer-wall reserve",
+      "metrics": {
+        "minimum_reserve_mm": 1.9000000000000004
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bridge-span",
+      "message": "Unsupported top-skin bay remains at or below 12 mm",
+      "metrics": {
+        "rib_count": 17,
+        "rib_pitch_mm": 11.399999999999999,
+        "unsupported_span_mm": 9.599999999999998
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "envelope",
+      "message": "All parts fit the declared research envelope",
+      "metrics": {
+        "left-rail": [
+          210.0,
+          20.8215,
+          32.0
+        ],
+        "right-rail": [
+          210.0,
+          16.8358,
+          32.0
+        ],
+        "taper-gauge": [
+          107.0,
+          30.0,
+          3.2
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "93abb4aa897e992855be1bdd493e587de8a32a6a6e33b4b7b43fb4c12eaec420",
+      "size_bytes": 1301
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "f1cc1a30a17d6b665b022ead521afc33cc62cf09563abacfb0f2c5566f9ce399",
+      "size_bytes": 26137
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "90f217d31f2d9cd29e241896fa1264f4c0509612d61c62de31c390a873729c60",
+      "size_bytes": 12121
+    }
+  ],
+  "limitations": [
+    "Nominal dimensions and loose clearances do not prove a real drawer fit or prevent all finish marking."
+  ],
+  "metrics": {
+    "finish_contact": "NOT_RUN",
+    "left_effective_front_rear_mm": [
+      9.9,
+      20.9
+    ],
+    "physical_fit": "NOT_RUN",
+    "removal_cycles": "NOT_RUN",
+    "right_effective_front_rear_mm": [
+      16.9,
+      7.9
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-009-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

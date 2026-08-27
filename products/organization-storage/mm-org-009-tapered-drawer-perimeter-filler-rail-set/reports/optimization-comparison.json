@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-map",
+      "message": "Protected geometry map is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "left-volume-reduction",
+      "message": "Left ribbed shell materially reduces CAD volume",
+      "metrics": {
+        "reduction_percent": 55.525088170920576
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "right-volume-reduction",
+      "message": "Right ribbed shell materially reduces CAD volume",
+      "metrics": {
+        "reduction_percent": 50.0091671596155
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-free",
+      "message": "Modeled roof bridges are bounded for support-free orientation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "93abb4aa897e992855be1bdd493e587de8a32a6a6e33b4b7b43fb4c12eaec420",
+      "size_bytes": 1301
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "f1cc1a30a17d6b665b022ead521afc33cc62cf09563abacfb0f2c5566f9ce399",
+      "size_bytes": 26137
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "510ae2c389bd95c736ec477faed1c48796f109663cd5a5210529eec5516e52a3",
+      "size_bytes": 1066
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited mass or print time; exact slicer metrics remain deferred."
+  ],
+  "metrics": {
+    "baseline_solid_volume_mm3": {
+      "left-rail": 102664.91516878037,
+      "right-rail": 82504.88262757014
+    },
+    "cad_volume_reduction_percent": {
+      "left-rail": 55.525088170920576,
+      "right-rail": 50.0091671596155
+    },
+    "exact_slicer_material_and_time": "NOT_RUN",
+    "selected_ribbed_volume_mm3": {
+      "left-rail": 45660.13050071426,
+      "right-rail": 41244.877959504025
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-009-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

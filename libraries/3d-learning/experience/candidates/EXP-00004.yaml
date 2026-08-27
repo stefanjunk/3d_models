@@ -1,0 +1,144 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00004
+title: Ribbed open-underside tapered rails reduced CAD volume in one digital drawer-filler geometry
+captured_at: 2026-08-27
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Digital geometry observation only; exact slicing and physical printing were deliberately deferred.
+feature:
+  type: lightweight-tapered-filler-shell
+  geometry: long-linearly-tapered-open-underside-rail-with-perimeter-walls-cross-ribs-top-skin-and-lift-scallops
+  design_parameters:
+    length_mm: 210.0
+    height_mm: 32.0
+    left_effective_front_rear_width_mm: [9.9, 20.9]
+    right_effective_front_rear_width_mm: [16.9, 7.9]
+    side_wall_mm: 2.25
+    end_wall_mm: 2.4
+    top_skin_mm: 2.0
+    rib_thickness_mm: 1.8
+    maximum_rib_pitch_mm: 11.5
+    maximum_unsupported_roof_span_mm: 9.6
+  named_datums:
+    - planar-bed-and-drawer-bottom-datum
+    - straight-organizer-side-datum
+    - linear-taper-drawer-wall-datum
+  constraints:
+    - Preserve explicit loose clearances on both longitudinal interface datums.
+    - Keep every rib connected to both walls, the roof and the bed plane.
+    - Do not infer print-time or deposited-material savings from CAD volume alone.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PLA-assumption
+    variant: unfilled
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: perimeter walls and cross-ribs on the bed, open underside down, tapered length in XY
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: long-passive-linearly-tapered-drawer-gap-filler
+  environment: dry indoor drawer assumption; no physical environment test
+  transfer_limits:
+    - One generated left/right rail pair from one parameter set.
+    - No exact slicer or printed-process evidence.
+    - Does not establish bridge success, flatness, strength, finish safety or time/material savings.
+observation:
+  summary: In one parametric CadQuery rail pair, replacing equivalent solid wedges with open-underside perimeter shells and cross-ribs preserved valid one-body geometry while reducing CAD volume by 55.5% left and 50.0% right.
+  expected: At least 25% CAD-volume reduction while each manufacturing mesh remains one watertight positive-volume body and modeled unsupported roof spans remain at or below 12 mm.
+  actual: Left 55.525% and right 50.009% CAD-volume reduction; both manufacturing meshes passed topology/resource audits; modeled maximum roof span was approximately 9.6 mm.
+  outcome: success
+  parameter: cad_volume_reduction_percent
+  recommended_value: null
+  units: percent
+explanation:
+  hypothesis: Removing the hidden solid core and retaining perimeter walls plus closely spaced cross-ribs can reduce geometric material volume while the ribs preserve roof support and body connectivity for this narrow tapered-rail geometry.
+  mechanism: The cavity removes most of the full-height wedge core; bed-to-roof cross-ribs subdivide the roof bridge length and fuse the longitudinal walls into one solid.
+  alternatives:
+    - A slicer may already use sparse infill in a solid wedge, so deposited-material and time savings may be much smaller than CAD-volume reduction.
+    - Extra ribs, corners and bridge paths may increase toolpath overhead relative to a simpler shell.
+    - Exact material, cooling and bridge settings may make the roof unacceptable despite the geometric span bound.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Deterministic CadQuery B-Rep volume comparison plus independent Trimesh topology and bounds audits; no physical measurement.
+  uncertainty: Digital volumes are exact within the modeled B-Rep, but manufacturing benefit and bridge performance are unknown without identical-profile slicing and printing.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/learning-trace.yaml
+      hash: null
+      notes: Owns the complete product-local requirement, geometry, process and evidence scope.
+    - type: other
+      ref: products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/reports/optimization-comparison.json
+      hash: null
+      notes: Records baseline and selected B-Rep volumes.
+  artifacts:
+    - products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/validation/interface-report.json
+    - products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/validation/fdm-mesh-left.json
+    - products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/validation/fdm-mesh-right.json
+applicability:
+  triggers:
+    - A passive long tapered filler can expose its hidden underside to the build plate and can tolerate modeled roof bridge bays.
+  exclusions:
+    - Structural rails, sliding/bearing rails, seals, liquid barriers or parts requiring a closed underside.
+    - Geometries where rib islands do not share reliable bed contact or roof connection.
+    - Any claim about real print time, mass, bridge quality or service life before matching evidence exists.
+  transfer_limits:
+    - Use only as an experiment candidate for similar narrow passive filler geometry.
+    - Require identical-profile solid-versus-ribbed slicing and a bridge/flatness coupon before promotion.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: []
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-ORG-009-tapered-drawer-perimeter-filler-rail-set
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow
+tags:
+  - lightweight-shell
+  - tapered-rail
+  - cross-ribs
+  - support-free-candidate
+  - digital-only
+  - negative-transfer

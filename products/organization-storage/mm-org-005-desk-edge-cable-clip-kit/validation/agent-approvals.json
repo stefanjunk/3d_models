@@ -1,0 +1,182 @@
+{
+  "events": [
+    {
+      "attestation": "Normalized SKU-003 requirements define the passive-routing boundary, 80 x 25 x 20 mm envelope, PETG flexure assumptions and deferred physical pinch/marking/cycle gates",
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "f639c44ec12f43db351fa97b4409f6e10b0bcdd1a7dd14a0a0e6df81d719cf71",
+      "evidence": [],
+      "previous_event_id": null,
+      "reasons": [],
+      "stage": "requirements-normalization"
+    },
+    {
+      "attestation": "Concept v1 maps the U/leaf flexure, C-ring, three input presets and side-print orientation while preserving physical force, fatigue, pinch and marking gates",
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "6d6132406dbb466dcf42633e19407a944944afc59a6a7bff309055173c29e206",
+      "evidence": [],
+      "previous_event_id": "f639c44ec12f43db351fa97b4409f6e10b0bcdd1a7dd14a0a0e6df81d719cf71",
+      "reasons": [],
+      "stage": "concept"
+    },
+    {
+      "attestation": "Decomposition assigns the complete one-piece clip and fit coupon to controlled parametric CAD and names every desk, cable and print interface",
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "ac474fece6f2d464479d782b0eceb14d8d242313909f09dc69a51989b3d657b0",
+      "evidence": [],
+      "previous_event_id": "6d6132406dbb466dcf42633e19407a944944afc59a6a7bff309055173c29e206",
+      "reasons": [],
+      "stage": "decomposition"
+    },
+    {
+      "attestation": null,
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "3d1dc1ecedcb28e5369d6ce6c26439f81e673a9c889f5cc7fab34c0f2af979b3",
+      "evidence": [
+        {
+          "hashed_report_inputs": true,
+          "path": "parametric-source-report.json",
+          "report_status": "PASS",
+          "report_tool": "MM-ORG-005-parametric-source",
+          "sha256": "3ee1f04ae6484d03f3957b9b027b7671428553bcadf89aa76816c76382f436de",
+          "size_bytes": 2071
+        }
+      ],
+      "previous_event_id": "ac474fece6f2d464479d782b0eceb14d8d242313909f09dc69a51989b3d657b0",
+      "reasons": [],
+      "stage": "parametric-source"
+    },
+    {
+      "attestation": null,
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "3152116ea636e2c480263f2871966c40816e3b6a5d18d2c93d31b50d7baf9469",
+      "evidence": [
+        {
+          "hashed_report_inputs": true,
+          "path": "mesh-generation-report.json",
+          "report_status": "PASS",
+          "report_tool": "MM-ORG-005-mesh-generation",
+          "sha256": "93e3c39e5ef1a22a2f3548fe4e64f80c41ad6b1e8cc0dd9af1b8e3529e143224",
+          "size_bytes": 10632
+        },
+        {
+          "hashed_report_inputs": true,
+          "path": "fdm-mesh-thin.json",
+          "report_status": "PASS",
+          "report_tool": "audit-mesh",
+          "sha256": "b2b773ab67cfe983ab861c981df0a53e207a3bc96b6aed94b0e9c11d6ad56ad0",
+          "size_bytes": 4583
+        },
+        {
+          "hashed_report_inputs": true,
+          "path": "fdm-mesh-standard.json",
+          "report_status": "PASS",
+          "report_tool": "audit-mesh",
+          "sha256": "f22a4b04a943b83ac231b65d68ac1dc5c3cf77ff2d5aca9e5f0a908d79f58b05",
+          "size_bytes": 4587
+        },
+        {
+          "hashed_report_inputs": true,
+          "path": "fdm-mesh-thick.json",
+          "report_status": "PASS",
+          "report_tool": "audit-mesh",
+          "sha256": "aeaa1ebc7ad2e66d3d8cfa96eb4933fb007bb1b54ded4ff5d09dbe58dd0d94e7",
+          "size_bytes": 4539
+        },
+        {
+          "hashed_report_inputs": true,
+          "path": "fdm-3mf.json",
+          "report_status": "PASS",
+          "report_tool": "validate-3mf",
+          "sha256": "e8f5750db1330b22a2885ba22cd13ded64c41780176ced922afcf1382396d35c",
+          "size_bytes": 3006
+        }
+      ],
+      "previous_event_id": "3d1dc1ecedcb28e5369d6ce6c26439f81e673a9c889f5cc7fab34c0f2af979b3",
+      "reasons": [],
+      "stage": "mesh-generation"
+    },
+    {
+      "attestation": null,
+      "authority": {
+        "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+        "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+        "type": "user-autonomy-policy"
+      },
+      "decided_by": {
+        "id": "codex-root",
+        "model": "gpt-5",
+        "type": "agent"
+      },
+      "decision": "AUTO_APPROVED",
+      "event_id": "9417780a4ec4ba25142aa5ac4a257298b11de3604ad16a6c065b946819e18834",
+      "evidence": [
+        {
+          "hashed_report_inputs": true,
+          "path": "interface-report.json",
+          "report_status": "PASS",
+          "report_tool": "MM-ORG-005-interface-validation",
+          "sha256": "c3120bcb57064c8ad06cdf7d60d62cd53d0b0ab95da5cfbfe72f3a1a6579819e",
+          "size_bytes": 1592
+        }
+      ],
+      "previous_event_id": "3152116ea636e2c480263f2871966c40816e3b6a5d18d2c93d31b50d7baf9469",
+      "reasons": [],
+      "stage": "interface-validation"
+    }
+  ],
+  "ledger_type": "agent",
+  "policy_id": "MM-ORG-005-autonomous-to-print-candidate-v1",
+  "policy_sha256": "fc8c361948fe5a506c16f9d56427412fe9374f486db4f477fa7cd68b4d469269",
+  "project_id": "MM-ORG-005",
+  "schema_version": "1.0"
+}

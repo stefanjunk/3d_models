@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected",
+      "message": "Protected map exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "volume",
+      "message": "Hinged frame volume is below solid wedge baseline",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "orientation",
+      "message": "Base/backrest/pin have explicit support-conscious orientations",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9eba512f3a2f926b6924f216cde4ac1938cc82a5c6f8e00b902d789047550e62",
+      "size_bytes": 1267
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0082b3d36a4f1f14c9a20c2978a85ff74079eb879829dd8b399781d341f9da7b",
+      "size_bytes": 13494
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "1719980b9e9143e7affc6edb47b50be3c1df03ff8b5554d8c16ae89524301ed7",
+      "size_bytes": 633
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited mass or print time; stability remains physical."
+  ],
+  "metrics": {
+    "baseline_wedge_cad_volume_mm3": 509675.0,
+    "cad_volume_reduction_percent": 80.91225490609828,
+    "exact_slicer_metrics": "NOT_RUN",
+    "selected_set_cad_volume_mm3": 97285.46480734358,
+    "selection": "B wide plate plus windowed hinged backrest"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-007-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

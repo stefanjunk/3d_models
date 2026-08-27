@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-map",
+      "message": "Protected geometry map exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bar-volume",
+      "message": "Local-cell bar uses less CAD volume than full-body baseline",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-intent",
+      "message": "Base, socket and insert openings face upward",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "44c686ffd6f76b76b2b6f95a09aa68080fbe3c25d4f0a1933b75a37bec13e953",
+      "size_bytes": 1064
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "1482785cc35827b87619e9937243bb834b03a6ea620edcebc28efda93bda604f",
+      "size_bytes": 17089
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "6bf5875ad8a7d773c203bf29bbbb43a9fe13685b2961853a8b4723d0b2d7d904",
+      "size_bytes": 707
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited material or print time; exact A/B/C slicing is deferred."
+  ],
+  "metrics": {
+    "baseline_bar_cad_volume_mm3": 69860.68310090304,
+    "cad_volume_reduction_percent": 59.7437412612688,
+    "exact_slicer_metrics": "NOT_RUN",
+    "selected_bar_cad_volume_mm3": 28123.297345744595,
+    "selection": "B thin base plus local socket cells"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-006-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,123 @@
+schema_version: 1
+project:
+  id: MM-ORG-006
+  name: Charging-cable Docking Bar
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-100/SKU-004
+  status: digital-candidate-through-interface-validation
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements: {status: approved, decision: AUTO_APPROVED, basis: User explicitly delegated uninterrupted functional-design phase transitions.}
+  concept: {status: approved, decision: AUTO_APPROVED, asset: assets/concept/MM-ORG-006-concept-v1.svg}
+  decomposition: {status: approved, decision: AUTO_APPROVED, artifact: decomposition.md}
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence: [validation/parametric-source-report.json, validation/mesh-generation-report.json, validation/interface-report.json]
+  slicer_preflight: {status: blocked, reason: No exact supported slicer CLI or destination PETG/TPU profiles are installed.}
+  print_candidate: {status: blocked, reason: Exact dual-material slicing and physical interface evidence are deferred.}
+  physical_print: {status: deferred-human}
+  fit_and_function: {status: deferred-human}
+  commercial_release: {status: blocked}
+
+requirements:
+  goal:
+    value: Keep four passive charging/data cable ends accessible in replaceable flexible cartridges mounted in one rigid desktop bar.
+    source: research-matrix-and-inferred
+  intended_user: {value: Adult multi-device household, home-office or desk user., source: research-matrix}
+  customer_inputs: [cable connector or neck type, cable diameter, bar length, slot count]
+  included:
+    - one freestanding rigid PETG bar with four standardized sockets
+    - four interchangeable TPU inserts
+    - one socket/insert fit coupon
+    - JSON/CLI inputs for bar length, slot count and insert bore
+  excluded:
+    - charging electronics or electrical connection
+    - electrical insulation or certified strain relief
+    - mains, hot or safety-critical cables
+    - adhesive, screw or wall mounting in this revision
+    - child-use claim
+
+risk:
+  class: normal-functional-low
+  score_from_research_matrix: 1
+  hazards: [connector falls through, cable jacket pinch or abrasion, insert loosens, bar slides or tips]
+  limits:
+    - passive indoor organizer only
+    - no retention, cycle, jacket-safe or non-slip claim before physical tests
+
+geometry_contract:
+  maximum_envelope_mm: [180.0, 45.0, 25.0]
+  bar:
+    length_mm: 156.0
+    depth_mm: 40.0
+    height_mm: 14.0
+    base_skin_mm: 3.0
+    corner_radius_mm: 6.0
+    socket_count: 4
+    socket_pitch_mm: 32.0
+  socket_interface:
+    insert_envelope_mm: [22.0, 16.0, 11.0]
+    pocket_clearance_each_mm: 0.25
+    pocket_floor_mm: 2.4
+    retention_rib_interference_mm: 0.20
+    insertion: vertical from top
+  insert_family:
+    material: TPU 95A starting assumption
+    cable_diameters_mm: [3.5, 5.0, 7.0, 9.0]
+    radial_clearance_mm: 0.30
+    entry_width_ratio: 0.70
+  protected_geometry:
+    - full base footprint and anti-tip width
+    - socket walls, pocket floors and datums
+    - insert outer envelope and retention ribs
+    - cable bore, entry slit and jacket-contact noses
+
+duty:
+  environment: dry indoor desktop, nominal 15-30 C
+  insert_cycle_target: 100 cartridge changes
+  cable_cycle_target: 500 cable insertions per cartridge
+  note: Targets are future tests, not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [220.0, 220.0, 250.0]
+  materials: {bar: PETG, inserts: TPU 95A starting assumption}
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: none; all sockets and insert slots open upward
+  orientations: {bar: base down, inserts: flat base down, coupon: base down}
+  target_outputs: [CadQuery source, JSON parameters, STEP, STL, multi-object 3MF]
+
+optimization:
+  objective: Keep the long bar stable and the socket datums rigid while replacing bulk with a thin base skin and local socket walls.
+  baseline: full 156 x 40 x 14 mm body with four pockets
+  candidates:
+    A_process_only: full baseline body at 0.4 mm nozzle
+    B_geometry_only: thin base plus four local receiver cells and edge beams
+    C_combined: B plus 0.6 mm nozzle hypothesis; not selected without exact slicing
+  selection_rule: B may become the digital geometry candidate; exact slicer metrics and stability remain open.
+
+acceptance:
+  digital_required:
+    - default and boundary parameter assertions pass
+    - one bar and four insert STEP/STL pairs plus coupon are generated
+    - each STL is watertight, one component and positive volume
+    - every part and the assembled bar stay inside 180 x 45 x 25 mm
+    - pocket clearance is 0.25 mm per side and cable radial clearance is 0.30 mm
+    - 3MF contains one bar plus four insert objects
+  deferred_physical:
+    - print socket/insert coupon in exact PETG and TPU profiles
+    - verify cartridge retention and 100 replacement cycles
+    - verify each cable fit, jacket condition and 500 insertion cycles
+    - verify bar sliding/tipping during one-handed docking
+    - print unchanged full set
+
+unresolved:
+  - Exact cable connector neck shapes and TPU hardness were not supplied.
+  - Exact non-slip pad or mounting style is deferred.
+  - Exact slicer profile and final physical validation are deferred.

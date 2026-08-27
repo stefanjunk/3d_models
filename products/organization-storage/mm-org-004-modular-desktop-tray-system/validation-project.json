@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-ORG-004",
+    "revision": "0.1.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional-low",
+    "build_volume_mm": [220, 220, 250]
+  },
+  "artifacts": [
+    {"id": "tray-precision", "path": "exports/manufacturing/DRAFT-MM-ORG-004-precision-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "tray-soft", "path": "exports/manufacturing/DRAFT-MM-ORG-004-soft-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "tray-lounge", "path": "exports/manufacturing/DRAFT-MM-ORG-004-lounge-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "bowtie-link", "path": "exports/manufacturing/DRAFT-MM-ORG-004-bowtie_link-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "interface-coupon", "path": "exports/coupons/DRAFT-MM-ORG-004-interface-coupon-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "draft-3mf", "path": "exports/3mf/DRAFT-MM-ORG-004-modular-desktop-tray-system-0.1.0-draft.1.3mf", "kind": "3mf", "revision": "0.1.0-draft.1"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.1.0-draft.1"},
+    {"id": "agent-approval-ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id": "precision-mesh", "type": "mesh", "required": true, "artifact": "tray-precision", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [220, 220, 250], "allow_axis_permutation": false, "max_faces": 150000, "max_file_mib": 12}},
+    {"id": "soft-mesh", "type": "mesh", "required": true, "artifact": "tray-soft", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [220, 220, 250], "allow_axis_permutation": false, "max_faces": 150000, "max_file_mib": 12}},
+    {"id": "lounge-mesh", "type": "mesh", "required": true, "artifact": "tray-lounge", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [220, 220, 250], "allow_axis_permutation": false, "max_faces": 150000, "max_file_mib": 12}},
+    {"id": "link-mesh", "type": "mesh", "required": true, "artifact": "bowtie-link", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [220, 220, 250], "allow_axis_permutation": false, "max_faces": 150000, "max_file_mib": 12}},
+    {"id": "coupon-mesh", "type": "mesh", "required": true, "artifact": "interface-coupon", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [220, 220, 250], "allow_axis_permutation": false, "max_faces": 150000, "max_file_mib": 12}},
+    {"id": "draft-3mf-structure", "type": "3mf", "required": true, "artifact": "draft-3mf", "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 4, "max_package_members": 20, "max_uncompressed_mib": 50, "max_compression_ratio": 200}},
+    {"id": "approvals-through-interface", "type": "approvals", "required": true, "policy_artifact": "autonomy-policy", "agent_ledger_artifact": "agent-approval-ledger", "target_stage": "interface-validation"},
+    {"id": "physical-fit", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Process-matched interface coupon, full arrangement, cycle and distributed-load plan pass", "evidence_artifact": null}
+  ],
+  "release": {"required_approvals": [], "approvals": {}}
+}

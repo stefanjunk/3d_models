@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "pocket-clearance",
+      "message": "Pocket clearance is 0.25 mm per side",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "rib-reserve",
+      "message": "Retention rib interference remains inside the nominal pocket allowance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cable-clearance",
+      "message": "Cable radial clearance is 0.30 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-pair",
+      "message": "Socket and 5 mm insert coupon pair exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "44c686ffd6f76b76b2b6f95a09aa68080fbe3c25d4f0a1933b75a37bec13e953",
+      "size_bytes": 1064
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "1482785cc35827b87619e9937243bb834b03a6ea620edcebc28efda93bda604f",
+      "size_bytes": 17089
+    }
+  ],
+  "limitations": [
+    "Nominal CAD clearance and rib overlap do not establish TPU insertion force or retention."
+  ],
+  "metrics": {
+    "insert_envelope_mm": [
+      22.0,
+      16.0,
+      11.0
+    ],
+    "physical_fit": "NOT_RUN",
+    "pocket_envelope_mm": [
+      22.5,
+      16.5,
+      11.2
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-006-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

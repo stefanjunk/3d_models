@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "project": {"id":"MM-ORG-007","revision":"0.1.0-draft.1","units":"mm","risk_class":"normal-functional-low","build_volume_mm":[220,220,250]},
+  "artifacts": [
+    {"id":"base-soft","path":"exports/manufacturing/DRAFT-MM-ORG-007-base_soft-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"base-medium","path":"exports/manufacturing/DRAFT-MM-ORG-007-base_medium-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"base-firm","path":"exports/manufacturing/DRAFT-MM-ORG-007-base_firm-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"backrest","path":"exports/manufacturing/DRAFT-MM-ORG-007-backrest-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"pin","path":"exports/manufacturing/DRAFT-MM-ORG-007-pin-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"draft-3mf","path":"exports/3mf/DRAFT-MM-ORG-007-adjustable-phone-stand-0.1.0-draft.1.3mf","kind":"3mf","revision":"0.1.0-draft.1"},
+    {"id":"autonomy","path":"autonomy-policy.json","kind":"autonomy-policy","revision":"0.1.0-draft.1"},
+    {"id":"ledger","path":"validation/agent-approvals.json","kind":"approval-ledger","revision":"0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id":"base-soft-mesh","type":"mesh","required":true,"artifact":"base-soft","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":180000,"max_file_mib":15}},
+    {"id":"base-medium-mesh","type":"mesh","required":true,"artifact":"base-medium","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":180000,"max_file_mib":15}},
+    {"id":"base-firm-mesh","type":"mesh","required":true,"artifact":"base-firm","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":180000,"max_file_mib":15}},
+    {"id":"backrest-mesh","type":"mesh","required":true,"artifact":"backrest","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":180000,"max_file_mib":15}},
+    {"id":"pin-mesh","type":"mesh","required":true,"artifact":"pin","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":180000,"max_file_mib":15}},
+    {"id":"draft-3mf-structure","type":"3mf","required":true,"artifact":"draft-3mf","policy":{"inspect_meshes":true,"require_watertight_meshes":true,"require_positive_volume":true,"require_unit":"millimeter","min_mesh_objects":5,"max_package_members":20,"max_uncompressed_mib":40,"max_compression_ratio":200}},
+    {"id":"approvals-through-interface","type":"approvals","required":true,"policy_artifact":"autonomy","agent_ledger_artifact":"ledger","target_stage":"interface-validation"},
+    {"id":"physical-detent-cycles-stability","type":"physical","required":false,"status":"REVIEW_REQUIRED","criterion":"Coupon-selected detent, 500 cycles, pin retention and 350 g phone stability tests pass","evidence_artifact":null}
+  ],
+  "release": {"required_approvals":[],"approvals":{}}
+}

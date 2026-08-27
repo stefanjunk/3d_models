@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-map",
+      "message": "Protected geometry map exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "candidate-volume",
+      "message": "Separated shell parameters reduce CAD volume against the conservative shell baseline",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-intent",
+      "message": "Largest socket roof bridge span is at most 15 mm",
+      "metrics": {
+        "bridge_span_mm": 14.6
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9a94449b5b648ce49239183036abdfcfbf4b637d6644a6c74195ee29ac49abf7",
+      "size_bytes": 1227
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "1ffda2807090768a698adbb46a70b53055a668ac208c4eb68d54d519d656f0d7",
+      "size_bytes": 25030
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "7164490bd85e3640f3d6fbf4a5025b665e3519c164e762221ae01f0067739ada",
+      "size_bytes": 779
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited material and does not establish print-time savings. Exact A/B/C slicing is deferred."
+  ],
+  "metrics": {
+    "baseline": "A conservative 3.0 mm walls and 3.0 mm floors",
+    "baseline_cad_volume_mm3": 179571.44784995954,
+    "cad_volume_reduction_percent": 18.13939851310365,
+    "candidate_C": "0.6 mm nozzle process hypothesis; NOT_SELECTED",
+    "estimated_selected_pla_mass_g_at_1_24": 182.27785146279456,
+    "exact_slicer_metrics": "NOT_RUN",
+    "selected": "B separated 2.4 mm walls/floors with local receiver reinforcement",
+    "selected_cad_volume_mm3": 146998.26730870528
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-004-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

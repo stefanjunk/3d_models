@@ -1,0 +1,160 @@
+schema_version: 1
+project:
+  id: MM-ORG-004
+  name: Modular Desktop Tray System
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-100/SKU-002
+  status: digital-candidate-through-interface-validation
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements:
+    status: approved
+    decision: AUTO_APPROVED
+    basis: User explicitly directed uninterrupted autonomous iteration through the functional 3D design workflow.
+  concept:
+    status: approved
+    decision: AUTO_APPROVED
+    asset: assets/concept/MM-ORG-004-concept-v1.svg
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: blocked
+    reason: No supported exact slicer CLI or destination printer/material profile is installed.
+  print_candidate:
+    status: blocked
+    reason: Exact slicer preflight is intentionally deferred; artifacts remain DRAFT.
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  commercial_release:
+    status: blocked
+
+requirements:
+  goal:
+    value: A coherent family of interlocking desktop trays with three visual styles and one shared, replaceable mechanical interface.
+    source: research-matrix-and-inferred
+  intended_user:
+    value: Adult indoor user organizing stationery, cables and other dry lightweight desk items.
+    source: inferred
+  included:
+    value:
+      - three open-top tray modules
+      - one removable bow-tie connector used from the underside
+      - one interface coupon
+      - one assembled layout preview
+    source: recommended
+  excluded:
+    value:
+      - food contact or liquid containment
+      - child-use or toy claim
+      - structural or load-rated use
+      - magnets, adhesives or purchased hardware
+      - printer upload or start
+    source: recommended
+
+risk:
+  class: normal-functional-low
+  score_from_research_matrix: 1
+  hazards:
+    - sharp or rough tray edges
+    - connector binding or brittle fracture
+    - small connector may be unsuitable around young children
+  limits:
+    - adult dry desktop use only
+    - no fit, cycle, load or safety claim before physical tests
+
+geometry_contract:
+  coordinate_frame:
+    x: tray length
+    y: tray width
+    z: height from the flat print bed
+  maximum_single_part_envelope_mm: [170.0, 90.0, 45.0]
+  maximum_arranged_product_envelope_mm: [230.0, 180.0, 45.0]
+  module_variants:
+    precision: [76.0, 76.0, 28.0]
+    soft: [112.0, 76.0, 34.0]
+    lounge: [150.0, 76.0, 40.0]
+  common_interface:
+    type: paired underside dovetail sockets plus removable bow-tie link
+    nominal_gap_mm: 1.0
+    gap_datum: opposing receiver faces
+    clearance_each_side_mm: 0.30
+    insertion: bottom-side vertical insertion while modules are inverted
+    retention: desktop surface blocks axial withdrawal in normal use
+  protected_geometry:
+    - flat bed-contact perimeter
+    - closed item-containment floor and inner walls
+    - socket roofs and surrounding receiver bosses
+    - hand-contact top rim
+    - shared socket location and connector datum
+
+duty:
+  environment: dry indoor desktop, nominal 15-30 C
+  contents: light stationery, cables and small electronics accessories
+  connector_cycle_target: 100 assembly cycles for later qualification
+  distributed_load_target_kg_per_module: 1.0
+  note: Targets define future tests; they are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [220.0, 220.0, 250.0]
+  material_assumption: PLA for dry indoor prototype; PETG optional after coupon tuning
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; socket roofs are short bridges
+  orientation:
+    trays: bottom down
+    connector: largest flat face down
+    coupon: largest flat face down
+  target_outputs:
+    - CadQuery source
+    - JSON parameters
+    - STEP
+    - STL
+    - 3MF
+
+optimization:
+  objective: Minimize material and support burden while preserving containment, flatness, connector receivers and comfortable edges.
+  baseline: conservative 3.0 mm wall and 3.0 mm floor shell
+  candidates:
+    A_process_only: conservative shell; exact slicer profile deferred
+    B_geometry_only: separated visible wall, divider, floor and receiver thicknesses
+    C_combined: B with 0.6 mm nozzle process hypothesis; not selected without exact slicing
+  selection_rule: Geometry B may become the digital candidate after deterministic geometry checks; no print-time or deposited-mass savings claim without exact slicing.
+
+acceptance:
+  digital_required:
+    - default and boundary parameter assertions pass
+    - three tray STEP/STL pairs plus connector and coupon are generated
+    - each manufacturing STL is one watertight positive-volume component
+    - every single part fits 220 x 220 x 250 mm with at least 5 mm XY margin
+    - tray floors are at least 2.2 mm and ordinary walls at least 2.25 mm
+    - socket clearance is exactly 0.30 mm per side in source calculations
+    - all underside receiver bosses remain inside the declared maximum part envelope
+    - DRAFT 3MF contains the intended five production build items
+  deferred_physical:
+    - print interface clearance coupon
+    - verify connector insertion, desk-surface trapping and removal
+    - complete 100 connector cycles
+    - verify floor flatness, edge comfort and 1 kg distributed-load target
+    - slice and print the unchanged selected revision
+
+unresolved:
+  - Exact contents and preferred module arrangement were not supplied; dimensions remain parametric defaults.
+  - Exact printer, filament and slicer profile were not supplied.
+  - Connector clearance and socket bridge quality require physical coupons.
+  - Final validation and commercial release are outside this modeling pass.

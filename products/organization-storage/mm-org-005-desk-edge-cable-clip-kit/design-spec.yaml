@@ -1,0 +1,137 @@
+schema_version: 1
+project:
+  id: MM-ORG-005
+  name: Desk-edge Cable Clip Kit
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-100/SKU-003
+  status: digital-candidate-through-interface-validation
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements:
+    status: approved
+    decision: AUTO_APPROVED
+    basis: User explicitly delegated uninterrupted functional-design phase transitions.
+  concept: {status: approved, decision: AUTO_APPROVED, asset: assets/concept/MM-ORG-005-concept-v1.svg}
+  decomposition: {status: approved, decision: AUTO_APPROVED, artifact: decomposition.md}
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence: [validation/parametric-source-report.json, validation/mesh-generation-report.json, validation/interface-report.json]
+  slicer_preflight: {status: blocked, reason: No exact supported slicer CLI or destination PETG profile is installed.}
+  print_candidate: {status: blocked, reason: Exact slicer preflight and physical flexure evidence are intentionally deferred.}
+  physical_print: {status: deferred-human}
+  fit_and_function: {status: deferred-human}
+  commercial_release: {status: blocked}
+
+requirements:
+  goal:
+    value: One-piece edge clips that grip selected desk thicknesses and retain selected passive cables near the edge without supports.
+    source: research-matrix-and-inferred
+  intended_user:
+    value: Adult home-office, bedside or gaming user routing passive charging/data cables.
+    source: research-matrix
+  customer_inputs:
+    - desk thickness
+    - cable diameter
+    - desired clip count
+  included:
+    - three default clip sizes
+    - three low-material desk-gap and cable-slot coupon profiles
+    - JSON-driven diameter/thickness wizard interface
+  excluded:
+    - electrical insulation or certified strain relief
+    - mains wiring, high-temperature cables or safety-critical routing
+    - load-bearing clamp use
+    - child-use claim
+    - adhesive or permanent desk attachment
+
+risk:
+  class: normal-functional-low
+  score_from_research_matrix: 1
+  hazards:
+    - excessive cable pinch or jacket abrasion
+    - flexure cracking or loss of retention
+    - desk marking from high contact pressure or rough surfaces
+  limits:
+    - passive low-voltage cable routing only
+    - no retention-force, cable-compatibility or non-marking claim before physical tests
+
+geometry_contract:
+  coordinate_frame:
+    x: insertion direction from outside edge into desk
+    y: clip width along desk edge
+    z: desk thickness direction
+  maximum_manufacturing_envelope_mm: [80.0, 25.0, 20.0]
+  default_variants:
+    thin: {target_desk_mm: 12.0, nominal_jaw_mm: 10.0, cable_diameter_mm: 3.5}
+    standard: {target_desk_mm: 15.0, nominal_jaw_mm: 13.0, cable_diameter_mm: 5.0}
+    thick: {target_desk_mm: 18.0, nominal_jaw_mm: 15.6, cable_diameter_mm: 7.0}
+  clamp:
+    type: open asymmetric U/leaf flexure
+    insertion_depth_mm: 38.0
+    fixed_arm_mm: 2.0
+    flexure_root_mm: 2.4
+    flexure_tip_mm: 1.8
+    tip_grip_interference_mm: 0.6
+  cable_keeper:
+    type: side-entry C-ring with cable axis parallel to desk edge
+    radial_clearance_mm: 0.35
+    ring_wall_mm: 2.2
+    entrance_ratio_of_cable_diameter: 0.70
+  protected_geometry:
+    - flexure root and full tapered arm
+    - desk contact pads and rounded insertion lips
+    - cable bore, entry slit and jacket-contact radii
+    - hard-stop root and side print datum
+
+duty:
+  environment: dry indoor use, nominal 15-30 C
+  material: PETG
+  insertion_cycle_target: 250 desk insert/remove cycles
+  cable_cycle_target: 500 cable insert/remove cycles
+  note: Targets define later tests; they are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [220.0, 220.0, 250.0]
+  material_assumption: PETG
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: none; extruded cross-section prints on its side
+  orientation: large XZ profile on bed so flexure is formed by continuous in-layer paths
+  target_outputs: [CadQuery source, JSON parameters, STEP, STL, 3MF]
+
+optimization:
+  objective: Preserve the flexure load path, hard stop and contact faces while avoiding a thick solid clamp block.
+  baseline: 3.0 mm rectangular U arms and solid cable boss
+  candidates:
+    A_process_only: baseline geometry with 0.4 mm nozzle
+    B_geometry_only: tapered leaf plus C-ring and local web
+    C_combined: B plus 0.6 mm nozzle hypothesis; not selected without exact slicing
+  selection_rule: B may become the digital candidate after geometry checks; retention and fatigue remain physical gates.
+
+acceptance:
+  digital_required:
+    - default and declared boundary parameter assertions pass
+    - three STEP/STL clip variants and three narrow coupon profiles are generated
+    - every STL is one watertight positive-volume component
+    - every manufacturing part fits 80 x 25 x 20 mm without axis permutation
+    - minimum flexure tip is 1.8 mm and root is 2.4 mm
+    - cable radial clearance is 0.35 mm
+    - 3MF contains the three default clip objects
+  deferred_physical:
+    - print thickness/cable coupon for the exact PETG profile
+    - verify insertion force and 250 desk cycles
+    - verify cable retention without visible pinch or abrasion for 500 cycles
+    - verify no desk marking on representative sealed and laminated surfaces
+    - print unchanged full kit
+
+unresolved:
+  - Exact desk edge radii, coating and hardness were not supplied.
+  - Exact cable jacket hardness and ovality were not supplied.
+  - Flexure force and fatigue require process-matched PETG tests.
+  - Exact slicer profile and final physical validation are deferred.

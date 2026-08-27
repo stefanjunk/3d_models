@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "radial-clearance",
+      "message": "Cable radial clearance is 0.35 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "flexure-root",
+      "message": "Flexure root is at least 2.4 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "flexure-tip",
+      "message": "Flexure tip is at least 1.8 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-set",
+      "message": "Three low-material fit coupons exist",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "82894d9b38031629636a9dde5f06362c90fa8d813c36bbc0d686b3ad596d5e7e",
+      "size_bytes": 1223
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "355c7e613f693d80d8a6654a9af75b01a32e1c70a6d13d18eefce2f4a31e9068",
+      "size_bytes": 17557
+    }
+  ],
+  "limitations": [
+    "Nominal geometry does not establish insertion force, fatigue, cable pinch or non-marking behavior."
+  ],
+  "metrics": {
+    "cable_diameters_mm": [
+      3.5,
+      5.0,
+      7.0
+    ],
+    "desk_targets_mm": [
+      12.0,
+      15.0,
+      18.0
+    ],
+    "physical_fit": "NOT_RUN"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-005-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

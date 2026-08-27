@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-map",
+      "message": "Protected geometry map exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "selected-volume",
+      "message": "Tapered C-ring candidate uses less CAD volume than 3 mm U baseline",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "part-envelope",
+      "message": "Selected production clips fit the research envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "82894d9b38031629636a9dde5f06362c90fa8d813c36bbc0d686b3ad596d5e7e",
+      "size_bytes": 1223
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "355c7e613f693d80d8a6654a9af75b01a32e1c70a6d13d18eefce2f4a31e9068",
+      "size_bytes": 17557
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "5bf402bab527f7251e524e4e09e3f74b8b6ed751eaf1fe4c85715b4f0b409941",
+      "size_bytes": 722
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited material; exact A/B/C slicing and fatigue tests are deferred."
+  ],
+  "metrics": {
+    "baseline_cad_volume_mm3": 16860.057738648222,
+    "cad_volume_reduction_percent": 23.105502146265003,
+    "exact_slicer_metrics": "NOT_RUN",
+    "selected_cad_volume_mm3": 12964.456735983338,
+    "selection": "B tapered leaf plus C-ring"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-005-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

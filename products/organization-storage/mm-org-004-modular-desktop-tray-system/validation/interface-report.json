@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "per-side-clearance",
+      "message": "Nominal connector clearance is 0.30 mm per side",
+      "metrics": {
+        "clearance_mm": 0.2999999999999998
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "vertical-clearance",
+      "message": "Vertical connector clearance is 0.30 mm",
+      "metrics": {
+        "clearance_mm": 0.2999999999999998
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "socket-roof",
+      "message": "Socket roof reserve is at least 2.0 mm",
+      "metrics": {
+        "roof_mm": 2.2
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-present",
+      "message": "Dedicated interface coupon is exported",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9a94449b5b648ce49239183036abdfcfbf4b637d6644a6c74195ee29ac49abf7",
+      "size_bytes": 1227
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "1ffda2807090768a698adbb46a70b53055a668ac208c4eb68d54d519d656f0d7",
+      "size_bytes": 25030
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-004-bowtie_link-0.1.0-draft.1.stl",
+      "sha256": "294b77d9f836cf5fe2cdc4e0d5f8a1359fbedbe659dce21cd46164024cdf3c1c",
+      "size_bytes": 31084
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-004-interface-coupon-0.1.0-draft.1.stl",
+      "sha256": "8756cc2fd82e21519451c0eb1887355fa15c20a07b8714bc7359e0a1fa10d319",
+      "size_bytes": 3884
+    }
+  ],
+  "limitations": [
+    "Interference-free nominal CAD dimensions do not establish printed fit; the coupon is mandatory before a full set."
+  ],
+  "metrics": {
+    "bridge_span_mm": 14.6,
+    "connector_head_width_mm": 14.0,
+    "physical_fit": "NOT_RUN",
+    "socket_head_width_mm": 14.6
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-004-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

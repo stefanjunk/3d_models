@@ -1,0 +1,68 @@
+schema_version: 1
+project: {id: MM-ORG-007, name: Adjustable Passive Phone Stand, revision: 0.1.0-draft.1, units: mm, portfolio_source: research-ideas-100/SKU-005, status: p2-digital-candidate}
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements: {status: approved, decision: AUTO_APPROVED, basis: User explicitly delegated uninterrupted functional-design phase transitions.}
+  concept: {status: approved, decision: AUTO_APPROVED}
+  decomposition: {status: approved, decision: AUTO_APPROVED}
+  parametric_source: {status: approved, decision: AUTO_APPROVED, evidence: validation/parametric-source-report.json}
+  mesh_generation: {status: approved, decision: AUTO_APPROVED, evidence: validation/mesh-generation-report.json}
+  interface_validation: {status: approved, decision: AUTO_APPROVED, evidence: validation/interface-report.json}
+  slicer_preflight: {status: not-run, reason: No exact local slicer profile or supported CLI is available.}
+  physical_print: {status: deferred-human}
+  fit_and_function: {status: deferred-human}
+  commercial_release: {status: blocked}
+requirements:
+  goal: {value: Hold a cased or uncased phone at three chosen passive viewing angles using a serviceable printed-pin hinge., source: research-matrix-and-inferred}
+  intended_user: {value: Adult desk or kitchen user., source: research-matrix}
+  customer_inputs: [phone width, phone thickness with case, preferred angle range]
+  included: [one backrest with device shelf and cable notch, one printed hinge pin, three alternative base/detent profiles, one hinge/detent coupon]
+  excluded: [charging electronics, magnetic retention, wall mounting, tablet load claim, child-use claim]
+risk:
+  class: normal-functional-low
+  score_from_research_matrix: 1
+  hazards: [tip or slide, hinge collapse, device scratches, pin migration, cable bend]
+  limits: [passive stand only, no device compatibility/stability/cycle claim before physical testing]
+geometry_contract:
+  maximum_assembled_envelope_mm: [95.0, 110.0, 125.0]
+  base: {width_mm: 95.0, depth_mm: 94.0, plate_mm: 5.0, hinge_axis_y_mm: 59.0, hinge_axis_z_mm: 13.0, ear_thickness_mm: 6.0}
+  backrest: {width_mm: 80.0, height_mm: 105.0, panel_mm: 5.0, shelf_depth_mm: 18.0, shelf_mm: 4.0, front_lip_mm: 7.0, case_capacity_mm: 14.0, cable_notch_mm: 14.0}
+  hinge: {pin_diameter_mm: 6.0, radial_clearance_mm: 0.25, shaft_length_mm: 92.0, pin_overall_mm: 95.0, axial_clearance_total_mm: 1.0}
+  detents:
+    viewing_angles_from_base_deg: [55.0, 65.0, 75.0]
+    nub_radius_mm: 1.15
+    profiles: {soft_socket_radius_mm: 1.15, medium_socket_radius_mm: 1.35, firm_socket_radius_mm: 1.55}
+  protected_geometry: [base support polygon and rear mass, hinge ears and barrel, pin axis and stops, detent nubs/sockets, shelf/lip/cable notch, device-contact edges]
+duty:
+  environment: dry indoor use, nominal 15-30 C
+  material: PETG
+  phone_mass_target_g: 350
+  hinge_cycle_target: 500
+  note: Targets are future tests, not current ratings.
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [220.0, 220.0, 250.0]
+  material_assumption: PETG; optional TPU contact pads deferred
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: none; small horizontal hinge bores require exact bridge review
+  orientations: {base: plate down, backrest: rear panel down, pin: vertical, coupon: flat}
+  target_outputs: [CadQuery source, JSON parameters, STEP, STL, multi-object 3MF]
+optimization:
+  objective: Preserve the support polygon, rear mass, hinge loads and device contacts while replacing a solid wedge with a plate, ears and windowed backrest.
+  baseline: solid triangular wedge with equivalent footprint and back height
+  candidates: {A_process_only: solid wedge at 0.4 mm nozzle, B_geometry_only: wide plate plus hinged windowed backrest, C_combined: B plus 0.6 mm nozzle hypothesis}
+  selection_rule: B may become the digital geometry candidate; detent profile and stability require physical selection.
+acceptance:
+  digital_required:
+    - default and boundary assertions pass
+    - three base STEP/STL variants plus backrest, pin and coupon are generated
+    - each manufacturing STL is watertight, one component and positive volume
+    - the 65 degree reference assembly stays within 95 x 110 x 125 mm
+    - hinge radial clearance is 0.25 mm and total axial clearance is 1.0 mm
+    - all three detent angles and profiles remain explicit
+    - 3MF contains one backrest, one pin and three alternative base objects
+  deferred_physical: [print hinge/detent coupon, compare three detent profiles, verify 500 hinge cycles and pin retention, test 350 g phone tip/slide in portrait and landscape, inspect device contacts and cable bend, print unchanged selected set]
+unresolved: [Exact phone/case geometry was not supplied, PETG hinge friction and detent force require coupons, exact TPU pad geometry is deferred, exact slicer and final physical validation are deferred.]

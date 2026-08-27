@@ -15,6 +15,9 @@ from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 PORTFOLIO_CSV = ROOT / "02-portfolio" / "product-portfolio.csv"
+RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
+RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
+RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
 RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
@@ -25,6 +28,133 @@ REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 def read_csv(path: Path) -> list[list[str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.reader(handle))
+
+
+def read_research_status(path: Path) -> dict[str, dict[str, str]]:
+    """Load the editable implementation overlay for the imported research matrix."""
+    if not path.is_file():
+        return {}
+    with path.open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    ids = [row.get("SKU_ID", "") for row in rows]
+    if not ids or any(not sku_id for sku_id in ids):
+        raise ValueError(f"Research implementation overlay has a missing SKU_ID: {path}")
+    if len(ids) != len(set(ids)):
+        raise ValueError(f"Research implementation overlay has duplicate SKU_ID values: {path}")
+    return {row["SKU_ID"]: row for row in rows}
+
+
+def normalize_name(value: object) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value).lower()).strip()
+
+
+def validate_research_additions(
+    rows: list[list[str]],
+    legacy_rows: list[list[object]],
+    portfolio_rows: list[list[str]],
+) -> None:
+    """Fail closed when the append-only +100 source is incomplete or collides exactly."""
+    if not rows:
+        raise ValueError(f"Research additions source is empty: {RESEARCH_ADDITIONS_CSV}")
+    header = rows[0]
+    required = {
+        "SKU_ID",
+        "Product",
+        "Customer_Job",
+        "Strategy_Fit",
+        "Max_L_mm",
+        "Max_W_mm",
+        "Max_H_mm",
+        "Risk_or_Limit",
+        "Opportunity_Score",
+        "Source_IDs",
+        "Design_Status",
+        "Next_Gate",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Research additions source is missing columns: {', '.join(missing)}")
+    if len(rows) != 101:
+        raise ValueError(f"Research additions source must contain exactly 100 ideas; found {len(rows) - 1}")
+    if any(len(row) != len(header) for row in rows):
+        raise ValueError("Research additions source contains a row with the wrong column count")
+
+    id_index = header.index("SKU_ID")
+    product_index = header.index("Product")
+    status_index = header.index("Design_Status")
+    expected_ids = {f"SKU-{number:03d}" for number in range(101, 201)}
+    ids = [row[id_index] for row in rows[1:]]
+    if set(ids) != expected_ids or len(ids) != len(set(ids)):
+        raise ValueError("Research additions must use each ID from SKU-101 through SKU-200 exactly once")
+    if any(row[status_index] != "P0 research backlog" for row in rows[1:]):
+        raise ValueError("Every research addition must remain P0 research backlog")
+
+    products = [normalize_name(row[product_index]) for row in rows[1:]]
+    if any(not product for product in products) or len(products) != len(set(products)):
+        raise ValueError("Research additions contain a blank or duplicate normalized product name")
+    legacy_header = legacy_rows[0]
+    legacy_product_index = legacy_header.index("Product")
+    existing_products = {normalize_name(row[legacy_product_index]) for row in legacy_rows[1:]}
+    portfolio_header = portfolio_rows[0]
+    portfolio_product_index = portfolio_header.index("Product_or_Model")
+    existing_products.update(normalize_name(row[portfolio_product_index]) for row in portfolio_rows[1:])
+    collisions = sorted(set(products).intersection(existing_products))
+    if collisions:
+        raise ValueError(f"Research additions duplicate retained research or portfolio names: {', '.join(collisions)}")
+
+    for dimension in ("Max_L_mm", "Max_W_mm", "Max_H_mm"):
+        index = header.index(dimension)
+        limit = 250 if dimension == "Max_H_mm" else 220
+        invalid = [row[id_index] for row in rows[1:] if not row[index].isdigit() or int(row[index]) > limit]
+        if invalid:
+            raise ValueError(f"{dimension} exceeds the common-printer envelope for: {', '.join(invalid)}")
+    score_index = header.index("Opportunity_Score")
+    invalid_scores = []
+    for row in rows[1:]:
+        try:
+            score = float(row[score_index])
+        except ValueError:
+            invalid_scores.append(row[id_index])
+            continue
+        if not 0 <= score <= 100:
+            invalid_scores.append(row[id_index])
+    if invalid_scores:
+        raise ValueError(f"Invalid opportunity score for: {', '.join(invalid_scores)}")
+
+
+def add_research_overlay(
+    rows: list[list[object]],
+    sku_column: str,
+    research_status: dict[str, dict[str, str]],
+    interpretation: str,
+) -> None:
+    implementation_columns = [
+        "Implementation_Status",
+        "Mapped_Working_SKU",
+        "Product_Package",
+        "Model_Evidence",
+        "Workflow_Stage",
+        "Implementation_Updated",
+        "Implementation_Notes",
+    ]
+    source_width = len(rows[0])
+    sku_index = rows[0].index(sku_column)
+    rows[0].extend(implementation_columns + ["Business_Workspace_Interpretation"])
+    for row in rows[1:]:
+        row.extend([""] * (source_width - len(row)))
+        overlay = research_status.get(str(row[sku_index]), {})
+        row.extend(
+            [
+                overlay.get("Implementation_Status", "NOT_STARTED"),
+                overlay.get("Mapped_Working_SKU", ""),
+                overlay.get("Product_Package", ""),
+                overlay.get("Model_Evidence", ""),
+                overlay.get("Workflow_Stage", "research-backlog"),
+                overlay.get("Implementation_Updated", ""),
+                overlay.get("Implementation_Notes", ""),
+                interpretation,
+            ]
+        )
 
 
 def read_xlsx_sheet(path: Path, sheet_name: str) -> list[list[object]]:
@@ -96,7 +226,7 @@ def style_for(value: object, row_index: int) -> int:
         return 3
     if "BLOCK" in text or text in {"EXCLUDED", "VERY HIGH"}:
         return 5
-    if text.startswith("P0 ") or text.startswith("P1 ") or text in {"HOLD", "UNKNOWN", "NOT STARTED"}:
+    if text.startswith("P0 ") or text.startswith("P1 ") or text in {"HOLD", "UNKNOWN", "NOT STARTED", "NOT_STARTED"}:
         return 4
     return 6
 
@@ -211,7 +341,42 @@ def main() -> None:
     legacy_product_matrix = read_xlsx_sheet(RESEARCH_WORKBOOK, "Product Matrix")
     legacy_unit_economics = read_xlsx_sheet(RESEARCH_WORKBOOK, "Unit Economics")
     legacy_family_strategy = read_xlsx_sheet(RESEARCH_WORKBOOK, "Family Strategy")
-    for imported in (legacy_product_matrix, legacy_unit_economics, legacy_family_strategy):
+    legacy_sources = read_xlsx_sheet(RESEARCH_WORKBOOK, "Sources")
+    additional_research = read_csv(RESEARCH_ADDITIONS_CSV)
+    additional_sources = read_csv(RESEARCH_ADDITION_SOURCES_CSV)
+    validate_research_additions(additional_research, legacy_product_matrix, portfolio)
+    if additional_sources[0] != legacy_sources[0]:
+        raise ValueError("Additional research-source schema does not match the retained source register")
+    legacy_source_ids = {str(row[0]) for row in legacy_sources[1:]}
+    additional_source_ids = [str(row[0]) for row in additional_sources[1:]]
+    if len(additional_source_ids) != len(set(additional_source_ids)) or legacy_source_ids.intersection(additional_source_ids):
+        raise ValueError("Additional research-source IDs are duplicate or collide with the retained source register")
+    research_sources = legacy_sources + additional_sources[1:]
+    valid_source_ids = {str(row[0]) for row in research_sources[1:]}
+    source_index = additional_research[0].index("Source_IDs")
+    used_source_ids = {
+        source_id.strip()
+        for row in additional_research[1:]
+        for source_id in str(row[source_index]).split(";")
+        if source_id.strip()
+    }
+    unknown_source_ids = sorted(used_source_ids.difference(valid_source_ids))
+    if unknown_source_ids:
+        raise ValueError(f"Research additions reference unknown source IDs: {', '.join(unknown_source_ids)}")
+    research_status = read_research_status(RESEARCH_STATUS_CSV)
+    add_research_overlay(
+        legacy_product_matrix,
+        "SKU ID",
+        research_status,
+        "Research hypothesis; implementation fields are controlled by research-ideas-implementation.csv",
+    )
+    add_research_overlay(
+        additional_research,
+        "SKU_ID",
+        research_status,
+        "New research hypothesis checked 2026-08-27; not a selected, qualified or released product",
+    )
+    for imported in (legacy_unit_economics, legacy_family_strategy):
         imported[0].append("Business_Workspace_Interpretation")
         for row in imported[1:]:
             row.extend([""] * (len(imported[0]) - 1 - len(row)))
@@ -221,12 +386,22 @@ def main() -> None:
     for row in portfolio[1:]:
         stage = row[header.index("Lifecycle_Stage")]
         stages_present[stage] = stages_present.get(stage, 0) + 1
+    additional_strategy_index = additional_research[0].index("Strategy_Fit")
+    additional_core_count = sum(
+        1 for row in additional_research[1:] if str(row[additional_strategy_index]).startswith("Core")
+    )
     summary = [
         ["Metric", "Value", "Interpretation"],
-        ["Review date", "2026-08-21", "Repository-evidence snapshot"],
+        ["Review date", "2026-08-27", "Repository-evidence snapshot"],
         ["Portfolio records", len(portfolio) - 1, "Includes planned concepts and non-external local model families"],
         ["Initial launch SKUs", len(initial) - 1, "Fixed target scope"],
-        ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Separate research sheet; no release status implied"],
+        ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
+        ["Additional research concepts", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
+        ["Additional ideas at core/core-adjacent fit", additional_core_count, "Research allocation only; active development remains constrained by the 70% core-capacity rule"],
+        ["Total research concepts", len(legacy_product_matrix) + len(additional_research) - 2, "Original 100 plus the researched 2026-08-27 addendum"],
+        ["Addendum scoring", "Opportunity 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
+        ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
+        ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
         ["Commercially existing P5+", 0, "No product may be sold yet"],
         ["Staged P6", 0, "No real release staged"],
         ["Live P7", 0, "No live product"],
@@ -246,8 +421,10 @@ def main() -> None:
         ("MVP Tasks", tasks),
         ("Research Backlog", research),
         ("Research Ideas 100", legacy_product_matrix),
+        ("Research Ideas +100", additional_research),
         ("Research Economics", legacy_unit_economics),
         ("Research Families", legacy_family_strategy),
+        ("Research Sources", research_sources),
     ]
 
     content_types = [

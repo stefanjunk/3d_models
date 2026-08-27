@@ -1,0 +1,114 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-contract",
+      "message": "Default and declared boundary parameter assertions pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "expected-parts",
+      "message": "All expected production parts and coupon are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "part-envelope",
+      "message": "Every production part stays inside the declared part envelope",
+      "metrics": {
+        "limit_mm": [
+          170.0,
+          90.0,
+          45.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "assembly-envelope",
+      "message": "Reference arrangement stays within the research envelope",
+      "metrics": {
+        "extents_mm": [
+          222.00000000000003,
+          167.0,
+          40.0000001
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-stage",
+      "message": "All deterministic mesh checks pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "interface-stage",
+      "message": "Nominal interface checks pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "print-set",
+      "message": "DRAFT multi-object 3MF exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9a94449b5b648ce49239183036abdfcfbf4b637d6644a6c74195ee29ac49abf7",
+      "size_bytes": 1227
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "1ffda2807090768a698adbb46a70b53055a668ac208c4eb68d54d519d656f0d7",
+      "size_bytes": 25030
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "8d0c6b3a7c19b5f4da51f716321b11168d9dfe07eef8b4ea608de4fa817322f5",
+      "size_bytes": 6091
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "7164490bd85e3640f3d6fbf4a5025b665e3519c164e762221ae01f0067739ada",
+      "size_bytes": 779
+    }
+  ],
+  "limitations": [
+    "Exact slicer preflight and all physical tests are intentionally deferred."
+  ],
+  "metrics": {
+    "assembly_extents_mm": [
+      222.00000000000003,
+      167.0,
+      40.0000001
+    ],
+    "floor_mm": 2.4,
+    "print_set": "exports/3mf/DRAFT-MM-ORG-004-modular-desktop-tray-system-0.1.0-draft.1.3mf",
+    "receiver_roof_mm": 2.2,
+    "wall_mm": 2.4
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-004-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

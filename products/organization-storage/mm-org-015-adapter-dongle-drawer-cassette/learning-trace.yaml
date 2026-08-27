@@ -1,0 +1,60 @@
+schema_version: 1.0.0
+kind: trace
+id: TRACE-MM-ORG-015-CAD-BOOLEAN-BUDGET
+project: MM-ORG-015-adapter-dongle-drawer-cassette
+revision: 0.1.0-draft.1
+started_at: 2026-08-28T00:40:00+02:00
+completed_at: 2026-08-28T01:06:57+02:00
+requirements: Twenty unique, font-free and recessed position identifiers must remain deterministic without dominating the parametric build.
+scope:
+  process: CadQuery and OpenCascade Boolean subtraction with deterministic pytest
+  machine: one digital CAD workstation; Anycubic Kobra 3 Max is only the downstream slicer target
+  material: digital geometry; Anycubic PLA is only the downstream slicer material
+  nozzle_mm: 0.4
+  orientation: cassette base down
+design_intent:
+  coordinate_frame: X cell length, Y row pitch, Z cassette height
+  named_datums:
+    - position-index-01-through-20
+    - label-base-z-2.0
+    - connector-keepout-window
+  parameters:
+    label_recess_depth_mm: 0.4
+    label_stroke_mm: 0.6
+    tens_scale_mm: 2.0
+    units_scale_mm: 0.5
+    final_cutter_count: 29
+  constraints:
+    - Preserve a unique analytic code for every position.
+    - Keep every code clear of its connector keep-out.
+    - Bound the code Boolean count to no more than two cutters per position.
+  feature_relationships:
+    - Each nonzero decimal digit becomes one horizontal bar whose length carries its value.
+events:
+  - at: 2026-08-28T00:40:00+02:00
+    type: failure
+    summary: A seven-segment decimal concept produced 177 cutters and remained in the label-cut phase beyond the 30-second diagnostic yield.
+    expected: Position labels do not dominate one complete product build.
+    actual: Dense glyph segmentation created substantially more Boolean operands than the storage geometry required.
+    refs:
+      - reports/cad-position-code-iteration.json
+  - at: 2026-08-28T00:48:00+02:00
+    type: design
+    summary: Replaced decimal glyph segments with a two-bar tens/units encoding requiring 29 analytic cutters for positions 01 through 20.
+    refs:
+      - cad/build.py
+      - config/model-parameters.json
+  - at: 2026-08-28T01:06:57+02:00
+    type: validation
+    summary: The complete build finished in 23.8 seconds, thirteen parameter tests passed and the generated cassette remained watertight with 1,532 triangles.
+    refs:
+      - tests/test_parameters.py
+      - validation/mesh-generation-report.json
+      - reports/cad-position-code-iteration.json
+artifacts:
+  - reports/cad-position-code-iteration.json
+  - config/model-parameters.json
+  - tests/test_parameters.py
+  - cad/build.py
+  - validation/mesh-generation-report.json
+outcome: accepted

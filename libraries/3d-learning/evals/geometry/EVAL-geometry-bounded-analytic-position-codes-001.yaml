@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-bounded-analytic-position-codes-001
+title: Twenty recessed position codes stay within the two-Boolean-per-position budget
+category: geometry
+status: draft
+trigger: A repeated parametric storage array needs unique recessed identifiers and label Booleans affect regeneration time.
+risk: Dense glyph construction can multiply Boolean operands and make deterministic model regeneration impractically slow.
+given:
+  project: products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette
+  positions: 01 through 20
+  encoding: one nonzero tens bar plus one nonzero units bar per position
+  maximum_cutters_per_position: 2
+expected:
+  - Positions 01 through 20 produce exactly 29 nonzero analytic bar cutters.
+  - The total does not exceed twice the number of positions.
+  - The complete generated cassette remains a single watertight positive-volume component.
+failure_conditions:
+  - Glyph segmentation or another label change increases the analytic cutter count above forty.
+  - Any position loses its unique tens/units identity.
+  - The label keep-out overlaps a connector keep-out or mesh generation fails.
+fixtures:
+  - products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette/config/model-parameters.json
+  - products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette/tests/test_parameters.py::test_position_code_boolean_budget -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Count nonzero tens and units across the declared twenty positions, then retain the existing generated-mesh audit as downstream evidence.
+relationships:
+  lessons:
+    - EXP-00011
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette/reports/cad-position-code-iteration.json
+  artifact_hashes:
+    - 45a300ea126b4229ae46e74801b1bbc313ff088c4b7604b05d0da6360502e5ff
+    - bd5b89069b30b3c3807c86f3cf4685618ff925db2151f949fff888be8dcededb
+    - 438e7b6a57c9d03e74537f74972e998120f46f7a2a0ed6d88d79599f5bd77344
+    - eb4b7b656b635bf5e28ee35f75390ef4255ff5e277ba35feba68863a5e31aad0
+tags:
+  - geometry
+  - cad-performance
+  - boolean-budget
+  - regression

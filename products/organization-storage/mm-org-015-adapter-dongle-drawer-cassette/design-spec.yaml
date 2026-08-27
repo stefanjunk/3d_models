@@ -1,0 +1,267 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-015
+  name: Adapter-and-dongle drawer cassette
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-105
+  opportunity_score: 91.8
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-015-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: passed
+    evidence: validation/parametric-source-report.json
+  slicer_preflight:
+    status: passed
+    evidence: validation/slicer-anycubic-next.json
+  print_candidate:
+    status: digitally-approved-draft
+    evidence: validation/print-candidate-report.json
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-015
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-015
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Keep twenty measured passive adapters, readers, receivers and dongles visible, ordered and matched to coded drawer positions.
+  intended_users:
+    - adult remote workers, photographers and maker households
+  included:
+    - one-piece four-column by five-row drawer cassette
+    - twenty independent measured U-cradle interfaces
+    - twenty through-base connector keep-outs
+    - font-independent recessed tens/units bar position codes
+    - no-brand measurement card with coarse notches and edge ruler
+    - virtual interface assembly for twenty generic item envelopes
+  excluded:
+    - charging, energized storage, batteries or damaged/hot electronics
+    - ESD, data, waterproofing, impact or certified connector protection
+    - child use, universal fit, brand affiliation or copied accessory geometry
+    - printer control or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: one cassette and one optional measurement card
+  purchased_parts: up to twenty user-owned cool undamaged unpowered adapters/dongles plus calipers
+  assembly: place measured bodies rearward in assigned U-cradles with connectors over local keep-outs
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Replace loose catch-all adapter storage with a visible measured inventory of twenty passive items.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: One base preserves the collection map and avoids twenty loose inserts.
+  included:
+    value:
+      - 220 x 160 mm maximum default footprint
+      - four columns by five rows
+      - twenty class-owned body, connector and clearance records
+      - 150 x 88 mm no-brand measurement card
+      - STEP, STL and DRAFT 3MF outputs
+    source: design-gate-and-research
+  excluded:
+    value:
+      - energized devices, batteries, hot or damaged electronics
+      - certified connector, ESD, data, water or impact claims
+      - final physical validation, watermark or release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 2
+  hazards:
+    - sharp or abrasive printed edges can mark device bodies or connector contacts
+    - an incorrect envelope can bind an item or transfer load into its connector
+    - tall devices can collide with the drawer above
+    - users could store energized, hot, damaged or battery-containing devices despite the scope
+  limits:
+    - adult dry-indoor passive storage only
+    - cool undamaged unpowered items with no batteries
+    - measure bodies and connectors with calipers; the card is coarse only
+    - scratch, retrieval, connector-load, drawer-closure, slip and cycle tests remain mandatory before release
+
+geometry_contract:
+  coordinate_frame:
+    x: four columns and item-body length from open connector end to rear stop
+    y: five rows and item-body width
+    z: height from cassette bed-contact datum
+  maximum_single_part_envelope_mm: [220.0, 160.0, 8.4]
+  default_cassette:
+    width_mm: 220.0
+    depth_mm: 160.0
+    height_mm: 8.4
+    columns: 4
+    rows: 5
+    total_positions: 20
+  customer_parameters:
+    - item count and slot assignment
+    - body length, width and height per position
+    - connector width and protruding reach per position
+    - side and end clearance per position
+    - cassette footprint and label map
+  interfaces:
+    body_location: three-sided U-fence locates the measured body against a protected rear stop
+    connector_keepout: each connector passes over a wider through-base window and is not the locating interface
+    side_clearance: explicit on every item-class record; default range 0.5 to 0.8 mm per side
+    measurement_card: width notches 8/12/16/20/24 mm, thickness notches 1/2/3/4/6/8/10/12 mm and 100 mm edge ruler
+  protected_geometry:
+    - cradle inside widths, rear stops and open connector ends
+    - connector keep-out widths and reaches
+    - base, cradle walls and outer drawer-contact perimeter
+    - recessed code bars
+    - all measurement-card notches, ticks and bed-contact faces
+
+duty:
+  environment: dry indoor drawer, nominal 15-30 C
+  load: twenty small cool passive electronics accessories within declared envelopes
+  service_life_target: 250 insert/remove cycles on the tightest later-qualified position
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA for dry indoor prototype
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; cassette and card print broad base down
+  orientation:
+    cassette: shared drawer-contact base down
+    measurement_card: broad face down
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP cassette, measurement card and virtual-item assembly masters
+    - STL cassette and measurement card
+    - DRAFT two-object 3MF build set
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving twenty body interfaces, connector keep-outs, visible codes and a stable connected chassis.
+  baseline: full 220 x 160 x 8.4 mm bounding block
+  candidate: thin common base, low outer rim and local three-sided cradle fences
+  selection_rule: Cassette must be one watertight solid, fit the envelope and reduce CAD volume at least 65 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: The selected class-height lattice reduces CAD volume by 67.542 percent and passes the exact-profile slice; exact-profile A/B variants remain deferred because changing measured cradle geometry without physical items would add risk rather than evidence.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-015-adapter-dongle-cassette-0.1.0-draft.1.stl
+    protected_regions:
+      - all cradle, stop and connector-keep-out surfaces
+      - recessed position-code bars
+      - measurement-card notches and ruler ticks
+      - bed-contact faces and outer drawer-contact perimeter
+    resource_budget:
+      triangle_target: 80000
+      triangle_stop: 120000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 10.0
+      max_slicer_seconds: 120.0
+    rationale: Direct analytic tessellation should remain below budget; decimation risks every measured interface.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameter relations generate valid single-solid cassette and measurement card.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: IF-001
+    criterion: Twenty class-owned body envelopes fit their cells with positive clearances and independent connector keep-outs.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: GAUGE-001
+    criterion: Measurement card preserves every declared width/thickness notch and 100 mm ruler pitch.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Cassette and card meshes are each one watertight positive-volume component.
+    method: independent mesh audit
+    status: pass
+    evidence:
+      - validation/fdm-mesh-cassette.json
+      - validation/fdm-mesh-measurement-card.json
+  - id: SLC-001
+    criterion: Exact local machine/material/profile slices unchanged two-object 3MF without native warnings.
+    method: slicer preflight
+    status: pass
+    evidence: validation/slicer-anycubic-next.json
+  - id: PHY-001
+    criterion: Twenty actual passive items locate and retrieve without marking or connector load; loaded drawer closes and tightest position survives 250 cycles.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - STEP, STL and DRAFT 3MF outputs are generated
+    - both printed parts independently pass topology and resource checks
+    - all twenty body, clearance, keep-out and two-bar code interfaces satisfy declared envelopes
+    - exact local slicer preflight passes without native warnings
+  deferred_physical:
+    - verify card ruler/notches against calipers
+    - test twenty actual cool unpowered undamaged items
+    - inspect bodies and connectors for contact damage or locating load
+    - load the target drawer, close it and cycle the tightest position 250 times
+
+unresolved:
+  - Exact customer item and drawer dimensions were not supplied; twenty generic envelopes are workflow fixtures only.
+  - Polymer compliance, surface abrasion, extraction force, connector clearance and drawer height remain untested.
+  - The product must never be represented as charging, energized or protective electronics equipment.
+  - Final watermark and commercial release remain deferred.

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "project": {"id": "MM-ORG-015", "revision": "0.1.0-draft.1", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [426, 420, 501]},
+  "artifacts": [
+    {"id": "cassette", "path": "exports/manufacturing/DRAFT-MM-ORG-015-adapter-dongle-cassette-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "measurement-card", "path": "exports/coupons/DRAFT-MM-ORG-015-no-brand-measurement-card-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "build-3mf", "path": "exports/3mf/DRAFT-MM-ORG-015-cassette-and-measurement-card-0.1.0-draft.1.3mf", "kind": "3mf", "revision": "0.1.0-draft.1"},
+    {"id": "parametric-report", "path": "validation/parametric-source-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "mesh-generation-report", "path": "validation/mesh-generation-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "interface-report", "path": "validation/interface-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-cassette-report", "path": "validation/fdm-mesh-cassette.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-card-report", "path": "validation/fdm-mesh-measurement-card.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-3mf-report", "path": "validation/fdm-3mf.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "slicer-report", "path": "validation/slicer-anycubic-next.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "approvals-slicer", "path": "validation/approvals-through-slicer.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "print-candidate-report", "path": "validation/print-candidate-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "autonomy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.1.0-draft.1"},
+    {"id": "ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id": "cassette-mesh", "type": "mesh", "required": true, "artifact": "cassette", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 120000, "max_file_mib": 10}},
+    {"id": "measurement-card-mesh", "type": "mesh", "required": true, "artifact": "measurement-card", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 120000, "max_file_mib": 10}},
+    {"id": "build-3mf-structure", "type": "3mf", "required": true, "artifact": "build-3mf", "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 2, "max_package_members": 20, "max_uncompressed_mib": 40, "max_compression_ratio": 200}},
+    {"id": "slicer", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["build-3mf"]},
+    {"id": "print-candidate", "type": "external_report", "required": true, "artifact": "print-candidate-report", "expected_inputs": ["parametric-report", "mesh-generation-report", "interface-report", "fdm-cassette-report", "fdm-card-report", "fdm-3mf-report", "slicer-report", "approvals-slicer"]},
+    {"id": "approvals-through-print-candidate", "type": "approvals", "required": true, "policy_artifact": "autonomy", "agent_ledger_artifact": "ledger", "target_stage": "print-candidate"},
+    {"id": "physical-item-fit-surface-connector-drawer-cycles", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Twenty measured passive items locate and retrieve without marking or connector load; target drawer closes; codes remain readable; tightest position survives 250 cycles", "evidence_artifact": null}
+  ]
+}

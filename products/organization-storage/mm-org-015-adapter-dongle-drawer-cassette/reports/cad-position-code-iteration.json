@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-015",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "A font-free seven-segment position-label concept created 177 Boolean cutters for twenty positions and remained in the label-cut phase beyond the command's 30-second output yield. The final two-bar tens/units encoding uses 29 cutters and the complete cassette/card build finished in 23.8 seconds.",
+  "initial_design": {
+    "encoding": "seven-segment decimal glyphs",
+    "positions": 20,
+    "analytic_cutters": 177,
+    "measurement": "diagnostic build entered label cutting and did not finish within the 30-second command yield",
+    "result": "REJECTED"
+  },
+  "final_design": {
+    "encoding": "two horizontal bars whose lengths encode tens and units",
+    "positions": 20,
+    "analytic_cutters": 29,
+    "full_build_wall_time_s": 23.8,
+    "result": "PASS"
+  },
+  "correction": [
+    "Keep the position identity in the parametric data model.",
+    "Use at most one nonzero tens bar and one nonzero units bar per position.",
+    "Protect the Boolean budget with a deterministic unit test.",
+    "Do not generalize this code system without checking readability for the target use."
+  ],
+  "evidence": {
+    "parameter_file_sha256": "45a300ea126b4229ae46e74801b1bbc313ff088c4b7604b05d0da6360502e5ff",
+    "test_file_sha256": "bd5b89069b30b3c3807c86f3cf4685618ff925db2151f949fff888be8dcededb",
+    "mesh_generation_report_sha256": "438e7b6a57c9d03e74537f74972e998120f46f7a2a0ed6d88d79599f5bd77344",
+    "cassette_stl_sha256": "eb4b7b656b635bf5e28ee35f75390ef4255ff5e277ba35feba68863a5e31aad0",
+    "pytest_result": "13 passed"
+  },
+  "limitations": [
+    "One CadQuery/OpenCascade model and one workstation were observed.",
+    "The initial run was terminated after the diagnostic threshold, so its completion time is unknown.",
+    "Physical code readability has not been tested."
+  ]
+}

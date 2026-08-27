@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "Cassette and card B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Cassette and card are each one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives twenty class-owned body, connector and clearance records",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "45a300ea126b4229ae46e74801b1bbc313ff088c4b7604b05d0da6360502e5ff",
+      "size_bytes": 5803
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "2faf42a3b3bd47bda4cb9212d087e6d4a45a50a8575d1e2b00bb8df79c238f0a",
+      "size_bytes": 28517
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of all downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "cassette_dimensions_mm": [
+      220.0,
+      160.0,
+      8.4
+    ],
+    "measurement_card_dimensions_mm": [
+      150.0,
+      88.0,
+      2.0
+    ],
+    "positions": 20,
+    "python": "3.11.15"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-015-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,272 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-011
+  name: Crochet-hook diameter rack
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-150
+  opportunity_score: 93.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-011-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: passed-local-reference-profile
+    evidence: validation/slicer-preflight-anycubic-kobra3max-pla.json
+    profile: Anycubic Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
+    limitation: The workspace profile proves local slicability, not the user's exact filament batch or physical result.
+  print_candidate:
+    status: digitally-approved-draft
+    reason: Parametric, mesh, interface, package and exact local-profile slicer checks pass without native slicer warnings.
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-011
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process coupon qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-011
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Keep fifteen crochet hooks visible by size in three tiers without forcing hook heads or ergonomic handles through uniform closed holes.
+  intended_users:
+    - adult crocheter
+    - adult craft teacher or gift buyer
+  included:
+    - one-piece three-tier rack with fifteen side-entry shaft slots
+    - individual engraved size labels
+    - flat handle-and-shaft profile measurement card
+    - parametric profile list for shaft diameter, handle envelope, length and label
+  excluded:
+    - universal fit without customer measurements
+    - hook performance, medical ergonomics or child-use claims
+    - printer upload, print start or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: one rack plus one flat profile measurement card
+  purchased_parts: none
+  assembly: none
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Store fifteen measured crochet hooks by actual shaft size and handle envelope with readable labels and direct lateral retrieval.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: Continuously rising wedge undersides can print upright without purchased hardware or generated support.
+  included:
+    value:
+      - fifteen independently parameterized profiles
+      - three stepped rows of five hooks
+      - side-entry slots that avoid threading the hook head or handle
+      - profile measurement card with 15 shaft and 9 handle notches
+      - STEP, STL and multi-object DRAFT 3MF
+    source: design-gate-and-research
+  excluded:
+    value:
+      - claims of compatibility with unmeasured branded hook sets
+      - physical fit approval before printing
+      - final watermark or commercial release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - an undersized slot can scratch or bind a shaft
+    - a top-heavy hook may tip an underloaded rack
+    - narrow engraved pixels may close at coarse extrusion settings
+    - an exposed hook head remains unsuitable for child-accessible placement
+  limits:
+    - adult dry-indoor craft storage only
+    - declared shafts 1.5-14 mm and handles 8-28 mm only
+    - no physical fit or stability claim before the deferred print tests
+
+geometry_contract:
+  coordinate_frame:
+    x: rack width from left to right
+    y: rack depth from front row to rear edge
+    z: height from planar bed datum
+  maximum_single_part_envelope_mm: [220.0, 120.0, 120.0]
+  default_rack:
+    width_mm: 204.0
+    depth_mm: 112.0
+    height_mm: 104.0
+    rows: 3
+    columns: 5
+    column_pitch_mm: 36.0
+    shelf_levels_mm: [36.0, 68.0, 100.0]
+  customer_parameters:
+    - shaft_diameter_mm_per_hook
+    - handle_major_mm_per_hook
+    - handle_minor_mm_per_hook
+    - hook_length_mm_per_hook
+    - label_per_hook
+    - slot_clearance_mm
+    - row_and_column_count
+  interfaces:
+    desk: continuous planar base
+    hook: laterally open shaft slot plus larger terminal pocket
+    measurement: open-edge gauge notches with 0.2 mm model allowance
+  protected_geometry:
+    - base-to-rising-wedge-to-shelf load path
+    - side-entry openings and slot clearance
+    - cell pitch versus handle envelope
+    - label pixel minimum
+    - measurement notch widths
+
+duty:
+  environment: dry indoor desk, nominal 15-30 C
+  load: fifteen lightweight hand crochet hooks only
+  service_life_target: 500 insertion/removal cycles per representative slot for later qualification
+  stability_target: remain upright during later one-handed retrieval with all fifteen default hook envelopes
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; each shelf has a continuous rising underside
+  orientation:
+    rack: continuous base on bed
+    measurement_card: broad face on bed, engraving upward
+  target_outputs:
+    - CadQuery source
+    - JSON parameters
+    - STEP part and assembly masters
+    - STL manufacturing meshes
+    - DRAFT 3MF print set
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving all fifteen slots, the stepped sightlines and shelf load paths.
+  baseline: full 204 x 112 x 104 mm bounding block
+  candidate: common thin base with three thin shelves and continuous rising support wedges
+  selection_rule: Candidate must be one watertight solid, fit 220 x 120 x 120 mm and reduce CAD volume at least 65 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: CAD volume comparison passes the selection threshold; a baseline full-block slice would have no product value and exact print-time A/B optimization remains deferred.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-011-crochet-hook-rack-0.1.0-draft.1.stl
+    protected_regions:
+      - side-entry slot widths and terminal pockets
+      - engraved label pixels
+      - measurement-card notches
+      - bed-contact faces and rising shelf undersides
+    resource_budget:
+      triangle_target: 80000
+      triangle_stop: 120000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 60.0
+    rationale: Analytic tessellation is already under budget; decimation would endanger slot widths and engraved pixels.
+
+acceptance:
+  - id: SRC-001
+    criterion: Default and boundary parameter relations pass and generate valid rack/card solids.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: IF-001
+    criterion: All fifteen default shaft profiles have positive lateral clearance and handle spacing.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: GAUGE-001
+    criterion: Profile card provides all fifteen default shaft notches and nine handle-envelope notches.
+    method: deterministic CAD and dimensional report
+    status: pass-digital-profile-simulation
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Rack and card are each one watertight consistently wound positive-volume component.
+    method: independent mesh audit
+    status: pass
+    evidence: reports/validation-summary.json
+  - id: SLC-001
+    criterion: Exact local machine/material/profile slices the unchanged DRAFT 3MF without structural warnings.
+    method: slicer preflight
+    status: pass-local-reference-profile
+    evidence: validation/slicer-preflight-anycubic-kobra3max-pla.json
+  - id: PHY-001
+    criterion: Fifteen measured hooks insert/remove without binding and the loaded rack remains stable.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - rack and card STEP/STL outputs are generated
+    - each STL is one watertight positive-volume component
+    - DRAFT 3MF contains exactly rack and card in millimetres
+    - all fifteen simulated profiles satisfy slot and handle-spacing contracts
+    - exact local slicer preflight passes
+  deferred_physical:
+    - print and compare the gauge card with fifteen actual hooks
+    - verify lateral insertion and removal across all measured hooks
+    - verify 500 representative cycles and inspect shaft abrasion
+    - verify loaded tip stability
+
+unresolved:
+  - The user supplied no exact hook inventory; the fifteen defaults demonstrate the parameter contract and require replacement with measured values for a custom set.
+  - Actual extrusion compensation may change gauge and slot fit; the measurement card is the required first print.
+  - Final physical validation, watermark and commercial release remain deferred.

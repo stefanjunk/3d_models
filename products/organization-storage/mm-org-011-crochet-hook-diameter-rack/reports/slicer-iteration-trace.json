@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-ORG-011",
+  "revision": "0.1.0-draft.1",
+  "machine_profile": "Anycubic Kobra 3 Max 0.4 nozzle",
+  "process_profile": "0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+  "filament_profile": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle",
+  "iterations": [
+    {
+      "id": "r1-local-gussets-and-fascias",
+      "source_3mf_sha256": "fba9374f0f83b57c417e74090e5feaa3d96eb13dded72d3dfdb36cd9e7e23f01",
+      "native_warning": "It seems object crochet-hook-rack has floating regions. Please re-orient the object or enable support generation.",
+      "layers": 520,
+      "slicer_estimate_seconds": 34859,
+      "extruded_volume_mm3": 225042.88235818842,
+      "interpretation": "Local ribs did not provide a continuous prior-layer path under the full shelf system."
+    },
+    {
+      "id": "r2-continuous-wedges-and-fascias",
+      "source_3mf_sha256": "a37c7ebf0e93827b2b1853b5fa3f8f095b55259e0995ddc5b59b506c647fc0b4",
+      "native_warning": "It seems object crochet-hook-rack has floating regions. Please re-orient the object or enable support generation.",
+      "layers": 520,
+      "slicer_estimate_seconds": 40387,
+      "extruded_volume_mm3": 246645.82321849064,
+      "interpretation": "Continuous shelf wedges fixed the shelf starts, but the cosmetic front fascias still began in mid-air."
+    },
+    {
+      "id": "r3-continuous-wedges-no-fascias",
+      "source_3mf_sha256": "b25e9a0faa666e552b48632b473bd4691e03e15f08f84d8701ecca5605f84b95",
+      "native_warning": "",
+      "layers": 520,
+      "slicer_estimate_seconds": 39089,
+      "extruded_volume_mm3": 235299.77454256,
+      "interpretation": "Every retained rack feature now grows from a continuous prior-layer path; native slicer warning cleared."
+    }
+  ],
+  "limitations": [
+    "The first two reports were observed during the same design phase and their temporary G-code was not retained.",
+    "The trace establishes one geometry/profile sequence, not a universal overhang rule.",
+    "Physical surface quality and stability remain untested."
+  ]
+}

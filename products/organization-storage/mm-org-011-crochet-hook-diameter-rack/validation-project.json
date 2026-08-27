@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "project": {"id": "MM-ORG-011", "revision": "0.1.0-draft.1", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [426, 420, 501]},
+  "artifacts": [
+    {"id": "rack", "path": "exports/manufacturing/DRAFT-MM-ORG-011-crochet-hook-rack-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "card", "path": "exports/manufacturing/DRAFT-MM-ORG-011-handle-profile-card-0.1.0-draft.1.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "draft-3mf", "path": "exports/3mf/DRAFT-MM-ORG-011-crochet-hook-diameter-rack-0.1.0-draft.1.3mf", "kind": "3mf", "revision": "0.1.0-draft.1"},
+    {"id": "parametric-report", "path": "validation/parametric-source-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "mesh-generation-report", "path": "validation/mesh-generation-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "interface-report", "path": "validation/interface-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-rack-report", "path": "validation/fdm-mesh-rack.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-card-report", "path": "validation/fdm-mesh-card.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "fdm-3mf-report", "path": "validation/fdm-3mf.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "slicer-report", "path": "validation/slicer-preflight-anycubic-kobra3max-pla.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "approvals-slicer", "path": "validation/approvals-through-slicer.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "print-candidate-report", "path": "validation/print-candidate-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "autonomy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.1.0-draft.1"},
+    {"id": "ledger", "path": "validation/agent-approvals.json", "kind": "approval-ledger", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id": "rack-mesh", "type": "mesh", "required": true, "artifact": "rack", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 120000, "max_file_mib": 8}},
+    {"id": "card-mesh", "type": "mesh", "required": true, "artifact": "card", "policy": {"require_watertight": true, "require_winding_consistent": true, "require_positive_volume": true, "expected_components": 1, "max_boundary_edges": 0, "max_nonmanifold_edges": 0, "max_degenerate_faces": 0, "max_duplicate_faces": 0, "bed_mm": [426, 420, 501], "allow_axis_permutation": false, "max_faces": 120000, "max_file_mib": 8}},
+    {"id": "draft-3mf-structure", "type": "3mf", "required": true, "artifact": "draft-3mf", "policy": {"inspect_meshes": true, "require_watertight_meshes": true, "require_positive_volume": true, "require_unit": "millimeter", "min_mesh_objects": 2, "max_package_members": 20, "max_uncompressed_mib": 40, "max_compression_ratio": 200}},
+    {"id": "slicer-preflight", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["draft-3mf"]},
+    {"id": "print-candidate", "type": "external_report", "required": true, "artifact": "print-candidate-report", "expected_inputs": ["parametric-report", "mesh-generation-report", "interface-report", "fdm-rack-report", "fdm-card-report", "fdm-3mf-report", "slicer-report", "approvals-slicer"]},
+    {"id": "approvals-through-print-candidate", "type": "approvals", "required": true, "policy_artifact": "autonomy", "agent_ledger_artifact": "ledger", "target_stage": "print-candidate"},
+    {"id": "physical-hook-fit-cycles-stability", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Gauge, 15-hook insertion/removal, abrasion, 500-cycle and loaded stability tests pass", "evidence_artifact": null}
+  ],
+  "release": {"required_approvals": [], "approvals": {}}
+}

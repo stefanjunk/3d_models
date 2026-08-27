@@ -1,0 +1,41 @@
+schema_version: 1.0.0
+project_id: MM-ORG-011
+revision: 0.1.0-draft.1
+captured_at: 2026-08-27
+scope:
+  process: FFF digital design and headless slicing
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA profile assumption
+  nozzle_mm: 0.4
+  orientation: rack base down; measurement card broad face down
+feature: continuous-prior-layer-support-for-stepped-shelves
+observation:
+  summary: A watertight one-component rack still triggered a native floating-region warning until both discontinuous shelf support and a mid-air cosmetic fascia were removed.
+  expected: The upright rack would slice without support or native object warnings.
+  actual:
+    - Local boundary gussets plus 10 mm fascias sliced with a floating-region warning.
+    - Continuous rising wedges plus the same fascias still sliced with the warning.
+    - Continuous rising wedges with the fascias removed sliced 520 layers with an empty native warning field.
+  outcome: mixed-then-success
+explanation:
+  hypothesis: Topological connectivity alone does not prove that every feature begins on a printable prior-layer path.
+  mechanism: The horizontal fascia band began below its shelf and was connected in the final B-Rep, yet its first deposited layer had no material directly below; removing it eliminated the last warning.
+  validated: false
+evidence:
+  observations: 3
+  same_scope_repetitions: 0
+  measured: true
+  measurement_method: Three unchanged-profile Anycubic Slicer Next headless slices plus independent topology audits.
+  uncertainty: Only one rack geometry and one bundled reference profile were evaluated; warning heuristics and safe overhangs can differ by slicer and process.
+  artifacts:
+    - reports/slicer-iteration-trace.json
+    - validation/slicer-preflight-anycubic-kobra3max-pla.json
+    - validation/fdm-mesh-rack.json
+    - decision-log.md
+promotion:
+  maturity: E0
+  state: candidate
+  required_next:
+    - Repeat on another stepped-shelf geometry.
+    - Inspect actual layer previews and print both warning/no-warning coupons.
+    - Separate general prior-layer-path behavior from Anycubic warning heuristics.

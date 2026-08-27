@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Parameter relations pass fail-closed assertions",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "Both CadQuery solids are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON parameters drive slots, labels, tiers, card and exports",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "2128c7747eb5d40cb937513266d09e090a734d63d25ca6eb5dc11e8a4a87b17a",
+      "size_bytes": 3129
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "bc69f3c2113c620ebd694eaf7702139225dda5a4b50318264656294dfd2d9603",
+      "size_bytes": 25609
+    }
+  ],
+  "limitations": [
+    "A parameter change requires rebuilding and rerunning all downstream reports."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "hook_profiles": 15,
+    "python": "3.11.15",
+    "rack_dimensions_mm": [
+      204.0,
+      112.0,
+      104.0
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-011-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

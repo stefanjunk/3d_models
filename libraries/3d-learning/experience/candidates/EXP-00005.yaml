@@ -1,0 +1,148 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00005
+title: Embedded raster glyphs produced one font-independent personalized plate in a digital FDM candidate
+captured_at: 2026-08-27
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digital geometry and one local reference-profile slice; physical text and sliding-fit tests were deliberately deferred.
+feature:
+  type: font-independent-recessed-personalization-plate
+  geometry: flat-rounded-slide-plate-with-recessed-5x7-pixel-glyphs-and-open-top-c-channel
+  design_parameters:
+    plate_width_mm: 136.0
+    plate_height_mm: 27.0
+    plate_thickness_mm: 2.0
+    engraving_depth_mm: 0.6
+    maximum_normalized_characters: 16
+    minimum_allowed_pixel_width_mm: 0.9
+    default_name_pixel_width_mm: 1.8249056603773586
+    sixteen_character_pixel_width_mm: 1.0181052631578948
+    nominal_channel_clearance_per_side_mm: 0.25
+  named_datums:
+    - flat-nameplate-print-back
+    - recessed-nameplate-print-face
+    - open-top-slide-channel
+  constraints:
+    - Transliterate and validate text before geometry generation.
+    - Fail closed if any raster pixel falls below the declared printable minimum.
+    - Keep the plate removable so name changes do not require reprinting the main chassis.
+    - Do not infer physical legibility or fit from topology and slicing alone.
+scope:
+  process: FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max reference profile
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: Anycubic profile only
+    product: PLA
+    variant: unfilled
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: chassis base down; personalized plate back down with recesses upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
+    profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
+  geometry_class: removable-flat-personalization-plate-for-dry-indoor-organizer
+  environment: dry indoor assumption; no physical environment test
+  transfer_limits:
+    - One uppercase Latin/digit glyph implementation and one default name.
+    - One 16-character digital boundary calculation.
+    - One local reference-profile slice; no physical print.
+    - Does not establish readability, aesthetic preference, fit, wear or dirt resistance.
+observation:
+  summary: In one parametric CadQuery plate, embedded 5x7 raster glyphs removed installed-font dependency, retained 1.018 mm pixels at the 16-character boundary and exported as one watertight body that passed a local reference-profile slice.
+  expected: Keep every engraved pixel at or above 0.9 mm, keep the plate one valid component and successfully slice the unchanged two-object 3MF.
+  actual: Default METRIMADE pixels were 1.825 mm; the 16-character boundary calculated 1.018 mm; the nameplate was one watertight component with 2,876 triangles; the two-object 3MF sliced to 640 layers with no G-code warning.
+  outcome: success
+  parameter: minimum_raster_pixel_width_mm
+  recommended_value: null
+  units: mm
+explanation:
+  hypothesis: A small explicit raster alphabet can make functional personalization deterministic and licence-independent while a separate plate isolates customer text from the large chassis.
+  mechanism: Each allowed character maps to a fixed binary grid; available plate width and height determine one uniform pitch, and disjoint recessed pixels are subtracted from a single plate solid.
+  alternatives:
+    - An owned vector font or stroke font may produce more attractive or space-efficient text while remaining reproducible.
+    - Recessed pixels may collect debris or lose contrast in low-light single-color prints.
+    - A removable plate adds fit, wear and rattle risks that permanent text avoids.
+    - Real extrusion width, elephant-foot compensation and XY calibration may require a larger pixel or channel-clearance minimum.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic text-layout calculation, CadQuery B-Rep generation, independent Trimesh topology audit and Anycubic Slicer Next reference-profile G-code analysis; no physical measurement.
+  uncertainty: Geometry and report hashes are exact for this revision, but the physical readability and slide-channel performance are unknown.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/learning-trace.yaml
+      hash: null
+      notes: Owns the complete product-local requirement, geometry, process and evidence scope.
+    - type: other
+      ref: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/interface-report.json
+      hash: null
+      notes: Records normalization, font independence, minimum pixel and channel parameters.
+  artifacts:
+    - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/fdm-mesh-nameplate.json
+    - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/slicer-preflight-anycubic-kobra3max-pla.json
+    - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/renders/MM-ORG-010-nameplate-detail.png
+applicability:
+  triggers:
+    - A functional dry-indoor product needs short uppercase personalization without external font dependencies.
+    - The personalized region can be isolated as a flat replaceable part.
+  exclusions:
+    - Decorative typography, mixed scripts, lowercase-dependent names, braille or safety-critical labels.
+    - Tiny products that force the calculated pixel below the process minimum.
+    - Permanent legal, safety, traceability or calibration markings.
+  transfer_limits:
+    - Treat only as an experiment candidate for similar flat organizer plates.
+    - Require a glyph/readability coupon and repeated exact-process channel-cycle tests before promotion.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: []
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-ORG-010-personalized-pen-stationery-caddy
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow
+tags:
+  - personalization
+  - raster-glyph
+  - font-independent
+  - removable-nameplate
+  - exact-profile-sliced
+  - digital-only
+  - negative-transfer

@@ -1,0 +1,62 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-map",
+      "message": "Protected geometry map is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "shell-volume-reduction",
+      "message": "Open shell and stepped walls materially reduce CAD volume",
+      "metrics": {
+        "cad_volume_reduction_percent": 89.88589490786077
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-free-orientation",
+      "message": "Phone backrest slope remains close to vertical and support-free",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "3d04896fc196c9b5f63ab247ec7787ac9a80f1a28a5273e6be557fb4c2aa1661",
+      "size_bytes": 1994
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0c972a982f0b9f805f212ef6e6840cf6783115456b83dd8e183466fce04d1d37",
+      "size_bytes": 36723
+    },
+    {
+      "path": "protected-geometry-map.md",
+      "sha256": "4af3a2835b87f53f2e3fc714fe0e44a961b059841702d150dbe8ead9bfe874f6",
+      "size_bytes": 636
+    }
+  ],
+  "limitations": [
+    "CAD volume is not deposited mass or print time; exact slicer metrics remain deferred."
+  ],
+  "metrics": {
+    "baseline_bounding_block_volume_mm3": 2304000.0,
+    "cad_volume_reduction_percent": 89.88589490786077,
+    "exact_slicer_material_and_time": "NOT_RUN",
+    "selected_caddy_volume_mm3": 233028.98132288788
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-010-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,135 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "font-independent",
+      "message": "Personalization resolves only to embedded geometric glyphs",
+      "metrics": {
+        "pitch": 2.339622641509434,
+        "pixel_width": 1.8249056603773586,
+        "sanitized_name": "METRIMADE",
+        "text_height": 16.37735849056604,
+        "text_width": 124.0,
+        "total_columns": 53
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "Smallest engraved pixel is above the declared FDM minimum",
+      "metrics": {
+        "pitch": 2.339622641509434,
+        "pixel_width": 1.8249056603773586,
+        "sanitized_name": "METRIMADE",
+        "text_height": 16.37735849056604,
+        "text_width": 124.0,
+        "total_columns": 53
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "plate-channel-clearance",
+      "message": "Nameplate channel has explicit per-side manufacturing clearance",
+      "metrics": {
+        "nominal_slot_depth_mm": 2.5,
+        "per_side_clearance_mm": 0.25
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "phone-case-envelope",
+      "message": "Phone slot bottom clears the declared maximum case thickness",
+      "metrics": {
+        "maximum_case_thickness_mm": 12.0,
+        "slot_bottom_mm": 12.6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "closed-bottom",
+      "message": "All stationery wells use a continuous closed base",
+      "metrics": {
+        "base_thickness_mm": 3.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "print-envelope",
+      "message": "All production parts fit the declared printer envelope",
+      "metrics": {
+        "caddy-chassis": [
+          150.0,
+          123.3,
+          128.0
+        ],
+        "personalized-nameplate": [
+          136.0,
+          27.0,
+          2.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "3d04896fc196c9b5f63ab247ec7787ac9a80f1a28a5273e6be557fb4c2aa1661",
+      "size_bytes": 1994
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0c972a982f0b9f805f212ef6e6840cf6783115456b83dd8e183466fce04d1d37",
+      "size_bytes": 36723
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "fc21d5fa284d017ed2247bc06cb3cabccf34625284a9e2c9ede4745e2b3d2883",
+      "size_bytes": 12510
+    }
+  ],
+  "limitations": [
+    "Nominal clearances and analytic envelopes do not replace the deferred physical checks."
+  ],
+  "metrics": {
+    "coupon_layout": {
+      "nominal_back_clearance_mm": 0.2,
+      "nominal_front_clearance_mm": 0.25,
+      "pitch": 1.4285714285714286,
+      "pixel_width": 1.1142857142857143,
+      "sanitized_name": "M8",
+      "text_height": 10.0,
+      "text_width": 15.714285714285715,
+      "total_columns": 11
+    },
+    "font_layout": {
+      "pitch": 2.339622641509434,
+      "pixel_width": 1.8249056603773586,
+      "sanitized_name": "METRIMADE",
+      "text_height": 16.37735849056604,
+      "text_width": 124.0,
+      "total_columns": 53
+    },
+    "loaded_phone_stability": "NOT_RUN",
+    "physical_nameplate_fit": "NOT_RUN",
+    "sanitized_name": "METRIMADE",
+    "tall_item_tip_test": "NOT_RUN"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-010-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

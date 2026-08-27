@@ -1,0 +1,299 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-010
+  name: Personalized Pen and Stationery Caddy
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: legacy-product-matrix/SKU-018
+  opportunity_score: 93.0
+  status: digital-candidate-through-interface-validation
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-010-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: passed-local-reference-profile
+    evidence: validation/slicer-preflight-anycubic-kobra3max-pla.json
+    profile: Anycubic Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
+    limitation: The workspace profile proves local slicability, not the user's exact filament batch or physical result.
+  print_candidate:
+    status: digitally-approved-draft
+    reason: Parametric, mesh, interface, 3MF and local exact-profile slicing checks pass; manufacturing files remain DRAFT until physical and watermark gates pass.
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    spec_revision: 0.1.0-draft.1
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-010
+    version: 0.1.0-draft.1
+    generated_profile: null
+    manifest_asset: null
+    approved_by: null
+    approved_at: null
+    reason: Final release marking and exact-process coupon qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+    reason: Physical tests, watermark qualification and human release approval remain open.
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-010
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Organize everyday stationery and passively park one phone in a personalized, dimension-controlled desktop caddy.
+  intended_users:
+    - adult dry-indoor desk user
+    - teacher, student or home-office gift buyer without a child-safety claim
+  included:
+    - caddy chassis with three rear wells
+    - small-item tray and passive phone cradle
+    - removable personalized nameplate
+    - representative nameplate fit coupon
+  excluded:
+    - device charging, device protection or universal compatibility
+    - child-safety, toy, food-contact or heat-resistance claims
+    - wall attachment, load-bearing attachment or moving mechanisms
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: caddy chassis plus nameplate; two coupon pieces are optional first-print evidence
+  purchased_parts: none; optional felt feet are user-supplied and not required
+  assembly: Slide the flat-printed nameplate downward into the open-top front guides.
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  enclosure: not-required-for-PLA-assumption
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Keep pens, markers, scissors, small notes and one phone visible and separated while providing repeatable name personalization.
+    source: ranked-research-idea-and-current-German-demand-check
+  intended_user:
+    value: Adult dry-indoor desk user; student/teacher gifting is a market hypothesis rather than a child-safety qualification.
+    source: research-matrix
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: Passive storage needs no wear hardware or purchased precision components.
+  included:
+    value:
+      - closed-base stepped organizer
+      - three tall stationery wells
+      - small-item well
+      - passive angled phone slot
+      - removable engraved nameplate
+      - font-independent 5x7 glyph generator and fit coupon
+      - STEP, STL and multi-object DRAFT 3MF outputs
+    source: recommended-after-demand-check
+  excluded:
+    value:
+      - universal phone or stationery fit
+      - charging cable or electrical function
+      - printer upload or start
+      - commercial release
+    source: recommended
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - tall or heavy tools may tip the product if loaded asymmetrically
+    - a thick or top-heavy phone may escape an untested slot
+    - sharp printed edges or a binding nameplate may cause poor handling
+    - unsupported customer text may become illegible or non-printable
+  limits:
+    - adult dry-indoor passive storage only
+    - phone case thickness at most 12 mm nominal and cradle span 94 mm
+    - maximum 16 normalized personalization characters
+    - physical stability and fit remain mandatory before a release claim
+
+geometry_contract:
+  coordinate_frame:
+    x: caddy width from left to right
+    y: depth from personalized front face to rear wall
+    z: height from the flat print bed
+  maximum_single_part_envelope_mm: [250.0, 250.0, 260.0]
+  default_caddy:
+    width_mm: 150.0
+    depth_mm: 120.0
+    rear_height_mm: 128.0
+    base_thickness_mm: 3.0
+    wall_thickness_mm: 2.4
+    nameplate_width_mm: 136.0
+    nameplate_height_mm: 27.0
+  customer_parameters:
+    - width_mm
+    - depth_mm
+    - rear_height_mm
+    - partition_positions_mm
+    - small_tray_width_mm
+    - phone_cradle_width_mm
+    - maximum_phone_case_thickness_mm
+    - personalization_text
+  interfaces:
+    desk: continuous planar bed-contact datum
+    nameplate: vertical slide channel with 0.25 mm nominal clearance
+    phone: open-top passive slot with 12.0 mm declared case-thickness envelope
+  protected_geometry:
+    - continuous closed base
+    - rear walls and partitions
+    - phone backrest-to-base load path
+    - nameplate guide depth, overlap and clearances
+    - minimum engraved pixel and remaining plate floor
+
+duty:
+  environment: dry indoor desk, nominal 15-30 C
+  load: lightweight stationery and one passive handheld phone only
+  service_life_target: 250 nameplate insertion/removal cycles for later qualification
+  stability_target: remain upright during later representative tall-tool and phone tests
+  note: Targets define future tests; they are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [250.0, 250.0, 260.0]
+  material_assumption: PLA for dimensionally stable dry-indoor use
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support
+  orientation:
+    caddy: continuous base on bed
+    nameplate: back face on bed, engraving upward
+    coupon_holder: base on bed
+    coupon_plate: back face on bed, engraving upward
+  target_outputs:
+    - CadQuery source
+    - JSON parameters
+    - STEP neutral assembly and part masters
+    - STL manufacturing meshes
+    - DRAFT 3MF print set
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving the continuous base, wall load paths, phone cradle and plate interface.
+  baseline: full 150 x 120 x 128 mm bounding block
+  candidate: continuous thin base with stepped perimeter walls, two full-height partitions and local phone/nameplate features
+  selection_rule: Select the shell only if it is one watertight solid, stays inside the build volume and reduces CAD volume by at least 65 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: Geometry is selected by CAD topology/volume evidence, but exact-profile slicer time and mass remain deferred.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/master/DRAFT-MM-ORG-010-caddy-chassis-0.1.0-draft.1-master.stl
+    manufacturing_mesh: exports/manufacturing/DRAFT-MM-ORG-010-caddy-chassis-0.1.0-draft.1.stl
+    master_meshes:
+      - exports/master/DRAFT-MM-ORG-010-caddy-chassis-0.1.0-draft.1-master.stl
+      - exports/master/DRAFT-MM-ORG-010-personalized-nameplate-0.1.0-draft.1-master.stl
+    manufacturing_meshes:
+      - exports/manufacturing/DRAFT-MM-ORG-010-caddy-chassis-0.1.0-draft.1.stl
+      - exports/manufacturing/DRAFT-MM-ORG-010-personalized-nameplate-0.1.0-draft.1.stl
+    protected_regions:
+      - closed base and wall load paths
+      - nameplate channels and engraving pixels
+      - phone lip and angled backrest
+      - bed-contact faces
+    resource_budget:
+      triangle_target: 80000
+      triangle_stop: 120000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 60.0
+    rationale: Direct analytic tessellations are already below budget; decimation risks the small glyph and guide features.
+
+acceptance:
+  - id: SRC-001
+    criterion: Default, boundary, normalization and geometry assertions pass and generate chassis, nameplate and coupon parts.
+    method: pytest and deterministic CadQuery build.
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: FONT-001
+    criterion: Personalization uses only embedded glyphs and retains at least 0.9 mm engraved pixels through the 16-character limit.
+    method: deterministic text-layout checks.
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Every production and coupon STL is one watertight consistently wound positive-volume component within resource limits.
+    method: independent FDM mesh audit.
+    status: pass
+    evidence: reports/validation-summary.json
+  - id: PKG-001
+    criterion: DRAFT 3MF contains exactly the chassis and personalized nameplate as valid millimetre mesh objects.
+    method: independent 3MF structure and mesh inspection.
+    status: pass
+    evidence: validation/fdm-3mf.json
+  - id: SLC-001
+    criterion: Exact printer/material/profile imports and slices unchanged geometry without missing walls or out-of-bed items.
+    method: exact slicer preflight and layer review.
+    status: pass-local-reference-profile
+    evidence: validation/slicer-preflight-anycubic-kobra3max-pla.json
+  - id: PHY-001
+    criterion: Fit coupon, loaded phone, tall-item stability, edge feel and 250 nameplate cycles pass.
+    method: physical test plan.
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical MM-WM-001-R1 identity is safely placed, digitally checked and physically qualified on the exact process.
+    method: watermark release gate and coupon.
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - eight parameter and geometry tests pass
+    - chassis and nameplate STEP/STL pairs are generated
+    - coupon holder and plate STLs are generated from production interface parameters
+    - each manufacturing STL is one watertight positive-volume component
+    - all parts fit 250 x 250 x 260 mm
+    - 16 normalized characters retain at least 0.9 mm pixel width
+    - DRAFT 3MF contains exactly chassis and nameplate
+  deferred_physical:
+    - print and inspect the nameplate fit coupon first
+    - verify insertion force and 250 plate cycles
+    - verify phone retention with representative cases
+    - verify loaded tall-item tip resistance and edge comfort
+    - slice and print the unchanged selected revision
+
+unresolved:
+  - No exact stationery inventory, phone or preferred name was supplied; defaults demonstrate the parameter contract.
+  - The Kobra 3 Max / Anycubic PLA profile is a workspace reference; the user must confirm the actual machine, filament and first layer before printing.
+  - Nameplate clearance, phone stability and tall-item stability require physical tests.
+  - Final validation, watermark approval and commercial release are outside this modeling pass.

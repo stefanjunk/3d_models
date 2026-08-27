@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameters",
+      "message": "Default and boundary assertions pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "part-count",
+      "message": "Chassis and personalized plate are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-count",
+      "message": "Two-part nameplate fit coupon is generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-generation",
+      "message": "Mesh generation checks pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "interfaces",
+      "message": "Nominal interface checks pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "optimization",
+      "message": "Shell optimization checks pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "3mf",
+      "message": "Two-object DRAFT 3MF exists",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "3d04896fc196c9b5f63ab247ec7787ac9a80f1a28a5273e6be557fb4c2aa1661",
+      "size_bytes": 1994
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0c972a982f0b9f805f212ef6e6840cf6783115456b83dd8e183466fce04d1d37",
+      "size_bytes": 36723
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "fc21d5fa284d017ed2247bc06cb3cabccf34625284a9e2c9ede4745e2b3d2883",
+      "size_bytes": 12510
+    },
+    {
+      "path": "decomposition.md",
+      "sha256": "2c9d1312322d4878fa4036c923082ab32fa0f7d889ab105ab91b54583a752b9c",
+      "size_bytes": 814
+    }
+  ],
+  "limitations": [
+    "Exact slicer preflight, physical fit, stability, finish and watermark approval are deferred."
+  ],
+  "metrics": {
+    "coupons": [
+      "nameplate-fit-coupon-holder",
+      "nameplate-fit-coupon-plate"
+    ],
+    "parts": [
+      "caddy-chassis",
+      "personalized-nameplate"
+    ],
+    "print_set": "exports/3mf/DRAFT-MM-ORG-010-personalized-stationery-caddy-0.1.0-draft.1.3mf",
+    "print_set_sha256": "7215e202b409427d49c352aa7b74e294bf050b565fd29fea6b3a9baf4697c918"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-010-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

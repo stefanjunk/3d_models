@@ -1,0 +1,138 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00002
+title: On-end printing succeeded once for a short inverted-U funnel coupon
+captured_at: 2026-08-27
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Exact printer, material, nozzle, slicer transform, profile, observations, and repetitions are unknown.
+feature:
+  type: print-orientation
+  geometry: short-open-bottom-inverted-u-profile-with-funnel-and-sieve-holes
+  design_parameters:
+    baseline_coupon_length_mm: 80.0
+    width_mm: 65.0
+    height_mm: 21.0
+    top_thickness_mm: 4.2
+    wall_thickness_mm: 3.0
+    funnel_entry_diameter_mm: 46.0
+    reported_rotation_degrees: 90
+  named_datums:
+    - coupon-u-profile-end
+    - print-bed-plane
+  constraints:
+    - Preserve the functional funnel, sieve holes, ribs, and open-bottom U-profile.
+    - Do not generalize to long segments or another rotation axis without evidence.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: 90-degree rotation reported by user; proposed interpretation is on the U-profile end after rotation about model Y
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: short-integrated-shower-drain-funnel-coupon
+  environment: unknown
+  transfer_limits:
+    - One user-reported coupon outcome only.
+    - Exact rotation axis and successful print settings are not yet recorded.
+    - Does not establish support-free success for a longer, weaker, or differently featured U-profile.
+observation:
+  summary: The user reports that the existing funnel coupon printed well after a 90-degree rotation and requests the production segments use that orientation.
+  expected: The prior project README recommended printing the integrated funnel part upside down with support.
+  actual: A short coupon reportedly worked at 90 degrees.
+  outcome: correction
+  parameter: print_orientation_degrees
+  recommended_value: 90
+  units: degrees; axis unresolved until concept approval
+explanation:
+  hypothesis: Standing a short U-profile on its complete end cross-section may preserve a continuous bed-contact frame and avoid the support scarring of an upside-down funnel surface.
+  mechanism: A short on-end segment converts the installed length into print height while the U-shaped end frame anchors the walls and top plate to the bed.
+  alternatives:
+    - The success may depend mainly on the exact material, brim, cooling, or slicer profile rather than orientation alone.
+    - The user's 90-degree rotation may have been about a different model axis.
+    - The coupon may have been acceptable despite local defects that were not measured.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: User visual/functional statement; no numeric measurements supplied.
+  uncertainty: Exact print scope and outcome criteria are unknown.
+  sources:
+    - type: product-trace
+      ref: products/home-kitchen-garden/unregistered-shower-drain-hairtrap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/learning-trace.yaml
+      hash: null
+      notes: Preserves the original recommendation, correction, and pending accepted state.
+    - type: user-statement
+      ref: User feedback dated 2026-08-27 that the coupon worked when rotated 90 degrees.
+      hash: null
+      notes: Exact process details remain unknown.
+  artifacts:
+    - products/home-kitchen-garden/unregistered-shower-drain-hairtrap/abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/functional_test_tile_80mm.stl
+applicability:
+  triggers:
+    - A short open-bottom U-profile with a complete end cross-section and integrated funnel would otherwise be printed upside down on support.
+  exclusions:
+    - Long parts whose on-end print height creates instability.
+    - Profiles without a continuous, slicer-verified end-frame contact path.
+    - Any different material, printer, nozzle, or profile claimed as qualified without a matching test.
+  transfer_limits:
+    - Treat the observation only as an experiment starting point for the new 52.5 mm segment.
+    - Require exact slicer preview and a process-matched segment test before release.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-dfam-on-end-u-profile-001
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: shower-drain-hairtrap-v3-loose-segments
+  part_revision: 3.0.0-draft.1 requirements review
+  trace: products/home-kitchen-garden/unregistered-shower-drain-hairtrap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/learning-trace.yaml
+  source_commit: d73d4c23
+  created_by: Codex from explicit user correction
+tags:
+  - print-orientation
+  - on-end-printing
+  - inverted-u-profile
+  - funnel-coupon
+  - user-correction
+  - negative-transfer

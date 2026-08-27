@@ -1,0 +1,70 @@
+schema_version: 1.0.0
+kind: trace
+id: TRACE-SHOWER-DRAIN-HAIRTRAP-V3
+project: shower-drain-hairtrap-v3-loose-segments
+revision: 3.0.0-draft.1
+started_at: 2026-08-27T20:03:36+02:00
+completed_at: null
+requirements: design-spec.yaml
+scope:
+  process: FFF
+  machine: unknown; Anycubic Kobra 3 Max is inferred from project artifacts only
+  material: unknown; PETG is the prior recommendation
+  nozzle: unknown
+  orientation: user reports successful coupon printing after a 90-degree rotation; axis and slicer transform were not recorded
+  slicer: unknown
+  geometry: integrated inverted-U segment with one 46 mm funnel catcher
+design_intent:
+  coordinate_frame: Assembly source uses X = drain length, Y = 65 mm width, Z = installed height; proposed print transform is +90 degrees about Y with Z-min translated to zero.
+  named_datums:
+    - installed-left-end
+    - installed-right-end
+    - drain-channel-centerline
+    - print-bed-plane
+  parameters:
+    total_length_mm: 945.0
+    total_width_mm: 65.0
+    total_height_mm: 21.0
+    funnel_entry_diameter_mm: 46.0
+    proposed_segment_count: 18
+    proposed_segment_length_mm: 52.5
+    proposed_end_margin_mm: 3.25
+  constraints:
+    - no connector geometry between segments
+    - one centered funnel per identical segment
+    - nominal segment lengths sum exactly to 945.0 mm
+    - retain at least 3.0 mm solid end margin
+  feature_relationships:
+    - segment_length_mm = total_length_mm / segment_count
+    - end_margin_mm = (segment_length_mm - funnel_entry_diameter_mm) / 2
+events:
+  - at: 2026-08-27T20:03:36+02:00
+    type: user-feedback
+    summary: User requested 21 mm installed height, loose coupon-sized single-funnel pieces with no connectors, exact 945 mm combined length, optimized funnel count and margin, and 90-degree print orientation because the coupon worked in that orientation.
+    expected: Prior project guidance printed the integrated four-panel funnel-edge design upside down with support and used loose internal joiner keys.
+    actual: User reports the coupon worked at 90 degrees and wants separate unconnected pieces placed directly in the drain.
+    refs:
+      - design-spec.yaml
+      - ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/README.md
+  - at: 2026-08-27T20:03:36+02:00
+    type: validation
+    summary: Existing 80 mm funnel-edge functional coupon passed deterministic mesh loading, watertightness, winding, positive-volume, and 80 × 65 × 21 mm bounds checks.
+    expected: Confirm the dimensional baseline before proposing a new segment strategy.
+    actual: Baseline coupon is already 21 mm high even though its generated title still says 20 mm.
+    refs:
+      - validation/baseline-functional-coupon-mesh.json
+  - at: 2026-08-27T20:03:36+02:00
+    type: decision
+    summary: Recommend 18 identical 52.5 mm single-funnel segments with 3.25 mm solid margin at each end; reject 19 because its 1.8684 mm margin is below the 3.0 mm preliminary constraint.
+    expected: Maximize funnel count while preserving stability material and exact nominal total length.
+    actual: Eighteen is the highest integer count satisfying the proposed 3.0 mm end-margin constraint.
+    refs:
+      - DECISION-LOG.md
+artifacts:
+  - design-spec.yaml
+  - DECISION-LOG.md
+  - autonomy-policy.json
+  - validation/baseline-functional-coupon-mesh.json
+  - ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/build_shower_drain_hairtrap_945x65_funnel_edge.py
+  - ../shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/functional_test_tile_80mm.stl
+outcome: open

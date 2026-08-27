@@ -1,0 +1,47 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-dfam-on-end-u-profile-001
+title: On-end U-profile print orientation is explicit and evidence-gated
+category: dfam
+status: draft
+trigger: A short open-bottom U-profile segment is exported on end based on a successful coupon observation.
+risk: An ambiguous 90-degree rotation, insufficient bed-contact path, or unverified transfer to another geometry can create a detached or support-dependent print.
+given:
+  assembly_coordinate_frame: X length, Y width, Z installed height
+  proposed_transform: rotate 90 degrees about Y, then translate to Z minimum 0
+  required_bed_contact: one complete U-profile end cross-section
+  process_scope: exact printer, material, nozzle, slicer, and profile must be recorded or explicitly remain a physical-review blocker
+expected:
+  - The manufacturing export records an unambiguous axis, angle, handedness, and bed translation.
+  - The print-oriented mesh is congruent with the assembly master under the inverse rigid transform.
+  - The complete U-profile end frame contacts the first layer and all three frame legs remain connected in the slicer preview.
+  - Support requirement, brim use, and stability are graded in the exact intended slicer profile.
+  - A process-matched physical segment test remains required before the coupon observation is transferred to production.
+failure_conditions:
+  - The export says only “rotate 90 degrees” without an axis and reference frame.
+  - Geometry changes, scaling, mirroring, or clipping occur during orientation export.
+  - Any U-profile leg starts above the bed, is disconnected in the first layer, or depends on unplanned support.
+  - The user-reported coupon outcome is treated as proof for an unknown printer, material, nozzle, or slicer profile.
+fixtures:
+  - products/home-kitchen-garden/unregistered-shower-drain-hairtrap/abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/functional_test_tile_80mm.stl
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: Compare master and print mesh under the declared rigid transform, inspect first layers and support flags in the exact slicer, then record a physical process-matched segment result.
+  measurement_method: Deterministic mesh bounds/congruence plus slicer-layer review and human physical print observation.
+relationships:
+  lessons:
+    - EXP-00002
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - dfam
+  - print-orientation
+  - on-end-printing
+  - rigid-transform
+  - physical-gate

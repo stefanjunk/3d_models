@@ -1,0 +1,143 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00009
+title: Require destination-profile placement checks near nominal bed limits
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digital archive-divider package, one Anycubic profile, one rejected layout and three passing split packages; no physical print.
+feature:
+  type: exact-profile-build-plate-layout
+  geometry: seven-long-flat-parts-arranged-in-two-columns-near-bed-boundary
+  design_parameters:
+    nominal_bed_width_mm: 426.0
+    nominal_bed_depth_mm: 420.0
+    long_divider_length_mm: 209.2
+    initial_object_count: 7
+    passing_package_object_counts: [4, 3, 3]
+    initial_source_sha256: 712efdf3a062d0872769f24c75745a8eaedb6af9392d6928429be99a3b525b23
+  named_datums:
+    - nominal-bed-rectangle
+    - machine-profile-exclusion-zone
+    - per-object-placement-transform
+  constraints:
+    - Preserve individual part geometry and manufacturing orientation while changing packaging.
+    - Treat a nominal bed-envelope check as necessary but not sufficient near profile limits.
+    - Do not generalize the three-package split to other machines or layouts.
+scope:
+  process: FFF digital 3MF packaging and exact-profile headless slicing
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max reference profile
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: Anycubic profile only
+    product: PLA
+    variant: unfilled
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: frame base down; divider plates broad face down; gauges flat
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
+    profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
+  geometry_class: low-archive-frame-with-six-long-flat-dividers-and-three-open-format-gauges
+  environment: digital-only
+  transfer_limits:
+    - One destination printer profile and one set of long rectangular parts.
+    - The rejected source package is identified by hash and trace but intentionally not retained as a manufacturing artifact.
+    - Does not establish a universal safe inset or describe the full exclusion-zone polygon.
+observation:
+  summary: A seven-object 3MF fit inside the nominal bed rectangle but exact destination slicing rejected divider-1980 near an exclusion zone; three packages containing unchanged meshes all passed without native warnings.
+  expected: Nominal X/Y bounds inside 426 x 420 mm would be sufficient for slicer placement acceptance.
+  actual: The initial slicer returned -64 and named the exclusion-zone conflict; packages with 4, 3 and 3 objects respectively returned success and emitted one warning-free G-code file each.
+  outcome: mixed
+  parameter: destination_profile_accepted_partition_count
+  recommended_value: 3
+  units: packages-for-this-artifact-set
+explanation:
+  hypothesis: Destination profiles can reserve non-rectangular or machine-specific regions inside the advertised bed envelope.
+  mechanism: The exact slicer applies profile-specific placement constraints absent from a simple bounding-box test, so partitioning moves every object into the accepted region without changing geometry.
+  alternatives:
+    - Repack automatically against an extracted machine-profile placement polygon.
+    - Apply a conservative interior inset before authoring a single package.
+    - Keep per-part STL files and let a human arrange them after inspecting the destination plate.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 4
+  same_scope_repetitions: 2
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Exact Anycubic Slicer Next return status and native warning inspection for one rejected package and three accepted packages, with input hashes preserved.
+  uncertainty: The corrective partition is conclusive for this artifact set, but the exact exclusion boundary and transferability have not been isolated.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/learning-trace.yaml
+      hash: null
+      notes: Owns the exact packaging iteration and process scope.
+    - type: other
+      ref: products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/reports/slicer-packaging-trace.json
+      hash: null
+      notes: Records the rejected source hash, return code, message and passing evidence.
+  artifacts:
+    - products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/validation/slicer-primary-anycubic-next.json
+    - products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/validation/slicer-secondary-anycubic-next.json
+    - products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/validation/slicer-gauges-anycubic-next.json
+    - products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/renders/MM-ORG-013-digital-candidate.png
+applicability:
+  triggers:
+    - A multi-object build layout approaches a nominal bed boundary or packs long parts in adjacent columns.
+    - Simple bed-envelope validation passes but the destination slicer reports an exclusion-area conflict.
+  exclusions:
+    - Centrally placed single objects with ample profile-qualified margin.
+    - Layouts already validated against an exact machine-readable allowed-placement region.
+    - A claim that three packages are optimal for other part sets.
+  transfer_limits:
+    - Treat exact destination slicing as the acceptance test for this candidate.
+    - Re-evaluate after changing machine profile, object transforms, skirt/brim behavior or slicer version.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00007
+  evals: []
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-ORG-013-photo-postcard-archive-drawer-divider
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow
+tags:
+  - build-plate-layout
+  - exclusion-zone
+  - exact-profile-slicing
+  - 3mf-packaging
+  - anycubic-kobra-3-max
+  - digital-only

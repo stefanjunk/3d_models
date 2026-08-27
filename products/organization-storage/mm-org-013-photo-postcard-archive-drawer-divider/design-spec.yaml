@@ -1,0 +1,284 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-013
+  name: Photo and postcard archive drawer divider
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-ideas-additions/SKU-112
+  opportunity_score: 92.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    spec_revision: 0.1.0-draft.1
+    asset: assets/concept/MM-ORG-013-concept-v1.svg
+    approved_by: codex-gpt5-under-user-delegated-authority
+  decomposition:
+    status: approved
+    decision: AUTO_APPROVED
+    artifact: decomposition.md
+  parametric_source:
+    status: geometry-and-interface-passed
+    evidence:
+      - validation/parametric-source-report.json
+      - validation/mesh-generation-report.json
+      - validation/interface-report.json
+  slicer_preflight:
+    status: passed
+    evidence:
+      - validation/slicer-primary-anycubic-next.json
+      - validation/slicer-secondary-anycubic-next.json
+      - validation/slicer-gauges-anycubic-next.json
+  print_candidate:
+    status: digitally-approved-draft
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R1
+    product_id: MM-ORG-013
+    version: 0.1.0-draft.1
+    reason: Final marking and exact-process qualification are deferred with physical validation.
+  final_release_approval:
+    status: blocked
+  commercial_release:
+    status: blocked
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R1
+  product_id: MM-ORG-013
+  version: 0.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  placement_status: blocked-until-physical-release-phase
+
+function:
+  summary: Organize sleeved loose prints and postcards by visible date/theme tabs in a fitted drawer cassette.
+  intended_users:
+    - adult family archivist, journaler, traveler or photo collector
+  included:
+    - low slotted drawer frame
+    - six separately printable labelled divider plates
+    - ten selectable divider positions
+    - active-media guide and lateral visible index gutter
+    - full-size 10 x 15, A6 and 13 x 18 fit gauges
+  excluded:
+    - archival, acid-free, PAT or long-term-preservation claim
+    - direct-contact recommendation for valuable bare originals
+    - universal drawer or sleeved-media fit without measurement
+    - printer control or commercial release
+
+fabrication:
+  preference: integrated-print
+  process: FDM/FFF
+  printed_parts: one frame, six divider plates and three optional gauges
+  purchased_parts: user-selected photo-safe primary sleeves when required
+  assembly: drop divider plates into selected receiver slots
+
+printer:
+  assumed_machine: Anycubic Kobra 3 Max workspace reference profile
+  build_volume_mm: [426.0, 420.0, 501.0]
+  nozzle_mm: 0.4
+  exact_profile: Anycubic Slicer Next 1.3.9.4 bundled 0.20mm Standard plus Anycubic PLA
+
+requirements:
+  goal:
+    value: Make sleeved loose prints and postcards findable without a mixed drawer pile.
+    source: ranked-research-idea-and-current-demand-check
+  fabrication_preference:
+    value: integrated-print
+    source: recommended
+    rationale: A reusable frame lets category labels change without reprinting the large base.
+  included:
+    value:
+      - 210 x 170 mm continuous-base frame
+      - ten receiver positions and six default date labels
+      - lateral tab gutter beyond 180 mm active media edge
+      - three full-size media gauges
+      - STEP, STL and three DRAFT 3MF outputs
+    source: design-gate-and-research
+  excluded:
+    value:
+      - archival preservation rating or chemical compatibility
+      - direct handling of valuable unsleeved originals
+      - final physical validation, watermark or release
+    source: scope-boundary
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - rough printed edges can scratch sleeves or snag paper
+    - a tall tab or upright print can obstruct drawer closure
+    - nominal print formats can vary or grow with sleeves
+    - unqualified plastics can be unsuitable for direct long-term photo contact
+  limits:
+    - adult dry-indoor drawer use only
+    - valuable items require a separately qualified primary sleeve or enclosure
+    - measure actual sleeved media and loaded drawer height before customization
+    - physical snagging, visibility and closure tests remain mandatory before a release claim
+
+geometry_contract:
+  coordinate_frame:
+    x: media long-edge span and lateral index gutter
+    y: collection depth and category-slot sequence
+    z: height from continuous drawer-contact base
+  maximum_single_part_envelope_mm: [220.0, 180.0, 80.0]
+  default_frame:
+    width_mm: 210.0
+    depth_mm: 170.0
+    wall_height_mm: 24.0
+    wall_mm: 3.2
+    base_mm: 2.4
+    receiver_slots: 10
+    divider_plates: 6
+  customer_parameters:
+    - drawer width, depth and usable loaded height
+    - sleeved media long/short edge
+    - slot sequence and category count
+    - label text and tab height
+    - slot clearance and gauge allowance
+  interfaces:
+    drawer: continuous planar base inside 210 x 170 mm default footprint
+    media: left rail to guide wall equals active long edge plus 2.0 mm total allowance
+    divider: 2.0 mm plate in 2.6 mm receiver with 0.3 mm clearance per side
+    gauge: nominal long and short edge plus 2.0 mm total allowance
+  protected_geometry:
+    - base and perimeter load paths
+    - receiver-slot web and positive-open cuts
+    - active-media stop and lateral label gutter
+    - divider shoulder relief and label-pixel minimum
+    - gauge dimensions and open-entry chamfers
+
+duty:
+  environment: dry indoor drawer, nominal 15-30 C
+  load: sleeved consumer photo prints, postcards and ticket-sized paper keepsakes
+  service_life_target: 250 divider insertions and 500 representative media retrieval cycles for later qualification
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA for non-archival organizer structure only
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; frame and gauges print base-down, divider plates broad-face-down
+  orientation:
+    frame: continuous base on bed
+    divider: engraved broad face upward
+    format_gauge: three-sided outline on bed
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP frame, divider, assembly and gauge masters
+    - STL frame, six labels and three gauges
+    - DRAFT frame/first-divider, remaining-divider and gauge 3MF sets
+
+optimization:
+  status: pending
+  objective: Minimize deposited material while preserving a continuous snag-free floor, receiver webs and index gutter.
+  baseline: full 210 x 170 x 80 mm bounding block
+  candidate: thin common base with low perimeter and local media guide
+  selection_rule: Frame must be one watertight solid, fit the envelope and reduce CAD volume at least 80 percent.
+  evidence: reports/optimization-comparison.json
+  pending_reason: The candidate exceeds the material-reduction threshold; exact-profile A/B geometry variants are deferred because they would alter protected paper-facing and receiver geometry without a measured use-case benefit.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: exports/manufacturing/DRAFT-MM-ORG-013-archive-frame-0.1.0-draft.1.stl
+    protected_regions:
+      - receiver slot widths and webs
+      - guide wall and label pixels
+      - divider shoulders and gauge entry tapers
+      - bed-contact faces
+    resource_budget:
+      triangle_target: 60000
+      triangle_stop: 100000
+      peak_memory_gib: 1.0
+      max_mesh_mib: 8.0
+      max_slicer_seconds: 90.0
+    rationale: Direct analytic tessellation should remain below budget; decimation risks fit and paper-facing edges.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameter relations generate valid single-solid frame, plates and gauges.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: IF-001
+    criterion: Active media retains 2.0 mm total long-edge allowance and every plate has 0.3 mm slot clearance per side.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: GAUGE-001
+    criterion: Full-size gauges encode 10 x 15 cm, A6 and 13 x 18 cm plus declared two-axis allowance.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: Every manufacturing and gauge mesh is one watertight positive-volume component.
+    method: independent mesh audit
+    status: pass
+    evidence:
+      - validation/fdm-mesh-frame.json
+      - validation/fdm-mesh-divider-1900.json
+      - validation/fdm-mesh-divider-1980.json
+      - validation/fdm-mesh-divider-2000.json
+      - validation/fdm-mesh-divider-2010.json
+      - validation/fdm-mesh-divider-2020.json
+      - validation/fdm-mesh-divider-2025.json
+      - validation/fdm-mesh-gauge-10x15.json
+      - validation/fdm-mesh-gauge-a6.json
+      - validation/fdm-mesh-gauge-13x18.json
+  - id: SLC-001
+    criterion: Exact local machine/material/profile slices all three unchanged 3MF build sets without native warnings.
+    method: slicer preflight
+    status: pass
+    evidence:
+      - validation/slicer-primary-anycubic-next.json
+      - validation/slicer-secondary-anycubic-next.json
+      - validation/slicer-gauges-anycubic-next.json
+  - id: PHY-001
+    criterion: Three sleeved formats insert without snagging, labels remain legible and the loaded drawer closes.
+    method: physical test plan
+    status: blocked-physical-test
+  - id: WM-001
+    criterion: Canonical watermark is qualified and safely placed.
+    method: watermark release gate
+    status: blocked-physical-and-release-phase
+
+acceptance_detail:
+  digital_required:
+    - all parameter tests pass
+    - STEP, STL and three DRAFT 3MF sets are generated
+    - all printed parts independently pass topology and resource checks
+    - format, slot, tab and gauge interfaces satisfy declared envelopes
+    - exact local slicer preflight passes without native warnings
+  deferred_physical:
+    - print and trial all three full-size gauges with actual sleeved media
+    - inspect label readability and every paper-facing edge
+    - cycle one divider 250 times and one media section 500 times
+    - verify loaded media and tabs clear the target drawer
+
+unresolved:
+  - Exact drawer and sleeved-media measurements were not supplied.
+  - Paper snagging, sleeve scratching, tab contrast and drawer closure remain untested.
+  - PLA/PETG chemical suitability is not qualified; the product is not an archival enclosure.
+  - Final watermark and commercial release remain deferred.

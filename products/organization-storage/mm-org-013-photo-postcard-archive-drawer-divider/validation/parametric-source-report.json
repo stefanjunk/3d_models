@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "Frame, divider and gauge B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives media formats, slots, plates, labels, gauges, transforms and exports",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "90b7d358ee4a8ba8424bdc32764558359cb1807fb6a766155404478780ae3796",
+      "size_bytes": 1801
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "26fe2ea290260ea428c5c0964c6869812be633ede891a6e15f5ef5bcf769c625",
+      "size_bytes": 27909
+    }
+  ],
+  "limitations": [
+    "A parameter change requires rebuilding all downstream evidence."
+  ],
+  "metrics": {
+    "active_media_id": "photo-13x18",
+    "cadquery": "2.9.0.dev0",
+    "divider_count": 6,
+    "format_count": 3,
+    "frame_dimensions_mm": [
+      210.0,
+      170.0,
+      24.0
+    ],
+    "python": "3.11.15"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-013-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

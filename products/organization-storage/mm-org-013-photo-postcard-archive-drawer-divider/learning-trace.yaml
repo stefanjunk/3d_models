@@ -1,0 +1,42 @@
+schema_version: 1.0.0
+project_id: MM-ORG-013
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: FFF digital 3MF packaging and exact-profile headless slicing
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA profile only
+  nozzle_mm: 0.4
+  orientation: frame base down; divider plates broad face down; gauges flat
+feature: build-plate-layout-near-profile-exclusion-zone
+observation:
+  summary: A seven-object layout fit inside the nominal 426 x 420 mm bed rectangle but the exact machine profile rejected one divider near an exclusion zone; splitting the same unchanged meshes across three packages cleared the error.
+  expected: A layout bounded by the nominal machine rectangle would be accepted by the destination profile.
+  actual:
+    - The initial package returned code -64 with divider-1980 too close to the exclusion area.
+    - The three final packages sliced successfully with empty native warning fields.
+    - All final mesh and 3MF hashes remained reproducible after regeneration.
+  outcome: mixed-then-success
+explanation:
+  hypothesis: The profile's usable placement region is more restrictive than its nominal rectangular dimensions.
+  mechanism: Exact destination slicing applies exclusion geometry that a simple axis-aligned bed-envelope check does not represent.
+  validated: false
+evidence:
+  observations: 4
+  same_scope_repetitions: 2
+  measured: true
+  measurement_method: One exact-profile rejected 3MF layout followed by three exact-profile passing 3MF layouts built from unchanged STL meshes.
+  uncertainty: One printer profile, one family of long flat parts and no explicit reconstruction of the exclusion-zone polygon were tested.
+  artifacts:
+    - reports/slicer-packaging-trace.json
+    - validation/slicer-primary-anycubic-next.json
+    - validation/slicer-secondary-anycubic-next.json
+    - validation/slicer-gauges-anycubic-next.json
+    - decision-log.md
+promotion:
+  maturity: E0
+  state: candidate
+  required_next:
+    - Reproduce with an isolated layout sweep around every Kobra 3 Max exclusion boundary.
+    - Compare at least one other machine profile and another long-part geometry.
+    - Determine whether a conservative machine-readable placement polygon can replace trial slicing.

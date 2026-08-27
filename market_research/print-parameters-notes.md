@@ -1,6 +1,6 @@
 # Research Notes: Kobra 3 Max Filament Profiles
 
-**Research dates:** 2026-08-01; EONO/GRATKIT update 2026-08-06; TPU/variable-layer update 2026-08-11
+**Research dates:** 2026-08-01; EONO/GRATKIT update 2026-08-06; TPU/variable-layer update 2026-08-11; nozzle-material/ELEGOO update 2026-08-12
 
 ## Evidence Rules
 - First-party printer, slicer, and filament documentation establishes supported ranges.
@@ -25,6 +25,19 @@
 - The pinned Orca JSON lacks Slicer Next's required profile-version field and is therefore a settings reference, not a promised import route. Slicer Next may also hide process compatibility editing. The deliverable therefore prefers native 0.8 bases and includes a complete visible-settings fallback from the exact Max 0.4 machine and 0.20 process, plus instructions to expose incompatible presets when dependency metadata cannot be edited.
 - Orca states that MVS varies with material, machine, nozzle diameter, and extruder setup. Most 0.8 mm recommendations therefore retain the current 0.4 mm profile MVS only as a conservative temporary cap, then require nozzle-specific flow, PA, and MVS calibration. GEEETECH 0.8 instead uses a modest 3.0 mm3/s uncalibrated estimate because the larger nozzle is expected to reduce pressure drop; this is not a measured material limit. The process speeds were checked with `flow = line width x layer height x speed` and do not exceed their listed caps.
 - Slicer field locations: filament temperatures, flow ratio, pressure advance, MVS, and cooling are in the Filament preset; retraction overrides are under Filament > Setting Overrides; feature speeds and acceleration are under Process > Speed; line widths are under Process > Quality; hardware ceilings remain in Printer > Motion ability.
+
+## Brass, Stainless, And Hardened-Steel Nozzles
+
+- Scope is identical standard Kobra geometry and bore at 0.4 or 0.8 mm. CHT/high-flow internals, changed melt-zone lengths, ruby/carbide inserts, proprietary high-conductivity hardened alloys, and performance coatings are excluded because they can dominate the bulk-alloy effect.
+- Representative thermal conductivity establishes direction only: C360 brass is about 116 W/(m K) at 20 C; 304 stainless is about 15 W/(m K) at 20 C and 18 at 200 C; hardened A2 tool steel is about 26 W/(m K) at 20 C and 27 at 200 C. Exact purchased alloys are often undisclosed.
+- Bulk conductivity does not determine the indicated temperature correction. The sensor normally measures heater-block temperature, while nozzle contact, sensor placement, melt-zone length, bore finish, plating, polymer viscosity, heater power, and flow determine the polymer temperature and pressure.
+- CNC Kitchen's controlled V6 PLA comparison found a quality hardened-steel nozzle differed noticeably from brass mainly below about 200 C; above that it did not require a hotter setting in that system. This is the strongest applied comparison but covers one hotend, PLA, and hardened steel rather than stainless or the Kobra.
+- Prusa provides a conditional `+5` to `+10 C` troubleshooting range for steel nozzles. This is compatible with the controlled result when treated as a response to observed under-extrusion, not an automatic offset.
+- No controlled identical-geometry stainless comparison or exact Kobra 3 Max steel MVS dataset was found. Stainless and hardened values therefore remain separate in the operational table even though both begin with the same commissioning policy.
+- Temperature policy: begin at the brass profile temperature after a 5-minute heat soak. If representative high-flow lines are repeatably weak, matte, or under-extruded, try `+5 C` within the exact filament range and repeat MVS. Restore baseline and lower flow if extra heat worsens stringing, Silk sheen, degradation, or heat creep.
+- MVS policy: enter 80% of the brass-profile MVS for a first untested steel print. This is a conservative commissioning safety margin, not a measured steel penalty. Run MVS separately for material, color, diameter, nozzle material, machine, extruder, and nozzle; keep 80-90% of the first repeatable quality or strength transition. A quality steel nozzle may recover the full brass result.
+- Nozzle diameter and material remain independent variables. A larger outlet can reduce pressure, but it does not proportionally increase melt-zone length. At the same MVS, 0.8 mm paths move more slowly because their bead cross-section is larger.
+- Primary sources: https://www.cnckitchen.com/blog/flow-rate-benchmarking-of-a-hotend, https://help.prusa3d.com/article/e3d-v6-nozzles_920168, https://help.prusa3d.com/article/under-extrusion_2007, https://alloys.copper.org/alloy/C36000, https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-3r12/, https://www.uddeholm.com/en/app/uploads/sites/216/productdb/api/tech_uddeholm-rigor_en.pdf, and https://e3d-online.com/pages/revo-high-flow-volumetric-flow-rate-calculator
 
 ## GEEETECH TPU 95A
 
@@ -53,11 +66,24 @@
 - Current product-specific range: 240-260 C nozzle, 60-70 C bed, up to 300 mm/s marketing speed, 0.8-1.2 mm retraction, and 30-40 mm/s retraction speed.
 - Product: https://www.sunlu.com/products/petg-3d-printing-filament
 - SUNLU's generic guide recommends 60-65 C drying for 6-8 hours and 30-50% fan: https://www.sunlu.com/wiki/filament-usage-guide
-- Current Anycubic generic PETG baseline uses flow 0.95 and MVS 10 mm3/s. The Max-specific Orca profile uses 0.8 mm retraction and PA 0.04.
+- The pinned Anycubic generic PETG base uses flow 0.96 and MVS 8 mm3/s; the exact Kobra 3 Max 0.4 child changes flow to 0.95 and retains MVS 8 mm3/s. The Max-specific Orca profile uses 0.8 mm retraction and PA 0.04.
 - A SUNLU black owner used 250 C first layer and 245 C later with fan mostly off except overhangs: https://forum.bambulab.com/t/best-settings-for-sunlu-petg/33776?page=2#post_35
 - Kobra 3 PETG owners reported near-flawless output at 250 C/100 C for two layers, then 240 C/80 C at 80 mm/s; this supports warmer/slower first layers but 100 C is too source-specific for a default: https://old.reddit.com/r/anycubic/comments/1exjpt8/petg_on_kobra_3/
 - Kobra-family reports found poor layer adhesion above about 120 mm/s: https://forum.drucktipps3d.de/forum/thread/41778-anycubic-kobra-s1-sammelthread-slicer-profile-und-erkenntnisse/
 - Derived profile: 245 C first layer, 250 C later, 75/70 C bed, flow 0.95, MVS 10 mm3/s, PA 0.040, 0.8 mm retraction at 30 mm/s, 35-65% normal fan, and 90-100% only for overhangs/bridges.
+
+## ELEGOO Rapid PETG
+
+- Exact product: plain, unfilled ELEGOO Rapid PETG, 1.75 mm, +/-0.02 mm, 1 kg, marketed for up to 600 mm/s. Product: https://www.elegoo.com/products/rapid-petg-filament-1-75mm-colored-1kg.js
+- The exact Anycubic Slicer Next ELEGOO base uses 250 C nozzle, 70 C bed, 30-80% normal fan, 90% overhang fan, density 1.26, and 18 mm3/s MVS. The exact Orca system profile adds flow 0.99 and PA 0.052. These are product profiles, not Kobra-specific validation.
+- ELEGOO machine profiles vary materially: Neptune 2 uses 10 mm3/s, Neptune 4 uses 18, and OrangeStorm Giga uses 34. This disproves treating 18 as a universal material constant.
+- The exact Kobra standard-PETG references use flow 0.95/MVS 8 at 0.4 and flow 0.97/MVS 12 at 0.8. The Rapid PETG profile inherits those Kobra flow-ratio starts, retains ELEGOO's 250 C/70 C material baseline and a 75 C initial bed, and uses a derived 10 mm3/s 0.4 start between the exact Kobra standard-PETG cap and ELEGOO's higher system profiles.
+- Derived 0.4 start: 250/250 C, 75/70 C bed, flow 0.95, MVS 10 mm3/s, PA disabled until a 0.025-0.060 sweep, 0.8 mm retraction at 30 mm/s, 30-80% normal fan, and 90% overhang/bridge fan.
+- Derived 0.8 start: 250/250 C, 75/70 C bed, flow 0.97, temporary MVS 12 mm3/s, PA disabled until a 0.020-0.050 sweep, and the same direct-drive retraction. Unlock 14/16 mm3/s only if the measured failure point is at least about 16.5/18.8 mm3/s respectively.
+- The advertised 600 mm/s would require about 54 mm3/s at a 0.45 x 0.20 mm path, far beyond the conservative Kobra profile. It is a product capability claim under unspecified geometry, not a process target.
+- ELEGOO publishes no accessible exact drying cycle. Use 60 C for 6-8 h as a derived PETG start and extend for clear moisture symptoms; owner-tested lower-temperature cycles take longer.
+- Plain Rapid PETG has no abrasive filler claim and can use brass. This conclusion does not apply to PETG-CF, PETG-GF, glow, metal-filled, or other filled variants.
+- Exact German offer checked 2026-08-12: Alza white, 1 kg, EUR 13.49 incl. VAT, in stock >10: https://www.alza.de/elegoo-rapid-petg-1-75mm-1kg-cardboard-spool-white-d12389175.htm
 
 ## SUNLU PLA+ 2.0 High Speed
 
@@ -103,13 +129,13 @@
 - Variable layer planes apply across the whole selected object at a given Z. Ordinary modifier meshes do not create an independent XY-local layer height; use a Height Range Modifier for a prescribed Z band.
 - Adaptive uses the full layer-height limits in the active printer preset; Quality/Speed does not enforce a material/object window. The effective practical range is the intersection of machine, material, and object ranges. For repeatable enforcement, narrow Min/Max only in a separately named duplicate printer preset and set a separate VLH process's nominal layer height inside that range; the fixed initial layer remains independent. Otherwise manually constrain the generated profile and verify actual values in Preview.
 - Current Orca and Anycubic source reject a genuinely variable layer profile with Organic/default tree support. The inherited `tree(auto)` plus `default` style counts as Organic; disable support or select Normal, Slim, Strong, or Hybrid support before slicing.
-- The tool is material-agnostic, but useful working windows are not. TPU should avoid extreme minima and excessive layer changes; PETG needs finer overhang/hole-roof regions; High Speed PLA+ tolerates the broadest speed range after MVS calibration; Silk benefits from narrow or fixed hero-surface heights because transitions can appear as sheen bands.
+- The tool is material-agnostic, but useful working windows are not. TPU should avoid extreme minima and excessive layer changes; standard and Rapid PETG need finer overhang/hole-roof regions; High Speed PLA+ tolerates the broadest speed range after MVS calibration; Silk benefits from narrow or fixed hero-surface heights because transitions can appear as sheen bands.
 - The fixed profiles in this guide set top/bottom minimum thickness to zero so layer counts are authoritative. A variable-height process must instead set or verify physical shell-thickness minima because a fixed number of layers no longer represents a fixed thickness. In vase mode, thickness fields are disabled and `Bottom shell layers` controls the processed base; sum the actual layer heights in Preview.
 - Derived first-use windows are 0.12-0.24 mm for the 0.4 nozzle and 0.20-0.40 mm for the 0.8 nozzle, narrowed by material and object type in the main deliverable. The 0.8 nozzle can improve Z smoothness at 0.20-0.28 mm but cannot recover small XY detail lost to its approximately 0.82 mm bead width.
 
 ## Derived Profiles
 
-- The deliverable uses 0.12 mm detail, 0.20 mm balanced, and 0.24 mm balanced profiles with the 0.4 mm nozzle. It adds 0.20 mm fine and 0.40 mm draft profiles with the 0.8 mm nozzle for all six materials.
+- The deliverable uses 0.12 mm detail, 0.20 mm balanced, and 0.24 mm balanced profiles with the 0.4 mm nozzle. It adds 0.20 mm fine and 0.40 mm draft profiles with the 0.8 mm nozzle for all seven materials.
 - The 0.4 mm rigid-filament profiles retain 3 walls, approximately 0.8-1.0 mm top/bottom thickness, aligned hidden seams, 15% gyroid infill, and 0.4 mm slope z-hop. The 0.8 mm variants use 2 walls because they are already about 1.64 mm thick.
 - TPU uses 3 walls with the 0.4 mm nozzle and 2 walls with the 0.8 mm nozzle. It keeps gyroid but avoids supports, wipe, multi-object plates, and unnecessary retraction. GEEETECH uses no z-hop initially; SUNLU keeps z-hop optional.
 - Feature speed and acceleration are intentionally lower for outer walls and top surfaces. MVS remains the hard sustained extrusion cap.

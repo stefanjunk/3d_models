@@ -1,6 +1,6 @@
 # Filament Prices for Delivery to Germany
 
-**Price checks:** 1 August 2026; requested Silk PLA variants checked 6 August 2026<br>
+**Price checks:** 1 August 2026; requested Silk PLA variants checked 6 August 2026; ELEGOO Rapid PETG checked 12 August 2026<br>
 **Basis:** VAT-inclusive item price, excluding shipping, normalized to net filament weight  
 **Scope:** In-stock single-spool consumer offers deliverable to Germany
 
@@ -26,6 +26,14 @@ These requested products are listed separately from the category winners above. 
 
 The EONO price was independently visible in the exact Amazon buy box and in [Nextag's exact-product comparison](https://www.nextag.de/preisvergleich/500001112384_eono-pla-filament-175mm-mehrfarbig.html). GRATKIT's own store listed the Blue/Purple/Black EU-warehouse variant as sold out, so the in-stock Amazon offer is the relevant German purchase route.
 
+## Requested Exact Rapid PETG Offer
+
+This point-in-time exact-product offer supplements rather than replaces the high-speed-PETG category winner above.
+
+| Exact product | Color | Price / weight | Normalized price | Offer and availability on 12 August 2026 | Shop |
+|---|---|---:|---:|---|---|
+| ELEGOO Rapid PETG | White | EUR 13.49 / 1 kg | **EUR 13.49/kg** | VAT included; new; in stock, more than 10 units; 1.75 mm with +/-0.02 mm tolerance | [Alza.de](https://www.alza.de/elegoo-rapid-petg-1-75mm-1kg-cardboard-spool-white-d12389175.htm) |
+
 ## Deal And Classification Notes
 
 | Material class | Note |
@@ -37,6 +45,7 @@ The EONO price was independently visible in the exact Amazon buy box and in [Nex
 | High-speed PETG | IEMAI explicitly states "High Speed" and 50-600 mm/s. The price was a public 10% reduction from a stated EUR 12.99 RRP. Amazon's displayed EUR 9.74/kg conflicts with the title and item field stating 1 kg, so the conservative calculation is EUR 11.69/kg. |
 | TPU 95A | iSANMATE's price was a public 15% limited-time deal. The product explicitly states Shore 95A; its subscription price was excluded. |
 | Requested Silk PLA | EONO and GRATKIT prices are exact-color, one-spool buy-box prices rather than category minima. No coupon, subscription, Prime membership, or multi-spool purchase was required. |
+| Requested ELEGOO Rapid PETG | The Alza price is an exact white one-spool product price, not a high-speed-PETG category minimum. Alza's page explicitly showed VAT included, 1 kg, one unit per package, and stock above 10. Shipping was excluded. |
 
 ## Method
 
@@ -46,6 +55,7 @@ The EONO price was independently visible in the exact Amazon buy box and in [Nex
 - High-speed categories require explicit speed-oriented wording or claims on the product page.
 - TPU qualifies only when the page explicitly states Shore 95A.
 - Requested exact products are reported separately and do not replace the cheapest standard-PLA category winner.
+- The requested ELEGOO Rapid PETG check uses the same one-spool, VAT-inclusive, shipping-excluded rules and does not revise the earlier category sample range.
 - Mandatory multipacks, quantity-tier pricing, coupons, subscriptions, Prime-only prices, business-only net prices, used goods, unavailable variants, and ambiguous listings were excluded.
 - Public sale prices requiring no code, account tier, or repeat purchase were accepted and labeled.
 - Amazon pages were checked with a German delivery destination. Specialist-shop pages were checked for German delivery and VAT treatment.
@@ -62,4 +72,4 @@ The EONO price was independently visible in the exact Amazon buy box and in [Nex
 
 ## Limitations
 
-Prices, stock, marketplace sellers, and public sales can change without notice. Shipping is deliberately excluded, so the lowest item price may not produce the lowest delivered total for a one-spool order. The two Silk PLA prices are point-in-time Amazon buy-box observations from 6 August 2026. Some price-comparison sites blocked automated retrieval; no blocked-page snippet was used to establish a winner.
+Prices, stock, marketplace sellers, and public sales can change without notice. Shipping is deliberately excluded, so the lowest item price may not produce the lowest delivered total for a one-spool order. The two Silk PLA prices are point-in-time Amazon buy-box observations from 6 August 2026; the ELEGOO price is a point-in-time Alza product-page observation from 12 August 2026. Some price-comparison sites blocked automated retrieval; no blocked-page snippet was used to establish a winner.

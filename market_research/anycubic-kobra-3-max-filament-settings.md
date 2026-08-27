@@ -1,11 +1,11 @@
 # Anycubic Kobra 3 Max Filament Settings
 
 **Printer:** Stock Anycubic Kobra 3 Max  
-**Nozzles:** 0.4 mm brass and optional 0.8 mm brass replacement  
+**Nozzles:** 0.4 and 0.8 mm, each in brass, stainless steel, or conventional hardened steel with identical Kobra 3 Max geometry<br>
 **Build plate:** Stock textured PEI  
 **Slicer:** Anycubic Slicer Next, Advanced mode; field names checked against v2.3.0 commit `70931e5`  
 **Profile goal:** Fast, reliable printing without sacrificing visible-wall and top-surface quality  
-**Research dates:** 1 August 2026; EONO/GRATKIT update 6 August 2026; TPU/variable-layer update 11 August 2026
+**Research dates:** 1 August 2026; EONO/GRATKIT update 6 August 2026; TPU/variable-layer update 11 August 2026; nozzle-material/ELEGOO update 12 August 2026
 
 All profile tables below are **derived starting recommendations**, not manufacturer presets. Dry the filament and run the calibration sequence before treating any pressure-advance, flow, or maximum-volumetric-speed value as final. The 0.4 mm Kobra 3 Max values were checked against [Anycubic's pinned Max profile commit](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/commit/987a3c2bf9ed13934137326bfd522896c70e5101). The 0.8 mm geometry and fallback deltas were checked against the exact Max machine and process profiles in pinned [OrcaSlicer commit `972dae2`](https://github.com/OrcaSlicer/OrcaSlicer/commit/972dae22afdadc3251d05e10c2d6f00c35e6b83a), because the pinned Anycubic tree contains no Max 0.8 profile. Verify the values in your installed configuration bundle because bundled and cloud profiles can differ.
 
@@ -15,11 +15,15 @@ All profile tables below are **derived starting recommendations**, not manufactu
 |---|---|
 | Kobra 3 Max motion | Keep the stock machine ceilings. Control real print speed with feature speeds, acceleration, and filament maximum volumetric speed. The advertised 600 mm/s is not a useful universal process speed. |
 | 0.8 mm hardware | Anycubic lists the Kobra 3 Max nozzle as expandable from the stock 0.4 mm to 0.6/0.8 mm. Use a Kobra 3 Max-compatible 0.8 mm nozzle or hotend, install it according to Anycubic's service guidance, then verify Z offset and bed leveling before printing. |
+| Nozzle material | The filament table treats its existing values as the brass baseline and adds stainless- and hardened-steel commissioning values. Scope is identical standard-bore geometry only: no CHT/high-flow bores, ruby/carbide tips, proprietary high-conductivity alloys, coatings that claim brass-like flow, or changed hotends. Nozzle alloy alone does not justify transferring a calibrated MVS. |
+| Steel-nozzle temperature | Start stainless and conventional hardened steel at the listed brass temperature. Heat-soak for 5 minutes and run a temperature/MVS test at representative flow. Try the listed `+5 deg C` fallback only for repeatable weak, matte, or under-extruded high-flow lines; return to the baseline and reduce MVS if extra heat worsens stringing, Silk sheen, degradation, or heat creep. |
+| Steel-nozzle MVS | The stainless and hardened columns use 80% of the brass-profile MVS as an **uncalibrated commissioning safety policy**, not a measured steel penalty. Enter that value for the first test, then replace it with 80-90% of the actual nozzle/material failure transition. A quality steel nozzle may recover the full brass MVS. |
 | 0.8 mm printer preset | Prefer the native `Anycubic Kobra 3 Max 0.8 nozzle` preset when the installed bundle exposes it. Otherwise follow the complete [0.8 mm manual fallback](#08-mm-manual-fallback); the pinned Orca JSON is a settings reference, not a directly importable Slicer Next 2.3.0 profile. A 0.4 preset with only its nozzle diameter changed is incomplete. Do not substitute the smaller Kobra 3 profile. |
 | Nozzle-change calibration | A nozzle change invalidates nozzle-sensitive tuning. For every 0.8 mm material preset, start with PA disabled and the conservative MVS listed below; then calibrate flow ratio, PA, and MVS with the installed 0.8 mm nozzle before raising flow. |
 | TPU feed | Do **not** feed TPU through ACE Pro. Use the shortest low-drag external path, ideally a top-mounted spool close to the toolhead. Follow Anycubic's instruction to loosen the extruder idler screw by half a turn before loading TPU. |
 | TPU preparation | Purge old PLA/PETG completely. A clean nozzle or dedicated TPU hotend is useful if flexible filament buckles before the nozzle. Print one object at a time and avoid retract-heavy geometry. |
 | PETG plate | Wash with dish soap, preheat the large bed for about 10 minutes, and let it cool before removal. Use a thin glue layer as a **release barrier** if PETG bonds too strongly. |
+| ELEGOO Rapid PETG | Plain, unfilled Rapid PETG is not documented as abrasive and does not require steel. Its 600 mm/s product claim is not a Kobra process speed: use the listed 10/12 mm^3/s brass starts and unlock 14/16 mm^3/s only after nozzle-specific MVS and layer-strength tests. |
 | Tri-color Silk PLA | Treat both coextruded Silk filaments as decorative materials. Inspect cardboard-spool winding and brittleness before a long print, test direct external feeding before relying on ACE Pro, and rotate the model around Z to choose which colors dominate each visible face. Slower outer walls preserve gloss better than headline high-speed settings. |
 | Variable layer height | Apply it per selected object in `Prepare`, not in the filament preset. Use the exact printer preset's layer-height limits, keep the first layer fixed, and inspect `Layer height`, `Volumetric flow rate (mm³/s)`, `Speed`, overhang, support, and shell-thickness previews before printing. Organic/default tree supports cannot be sliced with a genuinely variable layer profile. |
 | Pressure advance | Use one PA source only. Enabling PA in a filament preset replaces printer/auto-calibrated PA; commands are not additive and the last emitted command wins. Calibrate after flow ratio. |
@@ -31,7 +35,7 @@ All profile tables below are **derived starting recommendations**, not manufactu
 
 | Slicer Next area | Values from this document |
 |---|---|
-| Filament > Filament | Nozzle and bed temperatures, flow ratio, `Enable pressure advance`, PA coefficient, and `Max volumetric speed` |
+| Filament > Filament | Nozzle-material-specific nozzle temperature and `Max volumetric speed`, plus bed temperatures, flow ratio, `Enable pressure advance`, and PA coefficient |
 | Filament > Cooling | Initial no-cooling layers, full-fan layer, minimum/maximum fan with layer-time thresholds, bridge/overhang fan, cooling slowdown, and minimum speed |
 | Filament > Setting Overrides | Retraction length/speed, deretraction speed, retract on layer change, wipe, wipe distance, Z-hop height, and Z-hop type; check each override box |
 | Process > Quality | Layer height, line widths, `Walls printing order`, `Print infill first`, and seam position |
@@ -54,6 +58,9 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | 0.4 mm | `SUNLU PETG Black Standard - 0.20 Balanced` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - SUNLU PETG Black Standard - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU PETG Black Standard - 0.12 Detail` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - SUNLU PETG Black Standard - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU PETG Black Standard - 0.24 Balanced` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - SUNLU PETG Black Standard - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `ELEGOO Rapid PETG - 0.20 Balanced` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - ELEGOO Rapid PETG - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `ELEGOO Rapid PETG - 0.12 Detail` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - ELEGOO Rapid PETG - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
+| 0.4 mm | `ELEGOO Rapid PETG - 0.24 Balanced` | `Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - ELEGOO Rapid PETG - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.20 Balanced` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.20 Balanced - SUNLU HS PLA+ 2.0 - K3M` | `0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.12 Detail` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.12 Detail - SUNLU HS PLA+ 2.0 - K3M` | `0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
 | 0.4 mm | `SUNLU High Speed PLA+ 2.0 - 0.24 Balanced` | `Anycubic PLA High Speed @Anycubic Kobra 3 Max 0.4 nozzle` | `0.24 Balanced - SUNLU HS PLA+ 2.0 - K3M` | `0.24mm Standard @Anycubic Kobra 3 Max 0.4 nozzle` |
@@ -69,6 +76,8 @@ All profile tables below are **derived starting recommendations**, not manufactu
 | 0.8 mm | Reuse `SUNLU TPU 95A - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - SUNLU TPU 95A - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | `SUNLU PETG Black Standard - N0.8 Safe Start` | `Anycubic PETG @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - SUNLU PETG Black - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | Reuse `SUNLU PETG Black Standard - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - SUNLU PETG Black - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | `ELEGOO Rapid PETG - N0.8 Safe Start` | `Anycubic PETG @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - ELEGOO Rapid PETG - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
+| 0.8 mm | Reuse `ELEGOO Rapid PETG - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - ELEGOO Rapid PETG - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | `SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start` | `Anycubic PLA @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - SUNLU HS PLA+ 2.0 - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | Reuse `SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start` | Existing custom preset | `0.40 Draft - SUNLU HS PLA+ 2.0 - K3M N0.8` | `0.40mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
 | 0.8 mm | `EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start` | `Anycubic PLA @Anycubic Kobra 3 Max 0.8 nozzle` | `0.20 Fine - EONO Silk R-Gold-B - K3M N0.8` | `0.20mm Standard @Anycubic Kobra 3 Max 0.8 nozzle` |
@@ -130,34 +139,42 @@ When an 0.8 filament preset was copied from a 0.4 base, first clear every retrac
 
 ## Filament Presets
 
-| Filament preset name | Nozzle | Nozzle temperature: Initial layer / Other layers | Textured PEI Plate: Initial layer / Other layers | Flow ratio | Max volumetric speed | Enable pressure advance / Pressure advance | Drying |
-|---|---:|---:|---:|---:|---:|---|---|
-| GEEETECH TPU 95A - 0.20 Balanced | 0.4 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 | 2.3 mm^3/s | Off / 0 s initially | 50-55 deg C, 4-6 h; print from dryer if possible |
-| GEEETECH TPU 95A - 0.24 Balanced | 0.4 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 | 2.3 mm^3/s | Off / 0 s initially | Same |
-| GEEETECH TPU 95A - 0.12 Detail Experimental | 0.4 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 | 1.6 mm^3/s | Off / 0 s initially | Same; prove 0.20 mm reliability first |
-| SUNLU TPU 95A - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 | 3.2 mm^3/s | On / 0.020 s starting value | 55 deg C, 8-12 h; continue from a drybox |
-| SUNLU TPU 95A - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 | 3.2 mm^3/s | On / 0.020 s starting value | Same |
-| SUNLU TPU 95A - 0.12 Detail Experimental | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 | 3.2 mm^3/s | On / 0.020 s starting value | Same; prove 0.20 mm reliability first |
-| SUNLU PETG Black Standard - 0.20 Balanced | 0.4 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 | 10 mm^3/s | On / 0.040 s starting value | 60-65 deg C, 6-8 h |
-| SUNLU PETG Black Standard - 0.24 Balanced | 0.4 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 | 10 mm^3/s | On / 0.040 s starting value | Same |
-| SUNLU PETG Black Standard - 0.12 Detail | 0.4 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 | 10 mm^3/s | On / 0.040 s starting value | Same |
-| SUNLU High Speed PLA+ 2.0 - 0.20 Balanced | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | 50 deg C for at least 4 h if exposed or stringing |
-| SUNLU High Speed PLA+ 2.0 - 0.24 Balanced | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | Same |
-| SUNLU High Speed PLA+ 2.0 - 0.12 Detail | 0.4 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 | 18 mm^3/s | On / 0.026 s starting value | Same |
-| EONO Silk PLA Red-Gold-Blue - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | No exact EONO cycle; 50-55 deg C for 4-6 h only if needed |
-| EONO Silk PLA Red-Gold-Blue - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | Same |
-| EONO Silk PLA Red-Gold-Blue - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 60 / 55 deg C | 0.96 | 8 mm^3/s | On / 0.040 s starting value | Same |
-| GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
-| GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
-| GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 55 / 50 deg C | 0.96 | 10 mm^3/s | On / 0.040 s starting value | Same |
-| GEEETECH TPU 95A - N0.8 Safe Start | 0.8 mm | 225 / 225 deg C | 50 / 45 deg C | 1.00 starting value | 3.0 mm^3/s uncalibrated provisional cap | Off / 0 s until recalibrated | 50-55 deg C, 4-6 h; print from dryer if possible |
-| SUNLU TPU 95A - N0.8 Safe Start | 0.8 mm | 215 / 210 deg C | 55 / 50 deg C | 0.98 starting value | 3.2 mm^3/s temporary cap | Off / 0 s until recalibrated | 55 deg C, 8-12 h; continue from a drybox |
-| SUNLU PETG Black Standard - N0.8 Safe Start | 0.8 mm | 245 / 250 deg C | 75 / 70 deg C | 0.95 starting value | 10 mm^3/s temporary cap | Off / 0 s until recalibrated | 60-65 deg C, 6-8 h |
-| SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 0.8 mm | 220 / 220 deg C | 60 / 55 deg C | 0.97 starting value | 18 mm^3/s temporary cap | Off / 0 s until recalibrated | 50 deg C for at least 4 h if exposed or stringing |
-| EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start | 0.8 mm | 220 / 215 deg C | 60 / 55 deg C | 0.98 starting value | 8 mm^3/s temporary cap | Off / 0 s until recalibrated | No exact EONO cycle; 50-55 deg C for 4-6 h only if needed |
-| GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start | 0.8 mm | 215 / 215 deg C | 55 / 50 deg C | 0.98 starting value | 10 mm^3/s temporary cap | Off / 0 s until recalibrated | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
+| Filament preset name | Nozzle | Brass temp: Initial / Other | Brass MVS | Stainless temp: Start; fallback | Stainless commissioning MVS | Hardened temp: Start; fallback | Hardened commissioning MVS | Textured PEI: Initial / Other | Flow ratio | Enable PA / PA | Drying |
+|---|---:|---:|---:|---|---:|---|---:|---:|---:|---|---|
+| GEEETECH TPU 95A - 0.20 Balanced | 0.4 mm | 225 / 225 deg C | 2.3 mm^3/s | 225/225; 230/230 deg C | 1.8 mm^3/s | 225/225; 230/230 deg C | 1.8 mm^3/s | 50 / 45 deg C | 1.00 | Off / 0 s initially | 50-55 deg C, 4-6 h; print from dryer if possible |
+| GEEETECH TPU 95A - 0.24 Balanced | 0.4 mm | 225 / 225 deg C | 2.3 mm^3/s | 225/225; 230/230 deg C | 1.8 mm^3/s | 225/225; 230/230 deg C | 1.8 mm^3/s | 50 / 45 deg C | 1.00 | Off / 0 s initially | Same |
+| GEEETECH TPU 95A - 0.12 Detail Experimental | 0.4 mm | 225 / 225 deg C | 1.6 mm^3/s | 225/225; 230/230 deg C | 1.3 mm^3/s | 225/225; 230/230 deg C | 1.3 mm^3/s | 50 / 45 deg C | 1.00 | Off / 0 s initially | Same; prove 0.20 mm reliability first |
+| SUNLU TPU 95A - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 3.2 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 55 / 50 deg C | 0.98 | On / 0.020 s start | 55 deg C, 8-12 h; continue from a drybox |
+| SUNLU TPU 95A - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 3.2 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 55 / 50 deg C | 0.98 | On / 0.020 s start | Same |
+| SUNLU TPU 95A - 0.12 Detail Experimental | 0.4 mm | 215 / 210 deg C | 3.2 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 55 / 50 deg C | 0.98 | On / 0.020 s start | Same; prove 0.20 mm reliability first |
+| SUNLU PETG Black Standard - 0.20 Balanced | 0.4 mm | 245 / 250 deg C | 10 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | On / 0.040 s start | 60-65 deg C, 6-8 h |
+| SUNLU PETG Black Standard - 0.24 Balanced | 0.4 mm | 245 / 250 deg C | 10 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | On / 0.040 s start | Same |
+| SUNLU PETG Black Standard - 0.12 Detail | 0.4 mm | 245 / 250 deg C | 10 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | On / 0.040 s start | Same |
+| ELEGOO Rapid PETG - 0.20 Balanced | 0.4 mm | 250 / 250 deg C | 10 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | Off / 0 s initially | No exact cycle; 60 deg C, 6-8 h derived start |
+| ELEGOO Rapid PETG - 0.24 Balanced | 0.4 mm | 250 / 250 deg C | 10 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | Off / 0 s initially | Same |
+| ELEGOO Rapid PETG - 0.12 Detail | 0.4 mm | 250 / 250 deg C | 10 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 250/250; 255/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 | Off / 0 s initially | Same |
+| SUNLU High Speed PLA+ 2.0 - 0.20 Balanced | 0.4 mm | 220 / 220 deg C | 18 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 60 / 55 deg C | 0.97 | On / 0.026 s start | 50 deg C for at least 4 h if exposed or stringing |
+| SUNLU High Speed PLA+ 2.0 - 0.24 Balanced | 0.4 mm | 220 / 220 deg C | 18 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 60 / 55 deg C | 0.97 | On / 0.026 s start | Same |
+| SUNLU High Speed PLA+ 2.0 - 0.12 Detail | 0.4 mm | 220 / 220 deg C | 18 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 60 / 55 deg C | 0.97 | On / 0.026 s start | Same |
+| EONO Silk PLA Red-Gold-Blue - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 8 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 60 / 55 deg C | 0.96 | On / 0.040 s start | No exact cycle; 50-55 deg C for 4-6 h only if needed |
+| EONO Silk PLA Red-Gold-Blue - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 8 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 60 / 55 deg C | 0.96 | On / 0.040 s start | Same |
+| EONO Silk PLA Red-Gold-Blue - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 8 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 215/210; 220/215 deg C proxy max | 6.4 mm^3/s | 60 / 55 deg C | 0.96 | On / 0.040 s start | Same |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.20 Balanced | 0.4 mm | 215 / 210 deg C | 10 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 55 / 50 deg C | 0.96 | On / 0.040 s start | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.24 Balanced | 0.4 mm | 215 / 210 deg C | 10 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 55 / 50 deg C | 0.96 | On / 0.040 s start | Same |
+| GRATKIT Silk PLA Blue-Purple-Black - 0.12 Detail | 0.4 mm | 215 / 210 deg C | 10 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 215/210; 215/215 deg C ceiling | 8 mm^3/s | 55 / 50 deg C | 0.96 | On / 0.040 s start | Same |
+| GEEETECH TPU 95A - N0.8 Safe Start | 0.8 mm | 225 / 225 deg C | 3.0 mm^3/s provisional | 225/225; 230/230 deg C | 2.4 mm^3/s | 225/225; 230/230 deg C | 2.4 mm^3/s | 50 / 45 deg C | 1.00 start | Off / 0 s until recalibrated | 50-55 deg C, 4-6 h; print from dryer if possible |
+| SUNLU TPU 95A - N0.8 Safe Start | 0.8 mm | 215 / 210 deg C | 3.2 mm^3/s temporary | 215/210; 220/215 deg C | 2.6 mm^3/s | 215/210; 220/215 deg C | 2.6 mm^3/s | 55 / 50 deg C | 0.98 start | Off / 0 s until recalibrated | 55 deg C, 8-12 h; continue from a drybox |
+| SUNLU PETG Black Standard - N0.8 Safe Start | 0.8 mm | 245 / 250 deg C | 10 mm^3/s temporary | 245/250; 250/255 deg C | 8 mm^3/s | 245/250; 250/255 deg C | 8 mm^3/s | 75 / 70 deg C | 0.95 start | Off / 0 s until recalibrated | 60-65 deg C, 6-8 h |
+| ELEGOO Rapid PETG - N0.8 Safe Start | 0.8 mm | 250 / 250 deg C | 12 mm^3/s temporary | 250/250; 255/255 deg C | 9.6 mm^3/s | 250/250; 255/255 deg C | 9.6 mm^3/s | 75 / 70 deg C | 0.97 start | Off / 0 s until recalibrated | No exact cycle; 60 deg C, 6-8 h derived start |
+| SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 0.8 mm | 220 / 220 deg C | 18 mm^3/s temporary | 220/220; 225/225 deg C | 14.4 mm^3/s | 220/220; 225/225 deg C | 14.4 mm^3/s | 60 / 55 deg C | 0.97 start | Off / 0 s until recalibrated | 50 deg C for at least 4 h if exposed or stringing |
+| EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start | 0.8 mm | 220 / 215 deg C | 8 mm^3/s temporary | 220/215; 225/220 deg C proxy only | 6.4 mm^3/s | 220/215; 225/220 deg C proxy only | 6.4 mm^3/s | 60 / 55 deg C | 0.98 start | Off / 0 s until recalibrated | No exact cycle; 50-55 deg C for 4-6 h only if needed |
+| GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start | 0.8 mm | 215 / 215 deg C | 10 mm^3/s temporary | 215/215; no hotter fallback | 8 mm^3/s | 215/215; no hotter fallback | 8 mm^3/s | 55 / 50 deg C | 0.98 start | Off / 0 s until recalibrated | No manufacturer cycle; 45-50 deg C for 4-6 h only if needed |
 
 Each 0.24/0.4 process has a separately named filament preset with the same material values as its 0.20 counterpart, avoiding ambiguous `0.20` names in the slicer. Each 0.8 mm filament preset is shared by its 0.20 and 0.40 mm process variants.
+
+The table row is the logical profile, not a claim that one saved preset can hold three nozzle materials simultaneously. Keep the listed preset name for brass. For steel, duplicate it and append `- SS Commissioning` or `- HS Commissioning`, then enter the matching temperature and MVS columns. After calibration, replace `Commissioning` with a date or `Calibrated`; do not overwrite a measured steel result with the generic 80% start.
+
+Bulk conductivity explains why steel can develop a larger heater-to-bore gradient under flow, but it cannot calculate the required temperature offset. Representative values are about 116 W/(m K) for C360 brass at 20 deg C, 15-18 W/(m K) for 304 stainless at 20-200 deg C, and 26-27 W/(m K) for hardened A2 tool steel at 20-200 deg C. Sensor location, heater contact, melt-zone length, bore finish, plating, and polymer viscosity dominate the actual print correction. In CNC Kitchen's controlled V6/PLA comparison, quality hardened steel differed noticeably only below about 200 deg C; Prusa provides a conditional `+5` to `+10 deg C` troubleshooting range rather than proof of a universal offset. The conservative table therefore starts both steels at the brass temperature and exposes only a `+5 deg C` fallback within each filament's documented range.
 
 `MVS` is maximum volumetric speed. It is the hard sustained-flow cap and matters more than the printer's headline speed. Most 0.8 mm rows deliberately reuse their current 0.4 mm caps only for safe first prints; those caps are profile values or derived starts, not measured nozzle-independent maxima. Orca states that MVS changes with nozzle diameter, so recalibrate every nozzle/material pair and keep 10-20% below the first repeatable failure or quality transition.
 
@@ -165,7 +182,7 @@ GEEETECH's `2.3 mm^3/s` 0.4 mm value is derived from `0.45 mm x 0.20 mm x 25 mm/
 
 The GEEETECH 45 deg C later bed, 25% minimum fan, PETG 75 deg C first-layer bed, SUNLU TPU 55 deg C/8-12 h drying cycle, and both Silk drying suggestions are derived Kobra/direct-drive starting values outside or between manufacturer bands. They are intentionally labeled recommendations, not manufacturer specifications.
 
-PA sweep ranges are calibration instructions, not preset values: `0.00-0.04 s` for TPU, `0.025-0.060 s` for PETG, `0.015-0.045 s` for High Speed PLA+ 2.0, and `0.025-0.050 s` for Silk PLA. If printer auto-calibration is preferred, disable filament PA rather than entering a number.
+PA sweep ranges are calibration instructions, not preset values: `0.00-0.04 s` for TPU, `0.025-0.060 s` for PETG and Rapid PETG with the 0.4 nozzle, `0.020-0.050 s` for Rapid PETG with the 0.8 nozzle, `0.015-0.045 s` for High Speed PLA+ 2.0, and `0.025-0.050 s` for Silk PLA. If printer auto-calibration is preferred, disable filament PA rather than entering a number.
 
 ## Retraction And Lift Overrides
 
@@ -176,6 +193,7 @@ Each material row applies to all listed layer heights and both nozzle sizes. Che
 | GEEETECH TPU 95A | 0.5 mm | 20 mm/s | 20 mm/s | Off | Off | 0 mm | 0 mm / Normal |
 | SUNLU TPU 95A | 0.8 mm | 30 mm/s | 25 mm/s | Off | Off | 0 mm | 0 mm / Normal |
 | SUNLU PETG Black Standard | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
+| ELEGOO Rapid PETG | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
 | SUNLU High Speed PLA+ 2.0 | 0.8 mm | 35 mm/s | 35 mm/s | On | On | 1 mm | 0.4 mm / Slope |
 | EONO Silk PLA Red-Gold-Blue | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
 | GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 30 mm/s | 30 mm/s | On | On | 1 mm | 0.4 mm / Slope |
@@ -193,6 +211,9 @@ Each material row applies to all listed layer heights and both nozzle sizes. Che
 | SUNLU PETG Black Standard - 0.20 Balanced | 3 layers | 6 | 35% at 60 s | 55% at 15 s | On | 100% | On / 20 mm/s |
 | SUNLU PETG Black Standard - 0.24 Balanced | 3 layers | 6 | 35% at 60 s | 55% at 15 s | On | 100% | On / 20 mm/s |
 | SUNLU PETG Black Standard - 0.12 Detail | 3 layers | 6 | 40% at 60 s | 65% at 15 s | On | 100% | On / 20 mm/s |
+| ELEGOO Rapid PETG - 0.20 Balanced | 5 layers | 6 | 30% at 60 s | 70% at 15 s | On | 90% | On / 20 mm/s |
+| ELEGOO Rapid PETG - 0.24 Balanced | 5 layers | 6 | 30% at 60 s | 70% at 15 s | On | 90% | On / 20 mm/s |
+| ELEGOO Rapid PETG - 0.12 Detail | 5 layers | 6 | 35% at 60 s | 80% at 15 s | On | 90% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - 0.20 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - 0.24 Balanced | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - 0.12 Detail | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
@@ -205,6 +226,7 @@ Each material row applies to all listed layer heights and both nozzle sizes. Che
 | GEEETECH TPU 95A - N0.8 Safe Start | 2 layers | 4 | 25% at 60 s | 35% at 15 s | On | 50% | On / 7 mm/s |
 | SUNLU TPU 95A - N0.8 Safe Start | 2 layers | 4 | 30% at 60 s | 50% at 15 s | On | 100% | On / 9 mm/s |
 | SUNLU PETG Black Standard - N0.8 Safe Start | 3 layers | 6 | 35% at 60 s | 55% at 15 s | On | 100% | On / 20 mm/s |
+| ELEGOO Rapid PETG - N0.8 Safe Start | 5 layers | 6 | 30% at 60 s | 65% at 15 s | On | 90% | On / 20 mm/s |
 | SUNLU High Speed PLA+ 2.0 - N0.8 Safe Start | 1 layer | 3 | 80% at 60 s | 100% at 12 s | On | 100% | On / 20 mm/s |
 | EONO Silk PLA Red-Gold-Blue - N0.8 Safe Start | 1 layer | 3 | 70% at 60 s | 90% at 15 s | On | 100% | On / 15 mm/s |
 | GRATKIT Silk PLA Blue-Purple-Black - N0.8 Safe Start | 1 layer | 3 | 70% at 60 s | 90% at 15 s | On | 100% | On / 15 mm/s |
@@ -232,6 +254,11 @@ Both 0.12 mm TPU profiles are experimental. First complete a representative 0.20
 | SUNLU PETG Black Standard | 0.4 mm | 0.24 mm | 30 mm/s | 35 mm/s | 80 mm/s | 90 mm/s | 90 mm/s | 85 mm/s | 50 mm/s | 25 mm/s | 250 mm/s |
 | SUNLU PETG Black Standard | 0.8 mm | 0.20 mm | 20 mm/s | 25 mm/s | 45 mm/s | 60 mm/s | 60 mm/s | 50 mm/s | 40 mm/s | 25 mm/s | 250 mm/s |
 | SUNLU PETG Black Standard | 0.8 mm | 0.40 mm | 20 mm/s | 25 mm/s | 25 mm/s | 30 mm/s | 30 mm/s | 28 mm/s | 20 mm/s | 18 mm/s | 230 mm/s |
+| ELEGOO Rapid PETG | 0.4 mm | 0.12 mm | 30 mm/s | 35 mm/s | 65 mm/s | 90 mm/s | 100 mm/s | 80 mm/s | 45 mm/s | 25 mm/s | 250 mm/s |
+| ELEGOO Rapid PETG | 0.4 mm | 0.20 mm | 30 mm/s | 35 mm/s | 80 mm/s | 100 mm/s | 100 mm/s | 90 mm/s | 55 mm/s | 25 mm/s | 250 mm/s |
+| ELEGOO Rapid PETG | 0.4 mm | 0.24 mm | 30 mm/s | 35 mm/s | 75 mm/s | 80 mm/s | 80 mm/s | 75 mm/s | 50 mm/s | 25 mm/s | 250 mm/s |
+| ELEGOO Rapid PETG | 0.8 mm | 0.20 mm | 20 mm/s | 25 mm/s | 50 mm/s | 70 mm/s | 70 mm/s | 65 mm/s | 40 mm/s | 25 mm/s | 250 mm/s |
+| ELEGOO Rapid PETG | 0.8 mm | 0.40 mm | 20 mm/s | 25 mm/s | 28 mm/s | 35 mm/s | 35 mm/s | 32 mm/s | 22 mm/s | 18 mm/s | 230 mm/s |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.12 mm | 35 mm/s | 45 mm/s | 100 mm/s | 180 mm/s | 230 mm/s | 150 mm/s | 80 mm/s | 30 mm/s | 300 mm/s |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.20 mm | 35 mm/s | 45 mm/s | 120 mm/s | 180 mm/s | 200 mm/s | 160 mm/s | 80 mm/s | 30 mm/s | 300 mm/s |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 35 mm/s | 45 mm/s | 110 mm/s | 165 mm/s | 165 mm/s | 145 mm/s | 75 mm/s | 30 mm/s | 300 mm/s |
@@ -248,7 +275,7 @@ Both 0.12 mm TPU profiles are experimental. First complete a representative 0.20
 | GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.20 mm | 15 mm/s | 20 mm/s | 30 mm/s | 45 mm/s | 55 mm/s | 45 mm/s | 28 mm/s | 20 mm/s | 250 mm/s |
 | GRATKIT Silk PLA Blue-Purple-Black | 0.8 mm | 0.40 mm | 15 mm/s | 20 mm/s | 22 mm/s | 28 mm/s | 30 mm/s | 28 mm/s | 22 mm/s | 15 mm/s | 230 mm/s |
 
-For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `18/9 mm/s` for GEEETECH TPU at the provisional 3.0 mm^3/s cap, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for PETG, `110/55 mm/s` for High Speed PLA+, `49/24 mm/s` for EONO Silk, and `61/30 mm/s` for GRATKIT Silk at 0.20/0.40 mm layers. The table stays at or below those caps for extrusion features; travel is not flow-limited. Confirm in Preview using `Volumetric flow rate (mm³/s)` because the slicer's rounded bead model can differ slightly from the rectangular check.
+For the 0.8 mm brass rows, the temporary rectangular flow ceilings at 0.82 mm line width are approximately `18/9 mm/s` for GEEETECH TPU at the provisional 3.0 mm^3/s cap, `20/10 mm/s` for SUNLU TPU, `61/30 mm/s` for SUNLU PETG, `73/36 mm/s` for ELEGOO Rapid PETG, `110/55 mm/s` for High Speed PLA+, `49/24 mm/s` for EONO Silk, and `61/30 mm/s` for GRATKIT Silk at 0.20/0.40 mm layers. Slicer Next reduces the listed feature speed when the selected filament preset's MVS is lower; this is how the same process table works with the steel commissioning presets. Confirm in Preview using `Volumetric flow rate (mm³/s)` because the slicer's rounded bead model can differ slightly from the rectangular check.
 
 ## Process Acceleration
 
@@ -269,6 +296,11 @@ For the 0.8 mm rows, the temporary rectangular flow ceilings at 0.82 mm line wid
 | SUNLU PETG Black Standard | 0.4 mm | 0.24 mm | 2,800 | 500 | 1,100 | 2,300 | 2,800 | 2,000 | 1,000 | 1,200 | 5,500 |
 | SUNLU PETG Black Standard | 0.8 mm | 0.20 mm | 2,500 | 500 | 900 | 2,000 | 2,500 | 1,800 | 800 | 1,000 | 5,000 |
 | SUNLU PETG Black Standard | 0.8 mm | 0.40 mm | 2,000 | 500 | 800 | 1,600 | 2,000 | 1,500 | 700 | 800 | 4,500 |
+| ELEGOO Rapid PETG | 0.4 mm | 0.12 mm | 2,500 | 500 | 900 | 2,000 | 2,500 | 1,800 | 800 | 1,000 | 5,000 |
+| ELEGOO Rapid PETG | 0.4 mm | 0.20 mm | 3,000 | 500 | 1,200 | 2,500 | 3,000 | 2,000 | 1,000 | 1,200 | 6,000 |
+| ELEGOO Rapid PETG | 0.4 mm | 0.24 mm | 2,800 | 500 | 1,100 | 2,300 | 2,800 | 2,000 | 1,000 | 1,200 | 5,500 |
+| ELEGOO Rapid PETG | 0.8 mm | 0.20 mm | 2,500 | 500 | 900 | 2,000 | 2,500 | 1,800 | 800 | 1,000 | 5,000 |
+| ELEGOO Rapid PETG | 0.8 mm | 0.40 mm | 2,000 | 500 | 800 | 1,600 | 2,000 | 1,500 | 700 | 800 | 4,500 |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.12 mm | 4,500 | 500 | 1,500 | 3,500 | 4,500 | 3,000 | 1,000 | 2,000 | 8,000 |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.20 mm | 5,000 | 500 | 2,000 | 4,000 | 5,000 | 3,500 | 1,000 | 2,500 | 8,000 |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 4,500 | 500 | 1,800 | 3,800 | 4,500 | 3,300 | 1,000 | 2,300 | 7,500 |
@@ -306,6 +338,11 @@ Acceleration values are in `mm/s^2`. Lower outer/top acceleration is intentional
 | SUNLU PETG Black Standard | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
 | SUNLU PETG Black Standard | 0.8 mm | 0.20 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
 | SUNLU PETG Black Standard | 0.8 mm | 0.40 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| ELEGOO Rapid PETG | 0.4 mm | 0.12 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| ELEGOO Rapid PETG | 0.4 mm | 0.20 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| ELEGOO Rapid PETG | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
+| ELEGOO Rapid PETG | 0.8 mm | 0.20 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
+| ELEGOO Rapid PETG | 0.8 mm | 0.40 mm | 0.40 mm | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | 0.82 | Inner/Outer | Off | Aligned |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.12 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.20 mm | 0.20 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 0.24 mm | 0.42 | 0.42 | 0.45 | 0.45 | 0.42 | 0.42 | 0.50 | Inner/Outer | Off | Aligned |
@@ -364,6 +401,7 @@ These are derived working windows inside the machine limits, not manufacturer pr
 | GEEETECH TPU 95A | **0.16-0.24 mm**; 0.12 experimental | **0.24-0.40 mm** | Prefer 0.16-0.20 and 0.24-0.32 for reliable flexible parts. Use 0.12 only with the 1.6 mm^3/s detail cap; use 0.40 only on simple thick regions. |
 | SUNLU TPU 95A | **0.16-0.24 mm**; 0.12 experimental | **0.24-0.40 mm** | Thin layers multiply feed/retraction opportunities. Cyclic-flex parts favor no more than 0.32 mm with the 0.8 nozzle. |
 | SUNLU PETG Black | **0.12-0.28 mm** | **0.20-0.48 mm** | Use 0.28/0.48 only on simple or near-vertical regions. Refine undersides, hole roofs, and overhangs because PETG is prone to sag and stringing. |
+| ELEGOO Rapid PETG | **0.12-0.28 mm** | **0.20-0.48 mm** | Use 0.28/0.48 only after nozzle-material-specific MVS and layer-strength tests. Refine overhangs and hole roofs; Rapid flow does not remove PETG sag. |
 | SUNLU High Speed PLA+ 2.0 | **0.12-0.28 mm** | **0.20-0.48 mm** | Best candidate for the coarse speed endpoints, but only after nozzle-specific MVS calibration; high material speed does not remove overhang limits. |
 | EONO Silk PLA Red-Gold-Blue | **0.12-0.24 mm** | **0.20-0.40 mm** | Prefer a fixed or narrow band on uninterrupted showcase surfaces because height transitions can appear as sheen bands. No first-party EONO TDS was found. |
 | GRATKIT Silk PLA Blue-Purple-Black | **0.12-0.24 mm** | **0.20-0.40 mm** | Prefer a fixed or narrow band for uniform gloss. GRATKIT warns that excessive speed removes the Silk texture; 0.48 mm remains experimental. |
@@ -420,6 +458,11 @@ For every **fixed-height** custom process below, explicitly set `Top shell thick
 | SUNLU PETG Black Standard | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
 | SUNLU PETG Black Standard | 0.8 mm | 0.20 mm | 2 | 5 | 4 | 15% | Gyroid |
 | SUNLU PETG Black Standard | 0.8 mm | 0.40 mm | 2 | 3 | 3 | 15% | Gyroid |
+| ELEGOO Rapid PETG | 0.4 mm | 0.12 mm | 3 | 8 | 7 | 15% | Gyroid |
+| ELEGOO Rapid PETG | 0.4 mm | 0.20 mm | 3 | 5 | 4 | 15% | Gyroid |
+| ELEGOO Rapid PETG | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
+| ELEGOO Rapid PETG | 0.8 mm | 0.20 mm | 2 | 5 | 4 | 15% | Gyroid |
+| ELEGOO Rapid PETG | 0.8 mm | 0.40 mm | 2 | 3 | 3 | 15% | Gyroid |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.12 mm | 3 | 7 | 7 | 15% | Gyroid |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.20 mm | 3 | 5 | 4 | 15% | Gyroid |
 | SUNLU High Speed PLA+ 2.0 | 0.4 mm | 0.24 mm | 3 | 4 | 4 | 15% | Gyroid |
@@ -449,6 +492,7 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | SUNLU TPU 95A | A Qidi owner found reducing MVS only delayed failure; removing the PTFE tube enabled a 13-hour print. [Reddit](https://old.reddit.com/r/QidiTech3D/comments/1jzpg5s/q1_pro_tpu_issue_filament_feeding/) | Feed drag must be fixed before treating the problem as a nozzle or speed issue. |
 | SUNLU PETG Black | A direct color-match owner used 250 deg C first layer and 245 deg C later, with fan mostly off except for overhangs. [Bambu forum](https://forum.bambulab.com/t/best-settings-for-sunlu-petg/33776?page=2#post_35) | Supports 245-250 deg C and moderate normal cooling rather than full fan. |
 | PETG on Kobra 3 | An owner reported nearly flawless output at 250/100 deg C for two layers, then 240/80 deg C and 80 mm/s; later users reported improvement. [Reddit](https://old.reddit.com/r/anycubic/comments/1exjpt8/petg_on_kobra_3/) | Confirms slower first layers and a warm bed, but 100 deg C is not used as a general default. |
+| ELEGOO Rapid PETG | Exact first-party profiles use 250 deg C, 70 deg C bed, 30-80% normal fan, 90% overhang fan, density 1.26, and MVS values from 10 to 34 mm^3/s depending on printer; the generic Orca profile uses flow 0.99 and 18 mm^3/s. Owner reports reached higher flow on other hotends but also reported overhang globbing with insufficient fan. [Bambu owner thread](https://forum.bambulab.com/t/elegoo-rapid-petg-filament/48209) and [cooling report](https://forum.bambulab.com/t/elegoo-petg-rapid-suggestions/96245?page=3) | Uses 250 deg C and localized 90% fan, but conservative Kobra MVS starts of 10/12 mm^3/s, derived flow-ratio starts of 0.95/0.97, and PA disabled initially rather than copying another hotend's 18-24 mm^3/s result. |
 | SUNLU High Speed PLA+ 2.0 | An exact-product owner at 450 mm/s reported slight stringing, visible VFAs, about 5% worse finish, and only about 35% shorter print time. [Reddit](https://www.reddit.com/r/3Dprinting/comments/1m1w03t/favorite_brand_of_filament/n3l70c2/) | Keeps visible walls at 100-120 mm/s; internal features use 180-200 mm/s at 0.20 mm and up to 230 mm/s at 0.12 mm. |
 | EONO Silk PLA Red/Gold/Blue | Exact-color Amazon reviews report clean printing and layer bonding at 205-215 deg C with a 60 deg C bed, but another long-print review reports tangling after about 100 m. [Exact listing and reviews](https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE) | Uses a moderate 210-215 deg C profile, conservative 8 mm^3/s MVS, and an inspect-or-respool rule before unattended long prints. |
 | GRATKIT Silk PLA Blue/Purple/Black | A same-family Red/Gold/Purple owner/forum report linked visible lines to flow, retraction, filament twist, and inconsistent coextrusion orientation; the poster was not verified as official GRATKIT support and the colorway differs. [Owner/forum thread](https://forums.gratkit.com/d/65-tri-colour-silk-pla-lines) | Keeps Kobra retraction instead of the aggressive generic 2 mm recommendation, caps initial flow at 10 mm^3/s, and requires an orientation sample. |
@@ -457,10 +501,10 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 
 | Step | Action | Keep or change the table value when... |
 |---:|---|---|
-| 0 | After fitting the 0.8 mm nozzle, select the matching printer preset, rerun leveling, and verify Z offset with a first-layer patch. | The slicer still reports a 0.4 mm nozzle or an initial-layer line width other than 0.82 mm: stop and correct the printer/process preset before calibration. |
+| 0 | After fitting any different nozzle diameter or material, select the matching printer/filament preset, rerun leveling, verify Z offset with a first-layer patch, and run PID calibration if the printer/firmware supports or requires it. | The slicer reports the wrong nozzle diameter/material commissioning preset or an 0.8 initial-layer width other than 0.82 mm: stop and correct the preset before calibration. |
 | 1 | Dry the spool and use the intended feed path. | Popping, bubbles, roughness, or fine stringing remain: dry again before tuning retraction. |
 | 2 | Verify the first layer and bed cleanliness. | Large PETG parts lift: preheat longer, use 5-8 mm brim/mouse ears, then raise bed by 5 deg C if needed. |
-| 3 | Run a temperature tower at representative speed. | High-flow lines look matte/weak: raise 5 deg C. Excess gloss or ooze: lower 5 deg C. |
+| 3 | Run a temperature tower at representative flow after a 5-minute heat soak. Start steel at the brass temperature; test the listed `+5 deg C` fallback only if needed. | High-flow lines look matte/weak: try the allowed fallback. Excess gloss, ooze, changed Silk sheen, or heat creep: restore the brass temperature and lower MVS. |
 | 4 | Calibrate flow ratio separately for each nozzle/material pair. | Change in 0.01 steps. Do not use flow to hide a partial clog or TPU feed drag. |
 | 5 | Calibrate PA separately for each nozzle/material pair; only after stable TPU extrusion for TPU. | Corners bulge: PA may be low. Thin corners or gaps after direction changes: PA may be high. |
 | 6 | Run maximum volumetric-flow calibration separately for every nozzle/material pair. | Set MVS 10-20% below the first repeatable roughness, gloss transition, under-extrusion, or layer-strength failure; after increasing MVS, revalidate PA at representative flow. |
@@ -476,7 +520,8 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | TPU prints air after several hours | Check spool/tube drag and hotend residue. Do not assume a true nozzle clog. Let a warm spool cool before feeding if the drive wheel slips. |
 | TPU strings | Dry again, avoid crossing walls, then lower nozzle 5 deg C. Increase retraction only after extrusion is mechanically reliable. |
 | PETG strings or blobs | Dry, lower nozzle 5 deg C, verify flow, then test 0.9-1.0 mm retraction. |
-| PETG weak or matte at speed | Raise nozzle 5 deg C or reduce MVS from 10 to 8 mm^3/s; reduce normal fan by 10 percentage points. |
+| Standard PETG weak or matte at speed | Raise nozzle 5 deg C within the product range or reduce MVS from 10 to 8 mm^3/s; reduce normal fan by 10 percentage points. |
+| ELEGOO Rapid PETG weak or matte at speed | Reduce MVS by 15-20%; then test 5 deg C hotter and 10 percentage points less normal fan. Unlock 14/16 mm^3/s only after a measured failure point of at least 16.5/18.8 mm^3/s. |
 | PETG damages or locks to PEI | Lower first-layer nozzle/bed by 5 deg C, add a thin glue release layer, and wait for full cooling. |
 | PLA+ rough/matte high-speed infill | Reduce MVS from 18 to 16 mm^3/s before lowering every feature speed. |
 | PLA+ ringing or VFAs | Reduce outer wall to 80-100 mm/s and outer acceleration to 1,200-1,500 mm/s^2. |
@@ -484,6 +529,7 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 | Silk PLA snaps, binds, or forms unexplained vertical color lines | Inspect the cardboard spool and coextrusion orientation, dry only at the conservative material-specific cycle, test direct feeding, and replace or respool a crossed or inconsistently oriented roll. |
 | Poor top surface | Lower top speed by 15-20 mm/s or add one top layer after flow is calibrated. |
 | 0.8 mm profile under-extrudes | Confirm the 0.8 mm printer preset and 0.82 mm line widths, then lower MVS by 15%, inspect the nozzle/hotend, and run a temperature tower. Do not compensate by increasing flow ratio. |
+| Steel nozzle under-extrudes versus brass | Verify identical geometry, installation, bore cleanliness, heat soak, and correct steel commissioning preset. Test the listed +5 deg C fallback, then lower MVS; do not assume conductivity ratios predict the correction. |
 | 0.8 mm first layer is over-squished or detached | Recheck nozzle installation, leveling, and Z offset with the 0.40 mm first-layer height before changing bed temperature or flow. |
 
 ## Sources And Limits
@@ -495,6 +541,7 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 - [Anycubic Kobra 3 Max TPU guide](https://wiki.anycubic.com/en/fdm-3d-printer/kobra-3-max/tpu-printing-guide)
 - [SUNLU TPU 95A product data](https://www.sunlu.com/products/tpu-95a-flexible-filament) and [TDS](https://media.sunlu.com/prod/20260330/e8b9c06a-4b93-46cb-9532-d9deb185a7c8.pdf?filename=TDS)
 - [SUNLU standard PETG product data](https://www.sunlu.com/products/petg-3d-printing-filament) and [filament/drying guide](https://www.sunlu.com/wiki/filament-usage-guide)
+- [ELEGOO Rapid PETG product data](https://www.elegoo.com/products/rapid-petg-filament-1-75mm-colored-1kg.js), [exact Anycubic Slicer Next ELEGOO base](https://github.com/ANYCUBIC-3D/AnycubicSlicerNext/blob/4f50fdc94ebbc798d57716c031be16f75b70c0a5/resources/profiles/Elegoo/filament/ELEGOO/Elegoo%20RAPID%20PETG%20%40base.json), and [Orca system profile](https://github.com/OrcaSlicer/OrcaSlicer/blob/43a83397d4e4e032edf0fca5258ccd0ab886a7d4/resources/profiles/OrcaFilamentLibrary/filament/Elegoo/Elegoo%20Rapid%20PETG%20%40System.json)
 - [SUNLU High Speed PLA+ 2.0 product data](https://store.sunlu.com/products/moq-6kg-high-speed-pla-2-0hspla-plus-2-0-high-speed-3d-printer-filament-1kg) and [TDS](https://media.sunlu.com/prod/20260330/225ab1bc-a40a-435b-8d20-a2745303674b.pdf?filename=TDS)
 - [GEEETECH TPU product data](https://www.geeetech.com/products/tpu-3d-printer-filament-1-75mm-1kg-roll), [printing guide](https://blog.geeetech.com/materials/tpu-filament-guide-how-to-print-with-tpu/), and [drying guide](https://blog.geeetech.com/materials/3d-printing-filament/why-tpu-filament-absorbs-moisture-easily-and-how-to-dry-it/)
 - [EONO Red/Gold/Blue exact German product listing](https://www.amazon.de/dp/B0B8YX4Y95?language=de_DE); no first-party EONO TDS was found
@@ -521,8 +568,15 @@ Use more walls, not just more infill, when strength is the priority. Two 0.82 mm
 - [Orca Kobra 3 Max generic PLA 0.8 mm filament reference](https://raw.githubusercontent.com/OrcaSlicer/OrcaSlicer/972dae22afdadc3251d05e10c2d6f00c35e6b83a/resources/profiles/Anycubic/filament/Anycubic%20PLA%20%40Anycubic%20Kobra%203%20Max%200.8%20nozzle.json)
 - [Orca maximum volumetric-speed calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/volumetric_speed_calib) and [pressure-advance calibration](https://github.com/OrcaSlicer/OrcaSlicer/wiki/pressure_advance_calib)
 
+### Nozzle Material And Flow Sources
+
+- [CNC Kitchen controlled hotend flow benchmark](https://www.cnckitchen.com/blog/flow-rate-benchmarking-of-a-hotend), including the finding that its quality hardened-steel V6 nozzle differed noticeably from brass mainly below 200 deg C
+- [Prusa E3D V6 nozzle guidance](https://help.prusa3d.com/article/e3d-v6-nozzles_920168) and [under-extrusion troubleshooting](https://help.prusa3d.com/article/under-extrusion_2007), used as conditional steel temperature guidance rather than proof of a universal offset
+- [Copper Development Association C36000 brass](https://alloys.copper.org/alloy/C36000), [Alleima 304 stainless](https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-3r12/), and [Uddeholm hardened A2/Rigor](https://www.uddeholm.com/en/app/uploads/sites/216/productdb/api/tech_uddeholm-rigor_en.pdf), used only to establish conductivity direction, not to calculate a temperature or MVS correction
+- [E3D volumetric-flow guidance](https://e3d-online.com/pages/revo-high-flow-volumetric-flow-rate-calculator), which emphasizes filament, temperature, geometry, and complete-system dependence
+
 ### Owner Reports
 
 - The directly retrieved owner evidence used to modify these profiles is linked row-by-row in [What Owners Reported](#what-owners-reported).
 
-The strongest online experience evidence is material- and printer-specific for GEEETECH TPU, but exact SUNLU TPU 95A/Kobra 3 Max evidence is scarce. EONO has no retrieved first-party TDS, and neither requested Silk filament has an exact Kobra 3 Max 0.8 mm profile, so their values remain conservative derived starts. Reports from other modern direct-drive printers are therefore labeled as transferable experience rather than proof. Kobra 3 reports also transfer imperfectly to the Max because the Max has a much larger moving bed and lower quality-oriented process acceleration.
+The strongest online experience evidence is material- and printer-specific for GEEETECH TPU, but exact SUNLU TPU 95A/Kobra 3 Max and ELEGOO Rapid PETG/Kobra 3 Max evidence is scarce. EONO has no retrieved first-party TDS, and neither requested Silk filament has an exact Kobra 3 Max 0.8 mm profile, so their values remain conservative derived starts. No controlled identical-geometry Kobra comparison was found for brass versus stainless or hardened steel; the steel MVS entries are commissioning policy values and must not be reported as material penalties. Reports from other modern direct-drive printers are therefore labeled as transferable experience rather than proof. Kobra 3 reports also transfer imperfectly to the Max because the Max has a much larger moving bed and lower quality-oriented process acceleration.

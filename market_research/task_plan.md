@@ -1,7 +1,7 @@
 # Task Plan: German Filament Price Research
 
 ## Goal
-Create a current, source-linked Markdown comparison of German-market filament prices for PLA, PLA+, high-speed PLA, PETG, high-speed PETG, and TPU 95A, plus exact requested offers for EONO Red/Gold/Blue and GRATKIT Blue/Purple/Black Silk PLA.
+Create a current, source-linked Markdown comparison of German-market filament prices for PLA, PLA+, high-speed PLA, PETG, high-speed PETG, and TPU 95A, plus exact requested offers for EONO Red/Gold/Blue and GRATKIT Blue/Purple/Black Silk PLA and ELEGOO Rapid PETG.
 
 ## Scope
 - Geography: Sellers and marketplaces delivering to Germany
@@ -18,6 +18,7 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - [x] Phase 4: Validate prices, classifications, stock, and color effects
 - [x] Phase 5: Build and review the Markdown deliverable
 - [x] Phase 6: Add and validate the two requested exact Silk PLA offers
+- [x] Phase 7: Add and validate the requested exact ELEGOO Rapid PETG offer
 
 ## Key Questions
 1. What is the cheapest verified in-stock offer in each material class?
@@ -35,6 +36,7 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - Allow public, no-code limited-time sales but label them prominently.
 - Treat ranges as the span of the directly validated sample, not an exhaustive market-wide interval.
 - Keep requested exact-product prices separate from cheapest-category winners.
+- Treat the 12 August ELEGOO Rapid PETG offer as a point-in-time exact-product check; do not retroactively replace the 1 August high-speed-PETG category sample.
 
 ## Errors Encountered
 - A stale BerryBase PLA+ URL returned 404; replaced it with the live canonical product URL.
@@ -43,4 +45,4 @@ Create a current, source-linked Markdown comparison of German-market filament pr
 - Amazon showed an inconsistent EUR/kg field for IEMAI high-speed PETG; used the explicit 1 kg weight and item price for conservative normalization.
 
 ## Status
-**Complete** - Category research and the 6 August 2026 EONO/GRATKIT exact-product update are validated and documented.
+**Complete** - Category research, the 6 August 2026 EONO/GRATKIT exact-product update, and the 12 August 2026 ELEGOO Rapid PETG exact-product update are validated and documented.

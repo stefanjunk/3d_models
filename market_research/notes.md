@@ -1,6 +1,6 @@
 # Research Notes: German Filament Prices
 
-**Research dates:** 2026-08-01; requested Silk PLA update 2026-08-06
+**Research dates:** 2026-08-01; requested Silk PLA update 2026-08-06; requested ELEGOO Rapid PETG update 2026-08-12
 
 ## Comparison Rules
 - Prices include German VAT and exclude shipping.
@@ -96,9 +96,18 @@
 - Manufacturer page: https://gratkit.com/products/gratkit-silk-multi-color-pla-filament-1-75mm-coextrusion-pla-filament-1kg
 - GRATKIT's own EU-warehouse Blue/Purple/Black option was sold out. The Amazon offer therefore establishes current German availability; the manufacturer page establishes the material family and color variant.
 
+### ELEGOO Rapid PETG White
+
+- Exact product: ELEGOO Rapid PETG, white, cardboard spool, 1.75 mm, +/-0.02 mm, 1 kg, Alza code ELEEG240444.
+- Direct URL: https://www.alza.de/elegoo-rapid-petg-1-75mm-1kg-cardboard-spool-white-d12389175.htm
+- Verified product page on 2026-08-12: EUR 13.49 including VAT, normalized to EUR 13.49/kg, new and in stock above 10 units.
+- The same page states a 240-270 C nozzle range, 65-75 C bed range, and 30-600 mm/s recommended-speed range. Those retailer fields support product identity but are not used as Kobra-specific profile validation.
+- This exact requested offer is separate from the 2026-08-01 high-speed-PETG category comparison and does not replace IEMAI's EUR 11.69/kg category result.
+- Shipping was excluded consistently. The page advertised a separate DHL parcel-shop delivery offer, but delivery cost was not included in the item-price comparison.
+
 ## Validation Notes
 
-- Prices are point-in-time observations from 2026-08-01 and 2026-08-06 and may change quickly, especially public Amazon sales.
+- Prices are point-in-time observations from 2026-08-01, 2026-08-06, and 2026-08-12 and may change quickly, especially public marketplace sales.
 - Amazon pages were set to delivery in Berlin, Germany. Amazon states that marketplace prices for EU delivery are final prices as indicated by the seller; checkout shows the order total including tax.
 - Categories are mutually exclusive for this comparison: standard PLA excludes PLA+ and explicit high-speed products; conventional PLA+ excludes explicit high-speed products; standard PETG excludes explicit high-speed products.
 - High-speed qualification required explicit listing language such as high speed, rapid, hyper, super speedy, or a directly stated fast-printing claim.

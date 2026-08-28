@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-freeform-upper-collar-hierarchy-001
+title: Collar-adjacent upper follows the approved height hierarchy without an unintended secondary peak
+category: visual
+status: draft
+trigger: A freeform upper transitions forward from a collar/opening whose front edge is the approved local height datum.
+risk: Smooth interpolation can create a mathematically fair but visually unnecessary crest above the collar, enclosing unused volume and breaking the intended silhouette.
+given:
+  project: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform
+  revision: 6.2.0-draft.3
+  datum: front-collar
+  graded_curve: forward-upper-centerline-through-midfoot
+  required_views: [lateral, medial, three-quarter]
+expected:
+  - The collar height datum and the graded forward interval are explicit in the design contract.
+  - Dense sampling shows no positive centerline step beyond the declared numerical tolerance and no height above the approved collar-relative limit.
+  - Fixed lateral, medial and three-quarter views show one calm descent without a secondary visible crest.
+  - Lowering the aesthetic envelope leaves protected fit/interface datums within tolerance.
+failure_conditions:
+  - The centerline or visible envelope rises above the approved collar-relative limit inside the graded interval.
+  - Numerical checks pass only at sparse guide stations while an interpolated peak remains between them.
+  - A fixed side or three-quarter view shows a second peak or unexplained empty envelope between collar and forefoot.
+fixtures:
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.3.json
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/production-v6.2.0-draft.3/
+grader:
+  type: hybrid
+  command: python3 products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py --parameters products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/parameters.yaml
+  expected_exit_code: 0
+  rubric: Side, medial and three-quarter silhouettes must descend from the collar without a secondary crest; numeric sampling is necessary but not sufficient.
+  measurement_method: Dense centerline height/step evaluation plus hash-bound fixed-camera visual review and protected-interface regression.
+relationships:
+  lessons: [EXP-00033]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/project-validation-draft3.json
+  artifact_hashes:
+    - 30e3ec7fbd67629b5caeb5afc80b3f5a73dcef84d3b3a125d9ab9900404cd302
+    - b8f68d62ba23ab5924305d4b6ba283551dbc97372faa0d46da727b0b14c94d48
+    - ee638735332315d9701aae6d70c73baca538720a120bfd6f2bd6015495e12b06
+tags: [visual, freeform, footwear, collar, centerline, silhouette, interpolation, regression]

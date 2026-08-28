@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+kind: user-correction-trace
+project_id: MM-SHO-001
+part_revision: 6.2.0-draft.3
+captured_at: 2026-08-28
+language: de
+prior_proposal:
+  revision: 6.2.0-draft.2
+  state: digitally-passed-but-user-rejected
+  proposed_result: "Direktes Freeform-Upper mit digital bestandener Topologie und weichem Komfortkragen."
+  observed_limitations:
+    - "Die wasserdichte Hohlhülle endete vorne und hinten als sichtbarer Innenbogen statt als materialgefüllter Abschluss."
+    - "Die freie Upper-Mittellinie erreichte vor dem Kragen einen separaten Hochpunkt."
+user_correction:
+  verbatim: >-
+    es ist wieder vorne und hinten ein loch bei beiden varianten. außerdem geht
+    der schuh in der mitte etwas zu hoch. der oberschuch geht höher als das
+    collar. wirkt so als ob da ein freier bereich entsteht, der nicht nötig ist
+  normalized_requirements:
+    - "Ferse und Zehe sind in jeder linken/rechten Upper-Variante sichtbar und geometrisch geschlossen."
+    - "Der Upper-Scheitel steigt vor dem Kragen nicht über die vordere Kragenhöhe."
+    - "Der unnötige freie Hüllbereich zwischen Kragen und Vorderfuß wird entfernt."
+approvals:
+  requirements:
+    message: freigegeben
+    date: 2026-08-28
+  concept:
+    message: freigegebene
+    date: 2026-08-28
+    asset: previews/concept-v6.2.0-draft.3.png
+    asset_sha256: cfc1678a8f7eb647946e2ac5366718310cdc0ad7b42a7cf51a5ef9f48aa5c1ca
+accepted_after_verification:
+  revision: 6.2.0-draft.3
+  terminal_closure:
+    variants: [fuzzy-shell-left-right, infill-envelope-left-right, reinforcement-frame-left-right]
+    residual_aperture_area_mm2: 0.0
+    closure_blend_length_mm: 8.0
+    minimum_local_wall_mm: 1.4
+  forward_centerline:
+    interval_y_mm: [95.208, 182.24]
+    start_z_mm: 52.0
+    maximum_z_mm: 52.0
+    end_z_mm: 39.45
+    maximum_positive_sample_step_mm: 0.0
+  digital_result:
+    specialist_checks: 17/17 PASS
+    mesh_audits: PASS
+    visual_review: PASS
+    aggregate_status: REVIEW_REQUIRED
+    review_required_reasons: [exact-slicer-profile, physical-coupon, full-shoe-fit, exact-material-safety]
+evidence:
+  - {path: design-spec.yaml, sha256: c0a7d843244ae08eb6fa979d884744dd52153f9136a3b55511aaf5c050338962}
+  - {path: CONCEPT_REVIEW_DRAFT3.md, sha256: 39dc70f6b7ed8e940f4ed7d7181ced0577d80110562aa515f3b6bc9f51c7fd4e}
+  - {path: validation/freeform-validation-6.2.0-draft.3.json, sha256: 30e3ec7fbd67629b5caeb5afc80b3f5a73dcef84d3b3a125d9ab9900404cd302}
+  - {path: validation/visual-review-draft3.json, sha256: b8f68d62ba23ab5924305d4b6ba283551dbc97372faa0d46da727b0b14c94d48}
+  - {path: validation/project-validation-draft3.json, sha256: ee638735332315d9701aae6d70c73baca538720a120bfd6f2bd6015495e12b06}
+uncertainty:
+  - "Die digitale Korrektur beweist keine Druckbarkeit im noch unbekannten Anycubic-/TPU-Profil."
+  - "Komfort, Fit, Hautkontakt, Biegeermüdung und Verschleiß sind nicht physisch geprüft."

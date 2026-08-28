@@ -1,0 +1,637 @@
+{
+  "schema_version": 1,
+  "project_id": "MM-SHO-001",
+  "revision": "6.2.0-draft.3",
+  "generator": "generate_v6_2.py",
+  "method": {
+    "name": "direct-c2-freeform-domain-loft",
+    "sole_interface_interpolation": "pchip-v6.1-compatible",
+    "longitudinal_interpolation": "natural-cubic-c2",
+    "upper_height_interpolation": "natural-cubic-c2-with-approved-vamp-stations",
+    "voxel_grid": false,
+    "distance_field": false,
+    "marching_cubes": false,
+    "global_remesh": false,
+    "collar": "parametric domain opening plus explicit rounded edge cap",
+    "terminal_closure": "parametric solid plugs plus exact manifold union"
+  },
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "trimesh": "4.4.1"
+  },
+  "parameters": {
+    "path": "parameters.yaml",
+    "sha256": "162fd30fdd695c63017686dbf9fcd1cd77c38389a40c82ef5587c63c9f76d860"
+  },
+  "domain": {
+    "full_vertices": 117560,
+    "full_faces": 232302,
+    "frame_vertices": 63570,
+    "frame_faces": 121938
+  },
+  "construction": {
+    "fuzzy_shell": {
+      "base_wall_mm": 1.4,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 2.6000000000000014,
+      "collar_constructed_wall_mm": 2.6000000000000014,
+      "domain_vertices": 117560,
+      "domain_faces": 232302,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.3525045699195163,
+      "visible_outer_edge_max_mm": 1.207885591765987,
+      "visible_outer_edge_p99_mm": 1.0264099707881205,
+      "terminal_closure": {
+        "method": "parametric-solid-plugs-plus-manifold-union",
+        "boolean_engine": "manifold",
+        "terminal_plane_clip_source_y_mm": [
+          0.05,
+          267.95
+        ],
+        "terminal_plane_clip_output_y_mm": [
+          0.0,
+          268.0
+        ],
+        "maximum_longitudinal_remap_mm": 0.05,
+        "blend_length_mm": 8.0,
+        "boolean_overlap_mm": 0.02,
+        "minimum_local_wall_mm": 1.4,
+        "volume_before_closure_mm3": 41719.689090597596,
+        "volume_after_closure_mm3": 47242.31770962548,
+        "added_material_volume_mm3": 5522.628619027884,
+        "discarded_zero_volume_components": 0,
+        "discarded_zero_volume_faces": 0,
+        "discarded_absolute_volume_mm3": 0.0,
+        "discarded_degenerate_faces": 0,
+        "discarded_zero_area_faces": 0,
+        "discarded_post_split_zero_area_faces": 0,
+        "sections": {
+          "heel": {
+            "sample_y_mm": 4.0,
+            "outer_section_area_mm2": 302.75539704276736,
+            "material_section_area_mm2": 307.35671357037893,
+            "residual_aperture_area_mm2": 0.0
+          },
+          "toe": {
+            "sample_y_mm": 264.0,
+            "outer_section_area_mm2": 511.8263107196742,
+            "material_section_area_mm2": 517.6206772650547,
+            "residual_aperture_area_mm2": 0.0
+          }
+        }
+      }
+    },
+    "infill_envelope": {
+      "base_wall_mm": 4.5,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 4.5,
+      "collar_constructed_wall_mm": 2.6000003898938844,
+      "domain_vertices": 117560,
+      "domain_faces": 232302,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.35079150205490883,
+      "visible_outer_edge_max_mm": 1.207885591765987,
+      "visible_outer_edge_p99_mm": 1.0261956016201255,
+      "terminal_closure": {
+        "method": "parametric-solid-plugs-plus-manifold-union",
+        "boolean_engine": "manifold",
+        "terminal_plane_clip_source_y_mm": [
+          0.05,
+          267.95
+        ],
+        "terminal_plane_clip_output_y_mm": [
+          0.0,
+          268.0
+        ],
+        "maximum_longitudinal_remap_mm": 0.05,
+        "blend_length_mm": 8.0,
+        "boolean_overlap_mm": 0.02,
+        "minimum_local_wall_mm": 1.4,
+        "volume_before_closure_mm3": 117735.10000322307,
+        "volume_after_closure_mm3": 122771.21199887461,
+        "added_material_volume_mm3": 5036.111995651547,
+        "discarded_zero_volume_components": 0,
+        "discarded_zero_volume_faces": 0,
+        "discarded_absolute_volume_mm3": 0.0,
+        "discarded_degenerate_faces": 0,
+        "discarded_zero_area_faces": 0,
+        "discarded_post_split_zero_area_faces": 0,
+        "sections": {
+          "heel": {
+            "sample_y_mm": 4.0,
+            "outer_section_area_mm2": 302.75539704276736,
+            "material_section_area_mm2": 307.35671357037893,
+            "residual_aperture_area_mm2": 0.0
+          },
+          "toe": {
+            "sample_y_mm": 264.0,
+            "outer_section_area_mm2": 511.8263107196742,
+            "material_section_area_mm2": 517.6206772650547,
+            "residual_aperture_area_mm2": 0.0
+          }
+        }
+      }
+    },
+    "reinforcement_frame": {
+      "base_wall_mm": 1.4,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 2.6000000000000014,
+      "collar_constructed_wall_mm": 2.6000000000000014,
+      "domain_vertices": 63570,
+      "domain_faces": 121938,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.3525045699195163,
+      "visible_outer_edge_max_mm": 1.1588835968732099,
+      "visible_outer_edge_p99_mm": 1.0204013504116685,
+      "terminal_closure": {
+        "method": "parametric-solid-plugs-plus-manifold-union",
+        "boolean_engine": "manifold",
+        "terminal_plane_clip_source_y_mm": [
+          0.05,
+          267.95
+        ],
+        "terminal_plane_clip_output_y_mm": [
+          0.0,
+          268.0
+        ],
+        "maximum_longitudinal_remap_mm": 0.05,
+        "blend_length_mm": 8.0,
+        "boolean_overlap_mm": 0.02,
+        "minimum_local_wall_mm": 1.4,
+        "volume_before_closure_mm3": 17128.087554680682,
+        "volume_after_closure_mm3": 22871.44065473843,
+        "added_material_volume_mm3": 5743.3531000577495,
+        "discarded_zero_volume_components": 0,
+        "discarded_zero_volume_faces": 0,
+        "discarded_absolute_volume_mm3": 0.0,
+        "discarded_degenerate_faces": 0,
+        "discarded_zero_area_faces": 0,
+        "discarded_post_split_zero_area_faces": 0,
+        "sections": {
+          "heel": {
+            "sample_y_mm": 4.0,
+            "outer_section_area_mm2": 302.75539704276736,
+            "material_section_area_mm2": 307.35671357037893,
+            "residual_aperture_area_mm2": 0.0
+          },
+          "toe": {
+            "sample_y_mm": 264.0,
+            "outer_section_area_mm2": 511.8263107196742,
+            "material_section_area_mm2": 517.6206772650547,
+            "residual_aperture_area_mm2": 0.0
+          }
+        }
+      }
+    },
+    "collar_band_width_mm": 5.0,
+    "collar_edge_round_into_opening_mm": 0.8,
+    "maximum_opening_reduction_each_side_mm": 0.8,
+    "collar_rear_reserve_mm": 15.207999999999998,
+    "collar_front_boundary_y_mm": 95.208,
+    "v6_1_collar_front_boundary_y_mm": 95.24,
+    "collar_front_boundary_drift_from_v6_1_mm": -0.031999999999996476,
+    "collar_opening_width_at_center_mm": 51.184744792493525,
+    "collar_edge_height_target_mm": {
+      "front": 52.0,
+      "side": 44.3,
+      "rear": 49.0
+    },
+    "collar_edge_height_measured_mm": {
+      "front": 52.0,
+      "side": 44.3,
+      "rear": 49.0
+    },
+    "collar_fairing_width_mm": 18.0,
+    "collar_infill_safe_wall_mm": 2.6,
+    "heel_rise_transition_length_mm": 26.8,
+    "heel_rise_transition_ratio": 0.1,
+    "end_closure_min_wall_mm": 1.4,
+    "end_closure_blend_length_mm": 8.0,
+    "forward_centerline": {
+      "start_y_mm": 95.208,
+      "end_y_mm": 182.24,
+      "start_z_mm": 52.0,
+      "maximum_z_mm": 52.0,
+      "maximum_z_y_mm": 95.208,
+      "end_z_mm": 39.45,
+      "maximum_positive_sample_step_mm": 0.0,
+      "sample_count": 4001
+    },
+    "frame_domain_regularization": 0.02,
+    "frame_center_slit_min_parameter": 0.035
+  },
+  "interface_stations": {
+    "reference_path": "../barfussschuh_v6_1_fitfix/v6_config.json",
+    "reference_sha256": "8b41f5754b75e3537f8cda161b726ef12398f4e7f346aab5525f75e5aee174e8",
+    "dense_sample_count": 1001,
+    "maximum_drift_mm": 1.7053025658242404e-13,
+    "semantic_stations": [
+      {
+        "s": 0.0,
+        "y_mm": 0.0,
+        "target_width_mm": 14.11,
+        "measured_width_mm": 14.11,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 7.45,
+        "left_z_drift_mm": 8.881784197001252e-16,
+        "right_z_drift_mm": 8.881784197001252e-16
+      },
+      {
+        "s": 0.02,
+        "y_mm": 5.36,
+        "target_width_mm": 32.60409539777588,
+        "measured_width_mm": 32.60409539777588,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 6.882151170568561,
+        "left_z_drift_mm": 8.881784197001252e-16,
+        "right_z_drift_mm": 8.881784197001252e-16
+      },
+      {
+        "s": 0.06,
+        "y_mm": 16.08,
+        "target_width_mm": 53.83639820864423,
+        "measured_width_mm": 53.83639820864423,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -0.04083671430610202,
+        "measured_center_x_mm": -0.040836714306102806,
+        "center_drift_mm": -7.840950111415168e-16,
+        "target_z_mm": 6.107413652018997,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.12,
+        "y_mm": 32.16,
+        "target_width_mm": 63.69,
+        "measured_width_mm": 63.69,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -1.0,
+        "measured_center_x_mm": -1.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.55,
+        "left_z_drift_mm": 4.440892098500626e-15,
+        "right_z_drift_mm": 4.440892098500626e-15
+      },
+      {
+        "s": 0.22,
+        "y_mm": 58.96,
+        "target_width_mm": 65.7,
+        "measured_width_mm": 65.7,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -2.0,
+        "measured_center_x_mm": -2.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 3.552713678800501e-15,
+        "right_z_drift_mm": 3.552713678800501e-15
+      },
+      {
+        "s": 0.48,
+        "y_mm": 128.64,
+        "target_width_mm": 64.8,
+        "measured_width_mm": 64.8,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -4.0,
+        "measured_center_x_mm": -4.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.62,
+        "y_mm": 166.16,
+        "target_width_mm": 84.92,
+        "measured_width_mm": 84.92,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -2.0,
+        "measured_center_x_mm": -2.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.72,
+        "y_mm": 192.95999999999998,
+        "target_width_mm": 98.05000000000001,
+        "measured_width_mm": 98.05,
+        "width_drift_mm": -1.4210854715202004e-14,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.82,
+        "y_mm": 219.76000000000002,
+        "target_width_mm": 103.30000000000001,
+        "measured_width_mm": 103.3,
+        "width_drift_mm": -1.4210854715202004e-14,
+        "target_center_x_mm": 2.0000000000000027,
+        "measured_center_x_mm": 2.0,
+        "center_drift_mm": -2.6645352591003757e-15,
+        "target_z_mm": 5.750000000000001,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.9,
+        "y_mm": 241.20000000000002,
+        "target_width_mm": 101.18,
+        "measured_width_mm": 101.18,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 4.0,
+        "measured_center_x_mm": 4.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 6.6499999999999995,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.96,
+        "y_mm": 257.28,
+        "target_width_mm": 84.22,
+        "measured_width_mm": 84.22000000000006,
+        "width_drift_mm": 5.684341886080802e-14,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 8.450000000000001,
+        "left_z_drift_mm": -1.7763568394002505e-15,
+        "right_z_drift_mm": -1.7763568394002505e-15
+      },
+      {
+        "s": 0.995,
+        "y_mm": 266.66,
+        "target_width_mm": 46.8883864876245,
+        "measured_width_mm": 46.88838648762434,
+        "width_drift_mm": -1.6342482922482304e-13,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 10.162886652542374,
+        "left_z_drift_mm": 5.329070518200751e-15,
+        "right_z_drift_mm": 5.329070518200751e-15
+      },
+      {
+        "s": 1.0,
+        "y_mm": 268.0,
+        "target_width_mm": 39.699999999999996,
+        "measured_width_mm": 39.699999999999996,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 10.450000000000001,
+        "left_z_drift_mm": 0.0,
+        "right_z_drift_mm": 0.0
+      }
+    ]
+  },
+  "maximum_interface_drift_mm": 1.7053025658242404e-13,
+  "files": {
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-left.stl",
+      "sha256": "d07fe99605a7838d442536122df2819d3a10995e6090252b4282faec07e68f8d",
+      "bytes": 22673984,
+      "vertices": 226739,
+      "faces": 453478,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 47242.31770962548,
+      "surface_area_mm2": 61735.93726959462,
+      "bounds_mm": [
+        [
+          -49.9528694152832,
+          7.453361674270593e-10,
+          5.449137210845947
+        ],
+        [
+          54.615394592285156,
+          268.0,
+          52.38987350463867
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.4000038699060977,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-right.stl",
+      "sha256": "e51ef2c7a56c199983402df17b3942521b949a02981334132bd801ad01dab0ae",
+      "bytes": 22673984,
+      "vertices": 226739,
+      "faces": 453478,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 47242.31770962548,
+      "surface_area_mm2": 61735.93726959462,
+      "bounds_mm": [
+        [
+          -54.615394592285156,
+          7.453361674270593e-10,
+          5.449137210845947
+        ],
+        [
+          49.9528694152832,
+          268.0,
+          52.38987350463867
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.4000038699060977,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-infill-envelope-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-infill-envelope-left.stl",
+      "sha256": "24943055d001979a72e0a24e7f85662ca150f7b7cc883b5c5a68481b59432714",
+      "bytes": 22742784,
+      "vertices": 227427,
+      "faces": 454854,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 122771.21199887461,
+      "surface_area_mm2": 61056.86944578131,
+      "bounds_mm": [
+        [
+          -49.9528694152832,
+          7.453361674270593e-10,
+          5.447226524353027
+        ],
+        [
+          54.615394592285156,
+          268.0,
+          52.00069046020508
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.4410157633628309,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-infill-envelope-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-infill-envelope-right.stl",
+      "sha256": "fdc8f3b48fdc859d3a13b1d2bfa17fae6750815f5d413ee6b0738620c6732d90",
+      "bytes": 22742784,
+      "vertices": 227427,
+      "faces": 454854,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 122771.21199887461,
+      "surface_area_mm2": 61056.86944578131,
+      "bounds_mm": [
+        [
+          -54.615394592285156,
+          7.453361674270593e-10,
+          5.447226524353027
+        ],
+        [
+          49.9528694152832,
+          268.0,
+          52.00069046020508
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.4410157633628309,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-reinforcement-frame-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-reinforcement-frame-left.stl",
+      "sha256": "a6ac7cbc55a8a6e3712d80c6ca9121c94627359895ada5d8eb7aa3c9b1739c04",
+      "bytes": 11990084,
+      "vertices": 119892,
+      "faces": 239800,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 22871.44065473843,
+      "surface_area_mm2": 27871.315183199124,
+      "bounds_mm": [
+        [
+          -49.9528694152832,
+          7.453361674270593e-10,
+          5.449137210845947
+        ],
+        [
+          54.615394592285156,
+          268.0,
+          52.38987350463867
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.9117786839129873,
+      "euler_number": -8,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-reinforcement-frame-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-reinforcement-frame-right.stl",
+      "sha256": "d6713614b498d5d1f9b697df9ce285fdcd8f6dcdaca4dce2da2e199a0e028d81",
+      "bytes": 11990084,
+      "vertices": 119892,
+      "faces": 239800,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 22871.44065473843,
+      "surface_area_mm2": 27871.315183199124,
+      "bounds_mm": [
+        [
+          -54.615394592285156,
+          7.453361674270593e-10,
+          5.449137210845947
+        ],
+        [
+          49.9528694152832,
+          268.0,
+          52.38987350463867
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.9117786839129873,
+      "euler_number": -8,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-collar-comfort-coupon.stl": {
+      "path": "exports/coupons/DRAFT-MM-SHO-001-6.2.0-draft.3-collar-comfort-coupon.stl",
+      "sha256": "ab53ce2e5818c6164e58e5138968c808adea7a0ea4fdbd470a7ab602b66d7246",
+      "bytes": 447884,
+      "vertices": 4480,
+      "faces": 8956,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 787.3524907896692,
+      "surface_area_mm2": 1129.4930604300787,
+      "bounds_mm": [
+        [
+          18.908647537231445,
+          40.20800018310547,
+          29.799999237060547
+        ],
+        [
+          28.876497268676758,
+          70.20800018310547,
+          46.27679443359375
+        ]
+      ],
+      "edge_length_max_mm": 3.842383476207267,
+      "edge_length_p99_mm": 1.4725496257518365,
+      "euler_number": 2,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-left-master.obj": {
+      "path": "exports/master/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-left-master.obj",
+      "sha256": "88ff4abd02ecf63a810ac11e0f1c34cafc1396b3d0106875ca06e00cc4a7e67a",
+      "bytes": 18564592,
+      "vertices": 226739,
+      "faces": 453478,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 47242.31770962548,
+      "surface_area_mm2": 61735.93726959462,
+      "bounds_mm": [
+        [
+          -49.9528694152832,
+          7.453361674270593e-10,
+          5.449137210845947
+        ],
+        [
+          54.615394592285156,
+          268.0,
+          52.38987350463867
+        ]
+      ],
+      "edge_length_max_mm": 77.22024536132812,
+      "edge_length_p99_mm": 1.4000038699060977,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    }
+  }
+}

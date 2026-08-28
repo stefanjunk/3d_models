@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-fdm-optimization-review",
+  "tool_version": "1.0.0",
+  "status": "REVIEW_REQUIRED",
+  "profile": "draft",
+  "revision": "6.2.0-draft.3",
+  "objective": "Remove the rejected empty vamp volume while closing both terminal tunnels and preserving the V6.1 interface, approved collar, and visible outer planform.",
+  "inputs": [
+    {"path": "parameters.yaml", "sha256": "162fd30fdd695c63017686dbf9fcd1cd77c38389a40c82ef5587c63c9f76d860"},
+    {"path": "validation/generation-report-6.2.0-draft.2.json", "sha256": "daa9b3785f020b28c30a55e92df0fb92f46135f43f53c8d5a68a8346506da698"},
+    {"path": "validation/generation-report-6.2.0-draft.3.json", "sha256": "218a6b5d50df2ff8802b6417db156b305e4714e9178970c3059b9a2ba0f8cb57"}
+  ],
+  "geometry_comparison": {
+    "forward_region_y_mm": [95.208, 182.24],
+    "draft2_outer_envelope_volume_mm3": 221944.55066063866,
+    "draft3_outer_envelope_volume_mm3": 200907.78857331985,
+    "removed_outer_envelope_volume_mm3": 21036.762087318813,
+    "removed_outer_envelope_volume_percent": 9.478386391871721,
+    "draft2_peak_above_front_collar_mm": 7.1341,
+    "draft3_peak_above_front_collar_mm": 0.0
+  },
+  "manufacturing_tradeoff": {
+    "reason": "The required solid 8 mm heel and toe plugs add deposited material even though the unnecessary midfoot envelope volume is reduced.",
+    "fuzzy_shell_material_volume_mm3": {"draft2": 42839.065212245136, "draft3": 47242.31770962548},
+    "infill_envelope_material_volume_mm3": {"draft2": 121007.47540143006, "draft3": 122771.21199887461},
+    "reinforcement_frame_material_volume_mm3": {"draft2": 17073.758468065982, "draft3": 22871.44065473843},
+    "decision": "Accept the local material increase because fully closed terminal zones are an approved functional constraint; do not relax wall or closure requirements for nominal material savings."
+  },
+  "mesh_simplification": {
+    "fuzzy_shell": "not-beneficial",
+    "infill_envelope": "not-beneficial",
+    "reinforcement_frame": "not-beneficial",
+    "reason": "All meshes stay below the declared 600000-triangle and 30 MiB stops, and the finer tessellation is required to hold the 1.25 mm visible-edge limit. No exact slicer baseline exists to justify lossy decimation."
+  },
+  "slicer_resolution_check": {
+    "status": "NOT_RUN",
+    "reason": "Exact Anycubic machine, process, TPU filament, and orientation profiles remain unresolved."
+  },
+  "decision": "The geometry change is Pareto-acceptable for the approved correction: less rejected free envelope volume and closed ends, with an explicit local material cost. Release optimization remains open until exact slicer A/B evidence exists.",
+  "limitations": [
+    "Envelope integration is a deterministic geometric comparison, not a footwear pressure or comfort simulation.",
+    "CAD/mesh material volume is not a slicer mass or print-time result.",
+    "No strength, fatigue, comfort, or wear claim is made without process-matched physical evidence."
+  ],
+  "required_capabilities": ["numpy", "scipy", "exact slicer profile still required"]
+}

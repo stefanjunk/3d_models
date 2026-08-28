@@ -1,7 +1,7 @@
 project:
   id: MM-SHO-001
   name: "Barfußschuh V6.2 – Freeform Upper mit Komfortkragen"
-  revision: 6.2.0-draft.2
+  revision: 6.2.0-draft.3
   units: mm
   lineage: ../barfussschuh_v6_1_fitfix
   status: production-cad
@@ -11,22 +11,23 @@ workflow:
   autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: approved
-    spec_revision: 6.2.0-draft.2
+    spec_revision: 6.2.0-draft.3
     approved_by: Stefan
     approved_on: 2026-08-28
-    basis: "Nutzerfreigabe 'freigegben' nach Draft-2-Vorschlag; Draft-1-Render zeigte unzureichende Fersenreserve und spitze Kragenübergänge"
+    basis: "Ausdrückliche Nutzerfreigabe 'freigegeben' für die Draft-3-Anforderungen: geschlossene Enden und abgesenkte, nicht über den Kragen ansteigende Upper-Linie"
   concept_approval:
     status: approved
-    spec_revision: 6.2.0-draft.2
-    asset: previews/concept-v6.2.0-draft.2.png
-    asset_sha256: 18d2643250238dd3f82bf6527fe6eec787b1870fdffa8fb1d0da26124c960ca7
-    review_record: CONCEPT_REVIEW_DRAFT2.md
+    spec_revision: 6.2.0-draft.3
+    asset: previews/concept-v6.2.0-draft.3.png
+    asset_sha256: cfc1678a8f7eb647946e2ac5366718310cdc0ad7b42a7cf51a5ef9f48aa5c1ca
+    review_record: CONCEPT_REVIEW_DRAFT3.md
     approved_by: Stefan
     approved_on: 2026-08-28
-    basis: "Ausdrückliche Nutzerfreigabe 'yes, approved' im Chat für Konzept 6.2.0-draft.2"
+    basis: "Ausdrückliche Nutzerfreigabe 'freigegebene' für das korrigierte Draft-3-Konzeptbild"
   digital_candidate:
-    status: review-required
-    reason: "CAD-, Mesh-, Interface- und Formprüfungen bestanden; exaktes Slicer-/TPU-Profil, Coupon und Anprobe fehlen noch"
+    status: pass
+    evidence: validation/project-validation-draft3.json
+    reason: "Draft-3 schließt Ferse und Zehe in allen sechs Fertigungsmeshes, hält die Centerline bei z <= 52.0 mm und besteht Spezial-, Mesh- und visuelle Gates; Gesamtstatus bleibt wegen Slicer- und physischen Gates REVIEW_REQUIRED"
   physical_validation:
     status: blocked
     reason: "Tragekomfort und TPU-Prozess erfordern Kragen-Coupon und Anprobe"
@@ -39,6 +40,9 @@ requirements_trace:
     - "Das Upper soll als schönere Freeform-Oberfläche neu aufgebaut werden."
     - "Der Rand um Fuß und Knöchel wirkt spitz und schneidend."
     - "Um die Öffnung soll ein leicht dickerer, sehr dezenter bandartiger Rand laufen."
+    - "Vorne und hinten darf bei keiner Upper-Variante ein sichtbares Loch beziehungsweise eine offene Innenkontur bleiben."
+    - "Der Schuh ist in der Mitte zu hoch; der Oberschuh darf vor dem Kragen nicht höher als der Kragen ansteigen."
+    - "Der unnötige freie Bereich zwischen Kragen und Upper-Scheitel soll entfallen."
   inferred:
     - "Sohlenform, Nullsprengung, TPU-Lippe und der korrigierte V6.1-Sohlenanschluss bleiben unverändert."
     - "Linkes und rechtes Upper bleiben Spiegelvarianten derselben Quelle."
@@ -51,6 +55,8 @@ requirements_trace:
     - "Kragenband 5.0 mm breit, lokale Zielwand 2.6 mm bei der 1.4-mm-Shell und gerundete freie Kante mit ungefähr 1.0 mm Radius."
     - "Die lichte Öffnung darf durch die Rundung gegenüber V6.1 höchstens 0.8 mm je Seite kleiner werden."
     - "Nach dem fehlgeschlagenen Draft-1-Formreview: Kragenvorderkante praktisch beibehalten, hintere Öffnungsgrenze von 1.2 auf ungefähr 15.2 mm vorziehen und den Höhenanstieg der Ferse über 10 % statt 6.5 % der Schuhlänge verteilen."
+    - "Zehen- und Ferseninnenkontur mit einem lokal eingeblendeten, mindestens 1.4 mm starken Abschluss schließen; die geschützte V6.1-Sohlen-/Lippenkontur und die sichtbare Außensilhouette bleiben unverändert."
+    - "Die sichtbare Mittellinie des Uppers verläuft ab der Kragenvorderkante nach vorn ohne sekundären Hochpunkt; maximal 0.25 mm numerische Höhentoleranz über der 52.0-mm-Kragenvorderkante."
   unresolved:
     - "Exakte TPU-Marke/Shore-Härte und das konkrete Anycubic-Maschinen-/Prozess-/Filamentprofil für den Slicer-Nachweis."
 
@@ -61,6 +67,8 @@ scope:
     - "unveränderter V6.1-Anschluss an die Sohlenlippe"
     - "linke und gespiegelte rechte Upper-Varianten"
     - "Kragen-/Oberflächen-Coupon und digitale Geometrieprüfung"
+    - "geschlossene Zehen- und Fersenabschlüsse für alle erzeugten Upper-Varianten"
+    - "abgesenkte, monoton an den vorderen Kragen anschließende Mittelfuß-/Vamp-Scheitellinie"
   excluded:
     - "Änderung der Sohle, Lippe, Flexzonen, Waben oder Nahtlöcher"
     - "medizinische, orthopädische oder dauerhafte Tragefreigabe"
@@ -93,6 +101,16 @@ geometry:
     section_continuity: G2-target
     visible_character: [smooth, organic, restrained, soft]
     forbidden_character: [voxel-stepped, faceted, sharp-collar, arbitrary-ripples]
+    current_rejected_forward_centerline_peak:
+      y_mm: 110.7175
+      z_mm: 59.1341
+      above_front_collar_mm: 7.1341
+    revised_forward_centerline:
+      start_y_mm: 95.208
+      start_z_mm: 52.0
+      maximum_z_mm: 52.25
+      monotonic_direction: non-increasing-toward-toe-through-midfoot
+      intent: "kein separater Upper-Buckel und kein unnötiger Freiraum vor dem Kragen"
   collar:
     topology: "parametrische Öffnungsschleife mit integrierter abgerundeter Randwulst"
     opening_center_y_ratio: 0.206
@@ -111,6 +129,20 @@ geometry:
     inset_each_side_mm: 4.0
     protected_height_mm: 10.0
     max_drift_mm: 0.20
+  terminal_closures:
+    applies_to: [fuzzy-shell, infill-envelope, reinforcement-frame, left, right]
+    current_rejected_inner_aperture_mm:
+      heel: [11.31, 8.60]
+      toe: [36.90, 8.60]
+    visible_aperture_target_mm: 0.0
+    minimum_local_wall_mm: 1.4
+    blend_length_mm: 8.0
+    boolean_overlap_mm: 0.02
+    terminal_plane_clip_source_y_mm: [0.05, 267.95]
+    terminal_plane_clip_output_y_mm: [0.0, 268.0]
+    maximum_longitudinal_remap_mm: 0.05
+    protected: [V6.1-sole-interface, outer-silhouette, overall-length]
+    intent: "vollständig geschlossener, glatter Endabschluss ohne sichtbaren Tunnel oder U-Ausschnitt"
 
 duty:
   risk_class: normal-functional
@@ -142,6 +174,9 @@ acceptance:
     - "Maximale Zielkantenlänge auf der sichtbaren Hülle 1.25 mm; am Kragen 0.65 mm."
     - "Die lichte Kragenöffnung wird höchstens 0.8 mm je Seite reduziert."
     - "Freie Kragenkante besitzt keine absichtlich scharfe oder ungefasste Verbindung."
+    - "Zehen- und Fersenabschluss zeigen in keiner linken oder rechten Upper-Variante eine sichtbare Innenöffnung; Zielöffnung 0.0 mm."
+    - "Die Upper-Mittellinie steigt ab der vorderen Kragenkante durch den Mittelfuß nicht erneut an und bleibt bei z <= 52.25 mm."
+    - "Die Endschließung bleibt mindestens 1.4 mm stark und verändert den V6.1-Sohlenanschluss um höchstens 0.20 mm."
   visual_review:
     - "Silhouette und Highlightfluss wirken in Seiten-, Drauf- und Dreiviertelansicht glatt."
     - "Das Band bleibt optisch leicht und folgt der Öffnung ohne Knicke."

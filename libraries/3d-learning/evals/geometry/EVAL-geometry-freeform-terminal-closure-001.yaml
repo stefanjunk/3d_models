@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-freeform-terminal-closure-001
+title: Intended closed freeform terminals are material-filled rather than merely watertight
+category: geometry
+status: draft
+trigger: A hollow freeform shell terminates at a visible end plane that is intended to appear and function as closed.
+risk: A watertight annular end can still expose a visible inner tunnel, while Boolean clipping can introduce sliver or degenerate export faces.
+given:
+  project: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform
+  revision: 6.2.0-draft.3
+  terminal_datums: [heel-end-plane, toe-end-plane]
+  variants: [fuzzy-shell-left-right, infill-envelope-left-right, reinforcement-frame-left-right]
+  protected: [V6.1-sole-upper-interface, overall-shoe-length]
+expected:
+  - Every intended closed terminal has a declared material-section criterion and meets its residual-aperture limit within the closure zone.
+  - Every exported handed/wall/frame variant is one watertight positive volume with zero boundary, nonmanifold and degenerate faces.
+  - Fixed front and rear views show material-filled terminal faces without a visible inner tunnel.
+  - Closure generation preserves declared interface and overall-length tolerances.
+failure_conditions:
+  - A mesh is watertight but retains a visible or measured terminal aperture where solid closure is required.
+  - Any terminal Boolean/export introduces a boundary edge, nonmanifold edge, degenerate face or extra component.
+  - An end is hidden only by a camera, sole or unrelated mating part rather than closed in the graded artifact.
+fixtures:
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.3.json
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft3.json
+grader:
+  type: hybrid
+  command: python3 products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py --parameters products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/parameters.yaml
+  expected_exit_code: 0
+  rubric: Fixed front and rear views of each geometry class must show a solid terminal face; topology alone cannot satisfy the eval.
+  measurement_method: Section material-area/residual-aperture checks, exact-coordinate exported-mesh audit and fixed-camera end views.
+relationships:
+  lessons: [EXP-00033]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/project-validation-draft3.json
+  artifact_hashes:
+    - 30e3ec7fbd67629b5caeb5afc80b3f5a73dcef84d3b3a125d9ab9900404cd302
+    - b8f68d62ba23ab5924305d4b6ba283551dbc97372faa0d46da727b0b14c94d48
+    - ee638735332315d9701aae6d70c73baca538720a120bfd6f2bd6015495e12b06
+tags: [geometry, freeform, shell, terminal, closure, watertight, visual, regression]

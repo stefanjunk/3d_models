@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-production-visual-review",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "profile": "draft",
+  "revision": "6.2.0-draft.3",
+  "inputs": [
+    {"path": "render_v6_2.py", "sha256": "90ef90d042ff9a53be846931cb9cedb7cf59083855233e242a6942fbdc78ee20"},
+    {"path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-fuzzy-shell-left.stl", "sha256": "d07fe99605a7838d442536122df2819d3a10995e6090252b4282faec07e68f8d"},
+    {"path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-infill-envelope-left.stl", "sha256": "24943055d001979a72e0a24e7f85662ca150f7b7cc883b5c5a68481b59432714"},
+    {"path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.3-upper-reinforcement-frame-left.stl", "sha256": "a6ac7cbc55a8a6e3712d80c6ca9121c94627359895ada5d8eb7aa3c9b1739c04"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-three-quarter.png", "sha256": "32fdb9d1c440cdbb8d3e89596aa71f3bd055303ffd0c3540cb269cfa6aab3df3"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-lateral.png", "sha256": "2c3a0e4e70ce78f11ca5056743cd1e4fb1b32fe88877aae1f16c5c80a5846219"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-medial.png", "sha256": "b4cc029126e5015d48ddd27d7376bc4ae1aac155576540c8282f2ba78e787941"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-front.png", "sha256": "6f4d48c6489286ace1ff169d6570bee88478e8d6b12ad7a24078040fe1ba08ef"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-rear.png", "sha256": "515a7168071a4b1bc8cdbfe4676df94c9f4921fdef780e374b0aa72ee51efc60"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-collar-closeup.png", "sha256": "8af6836bb185e65e647854f2752950c1d13208806cc6e67e4d3bd60dce8c2a32"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-flat-shaded.png", "sha256": "daaecf4fc6a764bcefa285d3cb7a3e157700eb2b30b36e856d83b6d8740436e5"},
+    {"path": "previews/production-v6.2.0-draft.3/fuzzy-shell/production-reflection-stripes.png", "sha256": "d5db772afd2e767ed630ee27e38529e1a524e6ca814272207389dae314e84962"},
+    {"path": "previews/production-v6.2.0-draft.3/infill-envelope/production-front.png", "sha256": "a122462572da382306a2d2d604cb560a007d29f8088f53bb8b40d80911487f4e"},
+    {"path": "previews/production-v6.2.0-draft.3/infill-envelope/production-rear.png", "sha256": "12210f801c85f602b1955aca9522f399ae1a150c83654a1a95eeab6031620e81"},
+    {"path": "previews/production-v6.2.0-draft.3/infill-envelope/production-lateral.png", "sha256": "30787813bb41c0ca57cc03015351aec262938f6536b70b45ea480eadccc9015d"},
+    {"path": "previews/production-v6.2.0-draft.3/reinforcement-frame/production-three-quarter.png", "sha256": "90052efa9a58d0bf7d65d266ab30299dde2153c10635c1be6a346515c32be914"},
+    {"path": "previews/production-v6.2.0-draft.3/reinforcement-frame/production-front.png", "sha256": "27ee292d5ce24a9fe6987353114563231456f1862b3401c074bfb0f1b90dba7d"},
+    {"path": "previews/production-v6.2.0-draft.3/reinforcement-frame/production-rear.png", "sha256": "35adb1a30b1563b7eac2e1edcbbc5ba41038d085073fe71d8a4092eb4222d9e9"},
+    {"path": "previews/production-v6.2.0-draft.3/reinforcement-frame/production-lateral.png", "sha256": "de92b07e15ef2801cb4b7428ecb61305d82868bbb4650aab6ba8c2bcffa4f1b5"}
+  ],
+  "checks": [
+    {
+      "id": "terminal-apertures-visually-closed",
+      "status": "PASS",
+      "required": true,
+      "message": "Front and rear views show material-filled terminal faces instead of the rejected dark inner tunnels.",
+      "metrics": {"variants_reviewed": ["fuzzy-shell", "infill-envelope", "reinforcement-frame"], "views": ["front", "rear", "three-quarter"], "visible_terminal_tunnels": 0}
+    },
+    {
+      "id": "lowered-vamp-profile",
+      "status": "PASS",
+      "required": true,
+      "message": "Lateral and medial silhouettes descend from the front collar without a second upper peak.",
+      "metrics": {"views": ["lateral", "medial", "three-quarter"], "secondary_visible_peak": false}
+    },
+    {
+      "id": "collar-preservation",
+      "status": "PASS",
+      "required": true,
+      "message": "The approved opening, low comfort band, and rear reserve remain visually intact.",
+      "metrics": {"views": ["collar-closeup", "top", "rear"]}
+    },
+    {
+      "id": "surface-flow-and-boolean-artifacts",
+      "status": "PASS",
+      "required": true,
+      "message": "Flat and reflection-stripe views show a calm freeform envelope without voxel steps, new ripples, or visible Boolean tears.",
+      "metrics": {"visible_boolean_tears": 0, "visible_voxel_steps": 0, "unexplained_surface_ripples": 0}
+    },
+    {
+      "id": "frame-intent-separation",
+      "status": "PASS",
+      "required": true,
+      "message": "The reinforcement frame retains its intentional mid-body openings while its heel and toe terminal sections are visibly solid.",
+      "metrics": {"intentional_mid_body_openings_retained": true, "terminal_openings_retained": false}
+    }
+  ],
+  "limitations": [
+    "Rendered appearance does not prove slicer toolpaths, support behavior, or TPU surface finish.",
+    "The gray planar terminal faces identify solid material in the isolated upper; the mating sole/lip assembly is not included in these renders.",
+    "Comfort, fit, flex life, skin compatibility, and wear remain physical review gates."
+  ],
+  "required_capabilities": ["Blender 5.2 LTS deterministic STL rendering", "human visual inspection"]
+}

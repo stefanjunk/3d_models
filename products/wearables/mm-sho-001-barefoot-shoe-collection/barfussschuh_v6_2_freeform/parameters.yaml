@@ -1,6 +1,6 @@
 schema_version: 1
 project_id: MM-SHO-001
-revision: 6.2.0-draft.2
+revision: 6.2.0-draft.3
 units: mm
 
 fit:
@@ -36,9 +36,9 @@ upper_stations:
     - [0.060, 58.0,  0.0, 61.0]
     - [0.120, 62.0, -1.0, 65.0]
     - [0.220, 64.0, -2.0, 62.0]
-    - [0.340, 63.0, -4.0, 57.0]
-    - [0.460, 66.0, -4.0, 51.0]
-    - [0.580, 75.0, -3.0, 42.0]
+    - [0.340, 63.0, -4.0, 47.0]
+    - [0.460, 66.0, -4.0, 43.0]
+    - [0.580, 75.0, -3.0, 40.0]
     - [0.680, 88.0, -1.0, 34.0]
     - [0.780, 96.0,  1.0, 27.0]
     - [0.880, 94.0,  3.0, 22.0]
@@ -49,8 +49,8 @@ upper_stations:
 freeform:
   interpolation: natural-cubic-c2
   cross_section_exponent: 1.0
-  y_grid_step: 0.90
-  section_parameter_step: 0.0075
+  y_grid_step: 0.82
+  section_parameter_step: 0.0068
   collar_polygon_segments: 720
   collar_center_y_ratio: 0.206
   collar_radius_y: 40.0
@@ -63,6 +63,16 @@ freeform:
   collar_edge_height_rear: 49.0
   collar_infill_safe_wall: 2.6
   end_closure_min_wall: 1.4
+  end_closure_blend_length: 8.0
+  end_cap_y_step: 0.5
+  end_cap_section_parameter_step: 0.0078125
+  end_cap_boolean_overlap: 0.02
+  overall_length_mesh_tolerance: 0.000001
+  terminal_plane_clip_inset: 0.05
+  terminal_aperture_area_limit: 0.5
+  forward_centerline_end_ratio: 0.68
+  forward_centerline_max_height: 52.25
+  forward_centerline_monotonic_step_tolerance: 0.002
   collar_band_width: 5.0
   collar_band_outer_section_parameter_add: 0.09
   collar_band_target_wall: 2.6

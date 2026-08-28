@@ -1,5 +1,51 @@
 # Decision log – MM-SHO-001 V6.2
 
+## 2026-08-28 – Draft 2 durch Nutzerkorrektur ersetzt
+
+Stefan meldete sichtbare Löcher an Vorder- und Hinterabschluss beider
+betrachteter Varianten, eine zu hohe Mittelfußkontur und einen Upper-Scheitel
+oberhalb des Kragens. Die digitale Draft-2-Topologie war zwar wasserdicht,
+bildete an den Stirnseiten aber eine sichtbare innere Bogenöffnung von etwa
+`11,31 × 8,60 mm` hinten und `36,90 × 8,60 mm` vorne. Der vordere
+Centerline-Scheitel erreichte `z=59,1341 mm`, also `7,1341 mm` über der
+Kragenvorderkante. Revision `6.2.0-draft.3` fordert deshalb geschlossene
+Endkappen und eine ab dem Kragen nicht erneut ansteigende Upper-Mittellinie.
+Anforderungs- und Konzeptfreigabe wurden entsprechend wieder geöffnet; noch
+keine Produktionsgeometrie wurde geändert.
+
+Stefan gab die Draft-3-Anforderungen anschließend mit `freigegeben` frei. Der
+Konzept-Gate wurde anschließend mit `freigegebene` bestätigt. Damit sind
+Anforderungen und Formrichtung für die Draft-3-Produktionsgeometrie
+freigegeben; digitale, Slicer- und physische Gates bleiben davon unberührt.
+
+## 2026-08-28 – Draft-3-Geometrie digital bestanden
+
+Alle drei Upper-Arten erhalten an Ferse und Zehe parametrische massive
+8-mm-Abschlüsse mit mindestens `1,4 mm` lokaler Wand. Nach der exakten
+Manifold-Union wird die Quelle bei `y=0,05/267,95 mm` eben beschnitten und mit
+höchstens `0,05 mm` longitudinaler Verschiebung wieder auf `0/268 mm`
+abgebildet. Dieser kleine kontrollierte Schritt beseitigt die beim direkten
+Endschnitt entstandenen numerischen Sliver-Dreiecke, ohne den geschützten
+V6.1-Anschluss oder die Gesamtlänge zu verändern. Alle sechs Schuh-STLs haben
+danach null degenerierte Flächen, null Randkanten und genau eine positive,
+wasserdichte Komponente; die gemessene Restöffnung beträgt an beiden Enden
+`0,0 mm²`.
+
+Die sichtbare Centerline beginnt an der vorderen Kragenkante bei
+`y=95,208 mm, z=52,0 mm` und fällt bis `y=182,24 mm` monoton auf `z=39,45 mm`.
+Der frühere 7,1341-mm-Hochpunkt über dem Kragen ist damit entfernt. Im
+betroffenen Vorfuß-/Mittelfußbereich sinkt das äußere Hüllvolumen gegenüber
+Draft 2 um `21.036,76 mm³` beziehungsweise `9,478 %`. Die vorgeschriebenen
+Endkappen erhöhen lokal das eigentliche Materialvolumen; dieser dokumentierte
+Trade-off wird akzeptiert, weil geschlossene Enden eine freigegebene
+Funktionsanforderung sind.
+
+Die Spezialprüfung besteht `17/17`, alle Mesh-Audits und der hashgebundene
+Formreview bestehen. Der Projektstatus bleibt `REVIEW_REQUIRED`, bis exaktes
+Anycubic-/TPU-Slicing, Coupon, Materialprüfung und Anprobe vorliegen. Ein
+Produkt-Wasserzeichen wird erst nach Stabilisierung der Release-Geometrie als
+letzte Geometrieänderung ergänzt.
+
 ## 2026-08-28 – Konzept 6.2.0-draft.2 freigegeben
 
 Stefan bestätigte `yes, approved`. Die genehmigte Richtung erhält die

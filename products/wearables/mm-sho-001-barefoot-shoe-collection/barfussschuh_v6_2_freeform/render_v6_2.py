@@ -123,8 +123,16 @@ def main() -> None:
     obj = import_stl(args.mesh.resolve())
     smooth = material("soft matte black TPU", (0.055, 0.075, 0.095), 0.46)
     obj.data.materials.append(smooth)
+    y_values = [vertex.co.y for vertex in obj.data.vertices]
+    y_min = min(y_values)
+    y_max = max(y_values)
     for polygon in obj.data.polygons:
         polygon.use_smooth = True
+        polygon_y = [obj.data.vertices[index].co.y for index in polygon.vertices]
+        if all(abs(value - y_min) <= 5.0e-5 for value in polygon_y) or all(
+            abs(value - y_max) <= 5.0e-5 for value in polygon_y
+        ):
+            polygon.use_smooth = False
 
     bounds = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
     z_min = min(point.z for point in bounds)
@@ -201,6 +209,14 @@ def main() -> None:
         (0.0, -0.28, 0.080),
         (0.0, 0.028, 0.038),
         0.14,
+    )
+    render(
+        scene,
+        args.output / "production-front.png",
+        camera,
+        (0.0, 0.55, 0.075),
+        (0.0, 0.245, 0.032),
+        0.16,
     )
 
     for polygon in obj.data.polygons:

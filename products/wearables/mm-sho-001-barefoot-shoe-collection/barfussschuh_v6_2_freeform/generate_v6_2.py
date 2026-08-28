@@ -4,7 +4,9 @@
 The visible upper is evaluated directly from C2 longitudinal splines and smooth
 cross-sections.  No voxel grid, distance field, marching cubes, global remesh,
 or smoothing modifier is used.  The collar opening is part of the parametric
-surface domain and its free edge is closed by an explicit rounded cap.
+surface domain and its free edge is closed by an explicit rounded cap.  Solid
+terminal plugs follow the same analytic outer surface over a controlled blend
+length so the heel and toe cannot expose the inner shell tunnel.
 """
 
 from __future__ import annotations
@@ -98,6 +100,13 @@ class FreeformUpper:
         self.collar_height_front = float(parameters["freeform"]["collar_edge_height_front"])
         self.collar_height_side = float(parameters["freeform"]["collar_edge_height_side"])
         self.collar_height_rear = float(parameters["freeform"]["collar_edge_height_rear"])
+        self.end_closure_blend = float(parameters["freeform"]["end_closure_blend_length"])
+        self.end_cap_y_step = float(parameters["freeform"]["end_cap_y_step"])
+        self.end_cap_r_step = float(parameters["freeform"]["end_cap_section_parameter_step"])
+        self.end_cap_overlap = float(parameters["freeform"]["end_cap_boolean_overlap"])
+        self.terminal_clip_inset = float(
+            parameters["freeform"]["terminal_plane_clip_inset"]
+        )
 
         sole = np.asarray(parameters["sole_stations"]["values"], dtype=float)
         upper = np.asarray(parameters["upper_stations"]["values"], dtype=float)
@@ -132,6 +141,14 @@ class FreeformUpper:
             raise ValueError("Collar ellipse must stay inside the longitudinal domain")
         if self.collar_fairing_width <= self.band_width:
             raise ValueError("Collar fairing width must exceed the comfort-band width")
+        if not (0.0 < self.end_closure_blend < self.collar_cy - self.collar_ry):
+            raise ValueError("End-closure blend must be positive and remain behind the collar")
+        if self.end_cap_y_step <= 0.0 or self.end_cap_r_step <= 0.0:
+            raise ValueError("End-cap tessellation steps must be positive")
+        if not (0.0 < self.end_cap_overlap <= 0.20):
+            raise ValueError("End-cap Boolean overlap must stay inside the 0.20 mm interface allowance")
+        if not (0.0 < self.terminal_clip_inset <= 0.20):
+            raise ValueError("Terminal-plane clip inset must stay inside the 0.20 mm allowance")
 
     def sole_values(self, s):
         s = np.clip(np.asarray(s, dtype=float), 0.0, 1.0)
@@ -447,6 +464,217 @@ class FreeformUpper:
             loops.append(loop)
         return loops, simple_edges
 
+    def _solid_terminal_cap(self, y_start: float, y_end: float) -> trimesh.Trimesh:
+        """Create a full solid under the approved outer arch at one end."""
+        y_count = int(math.ceil((y_end - y_start) / self.end_cap_y_step)) + 1
+        r_count = int(math.ceil(2.0 / self.end_cap_r_step)) + 1
+        ys = np.linspace(y_start, y_end, y_count)
+        rs = np.linspace(-1.0, 1.0, r_count)
+        yy = np.repeat(ys, r_count)
+        rr = np.tile(rs, y_count)
+        points = self.surface_point(yy, rr)
+        # A uniform 0.02 mm outward overlap avoids a tangential/coplanar
+        # Boolean between the plug roof and shell skin.  The temporary Y drift
+        # is removed by the exact terminal-plane clip after the union.
+        points += self.surface_normal(yy, rr) * self.end_cap_overlap
+        vertices = points.tolist()
+        faces: list[list[int]] = []
+
+        for yi in range(y_count - 1):
+            for ri in range(r_count - 1):
+                a = yi * r_count + ri
+                b = a + 1
+                c = (yi + 1) * r_count + ri + 1
+                d = (yi + 1) * r_count + ri
+                faces.extend(([a, b, c], [a, c, d]))
+
+        # The r=+/-1 hardpoints lie on the protected sole-interface height.
+        # Join only those unchanged boundary rails to create the plug floor.
+        for yi in range(y_count - 1):
+            left_0 = yi * r_count
+            right_0 = left_0 + r_count - 1
+            left_1 = (yi + 1) * r_count
+            right_1 = left_1 + r_count - 1
+            faces.extend(
+                ([left_0, right_1, right_0], [left_0, left_1, right_1])
+            )
+
+        # Close both planar section faces.  A polygon centroid is guaranteed
+        # to stay inside the arched section, unlike a bounding-box midpoint.
+        for row in (0, y_count - 1):
+            indices = [row * r_count + index for index in range(r_count)]
+            section = points[np.asarray(indices)]
+            centroid_2d = Polygon(section[:, [0, 2]]).centroid
+            center_index = len(vertices)
+            vertices.append([float(centroid_2d.x), float(ys[row]), float(centroid_2d.y)])
+            for index in range(r_count - 1):
+                faces.append([center_index, indices[index], indices[index + 1]])
+            faces.append([center_index, indices[-1], indices[0]])
+
+        cap = trimesh.Trimesh(
+            np.asarray(vertices, dtype=float),
+            np.asarray(faces, dtype=np.int64),
+            process=True,
+        )
+        cap.fix_normals(multibody=True)
+        if cap.volume < 0.0:
+            cap.invert()
+        if not cap.is_volume:
+            raise ValueError("Parametric terminal cap is not a valid volume")
+        return cap
+
+    def _section_area(self, mesh: trimesh.Trimesh, y: float) -> float:
+        section = mesh.section(plane_normal=[0.0, 1.0, 0.0], plane_origin=[0.0, y, 0.0])
+        if section is None:
+            raise ValueError(f"No terminal section found at y={y:.6f} mm")
+        planar, _ = section.to_planar()
+        return float(sum(polygon.area for polygon in planar.polygons_full))
+
+    def _outer_section_area(self, y: float) -> float:
+        r_count = int(math.ceil(2.0 / self.end_cap_r_step)) + 1
+        rs = np.linspace(-1.0, 1.0, r_count)
+        points = self.surface_point(np.full(r_count, y), rs)
+        return float(Polygon(points[:, [0, 2]]).area)
+
+    def _close_terminal_apertures(self, mesh: trimesh.Trimesh) -> tuple[trimesh.Trimesh, dict]:
+        heel_cap = self._solid_terminal_cap(0.0, self.end_closure_blend)
+        toe_cap = self._solid_terminal_cap(
+            self.length - self.end_closure_blend,
+            self.length,
+        )
+        volume_before = float(mesh.volume)
+        closed = trimesh.boolean.union(
+            [mesh, heel_cap, toe_cap],
+            engine="manifold",
+            check_volume=True,
+        )
+        if isinstance(closed, list):
+            closed = trimesh.util.concatenate(closed)
+        bounds = np.asarray(closed.bounds, dtype=float)
+        clip = trimesh.creation.box(
+            extents=[
+                float(bounds[1, 0] - bounds[0, 0] + 20.0),
+                self.length - 2.0 * self.terminal_clip_inset,
+                float(bounds[1, 2] - bounds[0, 2] + 20.0),
+            ]
+        )
+        clip.apply_translation(
+            [
+                float(0.5 * (bounds[0, 0] + bounds[1, 0])),
+                0.5 * self.length,
+                float(0.5 * (bounds[0, 2] + bounds[1, 2])),
+            ]
+        )
+        closed = trimesh.boolean.intersection(
+            [closed, clip],
+            engine="manifold",
+            check_volume=True,
+        )
+        if isinstance(closed, list):
+            closed = trimesh.util.concatenate(closed)
+        vertices = np.asarray(closed.vertices, dtype=float).copy()
+        vertices[:, 1] = (
+            (vertices[:, 1] - self.terminal_clip_inset)
+            * self.length
+            / (self.length - 2.0 * self.terminal_clip_inset)
+        )
+        vertices[:, 1] = np.clip(vertices[:, 1], 0.0, self.length)
+        closed.vertices = vertices
+        closed.merge_vertices(digits_vertex=8)
+        closed.update_faces(closed.unique_faces())
+        nondegenerate = closed.nondegenerate_faces(height=1.0e-8)
+        discarded_degenerate_faces = int(np.count_nonzero(~nondegenerate))
+        if discarded_degenerate_faces > 50:
+            raise ValueError(
+                "Terminal-cap union emitted too many degenerate faces: "
+                f"{discarded_degenerate_faces}"
+            )
+        closed.update_faces(nondegenerate)
+        positive_area = np.asarray(closed.area_faces) > 1.0e-10
+        discarded_zero_area_faces = int(np.count_nonzero(~positive_area))
+        if discarded_zero_area_faces > 50:
+            raise ValueError(
+                "Terminal-cap union emitted too many numerical zero-area faces: "
+                f"{discarded_zero_area_faces}"
+            )
+        closed.update_faces(positive_area)
+        closed.remove_unreferenced_vertices()
+        closed.fix_normals(multibody=True)
+        if closed.volume < 0.0:
+            closed.invert()
+        components = sorted(
+            closed.split(only_watertight=False),
+            key=lambda component: abs(float(component.volume)),
+            reverse=True,
+        )
+        discarded = components[1:]
+        discarded_faces = int(sum(len(component.faces) for component in discarded))
+        discarded_volume = float(sum(abs(float(component.volume)) for component in discarded))
+        # Manifold may emit a handful of zero-area two-triangle remnants where
+        # the sparse reinforcement slit meets the pointed toe.  They are not
+        # material bodies.  Remove them explicitly, record the cleanup, and
+        # fail closed if the remainder has material volume or meaningful size.
+        if discarded and (discarded_faces > 50 or discarded_volume > 1.0e-6):
+            raise ValueError(
+                "Terminal-cap union emitted nontrivial disconnected geometry: "
+                f"faces={discarded_faces}, volume={discarded_volume:.9f} mm3"
+            )
+        if components:
+            closed = components[0].copy()
+            final_positive_area = np.asarray(closed.area_faces) > 1.0e-10
+            discarded_post_split_zero_area_faces = int(
+                np.count_nonzero(~final_positive_area)
+            )
+            if discarded_post_split_zero_area_faces > 50:
+                raise ValueError(
+                    "Terminal-cap component retained too many zero-area faces: "
+                    f"{discarded_post_split_zero_area_faces}"
+                )
+            closed.update_faces(final_positive_area)
+            closed.remove_unreferenced_vertices()
+            closed.fix_normals(multibody=True)
+        else:
+            discarded_post_split_zero_area_faces = 0
+        if not closed.is_volume:
+            raise ValueError("Terminal-cap union did not produce one valid upper volume")
+
+        sections = {}
+        for name, y in (
+            ("heel", 0.5 * self.end_closure_blend),
+            ("toe", self.length - 0.5 * self.end_closure_blend),
+        ):
+            target_area = self._outer_section_area(y)
+            material_area = self._section_area(closed, y)
+            sections[name] = {
+                "sample_y_mm": float(y),
+                "outer_section_area_mm2": target_area,
+                "material_section_area_mm2": material_area,
+                "residual_aperture_area_mm2": float(max(0.0, target_area - material_area)),
+            }
+        return closed, {
+            "method": "parametric-solid-plugs-plus-manifold-union",
+            "boolean_engine": "manifold",
+            "terminal_plane_clip_source_y_mm": [
+                self.terminal_clip_inset,
+                self.length - self.terminal_clip_inset,
+            ],
+            "terminal_plane_clip_output_y_mm": [0.0, self.length],
+            "maximum_longitudinal_remap_mm": self.terminal_clip_inset,
+            "blend_length_mm": self.end_closure_blend,
+            "boolean_overlap_mm": self.end_cap_overlap,
+            "minimum_local_wall_mm": float(self.p["freeform"]["end_closure_min_wall"]),
+            "volume_before_closure_mm3": volume_before,
+            "volume_after_closure_mm3": float(closed.volume),
+            "added_material_volume_mm3": float(closed.volume - volume_before),
+            "discarded_zero_volume_components": int(len(discarded)),
+            "discarded_zero_volume_faces": discarded_faces,
+            "discarded_absolute_volume_mm3": discarded_volume,
+            "discarded_degenerate_faces": discarded_degenerate_faces,
+            "discarded_zero_area_faces": discarded_zero_area_faces,
+            "discarded_post_split_zero_area_faces": discarded_post_split_zero_area_faces,
+            "sections": sections,
+        }
+
     def create_shell(self, domain: DomainMesh, wall: float) -> tuple[trimesh.Trimesh, dict]:
         outer, inner, local_wall, band_distance = self.shell_surfaces(domain, wall)
         count = len(outer)
@@ -502,6 +730,7 @@ class FreeformUpper:
         mesh.fix_normals(multibody=True)
         if mesh.volume < 0.0:
             mesh.invert()
+        mesh, terminal_closure = self._close_terminal_apertures(mesh)
         outer_edges = np.unique(np.sort(np.asarray(mesh_edges(domain.faces)), axis=1), axis=0)
         outer_edge_lengths = np.linalg.norm(outer[outer_edges[:, 0]] - outer[outer_edges[:, 1]], axis=1)
         report = {
@@ -515,6 +744,7 @@ class FreeformUpper:
             "collar_outer_edge_max_mm": float(max(collar_edge_lengths, default=0.0)),
             "visible_outer_edge_max_mm": float(np.max(outer_edge_lengths)),
             "visible_outer_edge_p99_mm": float(np.percentile(outer_edge_lengths, 99.0)),
+            "terminal_closure": terminal_closure,
         }
         return mesh, report
 
@@ -732,6 +962,16 @@ def main() -> int:
     )
     collar_cardinal_r = np.asarray([0.0, model.collar_rr, 0.0])
     collar_cardinal_points = model.surface_point(collar_cardinal_y, collar_cardinal_r)
+    forward_centerline_y = np.linspace(
+        model.collar_cy + model.collar_ry,
+        float(params["freeform"]["forward_centerline_end_ratio"]) * model.length,
+        4001,
+    )
+    forward_centerline_z = model.surface_point(
+        forward_centerline_y,
+        np.zeros_like(forward_centerline_y),
+    )[:, 2]
+    forward_steps = np.diff(forward_centerline_z)
     report = {
         "schema_version": 1,
         "project_id": params["project_id"],
@@ -741,11 +981,13 @@ def main() -> int:
             "name": "direct-c2-freeform-domain-loft",
             "sole_interface_interpolation": "pchip-v6.1-compatible",
             "longitudinal_interpolation": params["freeform"]["interpolation"],
+            "upper_height_interpolation": "natural-cubic-c2-with-approved-vamp-stations",
             "voxel_grid": False,
             "distance_field": False,
             "marching_cubes": False,
             "global_remesh": False,
             "collar": "parametric domain opening plus explicit rounded edge cap",
+            "terminal_closure": "parametric solid plugs plus exact manifold union",
         },
         "environment": {
             "python": platform.python_version(),
@@ -790,6 +1032,17 @@ def main() -> int:
             "heel_rise_transition_length_mm": model.heel_taper * model.length,
             "heel_rise_transition_ratio": model.heel_taper,
             "end_closure_min_wall_mm": float(params["freeform"]["end_closure_min_wall"]),
+            "end_closure_blend_length_mm": model.end_closure_blend,
+            "forward_centerline": {
+                "start_y_mm": float(forward_centerline_y[0]),
+                "end_y_mm": float(forward_centerline_y[-1]),
+                "start_z_mm": float(forward_centerline_z[0]),
+                "maximum_z_mm": float(np.max(forward_centerline_z)),
+                "maximum_z_y_mm": float(forward_centerline_y[int(np.argmax(forward_centerline_z))]),
+                "end_z_mm": float(forward_centerline_z[-1]),
+                "maximum_positive_sample_step_mm": float(max(0.0, np.max(forward_steps))),
+                "sample_count": int(len(forward_centerline_y)),
+            },
             "frame_domain_regularization": float(params["variants"]["frame_domain_regularization"]),
             "frame_center_slit_min_parameter": float(params["variants"]["frame_center_slit_min_parameter"]),
         },

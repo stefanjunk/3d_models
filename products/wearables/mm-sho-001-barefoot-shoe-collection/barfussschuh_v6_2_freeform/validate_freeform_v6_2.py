@@ -250,6 +250,10 @@ def main() -> int:
     method_pass = (
         method["name"] == "direct-c2-freeform-domain-loft"
         and method.get("sole_interface_interpolation") == "pchip-v6.1-compatible"
+        and method.get("upper_height_interpolation")
+        == "natural-cubic-c2-with-approved-vamp-stations"
+        and method.get("terminal_closure")
+        == "parametric solid plugs plus exact manifold union"
         and not method["voxel_grid"]
         and not method["distance_field"]
         and not method["marching_cubes"]
@@ -285,9 +289,9 @@ def main() -> int:
     )
     checks.append(
         check(
-            "draft2-collar-and-heel-geometry",
+            "collar-and-heel-geometry",
             collar_geometry_pass,
-            "Draft-2 retains the approved rear reserve, extended heel rise, and one closed collar loop",
+            "The upper retains the approved rear reserve, extended heel rise, and one closed collar loop",
             {
                 "rear_reserve_mm": rear_reserve,
                 "rear_reserve_min_mm": rear_reserve_min,
@@ -346,6 +350,73 @@ def main() -> int:
                 "frame_collar_wall_mm": frame["collar_constructed_wall_mm"],
                 "base_minimum_mm": 1.40,
                 "collar_minimum_mm": 2.60,
+            },
+        )
+    )
+
+    aperture_area_limit = float(params["freeform"]["terminal_aperture_area_limit"])
+    closure_blend_target = float(params["freeform"]["end_closure_blend_length"])
+    closure_wall_target = float(params["freeform"]["end_closure_min_wall"])
+    closure_metrics = {}
+    closure_failures = []
+    for name, item in (
+        ("fuzzy_shell", fuzzy),
+        ("infill_envelope", infill),
+        ("reinforcement_frame", frame),
+    ):
+        closure = item.get("terminal_closure", {})
+        closure_metrics[name] = closure
+        sections = closure.get("sections", {})
+        residuals = [
+            float(sections.get(end, {}).get("residual_aperture_area_mm2", float("inf")))
+            for end in ("heel", "toe")
+        ]
+        if not (
+            closure.get("method") == "parametric-solid-plugs-plus-manifold-union"
+            and float(closure.get("blend_length_mm", 0.0)) >= closure_blend_target - 1.0e-9
+            and float(closure.get("minimum_local_wall_mm", 0.0)) >= closure_wall_target - 1.0e-9
+            and float(closure.get("boolean_overlap_mm", float("inf"))) <= 0.20
+            and closure.get("terminal_plane_clip_output_y_mm") == [0.0, model.length]
+            and float(closure.get("maximum_longitudinal_remap_mm", float("inf"))) <= 0.20
+            and max(residuals) <= aperture_area_limit
+        ):
+            closure_failures.append(name)
+    checks.append(
+        check(
+            "closed-terminal-apertures",
+            not closure_failures,
+            "Heel and toe sections are solid across the approved 8 mm closure zones",
+            {
+                "variants": closure_metrics,
+                "failures": closure_failures,
+                "maximum_residual_aperture_area_mm2": aperture_area_limit,
+                "minimum_blend_length_mm": closure_blend_target,
+                "minimum_local_wall_mm": closure_wall_target,
+                "handedness": "right artifacts are exact X-mirrors of the validated left source meshes",
+            },
+        )
+    )
+
+    centerline = construction.get("forward_centerline", {})
+    centerline_height_limit = float(params["freeform"]["forward_centerline_max_height"])
+    centerline_step_limit = float(
+        params["freeform"]["forward_centerline_monotonic_step_tolerance"]
+    )
+    centerline_pass = (
+        float(centerline.get("maximum_z_mm", float("inf"))) <= centerline_height_limit
+        and float(centerline.get("maximum_positive_sample_step_mm", float("inf")))
+        <= centerline_step_limit
+        and abs(float(centerline.get("start_z_mm", float("inf"))) - 52.0) <= 0.05
+    )
+    checks.append(
+        check(
+            "lowered-forward-centerline",
+            centerline_pass,
+            "The visible upper centerline does not rise again above the front collar through the midfoot",
+            {
+                **centerline,
+                "maximum_height_limit_mm": centerline_height_limit,
+                "maximum_positive_sample_step_limit_mm": centerline_step_limit,
             },
         )
     )
@@ -409,6 +480,31 @@ def main() -> int:
                 "failures": budget_failures,
                 "triangle_stop": face_stop,
                 "maximum_mesh_bytes": byte_stop,
+            },
+        )
+    )
+
+    length_failures = []
+    expected_length = float(model.length)
+    length_tolerance = float(params["freeform"]["overall_length_mesh_tolerance"])
+    for name, item in generation["files"].items():
+        if "-upper-" not in name:
+            continue
+        y_min = float(item["bounds_mm"][0][1])
+        y_max = float(item["bounds_mm"][1][1])
+        if abs(y_min) > length_tolerance or abs(y_max - expected_length) > length_tolerance:
+            length_failures.append(
+                {"path": item["path"], "y_min_mm": y_min, "y_max_mm": y_max}
+            )
+    checks.append(
+        check(
+            "protected-overall-length",
+            not length_failures,
+            "Terminal closure preserves the exact heel and toe Y hardpoints",
+            {
+                "expected_y_bounds_mm": [0.0, expected_length],
+                "tolerance_mm": length_tolerance,
+                "failures": length_failures,
             },
         )
     )

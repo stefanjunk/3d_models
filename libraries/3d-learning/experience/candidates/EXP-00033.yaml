@@ -1,0 +1,116 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00033
+title: Watertight freeform uppers still need explicit terminal-closure and collar-relative silhouette checks
+captured_at: 2026-08-28
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digitally validated barefoot-shoe revision; slicing, printing, fit, comfort and transfer to another geometry remain untested.
+feature:
+  type: freeform-upper-terminal-closure-and-height-hierarchy
+  geometry: Direct parametric barefoot-shoe upper with an internal collar opening, three wall/frame variants and mirrored handedness
+  design_parameters:
+    rejected_visible_terminal_aperture_mm:
+      heel: [11.31, 8.60]
+      toe: [36.90, 8.60]
+    rejected_forward_peak_above_collar_mm: 7.1341
+    terminal_closure_blend_length_mm: 8.0
+    terminal_closure_minimum_wall_mm: 1.4
+    accepted_residual_aperture_area_mm2: 0.0
+    accepted_front_collar_z_mm: 52.0
+    accepted_forward_centerline_max_z_mm: 52.0
+    maximum_longitudinal_remap_mm: 0.05
+  named_datums: [heel-end-plane, toe-end-plane, front-collar, forward-upper-centerline, V6.1-sole-upper-interface]
+  constraints:
+    - Heel and toe are visibly material-filled in every wall/frame and handed variant, not merely topologically watertight.
+    - The visible centerline does not form a secondary peak above the front-collar datum through the midfoot.
+    - Closure construction preserves the protected sole interface and overall shoe length.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: unknown, unit_id: null, firmware: null}
+  material: {manufacturer: unknown, product: soft-TPU-target, variant: 85A-90A-unresolved, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: V6/V6.1 upper orientation; exact manufacturing orientation unresolved
+  slicer: {name: unknown, version: null, profile: null, profile_hash: null}
+  geometry_class: direct parametric freeform shell with a collar opening, longitudinal terminals and normal-offset/frame variants
+  environment: deterministic Python/manifold mesh generation, exact-coordinate mesh audits and fixed-camera Blender review; no physical print
+  transfer_limits:
+    - Evidence covers one shoe geometry and six mirrored/thickness/frame exports only.
+    - The recorded 8.0 mm closure length, 1.4 mm wall and 52.0 mm height are project values, not universal footwear defaults.
+    - No claim is made about TPU toolpaths, fit, comfort, fatigue, skin contact or wear.
+observation:
+  summary: Draft 2 passed watertight topology but the user still saw front and rear holes and an unnecessary upper peak above the collar; Draft 3 added material-filled terminal zones and lowered the forward centerline, then passed topology, section-area and fixed-view checks.
+  expected: A closed shoe upper should show no heel/toe tunnel and should transition from the collar toward the forefoot without a second higher crest.
+  actual: Draft 2 exposed visible inner arches and a 7.1341 mm collar-relative peak; Draft 3 measured 0.0 mm2 terminal residual aperture and a non-increasing centerline with maximum z=52.0 mm.
+  outcome: correction
+  parameter: terminal-material-closure-and-collar-relative-centerline
+  recommended_value: Declare intended closed-end sections and collar-relative silhouette relationships explicitly, then grade material sections, exported mesh integrity and fixed end/side views together.
+  units: boundary-and-visual-contract
+explanation:
+  hypothesis: Watertightness alone only proves a closed boundary representation; it does not prove that a hollow shell's terminal silhouette is material-filled or that its freeform height hierarchy matches the intended collar transition.
+  mechanism: The earlier hollow shell legally closed around an annular terminal arch while its unconstrained natural-cubic height stations overshot the collar; explicit solid terminal regions and collar-relative centerline stations removed the two independent visible failures.
+  alternatives:
+    - Build each terminal as an analytic closed loft section instead of unioning a local solid plug.
+    - Extend the mating sole or toe/heel bumper to mask the shell aperture, which would change protected product scope.
+    - Accept a non-monotonic upper ridge if a future approved concept intentionally requires it.
+  validated: true
+  validation_method: Controlled Draft-2/Draft-3 geometry comparison, section material-area checks, dense centerline sampling, exact-coordinate mesh audits and hash-bound fixed-camera visual review.
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Analytic section areas at y=4/264 mm, 4001-sample centerline evaluation, exact-coordinate topology audit and front/rear/lateral/medial Blender views.
+  uncertainty: Digital evidence validates this CAD mechanism within one product but not physical closure quality, manufacturing behavior or visual transfer to another shell topology.
+  sources:
+    - {type: user-statement, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/user-correction-trace-draft3.yaml, hash: 164905e9e952616c46c62d3cffeff6e15c987be3f147b326a3005f631f04d930, notes: "Original Draft-2 proposal, verbatim correction, both approvals and verified Draft-3 result."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/design-spec.yaml, hash: c0a7d843244ae08eb6fa979d884744dd52153f9136a3b55511aaf5c050338962, notes: "Approved requirements, datums, constraints and remaining release gates."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/DECISION-LOG.md, hash: 7d364b3a8eac1706f70de1fed57d120416408791f79bb6c5e82ecf08390d99aa, notes: "Rejected geometry, implementation alternatives, numeric correction and remaining gates."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.3.json, hash: 30e3ec7fbd67629b5caeb5afc80b3f5a73dcef84d3b3a125d9ab9900404cd302, notes: "Seventeen deterministic specialist checks PASS."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft3.json, hash: b8f68d62ba23ab5924305d4b6ba283551dbc97372faa0d46da727b0b14c94d48, notes: "Hash-bound front, rear, side and diagnostic visual PASS."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/project-validation-draft3.json, hash: ee638735332315d9701aae6d70c73baca538720a120bfd6f2bd6015495e12b06, notes: "All digital artifact, mesh, specialist and visual gates PASS; physical and slicer gates REVIEW_REQUIRED."}
+  artifacts:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/concept-v6.2.0-draft.3.png
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/production-v6.2.0-draft.3/
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/exports/manufacturing/
+applicability:
+  triggers:
+    - A hollow freeform shell terminates at a visible end and is intended to read as solidly closed.
+    - A collar or opening is the approved height datum for an adjacent upper surface.
+  exclusions:
+    - Intentionally ventilated/open terminal designs or approved sculptural ridges above the collar datum.
+    - Monolithic solids without an inner terminal contour.
+  transfer_limits:
+    - Re-establish datums, wall/closure dimensions and visual intent for every product; only the combined outcome-check structure is proposed for reuse.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00027]
+  evals: [EVAL-geometry-freeform-terminal-closure-001, EVAL-visual-freeform-upper-collar-hierarchy-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.3.json
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft3.json
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/project-validation-draft3.json
+provenance:
+  project: MM-SHO-001
+  part_revision: 6.2.0-draft.3
+  trace: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/user-correction-trace-draft3.yaml
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [freeform, footwear, terminal-closure, collar, centerline, user-correction, visual, topology, digital-only]

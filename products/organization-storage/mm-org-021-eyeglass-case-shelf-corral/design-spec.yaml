@@ -1,0 +1,33 @@
+project:
+  id: MM-ORG-021
+  revision: 0.1.0-draft.1
+  title: Parametric eyeglass-case shelf corral
+  source_sku: SKU-199
+  opportunity_score: 89.0
+  next_candidate_rank: 13
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Keep closed eyeglass cases upright, visible and individually retrievable on a wardrobe or entry shelf.
+  excluded: [bare-lens contact, optical protection, impact protection, travel case, child-use product]
+
+requirements:
+  - {id: R1, text: Generate lane widths from measured closed-case thickness rather than brand., acceptance: two JSON presets expose exact per-lane widths and at least 2 mm allowance., status: PASS_DIGITAL}
+  - {id: R2, text: Reduce fore-aft tipping for upright cases., acceptance: a 3 degree rear-falling floor, front stop and rear wall are analytic and support-free., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R3, text: Support rigid, semi-rigid and soft cases without copying case geometry., acceptance: full dividers and a marked 36/42/50/58 mm gauge are supplied; physical class test is explicit., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Keep each case visible and identifiable., acceptance: one recessed adhesive-label field per lane and no font dependency., status: PASS_DIGITAL}
+  - {id: R5, text: Fit 220 x 160 x 140 mm and print support-free., acceptance: every artifact is base-down within the portfolio envelope and exact-profile slice passes., status: PASS_DIGITAL}
+
+manufacturing:
+  processes: [FDM, FFF]
+  materials: [PLA, PETG]
+  orientation: flat build-plate face down
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [case tipping, hard-soft profile fit, retrieval cycles, shelf sliding, label adhesion]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

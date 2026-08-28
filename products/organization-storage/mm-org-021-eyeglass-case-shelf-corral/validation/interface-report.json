@@ -1,0 +1,206 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "lane-widths",
+      "message": "Both clear-width lists are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "case-allowance",
+      "message": "Each example case thickness has at least 2 mm allowance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "floor-angle",
+      "message": "Both floors fall 3 degrees toward the rear",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "retention",
+      "message": "Front and rear restraints are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "rounded-dividers",
+      "message": "All divider contact edges retain protected radii",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-series",
+      "message": "Gauge reproduces the mixed lane series",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-fields",
+      "message": "Every lane has one label field",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "Both corrals fit the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "No optical protection claim is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "49b9356a685306b1028e2303ac83f9612eea19b86f3b92058c9ebbeea094dda2",
+      "size_bytes": 1889
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "4c990d89a1fc55468251667ec9d7b227facb5a6e70bdf0be03a2d9b313c885b5",
+      "size_bytes": 21870
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "d2d23d3f04c1ebdb4709fe369acaa46d78db617efe283e8ff389126da029a3a8",
+      "size_bytes": 1962
+    }
+  ],
+  "limitations": [
+    "Analytic stability features do not establish physical tip resistance for any case class."
+  ],
+  "metrics": {
+    "interfaces": {
+      "mixed-four": {
+        "case_thickness_allowances_mm": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "clear_lane_widths_mm": [
+          36.0,
+          42.0,
+          50.0,
+          58.0
+        ],
+        "divider_leading_radius_mm": 1.4,
+        "divider_top_radius_mm": 1.2,
+        "external_assets": [],
+        "floor_back_lean_deg": 3.0,
+        "floor_rise_mm": 4.716700135473709,
+        "front_stop_height_above_floor_mm": 14.0,
+        "identity_holes": 2,
+        "label_fields": 4,
+        "lane_count": 4,
+        "outer_dimensions_mm": [
+          201.0,
+          90.0,
+          82.0
+        ],
+        "preset_id": "mixed-four",
+        "rear_wall_height_mm": 54.0
+      },
+      "slim-five": {
+        "case_thickness_allowances_mm": [
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "clear_lane_widths_mm": [
+          36.0,
+          36.0,
+          36.0,
+          36.0,
+          36.0
+        ],
+        "divider_leading_radius_mm": 1.4,
+        "divider_top_radius_mm": 1.2,
+        "external_assets": [],
+        "floor_back_lean_deg": 3.0,
+        "floor_rise_mm": 4.716700135473709,
+        "front_stop_height_above_floor_mm": 14.0,
+        "identity_holes": 1,
+        "label_fields": 5,
+        "lane_count": 5,
+        "outer_dimensions_mm": [
+          198.0,
+          90.0,
+          82.0
+        ],
+        "preset_id": "slim-five",
+        "rear_wall_height_mm": 54.0
+      },
+      "width-gauge": {
+        "external_assets": [],
+        "identity_holes": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "notch_widths_mm": [
+          36.0,
+          42.0,
+          50.0,
+          58.0
+        ],
+        "outer_dimensions_mm": [
+          211.0,
+          28.0,
+          3.0
+        ]
+      }
+    },
+    "workflow_contract": {
+      "input_dimensions": [
+        "shelf_depth",
+        "closed_case_length",
+        "closed_case_depth",
+        "closed_case_thickness",
+        "case_count",
+        "label_preference"
+      ],
+      "minimum_cases_per_preset": 3,
+      "optical_protection_claim": "none_storage_corral_only",
+      "required_case_classes": [
+        "rigid_clamshell",
+        "semi_rigid_or_eva",
+        "soft_pouch"
+      ],
+      "retrieval_cycles": 100
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-021-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

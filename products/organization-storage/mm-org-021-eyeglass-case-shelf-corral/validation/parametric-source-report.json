@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All three B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-lane-presets",
+      "message": "Five-lane and four-lane presets are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "49b9356a685306b1028e2303ac83f9612eea19b86f3b92058c9ebbeea094dda2",
+      "size_bytes": 1889
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "4c990d89a1fc55468251667ec9d7b227facb5a6e70bdf0be03a2d9b313c885b5",
+      "size_bytes": 21870
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "slim-five",
+      "mixed-four",
+      "width-gauge"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "slim-five",
+      "mixed-four",
+      "width-gauge"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-021-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

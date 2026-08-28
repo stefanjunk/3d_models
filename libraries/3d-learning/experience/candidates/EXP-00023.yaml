@@ -1,0 +1,113 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00023
+title: Use purpose-built watermark tiers instead of scaling one full identity mark into small safe regions
+captured_at: 2026-08-28
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: User approved the R2 requirements and visual concept; deterministic digital geometry is being validated, while slicer and physical coupon evidence remain pending.
+feature:
+  type: product-identity-watermark-layout-family
+  geometry: planar recessed logo and outlined text profiles in full, compact and micro arrangements
+  design_parameters:
+    asset_revision: MM-WM-001-R2
+    tier_priority: [full, compact, micro]
+    rotations_deg: [0, 90]
+    uniform_scale: 1.0
+    full_example_envelope_mm: [63.789, 12.8]
+    compact_example_envelope_mm: [40.179, 11.2]
+    micro_example_envelope_mm: [36.089, 9.6]
+    micro_visible_identity: [owned-logo, exact-product-id, exact-version]
+  named_datums: [safe-region-rectangle, finished-inspection-side, host-bed-datum]
+  constraints:
+    - Select Full before Compact before Micro when each fits at 0 or 90 degrees and scale 1.0.
+    - Every tier retains the owned logo, exact product ID and exact version.
+    - Full and Compact retain metriMade.com; Micro may omit it only after both larger tiers fail fit.
+    - The selected tier requires its own slicer inspection and process-specific physical coupon before product release.
+scope:
+  process: FFF
+  machine: {manufacturer: unknown, model: unknown, unit_id: null, firmware: null}
+  material: {manufacturer: unknown, product: unknown, variant: null, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: recessed on a flat low-stress face; finished inspection side explicit
+  slicer: {name: unknown, version: null, profile: null, profile_hash: null}
+  geometry_class: small planar human-readable provenance engraving
+  environment: digital geometry and policy validation only
+  transfer_limits:
+    - Physical legibility is unqualified until each selected tier passes the exact machine/material/nozzle/profile coupon.
+    - The example widths apply only to MM-ORG-001 v0.1.0; other identity lengths generate different widths.
+observation:
+  summary: The prior single 63.789 by 12.8 mm profile blocked smaller products because scaling was prohibited; the user requested balanced smaller versions and allowed the smallest to omit only the domain.
+  expected: One Full mark containing domain, product ID and version, with no authorized smaller footprint.
+  actual: User approved Full, Compact and Micro layouts with automatic most-informative-fit selection; Micro keeps logo, product ID and version while moving the domain to digital provenance.
+  outcome: correction
+  parameter: watermark-layout-policy
+  recommended_value: [full, compact, micro]
+  units: ordered-tier-contract
+explanation:
+  hypothesis: Rearranging the same human-readable identity into independently generated stacked layouts reduces footprint without reducing printable features, while omitting only the redundant locator domain on Micro preserves essential traceability.
+  mechanism: Fixed per-tier logo/text dimensions replace uniform scaling; the selector measures safe-region fit and falls through in information-priority order.
+  alternatives:
+    - Rotate the Full mark onto another safe face.
+    - Revise the product geometry to create a larger marking land.
+    - Use a separately validated Data Matrix plus human-readable release ID.
+  validated: true
+  validation_method: Deterministic OpenSCAD generation, manifest verification, metadata identity checks, topology audits and selector boundary cases for all three layouts; physical legibility remains explicitly outside this validation.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Generated envelope metadata, exact selector decisions, SHA-256 manifests and deterministic watertight/positive-volume mesh audits.
+  uncertainty: Physical first-layer legibility, character ambiguity, finishing durability and cross-process transfer remain unknown.
+  sources:
+    - {type: user-statement, ref: tools/metrimade-watermark/design-spec.yaml, hash: null, notes: requirements_trace preserves the approved correction and scope}
+    - {type: product-trace, ref: tools/metrimade-watermark/validation/concept-r2-watermark-tiers.svg, hash: null, notes: user-approved visual concept for the three-tier hierarchy}
+    - {type: measurement, ref: tools/metrimade-watermark/validation/validation-report.md, hash: null, notes: deterministic R2 geometry and selector evidence}
+  artifacts:
+    - tools/metrimade-watermark/exports/examples-r2
+    - tools/metrimade-watermark/tools/generate_watermark.py
+    - .agents/skills/functional-3d-design/scripts/select_watermark.py
+applicability:
+  triggers:
+    - A safe product marking region cannot fit the Full metriMade identity mark without prohibited scaling.
+  exclusions:
+    - Safety, certification or statutory labels whose required visible fields cannot be omitted or rearranged.
+    - Processes, nozzles, materials or orientations without tier-specific feature and legibility validation.
+    - Customer-specific hidden tracking codes or forensic identification systems.
+  transfer_limits:
+    - Treat as an E0 digitally validated workflow candidate, not a universal minimum-feature rule.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00003, EXP-00006]
+  evals: [EVAL-regression-watermark-layout-tier-selection-001, EVAL-regression-product-identity-watermark-001]
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/references/watermark-release-gate.md
+    - .agents/skills/commercialize-3d-models/references/ai-provenance-and-watermarking.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - tools/metrimade-watermark/validation/validation-report.md
+    - tools/metrimade-watermark/validation/r2-functional-skill-validation.json
+    - tools/metrimade-watermark/validation/r2-commercialize-skill-validation.json
+provenance:
+  project: MM-WM-001
+  part_revision: 2.0-draft.1
+  trace: tools/metrimade-watermark/design-spec.yaml
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [watermark, product-identity, small-footprint, layout-tier, fff, digital-only, user-correction]

@@ -8,24 +8,29 @@ trigger: A provisional printable product is registered, renamed, versioned, or p
 risk: Portfolio, folder, specification, watermark text and release artifacts can identify different products, or a canonical mark can be scaled or forced into an unsafe host region.
 given:
   required_identity_sources: portfolio row, canonical product folder, design specification, release version, generated watermark metadata and release manifest
-  generated_mark_policy: exact canonical profile at scale 1.0 with required edge clearance and residual wall
+  generated_mark_policy: exact canonical R2 tier at scale 1.0 with required edge clearance and residual wall; select full, then compact, then micro
   history_policy: historical provisional artifacts remain identifiable and are not silently rewritten as a new release
 expected:
   - The immutable product ID and official name agree across the current portfolio, canonical product path, design specification and release-facing records.
-  - The exact generated watermark contains the owned domain plus the same product ID and version as the candidate release.
-  - A deterministic selector checks the generated profile against an obstruction-free host rectangle, edge clearance, host wall and residual wall before CAD integration.
+  - Every exact generated R2 tier contains the owned logo plus the same product ID and version as the candidate release; full and compact also contain the owned domain.
+  - The micro tier may omit the visible domain only when a deterministic selector proves that full and compact do not fit and the controlled domain remains in 3MF metadata and/or the provenance sidecar.
+  - A deterministic selector checks all supplied tiers against an obstruction-free host rectangle, edge clearance, host wall and residual wall before CAD integration and chooses the highest-information tier at 0 or 90 degrees and scale 1.0.
   - The actual marked CAD or manufacturing mesh is rendered or inspected from the declared finished inspection side so handedness and reading direction are explicit.
-  - A blocked fit causes another safe surface or an approved geometry revision; the profile is not scaled, cropped, split, distorted or substituted with live text.
+  - A blocked micro fit causes another safe surface or an approved geometry revision; no tier is scaled, cropped, split, distorted or substituted with live text.
   - Historical draft assets retain their original identity and are clearly separated from the current candidate.
   - Final approval remains blocked until marked CAD/mesh, slicer-layer and process-matched coupon evidence exist.
 failure_conditions:
   - Any current release-facing identity source uses a different product ID, official name or version.
   - The mark is redrawn, text-edited, scaled below 1.0, cropped, split across loose parts or placed on a functional/protected surface.
+  - Compact or micro is selected while a higher-information tier fits the same safe rectangle, or micro is used without retaining the controlled domain in digital provenance.
+  - Any tier omits the owned logo, exact product ID or exact version, or full/compact omits the visible domain.
   - Gross wall dimensions are treated as usable without subtracting edge and feature clearances.
   - A concept image or generator preview is presented as production integration, slicer or physical evidence.
   - The integrated mark is mirrored or upside down from its declared finished inspection side even though its source profile and selector fit are correct.
   - Historical evidence is overwritten so the original provisional identity can no longer be reconstructed.
 fixtures:
+  - tools/metrimade-watermark/design-spec.yaml
+  - tools/metrimade-watermark/exports/examples-r2
   - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml
   - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/identity-watermark-trace.yaml
 grader:
@@ -38,6 +43,7 @@ relationships:
   lessons:
     - EXP-00003
     - EXP-00006
+    - EXP-00023
   regression_suites: []
 last_run:
   result: review-required

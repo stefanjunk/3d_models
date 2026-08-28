@@ -47,7 +47,7 @@ The parametric enclosure is complete and digitally validated for the approved 12
 
 ### Kennzeichnung
 
-- `metriMade.com` `MM-WM-001-R1` for `MM-ENC-001 · v1.0.0`, recessed on the underside: approved and included.
+- `MM-WM-001-R2` Full for `MM-ENC-001 · v1.0.0`, including `metriMade.com`, recessed on the underside: approved and included.
 
 Next, slice the included 3MF and print the interface coupon before the full enclosure.
 ```

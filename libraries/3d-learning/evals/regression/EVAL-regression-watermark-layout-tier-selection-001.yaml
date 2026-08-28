@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-watermark-layout-tier-selection-001
+title: Watermark selector uses the most informative unscaled tier that fits
+category: regression
+status: active
+trigger: A product safe region is too small for the canonical Full watermark or multiple R2 tiers are supplied for placement.
+risk: A smaller layout can lose traceability, omit the domain unnecessarily, be scaled below its validated feature size, or be chosen even though a more informative tier fits.
+given:
+  asset_revision: MM-WM-001-R2
+  tiers: [full, compact, micro]
+  priority: [full, compact, micro]
+  rotations_deg: [0, 90]
+  uniform_scale: 1.0
+  required_everywhere: [owned-logo, exact-product-id, exact-version]
+  domain_policy: visible on full and compact; omitted on micro only after both larger tiers fail fit
+expected:
+  - The generator produces separate Full, Compact and Micro SVG, DXF, SCAD, cutter STL, coupon STL, PNG, JSON and manifest packages from one product ID/version source.
+  - Full preserves the MM-WM-001-R1 profile envelope for the same identity while R2 metadata identifies the Full tier.
+  - The selector chooses Full when it fits, otherwise Compact, otherwise Micro, considering only 0 and 90 degrees at uniform scale 1.0.
+  - Micro retains the owned logo, exact product ID and exact version, records domain_visible=false, and is never selected when Full or Compact fits.
+  - The selector returns BLOCK when Micro also fails the safe rectangle, wall or clearance contract.
+  - Every generated manufacturing profile contains outlined geometry with no live SVG text and each cutter/coupon mesh passes deterministic topology checks.
+failure_conditions:
+  - A generated tier is a uniformly scaled copy below its defined feature sizes or lacks the exact product ID/version.
+  - Full or Compact omits metriMade.com, or Micro reports domain_visible=true despite omitting the visible domain.
+  - Compact or Micro is selected while a higher-priority tier fits at 0 or 90 degrees.
+  - Selection uses any scale other than 1.0 or does not block when no tier fits.
+  - A required tier artifact is missing, its manifest fails, SVG contains live text, or cutter/coupon topology fails.
+fixtures:
+  - tools/metrimade-watermark/exports/examples-r2
+  - .agents/skills/functional-3d-design/tests/test_scripts.py
+grader:
+  type: deterministic
+  command: python3 .agents/skills/functional-3d-design/tests/test_scripts.py ScriptTests.test_watermark_selector_r2_prefers_full_then_compact_then_micro
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Generated metadata/envelopes, exact selector decisions, manifest verification and watertight positive-volume mesh checks.
+relationships:
+  lessons: [EXP-00023]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: tools/metrimade-watermark/validation/validation-report.md
+  artifact_hashes:
+    - 5c65119ca8b48a6de636b2883949ddb74ef34fdcbc66a748e2f43206d46efcbd
+    - 7e9664fe3da64d5a59b63396952e5af32803fbe20238e0f2aa4a165cb9da7a93
+    - b8c8b53bc9983a8ea09bd1a9a003a7401ee9cd85d5eb626f1745638e90f73bc3
+    - e7808966aa502db90af1ca01d2de684253bf33b25c0ecd424c0910a6ddcbbb8d
+    - 19c41d5c087203204682c83c7ade2654165c71bc9c34f9daa0671b2647ded8a1
+tags: [regression, watermark, product-identity, small-footprint, layout-tier, selector]

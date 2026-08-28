@@ -15,7 +15,8 @@ VALID_MODE = {"integrated-print", "balanced-hybrid", "standard-hardware"}
 VALID_REQUIREMENTS_APPROVAL = {"pending", "approved", "changes-requested"}
 VALID_CONCEPT_APPROVAL = {"blocked", "pending", "approved", "changes-requested"}
 VALID_WATERMARK_APPROVAL = {"blocked", "pending", "approved", "changes-requested"}
-EXPECTED_WATERMARK_ASSET = "MM-WM-001-R1"
+SUPPORTED_WATERMARK_ASSETS = {"MM-WM-001-R1", "MM-WM-001-R2"}
+RECOMMENDED_WATERMARK_ASSET = "MM-WM-001-R2"
 EXPECTED_WATERMARK_BRAND = "metriMade"
 EXPECTED_WATERMARK_DOMAIN = "metriMade.com"
 PRODUCT_ID_RE = re.compile(r"^[A-Z0-9]+(?:-[A-Z0-9]+)+$")
@@ -108,8 +109,9 @@ def main() -> int:
     elif requirements_status == "approved":
         warnings.append("production CAD remains gated until concept approval")
 
-    if watermark_approval.get("asset_id") != EXPECTED_WATERMARK_ASSET:
-        errors.append(f"watermark approval must use asset_id {EXPECTED_WATERMARK_ASSET}")
+    watermark_asset = watermark_approval.get("asset_id")
+    if watermark_asset not in SUPPORTED_WATERMARK_ASSETS:
+        errors.append(f"watermark approval asset_id must be one of {sorted(SUPPORTED_WATERMARK_ASSETS)}")
     if watermark_approval.get("product_id") != project_id:
         errors.append("watermark approval product_id must equal project.id")
     if watermark_approval.get("version") != project_revision:
@@ -126,6 +128,15 @@ def main() -> int:
         ):
             if not watermark_approval.get(field):
                 errors.append(f"{watermark_status} watermark needs {field}")
+        if watermark_asset == RECOMMENDED_WATERMARK_ASSET:
+            tier = watermark_approval.get("layout_tier")
+            if tier not in {"full", "compact", "micro"}:
+                errors.append(f"{watermark_status} R2 watermark needs layout_tier full, compact, or micro")
+            expected_domain_visible = tier != "micro"
+            if watermark_approval.get("domain_visible") is not expected_domain_visible:
+                errors.append(
+                    f"{watermark_status} R2 watermark domain_visible must be {expected_domain_visible} for {tier}"
+                )
     if watermark_status == "approved":
         if concept_status != "approved":
             errors.append("watermark cannot be approved before concept approval")
@@ -146,8 +157,20 @@ def main() -> int:
         errors.append(f"branding.brand must be {EXPECTED_WATERMARK_BRAND}")
     if branding.get("domain") != EXPECTED_WATERMARK_DOMAIN:
         errors.append(f"branding.domain must be {EXPECTED_WATERMARK_DOMAIN}")
-    if branding.get("asset_id") != EXPECTED_WATERMARK_ASSET:
-        errors.append(f"branding.asset_id must be {EXPECTED_WATERMARK_ASSET}")
+    branding_asset = branding.get("asset_id")
+    if branding_asset not in SUPPORTED_WATERMARK_ASSETS:
+        errors.append(f"branding.asset_id must be one of {sorted(SUPPORTED_WATERMARK_ASSETS)}")
+    if branding_asset != watermark_asset:
+        errors.append("branding.asset_id must equal workflow.watermark_approval.asset_id")
+    if branding_asset == "MM-WM-001-R1":
+        warnings.append("MM-WM-001-R1 is legacy-compatible; use MM-WM-001-R2 for new product revisions")
+    if branding_asset == RECOMMENDED_WATERMARK_ASSET and branding.get("layout_tier") not in {
+        "auto",
+        "full",
+        "compact",
+        "micro",
+    }:
+        errors.append("branding.layout_tier must be auto, full, compact, or micro for MM-WM-001-R2")
     if branding.get("product_id") != project_id:
         errors.append("branding.product_id must equal project.id")
     if branding.get("version") != project_revision:

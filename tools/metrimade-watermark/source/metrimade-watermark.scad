@@ -1,4 +1,4 @@
-// metriMade product watermark integration helper — MM-WM-001-R1
+// metriMade product watermark integration helper — MM-WM-001-R2
 // Pass the generated product-specific SVG profile from tools/generate_watermark.py.
 
 module metrimade_watermark_profile(

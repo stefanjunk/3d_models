@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/tools/metrimade-watermark/exports/examples-r2/MM-ORG-001_v0.1.0_micro/metrimade-watermark-MM-ORG-001-v0.1.0-micro-cutter-d040.stl",
+      "sha256": "8d9bd1c288e49dfe3a2e36aaf6523b0e752531e3e05874008ab8488c3b02f65a",
+      "size_bytes": 560356
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          0.566814,
+          0.799988,
+          0.0
+        ],
+        [
+          35.289,
+          8.79999,
+          0.4
+        ]
+      ],
+      "components": 19,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": 26,
+      "extents_mm": [
+        34.722186,
+        8.000001999999999,
+        0.4
+      ],
+      "faces": 3456,
+      "manifold_edges": 5184,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 38.58052220603998,
+      "surface_area_mm2": 287.4470621489546,
+      "vertices": 1754,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 0.5343971252441406,
+    "raw_file_representation": {
+      "faces": 3456,
+      "vertices": 10368
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.2.1"
+}

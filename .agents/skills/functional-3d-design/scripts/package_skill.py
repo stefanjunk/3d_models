@@ -18,6 +18,8 @@ METRIMADE_WATERMARK_FILES = (
     "test-plan.yaml",
     "tools/generate_watermark.py",
     "validation/physical-test-record.csv",
+    "validation/concept-r2-watermark-tiers.svg",
+    "validation/concept-r2-watermark-tiers.png",
     "validation/validation-report.md",
 )
 
@@ -35,7 +37,7 @@ def main() -> int:
     args = p.parse_args()
     root = args.package_root.resolve()
     output = args.output or root.parent / f"{root.name}.zip"
-    workspace_watermark = root.parents[2] / "metrimade-watermark"
+    workspace_watermark = root.parents[2] / "tools" / "metrimade-watermark"
     missing_watermark = [
         relative
         for relative in METRIMADE_WATERMARK_FILES
@@ -43,7 +45,7 @@ def main() -> int:
     ]
     if missing_watermark:
         raise SystemExit(
-            "Cannot package functional-3d-design without MM-WM-001-R1 files: "
+            "Cannot package functional-3d-design without MM-WM-001-R2 files: "
             + ", ".join(missing_watermark)
         )
     skip_names = {"__pycache__", ".git"}

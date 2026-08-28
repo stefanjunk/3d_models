@@ -173,7 +173,7 @@ Use an escalating test ladder:
 First complete and verify the production model. Then follow `watermark-release-gate.md` as the final planned design-feature/solid-geometry change:
 
 - retain overall model views, key geometry, functional evidence, print readiness, and candidate deliverables as the primary approval material;
-- generate and insert the exact `MM-WM-001-R1` profile containing `metriMade.com` plus the current product ID and version into the actual model without scaling it down;
+- generate all exact `MM-WM-001-R2` tiers, select Full then Compact then Micro against the measured safe region at 0°/90° and scale 1.0, and insert the selected profile containing the logo plus current product ID/version; require the domain on Full/Compact and record selector justification when Micro omits it;
 - prefer a recessed, process-safe mark on the print-bed-facing underside;
 - create the final derived manufacturing mesh only with the prevalidated simplification/tessellation policy and with watermark/interfaces/bed datum protected;
 - rerun geometry, surface-error, wall, bed-contact, mark-readability, and slicer checks on the marked export;

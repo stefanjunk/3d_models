@@ -15,11 +15,19 @@ SKILL = Path(__file__).resolve().parents[1]
 SCRIPTS = SKILL / "scripts"
 WATERMARK_EXAMPLE = (
     SKILL.parents[2]
+    / "tools"
     / "metrimade-watermark"
     / "exports"
     / "examples"
     / "MM-ORG-001_v0.1.0"
     / "metrimade-watermark-MM-ORG-001-v0.1.0.json"
+)
+WATERMARK_R2_EXAMPLES = (
+    SKILL.parents[2]
+    / "tools"
+    / "metrimade-watermark"
+    / "exports"
+    / "examples-r2"
 )
 
 
@@ -61,7 +69,7 @@ def watermark_approval_fixture(product_id: str, version: str, status: str = "blo
         "status": status,
         "spec_revision": version if populated else None,
         "geometry_revision": "sha256:test" if populated else None,
-        "asset_id": "MM-WM-001-R1",
+        "asset_id": "MM-WM-001-R2",
         "product_id": product_id,
         "version": version,
         "generated_profile": "assets/watermark/profile.json" if populated else None,
@@ -70,6 +78,8 @@ def watermark_approval_fixture(product_id: str, version: str, status: str = "blo
         "preview_asset": "validation/watermark-preview.png" if populated else None,
         "validation_asset": "validation/watermark-validation.json" if populated else None,
         "physical_test_asset": "tests/watermark-coupon.json" if populated else None,
+        "layout_tier": "full" if populated else None,
+        "domain_visible": True if populated else None,
         "approved_by": "test-user" if status == "approved" else None,
     }
 
@@ -79,7 +89,8 @@ def branding_fixture(product_id: str, version: str) -> dict:
         "required": True,
         "brand": "metriMade",
         "domain": "metriMade.com",
-        "asset_id": "MM-WM-001-R1",
+        "asset_id": "MM-WM-001-R2",
+        "layout_tier": "auto",
         "product_id": product_id,
         "version": version,
         "operation": "recessed",
@@ -271,6 +282,41 @@ class ScriptTests(unittest.TestCase):
             "--metadata", str(WATERMARK_EXAMPLE),
             "--surface-width", "50",
             "--surface-height", "30",
+            "--host-wall", "1.2",
+            "--nozzle", "0.4",
+            "--layer-height", "0.2",
+            expected=1,
+        )
+        self.assertEqual(blocked["status"], "BLOCK")
+        self.assertIsNone(blocked["selection"])
+
+    def test_watermark_selector_r2_prefers_full_then_compact_then_micro(self) -> None:
+        cases = (
+            (80, 30, "full", 0),
+            (48, 20, "compact", 0),
+            (42, 16, "micro", 0),
+        )
+        for width, height, expected_tier, expected_rotation in cases:
+            result = run_json(
+                "select_watermark.py",
+                "--metadata", str(WATERMARK_R2_EXAMPLES),
+                "--surface-width", str(width),
+                "--surface-height", str(height),
+                "--host-wall", "1.2",
+                "--nozzle", "0.4",
+                "--layer-height", "0.2",
+            )
+            self.assertEqual(result["asset_id"], "MM-WM-001-R2")
+            self.assertEqual(result["selection"]["layout_tier"], expected_tier)
+            self.assertEqual(result["selection"]["rotation_deg"], expected_rotation)
+            self.assertEqual(result["selection"]["uniform_scale"], 1.0)
+        self.assertFalse(result["selection"]["domain_visible"])
+
+        blocked = run_json(
+            "select_watermark.py",
+            "--metadata", str(WATERMARK_R2_EXAMPLES),
+            "--surface-width", "38",
+            "--surface-height", "16",
             "--host-wall", "1.2",
             "--nozzle", "0.4",
             "--layer-height", "0.2",

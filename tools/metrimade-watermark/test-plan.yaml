@@ -1,11 +1,13 @@
-project: MM-WM-001-R1
+project: MM-WM-001-R2
 status: physical-execution-pending
 
 digital_checks:
   - id: required-fields
     pass: generator rejects missing or malformed product ID/version
   - id: visible-identity
-    pass: generated SCAD/profile geometry and sidecar metadata map to metriMade.com plus exact product ID/version
+    pass: every tier contains the owned logo and exact product ID/version; full and compact also contain metriMade.com; micro records domain_visible=false
+  - id: tier-priority
+    pass: selector chooses full before compact before micro, tries 0/90 degrees at scale 1.0, and blocks when micro does not fit
   - id: closed-outlines
     pass: SVG contains outlined paths and no live text
   - id: cutter-topology
@@ -22,7 +24,7 @@ physical_coupon:
   material: record exact manufacturer/material/color
   bed_surface: record exact surface
   checks:
-    - domain legible without guessing
+    - domain legible without guessing on full and compact
     - product ID legible without guessing
     - version legible without guessing
     - central M mark recognizable
@@ -35,5 +37,5 @@ release_gate:
   pass_only_if:
     - digital checks pass
     - slicer preview is archived
-    - physical coupon passes using intended production settings
+    - physical coupon for the selected tier passes using intended production settings
     - exact integrated product revision is revalidated

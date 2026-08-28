@@ -18,7 +18,7 @@ workflow:
     status: blocked
     spec_revision: null
     geometry_revision: null
-    asset_id: MM-WM-001-R1
+    asset_id: MM-WM-001-R2
     product_id: MM-PRODUCT-001
     version: 0.1.0
     generated_profile: null
@@ -27,13 +27,16 @@ workflow:
     preview_asset: null
     validation_asset: null
     physical_test_asset: null
+    layout_tier: null
+    domain_visible: null
     approved_by: null
     approved_at: null
 branding:
   required: true
   brand: metriMade
   domain: metriMade.com
-  asset_id: MM-WM-001-R1
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
   product_id: MM-PRODUCT-001
   version: 0.1.0
   operation: recessed
@@ -105,7 +108,7 @@ acceptance:
     criterion: Intended orientation fits the configured build volume.
     method: slicer preflight
   - id: watermark-release
-    criterion: The exact MM-WM-001-R1 mark reads metriMade.com plus the current product ID/version, is recessed and physically qualified, and is explicitly approved on the current geometry revision.
+    criterion: The exact MM-WM-001-R2 full, compact, or micro mark shows the logo plus current product ID/version; the domain is visible except on a selector-justified micro mark; the recess is physically qualified and explicitly approved on the current geometry revision.
     method: references/watermark-release-gate.md
 test_plan: test-plan.yaml
 outputs:

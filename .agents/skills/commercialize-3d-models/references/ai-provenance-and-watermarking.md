@@ -135,6 +135,14 @@ FDM starting values for a 0.4 mm nozzle—not universal acceptance criteria:
 - character height: approximately 3–5 mm or greater;
 - corner radius and spacing: at least one reliable extrusion path.
 
+When the available safe region varies across products, use a small validated layout family instead of uniformly scaling one large mark. Preserve information in this order:
+
+1. full: owned brand/logo, controlled domain or maker identifier, product/release ID, and version;
+2. compact: the same identity rearranged into stacked lines at independently validated feature sizes;
+3. micro: owned logo plus exact product/release ID and version, with the domain omitted only when larger variants do not fit and the domain remains in 3MF metadata and/or a provenance sidecar.
+
+Select the most informative unscaled layout that fits at an approved rotation. Never remove the unique product/release ID or version, and validate each manufactured layout with its own slicer inspection and process-specific coupon. Treat QR/Data Matrix geometry as a separate validated option, not an automatic substitute for human-readable traceability.
+
 Test at the worst approved orientation, layer height, material, machine, finishing, and scale. Resin, SLS/MJF, machining, molding, and larger nozzles need different limits.
 
 Example OpenSCAD use:

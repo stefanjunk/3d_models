@@ -1,0 +1,203 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "component-count",
+      "message": "Expected 2 component(s), found 2",
+      "metrics": {
+        "actual": 2,
+        "expected": 2
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "boundary-edges",
+      "message": "boundary_edges=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nonmanifold-edges",
+      "message": "nonmanifold_edges=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "degenerate-faces",
+      "message": "degenerate_faces=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "duplicate-faces",
+      "message": "duplicate_faces=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "Triangles 55614 / 250000",
+      "metrics": {
+        "actual": 55614,
+        "limit": 250000
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "Mesh file 2.652 MiB / 20 MiB",
+      "metrics": {
+        "actual_mib": 2.6519622802734375,
+        "limit_mib": 20.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-fit",
+      "message": "Mesh fits declared build volume",
+      "metrics": {
+        "axis_order": [
+          0,
+          1,
+          2
+        ],
+        "bed_mm": [
+          220.0,
+          220.0,
+          250.0
+        ],
+        "extents_mm": [
+          49.0,
+          46.208600397687405,
+          49.88638394558802
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/toys-games/mm-boat-003-flapping-tail-submarine/exports/draft-v1.1.0-draft.1/DRAFT-segment_03-v1.1.0-draft.1.stl",
+      "sha256": "dac88adc1c27ab7a1e27e5192eacf36c8b125510576c544fb83a4b595ea7c9b0",
+      "size_bytes": 2780784
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          0.0,
+          0.002165440935641527,
+          0.0021620444022119045
+        ],
+        [
+          49.0,
+          46.21076583862305,
+          49.888545989990234
+        ]
+      ],
+      "components": 2,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": -2,
+      "extents_mm": [
+        49.0,
+        46.208600397687405,
+        49.88638394558802
+      ],
+      "faces": 55614,
+      "manifold_edges": 83421,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 27656.870717617672,
+      "surface_area_mm2": 13130.536534161245,
+      "vertices": 27805,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 2.6519622802734375,
+    "raw_file_representation": {
+      "faces": 55614,
+      "vertices": 166842
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.2.1"
+}

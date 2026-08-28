@@ -1,0 +1,427 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "frontmatter-name",
+      "message": "Skill name: 'functional-3d-design'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "frontmatter-description",
+      "message": "Description length: 451",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "skill-context-budget",
+      "message": "SKILL.md characters 22027; compact-instruction budget 24000",
+      "metrics": {
+        "characters": 22027,
+        "rough_tokens_at_4_chars": 5507
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "resource-references",
+      "message": "All explicit SKILL.md resource paths exist",
+      "metrics": {
+        "missing": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "python-ast",
+      "message": "Parsed 29 Python file(s) without bytecode writes",
+      "metrics": {
+        "errors": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "dependency-declarations",
+      "message": "No requirements declaration found for: PyYAML, numpy, trimesh",
+      "metrics": {
+        "undeclared": [
+          "PyYAML",
+          "numpy",
+          "trimesh"
+        ]
+      },
+      "required": false,
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "evidence": [],
+      "id": "test-suite-present",
+      "message": "Test files: 3",
+      "metrics": {},
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "symlink-containment",
+      "message": "All symlinks remain inside the skill",
+      "metrics": {
+        "escaping": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "opencode-command-portability",
+      "message": "OpenCode command payloads are model/provider-neutral",
+      "metrics": {
+        "errors": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "deterministic-validation-profile",
+      "message": "Companion validation profile returned PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/.agents/skills/functional-3d-design/SKILL.md",
+      "sha256": "3e0159cc3d0773ea17c745d800bf08c9709f06564586a34040b04e82b1431158",
+      "size_bytes": 22067
+    }
+  ],
+  "limitations": [
+    "Dependency declaration matching is static and does not prove the environment can import optional backends."
+  ],
+  "metrics": {
+    "logical_name": "functional-3d-design",
+    "python_imports": [
+      "__future__",
+      "argparse",
+      "cadquery",
+      "common",
+      "datetime",
+      "hashlib",
+      "importlib",
+      "json",
+      "math",
+      "matplotlib",
+      "mpl_toolkits",
+      "numpy",
+      "os",
+      "pathlib",
+      "re",
+      "shlex",
+      "shutil",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "trimesh",
+      "typing",
+      "unittest",
+      "yaml",
+      "zipfile"
+    ],
+    "runtime": "portable",
+    "skill_characters": 22027,
+    "validation_profile": {
+      "checks": [
+        {
+          "evidence": [],
+          "id": "profile-contract",
+          "message": "Profile structure and IDs are valid",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:editable-source",
+          "message": "Artifact role kind: 'source'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:manufacturing-mesh",
+          "message": "Artifact role kind: 'mesh'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:interface-contract",
+          "message": "Artifact role kind: 'contract'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:sweep-report",
+          "message": "Artifact role kind: 'report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:manufacturing-3mf",
+          "message": "Artifact role kind: '3mf'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:gcode",
+          "message": "Artifact role kind: 'gcode'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:autonomy-policy",
+          "message": "Artifact role kind: 'autonomy-policy'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:agent-approval-ledger",
+          "message": "Artifact role kind: 'approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:human-approval-ledger",
+          "message": "Artifact role kind: 'approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:manufacturing-mesh-audit",
+          "message": "Declared check type: 'mesh'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:manufacturing-mesh-audit:manufacturing-mesh",
+          "message": "Referenced artifact role: 'manufacturing-mesh'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:interfaces-and-motion",
+          "message": "Declared check type: 'interfaces'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:interfaces-and-motion:interface-contract",
+          "message": "Referenced artifact role: 'interface-contract'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:parameter-envelope",
+          "message": "Declared check type: 'external_report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:parameter-envelope:editable-source",
+          "message": "Referenced artifact role: 'editable-source'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:parameter-envelope:manufacturing-mesh",
+          "message": "Referenced artifact role: 'manufacturing-mesh'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:parameter-envelope:sweep-report",
+          "message": "Referenced artifact role: 'sweep-report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:manufacturing-package",
+          "message": "Declared check type: '3mf'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:manufacturing-package:manufacturing-3mf",
+          "message": "Referenced artifact role: 'manufacturing-3mf'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:slicer-gcode",
+          "message": "Declared check type: 'gcode'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:slicer-gcode:gcode",
+          "message": "Referenced artifact role: 'gcode'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:stage-provenance",
+          "message": "Declared check type: 'approvals'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:autonomy-policy",
+          "message": "Referenced artifact role: 'autonomy-policy'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:agent-approval-ledger",
+          "message": "Referenced artifact role: 'agent-approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:human-approval-ledger",
+          "message": "Referenced artifact role: 'human-approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:process-matched-fit-coupon",
+          "message": "Manual gate kind: 'physical'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:watermark-approval",
+          "message": "Manual gate kind: 'approval'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:block-statuses",
+          "message": "Release must block FAIL, NOT_RUN, and REVIEW_REQUIRED",
+          "metrics": {
+            "declared": [
+              "FAIL",
+              "NOT_RUN",
+              "REVIEW_REQUIRED"
+            ]
+          },
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:require_sha256",
+          "message": "require_sha256 must be true",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:require_fresh_external_reports",
+          "message": "require_fresh_external_reports must be true",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        }
+      ],
+      "inputs": [
+        {
+          "path": "/home/stefan/Projekte/3d_models/.agents/skills/functional-3d-design/assets/validation-profile.json",
+          "sha256": "54dbc45d134675853502dffda113c139ecf3c5d8a34ff18e8ab2267b27f9ed39",
+          "size_bytes": 1820
+        }
+      ],
+      "limitations": [],
+      "metrics": {
+        "artifact_role_count": 9,
+        "check_count": 6,
+        "manual_gate_count": 2,
+        "skill": "functional-3d-design"
+      },
+      "profile": "draft",
+      "required_capabilities": [],
+      "schema_version": "1.0",
+      "status": "PASS",
+      "tool": "validate-profile",
+      "tool_version": "1.2.1"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-skill",
+  "tool_version": "1.2.1"
+}

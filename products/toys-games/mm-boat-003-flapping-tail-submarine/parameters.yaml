@@ -1,0 +1,65 @@
+schema_version: 1
+spec_revision: 1.1.0-draft.1
+units: mm
+authority: submarine/config.py
+
+fish_body:
+  construction: additive-brep-fairing-outside-immutable-core
+  guide_method: natural-cubic-spline
+  section_loft: registered-ellipses
+  nose_profile_normalized:
+    - [0.00, 12.50, 12.50]
+    - [0.16, 14.50, 14.80]
+    - [0.34, 17.00, 17.50]
+    - [0.58, 21.50, 22.50]
+    - [0.80, 22.00, 23.00]
+    - [1.00, 22.00, 22.80]
+  articulated_chain_profile_normalized:
+    - [0.00, 22.00, 22.80]
+    - [0.25, 22.40, 23.40]
+    - [0.50, 22.80, 24.00]
+    - [0.75, 23.10, 24.40]
+    - [1.00, 22.50, 22.80]
+  capsule_profile_normalized:
+    - [0.00, 22.00, 22.00]
+    - [0.12, 22.30, 22.80]
+    - [0.35, 23.50, 24.80]
+    - [0.55, 24.00, 25.30]
+    - [0.75, 23.70, 24.70]
+    - [0.90, 22.80, 23.00]
+    - [1.00, 22.00, 22.00]
+
+crests:
+  count: 3
+  angles_deg_from_top: [0.0, 62.0, -62.0]
+  peak_radial_height: 1.00
+  tangential_half_width: 4.20
+  root_overlap: 0.45
+  end_margin: 1.50
+
+fins:
+  dorsal: {length: 52.0, height: 14.0, thickness: 3.2}
+  pectoral: {length: 38.0, span: 16.0, thickness: 3.2, cant_deg: 45.0}
+  caudal: {thickness: 2.8, visual_center_z: -10.0, total_span: 70.0, blade_area_ratio_target: 1.0}
+
+watermark:
+  asset_revision: MM-WM-001-R2
+  product_id: MM-BOAT-003
+  version: 1.1.0-draft.1
+  layout_tier: compact
+  domain_visible: true
+  envelope: [40.179, 11.200]
+  rotation_deg: 0
+  uniform_scale: 1.0
+  depth: 0.400
+  boolean_overlap: 0.010
+  host_surface: capsule-keel-flat-underside
+  host_wall_before: 2.0
+  host_wall_after: 1.6
+
+acceptance:
+  hardpoint_drift_max: 0.10
+  crest_min_printed_height: 0.55
+  visible_fin_min_thickness: 2.40
+  articulation_each_joint_deg: 10.0
+  tail_half_sweep_deg: 22.024312837

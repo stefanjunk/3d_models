@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "revision": "v1.1.0-draft.1",
+  "status": "REVIEW_REQUIRED",
+  "objective": "Replace the cylindrical/drum-chain reading with a smoother fish silhouette while preserving seals, motion, trim authority and printable feature limits.",
+  "baseline": {
+    "revision": "v1.0.0",
+    "displacement_ml": 380.04,
+    "print_mass_g": 247.12,
+    "dry_mass_g": 289.12,
+    "required_ballast_g": 86.58,
+    "tail_projected_area_mm2": 1278.0
+  },
+  "candidate": {
+    "revision": "v1.1.0-draft.1",
+    "displacement_ml": 474.67,
+    "print_mass_g": 366.55,
+    "dry_mass_g": 408.55,
+    "required_ballast_g": 59.90,
+    "tail_projected_area_mm2": 1335.826
+  },
+  "deltas": {
+    "displacement_ml": 94.63,
+    "displacement_percent": 24.90,
+    "print_mass_g": 119.43,
+    "print_mass_percent": 48.33,
+    "dry_mass_g": 119.43,
+    "dry_mass_percent": 41.31,
+    "required_ballast_g": -26.68,
+    "required_ballast_percent": -30.82,
+    "tail_area_ratio": 1.04525
+  },
+  "selected_variant": "solid additive fairing with shallow crests and 45-degree-canted pectorals",
+  "selection_reason": "A continuous closed wetted envelope avoids hidden flooded cavities and preserves the immutable pressure cores. The added material is an explicit silhouette/displacement trade-off rather than an unmeasured print-time optimization.",
+  "protected_constraints": {
+    "hardpoint_drift_mm": 0.0,
+    "tail_full_sweep": "PASS",
+    "single_body_exports": "PASS",
+    "bed_fit": "PASS",
+    "trim_feasible": "PASS",
+    "minimum_visible_fin_mm": 2.8
+  },
+  "support_strategy": {
+    "dorsal_fin": "vertical swept profile",
+    "pectoral_fins": "45 degrees downward in keel-down print orientation",
+    "remaining_support_drivers": ["pectoral-fin root transitions", "rear gland boss"],
+    "exact_slicer_result": "NOT_RUN"
+  },
+  "open_gates": [
+    "human silhouette/highlight review",
+    "exact Anycubic machine/process/PETG slice comparison",
+    "process-matched fin and hinge coupon",
+    "physical leak/trim/swim test"
+  ]
+}

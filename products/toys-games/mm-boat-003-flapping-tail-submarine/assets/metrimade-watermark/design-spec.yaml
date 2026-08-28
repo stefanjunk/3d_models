@@ -1,0 +1,141 @@
+project:
+  id: MM-WM-001
+  name: metriMade product-specific watermark
+  revision: 2.0-draft.1
+  owner: Stefan Junk Holding UG (haftungsbeschränkt)
+  brand: metriMade
+  current_asset_release: MM-WM-001-R1
+  proposed_asset_release: MM-WM-001-R2
+  status: digital-production-candidate-physical-test-pending
+
+workflow:
+  requirements_approval:
+    status: approved
+    spec_revision: 2.0-draft.1
+    source: user request dated 2026-08-28
+    approved_by: workspace-user
+    approved_at: 2026-08-28
+  concept_approval:
+    status: approved
+    spec_revision: 2.0-draft.1
+    asset: validation/concept-r2-watermark-tiers.svg
+    approved_by: workspace-user
+    approved_at: 2026-08-28
+  watermark_approval:
+    status: blocked
+    spec_revision: 2.0-draft.1
+    blocked_reason: slicer-layer inspection and process-specific physical coupons remain pending for all tiers
+
+identity:
+  domain: metriMade.com
+  product_id:
+    required: true
+    example: MM-ORG-001
+  version:
+    required: true
+    format: Semantic Versioning 2.0.0
+    example: 0.1.0
+  required_on_every_layout:
+    - owned metriMade logo
+    - exact <PRODUCT_ID>
+    - exact v<VERSION>
+  layout_tiers:
+    full:
+      priority: 1
+      purpose: default layout for products with a generous safe region
+      visible_lines:
+        - metriMade.com
+        - "<PRODUCT_ID> · v<VERSION>"
+      compatibility: preserve MM-WM-001-R1 geometry and default CLI behavior
+    compact:
+      priority: 2
+      purpose: smaller safe regions while retaining the complete visible identity
+      visible_lines:
+        - metriMade.com
+        - <PRODUCT_ID>
+        - v<VERSION>
+      arrangement: three stacked text lines beside the logo
+      target_envelope_for_example_mm: [40.179, 11.2]
+    micro:
+      priority: 3
+      purpose: smallest practical human-readable geometry mark
+      visible_lines:
+        - <PRODUCT_ID>
+        - v<VERSION>
+      arrangement: two stacked trace lines beside the logo
+      domain_omitted: true
+      target_envelope_for_example_mm: [36.089, 9.6]
+      compensating_traceability:
+        - release filename and manifest retain the exact product ID and version
+        - 3MF metadata and provenance sidecar retain the controlled domain when applicable
+  selection:
+    method: choose the highest-priority unscaled tier that fits the measured safe region at 0 or 90 degrees
+    fallback: block placement if the micro tier does not fit without violating clearance or wall rules
+    scaling_down: prohibited
+
+geometry:
+  operation: recessed/subtractive engraving
+  default_surface: flat nonfunctional low-stress underside
+  default_depth_mm: 0.40
+  qualified_depth_range_mm: [0.40, 0.80]
+  profile_scaling: prohibited below each generated tier size
+  minimum_host_wall_mm: 1.20
+  minimum_remaining_wall_mm: 0.80
+  reading_orientation: normal when viewing the finished product from underneath
+  minimum_text_visual_height_mm: 2.80
+  preferred_text_visual_height_mm: 3.00
+  minimum_reliable_stroke_target_mm: 0.60
+  tier_rotation_degrees: [0, 90]
+
+manufacturing:
+  process: FDM/FFF
+  reference_nozzle_mm: 0.40
+  reference_layer_height_mm: 0.20
+  supports_in_mark: prohibited
+  physical_coupon_required_per_material_first_layer_bed_combination: true
+
+traceability:
+  invariants:
+    - watermark product ID equals release-manifest product ID
+    - watermark version equals release-manifest version
+    - watermark identity equals file/package/catalog identity
+    - exact generated profile and integrated manufacturing mesh are hashed
+  historical_release_policy: never mutate; introduce the new mark only through a new revision
+  domain_policy:
+    full_and_compact: visibly required
+    micro: may be omitted only after full and compact are shown not to fit the measured safe region
+
+acceptance:
+  - full and compact domain reads exactly metriMade.com
+  - every tier shows the owned logo plus exact product ID and v-prefixed version
+  - micro is selected only when neither full nor compact fits the measured safe region
+  - mark reads normally from the finished underside
+  - cutter and coupon meshes are manifold with positive volume
+  - outlined SVG contains no live text and no feature is lost at the generated tier size
+  - no watermark geometry protrudes below the product datum
+  - each layout used for production has its own slicer preview and passed physical coupon for the intended production profile
+  - watermark placement does not weaken or interfere with the host product
+
+deliverables:
+  - backward-compatible full-layout generator output
+  - compact and micro SVG, DXF, OpenSCAD, cutter STL, coupon STL, PNG, JSON and manifest outputs
+  - explicit layout identity in filenames and metadata
+  - automatic safe-region tier and rotation selection
+  - deterministic digital regression report for every tier
+  - physical coupon records kept pending until actually printed
+
+requirements_trace:
+  user_stated:
+    - add smaller watermark versions for smaller items
+    - keep a reasonable balance between footprint and visible identity
+    - allow the smallest version to omit the domain while retaining logo, product number and version
+    - consider other compact-footprint solutions
+  inferred:
+    - preserve the current full watermark for compatibility
+    - do not shorten or hash the human-readable product ID or version
+  recommended:
+    - use exactly two added tiers to avoid unnecessary variant proliferation
+    - stack identity lines instead of shrinking the existing profile
+    - use automatic most-informative-fit selection with 0/90-degree rotation
+    - keep QR/Data Matrix and customer-specific forensic codes out of the small visible mark because they add footprint and validation burden
+  unresolved: []

@@ -8,10 +8,12 @@ Schwanzwippe (Slotted-Rocker), an der die vertikale Heckflosse sitzt
 eigener wasserdichter Auftriebskörper, verbunden über vertikale
 Bolzengelenke (±10° seitliche Schwenkfreiheit pro Gelenk).
 
-Fünf **parametrisch geloftete Längsrippen** laufen über die obere und
-seitliche Rumpfhälfte. Sie bilden eine fischähnliche Stromlinienform ab,
-verjüngen sich an allen Gelenken und am Heck und lassen Unterseite, Kiel,
-Deckel und Antrieb frei. Der Funktionskern wird dabei nicht verformt.
+Eine **parametrische Freiform-Fischhülle** läuft über Nase, Gelenkglieder und
+Kapsel. Natürliche kubische Seiten- und Draufsichtkurven führen registrierte
+elliptische Loft-Querschnitte; der bestehende Druck-, Dicht- und Mechanikkern
+bleibt dabei unverändert. Drei breite, nur 0,55–1,0 mm hohe Längskämme, eine
+Rückenflosse, zwei nach unten geneigte Brustflossen und eine symmetrische
+Schwanzflosse erzeugen die Fischsilhouette ohne Schuppen- oder Gesichtsdekor.
 
 Die **Schwimmblase** ist ein Reibkolben in der Nase: Knopf drücken/ziehen
 verstellt die Verdrängung um insgesamt ≈ 6,7 ml (±3,3 g Feintrimm).
@@ -21,39 +23,51 @@ unter der Wasseroberfläche schwebend (Auslegung 98 % getaucht).
 
 Rahmenkonvention: +X = Heckwärts, +Z = oben. Alle Maße in mm.
 
-## Status / Validierung
+## Status / Validierung — 1.1.0-draft.1
 
-- 21 Pytest-Tests grün (Kinematik, Gewinde, Kollisionen aller Bauteilpaare = 0,
-  Dichtigkeit der Druckkörper, Auftrieb/Ballastplan, Bett-Passung).
-- Preflight: 8 Checks PASS (`reports/preflight.json`).
+- 29 Pytest-Tests grün (Kinematik, Gewinde, geschützte Schnittstellen,
+  vollständiger Heckschlag, Dichtigkeit, C2-Führungskurven, Auftrieb,
+  Bett-Passung und kanonische Produktkennzeichnung).
+- Preflight: 8 Checks PASS (`reports/preflight-v1.1.0-draft.1.json`).
 - Surfacing-Contract gültig (`surfacing-spec.yaml`), Routing
-  `bspline-loft-hybrid`; Details in `reports/surfacing.json`.
-- Surfacing-Evidenz: `previews/fish_side.png`, `previews/fish_top.png`,
-  `previews/fish_perspective.png` und `previews/fish_edges.png`.
+  `bspline-loft-hybrid`; Kurven-/Flossennachweis in
+  `reports/surfacing-v1.1.0-draft.1.json` und
+  `reports/surfacing-curves-v1.1.0-draft.1.csv`.
+- Hardpoint-Drift: 0,00 mm an allen geschützten Punkten, Achsen und Ebenen
+  (`reports/hardpoint-drift-v1.1.0-draft.1.json`).
+- Modellansichten: `previews/production-v1.1.0-draft.1/assembly-side.png`,
+  `assembly-top.png` und `assembly.png`.
+- Die kanonische Compact-Kennzeichnung ist 0,40 mm tief in die Kielunterseite
+  graviert; Gesamtansicht und lesbarer Nahnachweis liegen als
+  `watermark-finished-underside.png` und `watermark-keel-closeup.png` im
+  Produktions-Preview-Ordner. Physischer Coupon und Freigabe bleiben offen.
 - Mechanikbibliothek geprüft: Sample 002 liefert Gelenkprinzip/4-mm-Stift/
   0,25-mm-Spiel, Sample 078 das Bajonettprinzip mit 0,30-mm-Standardspiel.
   Auswahl und verworfene Kandidaten stehen unter `mechanism/`.
-- Auftriebsrechnung `reports/buoyancy.json` (Standard-Config):
-  Verdrängung ≈ 380 ml, Trockenmasse ≈ 289 g, nötiger Ballast ≈ 86,5 g
-  (Kiel ≈ 63 g + Kasten ≈ 23,5 g), Blase ≈ 6,7 g Stellbereich.
+- Auftriebsrechnung `reports/buoyancy-v1.1.0-draft.1.json`:
+  Verdrängung ≈ 474,7 ml, Trockenmasse ≈ 408,7 g, nötiger Ballast ≈ 59,9 g
+  (vollständig im Kiel möglich), Blase ≈ 6,7 g Stellbereich.
+- Der exakte Anycubic-Slicer-Gate ist fail-closed `NOT_RUN`, weil Druckermodell
+  und freigegebene vollständige Maschinen-/Prozess-/PETG-Profile noch fehlen.
+  Diese Revision und alle neuen STLs bleiben deshalb ausdrücklich **DRAFT**.
 - Passungs-Coupon für Scharnierfreiheit (0,15/0,25/0,35/0,45 mm je Seite):
   `reports/fit_coupon.scad` → `exports/stl/fit_coupon_hinge.stl`.
   **Vor dem ersten Boot-Druck Coupon mit demselben Profil drucken und die
   Scharnierpassung wählen** (Default `hinge_clearance = 0.25`).
 
-## Druckliste (`exports/stl/`)
+## DRAFT-Druckliste (`exports/draft-v1.1.0-draft.1/`)
 
 | Teil | Material | Ausrichtung/Hinweis |
 |---|---|---|
-| nose_body | PETG | stehend auf Heckfläche, Nase nach oben; Dorsalrippe sichtbar |
+| nose_body | PETG | stehend auf Heckfläche, Nase nach oben; Freiformhaut/Kämme sichtbar |
 | bladder_piston | PETG | stehend, Knopf nach unten; 2× O-Ring 20×1,5 |
-| segment_01..04 | PETG | liegend, Gelenkbolzen vertikal; Rippen nach oben/seitlich |
-| capsule_body | PETG | Kiel unten; Rippen oben/seitlich, Supports nur am Gland-Boss |
+| segment_01..04 | PETG | liegend, Gelenkbolzen vertikal; breite Kämme oben/seitlich |
+| capsule_body | PETG | Kiel unten; Rückenflosse oben, Brustflossen 45° abwärts geneigt |
 | capsule_cap | PETG | Plug nach oben |
 | pivot_pin, hinge_pin (×5) | PETG | stehend; Enden nach Montage leicht anschmelzen/vernieten |
 | crank_disc, shaft_sleeve | PETG | Disc flach, Pin nach oben |
 | tail_rocker | PETG | flach liegend; Langloch fetten |
-| tail_fin | PETG oder TPU | flach liegend; TPU = weichere Flosse, mehr Schub |
+| tail_fin | PETG oder TPU | flach liegend; symmetrische Schwanzform, Antriebsfläche 104,5 % der Baseline |
 | keel_plug | PETG | stehend; O-Ring 9×1,5, Gewinde M12×1,5 |
 | ballast_box, ballast_lid | PETG | wie gedruckt |
 | fit_coupon_hinge | wie Boot | zur Passungswahl |
@@ -94,7 +108,7 @@ Silikonfett; Kapsel innen optional mit Epoxy versiegeln.
 ## Trimmen auf "knapp unter Oberfläche"
 
 1. Boot ohne Deckel-Ballast wiegen; Soll-Masse ≈ 0,98 × Verdrängung
-   (siehe `reports/buoyancy.json`, Wert `required_ballast_g`).
+   (siehe `reports/buoyancy-v1.1.0-draft.1.json`, Wert `required_ballast_g`).
 2. Kiel zuerst füllen (tiefer Schwerpunkt = stabile Lage), Rest in den
    Ballast-Kasten.
 3. Im Becken: Schwimmblase ganz eindrücken (Boot sinkt tiefer) bzw.
@@ -113,9 +127,15 @@ Silikonfett; Kapsel innen optional mit Epoxy versiegeln.
   gefettet; Boss kurz gehalten, Sleeve verlängert die Welle.
 - Deckel als Bajonett ohne Schrauben; Nut 1,2 mm tief in der 2,4-mm-Wand.
 - Glieder als einzelne Auftriebskörper: Leck in einem Glied ≠ Untergang.
-- Fischform als **additive B-Rep-Loft-Rippen** statt Deformation des
-  Druckkörpers: semantisch editierbar, keine Drift an Achsen/Dichtungen;
-  fünf Winkel 0/±45/±90°, minimale Rippenbreite 1,44 mm.
+- Fischform als **additive B-Rep-Freiformhülle** statt Deformation des
+  Druckkörpers: semantisch editierbar, keine Drift an Achsen/Dichtungen.
+  Drei breite Kämme bei 0/±62° ersetzen die fünf runden Aufsatzrippen.
+- Rücken- und Brustflossen sitzen ausschließlich an der großen Kapsel; die
+  Brustflossen sind 45° nach unten geneigt, um die Seitenlesbarkeit zu stärken
+  und in Kiel-unten-Drucklage ungünstige horizontale Unterseiten zu vermeiden.
+- Die Rocker-Zunge, 2,5-mm-Stiftbohrung und der Flossenschlag bleiben exakt;
+  nur die alte einseitige Ruderfläche wurde durch eine symmetrische Caudalform
+  mit 1,045-facher projizierter Baselinefläche ersetzt.
 - Mechanikbibliothek: Gelenkparameter aus Sample 002 beibehalten; beim
   Bajonett Sample 078s 0,30-mm-Standardspiel übernommen und die O-Ring-Nut
   separat auf 0,20 mm radiale Pressung kompensiert. Kupplung 109 bleibt wegen
@@ -129,5 +149,6 @@ python3 -m pytest tests -q               # Validierung
 ```
 
 Parameter (Anzahl Glieder, Durchmesser, Blasenweg, Kurbelradius …) in
-`submarine/config.py`; Rippenparameter beginnen mit `fish_rib_`. Alle
-Prüfungen laufen über `submarine/preflight.py` und die Pytest-Suite.
+`submarine/config.py`; Freiformparameter beginnen mit `fish_`, Flossenparameter
+mit `dorsal_`, `pectoral_` oder `caudal_`. Alle Prüfungen laufen über
+`submarine/preflight.py`, die Pytest-Suite und das Projekt-Validierungsmanifest.

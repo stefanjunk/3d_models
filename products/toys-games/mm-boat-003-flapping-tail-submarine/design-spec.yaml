@@ -73,7 +73,7 @@ geometry:
     x: "Nase nach Heck"
     y: "Backbord/Steuerbord"
     z: "oben"
-  current_assembled_bbox_mm: [413.2, 48.56, 86.13]
+  baseline_assembled_bbox_mm: [413.2, 48.56, 86.13]
   current_problem:
     - "Fast konstante zylindrische Querschnitte erzeugen eine Trommel-/Raupenwirkung."
     - "Der Sprung vom vierten Segment zur 44-mm-Kapsel unterbricht die Seiten- und Draufsicht-Silhouette."
@@ -181,11 +181,12 @@ acceptance:
 
 optimization:
   status: pending
+  candidate_status: draft-candidate-compared
   objective: "geringere visuelle und hydrodynamische Unruhe ohne unnötige Zusatzmasse, Supports oder dichte Reliefmeshes"
   protected: ["Wandreserve", "Dichtheit", "Gelenkfreiheit", "Ballaststabilität", "Flossensteifigkeit"]
   baseline_slicer_report: null
-  selected_variant: null
-  comparison_report: null
+  selected_variant: "solid additive fairing with shallow crests and 45-degree-canted pectorals"
+  comparison_report: reports/optimization-comparison-v1.1.0-draft.1.json
   mesh_simplification:
     status: pending
     master_mesh: null
@@ -198,14 +199,26 @@ branding:
   brand: metriMade
   domain: metriMade.com
   asset_id: MM-WM-001-R2
-  layout_tier: auto
+  layout_tier: compact
+  layout_priority: 2
+  domain_visible: true
   product_id: MM-BOAT-003
   version: 1.1.0-draft.1
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
+  selected_surface: capsule-keel-flat-underside
+  selector_report: validation/watermark-selector-v1.1.0-draft.1.json
+  envelope_mm: [40.179, 11.200]
+  rotation_deg: 0
+  uniform_scale: 1.0
   depth_mm: 0.40
   minimum_host_wall_mm: 1.20
   minimum_remaining_wall_mm: 0.80
+  actual_host_wall_mm: 2.00
+  actual_remaining_wall_mm: 1.60
+  integration_report: reports/watermark-v1.1.0-draft.1.json
+  physical_coupon: pending
+  exact_slicer_preview: not-run
 
 deliverables:
   - "Freigegebenes Konzeptblatt mit Seiten-, Drauf- und Dreiviertelansicht"

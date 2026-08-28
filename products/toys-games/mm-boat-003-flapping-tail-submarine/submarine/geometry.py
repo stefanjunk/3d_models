@@ -9,11 +9,13 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from pathlib import Path
 
 import cadquery as cq
 
 from .config import SubmarineConfig
 from .mechanism import solve_rocker
+from .surfacing import FishEnvelopeProfile
 
 
 @dataclass
@@ -125,59 +127,246 @@ def _tube(od_a: float, od_b: float, x0: float, length: float, wall: float,
     return outer.cut(inner), outer
 
 
-def _fish_rib_scale(cfg: SubmarineConfig, angle_deg: float) -> float:
-    """Blend rib prominence from dorsal to lateral without touching the belly."""
-    t = min(abs(angle_deg) / 90.0, 1.0)
-    return cfg.fish_rib_dorsal_scale + t * (
-        cfg.fish_rib_lateral_scale - cfg.fish_rib_dorsal_scale
-    )
+def _ellipse_loft(stations: list[tuple[float, float, float]]) -> cq.Workplane:
+    """Loft seam-aligned ellipse wires normal to the X axis."""
+    if len(stations) < 2:
+        raise ValueError("an ellipse loft needs at least two stations")
+    wires: list[cq.Wire] = []
+    last_x = -math.inf
+    for x, ry, rz in stations:
+        if x <= last_x or min(ry, rz) <= 0:
+            raise ValueError("ellipse stations must have increasing X and positive radii")
+        wires.append(cq.Workplane("YZ", origin=(x, 0, 0)).ellipse(ry, rz).val())
+        last_x = x
+    return cq.Workplane("XY").newObject([cq.Solid.makeLoft(wires, ruled=False)])
 
 
-def _fish_ribs(
+def _fairing_for_region(
     cfg: SubmarineConfig,
-    stations: list[tuple[float, float, float]],
-) -> list[cq.Workplane]:
-    """Loft circular rib sections along semantic X stations.
+    profile: FishEnvelopeProfile,
+    region: str,
+    x0: float,
+    x1: float,
+) -> tuple[cq.Workplane, cq.Workplane]:
+    """Return (overlapping additive fairing, closed displacement envelope)."""
+    target_stations = profile.sample(region, x0, x1, cfg.fish_registered_sections)
+    cutter_stations = [
+        (
+            x,
+            max(profile.core_radius(region, x) - cfg.fish_fairing_overlap, cfg.wall),
+            max(profile.core_radius(region, x) - cfg.fish_fairing_overlap, cfg.wall),
+        )
+        for x, _, _ in target_stations
+    ]
+    target = _ellipse_loft(target_stations)
+    overlap_cutter = _ellipse_loft(cutter_stations)
+    return target.cut(overlap_cutter), target
 
-    Each station is (x, authoritative shell radius, unscaled rib radius).
-    The loft overlaps the exact shell by fish_rib_overlap and never edits it.
-    """
-    if not cfg.fish_ribs_enabled:
+
+def _ellipse_radial_distance(ry: float, rz: float, theta: float) -> float:
+    sy, cz = math.sin(theta), math.cos(theta)
+    return 1.0 / math.sqrt((sy / ry) ** 2 + (cz / rz) ** 2)
+
+
+def _crest_wire(
+    x: float,
+    ry: float,
+    rz: float,
+    theta: float,
+    visible_height: float,
+    half_width: float,
+    overlap: float,
+) -> cq.Wire:
+    """Broad low ellipse with an exact visible height and inward overlap."""
+    radial = cq.Vector(0.0, math.sin(theta), math.cos(theta))
+    tangent = cq.Vector(0.0, math.cos(theta), -math.sin(theta))
+    shell_r = _ellipse_radial_distance(ry, rz, theta)
+    radial_half = (visible_height + overlap) / 2.0
+    centre_offset = shell_r + (visible_height - overlap) / 2.0
+    centre = cq.Vector(x, radial.y * centre_offset, radial.z * centre_offset)
+    edge = cq.Edge.makeEllipse(
+        half_width,
+        radial_half,
+        centre,
+        cq.Vector(1.0, 0.0, 0.0),
+        tangent,
+    )
+    return cq.Wire.assembleEdges([edge])
+
+
+def _fish_crests(
+    cfg: SubmarineConfig,
+    profile: FishEnvelopeProfile,
+    region: str,
+    x0: float,
+    x1: float,
+) -> list[cq.Workplane]:
+    """Three broad shallow longitudinal crests, never rod-like ribs."""
+    if not cfg.fish_fairing_enabled:
         return []
-    ribs: list[cq.Workplane] = []
-    for angle_deg in cfg.fish_rib_angles_deg:
+    start = x0 + cfg.fish_crest_end_margin
+    end = x1 - cfg.fish_crest_end_margin
+    if end <= start:
+        raise ValueError("crest end margins consume the available body length")
+    count = cfg.fish_registered_sections
+    stations = [start + i * (end - start) / (count - 1) for i in range(count)]
+    crests: list[cq.Workplane] = []
+    for angle_deg in cfg.fish_crest_angles_deg:
         theta = math.radians(angle_deg)
-        scale = _fish_rib_scale(cfg, angle_deg)
         wires: list[cq.Wire] = []
-        for x, shell_r, nominal_r in stations:
-            rib_r = max(nominal_r * scale, 1.5 * cfg.nozzle)
-            overlap = min(cfg.fish_rib_overlap, 0.75 * rib_r)
-            centre_r = shell_r + rib_r - overlap
+        for i, x in enumerate(stations):
+            blend = math.sin(math.pi * i / (count - 1))
+            height = cfg.fish_crest_end_height + blend * (
+                cfg.fish_crest_peak_height - cfg.fish_crest_end_height
+            )
+            half_width = cfg.fish_crest_end_half_width + blend * (
+                cfg.fish_crest_half_width - cfg.fish_crest_end_half_width
+            )
+            ry, rz = profile.radii(region, x)
             wires.append(
-                cq.Wire.makeCircle(
-                    rib_r,
-                    cq.Vector(x, math.sin(theta) * centre_r, math.cos(theta) * centre_r),
-                    cq.Vector(1, 0, 0),
+                _crest_wire(
+                    x,
+                    ry,
+                    rz,
+                    theta,
+                    height,
+                    half_width,
+                    cfg.fish_crest_overlap,
                 )
             )
-        rib = cq.Solid.makeLoft(wires, ruled=False)
-        ribs.append(cq.Workplane("XY").newObject([rib]))
-    return ribs
+        crests.append(cq.Workplane("XY").newObject([cq.Solid.makeLoft(wires, ruled=False)]))
+    return crests
 
 
-def _add_fish_ribs(
+def _add_fish_envelope(
     solid: cq.Workplane,
     envelope: cq.Workplane,
-    ribs: list[cq.Workplane],
+    fairing: cq.Workplane,
+    target_envelope: cq.Workplane,
+    crests: list[cq.Workplane],
 ) -> tuple[cq.Workplane, cq.Workplane]:
-    for rib in ribs:
-        solid = solid.union(rib)
-        envelope = envelope.union(rib)
+    solid = solid.union(fairing)
+    envelope = envelope.union(target_envelope)
+    for crest in crests:
+        solid = solid.union(crest)
+        envelope = envelope.union(crest)
     return solid, envelope
+
+
+def _dorsal_fin(cfg: SubmarineConfig, profile: FishEnvelopeProfile) -> cq.Workplane:
+    """Support-aware swept dorsal fin, rooted only in the rear capsule."""
+    x0 = cfg.capsule_start_x + cfg.lug_len + 28.0
+    x1 = x0 + cfg.dorsal_fin_length
+    if x1 > cfg.capsule_end_x - 16.0:
+        raise ValueError("dorsal fin enters the rear drive keep-out")
+    z0 = profile.radii("capsule", x0)[1] - 0.9
+    z1 = profile.radii("capsule", x1)[1] - 0.9
+    peak_x = x0 + 0.55 * cfg.dorsal_fin_length
+    peak_z = profile.radii("capsule", peak_x)[1] + cfg.dorsal_fin_height
+    outline = (
+        cq.Workplane("XZ")
+        .moveTo(x0, z0)
+        .spline(
+            [
+                (x0 + 0.28 * cfg.dorsal_fin_length, z0 + 0.50 * cfg.dorsal_fin_height),
+                (peak_x, peak_z),
+                (x0 + 0.78 * cfg.dorsal_fin_length, z1 + 0.44 * cfg.dorsal_fin_height),
+                (x1, z1),
+            ],
+            includeCurrent=True,
+        )
+        .lineTo(x0, z0)
+        .close()
+    )
+    return outline.extrude(cfg.dorsal_fin_t / 2.0, both=True)
+
+
+def _pectoral_fins(cfg: SubmarineConfig, profile: FishEnvelopeProfile) -> list[cq.Workplane]:
+    """One swept bilateral pair, canted down for keel-down FDM orientation."""
+    x0 = cfg.capsule_start_x + cfg.lug_len + 18.0
+    length = cfg.pectoral_fin_length
+    x1 = x0 + length
+    root_y = profile.radii("capsule", x0 + 0.45 * length)[0] - 1.2
+    root_z = -4.0
+    fins: list[cq.Workplane] = []
+    for side in (-1.0, 1.0):
+        points = [
+            (x0, side * root_y),
+            (x0 + 0.38 * length, side * (root_y + 0.82 * cfg.pectoral_fin_span)),
+            (x0 + 0.62 * length, side * (root_y + cfg.pectoral_fin_span)),
+            (x1, side * (root_y + 0.58 * cfg.pectoral_fin_span)),
+            (x0 + 0.76 * length, side * root_y),
+        ]
+        fin = (
+            cq.Workplane("XY", origin=(0.0, 0.0, root_z))
+            .polyline(points)
+            .close()
+            .extrude(cfg.pectoral_fin_t / 2.0, both=True)
+        )
+        fin = fin.rotate(
+            (0.0, side * root_y, root_z),
+            (1.0, side * root_y, root_z),
+            -side * cfg.pectoral_fin_cant_deg,
+        )
+        fins.append(fin)
+    return fins
+
+
+def _add_capsule_fins(
+    solid: cq.Workplane,
+    envelope: cq.Workplane,
+    cfg: SubmarineConfig,
+    profile: FishEnvelopeProfile,
+) -> tuple[cq.Workplane, cq.Workplane]:
+    for fin in [_dorsal_fin(cfg, profile), *_pectoral_fins(cfg, profile)]:
+        solid = solid.union(fin)
+        envelope = envelope.union(fin)
+    return solid, envelope
+
+
+def _keel_watermark_cutter(cfg: SubmarineConfig) -> cq.Workplane:
+    """Exact unscaled MM-WM-001-R2 Compact cutter, readable from underside."""
+    asset_dir = (
+        Path(__file__).resolve().parent.parent
+        / "assets"
+        / "metrimade-watermark"
+        / "generated"
+        / f"{cfg.watermark_product_id}_v{cfg.watermark_version}_compact"
+    )
+    dxf_path = asset_dir / (
+        f"metrimade-watermark-{cfg.watermark_product_id}"
+        f"-v{cfg.watermark_version}-compact.dxf"
+    )
+    if not dxf_path.is_file():
+        raise FileNotFoundError(f"canonical watermark DXF is missing: {dxf_path}")
+
+    profile = cq.importers.importDXF(str(dxf_path))
+    cutter = profile.toPending().extrude(cfg.watermark_depth + cfg.watermark_overlap)
+    bb = cutter.val().BoundingBox()
+    if bb.xlen > cfg.watermark_width + 1e-3 or bb.ylen > cfg.watermark_height + 1e-3:
+        raise ValueError("generated watermark geometry exceeds its authoritative envelope")
+
+    # Match the generator's underside-readable transform exactly:
+    # translate([profile_width, 0]) mirror([1, 0, 0]).
+    cutter = (
+        cutter
+        .translate((-cfg.watermark_width / 2.0, 0.0, 0.0))
+        .mirror("YZ")
+        .translate((cfg.watermark_width / 2.0, 0.0, 0.0))
+    )
+    origin_x = cfg.keel_center_x - cfg.watermark_width / 2.0
+    origin_y = -cfg.watermark_height / 2.0
+    keel_bottom_z = -cfg.capsule_od / 2.0 - cfg.keel_h
+    return cutter.translate((
+        origin_x,
+        origin_y,
+        keel_bottom_z - cfg.watermark_overlap,
+    ))
 
 
 # ---------------------------------------------------------------- nose
 def build_nose(cfg: SubmarineConfig) -> list[PartSpec]:
+    profile = FishEnvelopeProfile(cfg)
     r = cfg.hull_od_front / 2
     outer = _revolve(
         _dome_points(cfg.nose_dome, r)
@@ -201,22 +390,21 @@ def build_nose(cfg: SubmarineConfig) -> list[PartSpec]:
     nose = nose.union(tongue)
     env = outer.union(cyl_x(tube_x0, tube_x1, bo)).union(tongue)
 
-    rib_x0 = cfg.nose_dome + cfg.fish_rib_end_margin
-    rib_x1 = cfg.nose_length - cfg.fish_rib_end_margin
-    rib_span = rib_x1 - rib_x0
-    nose, env = _add_fish_ribs(
-        nose,
-        env,
-        _fish_ribs(
+    if cfg.fish_fairing_enabled:
+        fairing, target_envelope = _fairing_for_region(
             cfg,
-            [
-                (rib_x0, r, cfg.fish_rib_end_radius),
-                (rib_x0 + 0.25 * rib_span, r, 0.90 * cfg.fish_rib_peak_radius),
-                (rib_x0 + 0.70 * rib_span, r, cfg.fish_rib_peak_radius),
-                (rib_x1, r, cfg.fish_rib_end_radius),
-            ],
-        ),
-    )
+            profile,
+            "nose",
+            -cfg.bladder_protrude,
+            cfg.nose_length,
+        )
+        nose, env = _add_fish_envelope(
+            nose,
+            env,
+            fairing,
+            target_envelope,
+            _fish_crests(cfg, profile, "nose", -cfg.bladder_protrude, cfg.nose_length),
+        )
 
     return [
         PartSpec(
@@ -225,7 +413,7 @@ def build_nose(cfg: SubmarineConfig) -> list[PartSpec]:
             envelope=env,
             watertight=True,
             print_rotation=(0.0, -90.0, 0.0),
-            note="fish-rib fairing; print standing on rear face, nose tip up",
+            note="freeform fish fairing; print standing on rear face, nose tip up",
         ),
         build_bladder_piston(cfg),
     ]
@@ -256,6 +444,7 @@ def build_bladder_piston(cfg: SubmarineConfig) -> PartSpec:
 # ------------------------------------------------------------- segments
 def build_segments(cfg: SubmarineConfig) -> list[PartSpec]:
     parts: list[PartSpec] = []
+    profile = FishEnvelopeProfile(cfg)
     n = cfg.n_segments
     for i in range(n):
         o = cfg.nose_length + i * cfg.segment_length
@@ -268,34 +457,28 @@ def build_segments(cfg: SubmarineConfig) -> list[PartSpec]:
         _, ears = _hinge_pair(cfg, o, od_a)
         solid = shell.union(tongue).union(ears)
         env = env_tube.union(tongue).union(ears)
-        rib_x0 = drum_x0 + cfg.fish_rib_end_margin
-        rib_x1 = drum_x0 + drum_len - cfg.fish_rib_end_margin
-        rib_span = rib_x1 - rib_x0
-
-        def shell_radius(x: float) -> float:
-            t = (x - drum_x0) / drum_len
-            return (od_a + t * (od_b - od_a)) / 2
-
-        solid, env = _add_fish_ribs(
-            solid,
-            env,
-            _fish_ribs(
+        if cfg.fish_fairing_enabled:
+            fairing, target_envelope = _fairing_for_region(
                 cfg,
-                [
-                    (rib_x0, shell_radius(rib_x0), cfg.fish_rib_end_radius),
-                    (rib_x0 + 0.25 * rib_span, shell_radius(rib_x0 + 0.25 * rib_span), cfg.fish_rib_peak_radius),
-                    (rib_x0 + 0.75 * rib_span, shell_radius(rib_x0 + 0.75 * rib_span), 0.95 * cfg.fish_rib_peak_radius),
-                    (rib_x1, shell_radius(rib_x1), cfg.fish_rib_end_radius),
-                ],
-            ),
-        )
+                profile,
+                "chain",
+                drum_x0,
+                drum_x0 + drum_len,
+            )
+            solid, env = _add_fish_envelope(
+                solid,
+                env,
+                fairing,
+                target_envelope,
+                _fish_crests(cfg, profile, "chain", drum_x0, drum_x0 + drum_len),
+            )
         parts.append(
             PartSpec(
                 name=f"segment_{i + 1:02d}",
                 solid=solid,
                 envelope=env,
                 watertight=True,
-                note="fish-rib buoyancy segment, hinge pin vertical",
+                note="freeform fish-fairing buoyancy segment, hinge pin vertical",
             )
         )
     return parts
@@ -303,6 +486,7 @@ def build_segments(cfg: SubmarineConfig) -> list[PartSpec]:
 
 # ------------------------------------------------------------- capsule
 def build_capsule(cfg: SubmarineConfig) -> list[PartSpec]:
+    profile = FishEnvelopeProfile(cfg)
     oc = cfg.capsule_start_x
     x_cf = oc + cfg.lug_len
     x_rear = x_cf + (cfg.capsule_length - cfg.lug_len)
@@ -316,6 +500,38 @@ def build_capsule(cfg: SubmarineConfig) -> list[PartSpec]:
     _, ears = _hinge_pair(cfg, oc, hinge_od)
     shell = shell.union(ears)
     env = env.union(ears)
+
+    # The capsule's open service bore prevents a direct radial attachment of
+    # its two hinge ears. Connect each ear below the tongue sweep, between the
+    # bayonet-lug sectors, and join the web to the outer shell only outside the
+    # cap-plug radius. This preserves cap removal and full ±10° tongue motion.
+    ear_y = cfg.tongue_t / 2 + cfg.hinge_clearance + cfg.ear_t / 2
+    tongue_sweep_keepout_z = -9.0
+    shell_attach_z = cfg.capsule_inner_r + 0.2
+    for side in (-1.0, 1.0):
+        ear_outer_y = ear_y + cfg.ear_t / 2
+        y0, y1 = sorted((
+            side * (ear_outer_y - 0.55),
+            side * (ear_outer_y + 1.45),
+        ))
+        forward_web = box(
+            oc,
+            x_cf,
+            y0,
+            y1,
+            -od / 2 - 0.5,
+            tongue_sweep_keepout_z,
+        )
+        outer_tab = box(
+            x_cf - 0.5,
+            x_cf + 2.0,
+            y0,
+            y1,
+            -od / 2 - 0.5,
+            -shell_attach_z,
+        )
+        shell = shell.union(forward_web).union(outer_tab)
+        env = env.union(forward_web).union(outer_tab)
 
     # ---- rear wall + gland boss
     gland_fl = cyl_x(x_rear, x_rear + cfg.gland_flange_t, cfg.gland_boss_d / 2)
@@ -414,22 +630,48 @@ def build_capsule(cfg: SubmarineConfig) -> list[PartSpec]:
     shell = shell.union(web_l).union(web_r).union(eye1).union(eye2)
     env = env.union(eye1).union(eye2).union(web_l).union(web_r)
 
-    rib_x0 = x_cf + cfg.fish_rib_end_margin
-    rib_x1 = x_rear - 3.0
-    rib_span = rib_x1 - rib_x0
-    shell, env = _add_fish_ribs(
-        shell,
-        env,
-        _fish_ribs(
+    if cfg.fish_fairing_enabled:
+        fairing, target_envelope = _fairing_for_region(
             cfg,
-            [
-                (rib_x0, od / 2, cfg.fish_rib_end_radius),
-                (rib_x0 + 0.22 * rib_span, od / 2, cfg.fish_rib_peak_radius),
-                (rib_x0 + 0.62 * rib_span, od / 2, 1.12 * cfg.fish_rib_peak_radius),
-                (rib_x1, od / 2, 0.75 * cfg.fish_rib_end_radius),
-            ],
-        ),
-    )
+            profile,
+            "capsule",
+            x_cf,
+            x_rear,
+        )
+        shell, env = _add_fish_envelope(
+            shell,
+            env,
+            fairing,
+            target_envelope,
+            _fish_crests(cfg, profile, "capsule", x_cf + 8.0, x_rear - 3.0),
+        )
+        shell, env = _add_capsule_fins(shell, env, cfg, profile)
+
+        # Protected interface: the additive fairing may reach below the round
+        # pressure core near the keel. Re-cut the unchanged plug bore/thread
+        # after every aesthetic union so the v1.0 interface remains exact.
+        shell = shell.cut(
+            cyl_x(kx + 30, kx + 41, cfg.keel_plug_d / 2, 0, zboss)
+        )
+        shell = shell.cut(
+            cyl_x(kx + 41, kx + 45, 8.2, 0, zboss)
+        )
+        shell = cut_internal_thread(
+            shell,
+            cfg.keel_plug_d / 2,
+            cfg.keel_plug_pitch,
+            1.2,
+            6.0,
+            axis="X",
+            z_offset=kx + 35.0,
+            cz=zboss,
+        )
+
+    # Last planned solid-geometry change: canonical recessed product identity.
+    if cfg.watermark_enabled:
+        watermark_cutter = _keel_watermark_cutter(cfg)
+        shell = shell.cut(watermark_cutter)
+        env = env.cut(watermark_cutter)
 
     cap = build_capsule_cap(cfg, x_cf)
     pivot_pin = PartSpec(
@@ -446,7 +688,7 @@ def build_capsule(cfg: SubmarineConfig) -> list[PartSpec]:
             solid=shell,
             envelope=env,
             watertight=True,
-            note="fish-rib electronics hull; print keel down, supports on gland boss",
+            note="freeform fish electronics hull; keel down, pectoral fins canted for support reduction",
         ),
         cap,
         pivot_pin,
@@ -493,6 +735,47 @@ def build_capsule_cap(cfg: SubmarineConfig, x_cf: float) -> PartSpec:
 
 
 # ------------------------------------------------------------- tail drive
+def caudal_outline_points(
+    cfg: SubmarineConfig,
+    root_x: float,
+    rocker_tip_z: float,
+) -> list[tuple[float, float]]:
+    """Smooth caudal outline with baseline-equivalent projected blade area."""
+    centre = cfg.caudal_visual_center_z
+    half_span = cfg.caudal_span / 2.0
+    return [
+        (root_x + 6.0, rocker_tip_z + 5.0),
+        (root_x + 23.0, centre - 5.0),
+        (root_x + 41.0, centre + 23.0),
+        (root_x + 61.0, centre + half_span),
+        (root_x + 53.0, centre + 13.0),
+        (root_x + 41.0, centre),
+        (root_x + 53.0, centre - 13.0),
+        (root_x + 61.0, centre - half_span),
+        (root_x + 41.0, centre - 24.0),
+        (root_x + 23.0, centre - 12.0),
+        (root_x + 6.0, rocker_tip_z - 5.0),
+    ]
+
+
+def caudal_projected_area_mm2(cfg: SubmarineConfig) -> float:
+    """Exact XZ area of the spline-defined caudal blade, excluding the tang."""
+    sol = solve_rocker(cfg)
+    root_x = cfg.capsule_end_x + 2.0 + 3.0 + 0.2
+    rocker_tip_z = sol.pivot_z - cfg.rocker_arm_tip_r
+    points = caudal_outline_points(cfg, root_x, rocker_tip_z)
+    wire = (
+        cq.Workplane("XZ")
+        .moveTo(*points[0])
+        .spline(points[1:6], includeCurrent=True)
+        .spline(points[6:], includeCurrent=True)
+        .lineTo(*points[0])
+        .close()
+        .val()
+    )
+    return cq.Face.makeFromWires(wire).Area()
+
+
 def build_drive(cfg: SubmarineConfig) -> list[PartSpec]:
     x_rear = cfg.capsule_end_x
     sol = solve_rocker(cfg)
@@ -507,8 +790,8 @@ def build_drive(cfg: SubmarineConfig) -> list[PartSpec]:
     # shaft sleeve (extends the motor shaft to the crank disc)
     sleeve = cyl_x(x_rear + 4.5, x_rear + 12.0, 2.25)
     sleeve = sleeve.cut(cyl_x(x_rear + 3.5, x_rear + 13.0, 1.55))
-    sleeve = sleeve.cut(box(x_rear + 4.5, x_rear + 12.0, -0.4, 0.4, -2.4, 2.4))
-    sleeve_note = "glue onto motor shaft with a drop of CA"
+    sleeve = sleeve.cut(box(x_rear + 6.0, x_rear + 12.0, -0.4, 0.4, -2.4, 2.4))
+    sleeve_note = "one-piece split sleeve; glue onto motor shaft with a drop of CA"
 
     # crank disc with forward crank pin
     disc = cyl_x(disc_x0, disc_x1, cfg.crank_disc_d / 2)
@@ -554,19 +837,20 @@ def build_drive(cfg: SubmarineConfig) -> list[PartSpec]:
     )
     rocker = rocker.cut(cyl_z(tip_z - 7, tip_z + 7, 1.25, hub_x0 + 6, 0))
 
-    # tail fin: vertical blade (XZ plane) with root tang between the ears
+    # Tail fin: invariant tang/socket plus a symmetric fish-like caudal blade.
     fx0 = hub_x0
     tang = box(fx0 + 1, fx0 + 11, -cfg.fin_t / 2, cfg.fin_t / 2, tip_z - 7, tip_z + 5)
     tang = tang.cut(cyl_z(tip_z - 8, tip_z + 6, 1.25, fx0 + 6, 0))
-    blade_pts = [
-        (fx0 + 6, tip_z + 3), (fx0 + 30, tip_z + 2), (fx0 + 52, tip_z - 6),
-        (fx0 + 55, tip_z - 16), (fx0 + 46, tip_z - 26), (fx0 + 24, tip_z - 31),
-        (fx0 + 8, tip_z - 22), (fx0 + 4, tip_z - 8),
-    ]
-    wp = cq.Workplane("XZ").moveTo(*blade_pts[0])
-    for p in blade_pts[1:]:
-        wp = wp.lineTo(*p)
-    blade = wp.close().extrude(-cfg.fin_t).translate((0, -cfg.fin_t / 2, 0))
+    blade_pts = caudal_outline_points(cfg, fx0, tip_z)
+    wp = (
+        cq.Workplane("XZ")
+        .moveTo(*blade_pts[0])
+        .spline(blade_pts[1:6], includeCurrent=True)
+        .spline(blade_pts[6:], includeCurrent=True)
+        .lineTo(*blade_pts[0])
+        .close()
+    )
+    blade = wp.extrude(-cfg.fin_t).translate((0, -cfg.fin_t / 2, 0))
     fin = tang.union(blade)
 
     return [
@@ -577,7 +861,7 @@ def build_drive(cfg: SubmarineConfig) -> list[PartSpec]:
         PartSpec("tail_rocker", solid=rocker, print_rotation=(0.0, 90.0, 0.0),
                  note="grease the crank pin slot; rides on the pivot pin"),
         PartSpec("tail_fin", solid=fin, print_rotation=(0.0, 90.0, 0.0),
-                 note="drop the tang between the rocker ears, pin through (Z)"),
+                 note="symmetric caudal fin; unchanged tang/socket, pin through Z"),
     ]
 
 

@@ -1,8 +1,11 @@
+from dataclasses import replace
+
 import cadquery as cq
 import trimesh
 
 from submarine.config import SubmarineConfig
-from submarine.geometry import build_nose
+from submarine.geometry import build_nose, caudal_projected_area_mm2
+from submarine.mechanism import solve_rocker
 
 
 def as_solid(obj) -> cq.Solid:
@@ -47,7 +50,9 @@ def test_all_parts_present(parts):
 
 def test_positive_volumes(parts):
     for name, spec in parts.items():
-        assert spec.solid.val().Volume() > 1.0, name
+        shape = spec.solid.val()
+        assert shape.Volume() > 1.0, name
+        assert len(shape.Solids()) == 1, f"{name} is not a single printable body"
 
 
 def test_hull_parts_watertight(parts):
@@ -80,19 +85,33 @@ def test_bed_fit(parts, cfg):
         assert dims[0] <= cfg.print_bed[0] and dims[1] <= cfg.print_bed[1], name
 
 
-def test_fish_ribs_expand_visible_envelope(parts, cfg):
+def test_freeform_envelope_expands_visible_silhouette(parts, cfg):
     assert parts["nose_body"].solid.val().BoundingBox().ylen > cfg.hull_od_front + 1.0
     assert parts["segment_01"].solid.val().BoundingBox().ylen > cfg.hull_od_front + 1.0
-    assert parts["capsule_body"].solid.val().BoundingBox().ylen > cfg.capsule_od + 2.0
+    assert parts["capsule_body"].solid.val().BoundingBox().ylen > cfg.capsule_od + 20.0
+    assert parts["capsule_body"].solid.val().BoundingBox().zlen > cfg.capsule_od + 25.0
 
 
-def test_fish_rib_parameter_sweep_valid():
-    base = build_nose(SubmarineConfig(fish_ribs_enabled=False))[0].solid.val()
-    low = build_nose(
-        SubmarineConfig(fish_rib_peak_radius=1.0, fish_rib_end_radius=0.65, fish_rib_overlap=0.4)
-    )[0].solid.val()
-    high = build_nose(
-        SubmarineConfig(fish_rib_peak_radius=2.0, fish_rib_end_radius=1.2, fish_rib_overlap=0.8)
-    )[0].solid.val()
+def test_freeform_and_crest_parameter_sweep_valid():
+    cfg = SubmarineConfig()
+    base = build_nose(replace(cfg, fish_fairing_enabled=False))[0].solid.val()
+    low = build_nose(replace(cfg, fish_crest_peak_height=0.70))[0].solid.val()
+    high = build_nose(replace(cfg, fish_crest_peak_height=1.30))[0].solid.val()
     assert base.isValid() and low.isValid() and high.isValid()
     assert base.Volume() < low.Volume() < high.Volume()
+
+
+def test_tail_blade_preserves_drive_area(cfg):
+    baseline_area_mm2 = 1278.0
+    ratio = caudal_projected_area_mm2(cfg) / baseline_area_mm2
+    assert 0.90 <= ratio <= 1.15
+
+
+def test_tail_full_sweep_clears_capsule(parts, cfg):
+    capsule = as_solid(parts["capsule_body"].solid)
+    tail = as_solid(parts["tail_fin"].solid)
+    half_sweep = solve_rocker(cfg).sweep_deg / 2.0
+    for angle in (-half_sweep, -half_sweep / 2.0, 0.0, half_sweep / 2.0, half_sweep):
+        moved = tail.rotate((0.0, 0.0, cfg.rocker_offset_z), (1.0, 0.0, cfg.rocker_offset_z), angle)
+        common = moved.intersect(capsule)
+        assert common.Volume() < 1e-6, f"tail/capsule collision at {angle:.2f} deg"

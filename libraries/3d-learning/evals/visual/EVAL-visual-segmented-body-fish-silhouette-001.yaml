@@ -1,0 +1,44 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-segmented-body-fish-silhouette-001
+title: Segmented aquatic body reads as one fish without sacrificing functional joints
+category: visual
+status: draft
+trigger: An articulated or modular aquatic product should read as one streamlined animal while its moving joints and functional hardpoints remain separate.
+risk: Local ribs or fins can decorate an unchanged drum-chain hull, while aggressive fairing can bridge joints, collide with service envelopes or invalidate seals and motion.
+given:
+  project: products/toys-games/mm-boat-003-flapping-tail-submarine
+  revision: 1.1.0-draft.1
+  required_views: [side, top, perspective]
+  required_evidence: [approved-concept, guide-curves, hardpoint-drift, full-tail-sweep, part-specific-mesh-audits]
+expected:
+  - Shared side and top guide curves define the primary taper, and adjacent neutral-position profiles agree within the declared continuity tolerance without any surface spanning a moving joint.
+  - In the side view, the base envelope reads as a coordinated head-body-tail progression before the shallow crests and fins are considered.
+  - Dorsal, bilateral pectoral and caudal fins reinforce the silhouette without changing declared joint, seal, trim, drive or print-bed datums.
+  - Fixed side, top and perspective views remain consistent with the approved concept and receive explicit human appearance review.
+  - Every exported part passes its declared mesh policy and the full articulated tail sweep remains collision-free.
+failure_conditions:
+  - The neutral assembly still reads primarily as a chain of cylinders, drums or boxes whose fish identity depends on circular rod ribs alone.
+  - A fairing or fin bridges a moving joint, enters a protected keep-out, changes a hardpoint or creates an unintended second material body.
+  - Side-view taper improves while top or perspective views reveal unexplained bulges, discontinuities or conflicting fin placement.
+  - Digital topology passes but the required human fixed-view appearance review rejects the fish silhouette.
+fixtures:
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/previews/concept-fish-silhouette-v1.1.0-draft.1.png
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/previews/production-v1.1.0-draft.1/
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/surfacing-v1.1.0-draft.1.json
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/hardpoint-drift-v1.1.0-draft.1.json
+grader:
+  type: hybrid
+  command: cd products/toys-games/mm-boat-003-flapping-tail-submarine && python3 -m pytest tests -q
+  expected_exit_code: 0
+  rubric: In fixed side, top and perspective views, judge the unadorned outer taper first; three shallow crests and restrained fins may strengthen but must not carry the fish reading by themselves. Reject visible drum-chain dominance, incoherent cross-view bulges, joint bridges or protected-interface changes.
+  measurement_method: Deterministic spline, hardpoint, motion, topology and watermark tests plus human comparison of fixed cameras with the approved concept.
+relationships:
+  lessons: [EXP-00032]
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-08-28
+  report: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/validation-summary-v1.1.0-draft.1.json
+  artifact_hashes: []
+tags: [visual, freeform, silhouette, articulated, fish, hardpoints]

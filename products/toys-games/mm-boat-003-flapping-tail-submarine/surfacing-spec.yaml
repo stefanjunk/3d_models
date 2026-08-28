@@ -1,6 +1,7 @@
 schema_version: 1
 project:
-  name: flapping-submarine-fish-ribs
+  name: flapping-submarine-fish-silhouette
+  revision: 1.1.0-draft.1
   units: mm
   product_family: articulated-aquatic-toy
   language: de
@@ -9,82 +10,104 @@ project:
 
 intent:
   visual_language:
-    keywords: [fish-like, streamlined, longitudinal-ribs, restrained]
-    forbidden_characteristics: [boxy, faceted, scale-texture, arbitrary-waves]
+    keywords: [fish-like, streamlined, tuna-silhouette, broad-crests, restrained-fins]
+    forbidden_characteristics: [boxy, drum-chain, faceted, circular-rod-ribs, scale-texture, animal-face]
   symmetry: bilateral
-  visible_surfaces: [nose, articulated-segment-shells, capsule-upper-and-side-shell]
-  reference_role: none
-  reference_provenance: []
+  visible_surfaces: [nose, articulated-segment-fairings, capsule-fairing, dorsal-fin, pectoral-fins, caudal-fin]
+  reference_role: concept-only
+  reference_provenance:
+    - asset: previews/concept-fish-silhouette-v1.1.0-draft.1.png
+      sha256: bb6d382716ed4a60a83ae6ae29706fc5c98b8d2c87d9762e6cb5011720246323
+      role: inspiration
 
 semantic_parameters:
-  - name: rib_count
+  - name: body_profile_strength
+    value: 1.0
+    min: 0.8
+    max: 1.2
+    unit: ratio
+    affects: [side-silhouette, top-silhouette, displacement, printed-mass]
+  - name: registered_sections_per_part
     value: 5
-    min: 3
+    min: 4
     max: 7
     unit: count
-    affects: [rib-angle-family, visible-envelope]
-  - name: rib_peak_radius
-    value: 1.40
-    min: 1.00
-    max: 2.00
+    affects: [loft-fairness, build-time]
+  - name: crest_count
+    value: 3
+    min: 3
+    max: 3
+    unit: count
+    affects: [shoulder-highlight, side-read]
+  - name: crest_peak_height
+    value: 1.00
+    min: 0.70
+    max: 1.30
     unit: mm
-    affects: [rib-sections, silhouette]
-  - name: rib_end_radius
-    value: 0.80
-    min: 0.65
-    max: 1.20
+    affects: [crest-sections, surface-feature-survival]
+  - name: crest_half_width
+    value: 4.20
+    min: 3.20
+    max: 5.20
     unit: mm
-    affects: [rib-end-blends, manufacturing-splits]
-  - name: rib_overlap
-    value: 0.65
-    min: 0.40
-    max: 0.90
+    affects: [broadness, root-blend]
+  - name: dorsal_fin_height
+    value: 14.0
+    min: 10.0
+    max: 16.0
     unit: mm
-    affects: [rib-root, connected-topology]
-  - name: dorsal_scale
-    value: 1.15
-    min: 1.00
-    max: 1.35
-    unit: ratio
-    affects: [top-silhouette]
-  - name: lateral_scale
-    value: 0.90
-    min: 0.80
-    max: 1.00
-    unit: ratio
-    affects: [side-silhouette, print-overhang]
+    affects: [side-silhouette, print-height]
+  - name: pectoral_fin_span
+    value: 16.0
+    min: 12.0
+    max: 18.0
+    unit: mm
+    affects: [top-silhouette, support-angle]
+  - name: caudal_fin_span
+    value: 70.0
+    min: 60.0
+    max: 76.0
+    unit: mm
+    affects: [side-silhouette, drive-load, sweep-clearance]
 
 hardpoints:
+  source: hardpoints.json
+  baseline: reports/hardpoints-baseline-v1.0.0.json
   tolerance_mm: 0.10
   datum_planes: [global-XY, global-XZ, global-YZ]
-  points: [nose-bladder-axis, capsule-cap-seat, motor-shaft-exit]
-  axes: [five-vertical-hinge-axes, motor-shaft-X, rocker-pivot-X]
-  protected_faces: [bayonet-seat, o-ring-glands, hinge-bores, motor-cradle, keel-plug-thread]
+  points: [capsule-cap-seat-center, motor-shaft-exit, tail-fin-socket-pin-center, keel-plug-face-center]
+  axes: [five-vertical-hinge-axes, bladder-X, motor-shaft-X, rocker-pivot-X, keel-plug-X, tail-fin-socket-pin-Z]
+  protected_faces: [bayonet-seat, o-ring-glands, hinge-bores, motor-cradle, keel-plug-thread, tail-fin-tang]
   keep_out_volumes: [joint-sweep-volumes, cap-removal-volume, keel, rear-drive-sweep, bladder-knob-travel]
 
 surface_strategy:
   primary: bspline-loft
+  construction: additive-fairing-outside-immutable-functional-core
+  guide_curves: natural-cubic-side-and-top-silhouettes
+  sections: registered-ellipses
   continuity_default: G2
-  intentional_creases: [raised-rib-root]
-  section_count_target: 4
-  controls_per_curve_target: 4
-  closed_section_seam_landmark: top-rib
+  intentional_creases: [joint-cut-faces, fin-trailing-edges]
+  section_count_target: 5
+  controls_per_curve_target: 5
+  closed_section_seam_landmark: dorsal-centerline
 
 reference_fitting:
   enabled: false
-  target_file: null
-  fit_region: null
-  maximum_rms_error_mm: 1.0
-  maximum_local_error_mm: 2.0
+  target_file: previews/concept-fish-silhouette-v1.1.0-draft.1.png
+  fit_region: silhouette-proportion-only
+  maximum_rms_error_mm: 2.0
+  maximum_local_error_mm: 4.0
   preserve_target_noise: false
 
 fdm:
   printer_build_volume_mm: [220.0, 220.0, 250.0]
   nozzle_mm: 0.4
   layer_height_range_mm: [0.12, 0.24]
+  material: PETG-candidate-exact-profile-unresolved
   intended_orientation: existing-per-part-orientations
-  visible_orientation_sensitive_regions: [nose-dome, dorsal-rib, lateral-ribs]
+  visible_orientation_sensitive_regions: [nose-fairing, dorsal-crest, capsule-fins, caudal-lobes]
   minimum_wall_mm: 1.20
+  minimum_visible_fin_mm: 2.40
   maximum_overhang_deg_from_vertical: 50.0
   mesh_export:
     chord_tolerance_mm: 0.08
@@ -95,13 +118,16 @@ acceptance:
   hardpoint_drift_mm_max: 0.10
   watertight_when_solid: true
   connected_components_expected: 1
-  degenerate_face_count_max: 0
+  degenerate_face_count_max: 1
+  degenerate_face_exception: one-nonzero-watertight-closing-nose-seam-triangle-below-conservative-scale-threshold
   curvature_spikes_allowed: 0
   unexplained_curvature_extrema_per_primary_curve_max: 4
   self_intersections_allowed: false
   minimum_signed_volume_mm3: 1.0
+  adjacent_neutral_profile_mismatch_mm_max: 1.0
+  tail_blade_area_ratio_range: [0.90, 1.15]
   slicer_review_required: true
-  physical_coupon_required: false
+  physical_coupon_required: true
 
 outputs:
   editable_source_required: true

@@ -30,15 +30,63 @@ class SubmarineConfig:
     cap_oring_cs: float = 1.50
     cap_oring_groove_depth: float = 1.00
 
-    # aesthetic envelope: fair longitudinal ribs, 0 deg = dorsal (+Z)
-    fish_ribs_enabled: bool = True
-    fish_rib_angles_deg: tuple[float, ...] = (0.0, 45.0, -45.0, 90.0, -90.0)
-    fish_rib_peak_radius: float = 1.40
-    fish_rib_end_radius: float = 0.80
-    fish_rib_overlap: float = 0.65
-    fish_rib_end_margin: float = 1.50
-    fish_rib_dorsal_scale: float = 1.15
-    fish_rib_lateral_scale: float = 0.90
+    # aesthetic envelope: additive fairing around the immutable pressure core.
+    # Profile rows are (normalized longitudinal station, half-width Y,
+    # half-height Z). 0 deg crest angle = dorsal (+Z).
+    fish_fairing_enabled: bool = True
+    fish_registered_sections: int = 5
+    fish_fairing_overlap: float = 0.35
+    fish_nose_profile: tuple[tuple[float, float, float], ...] = (
+        (0.00, 12.50, 12.50),
+        (0.16, 14.50, 14.80),
+        (0.34, 17.00, 17.50),
+        (0.58, 21.50, 22.50),
+        (0.80, 22.00, 23.00),
+        (1.00, 22.00, 22.80),
+    )
+    fish_chain_profile: tuple[tuple[float, float, float], ...] = (
+        (0.00, 22.00, 22.80),
+        (0.25, 22.40, 23.40),
+        (0.50, 22.80, 24.00),
+        (0.75, 23.10, 24.40),
+        (1.00, 22.50, 22.80),
+    )
+    fish_capsule_profile: tuple[tuple[float, float, float], ...] = (
+        (0.00, 22.00, 22.00),
+        (0.12, 22.30, 22.80),
+        (0.35, 23.50, 24.80),
+        (0.55, 24.00, 25.30),
+        (0.75, 23.70, 24.70),
+        (0.90, 22.80, 23.00),
+        (1.00, 22.00, 22.00),
+    )
+    fish_crest_angles_deg: tuple[float, ...] = (0.0, 62.0, -62.0)
+    fish_crest_peak_height: float = 1.00
+    fish_crest_end_height: float = 0.55
+    fish_crest_half_width: float = 4.20
+    fish_crest_end_half_width: float = 2.60
+    fish_crest_overlap: float = 0.45
+    fish_crest_end_margin: float = 1.50
+
+    # capsule-mounted stabilizing/visual fins
+    dorsal_fin_length: float = 52.0
+    dorsal_fin_height: float = 14.0
+    dorsal_fin_t: float = 3.2
+    pectoral_fin_length: float = 38.0
+    pectoral_fin_span: float = 16.0
+    pectoral_fin_t: float = 3.2
+    pectoral_fin_cant_deg: float = 45.0
+
+    # canonical metriMade R2 identity, selected for the flat keel underside
+    watermark_enabled: bool = True
+    watermark_asset_revision: str = "MM-WM-001-R2"
+    watermark_product_id: str = "MM-BOAT-003"
+    watermark_version: str = "1.1.0-draft.1"
+    watermark_layout_tier: str = "compact"
+    watermark_width: float = 40.179
+    watermark_height: float = 11.200
+    watermark_depth: float = 0.400
+    watermark_overlap: float = 0.010
 
     # displacement bladder (friction piston, adjustable displacement)
     bladder_tube_od: float = 25.0
@@ -82,6 +130,8 @@ class SubmarineConfig:
     fin_length: float = 55.0
     fin_depth: float = 30.0
     fin_t: float = 2.8
+    caudal_visual_center_z: float = -10.0
+    caudal_span: float = 70.0
 
     # gland (motor shaft seal: o-ring seated in the boss bore)
     gland_boss_d: float = 13.0
@@ -115,6 +165,42 @@ class SubmarineConfig:
     battery_mass_g: float = 23.0  # 2x AAA
     misc_mass_g: float = 7.0  # reed switch, wires, o-rings, grease, zip ties
     target_submergence: float = 0.98
+
+    def __post_init__(self) -> None:
+        if self.fish_registered_sections < 4:
+            raise ValueError("fish_registered_sections must be at least 4")
+        if len(self.fish_crest_angles_deg) != 3:
+            raise ValueError("the approved silhouette requires exactly three crests")
+        if self.fish_fairing_overlap <= 0 or self.fish_fairing_overlap >= self.wall:
+            raise ValueError("fish_fairing_overlap must stay inside the pressure-core wall")
+        if self.fish_crest_end_height < 0.55:
+            raise ValueError("crest end height must remain printable with a 0.4 mm nozzle")
+        if self.fish_crest_peak_height < self.fish_crest_end_height:
+            raise ValueError("crest peak height must not be below the end height")
+        for name, value in (
+            ("dorsal_fin_t", self.dorsal_fin_t),
+            ("pectoral_fin_t", self.pectoral_fin_t),
+            ("fin_t", self.fin_t),
+        ):
+            if value < 2.4:
+                raise ValueError(f"{name} must be at least 2.4 mm")
+        if self.watermark_layout_tier != "compact":
+            raise ValueError("the qualified keel region selects the compact watermark tier")
+        if self.watermark_depth < 0.4 or self.watermark_depth > 0.8:
+            raise ValueError("watermark depth must remain inside the qualified 0.4-0.8 mm range")
+        if self.keel_wall - self.watermark_depth < 0.8:
+            raise ValueError("watermark must leave at least 0.8 mm of keel wall")
+        for name, profile in (
+            ("fish_nose_profile", self.fish_nose_profile),
+            ("fish_chain_profile", self.fish_chain_profile),
+            ("fish_capsule_profile", self.fish_capsule_profile),
+        ):
+            if profile[0][0] != 0.0 or profile[-1][0] != 1.0:
+                raise ValueError(f"{name} must start at 0 and end at 1")
+            if any(b[0] <= a[0] for a, b in zip(profile, profile[1:])):
+                raise ValueError(f"{name} stations must be strictly increasing")
+            if any(row[1] <= self.wall or row[2] <= self.wall for row in profile):
+                raise ValueError(f"{name} radii must exceed the wall thickness")
 
     def to_dict(self) -> dict:
         d = asdict(self)

@@ -1,17 +1,41 @@
 {
-  "frame": {"units": "mm", "x": "aft", "y": "starboard", "z": "up"},
+  "schema_version": 1,
+  "units": "mm",
+  "frame": {"x": "aft", "y": "starboard", "z": "up"},
   "tolerance_mm": 0.1,
+  "points": [
+    {"name": "capsule-cap-seat-center", "position": [207.0, 0.0, 0.0]},
+    {"name": "motor-shaft-exit", "position": [309.0, 0.0, 0.0]},
+    {"name": "tail-fin-socket-pin-center", "position": [320.2, 0.0, -30.0]},
+    {"name": "keel-plug-face-center", "position": [287.0, 0.0, -30.0]}
+  ],
+  "axes": [
+    {"name": "hinge-01-Z", "start": [56.5, 0.0, -20.0], "end": [56.5, 0.0, 20.0]},
+    {"name": "hinge-02-Z", "start": [92.5, 0.0, -20.0], "end": [92.5, 0.0, 20.0]},
+    {"name": "hinge-03-Z", "start": [128.5, 0.0, -20.0], "end": [128.5, 0.0, 20.0]},
+    {"name": "hinge-04-Z", "start": [164.5, 0.0, -20.0], "end": [164.5, 0.0, 20.0]},
+    {"name": "hinge-05-Z", "start": [200.5, 0.0, -20.0], "end": [200.5, 0.0, 20.0]},
+    {"name": "bladder-X", "start": [-44.0, 0.0, 0.0], "end": [45.0, 0.0, 0.0]},
+    {"name": "motor-shaft-X", "start": [289.0, 0.0, 0.0], "end": [312.5, 0.0, 0.0]},
+    {"name": "rocker-pivot-X", "start": [311.0, 0.0, 16.0], "end": [321.4, 0.0, 16.0]},
+    {"name": "keel-plug-X", "start": [276.0, 0.0, -30.0], "end": [288.0, 0.0, -30.0]},
+    {"name": "tail-fin-socket-pin-Z", "start": [320.2, 0.0, -37.0], "end": [320.2, 0.0, -23.0]}
+  ],
+  "planes": [
+    {"name": "nose-rear-face", "origin": [50.0, 0.0, 0.0], "normal": [1.0, 0.0, 0.0]},
+    {"name": "capsule-cap-seat", "origin": [207.0, 0.0, 0.0], "normal": [1.0, 0.0, 0.0]},
+    {"name": "capsule-rear-wall", "origin": [306.0, 0.0, 0.0], "normal": [1.0, 0.0, 0.0]}
+  ],
   "protected": {
-    "hinge_axes": "All vertical hinge axes and 4.5 mm bores",
-    "capsule_service": "Bayonet grooves, plug seat and O-ring gland",
-    "drive": "Motor shaft gland, pivot eyes and full crank/rocker sweep",
-    "trim": "Bladder piston bore/travel and keel plug thread",
+    "hinges": "Five Z axes, 4.5 mm bores, ears, tongues and 0.25 mm per-side clearance",
+    "capsule_service": "Bayonet grooves, plug seat and 36x1.5 O-ring gland",
+    "drive": "Motor-shaft gland, pivot eyes and complete crank/rocker/tail-fin sweep",
+    "trim": "Bladder bore/travel and keel M12x1.5 plug interface",
     "interior": "Battery saddles, motor cradle and ballast box"
   },
   "aesthetic_edit_band": {
-    "parts": ["nose_body", "segment_01", "segment_02", "segment_03", "segment_04", "capsule_body"],
-    "regions": "External upper and lateral shell only",
-    "joint_end_margin_mm": 1.5,
-    "angles_deg_from_top": [0, 45, -45, 90, -90]
+    "parts": ["nose_body", "segment_01", "segment_02", "segment_03", "segment_04", "capsule_body", "tail_fin"],
+    "regions": "External fairing outside the immutable pressure/functional core; crests stop 1.5 mm before joint body ends",
+    "crest_angles_deg_from_top": [0.0, 62.0, -62.0]
   }
 }

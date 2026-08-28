@@ -1,0 +1,106 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00032
+title: Establish an articulated fish silhouette with shared guides before adding local ribs or fins
+captured_at: 2026-08-28
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One user correction and one concept approval; final appearance, slicing and physical behavior remain unapproved.
+feature:
+  type: articulated-freeform-fish-silhouette
+  geometry: Segmented aquatic vehicle hull with separate watertight modules and immutable hinge, seal, trim and drive hardpoints
+  design_parameters:
+    global_guides: natural cubic side and top splines
+    registered_sections: per-part elliptical lofts split at every hinge
+    longitudinal_crests: 3
+    dorsal_fins: 1
+    pectoral_fins: 2
+    caudal_area_ratio_to_baseline: 1.04525
+  named_datums: [global-hull-axis, neutral-joint-planes, protected-hardpoint-map, keel-print-datum]
+  constraints:
+    - Do not span a moving joint with aesthetic surface geometry.
+    - Preserve all declared seal, hinge, cap, motor, trim and drive hardpoints.
+    - Judge the base envelope in fixed side, top and perspective views; local ribs or fins cannot substitute for the global silhouette.
+scope:
+  process: FFF
+  machine: {manufacturer: unknown, model: unknown, unit_id: null, firmware: null}
+  material: {manufacturer: unknown, product: PETG design basis, variant: null, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: keel-down capsule and explicit per-part export orientations
+  slicer: {name: unknown, version: null, profile: null, profile_hash: null}
+  geometry_class: articulated aquatic toy hull with freeform additive fairings
+  environment: digital CAD, fixed-view rendering and deterministic mesh validation only
+  transfer_limits:
+    - Evidence is limited to one product geometry and one approved concept image.
+    - Hydrodynamic drag, swim behavior, sealing, fit and process-specific fin quality were not physically measured.
+observation:
+  summary: Circular add-on ribs did not make the segmented drum-chain hull read as one fish; a shared side/top envelope with restrained crests and fins was selected and implemented after the user correction.
+  expected: The neutral articulated assembly should read as a streamlined fish while its functional modules and hardpoints remain exact.
+  actual: The approved concept and production candidate use global guides and registered loft sections; deterministic tests report zero hardpoint drift and passing mesh/motion checks, while final human appearance review remains open.
+  outcome: correction
+  parameter: silhouette-construction-order
+  recommended_value: Define and review the global envelope first, then use broad shallow crests and restrained fins only as secondary silhouette cues.
+  units: workflow
+explanation:
+  hypothesis: Viewers read the continuous outer contour and taper before they read local ribs or fin cues, so a globally coordinated envelope is more likely to establish the intended animal silhouette than protrusions on an unchanged cylindrical base.
+  mechanism: Shared side/top guides coordinate module height, width and taper across neutral joint planes; fins then reinforce dorsal, lateral and caudal landmarks without altering functional cores.
+  alternatives:
+    - Stronger per-module ellipse taper without longitudinal crests.
+    - Fins alone on the baseline cylinders.
+    - A continuous flexible skin spanning joints, which was excluded because it would change motion and sealing scope.
+  validated: false
+  validation_method: One concept approval, fixed-view production renders and deterministic CAD/mesh regression; no cross-geometry or physical validation.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: false
+  measurement_method: Digital guide-curve, hardpoint, mesh and fixed-camera evidence only.
+  uncertainty: Final appearance is still a human-review gate and the increased displacement/material cost has not been sliced or physically tested.
+  sources:
+    - {type: user-statement, ref: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/user-correction-trace-v1.1.0-draft.1.yaml, hash: null, notes: "Scoped correction, approvals, implementation and remaining uncertainty."}
+    - {type: product-trace, ref: products/toys-games/mm-boat-003-flapping-tail-submarine/design-spec.yaml, hash: null, notes: Approved requirements and protected constraints.}
+    - {type: product-trace, ref: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/surfacing-v1.1.0-draft.1.json, hash: null, notes: "Guide, crest, fin and caudal geometry evidence."}
+  artifacts:
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/previews/concept-fish-silhouette-v1.1.0-draft.1.png
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/previews/production-v1.1.0-draft.1/assembly-side.png
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/previews/production-v1.1.0-draft.1/assembly.png
+applicability:
+  triggers:
+    - A segmented or modular aquatic body is intended to read as one organic animal but still reads as a chain of cylinders, boxes or drums.
+    - Functional hardpoints prevent replacing the internal modules with a monolithic sculpted shell.
+  exclusions:
+    - Continuous flexible skins, rigid monolithic hulls, scanned animal replicas or parts whose hydrodynamics have already been physically optimized.
+  transfer_limits:
+    - Re-tune guides, sections, fin roots, clearances and print orientation for every product; do not reuse these dimensions as defaults.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-visual-segmented-body-fish-silhouette-001]
+  patterns: []
+  references: []
+validation:
+  targeted: review-required
+  regression: pass
+  reports:
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/pytest-v1.1.0-draft.1.xml
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/validation-summary-v1.1.0-draft.1.json
+provenance:
+  project: MM-BOAT-003
+  part_revision: 1.1.0-draft.1
+  trace: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/user-correction-trace-v1.1.0-draft.1.yaml
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [visual, freeform, fish-silhouette, articulated-hull, user-correction, digital-only]

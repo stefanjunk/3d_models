@@ -42,9 +42,11 @@ def test_bore_fits_piston():
     assert 0.1 <= protrusion <= 0.6
 
 
-def test_fish_ribs_are_printable():
+def test_fish_features_are_printable():
     cfg = SubmarineConfig()
-    minimum_diameter = 2 * cfg.fish_rib_end_radius * cfg.fish_rib_lateral_scale
-    assert minimum_diameter >= 3 * cfg.nozzle
-    assert 0 < cfg.fish_rib_overlap < cfg.fish_rib_end_radius * cfg.fish_rib_lateral_scale
-    assert all(abs(angle) <= 90 for angle in cfg.fish_rib_angles_deg)
+    assert cfg.fish_crest_end_height >= cfg.nozzle
+    assert cfg.fish_crest_end_half_width * 2 >= 3 * cfg.nozzle
+    assert 0 < cfg.fish_crest_overlap < cfg.fish_crest_end_half_width
+    assert len(cfg.fish_crest_angles_deg) == 3
+    assert all(abs(angle) <= 90 for angle in cfg.fish_crest_angles_deg)
+    assert min(cfg.dorsal_fin_t, cfg.pectoral_fin_t, cfg.fin_t) >= 6 * cfg.nozzle

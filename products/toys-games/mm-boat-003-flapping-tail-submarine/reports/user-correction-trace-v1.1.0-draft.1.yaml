@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: product-user-correction-trace
+project: MM-BOAT-003
+revision: 1.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: FFF design candidate
+  machine: unknown
+  material: PETG design basis; manufacturer, product, color and batch unknown
+  nozzle_diameter_mm: 0.4
+  orientation: keel-down capsule; per-part print orientations remain explicit
+  slicer: not run; exact Anycubic printer and complete profiles unavailable
+  geometry_class: articulated aquatic toy hull with immutable seal, hinge, trim and drive hardpoints
+baseline:
+  observation: Five circular longitudinal add-on ribs enlarged local drum sections but did not establish one continuous fish silhouette in side view.
+  artifact: previews/baseline-v1.0.0/assembly-side.png
+user_correction:
+  language: mixed English/German
+  statement: >-
+    I need a more fish-shaped body. Use freeform to create more of a fish
+    silhouette; consider ribs along the body or fins, and make it more
+    streamlined overall.
+  authorization: Requirements and the fish-silhouette concept were explicitly approved in chat on 2026-08-28.
+implemented_candidate:
+  method: Global natural-cubic side/top guides with seam-registered per-part elliptical loft fairings.
+  silhouette_features:
+    - three broad shallow longitudinal crests instead of circular rod ribs
+    - one swept dorsal fin and one bilateral downward-canted pectoral pair
+    - symmetric rounded caudal fin on the unchanged mechanical tang
+  protected_result: 0.00 mm drift at all declared hardpoints; no aesthetic surface spans a moving joint.
+  digital_evidence:
+    tests: 29 passed
+    mesh_audits: 17 passed under declared part-specific policies
+    preview: previews/production-v1.1.0-draft.1/assembly-side.png
+    report: reports/surfacing-v1.1.0-draft.1.json
+open_uncertainty:
+  - The final production render has not yet received explicit human appearance approval.
+  - Exact slicer, physical fit, leak, trim, swim and watermark-coupon evidence are absent.
+  - One project and one digital concept approval do not establish a transferable universal styling rule.

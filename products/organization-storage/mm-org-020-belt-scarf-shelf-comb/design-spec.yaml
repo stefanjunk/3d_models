@@ -1,0 +1,32 @@
+project:
+  id: MM-ORG-020
+  revision: 0.1.0-draft.1
+  title: Parametric belt and scarf shelf comb
+  source_sku: SKU-125
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Separate rolled belts and scarves on a shelf so every item remains visible and removable.
+  excluded: [load-bearing shelf, hanger, child-climbing aid, wet-textile storage]
+
+requirements:
+  - {id: R1, text: Generate compartment width and count from measured roll diameter and inventory count., acceptance: two JSON-driven presets generate exact clear widths., status: PASS_DIGITAL}
+  - {id: R2, text: Avoid a closed floor that traps lint and consumes material., acceptance: items rest on the existing shelf between front/rear rails and full-depth dividers., status: PASS_DIGITAL}
+  - {id: R3, text: Minimize textile snag risk., acceptance: all divider leading vertical edges use a 1.4 mm radius and top edges use a 1.2 mm radius; a three-radius coupon is supplied., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Support side-by-side mixed-width modules., acceptance: both presets share connector datums Y=28/77 mm and 0.25 mm nominal clearance., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R5, text: Keep labels visible without font or brand dependencies., acceptance: one recessed adhesive-label field per compartment., status: PASS_DIGITAL}
+  - {id: R6, text: Fit 220 x 120 x 100 mm and print support-free., acceptance: every part is base-down and within the portfolio envelope., status: PASS_DIGITAL}
+
+manufacturing:
+  processes: [FDM, FFF]
+  materials: [PLA, PETG]
+  orientation: shelf-contact face on build plate
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [fabric snagging, roll retention, retrieval cycles, connector fit, shelf sliding]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

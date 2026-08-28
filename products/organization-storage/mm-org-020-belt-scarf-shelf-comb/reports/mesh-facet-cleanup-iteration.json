@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-020",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "CadQuery/OpenCascade appended eight isolated zero-area triangles where the smallest compound fillets met, although the source coupon was one valid B-Rep solid.",
+  "before": {
+    "cad_shape_valid": true,
+    "cad_solids": 1,
+    "stl_faces": 9756,
+    "mesh_components": 9,
+    "isolated_zero_area_faces": 8,
+    "watertight": false,
+    "independent_audit": "FAIL"
+  },
+  "after": {
+    "cleanup": ["remove degenerate faces", "remove duplicate faces", "merge vertices", "remove unreferenced vertices", "validate closed positive volume"],
+    "stl_faces": 9748,
+    "mesh_components": 1,
+    "degenerate_faces": 0,
+    "duplicate_faces": 0,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "watertight": true,
+    "positive_volume_mm3": 11413.16335507586,
+    "independent_audit": "PASS"
+  },
+  "targeted_test": "tests/test_parameters.py::test_exported_textile_coupon_has_no_degenerate_facets_or_fragments",
+  "artifact_hashes": {
+    "edge_radius_coupon_stl": "b80091e4baf58c3120f91bd524527c86da0ab188cf75f834995d124bab9e5f49",
+    "mesh_audit": "fa8d05319ffbcb25e629c9688711b749825e61970c9bf8103db5623be317acb1"
+  },
+  "uncertainty": "Observed in one CadQuery/OpenCascade geometry and tessellation configuration; it does not justify deleting non-degenerate disconnected shells or skipping CAD-level diagnosis."
+}

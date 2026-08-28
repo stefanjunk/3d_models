@@ -1,0 +1,100 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00016
+title: Fail closed after removing only zero-area export facets from an otherwise valid mesh
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: "One digital coupon, one CadQuery/OpenCascade build and no physical print."}
+feature:
+  type: tessellated-small-compound-fillet-junction
+  geometry: three thin rounded textile-test ribs fused to a planar coupon base
+  design_parameters:
+    rib_thickness_mm: 3.0
+    leading_radii_mm: [0.6, 1.0, 1.4]
+    tessellation_linear_mm: 0.08
+    tessellation_angular_rad: 0.15
+    isolated_zero_area_faces_before: 8
+  named_datums: [coupon-base-z0, textile-rib-leading-edges]
+  constraints:
+    - Cleanup may remove only provably degenerate or duplicate facets and unreferenced vertices.
+    - The cleaned mesh must still pass an independent watertight, winding, component and positive-volume audit.
+    - Retain the parametric B-Rep as source of truth and investigate any non-degenerate disconnected shell.
+scope:
+  process: CadQuery/OpenCascade STL export and Trimesh deterministic cleanup
+  machine: {manufacturer: not-specific, model: digital-only, unit_id: null, firmware: null}
+  material: {manufacturer: not-specific, product: digital-geometry, variant: textile-edge-coupon, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: broad base down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: multi-rib-small-fillet-test-coupon
+  environment: digital-only
+  transfer_limits:
+    - Observed for one OCC tessellation configuration.
+    - Does not authorize removal of valid disconnected components or arbitrary mesh repair.
+    - Physical surface fidelity and fabric behavior remain untested.
+observation:
+  summary: The valid one-solid B-Rep produced a closed main component plus eight isolated zero-area STL triangles; conservative facet cleanup restored a one-component audited mesh.
+  expected: A valid single-solid B-Rep exports as one watertight positive-volume mesh.
+  actual: Raw export had 9756 faces and 9 components; the conservative export had 9748 faces, one component and no degenerate or duplicate faces.
+  outcome: correction
+  parameter: manufacturing-mesh-cleanup-policy
+  recommended_value: remove-only-degenerate-and-duplicate-facets-then-fail-closed-audit
+  units: topology-contract
+explanation:
+  hypothesis: OCC generated numerical sliver facets where two small fillet families converged at the rib top corners.
+  mechanism: Zero-area triangles have no manufacturing surface contribution; removing them and unreferenced vertices exposes the unchanged closed main tessellation for a fresh fail-closed audit.
+  alternatives:
+    - Redesign the local fillet sequence or radius transition.
+    - Change tessellation tolerance after a controlled sweep.
+    - Export through a different CAD kernel and compare surfaces.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Exact-coordinate edge incidence, connected-component and degenerate-face inspection before and after a constrained cleanup.
+  uncertainty: The local geometric cause is inferred from facet coordinates; exporter internals and alternate toolchains were not replicated.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-020-belt-scarf-shelf-comb/learning-trace.yaml, hash: null, notes: Owns the exact project scope.}
+    - {type: other, ref: products/organization-storage/mm-org-020-belt-scarf-shelf-comb/reports/mesh-facet-cleanup-iteration.json, hash: null, notes: Records before and after topology.}
+  artifacts:
+    - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/cad/build.py
+    - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/tests/test_parameters.py
+    - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/validation/fdm-mesh-edge-radius-coupon.json
+applicability:
+  triggers:
+    - A valid one-solid B-Rep exports a closed main component plus isolated zero-area facets.
+    - An independent audit can prove the removed facets are degenerate and the retained mesh is a closed positive volume.
+  exclusions:
+    - Disconnected components with positive area or volume.
+    - Mesh errors caused by unintended CAD openings, overlaps or missing faces.
+  transfer_limits:
+    - Diagnose the source geometry first and use conservative cleanup only with before/after evidence.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00008]
+  evals: [EVAL-geometry-occ-degenerate-export-facets-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-020-belt-scarf-shelf-comb/reports/mesh-facet-cleanup-iteration.json]
+provenance:
+  project: MM-ORG-020-belt-scarf-shelf-comb
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-020-belt-scarf-shelf-comb/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [cadquery, opencascade, tessellation, degenerate-face, mesh-export, fail-closed, digital-only]

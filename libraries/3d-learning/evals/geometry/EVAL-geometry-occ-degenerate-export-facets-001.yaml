@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-occ-degenerate-export-facets-001
+title: Manufacturing coupon mesh contains no degenerate export facets or disconnected fragments
+category: geometry
+status: draft
+trigger: An OCC-exported one-solid coupon reports isolated zero-area faces after small compound fillets are tessellated.
+risk: Slicers or downstream mesh tools may reject or inconsistently repair a mesh that appears valid at B-Rep level.
+given:
+  project: products/organization-storage/mm-org-020-belt-scarf-shelf-comb
+  artifact: DRAFT-MM-ORG-020-edge-radius-coupon-0.1.0-draft.1.stl
+  source_shape: one valid CadQuery B-Rep solid
+expected:
+  - The manufacturing STL has one connected component and positive volume.
+  - It is watertight and winding-consistent with no degenerate or duplicate faces.
+failure_conditions:
+  - Any isolated zero-area facet remains.
+  - Cleanup hides a non-degenerate disconnected shell or the retained component is not a closed positive volume.
+fixtures:
+  - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/cad/build.py
+  - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/exports/coupons/DRAFT-MM-ORG-020-edge-radius-coupon-0.1.0-draft.1.stl
+  - products/organization-storage/mm-org-020-belt-scarf-shelf-comb/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-020-belt-scarf-shelf-comb/tests/test_parameters.py::test_exported_textile_coupon_has_no_degenerate_facets_or_fragments -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Load the exported STL with exact-coordinate welding and assert topology, volume, component count, degenerate-face and duplicate-face predicates.
+relationships:
+  lessons: [EXP-00016]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-020-belt-scarf-shelf-comb/reports/mesh-facet-cleanup-iteration.json
+  artifact_hashes:
+    - b80091e4baf58c3120f91bd524527c86da0ab188cf75f834995d124bab9e5f49
+    - fa8d05319ffbcb25e629c9688711b749825e61970c9bf8103db5623be317acb1
+tags: [geometry, cadquery, opencascade, tessellation, degenerate-face, regression]

@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All four B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-width-presets",
+      "message": "Two measured width presets are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "798a710ba57610fc6b16423c996e4bcfbf1ff79419a97f59133b90e238c55253",
+      "size_bytes": 2059
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "3da4739df3962ce2cc27d2efd3aba182560427375d56b2fbaca598fc51ef4a96",
+      "size_bytes": 23260
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "belt-four",
+      "scarf-three",
+      "edge-radius-coupon",
+      "connector-key"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "belt-four",
+      "scarf-three",
+      "edge-radius-coupon",
+      "connector-key"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-020-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,189 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slot-widths",
+      "message": "Belt and scarf clear widths are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "diameter-allowance",
+      "message": "Each example has at least 2 mm diametral allowance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "production-leading-radius",
+      "message": "All production fin noses use R1.4",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "production-top-radius",
+      "message": "All production fin tops use R1.2",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-series",
+      "message": "Fabric coupon brackets the production nose radius",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "connector-datums",
+      "message": "Both modules share connector datums",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-fields",
+      "message": "Every compartment has a label field",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "Both combs fit the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-load-claim",
+      "message": "No load-bearing claim is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "798a710ba57610fc6b16423c996e4bcfbf1ff79419a97f59133b90e238c55253",
+      "size_bytes": 2059
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "3da4739df3962ce2cc27d2efd3aba182560427375d56b2fbaca598fc51ef4a96",
+      "size_bytes": 23260
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "268d0b9327096381264d048f8ab562454fc76de380927d8f4b5ac8c1d8e6ccbb",
+      "size_bytes": 2006
+    }
+  ],
+  "limitations": [
+    "Analytic radii reduce sharpness but do not establish snag-free behavior for any fabric."
+  ],
+  "metrics": {
+    "interfaces": {
+      "belt-four": {
+        "clear_slot_width_mm": 46.0,
+        "divider_leading_radius_mm": 1.4,
+        "divider_top_radius_mm": 1.2,
+        "external_assets": [],
+        "front_retention_height_mm": 9.0,
+        "identity_holes": 1,
+        "joint_centers_y_mm": [
+          28.0,
+          77.0
+        ],
+        "label_fields": 4,
+        "outer_dimensions_mm": [
+          204.0,
+          105.0,
+          58.0
+        ],
+        "preset_id": "belt-four",
+        "roll_diameter_allowance_mm": 2.0,
+        "slot_count": 4
+      },
+      "connector-key": {
+        "external_assets": [],
+        "head_width_mm": 12.0,
+        "height_mm": 3.0,
+        "neck_width_mm": 8.0,
+        "tab_depth_mm": 5.0
+      },
+      "edge-radius-coupon": {
+        "external_assets": [],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "leading_radii_mm": [
+          0.6,
+          1.0,
+          1.4
+        ],
+        "outer_dimensions_mm": [
+          80.0,
+          34.0,
+          20.0
+        ]
+      },
+      "scarf-three": {
+        "clear_slot_width_mm": 64.0,
+        "divider_leading_radius_mm": 1.4,
+        "divider_top_radius_mm": 1.2,
+        "external_assets": [],
+        "front_retention_height_mm": 9.0,
+        "identity_holes": 2,
+        "joint_centers_y_mm": [
+          28.0,
+          77.0
+        ],
+        "label_fields": 3,
+        "outer_dimensions_mm": [
+          209.0,
+          105.0,
+          58.0
+        ],
+        "preset_id": "scarf-three",
+        "roll_diameter_allowance_mm": 2.0,
+        "slot_count": 3
+      }
+    },
+    "workflow_contract": {
+      "input_dimensions": [
+        "shelf_depth",
+        "maximum_roll_diameter",
+        "item_count",
+        "label_preference"
+      ],
+      "load_claim": "none_dry_soft_goods_only",
+      "minimum_items_per_preset": 3,
+      "required_fabrics": [
+        "smooth_woven",
+        "knit",
+        "loosely_woven_or_fringe"
+      ],
+      "retrieval_cycles": 100
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-020-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,522 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "supports-disabled",
+      "message": "Exact process profile disables generated support",
+      "metrics": {
+        "process_sha256": "dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "declared-flow-limit",
+      "message": "Exact filament profile declares the expected 13 mm3/s maximum",
+      "metrics": {
+        "profile_limit_mm3_s": 13.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:package",
+      "message": "fit-gauges 3MF package passes strict validation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:slice",
+      "message": "fit-gauges native slice succeeds",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:native-warning",
+      "message": "fit-gauges has no native slicer warnings",
+      "metrics": {
+        "warnings": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:gcode",
+      "message": "fit-gauges G-code policy passes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:preserved",
+      "message": "fit-gauges exact G-code hash and size match the slicer report",
+      "metrics": {
+        "sha256": "72733d2d19a844e24f409ebf9a7720af05b69a83f33a19b1e5115811d5335db1",
+        "size_bytes": 1820751
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:single-tool",
+      "message": "fit-gauges uses one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:parser-warnings",
+      "message": "fit-gauges parser reports no warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:material-profile",
+      "message": "fit-gauges uses the declared PLA filament profile",
+      "metrics": {
+        "profile": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:macro-flow",
+      "message": "fit-gauges independently reconstructed extrusion segments >= 0.05 mm stay within 2.3% of the exact profile limit",
+      "metrics": {
+        "delta_e_mm": 0.0037000000002080924,
+        "feed_mm_min": 6424.195,
+        "flow_mm3_s": 12.740132256469197,
+        "limit_mm3_s": 13.3,
+        "line": 29148,
+        "segment_length_mm": 0.07479304780526168
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-gauges:rounded-coordinate-flow-scope",
+      "message": "fit-gauges parser peak is within the macro limit or confined to a < 0.01 mm rounded-coordinate microsegment",
+      "metrics": {
+        "independent_macro_peak": {
+          "delta_e_mm": 0.0037000000002080924,
+          "feed_mm_min": 6424.195,
+          "flow_mm3_s": 12.740132256469197,
+          "line": 29148,
+          "segment_length_mm": 0.07479304780526168
+        },
+        "independent_raw_peak": {
+          "delta_e_mm": 0.0010499999998501153,
+          "feed_mm_min": 7490.378,
+          "flow_mm3_s": 13.035564087896448,
+          "line": 29470,
+          "segment_length_mm": 0.024186773244896567
+        },
+        "parser_limit_mm3_s": 14.6,
+        "parser_peak_mm3_s": 13.035564087896448
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:package",
+      "message": "cb-kit 3MF package passes strict validation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:slice",
+      "message": "cb-kit native slice succeeds",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:native-warning",
+      "message": "cb-kit has no native slicer warnings",
+      "metrics": {
+        "warnings": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:gcode",
+      "message": "cb-kit G-code policy passes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:preserved",
+      "message": "cb-kit exact G-code hash and size match the slicer report",
+      "metrics": {
+        "sha256": "a2044afbacebc2dcb0c2f6cd6c5158fed0d1638a624d8489e82f780b62fc2e61",
+        "size_bytes": 8025762
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:single-tool",
+      "message": "cb-kit uses one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:parser-warnings",
+      "message": "cb-kit parser reports no warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:material-profile",
+      "message": "cb-kit uses the declared PLA filament profile",
+      "metrics": {
+        "profile": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:macro-flow",
+      "message": "cb-kit independently reconstructed extrusion segments >= 0.05 mm stay within 2.3% of the exact profile limit",
+      "metrics": {
+        "delta_e_mm": 0.0016900000009627547,
+        "feed_mm_min": 9580.435,
+        "flow_mm3_s": 12.748795750204946,
+        "limit_mm3_s": 13.3,
+        "line": 78501,
+        "segment_length_mm": 0.050911688245413256
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cb-kit:rounded-coordinate-flow-scope",
+      "message": "cb-kit parser peak is within the macro limit or confined to a < 0.01 mm rounded-coordinate microsegment",
+      "metrics": {
+        "independent_macro_peak": {
+          "delta_e_mm": 0.0016900000009627547,
+          "feed_mm_min": 9580.435,
+          "flow_mm3_s": 12.748795750204946,
+          "line": 78501,
+          "segment_length_mm": 0.050911688245413256
+        },
+        "independent_raw_peak": {
+          "delta_e_mm": 9.000000136438757e-05,
+          "feed_mm_min": 9000.0,
+          "flow_mm3_s": 14.521609422147138,
+          "line": 108794,
+          "segment_length_mm": 0.002236067977472335
+        },
+        "parser_limit_mm3_s": 14.6,
+        "parser_peak_mm3_s": 14.521609422147138
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:package",
+      "message": "horizontal-kit 3MF package passes strict validation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:slice",
+      "message": "horizontal-kit native slice succeeds",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:native-warning",
+      "message": "horizontal-kit has no native slicer warnings",
+      "metrics": {
+        "warnings": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:gcode",
+      "message": "horizontal-kit G-code policy passes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:preserved",
+      "message": "horizontal-kit exact G-code hash and size match the slicer report",
+      "metrics": {
+        "sha256": "f9a8f504affa58333c9a7975ca99addb8f4a4a0871c30f1903dad52770a07965",
+        "size_bytes": 8009685
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:single-tool",
+      "message": "horizontal-kit uses one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:parser-warnings",
+      "message": "horizontal-kit parser reports no warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:material-profile",
+      "message": "horizontal-kit uses the declared PLA filament profile",
+      "metrics": {
+        "profile": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:macro-flow",
+      "message": "horizontal-kit independently reconstructed extrusion segments >= 0.05 mm stay within 2.3% of the exact profile limit",
+      "metrics": {
+        "delta_e_mm": 0.002549999999246211,
+        "feed_mm_min": 7764.567,
+        "flow_mm3_s": 12.74747737905821,
+        "limit_mm3_s": 13.3,
+        "line": 45325,
+        "segment_length_mm": 0.062265560304237105
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "horizontal-kit:rounded-coordinate-flow-scope",
+      "message": "horizontal-kit parser peak is within the macro limit or confined to a < 0.01 mm rounded-coordinate microsegment",
+      "metrics": {
+        "independent_macro_peak": {
+          "delta_e_mm": 0.002549999999246211,
+          "feed_mm_min": 7764.567,
+          "flow_mm3_s": 12.74747737905821,
+          "line": 45325,
+          "segment_length_mm": 0.062265560304237105
+        },
+        "independent_raw_peak": {
+          "delta_e_mm": 0.0006700000012642704,
+          "feed_mm_min": 9580.435,
+          "flow_mm3_s": 12.99665908282683,
+          "line": 114764,
+          "segment_length_mm": 0.01979898987323748
+        },
+        "parser_limit_mm3_s": 14.6,
+        "parser_peak_mm3_s": 12.99665908282683
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81",
+      "size_bytes": 10630
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b",
+      "size_bytes": 5982
+    },
+    {
+      "path": "validation/slicer-anycubic-pla-gauges-run-002.json",
+      "sha256": "0df3fc9da20f0b1cf3a86b28ca3fab2b4fe76086dfedcb1eaa66310785300992",
+      "size_bytes": 11135
+    },
+    {
+      "path": "validation/gcode-pla-gauges-run-002.json",
+      "sha256": "d3e41fe1d0979a68c91999848eb7759c6e6a46a8e5d4eabddc00422b762d8324",
+      "size_bytes": 4400
+    },
+    {
+      "path": "validation/fdm-3mf-gauges.json",
+      "sha256": "a55594e7301bb49ed9e2a9dedcd4d416ac0ab8a471aa0612bea755789d801fb7",
+      "size_bytes": 3166
+    },
+    {
+      "path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-gauges-run-002/plate_1.gcode",
+      "sha256": "72733d2d19a844e24f409ebf9a7720af05b69a83f33a19b1e5115811d5335db1",
+      "size_bytes": 1820751
+    },
+    {
+      "path": "validation/slicer-anycubic-pla-cb-kit-run-002.json",
+      "sha256": "9564a94d509fcace0334097aa6514ec3adf858853fa65bff6efa51e9b7f4643b",
+      "size_bytes": 11166
+    },
+    {
+      "path": "validation/gcode-pla-cb-kit-run-002.json",
+      "sha256": "410aa6f78d3e020d852676626bdb0d808a36455183731d770e452e85de18ad0f",
+      "size_bytes": 4413
+    },
+    {
+      "path": "validation/fdm-3mf-cb-kit.json",
+      "sha256": "ece4b3e0090ab272f3e294afc81c70aa1a3af4d50951c3d1c7e644039d51eedb",
+      "size_bytes": 2633
+    },
+    {
+      "path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-cb-kit-run-002/plate_1.gcode",
+      "sha256": "a2044afbacebc2dcb0c2f6cd6c5158fed0d1638a624d8489e82f780b62fc2e61",
+      "size_bytes": 8025762
+    },
+    {
+      "path": "validation/slicer-anycubic-pla-horizontal-kit-run-002.json",
+      "sha256": "0d9f1b25d133b6bf88548862bd6c596a92edd9ed07c94e0343e7fc452986c746",
+      "size_bytes": 11230
+    },
+    {
+      "path": "validation/gcode-pla-horizontal-kit-run-002.json",
+      "sha256": "8c5aa8d63e8a74d856a8ee0abc27ce7a46b61e60a5d00245ffc5326bb73e1b8b",
+      "size_bytes": 4420
+    },
+    {
+      "path": "validation/fdm-3mf-horizontal-kit.json",
+      "sha256": "85aefe9d66f9b357df5b8e2e5f69ec67f3861fca098ed4ebce9b65c22b1b8eb0",
+      "size_bytes": 2648
+    },
+    {
+      "path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-horizontal-kit-run-002/plate_1.gcode",
+      "sha256": "f9a8f504affa58333c9a7975ca99addb8f4a4a0871c30f1903dad52770a07965",
+      "size_bytes": 8009685
+    }
+  ],
+  "limitations": [
+    "Density conversions are planning estimates, not scale measurements.",
+    "The analyzer reconstructs flow from five-decimal rounded G-code. A parser-only excess is accepted only when independently confined to a <0.01 mm segment while every segment >=0.05 mm remains within 2.3% of the exact 13 mm3/s profile limit.",
+    "The initial gauges run-001 path-resolution failure is preserved separately and is not release evidence.",
+    "Headless slicing does not replace the human final layer, seam, support, and bed-placement preview.",
+    "No printer upload or print-start action was performed."
+  ],
+  "metrics": {
+    "cb-kit": {
+      "density_conversion_g": 189.48506837455733,
+      "estimate_seconds": 21702.0,
+      "extruded_volume_mm3": 152810.5390117398,
+      "gcode_path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-cb-kit-run-002/plate_1.gcode",
+      "gcode_sha256": "a2044afbacebc2dcb0c2f6cd6c5158fed0d1638a624d8489e82f780b62fc2e61",
+      "independent_macro_peak": {
+        "delta_e_mm": 0.0016900000009627547,
+        "feed_mm_min": 9580.435,
+        "flow_mm3_s": 12.748795750204946,
+        "line": 78501,
+        "segment_length_mm": 0.050911688245413256
+      },
+      "independent_raw_peak": {
+        "delta_e_mm": 9.000000136438757e-05,
+        "feed_mm_min": 9000.0,
+        "flow_mm3_s": 14.521609422147138,
+        "line": 108794,
+        "segment_length_mm": 0.002236067977472335
+      },
+      "layers": 140,
+      "macro_segment_threshold_mm": 0.05,
+      "material": "PLA",
+      "parser_raw_peak_flow_mm3_s": 14.521609422147138,
+      "profile_max_volumetric_speed_mm3_s": 13.0
+    },
+    "fit-gauges": {
+      "density_conversion_g": 28.76998255023438,
+      "estimate_seconds": 3784.0,
+      "extruded_volume_mm3": 23201.59883083418,
+      "gcode_path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-gauges-run-002/plate_1.gcode",
+      "gcode_sha256": "72733d2d19a844e24f409ebf9a7720af05b69a83f33a19b1e5115811d5335db1",
+      "independent_macro_peak": {
+        "delta_e_mm": 0.0037000000002080924,
+        "feed_mm_min": 6424.195,
+        "flow_mm3_s": 12.740132256469197,
+        "line": 29148,
+        "segment_length_mm": 0.07479304780526168
+      },
+      "independent_raw_peak": {
+        "delta_e_mm": 0.0010499999998501153,
+        "feed_mm_min": 7490.378,
+        "flow_mm3_s": 13.035564087896448,
+        "line": 29470,
+        "segment_length_mm": 0.024186773244896567
+      },
+      "layers": 60,
+      "macro_segment_threshold_mm": 0.05,
+      "material": "PLA",
+      "parser_raw_peak_flow_mm3_s": 13.035564087896448,
+      "profile_max_volumetric_speed_mm3_s": 13.0
+    },
+    "horizontal-kit": {
+      "density_conversion_g": 189.39123623301242,
+      "estimate_seconds": 21702.0,
+      "extruded_volume_mm3": 152734.86792984873,
+      "gcode_path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-horizontal-kit-run-002/plate_1.gcode",
+      "gcode_sha256": "f9a8f504affa58333c9a7975ca99addb8f4a4a0871c30f1903dad52770a07965",
+      "independent_macro_peak": {
+        "delta_e_mm": 0.002549999999246211,
+        "feed_mm_min": 7764.567,
+        "flow_mm3_s": 12.74747737905821,
+        "line": 45325,
+        "segment_length_mm": 0.062265560304237105
+      },
+      "independent_raw_peak": {
+        "delta_e_mm": 0.0006700000012642704,
+        "feed_mm_min": 9580.435,
+        "flow_mm3_s": 12.99665908282683,
+        "line": 114764,
+        "segment_length_mm": 0.01979898987323748
+      },
+      "layers": 140,
+      "macro_segment_threshold_mm": 0.05,
+      "material": "PLA",
+      "parser_raw_peak_flow_mm3_s": 12.99665908282683,
+      "profile_max_volumetric_speed_mm3_s": 13.0
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-037-anycubic-slicer-preflight",
+  "tool_version": "0.1.0-draft.1"
+}

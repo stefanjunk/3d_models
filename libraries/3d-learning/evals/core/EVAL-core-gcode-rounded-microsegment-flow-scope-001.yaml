@@ -1,0 +1,43 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-gcode-rounded-microsegment-flow-scope-001
+title: Rounded-coordinate G-code flow allowance remains confined to microsegments
+category: core
+status: draft
+trigger: MM-ORG-037 exact G-code, flow parser, parser ceiling, segment thresholds, PLA profile or slicer preflight changes.
+risk: A broad parser allowance could hide a real sustained volumetric-flow excess, while an unqualified raw ceiling could falsely reject rounded microsegments.
+given:
+  project: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette
+  exact_trace: validation/microsegment-flow-iteration.json
+  slicer_preflight: validation/slicer-preflight-report.json
+expected:
+  - Exact G-code and the exact 13 mm3/s PLA profile remain unchanged.
+  - Every extrusion segment at least 0.05 mm long remains at or below 13.3 mm3/s.
+  - Any larger raw peak remains below 14.6 mm3/s and is localized to a segment shorter than 0.01 mm with source line evidence.
+failure_conditions:
+  - A macro-segment exceeds 13.3 mm3/s.
+  - A raw excess lacks an independently reconstructed segment length or exact source hash.
+  - Manufacturing G-code is rewritten to conceal the result.
+  - The preflight or targeted regression is stale or non-PASS.
+fixtures:
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/microsegment-flow-iteration.json
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/slicer-preflight-report.json
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py::test_exact_slicer_jobs_and_independent_flow_scope_pass -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Reconstruct flow from exact XYZ/E/feed commands, retain segment length and separately gate raw and macro domains.
+relationships:
+  lessons: [EXP-00029]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/slicer-preflight-report.json
+  artifact_hashes:
+    - 682b8fd027757ab5bb51a347c9dcee4aca269b18baf4ea0b1396016d02bf924e
+    - 29cd5b150776df26d9f6e193a2b376a9e6792381c4598e8875696a41d3e1f178
+    - 08497d2061a51c2f439ac171c2c1fe2846f2edf30678c3ebb84de709b0f19a1d
+tags: [core, gcode, flow, rounding, microsegment, regression]

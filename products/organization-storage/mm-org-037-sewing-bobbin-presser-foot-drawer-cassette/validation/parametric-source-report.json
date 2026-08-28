@@ -1,0 +1,254 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "project",
+      "message": "Project identity and revision are fixed",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cassette-envelope",
+      "message": "Cassette matches the declared 210 x 150 x 28 mm envelope",
+      "metrics": {
+        "bounds_mm": [
+          210.0,
+          150.0,
+          28.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "capacity",
+      "message": "The cassette provides ten foot cells and each insert provides seven pockets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-standards",
+      "message": "Published bobbin diameters receive the declared 0.8 mm diametral allowance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless",
+      "message": "All parts are authored for base-down supportless printing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-selection",
+      "message": "R2 selector chooses the unscaled Full tier at priority 1",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-coverage",
+      "message": "Cassette and both reusable inserts contain the exact recessed identity geometry",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "adf3f491377cdface940ef800e3117b3d7ad9412a5e731b328ca0c5350fb3fba",
+      "size_bytes": 1822
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "92bbd73cc908054f0898c2d8af9c69bd035624acc9087762c1b537f928060919",
+      "size_bytes": 1212
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-ORG-037_v0.1.0-draft.1/metrimade-watermark-MM-ORG-037-v0.1.0-draft.1.json",
+      "sha256": "154872b33453ae9b58e3690ad14037b58f66ff3994551cd0765455b065540fd8",
+      "size_bytes": 2198
+    },
+    {
+      "path": "validation/watermark-selector.json",
+      "sha256": "71fbcea92a299ce1359292c7e4eb903554060b7dab6cbe35bdd20f04e354b359",
+      "size_bytes": 2792
+    }
+  ],
+  "limitations": [
+    "Published bobbin dimensions do not prove fit for every brand, batch, wound-thread condition or presser-foot geometry."
+  ],
+  "metrics": {
+    "bobbin_gauge": {
+      "envelope_mm": [
+        60.0,
+        32.0,
+        6.0
+      ],
+      "pocket_diameters_mm": [
+        21.3,
+        22.400000000000002
+      ]
+    },
+    "cassette": {
+      "base_thickness_mm": 2.4,
+      "cad_volume_mm3": 160656.97763774556,
+      "depth_mm": 150.0,
+      "foot_cell_count": 10,
+      "foot_cell_internal_mm": [
+        39.44,
+        47.4
+      ],
+      "height_mm": 28.0,
+      "proxy": false,
+      "rear_bay_internal_mm": [
+        205.2,
+        46.0
+      ],
+      "wall_thickness_mm": 2.4,
+      "watermark_cut_volume_mm3": 110.76636225543916,
+      "watermark_residual_wall_mm": 2.0,
+      "width_mm": 210.0
+    },
+    "cb_insert": {
+      "cad_volume_mm3": 47366.62636988047,
+      "envelope_mm": [
+        204.4,
+        45.2,
+        6.0
+      ],
+      "index_bars": 1,
+      "pocket_count": 7,
+      "pocket_depth_mm": 3.0,
+      "pocket_diameter_mm": 21.3,
+      "pocket_floor_mm": 3.0,
+      "standard_id": "cb_20p5",
+      "watermark_cut_volume_mm3": 110.76636225427501,
+      "watermark_residual_wall_mm": 2.6
+    },
+    "foot_gauge": {
+      "cell_depth_mm": 33.2,
+      "cell_widths_mm": [
+        30.0,
+        35.0,
+        40.0
+      ],
+      "envelope_mm": [
+        114.6,
+        38.0,
+        12.0
+      ]
+    },
+    "horizontal_insert": {
+      "cad_volume_mm3": 46562.59048587557,
+      "envelope_mm": [
+        204.4,
+        45.2,
+        6.0
+      ],
+      "index_bars": 2,
+      "pocket_count": 7,
+      "pocket_depth_mm": 3.0,
+      "pocket_diameter_mm": 22.400000000000002,
+      "pocket_floor_mm": 3.0,
+      "standard_id": "horizontal_21p6",
+      "watermark_cut_volume_mm3": 110.76636225434049,
+      "watermark_residual_wall_mm": 2.6
+    },
+    "outputs": [
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-stitchcell-cassette-0.1.0-draft.1.step",
+        "sha256": "2c98b4a7705312e94d105023081d06a155247c0af4252f341a1d9d51bc3ae914",
+        "size_bytes": 9478917
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-stitchcell-cassette-0.1.0-draft.1-master.stl",
+        "sha256": "d9f12be42cd7a42419657a573acb9cb59ac56b58259b4f13948cc014cd0c674f",
+        "size_bytes": 447884
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-037-stitchcell-cassette-0.1.0-draft.1.stl",
+        "sha256": "d9f12be42cd7a42419657a573acb9cb59ac56b58259b4f13948cc014cd0c674f",
+        "size_bytes": 447884
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-bobbin-insert-cb-20p5-0.1.0-draft.1.step",
+        "sha256": "bba0639ed43a2fa089ef3d97baa5021491c7e498171230699e5e53619a145eb0",
+        "size_bytes": 9274191
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-bobbin-insert-cb-20p5-0.1.0-draft.1-master.stl",
+        "sha256": "1483991fefde8a5b89b334ca68e3b260e5dfc25db88ca64de2fd425d2af7d00f",
+        "size_bytes": 593684
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-037-bobbin-insert-cb-20p5-0.1.0-draft.1.stl",
+        "sha256": "1483991fefde8a5b89b334ca68e3b260e5dfc25db88ca64de2fd425d2af7d00f",
+        "size_bytes": 593684
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-bobbin-insert-horizontal-21p6-0.1.0-draft.1.step",
+        "sha256": "b084f2eada83a92dfe2a719675fa8cd046c8fa95f75b21256954979bb536c197",
+        "size_bytes": 9290341
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-037-bobbin-insert-horizontal-21p6-0.1.0-draft.1-master.stl",
+        "sha256": "2b81676b4f727675214cee5ec66ed27553b8aff63a5db79be5927464f1e8e438",
+        "size_bytes": 594484
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-037-bobbin-insert-horizontal-21p6-0.1.0-draft.1.stl",
+        "sha256": "2b81676b4f727675214cee5ec66ed27553b8aff63a5db79be5927464f1e8e438",
+        "size_bytes": 594484
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-037-two-standard-bobbin-fit-gauge-0.1.0-draft.1.stl",
+        "sha256": "d3ab2558dfe988f1d325c3078a3efd2b07fb8f4ed7da17a5feee8e4e1523de6e",
+        "size_bytes": 42684
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-037-presser-foot-cell-width-gauge-0.1.0-draft.1.stl",
+        "sha256": "1c8cc6a6e790614eefd01a6114bf7ed346b03aea2bb80fe66a3193575159b927",
+        "size_bytes": 3084
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-037-full-watermark-coupon-0.1.0-draft.1.stl",
+        "sha256": "f51c39708bf57703781c9775fe163f3e1c82f286041a4be9139f98c85c37520c",
+        "size_bytes": 1419957
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-037-stitchcell-cb-kit-0.1.0-draft.1.3mf",
+        "sha256": "99dead74d3aed7e866aa8d2c65f805d5600745416b84c900bfd18ad25f4888cf",
+        "size_bytes": 226801
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-037-stitchcell-horizontal-kit-0.1.0-draft.1.3mf",
+        "sha256": "be116cd042a0d4e1cafae88507eda17e26c1cf333cd3c5b687392cdb96168528",
+        "size_bytes": 227097
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-037-fit-gauges-0.1.0-draft.1.3mf",
+        "sha256": "1db33bd4b2ce23c2efcd369a6733a8c7c1329c5fd012115b5d28f9ef8b1f23b0",
+        "size_bytes": 110557
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "cadquery"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-037-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

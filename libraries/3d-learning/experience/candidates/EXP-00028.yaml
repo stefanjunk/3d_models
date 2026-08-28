@@ -1,0 +1,107 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00028
+title: Dimensional variants can share a host when replaceable inserts and first-print gauges use one fit contract
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digitally validated sewing-accessory cassette; no physical bobbin, presser-foot, insert or drawer fit has been tested.
+feature:
+  type: interchangeable-measured-fit-insert-family
+  geometry: 210 x 150 x 28 mm generic cassette with a 205.2 x 46 mm rear bay, two 204.4 x 45.2 mm seven-pocket inserts and separate fit gauges
+  design_parameters:
+    insert_clearance_per_side_mm: 0.4
+    bobbin_diametral_clearance_mm: 0.8
+    cb_nominal_diameter_mm: 20.5
+    horizontal_nominal_diameter_mm: 21.6
+    presser_foot_gauge_widths_mm: [30.0, 35.0, 40.0]
+    insert_index_bars: [1, 2]
+  named_datums: [rear-bay-inner-faces, insert-envelope, bobbin-pocket-axis, gauge-pocket-axis]
+  constraints:
+    - Compatibility is stated with measured dimensions rather than a universal or brand-wide claim.
+    - Gauge and final pockets derive from the same nominal-diameter and clearance parameters.
+    - The reusable host remains unchanged when the bobbin insert standard changes.
+    - Physical gauge results remain authoritative for the intended accessories and printer.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA profile, variant: standard, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: cassette, inserts and gauges base-down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: shallow drawer organizer with a rectangular drop-in insert and circular dimensional fit gauges
+  environment: deterministic CAD, mesh, package and slicer validation; no physical print
+  transfer_limits:
+    - Applies only to this digital cassette and its two nominal bobbin targets until physical evidence exists.
+    - Does not establish clearance for other printers, materials, orientations, bobbin profiles or retaining interfaces.
+observation:
+  summary: One generic cassette supports two factual-dimension bobbin variants by changing only a removable insert, while separate gauges reproduce the final pocket targets and preserve physical fit as a human gate.
+  expected: Adding a bobbin-size variant does not alter the ten presser-foot cells or host envelope, and the first-print gauge remains tied to final-part dimensions.
+  actual: Both inserts pass the same 0.4 mm-per-side bay contract, expose seven pockets at nominal diameter plus 0.8 mm, and package with the unchanged cassette; the targeted source/report check passes.
+  outcome: success
+  parameter: host-insert-and-gauge-contract
+  recommended_value: Keep the host interface invariant, derive final and gauge fit features from one parameter source, and qualify a variant with the gauge before the full kit.
+  units: architecture-and-mm
+explanation:
+  hypothesis: Separating uncertain accessory fit from the reusable body localizes dimensional risk and lets one low-cost gauge screen both the variant choice and printer-process bias.
+  mechanism: The host owns only the rectangular bay datum; each insert owns its accessory pockets, while the gauge reuses the same nominal targets before the main cassette is printed.
+  alternatives:
+    - Print one monolithic organizer per accessory standard.
+    - Use adjustable dividers and accept lower spatial specificity.
+    - Use a universal loose compartment without fitted pockets.
+  validated: false
+  validation_method: Digital parameter, interface, topology, package and exact-slicer checks only; no physical fit mechanism has been isolated.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic source assertions and CAD interface report for insert clearances, pocket diameters, capacity and gauge artifacts.
+  uncertainty: Printer bias, bobbin flange shape, presser-foot protrusions, thread snagging, insert retention and drawer motion are physically untested.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/config/model-parameters.json, hash: adf3f491377cdface940ef800e3117b3d7ad9412a5e731b328ca0c5350fb3fba, notes: "Single source for host, insert, bobbin and gauge dimensions."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/interface-report.json, hash: 6148b18f2c88e000e58d951964cae4fbeb469413920bd94e5a07b7d008bad573, notes: "PASS host clearance, pocket floor, generic-cell and separate-gauge checks."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py, hash: 08497d2061a51c2f439ac171c2c1fe2846f2edf30678c3ebb84de709b0f19a1d, notes: Targeted regression binds final pocket diameters to nominal targets plus shared clearance.}
+  artifacts:
+    - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-fit-gauges-0.1.0-draft.1.3mf
+    - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-stitchcell-cb-kit-0.1.0-draft.1.3mf
+    - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-stitchcell-horizontal-kit-0.1.0-draft.1.3mf
+applicability:
+  triggers:
+    - One reusable organizer host must accommodate multiple measured accessory standards.
+    - Full-product print cost is high enough to justify a first-print fit gauge.
+  exclusions:
+    - Safety-critical retention, load-bearing interfaces, universal-fit claims, or unmeasured accessory geometry.
+  transfer_limits:
+    - Treat as an E0 architecture candidate; do not reuse the project-specific clearances without a scoped test.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00018]
+  evals: [EVAL-interfaces-replaceable-bobbin-insert-shared-gauge-contract-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/interface-report.json
+    - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/validation-summary.json
+provenance:
+  project: MM-ORG-037
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [interfaces, modular, insert, gauge, sewing, bobbin, digital-only]

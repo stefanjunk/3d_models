@@ -1,0 +1,42 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-replaceable-bobbin-insert-shared-gauge-contract-001
+title: Replaceable bobbin inserts and first-print gauge share one dimensional contract
+category: interfaces
+status: draft
+trigger: MM-ORG-037 host bay, insert envelope, bobbin nominal target, clearance, gauge geometry or interface report changes.
+risk: A gauge could approve the wrong fit or an insert variant could force a host change if dimensional sources drift.
+given:
+  project: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette
+  parameter_source: config/model-parameters.json
+  interface_report: validation/interface-report.json
+expected:
+  - Both final insert pocket diameters equal their nominal target plus the shared diametral clearance.
+  - Both inserts retain the same 0.4 mm-per-side host-bay clearance and distinct index bars.
+  - The separate bobbin and presser-foot gauges remain valid manufacturing artifacts.
+failure_conditions:
+  - Any final pocket target drifts from the shared source contract.
+  - An insert changes the host geometry or loses the declared clearance.
+  - The interface report or targeted test is stale or non-PASS.
+fixtures:
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/config/model-parameters.json
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/interface-report.json
+  - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py::test_insert_clearance_is_explicit products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py::test_bobbin_gauge_and_final_insert_targets_share_one_contract -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare shared source parameters with the final CAD interface metrics and assert the physical-gauge artifact gate.
+relationships:
+  lessons: [EXP-00028]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/interface-report.json
+  artifact_hashes:
+    - adf3f491377cdface940ef800e3117b3d7ad9412a5e731b328ca0c5350fb3fba
+    - 6148b18f2c88e000e58d951964cae4fbeb469413920bd94e5a07b7d008bad573
+    - 08497d2061a51c2f439ac171c2c1fe2846f2edf30678c3ebb84de709b0f19a1d
+tags: [interfaces, insert, gauge, bobbin, dimensional-contract, regression]

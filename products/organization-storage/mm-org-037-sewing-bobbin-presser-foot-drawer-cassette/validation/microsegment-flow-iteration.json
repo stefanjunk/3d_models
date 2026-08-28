@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-037",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "The canonical G-code parser reported a 14.521609422147138 mm3/s endpoint estimate on CB-kit line 108794 while the exact PLA profile declares 13 mm3/s.",
+  "preserved_source": {
+    "path": "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-cb-kit-run-002/plate_1.gcode",
+    "sha256": "a2044afbacebc2dcb0c2f6cd6c5158fed0d1638a624d8489e82f780b62fc2e61",
+    "line": 108794,
+    "command": "G1 X160.562 Y202.579 E.00009",
+    "preceding_feed_command": "G1 F9000"
+  },
+  "independent_reconstruction": {
+    "raw_peak_flow_mm3_s": 14.521609422147138,
+    "raw_peak_segment_length_mm": 0.002236067977472335,
+    "raw_peak_delta_e_mm": 0.00009000000136438757,
+    "macro_segment_threshold_mm": 0.05,
+    "macro_peak_flow_mm3_s": 12.748795750204946,
+    "macro_peak_segment_length_mm": 0.050911688245413256,
+    "profile_limit_mm3_s": 13.0,
+    "macro_acceptance_limit_mm3_s": 13.3
+  },
+  "resolution": "Retain the exact slicer output and exact 13 mm3/s filament profile. Permit the raw analyzer ceiling only when the independent report proves an excess is confined below 0.01 mm and all extrusion segments at least 0.05 mm long remain at or below 13.3 mm3/s.",
+  "limitations": [
+    "This is an arithmetic check of rounded emitted coordinates, not a physical hotend-flow measurement.",
+    "The scoped allowance must not excuse a macro-segment flow excess or modify manufacturing G-code.",
+    "Same-scope repeats, other slicers, other coordinate precision, other machines, and physical extrusion are untested."
+  ]
+}

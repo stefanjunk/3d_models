@@ -2,11 +2,11 @@
 
 Audit date: 2026-08-28
 
-- Portfolio records: **92**
-- Records with a local neutral/manufacturing 3D artifact: **92**
+- Portfolio records: **93**
+- Records with a local neutral/manufacturing 3D artifact: **93**
 - Records without a local 3D artifact: **0**
-- Records with detected parametric source: **77**
-- Records with at least one 3MF: **60**
+- Records with detected parametric source: **78**
+- Records with at least one 3MF: **61**
 - Lifecycle/model contradictions: **0**
 
 A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is reported separately. Neither proves rights, slicability, fit, strength, physical qualification or commercial release.
@@ -105,3 +105,4 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-090 | MM-ORG-034 | Snap-on journal pen loop | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf` |
 | PORT-091 | MM-ORG-035 | Stamp and ink-pad desk organizer | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/exports/3mf/DRAFT-MM-ORG-035-inknest-duo-full-0.1.0-draft.2.3mf` |
 | PORT-092 | MM-ORG-036 | Deep-drawer height riser platform | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/exports/3mf/DRAFT-MM-ORG-036-liftdeck-full-0.1.0-draft.2.3mf` |
+| PORT-093 | MM-ORG-037 | Sewing bobbin and presser-foot drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-stitchcell-cb-kit-0.1.0-draft.1.3mf` |

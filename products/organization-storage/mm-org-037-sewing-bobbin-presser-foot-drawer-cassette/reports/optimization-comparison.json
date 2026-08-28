@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "material-saving",
+      "message": "Selected cassette saves at least 20% CAD volume versus the equally marked conservative proxy",
+      "metrics": {
+        "saved_percent": 30.162923457301105
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-capacity",
+      "message": "Optimization retains ten foot cells",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-envelope",
+      "message": "Optimization retains the complete outer envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless",
+      "message": "Selected walls, pockets, cells and recesses require no generated support in base-down orientation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "adf3f491377cdface940ef800e3117b3d7ad9412a5e731b328ca0c5350fb3fba",
+      "size_bytes": 1822
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-037-stitchcell-cassette-0.1.0-draft.1.stl",
+      "sha256": "d9f12be42cd7a42419657a573acb9cb59ac56b58259b4f13948cc014cd0c674f",
+      "size_bytes": 447884
+    }
+  ],
+  "limitations": [
+    "CAD volume is a deterministic comparison, not slicer mass or print duration."
+  ],
+  "metrics": {
+    "cad_volume_saved_percent": 30.162923457301105,
+    "conservative_proxy_volume_mm3": 230045.39363774587,
+    "selected_cassette_volume_mm3": 160656.97763774556
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-037-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

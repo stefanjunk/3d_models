@@ -1,0 +1,25 @@
+schema_version: 1.0.0
+project: MM-ORG-018-drawer-measurement-gauge-kit
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: CadQuery analytic radius tiles and FDM reference build
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA reference profile
+  nozzle_mm: 0.4
+  orientation: broad face down
+observations:
+  - id: OBS-001
+    outcome: correction
+    statement: The initial largest-fitting instruction contradicted cutaway direction; increasing radius monotonically removes tile material and makes fit looser.
+    evidence: reports/radius-selection-direction-iteration.json
+  - id: OBS-002
+    outcome: success
+    statement: A parameter-bound smallest-seating rule and deterministic monotonic-volume regression now pass for all six tiles.
+    evidence:
+      - reports/radius-selection-direction-iteration.json
+      - tests/test_parameters.py
+candidate_records: [EXP-00014]
+targeted_evals: [EVAL-geometry-radius-cutaway-selection-direction-001]
+promotion: prohibited-without-policy-review
+uncertainty: Geometry direction is digital-only; no user seating or ten-drawer measurement evidence exists.

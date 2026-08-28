@@ -1,0 +1,95 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00014
+title: Bind radius-gauge instructions to cutaway direction
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: One analytic external-corner tile family; no physical user evidence.}
+feature:
+  type: radius-cutaway-selection-direction
+  geometry: square-external-corner-tiles-with-increasing-quarter-circle-cutaway
+  design_parameters:
+    radii_mm: [2, 4, 6, 8, 10, 12]
+    initial_rule: largest-no-force-fit
+    corrected_rule: smallest-no-force-seating-fit
+  named_datums: [arc-start-on-left-tangent, arc-end-on-bottom-tangent, tile-bed-face]
+  constraints:
+    - Tile material volume decreases monotonically as cutaway radius increases.
+    - User-facing selection rule must match that monotonic direction.
+scope:
+  process: CadQuery/OpenCascade analytic arc extrusion
+  machine: {manufacturer: not-specific, model: digital-only, unit_id: null, firmware: null}
+  material: {manufacturer: not-specific, product: digital-geometry, variant: corner-radius-tile, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: broad face down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: increasing-radius-corner-cutaway-gauge
+  environment: digital-only
+  transfer_limits:
+    - Applies to gauges where increasing nominal radius removes more corner material.
+    - Does not automatically apply to convex plugs, concave notches or opposite-sign radius tools.
+    - Physical seating and user interpretation remain unvalidated.
+observation:
+  summary: The initial instruction selected the largest fitting tile, but larger tiles have larger cutaways and will be looser; the rule was corrected to the smallest seating tile and bound to a monotonic-volume regression.
+  expected: Instruction direction agrees with analytic material inclusion.
+  actual: Initial direction was reversed; corrected direction now matches all six tile volumes.
+  outcome: correction
+  parameter: radius_selection_rule
+  recommended_value: smallest-no-force-seating-tile-for-increasing-cutaway
+  units: semantic-gate
+explanation:
+  hypothesis: A geometry-direction regression prevents documentation from reversing which member of an ordered gauge family represents the tight boundary.
+  mechanism: Increasing the quarter-circle cutaway radius removes more material, so any larger tile that seats provides only a looser upper bound.
+  alternatives:
+    - Use convex plugs whose material inclusion increases with radius and document the opposite rule.
+    - Use paired go/no-go tiles around each nominal radius.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: CadQuery volume comparison for six analytic tiles plus parameter assertion.
+  uncertainty: No physical corner or independent user trial was measured.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/learning-trace.yaml, hash: null, notes: Owns the corrected project scope.}
+    - {type: other, ref: products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/reports/radius-selection-direction-iteration.json, hash: null, notes: Records before/after rule and tile volumes.}
+  artifacts:
+    - products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/cad/build.py
+    - products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/tests/test_parameters.py
+applicability:
+  triggers:
+    - An ordered gauge family changes fit by adding or removing material.
+    - User instructions say choose smallest/largest or go/no-go.
+  exclusions:
+    - Gauge families with non-monotonic material inclusion.
+    - Direct-read calibrated instruments.
+  transfer_limits:
+    - Prove geometry direction per gauge class instead of copying the wording.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-geometry-radius-cutaway-selection-direction-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/reports/radius-selection-direction-iteration.json]
+provenance:
+  project: MM-ORG-018-drawer-measurement-gauge-kit
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [radius-gauge, selection-direction, geometry-semantics, regression-test, digital-only]

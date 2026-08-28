@@ -1,0 +1,303 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "radius-series",
+      "message": "Six analytic radius values are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "radius-identity",
+      "message": "Hole count identifies radius order without fonts",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "radius-selection-direction",
+      "message": "Selection uses the smallest seating tile, not the loosest larger radius",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "height-levels",
+      "message": "Height ledge top datums are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "paired-height-cards",
+      "message": "Two identical height-card instances are packaged",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "clearance-series",
+      "message": "Clearance fingers are monotonic in 0.2 mm steps",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "calibration-external",
+      "message": "Calibration external references are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "calibration-internal",
+      "message": "Calibration internal references are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-accuracy-claim",
+      "message": "Nominal increments are explicitly not metrology accuracy",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "cdf3538747c5f3ab6fa66c03c63845824b42663c10a789bc7880cbc0f8649d16",
+      "size_bytes": 1965
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "d17c286d5a299d5c086fdc32f26f88ab0b81e13ef245b02843a41412411814b5",
+      "size_bytes": 23300
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "cec5335e2d7953c6e4e3e79e640c5c258ed192b2f4097ea6748597955defdebd",
+      "size_bytes": 7776
+    }
+  ],
+  "limitations": [
+    "Every physical reading requires independent caliper comparison; the digital report cannot establish accuracy or reduce customer error."
+  ],
+  "metrics": {
+    "interfaces": {
+      "calibration-frame": {
+        "external_assets": [],
+        "external_references_mm": [
+          130.0,
+          32.0,
+          3.0
+        ],
+        "internal_window_mm": [
+          80.0,
+          12.0
+        ],
+        "round_reference_diameter_mm": 10.0,
+        "square_reference_mm": 10.0
+      },
+      "clearance-comb": {
+        "external_assets": [],
+        "finger_widths_mm": [
+          0.8,
+          1.0,
+          1.2,
+          1.4,
+          1.6,
+          1.8,
+          2.0
+        ],
+        "outer_dimensions_mm": [
+          100.0,
+          40.0,
+          3.0
+        ],
+        "sequence": "left-to-right-ascending"
+      },
+      "height-card": {
+        "external_assets": [],
+        "floor_datum_y_mm": 0.0,
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "outer_dimensions_mm": [
+          30.0,
+          65.0,
+          3.0
+        ],
+        "quantity_in_build": 2,
+        "reference_heights_mm": [
+          15.0,
+          35.0,
+          55.0
+        ]
+      },
+      "radius-r02": {
+        "analytic_arc_end_mm": [
+          2.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          0.5857864376269051,
+          0.5857864376269051
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          2.0
+        ],
+        "external_assets": [],
+        "identity_holes": 1,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 2.0
+      },
+      "radius-r04": {
+        "analytic_arc_end_mm": [
+          4.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          1.1715728752538102,
+          1.1715728752538102
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          4.0
+        ],
+        "external_assets": [],
+        "identity_holes": 2,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 4.0
+      },
+      "radius-r06": {
+        "analytic_arc_end_mm": [
+          6.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          1.7573593128807152,
+          1.7573593128807152
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          6.0
+        ],
+        "external_assets": [],
+        "identity_holes": 3,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 6.0
+      },
+      "radius-r08": {
+        "analytic_arc_end_mm": [
+          8.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          2.3431457505076203,
+          2.3431457505076203
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          8.0
+        ],
+        "external_assets": [],
+        "identity_holes": 4,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 8.0
+      },
+      "radius-r10": {
+        "analytic_arc_end_mm": [
+          10.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          2.9289321881345254,
+          2.9289321881345254
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          10.0
+        ],
+        "external_assets": [],
+        "identity_holes": 5,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 10.0
+      },
+      "radius-r12": {
+        "analytic_arc_end_mm": [
+          12.0,
+          0.0
+        ],
+        "analytic_arc_mid_mm": [
+          3.5147186257614305,
+          3.5147186257614305
+        ],
+        "analytic_arc_start_mm": [
+          0.0,
+          12.0
+        ],
+        "external_assets": [],
+        "identity_holes": 6,
+        "outer_dimensions_mm": [
+          30.0,
+          30.0,
+          3.0
+        ],
+        "radius_mm": 12.0
+      }
+    },
+    "measurement_contract": {
+      "clearance_increment_mm": 0.2,
+      "height_increment_mm": 20.0,
+      "maximum_allowed_mean_user_error_mm": 1.0,
+      "minimum_real_drawers_for_validation": 10,
+      "radius_increment_mm": 2.0,
+      "radius_selection_rule": "smallest_no_force_seating_tile",
+      "required_drawer_positions": [
+        "front",
+        "middle",
+        "rear"
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-018-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

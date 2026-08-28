@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-radius-cutaway-selection-direction-001
+title: Radius cutaway volumes and user selection direction agree
+category: geometry
+status: draft
+trigger: A family of external-corner radius tiles uses progressively larger cutaways.
+risk: Reversing smallest/largest fit instructions makes every large cutaway appear acceptable and biases the recorded drawer radius upward.
+given:
+  project: products/organization-storage/mm-org-018-drawer-measurement-gauge-kit
+  radii_mm: 2, 4, 6, 8, 10, 12
+  geometry: fixed 30 mm square envelope with increasing lower-left quarter-circle cutaway
+expected:
+  - Tile volume decreases strictly as nominal radius increases.
+  - The parameterized selection rule is smallest_no_force_seating_tile.
+failure_conditions:
+  - Any larger-radius tile retains equal or more material than its predecessor.
+  - Documentation or parameters select the largest fitting cutaway tile.
+fixtures:
+  - products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/cad/build.py
+  - products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/config/model-parameters.json
+  - products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/tests/test_parameters.py::test_larger_radius_tiles_remove_more_corner_material_and_selection_uses_smallest_fit -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Generate all six tiles, compare B-Rep volumes and assert the bound selection-rule string.
+relationships:
+  lessons: [EXP-00014]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/reports/radius-selection-direction-iteration.json
+  artifact_hashes:
+    - dfa86ea6360675746beb36131d3644585eb62ae5e66057ec12fc4991e1e485b9
+    - 894bc17379e4629ffe779c46ed0b178b7c0eb5916b058a5f54715dbb1c6a485c
+tags: [geometry, radius-gauge, selection-direction, regression]

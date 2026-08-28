@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-018",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "initial_interpretation": "Select the largest radius tile that seats without force.",
+  "initial_accepted": false,
+  "observation": "The tile is a square with an increasing lower-left cutaway. Larger nominal radius removes more material and is therefore progressively looser in the same rounded drawer corner.",
+  "tile_volumes_mm3": {"R2": 2691.392920065877, "R4": 2677.6353960532924, "R6": 2658.7274279622466, "R8": 2634.6690157927396, "R10": 2605.460159544771, "R12": 2571.1008592183425},
+  "corrected_rule": "Select the smallest tile that seats without force while both tangent legs contact; the next smaller tile is the interference bound and the next larger tile is the clearance bound.",
+  "regression_test": "tests/test_parameters.py::test_larger_radius_tiles_remove_more_corner_material_and_selection_uses_smallest_fit",
+  "limitations": ["This proves selection direction for this cutaway-tile geometry; physical seating, daylight judgment and user repeatability remain deferred."]
+}

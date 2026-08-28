@@ -1,0 +1,142 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-018
+  name: Drawer measurement gauge and clearance coupon kit
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-idea-priority/SKU-115
+  opportunity_score: 90.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    asset: assets/concept/MM-ORG-018-concept-v1.svg
+  decomposition:
+    status: approved
+    artifact: decomposition.md
+  physical_print: {status: deferred-human}
+  measurement_validation: {status: deferred-human}
+  watermark_approval:
+    status: blocked
+    reason: Final marking and accuracy claims require exact-process physical evidence.
+  commercial_release: {status: blocked}
+
+function:
+  summary: Help a customer record drawer corner radius, width at repeatable heights, and a conservative side-clearance preference before ordering a full custom organizer.
+  intended_users:
+    - adult first-time exact-fit customers and makers using independent calipers or a rigid ruler
+  included:
+    - six 30 mm radius tiles for R2/R4/R6/R8/R10/R12 internal drawer corners
+    - two mirrored-use height cards with ledges at 15/35/55 mm
+    - one 0.8-2.0 mm flat finger-width clearance comb
+    - one 130/80/32/12/10/3 mm calibration reference frame
+    - measurement worksheet and ten-drawer validation plan
+  excluded:
+    - certified, traceable, calibrated or metrology-grade claim
+    - replacement for calipers, rigid ruler, contour gauge or professional site survey
+    - automatic drawer-size output, imperial units or printer compensation hidden in geometry
+    - child use, cutting edge, force measurement, printer control or commercial release
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - printed dimensions can deviate by machine, material, orientation, flow, elephant foot and wear
+    - a user can select the wrong radius or measure at the wrong height/position
+    - narrow comb fingers can bend, break or report a false fit if forced
+    - rounded or tapered drawers can have a narrower insertion path than their floor footprint
+  limits:
+    - every printed kit must be measured against independent calipers before use
+    - use the smallest repeated drawer measurement and separately record the insertion path
+    - gauge increments are resolution labels, not accuracy claims
+    - reject sharp, warped, stringy or damaged tools
+
+geometry_contract:
+  coordinate_frame:
+    x: primary length or gauge sequence direction
+    y: in-plane depth, height-card elevation when stood on its base edge, or second reference dimension
+    z: 3.0 mm broad-face-down print thickness
+  maximum_single_part_envelope_mm: [130.0, 65.0, 3.0]
+  customer_parameters:
+    - radius series and identity code
+    - height-card ledge levels
+    - clearance finger widths and sequence
+    - calibration frame references
+  interfaces:
+    radius_tiles: one to six holes map monotonically to R2/R4/R6/R8/R10/R12; the lower-left analytic arc is the protected measuring corner
+    height_cards: paired cards stand on y=0 and support a rigid ruler at 15, 35 or 55 mm ledge tops
+    clearance_comb: seven fingers increase left-to-right from 0.8 to 2.0 mm in 0.2 mm steps; insertion is no-force and actual width must be measured first
+    calibration_frame: external 130 x 32 x 3 mm plus internal 80 x 12 mm rounded window, 10 mm round aperture and 10 mm square aperture
+  protected_geometry:
+    - every analytic radius and tangent endpoint
+    - height-card base datum and ledge top elevations
+    - every clearance finger side face and monotonic ordering
+    - all calibration-frame external/internal reference surfaces
+
+duty:
+  environment: dry indoor measurement use, nominal 15-30 C
+  service_life_target: 100 drawer surveys or first visible damage
+  note: Target defines deferred testing and is not a current rating.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA reference; PETG is a separately calibrated branch
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; all objects print broad face down
+  orientation:
+    all_parts: 3 mm broad face down; height cards are stood on their y=0 datum only during use
+  target_outputs:
+    - JSON parameters and CadQuery source
+    - STEP masters for nine unique shapes plus virtual kit
+    - nine unique STL files
+    - DRAFT ten-object 3MF with two height-card instances
+
+measurement_protocol:
+  calibration:
+    - condition the printed kit for 24 hours in its use environment
+    - measure all frame references and each selected gauge surface with independent calipers
+    - record signed error rather than silently rescaling or filing the part
+  drawer_capture:
+    - measure width at front, middle and rear at 15, 35 and 55 mm where accessible
+    - measure depth on both sides and record the narrowest insertion opening separately
+    - choose the smallest radius tile that seats without force and with both tangent legs contacting; report the next smaller value as the interference bound and the next larger value as the clearance bound
+    - test clearance fingers without forcing and record their measured rather than nominal width
+  output_rule: Report raw readings, tool errors, chosen conservative dimension and uncertainty; do not state more precision than the tool/process supports.
+
+optimization:
+  objective: Keep the kit flat, support-free and low-material while retaining readable identity and protected measuring edges.
+  baseline: solid bounding envelopes for six tiles, two height cards, comb and frame
+  selection_rule: Every unique output remains one watertight solid and total CAD volume is at least 25 percent below the solid-envelope baseline.
+  evidence: reports/optimization-comparison.json
+
+acceptance:
+  - {id: SRC-001, criterion: Nine unique parametric shapes generate as valid single solids., method: pytest and deterministic CadQuery build, status: pass, evidence: validation/parametric-source-report.json}
+  - {id: DIM-001, criterion: Analytic reports preserve declared radii, height datums, finger widths and calibration references., method: deterministic interface report, status: pass, evidence: validation/interface-report.json}
+  - {id: MESH-001, criterion: Nine unique meshes are independently watertight positive-volume single components., method: independent mesh audit, status: pass, evidence: validation/mesh-generation-report.json}
+  - {id: SLC-001, criterion: Exact local profile slices the ten-object 3MF without native warnings., method: slicer preflight, status: pass, evidence: validation/slicer-anycubic-next.json}
+  - {id: PHY-001, criterion: Printed references agree with calipers and ten real-drawer surveys stay within the declared user-error threshold., method: user physical validation, status: deferred-human}
+
+release_boundary:
+  current_target: DRAFT_DIGITAL_PRINT_CANDIDATE
+  blocked_until_physical_evidence:
+    - exact printed dimensions on the selected machine/material/color/batch
+    - ten-drawer comparison against independent calipers
+    - mean and worst-case user error plus repeatability
+    - radius seating, height-card stability and finger durability
+    - final watermark and commercial review
+  prohibited_actions:
+    - retain or upload manufacturing G-code
+    - start a printer
+    - market the kit as calibrated, certified or metrology-grade

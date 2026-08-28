@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All nine unique B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every unique deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "ten-print-objects",
+      "message": "3MF contains six radius tiles, two height cards, comb and frame",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "Geometry uses no third-party font, vector or mesh assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "cdf3538747c5f3ab6fa66c03c63845824b42663c10a789bc7880cbc0f8649d16",
+      "size_bytes": 1965
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "d17c286d5a299d5c086fdc32f26f88ab0b81e13ef245b02843a41412411814b5",
+      "size_bytes": 23300
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "radius-r02",
+      "radius-r04",
+      "radius-r06",
+      "radius-r08",
+      "radius-r10",
+      "radius-r12",
+      "height-card-left",
+      "height-card-right",
+      "clearance-comb",
+      "calibration-frame"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "radius-r02",
+      "radius-r04",
+      "radius-r06",
+      "radius-r08",
+      "radius-r10",
+      "radius-r12",
+      "height-card",
+      "clearance-comb",
+      "calibration-frame"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-018-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

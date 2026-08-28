@@ -12,10 +12,10 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: One Anycubic Slicer Next PLA G-code exposes the arithmetic effect; other files, precision modes, slicers and physical flow remain untested.
+    notes: Two Anycubic Slicer Next G-codes expose the arithmetic effect across PLA/PETG and two geometries; other slicers, precision modes and physical flow remain untested.
 feature:
   type: gcode-rounded-coordinate-flow-validation
-  geometry: MM-ORG-037 CB cassette-plus-insert plate with a 0.00224 mm extrusion lead-in segment
+  geometry: MM-ORG-037 cassette plate and MM-BOAT-003 21-object submarine plate with short rounded-coordinate extrusion segments
   design_parameters:
     gcode_decimal_precision: 5
     profile_flow_limit_mm3_s: 13.0
@@ -24,7 +24,13 @@ feature:
     macro_segment_threshold_mm: 0.05
     macro_peak_mm3_s: 12.748795750204946
     macro_acceptance_limit_mm3_s: 13.3
-  named_datums: [gcode-line-108794, previous-feed-F9000, profile-volumetric-limit]
+    second_trace_profile_flow_limit_mm3_s: 18.0
+    second_trace_raw_peak_mm3_s: 22.85017855176251
+    second_trace_raw_peak_segment_length_mm: 0.002999999999985903
+    second_trace_macro_threshold_mm: 0.05
+    second_trace_macro_peak_mm3_s: 18.417151831476495
+    second_trace_macro_acceptance_limit_mm3_s: 18.45
+  named_datums: [gcode-line-108794, gcode-line-1781783, previous-feed-F9000, profile-volumetric-limit]
   constraints:
     - Exact manufacturing G-code and exact profile remain unchanged.
     - Any raw-flow allowance is confined below a declared microsegment length.
@@ -33,62 +39,64 @@ feature:
 scope:
   process: FFF
   machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
-  material: {manufacturer: Anycubic, product: PLA profile, variant: standard, color: null, batch: null, conditioning: null}
-  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
-  orientation: MM-ORG-037 cassette and CB insert base-down on one plate
-  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
-  geometry_class: rounded absolute-E linear G-code reconstructed from endpoint coordinates
+  material: {manufacturer: mixed, product: Anycubic PLA profile and ELEGOO PETG Rapid profile, variant: exact project profiles, color: unknown, batch: unknown, conditioning: unknown}
+  nozzle: {diameter_mm: 0.4, material: unknown-and-hardened-steel, geometry: unknown, hotend: unknown, wear_state: unknown}
+  orientation: MM-ORG-037 cassette plate base-down; MM-BOAT-003 21 objects automatically arranged on one plate
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: project-specific 0.20 mm PLA and PETG profiles, profile_hash: null}
+  geometry_class: rounded absolute- or relative-E linear G-code reconstructed from emitted endpoint coordinates
   environment: deterministic offline G-code parsing; no printer upload, print or physical flow measurement
   transfer_limits:
     - Applies only to endpoint-derived estimates from rounded emitted coordinates when the exact excess segment and macro domain are preserved.
     - Does not justify exceeding a material/profile limit, rewriting G-code, or relaxing checks for sustained paths.
 observation:
-  summary: The raw endpoint parser exceeded the 13 mm3/s profile value on a 0.00224 mm lead-in, while an independent length-aware pass found every extrusion segment at least 0.05 mm long at or below 12.75 mm3/s.
+  summary: Two exact G-codes produced raw endpoint peaks above their 13 and 18 mm3/s profile values on 0.00224 and 0.00300 mm segments, while independent length-aware checks kept each declared macro domain tightly bounded.
   expected: Exact-profile G-code passes without hiding a real sustained flow excess or mutating the manufacturing artifact.
-  actual: A flat 13.3 mm3/s raw ceiling rejected the file; a bounded two-domain check retained the exact file and passed only after localizing the excess below 0.01 mm and verifying the macro domain separately.
+  actual: Flat raw ceilings rejected both files; bounded two-domain checks retained the exact artifacts only after localizing the larger excesses below each declared macro threshold and verifying the macro domains separately. The PETG trace measured 18.4172 mm3/s for segments at least 0.05 mm and confined all values above 18.45 mm3/s below 0.05 mm.
   outcome: correction
   parameter: parser-flow-allowance-domain
   recommended_value: Record both raw and macro peaks with source line and segment length; allow a raw excess only for a declared rounded-coordinate microsegment while the macro domain stays tightly bounded.
   units: mm3/s-and-mm
 explanation:
   hypothesis: Rounding absolute extrusion and position endpoints to finite decimals can disproportionately perturb a flow ratio when both distance and extrusion are extremely small.
-  mechanism: The `E0.00009` increment is divided by a 0.00224 mm motion duration; endpoint quantization therefore dominates the reconstructed instantaneous ratio even though neighboring printable-length paths remain under the profile limit.
+  mechanism: Tiny emitted E and XYZ increments are divided by very short reconstructed motion durations; endpoint quantization can therefore dominate the ratio even though printable-length paths remain tightly bounded around the slicer's profile ceiling.
   alternatives:
     - Have the slicer emit higher-precision coordinates.
     - Derive flow from unrounded internal slicer paths if an authoritative trace is available.
     - Fail the file if the excess occurs on any macro segment or cannot be independently localized.
   validated: true
-  validation_method: Two independent parsers agree on line, flow and segment length; a separate macro-segment scan is bound into the print-candidate gate. Physical extrusion response is explicitly excluded.
+  validation_method: Hash-bound independent parsers retain line, flow and segment length; separate macro-segment scans are bound into both print-candidate gates. Physical extrusion response is explicitly excluded.
 evidence:
-  observations: 1
+  observations: 2
   same_scope_repetitions: 0
-  geometry_count: 1
+  geometry_count: 2
   machine_count: 1
-  material_count: 1
+  material_count: 2
   nozzle_count: 1
   measured: true
-  measurement_method: Offline reconstruction of XYZ distance, absolute-E increment, persistent feed and 1.75 mm filament area from the exact hashed G-code.
-  uncertainty: The check establishes arithmetic scope, not actual extruder dynamics; the 0.01/0.05 mm thresholds have not been tested across other jobs.
+  measurement_method: Offline reconstruction of XYZ distance, absolute/relative-E increment, persistent feed and 1.75 mm filament area from exact hashed G-code.
+  uncertainty: The checks establish arithmetic scope, not actual extruder dynamics; the project-specific raw/macro thresholds remain E0 and are not universal limits.
   sources:
     - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/microsegment-flow-iteration.json, hash: 682b8fd027757ab5bb51a347c9dcee4aca269b18baf4ea0b1396016d02bf924e, notes: "Preserved failure, exact source command, independent peaks, resolution and exclusions."}
     - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/slicer-preflight-report.json, hash: 29cd5b150776df26d9f6e193a2b376a9e6792381c4598e8875696a41d3e1f178, notes: "PASS exact-profile, macro-flow and rounded-coordinate scope checks across all three jobs."}
     - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/gcode-pla-cb-kit-run-002.json, hash: 410aa6f78d3e020d852676626bdb0d808a36455183731d770e452e85de18ad0f, notes: Canonical parser raw peak and source line.}
     - {type: product-trace, ref: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/tests/test_parameters.py, hash: 08497d2061a51c2f439ac171c2c1fe2846f2edf30678c3ebb84de709b0f19a1d, notes: Targeted regression requires both bounded flow checks and a 13.3 mm3/s macro ceiling.}
+    - {type: product-trace, ref: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-print-candidate-v1.1.0-draft.1.json, hash: 59ebe7c95df9e5e6bfa60335265778350592baea854c53ce523491f1ba46b856, notes: "Second geometry and material: exact PETG G-code hash, raw/macro peaks, source lines, segment lengths and bounded acceptance."}
   artifacts:
     - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-cb-kit-run-002/plate_1.gcode
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/build/slice-anycubic-next-complete-v1.1.0-draft.1-run-002/plate_1.gcode
 applicability:
   triggers:
     - An offline G-code analyzer reports a flow peak above the exact profile limit on a very short rounded-coordinate segment.
   exclusions:
     - Sustained or macro-segment excess, volumetric-E G-code, arcs without equivalent length handling, physical under-extrusion, or unpreserved source files.
   transfer_limits:
-    - Treat the thresholds and mechanism as E0 until repeated across exact files and precision contexts.
+    - Treat the project-specific thresholds and the broader mechanism as E0 until reviewed across further precision and slicer contexts.
 relationships:
   duplicates: []
   conflicts: []
   supersedes: []
   related: []
-  evals: [EVAL-core-gcode-rounded-microsegment-flow-scope-001]
+  evals: [EVAL-core-gcode-rounded-microsegment-flow-scope-001, EVAL-core-gcode-rounded-microsegment-flow-scope-002]
   patterns: []
   references: []
 validation:
@@ -97,10 +105,11 @@ validation:
   reports:
     - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/slicer-preflight-report.json
     - products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/validation/validation-summary.json
+    - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-print-candidate-v1.1.0-draft.1.json
 provenance:
-  project: MM-ORG-037
-  part_revision: 0.1.0-draft.1
-  trace: products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/decision-log.md
+  project: MM-ORG-037 and MM-BOAT-003
+  part_revision: 0.1.0-draft.1 and 1.1.0-draft.1
+  trace: products/toys-games/mm-boat-003-flapping-tail-submarine/decision-log.md
   source_commit: null
   created_by: Codex via 3d-skill-maintainer
 tags: [gcode, flow, rounding, microsegment, anycubic, validation, digital-only]

@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-gcode-rounded-microsegment-flow-scope-002
+title: MM-BOAT-003 rounded-coordinate G-code excess remains below its macro threshold
+category: core
+status: draft
+trigger: MM-BOAT-003 exact 21-object PETG G-code, embedded profile, slicer report or flow-validator changes.
+risk: A broad parser allowance could hide sustained PETG flow excess, while a flat raw ceiling could reject an exact slicer file because of very short rounded-coordinate segments.
+given:
+  project: products/toys-games/mm-boat-003-flapping-tail-submarine
+  exact_trace: reports/anycubic-print-candidate-v1.1.0-draft.1.json
+  exact_slicer_report: reports/anycubic-slicer-v1.1.0-draft.1.json
+expected:
+  - Exact G-code, exact 3MF and exact 18 mm3/s embedded PETG profile remain unchanged.
+  - Every reconstructed extrusion segment at least 0.05 mm long remains at or below 18.45 mm3/s.
+  - Every larger value remains below 23.0 mm3/s and is confined to a segment shorter than 0.05 mm with source-line evidence.
+  - Native Anycubic slicing remains warning-free and the exact G-code hash matches the slicer report.
+failure_conditions:
+  - A segment at least 0.05 mm long exceeds 18.45 mm3/s.
+  - A raw value exceeds 23.0 mm3/s or lacks exact source hash, line and length evidence.
+  - Manufacturing G-code or the embedded filament profile is rewritten to conceal the result.
+  - The print-candidate report is stale or non-PASS.
+fixtures:
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-print-candidate-v1.1.0-draft.1.json
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-slicer-v1.1.0-draft.1.json
+  - products/toys-games/mm-boat-003-flapping-tail-submarine/scripts/validate_anycubic_candidate.py
+grader:
+  type: deterministic
+  command: >-
+    python products/toys-games/mm-boat-003-flapping-tail-submarine/scripts/validate_anycubic_candidate.py
+    --three-mf products/toys-games/mm-boat-003-flapping-tail-submarine/exports/anycubic-v1.1.0-draft.1/DRAFT-MM-BOAT-003-v1.1.0-draft.1-Kobra3Max-PETG-complete.3mf
+    --slicer-report products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-slicer-v1.1.0-draft.1.json
+    --gcode products/toys-games/mm-boat-003-flapping-tail-submarine/build/slice-anycubic-next-complete-v1.1.0-draft.1-run-002/plate_1.gcode
+    --machine-profile "products/toys-games/mm-boat-003-flapping-tail-submarine/slicer-profiles/v1.1.0-draft.1/Anycubic Kobra 3 Max 0.4 hardened steel nozzle.json"
+    --process-profile "products/toys-games/mm-boat-003-flapping-tail-submarine/slicer-profiles/v1.1.0-draft.1/MM-BOAT-003 0.20mm PETG Watertight @AC K3 Max 0.4.json"
+    --filament-profile "products/toys-games/mm-boat-003-flapping-tail-submarine/slicer-profiles/v1.1.0-draft.1/ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle.json"
+    --json-out products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-print-candidate-v1.1.0-draft.1.json
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Reconstruct flow from exact emitted XYZ/E/feed commands, retain segment length and independently gate raw and macro domains.
+relationships:
+  lessons: [EXP-00029]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/toys-games/mm-boat-003-flapping-tail-submarine/reports/anycubic-print-candidate-v1.1.0-draft.1.json
+  artifact_hashes:
+    - 59ebe7c95df9e5e6bfa60335265778350592baea854c53ce523491f1ba46b856
+    - c2f64780db0d8a6d9586050e4c6257cb9f908e8dbe5356066993f1bfb31eb5ed
+    - 427a74ad346d8450c386d94719697e3e5f0cf3c0998fb64e862f1894c183e5b5
+tags: [core, gcode, flow, rounding, microsegment, petg, anycubic, regression]

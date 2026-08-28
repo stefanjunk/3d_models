@@ -1,0 +1,268 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "anycubic-production-extension",
+      "message": "All 21 build components resolve through the 3MF production extension",
+      "metrics": {
+        "build_items": 21,
+        "distributed_components": 21,
+        "resolved_components": 21
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "complete-part-count",
+      "message": "The consolidated plate contains five hinge pins and 16 other parts",
+      "metrics": {
+        "hinge_pins": 5,
+        "other_parts": 16
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "embedded-profile-set",
+      "message": "3MF embeds the selected Kobra 3 Max, watertight PETG and ELEGOO Rapid PETG profiles",
+      "metrics": {
+        "brim_type": "outer_only",
+        "enable_support": "1",
+        "filament_max_volumetric_speed_mm3_s": 18.0,
+        "filament_settings_id": [
+          "ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle"
+        ],
+        "layer_height": "0.2",
+        "print_settings_id": "MM-BOAT-003 0.20mm PETG Watertight @AC K3 Max 0.4",
+        "printer_settings_id": "Anycubic Kobra 3 Max 0.4 hardened steel nozzle",
+        "sparse_infill_density": "25%",
+        "support_on_build_plate_only": "1",
+        "wall_loops": "6"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "native-anycubic-slice",
+      "message": "Anycubic Slicer Next 1.3.9.4 completed locally without native warnings",
+      "metrics": {
+        "native_warnings": [],
+        "slicer_version": "1.3.9.4",
+        "triangle_count": 592550
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "exact-gcode-preserved",
+      "message": "Exact G-code hash and byte size match the native slicer report",
+      "metrics": {
+        "sha256": "c2f64780db0d8a6d9586050e4c6257cb9f908e8dbe5356066993f1bfb31eb5ed",
+        "size_bytes": 77731759
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-tool-layer-consistency",
+      "message": "G-code uses one tool, no tool changes and 1179 consistent layers",
+      "metrics": {
+        "layers": 1179,
+        "motion_bounds_mm": {
+          "X": [
+            0.0,
+            420.0
+          ],
+          "Y": [
+            0.0,
+            420.0
+          ],
+          "Z": [
+            0.0,
+            91.04
+          ]
+        },
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "rounded-coordinate-flow-scope",
+      "message": "Any reconstructed excess above 18.45 mm3/s is confined below 0.05 mm while the >=0.05 mm domain remains bounded",
+      "metrics": {
+        "macro_flow_limit_mm3_s": 18.45,
+        "macro_peak": {
+          "delta_e_mm": 0.0018299999937880784,
+          "feed_mm_min": 13265.217,
+          "flow_mm3_s": 18.417151831476495,
+          "line": 2053042,
+          "segment_length_mm": 0.05283937925447606
+        },
+        "macro_segment_threshold_mm": 0.05,
+        "max_segment_above_macro_limit_mm": 0.03828837943813569,
+        "raw_flow_limit_mm3_s": 23.0,
+        "raw_peak": {
+          "delta_e_mm": 0.0001900000061141327,
+          "feed_mm_min": 9000.0,
+          "flow_mm3_s": 22.85017855176251,
+          "line": 1781783,
+          "segment_length_mm": 0.002999999999985903
+        },
+        "segments_above_macro_limit": 30
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-footer-metrics",
+      "message": "Slicer footer exposes the expected time, layer and material planning values",
+      "metrics": {
+        "filament_cm3": 291.79,
+        "filament_g": 376.41,
+        "filament_mm": 121312.8,
+        "layers": 1179,
+        "normal_time": "21h 4m 16s"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "exports/anycubic-v1.1.0-draft.1/DRAFT-MM-BOAT-003-v1.1.0-draft.1-Kobra3Max-PETG-complete.3mf",
+      "sha256": "b1c1ab4f0fe26e1c52bfd78e0e1ab7b19ff3d9bd13e9fe7943a7030116abe919",
+      "size_bytes": 8025428
+    },
+    {
+      "path": "reports/anycubic-slicer-v1.1.0-draft.1.json",
+      "sha256": "4bea63ed7558efb9203d59ebdadb75afff58c2963e91d33641a81253bbee2318",
+      "size_bytes": 8029
+    },
+    {
+      "path": "build/slice-anycubic-next-complete-v1.1.0-draft.1-run-002/plate_1.gcode",
+      "sha256": "c2f64780db0d8a6d9586050e4c6257cb9f908e8dbe5356066993f1bfb31eb5ed",
+      "size_bytes": 77731759
+    },
+    {
+      "path": "slicer-profiles/v1.1.0-draft.1/Anycubic Kobra 3 Max 0.4 hardened steel nozzle.json",
+      "sha256": "aab1318a9faa6d3616619034da6da7eb0fc037a5e2dca3096627aeefd5b7fcc8",
+      "size_bytes": 457
+    },
+    {
+      "path": "slicer-profiles/v1.1.0-draft.1/MM-BOAT-003 0.20mm PETG Watertight @AC K3 Max 0.4.json",
+      "sha256": "40506bece3ea1a7eca56a0fa28e9dcc370f9a59d0b45c066a5fa17f3d9290bde",
+      "size_bytes": 1336
+    },
+    {
+      "path": "slicer-profiles/v1.1.0-draft.1/ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "301ea3276e115e1dc4f1e865fadc1ade7a4691a27999eed30922aa54c1b851d4",
+      "size_bytes": 7154
+    }
+  ],
+  "limitations": [
+    "The generic repository 3MF validator does not traverse Anycubic's production-extension distributed object resources; native Anycubic import and exact slicing are the authoritative compatibility evidence here.",
+    "The flow audit reconstructs ratios from rounded emitted coordinates. Its bounded allowance is arithmetic evidence, not a physical hotend-flow measurement and must not excuse a sustained excess.",
+    "Headless slicing does not replace final human GUI review of layers, supports, seams and bed placement.",
+    "No printer upload or print-start action was performed.",
+    "Watertightness, fit, trim, flotation and powered swimming still require the documented physical coupons and prototype tests."
+  ],
+  "metrics": {
+    "slice": {
+      "flow": {
+        "macro_flow_limit_mm3_s": 18.45,
+        "macro_peak": {
+          "delta_e_mm": 0.0018299999937880784,
+          "feed_mm_min": 13265.217,
+          "flow_mm3_s": 18.417151831476495,
+          "line": 2053042,
+          "segment_length_mm": 0.05283937925447606
+        },
+        "macro_segment_threshold_mm": 0.05,
+        "max_segment_above_macro_limit_mm": 0.03828837943813569,
+        "raw_flow_limit_mm3_s": 23.0,
+        "raw_peak": {
+          "delta_e_mm": 0.0001900000061141327,
+          "feed_mm_min": 9000.0,
+          "flow_mm3_s": 22.85017855176251,
+          "line": 1781783,
+          "segment_length_mm": 0.002999999999985903
+        },
+        "segments_above_macro_limit": 30
+      },
+      "gcode": {
+        "arc_moves": 0,
+        "extruded_volume_mm3": 368547.29198723735,
+        "filament_diameter_mm": 1.75,
+        "layers_declared": 1179,
+        "layers_declared_header": 1179,
+        "layers_declared_summary": 1179,
+        "layers_from_comments": 1179,
+        "motion_bounds_mm": {
+          "X": [
+            0.0,
+            420.0
+          ],
+          "Y": [
+            0.0,
+            420.0
+          ],
+          "Z": [
+            0.0,
+            91.04
+          ]
+        },
+        "motion_time_lower_bound_s": 61886.87666261246,
+        "peak_flow_line": 1781783,
+        "peak_flow_mm3_s": 22.85017855176251,
+        "positive_extrusion_mm_by_tool": {
+          "0": 153224.15877982276
+        },
+        "positive_extrusion_total_mm": 153224.15877982276,
+        "printing_move_path_mm": 3740179.9407336153,
+        "slicer_metadata_time_s": 75856.0,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "travel_path_mm": 1022311.7138508516,
+        "volumetric_extrusion_seen": false,
+        "warnings": []
+      },
+      "slicer_footer": {
+        "filament_cm3": 291.79,
+        "filament_g": 376.41,
+        "filament_mm": 121312.8,
+        "layers": 1179,
+        "normal_time": "21h 4m 16s"
+      }
+    },
+    "three_mf": {
+      "build_items": 21,
+      "embedded_profiles": {
+        "filament": [
+          "ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle"
+        ],
+        "machine": "Anycubic Kobra 3 Max 0.4 hardened steel nozzle",
+        "process": "MM-BOAT-003 0.20mm PETG Watertight @AC K3 Max 0.4"
+      },
+      "hinge_pin_count": 5
+    }
+  },
+  "profile": "draft-print-candidate",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-BOAT-003 Anycubic print-candidate validator",
+  "tool_version": "1.1.0-draft.1"
+}

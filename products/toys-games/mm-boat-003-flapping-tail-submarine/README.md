@@ -47,9 +47,11 @@ Rahmenkonvention: +X = Heckwärts, +Z = oben. Alle Maße in mm.
 - Auftriebsrechnung `reports/buoyancy-v1.1.0-draft.1.json`:
   Verdrängung ≈ 474,7 ml, Trockenmasse ≈ 408,7 g, nötiger Ballast ≈ 59,9 g
   (vollständig im Kiel möglich), Blase ≈ 6,7 g Stellbereich.
-- Der exakte Anycubic-Slicer-Gate ist fail-closed `NOT_RUN`, weil Druckermodell
-  und freigegebene vollständige Maschinen-/Prozess-/PETG-Profile noch fehlen.
-  Diese Revision und alle neuen STLs bleiben deshalb ausdrücklich **DRAFT**.
+- Der exakte Anycubic-Slicer-Gate ist `PASS`: Anycubic Slicer Next 1.3.9.4 hat
+  das konsolidierte 3MF lokal ohne native Warnung in 1179 Layer gesliced. Der
+  exakte Nachweis liegt in `reports/anycubic-print-candidate-v1.1.0-draft.1.json`.
+  Die Revision bleibt wegen offener Ansichts-, Coupon-, Dichtheits-, Trimm- und
+  Schwimmtests ausdrücklich **DRAFT**; es wurde nichts hochgeladen oder gestartet.
 - Passungs-Coupon für Scharnierfreiheit (0,15/0,25/0,35/0,45 mm je Seite):
   `reports/fit_coupon.scad` → `exports/stl/fit_coupon_hinge.stl`.
   **Vor dem ersten Boot-Druck Coupon mit demselben Profil drucken und die
@@ -72,9 +74,27 @@ Rahmenkonvention: +X = Heckwärts, +Z = oben. Alle Maße in mm.
 | ballast_box, ballast_lid | PETG | wie gedruckt |
 | fit_coupon_hinge | wie Boot | zur Passungswahl |
 
-Druck: 0,4er Düse, **4+ Perimeter** (Wand 2,4 mm = wasserdicht ausgelegt),
-25 % Infill, PETG empfohlen (PLA nimmt Wasser auf). Fugen/O-Ringe mit
+Druck: 0,4er Düse, **6 Perimeter** (Wand 2,4 mm = wasserdicht ausgelegt),
+25 % Gyroid-Infill, PETG empfohlen (PLA nimmt Wasser auf). Fugen/O-Ringe mit
 Silikonfett; Kapsel innen optional mit Epoxy versiegeln.
+
+## Konsolidiertes Anycubic-Druckpaket
+
+Direkt in Anycubic Slicer Next öffnen:
+
+`exports/anycubic-v1.1.0-draft.1/DRAFT-MM-BOAT-003-v1.1.0-draft.1-Kobra3Max-PETG-complete.3mf`
+
+Das 3MF enthält eine angeordnete Platte mit **21 Objekten**: alle 16
+unterschiedlichen übrigen Teile plus fünf Scharnierstifte. Eingebettet sind
+`Anycubic Kobra 3 Max 0.4 hardened steel nozzle`, das Prozessprofil
+`MM-BOAT-003 0.20mm PETG Watertight @AC K3 Max 0.4` und
+`ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle`.
+
+Exakter lokaler Slice: **21 h 4 min 16 s**, **376,41 g / 291,79 cm³ PETG**,
+1179 Layer, ein Werkzeug, keine Werkzeugwechsel, Z bis 91,04 mm. Vor dem
+Druck im GUI einmal Layer, Supports, Nähte und Bettlage prüfen. Der komplette
+Plattendruck ist bewusst PETG-einfarbig; eine optionale TPU-Heckflosse muss
+separat gedruckt werden.
 
 ## Zukauf (BOM)
 

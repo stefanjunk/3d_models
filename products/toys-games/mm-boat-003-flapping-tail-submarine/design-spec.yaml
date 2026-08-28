@@ -21,6 +21,12 @@ workflow:
     asset_sha256: bb6d382716ed4a60a83ae6ae29706fc5c98b8d2c87d9762e6cb5011720246323
     approved_by: "Stefan — explicit chat approval"
     approved_at: "2026-08-28"
+  manufacturing_export_authorization:
+    status: approved
+    spec_revision: 1.1.0-draft.1
+    scope: "lokales Anycubic-Slicing und konsolidiertes 3MF; kein Upload und kein Druckstart"
+    approved_by: "Stefan — explicit chat authorization"
+    approved_at: "2026-08-28"
   watermark_approval:
     status: blocked
     spec_revision: null
@@ -48,8 +54,8 @@ requirements_trace:
     - "Die einseitig nach unten laufende Schwanzflosse wird bei gleicher Antriebsschnittstelle durch eine symmetrische, weich gerundete Schwanzflosse ersetzt."
     - "Keine Kiemen-, Schuppen- oder Hochrelief-Dekoration; die Silhouette und der Highlight-Verlauf tragen die Form."
   unresolved_nonblocking:
-    - "Die endgültige Stärke von Rücken- und Brustflossen wird erst im Konzeptbild visuell bestätigt."
-    - "Der exakte Material-/Düsen-/Slicerprofilname bleibt für den späteren Anycubic-Slicer-Gate offen; die bestehende PETG-/0,4-mm-Basis bleibt vorläufig."
+    - "Die endgültige Fischsilhouette und der Highlight-Verlauf bleiben bis zur menschlichen Modellansichtsprüfung offen."
+    - "Passung, Kennzeichnungslesbarkeit, Dichtheit, Trimm und Schwimmverhalten bleiben physisch zu prüfen."
 
 function:
   summary: >
@@ -129,18 +135,24 @@ fabrication:
   repairability: preferred
 
 printer:
-  model: unknown
-  build_volume_mm: [220.0, 220.0, 250.0]
+  model: "Anycubic Kobra 3 Max"
+  profile: "Anycubic Kobra 3 Max 0.4 hardened steel nozzle"
+  build_volume_mm: [420.0, 420.0, 500.0]
   enclosure: unknown
 
 manufacturing:
   process: fdm-fff
-  material: "PETG-Basis wie Version 1.0; exaktes Filamentprofil offen"
+  material: "ELEGOO PETG Rapid @Anycubic Kobra 3 Max 0.4 nozzle"
   nozzle_mm: 0.4
+  nozzle_material: hardened-steel
+  selected_layer_height_mm: 0.20
   layer_height_range_mm: [0.12, 0.24]
   wall_mm: 2.4
-  supports: "vermeiden; Flossen zurückgepfeilt und mit selbsttragenden Übergängen auslegen"
-  target_formats: ["editable CadQuery source", STL, reports, previews]
+  wall_loops: 6
+  infill: "25% gyroid"
+  supports: "normal/auto, build-plate-only; final support preview remains human-controlled"
+  brim: "outer-only, 5.0 mm width, 0.1 mm gap"
+  target_formats: ["editable CadQuery source", STL, 3MF, G-code, reports, previews]
 
 acceptance_detail:
   digital:
@@ -180,11 +192,11 @@ acceptance:
     method: "geometry report, exact slicer preflight and process-matched coupon"
 
 optimization:
-  status: pending
+  status: review-required
   candidate_status: draft-candidate-compared
   objective: "geringere visuelle und hydrodynamische Unruhe ohne unnötige Zusatzmasse, Supports oder dichte Reliefmeshes"
   protected: ["Wandreserve", "Dichtheit", "Gelenkfreiheit", "Ballaststabilität", "Flossensteifigkeit"]
-  baseline_slicer_report: null
+  baseline_slicer_report: reports/anycubic-print-candidate-v1.1.0-draft.1.json
   selected_variant: "solid additive fairing with shallow crests and 45-degree-canted pectorals"
   comparison_report: reports/optimization-comparison-v1.1.0-draft.1.json
   mesh_simplification:
@@ -218,11 +230,13 @@ branding:
   actual_remaining_wall_mm: 1.60
   integration_report: reports/watermark-v1.1.0-draft.1.json
   physical_coupon: pending
-  exact_slicer_preview: not-run
+  exact_slicer_preview: pass-headless-human-layer-review-pending
 
 deliverables:
   - "Freigegebenes Konzeptblatt mit Seiten-, Drauf- und Dreiviertelansicht"
   - "Parametrische CadQuery-Freeform-Quelle mit semantischen Profil- und Flossenparametern"
   - "DRAFT-STL-Satz und Modellvorschauen"
+  - "Konsolidiertes Anycubic-3MF mit 21 angeordneten Teilen und eingebetteten Profilen"
+  - "Exakter lokaler Anycubic-G-Code samt Hash-, Metadaten- und Flow-Nachweis"
   - "Hardpoint-, Kollisions-, Topologie-, Auftriebs- und Surfacing-Berichte"
-  - "Exakter Anycubic-Slicer-Nachweis erst mit vollständigem Maschinen-/Prozess-/Filamentprofil"
+  - "Anycubic-Slicer-Nachweis mit vollständigem Maschinen-/Prozess-/Filamentprofil"

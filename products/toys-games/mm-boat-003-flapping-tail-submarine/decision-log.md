@@ -73,3 +73,29 @@
   Finished-underside and readable close-up renders are hash-tracked project
   evidence. Physical coupon, exact Anycubic preview and human watermark
   approval remain `PENDING`/`NOT_RUN`, so the watermark gate stays blocked.
+
+## 2026-08-28 — Consolidated Anycubic print candidate
+
+- Stefan explicitly authorized local Anycubic slicing and a consolidated 3MF;
+  printer upload and print start remain outside the authorized workflow.
+- Authored one Anycubic production-extension 3MF with 21 arranged build items:
+  all 17 unique DRAFT STLs, with the hinge-pin input repeated to five total
+  hinge pins. It embeds the selected Kobra 3 Max 0.4-mm hardened-steel machine,
+  six-wall/25%-gyroid watertight process and ELEGOO Rapid PETG profiles.
+- The first exact adapter run is preserved as `run-001`: a relative input path
+  failed after the adapter entered its isolated work directory. The fresh
+  absolute-path `run-002` passed, matching the already recorded `EXP-00003`
+  candidate rather than creating a new path-handling rule.
+- Anycubic Slicer Next 1.3.9.4 returned native success with 592,550 triangles,
+  no native warning and one exact G-code file. The slicer footer reports 1179
+  layers, 21 h 4 min 16 s normal time and 376.41 g / 291.79 cm3 PETG.
+- The raw endpoint flow estimate peaks at 22.8502 mm3/s on a 0.0030-mm rounded
+  segment. The hash-bound independent audit keeps the exact G-code unchanged,
+  confines every value above 18.45 mm3/s below 0.05 mm, and measures 18.4172
+  mm3/s as the peak for segments at least 0.05 mm long.
+- The generic strict 3MF report is retained as a diagnostic failure because it
+  does not traverse Anycubic's distributed production-extension resources.
+  The product validator resolves all 21 external object resources, and native
+  Anycubic import plus exact slicing provide the compatibility gate.
+- Final GUI layer/support/seam review and physical fit, watermark, leak, trim
+  and swimming tests remain human-controlled release gates.

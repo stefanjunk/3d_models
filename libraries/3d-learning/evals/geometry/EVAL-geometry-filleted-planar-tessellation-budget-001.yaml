@@ -1,0 +1,41 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-filleted-planar-tessellation-budget-001
+title: Fully filleted planar manufacturing meshes remain within their declared triangle budget
+category: geometry
+status: draft
+trigger: A CadQuery/OpenCascade part family with repeated small analytic fillets is tessellated for FDM export.
+risk: Excessive mesh density increases artifact size and downstream cost without a demonstrated manufacturing benefit.
+given:
+  project: products/organization-storage/mm-org-023-page-holder-thumb-tool
+  parameter_source: config/model-parameters.json
+  mesh_report: validation/mesh-generation-report.json
+  triangle_budget_per_part: 60000
+expected:
+  - Every unique manufacturing mesh contains at most 60,000 triangles.
+  - The mesh-generation report remains PASS and the selected 0.10 mm / 0.18 rad tolerance pair is explicit in the parameter source.
+failure_conditions:
+  - Any unique mesh exceeds 60,000 triangles.
+  - The mesh-generation report is not PASS or the tested tolerances are no longer the recorded pair.
+fixtures:
+  - products/organization-storage/mm-org-023-page-holder-thumb-tool/config/model-parameters.json
+  - products/organization-storage/mm-org-023-page-holder-thumb-tool/validation/mesh-generation-report.json
+  - products/organization-storage/mm-org-023-page-holder-thumb-tool/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-023-page-holder-thumb-tool/tests/test_parameters.py::test_final_manufacturing_meshes_respect_triangle_budget -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Parse the hash-bound mesh report and parameter source; compare every unique mesh triangle count to the declared hard limit.
+relationships:
+  lessons: [EXP-00017]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-023-page-holder-thumb-tool/reports/mesh-tessellation-iteration.json
+  artifact_hashes:
+    - 5e99689255681754ab671ba9db1a8d2e30ff6c16024e2c99c6e31c7516c7cda3
+    - 91ae40b27ba7ec8c126c9fb6705671948b624386648c6682a24b6eafb1617568
+    - 892a26c561e14d9318320100b476dc0ce28e11604aae32e0fa47618f6e168050
+tags: [geometry, cadquery, opencascade, tessellation, triangle-budget, regression]

@@ -1,0 +1,104 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00017
+title: Sweep OCC tessellation tolerances when repeated small fillets exceed a declared mesh budget
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: "One digital product family, one CadQuery/OpenCascade build and no surface-deviation benchmark or physical print."}
+feature:
+  type: fully-filleted-planar-thumb-holder-tessellation
+  geometry: three low-profile ellipse-and-capsule holders plus one obround sizing guide with repeated analytic edge fillets
+  design_parameters:
+    body_edge_radius_mm: 1.0
+    initial_linear_deflection_mm: 0.06
+    initial_angular_deflection_rad: 0.12
+    final_linear_deflection_mm: 0.10
+    final_angular_deflection_rad: 0.18
+    triangle_budget_per_part: 60000
+    initial_holder_triangle_range: [68232, 72842]
+    final_part_triangle_range: [23880, 35880]
+  named_datums: [broad-print-face-z0, protected-obround-opening, local-page-pad]
+  constraints:
+    - Retain valid parametric B-Reps as source of truth.
+    - Change tessellation tolerances only in a controlled iteration and re-audit every manufacturing mesh independently.
+    - Do not trade below-budget triangle counts for topology failures or unbounded dimensional drift.
+scope:
+  process: CadQuery/OpenCascade STL tessellation for FDM
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA reference profile, variant: digital-only, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: broad face down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: low-profile-planar-parts-with-repeated-small-analytic-fillets
+  environment: digital-only
+  transfer_limits:
+    - Exact 0.10 mm / 0.18 rad values apply only to this family and declared 60,000-triangle budget.
+    - Appearance-critical freeform surfaces and smaller nozzle work require separate deviation and print evidence.
+    - Topology success does not establish surface fidelity or physical comfort.
+observation:
+  summary: Relaxing OCC tessellation from 0.06 mm / 0.12 rad to 0.10 mm / 0.18 rad brought four fully filleted manufacturing meshes below 60,000 triangles while all topology audits stayed PASS.
+  expected: Every unique manufacturing mesh remains below the declared triangle budget and passes the topology contract.
+  actual: Initial holders contained 68,232 to 72,842 triangles; final parts contained 23,880 to 35,880 triangles, each with one watertight winding-consistent positive-volume component.
+  outcome: correction
+  parameter: OCC-linear-and-angular-tessellation-tolerance
+  recommended_value: controlled-sweep-with-0.10-mm-and-0.18-rad-as-this-scope-candidate
+  units: mm-and-radians
+explanation:
+  hypothesis: The tighter initial tessellation over-sampled repeated 1 mm fillets and obround boundaries relative to the 0.4 mm nozzle manufacturing resolution.
+  mechanism: Increasing the maximum chordal and angular deviation permits fewer facets along curved analytic edges while preserving the closed B-Rep-derived surface.
+  alternatives:
+    - Reduce the number or scope of analytic fillets.
+    - Add deterministic local tessellation controls when supported by the export toolchain.
+    - Raise the artifact budget for appearance-critical curvature after an explicit review.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 4
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Exact exported triangle counts plus independent edge-incidence, connected-component, winding and positive-volume audits.
+  uncertainty: No geometric Hausdorff/deviation comparison, alternate kernel replication or physical surface comparison was performed.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-023-page-holder-thumb-tool/learning-trace.yaml, hash: null, notes: Owns the exact project scope.}
+    - {type: other, ref: products/organization-storage/mm-org-023-page-holder-thumb-tool/reports/mesh-tessellation-iteration.json, hash: 5e99689255681754ab671ba9db1a8d2e30ff6c16024e2c99c6e31c7516c7cda3, notes: Records the failing and passing tessellation settings and triangle counts.}
+  artifacts:
+    - products/organization-storage/mm-org-023-page-holder-thumb-tool/config/model-parameters.json
+    - products/organization-storage/mm-org-023-page-holder-thumb-tool/cad/build.py
+    - products/organization-storage/mm-org-023-page-holder-thumb-tool/tests/test_parameters.py
+    - products/organization-storage/mm-org-023-page-holder-thumb-tool/validation/mesh-generation-report.json
+applicability:
+  triggers:
+    - A valid analytic B-Rep with repeated small fillets exceeds a declared manufacturing-mesh triangle budget.
+    - The product has a documented nozzle-scale resolution context and can be rebuilt and audited deterministically.
+  exclusions:
+    - Organic, relief, scanned or appearance-critical freeform surfaces without a surface-deviation benchmark.
+    - Any result with boundary, nonmanifold, degenerate, duplicate, winding, volume or component-count failures.
+  transfer_limits:
+    - Sweep around the project's own baseline; do not copy the numeric tolerances as a universal default.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00016]
+  evals: [EVAL-geometry-filleted-planar-tessellation-budget-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-023-page-holder-thumb-tool/reports/mesh-tessellation-iteration.json]
+provenance:
+  project: MM-ORG-023-page-holder-thumb-tool
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-023-page-holder-thumb-tool/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [cadquery, opencascade, tessellation, triangle-budget, analytic-fillet, mesh-export, digital-only]

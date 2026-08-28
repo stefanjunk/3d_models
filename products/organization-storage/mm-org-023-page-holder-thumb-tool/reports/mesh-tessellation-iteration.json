@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-023",
+  "revision": "0.1.0-draft.1",
+  "scope": "CadQuery/OpenCascade tessellation of fully filleted planar thumb-holder bodies",
+  "status": "PASS",
+  "initial": {
+    "mesh_linear_deflection_mm": 0.06,
+    "mesh_angular_deflection_rad": 0.12,
+    "triangle_budget_per_part": 60000,
+    "triangles": {
+      "small": 68232,
+      "medium": 71756,
+      "large": 72842
+    },
+    "result": "FAIL_TRIANGLE_BUDGET"
+  },
+  "final": {
+    "mesh_linear_deflection_mm": 0.10,
+    "mesh_angular_deflection_rad": 0.18,
+    "triangle_budget_per_part": 60000,
+    "triangles": {
+      "small": 32928,
+      "medium": 35880,
+      "large": 35648,
+      "sizing-guide": 23880
+    },
+    "watertight": true,
+    "winding_consistent": true,
+    "components_per_part": 1,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "duplicate_faces": 0,
+    "result": "PASS"
+  },
+  "observation": "A controlled relaxation of both OCC tessellation tolerances brought all four manufacturing meshes below the declared triangle budget while independent topology audits remained PASS.",
+  "hypothesis": "The initial 0.06 mm / 0.12 rad tessellation over-sampled the repeated 1 mm fillets and obround boundaries relative to the 0.4 mm nozzle manufacturing resolution.",
+  "alternatives": [
+    "Reduce the number or scope of analytic fillets.",
+    "Use local tessellation settings if the export toolchain gains deterministic per-face controls.",
+    "Retain finer tessellation for appearance-critical surfaces with a higher declared artifact budget."
+  ],
+  "uncertainty": "One geometry family and one OCC export configuration; no surface-deviation benchmark or physical print comparison was performed.",
+  "promotion": "prohibited-without-repeat-regression-and-human-review"
+}

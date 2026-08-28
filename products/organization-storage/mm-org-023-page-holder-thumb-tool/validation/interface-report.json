@@ -1,0 +1,232 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "opening-series",
+      "message": "S/M/L openings are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "guide-matches",
+      "message": "Sizing guide reproduces every holder opening",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "span-series",
+      "message": "S/M/L spans are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "ring-wall",
+      "message": "Every center ring retains at least 10 mm wall",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "comfort-radius",
+      "message": "Holder and guide comfort radii are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "page-pads",
+      "message": "Two local page pads are protected on every holder",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "orientation",
+      "message": "All holders use the support-free orientation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "All holders fit the product envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "No medical or universal-fit claim is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "892a26c561e14d9318320100b476dc0ce28e11604aae32e0fa47618f6e168050",
+      "size_bytes": 1938
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "9a30cd3ea5c7136494e07b935b10004d37fb36717a1c7a9c34b93dfa9959140a",
+      "size_bytes": 21028
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "48b4a9b1e092c5a14fbd1ee1676f49fc73c97314da69dbc76ae5d2718d18a0a6",
+      "size_bytes": 2027
+    }
+  ],
+  "limitations": [
+    "Analytic opening dimensions and radii cannot establish physical comfort or book behavior."
+  ],
+  "metrics": {
+    "interfaces": {
+      "large": {
+        "body_edge_radius_mm": 1.0,
+        "external_assets": [],
+        "identity_holes": 3,
+        "minimum_ring_wall_mm": 10.0,
+        "opening_obround_mm": [
+          26.0,
+          21.5
+        ],
+        "outer_dimensions_mm": [
+          102.0,
+          41.5,
+          5.8
+        ],
+        "page_pad_mm": [
+          24.0,
+          12.0,
+          0.8
+        ],
+        "page_pads": 2,
+        "part_id": "large",
+        "print_orientation": "broad_face_down_pads_up",
+        "span_mm": 102.0
+      },
+      "medium": {
+        "body_edge_radius_mm": 1.0,
+        "external_assets": [],
+        "identity_holes": 2,
+        "minimum_ring_wall_mm": 10.0,
+        "opening_obround_mm": [
+          23.0,
+          19.0
+        ],
+        "outer_dimensions_mm": [
+          92.0,
+          39.0,
+          5.8
+        ],
+        "page_pad_mm": [
+          24.0,
+          12.0,
+          0.8
+        ],
+        "page_pads": 2,
+        "part_id": "medium",
+        "print_orientation": "broad_face_down_pads_up",
+        "span_mm": 92.0
+      },
+      "sizing-guide": {
+        "comfort_edge_radius_mm": 0.8,
+        "external_assets": [],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "openings_obround_mm": [
+          [
+            20.0,
+            16.5
+          ],
+          [
+            23.0,
+            19.0
+          ],
+          [
+            26.0,
+            21.5
+          ]
+        ],
+        "outer_dimensions_mm": [
+          96.0,
+          34.0,
+          3.0
+        ],
+        "part_id": "sizing-guide",
+        "print_orientation": "broad_face_down",
+        "station_centers_x_mm": [
+          -32.0,
+          0.0,
+          32.0
+        ]
+      },
+      "small": {
+        "body_edge_radius_mm": 1.0,
+        "external_assets": [],
+        "identity_holes": 1,
+        "minimum_ring_wall_mm": 10.0,
+        "opening_obround_mm": [
+          20.0,
+          16.5
+        ],
+        "outer_dimensions_mm": [
+          82.0,
+          36.5,
+          5.8
+        ],
+        "page_pad_mm": [
+          24.0,
+          12.0,
+          0.8
+        ],
+        "page_pads": 2,
+        "part_id": "small",
+        "print_orientation": "broad_face_down_pads_up",
+        "span_mm": 82.0
+      }
+    },
+    "workflow_contract": {
+      "book_claim": "page_positioning_aid_no_binding_or_paper_protection_claim",
+      "comfort_sample_minutes": 10,
+      "ergonomic_claim": "sizing_aid_only_no_medical_or_universal_fit_claim",
+      "handling_cycles": 100,
+      "input_dimensions": [
+        "thumb_width_at_working_depth",
+        "thumb_thickness_at_working_depth",
+        "book_width",
+        "book_thickness",
+        "preferred_hand"
+      ],
+      "required_book_classes": [
+        "small_paperback",
+        "large_paperback",
+        "hardcover"
+      ],
+      "small_parts_warning": "adult_use_small_detachable_tool"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-023-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

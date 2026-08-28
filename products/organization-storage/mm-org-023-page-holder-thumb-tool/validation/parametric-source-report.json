@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All four B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "three-comfort-samples",
+      "message": "All three protected openings are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "892a26c561e14d9318320100b476dc0ce28e11604aae32e0fa47618f6e168050",
+      "size_bytes": 1938
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "9a30cd3ea5c7136494e07b935b10004d37fb36717a1c7a9c34b93dfa9959140a",
+      "size_bytes": 21028
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "small",
+      "medium",
+      "large",
+      "sizing-guide"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "small",
+      "medium",
+      "large",
+      "sizing-guide"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-023-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,28 @@
+schema_version: 1.0.0
+project: MM-ORG-023-page-holder-thumb-tool
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: CadQuery/OpenCascade analytic fillets and STL tessellation
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA reference profile
+  nozzle_mm: 0.4
+  orientation: broad face down
+observations:
+  - id: OBS-001
+    outcome: failure
+    statement: The initial 0.06 mm / 0.12 rad tessellation produced 68,232 to 72,842 triangles for each fully filleted holder and exceeded the 60,000-triangle manufacturing budget.
+    evidence: reports/mesh-tessellation-iteration.json
+  - id: OBS-002
+    outcome: correction
+    statement: The controlled 0.10 mm / 0.18 rad tessellation produced 23,880 to 35,880 triangles while all four independent topology audits remained PASS.
+    evidence:
+      - reports/mesh-tessellation-iteration.json
+      - validation/fdm-mesh-small.json
+      - validation/fdm-mesh-medium.json
+      - validation/fdm-mesh-large.json
+      - validation/fdm-mesh-sizing-guide.json
+candidate_records: [EXP-00017]
+targeted_evals: [EVAL-geometry-filleted-planar-tessellation-budget-001]
+promotion: prohibited-without-policy-review
+uncertainty: One digital geometry family and exporter configuration; no surface-deviation benchmark or physical print comparison exists.

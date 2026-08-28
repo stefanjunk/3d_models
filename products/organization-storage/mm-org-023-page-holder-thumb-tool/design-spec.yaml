@@ -1,0 +1,34 @@
+project:
+  id: MM-ORG-023
+  revision: 0.1.0-draft.1
+  title: Parametric page-holder thumb tool
+  source_sku: SKU-053
+  opportunity_score: 88.8
+  next_candidate_rank: 15
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Hold an open book with one hand using a thumb-sized removable page-positioning tool.
+  excluded: [medical aid, therapeutic device, universal fit, child-directed product, binding protection, paper protection, archival accessory]
+
+requirements:
+  - {id: R1, text: Generate three measured comfort samples., acceptance: S M L openings and spans match JSON exactly., status: PASS_DIGITAL}
+  - {id: R2, text: Make sizing fail-early., acceptance: one separate guide reproduces all three protected obround openings., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R3, text: Bound hand-contact geometry., acceptance: minimum 10 mm ring wall and 1 mm fillet on body and opening edges., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Limit paper contact., acceptance: two rounded 24x12x0.8 mm pads define the use-side contact plane., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R5, text: Print without supports., acceptance: all four unique parts are broad-face-down and exact-profile slice passes., status: PASS_DIGITAL}
+  - {id: R6, text: Avoid unsupported claims., acceptance: physical comfort page-turn and book-class tests remain deferred and explicit., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+
+manufacturing:
+  processes: [FDM, FFF]
+  materials: [PLA, PETG]
+  orientation: broad body face down with page pads upward
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [sizing, ten-minute comfort, retention, page turning, paper marking, three book classes, 100 handling cycles]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

@@ -1,0 +1,278 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "project",
+      "message": "Project identity and revision are fixed",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "host-envelope",
+      "message": "Host matches the declared 214 x 144 x 16 mm envelope",
+      "metrics": {
+        "bounds_mm": [
+          214.0,
+          144.0,
+          16.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "six-cells",
+      "message": "Host declares six independent cells",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "derived-cells",
+      "message": "Cell dimensions derive from the host, walls and divider count",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "contact-boundary",
+      "message": "Source excludes bare collectible contact and archival claims",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless",
+      "message": "Host, adapters and gauge are authored for base-down supportless printing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-selection",
+      "message": "R2 selectors choose Full for the host and Micro for the constrained adapter band",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "160999e2493a696e3e4933b17519ba872ae39274b3043dde9904213f6dbfe11a",
+      "size_bytes": 2124
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "ad071779dce37aaee479dd0f1d83524b30cfb1fa6de7ac0af7ccd1d3610bced8",
+      "size_bytes": 1250
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-ORG-039_v0.1.0-draft.1/metrimade-watermark-MM-ORG-039-v0.1.0-draft.1.json",
+      "sha256": "e38495c5202c3d01e6946c5477d53ebb83f574c1457eed89303552ef31d3370f",
+      "size_bytes": 2199
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-ORG-039_v0.1.0-draft.1_micro/metrimade-watermark-MM-ORG-039-v0.1.0-draft.1-micro.json",
+      "sha256": "28f7c5dd16969b426cdee5698a1de42cf48dd667547e7e10c47d56218b6b957d",
+      "size_bytes": 2177
+    },
+    {
+      "path": "validation/watermark-selector-host.json",
+      "sha256": "ce1309876a0e423f3ed19952bd74e6037155e4d09ea853c2d7c3b99c0a21df61",
+      "size_bytes": 2751
+    },
+    {
+      "path": "validation/watermark-selector-adapter.json",
+      "sha256": "2fd8d33ed6ff7e13154b19d021a466150dd81b479e579c34ebf2051014e52404",
+      "size_bytes": 2760
+    }
+  ],
+  "limitations": [
+    "Measured CAD interfaces do not prove capsule compatibility, abrasion safety, archival suitability or drawer function."
+  ],
+  "metrics": {
+    "gauge": {
+      "cad_volume_mm3": 31024.393419332897,
+      "direct_cell_opening_mm": [
+        68.13333333333333,
+        68.39999999999999
+      ],
+      "envelope_mm": [
+        170.0,
+        110.0,
+        3.2
+      ],
+      "label_bay_mm": [
+        34.0,
+        7.5,
+        0.5
+      ],
+      "round_opening_diameter_mm": 46.8,
+      "square_opening_mm": [
+        50.8,
+        50.8
+      ]
+    },
+    "host": {
+      "cad_volume_mm3": 89140.2349514787,
+      "derived": {
+        "adapter_depth_mm": 67.6,
+        "adapter_width_mm": 67.33333333333333,
+        "cell_centers_x_mm": [
+          -70.53333333333333,
+          0.0,
+          70.53333333333333
+        ],
+        "cell_centers_y_mm": [
+          -35.4,
+          35.4
+        ],
+        "cell_depth_mm": 68.39999999999999,
+        "cell_width_mm": 68.13333333333333,
+        "inner_depth_mm": 139.2,
+        "inner_width_mm": 209.2,
+        "round_opening_diameter_mm": 46.8,
+        "square_opening_mm": 50.8,
+        "vertical_divider_centers_x_mm": [
+          -35.266666666666666,
+          35.266666666666666
+        ]
+      },
+      "envelope_mm": [
+        214.0,
+        144.0,
+        16.0
+      ],
+      "proxy": false,
+      "watermark_cut_volume_mm3": 111.61304852130706,
+      "watermark_residual_wall_mm": 2.0
+    },
+    "outputs": [
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-collectorgrid-six-cell-host-0.1.0-draft.1.step",
+        "sha256": "122142d1fb732df18a0b48c7af6ec364a027eb5fe56957d1b6678f427b1fb0ee",
+        "size_bytes": 10441068
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-collectorgrid-six-cell-host-0.1.0-draft.1-master.stl",
+        "sha256": "8f4d4022d73cf1647eb1ddb0636bf931bcc076a9beb4dae9730bf708daed8c58",
+        "size_bytes": 496684
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-039-collectorgrid-six-cell-host-0.1.0-draft.1.stl",
+        "sha256": "8f4d4022d73cf1647eb1ddb0636bf931bcc076a9beb4dae9730bf708daed8c58",
+        "size_bytes": 496684
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-square-50-label-adapter-0.1.0-draft.1.step",
+        "sha256": "a8d5c5d0d1e473fcbae6408642bf92a1d460a3566609e7f4c3ea065ac3b884d4",
+        "size_bytes": 5888849
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-square-50-label-adapter-0.1.0-draft.1-master.stl",
+        "sha256": "3fe88ea16d167d9b86b767d608a77850ec52ae68900a63344f1d5cc1b1f00923",
+        "size_bytes": 322884
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-039-square-50-label-adapter-0.1.0-draft.1.stl",
+        "sha256": "3fe88ea16d167d9b86b767d608a77850ec52ae68900a63344f1d5cc1b1f00923",
+        "size_bytes": 322884
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-round-46-label-adapter-0.1.0-draft.1.step",
+        "sha256": "5d278aa67b9de7b7a5bb237406b6a96d523d58540e058678f5bc9aea517a3d79",
+        "size_bytes": 5860834
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-039-round-46-label-adapter-0.1.0-draft.1-master.stl",
+        "sha256": "c0abe5097234e937f445eefb9e6720ba2b26c7fd112c31051e15d1adb8c4d671",
+        "size_bytes": 321484
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-039-round-46-label-adapter-0.1.0-draft.1.stl",
+        "sha256": "c0abe5097234e937f445eefb9e6720ba2b26c7fd112c31051e15d1adb8c4d671",
+        "size_bytes": 321484
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-039-three-interface-label-gauge-0.1.0-draft.1.stl",
+        "sha256": "4fb32862d9ea9fc8a6e8d98b1df50e6d0693655fdb37d76fd497f1286eeca445",
+        "size_bytes": 89484
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-039-full-watermark-coupon-0.1.0-draft.1.stl",
+        "sha256": "c48a5891611e84d203c3ca40d6adc1738ccc8270785129e08d5bf59a9b66b7ba",
+        "size_bytes": 1495134
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-039-micro-watermark-coupon-0.1.0-draft.1.stl",
+        "sha256": "52ad0c349523e4ba6294ea3ba64661a0edceefe43de2eb2070c39cdc1c026995",
+        "size_bytes": 907197
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-039-collectorgrid-square-50-kit-0.1.0-draft.1.3mf",
+        "sha256": "0a25e28ec90671c7cb156a6a97d26550e5dd8a49dcfa391307f08d705b520d33",
+        "size_bytes": 519451
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-039-collectorgrid-round-46-kit-0.1.0-draft.1.3mf",
+        "sha256": "51c6769923dfa229eaad2cae929ea8b836c6efa36f9e9faff4984e9e4c5d4e4f",
+        "size_bytes": 523036
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-039-fit-label-and-mark-gauges-0.1.0-draft.1.3mf",
+        "sha256": "9cba861e2cc6971aa8403ab822c7689a6523ad6b376c634f56eaf3c4711071a5",
+        "size_bytes": 324869
+      }
+    ],
+    "round_adapter": {
+      "cad_volume_mm3": 6613.878556367553,
+      "envelope_mm": [
+        67.33333333333333,
+        67.6,
+        2.4
+      ],
+      "kind": "round-46",
+      "label_cut_volume_mm3": 127.50000000000273,
+      "opening_mm": 46.8,
+      "opposed_recess_residual_mm": 1.5,
+      "target_mm": 46.0,
+      "watermark_cut_volume_mm3": 46.035596947799604
+    },
+    "square_adapter": {
+      "cad_volume_mm3": 4553.4830921973025,
+      "envelope_mm": [
+        67.33333333333333,
+        67.6,
+        2.4
+      ],
+      "kind": "square-50",
+      "label_cut_volume_mm3": 127.49999999999909,
+      "opening_mm": [
+        50.8,
+        50.8
+      ],
+      "opposed_recess_residual_mm": 1.5,
+      "target_mm": [
+        50.0,
+        50.0
+      ],
+      "watermark_cut_volume_mm3": 46.03559694777414
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "cadquery"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-039-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

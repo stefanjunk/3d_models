@@ -1,0 +1,30 @@
+schema_version: 1.0
+project: {id: MM-ORG-039, revision: 0.1.0-draft.1, name: CollectorGrid 6}
+portfolio: {source: SKU-109, family: Collector drawer organization}
+workflow:
+  requirements_normalization: {status: AUTO_APPROVED, evidence: requirements-review.md}
+  concept: {status: AUTO_APPROVED, evidence: concept-review.md}
+  decomposition: {status: AUTO_APPROVED, evidence: decomposition.md}
+  parametric_source: {status: pending}
+  mesh_generation: {status: pending}
+  interface_validation: {status: pending}
+  slicer_preflight: {status: pending}
+  print_candidate: {status: pending}
+  watermark_approval: {status: pending-physical-coupons}
+geometry:
+  host_envelope_mm: [214, 144, 16]
+  cells: {columns: 3, rows: 2, total: 6}
+  direct_large_square_target_mm: [67, 67]
+  adapter_targets: [50x50-square, 46-round]
+  manufacturing_orientation: base-down
+watermark:
+  asset_revision: MM-WM-001-R2
+  host_tier: full
+  adapter_tier: micro
+  product_identity: MM-ORG-039 · v0.1.0-draft.1
+  domain_visible_on_host: true
+  operation: recessed
+  depth_mm: 0.4
+  marked_parts: [host, square-50-adapter, round-46-adapter]
+  physical_qualification: PENDING
+release: {digital_print_candidate: false, physical_validation: DEFERRED, commercial_release: BLOCKED}

@@ -1,0 +1,108 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00031
+title: Reslice with bounded profile headroom when a flow excess falls outside an approved rounding allowance
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One paired Anycubic gauge reslice and three passing conservative-profile jobs; no extrusion was physically observed.
+feature:
+  type: gcode-conservative-profile-reslice
+  geometry: MM-ORG-039 gauge plate with six-cell host and adapter kit companion plates
+  design_parameters:
+    stock_profile_flow_limit_mm3_s: 13.0
+    project_profile_flow_limit_mm3_s: 12.8
+    audit_limit_mm3_s: 13.3
+    stock_parser_peak_mm3_s: 13.453135929257051
+    conservative_parser_peak_mm3_s: 13.246165039339306
+    conservative_complete_kit_peak_range_mm3_s: [13.22905030873268, 13.246165039339306]
+  named_datums: [stock-gauge-run-001-peak-line-21729, conservative-gauge-run-002-peak-line-21733, filament-volumetric-limit]
+  constraints:
+    - Preserve the failed exact run and its source/profile hashes.
+    - Change the explicit slicer input profile and create a fresh output directory; never rewrite manufacturing G-code.
+    - Keep the inherited machine, process, material, nozzle and temperature scope unchanged.
+    - Require each replacement G-code to pass the original independent audit ceiling.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA profile, variant: project-inherited-conservative-12.8, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: gauge, host and adapters base-down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle plus MM-ORG-039 Conservative Anycubic PLA 12.8, profile_hash: eee4b11a306d4f3fa8e696ad38bc1625a4a5fd686e77ea8989ffcfc6f1ca2db6}
+  geometry_class: supportless multi-object plates with rounded absolute-E linear G-code
+  environment: deterministic offline slicing and G-code parsing; no printer upload, print or physical flow measurement
+  transfer_limits:
+    - Applies only when the original file fails a declared audit ceiling and the approved rounded-microsegment allowance does not cover the excess.
+    - Does not establish that 12.8 mm3/s is universal or that lower flow alone guarantees extrusion quality.
+observation:
+  summary: The stock 13.0 mm3/s filament profile produced a 13.453 mm3/s parser peak that failed the fixed 13.3 audit; an otherwise equivalent fresh slice with an inherited 12.8 mm3/s profile passed at 13.246 mm3/s, and both complete kits also passed.
+  expected: Manufacturing candidates satisfy the predeclared audit without weakening the ceiling or mutating G-code.
+  actual: Stock gauge run-001 was preserved as FAIL. Conservative gauge run-002 and the square and round complete-kit runs were freshly generated, hash-bound, warning-free, and independently parsed below 13.3 mm3/s.
+  outcome: correction
+  parameter: explicit-filament-volumetric-headroom
+  recommended_value: If an exact flow excess is outside the separately approved rounded-microsegment scope, lower the explicit inheriting filament-profile ceiling modestly, reslice to a fresh directory, and re-run the unchanged audit.
+  units: workflow-and-mm3/s
+explanation:
+  hypothesis: Small explicit volumetric headroom lets the slicer reduce nominal path speed enough for finite-coordinate reconstruction to remain below an unchanged external ceiling.
+  mechanism: Lowering the slicer-side maximum from 13.0 to 12.8 mm3/s reduced the emitted feed on the limiting path; the independently reconstructed peak fell by about 0.207 mm3/s while geometry and process settings remained fixed.
+  alternatives:
+    - Use the bounded microsegment allowance from EXP-00029 when its exact length and macro-domain conditions pass.
+    - Lower process speeds or select a physically qualified filament profile with a lower volumetric limit.
+    - Fail closed and defer the candidate if no fresh exact slice satisfies the audit.
+  validated: false
+  validation_method: One paired exact slice plus two same-profile companion plates and deterministic regression; slicer nondeterminism and physical extrusion behavior remain unisolated.
+evidence:
+  observations: 4
+  same_scope_repetitions: 1
+  geometry_count: 3
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: Canonical offline reconstruction of exact hashed G-code plus native slicer result and explicit input-profile hashes.
+  uncertainty: Exact path ordering can vary between Anycubic runs; no printed surface, under-extrusion, dimensional accuracy or layer adhesion was measured.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/gcode-pla-gauges-run-001.json, hash: 612bb3162db248b349231f4d74908fa3f83a984b903de9ede86d05b463beb15f, notes: "Preserved stock-profile flow-budget failure."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/gcode-pla-gauges-run-002.json, hash: 62fb7ecc926142aa458abbac09cfa72e3f0bcfe8769fb20f52635468b433c510, notes: "Fresh conservative-profile gauge PASS under the unchanged audit."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/slicer-profiles/MM-ORG-039 Conservative Anycubic PLA 12.8.json, hash: eee4b11a306d4f3fa8e696ad38bc1625a4a5fd686e77ea8989ffcfc6f1ca2db6, notes: "Minimal project profile inheriting the exact stock Kobra 3 Max PLA profile."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/slicer-preflight-report.json, hash: a5790156e90e37ec404519f9fe043d762ccdcd81622ef5a6645dc9bc1c9a23ea, notes: "PASS preserved-hash, profile, warning, flow, time and material checks for all three final jobs."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/tests/test_parameters.py, hash: 0d682e19ac64116c50220ce9780299e8350019704dd158154ba0e6084bf71173, notes: "Targeted regression retains both the stock failure and conservative correction."}
+  artifacts:
+    - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/slicer-runs/anycubic-kobra3max-pla-gauges-run-001/plate_1.gcode
+    - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/slicer-runs/anycubic-kobra3max-pla-gauges-run-002/plate_1.gcode
+applicability:
+  triggers:
+    - A fixed external flow audit fails an exact slice and the excess is not accepted by a separately validated rounded-microsegment rule.
+    - The slicer supports an explicit project filament profile with a lower volumetric ceiling.
+  exclusions:
+    - Unbounded or sustained flow excess, unknown machine/material profiles, edited G-code, printer-side overrides, physical flow qualification, or safety-critical parts.
+  transfer_limits:
+    - Treat the 0.2 mm3/s adjustment as project evidence only; choose and validate headroom per profile, slicer precision and geometry.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00029]
+  evals: [EVAL-core-gcode-conservative-profile-reslice-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/slicer-preflight-report.json
+    - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/validation-summary.json
+provenance:
+  project: MM-ORG-039
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [gcode, flow, profile, reslice, anycubic, validation, digital-only]

@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "material-saving",
+      "message": "Open lattice saves at least 20% CAD volume versus the equally marked continuous-floor host",
+      "metrics": {
+        "saved_percent": 32.9931042358583
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-envelope",
+      "message": "Optimization retains the complete host envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-cells",
+      "message": "Optimization retains all six cell dimensions",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-rails-retained",
+      "message": "Optimization retains both support rails in every cell",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "160999e2493a696e3e4933b17519ba872ae39274b3043dde9904213f6dbfe11a",
+      "size_bytes": 2124
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-039-collectorgrid-six-cell-host-0.1.0-draft.1.stl",
+      "sha256": "8f4d4022d73cf1647eb1ddb0636bf931bcc076a9beb4dae9730bf708daed8c58",
+      "size_bytes": 496684
+    }
+  ],
+  "limitations": [
+    "CAD volume is a deterministic comparison, not slicer mass or print duration."
+  ],
+  "metrics": {
+    "cad_volume_saved_percent": 32.9931042358583,
+    "continuous_floor_host_volume_mm3": 133031.4349514778,
+    "selected_host_volume_mm3": 89140.2349514787
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-039-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

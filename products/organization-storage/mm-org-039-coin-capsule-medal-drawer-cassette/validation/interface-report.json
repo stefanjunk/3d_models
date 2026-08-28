@@ -1,0 +1,202 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "direct-large-clearance",
+      "message": "Direct large-square cell has at least 0.4 mm clearance per side",
+      "metrics": {
+        "clearance_per_side_mm": [
+          0.5666666666666629,
+          0.6999999999999957
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "adapter-host-clearance",
+      "message": "Both adapters use the declared loose 0.4 mm-per-side host clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "square-opening",
+      "message": "Square adapter adds 0.4 mm clearance per side to the measured 50 mm target",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "round-opening",
+      "message": "Round adapter adds 0.4 mm radial clearance to the measured 46 mm target",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "exact-gauge",
+      "message": "Gauge reproduces the host cell and both adapter openings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-contract",
+      "message": "Gauge reproduces the adapter paper-label bay",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "loaded-height",
+      "message": "Declared square capsule remains at or below the protected loaded-height allowance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "opposed-recess-reserve",
+      "message": "Adapter retains at least 0.8 mm between the top label recess and underside identity",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "access-notches",
+      "message": "Each cell front edge opens to the support level for fingertip access",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "160999e2493a696e3e4933b17519ba872ae39274b3043dde9904213f6dbfe11a",
+      "size_bytes": 2124
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-039-collectorgrid-six-cell-host-0.1.0-draft.1.stl",
+      "sha256": "8f4d4022d73cf1647eb1ddb0636bf931bcc076a9beb4dae9730bf708daed8c58",
+      "size_bytes": 496684
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-039-square-50-label-adapter-0.1.0-draft.1.stl",
+      "sha256": "3fe88ea16d167d9b86b767d608a77850ec52ae68900a63344f1d5cc1b1f00923",
+      "size_bytes": 322884
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-039-round-46-label-adapter-0.1.0-draft.1.stl",
+      "sha256": "c0abe5097234e937f445eefb9e6720ba2b26c7fd112c31051e15d1adb8c4d671",
+      "size_bytes": 321484
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-039-three-interface-label-gauge-0.1.0-draft.1.stl",
+      "sha256": "4fb32862d9ea9fc8a6e8d98b1df50e6d0693655fdb37d76fd497f1286eeca445",
+      "size_bytes": 89484
+    }
+  ],
+  "limitations": [
+    "Nominal clearances and topological validity do not establish extraction force, abrasion, chemical compatibility or long-term paper/capsule behavior."
+  ],
+  "metrics": {
+    "derived": {
+      "adapter_depth_mm": 67.6,
+      "adapter_width_mm": 67.33333333333333,
+      "cell_centers_x_mm": [
+        -70.53333333333333,
+        0.0,
+        70.53333333333333
+      ],
+      "cell_centers_y_mm": [
+        -35.4,
+        35.4
+      ],
+      "cell_depth_mm": 68.39999999999999,
+      "cell_width_mm": 68.13333333333333,
+      "inner_depth_mm": 139.2,
+      "inner_width_mm": 209.2,
+      "round_opening_diameter_mm": 46.8,
+      "square_opening_mm": 50.8,
+      "vertical_divider_centers_x_mm": [
+        -35.266666666666666,
+        35.266666666666666
+      ]
+    },
+    "direct_large_clearance_per_side_mm": [
+      0.5666666666666629,
+      0.6999999999999957
+    ],
+    "gauge": {
+      "cad_volume_mm3": 31024.393419332897,
+      "direct_cell_opening_mm": [
+        68.13333333333333,
+        68.39999999999999
+      ],
+      "envelope_mm": [
+        170.0,
+        110.0,
+        3.2
+      ],
+      "label_bay_mm": [
+        34.0,
+        7.5,
+        0.5
+      ],
+      "round_opening_diameter_mm": 46.8,
+      "square_opening_mm": [
+        50.8,
+        50.8
+      ]
+    },
+    "round_adapter": {
+      "cad_volume_mm3": 6613.878556367553,
+      "envelope_mm": [
+        67.33333333333333,
+        67.6,
+        2.4
+      ],
+      "kind": "round-46",
+      "label_cut_volume_mm3": 127.50000000000273,
+      "opening_mm": 46.8,
+      "opposed_recess_residual_mm": 1.5,
+      "target_mm": 46.0,
+      "watermark_cut_volume_mm3": 46.035596947799604
+    },
+    "square_adapter": {
+      "cad_volume_mm3": 4553.4830921973025,
+      "envelope_mm": [
+        67.33333333333333,
+        67.6,
+        2.4
+      ],
+      "kind": "square-50",
+      "label_cut_volume_mm3": 127.49999999999909,
+      "opening_mm": [
+        50.8,
+        50.8
+      ],
+      "opposed_recess_residual_mm": 1.5,
+      "target_mm": [
+        50.0,
+        50.0
+      ],
+      "watermark_cut_volume_mm3": 46.03559694777414
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-039-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,46 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-gcode-conservative-profile-reslice-001
+title: Conservative inheriting filament profile corrects an out-of-scope exact-flow failure
+category: core
+status: draft
+trigger: MM-ORG-039 exact G-code, project filament profile, flow ceiling, Anycubic slicer result, or preflight evidence changes.
+risk: A failed exact file could be silently replaced, the audit could be weakened, or a project profile could claim headroom without proving every replacement artifact passes.
+given:
+  project: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette
+  stock_failure: validation/gcode-pla-gauges-run-001.json
+  conservative_success: validation/gcode-pla-gauges-run-002.json
+  slicer_preflight: validation/slicer-preflight-report.json
+expected:
+  - Stock gauge run-001 remains preserved as FAIL above the unchanged 13.3 mm3/s ceiling.
+  - Conservative gauge run-002 passes below that ceiling and below the stock reconstructed peak.
+  - Gauge and both complete-kit jobs use the explicit 12.8 mm3/s inheriting profile and pass preserved-hash, warning, tool and flow checks.
+failure_conditions:
+  - The stock diagnostic disappears or is changed to PASS.
+  - The audit limit increases, manufacturing G-code is rewritten, or a replacement reuses the failed output directory.
+  - Any intended conservative-profile job is stale, warning-bearing or above 13.3 mm3/s.
+fixtures:
+  - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/gcode-pla-gauges-run-001.json
+  - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/gcode-pla-gauges-run-002.json
+  - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/slicer-preflight-report.json
+  - products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/tests/test_parameters.py::test_stock_flow_failure_is_preserved_and_conservative_reslice_passes products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/tests/test_parameters.py::test_exact_slicer_preflight_passes_for_gauge_and_both_kits -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare preserved canonical G-code reports, explicit profile limits, exact slicer outputs and fixed-ceiling preflight metrics.
+relationships:
+  lessons: [EXP-00031]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/validation/slicer-preflight-report.json
+  artifact_hashes:
+    - 612bb3162db248b349231f4d74908fa3f83a984b903de9ede86d05b463beb15f
+    - 62fb7ecc926142aa458abbac09cfa72e3f0bcfe8769fb20f52635468b433c510
+    - eee4b11a306d4f3fa8e696ad38bc1625a4a5fd686e77ea8989ffcfc6f1ca2db6
+    - a5790156e90e37ec404519f9fe043d762ccdcd81622ef5a6645dc9bc1c9a23ea
+    - 0d682e19ac64116c50220ce9780299e8350019704dd158154ba0e6084bf71173
+tags: [core, gcode, flow, filament-profile, reslice, regression]

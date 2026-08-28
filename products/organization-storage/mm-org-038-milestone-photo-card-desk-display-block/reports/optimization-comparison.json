@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "material-saving",
+      "message": "Two-rail body saves at least 30% CAD volume versus the equally marked solid-envelope proxy",
+      "metrics": {
+        "saved_percent": 38.28594924313097
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-envelope",
+      "message": "Optimization retains the complete maximum envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-interfaces",
+      "message": "Optimization retains both declared card interfaces",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless",
+      "message": "Rails, bridges, tapered grooves, text and underside recess require no generated support base-down",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "1e63ebdf12db9390010eb542574c6b794a56a1d4c584fa895c1defed331430c3",
+      "size_bytes": 1941
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.stl",
+      "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+      "size_bytes": 708184
+    }
+  ],
+  "limitations": [
+    "CAD volume is a deterministic comparison, not slicer mass or print duration."
+  ],
+  "metrics": {
+    "cad_volume_saved_percent": 38.28594924313097,
+    "selected_base_volume_mm3": 104273.35722186115,
+    "solid_proxy_volume_mm3": 168962.10173054488
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-038-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

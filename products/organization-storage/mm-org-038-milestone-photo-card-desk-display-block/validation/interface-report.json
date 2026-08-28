@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "shared-taper",
+      "message": "Gauge and full base share one tapered-groove contract",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-depths",
+      "message": "Gauge reproduces both final groove depths",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bounded-thickness",
+      "message": "Declared card thicknesses intersect the ideal taper before its top or bottom",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "ideal-insertion",
+      "message": "Ideal geometric insertion depths remain bounded within both grooves",
+      "metrics": {
+        "depths_mm": {
+          "0.25": {
+            "front_mm": 7.846153846153847,
+            "rear_mm": 9.807692307692308
+          },
+          "1.2": {
+            "front_mm": 4.923076923076923,
+            "rear_mm": 6.153846153846154
+          }
+        }
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "one-piece-base",
+      "message": "Two bridge paths join both rails into one printable base",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "hidden-margin",
+      "message": "Hidden lower card margins are capped at 10 mm rear and 8 mm front",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "physical-gauge",
+      "message": "Two-depth slot gauge is a separate valid manufacturing artifact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "1e63ebdf12db9390010eb542574c6b794a56a1d4c584fa895c1defed331430c3",
+      "size_bytes": 1941
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.stl",
+      "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+      "size_bytes": 708184
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-038-two-depth-card-slot-gauge-0.1.0-draft.1.stl",
+      "sha256": "e33655bdde66c548c0598de6562842c9b9ba021e553982d6a5b9ea4eb0fe90c1",
+      "size_bytes": 23884
+    }
+  ],
+  "limitations": [
+    "Rigid taper contact may mark card edges or fail to grip after process variation; the exact gauge is mandatory."
+  ],
+  "metrics": {
+    "gauge": {
+      "back_tilt_deg": 8.0,
+      "bottom_gap_mm": 0.2,
+      "cad_volume_mm3": 24421.6733597189,
+      "envelope_mm": [
+        75.0,
+        24.0,
+        14.0
+      ],
+      "slot_depths_mm": [
+        10.0,
+        8.0
+      ],
+      "top_gap_mm": 2.8
+    },
+    "ideal_geometric_insertion_depths": {
+      "0.25": {
+        "front_mm": 7.846153846153847,
+        "rear_mm": 9.807692307692308
+      },
+      "1.2": {
+        "front_mm": 4.923076923076923,
+        "rear_mm": 6.153846153846154
+      }
+    },
+    "slots": {
+      "back_tilt_deg": 8.0,
+      "bottom_gap_mm": 0.2,
+      "front": {
+        "center_x_mm": 28.0,
+        "depth_mm": 8.0,
+        "length_mm": 50.0,
+        "top_center_y_mm": -16.0
+      },
+      "intended_card_thickness_mm": [
+        0.25,
+        1.2
+      ],
+      "rear": {
+        "center_x_mm": 0.0,
+        "depth_mm": 10.0,
+        "length_mm": 120.0,
+        "top_center_y_mm": 16.0
+      },
+      "top_gap_mm": 2.8
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-038-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

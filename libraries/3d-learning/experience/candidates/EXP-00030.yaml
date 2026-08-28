@@ -1,0 +1,106 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00030
+title: A first-print card gauge should reproduce each final tapered groove depth and taper
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digitally validated dual-card display; no card stock has been physically inserted or cycled.
+feature:
+  type: rigid-tapered-card-groove-first-print-gauge
+  geometry: 150 x 52 x 22 mm dual-rail display base and 75 x 24 x 14 mm two-depth gauge
+  design_parameters:
+    top_gap_mm: 2.8
+    bottom_gap_mm: 0.2
+    back_tilt_deg: 8.0
+    rear_depth_mm: 10.0
+    front_depth_mm: 8.0
+    intended_card_thickness_mm: [0.25, 1.2]
+  named_datums: [rear-groove-floor, front-groove-floor, groove-opening-plane, gauge-groove-floors]
+  constraints:
+    - Gauge grooves and final grooves derive from the same top gap, bottom gap, tilt and depth parameters.
+    - Both final depth variants are present in the first-print gauge.
+    - Hidden-content margins are based on the actual groove depth rather than only the nominal stock thickness.
+    - Physical grip, surface marking and cycle durability remain human-controlled.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA profile, variant: standard, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: display base and gauge base-down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: rigid converging slots in a supportless desk-display base
+  environment: deterministic CAD, mesh, package and exact-slicer validation; no physical print
+  transfer_limits:
+    - Applies only to this digital two-depth groove contract until physical card-fit evidence exists.
+    - Does not establish grip for other materials, wall angles, surface finishes, extrusion calibration or flexible clips.
+observation:
+  summary: One compact first-print gauge reproduces both final groove depths plus their shared taper and tilt, so actual photo and milestone stock can be screened before the larger base is printed.
+  expected: A gauge result refers to the same insertion geometry and hidden-margin risk as both final slots.
+  actual: The interface report and targeted regression bind the gauge depths to 10 and 8 mm and bind its top gap, floor gap and tilt to the final source contract; the exact coupon plate is preserved as a validated digital artifact.
+  outcome: success
+  parameter: gauge-to-final-groove-contract
+  recommended_value: Derive the first-print gauge directly from every final groove variant and use the deepest matching groove to define the protected content margin.
+  units: architecture-and-mm
+explanation:
+  hypothesis: Reproducing complete groove geometry reduces the chance that a cheap gauge approves stock that behaves differently in the final depth or tilt.
+  mechanism: Stock insertion depth and contact pressure depend on the converging gap over depth; matching only the opening width omits the contact path and hidden-edge extent.
+  alternatives:
+    - Print the full base and treat it as the first fit test.
+    - Use a flat thickness comb that does not reproduce depth or tilt.
+    - Use purchased clips and qualify their separate hardware interface.
+  validated: false
+  validation_method: Digital parameter, CAD interface, topology, package, exact-slicer and regression checks only; the physical contact mechanism has not been isolated.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic comparison of source groove parameters with CAD interface metrics and the exact hashed gauge package.
+  uncertainty: Printer bias, card coating, moisture, stiffness, surface roughness, insertion force, edge marking, stability and cycle life are physically untested.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/config/model-parameters.json, hash: 1e63ebdf12db9390010eb542574c6b794a56a1d4c584fa895c1defed331430c3, notes: "Single source for both final grooves and the two-depth gauge."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/interface-report.json, hash: bde630a9b68cabbb14f022726861f7cb545c4a986fc1938976b3f432548f8ef4, notes: "PASS final-slot and gauge geometry metrics."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/tests/test_parameters.py, hash: 239744a571b3d863316a1275e827d89036b4e1aa0d0cef90c03537b75ca2d945, notes: "Targeted regression binds gauge depth, taper and tilt to the final slots."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/validation-summary.json, hash: b33500dd35875f623f2bcffa14cd0d3528c3d7db11ae60efbad9bae4e406dd9e, notes: "Strict aggregate digital validation PASS with physical gates explicit."}
+  artifacts:
+    - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/exports/3mf/DRAFT-MM-ORG-038-fit-and-mark-coupons-0.1.0-draft.1.3mf
+applicability:
+  triggers:
+    - A rigid slot must accept uncertain paper or card stock before a larger product is printed.
+    - Multiple final groove depths or tapers could change grip or hidden-content margin.
+  exclusions:
+    - Safety-critical retention, load-bearing joints, flexible clips, wet materials, universal stock-fit claims, or stock outside the declared range.
+  transfer_limits:
+    - Treat as an E0 architecture candidate; do not reuse its project-specific gap or angle values without a scoped physical test.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00028]
+  evals: [EVAL-interfaces-card-gauge-final-groove-contract-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/interface-report.json
+    - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/validation-summary.json
+provenance:
+  project: MM-ORG-038
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [interfaces, gauge, tapered-slot, card-stock, hidden-margin, digital-only]

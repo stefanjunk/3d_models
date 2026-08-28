@@ -1,0 +1,43 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-card-gauge-final-groove-contract-001
+title: First-print card gauge reproduces every final tapered-groove variant
+category: interfaces
+status: draft
+trigger: MM-ORG-038 slot depth, taper, tilt, gauge geometry or interface report changes.
+risk: A cheap gauge can approve the wrong insertion behavior or hidden-content margin if it represents only the opening width or one final depth.
+given:
+  project: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block
+  parameter_source: config/model-parameters.json
+  interface_report: validation/interface-report.json
+expected:
+  - Gauge slot depths equal the rear and front final groove depths in their declared order.
+  - Gauge and final grooves share the same top gap, bottom gap and back tilt.
+  - The two-object coupon 3MF and aggregate digital validation remain PASS.
+failure_conditions:
+  - Any final depth variant is missing from or differs from the gauge.
+  - Gauge taper or tilt drifts from the final source contract.
+  - The interface report, coupon package or targeted regression is stale or non-PASS.
+fixtures:
+  - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/config/model-parameters.json
+  - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/interface-report.json
+  - products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/tests/test_parameters.py::test_gauge_and_final_slots_share_depth_and_taper_contract products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/tests/test_parameters.py::test_all_digital_mesh_and_package_reports_pass -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare shared source parameters with final CAD interface metrics and require the coupon manufacturing package gate.
+relationships:
+  lessons: [EXP-00030]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/validation/interface-report.json
+  artifact_hashes:
+    - 1e63ebdf12db9390010eb542574c6b794a56a1d4c584fa895c1defed331430c3
+    - bde630a9b68cabbb14f022726861f7cb545c4a986fc1938976b3f432548f8ef4
+    - 239744a571b3d863316a1275e827d89036b4e1aa0d0cef90c03537b75ca2d945
+    - 224831e00a00425fe885bc3db40f35ddf7e8cd362220d630c25020315e705b5e
+tags: [interfaces, gauge, tapered-slot, card-stock, dimensional-contract, regression]

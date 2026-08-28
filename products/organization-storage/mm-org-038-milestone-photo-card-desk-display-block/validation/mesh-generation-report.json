@@ -1,0 +1,194 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "base-watertight",
+      "message": "base is watertight and winding-consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "base-component",
+      "message": "base is one connected component",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "base-volume",
+      "message": "base has positive volume",
+      "metrics": {
+        "volume_mm3": 104273.08996298988
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "base-complexity",
+      "message": "base is under the face budget",
+      "metrics": {
+        "faces": 14162
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-gauge-watertight",
+      "message": "slot-gauge is watertight and winding-consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-gauge-component",
+      "message": "slot-gauge is one connected component",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-gauge-volume",
+      "message": "slot-gauge has positive volume",
+      "metrics": {
+        "volume_mm3": 24421.617575423712
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-gauge-complexity",
+      "message": "slot-gauge is under the face budget",
+      "metrics": {
+        "faces": 476
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-coupon-watertight",
+      "message": "watermark-coupon is watertight and winding-consistent",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-coupon-component",
+      "message": "watermark-coupon is one connected component",
+      "metrics": {
+        "components": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-coupon-volume",
+      "message": "watermark-coupon has positive volume",
+      "metrics": {
+        "volume_mm3": 3781.756623408033
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-coupon-complexity",
+      "message": "watermark-coupon is under the face budget",
+      "metrics": {
+        "faces": 9280
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.stl",
+      "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+      "size_bytes": 708184
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-038-two-depth-card-slot-gauge-0.1.0-draft.1.stl",
+      "sha256": "e33655bdde66c548c0598de6562842c9b9ba021e553982d6a5b9ea4eb0fe90c1",
+      "size_bytes": 23884
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-038-full-watermark-coupon-0.1.0-draft.1.stl",
+      "sha256": "08d4739dade76ed427ec300944d2625aaea13fe45e829addfb1ce0c727be9743",
+      "size_bytes": 1515265
+    }
+  ],
+  "limitations": [],
+  "metrics": {
+    "base": {
+      "bounds_mm": [
+        150.0,
+        52.0,
+        22.0
+      ],
+      "components": 1,
+      "faces": 14162,
+      "path": "exports/manufacturing/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.stl",
+      "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+      "size_bytes": 708184,
+      "vertices": 7081,
+      "volume_mm3": 104273.08996298988,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "slot-gauge": {
+      "bounds_mm": [
+        75.0,
+        24.0,
+        14.0
+      ],
+      "components": 1,
+      "faces": 476,
+      "path": "exports/coupons/DRAFT-MM-ORG-038-two-depth-card-slot-gauge-0.1.0-draft.1.stl",
+      "sha256": "e33655bdde66c548c0598de6562842c9b9ba021e553982d6a5b9ea4eb0fe90c1",
+      "size_bytes": 23884,
+      "vertices": 240,
+      "volume_mm3": 24421.617575423712,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "watermark-coupon": {
+      "bounds_mm": [
+        86.292,
+        18.8,
+        2.4
+      ],
+      "components": 1,
+      "faces": 9280,
+      "path": "exports/coupons/DRAFT-MM-ORG-038-full-watermark-coupon-0.1.0-draft.1.stl",
+      "sha256": "08d4739dade76ed427ec300944d2625aaea13fe45e829addfb1ce0c727be9743",
+      "size_bytes": 1515265,
+      "vertices": 4642,
+      "volume_mm3": 3781.756623408033,
+      "watertight": true,
+      "winding_consistent": true
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "trimesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-038-mesh-generation",
+  "tool_version": "0.1.0-draft.1"
+}

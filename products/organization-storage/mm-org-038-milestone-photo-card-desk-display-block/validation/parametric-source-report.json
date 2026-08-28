@@ -1,0 +1,179 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "project",
+      "message": "Project identity and revision are fixed",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "envelope",
+      "message": "Base matches the declared 150 x 52 x 22 mm envelope",
+      "metrics": {
+        "bounds_mm": [
+          150.0,
+          52.0,
+          22.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "dual-slot",
+      "message": "Rear photo and offset milestone-card grooves are distinct",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "privacy",
+      "message": "Default geometry contains only a neutral placeholder and a no-retention contract",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "text-recess",
+      "message": "Placeholder personalization is recessed into the front rail",
+      "metrics": {
+        "cut_volume_mm3": 48.0220640264306
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless",
+      "message": "Base and gauge are authored for base-down supportless printing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watermark-selection",
+      "message": "R2 selector chooses the unscaled Full tier at priority 1",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "1e63ebdf12db9390010eb542574c6b794a56a1d4c584fa895c1defed331430c3",
+      "size_bytes": 1941
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "8e763893a5439aed3ad7b04925b909265b5e9a2f73433d1fe9665e7b06620c41",
+      "size_bytes": 1277
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-ORG-038_v0.1.0-draft.1/metrimade-watermark-MM-ORG-038-v0.1.0-draft.1.json",
+      "sha256": "dd49fa1e227f0e918fc38efaa0e6066f426d1016dc1d3dd85468328d5f15d65b",
+      "size_bytes": 2198
+    },
+    {
+      "path": "validation/watermark-selector.json",
+      "sha256": "8dd38d4de63ac99a0632c1e09204908be11131795efb594a30de156c85499c71",
+      "size_bytes": 2779
+    }
+  ],
+  "limitations": [
+    "Ideal tapered-slot geometry does not prove printed grip, card safety or stability."
+  ],
+  "metrics": {
+    "base": {
+      "cad_volume_mm3": 104273.35722186115,
+      "envelope_mm": [
+        150.0,
+        52.0,
+        22.0
+      ],
+      "proxy": false,
+      "rear_slot_floor_above_bed_mm": 12.0,
+      "slot_cut_volume_mm3": 2374.8022072431777,
+      "text_cut_volume_mm3": 48.0220640264306,
+      "watermark_cut_volume_mm3": 111.73856305373192,
+      "watermark_residual_to_rear_slot_mm": 11.6
+    },
+    "gauge": {
+      "back_tilt_deg": 8.0,
+      "bottom_gap_mm": 0.2,
+      "cad_volume_mm3": 24421.6733597189,
+      "envelope_mm": [
+        75.0,
+        24.0,
+        14.0
+      ],
+      "slot_depths_mm": [
+        10.0,
+        8.0
+      ],
+      "top_gap_mm": 2.8
+    },
+    "ideal_geometric_insertion_depths": {
+      "0.25": {
+        "front_mm": 7.846153846153847,
+        "rear_mm": 9.807692307692308
+      },
+      "1.2": {
+        "front_mm": 4.923076923076923,
+        "rear_mm": 6.153846153846154
+      }
+    },
+    "outputs": [
+      {
+        "path": "exports/master/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.step",
+        "sha256": "326f0c40f02204d3f280f15972d5f1c8b17844e4e8c6e1f8919bb82e7cff9c02",
+        "size_bytes": 10726581
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1-master.stl",
+        "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+        "size_bytes": 708184
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-038-momentpair-dual-slot-base-0.1.0-draft.1.stl",
+        "sha256": "e1a34e87fbb122cd575b6c524d4fa33e4b074ea71ec9ae46e8f1d45242b1bdc1",
+        "size_bytes": 708184
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-038-two-depth-card-slot-gauge-0.1.0-draft.1.stl",
+        "sha256": "e33655bdde66c548c0598de6562842c9b9ba021e553982d6a5b9ea4eb0fe90c1",
+        "size_bytes": 23884
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-038-full-watermark-coupon-0.1.0-draft.1.stl",
+        "sha256": "08d4739dade76ed427ec300944d2625aaea13fe45e829addfb1ce0c727be9743",
+        "size_bytes": 1515265
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-038-momentpair-base-0.1.0-draft.1.3mf",
+        "sha256": "e315419361121a1fb851004321142f0cff048972c7f3bf5057be79a2bd41b54e",
+        "size_bytes": 156539
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-038-fit-and-mark-coupons-0.1.0-draft.1.3mf",
+        "sha256": "224831e00a00425fe885bc3db40f35ddf7e8cd362220d630c25020315e705b5e",
+        "size_bytes": 112426
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "cadquery"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-038-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-ORG-036",
+  "revision": "0.1.0-draft.2",
+  "status": "PASS",
+  "observation": "A centered recessed identity land intersected the center post and sealed nine glyph recesses as internal shells. Moving the land into the clear rear bay opened every recess to the underside and restored one connected component.",
+  "iterations": [
+    {
+      "result": "REJECTED",
+      "land_origin_y_mm": 70.0,
+      "mesh_sha256": "aada772e3756f35573851871ba9cf8e0f2db26ce957ac155e31997bc36fcd6f8",
+      "exact_coordinate_components": 10,
+      "failure": "Center-post overlap closed nine recessed glyph regions inside the solid."
+    },
+    {
+      "result": "ACCEPTED",
+      "land_origin_y_mm": 90.0,
+      "mesh_sha256": "95a8c4ab371ce2e14944c9a1f57a742c0f16ebafe822eedf8095bda9528276f4",
+      "exact_coordinate_components": 1,
+      "clearance_contract": "Land starts at or behind the center-post rear face and ends before the rear corner posts.",
+      "evidence": [
+        "validation/fdm-mesh-platform.json",
+        "validation/watermark-report.json",
+        "renders/MM-ORG-036-watermark-underside.png"
+      ]
+    }
+  ],
+  "limitations": [
+    "The rejected mesh was overwritten during iteration; its observed hash and component count are retained as trace data, not as a distributable artifact.",
+    "Physical identity-mark legibility remains pending on the supplied intended-process coupon."
+  ]
+}

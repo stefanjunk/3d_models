@@ -1,0 +1,46 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-watermark-land-clear-bay-single-shell-001
+title: Recessed watermark land remains support-clear and one connected shell
+category: geometry
+status: draft
+trigger: MM-ORG-036 identity land, mark depth, post placement, Boolean order, or marked platform mesh changes.
+risk: A hidden post or rib can close recessed glyph openings and create sealed internal shells despite an apparently correct exterior.
+given:
+  project: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform
+  parameter_source: config/model-parameters.json
+  platform_mesh_report: validation/fdm-mesh-platform.json
+  watermark_report: validation/watermark-report.json
+  iteration_trace: validation/watermark-land-iteration.json
+expected:
+  - The land begins at or behind the center-post rear face and ends before the rear corner posts.
+  - The marked platform is one exact-coordinate component with zero boundary edges.
+  - The selector retains the unscaled Full tier and the current iteration trace records the accepted Y=90 mm datum.
+failure_conditions:
+  - The land overlaps the center or rear corner support footprints.
+  - The platform has more than one component or any boundary edge.
+  - The mark report, mesh report, or iteration trace is stale or non-PASS.
+fixtures:
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/config/model-parameters.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/fdm-mesh-platform.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/watermark-report.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/watermark-land-iteration.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/tests/test_parameters.py::test_recessed_watermark_stays_open_and_one_component -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Assert support-clear source datums, current Full-tier report, one exact-coordinate component and zero boundary edges.
+relationships:
+  lessons: [EXP-00025]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/fdm-mesh-platform.json
+  artifact_hashes:
+    - 00edcd38e53e7c129b7d2477333ee98059885b2aa5b796f5b451b63edbd9bd45
+    - ff6ea2c1e25410d507d46f4cfe9916ae47663b4012f3fd24eb3f4890ffffb677
+    - 0a15dacce0935c5e0f184bcb3a079b9bdba061a75012b4d543e5de9e1c3cc8ab
+tags: [geometry, watermark, recessed-mark, boolean, hidden-shell, regression]

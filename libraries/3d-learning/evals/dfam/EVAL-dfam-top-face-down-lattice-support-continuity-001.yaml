@@ -1,0 +1,46 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-dfam-top-face-down-lattice-support-continuity-001
+title: Top-face-down grid deck and overlapping supports retain warning-free exact slices
+category: dfam
+status: draft
+trigger: MM-ORG-036 deck orientation, rib topology, support overlap, exact profile, or packaged plate changes.
+risk: A support can become disconnected or begin without preceding-layer material even when the exported mesh remains watertight.
+given:
+  project: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform
+  parameter_source: config/model-parameters.json
+  full_slicer_report: validation/slicer-anycubic-pla-full-run-002.json
+  coupon_slicer_report: validation/slicer-anycubic-pla-coupons-run-002.json
+  slicer_preflight: validation/slicer-preflight-report.json
+expected:
+  - Platform parameters retain a 4 mm continuous deck, 10 mm perimeter, three internal ribs in each direction, five 16 mm supports, and top-face-down manufacturing orientation.
+  - Exact full-platform and coupon reports remain PASS with one G-code file each and empty native warning strings.
+  - The exact Anycubic PLA profile remains selected and generated support remains disabled.
+failure_conditions:
+  - Protected deck or support dimensions fall below the declared contract.
+  - Either exact slice report is stale, non-PASS, lacks G-code, or contains a native warning.
+  - Generated support is enabled or the exact material profile changes without revised evidence.
+fixtures:
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/config/model-parameters.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/slicer-anycubic-pla-full-run-002.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/slicer-anycubic-pla-coupons-run-002.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/slicer-preflight-report.json
+  - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/tests/test_parameters.py::test_top_face_down_jobs_are_warning_free_and_supportless -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Assert protected parameters, exact report status, G-code count, native warnings, material identity, and the support-disabled preflight check.
+relationships:
+  lessons: [EXP-00024]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/validation-summary.json
+  artifact_hashes:
+    - 4c337ca26b5c23c64240ca63ed3ce0c869fe03ccd3436bfb9c966cd4a9564b9c
+    - 9254dea101ee914fa2d419d71babd560230fcb6b1197ae5b7609f82cbb5dd8b1
+    - d4e1a3665d35d8dcbdc9fff76ac979e5beaab4bb2e147bda91254bea2d4c91c8
+tags: [dfam, support-free, top-face-down, lattice-deck, native-warning, regression]

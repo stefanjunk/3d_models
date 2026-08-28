@@ -1,0 +1,113 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00024
+title: Top-face-down orthogonal decks can root separated vertical supports for warning-free exact slicing
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: Digital topology and exact-slicer evidence pass for one product geometry; the declared 2 kg / 30 day physical creep program has not run.
+feature:
+  type: lightweight-riser-load-path
+  geometry: orthogonal open grid deck overlapping four corner supports and one center support
+  design_parameters:
+    platform_envelope_mm: [180, 140, 50]
+    deck_thickness_mm: 4.0
+    perimeter_beam_mm: 10.0
+    internal_rib_width_mm: 6.0
+    x_rib_centers_mm: [45, 90, 135]
+    y_rib_centers_mm: [35, 70, 105]
+    post_size_mm: 16.0
+    post_count: 5
+    manufacturing_orientation: use-top-face-down
+    cad_volume_saved_vs_solid_deck_percent: 35.0798
+  named_datums: [use-top-plane, manufacturing-bed-plane, perimeter-beam, center-grid-crossing]
+  constraints:
+    - Every vertical support overlaps the deck by 0.4 mm in source geometry.
+    - The full perimeter and three ribs in each direction remain protected.
+    - Physical load, buckling, layer adhesion and PLA creep are not inferred from warning-free slicing.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA, variant: standard profile, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: use-top-face-down; 4 mm deck starts on the bed and 46 mm supports grow vertically
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle
+    profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
+  geometry_class: one-piece light-duty rectangular riser with open orthogonal deck and separated prismatic supports
+  environment: headless digital validation; no physical print
+  transfer_limits:
+    - Applies only to preceding-layer continuity and native warning state, not usable load.
+    - Other spans, lift heights, rib widths, post slenderness, material profiles or temperatures require new evidence.
+observation:
+  summary: One top-face-down grid platform and two common-deck support coupons produced connected watertight meshes and warning-free exact Anycubic slices with generated support disabled.
+  expected: The deck begins at manufacturing Z=0 and each overlapping support grows from prior printed layers without native floating-region warnings.
+  actual: Platform and coupon exact reports passed with empty native warning strings; the strict project contract passed and retained physical load/creep as an optional human gate.
+  outcome: success
+  parameter: manufacturing-orientation-and-support-root-overlap
+  recommended_value: use-top-face-down with 0.4 mm source overlap
+  units: orientation-contract-and-mm
+explanation:
+  hypothesis: Printing the continuous deck first provides preceding-layer roots for every prismatic support, while explicit volumetric overlap prevents disconnected CAD bodies.
+  mechanism: The 180 x 140 mm deck occupies manufacturing Z=0..4 and each support continues upward from that connected solid region.
+  alternatives:
+    - Print in use orientation with support generation and validate removal and underside quality.
+    - Split the deck and legs into mechanically joined parts with separate interface validation.
+    - Add gussets or thicker supports when physical buckling or creep evidence requires them.
+  validated: true
+  validation_method: Parametric source checks, exact-coordinate topology audits, strict 3MF audits, warning-free exact-profile native slices, G-code analysis and aggregate project validation; physical behavior excluded.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic mesh dimensions/topology, CAD volume comparison, native warning strings, exact profile hashes and G-code metrics.
+  uncertainty: No print, dimensional measurement, distributed-load deflection, buckling, layer-adhesion, drawer temperature or 30-day creep result exists.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/slicer-anycubic-pla-full-run-002.json, hash: 4c337ca26b5c23c64240ca63ed3ce0c869fe03ccd3436bfb9c966cd4a9564b9c, notes: Exact final marked full-platform slice with empty native warning string.}
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/slicer-anycubic-pla-coupons-run-002.json, hash: 9254dea101ee914fa2d419d71babd560230fcb6b1197ae5b7609f82cbb5dd8b1, notes: Exact structural-plus-mark coupon plate slice with empty native warning string.}
+    - {type: measurement, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/reports/optimization-comparison.json, hash: afdfc84a6104f16da9b97e323e3b86501224a503ff9ddce48b6764539fa0cfec, notes: Selected and equally marked solid-deck proxy CAD volume comparison.}
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/validation-summary.json, hash: d4e1a3665d35d8dcbdc9fff76ac979e5beaab4bb2e147bda91254bea2d4c91c8, notes: Aggregate digital PASS with physical and commercial gates retained.}
+  artifacts:
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/exports/3mf/DRAFT-MM-ORG-036-liftdeck-full-0.1.0-draft.2.3mf
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/exports/3mf/DRAFT-MM-ORG-036-creep-coupons-0.1.0-draft.2.3mf
+applicability:
+  triggers:
+    - A one-piece riser has a broad continuous deck and separated prismatic supports that can all overlap the deck and grow along the print direction.
+  exclusions:
+    - Safety-critical, child, step, seat, shelf, impact, food-contact or hot-drawer uses.
+    - Claims about load capacity, creep life, buckling resistance or dimensional stability without physical evidence.
+  transfer_limits:
+    - Treat as an E0 exact-slicer continuity candidate for this scoped geometry and profile, not a universal load-platform rule.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00003, EXP-00020]
+  evals: [EVAL-dfam-top-face-down-lattice-support-continuity-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/validation-summary.json
+provenance:
+  project: MM-ORG-036
+  part_revision: 0.1.0-draft.2
+  trace: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [dfam, support-free, top-face-down, lattice-deck, load-path, exact-slicer, pla, digital-only]

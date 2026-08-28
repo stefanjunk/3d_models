@@ -1,0 +1,191 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "asset-revision",
+      "message": "Canonical R2 watermark assets are used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "identity",
+      "message": "Generated identity matches product ID and revision",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tier-priority",
+      "message": "Highest-information Full tier fits at priority 1",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "unscaled",
+      "message": "Selected tier remains unscaled at the declared rotation",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "domain-visible",
+      "message": "Full tier retains visible metriMade.com identity",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "wall-reserve",
+      "message": "Selector and CAD agree on residual identity-land wall",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mark-coupon",
+      "message": "Exact selected-tier physical coupon is watertight and packaged",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9ec016b0f926e63880344c58760ab1ae82ac625054e94b5392e63946014fac18",
+      "size_bytes": 1370
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "6c0986323a3d54838ad3306273acd2b6eb3bf3f18cb1bfba56218bcddf0055cc",
+      "size_bytes": 1094
+    },
+    {
+      "path": "assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2/metrimade-watermark-MM-ORG-036-v0.1.0-draft.2.json",
+      "sha256": "efe20fcfaba783dd5889c5af65f1ab38e450878ea64a06783dd6639f100a9292",
+      "size_bytes": 2199
+    },
+    {
+      "path": "validation/watermark-selector.json",
+      "sha256": "a62d44bef6633fd966829f9ae22ce329ed97118b140de39920985d12d744c9ad",
+      "size_bytes": 2747
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-036-liftdeck-platform-0.1.0-draft.2.stl",
+      "sha256": "95a8c4ab371ce2e14944c9a1f57a742c0f16ebafe822eedf8095bda9528276f4",
+      "size_bytes": 496084
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-036-full-watermark-coupon-0.1.0-draft.2.stl",
+      "sha256": "aa377312d0fcdd6b2d141eaf2da76c15f59efa47b4fbaa95b5438df4bfecc311",
+      "size_bytes": 1532932
+    }
+  ],
+  "limitations": [
+    "Digital identity and topology checks do not prove printed legibility; the selected-tier physical coupon remains mandatory before release."
+  ],
+  "metrics": {
+    "cad": {
+      "cut_volume_mm3": 112.15894433710491,
+      "land_mm": [
+        100.0,
+        20.0,
+        2.0
+      ],
+      "residual_wall_mm": 1.6
+    },
+    "selector": {
+      "asset_id": "MM-WM-001-R2",
+      "available_layouts": [
+        {
+          "envelope_mm": [
+            81.239,
+            12.8,
+            0.4
+          ],
+          "metadata": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2/metrimade-watermark-MM-ORG-036-v0.1.0-draft.2.json",
+          "priority": 1,
+          "tier": "full"
+        },
+        {
+          "envelope_mm": [
+            40.179,
+            11.2,
+            0.4
+          ],
+          "metadata": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2_compact/metrimade-watermark-MM-ORG-036-v0.1.0-draft.2-compact.json",
+          "priority": 2,
+          "tier": "compact"
+        },
+        {
+          "envelope_mm": [
+            36.899,
+            9.6,
+            0.4
+          ],
+          "metadata": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2_micro/metrimade-watermark-MM-ORG-036-v0.1.0-draft.2-micro.json",
+          "priority": 3,
+          "tier": "micro"
+        }
+      ],
+      "brand": "metriMade",
+      "candidate_surface_mm": [
+        100.0,
+        20.0
+      ],
+      "domain": "metriMade.com",
+      "edge_clearance_mm": 2.0,
+      "errors": [],
+      "minimum_host_wall_mm": 1.2,
+      "minimum_remaining_wall_mm": 0.8,
+      "operation": "recessed",
+      "orientation_check": "verify the selected visible identity directly on the exported finished underside",
+      "physical_qualification": "PENDING",
+      "preferred_surface": "flat-nonfunctional-low-stress-underside",
+      "product_id": "MM-ORG-036",
+      "recommended_feature_clearance_mm": 3.0,
+      "residual_host_wall_mm": 1.6,
+      "safe_rectangle_mm": [
+        96.0,
+        16.0
+      ],
+      "selection": {
+        "actual_envelope_mm": [
+          81.239,
+          12.8
+        ],
+        "depth_mm": 0.4,
+        "domain_visible": true,
+        "generated_directory": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2",
+        "layout_priority": 1,
+        "layout_tier": "full",
+        "metadata": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/assets/metrimade-watermark/generated/MM-ORG-036_v0.1.0-draft.2/metrimade-watermark-MM-ORG-036-v0.1.0-draft.2.json",
+        "rotation_deg": 0,
+        "uniform_scale": 1.0,
+        "visible_text": [
+          "metriMade.com",
+          "MM-ORG-036 \u00b7 v0.1.0-draft.2"
+        ]
+      },
+      "status": "PASS",
+      "version": "0.1.0-draft.2",
+      "warnings": [
+        "selected profile remains physically unqualified until the intended-process coupon passes"
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-036-watermark-integration",
+  "tool_version": "0.1.0-draft.2"
+}

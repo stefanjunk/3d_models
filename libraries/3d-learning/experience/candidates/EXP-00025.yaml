@@ -1,0 +1,103 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00025
+title: Recessed identity lands must avoid hidden support intersections that seal glyph shells
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One deterministic CAD iteration demonstrates the topology failure and correction; physical legibility remains untested.
+feature:
+  type: recessed-product-identity-land
+  geometry: 100 x 20 x 2 mm underside land carrying the unscaled R2 Full recessed mark
+  design_parameters:
+    initial_land_origin_y_mm: 70.0
+    accepted_land_origin_y_mm: 90.0
+    engraving_depth_mm: 0.4
+    residual_wall_mm: 1.6
+    initial_components: 10
+    accepted_components: 1
+  named_datums: [underside-identity-land, center-post-rear-face, rear-corner-post-front-face]
+  constraints:
+    - Recesses must remain open to the finished underside rather than becoming enclosed void shells.
+    - The dedicated land must remain outside the center and corner post footprints.
+    - Physical readability is not inferred from topology or a feature-edge render.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PLA, variant: standard profile, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: use-top-face-down; mark is visible on the finished upper-facing underside after use-orientation flip
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: recessed vector glyphs in a local land near intersecting prismatic supports
+  environment: deterministic CAD and mesh validation; no physical print
+  transfer_limits:
+    - Applies to Boolean topology around recessed marks and hidden host solids, not all engraving failures.
+    - Other glyph depth, stroke, land thickness, support position or Boolean kernels require new evidence.
+observation:
+  summary: The centered identity land intersected a center post and produced nine sealed glyph void shells; moving the land behind the post restored a single connected watertight result.
+  expected: Every recessed glyph opens to the intended visible underside while the host stays one connected solid.
+  actual: Y=70 mm yielded 10 exact-coordinate components; Y=90 mm yielded one component, zero boundary edges and a readable feature-edge render.
+  outcome: mixed
+  parameter: identity-land-position-relative-to-hidden-supports
+  recommended_value: place the entire recessed land in a support-clear bay and assert one connected component
+  units: datum-contract-and-mm
+explanation:
+  hypothesis: A support intersecting the back of a recessed glyph can close its opening and leave an enclosed inner surface that topology tools count as an additional shell.
+  mechanism: Translating the land behind the center-post rear face removes the intersecting backing solid so each subtraction reaches the exposed underside.
+  alternatives:
+    - Move the mark to another nonfunctional clear bay.
+    - Use a raised mark if local clearance and print orientation permit it.
+    - Split or locally pocket the hidden support only if load-path validation allows it.
+  validated: true
+  validation_method: Exact-coordinate component audit, boundary-edge audit, selector report, source datum assertion and finished-underside feature-edge render; physical legibility excluded.
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: Recorded land datum, exact-coordinate component count, mesh hash and deterministic report status.
+  uncertainty: The rejected mesh was overwritten during iteration and survives only in the product trace; no printed mark has been inspected.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/watermark-land-iteration.json, hash: 00edcd38e53e7c129b7d2477333ee98059885b2aa5b796f5b451b63edbd9bd45, notes: "Rejected and accepted positions, component counts, hashes and limitations."}
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/fdm-mesh-platform.json, hash: ff6ea2c1e25410d507d46f4cfe9916ae47663b4012f3fd24eb3f4890ffffb677, notes: Accepted platform is one connected watertight component.}
+    - {type: product-trace, ref: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/watermark-report.json, hash: 0a15dacce0935c5e0f184bcb3a079b9bdba061a75012b4d543e5de9e1c3cc8ab, notes: "Full tier, land, residual wall and physical-qualification status."}
+  artifacts:
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/exports/manufacturing/DRAFT-MM-ORG-036-liftdeck-platform-0.1.0-draft.2.stl
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/renders/MM-ORG-036-watermark-underside.png
+applicability:
+  triggers:
+    - A recessed product mark is added on a thin local land near hidden ribs, posts or other backing solids.
+  exclusions:
+    - Raised marks, through-cuts intentionally producing openings, and marks whose inner shells are explicit design intent.
+  transfer_limits:
+    - Treat as an E0 Boolean-topology candidate and retain physical mark qualification.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00024]
+  evals: [EVAL-geometry-watermark-land-clear-bay-single-shell-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/validation/fdm-mesh-platform.json
+provenance:
+  project: MM-ORG-036
+  part_revision: 0.1.0-draft.2
+  trace: products/organization-storage/mm-org-036-deep-drawer-height-riser-platform/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [watermark, recessed-mark, boolean, hidden-shell, topology, datum, digital-only]

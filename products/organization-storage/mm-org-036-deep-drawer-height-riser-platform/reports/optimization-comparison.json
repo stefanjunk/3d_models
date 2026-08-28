@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "grid-deck-saving",
+      "message": "Orthogonal grid deck saves at least 25% CAD volume against the solid-deck proxy",
+      "metrics": {
+        "saved_percent": 35.07975628318896
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-perimeter",
+      "message": "Optimization retains the full perimeter beam and all five supports",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-grid",
+      "message": "Optimization retains three internal ribs in both directions",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless-orientation",
+      "message": "The use-top face is printed on the bed and all supports grow vertically without generated support",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "9ec016b0f926e63880344c58760ab1ae82ac625054e94b5392e63946014fac18",
+      "size_bytes": 1370
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-036-liftdeck-platform-0.1.0-draft.2.stl",
+      "sha256": "95a8c4ab371ce2e14944c9a1f57a742c0f16ebafe822eedf8095bda9528276f4",
+      "size_bytes": 496084
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-036-corner-post-creep-coupon-0.1.0-draft.2.stl",
+      "sha256": "b2d244fe17f434cb29eab388a1466c0a5e42156baf4e67bfe8305ed93f5d6d65",
+      "size_bytes": 8684
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-036-rib-support-creep-coupon-0.1.0-draft.2.stl",
+      "sha256": "5bc3696744b8f0e53bc33bff617b99b94559ca93f0fbf1f79b6a2a96721ea584",
+      "size_bytes": 8684
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-036-full-watermark-coupon-0.1.0-draft.2.stl",
+      "sha256": "aa377312d0fcdd6b2d141eaf2da76c15f59efa47b4fbaa95b5438df4bfecc311",
+      "size_bytes": 1532932
+    }
+  ],
+  "limitations": [
+    "CAD volume is a deterministic comparison, not slicer mass or print duration."
+  ],
+  "metrics": {
+    "cad_volume_saved_percent": 35.07975628318896,
+    "selected_grid_deck_volume_mm3": 106188.64105566293,
+    "solid_deck_proxy_volume_mm3": 163567.84105566362
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-036-optimization-comparison",
+  "tool_version": "0.1.0-draft.2"
+}

@@ -1,0 +1,88 @@
+schema_version: 1
+project_id: MM-SHO-001
+revision: 6.2.0-draft.2
+units: mm
+
+fit:
+  foot_length: 260.0
+  toe_clearance: 8.0
+  lower_interface_inset_each_side: 4.0
+  lower_interface_protected_height: 10.0
+  upper_skirt_height: 10.0
+  upper_heel_taper_ratio: 0.10
+  upper_toe_taper_ratio: 0.045
+
+sole_stations:
+  columns: [s, width, shift, bottom, top, edge_rise, top_crown]
+  values:
+    - [0.00, 22.11,  0.0, 2.00, 6.90, 0.80, 0.08]
+    - [0.05, 58.96,  0.0, 0.80, 5.70, 0.70, 0.10]
+    - [0.12, 71.69, -1.0, 0.10, 5.00, 0.58, 0.13]
+    - [0.22, 73.70, -2.0, 0.00, 4.90, 0.52, 0.15]
+    - [0.35, 69.30, -4.0, 0.00, 4.90, 0.46, 0.20]
+    - [0.48, 72.80, -4.0, 0.00, 4.90, 0.46, 0.22]
+    - [0.62, 92.92, -2.0, 0.00, 4.90, 0.50, 0.18]
+    - [0.72, 106.05, 0.0, 0.00, 4.90, 0.56, 0.15]
+    - [0.82, 111.30, 2.0, 0.30, 5.20, 0.68, 0.12]
+    - [0.90, 109.18, 4.0, 1.20, 6.10, 0.78, 0.10]
+    - [0.96, 92.22,  5.0, 3.00, 7.90, 0.88, 0.08]
+    - [1.00, 47.70,  5.0, 5.00, 9.90, 0.95, 0.05]
+
+upper_stations:
+  columns: [s, width, shift, height]
+  values:
+    - [0.000, 20.0,  0.0, 10.0]
+    - [0.020, 52.0,  0.0, 55.0]
+    - [0.060, 58.0,  0.0, 61.0]
+    - [0.120, 62.0, -1.0, 65.0]
+    - [0.220, 64.0, -2.0, 62.0]
+    - [0.340, 63.0, -4.0, 57.0]
+    - [0.460, 66.0, -4.0, 51.0]
+    - [0.580, 75.0, -3.0, 42.0]
+    - [0.680, 88.0, -1.0, 34.0]
+    - [0.780, 96.0,  1.0, 27.0]
+    - [0.880, 94.0,  3.0, 22.0]
+    - [0.960, 74.0,  5.0, 18.0]
+    - [0.995, 34.0,  5.0, 11.0]
+    - [1.000,  6.0,  5.0, 10.0]
+
+freeform:
+  interpolation: natural-cubic-c2
+  cross_section_exponent: 1.0
+  y_grid_step: 0.90
+  section_parameter_step: 0.0075
+  collar_polygon_segments: 720
+  collar_center_y_ratio: 0.206
+  collar_radius_y: 40.0
+  collar_radius_section_parameter: 0.58
+  collar_band_width: 5.0
+  collar_band_outer_section_parameter_add: 0.09
+  collar_band_target_wall: 2.6
+  collar_band_outer_raise: 0.40
+  collar_edge_round_into_opening: 0.80
+  collar_edge_segments: 10
+
+variants:
+  fuzzy_shell_wall: 1.4
+  infill_envelope_wall: 4.5
+  reinforcement_frame_wall: 1.4
+  lower_frame_height: 11.0
+  heel_counter_length_ratio: 0.23
+  heel_counter_height: 40.0
+
+tessellation:
+  chord_tolerance_target: 0.08
+  maximum_visible_edge_target: 1.25
+  maximum_collar_edge_target: 0.65
+  manufacturing_triangle_target: 400000
+  manufacturing_triangle_stop: 600000
+  peak_memory_budget_gib: 4.0
+  maximum_mesh_mib: 30.0
+  maximum_exact_slicer_seconds: 240
+
+manufacturing:
+  material_candidate: "soft TPU 85A-90A; exact supplier unresolved"
+  nozzle: 0.4
+  layer_height_range: [0.12, 0.24]
+  preferred_layer_height: 0.20
+  printer: "Anycubic; exact machine/profile unresolved"

@@ -1,0 +1,184 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-count",
+      "message": "Three selected meshes plus one light variant generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-validity",
+      "message": "Every mesh is one watertight positive volume",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mesh-budget",
+      "message": "Every mesh stays below budget",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "570a4690c1d8c9b9da6bb0275cf4b8be53286fc8296566aacca71e67709623d3",
+      "size_bytes": 2093
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "00515a874fa21252a85ecd7349bae40b1402422b2eb6ff21db2d19e8feb0ae9f",
+      "size_bytes": 22177
+    }
+  ],
+  "limitations": [
+    "STL units rely on project millimetre contract."
+  ],
+  "metrics": {
+    "meshes": {
+      "bobbin-post-gauge": {
+        "bounds_mm": [
+          [
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            76.0,
+            22.0,
+            15.0
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          76.0,
+          22.0,
+          15.0
+        ],
+        "file_bytes": 1275984,
+        "file_mib": 1.2168731689453125,
+        "path": "exports/coupons/DRAFT-MM-ORG-032-bobbin-post-gauge-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "b1693e9eef0f51ac3d0cc5a768b2f4568e7bf214c305c54f4f0b5e10133abb51",
+        "surface_area_mm2": 4607.865867100871,
+        "triangles": 25518,
+        "vertices": 12761,
+        "volume_mm3": 6055.718967354436,
+        "watertight": true,
+        "winding_consistent": true
+      },
+      "light-rack": {
+        "bounds_mm": [
+          [
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            208.0,
+            151.0,
+            64.4
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          208.0,
+          151.0,
+          64.4
+        ],
+        "file_bytes": 4879084,
+        "file_mib": 4.653057098388672,
+        "path": "exports/variants/DRAFT-MM-ORG-032-light-rack-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "d78ce1aadce8b6f9a4683efbddcc7cde7a06653b878cbab33de20e266d90b8d4",
+        "surface_area_mm2": 74839.30230860364,
+        "triangles": 97580,
+        "vertices": 48792,
+        "volume_mm3": 91303.76416331495,
+        "watertight": true,
+        "winding_consistent": true
+      },
+      "rack": {
+        "bounds_mm": [
+          [
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            208.0,
+            151.0,
+            65.0
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          208.0,
+          151.0,
+          65.0
+        ],
+        "file_bytes": 4879084,
+        "file_mib": 4.653057098388672,
+        "path": "exports/manufacturing/DRAFT-MM-ORG-032-rack-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "76d4a0b95c8e40ea7619b48f6e746eaa77d725a59fbd2b85e260124547347320",
+        "surface_area_mm2": 75265.97806315834,
+        "triangles": 97580,
+        "vertices": 48792,
+        "volume_mm3": 110140.28949833076,
+        "watertight": true,
+        "winding_consistent": true
+      },
+      "spool-post-gauge": {
+        "bounds_mm": [
+          [
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            76.0,
+            22.0,
+            15.0
+          ]
+        ],
+        "components": 1,
+        "extents_mm": [
+          76.0,
+          22.0,
+          15.0
+        ],
+        "file_bytes": 1319684,
+        "file_mib": 1.2585487365722656,
+        "path": "exports/coupons/DRAFT-MM-ORG-032-spool-post-gauge-0.1.0-draft.1.stl",
+        "positive_volume": true,
+        "sha256": "d88b207b6b6308ddd199e4869783b69fc4b1f4a0af3bd2c278a85bb45866ffb4",
+        "surface_area_mm2": 4678.397905639308,
+        "triangles": 26392,
+        "vertices": 13198,
+        "volume_mm3": 6251.005380852703,
+        "watertight": true,
+        "winding_consistent": true
+      }
+    },
+    "selected_3mf": {
+      "path": "exports/3mf/DRAFT-MM-ORG-032-pairpin-eight-0.1.0-draft.1.3mf",
+      "sha256": "4b7859356cc866368be62932cb5c800330620678961cb291e3ed9268a6e84bd1",
+      "size_bytes": 1654953
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-032-mesh-generation",
+  "tool_version": "0.1.0-draft.1"
+}

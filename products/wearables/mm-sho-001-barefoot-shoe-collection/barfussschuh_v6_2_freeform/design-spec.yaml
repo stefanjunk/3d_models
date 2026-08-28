@@ -1,0 +1,153 @@
+project:
+  id: MM-SHO-001
+  name: "Barfußschuh V6.2 – Freeform Upper mit Komfortkragen"
+  revision: 6.2.0-draft.2
+  units: mm
+  lineage: ../barfussschuh_v6_1_fitfix
+  status: concept-review
+  intended_user: "erwachsene Testperson; technischer Schuhprototyp"
+
+workflow:
+  autonomy_policy: null
+  requirements_approval:
+    status: approved
+    spec_revision: 6.2.0-draft.2
+    approved_by: Stefan
+    approved_on: 2026-08-28
+    basis: "Nutzerfreigabe 'freigegben' nach Draft-2-Vorschlag; Draft-1-Render zeigte unzureichende Fersenreserve und spitze Kragenübergänge"
+  concept_approval:
+    status: pending
+    spec_revision: 6.2.0-draft.2
+    asset: previews/concept-v6.2.0-draft.2.png
+    asset_sha256: 18d2643250238dd3f82bf6527fe6eec787b1870fdffa8fb1d0da26124c960ca7
+    review_record: CONCEPT_REVIEW_DRAFT2.md
+    reason: "Aktualisiertes Formkonzept wartet auf ausdrückliche Nutzerfreigabe vor CAD-Änderungen"
+  digital_candidate:
+    status: blocked
+    reason: "CAD-Revision beginnt erst nach Konzeptfreigabe für 6.2.0-draft.2"
+  physical_validation:
+    status: blocked
+    reason: "Tragekomfort und TPU-Prozess erfordern Kragen-Coupon und Anprobe"
+  final_release_approval:
+    status: blocked
+
+requirements_trace:
+  user_stated:
+    - "Die geschlossene Oberfläche des Oberschuhs zeigt unschöne Voxel."
+    - "Das Upper soll als schönere Freeform-Oberfläche neu aufgebaut werden."
+    - "Der Rand um Fuß und Knöchel wirkt spitz und schneidend."
+    - "Um die Öffnung soll ein leicht dickerer, sehr dezenter bandartiger Rand laufen."
+  inferred:
+    - "Sohlenform, Nullsprengung, TPU-Lippe und der korrigierte V6.1-Sohlenanschluss bleiben unverändert."
+    - "Linkes und rechtes Upper bleiben Spiegelvarianten derselben Quelle."
+    - "Die drei bestehenden Upper-Arten – Infill-envelope, Fuzzy-Shell und Reinforcement-Frame – bleiben lieferbar."
+    - "Die sichtbare V6.1-Voxeloberfläche ist nur Referenz; sie muss außerhalb des Sohlenanschlusses nicht punktgenau erhalten bleiben."
+  recommended:
+    - "Direkter parametrischer B-Spline/PCHIP-Querschnittsloft ohne Distanzfeld, Voxelraster oder Marching Cubes."
+    - "Anatomisch fließende Querschnitte mit kontrollierter medial/lateraler Asymmetrie und weichen Fersen-/Zehenabschlüssen."
+    - "Öffnung als glatte geschlossene Kurve in der Flächenparametrik statt nachträglichem scharfem Volumenschnitt."
+    - "Kragenband 5.0 mm breit, lokale Zielwand 2.6 mm bei der 1.4-mm-Shell und gerundete freie Kante mit ungefähr 1.0 mm Radius."
+    - "Die lichte Öffnung darf durch die Rundung gegenüber V6.1 höchstens 0.8 mm je Seite kleiner werden."
+    - "Nach dem fehlgeschlagenen Draft-1-Formreview: Kragenvorderkante praktisch beibehalten, hintere Öffnungsgrenze von 1.2 auf ungefähr 15.2 mm vorziehen und den Höhenanstieg der Ferse über 10 % statt 6.5 % der Schuhlänge verteilen."
+  unresolved:
+    - "Exakte TPU-Marke/Shore-Härte und das konkrete Anycubic-Maschinen-/Prozess-/Filamentprofil für den Slicer-Nachweis."
+
+scope:
+  included:
+    - "Freeform-Neuaufbau der sichtbaren Upper-Hülle"
+    - "weicher umlaufender Komfortkragen"
+    - "unveränderter V6.1-Anschluss an die Sohlenlippe"
+    - "linke und gespiegelte rechte Upper-Varianten"
+    - "Kragen-/Oberflächen-Coupon und digitale Geometrieprüfung"
+  excluded:
+    - "Änderung der Sohle, Lippe, Flexzonen, Waben oder Nahtlöcher"
+    - "medizinische, orthopädische oder dauerhafte Tragefreigabe"
+    - "Drucker-Upload oder Druckstart"
+    - "finale Veröffentlichung oder kommerzielle Freigabe"
+
+coordinate_system:
+  origin: "V6.1-Sohlenkoordinatensystem"
+  x: "lateral/medial; rechts positiv"
+  y: "Ferse zu Zehe; Zehe positiv"
+  z: "Sohlenunterseite nach oben"
+  symmetry: "rechts wird aus der linken Quelle an X=0 gespiegelt"
+  landmarks:
+    - {id: heel_end, point_mm: [0.0, 0.0, 0.0]}
+    - {id: ball_station, definition: "y = 0.72 * Gesamtlänge"}
+    - {id: toe_end, definition: "y = Fußlänge + Zehenzugabe"}
+    - {id: sole_upper_interface, definition: "untere Upper-Kante = Sohlenbreite minus 4.0 mm Inset je Seite"}
+
+geometry:
+  route: bspline-loft-hybrid
+  source_of_truth: "parametrischer Python-Generator plus YAML/JSON-Parameter"
+  upper_length_mm: 268.0
+  protected_hardpoints:
+    - "V6.1-Sohlen-/Lippen-Schnittstelle über die gesamte Länge"
+    - "Fersen- und Zehenreichweite"
+    - "linke/rechte Spiegelung"
+  freeform_envelope:
+    semantic_stations: [heel_end, heel_seat, arch, midfoot, ball, toe_box, toe_tip]
+    longitudinal_continuity: G2-target
+    section_continuity: G2-target
+    visible_character: [smooth, organic, restrained, soft]
+    forbidden_character: [voxel-stepped, faceted, sharp-collar, arbitrary-ripples]
+  collar:
+    topology: "parametrische Öffnungsschleife mit integrierter abgerundeter Randwulst"
+    opening_center_y_ratio: 0.206
+    opening_length_radius_mm: 40.0
+    approximate_opening_half_width_mm: 30.0
+    band_width_mm: 5.0
+    fuzzy_shell_base_wall_mm: 1.4
+    fuzzy_shell_band_target_wall_mm: 2.6
+    free_edge_radius_target_mm: 1.0
+    max_opening_reduction_each_side_mm: 0.8
+  lower_interface:
+    inset_each_side_mm: 4.0
+    protected_height_mm: 10.0
+    max_drift_mm: 0.20
+
+duty:
+  risk_class: normal-functional
+  use: "flexibler Indoor-/Alltags-Prototyp für erwachsene Testperson"
+  loads: "Fußkontakt, Biegung beim An-/Ausziehen und Gehen; noch nicht quantifiziert"
+  environment: "Hautkontakt, Schweiß/Feuchte und normale Innen-/Außentemperaturen; Materialverträglichkeit nicht freigegeben"
+  service_life: "Prototyp/Coupon bis physische Evidenz vorliegt"
+  hazards:
+    - "Drucknaht oder zu harter Kragen kann scheuern."
+    - "Zu dünne TPU-Randbereiche können einreißen."
+    - "Zu starkes Kragenband kann die Öffnung einengen."
+
+manufacturing:
+  process: fdm-fff
+  fabrication_preference: integrated-print
+  material: "weiches TPU, bevorzugt 85A–90A; exakte Marke offen"
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.12, 0.24]
+  orientation: "wie V6/V6.1; vor Druck im exakten Slicer prüfen"
+  supports: "am sichtbaren Kragen möglichst vermeiden"
+  printer: "Anycubic; exakte Maschine und Profile offen"
+
+acceptance:
+  digital:
+    - "Jede Upper-Datei ist ein zusammenhängendes, wasserdichtes, positiv orientiertes Mesh."
+    - "Keine Voxel-/Marching-Cubes-Erzeugung im V6.2-Upper-Pfad."
+    - "Sohlenanschluss weicht an den definierten Stationen höchstens 0.20 mm von V6.1 ab."
+    - "Keine degenerierten Dreiecke, invertierten Flächen oder ungeklärten Krümmungsspitzen."
+    - "Maximale Zielkantenlänge auf der sichtbaren Hülle 1.25 mm; am Kragen 0.65 mm."
+    - "Die lichte Kragenöffnung wird höchstens 0.8 mm je Seite reduziert."
+    - "Freie Kragenkante besitzt keine absichtlich scharfe oder ungefasste Verbindung."
+  visual_review:
+    - "Silhouette und Highlightfluss wirken in Seiten-, Drauf- und Dreiviertelansicht glatt."
+    - "Das Band bleibt optisch leicht und folgt der Öffnung ohne Knicke."
+  physical:
+    - "Kragen-Coupon lässt sich ohne fühlbar schneidende Kante über Haut/Testsocke führen."
+    - "50 starke Handbiegezyklen ohne Riss oder Delamination."
+    - "Anprobe bestätigt Öffnungsweite, Druckfreiheit und Fersenhalt."
+
+deliverables:
+  - "design-spec.yaml, surfacing-spec.yaml und organic-reference-spec.yaml"
+  - "editierbarer deterministischer Freeform-Generator"
+  - "DRAFT STL für Infill-envelope, Fuzzy-Shell und Reinforcement-Frame links/rechts"
+  - "Kragen-Coupon"
+  - "Fairness-, Hardpoint-, Topologie-, Wand- und Tessellierungsberichte"
+  - "Konzept- und Validierungsansichten"

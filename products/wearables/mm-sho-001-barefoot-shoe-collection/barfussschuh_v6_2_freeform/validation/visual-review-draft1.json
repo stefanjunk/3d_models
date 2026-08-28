@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-production-visual-review",
+  "tool_version": "1.0.0",
+  "status": "FAIL",
+  "profile": "draft",
+  "inputs": [
+    {
+      "path": "previews/rejected-v6.2.0-draft.1/production-three-quarter.png",
+      "sha256": "c19ec91839800274996f2d62aec3fa20665702822bdd163f14489f7218a67fdf"
+    },
+    {
+      "path": "previews/rejected-v6.2.0-draft.1/production-collar-closeup.png",
+      "sha256": "fc4daedbdb20c2fedbdb24590b48758442373ddb0f78f24532d6d86d818a0221"
+    },
+    {
+      "path": "previews/rejected-v6.2.0-draft.1/production-flat-shaded.png",
+      "sha256": "e25b8b04c5c20153c8773ca54b13cba073b1a7bf88759c0a53d652b65d6f5a6f"
+    }
+  ],
+  "checks": [
+    {
+      "id": "smooth-upper-envelope",
+      "status": "PASS",
+      "required": true,
+      "message": "The visible upper envelope no longer shows voxel or marching-cubes stepping.",
+      "metrics": {}
+    },
+    {
+      "id": "collar-comfort-form",
+      "status": "FAIL",
+      "required": true,
+      "message": "The 1.2 mm rear reserve cannot carry the approved 5 mm comfort band and produces two pointed rear collar transitions.",
+      "metrics": {
+        "draft1_rear_reserve_mm": 1.24,
+        "approved_band_width_mm": 5.0,
+        "proposed_draft2_rear_reserve_mm": 15.208
+      }
+    }
+  ],
+  "metrics": {
+    "decision": "reject-draft-1-and-reopen-requirements"
+  },
+  "limitations": [
+    "Render inspection is a form-review gate, not a dimensional or physical comfort proof."
+  ],
+  "required_capabilities": ["blender", "human-or-agent-visual-review"]
+}

@@ -1,0 +1,177 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer:system-020",
+      "message": "system-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:system-028",
+      "message": "system-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "warning-free",
+      "message": "Both slices contain no native/parser warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-tool",
+      "message": "Both use one tool",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pareto",
+      "message": "Both time/material tradeoff variants are Pareto-efficient",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coarse-rejected-by-cap",
+      "message": "0.28 mm saves time but exceeds the 12% reported-extrusion growth boundary",
+      "metrics": {
+        "time_delta_percent": -7.787463145750545,
+        "volume_delta_percent": 16.535760444703968
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-interfaces",
+      "message": "Selected base and fit pins remain protected",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-rejected",
+      "message": "Light rack remains rejected",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "geometric",
+      "message": "Selected rack reduces solid-envelope proxy by at least 90%",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "570a4690c1d8c9b9da6bb0275cf4b8be53286fc8296566aacca71e67709623d3",
+      "size_bytes": 2093
+    },
+    {
+      "path": "validation/interface-report.json",
+      "sha256": "c747083801bf39adc06500c3b4d5de7838636b072c9d563d2737ced57d4c53b4",
+      "size_bytes": 8409
+    },
+    {
+      "path": "reports/optimization-geometric.json",
+      "sha256": "a9642057d39ac3423c3a9a49ac486c31783cb594a36f5a3b3545830d1fe0b1b8",
+      "size_bytes": 620
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/3D-Design/.agents/skills/optimize-fdm-design/scripts/compare_variants.py",
+      "sha256": "8a90a864b129adaa9959cc84c11f5ed5fea4c405ebd05ab940097563d81f9f44",
+      "size_bytes": 7521
+    },
+    {
+      "path": "validation/slicer-system-020.json",
+      "sha256": "64ceb30b85f7f45c8cc060fd0420d2d906f88685993334d67ff4c010f781abf6",
+      "size_bytes": 10401
+    },
+    {
+      "path": "validation/slicer-system-028.json",
+      "sha256": "e8f296962de7ce346667d73ee97ea674b3fbeb343447458d88941551b9dc42b0",
+      "size_bytes": 10426
+    },
+    {
+      "path": "reports/optimization-variants.json",
+      "sha256": "eac528ad637de481efaa21053f7605f3eccdd7da7b986e4cee6b6be96f4c7fd4",
+      "size_bytes": 1444
+    },
+    {
+      "path": "reports/optimization-pareto.json",
+      "sha256": "9cc9f1ca1cd8bffa2b2f86e7523c3aa5ed0f96f436d5cb73925c153361def873",
+      "size_bytes": 1941
+    },
+    {
+      "path": "reports/optimization-pareto.md",
+      "sha256": "c6cb3f9adea645c7b7f587afc97c6b8b078ca2f416d4dbbbae55217358a815c8",
+      "size_bytes": 279
+    }
+  ],
+  "limitations": [
+    "Slicer estimates are not measured outcomes.",
+    "Real bore fit, thread snag, tip, drop and cycles are deferred.",
+    "No G-code was retained."
+  ],
+  "metrics": {
+    "coarse_time_delta_percent_vs_020": -7.787463145750545,
+    "coarse_volume_delta_percent_vs_020": 16.535760444703968,
+    "feasible_variants": 2,
+    "geometric_reduction_vs_proxy_percent": 94.60498601540368,
+    "light_variant_reduction_percent": 17.1023023643871,
+    "pareto_variants": [
+      "system-020",
+      "system-028"
+    ],
+    "selected_extruded_volume_mm3": 89282.76227020624,
+    "selected_layers": 325,
+    "selected_print_time_s": 15602.0,
+    "selected_variant": "system-020",
+    "selection_policy": "time_priority_with_max_12_percent_reported_extrusion_growth_and_contact_detail_preference",
+    "variant_metrics": {
+      "system-020": {
+        "extruded_volume_mm3": 89282.76227020624,
+        "layer_count": 325,
+        "print_time_s": 15602.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "system-028": {
+        "extruded_volume_mm3": 104046.34595762208,
+        "layer_count": 232,
+        "print_time_s": 14387.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      }
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-032-finalize-optimization",
+  "tool_version": "0.1.0-draft.1"
+}

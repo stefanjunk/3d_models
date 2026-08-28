@@ -1,0 +1,301 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-freeform-validation",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "profile": "draft",
+  "inputs": [
+    {
+      "path": "parameters.yaml",
+      "sha256": "b4ad21a51e7ebbb0f11fbf9fe7d9cadc8c757869b56e7ab8a26d3d4618fc7e38",
+      "size_bytes": 2640
+    },
+    {
+      "path": "validation/generation-report.json",
+      "sha256": "12646b682655df7bc8b74431f1c4abfc5b4cdcf2b49151f096b1f82ab9aabe5d",
+      "size_bytes": 14580
+    },
+    {
+      "path": "generate_v6_2.py",
+      "sha256": "bd5540590559164310e3f677118e172e23523090095c580753b03cf67c4bfe4c",
+      "size_bytes": 28546
+    }
+  ],
+  "checks": [
+    {
+      "id": "direct-freeform-method",
+      "status": "PASS",
+      "required": true,
+      "message": "Upper uses the approved direct freeform route",
+      "metrics": {
+        "name": "direct-c2-freeform-domain-loft",
+        "longitudinal_interpolation": "natural-cubic-c2",
+        "voxel_grid": false,
+        "distance_field": false,
+        "marching_cubes": false,
+        "global_remesh": false,
+        "collar": "parametric domain opening plus explicit rounded edge cap"
+      },
+      "evidence": []
+    },
+    {
+      "id": "protected-sole-interface",
+      "status": "PASS",
+      "required": true,
+      "message": "Sole/lip attachment hardpoints remain within the approved drift",
+      "metrics": {
+        "maximum_drift_mm": 1.4210854715202004e-13,
+        "limit_mm": 0.2
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-wall-contract",
+      "status": "PASS",
+      "required": true,
+      "message": "Thin shell and reinforcement frame reach the approved collar wall",
+      "metrics": {
+        "fuzzy_base_wall_mm": 1.4,
+        "fuzzy_collar_wall_mm": 2.6000000000000014,
+        "frame_collar_wall_mm": 2.6000000000000014,
+        "base_minimum_mm": 1.4,
+        "collar_minimum_mm": 2.6
+      },
+      "evidence": []
+    },
+    {
+      "id": "visible-tessellation",
+      "status": "PASS",
+      "required": true,
+      "message": "Visible freeform triangles remain below the approved edge target",
+      "metrics": {
+        "maximum_edge_mm": 1.2215826819467321,
+        "limit_mm": 1.25
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-opening-preservation",
+      "status": "PASS",
+      "required": true,
+      "message": "Rounded free edge does not constrict the opening beyond the approved limit",
+      "metrics": {
+        "maximum_reduction_each_side_mm": 0.8,
+        "limit_mm": 0.8
+      },
+      "evidence": []
+    },
+    {
+      "id": "guide-curve-fairness",
+      "status": "PASS",
+      "required": true,
+      "message": "Central guide curves contain no unexplained high-frequency curvature oscillation",
+      "metrics": {
+        "curves": {
+          "r=-0.90": {
+            "csv": "source/curves/guidemrmm0p90.csv",
+            "point_count": 4001,
+            "length_mm": 299.68345117355693,
+            "curvature_rms_1_per_mm": 0.020962794570899723,
+            "curvature_max_1_per_mm": 0.10910424494262036,
+            "all_prominent_extrema": 6,
+            "unexplained_central_extrema": 2,
+            "unexplained_central_curvature_max_1_per_mm": 0.010019095247810668,
+            "unexplained_central_y_mm": [
+              128.64000000000001,
+              219.76000000000002
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=-0.65": {
+            "csv": "source/curves/guidemrmm0p65.csv",
+            "point_count": 4001,
+            "length_mm": 316.05727243362276,
+            "curvature_rms_1_per_mm": 0.053146046711400836,
+            "curvature_max_1_per_mm": 0.5090889212914148,
+            "all_prominent_extrema": 9,
+            "unexplained_central_extrema": 3,
+            "unexplained_central_curvature_max_1_per_mm": 0.031642474855229266,
+            "unexplained_central_y_mm": [
+              59.027,
+              182.24,
+              234.299
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=-0.35": {
+            "csv": "source/curves/guidemrmm0p35.csv",
+            "point_count": 4001,
+            "length_mm": 329.42041271976075,
+            "curvature_rms_1_per_mm": 0.07289578541051642,
+            "curvature_max_1_per_mm": 0.7779086986344089,
+            "all_prominent_extrema": 8,
+            "unexplained_central_extrema": 2,
+            "unexplained_central_curvature_max_1_per_mm": 0.03638488822306431,
+            "unexplained_central_y_mm": [
+              59.027,
+              234.5
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.00": {
+            "csv": "source/curves/guidemrmp0p00.csv",
+            "point_count": 4001,
+            "length_mm": 319.4712274359795,
+            "curvature_rms_1_per_mm": 0.08293675724806028,
+            "curvature_max_1_per_mm": 0.9282263944541149,
+            "all_prominent_extrema": 8,
+            "unexplained_central_extrema": 2,
+            "unexplained_central_curvature_max_1_per_mm": 0.01736621770567987,
+            "unexplained_central_y_mm": [
+              59.027,
+              235.77300000000002
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.35": {
+            "csv": "source/curves/guidemrmp0p35.csv",
+            "point_count": 4001,
+            "length_mm": 329.0009904318842,
+            "curvature_rms_1_per_mm": 0.07190325174808872,
+            "curvature_max_1_per_mm": 0.7693065794664045,
+            "all_prominent_extrema": 8,
+            "unexplained_central_extrema": 2,
+            "unexplained_central_curvature_max_1_per_mm": 0.037454091002656786,
+            "unexplained_central_y_mm": [
+              59.027,
+              235.77300000000002
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.65": {
+            "csv": "source/curves/guidemrmp0p65.csv",
+            "point_count": 4001,
+            "length_mm": 316.22544487595576,
+            "curvature_rms_1_per_mm": 0.05378605447074519,
+            "curvature_max_1_per_mm": 0.5155471491597144,
+            "all_prominent_extrema": 9,
+            "unexplained_central_extrema": 3,
+            "unexplained_central_curvature_max_1_per_mm": 0.03475529405928616,
+            "unexplained_central_y_mm": [
+              59.027,
+              182.24,
+              235.77300000000002
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.90": {
+            "csv": "source/curves/guidemrmp0p90.csv",
+            "point_count": 4001,
+            "length_mm": 300.9150130129432,
+            "curvature_rms_1_per_mm": 0.023685818143936353,
+            "curvature_max_1_per_mm": 0.11698235827849614,
+            "all_prominent_extrema": 6,
+            "unexplained_central_extrema": 1,
+            "unexplained_central_curvature_max_1_per_mm": 0.009091235537498467,
+            "unexplained_central_y_mm": [
+              128.573
+            ],
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          }
+        },
+        "maximum_unexplained_extrema": 3,
+        "extrema_limit": 4,
+        "maximum_unexplained_curvature_1_per_mm": 0.037454091002656786,
+        "curvature_limit_1_per_mm": 0.05,
+        "note": "Tight heel/toe closure extrema are declared semantic transition features, not surface noise."
+      },
+      "evidence": []
+    },
+    {
+      "id": "generation-artifact-freshness",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated artifacts match the hashes in the generation report",
+      "metrics": {
+        "stale_or_missing": [],
+        "artifact_count": 8
+      },
+      "evidence": []
+    }
+  ],
+  "metrics": {
+    "maximum_interface_drift_mm": 1.4210854715202004e-13,
+    "maximum_visible_edge_mm": 1.2215826819467321,
+    "maximum_unexplained_curvature_1_per_mm": 0.037454091002656786,
+    "maximum_unexplained_extrema": 3
+  },
+  "limitations": [
+    "Numerical fairness does not replace highlight/zebra review.",
+    "Constructed offset distance is not a physical TPU wall measurement.",
+    "Comfort, fit, flex life, skin compatibility, and appearance remain human/physical gates."
+  ],
+  "required_capabilities": [
+    "numpy",
+    "scipy",
+    "yaml"
+  ]
+}

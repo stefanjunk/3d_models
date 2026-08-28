@@ -1,0 +1,8 @@
+# Research validation
+
+- Portfolio SKU-147 specifies paired spool/bobbin storage, a 220 × 160 × 180 mm maximum envelope, common-standard tests and inspection of every thread-contact edge. Source: `business/02-portfolio/research-ideas-additions.csv`.
+- Michaels' official 2026 Creativity Trend Report says analog-hobby searches rose 136% over six months, yarn-accessory sales 40% year over year and sewing-pattern searches 152% year over year. This supports the category direction but does not quantify demand for this exact rack: https://www.michaelspressroom.com/news/detail/5025/michaels-unveils-2026-creativity-trend-report-revealing
+- Singer's current help page specifies its transparent Class 15 bobbin at 21 mm diameter and 12 mm height and warns users to retain the correct class/style: https://help.singer.com/en-US/how-do-i-choose-the-right-singer-bobbin-389067
+- Brother's official manual identifies SA156/SFB for the referenced machine and shows 11.5 mm actual bobbin height, reinforcing type-specific rather than universal claims: https://www.brother-usa.com/-/media/brother/product-catalog-media/documents/2020/08/21/14/40/um_xl_2230_en_205.pdf
+- Etsy's current 3D-printed thread-holder market has 73+ results and includes products explicitly praised for holding a spool and bobbin together; many are pegboard accessories. This validates known competition and favors a freestanding measured alternative: https://www.etsy.com/market/3d_printed_thread_spool_holder
+- Opportunity conclusion: proceed with a brand-neutral eight-pair freestanding rack, 45/22 mm conservative stored envelopes and separate real-object pin gauges. Do not claim that a stored bobbin is correct for any sewing machine.

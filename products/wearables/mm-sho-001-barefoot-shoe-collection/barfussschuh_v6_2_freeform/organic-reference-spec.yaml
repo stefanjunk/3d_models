@@ -1,0 +1,44 @@
+project:
+  name: "MM-SHO-001 V6.2 freeform upper reference rebuild"
+  purpose: "replace voxel-generated upper surface while preserving the V6.1 sole interface"
+  source_file: "../barfussschuh_v6_1_fitfix/v6_1_upper_fuzzy_shell_left.stl"
+  source_sha256: "072689bb225acfbcbfa38288dbbb6fc514e7b6616fb7c6ddeedbd92d44624b09"
+  units: mm
+
+coordinate_frame:
+  origin_landmark: "V6.1 heel-center datum"
+  up_axis: "+Z"
+  forward_axis: "+Y"
+  right_axis: "+X"
+  source_to_working_transform_4x4: null
+  landmarks:
+    - {name: heel-center, point_mm: [0.0, 0.0, 0.0]}
+    - {name: ball-center, point_mm: [-1.0, 192.96, 4.9]}
+    - {name: toe-center, point_mm: [5.0, 268.0, 9.9]}
+
+regions:
+  protected: "lower 10 mm sole/lip attachment interface and V6.1 sole geometry"
+  editable: "entire visible upper envelope and ankle/foot opening above the protected interface"
+  interface: "sole-derived lower upper edge with 4.0 mm inset per side"
+
+requirements:
+  minimum_wall_mm: 1.4
+  minimum_clearance_mm: 0.8
+  boolean_epsilon_mm: 0.05
+  expected_components: 1
+  require_watertight: true
+  preserve_outside_roi_p95_mm: 0.20
+  preserve_outside_roi_max_mm: 0.50
+
+manufacturing:
+  process: FDM
+  material: "soft TPU 85A–90A candidate; exact product open"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  build_volume_mm: [300, 300, 300]
+  preferred_orientation: "retain V6/V6.1 upper orientation pending exact slicer review"
+
+validation:
+  physical_test: "collar coupon, 50 hand-flex cycles, controlled adult fit trial"
+  simulation: "none; geometry and physical coupon dominate"
+  acceptance_notes: "V6.1 visible voxel texture is deliberately not preserved; only the sole interface is authoritative."

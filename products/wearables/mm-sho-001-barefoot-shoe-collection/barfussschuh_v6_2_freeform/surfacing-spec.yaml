@@ -1,0 +1,115 @@
+schema_version: 1
+project:
+  name: barefoot-shoe-v6-2-freeform-upper
+  units: mm
+  product_family: barefoot-shoe-upper
+  language: de
+  manufacturing: fdm-fff
+  risk_class: normal-functional
+
+intent:
+  visual_language:
+    keywords: [smooth, organic, soft, restrained]
+    forbidden_characteristics: [voxel-stepped, faceted, sharp-collar, arbitrary-waves]
+  symmetry: mirrored-left-to-right
+  visible_surfaces: [outer-upper-envelope, collar-band]
+  reference_role: inspiration
+  reference_provenance:
+    - path: ../barfussschuh_v6_1_fitfix/v6_1_upper_fuzzy_shell_left.stl
+      sha256: 072689bb225acfbcbfa38288dbbb6fc514e7b6616fb7c6ddeedbd92d44624b09
+      role: silhouette-and-interface-reference
+
+semantic_parameters:
+  - name: upper_length
+    value: 268.0
+    min: 250.0
+    max: 285.0
+    unit: mm
+    affects: [stations, envelope, collar-position]
+  - name: lower_interface_inset
+    value: 4.0
+    min: 3.5
+    max: 4.5
+    unit: mm
+    affects: [sole-interface]
+  - name: collar_band_width
+    value: 5.0
+    min: 4.0
+    max: 7.0
+    unit: mm
+    affects: [collar-band, opening]
+  - name: collar_band_target_wall
+    value: 2.6
+    min: 2.2
+    max: 3.2
+    unit: mm
+    affects: [collar-band, edge-round]
+  - name: collar_edge_radius
+    value: 1.0
+    min: 0.8
+    max: 1.4
+    unit: mm
+    affects: [free-edge]
+
+hardpoints:
+  tolerance_mm: 0.20
+  datum_planes:
+    - {name: symmetry-plane, definition: "X=0"}
+    - {name: sole-datum, definition: "V6.1 working Z datum"}
+  points:
+    - {name: heel-end, value_mm: [0.0, 0.0, 0.0]}
+    - {name: toe-end-centerline, value_mm: [5.0, 268.0, 9.9]}
+  axes:
+    - {name: longitudinal-axis, origin_mm: [0.0, 0.0, 0.0], direction: [0.0, 1.0, 0.0]}
+  protected_faces:
+    - "lower 10 mm sole/lip attachment band"
+  keep_out_volumes:
+    - "declared foot/ankle opening"
+
+surface_strategy:
+  primary: bspline-loft
+  continuity_default: G2
+  intentional_creases: []
+  section_count_target: 14
+  controls_per_curve_target: 8
+  closed_section_seam_landmark: sole-interface-medial
+
+reference_fitting:
+  enabled: true
+  target_file: ../barfussschuh_v6_1_fitfix/v6_1_upper_fuzzy_shell_left.stl
+  fit_region: "overall silhouette excluding voxel-scale surface and collar edge"
+  maximum_rms_error_mm: 1.5
+  maximum_local_error_mm: 3.0
+  preserve_target_noise: false
+
+fdm:
+  printer_build_volume_mm: [300.0, 300.0, 300.0]
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.12, 0.24]
+  intended_orientation: "V6/V6.1 upper orientation; exact slicer review pending"
+  visible_orientation_sensitive_regions: [outer-upper-envelope, collar-band]
+  minimum_wall_mm: 1.4
+  maximum_overhang_deg_from_vertical: 50.0
+  mesh_export:
+    chord_tolerance_mm: 0.08
+    angular_tolerance_deg: 3.0
+    maximum_edge_mm: 1.25
+
+acceptance:
+  hardpoint_drift_mm_max: 0.20
+  watertight_when_solid: true
+  connected_components_expected: 1
+  degenerate_face_count_max: 0
+  curvature_spikes_allowed: 0
+  unexplained_curvature_extrema_per_primary_curve_max: 4
+  self_intersections_allowed: false
+  minimum_signed_volume_mm3: 1.0
+  slicer_review_required: true
+  physical_coupon_required: true
+
+outputs:
+  editable_source_required: true
+  step_required: false
+  obj_required: true
+  stl_or_3mf_required: true
+  reports_required: true

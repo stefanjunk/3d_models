@@ -1,0 +1,344 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "eight-pairs",
+      "message": "Eight spool/bobbin pair identities share X centerlines",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "envelope-gap",
+      "message": "Stored planning envelopes retain minimum gap",
+      "metrics": {
+        "minimum_gap_mm": 1.5
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "spool-gauge",
+      "message": "Spool gauge brackets selected pin",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bobbin-gauge",
+      "message": "Bobbin gauge brackets selected pin",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fillets",
+      "message": "All declared thread-contact transitions retain fillets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "labels",
+      "message": "Four flat label datums are declared",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-fit",
+      "message": "Light variant does not alter fit pins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "570a4690c1d8c9b9da6bb0275cf4b8be53286fc8296566aacca71e67709623d3",
+      "size_bytes": 2093
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "00515a874fa21252a85ecd7349bae40b1402422b2eb6ff21db2d19e8feb0ae9f",
+      "size_bytes": 22177
+    }
+  ],
+  "limitations": [
+    "Real bores, bobbin machine compatibility, thread snag and loaded stability require physical checks."
+  ],
+  "metrics": {
+    "interfaces": {
+      "bobbin-post-gauge": {
+        "candidate_diameters_mm": [
+          3.5,
+          4.0,
+          4.5,
+          5.0
+        ],
+        "external_assets": [],
+        "outer_bounds_mm": [
+          76.0,
+          22.0,
+          15.0
+        ],
+        "part_id": "bobbin-post-gauge",
+        "print_orientation": "base_down",
+        "selected_diameter_mm": 4.5,
+        "station_order": "left_to_right_ascending",
+        "tip_fillet_mm": 1.2
+      },
+      "light-rack": {
+        "base_mm": 2.4,
+        "bobbin_post_diameter_mm": 4.5,
+        "bobbin_tip_fillet_mm": 1.4,
+        "collar_top_fillet_mm": 0.8,
+        "external_assets": [],
+        "label_datums": [
+          {
+            "column": 1,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 2,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 3,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 4,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          }
+        ],
+        "light_variant": true,
+        "outer_bounds_mm": [
+          208.0,
+          151.0,
+          64.4
+        ],
+        "pair_count": 8,
+        "part_id": "light-rack",
+        "print_orientation": "base_down",
+        "spool_post_diameter_mm": 5.0,
+        "spool_tip_fillet_mm": 1.6,
+        "stations": [
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 1,
+            "pair_id": "front-1",
+            "spool_y_mm": 25.0,
+            "x_mm": 26.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 2,
+            "pair_id": "front-2",
+            "spool_y_mm": 25.0,
+            "x_mm": 78.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 3,
+            "pair_id": "front-3",
+            "spool_y_mm": 25.0,
+            "x_mm": 130.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 4,
+            "pair_id": "front-4",
+            "spool_y_mm": 25.0,
+            "x_mm": 182.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 1,
+            "pair_id": "rear-1",
+            "spool_y_mm": 126.0,
+            "x_mm": 26.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 2,
+            "pair_id": "rear-2",
+            "spool_y_mm": 126.0,
+            "x_mm": 78.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 3,
+            "pair_id": "rear-3",
+            "spool_y_mm": 126.0,
+            "x_mm": 130.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 4,
+            "pair_id": "rear-4",
+            "spool_y_mm": 126.0,
+            "x_mm": 182.0
+          }
+        ],
+        "stored_envelope_gaps_mm": {
+          "bobbin_between_rows_mm": 9.0,
+          "spool_between_columns_mm": 7.0,
+          "spool_to_bobbin_same_pair_mm": 1.5
+        },
+        "support_required": false
+      },
+      "rack": {
+        "base_mm": 3.0,
+        "bobbin_post_diameter_mm": 4.5,
+        "bobbin_tip_fillet_mm": 1.4,
+        "collar_top_fillet_mm": 0.8,
+        "external_assets": [],
+        "label_datums": [
+          {
+            "column": 1,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 2,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 3,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          },
+          {
+            "column": 4,
+            "height_mm": 10.0,
+            "width_mm": 42.0
+          }
+        ],
+        "light_variant": false,
+        "outer_bounds_mm": [
+          208.0,
+          151.0,
+          65.0
+        ],
+        "pair_count": 8,
+        "part_id": "rack",
+        "print_orientation": "base_down",
+        "spool_post_diameter_mm": 5.0,
+        "spool_tip_fillet_mm": 1.6,
+        "stations": [
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 1,
+            "pair_id": "front-1",
+            "spool_y_mm": 25.0,
+            "x_mm": 26.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 2,
+            "pair_id": "front-2",
+            "spool_y_mm": 25.0,
+            "x_mm": 78.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 3,
+            "pair_id": "front-3",
+            "spool_y_mm": 25.0,
+            "x_mm": 130.0
+          },
+          {
+            "bobbin_y_mm": 60.0,
+            "column": 4,
+            "pair_id": "front-4",
+            "spool_y_mm": 25.0,
+            "x_mm": 182.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 1,
+            "pair_id": "rear-1",
+            "spool_y_mm": 126.0,
+            "x_mm": 26.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 2,
+            "pair_id": "rear-2",
+            "spool_y_mm": 126.0,
+            "x_mm": 78.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 3,
+            "pair_id": "rear-3",
+            "spool_y_mm": 126.0,
+            "x_mm": 130.0
+          },
+          {
+            "bobbin_y_mm": 91.0,
+            "column": 4,
+            "pair_id": "rear-4",
+            "spool_y_mm": 126.0,
+            "x_mm": 182.0
+          }
+        ],
+        "stored_envelope_gaps_mm": {
+          "bobbin_between_rows_mm": 9.0,
+          "spool_between_columns_mm": 7.0,
+          "spool_to_bobbin_same_pair_mm": 1.5
+        },
+        "support_required": false
+      },
+      "spool-post-gauge": {
+        "candidate_diameters_mm": [
+          4.0,
+          4.5,
+          5.0,
+          5.5
+        ],
+        "external_assets": [],
+        "outer_bounds_mm": [
+          76.0,
+          22.0,
+          15.0
+        ],
+        "part_id": "spool-post-gauge",
+        "print_orientation": "base_down",
+        "selected_diameter_mm": 5.0,
+        "station_order": "left_to_right_ascending",
+        "tip_fillet_mm": 1.2
+      }
+    },
+    "minimum_stored_envelope_gap_mm": 1.5,
+    "stored_envelopes_mm": {
+      "bobbin": [
+        22.0,
+        12.5
+      ],
+      "spool": [
+        45.0,
+        60.0
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-032-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

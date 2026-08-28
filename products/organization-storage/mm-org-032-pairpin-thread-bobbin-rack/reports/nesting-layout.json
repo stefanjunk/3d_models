@@ -1,0 +1,71 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "non-overlap",
+      "message": "Three objects retain the configured gap",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-bounds",
+      "message": "Layout respects conservative bed margins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "570a4690c1d8c9b9da6bb0275cf4b8be53286fc8296566aacca71e67709623d3",
+      "size_bytes": 2093
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "00515a874fa21252a85ecd7349bae40b1402422b2eb6ff21db2d19e8feb0ae9f",
+      "size_bytes": 22177
+    }
+  ],
+  "limitations": [
+    "Exact destination profile remains authoritative."
+  ],
+  "metrics": {
+    "minimum_gap_mm": 10.0,
+    "object_count": 3,
+    "objects": [
+      {
+        "name": "rack",
+        "x0": 10.0,
+        "x1": 218.0,
+        "y0": 10.0,
+        "y1": 161.0
+      },
+      {
+        "name": "spool-post-gauge",
+        "x0": 230.0,
+        "x1": 306.0,
+        "y0": 10.0,
+        "y1": 32.0
+      },
+      {
+        "name": "bobbin-post-gauge",
+        "x0": 230.0,
+        "x1": 306.0,
+        "y0": 50.0,
+        "y1": 72.0
+      }
+    ],
+    "plate_count": 1
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-032-nesting-layout",
+  "tool_version": "0.1.0-draft.1"
+}

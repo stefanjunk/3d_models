@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "project": {"id":"MM-ORG-025","revision":"0.1.0-draft.1","units":"mm","risk_class":"normal-functional","build_volume_mm":[426,420,501]},
+  "artifacts": [
+    {"id":"palette-grid-base","path":"exports/manufacturing/DRAFT-MM-ORG-025-palette-grid-base-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"removable-divider","path":"exports/manufacturing/DRAFT-MM-ORG-025-removable-divider-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"slot-gauge","path":"exports/coupons/DRAFT-MM-ORG-025-slot-gauge-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"divider-fit-key","path":"exports/coupons/DRAFT-MM-ORG-025-divider-fit-key-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"build-3mf","path":"exports/3mf/DRAFT-MM-ORG-025-adjustable-vertical-makeup-palette-organizer-0.1.0-draft.1.3mf","kind":"3mf","revision":"0.1.0-draft.1"},
+    {"id":"parametric-report","path":"validation/parametric-source-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"mesh-generation-report","path":"validation/mesh-generation-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"interface-report","path":"validation/interface-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-base","path":"validation/fdm-mesh-palette-grid-base.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-divider","path":"validation/fdm-mesh-removable-divider.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-gauge","path":"validation/fdm-mesh-slot-gauge.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-key","path":"validation/fdm-mesh-divider-fit-key.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"fdm-3mf-report","path":"validation/fdm-3mf.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"slicer-report","path":"validation/slicer-anycubic-next.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"approvals-slicer","path":"validation/approvals-through-slicer.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"print-candidate-report","path":"validation/print-candidate-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"approvals-print","path":"validation/approvals-through-print-candidate.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"autonomy","path":"autonomy-policy.json","kind":"autonomy-policy","revision":"0.1.0-draft.1"},
+    {"id":"ledger","path":"validation/agent-approvals.json","kind":"approval-ledger","revision":"0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id":"base-mesh","type":"mesh","required":true,"artifact":"palette-grid-base","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"divider-mesh","type":"mesh","required":true,"artifact":"removable-divider","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"gauge-mesh","type":"mesh","required":true,"artifact":"slot-gauge","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"key-mesh","type":"mesh","required":true,"artifact":"divider-fit-key","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"build-3mf-structure","type":"3mf","required":true,"artifact":"build-3mf","policy":{"inspect_meshes":true,"require_watertight_meshes":true,"require_positive_volume":true,"require_unit":"millimeter","min_mesh_objects":10,"max_package_members":14,"max_uncompressed_mib":30,"max_compression_ratio":200}},
+    {"id":"slicer","type":"external_report","required":true,"artifact":"slicer-report","expected_inputs":["build-3mf"]},
+    {"id":"print-candidate","type":"external_report","required":true,"artifact":"print-candidate-report","expected_inputs":["parametric-report","mesh-generation-report","interface-report","audit-base","audit-divider","audit-gauge","audit-key","fdm-3mf-report","slicer-report","approvals-slicer"]},
+    {"id":"approvals-through-print-candidate","type":"approvals","required":true,"policy_artifact":"autonomy","agent_ledger_artifact":"ledger","target_stage":"print-candidate"},
+    {"id":"physical-fit-tip-abrasion-retrieval-and-cycle","type":"physical","required":false,"status":"REVIEW_REQUIRED","criterion":"Chosen coupon station, palette retrieval and marking, loaded tip behavior, 100 palette cycles, 500 divider cycles and 7-day creep pass","evidence_artifact":null}
+  ]
+}

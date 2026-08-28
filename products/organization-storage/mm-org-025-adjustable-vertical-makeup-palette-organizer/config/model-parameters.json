@@ -1,0 +1,74 @@
+{
+  "project": {
+    "id": "MM-ORG-025",
+    "revision": "0.1.0-draft.1",
+    "source_sku": "SKU-007",
+    "units": "mm"
+  },
+  "base": {
+    "width_mm": 190.0,
+    "depth_mm": 106.0,
+    "rail_depth_mm": 16.0,
+    "middle_rail_depth_mm": 12.0,
+    "rail_height_mm": 10.0,
+    "side_rail_width_mm": 6.0,
+    "side_rail_height_mm": 4.0,
+    "corner_radius_mm": 2.0,
+    "slot_count": 16,
+    "slot_pitch_mm": 11.5,
+    "slot_width_mm": 2.9,
+    "slot_length_mm": 10.0
+  },
+  "divider": {
+    "panel_depth_mm": 98.0,
+    "panel_height_mm": 62.0,
+    "thickness_mm": 2.4,
+    "edge_radius_mm": 4.0,
+    "window_depth_mm": 76.0,
+    "window_height_mm": 40.0,
+    "window_radius_mm": 8.0,
+    "foot_length_mm": 9.4,
+    "foot_depth_mm": 8.0,
+    "foot_center_y_mm": 45.0,
+    "default_slot_indices": [0, 2, 4, 6, 8, 11, 15],
+    "minimum_palette_clearance_mm": 1.0
+  },
+  "coupon": {
+    "gauge_width_mm": 48.0,
+    "gauge_depth_mm": 18.0,
+    "gauge_height_mm": 10.0,
+    "candidate_slot_widths_mm": [2.7, 2.9, 3.1],
+    "station_centers_x_mm": [-15.0, 0.0, 15.0],
+    "key_grip_width_mm": 24.0,
+    "key_grip_height_mm": 16.0
+  },
+  "capture": {
+    "reference_length_mm": 100.0,
+    "maximum_perspective_skew_percent": 3.0,
+    "thickness_measurement_method": "caliper",
+    "photo_measurements": ["closed_face_width_mm", "closed_face_height_mm"],
+    "manual_measurements": ["closed_thickness_mm"]
+  },
+  "workflow_contract": {
+    "input_dimensions": ["palette_closed_face_width", "palette_closed_face_height", "palette_closed_thickness", "palette_count", "available_footprint"],
+    "default_supported_palette_thicknesses_mm": [19.6, 19.6, 19.6, 19.6, 31.1, 42.6],
+    "orientation": "closed_palettes_vertical_like_books",
+    "claim": "dry_countertop_storage_only_no_universal_fit_or_hygiene_claim",
+    "thermal_boundary": "keep_away_from_high_heat_hair_tools",
+    "small_parts_warning": "adult_use_removable_dividers"
+  },
+  "printer": {
+    "model": "Anycubic Kobra 3 Max",
+    "build_volume_mm": [426.0, 420.0, 501.0],
+    "nozzle_diameter_mm": 0.4,
+    "line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "reference_material": "Anycubic PETG"
+  },
+  "mesh": {
+    "linear_deflection_mm": 0.1,
+    "angular_deflection_rad": 0.18,
+    "triangle_stop": 60000,
+    "max_mesh_mib": 8.0
+  }
+}

@@ -1,0 +1,43 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-photo-plane-plus-caliper-depth-001
+title: Photo capture owns only calibrated in-plane dimensions while calipers own thickness
+category: interfaces
+status: draft
+trigger: A mostly planar customer object is measured from an overhead image to configure an FDM organizer.
+risk: The workflow could silently infer an unobservable depth or accept a perspective-skewed image and generate a false-fit compartment.
+given:
+  project: products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer
+  input_fixture: assets/photo-capture-example.json
+  capture_tool: tools/photo_dimension_capture.py
+expected:
+  - The calibrated fixture returns a 130.0 by 71.0 mm closed face.
+  - The output preserves the explicit 15.2 mm caliper thickness and recommends 16.2 mm minimum compartment clearance.
+  - Opposing-edge skew above 3 percent returns FAIL.
+  - A zero-length physical or pixel reference raises an error.
+failure_conditions:
+  - Thickness is calculated from image pixels instead of the explicit caliper field.
+  - The happy-path dimensions differ from their synthetic fixture values.
+  - The skewed fixture reports PASS or the zero reference is accepted.
+fixtures:
+  - products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/assets/photo-capture-example.json
+  - products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/tools/photo_dimension_capture.py
+  - products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/tests/test_parameters.py::test_photo_capture_happy_path products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/tests/test_parameters.py::test_photo_capture_fails_closed_on_perspective products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/tests/test_parameters.py::test_photo_capture_rejects_zero_reference -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Execute the synthetic calibration, skew and invalid-reference fixtures and compare explicit output fields.
+relationships:
+  lessons: [EXP-00019]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/reports/photo-capture-example-output.json
+  artifact_hashes:
+    - c3b61fd58f46d7f76bebe1506cf87c50ba0c34031fc0b6ab784ea5562d364cfe
+    - fe3d5844f30508f7c05603d726a1e4857dffdd372e7b3339f74a83a9ad945cf9
+    - 67e0d41576688a74c78c1af1f36913b3d9db7159bf7b3453e58d065439bb6ca8
+tags: [interfaces, measurement, photo-capture, caliper, perspective, regression]

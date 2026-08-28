@@ -1,0 +1,87 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All four B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every unique deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-array",
+      "message": "Sixteen exact grid positions are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "d691dd1fbf2a5b13ac8d236baff93df4d422fa40acc688aba48ec4c4c9df2de8",
+      "size_bytes": 2298
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "2788ccfd82e5928e142cdc999c975c137736e2b54ae8cea86c94ca9f3e765c43",
+      "size_bytes": 25063
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "palette-grid-base",
+      "removable-divider-01",
+      "removable-divider-02",
+      "removable-divider-03",
+      "removable-divider-04",
+      "removable-divider-05",
+      "removable-divider-06",
+      "removable-divider-07",
+      "slot-gauge",
+      "divider-fit-key"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "palette-grid-base",
+      "removable-divider",
+      "slot-gauge",
+      "divider-fit-key"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-025-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

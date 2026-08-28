@@ -1,0 +1,33 @@
+project:
+  id: MM-ORG-025
+  revision: 0.1.0-draft.1
+  title: PaletteGrid adjustable vertical makeup-palette organizer
+  source_sku: SKU-007
+  opportunity_score: 88.0
+  next_candidate_rank: 17
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Store closed dry makeup palettes upright with spacing matched to measured thicknesses.
+  excluded: [universal brand fit, cosmetic formulation contact, hygiene or sanitation, waterproofing, heated-tool storage, child-directed use, load rating]
+
+requirements:
+  - {id: R1, text: Make palette thickness capacity configurable., acceptance: sixteen 11.5 mm grid positions accept seven movable dividers., status: PASS_DIGITAL}
+  - {id: R2, text: Make the removable interface measurable., acceptance: a 2.4 mm fit key and 2.7 2.9 3.1 mm slot gauge bracket the 2.9 mm production slot., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R3, text: Capture palette dimensions without brand presets., acceptance: calibrated overhead-photo tool returns width and height while requiring manual closed-thickness input., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Fit the researched portfolio envelope., acceptance: assembled envelope remains within 225 x 110 x 135 mm., status: PASS_DIGITAL}
+  - {id: R5, text: Print without supports., acceptance: base divider and two coupons plus ten-object exact-profile slice pass in declared orientations., status: PASS_DIGITAL}
+  - {id: R6, text: Bound storage and safety claims., acceptance: dry countertop use and high-heat exclusion are explicit; fit tip abrasion and retrieval remain physical gates., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+
+manufacturing:
+  process: FDM
+  material: PETG
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PETG
+
+validation:
+  deterministic: [parameter relations, photo-capture math, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [slot selection, divider insertion and removal, palette retrieval, surface marking, loaded tip stability, 500 divider cycles]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

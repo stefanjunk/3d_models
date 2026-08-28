@@ -1,0 +1,238 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slot-pitch",
+      "message": "All grid stations use 11.5 mm pitch",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slot-clearance",
+      "message": "Default slot has 0.5 mm total tongue clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "length-clearance",
+      "message": "Default slot has 0.6 mm total tongue-length clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-brackets-default",
+      "message": "Gauge brackets the default slot by plus/minus 0.2 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-key-matches-divider",
+      "message": "Fit key reproduces divider tongue section",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "default-layout",
+      "message": "Default seven-divider layout is exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "compartment-series",
+      "message": "Six default clear compartments are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "palette-margin",
+      "message": "Every declared palette thickness keeps 1.0 mm retrieval clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "Assembly fits the researched 225 x 110 x 135 mm envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-conscious",
+      "message": "All unique parts have support-free declared orientations",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "Dry-storage claim boundary is explicit",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "d691dd1fbf2a5b13ac8d236baff93df4d422fa40acc688aba48ec4c4c9df2de8",
+      "size_bytes": 2298
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "2788ccfd82e5928e142cdc999c975c137736e2b54ae8cea86c94ca9f3e765c43",
+      "size_bytes": 25063
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "195c64dde88f4facff12bcfa8db701acbd72533ea82f14010745914e0eaf276e",
+      "size_bytes": 2189
+    }
+  ],
+  "limitations": [
+    "Analytic clearances cannot establish insert force, wear, palette surface marking or tip resistance."
+  ],
+  "metrics": {
+    "interfaces": {
+      "divider-fit-key": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          24.0,
+          24.0,
+          2.4
+        ],
+        "part_id": "divider-fit-key",
+        "print_orientation": "broad_face_down",
+        "tongue_depth_mm": 8.0,
+        "tongue_length_mm": 9.4,
+        "tongue_thickness_mm": 2.4
+      },
+      "palette-grid-base": {
+        "default_compartment_clear_mm": [
+          20.6,
+          20.6,
+          20.6,
+          20.6,
+          32.1,
+          43.6
+        ],
+        "default_divider_indices": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          11,
+          15
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          190.0,
+          106.0,
+          10.0
+        ],
+        "part_id": "palette-grid-base",
+        "print_orientation": "rails_on_bed",
+        "slot_length_mm": 10.0,
+        "slot_positions_x_mm": [
+          -86.25,
+          -74.75,
+          -63.25,
+          -51.75,
+          -40.25,
+          -28.75,
+          -17.25,
+          -5.75,
+          5.75,
+          17.25,
+          28.75,
+          40.25,
+          51.75,
+          63.25,
+          74.75,
+          86.25
+        ],
+        "slot_width_mm": 2.9
+      },
+      "removable-divider": {
+        "external_assets": [],
+        "installed_height_above_base_mm": 62.0,
+        "outer_dimensions_mm": [
+          99.4,
+          70.0,
+          2.4
+        ],
+        "part_id": "removable-divider",
+        "print_orientation": "broad_face_down",
+        "tongue_depth_mm": 8.0,
+        "tongue_length_mm": 9.4,
+        "tongue_thickness_mm": 2.4
+      },
+      "slot-gauge": {
+        "candidate_slot_widths_mm": [
+          2.7,
+          2.9,
+          3.1
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          48.0,
+          18.0,
+          10.0
+        ],
+        "part_id": "slot-gauge",
+        "print_orientation": "broad_face_down",
+        "slot_length_mm": 10.0,
+        "station_centers_x_mm": [
+          -15.0,
+          0.0,
+          15.0
+        ]
+      }
+    },
+    "workflow_contract": {
+      "claim": "dry_countertop_storage_only_no_universal_fit_or_hygiene_claim",
+      "default_supported_palette_thicknesses_mm": [
+        19.6,
+        19.6,
+        19.6,
+        19.6,
+        31.1,
+        42.6
+      ],
+      "input_dimensions": [
+        "palette_closed_face_width",
+        "palette_closed_face_height",
+        "palette_closed_thickness",
+        "palette_count",
+        "available_footprint"
+      ],
+      "orientation": "closed_palettes_vertical_like_books",
+      "small_parts_warning": "adult_use_removable_dividers",
+      "thermal_boundary": "keep_away_from_high_heat_hair_tools"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-025-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

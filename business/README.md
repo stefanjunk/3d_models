@@ -43,6 +43,7 @@ The first transactional release remains digital-only, Germany-only, with one saf
 | Digital and printed operations | [Digital fulfillment](04-operations/digital-fulfillment.md), [printed fulfillment](04-operations/printed-fulfillment.md) |
 | Customer operations | [Support and incidents](04-operations/customer-support-returns-incidents.md) |
 | MVP shop | [MVP scope](05-webshop/mvp-scope.md), [website gap review](05-webshop/website-gap-review.md) |
+| metriCreate business and website concept | [Business/website review and visual directions](05-webshop/metricreate-business-and-website-review.md) |
 | Firebase environments and launch readiness | [Environment readiness](05-webshop/environment-readiness.md) |
 | Required catalog content | [Catalog requirements](05-webshop/catalog-content-requirements.md) |
 | Legal operator and public identity | [Operator profile](06-legal-compliance/operator-profile.md) |

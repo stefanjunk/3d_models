@@ -1,0 +1,214 @@
+project:
+  id: MM-BOAT-003
+  name: "Flapping-Tail Spielzeug-U-Boot — Fish Silhouette Revision"
+  revision: 1.1.0-draft.1
+  owner: Stefan
+  revised: "2026-08-28"
+  supersedes_geometry: "1.0.0 cylindrical body with five circular add-on ribs"
+  units: mm
+
+workflow:
+  autonomy_policy: null
+  requirements_approval:
+    status: approved
+    spec_revision: 1.1.0-draft.1
+    approved_by: "Stefan — explicit chat approval"
+    approved_at: "2026-08-28"
+  concept_approval:
+    status: pending
+    spec_revision: null
+    asset: null
+    approved_by: null
+    approved_at: null
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: MM-WM-001-R2
+    product_id: MM-BOAT-003
+    version: 1.1.0-draft.1
+    approved_by: null
+    approved_at: null
+
+requirements_trace:
+  user_stated:
+    - "Der Rumpf soll deutlich fischförmiger und insgesamt stromlinienförmiger werden."
+    - "Die Form soll mit Freeform-Surfacing statt nur mit technischen Grundkörpern entstehen."
+    - "Längsrippen und/oder Flossen dürfen die Fischsilhouette in der Seitenansicht unterstützen."
+  inferred:
+    - "Das bestehende Flapping-Tail-U-Boot, seine segmentierte Beweglichkeit und seine Antriebsfunktion bleiben erhalten."
+    - "Gesucht ist eine klar lesbare, abstrahierte Fischform und kein realistisches Tier mit Augen, Maul oder Schuppentextur."
+    - "Die neutrale, gerade Montageansicht ist die maßgebliche Silhouette; Gelenkspalte bleiben wegen der Beweglichkeit sichtbar."
+  recommended:
+    - "Eine gemeinsame kubische Seiten- und Draufsicht-Führungskurve steuert Nase, vier Glieder, Kapsel und Heckübergang."
+    - "Die aktuelle Folge fast zylindrischer Trommeln wird durch registrierte elliptische Freiform-Querschnitte mit weichen Schultern ersetzt."
+    - "Fünf runde Aufsatzrippen werden durch drei breite, flache und G1/G2-verblendete Längskämme ersetzt: dorsal sowie links/rechts an der Schulter."
+    - "Eine kleine zurückgepfeilte Rückenflosse und zwei kurze, nach hinten gepfeilte Brustflossen geben eine eindeutige Fischlesbarkeit bei geringer zusätzlicher Stirnfläche."
+    - "Die einseitig nach unten laufende Schwanzflosse wird bei gleicher Antriebsschnittstelle durch eine symmetrische, weich gerundete Schwanzflosse ersetzt."
+    - "Keine Kiemen-, Schuppen- oder Hochrelief-Dekoration; die Silhouette und der Highlight-Verlauf tragen die Form."
+  unresolved_nonblocking:
+    - "Die endgültige Stärke von Rücken- und Brustflossen wird erst im Konzeptbild visuell bestätigt."
+    - "Der exakte Material-/Düsen-/Slicerprofilname bleibt für den späteren Anycubic-Slicer-Gate offen; die bestehende PETG-/0,4-mm-Basis bleibt vorläufig."
+
+function:
+  summary: >
+    Ein gelenkiges, ballastierbares Spielzeug-U-Boot, das sich über eine
+    motorisch schlagende Schwanzflosse fortbewegt und in neutraler Stellung
+    als kompakter, stromlinienförmiger Fisch lesbar ist.
+  users: ["erwachsene Bedienperson", "beaufsichtigtes Spielzeug-/Demomodell"]
+  included:
+    - "Bestehende Nase mit Schwimmblasen-Kolben"
+    - "Vier wasserdichte Gelenksegmente mit je ±10 Grad Seitenschwenkbereich"
+    - "Wasserdichte Elektronik-/Ballastkapsel mit Bajonettdeckel"
+    - "Bestehender N20-Kurbel-/Rocker-Antrieb und seitlich schlagende Flosse"
+    - "Neue freiformige Fischhülle, flache Längskämme, Rücken- und Brustflossen"
+  excluded:
+    - "Keine Änderung an Elektrik, Motor, Batterieformat, Ballastkonzept oder Schwimmblasenfunktion"
+    - "Keine realistische Tierhaut, Schuppenstruktur, Augen oder Maul"
+    - "Kein autonomer Drucker-Upload oder Druckstart"
+
+geometry:
+  coordinate_system:
+    x: "Nase nach Heck"
+    y: "Backbord/Steuerbord"
+    z: "oben"
+  current_assembled_bbox_mm: [413.2, 48.56, 86.13]
+  current_problem:
+    - "Fast konstante zylindrische Querschnitte erzeugen eine Trommel-/Raupenwirkung."
+    - "Der Sprung vom vierten Segment zur 44-mm-Kapsel unterbricht die Seiten- und Draufsicht-Silhouette."
+    - "Fünf schmale Rundrippen lesen sich als aufgesetzte Stäbe statt als organische Körperform."
+    - "Die aktuelle Schwanzflosse liegt vollständig unter der Körperachse und liest sich eher als Kiel/Ruder als als Fischschwanz."
+  target_envelope:
+    style: "abstrahierte stromlinienförmige Fisch-/Thunfischsilhouette mit technischer U-Boot-Anmutung"
+    body_strategy: "shared global guide curves plus registered elliptical section lofts per removable/moving part"
+    neutral_joint_alignment: "adjacent section heights and widths match within 1.0 mm per side at every joint"
+    joint_end_setback_mm: 1.5
+    longitudinal_crests: 3
+    dorsal_fin_count: 1
+    pectoral_fin_count: 2
+    tail_fin: "bilaterally symmetric rounded caudal planform on unchanged rocker tang/pin interface"
+    continuity:
+      primary_visible_envelope: G2-intent
+      fin_roots: G1-minimum
+      joint_cut_faces: intentional-sharp
+
+protected_interfaces:
+  hardpoint_drift_mm_max: 0.10
+  items:
+    - "Fünf vertikale Gelenkachsen, 4,5-mm-Bohrungen, Ohren und Zungen"
+    - "Bajonettgeometrie, Deckelsitz und alle O-Ring-Nuten"
+    - "Motorwellen-Gland, Motorhalter, Batteriemulden und Ballastbox"
+    - "Kurbel-, Rocker- und Flossen-Schwenkvolumen"
+    - "Schwimmblasenbohrung, Kolbenweg und Bedienknopf-Zugriff"
+    - "Kieltasche und M12x1,5-Stopfengewinde"
+  clearance_policy: >
+    Freiformflächen dürfen ausschließlich die äußere sichtbare Hülle ändern.
+    Exakte Bohrungen, Dichtflächen, Achsen und Sitzflächen werden nach jeder
+    Hülländerung regeneriert oder deterministisch gegen die Baseline geprüft.
+
+duty:
+  speed: "langsam, spielzeugtypisch; bestehender N20 mit 150–300 U/min"
+  cycle_target: "mindestens bestehender digitaler Mechanikbereich; physische Dauerprüfung offen"
+  service_life: "gelegentliche Nutzung im Becken, keine Dauerimmersion"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Wassereintritt in Batterie-/Motorkapsel"
+    - "Quetsch- und Klemmstellen an Gelenken und schlagender Flosse"
+    - "Abbrechende dünne Flossen oder kleine Befestigungsteile"
+  mitigations:
+    - "Dicht- und Mechanikschnittstellen bleiben geometrisch geschützt und werden erneut geprüft."
+    - "Flossen erhalten verrundete Vorderkanten, druckbare Mindestdicke und bleiben außerhalb aller Bewegungsvolumen."
+    - "Physischer Dichtigkeits-, Passungs- und Schwimmtest bleibt vor Nutzung erforderlich."
+
+fabrication:
+  preference: balanced-hybrid
+  assembly_target: low
+  repairability: preferred
+
+printer:
+  model: unknown
+  build_volume_mm: [220.0, 220.0, 250.0]
+  enclosure: unknown
+
+manufacturing:
+  process: fdm-fff
+  material: "PETG-Basis wie Version 1.0; exaktes Filamentprofil offen"
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.12, 0.24]
+  wall_mm: 2.4
+  supports: "vermeiden; Flossen zurückgepfeilt und mit selbsttragenden Übergängen auslegen"
+  target_formats: ["editable CadQuery source", STL, reports, previews]
+
+acceptance_detail:
+  digital:
+    - "Die neutrale Seiten- und Draufsicht folgt einer durchgehenden Fischsilhouette ohne den aktuellen 36-zu-44-mm-Kapselsprung."
+    - "Alle geschützten Hardpoints bleiben innerhalb 0,10 mm der Version-1.0-Baseline."
+    - "Alle Gelenke erreichen weiterhin ±10 Grad ohne Kollision; der Rocker-/Flossenschlag bleibt kollisionsfrei."
+    - "Nase, vier Segmente, Kapsel und Deckel exportieren als jeweils ein gültiger, positiver, wasserdichter Körper."
+    - "Rippen-/Flossenwurzeln besitzen keine sichtbaren Tangentenkanten außerhalb absichtlich scharfer Gelenkschnitte."
+    - "Jedes Druckteil passt in 220 x 220 x 250 mm; lokale Mindestdicke sichtbarer Flossen beträgt mindestens 2,4 mm."
+    - "Verdrängung, Trockenmasse und Ballastplan werden neu gerechnet und bleiben trimmbar."
+  visual_human:
+    - "Die Seitenansicht wird eindeutig als Fisch gelesen und nicht mehr als Raupe aus Zylindern."
+    - "Flossen und Längskämme wirken integriert und nicht dekorativ aufgeklebt."
+    - "Das Gesamtbild bleibt ein technisches Spielzeug-U-Boot und wird nicht comicartig."
+  physical:
+    - "Prozessgleicher Gelenk-/Flossen-Coupon bzw. erster Prototyp bestätigt Mindestdicke und Bruchsicherheit."
+    - "Dichtigkeits-, Trimm- und Schwimmtest im Becken bestätigt Funktion und Lage."
+
+acceptance:
+  - id: fish-silhouette
+    criterion: "Die neutrale Seiten- und Draufsicht bildet eine durchgehende, technisch-abstrahierte Fischsilhouette ohne den aktuellen Trommel- und Kapselsprung-Eindruck."
+    method: "human concept/model review plus registered silhouette overlay"
+  - id: hardpoint-drift
+    criterion: "Alle geschützten Achsen, Bohrungen, Dicht- und Sitzflächen bleiben innerhalb 0,10 mm der Version-1.0-Baseline."
+    method: "deterministic CadQuery hardpoint comparison"
+  - id: motion-clearance
+    criterion: "Alle fünf Gelenke erreichen ±10 Grad und der vollständige Rocker-/Flossenschlag bleibt kollisionsfrei."
+    method: "parameter sweep and solid-intersection tests"
+  - id: mesh-validity
+    criterion: "Alle druckbaren Druckkörper sind positive, gültige, wasserdichte Einzelkörper und passen in 220 x 220 x 250 mm."
+    method: "CadQuery validity, Trimesh audit and bed-fit preflight"
+  - id: trim-feasible
+    criterion: "Die neu gerechnete Verdrängung, Trockenmasse und Ballastkapazität erlauben weiterhin den Zieltrimm knapp unter der Wasseroberfläche."
+    method: "buoyancy report and physical basin test"
+  - id: fdm-features
+    criterion: "Sichtbare Flossen sind mindestens 2,4 mm dick, besitzen verrundete Vorderkanten und benötigen in der vorgesehenen Orientierung keine unzugänglichen Supports."
+    method: "geometry report, exact slicer preflight and process-matched coupon"
+
+optimization:
+  status: pending
+  objective: "geringere visuelle und hydrodynamische Unruhe ohne unnötige Zusatzmasse, Supports oder dichte Reliefmeshes"
+  protected: ["Wandreserve", "Dichtheit", "Gelenkfreiheit", "Ballaststabilität", "Flossensteifigkeit"]
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  mesh_simplification:
+    status: pending
+    master_mesh: null
+    manufacturing_mesh: null
+    tolerance_mm: 0.08
+    protected_regions: ["hardpoints", "fin leading edges", "joint cut faces", "bed contacts"]
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-BOAT-003
+  version: 1.1.0-draft.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.40
+  minimum_host_wall_mm: 1.20
+  minimum_remaining_wall_mm: 0.80
+
+deliverables:
+  - "Freigegebenes Konzeptblatt mit Seiten-, Drauf- und Dreiviertelansicht"
+  - "Parametrische CadQuery-Freeform-Quelle mit semantischen Profil- und Flossenparametern"
+  - "DRAFT-STL-Satz und Modellvorschauen"
+  - "Hardpoint-, Kollisions-, Topologie-, Auftriebs- und Surfacing-Berichte"
+  - "Exakter Anycubic-Slicer-Nachweis erst mit vollständigem Maschinen-/Prozess-/Filamentprofil"

@@ -8,6 +8,8 @@
 - `metriMade` promises personalized aesthetics plus practical home/office integration. `metriCreate` promises configurable, versioned and optionally self-printable 3D products across a thematically open but release-gated catalog.
 - Owned catalog; no third-party marketplace in the MVP.
 - Target initial products: DrawerFit Modular, NameForm Bookends and ShelfFit Mini Bins.
+- MVP release threshold: at least one product must reach `P5` and pass staging/transaction gates. Three released products are preferred for the initial catalog but are optional for the MVP date.
+- Market interviews, measurement-guide trials, waitlist and price experiments are recommended learning work, not a production-launch dependency. Lack of interest blocks expansion investment, not an otherwise complete one-product MVP.
 - First transaction scope: fixed-revision safe-core 3MF on `metriCreate`, Germany only, after all gates pass.
 - Printed products remain part of the offer strategy but launch after one SKU's fulfillment process qualifies.
 - Self-service configuration follows a successful manual measurement/variant workflow.
@@ -28,7 +30,6 @@
 | Customer digital license and update entitlement | before P5 | personal-use license; exact purchased revision | file sale blocked |
 | Support scope and remedy for measurement error | before P5 | guided measurement, transparent tolerance | claims/refund flow blocked |
 | VAT/tax/accounting treatment | before Stripe live | Germany digital only | checkout blocked |
-| Launch with one versus three completed SKUs | final readiness review | three; one-product controlled beta is acceptable if honest | date moves, not evidence gates |
 | Printed pilot SKU and capacity | after digital review | one standard SKU | print flag remains off |
 | First `metriMade` transactional SKU and consumer presentation standard | before `metriMade` checkout | first qualified printed small-space SKU | `metriMade` remains preview/waitlist only |
 

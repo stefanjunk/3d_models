@@ -3,12 +3,12 @@
 ## Now: prove a narrow offer
 
 - Finalize operator and remaining brand-clearance decisions; metriMade V10 `08` / `MM-BRAND-001-R1` is already selected.
-- Freeze three launch SKUs and one delivery mode: German digital 3MF on `metriCreate`.
-- Slice and physically qualify the existing DrawerFit, NameForm and ShelfFit digital candidates.
-- Validate real customer measurement behavior and product interest.
+- Keep three target SKUs and one delivery mode: German digital 3MF on `metriCreate`; require only one P5 product for the controlled MVP.
+- Prioritize slicing and physical qualification of DrawerFit; qualify NameForm and ShelfFit independently as capacity permits.
+- Optionally validate real customer measurement behavior and product interest before catalog expansion.
 - Put CI, staging, legal, payment and support foundations in place.
 
-Outcome: three controlled digital candidates advanced through exact slicing and physical qualification, plus a shared two-brand product schema and an operable `metriCreate` staging foundation.
+Outcome: at least one controlled digital candidate advanced through exact slicing and physical qualification, plus a shared two-brand product schema and an operable `metriCreate` staging foundation.
 
 ## Next: prove commercial releases and transactions
 
@@ -18,7 +18,7 @@ Outcome: three controlled digital candidates advanced through exact slicing and 
 - Test payment, entitlement, download, refund, withdrawal, support, takedown, backup and rollback.
 - Launch `metriCreate` digital sales to Germany only and monitor the first 10 orders.
 
-Outcome: one fully traceable digital customer journey and three honest products.
+Outcome: one fully traceable digital customer journey and at least one honest product; up to three products may be ready.
 
 ## Later: add complexity one layer at a time
 

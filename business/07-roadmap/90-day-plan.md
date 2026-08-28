@@ -8,7 +8,7 @@ This is a capacity-aware scenario for a small team, not a promise. Adviser respo
 - Freeze the three SKU requirements and product test matrices.
 - Select DrawerFit revision and start connector correction/coupons.
 - Start simple NameForm and ShelfFit CAD.
-- Conduct interviews and measurement tests.
+- Optionally conduct interviews and measurement tests; use them to decide expansion, not one-product launch readiness.
 - Reconcile website branch, add CI, establish Firebase staging and define one shared product schema with explicit `metriMade` eligibility/content.
 - Begin legal/tax/provider data map and support/incident runbooks.
 
@@ -16,7 +16,7 @@ Exit: no unresolved product-scope ambiguity; CI/staging plan works; first coupon
 
 ## Days 16–45: candidates and real prints
 
-- Complete digital candidates for all three products.
+- Complete the first selected digital candidate; continue the other two when capacity permits.
 - Slice on intended profiles and print coupons/prototypes.
 - Revise failed designs and freeze candidate revisions.
 - Begin three-print reproducibility runs one SKU at a time.
@@ -38,10 +38,10 @@ Exit: at least one P5 product completes staging E2E; no placeholder claim is tra
 
 ## Days 71–90: launch decision
 
-- Publish remaining qualified launch releases to staging.
+- Publish any remaining qualified target releases to staging; they are optional for the one-product MVP.
 - Finish accessibility/browser/content checks and security/restore drills.
 - Run production-like purchase, download, expiry, unauthorized, refund, withdrawal and kill-switch scenarios.
 - Record and sign the launch configuration.
 - If all P0 gates pass, launch `metriCreate` Germany digital-only and monitor first orders. Keep `metriMade` printed checkout off until its fulfillment gate passes.
 
-If fewer than three products qualify, choose between a one-product controlled beta and delaying the public shop. Do not label incomplete products as inventory to meet a date.
+If only one product qualifies, launch may proceed as a clearly bounded controlled beta when every non-product P0 gate passes. Do not label incomplete products as inventory to meet a date.

@@ -2,7 +2,7 @@
 
 | Risk | Probability | Impact | Current control | Trigger / owner action |
 |---|---|---|---|---|
-| No sellable products despite broad model library | High | Critical | three-SKU critical path and P5 definition | product owner reviews weekly; cut scope, never gates |
+| No sellable products despite broad model library | High | Critical | one-P5 minimum, three-SKU target and strict P5 definition | product owner reviews weekly; prioritize the closest P5 path, cut optional scope, never gates |
 | Customer measurement error | High | High | fixed sizes first; measurement usability test | revise guide/tolerances after observed errors |
 | Unknown source or design rights | High | Critical | external exclusion; per-input register; mark/design review | block revision at G1 |
 | Demo catalog creates unsupported promises | High | High | release-manifest-only production catalog | remove/segregate demo data before staging approval |

@@ -1,6 +1,6 @@
 # metriMade / metriCreate business workspace
 
-Status: working business source of truth, reviewed 2026-08-26.
+Status: working business source of truth, reviewed 2026-08-28.
 
 Legal operator: `Stefan Junk Holding UG (haftungsbeschränkt)`, founded in 2019; umbrella business designation: `JuSt Innovation`. The intended public names are `metriMade` and `metriCreate`. See the [operator profile](06-legal-compliance/operator-profile.md), [responsibility matrix](06-legal-compliance/responsibility-and-signing-matrix.md) and [brand/domain clearance record](06-legal-compliance/brand-and-domain-clearance.md); launch remains blocked pending the remaining verification and approvals.
 
@@ -12,13 +12,13 @@ This folder turns the material in `research/market/`, the local 3D-model workspa
 
 ## Current decision
 
-Launch only after three low-risk products have a complete commercial release package. They form the first technical `metriCreate` digital catalog and, where their presentation and use fit the premium consumer promise, the first eligible `metriMade` subset:
+The controlled MVP may launch after **at least one** low-risk product has a complete `P5` commercial release package and the shop transaction gates pass. Three related releases remain the preferred first catalog, but products two and three are optional for the MVP date and may remain honestly labeled development/waitlist content:
 
-1. `MM-ORG-001` DrawerFit Modular — `P2` digital candidate; slicer, physical and commercial gates open.
+1. `MM-ORG-001` DrawerFit Modular — `P2` digital candidate and preferred first P5 path; see the [P5 gap analysis](02-portfolio/mm-org-001-p5-gap.md).
 2. `MM-PER-001` NameForm Bookends — `P2` parametric digital candidate; slicer, physical and commercial gates open.
 3. `MM-ORG-002` ShelfFit Mini Bins — `P2` parametric digital candidate; slicer, physical and commercial gates open.
 
-The deterministic portfolio audit now finds at least one local neutral/manufacturing 3D artifact for **58 of 58 records**; 42 also have detected parametric source and 24 have at least one 3MF. That is model coverage, not release readiness: there are still **zero live or commercially release-ready products** under the stricter definition in [product lifecycle and release gates](02-portfolio/product-lifecycle-and-release-gates.md). `MM-MKR-001` CyberVault is the closest technical release-pipeline pilot, but it is not a launch hero for the small-space value proposition.
+The versioned portfolio audit finds at least one local neutral/manufacturing 3D artifact for **91 of 91 records**; 76 also have detected parametric source and 59 have at least one 3MF. Uncommitted product work is deliberately excluded from those versioned totals. Model coverage is not release readiness: there are still **zero live or commercially release-ready products** under the stricter definition in [product lifecycle and release gates](02-portfolio/product-lifecycle-and-release-gates.md). `MM-MKR-001` CyberVault is the closest technical release-pipeline pilot, but it is not a launch hero for the small-space value proposition.
 
 The first transactional release remains digital-only, Germany-only, with one safe-core 3MF per revision and therefore belongs to `metriCreate`. `metriMade` may present the curated consumer proposition honestly, but `as-is` printed checkout remains disabled until one SKU passes printed-fulfillment qualification. Advanced parameterization remains disabled until the `metriCreate` configuration pipeline passes its own gate. This staging implements the two-brand architecture without pretending that all three fulfillment modes are ready at once.
 
@@ -33,6 +33,7 @@ The first transactional release remains digital-only, Germany-only, with one saf
 | Revenue and channels | [Business model](01-strategy/business-model.md) |
 | Decisions and risks | [Decisions/open questions](01-strategy/decisions-and-open-questions.md), [risk register](07-roadmap/risk-register.md) |
 | Initial portfolio | [Initial portfolio](02-portfolio/initial-portfolio.md) |
+| DrawerFit P5 critical path | [MM-ORG-001 P5 gap analysis](02-portfolio/mm-org-001-p5-gap.md) |
 | Every local model reviewed | [Current portfolio review](02-portfolio/current-portfolio-review.md), [artifact audit](02-portfolio/model-artifact-audit.md) and `product-portfolio.xlsx` |
 | Status meanings | [Product lifecycle](02-portfolio/product-lifecycle-and-release-gates.md) |
 | Unknown downloads | [External-model exclusion](02-portfolio/external-model-exclusion.md) |
@@ -42,6 +43,7 @@ The first transactional release remains digital-only, Germany-only, with one saf
 | Digital and printed operations | [Digital fulfillment](04-operations/digital-fulfillment.md), [printed fulfillment](04-operations/printed-fulfillment.md) |
 | Customer operations | [Support and incidents](04-operations/customer-support-returns-incidents.md) |
 | MVP shop | [MVP scope](05-webshop/mvp-scope.md), [website gap review](05-webshop/website-gap-review.md) |
+| Firebase environments and launch readiness | [Environment readiness](05-webshop/environment-readiness.md) |
 | Required catalog content | [Catalog requirements](05-webshop/catalog-content-requirements.md) |
 | Legal operator and public identity | [Operator profile](06-legal-compliance/operator-profile.md) |
 | Responsibility and signing roles | [Single-person responsibility matrix](06-legal-compliance/responsibility-and-signing-matrix.md) |

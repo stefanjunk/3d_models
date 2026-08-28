@@ -1,8 +1,8 @@
 # Initial portfolio decision
 
-## Target launch catalog
+## Target catalog and MVP threshold
 
-The minimum credible catalog is three related products, not five unrelated prototypes. None is currently ready for sale.
+The preferred first catalog is three related products, not five unrelated prototypes. The controlled MVP requires at least one fully released product; the other two may follow after launch and must remain non-transactional until their own gates pass. None is currently ready for sale.
 
 | SKU | Product | Why it belongs | Current state | Required path to initial portfolio |
 |---|---|---|---|---|

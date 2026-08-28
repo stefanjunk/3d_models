@@ -4,6 +4,8 @@
 
 Validate demand and workflow before building a broad catalog or self-service configurator.
 
+These experiments are optional for the controlled one-product MVP and are not dependencies of `LAUNCH-001`. They inform whether to invest in products two and three, printed fulfillment, configuration or catalog expansion. An otherwise release-ready product is not blocked merely because qualified interest has not yet appeared; expansion should pause when the evidence is weak.
+
 ## Four-week evidence plan
 
 | Test | Method | Minimum useful evidence | Decision |
@@ -28,7 +30,7 @@ Show only the three target products. Each card should state whether it is “in 
 
 Do not accept money, promise a delivery date, or label a render as a photograph until a product release exists.
 
-## Success criteria before catalog expansion
+## Optional success criteria before catalog expansion
 
 - at least 20 qualified expressions of interest across the three products;
 - at least 5 users complete the measurement workflow without assisted correction;
@@ -38,4 +40,3 @@ Do not accept money, promise a delivery date, or label a render as a photograph 
 - no unresolved safety, rights, or legal blockers for the intended country and delivery mode.
 
 If the criteria fail, improve the problem, measurement flow, or product—not the catalog size.
-

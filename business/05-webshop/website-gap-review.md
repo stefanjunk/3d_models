@@ -4,6 +4,8 @@ Review basis: repository `/workspace/Website/metrimade-store`, supplied `main` s
 
 Architecture update 2026-08-25: the business source of truth now defines two connected storefronts, `metriMade` and `metriCreate`, backed by one product/revision system. The original snapshot review remains valid for its inspected code, but implementation planning must now add domain/brand routing, shared product records, metriMade eligibility/content fields and exact-SKU cross-brand handoff. Do not clone the catalog into two independent databases.
 
+Environment verification update 2026-08-28: the two cloud projects and App Hosting backends exist, both Firestore databases are in `europe-west4` with PITR and delete protection, and the clean `origin/main` snapshot passes lint, typecheck, unit, build and Rules tests. Repository reconciliation, CI, browser E2E, App Check, secrets/IAM, withdrawal email, monitoring/restore evidence and a real P5 transaction remain open. See [environment readiness](environment-readiness.md) for exact evidence and the safe branch-reconciliation sequence.
+
 ## Verdict
 
 The supplied main is technically staging-capable but not live-ready. The core page architecture is broad enough for the MVP. The blockers are real products, evidence, legal/operator data, CI, payment/tax configuration and operating processes—not a lack of marketing pages.

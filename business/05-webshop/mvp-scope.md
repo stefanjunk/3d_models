@@ -2,7 +2,7 @@
 
 ## Launch slice within the two-brand architecture
 
-The first transactional MVP is the German `metriCreate` storefront for three fixed, commercially released 3MF products. It supports technical catalog discovery, product detail, checkout, order history, authorized exact-revision download, customer support, withdrawal/legal flows, operator publishing and takedown.
+The first transactional MVP is the German `metriCreate` storefront with at least one and preferably three fixed, commercially released 3MF products. It supports technical catalog discovery, product detail, checkout, order history, authorized exact-revision download, customer support, withdrawal/legal flows, operator publishing and takedown. Additional target products never block the first complete product from a controlled launch.
 
 `metriMade` may expose a curated consumer-facing preview of eligible products and collect interest, but `as-is` printed orders remain non-transactional until printed fulfillment passes. The advanced link into `metriCreate` may be demonstrated, but parameterized purchase remains disabled until the configuration gate passes.
 
@@ -46,4 +46,4 @@ The first transactional MVP is the German `metriCreate` storefront for three fix
 
 ## Launch definition
 
-“MVP complete” means one real `metriCreate` customer can discover, lawfully buy, receive, use and obtain support for the exact approved digital revision—and the operator can reconcile, refund, block and trace it. The later two-brand journey is complete only when a `metriMade` customer can order an `as-is` product and an advanced customer can cross into `metriCreate` without losing product/revision context.
+“MVP complete” means one real `metriCreate` customer can discover, lawfully buy, receive, use and obtain support for the exact approved digital revision—and the operator can reconcile, refund, block and trace it. Products two and three improve catalog credibility but are optional for this threshold. The later two-brand journey is complete only when a `metriMade` customer can order an `as-is` product and an advanced customer can cross into `metriCreate` without losing product/revision context.

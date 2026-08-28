@@ -530,7 +530,7 @@ def main() -> None:
         ["P0 ideas", stages_present.get("P0 Idea", 0), "CAD not yet controlled"],
         ["P1 model present", stages_present.get("P1 Model present", 0), "Model exists but evidence is incomplete"],
         ["P2 digital candidates", stages_present.get("P2 Digital candidate", 0), "Digital evidence does not equal a product release"],
-        ["Launch recommendation", "Germany digital-only", "Three fixed safe-core 3MF releases; print/configuration gated later"],
+        ["Launch recommendation", "Germany digital-only", "At least one fixed safe-core P5 3MF release; three preferred; print/configuration gated later"],
     ]
 
     sheets = [

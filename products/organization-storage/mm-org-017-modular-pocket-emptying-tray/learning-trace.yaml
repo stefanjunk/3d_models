@@ -1,0 +1,27 @@
+schema_version: 1.0.0
+project: MM-ORG-017-modular-pocket-emptying-tray
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: CadQuery/OpenCascade Boolean subtraction and FDM mesh export
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA reference profile
+  nozzle_mm: 0.4
+  orientation: broad coupon face down
+observations:
+  - id: OBS-001
+    outcome: failure
+    statement: Three open-edge socket cutters at 7 mm pitch left three valid but disconnected coupon solids.
+    evidence: reports/connector-gauge-topology-iteration.json
+  - id: OBS-002
+    outcome: correction
+    statement: Increasing gauge depth and socket pitch to 14 mm produced one valid B-Rep and one independently watertight mesh component.
+    evidence:
+      - reports/connector-gauge-topology-iteration.json
+      - validation/fdm-mesh-connector-gauge.json
+candidate_records:
+  - EXP-00013
+targeted_evals:
+  - EVAL-geometry-open-edge-cutter-spacing-001
+promotion: prohibited-without-policy-review
+uncertainty: One project-specific cutter family; no physical fit evidence and no cross-kernel replication.

@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-open-edge-cutter-spacing-001
+title: Repeated connector sockets leave one connected coupon body
+category: geometry
+status: draft
+trigger: A coupon places multiple tolerance sockets through one outer edge.
+risk: Overlapping boundary cuts can leave visually subtle disconnected islands that make the coupon a multi-component manufacturing mesh.
+given:
+  project: products/organization-storage/mm-org-017-modular-pocket-emptying-tray
+  socket_clearances_mm: 0.15, 0.25, 0.35
+  socket_centers_y_mm: 7.0, 21.0, 35.0
+  gauge_depth_mm: 42.0
+expected:
+  - The generated gauge B-Rep reports valid geometry.
+  - The gauge contains exactly one solid after every socket and identity hole is cut.
+  - The exported gauge STL remains one watertight positive-volume component.
+failure_conditions:
+  - Final CadQuery solid count is not exactly one.
+  - Any residual edge island is disconnected from the main gauge body.
+  - The independent mesh audit reports multiple components or open topology.
+fixtures:
+  - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/cad/build.py
+  - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/config/model-parameters.json
+  - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-017-modular-pocket-emptying-tray/tests/test_parameters.py::test_connector_gauge_socket_spacing_does_not_create_edge_islands -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Generate the complete gauge and assert valid geometry, exactly one solid, and the intended separated socket centers.
+relationships:
+  lessons:
+    - EXP-00013
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-017-modular-pocket-emptying-tray/reports/connector-gauge-topology-iteration.json
+  artifact_hashes:
+    - 4b0681bfd76467414939b03462437beccc40f690d017377a6fa14d963f634ba6
+    - a6ca17a647d692b16847e9b69d6db4a71340a9965cba4da6e52f92d10d8b3af4
+tags:
+  - geometry
+  - boolean-validation
+  - component-count
+  - connector-coupon
+  - regression

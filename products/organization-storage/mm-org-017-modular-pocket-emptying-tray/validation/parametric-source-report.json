@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All five B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-of-truth",
+      "message": "JSON drives three independent visual styles",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "Geometry uses no third-party vector, font or mesh assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "aa09cf5f865ec5dbbb59a5eb8801793c096bbda1f73cbb12d92bd26631526e72",
+      "size_bytes": 1829
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "3d40b4a1dfd7a662fa91c3bf87ea00b43ebf2d76824d47b85167731f184982ec",
+      "size_bytes": 24925
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "assembled_envelope_mm": [
+      172.0,
+      76.0,
+      22.0
+    ],
+    "cadquery": "2.9.0.dev0",
+    "parts": [
+      "soft-arc",
+      "clean-facet",
+      "utility-rib",
+      "connector-clearance-gauge",
+      "connector-test-key"
+    ],
+    "python": "3.11.15"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-017-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

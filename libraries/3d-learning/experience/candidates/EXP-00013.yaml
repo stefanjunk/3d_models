@@ -1,0 +1,141 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00013
+title: Gate repeated open-edge cutters on final component count
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One CadQuery coupon and one trapezoid socket family; no promotion requested.
+feature:
+  type: repeated-open-edge-cutter-topology-gate
+  geometry: three-trapezoid-sockets-cut-from-one-rounded-coupon-edge
+  design_parameters:
+    initial_gauge_depth_mm: 28.0
+    initial_socket_pitch_mm: 7.0
+    corrected_gauge_depth_mm: 42.0
+    corrected_socket_pitch_mm: 14.0
+    maximum_socket_width_mm: 10.7
+  named_datums:
+    - coupon-left-edge
+    - socket-centerline-y
+    - coupon-bed-face
+  constraints:
+    - Each coupon deliverable must remain one valid solid after all edge-opening cuts.
+    - Independent mesh audit must report one watertight component.
+scope:
+  process: CadQuery and OpenCascade Boolean subtraction
+  machine:
+    manufacturer: not-specific
+    model: digital-only
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: not-specific
+    product: digital-geometry
+    variant: connector-clearance-coupon
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: broad face down
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20 mm Standard
+    profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
+  geometry_class: repeated-boundary-opening-cutters-in-thin-flat-coupon
+  environment: digital-only
+  transfer_limits:
+    - One CAD kernel, cutter family and coupon outline.
+    - The observed 14 mm pitch must not be transferred as a universal dimension.
+    - Physical connector fit remains outside this record.
+observation:
+  summary: Three individually valid socket cutters at 7 mm center pitch overlapped along the coupon boundary and left three disconnected solids; spacing them at 14 mm yielded one valid solid and one watertight mesh component.
+  expected: One connected clearance gauge after all three open-edge sockets and identity holes are cut.
+  actual: The initial gauge contained three solids; the corrected gauge contains one.
+  outcome: correction
+  parameter: final_component_count
+  recommended_value: exactly-one-solid-after-all-open-edge-cuts
+  units: gate-state
+explanation:
+  hypothesis: Overlapping boundary-opening cutters can isolate residual edge strips even when every cutter and the resulting multi-solid B-Rep report valid geometry.
+  mechanism: Adjacent cuts intersect the outer boundary over overlapping spans, separating material between the sockets from the main coupon body.
+  alternatives:
+    - Increase spacing between boundary-opening cutters.
+    - Move the sockets to different edges.
+    - Add a protected interior spine and prove its minimum ligament.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Sequential CadQuery solid-count inspection followed by independent watertight mesh audit.
+  uncertainty: Only one repeated socket layout and correction were observed.
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-org-017-modular-pocket-emptying-tray/learning-trace.yaml
+      hash: null
+      notes: Owns the initial failure and corrected project scope.
+    - type: other
+      ref: products/organization-storage/mm-org-017-modular-pocket-emptying-tray/reports/connector-gauge-topology-iteration.json
+      hash: null
+      notes: Records before/after dimensions and component counts.
+  artifacts:
+    - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/cad/build.py
+    - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/tests/test_parameters.py
+    - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/validation/fdm-mesh-connector-gauge.json
+applicability:
+  triggers:
+    - Several cutters open through the same outer edge of one coupon or plate.
+    - Individual cutters are valid but the final part unexpectedly contains multiple solids.
+    - Tolerance variants are packed along one boundary.
+  exclusions:
+    - Intentional multi-body coupons.
+    - Closed interior holes that do not intersect the outer boundary.
+  transfer_limits:
+    - Transfer the component-count gate, not the project-specific 14 mm pitch.
+    - Retain independent manufacturing-mesh validation after the B-Rep gate.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00012
+  evals:
+    - EVAL-geometry-open-edge-cutter-spacing-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-017-modular-pocket-emptying-tray/reports/connector-gauge-topology-iteration.json
+provenance:
+  project: MM-ORG-017-modular-pocket-emptying-tray
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-017-modular-pocket-emptying-tray/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags:
+  - boolean-validation
+  - cadquery
+  - component-count
+  - connector-coupon
+  - digital-only

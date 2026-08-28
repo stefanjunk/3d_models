@@ -1,0 +1,176 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-017
+  name: Modular pocket-emptying tray with coin slope
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: research-idea-priority/SKU-173
+  opportunity_score: 91.0
+  status: digital-candidate-through-slicer-preflight
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  delegated_authority: autonomous-to-print-candidate
+  requirements_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    approved_by: codex-gpt5-under-user-delegated-authority
+    basis: User explicitly directed uninterrupted autonomous iteration through all ranked products.
+  concept_approval:
+    status: approved
+    decision: AUTO_APPROVED
+    asset: assets/concept/MM-ORG-017-concept-v1.svg
+  decomposition:
+    status: approved
+    artifact: decomposition.md
+  physical_print:
+    status: deferred-human
+  fit_and_function:
+    status: deferred-human
+  watermark_approval:
+    status: blocked
+    reason: Final marking and exact-process qualification are deferred with physical validation.
+  commercial_release:
+    status: blocked
+
+function:
+  summary: Receive everyday pocket items in rearrangeable modules and let loose coins be swept down a shallow floor ramp through a low rounded front mouth.
+  intended_users:
+    - adults using a desk, entry table, dresser or bedside surface
+  included:
+    - three same-interface coin-slope modules in Soft Arc, Clean Facet and Utility Rib styles
+    - integral left socket and right dovetail tab for a three-module chain
+    - connector-clearance gauge with 0.15, 0.25 and 0.35 mm radial offsets
+    - matching connector test key
+  excluded:
+    - soft liner, magnet, charging electronics, screws or purchased components
+    - food, wet, child, weapon-storage or high-temperature use
+    - scratch-free, silent, universal-fit or validated ergonomic claim
+    - printer control and commercial release
+
+risk:
+  class: normal-functional
+  score_from_research_matrix: 1
+  hazards:
+    - hard printed plastic can scratch watches, phones or coated objects
+    - sharp or stringy edges can catch skin or small items
+    - a loose connector can separate when a tray is lifted
+    - a tight connector can crack or permanently deform a base flange
+    - coins may still bridge or remain awkward for a particular hand size
+  limits:
+    - adult dry-indoor organization only
+    - place scratch-sensitive objects in a separate lined module not included here
+    - qualify the coupon before forcing full modules together
+    - connector fit, sweep comfort, stability, abrasion and cycles remain mandatory before release
+
+geometry_contract:
+  coordinate_frame:
+    x: 56 mm module pitch plus 4 mm right connector projection
+    y: 76 mm front-to-back direction; scoop exit is at minimum y
+    z: broad support-free bed datum at zero; rim top at 22 mm
+  connected_envelope_mm: [172.0, 76.0, 22.0]
+  default_module:
+    base_width_mm: 56.0
+    base_depth_mm: 76.0
+    connector_projection_mm: 4.0
+    wall_height_mm: 22.0
+    base_thickness_mm: 2.4
+    wall_thickness_mm: 2.0
+  customer_parameters:
+    - module width, depth, height and bowl inset
+    - floor-ramp endpoints and front-mouth geometry
+    - connector neck, head, depth and clearance
+    - style kind, corner treatment and rib pattern
+  interfaces:
+    coin_scoop: floor rises from 2.6 mm at front to 8.0 mm at rear over 62 mm; nominal 4.98 degree slope
+    front_mouth: 32 mm opening with 4 mm lower-corner radius and 0.6 mm lip above front floor
+    connector: 4 mm deep trapezoid, 6 mm neck, 10 mm head, 2.4 mm height, default 0.25 mm female offset
+    style_identity: rounded shell, faceted shell, or three rear utility ribs; no font or external artwork
+    coupon: three socket clearances identified by one, two or three 1.6 mm holes and one matching solid key
+  protected_geometry:
+    - flat base datum and minimum base thickness
+    - sloped coin floor, low lip and rounded front mouth
+    - common connector datum and all coupon dimensions
+    - minimum wall thickness and connected-set envelope
+
+duty:
+  environment: dry indoor use, nominal 15-30 C
+  load: passive storage of common pocket items; hand sweep of loose coins
+  service_life_target: 500 connector cycles and 1000 pocket-empty/sweep cycles
+  note: Targets define deferred tests and are not current ratings.
+
+manufacturing:
+  process: FDM/FFF
+  build_volume_mm: [426.0, 420.0, 501.0]
+  material_assumption: PLA for dry indoor prototype; PETG is an unvalidated branch
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  support_policy: no generated support; every object prints on its broad base datum
+  orientation:
+    modules: bowl opening upward, connector and base on bed
+    gauge_and_key: broad face down
+  target_outputs:
+    - CadQuery source and JSON parameters
+    - STEP masters for each object and connected virtual set
+    - three production STL files and two coupon STL files
+    - DRAFT five-object 3MF build set
+
+optimization:
+  objective: Minimize material while retaining the floor ramp, rim stiffness, connector flange and single-piece support-free prints.
+  baseline: three solid 56 x 76 x 22 mm envelope blocks
+  candidate: three hollow bowl modules with 2.4 mm bases, 2.0 mm walls and localized style features
+  selection_rule: Every output remains one watertight component and production CAD volume is at least 55 percent below the solid-block baseline.
+  evidence: reports/optimization-comparison.json
+  mesh_simplification:
+    status: not-beneficial
+    rationale: Analytic meshes remain below budget and the connector/scoop surfaces are protected.
+
+acceptance:
+  - id: SRC-001
+    criterion: Parameters generate three modules, one clearance gauge and one key as valid single solids.
+    method: pytest and deterministic CadQuery build
+    status: pass
+    evidence: validation/parametric-source-report.json
+  - id: SCP-001
+    criterion: Each module has the same 4-7 degree downhill floor, 32 mm rounded mouth and no more than 0.8 mm lip above its front floor.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: CON-001
+    criterion: Common connector dimensions fit a 172 x 76 x 22 mm three-module chain and the coupon brackets default clearance.
+    method: deterministic interface report
+    status: pass
+    evidence: validation/interface-report.json
+  - id: MESH-001
+    criterion: All five meshes are independently watertight positive-volume single components.
+    method: independent mesh audit
+    status: pass
+    evidence:
+      - validation/fdm-mesh-soft-arc.json
+      - validation/fdm-mesh-clean-facet.json
+      - validation/fdm-mesh-utility-rib.json
+      - validation/fdm-mesh-connector-gauge.json
+      - validation/fdm-mesh-connector-key.json
+  - id: SLC-001
+    criterion: Exact local profile slices the five-object 3MF without native warnings.
+    method: slicer preflight
+    status: pass
+    evidence: validation/slicer-anycubic-next.json
+  - id: PHY-001
+    criterion: Printed coupon and modules pass fit, coin sweep, lift, abrasion, stability and cycle tests.
+    method: user physical validation
+    status: deferred-human
+
+release_boundary:
+  current_target: DRAFT_DIGITAL_PRINT_CANDIDATE
+  blocked_until_physical_evidence:
+    - connector clearance selection and retention
+    - coin-sweep usability across representative coin sizes and hand sizes
+    - scratch/abrasion behavior on intended carried objects and furniture
+    - rocking, lift separation, impact and cycle behavior
+    - final watermark and commercial review
+  prohibited_actions:
+    - retain or upload manufacturing G-code
+    - start a printer
+    - call this a validated production release

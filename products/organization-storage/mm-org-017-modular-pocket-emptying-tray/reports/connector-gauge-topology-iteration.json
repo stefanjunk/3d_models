@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-017",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "Three individually valid open-edge socket cutters overlapped along the gauge edge and separated two narrow edge islands from the intended coupon body.",
+  "initial": {
+    "gauge_depth_mm": 28.0,
+    "socket_centers_y_mm": [7.0, 14.0, 21.0],
+    "center_pitch_mm": 7.0,
+    "maximum_socket_width_mm": 10.7,
+    "cad_valid": true,
+    "solid_count_after_socket_1": 1,
+    "solid_count_after_socket_2": 2,
+    "solid_count_after_socket_3": 3,
+    "accepted": false
+  },
+  "corrected": {
+    "gauge_depth_mm": 42.0,
+    "socket_centers_y_mm": [7.0, 21.0, 35.0],
+    "center_pitch_mm": 14.0,
+    "maximum_socket_width_mm": 10.7,
+    "cad_valid": true,
+    "solid_count": 1,
+    "mesh_watertight": true,
+    "mesh_components": 1,
+    "mesh_sha256": "4b0681bfd76467414939b03462437beccc40f690d017377a6fa14d963f634ba6",
+    "audit_report": "validation/fdm-mesh-connector-gauge.json",
+    "accepted": true
+  },
+  "explanation_status": "hypothesis",
+  "hypothesis": "When adjacent boundary-opening cutters overlap, the remaining boundary segments can become disconnected islands even though every cutter and the resulting multi-solid B-Rep are individually valid.",
+  "limitations": [
+    "One CadQuery/OpenCascade coupon and one trapezoid socket family were observed.",
+    "The 14 mm pitch is project geometry, not a universal socket-spacing rule.",
+    "Physical connector fit remains deferred."
+  ]
+}

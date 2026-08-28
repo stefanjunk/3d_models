@@ -1,0 +1,159 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "three-style-modules",
+      "message": "Three visually distinct modules share one functional interface",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coin-slope",
+      "message": "Coin floor slope is within the bounded ergonomic hypothesis",
+      "metrics": {
+        "actual_deg": 4.977716198480992
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "low-front-lip",
+      "message": "Front lip remains within the sweep-over target",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "connector-common",
+      "message": "All modules share the same connector clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-sweep",
+      "message": "Gauge brackets the default connector clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "assembled-envelope",
+      "message": "Three connected modules fit the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "flat-print",
+      "message": "Connector and base share a support-free bed datum",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "aa09cf5f865ec5dbbb59a5eb8801793c096bbda1f73cbb12d92bd26631526e72",
+      "size_bytes": 1829
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "3d40b4a1dfd7a662fa91c3bf87ea00b43ebf2d76824d47b85167731f184982ec",
+      "size_bytes": 24925
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "65d13cbcb318c5a3fa8546edd0e65d6442879b25876953ddae6c7e8f6e8c4781",
+      "size_bytes": 7690
+    }
+  ],
+  "limitations": [
+    "Clearance, scoop usability and surface protection are design hypotheses until the user prints and tests them."
+  ],
+  "metrics": {
+    "connected_pitch_mm": 56.0,
+    "interfaces": {
+      "clean-facet": {
+        "coin_slope_deg": 4.977716198480992,
+        "connector_clearance_mm": 0.25,
+        "external_assets": [],
+        "front_lip_above_floor_mm": 0.6000000000000001,
+        "id": "clean-facet",
+        "identity_ribs": 0,
+        "kind": "faceted",
+        "outer_dimensions_mm": [
+          60.0,
+          76.0,
+          22.0
+        ]
+      },
+      "connector-clearance-gauge": {
+        "clearances_mm": [
+          0.15,
+          0.25,
+          0.35
+        ],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "outer_dimensions_mm": [
+          64.0,
+          42.0,
+          2.4
+        ]
+      },
+      "connector-test-key": {
+        "head_width_mm": 10.0,
+        "height_mm": 2.4,
+        "neck_width_mm": 6.0,
+        "tab_depth_mm": 4.0
+      },
+      "soft-arc": {
+        "coin_slope_deg": 4.977716198480992,
+        "connector_clearance_mm": 0.25,
+        "external_assets": [],
+        "front_lip_above_floor_mm": 0.6000000000000001,
+        "id": "soft-arc",
+        "identity_ribs": 0,
+        "kind": "rounded",
+        "outer_dimensions_mm": [
+          60.0,
+          76.0,
+          22.0
+        ]
+      },
+      "utility-rib": {
+        "coin_slope_deg": 4.977716198480992,
+        "connector_clearance_mm": 0.25,
+        "external_assets": [],
+        "front_lip_above_floor_mm": 0.6000000000000001,
+        "id": "utility-rib",
+        "identity_ribs": 3,
+        "kind": "ribbed",
+        "outer_dimensions_mm": [
+          60.0,
+          76.0,
+          22.0
+        ]
+      }
+    },
+    "three_module_width_mm": 172.0
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-017-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

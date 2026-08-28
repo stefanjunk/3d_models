@@ -1,0 +1,196 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer:system-020",
+      "message": "Exact slicer report system-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:system-028",
+      "message": "Exact slicer report system-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-warning-free",
+      "message": "Both exact slices contain no parser or native warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-single-tool",
+      "message": "Both exact slices use one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-selected-shell",
+      "message": "Selected caddy retains protected 3 mm shell/base",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-built-keys",
+      "message": "Hub keys build from the print bed after the slicer-warning iteration",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-variant-rejected",
+      "message": "Light caddy remains rejected without physical flex/drop/docking evidence",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-engraving-layers",
+      "message": "0.20 mm retains three nominal engraving layers; 0.28 mm does not",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pareto-selection",
+      "message": "0.20 mm system is the sole feasible Pareto variant",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "exact-profile-tradeoff",
+      "message": "0.28 mm is faster but uses more estimated extrusion and fails the engraving gate",
+      "metrics": {
+        "time_delta_percent": -13.534172661870503,
+        "volume_delta_percent": 4.162239409536117
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "geometric-proxy",
+      "message": "Selected system reduces geometric volume by at least 70% versus the solid-envelope proxy",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2",
+      "size_bytes": 3015
+    },
+    {
+      "path": "validation/interface-report.json",
+      "sha256": "06a0c63c4473c4ed568bd82c0443c8d6a4e577b6517477008318261ba48e9288",
+      "size_bytes": 10068
+    },
+    {
+      "path": "reports/optimization-geometric.json",
+      "sha256": "1b4d5facf74a3cbbb79c3ac3c615c1f8fab22cc6cb0dbc0b57985286d999e898",
+      "size_bytes": 684
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/3D-Design/.agents/skills/optimize-fdm-design/scripts/compare_variants.py",
+      "sha256": "8a90a864b129adaa9959cc84c11f5ed5fea4c405ebd05ab940097563d81f9f44",
+      "size_bytes": 7521
+    },
+    {
+      "path": "validation/slicer-system-020.json",
+      "sha256": "b24478478e616ae29e37f12a2683a18a40fe632cca566b8b972c14b340dfbafa",
+      "size_bytes": 10417
+    },
+    {
+      "path": "validation/slicer-system-028.json",
+      "sha256": "73dab9db0051b0b852a93f56ac93e2247d5d5c3b6cc12ca533da3bb9bbbbdf61",
+      "size_bytes": 10445
+    },
+    {
+      "path": "reports/optimization-variants.json",
+      "sha256": "54246465b6ce81033c12102b7bd9824d3702b92a25c92e74b5bbdb9d0cfe5a09",
+      "size_bytes": 1749
+    },
+    {
+      "path": "reports/optimization-pareto.json",
+      "sha256": "8a7edb3ffe8995304b9b1fbe14bda87fc3be02f86cca2a1d3a78845f7499c59a",
+      "size_bytes": 2227
+    },
+    {
+      "path": "reports/optimization-pareto.md",
+      "sha256": "0961f3ab028ec9d734e0225bb0563d18f6166146fd831ab88f4e9201238823d2",
+      "size_bytes": 285
+    }
+  ],
+  "limitations": [
+    "Slicer time and extrusion are estimates, not measured outcomes.",
+    "The light caddy remains a non-manufacturing digital variant.",
+    "Loaded stability, docking effort, flex, drop and wear remain physical gates.",
+    "No G-code was retained and no printer action was performed."
+  ],
+  "metrics": {
+    "feasible_variants": 1,
+    "geometric_reduction_vs_proxy_percent": 80.75377988357059,
+    "light_variant_reduction_vs_selected_caddy_percent": 14.716682430968397,
+    "pareto_variants": [
+      "system-020"
+    ],
+    "selected_extruded_volume_mm3": 483127.7653734832,
+    "selected_layers": 325,
+    "selected_print_time_s": 68944.0,
+    "selected_variant": "system-020",
+    "variant_metrics": {
+      "system-020": {
+        "extruded_volume_mm3": 483127.7653734832,
+        "layer_count": 325,
+        "nominal_engraving_layers": 2.9999999999999996,
+        "peak_flow_mm3_s": 13.058066392495956,
+        "print_time_s": 68944.0,
+        "protected_shell": 1,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "system-028": {
+        "extruded_volume_mm3": 503236.6996222695,
+        "layer_count": 232,
+        "nominal_engraving_layers": 2.142857142857143,
+        "peak_flow_mm3_s": 13.445523982966778,
+        "print_time_s": 59613.0,
+        "protected_shell": 1,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      }
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-029-finalize-optimization",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,102 @@
+{
+  "baseline": "system-020",
+  "constraints": [
+    {
+      "metric": "report_status",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "warning_count",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "tool_changes",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "protected_shell",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "nominal_engraving_layers",
+      "op": ">=",
+      "tolerance": 1e-09,
+      "value": 3.0
+    }
+  ],
+  "feasible_count": 1,
+  "interpretation": "Choose among feasible Pareto variants using explicit user priorities; no weighted score was invented.",
+  "objectives": [
+    {
+      "goal": "min",
+      "metric": "print_time_s"
+    },
+    {
+      "goal": "min",
+      "metric": "extruded_volume_mm3"
+    }
+  ],
+  "pareto_variants": [
+    "system-020"
+  ],
+  "results": [
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "print_time_s": {
+          "absolute": 0.0,
+          "percent": 0.0
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "system-020",
+      "notes": [
+        "Exact one-plate Kobra 3 Max PLA slice; no G-code retained."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 483127.7653734832,
+        "print_time_s": 68944.0
+      },
+      "pareto": true
+    },
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 20108.934248786303,
+          "percent": 4.162239409536117
+        },
+        "print_time_s": {
+          "absolute": -9331.0,
+          "percent": -13.534172661870503
+        }
+      },
+      "failed_constraints": [
+        {
+          "actual": 2.142857142857143,
+          "metric": "nominal_engraving_layers",
+          "op": ">=",
+          "required": 3.0,
+          "tolerance": 1e-09
+        }
+      ],
+      "feasible": false,
+      "name": "system-028",
+      "notes": [
+        "Exact one-plate Kobra 3 Max PLA slice; no G-code retained."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 503236.6996222695,
+        "print_time_s": 59613.0
+      },
+      "pareto": false
+    }
+  ]
+}

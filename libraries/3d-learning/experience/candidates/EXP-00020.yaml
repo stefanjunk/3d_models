@@ -1,0 +1,116 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00020
+title: A vertical dovetail key that began above the build plate triggered a native floating-cantilever warning; extending it to Z zero removed the warning
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One parametric hub geometry, one warning-producing draft trace transcribed before overwrite and two warning-free revised reference-profile slices; no printed underside, dock-fit or fatigue evidence.
+feature:
+  type: support-free-vertical-dovetail-docking-key
+  geometry: four horizontal dovetail projections on a shared open cup, mating vertical channels in four caddy bosses, and a representative gauge/key coupon
+  design_parameters:
+    initial_key_origin_z_mm: 3.0
+    revised_key_origin_z_mm: 0.0
+    key_depth_mm: 6.0
+    key_base_width_mm: 16.0
+    key_head_width_mm: 22.0
+    key_height_mm: 25.0
+    selected_total_clearance_mm: 0.4
+    coupon_total_clearances_mm: [0.2, 0.4, 0.6]
+    supports_enabled: false
+  named_datums: [build-plate-z-zero, hub-side-face, caddy-channel-through-bottom, key-channel-centerline]
+  constraints:
+    - Keep the selected hub key connected to the build plate when printed in the declared base-down orientation.
+    - Keep the mating caddy channel open through its bottom and top so a bed-built key can seat without a collision.
+    - Require the exact destination slicer's native warning list, not only exit code, to be empty.
+    - Treat the clearance coupon as mandatory because support-free topology does not prove printed sliding fit.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic profile only, product: PLA, variant: unfilled, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: hub, caddies and coupon base down; vertical channels open upward and through the bottom
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: Kobra 3 Max 0.4 nozzle with 0.20/0.28 mm Standard and Anycubic PLA, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: side-projecting-captive-dovetail-on-base-down-container
+  environment: dry indoor digital candidate; no physical environment test
+  transfer_limits:
+    - One hub/caddy system and one slicer warning heuristic.
+    - Does not establish underside quality, sliding force, wear, impact strength or fatigue life.
+    - A key may safely begin above Z zero if supported by another printable feature or a qualified bridge; that case was not tested.
+observation:
+  summary: The initial Z=3 mm key origin produced a native floating-cantilever warning even though slicing exited successfully; after keys and mating channels were extended to Z=0, both exact process slices retained exit-code PASS and reported no native or parser warnings.
+  expected: A declared support-free system should slice with an empty native warning list while retaining the same key cross-section, caddy/hub orientation and one-tool process.
+  actual: Initial 0.20 mm live output contained one warning for shared-center-hub. Revised 0.20 and 0.28 mm reports contain zero native/parser warnings, one tool and zero tool changes; the selected 0.20 mm plate remains 325 layers.
+  outcome: mixed
+  parameter: key_origin_z_mm
+  recommended_value: null
+  units: mm
+explanation:
+  hypothesis: The Z=3 mm key's first outward layer had no preceding material below it, so the slicer classified it as a floating cantilever; connecting the same cross-section to the build plate removed that unsupported start condition.
+  mechanism: Extending the projection and its channel to Z=0 lets the key grow upward from bed-supported contours while preserving horizontal dovetail capture after assembly.
+  alternatives:
+    - The native warning heuristic may have changed due to another regenerated mesh detail.
+    - A local chamfer, sacrificial web or bridge-tuned key could avoid the warning without a through-bottom channel.
+    - Support could manufacture the Z=3 mm geometry but violates the selected no-support requirement and adds interface cleanup risk.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Transcribed native warning from the initial exact Anycubic Slicer Next run, then retained exact 0.20/0.28 mm revised reports, parametric Z-origin assertion, topology audits and one-plate package validation; no physical measurement.
+  uncertainty: The initial JSON path was overwritten during the draft iteration and its values are preserved in a transparent reconstructed trace; the revised reports are exact retained artifacts.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/learning-trace.yaml, hash: null, notes: Owns the product-local scope and lifecycle.}
+    - {type: other, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/slicer-warning-iteration.json, hash: 05d8872ae33ae1908433ccbbb2bcdfd1dce9566beaa0db7e79f1080f0e8435fa, notes: Separates the transcribed initial warning from the retained revised evidence and interpretation.}
+    - {type: other, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json, hash: b24478478e616ae29e37f12a2683a18a40fe632cca566b8b972c14b340dfbafa, notes: Retained selected exact-profile warning-free report.}
+  artifacts:
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/model-parameters.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/cad/build.py
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/slicer-warning-iteration.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-028.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py
+applicability:
+  triggers:
+    - A no-support functional key, rail or hook projects horizontally from a vertical wall in base-down orientation.
+    - The projection begins above the build plate and the exact slicer reports a floating cantilever.
+  exclusions:
+    - Qualified bridge, arch, chamfer, sacrificial-web or supported geometries.
+    - Cosmetic-only warnings or geometries whose mating contract requires a closed channel bottom.
+  transfer_limits:
+    - Use as a candidate check to inspect native slicer warnings and projection support paths; do not force every vertical dovetail to Z zero.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-interfaces-bed-built-dovetail-native-warning-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/slicer-warning-iteration.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json
+    - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-028.json
+provenance:
+  project: MM-ORG-029-craft-night-modular-personal-supply-caddy
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [support-free, dovetail, cantilever, slicer-warning, z-zero, interface, digital-only]

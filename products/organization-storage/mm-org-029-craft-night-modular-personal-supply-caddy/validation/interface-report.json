@@ -1,0 +1,368 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "four-docks",
+      "message": "Shared hub exposes four identical vertical dovetail keys",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nominal-clearance",
+      "message": "Production dock retains 0.40 mm total nominal lateral clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-bracket",
+      "message": "Coupon brackets and includes production clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nameplate-clearance",
+      "message": "Nameplate retains 0.40 mm nominal thickness clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "four-nameplates",
+      "message": "Four plates retain exact CAD glyph identity",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-shell",
+      "message": "Selected caddy retains protected shell dimensions",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-variant-boundary",
+      "message": "Light caddy is distinguishable and non-manufacturing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2",
+      "size_bytes": 3015
+    },
+    {
+      "path": "config/name-batch.json",
+      "sha256": "b66bd76fc76e42d5f60f886db5f32e209ddb4305a44960247896d6dc8f0536c0",
+      "size_bytes": 1368
+    },
+    {
+      "path": "reports/csv-import.json",
+      "sha256": "3d84d758aea0dcf417080d52b09aac2f9ce08473517c6dbcd1f6b97e473b6b50",
+      "size_bytes": 2838
+    },
+    {
+      "path": "renders/MM-ORG-029-live-batch-preview.svg",
+      "sha256": "eb23ba03d85e3be3bf55a7acf3466eac15c74871b6eda12b46d8e376e9431c6c",
+      "size_bytes": 23182
+    },
+    {
+      "path": "reports/live-batch-preview.json",
+      "sha256": "8fbd4ab711afa1e93afb938bc73e0ad1eaba272e56a7ef8009f88110acda65ce",
+      "size_bytes": 1688
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "447fe6f1e0be2f98eca23438d8a904777f16af8e64a97cca75b8df929d4adcd6",
+      "size_bytes": 32281
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "77fe7475c8fcc62b6ecd23a51a9d895fc49a079226102e3f6051f1d1d76828d6",
+      "size_bytes": 5416
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "2e8d17177205b6795956f2e1b414482a3658f7e2018340e2dc53cffc104950f6",
+      "size_bytes": 504
+    }
+  ],
+  "limitations": [
+    "Nominal digital clearances require printed coupon and system tests."
+  ],
+  "metrics": {
+    "font_record": {
+      "commercial_release_status": "REVIEW_REQUIRED",
+      "design_use_status": "APPROVED_INTERNAL_DIGITAL_CANDIDATE",
+      "display_name": "metriMade Grid 5x7",
+      "external_font_file": false,
+      "font_id": "MM-GRID-5X7-v1",
+      "origin": "repository-owned geometric glyph definitions first used by MM-ORG-010",
+      "schema_version": "1.0",
+      "source": "cad/gridfont.py",
+      "supported_input": "uppercase A-Z, digits, spaces, period, hyphen and ampersand; accents normalize and German umlauts/sharp-S transliterate"
+    },
+    "interfaces": {
+      "dock-clearance-gauge": {
+        "candidate_total_clearances_mm": [
+          0.2,
+          0.4,
+          0.6
+        ],
+        "channel_base_widths_mm": [
+          16.2,
+          16.4,
+          16.6
+        ],
+        "channel_head_widths_mm": [
+          22.2,
+          22.4,
+          22.6
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          75.0,
+          108.0,
+          35.0
+        ],
+        "part_id": "dock-clearance-gauge",
+        "print_orientation": "base_down_channels_open_top"
+      },
+      "dock-interface-key": {
+        "external_assets": [],
+        "key_base_width_mm": 16.0,
+        "key_depth_mm": 6.0,
+        "key_head_width_mm": 22.0,
+        "outer_dimensions_mm": [
+          13.0,
+          35.0,
+          34.0
+        ],
+        "part_id": "dock-interface-key",
+        "print_orientation": "base_down_key_vertical"
+      },
+      "light-personal-caddy-variant": {
+        "base_mm": 2.4,
+        "compartment_count": 2,
+        "dock_channel": {
+          "base_width_mm": 16.4,
+          "depth_mm": 6.4,
+          "head_width_mm": 22.4,
+          "total_clearance_mm": 0.4
+        },
+        "external_assets": [],
+        "light_variant": true,
+        "nameplate_slot": {
+          "length_mm": 70.4,
+          "thickness_clearance_mm": 0.3999999999999999,
+          "width_mm": 2.4
+        },
+        "outer_dimensions_mm": [
+          150.4,
+          95.0,
+          65.0
+        ],
+        "part_id": "light-personal-caddy-variant",
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 2.4
+      },
+      "nameplate-01-alex": {
+        "engraving_depth_mm": 0.6,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 46.0,
+          "total_columns": 23
+        },
+        "minimum_backing_mm": 1.4,
+        "normalized_name": "ALEX",
+        "outer_dimensions_mm": [
+          70.0,
+          24.0,
+          2.0
+        ],
+        "part_id": "nameplate-01",
+        "print_orientation": "broad_face_down_engraving_up"
+      },
+      "nameplate-02-blair": {
+        "engraving_depth_mm": 0.6,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "minimum_backing_mm": 1.4,
+        "normalized_name": "BLAIR",
+        "outer_dimensions_mm": [
+          70.0,
+          24.0,
+          2.0
+        ],
+        "part_id": "nameplate-02",
+        "print_orientation": "broad_face_down_engraving_up"
+      },
+      "nameplate-03-casey": {
+        "engraving_depth_mm": 0.6,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "minimum_backing_mm": 1.4,
+        "normalized_name": "CASEY",
+        "outer_dimensions_mm": [
+          70.0,
+          24.0,
+          2.0
+        ],
+        "part_id": "nameplate-03",
+        "print_orientation": "broad_face_down_engraving_up"
+      },
+      "nameplate-04-devin": {
+        "engraving_depth_mm": 0.6,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "minimum_backing_mm": 1.4,
+        "normalized_name": "DEVIN",
+        "outer_dimensions_mm": [
+          70.0,
+          24.0,
+          2.0
+        ],
+        "part_id": "nameplate-04",
+        "print_orientation": "broad_face_down_engraving_up"
+      },
+      "personal-caddy": {
+        "base_mm": 3.0,
+        "compartment_count": 2,
+        "dock_channel": {
+          "base_width_mm": 16.4,
+          "depth_mm": 6.4,
+          "head_width_mm": 22.4,
+          "total_clearance_mm": 0.4
+        },
+        "external_assets": [],
+        "light_variant": false,
+        "nameplate_slot": {
+          "length_mm": 70.4,
+          "thickness_clearance_mm": 0.3999999999999999,
+          "width_mm": 2.4
+        },
+        "outer_dimensions_mm": [
+          150.4,
+          95.0,
+          65.0
+        ],
+        "part_id": "personal-caddy",
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 3.0
+      },
+      "shared-center-hub": {
+        "body_size_mm": 72.0,
+        "dock_count": 4,
+        "external_assets": [],
+        "key": {
+          "base_width_mm": 16.0,
+          "depth_mm": 6.0,
+          "head_width_mm": 22.0,
+          "height_mm": 25.0
+        },
+        "outer_dimensions_mm": [
+          84.0,
+          84.0,
+          38.0
+        ],
+        "part_id": "shared-center-hub",
+        "print_orientation": "base_down_open_top"
+      }
+    },
+    "nameplate_total_clearance_mm": 0.3999999999999999,
+    "names": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 46.0,
+          "total_columns": 23
+        },
+        "normalized_name": "ALEX",
+        "source_name": "Alex"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "BLAIR",
+        "source_name": "Blair"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "CASEY",
+        "source_name": "Casey"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "DEVIN",
+        "source_name": "Devin"
+      }
+    ],
+    "nominal_total_clearance_mm": 0.4
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-029-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

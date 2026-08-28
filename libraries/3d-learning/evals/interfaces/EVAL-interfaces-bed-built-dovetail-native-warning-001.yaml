@@ -1,0 +1,42 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-bed-built-dovetail-native-warning-001
+title: Bed-built vertical dovetail revision retains an empty exact-slicer warning list
+category: interfaces
+status: draft
+trigger: A support-free side-projecting dovetail key previously began above the build plate and triggered a native floating-cantilever warning.
+risk: A CAD-valid and topologically valid interface may still contain a support-requiring start layer, while a slicer exit code alone remains PASS.
+given:
+  project: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy
+  parameter_source: config/model-parameters.json
+  selected_slicer_report: validation/slicer-system-020.json
+  comparison_slicer_report: validation/slicer-system-028.json
+expected:
+  - Hub key origin is exactly Z=0 and supports remain disabled.
+  - Both retained exact slicer reports have PASS status, empty native warning messages and empty parser warning lists.
+failure_conditions:
+  - The key origin moves above Z=0 without replacement support-path evidence.
+  - Either exact slicer report is stale, non-PASS or contains a native/parser warning.
+fixtures:
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/model-parameters.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-028.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py::test_bed_built_dock_revision_is_warning_free -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Assert the Z-origin contract and inspect retained native plus parsed warning arrays from both exact-profile reports.
+relationships:
+  lessons: [EXP-00020]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/optimization-report.json
+  artifact_hashes:
+    - 6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2
+    - b24478478e616ae29e37f12a2683a18a40fe632cca566b8b972c14b340dfbafa
+    - 73dab9db0051b0b852a93f56ac93e2247d5d5c3b6cc12ca533da3bb9bbbbdf61
+tags: [interfaces, support-free, dovetail, cantilever, native-warning, regression]

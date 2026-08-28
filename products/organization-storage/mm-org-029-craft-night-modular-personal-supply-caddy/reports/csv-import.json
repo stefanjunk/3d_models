@@ -1,0 +1,114 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "name-count",
+      "message": "Imported four unique participant names",
+      "metrics": {
+        "count": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-identity",
+      "message": "All names use the repository-owned glyph source",
+      "metrics": {
+        "font_id": "MM-GRID-5X7-v1"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "Every name meets the configured printable pixel minimum",
+      "metrics": {
+        "minimum_mm": 1.56
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2",
+      "size_bytes": 3015
+    },
+    {
+      "path": "config/names.csv",
+      "sha256": "06be5aca9de90f296d070fc96a0385a37f8aa9c24dad00d440e797ee73cc2b22",
+      "size_bytes": 28
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "77fe7475c8fcc62b6ecd23a51a9d895fc49a079226102e3f6051f1d1d76828d6",
+      "size_bytes": 5416
+    }
+  ],
+  "limitations": [
+    "Customer names still require exact proof and content approval before manufacture."
+  ],
+  "metrics": {
+    "batch_json_sha256": "b66bd76fc76e42d5f60f886db5f32e209ddb4305a44960247896d6dc8f0536c0",
+    "font_id": "MM-GRID-5X7-v1",
+    "names": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 46.0,
+          "total_columns": 23
+        },
+        "normalized_name": "ALEX",
+        "source_name": "Alex"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "BLAIR",
+        "source_name": "Blair"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "CASEY",
+        "source_name": "Casey"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 2.0,
+          "pixel_width_mm": 1.56,
+          "text_height_mm": 14.0,
+          "text_width_mm": 58.0,
+          "total_columns": 29
+        },
+        "normalized_name": "DEVIN",
+        "source_name": "Devin"
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-029-csv-name-import",
+  "tool_version": "0.1.0-draft.1"
+}

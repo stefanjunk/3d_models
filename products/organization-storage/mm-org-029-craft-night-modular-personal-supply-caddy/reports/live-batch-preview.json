@@ -1,0 +1,67 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "font-identity",
+      "message": "Preview and CAD share the normalized glyph source",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "batch-count",
+      "message": "Preview contains four names",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "All glyph pixels meet the printable minimum",
+      "metrics": {
+        "minimum_mm": 1.56
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2",
+      "size_bytes": 3015
+    },
+    {
+      "path": "config/name-batch.json",
+      "sha256": "b66bd76fc76e42d5f60f886db5f32e209ddb4305a44960247896d6dc8f0536c0",
+      "size_bytes": 1368
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "77fe7475c8fcc62b6ecd23a51a9d895fc49a079226102e3f6051f1d1d76828d6",
+      "size_bytes": 5416
+    }
+  ],
+  "limitations": [
+    "The proof confirms source identity and layout, not printed contrast or customer acceptance."
+  ],
+  "metrics": {
+    "font_id": "MM-GRID-5X7-v1",
+    "minimum_pixel_width_mm": 1.56,
+    "names": [
+      "ALEX",
+      "BLAIR",
+      "CASEY",
+      "DEVIN"
+    ],
+    "svg_sha256": "eb23ba03d85e3be3bf55a7acf3466eac15c74871b6eda12b46d8e376e9431c6c"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-029-live-batch-preview",
+  "tool_version": "0.1.0-draft.1"
+}

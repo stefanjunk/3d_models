@@ -1,0 +1,63 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-csv-batch-proof-cad-glyph-identity-003
+title: CSV participant batch, exact proof and removable caddy nameplates share one geometric glyph contract
+category: interfaces
+status: draft
+trigger: Four removable caddy nameplates are personalized from CSV and require an exact proof before manufacturing.
+risk: CSV import, proof rendering and CAD could normalize names or fit glyphs differently, so the approved proof and printed plates would diverge.
+given:
+  project: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy
+  parameter_source: config/model-parameters.json
+  csv_source: config/names.csv
+  batch_source: config/name-batch.json
+  glyph_source: cad/gridfont.py
+  import_tool: tools/import_names.py
+  proof_tool: tools/live_batch_preview.py
+  import_report: reports/csv-import.json
+  proof_report: reports/live-batch-preview.json
+  cad_interface_report: validation/interface-report.json
+expected:
+  - CSV import, proof report and CAD interface all use font ID MM-GRID-5X7-v1.
+  - All four normalized participant names match in order between imported batch, proof and CAD interface.
+  - Batch JSON and retained SVG hashes match their executable reports.
+  - The eight-character boundary and every default name retain at least 0.8 mm pixel width.
+failure_conditions:
+  - Font identity or normalized name order differs between CSV, proof and CAD.
+  - Batch or SVG hash differs from the retained artifact.
+  - An eight-character or default name falls below the declared pixel minimum.
+fixtures:
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/model-parameters.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/names.csv
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/name-batch.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/cad/gridfont.py
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tools/import_names.py
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tools/live_batch_preview.py
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/csv-import.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/live-batch-preview.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/interface-report.json
+  - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py::test_csv_proof_and_cad_share_exact_glyph_contract products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py::test_maximum_name_keeps_printable_pixels -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare normalized names, font identity, generated-batch hash, exact SVG hash and calculated eight-character pixel width.
+relationships:
+  lessons: [EXP-00005]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/live-batch-preview.json
+  artifact_hashes:
+    - 6b879df06f2de20ecbd931f9fc9e2b0ff84adea3a1cd31baf6eab60dd53cd6e2
+    - 06be5aca9de90f296d070fc96a0385a37f8aa9c24dad00d440e797ee73cc2b22
+    - b66bd76fc76e42d5f60f886db5f32e209ddb4305a44960247896d6dc8f0536c0
+    - 77fe7475c8fcc62b6ecd23a51a9d895fc49a079226102e3f6051f1d1d76828d6
+    - 056357021b5d8d89adc77777e02add194eb4d9238f0eed7426aa92b84f175561
+    - 591e6b528fe5e2b0d9a4ed620d5fe5336a44c361c3e9bf9b2cd9510ce24c8b4f
+    - 3d84d758aea0dcf417080d52b09aac2f9ce08473517c6dbcd1f6b97e473b6b50
+    - 8fbd4ab711afa1e93afb938bc73e0ad1eaba272e56a7ef8009f88110acda65ce
+    - 06a0c63c4473c4ed568bd82c0443c8d6a4e577b6517477008318261ba48e9288
+tags: [interfaces, personalization, csv-batch, caddy-nameplate, raster-glyph, exact-live-proof, regression, digital-only]

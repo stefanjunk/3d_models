@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "project": {"id": "MM-ORG-022", "revision": "0.1.0-draft.1", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [426, 420, 501]},
+  "artifacts": [
+    {"id":"narrow","path":"exports/manufacturing/DRAFT-MM-ORG-022-narrow-bin-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"medium","path":"exports/manufacturing/DRAFT-MM-ORG-022-medium-bin-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"wide","path":"exports/manufacturing/DRAFT-MM-ORG-022-wide-bin-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"matrix-frame","path":"exports/manufacturing/DRAFT-MM-ORG-022-matrix-frame-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"label-slot-gauge","path":"exports/coupons/DRAFT-MM-ORG-022-label-slot-gauge-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"build-3mf","path":"exports/3mf/DRAFT-MM-ORG-022-labelable-small-parts-bin-set-0.1.0-draft.1.3mf","kind":"3mf","revision":"0.1.0-draft.1"},
+    {"id":"parametric-report","path":"validation/parametric-source-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"mesh-generation-report","path":"validation/mesh-generation-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"interface-report","path":"validation/interface-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-narrow","path":"validation/fdm-mesh-narrow.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-medium","path":"validation/fdm-mesh-medium.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-wide","path":"validation/fdm-mesh-wide.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-matrix-frame","path":"validation/fdm-mesh-matrix-frame.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-label-slot-gauge","path":"validation/fdm-mesh-label-slot-gauge.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"fdm-3mf-report","path":"validation/fdm-3mf.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"slicer-report","path":"validation/slicer-anycubic-next.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"approvals-slicer","path":"validation/approvals-through-slicer.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"print-candidate-report","path":"validation/print-candidate-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"autonomy","path":"autonomy-policy.json","kind":"autonomy-policy","revision":"0.1.0-draft.1"},
+    {"id":"ledger","path":"validation/agent-approvals.json","kind":"approval-ledger","revision":"0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id":"narrow-mesh","type":"mesh","required":true,"artifact":"narrow","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"medium-mesh","type":"mesh","required":true,"artifact":"medium","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"wide-mesh","type":"mesh","required":true,"artifact":"wide","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"matrix-frame-mesh","type":"mesh","required":true,"artifact":"matrix-frame","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"label-slot-gauge-mesh","type":"mesh","required":true,"artifact":"label-slot-gauge","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"build-3mf-structure","type":"3mf","required":true,"artifact":"build-3mf","policy":{"inspect_meshes":true,"require_watertight_meshes":true,"require_positive_volume":true,"require_unit":"millimeter","min_mesh_objects":5,"max_package_members":12,"max_uncompressed_mib":30,"max_compression_ratio":200}},
+    {"id":"slicer","type":"external_report","required":true,"artifact":"slicer-report","expected_inputs":["build-3mf"]},
+    {"id":"print-candidate","type":"external_report","required":true,"artifact":"print-candidate-report","expected_inputs":["parametric-report","mesh-generation-report","interface-report","audit-narrow","audit-medium","audit-wide","audit-matrix-frame","audit-label-slot-gauge","fdm-3mf-report","slicer-report","approvals-slicer"]},
+    {"id":"approvals-through-print-candidate","type":"approvals","required":true,"policy_artifact":"autonomy","agent_ledger_artifact":"ledger","target_stage":"print-candidate"},
+    {"id":"physical-drawer-label-retrieval-and-handling","type":"physical","required":false,"status":"REVIEW_REQUIRED","criterion":"Coupon-selected labels, actual drawer fit, frame registration, electronics and sewing retrieval, edge comfort and 100 bin/label cycles pass","evidence_artifact":null}
+  ]
+}

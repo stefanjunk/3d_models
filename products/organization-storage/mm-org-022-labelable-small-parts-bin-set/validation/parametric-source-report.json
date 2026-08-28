@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All five B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "three-bin-widths",
+      "message": "All three measured widths are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "a8b2bb16d0514929f9513ef071fe47444a4b3bc354fc8b3a101318481eb20e64",
+      "size_bytes": 2437
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "4dab887bc5aea676fde8924605987017ca0e53a008865a63c278f6248b157415",
+      "size_bytes": 25135
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "narrow",
+      "medium",
+      "wide",
+      "matrix-frame",
+      "label-slot-gauge"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "narrow",
+      "medium",
+      "wide",
+      "matrix-frame",
+      "label-slot-gauge"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-022-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

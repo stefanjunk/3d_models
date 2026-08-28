@@ -1,0 +1,34 @@
+project:
+  id: MM-ORG-022
+  revision: 0.1.0-draft.1
+  title: Parametric labelable small-parts bin set
+  source_sku: SKU-023
+  opportunity_score: 88.8
+  next_candidate_rank: 14
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Sort small electronics and adult sewing notions in measured drawer rows with visible replaceable labels and easy pickup.
+  excluded: [child-directed use, battery storage, energized parts, ESD control, food contact, liquid containment, transport case, proprietary grid compatibility]
+
+requirements:
+  - {id: R1, text: Tile the 180 mm reference row without cumulative error., acceptance: 4x45; 90+45+45; and 67.5+67.5+45 all equal 180 mm., status: PASS_DIGITAL}
+  - {id: R2, text: Provide three independent parametric bin widths., acceptance: narrow medium and wide are valid single solids with common depth and height., status: PASS_DIGITAL}
+  - {id: R3, text: Make tiny parts easier to retrieve., acceptance: every bin has a 13x7 mm front interior pickup ramp and 12 mm front grip radius., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Labels must be replaceable without reprinting., acceptance: top-loading 0.7 mm paper-card rails plus 0.5/0.7/0.9 mm gauge., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R5, text: Register two loose rows without a proprietary base., acceptance: open frame has exact analytic clearances and contains no copied grid interface., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R6, text: Fit the declared printer and require no support., acceptance: every unique part is base-down within 220x160x140 mm and exact-profile slice passes., status: PASS_DIGITAL}
+
+manufacturing:
+  processes: [FDM, FFF]
+  materials: [PLA, PETG]
+  orientation: flat build-plate face down
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [drawer fit, frame registration, paper-label fit, tiny-part retrieval, 100 handling cycles, edge comfort]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

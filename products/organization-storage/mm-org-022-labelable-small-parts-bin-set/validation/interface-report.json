@@ -1,0 +1,266 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "electronics-row-a",
+      "message": "Four narrow bins tile 180 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "electronics-row-b",
+      "message": "One wide and two narrow bins tile 180 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "sewing-row",
+      "message": "Two medium and one narrow bin tile 180 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "common-depth-height",
+      "message": "All bins share depth and height",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "printable-shell",
+      "message": "Every bin has four-line walls and nine-layer floor",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pickup-ramp",
+      "message": "Every bin retains the pickup ramp",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-slot",
+      "message": "Every bin retains the target label gap",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-series",
+      "message": "Coupon brackets the target label gap",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "carrier-clearance",
+      "message": "Carrier clearances are exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "Every part fits the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "Passive-storage boundary is explicit",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "a8b2bb16d0514929f9513ef071fe47444a4b3bc354fc8b3a101318481eb20e64",
+      "size_bytes": 2437
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "4dab887bc5aea676fde8924605987017ca0e53a008865a63c278f6248b157415",
+      "size_bytes": 25135
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "49f72de8123cde7361a3d0bceac2f8103fab6fe43d4901c47ac980fd6007e062",
+      "size_bytes": 2214
+    }
+  ],
+  "limitations": [
+    "Analytic clearances do not replace a printed coupon or actual drawer/use-case pilot."
+  ],
+  "metrics": {
+    "interfaces": {
+      "label-slot-gauge": {
+        "external_assets": [],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "outer_dimensions_mm": [
+          72.0,
+          22.0,
+          16.0
+        ],
+        "part_id": "label-slot-gauge",
+        "slot_gaps_mm": [
+          0.5,
+          0.7,
+          0.9
+        ]
+      },
+      "matrix-frame": {
+        "external_assets": [],
+        "open_floor": true,
+        "outer_dimensions_mm": [
+          186.0,
+          156.0,
+          4.0
+        ],
+        "packing_width_mm": 180.0,
+        "part_id": "matrix-frame",
+        "row_clearance_mm": 1.2,
+        "rows": 2,
+        "side_clearance_mm": 0.6
+      },
+      "medium": {
+        "body_depth_mm": 75.0,
+        "body_height_mm": 36.0,
+        "body_width_mm": 67.5,
+        "external_assets": [],
+        "floor_mm": 1.8,
+        "grip_radius_mm": 12.0,
+        "identity_holes": 2,
+        "inner_clear_dimensions_mm": [
+          63.9,
+          71.4,
+          34.2
+        ],
+        "label_card_max_mm": [
+          57.5,
+          12.0,
+          0.4
+        ],
+        "label_slot_gap_mm": 0.7,
+        "outer_dimensions_mm": [
+          67.5,
+          76.5,
+          36.0
+        ],
+        "part_id": "medium",
+        "pickup_ramp_mm": [
+          13.0,
+          7.0
+        ],
+        "wall_mm": 1.8
+      },
+      "narrow": {
+        "body_depth_mm": 75.0,
+        "body_height_mm": 36.0,
+        "body_width_mm": 45.0,
+        "external_assets": [],
+        "floor_mm": 1.8,
+        "grip_radius_mm": 12.0,
+        "identity_holes": 1,
+        "inner_clear_dimensions_mm": [
+          41.4,
+          71.4,
+          34.2
+        ],
+        "label_card_max_mm": [
+          35.0,
+          12.0,
+          0.4
+        ],
+        "label_slot_gap_mm": 0.7,
+        "outer_dimensions_mm": [
+          45.0,
+          76.5,
+          36.0
+        ],
+        "part_id": "narrow",
+        "pickup_ramp_mm": [
+          13.0,
+          7.0
+        ],
+        "wall_mm": 1.8
+      },
+      "wide": {
+        "body_depth_mm": 75.0,
+        "body_height_mm": 36.0,
+        "body_width_mm": 90.0,
+        "external_assets": [],
+        "floor_mm": 1.8,
+        "grip_radius_mm": 12.0,
+        "identity_holes": 3,
+        "inner_clear_dimensions_mm": [
+          86.4,
+          71.4,
+          34.2
+        ],
+        "label_card_max_mm": [
+          80.0,
+          12.0,
+          0.4
+        ],
+        "label_slot_gap_mm": 0.7,
+        "outer_dimensions_mm": [
+          90.0,
+          76.5,
+          36.0
+        ],
+        "part_id": "wide",
+        "pickup_ramp_mm": [
+          13.0,
+          7.0
+        ],
+        "wall_mm": 1.8
+      }
+    },
+    "workflow_contract": {
+      "electrical_claim": "passive_storage_only_no_batteries_or_energized_parts",
+      "input_dimensions": [
+        "drawer_clear_width",
+        "drawer_clear_depth",
+        "drawer_clear_height",
+        "part_family",
+        "desired_bin_widths",
+        "label_card_thickness"
+      ],
+      "maximum_contents_mass_kg_per_bin": 0.25,
+      "pilot_use_cases": [
+        "unpowered_electronic_components",
+        "adult_sewing_notions"
+      ],
+      "retrieval_cycles": 100,
+      "small_parts_warning": "adult_storage_only_not_child_directed"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-022-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

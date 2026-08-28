@@ -83,8 +83,8 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 4
-  same_scope_repetitions: 2
+  observations: 5
+  same_scope_repetitions: 3
   geometry_count: 2
   machine_count: 1
   material_count: 1
@@ -109,10 +109,16 @@ evidence:
       ref: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
       hash: 24f9ec6a14ec4995141cfa14f460e908972b3a6b88dfa258c5f3b90cbe9e8cff
       notes: Relative-path run failed after the adapter changed to its isolated working directory; the fresh absolute-path report passed.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-022-labelable-small-parts-bin-set/reports/slicer-invocation-trace.md
+      hash: 1df8643b79c04f300103408b00f6ca59269a2b60b6104f549cf7962402d6f944
+      notes: Adapter 1.2.1 independently reproduced both fresh-child-output and absolute-source-path requirements; the absolute-path retry passed with the exact profile set.
   artifacts:
     - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
     - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
     - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1-r2.json
+    - products/organization-storage/mm-org-022-labelable-small-parts-bin-set/reports/slicer-invocation-trace.md
+    - products/organization-storage/mm-org-022-labelable-small-parts-bin-set/validation/slicer-anycubic-next.json
 applicability:
   triggers:
     - An Anycubic FDM project needs a local exact-profile slicer dry run with machine-readable evidence.

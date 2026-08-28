@@ -99,3 +99,18 @@
   Anycubic import plus exact slicing provide the compatibility gate.
 - Final GUI layer/support/seam review and physical fit, watermark, leak, trim
   and swimming tests remain human-controlled release gates.
+
+## 2026-08-28 — Purchased-parts shopping list
+
+- Added `SHOPPING_LIST.md` with quantities, exact fit-critical specifications,
+  spares, Amazon.de search links and a receiving-inspection checklist. Dynamic
+  search links are preferred over unqualified single-ASIN recommendations.
+- Retained the existing N20 requirement: 3 V, 150–300 rpm, Ø3-mm smooth/D
+  output shaft and at least 15 mm free shaft length. A common Amazon-listed
+  GA12-N20 datasheet specifies only 3 × 9 mm, so that variant is explicitly
+  rejected rather than presented as compatible.
+- Specified loose AAA contacts instead of a rigid 2×AAA holder because the
+  production capsule already contains two individual cell saddles.
+- Sized seal purchases as NBR 70 Shore A with spares for all four exact rings.
+  Supplier identity remains non-authoritative until local measurement, coupon
+  fit and leak testing pass; no geometry or manufacturing artifact changed.

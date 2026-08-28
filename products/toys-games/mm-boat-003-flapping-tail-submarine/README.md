@@ -98,6 +98,9 @@ separat gedruckt werden.
 
 ## Zukauf (BOM)
 
+Die vollständige [Einkaufsliste mit Amazon.de-Suchlinks](SHOPPING_LIST.md)
+enthält Stückzahlen, Muss-Maße, Ersatzteile und die Wareneingangsprüfung.
+
 - 1× N20-Getriebemotor 3 V, ~150–300 U/min, **Welle ≥ 15 mm** (Ø3)
 - 2× AAA (NiMH empfohlen) + Kabel, Lötkontakte
 - 1× Reedschalter (NO) + Magnetstab (Schalter bleibt gekapselt, keine

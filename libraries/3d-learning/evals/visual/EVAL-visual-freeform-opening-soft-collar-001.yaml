@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-freeform-opening-soft-collar-001
+title: Direct freeform opening has a continuous soft collar and collision-free wall variants
+category: visual
+status: draft
+trigger: A voxel-derived or faceted upper is rebuilt as a direct freeform shell with a rounded internal opening and multiple normal-offset wall variants.
+risk: A topologically valid model can retain an isolated collar spike, analyze a curve through the removed opening, or self-intersect when a thick wall follows the faired boundary.
+given:
+  project: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform
+  revision: 6.2.0-draft.2
+  required_views: [three-quarter, top, collar-closeup, lateral, medial, rear, flat-shaded, reflection-stripes]
+  required_mesh_variants: [fuzzy-shell-left-right, infill-envelope-left-right, reinforcement-frame-left-right, collar-coupon, master-obj]
+expected:
+  - The generator reports no voxel grid, distance field, marching cubes or global remesh in the accepted path.
+  - Fairness is computed on each visible curve segment and excludes samples inside the opening.
+  - The collar follows an explicit continuous edge-height profile without an isolated throat or rear shoulder peaks.
+  - Every exported variant is one watertight positive volume with zero selected self-intersecting faces.
+  - Fixed-view visual and reflection-line reports are hash-bound and pass.
+failure_conditions:
+  - Voxel or faceted character remains on the visible upper.
+  - A fairness metric differentiates across an intentionally removed opening as though the surface existed there.
+  - Any normal-offset variant self-intersects near the faired opening.
+  - The collar has a sharp isolated peak or fixed-view visual review fails.
+fixtures:
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft2.json
+  - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/production-v6.2.0-draft.2/
+grader:
+  type: hybrid
+  command: python3 products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validate_freeform_v6_2.py --parameters products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/parameters.yaml
+  expected_exit_code: 0
+  rubric: Fixed cameras must show a continuous soft loop without voxel stepping, faceting, an isolated anterior peak, paired rear peaks or unexplained reflection-line breaks.
+  measurement_method: Deterministic method/fairness/topology/self-intersection checks plus hash-bound Blender fixed-view review.
+relationships:
+  lessons: [EXP-00027]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/project-validation-draft2.json
+  artifact_hashes:
+    - 1ea62e3f5f12aa53401de91b19ece977f185733707be6067c6ebcfbd548943ad
+    - bd11ee6fbd3d85025d56c91065564ce5c48e49fe3c3eec37b52f6170f3a0204a
+tags: [visual, freeform, collar, opening, offset, self-intersection, voxel]

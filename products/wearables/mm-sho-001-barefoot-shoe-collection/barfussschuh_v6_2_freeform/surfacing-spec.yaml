@@ -38,6 +38,48 @@ semantic_parameters:
     max: 7.0
     unit: mm
     affects: [collar-band, opening]
+  - name: collar_center_y_ratio
+    value: 0.206
+    min: 0.195
+    max: 0.220
+    unit: ratio
+    affects: [opening, heel-reserve]
+  - name: heel_rise_transition_ratio
+    value: 0.10
+    min: 0.09
+    max: 0.12
+    unit: ratio
+    affects: [heel-rise, collar-transition]
+  - name: terminal_upper_width
+    value: 12.0
+    min: 12.0
+    max: 24.0
+    unit: mm
+    affects: [toe-closure, inner-wall-clearance]
+  - name: collar_edge_height_front
+    value: 52.0
+    min: 50.0
+    max: 54.0
+    unit: mm
+    affects: [collar-loop, throat-fairness]
+  - name: collar_edge_height_side
+    value: 44.3
+    min: 42.0
+    max: 46.0
+    unit: mm
+    affects: [collar-loop, side-opening]
+  - name: collar_edge_height_rear
+    value: 49.0
+    min: 47.0
+    max: 51.0
+    unit: mm
+    affects: [collar-loop, heel-shoulders]
+  - name: collar_infill_safe_wall
+    value: 2.6
+    min: 2.2
+    max: 3.0
+    unit: mm
+    affects: [collar-fairing, thick-infill-envelope]
   - name: collar_band_target_wall
     value: 2.6
     min: 2.2
@@ -104,6 +146,8 @@ acceptance:
   unexplained_curvature_extrema_per_primary_curve_max: 4
   self_intersections_allowed: false
   minimum_signed_volume_mm3: 1.0
+  collar_rear_reserve_mm_min: 15.0
+  collar_boundary_loops_expected: 1
   slicer_review_required: true
   physical_coupon_required: true
 

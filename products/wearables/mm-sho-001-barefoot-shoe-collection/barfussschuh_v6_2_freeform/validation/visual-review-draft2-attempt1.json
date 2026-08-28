@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-production-visual-review",
+  "tool_version": "1.1.0",
+  "status": "FAIL",
+  "profile": "draft",
+  "revision": "6.2.0-draft.2",
+  "candidate": "attempt.1",
+  "mesh": {
+    "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl",
+    "sha256": "aea48c106c580bb4174359a45b79acb1c5c4bc5978c134779fdbd3e83a0e04d6"
+  },
+  "inputs": [
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-three-quarter.png", "sha256": "8899a1d9768c7f849a42eb9783ef7d726f8e4d1f790fb44f9f3afc5d58355450"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-top.png", "sha256": "d554475463ac4887c78d2eb4bfbef93800c08c5d57ccd480c524b6ae6dcd4462"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-collar-closeup.png", "sha256": "747d176e3898ca9ed226ba0bc320f789b157d4208d5c894cf4ca85591e024be4"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-lateral.png", "sha256": "42ae3776515c7faf1fa665ee1a49fedb682739a7cada274617875922aad44b90"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-medial.png", "sha256": "a480cc6a34b7d2e0575be005a74285431e8d8bae3eb77f2a57bae6e1232392bd"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-rear.png", "sha256": "2a821ec1c2e279f102109725b3b3cb4eb8d415b10fe966ebb225843ef5bb8ca6"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-flat-shaded.png", "sha256": "d1dcb7f48324b591d61c6a8373c63bbbd3320eb9730f27f139044169bd9cb297"},
+    {"path": "previews/rejected-v6.2.0-draft.2-attempt.1/production-reflection-stripes.png", "sha256": "5c04bae41718fabbc1bff078a8b9db0b35dec2a2c889f92774555849a6ee6e33"}
+  ],
+  "checks": [
+    {
+      "id": "smooth-upper-envelope",
+      "status": "PASS",
+      "required": true,
+      "message": "The visible upper is smooth and free of voxel or marching-cubes stepping."
+    },
+    {
+      "id": "rear-reserve-and-heel-transition",
+      "status": "PASS",
+      "required": true,
+      "message": "The rear reserve removes the rejected draft-1 split rear collar and heel fins."
+    },
+    {
+      "id": "continuous-soft-collar-profile",
+      "status": "FAIL",
+      "required": true,
+      "message": "The anterior collar boundary still rises into a sharp isolated throat peak, and the rear shoulder pair remains visually too pronounced for the approved soft continuous band."
+    }
+  ],
+  "metrics": {
+    "decision": "reject-attempt-1-and-fair-collar-edge-height",
+    "measured_front_edge_z_mm": 61.94793314316561,
+    "measured_rear_edge_z_mm": 48.7112900629344,
+    "measured_side_edge_z_mm": 44.280949489830085
+  },
+  "limitations": [
+    "Render inspection is a form-review gate, not dimensional or physical comfort proof."
+  ]
+}

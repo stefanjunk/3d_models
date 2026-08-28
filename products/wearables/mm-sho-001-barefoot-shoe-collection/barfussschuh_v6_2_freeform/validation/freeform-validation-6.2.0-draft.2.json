@@ -1,0 +1,556 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-freeform-validation",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "profile": "draft",
+  "inputs": [
+    {
+      "path": "parameters.yaml",
+      "sha256": "1828902ac478f035a3565ec52ba6e274be11d65076979f5dc83bfeb18d3d4055",
+      "size_bytes": 2974
+    },
+    {
+      "path": "validation/generation-report-6.2.0-draft.2.json",
+      "sha256": "daa9b3785f020b28c30a55e92df0fb92f46135f43f53c8d5a68a8346506da698",
+      "size_bytes": 16218
+    },
+    {
+      "path": "generate_v6_2.py",
+      "sha256": "9e8bf08f7a7d90b51ceb3a47e23cb4a7faa9ae70fa8d0173af3f18d804d381b6",
+      "size_bytes": 38003
+    }
+  ],
+  "checks": [
+    {
+      "id": "revision-and-input-binding",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated geometry is bound to the approved project revision and parameter hash",
+      "metrics": {
+        "expected_project_id": "MM-SHO-001",
+        "reported_project_id": "MM-SHO-001",
+        "expected_revision": "6.2.0-draft.2",
+        "reported_revision": "6.2.0-draft.2",
+        "expected_parameters_sha256": "1828902ac478f035a3565ec52ba6e274be11d65076979f5dc83bfeb18d3d4055",
+        "reported_parameters_sha256": "1828902ac478f035a3565ec52ba6e274be11d65076979f5dc83bfeb18d3d4055"
+      },
+      "evidence": []
+    },
+    {
+      "id": "mesh-self-intersections",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated meshes contain no selected self-intersecting faces",
+      "metrics": {
+        "backend": "pymeshlab",
+        "backend_version": "2025.7.post1",
+        "filter": "compute_selection_by_self_intersections_per_face",
+        "failures": [],
+        "artifacts": {
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl",
+            "sha256": "1285098964cc982415c48805e2344ebb3c1aafcb47f3ff6f0aec1ada137a19e6",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-right.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-right.stl",
+            "sha256": "12516fbe2900a0dad2eb5b6a66b29b524a83713ebaf6bb41e9015356f3be169f",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-left.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-left.stl",
+            "sha256": "27ebda6998fbb7209db13ec47e54b7b954d86f324701aca077cbd42ec0d172a0",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-right.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-right.stl",
+            "sha256": "ab6bbc66793c81830cbb8145e86834886d0fce63c7fbed573ea8ebd6ca0f2146",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-left.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-left.stl",
+            "sha256": "29f06a8d2f22cf401307e0d01a29347d4bdd3879867a41ec06c3f4b67cc0846c",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-right.stl": {
+            "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-right.stl",
+            "sha256": "c356db25dab93bb56015a867bd9dd9400f37b8e8b745758c0fcd0ecbe3d89c6d",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-collar-comfort-coupon.stl": {
+            "path": "exports/coupons/DRAFT-MM-SHO-001-6.2.0-draft.2-collar-comfort-coupon.stl",
+            "sha256": "3d778127b3095d0c9f57a2be775fcef3d9687bc4dcc31d77f8614270ffdf2b6c",
+            "selected_self_intersecting_faces": 0
+          },
+          "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left-master.obj": {
+            "path": "exports/master/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left-master.obj",
+            "sha256": "2623fa222f8965932a6f087cb5e62dcfac2ac518d9236376b999d987bd696cfa",
+            "selected_self_intersecting_faces": 0
+          }
+        }
+      },
+      "evidence": []
+    },
+    {
+      "id": "direct-freeform-method",
+      "status": "PASS",
+      "required": true,
+      "message": "Upper uses the approved direct freeform route",
+      "metrics": {
+        "name": "direct-c2-freeform-domain-loft",
+        "sole_interface_interpolation": "pchip-v6.1-compatible",
+        "longitudinal_interpolation": "natural-cubic-c2",
+        "voxel_grid": false,
+        "distance_field": false,
+        "marching_cubes": false,
+        "global_remesh": false,
+        "collar": "parametric domain opening plus explicit rounded edge cap"
+      },
+      "evidence": []
+    },
+    {
+      "id": "protected-sole-interface",
+      "status": "PASS",
+      "required": true,
+      "message": "Sole/lip attachment hardpoints remain within the approved drift",
+      "metrics": {
+        "maximum_drift_mm": 1.7053025658242404e-13,
+        "limit_mm": 0.2
+      },
+      "evidence": []
+    },
+    {
+      "id": "draft2-collar-and-heel-geometry",
+      "status": "PASS",
+      "required": true,
+      "message": "Draft-2 retains the approved rear reserve, extended heel rise, and one closed collar loop",
+      "metrics": {
+        "rear_reserve_mm": 15.207999999999998,
+        "rear_reserve_min_mm": 15.0,
+        "heel_rise_transition_ratio": 0.1,
+        "heel_rise_transition_ratio_min": 0.1,
+        "heel_rise_transition_length_mm": 26.8,
+        "front_boundary_drift_from_v6_1_mm": -0.031999999999996476,
+        "front_boundary_drift_limit_mm": 0.2,
+        "opening_width_at_center_mm": 51.184744792493525,
+        "collar_loop_counts": {
+          "fuzzy_shell": 1,
+          "infill_envelope": 1,
+          "reinforcement_frame": 1
+        }
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-edge-height-profile",
+      "status": "PASS",
+      "required": true,
+      "message": "The faired collar loop reaches the approved front, side, and rear height profile",
+      "metrics": {
+        "target_mm": {
+          "front": 52.0,
+          "side": 44.3,
+          "rear": 49.0
+        },
+        "measured_mm": {
+          "front": 52.0,
+          "side": 44.3,
+          "rear": 49.0
+        },
+        "error_mm": {
+          "front": 0.0,
+          "side": 0.0,
+          "rear": 0.0
+        },
+        "limit_mm": 0.05,
+        "fairing_width_mm": 18.0
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-wall-contract",
+      "status": "PASS",
+      "required": true,
+      "message": "Thin shell and reinforcement frame reach the approved collar wall",
+      "metrics": {
+        "fuzzy_base_wall_mm": 1.4,
+        "fuzzy_collar_wall_mm": 2.6000000000000014,
+        "infill_end_closure_wall_min_mm": 1.4,
+        "infill_nominal_wall_max_mm": 4.5,
+        "frame_collar_wall_mm": 2.6000000000000014,
+        "base_minimum_mm": 1.4,
+        "collar_minimum_mm": 2.6
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-tessellation",
+      "status": "PASS",
+      "required": true,
+      "message": "Collar boundary tessellation remains below the approved edge target",
+      "metrics": {
+        "maximum_edge_mm": 0.3524982695834515,
+        "limit_mm": 0.65
+      },
+      "evidence": []
+    },
+    {
+      "id": "visible-tessellation",
+      "status": "PASS",
+      "required": true,
+      "message": "Visible freeform triangles remain below the approved edge target",
+      "metrics": {
+        "maximum_edge_mm": 1.2237036034522322,
+        "limit_mm": 1.25
+      },
+      "evidence": []
+    },
+    {
+      "id": "manufacturing-mesh-topology",
+      "status": "PASS",
+      "required": true,
+      "message": "Every generated mesh is a single watertight positive volume without degenerate faces",
+      "metrics": {
+        "failures": [],
+        "artifact_count": 8
+      },
+      "evidence": []
+    },
+    {
+      "id": "manufacturing-mesh-budget",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated meshes remain inside the declared triangle and file-size stop budgets",
+      "metrics": {
+        "failures": [],
+        "triangle_stop": 600000,
+        "maximum_mesh_bytes": 31457280
+      },
+      "evidence": []
+    },
+    {
+      "id": "collar-opening-preservation",
+      "status": "PASS",
+      "required": true,
+      "message": "Rounded free edge does not constrict the opening beyond the approved limit",
+      "metrics": {
+        "maximum_reduction_each_side_mm": 0.8,
+        "limit_mm": 0.8
+      },
+      "evidence": []
+    },
+    {
+      "id": "guide-curve-fairness",
+      "status": "PASS",
+      "required": true,
+      "message": "Central guide curves contain no unexplained high-frequency curvature oscillation",
+      "metrics": {
+        "curves": {
+          "r=-0.90": {
+            "csv": "source/curves/guidemrmm0p90.csv",
+            "point_count": 4001,
+            "visible_segment_count": 1,
+            "opening_samples_excluded": 0,
+            "length_mm": 298.5433242910911,
+            "curvature_rms_1_per_mm": 0.017763697760278214,
+            "curvature_max_1_per_mm": 0.13429774645578818,
+            "all_prominent_extrema": 9,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 8,
+            "explained_semantic_y_mm": [
+              13.266,
+              32.026,
+              128.774,
+              166.026,
+              192.82600000000002,
+              219.626,
+              241.334,
+              257.414
+            ],
+            "explained_collar_fairing_extrema": 0,
+            "explained_collar_fairing_y_mm": [],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=-0.65": {
+            "csv": "source/curves/guidemrmm0p65.csv",
+            "point_count": 4001,
+            "visible_segment_count": 1,
+            "opening_samples_excluded": 0,
+            "length_mm": 309.6550737587948,
+            "curvature_rms_1_per_mm": 0.028825587916226986,
+            "curvature_max_1_per_mm": 0.13620807221908265,
+            "all_prominent_extrema": 12,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 8,
+            "explained_semantic_y_mm": [
+              31.825000000000003,
+              59.429,
+              128.774,
+              192.82600000000002,
+              235.70600000000002,
+              241.334,
+              257.146,
+              257.81600000000003
+            ],
+            "explained_collar_fairing_extrema": 3,
+            "explained_collar_fairing_y_mm": [
+              23.316000000000003,
+              41.205000000000005,
+              78.122
+            ],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=-0.35": {
+            "csv": "source/curves/guidemrmm0p35.csv",
+            "point_count": 3048,
+            "visible_segment_count": 2,
+            "opening_samples_excluded": 953,
+            "length_mm": 245.75840374192867,
+            "curvature_rms_1_per_mm": 0.055713972547300365,
+            "curvature_max_1_per_mm": 0.31554040217384344,
+            "all_prominent_extrema": 9,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 3,
+            "explained_semantic_y_mm": [
+              16.348000000000003,
+              235.70600000000002,
+              257.079
+            ],
+            "explained_collar_fairing_extrema": 4,
+            "explained_collar_fairing_y_mm": [
+              19.229000000000003,
+              23.115000000000002,
+              92.527,
+              104.185
+            ],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.00": {
+            "csv": "source/curves/guidemrmp0p00.csv",
+            "point_count": 2806,
+            "visible_segment_count": 2,
+            "opening_samples_excluded": 1195,
+            "length_mm": 219.25337763641448,
+            "curvature_rms_1_per_mm": 0.06056264081119546,
+            "curvature_max_1_per_mm": 0.32159939110962044,
+            "all_prominent_extrema": 7,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 2,
+            "explained_semantic_y_mm": [
+              235.77300000000002,
+              257.012
+            ],
+            "explained_collar_fairing_extrema": 3,
+            "explained_collar_fairing_y_mm": [
+              14.606000000000002,
+              98.289,
+              109.88000000000001
+            ],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.35": {
+            "csv": "source/curves/guidemrmp0p35.csv",
+            "point_count": 3048,
+            "visible_segment_count": 2,
+            "opening_samples_excluded": 953,
+            "length_mm": 245.64184624215517,
+            "curvature_rms_1_per_mm": 0.05519446873591795,
+            "curvature_max_1_per_mm": 0.3150581255575578,
+            "all_prominent_extrema": 9,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 3,
+            "explained_semantic_y_mm": [
+              16.348000000000003,
+              235.77300000000002,
+              257.079
+            ],
+            "explained_collar_fairing_extrema": 4,
+            "explained_collar_fairing_y_mm": [
+              19.296,
+              23.115000000000002,
+              92.72800000000001,
+              104.319
+            ],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.65": {
+            "csv": "source/curves/guidemrmp0p65.csv",
+            "point_count": 4001,
+            "visible_segment_count": 1,
+            "opening_samples_excluded": 0,
+            "length_mm": 309.83199097289537,
+            "curvature_rms_1_per_mm": 0.029031023249002086,
+            "curvature_max_1_per_mm": 0.14257296508572365,
+            "all_prominent_extrema": 12,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 6,
+            "explained_semantic_y_mm": [
+              59.429,
+              128.774,
+              192.82600000000002,
+              235.77300000000002,
+              241.334,
+              257.146
+            ],
+            "explained_collar_fairing_extrema": 4,
+            "explained_collar_fairing_y_mm": [
+              23.383000000000003,
+              31.423000000000002,
+              41.473,
+              78.72500000000001
+            ],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          },
+          "r=+0.90": {
+            "csv": "source/curves/guidemrmp0p90.csv",
+            "point_count": 4001,
+            "visible_segment_count": 1,
+            "opening_samples_excluded": 0,
+            "length_mm": 299.5790395642975,
+            "curvature_rms_1_per_mm": 0.019280945194068446,
+            "curvature_max_1_per_mm": 0.134879499258363,
+            "all_prominent_extrema": 10,
+            "unexplained_central_extrema": 0,
+            "unexplained_central_curvature_max_1_per_mm": 0.0,
+            "unexplained_central_y_mm": [],
+            "explained_semantic_extrema": 9,
+            "explained_semantic_y_mm": [
+              13.266,
+              59.094,
+              93.66600000000001,
+              128.774,
+              166.026,
+              192.82600000000002,
+              219.626,
+              241.334,
+              257.414
+            ],
+            "explained_collar_fairing_extrema": 0,
+            "explained_collar_fairing_y_mm": [],
+            "semantic_station_tolerance_mm": 0.6,
+            "explained_transition_zones": [
+              [
+                0.0,
+                37.52
+              ],
+              [
+                235.84,
+                268.0
+              ]
+            ]
+          }
+        },
+        "maximum_unexplained_extrema": 0,
+        "extrema_limit": 4,
+        "maximum_unexplained_curvature_1_per_mm": 0.0,
+        "curvature_limit_1_per_mm": 0.05,
+        "note": "Tight heel/toe closure extrema are declared semantic transition features, not surface noise."
+      },
+      "evidence": []
+    },
+    {
+      "id": "generation-artifact-freshness",
+      "status": "PASS",
+      "required": true,
+      "message": "Generated artifacts match the hashes in the generation report",
+      "metrics": {
+        "stale_or_missing": [],
+        "artifact_count": 8
+      },
+      "evidence": []
+    }
+  ],
+  "metrics": {
+    "maximum_interface_drift_mm": 1.7053025658242404e-13,
+    "maximum_visible_edge_mm": 1.2237036034522322,
+    "maximum_unexplained_curvature_1_per_mm": 0.0,
+    "maximum_unexplained_extrema": 0,
+    "collar_rear_reserve_mm": 15.207999999999998,
+    "heel_rise_transition_ratio": 0.1,
+    "maximum_collar_edge_mm": 0.3524982695834515
+  },
+  "limitations": [
+    "Numerical fairness does not replace highlight/zebra review.",
+    "Constructed offset distance is not a physical TPU wall measurement.",
+    "Comfort, fit, flex life, skin compatibility, and appearance remain human/physical gates."
+  ],
+  "required_capabilities": [
+    "numpy",
+    "scipy",
+    "yaml",
+    "pymeshlab-self-intersection"
+  ]
+}

@@ -50,6 +50,37 @@ def material(name: str, color, roughness: float, metallic: float = 0.0):
     return mat
 
 
+def reflection_stripe_material():
+    mat = bpy.data.materials.new("reflection stripe geometry evidence")
+    mat.use_nodes = True
+    nodes = mat.node_tree.nodes
+    links = mat.node_tree.links
+    for node in list(nodes):
+        nodes.remove(node)
+    output = nodes.new("ShaderNodeOutputMaterial")
+    shader = nodes.new("ShaderNodeBsdfPrincipled")
+    texture = nodes.new("ShaderNodeTexCoord")
+    mapping = nodes.new("ShaderNodeMapping")
+    wave = nodes.new("ShaderNodeTexWave")
+    ramp = nodes.new("ShaderNodeValToRGB")
+    wave.wave_type = "BANDS"
+    wave.bands_direction = "X"
+    wave.inputs["Scale"].default_value = 18.0
+    wave.inputs["Distortion"].default_value = 0.0
+    ramp.color_ramp.elements[0].position = 0.42
+    ramp.color_ramp.elements[0].color = (0.005, 0.005, 0.005, 1.0)
+    ramp.color_ramp.elements[1].position = 0.58
+    ramp.color_ramp.elements[1].color = (0.95, 0.95, 0.95, 1.0)
+    shader.inputs["Roughness"].default_value = 0.16
+    shader.inputs["Metallic"].default_value = 0.35
+    links.new(texture.outputs["Generated"], mapping.inputs["Vector"])
+    links.new(mapping.outputs["Vector"], wave.inputs["Vector"])
+    links.new(wave.outputs["Color"], ramp.inputs["Fac"])
+    links.new(ramp.outputs["Color"], shader.inputs["Base Color"])
+    links.new(shader.outputs["BSDF"], output.inputs["Surface"])
+    return mat
+
+
 def add_camera():
     data = bpy.data.cameras.new("Camera")
     camera = bpy.data.objects.new("Camera", data)
@@ -147,6 +178,30 @@ def main() -> None:
         (0.0, 0.053, 0.036),
         0.12,
     )
+    render(
+        scene,
+        args.output / "production-lateral.png",
+        camera,
+        (0.42, 0.134, 0.075),
+        (0.0, 0.134, 0.035),
+        0.32,
+    )
+    render(
+        scene,
+        args.output / "production-medial.png",
+        camera,
+        (-0.42, 0.134, 0.075),
+        (0.0, 0.134, 0.035),
+        0.32,
+    )
+    render(
+        scene,
+        args.output / "production-rear.png",
+        camera,
+        (0.0, -0.28, 0.080),
+        (0.0, 0.028, 0.038),
+        0.14,
+    )
 
     for polygon in obj.data.polygons:
         polygon.use_smooth = False
@@ -155,6 +210,19 @@ def main() -> None:
     render(
         scene,
         args.output / "production-flat-shaded.png",
+        camera,
+        (0.34, 0.52, 0.27),
+        (0.0, 0.145, 0.032),
+        0.34,
+    )
+
+    for polygon in obj.data.polygons:
+        polygon.use_smooth = True
+    obj.data.materials.clear()
+    obj.data.materials.append(reflection_stripe_material())
+    render(
+        scene,
+        args.output / "production-reflection-stripes.png",
         camera,
         (0.34, 0.52, 0.27),
         (0.0, 0.145, 0.032),

@@ -23,7 +23,7 @@ import numpy as np
 import scipy
 import trimesh
 import yaml
-from scipy.interpolate import CubicSpline
+from scipy.interpolate import CubicSpline, PchipInterpolator
 from shapely.geometry import GeometryCollection, MultiPolygon, Point, Polygon, box
 from shapely.ops import triangulate, unary_union
 from shapely.prepared import prep
@@ -31,6 +31,7 @@ from shapely.prepared import prep
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_PARAMETERS = HERE / "parameters.yaml"
+V6_1_CONFIG = HERE.parent / "barfussschuh_v6_1_fitfix" / "v6_config.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -93,13 +94,17 @@ class FreeformUpper:
         self.edge_bulge = float(parameters["freeform"]["collar_edge_round_into_opening"])
         self.edge_segments = int(parameters["freeform"]["collar_edge_segments"])
         self.collar_segments = int(parameters["freeform"]["collar_polygon_segments"])
+        self.collar_fairing_width = float(parameters["freeform"]["collar_fairing_width"])
+        self.collar_height_front = float(parameters["freeform"]["collar_edge_height_front"])
+        self.collar_height_side = float(parameters["freeform"]["collar_edge_height_side"])
+        self.collar_height_rear = float(parameters["freeform"]["collar_edge_height_rear"])
 
         sole = np.asarray(parameters["sole_stations"]["values"], dtype=float)
         upper = np.asarray(parameters["upper_stations"]["values"], dtype=float)
         self.sole_s = sole[:, 0]
         self.upper_s = upper[:, 0]
         self.sole_splines = {
-            name: CubicSpline(self.sole_s, sole[:, index], bc_type="natural")
+            name: PchipInterpolator(self.sole_s, sole[:, index])
             for index, name in enumerate(parameters["sole_stations"]["columns"])
             if name != "s"
         }
@@ -125,6 +130,8 @@ class FreeformUpper:
             raise ValueError("Collar section-parameter radius must be inside (0, 1)")
         if self.collar_cy - self.collar_ry <= 0.0 or self.collar_cy + self.collar_ry >= self.length:
             raise ValueError("Collar ellipse must stay inside the longitudinal domain")
+        if self.collar_fairing_width <= self.band_width:
+            raise ValueError("Collar fairing width must exceed the comfort-band width")
 
     def sole_values(self, s):
         s = np.clip(np.asarray(s, dtype=float), 0.0, 1.0)
@@ -141,7 +148,7 @@ class FreeformUpper:
         blend = np.minimum(heel, toe)
         return self.skirt + np.maximum(0.0, nominal - self.skirt) * blend
 
-    def surface_point(self, y, r) -> np.ndarray:
+    def _base_surface_point(self, y, r) -> np.ndarray:
         y = np.asarray(y, dtype=float)
         r = np.asarray(r, dtype=float)
         s = np.clip(y / self.length, 0.0, 1.0)
@@ -161,6 +168,33 @@ class FreeformUpper:
         x = center + lateral * half_width
         z = base + height * np.power(vertical, self.section_exponent)
         return np.column_stack((x, y, z))
+
+    def collar_target_height(self, angle) -> np.ndarray:
+        angle = np.asarray(angle, dtype=float)
+        coefficient_1 = 0.5 * (self.collar_height_front - self.collar_height_rear)
+        coefficient_0 = 0.25 * (
+            self.collar_height_front
+            + self.collar_height_rear
+            + 2.0 * self.collar_height_side
+        )
+        coefficient_2 = coefficient_0 - self.collar_height_side
+        return coefficient_0 + coefficient_1 * np.cos(angle) + coefficient_2 * np.cos(2.0 * angle)
+
+    def surface_point(self, y, r) -> np.ndarray:
+        y = np.asarray(y, dtype=float)
+        r = np.asarray(r, dtype=float)
+        points = self._base_surface_point(y, r)
+        rho = self.collar_rho(y, r)
+        safe_rho = np.maximum(rho, 1.0e-9)
+        edge_y = self.collar_cy + (y - self.collar_cy) / safe_rho
+        edge_r = r / safe_rho
+        edge_points = self._base_surface_point(edge_y, edge_r)
+        distance = np.linalg.norm(points - edge_points, axis=1)
+        weight = smootherstep(1.0 - distance / self.collar_fairing_width)
+        angle = np.arctan2(edge_r / self.collar_rr, (edge_y - self.collar_cy) / self.collar_ry)
+        height_delta = self.collar_target_height(angle) - edge_points[:, 2]
+        points[:, 2] += height_delta * weight
+        return points
 
     def surface_normal(self, y, r) -> np.ndarray:
         y = np.asarray(y, dtype=float)
@@ -198,14 +232,35 @@ class FreeformUpper:
         r = domain.parameters[:, 1]
         base = self.surface_point(y, r)
         normal = self.surface_normal(y, r)
+        s = np.clip(y / self.length, 0.0, 1.0)
+        end_weight = np.minimum(
+            smootherstep(s / max(self.heel_taper, 1.0e-9)),
+            smootherstep((1.0 - s) / max(self.toe_taper, 1.0e-9)),
+        )
+        # The visible outer envelope retains the full C2 surface.  Suppress
+        # only the longitudinal component of the inward offset as each end
+        # closes, so the inner shell cannot fold back through an end cap.
+        normal[:, 1] *= end_weight
+        normal /= np.linalg.norm(normal, axis=1)[:, None]
+        end_min_wall = float(self.p["freeform"]["end_closure_min_wall"])
+        if wall < end_min_wall - 1.0e-9:
+            raise ValueError("Requested shell wall is below the end-closure minimum")
+        effective_wall = end_min_wall + (wall - end_min_wall) * end_weight
         distance = self.band_distance(y, r, base)
+        # A 4.5 mm inward offset is intentionally retained across the broad
+        # infill envelope, but cannot follow the tighter approved collar
+        # fairing without locally crossing itself.  Taper only that optional
+        # thick envelope to the independently printable comfort-band wall.
+        collar_safe_wall = float(self.p["freeform"]["collar_infill_safe_wall"])
+        fairing_weight = smootherstep(1.0 - distance / self.collar_fairing_width)
+        effective_wall -= np.maximum(0.0, effective_wall - collar_safe_wall) * fairing_weight
         weight = smootherstep(1.0 - distance / self.band_width)
-        extra = max(0.0, self.band_target - wall)
-        outer_raise = min(self.band_raise, 0.40 * extra) if extra > 0.0 else 0.0
-        inward_extra = max(0.0, extra - outer_raise)
+        collar_extra = np.maximum(0.0, self.band_target - effective_wall)
+        outer_raise = np.minimum(self.band_raise, 0.40 * collar_extra)
+        inward_extra = collar_extra - outer_raise
         outer = base + normal * (outer_raise * weight)[:, None]
-        inner = base - normal * (wall + inward_extra * weight)[:, None]
-        local_wall = wall + extra * weight
+        inner = base - normal * (effective_wall + inward_extra * weight)[:, None]
+        local_wall = effective_wall + collar_extra * weight
         return outer, inner, local_wall, distance
 
     def full_domain(self) -> Polygon:
@@ -224,7 +279,10 @@ class FreeformUpper:
         # Keep the medial and lateral reinforcement strips separated by a
         # printable slit instead of allowing them to meet at a zero-width
         # topological pinch near the tapered heel or toe.
-        r_inner = np.maximum(r_inner, 0.015)
+        r_inner = np.maximum(
+            r_inner,
+            float(self.p["variants"]["frame_center_slit_min_parameter"]),
+        )
         right = Polygon(
             [(float(y), 1.0) for y in ys]
             + [(float(y), float(r)) for y, r in zip(ys[::-1], r_inner[::-1])]
@@ -247,7 +305,17 @@ class FreeformUpper:
             outer_rr,
             self.collar_segments,
         )
-        return self.full_domain().intersection(unary_union([lower, heel, collar_outer]))
+        features = unary_union([lower, heel, collar_outer])
+        regularization = float(variants["frame_domain_regularization"])
+        if regularization > 0.0:
+            # Remove zero-width/tangent union seams where the heel counter and
+            # collar band meet.  Apply before the full-domain intersection so
+            # the protected sole and collar-opening boundaries stay exact.
+            features = features.buffer(regularization, join_style="round").buffer(
+                -regularization,
+                join_style="round",
+            )
+        return self.full_domain().intersection(features)
 
     def _adaptive_y_grid(self, physical_step: float) -> np.ndarray:
         """Space longitudinal rows by 3D surface travel, not raw Y distance."""
@@ -393,10 +461,15 @@ class FreeformUpper:
             faces.append([a, b, b + count])
             faces.append([a, b + count, a + count])
 
+        collar_edge_lengths: list[float] = []
         for loop in loops:
             params = domain.parameters[np.asarray(loop)]
             y = params[:, 0]
             r = params[:, 1]
+            collar_points = outer[np.asarray(loop)]
+            collar_edge_lengths.extend(
+                np.linalg.norm(collar_points - np.roll(collar_points, -1, axis=0), axis=1).tolist()
+            )
             rho_step = 1.002
             y_step = self.collar_cy + (y - self.collar_cy) * rho_step
             r_step = r * rho_step
@@ -439,6 +512,7 @@ class FreeformUpper:
             "domain_vertices": int(len(domain.parameters)),
             "domain_faces": int(len(domain.faces)),
             "collar_loops": len(loops),
+            "collar_outer_edge_max_mm": float(max(collar_edge_lengths, default=0.0)),
             "visible_outer_edge_max_mm": float(np.max(outer_edge_lengths)),
             "visible_outer_edge_p99_mm": float(np.percentile(outer_edge_lengths, 99.0)),
         }
@@ -448,6 +522,7 @@ class FreeformUpper:
 def mesh_report(mesh: trimesh.Trimesh, path: Path) -> dict:
     components = mesh.split(only_watertight=False)
     edges = np.asarray(mesh.edges_unique_length)
+    degenerate_faces = int(np.count_nonzero(np.asarray(mesh.area_faces) <= 1.0e-10))
     return {
         "path": str(path.relative_to(HERE)),
         "sha256": sha256_file(path),
@@ -464,6 +539,7 @@ def mesh_report(mesh: trimesh.Trimesh, path: Path) -> dict:
         "edge_length_max_mm": float(np.max(edges)),
         "edge_length_p99_mm": float(np.percentile(edges, 99.0)),
         "euler_number": int(mesh.euler_number),
+        "degenerate_faces": degenerate_faces,
     }
 
 
@@ -487,34 +563,84 @@ def export_pair(mesh: trimesh.Trimesh, stem: str, output_dir: Path, report: dict
     report[right_path.name] = mesh_report(right, right_path)
 
 
-def interface_report(model: FreeformUpper) -> list[dict]:
+def v6_1_sole_reference() -> tuple[dict[str, PchipInterpolator], dict]:
+    config = json.loads(V6_1_CONFIG.read_text())
+    table = np.asarray(
+        [
+            [0.00, 0.33 * config["heel_width"], 0.0, 2.00, 6.90, 0.80, 0.08],
+            [0.05, 0.88 * config["heel_width"], 0.0, 0.80, 5.70, 0.70, 0.10],
+            [0.12, 1.07 * config["heel_width"], -1.0, 0.10, 5.00, 0.58, 0.13],
+            [0.22, 1.10 * config["heel_width"], -2.0, 0.00, 4.90, 0.52, 0.15],
+            [0.35, 0.99 * config["waist_width"], -4.0, 0.00, 4.90, 0.46, 0.20],
+            [0.48, 1.04 * config["waist_width"], -4.0, 0.00, 4.90, 0.46, 0.22],
+            [0.62, 0.92 * config["ball_width"], -2.0, 0.00, 4.90, 0.50, 0.18],
+            [0.72, 1.05 * config["ball_width"], 0.0, 0.00, 4.90, 0.56, 0.15],
+            [0.82, 1.05 * config["toe_box_width"], 2.0, 0.30, 5.20, 0.68, 0.12],
+            [0.90, 1.03 * config["toe_box_width"], 4.0, 1.20, 6.10, 0.78, 0.10],
+            [0.96, 0.87 * config["toe_box_width"], config["medial_toe_shift"], 3.00, 7.90, 0.88, 0.08],
+            [1.00, 0.45 * config["toe_box_width"], config["medial_toe_shift"], 5.00, 9.90, 0.95, 0.05],
+        ],
+        dtype=float,
+    )
+    columns = ["s", "width", "shift", "bottom", "top", "edge_rise", "top_crown"]
+    splines = {
+        name: PchipInterpolator(table[:, 0], table[:, index])
+        for index, name in enumerate(columns)
+        if name != "s"
+    }
+    return splines, config
+
+
+def interface_report(model: FreeformUpper) -> dict:
+    reference, config = v6_1_sole_reference()
+    if abs(model.length - float(config["foot_length"] + config["toe_clearance"])) > 1.0e-9:
+        raise ValueError("V6.2 length no longer matches the protected V6.1 interface reference")
+    dense_s = np.linspace(0.0, 1.0, 1001)
+    dense_y = dense_s * model.length
+    dense_points = model.surface_point(
+        np.repeat(dense_y, 2),
+        np.tile(np.asarray([-1.0, 1.0]), len(dense_y)),
+    ).reshape(len(dense_y), 2, 3)
+    target_width = np.asarray(reference["width"](dense_s)) - 2.0 * model.inset
+    target_center = np.asarray(reference["shift"](dense_s))
+    target_z = np.asarray(reference["top"](dense_s)) + 0.55
+    measured_width = dense_points[:, 1, 0] - dense_points[:, 0, 0]
+    measured_center = 0.5 * (dense_points[:, 0, 0] + dense_points[:, 1, 0])
+    drift_columns = np.column_stack(
+        (
+            measured_width - target_width,
+            measured_center - target_center,
+            dense_points[:, 0, 2] - target_z,
+            dense_points[:, 1, 2] - target_z,
+        )
+    )
+    maximum_drift = float(np.max(np.abs(drift_columns)))
     stations = [0.0, 0.02, 0.06, 0.12, 0.22, 0.48, 0.62, 0.72, 0.82, 0.90, 0.96, 0.995, 1.0]
     rows = []
     for s in stations:
-        y = s * model.length
-        points = model.surface_point(np.asarray([y, y]), np.asarray([-1.0, 1.0]))
-        sole = model.sole_values(np.asarray([s]))
-        target_width = float(sole["width"][0] - 2.0 * model.inset)
-        measured_width = float(points[1, 0] - points[0, 0])
-        target_center = float(sole["shift"][0])
-        measured_center = float(0.5 * (points[0, 0] + points[1, 0]))
-        target_z = float(sole["top"][0] + 0.55)
+        index = int(round(s * 1000))
         rows.append(
             {
                 "s": s,
-                "y_mm": y,
-                "target_width_mm": target_width,
-                "measured_width_mm": measured_width,
-                "width_drift_mm": measured_width - target_width,
-                "target_center_x_mm": target_center,
-                "measured_center_x_mm": measured_center,
-                "center_drift_mm": measured_center - target_center,
-                "target_z_mm": target_z,
-                "left_z_drift_mm": float(points[0, 2] - target_z),
-                "right_z_drift_mm": float(points[1, 2] - target_z),
+                "y_mm": float(dense_y[index]),
+                "target_width_mm": float(target_width[index]),
+                "measured_width_mm": float(measured_width[index]),
+                "width_drift_mm": float(drift_columns[index, 0]),
+                "target_center_x_mm": float(target_center[index]),
+                "measured_center_x_mm": float(measured_center[index]),
+                "center_drift_mm": float(drift_columns[index, 1]),
+                "target_z_mm": float(target_z[index]),
+                "left_z_drift_mm": float(drift_columns[index, 2]),
+                "right_z_drift_mm": float(drift_columns[index, 3]),
             }
         )
-    return rows
+    return {
+        "reference_path": "../barfussschuh_v6_1_fitfix/v6_config.json",
+        "reference_sha256": sha256_file(V6_1_CONFIG),
+        "dense_sample_count": int(len(dense_s)),
+        "maximum_drift_mm": maximum_drift,
+        "semantic_stations": rows,
+    }
 
 
 def create_coupon(mesh: trimesh.Trimesh, model: FreeformUpper, path: Path) -> trimesh.Trimesh:
@@ -565,7 +691,14 @@ def main() -> int:
     print("building reinforcement frame", flush=True)
     frame, frame_construct = model.create_shell(frame_domain, float(variants["reinforcement_frame_wall"]))
 
-    prefix = "DRAFT-MM-SHO-001-6.2.0-draft.1"
+    project_id = str(params["project_id"])
+    revision = str(params["revision"])
+    if not project_id or not revision or any(
+        char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-_"
+        for char in project_id + revision
+    ):
+        raise ValueError("Project ID and revision must be non-empty filename-safe identifiers")
+    prefix = f"DRAFT-{project_id}-{revision}"
     master_obj = master_dir / f"{prefix}-upper-fuzzy-shell-left-master.obj"
     fuzzy.export(master_obj)
 
@@ -579,10 +712,26 @@ def main() -> int:
     files[master_obj.name] = mesh_report(fuzzy, master_obj)
 
     interface = interface_report(model)
-    max_interface_drift = max(
-        max(abs(row["width_drift_mm"]), abs(row["center_drift_mm"]), abs(row["left_z_drift_mm"]), abs(row["right_z_drift_mm"]))
-        for row in interface
+    max_interface_drift = float(interface["maximum_drift_mm"])
+    v6_1_config = json.loads(V6_1_CONFIG.read_text())
+    v6_1_front_boundary = (
+        float(v6_1_config["collar_center_y_ratio"]) * model.length
+        + float(v6_1_config["collar_radius_y"])
     )
+    opening_points = model.surface_point(
+        np.asarray([model.collar_cy, model.collar_cy]),
+        np.asarray([-model.collar_rr, model.collar_rr]),
+    )
+    opening_width_center = float(np.linalg.norm(opening_points[1] - opening_points[0]))
+    collar_cardinal_y = np.asarray(
+        [
+            model.collar_cy + model.collar_ry,
+            model.collar_cy,
+            model.collar_cy - model.collar_ry,
+        ]
+    )
+    collar_cardinal_r = np.asarray([0.0, model.collar_rr, 0.0])
+    collar_cardinal_points = model.surface_point(collar_cardinal_y, collar_cardinal_r)
     report = {
         "schema_version": 1,
         "project_id": params["project_id"],
@@ -590,6 +739,7 @@ def main() -> int:
         "generator": "generate_v6_2.py",
         "method": {
             "name": "direct-c2-freeform-domain-loft",
+            "sole_interface_interpolation": "pchip-v6.1-compatible",
             "longitudinal_interpolation": params["freeform"]["interpolation"],
             "voxel_grid": False,
             "distance_field": False,
@@ -620,12 +770,34 @@ def main() -> int:
             "collar_band_width_mm": model.band_width,
             "collar_edge_round_into_opening_mm": model.edge_bulge,
             "maximum_opening_reduction_each_side_mm": model.edge_bulge,
+            "collar_rear_reserve_mm": model.collar_cy - model.collar_ry,
+            "collar_front_boundary_y_mm": model.collar_cy + model.collar_ry,
+            "v6_1_collar_front_boundary_y_mm": v6_1_front_boundary,
+            "collar_front_boundary_drift_from_v6_1_mm": model.collar_cy + model.collar_ry - v6_1_front_boundary,
+            "collar_opening_width_at_center_mm": opening_width_center,
+            "collar_edge_height_target_mm": {
+                "front": model.collar_height_front,
+                "side": model.collar_height_side,
+                "rear": model.collar_height_rear,
+            },
+            "collar_edge_height_measured_mm": {
+                "front": float(collar_cardinal_points[0, 2]),
+                "side": float(collar_cardinal_points[1, 2]),
+                "rear": float(collar_cardinal_points[2, 2]),
+            },
+            "collar_fairing_width_mm": model.collar_fairing_width,
+            "collar_infill_safe_wall_mm": float(params["freeform"]["collar_infill_safe_wall"]),
+            "heel_rise_transition_length_mm": model.heel_taper * model.length,
+            "heel_rise_transition_ratio": model.heel_taper,
+            "end_closure_min_wall_mm": float(params["freeform"]["end_closure_min_wall"]),
+            "frame_domain_regularization": float(params["variants"]["frame_domain_regularization"]),
+            "frame_center_slit_min_parameter": float(params["variants"]["frame_center_slit_min_parameter"]),
         },
         "interface_stations": interface,
         "maximum_interface_drift_mm": max_interface_drift,
         "files": files,
     }
-    report_path = validation_dir / "generation-report.json"
+    report_path = validation_dir / f"generation-report-{revision}.json"
     report_path.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"report": str(report_path), "files": len(files), "max_interface_drift_mm": max_interface_drift}, indent=2))
     return 0

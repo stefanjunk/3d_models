@@ -1,8 +1,11 @@
 # V6.2 Freeform-Upper – Konzeptprüfung Draft 2
 
-Status: `PENDING_USER_APPROVAL`
+Status: `APPROVED`
 
 Anforderungen freigegeben durch Stefan am 2026-08-28.
+
+Konzept freigegeben durch Stefan am 2026-08-28 mit der ausdrücklichen
+Chat-Bestätigung `yes, approved`.
 
 Spezifikationsrevision: `6.2.0-draft.2`
 

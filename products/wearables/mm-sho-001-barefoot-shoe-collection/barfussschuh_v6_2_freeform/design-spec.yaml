@@ -4,11 +4,11 @@ project:
   revision: 6.2.0-draft.2
   units: mm
   lineage: ../barfussschuh_v6_1_fitfix
-  status: concept-review
+  status: production-cad
   intended_user: "erwachsene Testperson; technischer Schuhprototyp"
 
 workflow:
-  autonomy_policy: null
+  autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: approved
     spec_revision: 6.2.0-draft.2
@@ -16,15 +16,17 @@ workflow:
     approved_on: 2026-08-28
     basis: "Nutzerfreigabe 'freigegben' nach Draft-2-Vorschlag; Draft-1-Render zeigte unzureichende Fersenreserve und spitze Kragenübergänge"
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 6.2.0-draft.2
     asset: previews/concept-v6.2.0-draft.2.png
     asset_sha256: 18d2643250238dd3f82bf6527fe6eec787b1870fdffa8fb1d0da26124c960ca7
     review_record: CONCEPT_REVIEW_DRAFT2.md
-    reason: "Aktualisiertes Formkonzept wartet auf ausdrückliche Nutzerfreigabe vor CAD-Änderungen"
+    approved_by: Stefan
+    approved_on: 2026-08-28
+    basis: "Ausdrückliche Nutzerfreigabe 'yes, approved' im Chat für Konzept 6.2.0-draft.2"
   digital_candidate:
-    status: blocked
-    reason: "CAD-Revision beginnt erst nach Konzeptfreigabe für 6.2.0-draft.2"
+    status: review-required
+    reason: "CAD-, Mesh-, Interface- und Formprüfungen bestanden; exaktes Slicer-/TPU-Profil, Coupon und Anprobe fehlen noch"
   physical_validation:
     status: blocked
     reason: "Tragekomfort und TPU-Prozess erfordern Kragen-Coupon und Anprobe"
@@ -101,6 +103,10 @@ geometry:
     fuzzy_shell_band_target_wall_mm: 2.6
     free_edge_radius_target_mm: 1.0
     max_opening_reduction_each_side_mm: 0.8
+    edge_height_profile_mm: {front: 52.0, side: 44.3, rear: 49.0}
+    local_fairing_width_mm: 18.0
+    thick_infill_local_safe_wall_mm: 2.6
+    fairing_intent: "C2-kompakte lokale Höhenkorrektur entfernt den spitzen vorderen Halsanstieg und die zwei hinteren Schulterspitzen, ohne Öffnungsplanform oder Sohlenanschluss zu verschieben"
   lower_interface:
     inset_each_side_mm: 4.0
     protected_height_mm: 10.0

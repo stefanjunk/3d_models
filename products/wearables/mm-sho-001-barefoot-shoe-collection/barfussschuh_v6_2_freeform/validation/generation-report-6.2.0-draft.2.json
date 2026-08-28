@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "project_id": "MM-SHO-001",
+  "revision": "6.2.0-draft.2",
+  "generator": "generate_v6_2.py",
+  "method": {
+    "name": "direct-c2-freeform-domain-loft",
+    "sole_interface_interpolation": "pchip-v6.1-compatible",
+    "longitudinal_interpolation": "natural-cubic-c2",
+    "voxel_grid": false,
+    "distance_field": false,
+    "marching_cubes": false,
+    "global_remesh": false,
+    "collar": "parametric domain opening plus explicit rounded edge cap"
+  },
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "trimesh": "4.4.1"
+  },
+  "parameters": {
+    "path": "parameters.yaml",
+    "sha256": "1828902ac478f035a3565ec52ba6e274be11d65076979f5dc83bfeb18d3d4055"
+  },
+  "domain": {
+    "full_vertices": 98468,
+    "full_faces": 194300,
+    "frame_vertices": 52448,
+    "frame_faces": 99984
+  },
+  "construction": {
+    "fuzzy_shell": {
+      "base_wall_mm": 1.4,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 2.6000000000000014,
+      "collar_constructed_wall_mm": 2.6000000000000014,
+      "domain_vertices": 98468,
+      "domain_faces": 194300,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.3524982695834515,
+      "visible_outer_edge_max_mm": 1.2225564733172893,
+      "visible_outer_edge_p99_mm": 1.135478337970281
+    },
+    "infill_envelope": {
+      "base_wall_mm": 4.5,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 4.5,
+      "collar_constructed_wall_mm": 2.6000003747006457,
+      "domain_vertices": 98468,
+      "domain_faces": 194300,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.350791502056021,
+      "visible_outer_edge_max_mm": 1.2237036034522322,
+      "visible_outer_edge_p99_mm": 1.1351432198448157
+    },
+    "reinforcement_frame": {
+      "base_wall_mm": 1.4,
+      "constructed_wall_min_mm": 1.4,
+      "constructed_wall_max_mm": 2.6000000000000014,
+      "collar_constructed_wall_mm": 2.6000000000000014,
+      "domain_vertices": 52448,
+      "domain_faces": 99984,
+      "collar_loops": 1,
+      "collar_outer_edge_max_mm": 0.3524982695834515,
+      "visible_outer_edge_max_mm": 1.2225564733172893,
+      "visible_outer_edge_p99_mm": 1.1273603262950291
+    },
+    "collar_band_width_mm": 5.0,
+    "collar_edge_round_into_opening_mm": 0.8,
+    "maximum_opening_reduction_each_side_mm": 0.8,
+    "collar_rear_reserve_mm": 15.207999999999998,
+    "collar_front_boundary_y_mm": 95.208,
+    "v6_1_collar_front_boundary_y_mm": 95.24,
+    "collar_front_boundary_drift_from_v6_1_mm": -0.031999999999996476,
+    "collar_opening_width_at_center_mm": 51.184744792493525,
+    "collar_edge_height_target_mm": {
+      "front": 52.0,
+      "side": 44.3,
+      "rear": 49.0
+    },
+    "collar_edge_height_measured_mm": {
+      "front": 52.0,
+      "side": 44.3,
+      "rear": 49.0
+    },
+    "collar_fairing_width_mm": 18.0,
+    "collar_infill_safe_wall_mm": 2.6,
+    "heel_rise_transition_length_mm": 26.8,
+    "heel_rise_transition_ratio": 0.1,
+    "end_closure_min_wall_mm": 1.4,
+    "frame_domain_regularization": 0.02,
+    "frame_center_slit_min_parameter": 0.035
+  },
+  "interface_stations": {
+    "reference_path": "../barfussschuh_v6_1_fitfix/v6_config.json",
+    "reference_sha256": "8b41f5754b75e3537f8cda161b726ef12398f4e7f346aab5525f75e5aee174e8",
+    "dense_sample_count": 1001,
+    "maximum_drift_mm": 1.7053025658242404e-13,
+    "semantic_stations": [
+      {
+        "s": 0.0,
+        "y_mm": 0.0,
+        "target_width_mm": 14.11,
+        "measured_width_mm": 14.11,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 7.45,
+        "left_z_drift_mm": 8.881784197001252e-16,
+        "right_z_drift_mm": 8.881784197001252e-16
+      },
+      {
+        "s": 0.02,
+        "y_mm": 5.36,
+        "target_width_mm": 32.60409539777588,
+        "measured_width_mm": 32.60409539777588,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 6.882151170568561,
+        "left_z_drift_mm": 8.881784197001252e-16,
+        "right_z_drift_mm": 8.881784197001252e-16
+      },
+      {
+        "s": 0.06,
+        "y_mm": 16.08,
+        "target_width_mm": 53.83639820864423,
+        "measured_width_mm": 53.83639820864423,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -0.04083671430610202,
+        "measured_center_x_mm": -0.040836714306102806,
+        "center_drift_mm": -7.840950111415168e-16,
+        "target_z_mm": 6.107413652018997,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.12,
+        "y_mm": 32.16,
+        "target_width_mm": 63.69,
+        "measured_width_mm": 63.69,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -1.0,
+        "measured_center_x_mm": -1.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.55,
+        "left_z_drift_mm": 4.440892098500626e-15,
+        "right_z_drift_mm": 4.440892098500626e-15
+      },
+      {
+        "s": 0.22,
+        "y_mm": 58.96,
+        "target_width_mm": 65.7,
+        "measured_width_mm": 65.7,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -2.0,
+        "measured_center_x_mm": -2.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 3.552713678800501e-15,
+        "right_z_drift_mm": 3.552713678800501e-15
+      },
+      {
+        "s": 0.48,
+        "y_mm": 128.64,
+        "target_width_mm": 64.8,
+        "measured_width_mm": 64.8,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -4.0,
+        "measured_center_x_mm": -4.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.62,
+        "y_mm": 166.16,
+        "target_width_mm": 84.92,
+        "measured_width_mm": 84.92,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": -2.0,
+        "measured_center_x_mm": -2.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 2.6645352591003757e-15,
+        "right_z_drift_mm": 2.6645352591003757e-15
+      },
+      {
+        "s": 0.72,
+        "y_mm": 192.95999999999998,
+        "target_width_mm": 98.05000000000001,
+        "measured_width_mm": 98.05,
+        "width_drift_mm": -1.4210854715202004e-14,
+        "target_center_x_mm": 0.0,
+        "measured_center_x_mm": 0.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 5.45,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.82,
+        "y_mm": 219.76000000000002,
+        "target_width_mm": 103.30000000000001,
+        "measured_width_mm": 103.3,
+        "width_drift_mm": -1.4210854715202004e-14,
+        "target_center_x_mm": 2.0000000000000027,
+        "measured_center_x_mm": 2.0,
+        "center_drift_mm": -2.6645352591003757e-15,
+        "target_z_mm": 5.750000000000001,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.9,
+        "y_mm": 241.20000000000002,
+        "target_width_mm": 101.18,
+        "measured_width_mm": 101.18,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 4.0,
+        "measured_center_x_mm": 4.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 6.6499999999999995,
+        "left_z_drift_mm": 1.7763568394002505e-15,
+        "right_z_drift_mm": 1.7763568394002505e-15
+      },
+      {
+        "s": 0.96,
+        "y_mm": 257.28,
+        "target_width_mm": 84.22,
+        "measured_width_mm": 84.22000000000006,
+        "width_drift_mm": 5.684341886080802e-14,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 8.450000000000001,
+        "left_z_drift_mm": -1.7763568394002505e-15,
+        "right_z_drift_mm": -1.7763568394002505e-15
+      },
+      {
+        "s": 0.995,
+        "y_mm": 266.66,
+        "target_width_mm": 46.8883864876245,
+        "measured_width_mm": 46.88838648762434,
+        "width_drift_mm": -1.6342482922482304e-13,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 10.162886652542374,
+        "left_z_drift_mm": 5.329070518200751e-15,
+        "right_z_drift_mm": 5.329070518200751e-15
+      },
+      {
+        "s": 1.0,
+        "y_mm": 268.0,
+        "target_width_mm": 39.699999999999996,
+        "measured_width_mm": 39.699999999999996,
+        "width_drift_mm": 0.0,
+        "target_center_x_mm": 5.0,
+        "measured_center_x_mm": 5.0,
+        "center_drift_mm": 0.0,
+        "target_z_mm": 10.450000000000001,
+        "left_z_drift_mm": 0.0,
+        "right_z_drift_mm": 0.0
+      }
+    ]
+  },
+  "maximum_interface_drift_mm": 1.7053025658242404e-13,
+  "files": {
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl",
+      "sha256": "1285098964cc982415c48805e2344ebb3c1aafcb47f3ff6f0aec1ada137a19e6",
+      "bytes": 20967684,
+      "vertices": 209676,
+      "faces": 419352,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 42839.065212245136,
+      "surface_area_mm2": 62404.325133129154,
+      "bounds_mm": [
+        [
+          -49.9535263209889,
+          0.0,
+          5.449134153204169
+        ],
+        [
+          54.61534910584499,
+          268.0,
+          59.126730935726485
+        ]
+      ],
+      "edge_length_max_mm": 2.08527697163033,
+      "edge_length_p99_mm": 1.1450207394714538,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-right.stl",
+      "sha256": "12516fbe2900a0dad2eb5b6a66b29b524a83713ebaf6bb41e9015356f3be169f",
+      "bytes": 20967684,
+      "vertices": 209676,
+      "faces": 419352,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 42839.065212245136,
+      "surface_area_mm2": 62404.325133129154,
+      "bounds_mm": [
+        [
+          -54.61534910584499,
+          0.0,
+          5.449134153204169
+        ],
+        [
+          49.9535263209889,
+          268.0,
+          59.126730935726485
+        ]
+      ],
+      "edge_length_max_mm": 2.08527697163033,
+      "edge_length_p99_mm": 1.1450207394714538,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-left.stl",
+      "sha256": "27ebda6998fbb7209db13ec47e54b7b954d86f324701aca077cbd42ec0d172a0",
+      "bytes": 20967684,
+      "vertices": 209676,
+      "faces": 419352,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 121007.47540143006,
+      "surface_area_mm2": 61741.561971011746,
+      "bounds_mm": [
+        [
+          -49.9535263209889,
+          0.0,
+          5.447216921013397
+        ],
+        [
+          54.61534910584499,
+          268.0,
+          59.126730935726485
+        ]
+      ],
+      "edge_length_max_mm": 4.594481431519657,
+      "edge_length_p99_mm": 1.1479952890147531,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-infill-envelope-right.stl",
+      "sha256": "ab6bbc66793c81830cbb8145e86834886d0fce63c7fbed573ea8ebd6ca0f2146",
+      "bytes": 20967684,
+      "vertices": 209676,
+      "faces": 419352,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 121007.47540143004,
+      "surface_area_mm2": 61741.561971011746,
+      "bounds_mm": [
+        [
+          -54.61534910584499,
+          0.0,
+          5.447216921013397
+        ],
+        [
+          49.9535263209889,
+          268.0,
+          59.126730935726485
+        ]
+      ],
+      "edge_length_max_mm": 4.594481431519657,
+      "edge_length_p99_mm": 1.1479952890147531,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-left.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-left.stl",
+      "sha256": "29f06a8d2f22cf401307e0d01a29347d4bdd3879867a41ec06c3f4b67cc0846c",
+      "bytes": 11764084,
+      "vertices": 117636,
+      "faces": 235280,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 17073.758468065982,
+      "surface_area_mm2": 26516.876121605877,
+      "bounds_mm": [
+        [
+          -49.9535263209889,
+          0.0,
+          5.449134153204169
+        ],
+        [
+          54.61534910584499,
+          268.0,
+          52.64621024212767
+        ]
+      ],
+      "edge_length_max_mm": 2.08527697163033,
+      "edge_length_p99_mm": 1.4000000000000121,
+      "euler_number": -4,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-right.stl": {
+      "path": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-reinforcement-frame-right.stl",
+      "sha256": "c356db25dab93bb56015a867bd9dd9400f37b8e8b745758c0fcd0ecbe3d89c6d",
+      "bytes": 11764084,
+      "vertices": 117636,
+      "faces": 235280,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 17073.758468065982,
+      "surface_area_mm2": 26516.876121605877,
+      "bounds_mm": [
+        [
+          -54.61534910584499,
+          0.0,
+          5.449134153204169
+        ],
+        [
+          49.9535263209889,
+          268.0,
+          52.64621024212767
+        ]
+      ],
+      "edge_length_max_mm": 2.08527697163033,
+      "edge_length_p99_mm": 1.4000000000000121,
+      "euler_number": -4,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-collar-comfort-coupon.stl": {
+      "path": "exports/coupons/DRAFT-MM-SHO-001-6.2.0-draft.2-collar-comfort-coupon.stl",
+      "sha256": "3d778127b3095d0c9f57a2be775fcef3d9687bc4dcc31d77f8614270ffdf2b6c",
+      "bytes": 389884,
+      "vertices": 3900,
+      "faces": 7796,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 786.5239894578905,
+      "surface_area_mm2": 1128.3240214232555,
+      "bounds_mm": [
+        [
+          18.928586959838867,
+          40.20800018310547,
+          29.799999237060547
+        ],
+        [
+          28.83545684814453,
+          70.20800018310547,
+          46.268341064453125
+        ]
+      ],
+      "edge_length_max_mm": 3.835918259467046,
+      "edge_length_p99_mm": 1.4940814410924816,
+      "euler_number": 2,
+      "degenerate_faces": 0
+    },
+    "DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left-master.obj": {
+      "path": "exports/master/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left-master.obj",
+      "sha256": "2623fa222f8965932a6f087cb5e62dcfac2ac518d9236376b999d987bd696cfa",
+      "bytes": 17106657,
+      "vertices": 209676,
+      "faces": 419352,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "is_volume": true,
+      "volume_mm3": 42839.065212245136,
+      "surface_area_mm2": 62404.325133129154,
+      "bounds_mm": [
+        [
+          -49.9535263209889,
+          0.0,
+          5.449134153204169
+        ],
+        [
+          54.61534910584499,
+          268.0,
+          59.126730935726485
+        ]
+      ],
+      "edge_length_max_mm": 2.08527697163033,
+      "edge_length_p99_mm": 1.1450207394714538,
+      "euler_number": 0,
+      "degenerate_faces": 0
+    }
+  }
+}

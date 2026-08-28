@@ -1,0 +1,102 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00026
+title: Protected sampled interfaces must preserve the baseline interpolation contract between stations
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One barefoot-shoe interface exposes a deterministic interpolation mismatch and correction; transfer to other interfaces is untested.
+feature:
+  type: protected-parametric-interface-regression
+  geometry: Longitudinal left/right upper-to-sole boundary reconstructed from sparse semantic stations
+  design_parameters:
+    station_count: 12
+    rejected_interpolation: natural-cubic
+    accepted_interpolation: pchip
+    rejected_dense_drift_mm_approx: 1.45
+    accepted_dense_drift_mm: 1.7053025658242404e-13
+    acceptance_drift_mm: 0.20
+    dense_samples: 1001
+  named_datums: [V6.1-sole-upper-interface, heel-end, toe-end]
+  constraints:
+    - Protected behavior is measured continuously between semantic stations, not only at the source knots.
+    - The independent baseline is reconstructed from the prior revision's source configuration.
+    - Visible freeform changes outside the protected interface remain allowed.
+scope:
+  process: FFF
+  machine: {manufacturer: unknown, model: unknown, unit_id: null, firmware: null}
+  material: {manufacturer: unknown, product: soft-TPU-target, variant: 85A-90A-unresolved, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: V6/V6.1 upper orientation; exact manufacturing orientation unresolved
+  slicer: {name: Anycubic Slicer Next, version: null, profile: null, profile_hash: null}
+  geometry_class: sparse-station freeform shoe interface with PCHIP baseline
+  environment: deterministic Python/NumPy/SciPy geometry comparison; no physical print
+  transfer_limits:
+    - Applies only when a prior protected interface has a known interpolation contract.
+    - Does not establish PCHIP as the correct method for every visible freeform curve.
+observation:
+  summary: Re-evaluating V6.1 sole stations with a natural cubic spline matched the knots but drifted between them; restoring PCHIP reduced dense interface drift to numerical noise.
+  expected: V6.2 remains within 0.20 mm of the protected V6.1 sole/lip boundary across the full shoe length.
+  actual: Natural cubic interpolation drifted by about 1.45 mm; independent PCHIP reconstruction measured 1.7053025658242404e-13 mm maximum drift over 1001 samples.
+  outcome: correction
+  parameter: sole-interface-interpolation
+  recommended_value: Reuse the baseline interpolation family and run a dense independent regression between semantic stations.
+  units: method-and-mm
+explanation:
+  hypothesis: Interpolation family is part of a sampled interface's design intent because equal knot values do not imply equal paths between knots.
+  mechanism: Natural cubic and shape-preserving Hermite splines use different derivative constraints; the former overshot the PCHIP-defined width/shift/top curves between V6.1 stations.
+  alternatives:
+    - Store a denser immutable master curve and compare the candidate surface directly.
+    - Use an analytic interface definition if the prior design exposes one.
+  validated: true
+  validation_method: Controlled interpolation substitution plus independent 1001-sample width, center and Z regression against V6.1 source data.
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Deterministic floating-point comparison of left/right interface points against independently reconstructed V6.1 PCHIP curves.
+  uncertainty: The accepted residual is numerical precision; only this V6.1/V6.2 interface and SciPy implementation were tested.
+  sources:
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/DECISION-LOG.md, hash: 1e088a54e245e3f15af1657bb79ea2a61885492a3e6cee63098ad71a5b0ce9cf, notes: Rejected natural-cubic drift and accepted PCHIP decision.}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.2.json, hash: 1ea62e3f5f12aa53401de91b19ece977f185733707be6067c6ebcfbd548943ad, notes: PASS protected-interface gate tied to source and generation hashes.}
+  artifacts:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/parameters.yaml
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/generate_v6_2.py
+applicability:
+  triggers:
+    - A new parametric/freeform part must mate to a protected legacy interface defined by sparse stations.
+  exclusions:
+    - Unprotected aesthetic guide curves and interfaces whose baseline interpolation is unknown.
+  transfer_limits:
+    - Treat as E0 until repeated on another protected interface or interpolation implementation.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-interfaces-protected-sampled-path-interpolation-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.2.json
+provenance:
+  project: MM-SHO-001
+  part_revision: 6.2.0-draft.2
+  trace: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/DECISION-LOG.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [interface, interpolation, pchip, regression, freeform, digital-only]

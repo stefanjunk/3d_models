@@ -1,0 +1,109 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00027
+title: Faired openings need visible-domain curve checks and variant-specific safe offsets
+captured_at: 2026-08-28
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One digitally validated shoe collar; tactile comfort, TPU process behavior and transfer to other openings remain untested.
+feature:
+  type: soft-freeform-collar-opening
+  geometry: Elliptical parametric opening with a rounded comfort band in a direct freeform shoe upper
+  design_parameters:
+    collar_band_width_mm: 5.0
+    collar_target_wall_mm: 2.6
+    collar_fairing_width_mm: 18.0
+    rejected_front_edge_z_mm: 61.94793314316561
+    accepted_front_side_rear_z_mm: [52.0, 44.3, 49.0]
+    thick_envelope_nominal_wall_mm: 4.5
+    thick_envelope_local_safe_wall_mm: 2.6
+    accepted_self_intersecting_faces: 0
+  named_datums: [collar-opening-loop, front-throat, medial-side, lateral-side, rear-collar]
+  constraints:
+    - User-requested visible form is smooth, non-voxel and free of sharp collar peaks.
+    - Fairness metrics exclude the intentionally removed opening and analyze each visible curve segment separately.
+    - All exported variants remain one watertight positive volume without self-intersections.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: unknown, unit_id: null, firmware: null}
+  material: {manufacturer: unknown, product: soft-TPU-target, variant: 85A-90A-unresolved, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: V6/V6.1 upper orientation; exact manufacturing orientation unresolved
+  slicer: {name: Anycubic Slicer Next, version: null, profile: null, profile_hash: null}
+  geometry_class: direct parametric freeform shell with an internal opening and normal-offset thickness variants
+  environment: deterministic mesh, curve and Blender render validation; no physical print
+  transfer_limits:
+    - Applies to digitally faired openings and normal-offset shells, not physical comfort or TPU durability.
+    - The accepted 2.6 mm local offset is project-specific and is not a universal wall recommendation.
+observation:
+  summary: A topologically valid collar still failed visual review because its throat formed an isolated peak; after an explicit low-order edge profile, the 4.5 mm thick variant self-intersected until its offset tapered locally near the fairing.
+  expected: One continuous soft collar loop, smooth visible rails, no voxel character, and collision-free printable variants.
+  actual: Attempt 1 had a 61.9479 mm throat peak; the accepted 52.0/44.3/49.0 mm profile passed visual review, and tapering only the thick envelope to 2.6 mm near the collar reduced PyMeshLab self-intersections to zero across all exports.
+  outcome: correction
+  parameter: collar-edge-profile-and-local-offset
+  recommended_value: Declare the edge-height profile, split fairness at removed-domain gaps, and cap thick local offsets using exported self-intersection evidence.
+  units: profile-mm-and-domain-contract
+explanation:
+  hypothesis: Opening geometry creates both a visual boundary condition and a local curvature radius; global guide checks and uniform offsets can become invalid near that boundary.
+  mechanism: The initial surface inherited a high anterior boundary value and paired rear shoulders; explicit periodic edge targets removed those peaks, while the 4.5 mm inward normal offset exceeded the locally safe curvature radius until tapered.
+  alternatives:
+    - Rebuild the entire upper from additional semantic loft sections rather than applying a local height fairing.
+    - Reduce the thick variant globally, at the cost of its intended envelope thickness.
+    - Use an offset-surface kernel with medial-axis collision trimming and revalidate the visible envelope.
+  validated: true
+  validation_method: Fixed-camera render rejection/acceptance, opening-aware dense curvature analysis, topology audits and PyMeshLab exported-face self-intersection checks.
+evidence:
+  observations: 3
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Parametric collar heights, deterministic curvature extrema, exported topology, PyMeshLab face selection and fixed Blender views.
+  uncertainty: Digital checks do not establish tactile edge comfort, layer bonding, flex fatigue, fit or skin compatibility.
+  sources:
+    - {type: user-statement, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/design-spec.yaml, hash: 1fd7a16716067c5b08b5c16f7fb710d0dcb621be4aab1678755b8cd616651775, notes: "User-requested removal of voxel character and sharp/cutting collar, plus accepted Draft-2 concept."}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft2-attempt1.json, hash: 2a10f06a1a90a5c38ff1723ee29f63557cd8d1af1680fcbddb3c133de6e59168, notes: Preserved failed visual attempt and measured front peak.}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft2.json, hash: bd11ee6fbd3d85025d56c91065564ce5c48e49fe3c3eec37b52f6170f3a0204a, notes: Hash-bound fixed-view visual PASS.}
+    - {type: product-trace, ref: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.2.json, hash: 1ea62e3f5f12aa53401de91b19ece977f185733707be6067c6ebcfbd548943ad, notes: "Fourteen digital gates PASS, including exported self-intersections and visible-domain fairness."}
+  artifacts:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/rejected-v6.2.0-draft.2-attempt.1/
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/previews/production-v6.2.0-draft.2/
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/exports/coupons/DRAFT-MM-SHO-001-6.2.0-draft.2-collar-comfort-coupon.stl
+applicability:
+  triggers:
+    - A smooth shell with an internal opening is locally faired and then offset into multiple wall-thickness variants.
+    - User feedback rejects voxel/faceted character or a sharp isolated opening peak.
+  exclusions:
+    - Openings whose sharp edge is intentional and qualified, or shells not generated by normal offsets.
+  transfer_limits:
+    - Retain E0 status until another geometry or physical coupon distinguishes general mechanism from project-specific curvature.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00026]
+  evals: [EVAL-visual-freeform-opening-soft-collar-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/freeform-validation-6.2.0-draft.2.json
+    - products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/validation/visual-review-draft2.json
+provenance:
+  project: MM-SHO-001
+  part_revision: 6.2.0-draft.2
+  trace: products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_2_freeform/DECISION-LOG.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags: [freeform, collar, opening, fairness, offset, self-intersection, visual, digital-only]

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-SHO-001-fdm-optimization-review",
+  "tool_version": "1.0.0",
+  "status": "REVIEW_REQUIRED",
+  "profile": "draft",
+  "revision": "6.2.0-draft.2",
+  "objective": "Evaluate mesh/process optimization without changing the approved visible surface, protected V6.1 sole interface, collar comfort band, or printable topology.",
+  "baseline": {
+    "artifact": "exports/manufacturing/DRAFT-MM-SHO-001-6.2.0-draft.2-upper-fuzzy-shell-left.stl",
+    "sha256": "1285098964cc982415c48805e2344ebb3c1aafcb47f3ff6f0aec1ada137a19e6",
+    "triangles": 419352,
+    "file_mib": 19.996341705322266,
+    "slicer_profile": null,
+    "material_profile": null,
+    "orientation_profile": null,
+    "print_time": null,
+    "model_material": null,
+    "support_material": null
+  },
+  "protected_regions": [
+    "V6.1 sole/lip attachment interface within 0.20 mm",
+    "approved 52.0/44.3/49.0 mm collar edge-height profile",
+    "2.6 mm rounded collar comfort band",
+    "visible smooth freeform envelope and reflection-line continuity",
+    "single watertight positive-volume component"
+  ],
+  "candidates": [
+    {
+      "id": "A-process-only",
+      "status": "NOT_RUN",
+      "reason": "Exact printer, nozzle, TPU product/batch, process profile, and orientation are unresolved."
+    },
+    {
+      "id": "B-geometry-only",
+      "status": "NOT_SELECTED",
+      "reason": "The 419352-triangle, 19.996 MiB baseline is already below the declared mesh budgets; decimation would add surface/interface risk without a measured slicing benefit."
+    },
+    {
+      "id": "C-combined",
+      "status": "NOT_RUN",
+      "reason": "Depends on candidate A and an exact slicer A/B comparison."
+    }
+  ],
+  "decision": "Preserve the high-fidelity master and manufacturing meshes. Reopen optimization only after an exact slicer/profile baseline exists.",
+  "required_next_evidence": [
+    "Exact Anycubic machine, process, TPU filament, and orientation profiles",
+    "Baseline slice metrics: time, layers, model/support material, retractions, warnings, and peak flow",
+    "Three isolated A/B/C candidates sliced under comparable conditions",
+    "Interface and reflection/fairness regression after any geometry simplification"
+  ],
+  "limitations": [
+    "Triangle count and file size are not proxies for print time or deposited material.",
+    "No strength, fatigue, comfort, or wear claim is made without process-matched physical evidence."
+  ]
+}

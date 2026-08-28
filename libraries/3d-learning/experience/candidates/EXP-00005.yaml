@@ -1,8 +1,8 @@
 schema_version: 1.0.0
 kind: lesson
 id: EXP-00005
-title: Embedded raster glyphs produced one font-independent personalized plate in a digital FDM candidate
-captured_at: 2026-08-27
+title: Repository-owned raster glyphs drove font-independent CAD and an exact live proof in two digital FDM candidates
+captured_at: 2026-08-28
 source_type: design-trace
 lifecycle:
   state: candidate
@@ -12,10 +12,10 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: One digital geometry and one local reference-profile slice; physical text and sliding-fit tests were deliberately deferred.
+    notes: Two digital plate geometries and two local reference-profile slices; physical text, contrast and fit tests were deliberately deferred.
 feature:
   type: font-independent-recessed-personalization-plate
-  geometry: flat-rounded-slide-plate-with-recessed-5x7-pixel-glyphs-and-open-top-c-channel
+  geometry: flat removable plates with recessed 5x7 pixel glyphs; one chassis slide channel and one two-stand desk display
   design_parameters:
     plate_width_mm: 136.0
     plate_height_mm: 27.0
@@ -26,6 +26,11 @@ feature:
     default_name_pixel_width_mm: 1.8249056603773586
     sixteen_character_pixel_width_mm: 1.0181052631578948
     nominal_channel_clearance_per_side_mm: 0.25
+    second_plate_width_mm: 200.0
+    second_plate_height_mm: 50.0
+    second_plate_thickness_mm: 3.0
+    second_title_minimum_pixel_width_mm: 0.8914285714285715
+    exact_svg_proof_from_same_glyph_source: true
   named_datums:
     - flat-nameplate-print-back
     - recessed-nameplate-print-face
@@ -34,6 +39,8 @@ feature:
     - Transliterate and validate text before geometry generation.
     - Fail closed if any raster pixel falls below the declared printable minimum.
     - Keep the plate removable so name changes do not require reprinting the main chassis.
+    - Generate the customer-facing SVG proof from the same normalization, layout and glyph source as the CAD engraving.
+    - Bind the proof inputs and SVG output hash in an executable PASS report.
     - Do not infer physical legibility or fit from topology and slicing alone.
 scope:
   process: FFF
@@ -61,24 +68,24 @@ scope:
     version: 1.3.9.4
     profile: Kobra 3 Max 0.4 nozzle / 0.20mm Standard / Anycubic PLA
     profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
-  geometry_class: removable-flat-personalization-plate-for-dry-indoor-organizer
+  geometry_class: removable-flat-personalization-plates-for-dry-indoor-organizer-and-desk-display
   environment: dry indoor assumption; no physical environment test
   transfer_limits:
-    - One uppercase Latin/digit glyph implementation and one default name.
-    - One 16-character digital boundary calculation.
-    - One local reference-profile slice; no physical print.
+    - One uppercase Latin/digit glyph implementation across two repository products and two default text sets.
+    - One 16-character boundary and one 18-character name plus 26-character title boundary calculation.
+    - Two local reference-profile slices; no physical print.
     - Does not establish readability, aesthetic preference, fit, wear or dirt resistance.
 observation:
-  summary: In one parametric CadQuery plate, embedded 5x7 raster glyphs removed installed-font dependency, retained 1.018 mm pixels at the 16-character boundary and exported as one watertight body that passed a local reference-profile slice.
-  expected: Keep every engraved pixel at or above 0.9 mm, keep the plate one valid component and successfully slice the unchanged two-object 3MF.
-  actual: Default METRIMADE pixels were 1.825 mm; the 16-character boundary calculated 1.018 mm; the nameplate was one watertight component with 2,876 triangles; the two-object 3MF sliced to 640 layers with no G-code warning.
+  summary: Across two parametric CadQuery products, one repository-owned 5x7 glyph approach removed installed-font dependency; the second product also generated an exact SVG proof from the same normalization, layout and glyph source.
+  expected: Keep every engraved pixel at or above its declared 0.8-0.9 mm process minimum, keep each plate one valid component, preserve identical normalized text and font identity in CAD and proof, and slice both unchanged 3MF packages.
+  actual: MM-ORG-010 retained 1.018 mm pixels at its 16-character boundary. MM-ORG-026 retained 0.891 mm title pixels at its 26-character boundary; its proof and CAD matched font ID and normalized text, its SVG hash matched exactly, its plate was one watertight 6,028-triangle component, and its five-object 3MF sliced to 100 layers without warnings.
   outcome: success
   parameter: minimum_raster_pixel_width_mm
   recommended_value: null
   units: mm
 explanation:
-  hypothesis: A small explicit raster alphabet can make functional personalization deterministic and licence-independent while a separate plate isolates customer text from the large chassis.
-  mechanism: Each allowed character maps to a fixed binary grid; available plate width and height determine one uniform pitch, and disjoint recessed pixels are subtracted from a single plate solid.
+  hypothesis: A small explicit raster alphabet can make functional personalization deterministic and licence-independent while a separate plate isolates customer text from the reusable support geometry; using the identical renderer for the proof prevents text-layout drift.
+  mechanism: Each allowed character maps to a fixed binary grid; available plate width and height determine one uniform pitch, disjoint recessed pixels are subtracted from a single plate solid, and the proof uses the same normalized strings, layout function and pixel rectangles.
   alternatives:
     - An owned vector font or stroke font may produce more attractive or space-efficient text while remaining reproducible.
     - Recessed pixels may collect debris or lose contrast in low-light single-color prints.
@@ -87,15 +94,15 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 1
-  same_scope_repetitions: 0
-  geometry_count: 1
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 2
   machine_count: 0
   material_count: 0
   nozzle_count: 1
   measured: true
-  measurement_method: Deterministic text-layout calculation, CadQuery B-Rep generation, independent Trimesh topology audit and Anycubic Slicer Next reference-profile G-code analysis; no physical measurement.
-  uncertainty: Geometry and report hashes are exact for this revision, but the physical readability and slide-channel performance are unknown.
+  measurement_method: Deterministic text normalization/layout, exact SVG hash comparison, CadQuery B-Rep generation, independent Trimesh topology audits and two Anycubic Slicer Next reference-profile G-code analyses; no physical measurement.
+  uncertainty: Geometry, proof identity and report hashes are exact for these revisions, but physical readability, contrast, fit and cycle performance are unknown.
   sources:
     - type: product-trace
       ref: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/learning-trace.yaml
@@ -105,35 +112,50 @@ evidence:
       ref: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/interface-report.json
       hash: null
       notes: Records normalization, font independence, minimum pixel and channel parameters.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-026-personalized-desk-nameplate/learning-trace.yaml
+      hash: null
+      notes: Owns the second geometry, exact proof and fit-first desk-display scope.
+    - type: other
+      ref: products/organization-storage/mm-org-026-personalized-desk-nameplate/validation/interface-report.json
+      hash: d0e54c666145e232e23d849b0747f451b6feb9c3d372321a0bf40a63cb01074a
+      notes: Hash-binds the CAD interface, live proof report and exact SVG.
   artifacts:
     - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/fdm-mesh-nameplate.json
     - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/slicer-preflight-anycubic-kobra3max-pla.json
     - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/renders/MM-ORG-010-nameplate-detail.png
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/cad/gridfont.py
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/tools/live_text_preview.py
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/reports/live-text-preview.json
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/tests/test_parameters.py
 applicability:
   triggers:
     - A functional dry-indoor product needs short uppercase personalization without external font dependencies.
     - The personalized region can be isolated as a flat replaceable part.
+    - A customer proof must reflect the exact normalized text and glyph geometry before manufacturing.
   exclusions:
     - Decorative typography, mixed scripts, lowercase-dependent names, braille or safety-critical labels.
     - Tiny products that force the calculated pixel below the process minimum.
     - Permanent legal, safety, traceability or calibration markings.
   transfer_limits:
-    - Treat only as an experiment candidate for similar flat organizer plates.
+    - Treat only as an experiment candidate for similar flat organizer or display plates.
     - Require a glyph/readability coupon and repeated exact-process channel-cycle tests before promotion.
 relationships:
   duplicates: []
   conflicts: []
   supersedes: []
   related: []
-  evals: []
+  evals: [EVAL-interfaces-live-proof-cad-glyph-identity-001]
   patterns: []
   references: []
 validation:
-  targeted: not-run
+  targeted: pass
   regression: not-run
-  reports: []
+  reports:
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/reports/live-text-preview.json
+    - products/organization-storage/mm-org-026-personalized-desk-nameplate/validation/interface-report.json
 provenance:
-  project: MM-ORG-010-personalized-pen-stationery-caddy
+  project: MM-ORG-010-personalized-pen-stationery-caddy and MM-ORG-026-personalized-desk-nameplate
   part_revision: 0.1.0-draft.1
   trace: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/learning-trace.yaml
   source_commit: null
@@ -146,3 +168,4 @@ tags:
   - exact-profile-sliced
   - digital-only
   - negative-transfer
+  - exact-live-proof

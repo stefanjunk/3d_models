@@ -1,0 +1,53 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-live-proof-cad-glyph-identity-001
+title: Live text proof and engraved CAD interface share one exact geometric glyph contract
+category: interfaces
+status: draft
+trigger: A personalized flat FDM plate is generated from repository-owned geometric glyphs and requires a customer-facing proof before manufacture.
+risk: Separate text renderers could normalize characters, fit line lengths or draw glyphs differently, so an approved proof would not match the manufactured insert.
+given:
+  project: products/organization-storage/mm-org-026-personalized-desk-nameplate
+  parameter_source: config/model-parameters.json
+  glyph_source: cad/gridfont.py
+  proof_tool: tools/live_text_preview.py
+  proof_report: reports/live-text-preview.json
+  cad_interface_report: validation/interface-report.json
+expected:
+  - The proof report and CAD interface use font ID MM-GRID-5X7-v1.
+  - Normalized name and title match exactly between proof and CAD interface.
+  - The report binds the parameter and glyph-source SHA-256 values.
+  - The reported SVG SHA-256 matches the exact retained SVG file.
+  - Every required proof check reports PASS and both text lines retain at least 0.8 mm pixel width.
+failure_conditions:
+  - Font identity or normalized text differs between proof and CAD.
+  - The proof report omits or mismatches a source or SVG hash.
+  - Any required proof check is not PASS.
+  - Either text line falls below its declared printable minimum pixel width.
+fixtures:
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/config/model-parameters.json
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/cad/gridfont.py
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/tools/live_text_preview.py
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/reports/live-text-preview.json
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/validation/interface-report.json
+  - products/organization-storage/mm-org-026-personalized-desk-nameplate/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-026-personalized-desk-nameplate/tests/test_parameters.py::test_live_preview_and_cad_interface_share_one_exact_glyph_contract products/organization-storage/mm-org-026-personalized-desk-nameplate/tests/test_parameters.py::test_maximum_lengths_keep_printable_pixels -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare normalized strings, font identity, exact source and SVG hashes, proof checks and calculated pixel widths.
+relationships:
+  lessons: [EXP-00005]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-026-personalized-desk-nameplate/reports/live-text-preview.json
+  artifact_hashes:
+    - 7a163c0c8db81ebc3c440109041afd3043f660c55919ba713289c93c4364d372
+    - f2af90bcd7f739b4839704d01bdc1cd25ad2b7a08c74595922f86ce6512ed9f7
+    - 34df9aecbe3f095b5062cb8080352b96af60df528d0b99c57a55ad0435498716
+    - 3a9560948751aafd519bf322e42722a8dc1b54665133f4e0ba6bdde2d3c5050f
+    - d0e54c666145e232e23d849b0747f451b6feb9c3d372321a0bf40a63cb01074a
+tags: [interfaces, personalization, raster-glyph, exact-live-proof, source-identity, regression, digital-only]

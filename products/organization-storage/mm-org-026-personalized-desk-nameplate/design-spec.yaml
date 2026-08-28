@@ -1,0 +1,34 @@
+project:
+  id: MM-ORG-026
+  revision: 0.1.0-draft.1
+  title: SignRail personalized desk nameplate
+  source_sku: SKU-014
+  opportunity_score: 88.0
+  next_candidate_rank: 18
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Display a proofed personal name and title on a stable indoor desk sign with a replaceable insert.
+  excluded: [official credential, affiliation certification, wayfinding compliance, accessibility signage, outdoor use, child-directed product, brand-logo reproduction]
+
+requirements:
+  - {id: R1, text: Separate personalized insert from reusable stands., acceptance: one insert fits two identical 70-degree end stands., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R2, text: Provide live text proof from the CAD glyph source., acceptance: SVG proof and CAD use the same normalized strings font ID and pixel layouts., status: PASS_DIGITAL}
+  - {id: R3, text: Use only approved font inputs., acceptance: MM-GRID-5X7-v1 is allowlisted without an external font binary; commercial rights gate remains explicit., status: PASS_DIGITAL_COMMERCIAL_DEFERRED}
+  - {id: R4, text: Make insert fit measurable., acceptance: 3.0 mm key and 3.2 3.4 3.6 mm inclined-slot gauge bracket production., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R5, text: Fit the researched product envelope and print support-free., acceptance: installed system fits 200 x 62 x 55 mm and exact-profile slice passes., status: PASS_DIGITAL}
+  - {id: R6, text: Bound privacy and product claims., acceptance: customer names are minimized and no credential affiliation accessibility or outdoor claim is made., status: PASS_DIGITAL_HUMAN_DEFERRED}
+
+manufacturing:
+  process: FDM
+  material: PLA
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [text normalization, glyph feature limits, live-proof hash, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [coupon selection, insert retention, desk tip test, edge feel, legibility, 250 insert cycles]
+  commercial_deferred: [customer proof approval, text and title rights, font provenance sign-off, personalized-return terms]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

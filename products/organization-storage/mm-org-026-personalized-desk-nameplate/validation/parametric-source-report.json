@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All four B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every unique deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-allowlist",
+      "message": "Repository-owned glyph font is allowlisted for internal candidate design",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "live-preview",
+      "message": "Live SVG proof hash matches the generated preview",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font file, logo, icon, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "955f6e1f126a4bdaef03392780ea43d21cf64d2f0492c40461065ba326ec9a4f",
+      "size_bytes": 2235
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0777c7d4969baca5a20ac541d971f2593f771ab6f619010396b4e52d7b6e8e4c",
+      "size_bytes": 26425
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "f2af90bcd7f739b4839704d01bdc1cd25ad2b7a08c74595922f86ce6512ed9f7",
+      "size_bytes": 5482
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "af179c4a064d9ad1b24db7a02faf7def3dec6cff691cee0315dfd6f8f158dfdd",
+      "size_bytes": 755
+    },
+    {
+      "path": "renders/MM-ORG-026-live-text-preview.svg",
+      "sha256": "d530305989bf4e93dd49d766f7a2b4af988ac5bc40c7337d60196c7fa0d177ca",
+      "size_bytes": 28167
+    },
+    {
+      "path": "reports/live-text-preview.json",
+      "sha256": "3a9560948751aafd519bf322e42722a8dc1b54665133f4e0ba6bdde2d3c5050f",
+      "size_bytes": 3155
+    }
+  ],
+  "limitations": [
+    "Any text, title, font, geometry or parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "font_id": "MM-GRID-5X7-v1",
+    "print_objects": [
+      "personalized-insert",
+      "angled-end-stand-left",
+      "angled-end-stand-right",
+      "angled-slot-gauge",
+      "insert-fit-key"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "personalized-insert",
+      "angled-end-stand",
+      "angled-slot-gauge",
+      "insert-fit-key"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-026-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,377 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "insert-slot-clearance",
+      "message": "Production insert has 0.4 mm total slot clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-brackets-production",
+      "message": "Gauge brackets production slot by plus/minus 0.2 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-key-matches-insert",
+      "message": "Fit key exactly reproduces insert thickness",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "shared-angle",
+      "message": "Coupon and stands share the 70 degree display angle",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-id",
+      "message": "CAD, preview and allowlist use the same font ID",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "proof-text",
+      "message": "CAD and live preview use the same normalized text",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixels",
+      "message": "Both text lines retain printable minimum pixel width",
+      "metrics": {
+        "name_mm": 2.2285714285714286,
+        "title_mm": 0.8914285714285715
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "backing",
+      "message": "Engraving leaves at least 2.4 mm backing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "assembly-envelope",
+      "message": "Installed assembly fits the 200 x 62 x 55 mm envelope",
+      "metrics": {
+        "installed_height_mm": 51.484631039295415
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-stands",
+      "message": "Two identical default stand centers are symmetric",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-conscious",
+      "message": "All unique parts have support-free declared orientations",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "Decorative identification claim boundary is explicit",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "955f6e1f126a4bdaef03392780ea43d21cf64d2f0492c40461065ba326ec9a4f",
+      "size_bytes": 2235
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0777c7d4969baca5a20ac541d971f2593f771ab6f619010396b4e52d7b6e8e4c",
+      "size_bytes": 26425
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "f2af90bcd7f739b4839704d01bdc1cd25ad2b7a08c74595922f86ce6512ed9f7",
+      "size_bytes": 5482
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "af179c4a064d9ad1b24db7a02faf7def3dec6cff691cee0315dfd6f8f158dfdd",
+      "size_bytes": 755
+    },
+    {
+      "path": "renders/MM-ORG-026-live-text-preview.svg",
+      "sha256": "d530305989bf4e93dd49d766f7a2b4af988ac5bc40c7337d60196c7fa0d177ca",
+      "size_bytes": 28167
+    },
+    {
+      "path": "reports/live-text-preview.json",
+      "sha256": "3a9560948751aafd519bf322e42722a8dc1b54665133f4e0ba6bdde2d3c5050f",
+      "size_bytes": 3155
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "040bcbc2ec6abe61b8abe00ee30988d305b2a6585af831124fa9654adf365a71",
+      "size_bytes": 2305
+    }
+  ],
+  "limitations": [
+    "Analytic clearances and preview identity cannot establish real PLA fit, legibility, tipping, abrasion, or customer proof approval."
+  ],
+  "metrics": {
+    "font_record": {
+      "commercial_release_status": "REVIEW_REQUIRED",
+      "design_use_status": "APPROVED_INTERNAL_DIGITAL_CANDIDATE",
+      "display_name": "metriMade Grid 5x7",
+      "external_font_file": false,
+      "font_id": "MM-GRID-5X7-v1",
+      "notes": "No installed system font, font binary, logo, icon or third-party outline is embedded. Commercial release still requires the normal project rights/provenance sign-off.",
+      "origin": "repository-owned geometric glyph definitions first used by MM-ORG-010",
+      "source": "cad/gridfont.py",
+      "supported_input": "uppercase A-Z, digits, spaces, period, hyphen and ampersand; accents are normalized and German umlauts/sharp-S transliterate"
+    },
+    "interfaces": {
+      "angled-end-stand": {
+        "external_assets": [],
+        "minimum_open_insertion_depth_mm": 16.49475547337664,
+        "outer_dimensions_mm": [
+          26.0,
+          62.0,
+          20.000000000000004
+        ],
+        "part_id": "angled-end-stand",
+        "print_orientation": "base_down",
+        "slot_angle_from_horizontal_deg": 70.0,
+        "slot_bottom_y_mm": -7.0,
+        "slot_bottom_z_mm": 4.5,
+        "slot_width_mm": 3.4
+      },
+      "angled-slot-gauge": {
+        "candidate_slot_widths_mm": [
+          3.2,
+          3.4,
+          3.6
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          72.0,
+          32.0,
+          20.0
+        ],
+        "part_id": "angled-slot-gauge",
+        "print_orientation": "base_down",
+        "slot_angle_from_horizontal_deg": 70.0,
+        "station_centers_x_mm": [
+          -24.0,
+          0.0,
+          24.0
+        ]
+      },
+      "insert-fit-key": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          14.0,
+          24.0,
+          3.0
+        ],
+        "part_id": "insert-fit-key",
+        "print_orientation": "back_face_down",
+        "thickness_mm": 3.0
+      },
+      "personalized-insert": {
+        "engraving_depth_mm": 0.6,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "minimum_backing_mm": 2.4,
+        "name_layout": {
+          "pitch_mm": 2.857142857142857,
+          "pixel_width_mm": 2.2285714285714286,
+          "text_height_mm": 20.0,
+          "text_width_mm": 180.0,
+          "total_columns": 63
+        },
+        "normalized_name": "ALEX MORGAN",
+        "normalized_title": "DESIGN STUDIO",
+        "outer_dimensions_mm": [
+          200.0,
+          50.0,
+          3.0
+        ],
+        "part_id": "personalized-insert",
+        "print_orientation": "back_face_down",
+        "title_layout": {
+          "pitch_mm": 1.1428571428571428,
+          "pixel_width_mm": 0.8914285714285715,
+          "text_height_mm": 8.0,
+          "text_width_mm": 85.71428571428571,
+          "total_columns": 75
+        }
+      }
+    },
+    "live_proof": {
+      "checks": [
+        {
+          "evidence": [],
+          "id": "font-identity",
+          "message": "Preview uses the configured repository-owned glyph source",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "name-present",
+          "message": "Normalized name is non-empty",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "title-present",
+          "message": "Normalized title is non-empty",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "name-pixel-width",
+          "message": "Name pixels meet the printable minimum",
+          "metrics": {
+            "pixel_width_mm": 2.2285714285714286
+          },
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "title-pixel-width",
+          "message": "Title pixels meet the printable minimum",
+          "metrics": {
+            "pixel_width_mm": 0.8914285714285715
+          },
+          "required": true,
+          "status": "PASS"
+        }
+      ],
+      "font_id": "MM-GRID-5X7-v1",
+      "inputs": [
+        {
+          "path": "config/model-parameters.json",
+          "sha256": "955f6e1f126a4bdaef03392780ea43d21cf64d2f0492c40461065ba326ec9a4f",
+          "size_bytes": 2235
+        },
+        {
+          "path": "cad/gridfont.py",
+          "sha256": "f2af90bcd7f739b4839704d01bdc1cd25ad2b7a08c74595922f86ce6512ed9f7",
+          "size_bytes": 5482
+        }
+      ],
+      "limitations": [
+        "The SVG is an exact digital text proof, not evidence of engraved contrast after printing.",
+        "Customer-specific names must not be retained outside the order and proof records."
+      ],
+      "metrics": {
+        "font_id": "MM-GRID-5X7-v1",
+        "name_layout": {
+          "pitch_mm": 2.857142857142857,
+          "pixel_width_mm": 2.2285714285714286,
+          "text_height_mm": 20.0,
+          "text_width_mm": 180.0,
+          "total_columns": 63
+        },
+        "normalized_name": "ALEX MORGAN",
+        "normalized_title": "DESIGN STUDIO",
+        "privacy": "do_not_retain_customer_names_outside_order_and_proof_records",
+        "svg_sha256": "d530305989bf4e93dd49d766f7a2b4af988ac5bc40c7337d60196c7fa0d177ca",
+        "title_layout": {
+          "pitch_mm": 1.1428571428571428,
+          "pixel_width_mm": 0.8914285714285715,
+          "text_height_mm": 8.0,
+          "text_width_mm": 85.71428571428571,
+          "total_columns": 75
+        }
+      },
+      "name_layout": {
+        "pitch_mm": 2.857142857142857,
+        "pixel_width_mm": 2.2285714285714286,
+        "text_height_mm": 20.0,
+        "text_width_mm": 180.0,
+        "total_columns": 63
+      },
+      "normalized_name": "ALEX MORGAN",
+      "normalized_title": "DESIGN STUDIO",
+      "privacy": "do_not_retain_customer_names_outside_order_and_proof_records",
+      "profile": "draft",
+      "required_capabilities": [],
+      "schema_version": "1.0",
+      "status": "PASS",
+      "svg_sha256": "d530305989bf4e93dd49d766f7a2b4af988ac5bc40c7337d60196c7fa0d177ca",
+      "title_layout": {
+        "pitch_mm": 1.1428571428571428,
+        "pixel_width_mm": 0.8914285714285715,
+        "text_height_mm": 8.0,
+        "text_width_mm": 85.71428571428571,
+        "total_columns": 75
+      },
+      "tool": "MM-ORG-026-live-text-preview",
+      "tool_version": "0.1.0-draft.1"
+    },
+    "workflow_contract": {
+      "assembly_envelope_mm": [
+        200.0,
+        62.0,
+        55.0
+      ],
+      "claim": "indoor_decorative_identification_only_no_affiliation_or_accessibility_claim",
+      "input_fields": [
+        "name",
+        "title",
+        "base_color",
+        "insert_color",
+        "desk_footprint"
+      ],
+      "plate_cycle_target": 250,
+      "privacy": "do_not_retain_customer_names_outside_order_and_proof_records",
+      "proof_fields": [
+        "normalized_name",
+        "normalized_title",
+        "font_id",
+        "pixel_widths_mm",
+        "preview_sha256"
+      ],
+      "tip_test_push_height_mm": 40.0
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-026-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-modular-host-clip-coupons-001
+title: Host-gap and reusable-face coupons reproduce their final interfaces exactly
+category: interfaces
+status: draft
+trigger: A reusable FDM accessory body is paired with multiple host-specific clips and separate first-print coupons.
+risk: A coupon could give false fit confidence if it drifts from the final clip gap or reusable-body slot.
+given:
+  project: products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front
+  parameter_source: config/model-parameters.json
+  interface_report: validation/interface-report.json
+expected:
+  - The gap gauge reports the same 2.2, 2.9 and 3.6 mm series as the three final clips.
+  - The key-slot coupon reports the same key-slot dimensions as the final pull/label face.
+failure_conditions:
+  - Any coupon dimension differs from its final-part interface.
+  - The source-linked interface report or either targeted test fails.
+fixtures:
+  - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/config/model-parameters.json
+  - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/validation/interface-report.json
+  - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/tests/test_parameters.py::test_gap_gauge_reproduces_clip_series products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/tests/test_parameters.py::test_key_coupon_matches_face_slot -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Construct the parametric parts and compare the coupon interface records with the corresponding final-part records.
+relationships:
+  lessons: [EXP-00018]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/validation/interface-report.json
+  artifact_hashes:
+    - 3ac90c2befbdfd3bf34f24baffeaa1f52a83dd7b53fdf8697a9d11cd99acae34
+    - 6260e5a3c1409f05c049ec09b048f636ba9af46537458e52370b8fe7823453b1
+tags: [interfaces, clip, gap-gauge, key-slot, coupon, regression]

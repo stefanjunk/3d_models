@@ -1,0 +1,101 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00018
+title: Separate a reusable face from host-specific clips and reproduce both interfaces in fail-early coupons
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: "One digital accessory family, no physical PETG fit or fatigue evidence."}
+feature:
+  type: modular-bin-front-host-interface
+  geometry: one pull-label face, three planar U-clips, one gap gauge and one key-slot coupon
+  design_parameters:
+    clip_gaps_mm: [2.2, 2.9, 3.6]
+    target_host_thicknesses_mm: [1.92, 2.67, 3.3]
+    key_entry_clearance_height_mm: 0.4
+    key_track_clearance_height_mm: 0.4
+    key_entry_clearance_width_mm: 0.6
+  named_datums: [face-back-z0, clip-broad-face-z0, locked-centers-plus-minus-46.5]
+  constraints:
+    - Each host clip must preserve the same face-side key geometry.
+    - The gap gauge must reproduce every protected clip gap exactly.
+    - The key coupon must reproduce the face slot from the same parameters.
+scope:
+  process: CadQuery/OpenCascade parametric FDM design
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic, product: PETG reference profile, variant: digital-only, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: face back down; clips and coupons broad side down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: detachable-face-with-planar-host-clips
+  environment: digital-only
+  transfer_limits:
+    - Dimensional identity does not establish real spring preload, retention, fatigue, creep or host-surface safety.
+    - The exact gaps and clearances apply only to the recorded product and process candidate.
+    - A coupon that passes does not create a universal-fit or load-rating claim.
+observation:
+  summary: A single face-side key contract served three host-specific clip gaps, while two small coupons reproduced the host and assembly interfaces exactly.
+  expected: Host fit and face-key fit fail on small artifacts before a full visible face needs to be printed.
+  actual: Three clip gaps and both coupon relationships passed deterministic dimensional regression checks; six manufacturing meshes and the shared 3MF also passed.
+  outcome: success
+  parameter: interface-ownership-and-coupon-decomposition
+  recommended_value: reusable-face-plus-host-clip-series-plus-two-source-linked-coupons
+  units: architecture-contract
+explanation:
+  hypothesis: Separating the stable visible face from the variable host clip reduces full-part reprints and keeps host measurement uncertainty out of the label/pull geometry.
+  mechanism: The gap gauge selects a host-side dimension, while the key coupon tests the stable clip-to-face connection; both are generated from the same parameter source as the final parts.
+  alternatives:
+    - Print a monolithic face for every host thickness.
+    - Use adhesive or purchased fasteners.
+    - Put all fit uncertainty into a single full-size prototype.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 6
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic parameter comparison, B-Rep construction, exported-mesh audit and exact-profile slicer preflight.
+  uncertainty: No printed gap, key, face or host was measured and no economic remake reduction was observed.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/learning-trace.yaml, hash: null, notes: Owns the exact digital scope.}
+    - {type: other, ref: products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/validation/interface-report.json, hash: 6260e5a3c1409f05c049ec09b048f636ba9af46537458e52370b8fe7823453b1, notes: Records the exact interface relationships.}
+  artifacts:
+    - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/config/model-parameters.json
+    - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/cad/build.py
+    - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/tests/test_parameters.py
+    - products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/validation/interface-report.json
+applicability:
+  triggers:
+    - One visible accessory body must adapt to several measured passive host thicknesses.
+    - Both the host-side fit and the reusable-body interface can be isolated in low-cost coupons.
+  exclusions:
+    - Safety-critical, structural, lifting or high-energy attachment interfaces.
+    - Host surfaces that cannot tolerate clip contact or lack a measured flat attachment zone.
+  transfer_limits:
+    - Reuse the decomposition and source-linking idea only; determine new gaps, clearances and tests for every host/process scope.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-interfaces-modular-host-clip-coupons-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/validation/interface-report.json]
+provenance:
+  project: MM-ORG-024-deep-shelf-pull-tab-bin-front
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [modular-interface, clip, gap-gauge, key-slot, coupon, cadquery, petg, digital-only]

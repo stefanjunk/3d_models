@@ -1,0 +1,25 @@
+schema_version: 1.0.0
+project: MM-ORG-024-deep-shelf-pull-tab-bin-front
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: CadQuery/OpenCascade parametric interface decomposition for FDM
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PETG reference profile
+  nozzle_mm: 0.4
+  orientation: face back down; clips and coupons broad side down
+observations:
+  - id: OBS-001
+    outcome: success
+    statement: One face interface accepted three digitally distinct host-gap clip definitions while the gap gauge reproduced all 2.2, 2.9 and 3.6 mm gaps exactly.
+    evidence: validation/interface-report.json
+  - id: OBS-002
+    outcome: success
+    statement: A separate key-slot coupon reproduced the face key geometry and both targeted regression checks passed.
+    evidence:
+      - validation/interface-report.json
+      - tests/test_parameters.py
+candidate_records: [EXP-00018]
+targeted_evals: [EVAL-interfaces-modular-host-clip-coupons-001]
+promotion: prohibited-without-policy-review
+uncertainty: Digital dimensional identity only; no PETG fit, fatigue, creep, host-marking or repeated-use result exists.

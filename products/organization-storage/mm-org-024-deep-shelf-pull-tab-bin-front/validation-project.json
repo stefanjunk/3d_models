@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "project": {"id":"MM-ORG-024","revision":"0.1.0-draft.1","units":"mm","risk_class":"normal-functional","build_volume_mm":[426,420,501]},
+  "artifacts": [
+    {"id":"pull-label-face","path":"exports/manufacturing/DRAFT-MM-ORG-024-pull-label-face-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"clip-thin","path":"exports/manufacturing/DRAFT-MM-ORG-024-clip-thin-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"clip-shelffit","path":"exports/manufacturing/DRAFT-MM-ORG-024-clip-shelffit-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"clip-thick","path":"exports/manufacturing/DRAFT-MM-ORG-024-clip-thick-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"gap-gauge","path":"exports/coupons/DRAFT-MM-ORG-024-gap-gauge-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"key-slot-coupon","path":"exports/coupons/DRAFT-MM-ORG-024-key-slot-coupon-0.1.0-draft.1.stl","kind":"mesh","revision":"0.1.0-draft.1"},
+    {"id":"build-3mf","path":"exports/3mf/DRAFT-MM-ORG-024-deep-shelf-pull-tab-bin-front-0.1.0-draft.1.3mf","kind":"3mf","revision":"0.1.0-draft.1"},
+    {"id":"parametric-report","path":"validation/parametric-source-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"mesh-generation-report","path":"validation/mesh-generation-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"interface-report","path":"validation/interface-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-pull-label-face","path":"validation/fdm-mesh-pull-label-face.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-clip-thin","path":"validation/fdm-mesh-clip-thin.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-clip-shelffit","path":"validation/fdm-mesh-clip-shelffit.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-clip-thick","path":"validation/fdm-mesh-clip-thick.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-gap-gauge","path":"validation/fdm-mesh-gap-gauge.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"audit-key-slot-coupon","path":"validation/fdm-mesh-key-slot-coupon.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"fdm-3mf-report","path":"validation/fdm-3mf.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"slicer-report","path":"validation/slicer-anycubic-next.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"approvals-slicer","path":"validation/approvals-through-slicer.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"print-candidate-report","path":"validation/print-candidate-report.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"approvals-print","path":"validation/approvals-through-print-candidate.json","kind":"report","revision":"0.1.0-draft.1"},
+    {"id":"autonomy","path":"autonomy-policy.json","kind":"autonomy-policy","revision":"0.1.0-draft.1"},
+    {"id":"ledger","path":"validation/agent-approvals.json","kind":"approval-ledger","revision":"0.1.0-draft.1"}
+  ],
+  "checks": [
+    {"id":"pull-label-face-mesh","type":"mesh","required":true,"artifact":"pull-label-face","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"clip-thin-mesh","type":"mesh","required":true,"artifact":"clip-thin","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"clip-shelffit-mesh","type":"mesh","required":true,"artifact":"clip-shelffit","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"clip-thick-mesh","type":"mesh","required":true,"artifact":"clip-thick","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"gap-gauge-mesh","type":"mesh","required":true,"artifact":"gap-gauge","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"key-slot-coupon-mesh","type":"mesh","required":true,"artifact":"key-slot-coupon","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[426,420,501],"allow_axis_permutation":false,"max_faces":60000,"max_file_mib":8}},
+    {"id":"build-3mf-structure","type":"3mf","required":true,"artifact":"build-3mf","policy":{"inspect_meshes":true,"require_watertight_meshes":true,"require_positive_volume":true,"require_unit":"millimeter","min_mesh_objects":6,"max_package_members":14,"max_uncompressed_mib":30,"max_compression_ratio":200}},
+    {"id":"slicer","type":"external_report","required":true,"artifact":"slicer-report","expected_inputs":["build-3mf"]},
+    {"id":"print-candidate","type":"external_report","required":true,"artifact":"print-candidate-report","expected_inputs":["parametric-report","mesh-generation-report","interface-report","audit-pull-label-face","audit-clip-thin","audit-clip-shelffit","audit-clip-thick","audit-gap-gauge","audit-key-slot-coupon","fdm-3mf-report","slicer-report","approvals-slicer"]},
+    {"id":"approvals-through-print-candidate","type":"approvals","required":true,"policy_artifact":"autonomy","agent_ledger_artifact":"ledger","target_stage":"print-candidate"},
+    {"id":"physical-gap-key-fatigue-marking-label-and-slide","type":"physical","required":false,"status":"REVIEW_REQUIRED","criterion":"Measured gap selection, 50 key cycles, 24-hour creep/marking inspection, 500 horizontal pulls at 0.75 kg test contents and 100 label changes pass","evidence_artifact":null}
+  ]
+}

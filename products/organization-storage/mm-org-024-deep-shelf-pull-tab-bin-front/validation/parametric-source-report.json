@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All six B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "three-clip-gaps",
+      "message": "All protected clip gaps are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "3ac90c2befbdfd3bf34f24baffeaa1f52a83dd7b53fdf8697a9d11cd99acae34",
+      "size_bytes": 2614
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0581d8e5b82dc1f937fb9c676fda24c06d0a65db9f7f72e6443facd37a6fdba3",
+      "size_bytes": 28673
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "pull-label-face",
+      "clip-thin",
+      "clip-shelffit",
+      "clip-thick",
+      "gap-gauge",
+      "key-slot-coupon"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "pull-label-face",
+      "clip-thin",
+      "clip-shelffit",
+      "clip-thick",
+      "gap-gauge",
+      "key-slot-coupon"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-024-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

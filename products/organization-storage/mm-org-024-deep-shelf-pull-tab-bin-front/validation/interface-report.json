@@ -1,0 +1,298 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "clip-gap-series",
+      "message": "Clip gap series is exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-matches",
+      "message": "Gap gauge reproduces every clip gap",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "host-clearance-series",
+      "message": "Nominal host clearances are bounded",
+      "metrics": {
+        "clearance_mm": [
+          0.28000000000000025,
+          0.22999999999999998,
+          0.30000000000000027
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "key-entry-clearance",
+      "message": "Key head has 0.4 mm entry-height clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "key-track-clearance",
+      "message": "Key neck has 0.4 mm track-height clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "key-width-clearance",
+      "message": "Key has 0.6 mm entry-width clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "key-coupon-matches",
+      "message": "Coupon reproduces the face key slot",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-clearance",
+      "message": "Paper label has 1.2 mm total width and height clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-locked-centers",
+      "message": "Two locked clip centers remain exact",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "orientation",
+      "message": "All unique parts have support-conscious broad-face orientations",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "All parts fit the product envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "No lifting or load-rating claim is present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "3ac90c2befbdfd3bf34f24baffeaa1f52a83dd7b53fdf8697a9d11cd99acae34",
+      "size_bytes": 2614
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "0581d8e5b82dc1f937fb9c676fda24c06d0a65db9f7f72e6443facd37a6fdba3",
+      "size_bytes": 28673
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "aaae579c658cd3d75c9e4158ac79fab641df21473119d7bac595cccb262ae28f",
+      "size_bytes": 1946
+    }
+  ],
+  "limitations": [
+    "Analytic gaps and key clearances cannot establish real PETG preload, fatigue, creep, marking or pull comfort."
+  ],
+  "metrics": {
+    "interfaces": {
+      "clip-shelffit": {
+        "arm_thickness_mm": 2.0,
+        "bridge_height_mm": 3.0,
+        "external_assets": [],
+        "gap_mm": 2.9,
+        "identity_holes": 2,
+        "key_mm": [
+          6.2,
+          3.5,
+          6.0,
+          3.3,
+          1.4
+        ],
+        "nominal_clearance_mm": 0.22999999999999998,
+        "outer_dimensions_mm": [
+          11.6,
+          22.0,
+          6.2
+        ],
+        "part_id": "clip-shelffit",
+        "print_orientation": "broad_profile_face_down",
+        "target_host_thickness_mm": 2.67
+      },
+      "clip-thick": {
+        "arm_thickness_mm": 2.0,
+        "bridge_height_mm": 3.0,
+        "external_assets": [],
+        "gap_mm": 3.6,
+        "identity_holes": 3,
+        "key_mm": [
+          6.2,
+          3.5,
+          6.0,
+          3.3,
+          1.4
+        ],
+        "nominal_clearance_mm": 0.30000000000000027,
+        "outer_dimensions_mm": [
+          12.299999999999999,
+          22.0,
+          6.2
+        ],
+        "part_id": "clip-thick",
+        "print_orientation": "broad_profile_face_down",
+        "target_host_thickness_mm": 3.3
+      },
+      "clip-thin": {
+        "arm_thickness_mm": 2.0,
+        "bridge_height_mm": 3.0,
+        "external_assets": [],
+        "gap_mm": 2.2,
+        "identity_holes": 1,
+        "key_mm": [
+          6.2,
+          3.5,
+          6.0,
+          3.3,
+          1.4
+        ],
+        "nominal_clearance_mm": 0.28000000000000025,
+        "outer_dimensions_mm": [
+          10.899999999999999,
+          22.0,
+          6.2
+        ],
+        "part_id": "clip-thin",
+        "print_orientation": "broad_profile_face_down",
+        "target_host_thickness_mm": 1.92
+      },
+      "gap-gauge": {
+        "external_assets": [],
+        "gaps_mm": [
+          2.2,
+          2.9,
+          3.6
+        ],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "outer_dimensions_mm": [
+          76.0,
+          32.0,
+          3.0
+        ],
+        "part_id": "gap-gauge",
+        "print_orientation": "broad_face_down",
+        "slot_stop_y_mm": -5.0,
+        "station_centers_x_mm": [
+          -24.0,
+          0.0,
+          24.0
+        ]
+      },
+      "key-slot-coupon": {
+        "external_assets": [],
+        "key_slot_mm": [
+          6.8,
+          6.4,
+          3.9
+        ],
+        "outer_dimensions_mm": [
+          32.0,
+          22.0,
+          3.0
+        ],
+        "part_id": "key-slot-coupon",
+        "print_orientation": "broad_face_down"
+      },
+      "pull-label-face": {
+        "external_assets": [],
+        "key_entry_centers_x_mm": [
+          -54.0,
+          54.0
+        ],
+        "key_locked_centers_x_mm": [
+          -46.5,
+          46.5
+        ],
+        "key_slot_mm": [
+          6.8,
+          6.4,
+          3.9
+        ],
+        "label_insert_mm": [
+          76.2,
+          20.0
+        ],
+        "label_pocket_mm": [
+          77.4,
+          21.2,
+          0.4
+        ],
+        "outer_dimensions_mm": [
+          120.0,
+          48.0,
+          15.0
+        ],
+        "part_id": "pull-label-face",
+        "print_orientation": "broad_back_face_down",
+        "pull_mm": [
+          104.0,
+          14.0,
+          15.0
+        ]
+      }
+    },
+    "workflow_contract": {
+      "claim": "light_horizontal_slide_pull_only_no_lifting_or_load_rating",
+      "contents_mass_test_target_kg": 0.75,
+      "installation_input_dimensions": [
+        "bin_front_wall_or_rim_thickness",
+        "flat_clip_zone_width",
+        "front_clearance",
+        "label_text"
+      ],
+      "pull_cycle_target": 500,
+      "reference_host": "MM-ORG-002 ShelfFit Mini Bin",
+      "reference_host_front_rim_mm": 2.67,
+      "reference_host_wall_mm": 1.92,
+      "small_parts_warning": "adult_use_detachable_accessory"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-024-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

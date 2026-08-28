@@ -1,0 +1,22 @@
+# Measurement worksheet
+
+- Date / operator:
+- Printer / firmware:
+- PETG manufacturer / product / color / batch:
+- Conditioning:
+- Nozzle diameter / material / wear:
+- Slicer / version / profile / profile hash:
+- Host bin identity:
+- Flat wall/rim thickness at left / center / right:
+- Selected gauge gap:
+- Printed gap measurements:
+- Key coupon 50-cycle result:
+- 24-hour installed result and host marking inspection:
+- Contents mass and scale:
+- Shelf material / finish:
+- Pull direction and cycle method:
+- 500-cycle result:
+- Label stock / thickness:
+- 100 label-change result:
+- Photos / raw trace paths:
+- Final pass/fail and notes:

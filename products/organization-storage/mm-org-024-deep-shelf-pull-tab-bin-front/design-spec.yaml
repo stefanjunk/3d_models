@@ -1,0 +1,33 @@
+project:
+  id: MM-ORG-024
+  revision: 0.1.0-draft.1
+  title: Parametric deep-shelf pull-tab bin front
+  source_sku: SKU-118
+  opportunity_score: 88.8
+  next_candidate_rank: 16
+  status: draft-digital-print-candidate
+  units: mm
+
+customer_job:
+  primary: Slide a light dry-storage bin forward using a removable labeled front.
+  excluded: [lifting, carrying, load rating, universal fit, child-directed product, food contact, adhesive attachment, dust protection, moisture protection]
+
+requirements:
+  - {id: R1, text: Separate face from host-specific clips., acceptance: one face accepts all three protected clip presets., status: PASS_DIGITAL}
+  - {id: R2, text: Make host fit measurable., acceptance: gauge reproduces 2.2 2.9 and 3.6 mm gaps., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R3, text: Retain clips without hardware., acceptance: mirrored key slots match the bounded clip key interface., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R4, text: Provide a replaceable label., acceptance: exposed top-entry pocket accepts a nominal 76.2 x 20 mm paper insert., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+  - {id: R5, text: Print without supports., acceptance: all six unique parts and exact-profile slice pass in declared orientations., status: PASS_DIGITAL}
+  - {id: R6, text: Bound use claims., acceptance: 0.75 kg and 500 pulls remain test targets and lifting is prohibited., status: PASS_DIGITAL_PHYSICAL_DEFERRED}
+
+manufacturing:
+  process: FDM
+  material: PETG
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PETG
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [gap selection, key retention, 24-hour installed creep, bin marking, label retention, 500 pull cycles, 0.75 kg slide target]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

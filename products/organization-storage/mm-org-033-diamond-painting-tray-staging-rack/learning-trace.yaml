@@ -1,0 +1,16 @@
+schema_version: 1.0
+project: MM-ORG-033
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope: {process: FFF, machine: Anycubic Kobra 3 Max reference profile, material: Anycubic PLA reference profile, nozzle_mm: 0.4, orientation: rack left frame down, slicer: Anycubic Slicer Next 1.3.9.4}
+observations:
+  - Valid one-solid B-Reps exported non-manifold shelf/rail/tab seams until the secondary features overlapped the shelf by 0.4 mm; final independent audits report zero non-manifold edges.
+  - Slicer run 001 failed because a relative 3MF path was unresolved inside the isolated adapter directory.
+  - Slicer run 002 preserved the native Anycubic exclusion-zone failure for build items placed at the bed origin.
+  - Slicer run 003 used absolute paths and a 20 mm build-item margin and produced warning-free analyzed G-code.
+explanation_status: hypothesis_only
+physical_evidence: none
+learning_candidates_updated: [EXP-00003]
+related_candidates: [EXP-00008, EXP-00016]
+targeted_evals: []
+promotion: forbidden_without_repeat_evidence_and_human_review

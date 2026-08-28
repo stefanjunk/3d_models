@@ -1,0 +1,57 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "protected-clearances",
+      "message": "Protected tray clearances remain satisfied",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "volume-reduction",
+      "message": "Open scaffold reduces volume by at least 70% versus the bounding-block proxy",
+      "metrics": {
+        "reduction_percent": 82.29537528937657
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "support-free-orientation",
+      "message": "Side orientation converts shelves and stops into vertical webs",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "b2fee694247dbb438287a35b30a5fed63704d2e555569f5a75f3e406649dc360",
+      "size_bytes": 1222
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-033-rack-0.1.0-draft.1.stl",
+      "sha256": "6b651daff4e622d6afcd3aea9b141187ea7d98b4ac40dcd61b08d08dfece2213",
+      "size_bytes": 17684
+    }
+  ],
+  "limitations": [
+    "CAD volume is not slicer deposited mass or print time."
+  ],
+  "metrics": {
+    "baseline_proxy_volume_mm3": 1892352.0,
+    "candidate_volume_mm3": 335033.81980397674,
+    "selected_variant": "side-print-open-scaffold",
+    "volume_reduction_percent": 82.29537528937657
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-033-optimization-comparison",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,156 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "six-levels",
+      "message": "Six independent staging levels are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tray-width",
+      "message": "86 mm tray envelope clears both rails",
+      "metrics": {
+        "clearance_each_mm": 1.7999999999999972
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tray-height",
+      "message": "12 mm tray envelope clears the next shelf",
+      "metrics": {
+        "clearance_mm": 6.600000000000001
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "rearward-fall",
+      "message": "Every full level retains the same rearward fall",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "split-tabs",
+      "message": "Each level has two sufficiently wide corner retention tabs",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "manufacturing-bed",
+      "message": "Manufacturing orientation puts the original width on Z",
+      "metrics": {
+        "bounds_mm": [
+          128.0,
+          154.0,
+          96.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "b2fee694247dbb438287a35b30a5fed63704d2e555569f5a75f3e406649dc360",
+      "size_bytes": 1222
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-033-rack-0.1.0-draft.1.stl",
+      "sha256": "6b651daff4e622d6afcd3aea9b141187ea7d98b4ac40dcd61b08d08dfece2213",
+      "size_bytes": 17684
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-033-mouth-coupon-0.1.0-draft.1.stl",
+      "sha256": "3fbe2ae0fe445c0b08e93c8b5f75234d8af2a24af5e848fb74fd1ff2a8d1a1f1",
+      "size_bytes": 3484
+    }
+  ],
+  "limitations": [
+    "Clearance is nominal CAD geometry; printer/material/process compensation is not inferred."
+  ],
+  "metrics": {
+    "coupon": {
+      "depth_mm": 42.0,
+      "front_tab_width_mm": 25.0,
+      "front_top_z_mm": 10.0,
+      "index": 1,
+      "part_id": "mouth-coupon",
+      "rear_top_z_mm": 8.26206896551724,
+      "rearward_fall_mm": 1.7379310344827585
+    },
+    "rack": {
+      "functional_envelope_mm": [
+        96.0,
+        154.0,
+        128.0
+      ],
+      "inner_width_mm": 89.6,
+      "levels": [
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 10.0,
+          "index": 1,
+          "rear_top_z_mm": 4.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 31.0,
+          "index": 2,
+          "rear_top_z_mm": 25.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 52.0,
+          "index": 3,
+          "rear_top_z_mm": 46.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 73.0,
+          "index": 4,
+          "rear_top_z_mm": 67.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 94.0,
+          "index": 5,
+          "rear_top_z_mm": 88.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 115.0,
+          "index": 6,
+          "rear_top_z_mm": 109.0,
+          "rearward_fall_mm": 6.0
+        }
+      ],
+      "part_id": "rack",
+      "rearward_angle_deg": 2.3695080642552884,
+      "side_clearance_each_mm": 1.7999999999999972,
+      "tray_stations": 6,
+      "vertical_clearance_mm": 6.600000000000001
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-033-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

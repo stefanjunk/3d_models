@@ -1,0 +1,217 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer-executable",
+      "message": "Anycubic Slicer Next executable: /usr/bin/AnycubicSlicerNext",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-file",
+      "message": "Slicer input: exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-format",
+      "message": "Supported slicer input format: .3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fresh-output-directory",
+      "message": "Output directory is new: slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-run-001",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "plate-index",
+      "message": "Slice plate selector: 0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "timeout",
+      "message": "Slicer timeout: 300 s",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile-set",
+      "message": "Exact machine, process, and filament profiles supplied",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile:machine:1",
+      "message": "Loaded machine profile: Anycubic Kobra 3 Max 0.4 nozzle",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile:process:2",
+      "message": "Loaded process profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile:filament:3",
+      "message": "Loaded filament profile: Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-version",
+      "message": "Anycubic Slicer Next version 1.3.9.4",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-process",
+      "message": "Anycubic Slicer Next exited with code 253",
+      "metrics": {
+        "return_code": 253
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-native-result",
+      "message": "Anycubic Slicer Next did not write result.json",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-output",
+      "message": "No G-code output was generated",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    }
+  ],
+  "diagnostics": [
+    "run found error, return -3, exit...",
+    "No such file: exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf"
+  ],
+  "gcode_reports": {},
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf",
+      "sha256": "9cb3c5601caea68990e66d6d2f8402ac876d24a379ad333f9ad4e6b8cb2d0a42",
+      "size_bytes": 5057
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "7e80addb1aff5418c3018207ec6e59d50913030568901c760db0db599072cee7",
+      "size_bytes": 8255
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81",
+      "size_bytes": 10630
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b",
+      "size_bytes": 5982
+    },
+    {
+      "path": "/usr/bin/AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "size_bytes": 252
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+      "sha256": "30e57f5edfb4cd6c9754aaf7a0f4f626b3ba856625e13f6311fe2ba3093d1e1d",
+      "size_bytes": 100312072
+    }
+  ],
+  "limitations": [
+    "Anycubic Slicer Next embeds a wall-clock timestamp and may vary path segmentation or ordering between same-scope runs; neither raw nor normalized byte identity is guaranteed.",
+    "Do not normalize or rewrite manufacturing G-code in place; retain each exact hash, compare approved metric tolerances, and use separate path diffs only as regression diagnostics.",
+    "Headless slicing does not replace final layer/tool/color preview or physical validation.",
+    "This adapter only performs local export; it implements no printer upload or print-start action."
+  ],
+  "metrics": {
+    "gcode_files": 0
+  },
+  "native_result": null,
+  "outputs": [],
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "slicer": {
+    "executable": "/usr/bin/AnycubicSlicerNext",
+    "invocation": [
+      "<AnycubicSlicerNext>",
+      "--datadir",
+      "<isolated-datadir>",
+      "--load-settings",
+      "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json;/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-filaments",
+      "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-defaultfila",
+      "--slice",
+      "0",
+      "--outputdir",
+      "slicer-runs/anycubic-next-1.3.9.4-kobra3max-pla-0p20-run-001",
+      "exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf"
+    ],
+    "name": "Anycubic Slicer Next",
+    "plate": 0,
+    "profiles": [
+      {
+        "inherits": "",
+        "name": "Anycubic Kobra 3 Max 0.4 nozzle",
+        "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "7e80addb1aff5418c3018207ec6e59d50913030568901c760db0db599072cee7",
+        "type": "machine"
+      },
+      {
+        "inherits": "fdm_process_common",
+        "name": "0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+        "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81",
+        "type": "process"
+      },
+      {
+        "inherits": "Anycubic PLA @acbase",
+        "name": "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle",
+        "path": "/opt/AnycubicSlicerNext/share/resources/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b",
+        "type": "filament"
+      }
+    ],
+    "runtime_executable": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+    "version": "1.3.9.4"
+  },
+  "status": "FAIL",
+  "tool": "slice-anycubic-next",
+  "tool_version": "1.2.1"
+}

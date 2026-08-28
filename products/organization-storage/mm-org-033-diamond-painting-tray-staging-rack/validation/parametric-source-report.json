@@ -1,0 +1,189 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "project",
+      "message": "Project identity and revision are fixed",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stations",
+      "message": "Tray station count is within the supported 3-6 range",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "envelope",
+      "message": "Functional envelope is inside the portfolio cap",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "side-clearance",
+      "message": "Declared side clearance is retained",
+      "metrics": {
+        "actual_mm": 1.7999999999999972
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "vertical-clearance",
+      "message": "Declared vertical clearance is retained",
+      "metrics": {
+        "actual_mm": 6.600000000000001
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "back-tilt",
+      "message": "Each tray slopes toward the rear stop",
+      "metrics": {
+        "angle_deg": 2.3695080642552884
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "front-opening",
+      "message": "Center front opening preserves finger, label and spout access",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "b2fee694247dbb438287a35b30a5fed63704d2e555569f5a75f3e406649dc360",
+      "size_bytes": 1222
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "8b0ad23dcb4dcc99319fca93b4f1a4241b4e8a9a278a74f4643efde598aa292a",
+      "size_bytes": 704
+    }
+  ],
+  "limitations": [
+    "Parametric checks do not prove real-tray fit or spill behavior."
+  ],
+  "metrics": {
+    "coupon": {
+      "depth_mm": 42.0,
+      "front_tab_width_mm": 25.0,
+      "front_top_z_mm": 10.0,
+      "index": 1,
+      "part_id": "mouth-coupon",
+      "rear_top_z_mm": 8.26206896551724,
+      "rearward_fall_mm": 1.7379310344827585
+    },
+    "interface": {
+      "functional_envelope_mm": [
+        96.0,
+        154.0,
+        128.0
+      ],
+      "inner_width_mm": 89.6,
+      "levels": [
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 10.0,
+          "index": 1,
+          "rear_top_z_mm": 4.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 31.0,
+          "index": 2,
+          "rear_top_z_mm": 25.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 52.0,
+          "index": 3,
+          "rear_top_z_mm": 46.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 73.0,
+          "index": 4,
+          "rear_top_z_mm": 67.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 94.0,
+          "index": 5,
+          "rear_top_z_mm": 88.0,
+          "rearward_fall_mm": 6.0
+        },
+        {
+          "front_tab_width_mm": 25.0,
+          "front_top_z_mm": 115.0,
+          "index": 6,
+          "rear_top_z_mm": 109.0,
+          "rearward_fall_mm": 6.0
+        }
+      ],
+      "part_id": "rack",
+      "rearward_angle_deg": 2.3695080642552884,
+      "side_clearance_each_mm": 1.7999999999999972,
+      "tray_stations": 6,
+      "vertical_clearance_mm": 6.600000000000001
+    },
+    "outputs": [
+      {
+        "path": "exports/master/DRAFT-MM-ORG-033-rack-0.1.0-draft.1.step",
+        "sha256": "f8b6b1bd88f47332886c530dd8daeb57be819093fd48533abe4c0e36080e50fe",
+        "size_bytes": 341862
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-033-mouth-coupon-0.1.0-draft.1.step",
+        "sha256": "ec3e45a056ef5fe4407ef62ff3450e9883e9e86a474e581a74384a562c8af6fe",
+        "size_bytes": 68423
+      },
+      {
+        "path": "exports/master/DRAFT-MM-ORG-033-virtual-tray-0.1.0-draft.1.step",
+        "sha256": "d4fcb98ca0a7d34c46970a2fec916dfe8051dcee8afdc5b1ce1bbcda26ea45c4",
+        "size_bytes": 15828
+      },
+      {
+        "path": "exports/manufacturing/DRAFT-MM-ORG-033-rack-0.1.0-draft.1.stl",
+        "sha256": "6b651daff4e622d6afcd3aea9b141187ea7d98b4ac40dcd61b08d08dfece2213",
+        "size_bytes": 17684
+      },
+      {
+        "path": "exports/coupons/DRAFT-MM-ORG-033-mouth-coupon-0.1.0-draft.1.stl",
+        "sha256": "3fbe2ae0fe445c0b08e93c8b5f75234d8af2a24af5e848fb74fd1ff2a8d1a1f1",
+        "size_bytes": 3484
+      },
+      {
+        "path": "exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf",
+        "sha256": "9cb3c5601caea68990e66d6d2f8402ac876d24a379ad333f9ad4e6b8cb2d0a42",
+        "size_bytes": 5057
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "cadquery"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-033-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,18 +1,19 @@
 # Portfolio 3D-model artifact audit
 
-Audit date: 2026-08-27
+Audit date: 2026-08-28
 
-- Portfolio records: **58**
-- Records with a local neutral/manufacturing 3D artifact: **58**
+- Portfolio records: **89**
+- Records with a local neutral/manufacturing 3D artifact: **89**
 - Records without a local 3D artifact: **0**
-- Records with detected parametric source: **43**
-- Records with at least one 3MF: **27**
+- Records with detected parametric source: **74**
+- Records with at least one 3MF: **57**
 - Lifecycle/model contradictions: **0**
 
 A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is reported separately. Neither proves rights, slicability, fit, strength, physical qualification or commercial release.
 
 | Record | SKU | Product | Lifecycle | Model status | Representative evidence |
 |---|---|---|---|---|---|
+| PORT-064 | MM-BTH-003 | Linear Shower Drain Hair Trap | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/print_plate_kobra3max.3mf` |
 | PORT-001 | MM-ORG-001 | DrawerFit Modular | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-001-drawerfit-modular/DRAFT-schubladen-organizer-R1.3-aspect-safe-030mm/schubladen-organizer/output/DRAFT/DRAFT-R1.3-aspect-safe-030mm-assembly.3mf` |
 | PORT-002 | MM-PER-001 | NameForm Bookends | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-per-001-nameform-bookends/exports/final/nameform-bookends-M-single.3mf` |
 | PORT-003 | MM-ORG-002 | ShelfFit Mini Bins | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-002-shelffit-mini-bins/exports/candidate/manufacturing/DRAFT-shelffit-mini-bin-0.1.0-print-two.3mf` |
@@ -29,7 +30,7 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-014 | MM-ACC-001 | Honeycomb Hair Clip R6 | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/wearables/mm-acc-001-honeycomb-hair-clip/output-r6-final/extra_large/masculine-honeycomb-hair-clip-r6-extra-large.3mf` |
 | PORT-015 | MM-DEC-001 | Marble Tile | P1 Model present | YES — controlled CAD/source + model artifact | `products/art-decor/mm-dec-001-marble-tile/simple_raw.3mf` |
 | PORT-016 | MM-DEC-002 | Roman Pillar | P1 Model present | YES — controlled CAD/source + model artifact | `products/art-decor/mm-dec-002-roman-pillar/mold_negative.3mf` |
-| PORT-017 | MM-SHO-001 | Barefoot Shoe Collection | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_1_fitfix/v6_sole_left.3mf` |
+| PORT-017 | MM-SHO-001 | Barefoot Shoe Collection | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/wearables/mm-sho-001-barefoot-shoe-collection/barfussschuh_v6_1_fitfix (2)/v6_sole_left.3mf` |
 | PORT-018 | MM-TOY-001 | 20 mm Rubber-Ball Toy Popper | P1 Model present | YES — controlled CAD/source + model artifact | `products/toys-games/mm-toy-001-rubber-ball-toy-popper/rubber_ball_toy_popper/output/toy_popper_assembly_preview_NOT_FOR_PRINT.stl` |
 | PORT-019 | MM-BOAT-001 | Fisher Boat | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-001-fisher-boat/textured_mesh.3mf` |
 | PORT-020 | MM-BOAT-002 | Fisher Boat Detailed | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-002-fisher-boat-detailed/textured_mesh.stl` |
@@ -71,3 +72,33 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-056 | MM-SYS-018 | BILLY Collection Display Matrix | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/furniture-systems/mm-sys-018-billy-collection-display-matrix/exports/stl/18_billy_collection_display_matrix.stl` |
 | PORT-057 | MM-SYS-019 | LAGKAPTEN/ALEX Reversible Cable Rail | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/furniture-systems/mm-sys-019-lagkapten-alex-reversible-cable-rail/exports/stl/19_lagkapten_alex_reversible_cable_rail.stl` |
 | PORT-058 | MM-SYS-020 | LACK Leg Two-Pocket Mini Dock | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/furniture-systems/mm-sys-020-lack-leg-two-pocket-mini-dock/exports/stl/20_lack_leg_two_pocket_mini_dock.stl` |
+| PORT-059 | MM-ORG-004 | Modular Desktop Tray System | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-004-modular-desktop-tray-system/exports/3mf/DRAFT-MM-ORG-004-modular-desktop-tray-system-0.1.0-draft.1.3mf` |
+| PORT-060 | MM-ORG-005 | Desk-edge Cable Clip Kit | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/exports/3mf/DRAFT-MM-ORG-005-desk-edge-cable-clip-kit-0.1.0-draft.1.3mf` |
+| PORT-061 | MM-ORG-006 | Charging-cable Docking Bar | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-006-charging-cable-docking-bar/exports/3mf/DRAFT-MM-ORG-006-charging-cable-docking-bar-0.1.0-draft.1.3mf` |
+| PORT-062 | MM-ORG-007 | Adjustable Passive Phone Stand | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-007-adjustable-passive-phone-stand/exports/3mf/DRAFT-MM-ORG-007-adjustable-phone-stand-0.1.0-draft.1.3mf` |
+| PORT-063 | MM-ORG-008 | Custom Lipstick and Tube Grid | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-008-custom-lipstick-tube-grid/exports/3mf/DRAFT-MM-ORG-008-custom-lipstick-tube-grid-0.1.0-draft.1.3mf` |
+| PORT-065 | MM-ORG-009 | Tapered drawer perimeter filler rail set | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-009-tapered-drawer-perimeter-filler-rail-set/exports/3mf/DRAFT-MM-ORG-009-tapered-drawer-filler-set-0.1.0-draft.1.3mf` |
+| PORT-066 | MM-ORG-010 | Personalized pen and stationery caddy | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/exports/3mf/DRAFT-MM-ORG-010-personalized-stationery-caddy-0.1.0-draft.1.3mf` |
+| PORT-067 | MM-ORG-011 | Crochet-hook diameter rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-011-crochet-hook-diameter-rack/exports/3mf/DRAFT-MM-ORG-011-crochet-hook-diameter-rack-0.1.0-draft.1.3mf` |
+| PORT-068 | MM-ORG-012 | Stationery-refill inventory tray | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-012-stationery-refill-inventory-tray/exports/3mf/DRAFT-MM-ORG-012-stationery-refill-inventory-tray-0.1.0-draft.1.3mf` |
+| PORT-069 | MM-ORG-013 | Photo and postcard archive drawer divider | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-013-photo-postcard-archive-drawer-divider/exports/3mf/DRAFT-MM-ORG-013-frame-and-first-three-dividers-0.1.0-draft.1.3mf` |
+| PORT-070 | MM-ORG-014 | Embroidery-floss project palette dock | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/exports/manufacturing/DRAFT-MM-ORG-014-palette-dock-0.1.0-draft.1.stl` |
+| PORT-071 | MM-ORG-015 | Adapter-and-dongle drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-015-adapter-dongle-drawer-cassette/exports/3mf/DRAFT-MM-ORG-015-cassette-and-measurement-card-0.1.0-draft.1.3mf` |
+| PORT-072 | MM-ORG-016 | Stencil-ruler bookmark set | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/exports/3mf/DRAFT-MM-ORG-016-stencil-ruler-bookmark-set-0.1.0-draft.1.3mf` |
+| PORT-073 | MM-ORG-017 | Modular pocket-emptying tray with coin slope | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-017-modular-pocket-emptying-tray/exports/3mf/DRAFT-MM-ORG-017-modular-pocket-emptying-tray-0.1.0-draft.1.3mf` |
+| PORT-074 | MM-ORG-018 | Drawer measurement gauge and clearance coupon kit | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-018-drawer-measurement-gauge-kit/exports/3mf/DRAFT-MM-ORG-018-drawer-measurement-gauge-kit-0.1.0-draft.1.3mf` |
+| PORT-075 | MM-ORG-019 | Label-printer tape-cartridge rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-019-label-tape-cartridge-rack/exports/3mf/DRAFT-MM-ORG-019-label-tape-cartridge-rack-0.1.0-draft.1.3mf` |
+| PORT-076 | MM-ORG-020 | Wardrobe belt and scarf shelf comb | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-020-belt-scarf-shelf-comb/exports/3mf/DRAFT-MM-ORG-020-belt-scarf-shelf-comb-0.1.0-draft.1.3mf` |
+| PORT-077 | MM-ORG-021 | Eyeglass-case shelf corral with dividers | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-021-eyeglass-case-shelf-corral/exports/3mf/DRAFT-MM-ORG-021-eyeglass-case-shelf-corral-0.1.0-draft.1.3mf` |
+| PORT-078 | MM-ORG-022 | Labelable small-parts bin set | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-022-labelable-small-parts-bin-set/exports/3mf/DRAFT-MM-ORG-022-labelable-small-parts-bin-set-0.1.0-draft.1.3mf` |
+| PORT-079 | MM-ORG-023 | Page-holder thumb tool | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-023-page-holder-thumb-tool/exports/3mf/DRAFT-MM-ORG-023-page-holder-thumb-tool-0.1.0-draft.1.3mf` |
+| PORT-080 | MM-ORG-024 | Deep-shelf pull-tab bin front | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-024-deep-shelf-pull-tab-bin-front/exports/3mf/DRAFT-MM-ORG-024-deep-shelf-pull-tab-bin-front-0.1.0-draft.1.3mf` |
+| PORT-081 | MM-ORG-025 | Vertical makeup-palette organizer | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-025-adjustable-vertical-makeup-palette-organizer/exports/3mf/DRAFT-MM-ORG-025-adjustable-vertical-makeup-palette-organizer-0.1.0-draft.1.3mf` |
+| PORT-082 | MM-ORG-026 | Personalized desk nameplate | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-026-personalized-desk-nameplate/exports/3mf/DRAFT-MM-ORG-026-personalized-desk-nameplate-0.1.0-draft.1.3mf` |
+| PORT-083 | MM-ORG-027 | Vinyl record-divider label set | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-027-vinyl-record-divider-label-set/exports/3mf/DRAFT-MM-ORG-027-shelfcue-selected-batch-0.1.0-draft.1.3mf` |
+| PORT-084 | MM-ORG-028 | Craft stamp and die index rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-028-craft-stamp-die-index-rack/exports/3mf/DRAFT-MM-ORG-028-divider-set-0.1.0-draft.1.3mf` |
+| PORT-085 | MM-ORG-029 | Craft-night modular personal supply caddy | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/exports/3mf/DRAFT-MM-ORG-029-four-caddy-system-0.1.0-draft.1.3mf` |
+| PORT-086 | MM-ORG-030 | Irregular-corner drawer organizer infill | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/exports/3mf/DRAFT-MM-ORG-030-cornerlab-three-presets-0.1.0-draft.1.3mf` |
+| PORT-087 | MM-ORG-031 | Shelf-side e-reader and book dock | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/exports/3mf/DRAFT-MM-ORG-031-pageharbor-duo-five-0.1.0-draft.1.3mf` |
+| PORT-088 | MM-ORG-032 | Paired thread-and-bobbin rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-032-pairpin-thread-bobbin-rack/exports/3mf/DRAFT-MM-ORG-032-pairpin-eight-0.1.0-draft.1.3mf` |
+| PORT-089 | MM-ORG-033 | Diamond-painting tray staging rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf` |

@@ -53,6 +53,7 @@ def validate_research_additions(
     rows: list[list[str]],
     legacy_rows: list[list[object]],
     portfolio_rows: list[list[str]],
+    research_status: dict[str, dict[str, str]],
 ) -> None:
     """Fail closed when the append-only +100 source is incomplete or collides exactly."""
     if not rows:
@@ -95,11 +96,28 @@ def validate_research_additions(
         raise ValueError("Research additions contain a blank or duplicate normalized product name")
     legacy_header = legacy_rows[0]
     legacy_product_index = legacy_header.index("Product")
-    existing_products = {normalize_name(row[legacy_product_index]) for row in legacy_rows[1:]}
+    legacy_products = {normalize_name(row[legacy_product_index]) for row in legacy_rows[1:]}
     portfolio_header = portfolio_rows[0]
     portfolio_product_index = portfolio_header.index("Product_or_Model")
-    existing_products.update(normalize_name(row[portfolio_product_index]) for row in portfolio_rows[1:])
-    collisions = sorted(set(products).intersection(existing_products))
+    portfolio_sku_index = portfolio_header.index("Working_SKU")
+    portfolio_products: dict[str, set[str]] = {}
+    for portfolio_row in portfolio_rows[1:]:
+        normalized = normalize_name(portfolio_row[portfolio_product_index])
+        portfolio_products.setdefault(normalized, set()).add(str(portfolio_row[portfolio_sku_index]))
+    collisions = []
+    for source_row, product in zip(rows[1:], products):
+        sku_id = str(source_row[id_index])
+        if product in legacy_products:
+            collisions.append(product)
+            continue
+        if product not in portfolio_products:
+            continue
+        implementation = research_status.get(sku_id, {})
+        mapped = implementation.get("Mapped_Working_SKU", "")
+        started = implementation.get("Implementation_Status", "NOT_STARTED") != "NOT_STARTED"
+        if not started or mapped not in portfolio_products[product]:
+            collisions.append(product)
+    collisions = sorted(set(collisions))
     if collisions:
         raise ValueError(f"Research additions duplicate retained research or portfolio names: {', '.join(collisions)}")
 
@@ -420,7 +438,8 @@ def main() -> None:
     legacy_sources = read_xlsx_sheet(RESEARCH_WORKBOOK, "Sources")
     additional_research = read_csv(RESEARCH_ADDITIONS_CSV)
     additional_sources = read_csv(RESEARCH_ADDITION_SOURCES_CSV)
-    validate_research_additions(additional_research, legacy_product_matrix, portfolio)
+    research_status = read_research_status(RESEARCH_STATUS_CSV)
+    validate_research_additions(additional_research, legacy_product_matrix, portfolio, research_status)
     if additional_sources[0] != legacy_sources[0]:
         raise ValueError("Additional research-source schema does not match the retained source register")
     legacy_source_ids = {str(row[0]) for row in legacy_sources[1:]}
@@ -439,7 +458,6 @@ def main() -> None:
     unknown_source_ids = sorted(used_source_ids.difference(valid_source_ids))
     if unknown_source_ids:
         raise ValueError(f"Research additions reference unknown source IDs: {', '.join(unknown_source_ids)}")
-    research_status = read_research_status(RESEARCH_STATUS_CSV)
     research_priority = read_csv(RESEARCH_PRIORITY_CSV)
     legacy_sku_index = legacy_product_matrix[0].index("SKU ID")
     additional_sku_index = additional_research[0].index("SKU_ID")

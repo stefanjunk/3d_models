@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+project:
+  id: MM-ORG-027
+  name: ShelfCue vinyl record-divider label set
+  revision: 0.1.0-draft.1
+  units: mm
+  portfolio_source: legacy-product-matrix/SKU-024
+  opportunity_score: 88.0
+  portfolio_rank: 19
+  status: digital-candidate-in-development
+function:
+  summary: Index categories in a spine-out vinyl shelf using a thin between-sleeve carrier and a front-readable perpendicular label cap.
+  intended_users: [adult vinyl collectors, record shops]
+  included: [six smooth reusable carriers, six CSV-personalized caps, cap-slot gauge, carrier fit key, deterministic nesting]
+  excluded: [record support, anti-lean function, archival protection, direct bare-record contact, preservation claim, physical validation, commercial release]
+fabrication:
+  process: FDM/FFF
+  material_assumption: PETG
+  nozzle_mm: 0.4
+  selected_layer_height_mm: 0.20
+  support_policy: no generated support; all parts broad-face-down
+geometry_contract:
+  maximum_single_part_envelope_mm: [235.0, 105.0, 5.0]
+  carrier: {length_mm: 230.0, height_mm: 35.0, thickness_mm: 1.6, contact_surface: continuous}
+  label_cap: {width_mm: 80.0, height_mm: 38.0, thickness_mm: 2.4, nominal_slot_width_mm: 1.9, insertion_depth_mm: 20.0}
+  batch: {labels: 6, source: config/labels.csv, tab_positions: [left, center, right], maximum_normalized_characters: 10}
+  interfaces:
+    carrier_cap: 1.6 mm carrier in 1.9 mm through-slot; 0.3 mm total nominal clearance
+    gauge: 1.8/1.9/2.0 mm U-slots plus a 1.6 mm fit key
+  protected_geometry: [continuous carrier faces, rounded outer corners, cap top bridge, U-slot lands, text band, printable pixel minimum, bed faces]
+workflow:
+  autonomy: autonomous-to-print-candidate
+  physical_validation: deferred-human
+  commercial_release: blocked
+risk:
+  class: normal-functional
+  source_score: 1
+  hazards: [long thin PETG carrier can warp, rough edges can scuff sleeves, loose cap can detach, wide caps can crowd adjacent spines]
+  limits: [dry indoor index only, use between qualified protective outer sleeves, do not overpack records, do not use as support or preservation device]
+acceptance:
+  digital:
+    - CSV import normalizes unique labels and preserves allowed tab positions.
+    - Every unique mesh is one watertight positive-volume component within budget.
+    - Selected 14-object 3MF fits and slices with exact Anycubic PETG profiles without warnings.
+    - Every label pixel is at least 0.8 mm and remains separated from its slot by at least 2.0 mm.
+    - Selected carrier retains uninterrupted sleeve-facing surfaces.
+  physical_deferred:
+    - Gauge selects a cap fit with hand assembly, retention and removal without cracking.
+    - Full carrier corner lift is at most 0.8 mm after cooling.
+    - No snagging or visible scuff occurs on sacrificial protected sleeves in 500 retrieval cycles.
+    - Six caps remain readable and non-overlapping in the actual shelf/box.
+    - Carrier/cap interface passes 250 attach/remove cycles.

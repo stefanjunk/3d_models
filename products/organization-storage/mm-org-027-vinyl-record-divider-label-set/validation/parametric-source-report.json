@@ -1,0 +1,149 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All source and variant B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every unique deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-allowlist",
+      "message": "Repository-owned glyph font is allowlisted for internal candidate design",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "csv-import",
+      "message": "CSV label import reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "live-preview",
+      "message": "Exact batch SVG proof reports PASS and matches its retained hash",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "No external font, logo, icon, vector or mesh asset is used",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+      "size_bytes": 2327
+    },
+    {
+      "path": "config/labels.csv",
+      "sha256": "32bcaff640cb604bfa20aa9081aeadca89425b1c9cbbbe1bcb4df527992ddf52",
+      "size_bytes": 80
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4",
+      "size_bytes": 2535
+    },
+    {
+      "path": "reports/csv-import.json",
+      "sha256": "c59c49ded4d1456b4fca322934496c0a87b598178a04319c85a5ae4d0764afdc",
+      "size_bytes": 4308
+    },
+    {
+      "path": "renders/MM-ORG-027-live-batch-preview.svg",
+      "sha256": "a1f72b4fb657ef149f5100e2c1847651b9e0b266535f5a6c2b4264fd9c12646d",
+      "size_bytes": 19869
+    },
+    {
+      "path": "reports/live-batch-preview.json",
+      "sha256": "d8423c8bd61ac71239b5d50df4c718d5e5f3a0dcceb0294e0b57a9b88db73e41",
+      "size_bytes": 2055
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a01e0fac471de3779e6de6a8424dbd9cab0e46f9e207579a708186f3ca352693",
+      "size_bytes": 30277
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "4d4242c01090051d0f5103d0048fde5b4be8b17e0a2024c1cbc03c69296ef9e6",
+      "size_bytes": 735
+    }
+  ],
+  "limitations": [
+    "Any CSV, label, font, geometry or parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "font_id": "MM-GRID-5X7-v1",
+    "python": "3.11.15",
+    "selected_print_objects": [
+      "smooth-carrier-01",
+      "smooth-carrier-02",
+      "smooth-carrier-03",
+      "smooth-carrier-04",
+      "smooth-carrier-05",
+      "smooth-carrier-06",
+      "label-cap-01-a-e",
+      "label-cap-02-f-j",
+      "label-cap-03-k-o",
+      "label-cap-04-p-t",
+      "label-cap-05-u-z",
+      "label-cap-06-jazz",
+      "cap-slot-gauge",
+      "carrier-fit-key"
+    ],
+    "unique_parts": [
+      "smooth-carrier",
+      "windowed-carrier",
+      "label-cap-01-a-e",
+      "label-cap-02-f-j",
+      "label-cap-03-k-o",
+      "label-cap-04-p-t",
+      "label-cap-05-u-z",
+      "label-cap-06-jazz",
+      "cap-slot-gauge",
+      "carrier-fit-key"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-027-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,241 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer:smooth-020",
+      "message": "Exact slicer report smooth-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:smooth-028",
+      "message": "Exact slicer report smooth-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:windowed-020",
+      "message": "Exact slicer report windowed-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:windowed-028",
+      "message": "Exact slicer report windowed-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-warning-free",
+      "message": "All four exact slices contain no parser or native object warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-single-tool",
+      "message": "All four exact slices use one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "baseline-protected-geometry",
+      "message": "Selected carrier retains a continuous sleeve-facing surface",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "windowed-rejected",
+      "message": "Windowed carrier is rejected without physical edge, racking and flatness evidence",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-engraving-layers",
+      "message": "0.20 mm retains three nominal engraving layers; 0.28 mm does not",
+      "metrics": {
+        "smooth-020": 2.9999999999999996,
+        "smooth-028": 2.142857142857143
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pareto-selection",
+      "message": "Smooth 0.20 mm is the only feasible Pareto variant",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "exact-profile-counterfactual",
+      "message": "The exact 0.28 mm profile is slower and uses more extrusion than the protected 0.20 mm baseline",
+      "metrics": {
+        "time_delta_percent": 15.503756303385819,
+        "volume_delta_percent": 11.963043679006134
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "geometric-proxy",
+      "message": "Selected two-part system reduces geometric volume versus the legacy full-panel proxy",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+      "size_bytes": 2327
+    },
+    {
+      "path": "validation/interface-report.json",
+      "sha256": "c699dceb1d6d169e6743d90cfef6501d2a73ce24cff95c17b661be5dc3fe8e46",
+      "size_bytes": 19567
+    },
+    {
+      "path": "reports/optimization-geometric.json",
+      "sha256": "0fc67858bdd3ff48035f40a62dfe241d92e7b29cd84f6026261045adce7e8744",
+      "size_bytes": 1083
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/3D-Design/.agents/skills/optimize-fdm-design/scripts/compare_variants.py",
+      "sha256": "8a90a864b129adaa9959cc84c11f5ed5fea4c405ebd05ab940097563d81f9f44",
+      "size_bytes": 7521
+    },
+    {
+      "path": "validation/slicer-selected-020.json",
+      "sha256": "a4b16826428006894584b0afb8f098d38e174c896fa0e3c3cbbc4d7f793596c9",
+      "size_bytes": 10459
+    },
+    {
+      "path": "validation/slicer-selected-028.json",
+      "sha256": "bbd9b595228cafc6d1a24f7b46ee318303c31f9c6c727eb6372c706f97f12b26",
+      "size_bytes": 10483
+    },
+    {
+      "path": "validation/slicer-windowed-020.json",
+      "sha256": "8e0f4512b9bfcf5f26a7cb51de5adce2de24e36dd89e64a8ecd72cead00cb56b",
+      "size_bytes": 10473
+    },
+    {
+      "path": "validation/slicer-windowed-028.json",
+      "sha256": "91cebb376315a144f3ec26eece258d2d23f4fddc45152a51e5e5955f57c562c3",
+      "size_bytes": 10497
+    },
+    {
+      "path": "reports/optimization-variants.json",
+      "sha256": "a3238bd11c4dde297b925732aa3690a32f9cc6e6ef99074715831d06a88de68a",
+      "size_bytes": 2973
+    },
+    {
+      "path": "reports/optimization-pareto.json",
+      "sha256": "e8c165591d9d08c5ed38cd1bba547a5d44583bd9e577a1a8b7b4ae2b3ca1a2e0",
+      "size_bytes": 4300
+    },
+    {
+      "path": "reports/optimization-pareto.md",
+      "sha256": "894a333e36a37fa9e87c915268b123280bc8cce894953fa6349d3809f1f45ad2",
+      "size_bytes": 469
+    }
+  ],
+  "limitations": [
+    "Slicer extrusion and time are estimates, not measured print outcomes.",
+    "Windowed carriers remain digital optimization variants only and are not manufacturing outputs.",
+    "Continuous contact is a geometry constraint; sleeve snagging, flatness and racking remain physical gates.",
+    "No G-code was retained and no printer upload or print-start action was performed."
+  ],
+  "metrics": {
+    "feasible_variants": 1,
+    "geometric_reduction_vs_legacy_percent": 41.91682017444616,
+    "pareto_variants": [
+      "smooth-020"
+    ],
+    "selected_extruded_volume_mm3": 111757.01139048778,
+    "selected_layers": 12,
+    "selected_print_time_s": 19434.0,
+    "selected_variant": "smooth-020",
+    "variant_metrics": {
+      "smooth-020": {
+        "continuous_contact": 1,
+        "extruded_volume_mm3": 111757.01139048778,
+        "layer_count": 12,
+        "nominal_engraving_layers": 2.9999999999999996,
+        "print_time_s": 19434.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "smooth-028": {
+        "continuous_contact": 1,
+        "extruded_volume_mm3": 125126.55147748369,
+        "layer_count": 9,
+        "nominal_engraving_layers": 2.142857142857143,
+        "print_time_s": 22447.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "windowed-020": {
+        "continuous_contact": 0,
+        "extruded_volume_mm3": 75125.83654075391,
+        "layer_count": 12,
+        "nominal_engraving_layers": 2.9999999999999996,
+        "print_time_s": 14946.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "windowed-028": {
+        "continuous_contact": 0,
+        "extruded_volume_mm3": 86371.77120340047,
+        "layer_count": 9,
+        "nominal_engraving_layers": 2.142857142857143,
+        "print_time_s": 16396.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      }
+    },
+    "windowed_reduction_vs_selected_percent": 30.495994763819702
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-027-finalize-optimization",
+  "tool_version": "0.1.0-draft.1"
+}

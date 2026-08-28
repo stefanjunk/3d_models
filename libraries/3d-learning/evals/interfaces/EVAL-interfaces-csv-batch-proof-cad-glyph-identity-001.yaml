@@ -1,0 +1,65 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-csv-batch-proof-cad-glyph-identity-001
+title: CSV label batch, exact proof and engraved CAD caps share one geometric glyph contract
+category: interfaces
+status: draft
+trigger: A batch of personalized flat FDM labels is imported from CSV and requires an exact customer-facing proof before manufacture.
+risk: CSV import, proof rendering and CAD generation could normalize labels, assign tab positions or render glyphs differently, so the approved proof would not match the manufactured caps.
+given:
+  project: products/organization-storage/mm-org-027-vinyl-record-divider-label-set
+  parameter_source: config/model-parameters.json
+  csv_source: config/labels.csv
+  batch_source: config/label-batch.json
+  glyph_source: cad/gridfont.py
+  import_tool: tools/import_labels.py
+  proof_tool: tools/live_batch_preview.py
+  import_report: reports/csv-import.json
+  proof_report: reports/live-batch-preview.json
+  cad_interface_report: validation/interface-report.json
+expected:
+  - CSV import, proof report and CAD interface all use font ID MM-GRID-5X7-v1.
+  - All six normalized labels and tab positions match between imported batch, proof and CAD interface.
+  - The import report binds the exact generated batch JSON hash.
+  - The proof report binds the exact retained SVG hash.
+  - Every required report check passes and every glyph pixel retains at least 0.8 mm width.
+failure_conditions:
+  - Font identity, normalized label order or tab position differs between CSV, proof and CAD.
+  - The generated batch or proof SVG hash differs from the retained artifact.
+  - Any required source report check is not PASS.
+  - Any calculated glyph pixel falls below the declared printable minimum.
+fixtures:
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/config/model-parameters.json
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/config/labels.csv
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/config/label-batch.json
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/cad/gridfont.py
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tools/import_labels.py
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tools/live_batch_preview.py
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/csv-import.json
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/live-batch-preview.json
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/validation/interface-report.json
+  - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tests/test_parameters.py::test_csv_proof_and_cad_share_one_exact_glyph_contract products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tests/test_parameters.py::test_maximum_label_keeps_printable_pixels -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare normalized label order, tab positions, font identity, generated-batch hash, exact SVG hash and calculated pixel widths.
+relationships:
+  lessons: [EXP-00005]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/live-batch-preview.json
+  artifact_hashes:
+    - 0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da
+    - 32bcaff640cb604bfa20aa9081aeadca89425b1c9cbbbe1bcb4df527992ddf52
+    - c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4
+    - 1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e
+    - 7d9e84f451c8a7e72aa8d654a2efd0c5ebe2899499dfe52be7711304cc6fb462
+    - 1db283a646e2f118437f7e5a3df2b330ae5d72d9cb77925c5471e169c8065bfe
+    - c59c49ded4d1456b4fca322934496c0a87b598178a04319c85a5ae4d0764afdc
+    - d8423c8bd61ac71239b5d50df4c718d5e5f3a0dcceb0294e0b57a9b88db73e41
+    - c699dceb1d6d169e6743d90cfef6501d2a73ce24cff95c17b661be5dc3fe8e46
+tags: [interfaces, personalization, csv-batch, raster-glyph, exact-live-proof, source-identity, regression, digital-only]

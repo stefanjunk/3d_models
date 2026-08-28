@@ -1,0 +1,175 @@
+{
+  "baseline": "smooth-020",
+  "constraints": [
+    {
+      "metric": "report_status",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "warning_count",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "tool_changes",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "continuous_contact",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "nominal_engraving_layers",
+      "op": ">=",
+      "tolerance": 1e-09,
+      "value": 3.0
+    }
+  ],
+  "feasible_count": 1,
+  "interpretation": "Choose among feasible Pareto variants using explicit user priorities; no weighted score was invented.",
+  "objectives": [
+    {
+      "goal": "min",
+      "metric": "print_time_s"
+    },
+    {
+      "goal": "min",
+      "metric": "extruded_volume_mm3"
+    }
+  ],
+  "pareto_variants": [
+    "smooth-020"
+  ],
+  "results": [
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "print_time_s": {
+          "absolute": 0.0,
+          "percent": 0.0
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "smooth-020",
+      "notes": [
+        "Exact Anycubic Kobra 3 Max PETG slice; no G-code retained.",
+        "The continuous-contact constraint protects sleeve-facing geometry."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 111757.01139048778,
+        "print_time_s": 19434.0
+      },
+      "pareto": true
+    },
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 13369.540086995912,
+          "percent": 11.963043679006134
+        },
+        "print_time_s": {
+          "absolute": 3013.0,
+          "percent": 15.503756303385819
+        }
+      },
+      "failed_constraints": [
+        {
+          "actual": 2.142857142857143,
+          "metric": "nominal_engraving_layers",
+          "op": ">=",
+          "required": 3.0,
+          "tolerance": 1e-09
+        }
+      ],
+      "feasible": false,
+      "name": "smooth-028",
+      "notes": [
+        "Exact Anycubic Kobra 3 Max PETG slice; no G-code retained.",
+        "The continuous-contact constraint protects sleeve-facing geometry."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 125126.55147748369,
+        "print_time_s": 22447.0
+      },
+      "pareto": false
+    },
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": -36631.17484973387,
+          "percent": -32.777518290768946
+        },
+        "print_time_s": {
+          "absolute": -4488.0,
+          "percent": -23.093547391170116
+        }
+      },
+      "failed_constraints": [
+        {
+          "actual": 0,
+          "metric": "continuous_contact",
+          "op": "==",
+          "required": 1,
+          "tolerance": 0.0
+        }
+      ],
+      "feasible": false,
+      "name": "windowed-020",
+      "notes": [
+        "Exact Anycubic Kobra 3 Max PETG slice; no G-code retained.",
+        "Window edges remain rejected until snag, racking and flatness tests pass."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 75125.83654075391,
+        "print_time_s": 14946.0
+      },
+      "pareto": false
+    },
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": -25385.240187087315,
+          "percent": -22.714673443073107
+        },
+        "print_time_s": {
+          "absolute": -3038.0,
+          "percent": -15.632396830297417
+        }
+      },
+      "failed_constraints": [
+        {
+          "actual": 0,
+          "metric": "continuous_contact",
+          "op": "==",
+          "required": 1,
+          "tolerance": 0.0
+        },
+        {
+          "actual": 2.142857142857143,
+          "metric": "nominal_engraving_layers",
+          "op": ">=",
+          "required": 3.0,
+          "tolerance": 1e-09
+        }
+      ],
+      "feasible": false,
+      "name": "windowed-028",
+      "notes": [
+        "Exact Anycubic Kobra 3 Max PETG slice; no G-code retained.",
+        "Window edges remain rejected until snag, racking and flatness tests pass."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 86371.77120340047,
+        "print_time_s": 16396.0
+      },
+      "pareto": false
+    }
+  ]
+}

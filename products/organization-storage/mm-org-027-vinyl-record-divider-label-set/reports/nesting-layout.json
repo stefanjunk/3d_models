@@ -1,0 +1,210 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "non-overlap",
+      "message": "All selected objects retain the configured nominal gap",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-bounds",
+      "message": "Layout respects conservative Kobra 3 Max rectangular margins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+      "size_bytes": 2327
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4",
+      "size_bytes": 2535
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a01e0fac471de3779e6de6a8424dbd9cab0e46f9e207579a708186f3ca352693",
+      "size_bytes": 30277
+    }
+  ],
+  "limitations": [
+    "The exact destination profile may contain non-rectangular exclusion zones; exact slicing remains authoritative."
+  ],
+  "metrics": {
+    "minimum_gap_mm": 5.0,
+    "object_count": 14,
+    "objects": [
+      {
+        "name": "carrier-01",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 10.0,
+        "y1": 45.0
+      },
+      {
+        "name": "carrier-02",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 51.0,
+        "y1": 86.0
+      },
+      {
+        "name": "carrier-03",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 92.0,
+        "y1": 127.0
+      },
+      {
+        "name": "carrier-04",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 133.0,
+        "y1": 168.0
+      },
+      {
+        "name": "carrier-05",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 174.0,
+        "y1": 209.0
+      },
+      {
+        "name": "carrier-06",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 215.0,
+        "y1": 250.0
+      },
+      {
+        "name": "label-cap-01-a-e",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 10.0,
+        "y1": 48.0
+      },
+      {
+        "name": "label-cap-02-f-j",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 54.0,
+        "y1": 92.0
+      },
+      {
+        "name": "label-cap-03-k-o",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 98.0,
+        "y1": 136.0
+      },
+      {
+        "name": "label-cap-04-p-t",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 142.0,
+        "y1": 180.0
+      },
+      {
+        "name": "label-cap-05-u-z",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 186.0,
+        "y1": 224.0
+      },
+      {
+        "name": "label-cap-06-jazz",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 230.0,
+        "y1": 268.0
+      },
+      {
+        "name": "cap-slot-gauge",
+        "x0": 260.0,
+        "x1": 354.0,
+        "y0": 286.0,
+        "y1": 320.0
+      },
+      {
+        "name": "carrier-fit-key",
+        "x0": 370.0,
+        "x1": 388.0,
+        "y0": 290.0,
+        "y1": 316.0
+      }
+    ],
+    "placements_mm": [
+      [
+        10.0,
+        10.0
+      ],
+      [
+        10.0,
+        51.0
+      ],
+      [
+        10.0,
+        92.0
+      ],
+      [
+        10.0,
+        133.0
+      ],
+      [
+        10.0,
+        174.0
+      ],
+      [
+        10.0,
+        215.0
+      ],
+      [
+        260.0,
+        10.0
+      ],
+      [
+        260.0,
+        54.0
+      ],
+      [
+        260.0,
+        98.0
+      ],
+      [
+        260.0,
+        142.0
+      ],
+      [
+        260.0,
+        186.0
+      ],
+      [
+        260.0,
+        230.0
+      ],
+      [
+        260.0,
+        286.0
+      ],
+      [
+        370.0,
+        290.0
+      ]
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-027-nesting-layout",
+  "tool_version": "0.1.0-draft.1"
+}

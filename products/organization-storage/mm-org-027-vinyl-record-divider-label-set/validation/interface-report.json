@@ -1,0 +1,707 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "carrier-cap-clearance",
+      "message": "Production cap slot retains 0.3 mm total clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-brackets-production",
+      "message": "Gauge brackets production by plus/minus 0.1 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fit-key-matches-carrier",
+      "message": "Fit key exactly reproduces carrier thickness",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "batch-count",
+      "message": "Default batch contains six unique normalized labels",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tab-positions",
+      "message": "Default batch demonstrates all tab offsets twice",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-id",
+      "message": "Every engraved cap uses the allowlisted geometric glyph source",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "proof-labels",
+      "message": "Exact proof and CAD use the same normalized label sequence",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixels",
+      "message": "Every label retains printable minimum pixel width",
+      "metrics": {
+        "minimum_mm": 1.3371428571428572
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "text-slot-separation",
+      "message": "Text engraving stays at least 2 mm above the connector slot",
+      "metrics": {
+        "minimum_mm": 3.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-part-envelope",
+      "message": "Every selected part respects the retained 235 x 105 x 5 mm envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nesting",
+      "message": "Fourteen selected objects have a non-overlapping nominal bed layout",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nesting-bounds",
+      "message": "Nominal layout remains inside the conservative rectangular bed margin",
+      "metrics": {
+        "max_x_mm": 388.0,
+        "max_y_mm": 320.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "selected-contact-surface",
+      "message": "Selected carrier retains uninterrupted sleeve-facing surfaces",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "claim-boundary",
+      "message": "Storage-index claim boundary is explicit",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+      "size_bytes": 2327
+    },
+    {
+      "path": "config/labels.csv",
+      "sha256": "32bcaff640cb604bfa20aa9081aeadca89425b1c9cbbbe1bcb4df527992ddf52",
+      "size_bytes": 80
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4",
+      "size_bytes": 2535
+    },
+    {
+      "path": "reports/csv-import.json",
+      "sha256": "c59c49ded4d1456b4fca322934496c0a87b598178a04319c85a5ae4d0764afdc",
+      "size_bytes": 4308
+    },
+    {
+      "path": "renders/MM-ORG-027-live-batch-preview.svg",
+      "sha256": "a1f72b4fb657ef149f5100e2c1847651b9e0b266535f5a6c2b4264fd9c12646d",
+      "size_bytes": 19869
+    },
+    {
+      "path": "reports/live-batch-preview.json",
+      "sha256": "d8423c8bd61ac71239b5d50df4c718d5e5f3a0dcceb0294e0b57a9b88db73e41",
+      "size_bytes": 2055
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a01e0fac471de3779e6de6a8424dbd9cab0e46f9e207579a708186f3ca352693",
+      "size_bytes": 30277
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "4d4242c01090051d0f5103d0048fde5b4be8b17e0a2024c1cbc03c69296ef9e6",
+      "size_bytes": 735
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "05ed05043a8b23a0e8d4778a22cee8d8add6dfbf79ca4073da3b014c2c03adbc",
+      "size_bytes": 2976
+    }
+  ],
+  "limitations": [
+    "Analytic clearance, text and nesting checks cannot establish real PETG fit, warping, abrasion or user visibility."
+  ],
+  "metrics": {
+    "font_record": {
+      "commercial_release_status": "REVIEW_REQUIRED",
+      "design_use_status": "APPROVED_INTERNAL_DIGITAL_CANDIDATE",
+      "display_name": "metriMade Grid 5x7",
+      "external_font_file": false,
+      "font_id": "MM-GRID-5X7-v1",
+      "notes": "No installed font, font binary, logo, icon or third-party outline is embedded. Commercial release still requires the normal rights/provenance sign-off.",
+      "origin": "repository-owned geometric glyph definitions first used by MM-ORG-010",
+      "source": "cad/gridfont.py",
+      "supported_input": "uppercase A-Z, digits, spaces, period, hyphen and ampersand; accents normalize and German umlauts/sharp-S transliterate"
+    },
+    "interfaces": {
+      "cap-slot-gauge": {
+        "candidate_slot_widths_mm": [
+          1.8,
+          1.9,
+          2.0
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          94.0,
+          34.0,
+          2.4
+        ],
+        "part_id": "cap-slot-gauge",
+        "print_orientation": "broad_face_down",
+        "slot_insertion_depth_mm": 16.0,
+        "station_centers_x_mm": [
+          -30.0,
+          0.0,
+          30.0
+        ]
+      },
+      "carrier-fit-key": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          18.0,
+          26.0,
+          1.6
+        ],
+        "part_id": "carrier-fit-key",
+        "print_orientation": "broad_face_down",
+        "thickness_mm": 1.6
+      },
+      "label-cap-01-a-e": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "A-E",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-01",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": -25.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "left",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "label-cap-02-f-j": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "F-J",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-02",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": 0.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "center",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "label-cap-03-k-o": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "K-O",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-03",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": 25.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "right",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "label-cap-04-p-t": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "P-T",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-04",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": -25.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "left",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "label-cap-05-u-z": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "U-Z",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-05",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": 0.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "center",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "label-cap-06-jazz": {
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 39.42857142857142,
+          "total_columns": 23
+        },
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "JAZZ",
+        "outer_dimensions_mm": [
+          80.0,
+          38.0,
+          2.4
+        ],
+        "part_id": "label-cap-06",
+        "print_orientation": "back_face_down_slot_bridged_under_2mm",
+        "slot_center_x_mm": 25.0,
+        "slot_insertion_depth_mm": 20.0,
+        "slot_width_mm": 1.9,
+        "tab_position": "right",
+        "text_to_slot_margin_mm": 3.0
+      },
+      "smooth-carrier": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          230.0,
+          35.0,
+          1.6
+        ],
+        "part_id": "smooth-carrier",
+        "print_orientation": "broad_face_down",
+        "record_contact_surface": "continuous",
+        "thickness_mm": 1.6,
+        "windowed": false,
+        "windows": []
+      },
+      "windowed-carrier": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          230.0,
+          35.0,
+          1.6
+        ],
+        "part_id": "windowed-carrier",
+        "print_orientation": "broad_face_down",
+        "record_contact_surface": "interrupted",
+        "thickness_mm": 1.6,
+        "windowed": true,
+        "windows": [
+          {
+            "center_x_mm": -52.5,
+            "height_mm": 21.0,
+            "width_mm": 97.0
+          },
+          {
+            "center_x_mm": 52.5,
+            "height_mm": 21.0,
+            "width_mm": 97.0
+          }
+        ]
+      }
+    },
+    "labels": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "A-E",
+        "slot_center_x_mm": -25.0,
+        "source_label": "A-E",
+        "tab_position": "left"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "F-J",
+        "slot_center_x_mm": 0.0,
+        "source_label": "F-J",
+        "tab_position": "center"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "K-O",
+        "slot_center_x_mm": 25.0,
+        "source_label": "K-O",
+        "tab_position": "right"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "P-T",
+        "slot_center_x_mm": -25.0,
+        "source_label": "P-T",
+        "tab_position": "left"
+      },
+      {
+        "index": 5,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "U-Z",
+        "slot_center_x_mm": 0.0,
+        "source_label": "U-Z",
+        "tab_position": "center"
+      },
+      {
+        "index": 6,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 39.42857142857142,
+          "total_columns": 23
+        },
+        "normalized_label": "JAZZ",
+        "slot_center_x_mm": 25.0,
+        "source_label": "JAZZ",
+        "tab_position": "right"
+      }
+    ],
+    "live_proof": {
+      "checks": [
+        {
+          "evidence": [],
+          "id": "font-identity",
+          "message": "Preview uses the normalized batch glyph source",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "batch-count",
+          "message": "Preview contains the complete default batch",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "label-identity",
+          "message": "Preview labels are unique",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "minimum-pixel",
+          "message": "Every preview label meets the printable pixel minimum",
+          "metrics": {
+            "minimum_mm": 1.3371428571428572
+          },
+          "required": true,
+          "status": "PASS"
+        }
+      ],
+      "inputs": [
+        {
+          "path": "config/model-parameters.json",
+          "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+          "size_bytes": 2327
+        },
+        {
+          "path": "config/label-batch.json",
+          "sha256": "c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4",
+          "size_bytes": 2535
+        },
+        {
+          "path": "cad/gridfont.py",
+          "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+          "size_bytes": 5446
+        }
+      ],
+      "limitations": [
+        "The SVG proves source identity and layout, not printed contrast or customer acceptance."
+      ],
+      "metrics": {
+        "font_id": "MM-GRID-5X7-v1",
+        "labels": [
+          "A-E",
+          "F-J",
+          "K-O",
+          "P-T",
+          "U-Z",
+          "JAZZ"
+        ],
+        "minimum_pixel_width_mm": 1.3371428571428572,
+        "svg_sha256": "a1f72b4fb657ef149f5100e2c1847651b9e0b266535f5a6c2b4264fd9c12646d",
+        "tab_positions": [
+          "left",
+          "center",
+          "right",
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "profile": "draft",
+      "required_capabilities": [],
+      "schema_version": "1.0",
+      "status": "PASS",
+      "tool": "MM-ORG-027-live-batch-preview",
+      "tool_version": "0.1.0-draft.1"
+    },
+    "nesting_boxes": [
+      {
+        "name": "carrier-01",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 10.0,
+        "y1": 45.0
+      },
+      {
+        "name": "carrier-02",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 51.0,
+        "y1": 86.0
+      },
+      {
+        "name": "carrier-03",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 92.0,
+        "y1": 127.0
+      },
+      {
+        "name": "carrier-04",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 133.0,
+        "y1": 168.0
+      },
+      {
+        "name": "carrier-05",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 174.0,
+        "y1": 209.0
+      },
+      {
+        "name": "carrier-06",
+        "x0": 10.0,
+        "x1": 240.0,
+        "y0": 215.0,
+        "y1": 250.0
+      },
+      {
+        "name": "label-cap-01-a-e",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 10.0,
+        "y1": 48.0
+      },
+      {
+        "name": "label-cap-02-f-j",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 54.0,
+        "y1": 92.0
+      },
+      {
+        "name": "label-cap-03-k-o",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 98.0,
+        "y1": 136.0
+      },
+      {
+        "name": "label-cap-04-p-t",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 142.0,
+        "y1": 180.0
+      },
+      {
+        "name": "label-cap-05-u-z",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 186.0,
+        "y1": 224.0
+      },
+      {
+        "name": "label-cap-06-jazz",
+        "x0": 260.0,
+        "x1": 340.0,
+        "y0": 230.0,
+        "y1": 268.0
+      },
+      {
+        "name": "cap-slot-gauge",
+        "x0": 260.0,
+        "x1": 354.0,
+        "y0": 286.0,
+        "y1": 320.0
+      },
+      {
+        "name": "carrier-fit-key",
+        "x0": 370.0,
+        "x1": 388.0,
+        "y0": 290.0,
+        "y1": 316.0
+      }
+    ],
+    "workflow_contract": {
+      "carrier_cycles_target": 250,
+      "claim": "dry_indoor_shelf_index_only_not_record_support_or_archival_protection",
+      "contact": "use_between_protective_outer_sleeves_not_against_bare_records",
+      "front_readable": true,
+      "maximum_corner_lift_mm": 0.8,
+      "maximum_edge_radius_or_chamfer_requirement_mm": 0.3,
+      "record_retrieval_cycles_target": 500,
+      "single_part_envelope_mm": [
+        235.0,
+        105.0,
+        5.0
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-027-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

@@ -1,0 +1,158 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "label-count",
+      "message": "Imported 6 unique labels",
+      "metrics": {
+        "count": 6
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-identity",
+      "message": "All labels use the repository-owned glyph source",
+      "metrics": {
+        "font_id": "MM-GRID-5X7-v1"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "Every normalized label meets the configured minimum pixel width",
+      "metrics": {
+        "minimum_mm": 1.3371428571428572
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tab-positions",
+      "message": "Every tab position is in the declared left/center/right set",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "0fe38ad398de6fddec7d3000962c2a5ee17ab725037d9d7f24e38813f46d55da",
+      "size_bytes": 2327
+    },
+    {
+      "path": "config/labels.csv",
+      "sha256": "32bcaff640cb604bfa20aa9081aeadca89425b1c9cbbbe1bcb4df527992ddf52",
+      "size_bytes": 80
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    }
+  ],
+  "limitations": [
+    "Customer text still requires an exact proof and rights/content review before manufacture."
+  ],
+  "metrics": {
+    "batch_json_sha256": "c7ed980077ca7d46580998d70db6b8617bd2f55c8deff316bb656e9322b703e4",
+    "font_id": "MM-GRID-5X7-v1",
+    "labels": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "A-E",
+        "slot_center_x_mm": -25.0,
+        "source_label": "A-E",
+        "tab_position": "left"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "F-J",
+        "slot_center_x_mm": 0.0,
+        "source_label": "F-J",
+        "tab_position": "center"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "K-O",
+        "slot_center_x_mm": 25.0,
+        "source_label": "K-O",
+        "tab_position": "right"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "P-T",
+        "slot_center_x_mm": -25.0,
+        "source_label": "P-T",
+        "tab_position": "left"
+      },
+      {
+        "index": 5,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 29.142857142857142,
+          "total_columns": 17
+        },
+        "normalized_label": "U-Z",
+        "slot_center_x_mm": 0.0,
+        "source_label": "U-Z",
+        "tab_position": "center"
+      },
+      {
+        "index": 6,
+        "layout": {
+          "pitch_mm": 1.7142857142857142,
+          "pixel_width_mm": 1.3371428571428572,
+          "text_height_mm": 12.0,
+          "text_width_mm": 39.42857142857142,
+          "total_columns": 23
+        },
+        "normalized_label": "JAZZ",
+        "slot_center_x_mm": 25.0,
+        "source_label": "JAZZ",
+        "tab_position": "right"
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-027-csv-label-import",
+  "tool_version": "0.1.0-draft.1"
+}

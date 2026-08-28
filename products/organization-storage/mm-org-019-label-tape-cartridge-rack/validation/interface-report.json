@@ -1,0 +1,204 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slot-clearance",
+      "message": "Both presets apply 0.50 mm clearance on each thickness side",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "depth-clearance",
+      "message": "Both presets apply 1.00 mm rear depth clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "lean-angle",
+      "message": "Rear rests share the bounded 8 degree lean",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-fields",
+      "message": "Every slot has one adhesive-label field",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "status-fields",
+      "message": "Every slot has a two-state dot field",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "connector-common",
+      "message": "Both rack depths use the same two absolute connector datums",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-brackets-default",
+      "message": "Coupon brackets the 0.50 mm default",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "portfolio-envelope",
+      "message": "Both racks fit the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-compatibility-claim",
+      "message": "Named compatibility remains blocked",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "7ea67ac43055eebdcdb90d48563eb109278fa61c3f6f6d429e7c8afbf1acec47",
+      "size_bytes": 2429
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "e4f4731965004ff03ff0dcf1ce2339122d3f33f06eafb5cb879140d48f4381e0",
+      "size_bytes": 24376
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "8118a7620cde0f631b51e0f71282e492e8c0564e65014d6f1ef4e97fd4ab1d3c",
+      "size_bytes": 2713
+    }
+  ],
+  "limitations": [
+    "The nominal envelopes are transparent examples, not evidence of fit with any named cartridge family."
+  ],
+  "metrics": {
+    "interfaces": {
+      "clearance-coupon": {
+        "bay_clear_widths_mm": [
+          18.6,
+          19.0,
+          19.4
+        ],
+        "clearances_per_side_mm": [
+          0.3,
+          0.5,
+          0.7
+        ],
+        "external_assets": [],
+        "identity_holes": [
+          1,
+          2,
+          3
+        ],
+        "nominal_thickness_mm": 18.0,
+        "outer_dimensions_mm": [
+          65.0,
+          26.0,
+          12.0
+        ]
+      },
+      "compact-six": {
+        "external_assets": [],
+        "identity_holes": 1,
+        "joint_centers_y_mm": [
+          25.0,
+          55.0
+        ],
+        "label_fields": 6,
+        "lean_angle_deg": 8.0,
+        "measured_envelope_mm": [
+          70.0,
+          18.0,
+          65.0
+        ],
+        "outer_dimensions_mm": [
+          133.0,
+          75.4,
+          32.0
+        ],
+        "preset_id": "compact-six",
+        "slot_clear_depth_mm": 71.0,
+        "slot_clear_width_mm": 19.0,
+        "slot_clearance_per_side_mm": 0.5,
+        "slot_count": 6,
+        "status_dot_pairs": 6
+      },
+      "extended-five": {
+        "external_assets": [],
+        "identity_holes": 2,
+        "joint_centers_y_mm": [
+          25.0,
+          55.0
+        ],
+        "label_fields": 5,
+        "lean_angle_deg": 8.0,
+        "measured_envelope_mm": [
+          90.0,
+          23.0,
+          70.0
+        ],
+        "outer_dimensions_mm": [
+          137.0,
+          95.4,
+          32.0
+        ],
+        "preset_id": "extended-five",
+        "slot_clear_depth_mm": 91.0,
+        "slot_clear_width_mm": 24.0,
+        "slot_clearance_per_side_mm": 0.5,
+        "slot_count": 5,
+        "status_dot_pairs": 5
+      }
+    },
+    "workflow_contract": {
+      "compatibility_claim": "none_until_physical_fit_test",
+      "input_dimensions": [
+        "envelope_depth",
+        "envelope_thickness",
+        "envelope_height",
+        "slot_count",
+        "slot_clearance"
+      ],
+      "label_field_contents": [
+        "tape_width",
+        "color",
+        "inventory_status"
+      ],
+      "minimum_empty_cartridges_per_preset": 3,
+      "physical_retrieval_cycles": 100,
+      "supported_use_modes": [
+        "desk",
+        "drawer",
+        "shelf"
+      ]
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-019-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

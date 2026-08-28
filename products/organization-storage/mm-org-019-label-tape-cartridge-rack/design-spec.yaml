@@ -1,0 +1,64 @@
+project:
+  id: MM-ORG-019
+  revision: 0.1.0-draft.1
+  title: Parametric label-tape cartridge rack
+  source_sku: SKU-197
+  status: digital-candidate-through-slicer-preflight
+  units: mm
+
+customer_job:
+  primary: Store measured label-tape cartridges upright so format, color and stock state remain visible and individually retrievable.
+  environments: [desk, drawer, shelf]
+  excluded: [printer mechanism, transport case, moisture protection, brand compatibility claim]
+
+requirements:
+  - id: R1
+    text: Generate every slot from measured cartridge envelope, clearance and count.
+    acceptance: compact and extended presets are generated from config/model-parameters.json.
+    status: PASS
+  - id: R2
+    text: Keep cartridges visible and individually retrievable without supports.
+    acceptance: open-top rack, 12 mm front lip, 32 mm dividers and 8 degree rear rest are present.
+    status: PASS
+  - id: R3
+    text: Provide per-slot label and inventory-state fields without third-party fonts or brand geometry.
+    acceptance: each slot has a recessed adhesive-label field and paired status-dot recesses.
+    status: PASS
+  - id: R4
+    text: Permit side-by-side expansion.
+    acceptance: two common planar dovetail joints use a 0.25 mm nominal clearance.
+    status: PASS
+  - id: R5
+    text: Bound fitting uncertainty before a full rack print.
+    acceptance: one three-clearance corner-fit coupon brackets the 0.50 mm default at 0.30/0.50/0.70 mm.
+    status: PASS
+  - id: R6
+    text: Fit the portfolio envelope and Kobra 3 Max bed.
+    acceptance: each artifact is at most 220 x 140 x 120 mm and the combined 3MF fits 426 x 420 mm.
+    status: PASS
+
+interfaces:
+  cartridge:
+    authority: user measurement
+    datum: cassette lower edge on base and rear face against inclined rear rest
+    fit: loose storage fit, nominal 0.50 mm per side in the selected preset
+  module_joint:
+    authority: config/model-parameters.json
+    type: planar trapezoid tab/socket pair
+    fit: 0.25 mm nominal radial offset, physical validation deferred
+  label_field:
+    authority: user-applied adhesive label or removable color dot
+    content: tape width, color and inventory state
+
+manufacturing:
+  processes: [FDM, FFF]
+  materials: [PLA, PETG]
+  orientation: broad base on build plate
+  supports: prohibited
+  reference_profile: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.20 mm Standard, Anycubic PLA
+
+validation:
+  deterministic: [parameter relations, B-Rep validity, mesh topology, 3MF structure, exact-profile slicer preflight]
+  physical_deferred: [cartridge compatibility, retrieval cycles, connector fit, label adhesion, tip resistance]
+  release_state: DRAFT_DIGITAL_PRINT_CANDIDATE
+  commercial_release: blocked

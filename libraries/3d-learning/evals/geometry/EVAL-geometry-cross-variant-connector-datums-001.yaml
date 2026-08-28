@@ -1,0 +1,40 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-cross-variant-connector-datums-001
+title: Connector datums remain identical across variable-depth variants
+category: geometry
+status: draft
+trigger: Two or more front-aligned module variants change depth but must connect side by side.
+risk: Depth-relative connector placement creates visually plausible but non-mating tabs and sockets.
+given:
+  project: products/organization-storage/mm-org-019-label-tape-cartridge-rack
+  variants: compact-six and extended-five
+  depths_mm: 75.4 and 95.4
+  assembly_datum: common front face Y=0
+expected:
+  - Both variants expose connector-center Y coordinates [25.0, 55.0].
+  - Connector height equals the shared 3.0 mm base height.
+failure_conditions:
+  - Connector-center arrays differ between variants.
+  - Any center is derived from a variable envelope depth without an explicit adapter contract.
+fixtures:
+  - products/organization-storage/mm-org-019-label-tape-cartridge-rack/cad/build.py
+  - products/organization-storage/mm-org-019-label-tape-cartridge-rack/config/model-parameters.json
+  - products/organization-storage/mm-org-019-label-tape-cartridge-rack/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-019-label-tape-cartridge-rack/tests/test_parameters.py::test_planar_joint_shares_base_height_and_two_centers -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Generate both analytic racks and compare their interface-reported connector-center arrays.
+relationships:
+  lessons: [EXP-00015]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-019-label-tape-cartridge-rack/reports/connector-datum-iteration.json
+  artifact_hashes:
+    - 1ad460676f6c0e9a61b2c9e1bba041fad602fb8ca616d83970236e936e3d12ca
+    - 9d0eca61c39dcfde908b976913cfed1692ec472de54f802df8006ff3ce6b25fe
+tags: [geometry, connector, datum, cross-variant, regression]

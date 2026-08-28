@@ -1,0 +1,25 @@
+schema_version: 1.0.0
+project: MM-ORG-019-label-tape-cartridge-rack
+revision: 0.1.0-draft.1
+captured_at: 2026-08-28
+scope:
+  process: CadQuery analytic multi-preset rack and FDM reference build
+  machine: Anycubic Kobra 3 Max reference profile
+  material: Anycubic PLA reference profile
+  nozzle_mm: 0.4
+  orientation: broad base down
+observations:
+  - id: OBS-001
+    outcome: correction
+    statement: Scaling connector positions with each module depth broke cross-preset interchangeability.
+    evidence: reports/connector-datum-iteration.json
+  - id: OBS-002
+    outcome: success
+    statement: Absolute Y=25/55 mm datums and a cross-preset deterministic regression align both connector pairs digitally.
+    evidence:
+      - reports/connector-datum-iteration.json
+      - tests/test_parameters.py
+candidate_records: [EXP-00015]
+targeted_evals: [EVAL-geometry-cross-variant-connector-datums-001]
+promotion: prohibited-without-policy-review
+uncertainty: Datum alignment is digital-only; physical connector clearance and cycle life are not validated.

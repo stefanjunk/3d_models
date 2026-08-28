@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ORG-019",
+  "revision": "0.1.0-draft.1",
+  "status": "PASS",
+  "observation": "Depth-relative connector centers made different-depth presets non-interchangeable.",
+  "before": {
+    "rule": "depth * [0.28, 0.72]",
+    "compact_depth_mm": 75.4,
+    "compact_centers_y_mm": [21.112, 54.288],
+    "extended_depth_mm": 95.4,
+    "extended_centers_y_mm": [26.712, 68.688],
+    "cross_preset_alignment": false
+  },
+  "after": {
+    "rule": "absolute shared datums",
+    "compact_centers_y_mm": [25.0, 55.0],
+    "extended_centers_y_mm": [25.0, 55.0],
+    "cross_preset_alignment": true
+  },
+  "targeted_test": "tests/test_parameters.py::test_planar_joint_shares_base_height_and_two_centers",
+  "artifact_hashes": {
+    "compact_stl": "1ad460676f6c0e9a61b2c9e1bba041fad602fb8ca616d83970236e936e3d12ca",
+    "extended_stl": "9d0eca61c39dcfde908b976913cfed1692ec472de54f802df8006ff3ce6b25fe"
+  },
+  "uncertainty": "Digital datum alignment is proven; printed connector fit and durability remain untested."
+}

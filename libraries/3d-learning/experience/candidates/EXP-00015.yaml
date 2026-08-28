@@ -1,0 +1,95 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00015
+title: Keep cross-variant connector datums independent of variable envelope depth
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: One digital rack family; no printed joint evidence.}
+feature:
+  type: cross-variant-planar-connector-datums
+  geometry: paired trapezoid tabs and sockets on different-depth modules
+  design_parameters:
+    initial_rule: depth-relative-y-fractions-0.28-and-0.72
+    corrected_rule: shared-absolute-y-datums-25-and-55-mm
+    nominal_clearance_mm: 0.25
+  named_datums: [front-face-y0, base-face-z0, connector-center-y25, connector-center-y55]
+  constraints:
+    - All variants intended to interconnect must expose identical connector-center coordinates in the shared assembly frame.
+    - Envelope depth may vary without moving connector datums.
+scope:
+  process: CadQuery/OpenCascade analytic extrusion
+  machine: {manufacturer: not-specific, model: digital-only, unit_id: null, firmware: null}
+  material: {manufacturer: not-specific, product: digital-geometry, variant: planar-joint, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: broad base down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: variable-depth-side-coupled-storage-modules
+  environment: digital-only
+  transfer_limits:
+    - Applies when module fronts share an assembly datum and different depths must connect side by side.
+    - Does not prescribe the absolute 25/55 mm values for other module families.
+    - Physical joint clearance and cycle life remain unvalidated.
+observation:
+  summary: Depth-relative connector positions produced different center coordinates in the 75.4 and 95.4 mm presets; shared absolute coordinates restored digital interchangeability.
+  expected: Both connector pairs align between every intended rack variant.
+  actual: Initial centers differed; corrected centers are identical at Y=25/55 mm.
+  outcome: correction
+  parameter: connector.centers_y_mm
+  recommended_value: shared-assembly-datums-independent-of-variable-envelope
+  units: geometry-contract
+explanation:
+  hypothesis: Connector coordinates must be owned by the assembly interface rather than by a variable module envelope.
+  mechanism: Percentage placement propagates unrelated depth variation into mating geometry; an absolute front-referenced datum removes that coupling.
+  alternatives:
+    - Use a separate adapter between depth families.
+    - Align modules by rear face and make the front offset explicit.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Deterministic comparison of analytic connector-center coordinates for two depth presets.
+  uncertainty: No printed connection, tolerance coupon or disconnect-cycle measurement exists.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-019-label-tape-cartridge-rack/learning-trace.yaml, hash: null, notes: Owns the corrected project scope.}
+    - {type: other, ref: products/organization-storage/mm-org-019-label-tape-cartridge-rack/reports/connector-datum-iteration.json, hash: null, notes: Records before and after coordinates.}
+  artifacts:
+    - products/organization-storage/mm-org-019-label-tape-cartridge-rack/cad/build.py
+    - products/organization-storage/mm-org-019-label-tape-cartridge-rack/tests/test_parameters.py
+applicability:
+  triggers:
+    - Multiple module variants change depth or another non-interface envelope dimension.
+    - Variants must mate directly in one front-referenced assembly.
+  exclusions:
+    - Variants intentionally use incompatible connector families.
+    - Connectors referenced to an explicitly shared rear datum.
+  transfer_limits:
+    - Select datums from each product's assembly contract instead of copying these coordinate values.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals: [EVAL-geometry-cross-variant-connector-datums-001]
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-019-label-tape-cartridge-rack/reports/connector-datum-iteration.json]
+provenance:
+  project: MM-ORG-019-label-tape-cartridge-rack
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-org-019-label-tape-cartridge-rack/learning-trace.yaml
+  source_commit: null
+  created_by: Codex functional-3d-design workflow via 3d-skill-maintainer
+tags: [connector, datum, modularity, parameter-coupling, regression-test, digital-only]

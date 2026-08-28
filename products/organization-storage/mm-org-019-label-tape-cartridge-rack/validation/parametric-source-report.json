@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "parameter-validation",
+      "message": "Fail-closed parameter relations pass",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All three unique B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every deliverable is one B-Rep solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "two-unbranded-presets",
+      "message": "Two measured-envelope presets are generated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-external-assets",
+      "message": "Geometry uses no third-party font, vector or mesh assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "7ea67ac43055eebdcdb90d48563eb109278fa61c3f6f6d429e7c8afbf1acec47",
+      "size_bytes": 2429
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "e4f4731965004ff03ff0dcf1ce2339122d3f33f06eafb5cb879140d48f4381e0",
+      "size_bytes": 24376
+    }
+  ],
+  "limitations": [
+    "Any parameter change requires regeneration of downstream evidence."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "print_objects": [
+      "compact-six",
+      "extended-five",
+      "clearance-coupon"
+    ],
+    "python": "3.11.15",
+    "unique_parts": [
+      "compact-six",
+      "extended-five",
+      "clearance-coupon"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-019-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

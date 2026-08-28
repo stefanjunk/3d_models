@@ -1,0 +1,85 @@
+{
+  "project": {
+    "id": "MM-ORG-019",
+    "revision": "0.1.0-draft.1",
+    "units": "mm",
+    "source_sku": "SKU-197"
+  },
+  "presets": [
+    {
+      "id": "compact-six",
+      "slot_count": 6,
+      "measured_envelope_depth_mm": 70.0,
+      "measured_envelope_thickness_mm": 18.0,
+      "measured_envelope_height_mm": 65.0,
+      "slot_clearance_mm": 0.5,
+      "identity_holes": 1
+    },
+    {
+      "id": "extended-five",
+      "slot_count": 5,
+      "measured_envelope_depth_mm": 90.0,
+      "measured_envelope_thickness_mm": 23.0,
+      "measured_envelope_height_mm": 70.0,
+      "slot_clearance_mm": 0.5,
+      "identity_holes": 2
+    }
+  ],
+  "rack": {
+    "base_thickness_mm": 3.0,
+    "divider_thickness_mm": 2.0,
+    "retaining_height_mm": 32.0,
+    "front_lip_height_mm": 12.0,
+    "front_wall_thickness_mm": 2.0,
+    "rear_wall_thickness_mm": 2.4,
+    "depth_clearance_mm": 1.0,
+    "lean_angle_deg": 8.0,
+    "outer_corner_radius_mm": 2.0,
+    "label_recess_depth_mm": 0.45,
+    "label_recess_height_mm": 6.0,
+    "label_recess_side_margin_mm": 2.0,
+    "label_recess_bottom_z_mm": 3.5,
+    "status_dot_diameter_mm": 3.2,
+    "status_dot_depth_mm": 0.45
+  },
+  "connector": {
+    "tab_depth_mm": 5.0,
+    "neck_width_mm": 8.0,
+    "head_width_mm": 12.0,
+    "height_mm": 3.0,
+    "default_clearance_mm": 0.25,
+    "centers_y_mm": [25.0, 55.0]
+  },
+  "coupon": {
+    "nominal_thickness_mm": 18.0,
+    "clearances_mm": [0.3, 0.5, 0.7],
+    "bay_depth_mm": 24.0,
+    "base_thickness_mm": 3.0,
+    "wall_height_mm": 12.0,
+    "wall_thickness_mm": 2.0,
+    "identity_hole_diameter_mm": 1.6,
+    "back_wall_thickness_mm": 2.0
+  },
+  "workflow_contract": {
+    "input_dimensions": ["envelope_depth", "envelope_thickness", "envelope_height", "slot_count", "slot_clearance"],
+    "label_field_contents": ["tape_width", "color", "inventory_status"],
+    "physical_retrieval_cycles": 100,
+    "minimum_empty_cartridges_per_preset": 3,
+    "supported_use_modes": ["desk", "drawer", "shelf"],
+    "compatibility_claim": "none_until_physical_fit_test"
+  },
+  "printer": {
+    "model": "Anycubic Kobra 3 Max",
+    "build_volume_mm": [426.0, 420.0, 501.0],
+    "nozzle_diameter_mm": 0.4,
+    "line_width_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "reference_material": "Anycubic PLA"
+  },
+  "mesh": {
+    "linear_deflection_mm": 0.08,
+    "angular_deflection_rad": 0.15,
+    "triangle_stop": 60000,
+    "max_mesh_mib": 8.0
+  }
+}

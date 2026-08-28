@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "font-identity",
+      "message": "Preview uses the normalized batch glyph source",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "batch-count",
+      "message": "Preview contains the complete default batch",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "label-identity",
+      "message": "Preview labels are unique",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "Every preview label meets the printable pixel minimum",
+      "metrics": {
+        "minimum_mm": 1.1142857142857143
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b",
+      "size_bytes": 3219
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "1a296765b05d378c2b72b9a7def19045e2cb8f92f88773af1c4aac146e7e0e13",
+      "size_bytes": 1772
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    }
+  ],
+  "limitations": [
+    "The SVG proves source identity and layout, not printed contrast or customer acceptance."
+  ],
+  "metrics": {
+    "font_id": "MM-GRID-5X7-v1",
+    "labels": [
+      "STAMPS",
+      "DIES",
+      "ALPHA",
+      "FLORAL"
+    ],
+    "minimum_pixel_width_mm": 1.1142857142857143,
+    "svg_sha256": "7bc8d03d1c2b6a0a81bf8d681e77345ce9e58e670b147452eaa308c8d67d1587",
+    "tab_positions": [
+      "left",
+      "center",
+      "right",
+      "left"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-028-live-batch-preview",
+  "tool_version": "0.1.0-draft.1"
+}

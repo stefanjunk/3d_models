@@ -1,0 +1,65 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-csv-batch-proof-cad-glyph-identity-002
+title: CSV category batch, exact proof and tall engraved index frames share one geometric glyph contract
+category: interfaces
+status: draft
+trigger: Tall flat-printed index frames are personalized from CSV and require an exact proof before manufacturing.
+risk: CSV import, proof rendering and tall-frame CAD could normalize labels, assign tabs or fit glyphs differently, so proof and manufactured dividers would diverge.
+given:
+  project: products/organization-storage/mm-org-028-craft-stamp-die-index-rack
+  parameter_source: config/model-parameters.json
+  csv_source: config/labels.csv
+  batch_source: config/label-batch.json
+  glyph_source: cad/gridfont.py
+  import_tool: tools/import_labels.py
+  proof_tool: tools/live_batch_preview.py
+  import_report: reports/csv-import.json
+  proof_report: reports/live-batch-preview.json
+  cad_interface_report: validation/interface-report.json
+expected:
+  - CSV import, proof report and CAD interface all use font ID MM-GRID-5X7-v1.
+  - All four normalized labels and tab positions match between imported batch, proof and CAD interface.
+  - Batch JSON and retained SVG hashes match their executable reports.
+  - The ten-character boundary and every default label retain at least 0.8 mm pixel width.
+  - Every required source-report check passes.
+failure_conditions:
+  - Font identity, label order or tab position differs between CSV, proof and CAD.
+  - Batch or SVG hash differs from the retained artifact.
+  - A ten-character or default label falls below the declared pixel minimum.
+  - Any required source report check is not PASS.
+fixtures:
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/config/model-parameters.json
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/config/labels.csv
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/config/label-batch.json
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/cad/gridfont.py
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tools/import_labels.py
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tools/live_batch_preview.py
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/csv-import.json
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/live-batch-preview.json
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/validation/interface-report.json
+  - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tests/test_parameters.py::test_csv_proof_and_cad_share_one_exact_glyph_contract products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tests/test_parameters.py::test_maximum_label_keeps_printable_pixels -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare normalized labels, tab positions, font identity, generated-batch hash, exact SVG hash and the ten-character calculated pixel width.
+relationships:
+  lessons: [EXP-00005]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/live-batch-preview.json
+  artifact_hashes:
+    - efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b
+    - f8b6fa8940bd5ce56fc39bcbb793c0ec83a18ab03bd4bc3d136291948228f3d3
+    - 1a296765b05d378c2b72b9a7def19045e2cb8f92f88773af1c4aac146e7e0e13
+    - 1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e
+    - bd81aae67b6f8f849de06a94e8a31bf3f78053ebbf0fff9fd0111aea60b7ea62
+    - 19421541f6811091392bbf0113291d95fc23cd909f07415c08194cb4530c43c5
+    - 2f90a5a38b6798df78e7e26fc613debca91ac5ef178459affb56de19d58b1240
+    - 1e509fdb180422de0abc729a44be35aef7d70e7410f409e1ba06221e7e176bb3
+    - 3169d6239df94a04bbf0118641609c6c70f377615bf6f42e1465c7a9b5b9e1fa
+tags: [interfaces, personalization, csv-batch, tall-index-frame, raster-glyph, exact-live-proof, regression, digital-only]

@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "non-overlap",
+      "message": "Both selected plates retain the configured nominal gap",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-bounds",
+      "message": "Both layouts respect conservative Kobra 3 Max rectangular margins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b",
+      "size_bytes": 3219
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "1a296765b05d378c2b72b9a7def19045e2cb8f92f88773af1c4aac146e7e0e13",
+      "size_bytes": 1772
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "315a70a3fb1ed750836e26f24c2222a115af5c9952103beaea646c30e6daa04e",
+      "size_bytes": 31681
+    }
+  ],
+  "limitations": [
+    "Exact destination-profile exclusion zones remain authoritative; both plates require exact slicing."
+  ],
+  "metrics": {
+    "divider_plate": [
+      {
+        "name": "index-divider-01-stamps",
+        "x0": 10.0,
+        "x1": 155.0,
+        "y0": 10.0,
+        "y1": 208.0
+      },
+      {
+        "name": "index-divider-02-dies",
+        "x0": 165.0,
+        "x1": 310.0,
+        "y0": 10.0,
+        "y1": 208.0
+      },
+      {
+        "name": "index-divider-03-alpha",
+        "x0": 10.0,
+        "x1": 155.0,
+        "y0": 216.0,
+        "y1": 414.0
+      },
+      {
+        "name": "index-divider-04-floral",
+        "x0": 165.0,
+        "x1": 310.0,
+        "y0": 216.0,
+        "y1": 414.0
+      }
+    ],
+    "minimum_gap_mm": 8.0,
+    "object_count": 7,
+    "plate_count": 2,
+    "rack_plate": [
+      {
+        "name": "rack",
+        "x0": 10.0,
+        "x1": 225.0,
+        "y0": 10.0,
+        "y1": 163.0
+      },
+      {
+        "name": "lane-gap-gauge",
+        "x0": 10.0,
+        "x1": 92.0,
+        "y0": 180.0,
+        "y1": 220.0
+      },
+      {
+        "name": "divider-foot-key",
+        "x0": 105.0,
+        "x1": 115.8,
+        "y0": 180.0,
+        "y1": 206.0
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-028-nesting-layout",
+  "tool_version": "0.1.0-draft.1"
+}

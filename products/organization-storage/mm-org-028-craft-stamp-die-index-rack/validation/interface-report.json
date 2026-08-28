@@ -1,0 +1,559 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "lane-pad-clearance",
+      "message": "Divider foot retains 0.40 mm total nominal lane clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gauge-key",
+      "message": "Gauge brackets production and key reproduces exact divider-foot width",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "three-point-registration",
+      "message": "Every selected divider carries three rail-aligned pads",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-frame",
+      "message": "All selected dividers retain protected frame/rib widths",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-and-pixels",
+      "message": "CAD labels retain glyph identity and minimum pixel width",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-variant-boundary",
+      "message": "Light variant is distinguishable and remains non-manufacturing pending physical evidence",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b",
+      "size_bytes": 3219
+    },
+    {
+      "path": "config/label-batch.json",
+      "sha256": "1a296765b05d378c2b72b9a7def19045e2cb8f92f88773af1c4aac146e7e0e13",
+      "size_bytes": 1772
+    },
+    {
+      "path": "reports/csv-import.json",
+      "sha256": "2f90a5a38b6798df78e7e26fc613debca91ac5ef178459affb56de19d58b1240",
+      "size_bytes": 3499
+    },
+    {
+      "path": "renders/MM-ORG-028-live-batch-preview.svg",
+      "sha256": "7bc8d03d1c2b6a0a81bf8d681e77345ce9e58e670b147452eaa308c8d67d1587",
+      "size_bytes": 26305
+    },
+    {
+      "path": "reports/live-batch-preview.json",
+      "sha256": "1e509fdb180422de0abc729a44be35aef7d70e7410f409e1ba06221e7e176bb3",
+      "size_bytes": 2006
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "315a70a3fb1ed750836e26f24c2222a115af5c9952103beaea646c30e6daa04e",
+      "size_bytes": 31681
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    },
+    {
+      "path": "assets/font-allowlist.json",
+      "sha256": "bc19be108577181948999ecf53c15d394784aec5a2a9ddf04188882c50a62075",
+      "size_bytes": 670
+    }
+  ],
+  "limitations": [
+    "Nominal digital clearance and registration require the printed coupon and loaded physical tests."
+  ],
+  "metrics": {
+    "font_record": {
+      "commercial_release_status": "REVIEW_REQUIRED",
+      "design_use_status": "APPROVED_INTERNAL_DIGITAL_CANDIDATE",
+      "display_name": "metriMade Grid 5x7",
+      "external_font_file": false,
+      "font_id": "MM-GRID-5X7-v1",
+      "notes": "No installed font, font binary, logo, icon or third-party outline is embedded. Commercial release still requires the normal rights/provenance sign-off.",
+      "origin": "repository-owned geometric glyph definitions first used by MM-ORG-010",
+      "schema_version": "1.0",
+      "source": "cad/gridfont.py",
+      "supported_input": "uppercase A-Z, digits, spaces, period, hyphen and ampersand; accents normalize and German umlauts/sharp-S transliterate"
+    },
+    "interfaces": {
+      "divider-foot-key": {
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          10.8,
+          26.0,
+          8.0
+        ],
+        "part_id": "divider-foot-key",
+        "print_orientation": "broad_face_down",
+        "width_mm": 10.8
+      },
+      "index-divider-01-stamps": {
+        "center_rib_width_mm": 12.0,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "frame_width_mm": 8.0,
+        "installed_transform": "rotate_120_degrees_about_axis_1_1_1_then_translate_to_lane_and_rail_top",
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "light_variant": false,
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "STAMPS",
+        "outer_dimensions_mm": [
+          145.0,
+          198.0,
+          10.8
+        ],
+        "pad_count": 3,
+        "pad_installed_thickness_mm": 10.8,
+        "pads": [
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 0.0,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 68.5,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 137.0,
+            "span_mm": 8.0
+          }
+        ],
+        "part_id": "index-divider-01",
+        "print_orientation": "broad_frame_face_down_pads_up",
+        "tab_position": "left",
+        "windowed": true
+      },
+      "index-divider-02-dies": {
+        "center_rib_width_mm": 12.0,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "frame_width_mm": 8.0,
+        "installed_transform": "rotate_120_degrees_about_axis_1_1_1_then_translate_to_lane_and_rail_top",
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 32.85714285714286,
+          "total_columns": 23
+        },
+        "light_variant": false,
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "DIES",
+        "outer_dimensions_mm": [
+          145.0,
+          198.0,
+          10.8
+        ],
+        "pad_count": 3,
+        "pad_installed_thickness_mm": 10.8,
+        "pads": [
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 0.0,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 68.5,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 137.0,
+            "span_mm": 8.0
+          }
+        ],
+        "part_id": "index-divider-02",
+        "print_orientation": "broad_frame_face_down_pads_up",
+        "tab_position": "center",
+        "windowed": true
+      },
+      "index-divider-03-alpha": {
+        "center_rib_width_mm": 12.0,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "frame_width_mm": 8.0,
+        "installed_transform": "rotate_120_degrees_about_axis_1_1_1_then_translate_to_lane_and_rail_top",
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 41.42857142857143,
+          "total_columns": 29
+        },
+        "light_variant": false,
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "ALPHA",
+        "outer_dimensions_mm": [
+          145.0,
+          198.0,
+          10.8
+        ],
+        "pad_count": 3,
+        "pad_installed_thickness_mm": 10.8,
+        "pads": [
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 0.0,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 68.5,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 137.0,
+            "span_mm": 8.0
+          }
+        ],
+        "part_id": "index-divider-03",
+        "print_orientation": "broad_frame_face_down_pads_up",
+        "tab_position": "right",
+        "windowed": true
+      },
+      "index-divider-04-floral": {
+        "center_rib_width_mm": 12.0,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "frame_width_mm": 8.0,
+        "installed_transform": "rotate_120_degrees_about_axis_1_1_1_then_translate_to_lane_and_rail_top",
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "light_variant": false,
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "FLORAL",
+        "outer_dimensions_mm": [
+          145.0,
+          198.0,
+          10.8
+        ],
+        "pad_count": 3,
+        "pad_installed_thickness_mm": 10.8,
+        "pads": [
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 0.0,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 68.5,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 137.0,
+            "span_mm": 8.0
+          }
+        ],
+        "part_id": "index-divider-04",
+        "print_orientation": "broad_frame_face_down_pads_up",
+        "tab_position": "left",
+        "windowed": true
+      },
+      "lane-gap-gauge": {
+        "candidate_slot_widths_mm": [
+          10.9,
+          11.2,
+          11.5
+        ],
+        "external_assets": [],
+        "outer_dimensions_mm": [
+          82.0,
+          40.0,
+          3.0
+        ],
+        "part_id": "lane-gap-gauge",
+        "print_orientation": "broad_face_down",
+        "slot_depth_mm": 20.0
+      },
+      "light-index-divider-variant": {
+        "center_rib_width_mm": 8.0,
+        "external_assets": [],
+        "font_id": "MM-GRID-5X7-v1",
+        "frame_width_mm": 6.0,
+        "installed_transform": "rotate_120_degrees_about_axis_1_1_1_then_translate_to_lane_and_rail_top",
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "light_variant": true,
+        "minimum_backing_mm": 1.7999999999999998,
+        "normalized_label": "STAMPS",
+        "outer_dimensions_mm": [
+          145.0,
+          198.0,
+          10.8
+        ],
+        "pad_count": 3,
+        "pad_installed_thickness_mm": 10.8,
+        "pads": [
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 0.0,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 68.5,
+            "span_mm": 8.0
+          },
+          {
+            "height_mm": 12.0,
+            "installed_thickness_mm": 10.8,
+            "origin_x_mm": 137.0,
+            "span_mm": 8.0
+          }
+        ],
+        "part_id": "index-divider-01",
+        "print_orientation": "broad_frame_face_down_pads_up",
+        "tab_position": "left",
+        "windowed": true
+      },
+      "rack": {
+        "boundary_fin_origins_x_mm": [
+          4.299999999999997,
+          17.9,
+          31.499999999999996,
+          45.099999999999994,
+          58.699999999999996,
+          72.3,
+          85.89999999999999,
+          99.5,
+          113.1,
+          126.69999999999999,
+          140.3,
+          153.89999999999998,
+          167.5,
+          181.09999999999997,
+          194.7,
+          208.3
+        ],
+        "external_assets": [],
+        "fin_height_mm": 14.0,
+        "fin_thickness_mm": 2.4,
+        "lane_count": 15,
+        "lane_gap_mm": 11.2,
+        "outer_dimensions_mm": [
+          215.0,
+          153.0,
+          45.0
+        ],
+        "part_id": "rack",
+        "print_orientation": "base_rails_down",
+        "rail_origins_y_mm": [
+          0.0,
+          71.5,
+          143.0
+        ],
+        "slots": [
+          {
+            "index": 1,
+            "x0_mm": 6.6999999999999975,
+            "x1_mm": 17.9
+          },
+          {
+            "index": 2,
+            "x0_mm": 20.299999999999997,
+            "x1_mm": 31.499999999999996
+          },
+          {
+            "index": 3,
+            "x0_mm": 33.9,
+            "x1_mm": 45.099999999999994
+          },
+          {
+            "index": 4,
+            "x0_mm": 47.49999999999999,
+            "x1_mm": 58.699999999999996
+          },
+          {
+            "index": 5,
+            "x0_mm": 61.099999999999994,
+            "x1_mm": 72.3
+          },
+          {
+            "index": 6,
+            "x0_mm": 74.7,
+            "x1_mm": 85.89999999999999
+          },
+          {
+            "index": 7,
+            "x0_mm": 88.3,
+            "x1_mm": 99.5
+          },
+          {
+            "index": 8,
+            "x0_mm": 101.9,
+            "x1_mm": 113.1
+          },
+          {
+            "index": 9,
+            "x0_mm": 115.5,
+            "x1_mm": 126.69999999999999
+          },
+          {
+            "index": 10,
+            "x0_mm": 129.1,
+            "x1_mm": 140.3
+          },
+          {
+            "index": 11,
+            "x0_mm": 142.70000000000002,
+            "x1_mm": 153.89999999999998
+          },
+          {
+            "index": 12,
+            "x0_mm": 156.29999999999998,
+            "x1_mm": 167.5
+          },
+          {
+            "index": 13,
+            "x0_mm": 169.9,
+            "x1_mm": 181.09999999999997
+          },
+          {
+            "index": 14,
+            "x0_mm": 183.49999999999997,
+            "x1_mm": 194.7
+          },
+          {
+            "index": 15,
+            "x0_mm": 197.1,
+            "x1_mm": 208.3
+          }
+        ]
+      }
+    },
+    "labels": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "normalized_label": "STAMPS",
+        "source_label": "STAMPS",
+        "tab_center_x_mm": 36.5,
+        "tab_position": "left"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 32.85714285714286,
+          "total_columns": 23
+        },
+        "normalized_label": "DIES",
+        "source_label": "DIES",
+        "tab_center_x_mm": 72.5,
+        "tab_position": "center"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 41.42857142857143,
+          "total_columns": 29
+        },
+        "normalized_label": "ALPHA",
+        "source_label": "ALPHA",
+        "tab_center_x_mm": 108.5,
+        "tab_position": "right"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "normalized_label": "FLORAL",
+        "source_label": "FLORAL",
+        "tab_center_x_mm": 36.5,
+        "tab_position": "left"
+      }
+    ],
+    "nominal_total_clearance_mm": 0.3999999999999986
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-028-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

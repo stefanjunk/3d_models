@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 kind: lesson
 id: EXP-00005
-title: Repository-owned raster glyphs drove font-independent CAD and exact live proofs in three digital FDM candidates
+title: Repository-owned raster glyphs drove font-independent CAD and exact live proofs in four digital FDM candidates
 captured_at: 2026-08-28
 source_type: design-trace
 lifecycle:
@@ -12,10 +12,10 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: Three digital plate geometries and six local reference-profile slices, including MM-ORG-027 optimization counterfactuals; physical text, contrast, fit, snag and cycle tests were deliberately deferred.
+    notes: Four digital plate/frame geometries and ten local reference-profile slices, including MM-ORG-027/MM-ORG-028 optimization counterfactuals; physical text, contrast, fit, snag, racking and cycle tests were deliberately deferred.
 feature:
   type: font-independent-recessed-personalization-plate-and-batch-label-cap
-  geometry: flat removable plates and batch label caps with recessed 5x7 pixel glyphs; one chassis slide channel, one two-stand desk display and one CSV-driven record-shelf index
+  geometry: flat removable plates, batch label caps and tall index frames with recessed 5x7 pixel glyphs; one chassis slide channel, one two-stand desk display, one CSV-driven record-shelf index and one CSV-driven craft-envelope rack
   design_parameters:
     plate_width_mm: 136.0
     plate_height_mm: 27.0
@@ -39,6 +39,12 @@ feature:
     third_label_cap_engraving_depth_mm: 0.6
     third_label_cap_minimum_pixel_width_mm: 1.3371428571428572
     csv_batch_import_from_same_normalization_source: true
+    fourth_index_frame_width_mm: 145.0
+    fourth_index_frame_height_mm: 198.0
+    fourth_index_frame_thickness_mm: 2.4
+    fourth_tab_width_mm: 72.0
+    fourth_default_minimum_pixel_width_mm: 1.1142857142857143
+    fourth_ten_character_pixel_width_mm: 0.8457627118644068
     exact_svg_proof_from_same_glyph_source: true
   named_datums:
     - flat-nameplate-print-back
@@ -72,23 +78,23 @@ scope:
     geometry: null
     hotend: null
     wear_state: null
-  orientation: chassis base down; personalized plates, carriers and label caps broad/back face down with recesses upward
+  orientation: chassis base down; personalized plates, carriers, label caps and tall index frames broad/back face down with recesses upward
   slicer:
     name: Anycubic Slicer Next
     version: 1.3.9.4
-    profile: Kobra 3 Max 0.4 nozzle / 0.20mm Standard with Anycubic PLA and PETG; MM-ORG-027 also compared 0.28mm Standard PETG
+    profile: Kobra 3 Max 0.4 nozzle / 0.20mm Standard with Anycubic PLA and PETG; MM-ORG-027 and MM-ORG-028 also compared 0.28mm Standard
     profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81
-  geometry_class: removable-flat-personalization-plates-and-label-caps-for-dry-indoor-organizer-desk-display-and-shelf-index
+  geometry_class: removable-flat-personalization-plates-label-caps-and-tall-index-frames-for-dry-indoor-organizers-and-displays
   environment: dry indoor assumption; no physical environment test
   transfer_limits:
-    - One uppercase Latin/digit glyph implementation across three repository products, two single-item text sets and one six-label CSV batch.
+    - One uppercase Latin/digit glyph implementation across four repository products, two single-item text sets and two CSV batches (six and four labels).
     - One 16-character boundary and one 18-character name plus 26-character title boundary calculation.
-    - Six local reference-profile slices, four of them process/geometry counterfactuals; no physical print.
+    - Ten local reference-profile slices, six of them process/geometry counterfactuals; no physical print.
     - Does not establish readability, aesthetic preference, fit, wear or dirt resistance.
 observation:
-  summary: Across three parametric CadQuery products, one repository-owned 5x7 glyph approach removed installed-font dependency; two products generated exact SVG proofs from the same normalization, layout and glyph source, and the third extended the contract to a validated CSV batch.
+  summary: Across four parametric CadQuery products, one repository-owned 5x7 glyph approach removed installed-font dependency; three products generated exact SVG proofs from the same source, and two extended the contract to validated CSV batches on different geometries.
   expected: Keep every engraved pixel at or above its declared 0.8-0.9 mm process minimum, keep each plate or cap one valid component, preserve identical normalized text and font identity across imported data, CAD and proof, and slice unchanged production 3MF packages.
-  actual: MM-ORG-010 retained 1.018 mm pixels at its 16-character boundary. MM-ORG-026 retained 0.891 mm title pixels at its 26-character boundary and matched proof/CAD identity. MM-ORG-027 retained 1.337 mm pixels across six CSV-driven caps; batch JSON, exact SVG and CAD interface matched normalized label order and font ID, all six caps were watertight single components, and the selected fourteen-object PETG 3MF sliced to 12 layers without warnings.
+  actual: MM-ORG-010 retained 1.018 mm pixels at its 16-character boundary. MM-ORG-026 retained 0.891 mm title pixels and matched proof/CAD identity. MM-ORG-027 retained 1.337 mm pixels across six CSV-driven caps. MM-ORG-028 retained 1.114 mm pixels across four tall frames and 0.846 mm at its ten-character boundary; both CSV products matched batch JSON, exact SVG, normalized label order and CAD font identity, and their selected 3MF packages sliced without warnings.
   outcome: success
   parameter: minimum_raster_pixel_width_mm
   recommended_value: null
@@ -104,14 +110,14 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 3
-  same_scope_repetitions: 2
-  geometry_count: 3
+  observations: 4
+  same_scope_repetitions: 3
+  geometry_count: 4
   machine_count: 0
   material_count: 0
   nozzle_count: 1
   measured: true
-  measurement_method: Deterministic text normalization/layout, CSV-derived batch hashing, exact SVG hash comparison, CadQuery B-Rep generation, independent Trimesh topology audits and six Anycubic Slicer Next reference-profile G-code analyses; no physical measurement.
+  measurement_method: Deterministic text normalization/layout, CSV-derived batch hashing, exact SVG hash comparison, CadQuery B-Rep generation, independent Trimesh topology audits and ten Anycubic Slicer Next reference-profile G-code analyses; no physical measurement.
   uncertainty: Geometry, proof identity and report hashes are exact for these revisions, but physical readability, contrast, fit and cycle performance are unknown.
   sources:
     - type: product-trace
@@ -138,6 +144,14 @@ evidence:
       ref: products/organization-storage/mm-org-027-vinyl-record-divider-label-set/validation/interface-report.json
       hash: c699dceb1d6d169e6743d90cfef6501d2a73ce24cff95c17b661be5dc3fe8e46
       notes: Hash-binds six CAD label interfaces to the batch and geometric glyph source.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-028-craft-stamp-die-index-rack/learning-trace.yaml
+      hash: null
+      notes: Owns the fourth geometry, four-label CSV proof, tall-frame and two-plate PLA scope.
+    - type: other
+      ref: products/organization-storage/mm-org-028-craft-stamp-die-index-rack/validation/interface-report.json
+      hash: 3169d6239df94a04bbf0118641609c6c70f377615bf6f42e1465c7a9b5b9e1fa
+      notes: Hash-binds four tall CAD divider interfaces to the batch and exact geometric glyph source.
   artifacts:
     - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/fdm-mesh-nameplate.json
     - products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/validation/slicer-preflight-anycubic-kobra3max-pla.json
@@ -152,6 +166,12 @@ evidence:
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/csv-import.json
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/live-batch-preview.json
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/tests/test_parameters.py
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/cad/gridfont.py
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tools/import_labels.py
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tools/live_batch_preview.py
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/csv-import.json
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/live-batch-preview.json
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/tests/test_parameters.py
 applicability:
   triggers:
     - A functional dry-indoor product needs short uppercase personalization without external font dependencies.
@@ -170,7 +190,7 @@ relationships:
   conflicts: []
   supersedes: []
   related: []
-  evals: [EVAL-interfaces-live-proof-cad-glyph-identity-001, EVAL-interfaces-csv-batch-proof-cad-glyph-identity-001]
+  evals: [EVAL-interfaces-live-proof-cad-glyph-identity-001, EVAL-interfaces-csv-batch-proof-cad-glyph-identity-001, EVAL-interfaces-csv-batch-proof-cad-glyph-identity-002]
   patterns: []
   references: []
 validation:
@@ -182,8 +202,11 @@ validation:
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/csv-import.json
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/reports/live-batch-preview.json
     - products/organization-storage/mm-org-027-vinyl-record-divider-label-set/validation/interface-report.json
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/csv-import.json
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/reports/live-batch-preview.json
+    - products/organization-storage/mm-org-028-craft-stamp-die-index-rack/validation/interface-report.json
 provenance:
-  project: MM-ORG-010-personalized-pen-stationery-caddy, MM-ORG-026-personalized-desk-nameplate and MM-ORG-027-vinyl-record-divider-label-set
+  project: MM-ORG-010-personalized-pen-stationery-caddy, MM-ORG-026-personalized-desk-nameplate, MM-ORG-027-vinyl-record-divider-label-set and MM-ORG-028-craft-stamp-die-index-rack
   part_revision: 0.1.0-draft.1
   trace: products/organization-storage/mm-org-010-personalized-pen-stationery-caddy/learning-trace.yaml
   source_commit: null
@@ -198,3 +221,4 @@ tags:
   - negative-transfer
   - exact-live-proof
   - csv-batch
+  - tall-index-frame

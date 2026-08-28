@@ -1,0 +1,253 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer:rack-020",
+      "message": "Exact slicer report rack-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:dividers-020",
+      "message": "Exact slicer report dividers-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:rack-028",
+      "message": "Exact slicer report rack-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:dividers-028",
+      "message": "Exact slicer report dividers-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-warning-free",
+      "message": "All four exact slices contain no parser or native object warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "all-slices-single-tool",
+      "message": "All four exact slices use one tool with no tool changes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-selected-frame",
+      "message": "Selected dividers retain protected 8 mm frames and 12 mm center ribs",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-variant-rejected",
+      "message": "Light frame remains rejected without loaded racking and snag evidence",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-engraving-layers",
+      "message": "0.20 mm retains three nominal engraving layers; 0.28 mm does not",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pareto-selection",
+      "message": "Two-plate 0.20 mm system is the sole feasible Pareto variant",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "exact-profile-tradeoff",
+      "message": "0.28 mm is faster but uses more estimated extrusion and fails the engraving-layer gate",
+      "metrics": {
+        "time_delta_percent": -8.763119797321751,
+        "volume_delta_percent": 10.95915760951289
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "geometric-proxy",
+      "message": "Selected system reduces geometric volume by at least 50% versus full tray/full dividers proxy",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b",
+      "size_bytes": 3219
+    },
+    {
+      "path": "validation/interface-report.json",
+      "sha256": "3169d6239df94a04bbf0118641609c6c70f377615bf6f42e1465c7a9b5b9e1fa",
+      "size_bytes": 15968
+    },
+    {
+      "path": "reports/optimization-geometric.json",
+      "sha256": "43bee17471975d2414c6cfe193a5966d0c8517f274f00df88a32734f2330b46d",
+      "size_bytes": 687
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/3D-Design/.agents/skills/optimize-fdm-design/scripts/compare_variants.py",
+      "sha256": "8a90a864b129adaa9959cc84c11f5ed5fea4c405ebd05ab940097563d81f9f44",
+      "size_bytes": 7521
+    },
+    {
+      "path": "validation/slicer-rack-020.json",
+      "sha256": "8945f38a4f6ead64e7d40759e2d63c0b8718ee27f70cb51748206457bdc77b39",
+      "size_bytes": 10404
+    },
+    {
+      "path": "validation/slicer-dividers-020.json",
+      "sha256": "fc1d55c9fd7b22a050b3a125985fe912981244972867882cc5bd767245eb91e7",
+      "size_bytes": 10410
+    },
+    {
+      "path": "validation/slicer-rack-028.json",
+      "sha256": "12182c27c600390090a501c4a844ad8a43cade4e8254eb822e320116ce66a89e",
+      "size_bytes": 10433
+    },
+    {
+      "path": "validation/slicer-dividers-028.json",
+      "sha256": "15a200d86aa6d8ad132d4b3370592ab56d0305f259b43e9dc272a95b88c2397c",
+      "size_bytes": 10438
+    },
+    {
+      "path": "reports/optimization-variants.json",
+      "sha256": "e8a0ff0b7c17d33a2936c325a4b1d8813fcab6c691442ae2cb3b9fc882c566f4",
+      "size_bytes": 1533
+    },
+    {
+      "path": "reports/optimization-pareto.json",
+      "sha256": "21f816c9767ca68bc9873309d7528599ba09be089ce1b1c299b2ead115c607e8",
+      "size_bytes": 2254
+    },
+    {
+      "path": "reports/optimization-pareto.md",
+      "sha256": "cfce5c13e6bd821d14f3cdcd2e6d7826413f0dacab43668075af51c78e359344",
+      "size_bytes": 287
+    }
+  ],
+  "limitations": [
+    "Slicer time and extrusion are estimates, not measured outcomes.",
+    "The light divider remains a digital non-manufacturing variant.",
+    "Racking, snagging, loaded tip and real envelope fit remain physical gates.",
+    "No G-code was retained and no printer action was performed."
+  ],
+  "metrics": {
+    "feasible_variants": 1,
+    "geometric_reduction_vs_proxy_percent": 56.89761208838885,
+    "light_variant_reduction_vs_selected_divider_percent": 19.543883139813257,
+    "pareto_variants": [
+      "system-020"
+    ],
+    "plate_metrics": {
+      "dividers-020": {
+        "extruded_volume_mm3": 66702.92245417908,
+        "layer_count": 54,
+        "print_time_s": 12436.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "dividers-028": {
+        "extruded_volume_mm3": 80666.83410266187,
+        "layer_count": 39,
+        "print_time_s": 11936.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "rack-020": {
+        "extruded_volume_mm3": 64026.03056916347,
+        "layer_count": 225,
+        "print_time_s": 9668.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "rack-028": {
+        "extruded_volume_mm3": 64388.910923774856,
+        "layer_count": 161,
+        "print_time_s": 8231.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      }
+    },
+    "selected_extruded_volume_mm3": 130728.95302334255,
+    "selected_plate_layers": {
+      "divider-set": 54,
+      "rack-kit": 225
+    },
+    "selected_print_time_s": 22104.0,
+    "selected_variant": "system-020",
+    "system_metrics": {
+      "system-020": {
+        "extruded_volume_mm3": 130728.95302334255,
+        "nominal_engraving_layers": 2.9999999999999996,
+        "print_time_s": 22104.0,
+        "protected_frame": 1,
+        "report_status": 1,
+        "tool_changes": 0,
+        "warning_count": 0
+      },
+      "system-028": {
+        "extruded_volume_mm3": 145055.74502643672,
+        "nominal_engraving_layers": 2.142857142857143,
+        "print_time_s": 20167.0,
+        "protected_frame": 1,
+        "report_status": 1,
+        "tool_changes": 0,
+        "warning_count": 0
+      }
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-028-finalize-optimization",
+  "tool_version": "0.1.0-draft.1"
+}

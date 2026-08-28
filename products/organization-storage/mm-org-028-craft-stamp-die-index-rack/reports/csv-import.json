@@ -1,0 +1,130 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "label-count",
+      "message": "Imported 4 unique category labels",
+      "metrics": {
+        "count": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "font-identity",
+      "message": "All labels use the repository-owned glyph source",
+      "metrics": {
+        "font_id": "MM-GRID-5X7-v1"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-pixel",
+      "message": "Every normalized label meets the configured minimum pixel width",
+      "metrics": {
+        "minimum_mm": 1.1142857142857143
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tab-positions",
+      "message": "Every tab position is in the declared left/center/right set",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "efc1e49f44185a5e409818ce1ad070f9e6e18a0ac913e7d62bafe86f9c780f3b",
+      "size_bytes": 3219
+    },
+    {
+      "path": "config/labels.csv",
+      "sha256": "f8b6fa8940bd5ce56fc39bcbb793c0ec83a18ab03bd4bc3d136291948228f3d3",
+      "size_bytes": 67
+    },
+    {
+      "path": "cad/gridfont.py",
+      "sha256": "1c6f6a19fc34057f3db21ed3b8e17a8f632c744a6d79f94f6bf49c424d39d02e",
+      "size_bytes": 5446
+    }
+  ],
+  "limitations": [
+    "Customer labels still require an exact proof and rights/content review before manufacture."
+  ],
+  "metrics": {
+    "batch_json_sha256": "1a296765b05d378c2b72b9a7def19045e2cb8f92f88773af1c4aac146e7e0e13",
+    "font_id": "MM-GRID-5X7-v1",
+    "labels": [
+      {
+        "index": 1,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "normalized_label": "STAMPS",
+        "source_label": "STAMPS",
+        "tab_center_x_mm": 36.5,
+        "tab_position": "left"
+      },
+      {
+        "index": 2,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 32.85714285714286,
+          "total_columns": 23
+        },
+        "normalized_label": "DIES",
+        "source_label": "DIES",
+        "tab_center_x_mm": 72.5,
+        "tab_position": "center"
+      },
+      {
+        "index": 3,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 41.42857142857143,
+          "total_columns": 29
+        },
+        "normalized_label": "ALPHA",
+        "source_label": "ALPHA",
+        "tab_center_x_mm": 108.5,
+        "tab_position": "right"
+      },
+      {
+        "index": 4,
+        "layout": {
+          "pitch_mm": 1.4285714285714286,
+          "pixel_width_mm": 1.1142857142857143,
+          "text_height_mm": 10.0,
+          "text_width_mm": 50.0,
+          "total_columns": 35
+        },
+        "normalized_label": "FLORAL",
+        "source_label": "FLORAL",
+        "tab_center_x_mm": 36.5,
+        "tab_position": "left"
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-028-csv-label-import",
+  "tool_version": "0.1.0-draft.1"
+}

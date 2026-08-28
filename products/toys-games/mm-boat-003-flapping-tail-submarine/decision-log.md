@@ -17,3 +17,17 @@
 - Requirements status: approved by Stefan in chat on 2026-08-28 for
   `1.1.0-draft.1`. The concept-image gate is open; production geometry and
   manufacturing exports remain blocked until concept approval.
+
+## 2026-08-28 — Fish-silhouette concept candidate
+
+- Selected concept asset:
+  `previews/concept-fish-silhouette-v1.1.0-draft.1.png`.
+- The selected correction shows one nose, exactly four short articulated
+  modules, one long electronics capsule, one dorsal fin, one bilateral
+  pectoral-fin pair on the capsule, and a symmetric caudal fin.
+- The image is an appearance target only. Hinge ears, the rocker/crank, sealing
+  geometry, keel details and exact clearances remain governed by the existing
+  parametric source and the approved specification.
+- Concept status: approved by Stefan in chat on 2026-08-28 for
+  `1.1.0-draft.1`. Production CAD is authorized; watermark, physical,
+  appearance and final-release gates remain separate.

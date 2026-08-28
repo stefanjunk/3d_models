@@ -1,0 +1,177 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer:system-020",
+      "message": "system-020 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer:system-028",
+      "message": "system-028 reports PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "warning-free",
+      "message": "Both slices contain no native/parser warnings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-tool",
+      "message": "Both use one tool",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pareto",
+      "message": "Both time/material tradeoff variants are Pareto-efficient",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "time-priority-selection",
+      "message": "0.28 mm saves time while estimated extrusion growth stays within 12%",
+      "metrics": {
+        "time_delta_percent": -8.528532474785637,
+        "volume_delta_percent": 10.665755607287785
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-shell",
+      "message": "Selected trays retain 3 mm walls",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-rejected",
+      "message": "Light shell remains rejected",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "geometric",
+      "message": "Irregular shells reduce proxy volume by at least 80%",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "68c0edc47844904219033b69732dc730e6169bca542a12b459692ff65a89630a",
+      "size_bytes": 1806
+    },
+    {
+      "path": "validation/interface-report.json",
+      "sha256": "10a3e0a57a9f47b1030be226abeb187e3c9864e4cf410c3d150a2db100a27c5a",
+      "size_bytes": 6552
+    },
+    {
+      "path": "reports/optimization-geometric.json",
+      "sha256": "8fdc0465a653aa2eea3fef3f04df044fc12766adf1edae111ed89e2b404cecda",
+      "size_bytes": 654
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/3D-Design/.agents/skills/optimize-fdm-design/scripts/compare_variants.py",
+      "sha256": "8a90a864b129adaa9959cc84c11f5ed5fea4c405ebd05ab940097563d81f9f44",
+      "size_bytes": 7521
+    },
+    {
+      "path": "validation/slicer-system-020.json",
+      "sha256": "ca561375a2a9188f5d499bbfa4c5602753f626e1db88acfa4e33a4c8c8ee65ee",
+      "size_bytes": 10425
+    },
+    {
+      "path": "validation/slicer-system-028.json",
+      "sha256": "a8da5d3eef851f06c16c614254ac15cdb564bc9ee7ec5cd370b5a458424eaa3e",
+      "size_bytes": 10458
+    },
+    {
+      "path": "reports/optimization-variants.json",
+      "sha256": "974908cc92a52610e40ab77118ae7c121937f7cf2625bf9c86441b0b967cc5a0",
+      "size_bytes": 1429
+    },
+    {
+      "path": "reports/optimization-pareto.json",
+      "sha256": "8143c4d3287ad21bc334729b1a7d6d9c070002220c4cbc3f4167eedd2d5c0f7a",
+      "size_bytes": 1935
+    },
+    {
+      "path": "reports/optimization-pareto.md",
+      "sha256": "09dd2f00f60d810362997e54dab6f57b9cba174d592c191b0ddc5e5898e124f0",
+      "size_bytes": 279
+    }
+  ],
+  "limitations": [
+    "Slicer estimates are not measured outcomes.",
+    "Physical fit, flex, drop and drawer cycles are deferred.",
+    "No G-code was retained."
+  ],
+  "metrics": {
+    "feasible_variants": 2,
+    "geometric_reduction_vs_proxy_percent": 83.49895446490768,
+    "light_variant_reduction_percent": 19.143338311498713,
+    "pareto_variants": [
+      "system-020",
+      "system-028"
+    ],
+    "selected_extruded_volume_mm3": 235432.01934524995,
+    "selected_layers": 143,
+    "selected_print_time_s": 27843.0,
+    "selected_variant": "system-028",
+    "selection_policy": "time_priority_with_max_12_percent_estimated_extrusion_growth",
+    "time_delta_percent_vs_020": -8.528532474785637,
+    "variant_metrics": {
+      "system-020": {
+        "extruded_volume_mm3": 212741.5279038187,
+        "layer_count": 200,
+        "print_time_s": 30439.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      },
+      "system-028": {
+        "extruded_volume_mm3": 235432.01934524995,
+        "layer_count": 143,
+        "print_time_s": 27843.0,
+        "report_status": 1,
+        "tool_changes": 0,
+        "tools_seen": [
+          0
+        ],
+        "warning_count": 0
+      }
+    },
+    "volume_delta_percent_vs_020": 10.665755607287785
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-030-finalize-optimization",
+  "tool_version": "0.1.0-draft.1"
+}

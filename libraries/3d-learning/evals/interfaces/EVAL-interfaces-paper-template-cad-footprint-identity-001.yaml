@@ -1,0 +1,25 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-paper-template-cad-footprint-identity-001
+title: Paper templates and irregular tray CAD retain one footprint and calibration contract
+category: interfaces
+status: draft
+trigger: A customer paper trace and CAD tray are generated for multiple irregular corner families.
+risk: Redrawn templates, wrong print scaling or collapsed wall offsets could yield plausible but non-fitting trays.
+given: {project: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill, parameter_source: config/model-parameters.json, footprint_source: cad/geometry.py, template_report: reports/template-generation.json, interface_report: validation/interface-report.json}
+expected: [Three distinct valid footprints and inner offsets exist, all three retained SVG hashes match, every template has a 100 mm calibration contract, and coupon/CAD use the selected clearance.]
+failure_conditions: [Any polygon/offset is invalid, a template hash drifts, the calibration line is absent, or clearance differs between template, CAD and coupon.]
+fixtures: [products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/config/model-parameters.json, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/cad/geometry.py, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/reports/template-generation.json, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/validation/interface-report.json, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tests/test_parameters.py]
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tests/test_parameters.py::test_three_presets_are_distinct_and_valid products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tests/test_parameters.py::test_templates_share_clearance_and_exact_hashes products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tests/test_parameters.py::test_template_calibration_contract_is_explicit -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare shared polygon calculations, retained SVG hashes, calibration text and configured clearance.
+relationships: {lessons: [EXP-00021], regression_suites: []}
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/reports/template-generation.json
+  artifact_hashes: [68c0edc47844904219033b69732dc730e6169bca542a12b459692ff65a89630a, 14e8fa6680dd77ab1b24dab6e4936e14ca0bc564df594c4e78a99826ac9050e2, 459bb672e54d59326c29fb9a80209c7a1d95754341c7c3053ddecaced3a046cb, 10a3e0a57a9f47b1030be226abeb187e3c9864e4cf410c3d150a2db100a27c5a]
+tags: [interfaces, paper-template, cad-footprint, calibration, clearance, regression]

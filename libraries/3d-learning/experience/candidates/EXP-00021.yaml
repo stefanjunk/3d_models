@@ -1,0 +1,71 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00021
+title: Generate paper corner templates and CAD trays from one footprint source and gate print scaling with a measured calibration line
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: "Three digital polygon fixtures and SVG hash checks only; no printed paper, traced drawer or physical tray fit."}
+feature:
+  type: shared-source-one-to-one-paper-template-and-parametric-cad-footprint
+  geometry: round obstruction relief, rectangular notch relief and skewed corner open drawer trays
+  design_parameters: {template_scale: 1.0, calibration_line_mm: 100.0, allowed_scale_error_percent: 0.5, selected_clearance_per_side_mm: 1.0, clearance_coupon_series_mm: [0.5, 1.0, 1.5], tray_height_mm: 40.0}
+  named_datums: [paper-100-mm-line, traced-corner-origin, drawer-bottom-plane, separately-measured-drawer-height]
+  constraints:
+    - CAD and paper outlines must call the same footprint function.
+    - Reject a printed template whose 100 mm line is outside the declared scale tolerance.
+    - Measure drawer height/depth independently rather than infer it from the flat trace.
+    - Qualify clearance with a coupon before a full tray.
+scope:
+  process: FFF with paper-assisted dimensional capture
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic profile only, product: PLA, variant: unfilled, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: paper template flat; trays and coupons base down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 and 0.28 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: irregular-corner-open-drawer-infill
+  environment: dry indoor digital candidate
+  transfer_limits: [One product with three synthetic corner families, no physical paper-printer scale data, no traced customer drawer, no measured fit.]
+observation:
+  summary: One polygon source produced three valid CAD shells and three A4 SVG outlines carrying the same 1.0 mm clearance, while deterministic checks retained exact template hashes and a separate height contract.
+  expected: Template and CAD footprint identities remain coupled, every polygon/offset is valid, and the calibration/clearance gates are explicit.
+  actual: Three distinct valid outer polygons, three noncollapsed inner offsets, three exact SVGs and five selected printable objects passed their digital checks and warning-free slicing.
+  outcome: success
+  parameter: measurement-template-to-cad-source-identity
+  recommended_value: null
+  units: workflow-contract
+explanation:
+  hypothesis: A single footprint function prevents redraw drift, while an in-plane calibration line and separate depth measurement limit two common sources of paper-template false precision.
+  mechanism: The SVG and B-Rep consume identical ordered points and clearance; the user verifies page scale before tracing and supplies the orthogonal height separately.
+  alternatives: [Manual CAD redraw from a sketch, photo-only scaling, full drawer scan, flexible universal filler.]
+  validated: false
+  validation_method: null
+evidence:
+  observations: 3
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Shapely polygon validity/offset calculation, shared-source SVG generation, SHA-256 checks, CadQuery B-Reps, mesh audits and exact reference-profile slices; no physical measurement.
+  uncertainty: Paper printer scaling, cutting, tracing, obstruction access, caliper technique and real clearance remain unknown.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/learning-trace.yaml, hash: null, notes: Owns the exact product scope.}
+    - {type: other, ref: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/reports/template-generation.json, hash: 459bb672e54d59326c29fb9a80209c7a1d95754341c7c3053ddecaced3a046cb, notes: Hash-binds three templates to parameters and generator.}
+    - {type: other, ref: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/validation/interface-report.json, hash: 10a3e0a57a9f47b1030be226abeb187e3c9864e4cf410c3d150a2db100a27c5a, notes: Records CAD footprint and coupon relations.}
+  artifacts: [products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/cad/geometry.py, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tools/generate_templates.py, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/assets/templates/MM-ORG-030-round-corner-measurement-1to1.svg, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/tests/test_parameters.py]
+applicability:
+  triggers: [A planar irregular boundary can be traced on paper and must drive parametric CAD without redraw drift.]
+  exclusions: [Safety-critical metrology, inaccessible or nonplanar obstructions, deep geometry inferred from one sheet.]
+  transfer_limits: [Reuse only as an E0 workflow candidate; revalidate paper scale, clearance and physical fit for every product class.]
+relationships: {duplicates: [], conflicts: [], supersedes: [], related: [EXP-00019], evals: [EVAL-interfaces-paper-template-cad-footprint-identity-001], patterns: [], references: []}
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/reports/template-generation.json, products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/validation/interface-report.json]
+provenance: {project: MM-ORG-030-irregular-corner-drawer-organizer-infill, part_revision: 0.1.0-draft.1, trace: products/organization-storage/mm-org-030-irregular-corner-drawer-organizer-infill/learning-trace.yaml, source_commit: null, created_by: Codex functional-3d-design workflow via 3d-skill-maintainer}
+tags: [measurement, paper-template, shared-source, irregular-corner, clearance-coupon, digital-only]

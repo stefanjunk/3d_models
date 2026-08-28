@@ -1,0 +1,137 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "identity",
+      "message": "Project identity matches",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "preset-count",
+      "message": "Round, notch and skew presets exist",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "clearance-bracket",
+      "message": "Coupon brackets selected clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "shell",
+      "message": "Selected walls and base retain 3 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "envelope",
+      "message": "Every tray fits the portfolio envelope",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "content",
+      "message": "Dry small-item boundary is explicit",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "cad-valid",
+      "message": "All B-Reps are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "single-solids",
+      "message": "Every unique deliverable is one solid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "templates",
+      "message": "Three exact paper templates report PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "68c0edc47844904219033b69732dc730e6169bca542a12b459692ff65a89630a",
+      "size_bytes": 1806
+    },
+    {
+      "path": "cad/geometry.py",
+      "sha256": "14e8fa6680dd77ab1b24dab6e4936e14ca0bc564df594c4e78a99826ac9050e2",
+      "size_bytes": 1911
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a3da83bcc86dd44b6ee70352979581c889b35eed9ae8ea077ee8fb7506f4b1fa",
+      "size_bytes": 18699
+    },
+    {
+      "path": "reports/template-generation.json",
+      "sha256": "459bb672e54d59326c29fb9a80209c7a1d95754341c7c3053ddecaced3a046cb",
+      "size_bytes": 2087
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-rectangular-notch-measurement-1to1.svg",
+      "sha256": "77394e28e978f20b4e216049e459090eee0a190cb6cacca22ca30ae71d5db29f",
+      "size_bytes": 1202
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-round-corner-measurement-1to1.svg",
+      "sha256": "21733ee722176f22398b9b530dfea92980c1015858d406ecdcfd3d8b073a2645",
+      "size_bytes": 1554
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-skewed-corner-measurement-1to1.svg",
+      "sha256": "c41acae19fd791f0c654fca6e13d8a2a6c8e7f12e723761e24582552685d2779",
+      "size_bytes": 1185
+    }
+  ],
+  "limitations": [
+    "Digital polygon validity does not prove a traced obstruction or drawer fit."
+  ],
+  "metrics": {
+    "cadquery": "2.9.0.dev0",
+    "python": "3.11.15",
+    "shapely_geometry": "Polygon.buffer",
+    "unique_parts": [
+      "round-corner",
+      "rectangular-notch",
+      "skewed-corner",
+      "light-round-corner-variant",
+      "clearance-gauge",
+      "reference-key"
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "cad"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-030-parametric-source",
+  "tool_version": "0.1.0-draft.1"
+}

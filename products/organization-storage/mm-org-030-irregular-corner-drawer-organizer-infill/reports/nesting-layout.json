@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "non-overlap",
+      "message": "Five objects retain the configured gap",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-bounds",
+      "message": "Layout respects conservative bed margins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "68c0edc47844904219033b69732dc730e6169bca542a12b459692ff65a89630a",
+      "size_bytes": 1806
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a3da83bcc86dd44b6ee70352979581c889b35eed9ae8ea077ee8fb7506f4b1fa",
+      "size_bytes": 18699
+    }
+  ],
+  "limitations": [
+    "Exact destination profile remains authoritative."
+  ],
+  "metrics": {
+    "minimum_gap_mm": 8.0,
+    "object_count": 5,
+    "objects": [
+      {
+        "name": "round-corner",
+        "x0": 10.0,
+        "x1": 150.0,
+        "y0": 10.0,
+        "y1": 150.0
+      },
+      {
+        "name": "rectangular-notch",
+        "x0": 158.0,
+        "x1": 298.0,
+        "y0": 10.0,
+        "y1": 120.0
+      },
+      {
+        "name": "skewed-corner",
+        "x0": 10.0,
+        "x1": 150.0,
+        "y0": 158.0,
+        "y1": 268.0
+      },
+      {
+        "name": "clearance-gauge",
+        "x0": 158.0,
+        "x1": 258.0,
+        "y0": 158.0,
+        "y1": 213.0
+      },
+      {
+        "name": "reference-key",
+        "x0": 266.0,
+        "x1": 296.0,
+        "y0": 158.0,
+        "y1": 188.0
+      }
+    ],
+    "plate_count": 1
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-030-nesting-layout",
+  "tool_version": "0.1.0-draft.1"
+}

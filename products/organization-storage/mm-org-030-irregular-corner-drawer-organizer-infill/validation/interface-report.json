@@ -1,0 +1,232 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "inner-areas",
+      "message": "All three default pockets retain minimum usable area",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "coupon-series",
+      "message": "Gauge and exact key reproduce clearance contract",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "same-footprints",
+      "message": "CAD presets share selected clearance",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "light-rejected",
+      "message": "Light variant is distinguishable and non-manufacturing",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "68c0edc47844904219033b69732dc730e6169bca542a12b459692ff65a89630a",
+      "size_bytes": 1806
+    },
+    {
+      "path": "cad/geometry.py",
+      "sha256": "14e8fa6680dd77ab1b24dab6e4936e14ca0bc564df594c4e78a99826ac9050e2",
+      "size_bytes": 1911
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a3da83bcc86dd44b6ee70352979581c889b35eed9ae8ea077ee8fb7506f4b1fa",
+      "size_bytes": 18699
+    },
+    {
+      "path": "reports/template-generation.json",
+      "sha256": "459bb672e54d59326c29fb9a80209c7a1d95754341c7c3053ddecaced3a046cb",
+      "size_bytes": 2087
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-rectangular-notch-measurement-1to1.svg",
+      "sha256": "77394e28e978f20b4e216049e459090eee0a190cb6cacca22ca30ae71d5db29f",
+      "size_bytes": 1202
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-round-corner-measurement-1to1.svg",
+      "sha256": "21733ee722176f22398b9b530dfea92980c1015858d406ecdcfd3d8b073a2645",
+      "size_bytes": 1554
+    },
+    {
+      "path": "assets/templates/MM-ORG-030-skewed-corner-measurement-1to1.svg",
+      "sha256": "c41acae19fd791f0c654fca6e13d8a2a6c8e7f12e723761e24582552685d2779",
+      "size_bytes": 1185
+    }
+  ],
+  "limitations": [
+    "Paper scaling, tracing, obstruction clearance and drawer motion require physical checks."
+  ],
+  "metrics": {
+    "interfaces": {
+      "clearance-gauge": {
+        "candidate_per_side_clearances_mm": [
+          0.5,
+          1.0,
+          1.5
+        ],
+        "external_assets": [],
+        "outer_bounds_mm": [
+          100.0,
+          55.0,
+          3.0
+        ],
+        "part_id": "clearance-gauge",
+        "print_orientation": "broad_face_down",
+        "reference_key_diameter_mm": 20.0,
+        "slot_diameters_mm": [
+          21.0,
+          22.0,
+          23.0
+        ]
+      },
+      "light-round-corner-variant": {
+        "base_mm": 2.4,
+        "clearance_per_side_mm": 1.0,
+        "external_assets": [],
+        "inner_area_mm2": 17649.927923646326,
+        "light_variant": true,
+        "outer_area_mm2": 18939.951619809388,
+        "outer_bounds_mm": [
+          140.0,
+          140.0,
+          40.0
+        ],
+        "part_id": "light-round-corner",
+        "preset": {
+          "arc_segments": 24,
+          "id": "round-corner",
+          "label": "ROUND",
+          "length_mm": 140.0,
+          "obstruction_radius_mm": 28.0,
+          "width_mm": 140.0
+        },
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 2.4
+      },
+      "rectangular-notch": {
+        "base_mm": 3.0,
+        "clearance_per_side_mm": 1.0,
+        "external_assets": [],
+        "inner_area_mm2": 12361.0,
+        "light_variant": false,
+        "outer_area_mm2": 13825.0,
+        "outer_bounds_mm": [
+          140.0,
+          110.0,
+          40.0
+        ],
+        "part_id": "rectangular-notch",
+        "preset": {
+          "id": "rectangular-notch",
+          "label": "NOTCH",
+          "length_mm": 140.0,
+          "notch_height_mm": 34.0,
+          "notch_width_mm": 44.0,
+          "width_mm": 110.0
+        },
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 3.0
+      },
+      "reference-key": {
+        "diameter_mm": 20.0,
+        "external_assets": [],
+        "outer_bounds_mm": [
+          30.0,
+          30.0,
+          23.0
+        ],
+        "part_id": "reference-key",
+        "print_orientation": "base_down"
+      },
+      "round-corner": {
+        "base_mm": 3.0,
+        "clearance_per_side_mm": 1.0,
+        "external_assets": [],
+        "inner_area_mm2": 17334.906542701836,
+        "light_variant": false,
+        "outer_area_mm2": 18939.951619809388,
+        "outer_bounds_mm": [
+          140.0,
+          140.0,
+          40.0
+        ],
+        "part_id": "round-corner",
+        "preset": {
+          "arc_segments": 24,
+          "id": "round-corner",
+          "label": "ROUND",
+          "length_mm": 140.0,
+          "obstruction_radius_mm": 28.0,
+          "width_mm": 140.0
+        },
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 3.0
+      },
+      "skewed-corner": {
+        "base_mm": 3.0,
+        "clearance_per_side_mm": 1.0,
+        "external_assets": [],
+        "inner_area_mm2": 13519.290368696276,
+        "light_variant": false,
+        "outer_area_mm2": 14932.0,
+        "outer_bounds_mm": [
+          140.0,
+          110.0,
+          40.0
+        ],
+        "part_id": "skewed-corner",
+        "preset": {
+          "corner_cut_x_mm": 25.0,
+          "corner_cut_y_mm": 35.0,
+          "id": "skewed-corner",
+          "label": "SKEW",
+          "length_mm": 140.0,
+          "width_mm": 110.0
+        },
+        "print_orientation": "base_down_open_top",
+        "wall_mm": 3.0
+      }
+    },
+    "selected_clearance_per_side_mm": 1.0,
+    "templates": [
+      {
+        "path": "assets/templates/MM-ORG-030-round-corner-measurement-1to1.svg",
+        "sha256": "21733ee722176f22398b9b530dfea92980c1015858d406ecdcfd3d8b073a2645",
+        "size_bytes": 1554
+      },
+      {
+        "path": "assets/templates/MM-ORG-030-rectangular-notch-measurement-1to1.svg",
+        "sha256": "77394e28e978f20b4e216049e459090eee0a190cb6cacca22ca30ae71d5db29f",
+        "size_bytes": 1202
+      },
+      {
+        "path": "assets/templates/MM-ORG-030-skewed-corner-measurement-1to1.svg",
+        "sha256": "c41acae19fd791f0c654fca6e13d8a2a6c8e7f12e723761e24582552685d2779",
+        "size_bytes": 1185
+      }
+    ]
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-030-interface-validation",
+  "tool_version": "0.1.0-draft.1"
+}

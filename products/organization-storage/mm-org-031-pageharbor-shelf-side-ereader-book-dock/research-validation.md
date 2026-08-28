@@ -1,0 +1,8 @@
+# Research validation
+
+- The portfolio row defines a narrow paired parking product, 180 × 120 × 180 mm maximum print envelope, five case-thickness tests, paperback/hardcover stability and a passive-dock claim boundary. Source: `business/02-portfolio/research-ideas-additions.csv`, SKU-123.
+- Etsy's Spring/Summer 2026 seller report describes an analog revival around journals, memory keeping and slower rituals; the report says its search/sales data was current to 2026-02-10. This supports the reading-ritual direction but does not quantify demand for this exact dock: https://www.etsy.com/se-en/seller-handbook/article/1473931456647
+- Current Etsy results show a crowded field of decorative single-device open-book stands, commonly marketed for Kindle/Kobo and cases. A current example lists a 7 × 5 × 4.5 inch stand and devices up to 5.5 inches wide/1 inch deep: https://www.etsy.com/listing/1877582308/open-book-kindle-holder-3d-printed-e
+- A current larger reading caddy listing combines reader/book support, cable management, storage and coaster at 25 cm width, demonstrating multifunction interest but exceeding this portfolio envelope: https://www.etsy.com/listing/1712129178/3d-printed-book-nook-reading-stand
+- Kobo's official Clara BW page specifies 112 × 160 × 9.2 mm. That anchors the minimum contact width and one realistic uncased thickness, while the product remains measurement-driven and brand-neutral: https://us.kobobooks.com/collections/ereaders-with-comfortlight-pro/products/kobo-clara-bw
+- Opportunity conclusion: proceed with a compact paired dock differentiated by independent thickness parameters, measured fit gauges and a 40 mm connector keepout—not decorative book mimicry, charging hardware or universal-fit claims.

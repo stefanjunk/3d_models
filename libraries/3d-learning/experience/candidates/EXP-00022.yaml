@@ -1,0 +1,71 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00022
+title: Pair nominal key combs with clearance-added slot gauges before printing a full measured-fit organizer
+captured_at: 2026-08-28
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review: {status: pending, reviewed_by: null, reviewed_at: null, notes: "Two digital thickness families and analytic/mesh checks only; no printed gauge, real device case or book fit."}
+feature:
+  type: paired-nominal-key-comb-and-clearance-slot-gauge
+  geometry: connected ascending device-case and book-thickness tongues paired with open U-slot combs
+  design_parameters: {device_nominals_mm: [8.0, 10.0, 12.0, 14.0, 16.0], book_nominals_mm: [18.0, 30.0, 42.0], clearance_per_side_mm: 0.5, device_slots_mm: [9.0, 11.0, 13.0, 15.0, 17.0], book_slots_mm: [19.0, 31.0, 43.0]}
+  named_datums: [left-to-right-ascending-station-order, nominal-key-width, clearance-added-slot-width, broad-face-print-plane]
+  constraints:
+    - Every slot width equals its paired nominal key width plus twice the configured per-side clearance.
+    - Keys and slots must share ordering and one parameter source.
+    - Print and qualify the small paired gauges before the full product.
+    - A digital pass cannot select real machine/material clearance.
+scope:
+  process: FFF
+  machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
+  material: {manufacturer: Anycubic profile only, product: PLA, variant: unfilled, color: null, batch: null, conditioning: null}
+  nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
+  orientation: gauges base down; key combs broad face down
+  slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: 0.20 and 0.28 mm Standard, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
+  geometry_class: passive-dual-slot-ereader-and-book-dock-fit-coupons
+  environment: dry indoor digital candidate
+  transfer_limits: [One unprinted dock with two synthetic thickness families, one nominal clearance and no measured insertion force or wear.]
+observation:
+  summary: One parameter source generated five device and three book reference tongues plus slot stations carrying exactly 1.0 mm total clearance, all as four connected single-solid coupons.
+  expected: Nominal keys and clearance-added slots retain exact pairwise identities and a documented ascending station order.
+  actual: Eight analytic key/slot pairs, four valid B-Reps, four watertight meshes and one five-object 3MF passed digital checks and warning-free whole-plate slicing.
+  outcome: success
+  parameter: paired-thickness-fit-coupon-identity
+  recommended_value: null
+  units: workflow-contract
+explanation:
+  hypothesis: Printing compact nominal keys alongside clearance-added slots makes dimensional assumptions observable before committing to the full organizer and separates nominal object thickness from process clearance.
+  mechanism: Both coupon halves consume one ordered thickness array; slot generation adds exactly two per-side clearances while keys retain nominal width.
+  alternatives: [Print five full dock variants, rely on caliper dimensions only, use one unlabeled stepped slot, fit the real object directly in the full dock.]
+  validated: false
+  validation_method: null
+evidence:
+  observations: 2
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Analytic CadQuery datum comparison, B-Rep validity, deterministic mesh/package audits and exact reference-profile slices; no physical measurement.
+  uncertainty: Hole/slot shrinkage, elephant foot, material batch, printed labeling usability, insertion force, surface wear and real-object compliance remain unknown.
+  sources:
+    - {type: product-trace, ref: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/learning-trace.yaml, hash: null, notes: Owns the exact product scope.}
+    - {type: other, ref: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/interface-report.json, hash: bf0d48cd2c22129b27884ba6769090a97085c2faa14662915fd933d3311b5e1e, notes: Records eight exact nominal-to-slot relations.}
+    - {type: other, ref: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/print-candidate-report.json, hash: 4be9b0cf70354c248ebf9ee882854edcdf7c8cbdbc68900ae123a5521315e47a, notes: Records digital candidate and physical boundary.}
+  artifacts: [products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/config/model-parameters.json, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/cad/build.py, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/tests/test_parameters.py]
+applicability:
+  triggers: [A measured-fit organizer has a small set of thickness presets and full-product prints are expensive.]
+  exclusions: [Safety-critical gauging, flexible seal compression, thread metrology, high-temperature or pressure interfaces.]
+  transfer_limits: [Reuse only as an E0 workflow candidate; revalidate the coupon form, station readability and physical clearance for every process/material class.]
+relationships: {duplicates: [], conflicts: [], supersedes: [], related: [EXP-00019, EXP-00021], evals: [EVAL-interfaces-paired-thickness-gauge-key-comb-001], patterns: [], references: []}
+validation:
+  targeted: pass
+  regression: not-run
+  reports: [products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/interface-report.json, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/print-candidate-report.json]
+provenance: {project: MM-ORG-031-pageharbor-shelf-side-ereader-book-dock, part_revision: 0.1.0-draft.1, trace: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/learning-trace.yaml, source_commit: null, created_by: Codex functional-3d-design workflow via 3d-skill-maintainer}
+tags: [fit-gauge, key-comb, thickness-presets, clearance, coupons, digital-only]

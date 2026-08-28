@@ -1,0 +1,25 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-paired-thickness-gauge-key-comb-001
+title: Nominal thickness key combs and clearance-added slot gauges retain pairwise identity
+category: interfaces
+status: draft
+trigger: A parametric organizer uses small coupon pairs to qualify multiple nominal object thicknesses.
+risk: Independently edited keys, slots or station order could produce plausible coupons that select the wrong full-product gap.
+given: {project: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock, parameter_source: config/model-parameters.json, cad_source: cad/build.py, interface_report: validation/interface-report.json}
+expected: [Five device and three book presets remain ordered, every slot equals its paired nominal plus 1.0 mm total clearance, and each coupon is a valid connected solid.]
+failure_conditions: [Preset count/order drifts, any pair loses the two-sided clearance identity, or a coupon becomes invalid or disconnected.]
+fixtures: [products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/config/model-parameters.json, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/cad/build.py, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/interface-report.json, products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/tests/test_parameters.py]
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/tests/test_parameters.py::test_five_device_and_three_book_presets_are_retained products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/tests/test_parameters.py::test_device_gauge_and_keys_reproduce_clearance_contract products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/tests/test_parameters.py::test_book_gauge_and_keys_reproduce_clearance_contract -q -p no:cacheprovider
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare ordered parameter arrays, analytic slot widths, nominal tongue widths and connected CadQuery solids.
+relationships: {lessons: [EXP-00022], regression_suites: []}
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/validation/interface-report.json
+  artifact_hashes: [cb93ca61f0d7a2bf1df011d944fbc7754057826dc7a50498d6b1908a6b449257, a42ed1a4748e9bf51f3aa3b5d5f83a40cfcc01b1fffc1df5057e10caae90fc23, bf0d48cd2c22129b27884ba6769090a97085c2faa14662915fd933d3311b5e1e, 4be9b0cf70354c248ebf9ee882854edcdf7c8cbdbc68900ae123a5521315e47a]
+tags: [interfaces, fit-gauge, key-comb, thickness-presets, clearance, regression]

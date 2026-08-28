@@ -1,0 +1,89 @@
+{
+  "baseline": "system-020",
+  "constraints": [
+    {
+      "metric": "report_status",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "warning_count",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "tool_changes",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "protected_interfaces",
+      "op": "==",
+      "value": 1
+    }
+  ],
+  "feasible_count": 2,
+  "interpretation": "Choose among feasible Pareto variants using explicit user priorities; no weighted score was invented.",
+  "objectives": [
+    {
+      "goal": "min",
+      "metric": "print_time_s"
+    },
+    {
+      "goal": "min",
+      "metric": "extruded_volume_mm3"
+    }
+  ],
+  "pareto_variants": [
+    "system-020",
+    "system-028"
+  ],
+  "results": [
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "print_time_s": {
+          "absolute": 0.0,
+          "percent": 0.0
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "system-020",
+      "notes": [
+        "Exact whole-plate Kobra 3 Max PLA slice; no G-code retained."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 129403.21868294345,
+        "print_time_s": 20571.0
+      },
+      "pareto": true
+    },
+    {
+      "delta_from_baseline": {
+        "extruded_volume_mm3": {
+          "absolute": 9966.079221969834,
+          "percent": 7.701569809007738
+        },
+        "print_time_s": {
+          "absolute": -2500.0,
+          "percent": -12.153030965922902
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "system-028",
+      "notes": [
+        "Exact whole-plate Kobra 3 Max PLA slice; no G-code retained."
+      ],
+      "objective_metrics": {
+        "extruded_volume_mm3": 139369.29790491328,
+        "print_time_s": 18071.0
+      },
+      "pareto": true
+    }
+  ]
+}

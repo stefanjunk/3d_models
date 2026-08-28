@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "non-overlap",
+      "message": "Five objects retain the configured gap",
+      "metrics": {
+        "collisions": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-bounds",
+      "message": "Layout respects conservative bed margins",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "cb93ca61f0d7a2bf1df011d944fbc7754057826dc7a50498d6b1908a6b449257",
+      "size_bytes": 2118
+    },
+    {
+      "path": "cad/build.py",
+      "sha256": "a42ed1a4748e9bf51f3aa3b5d5f83a40cfcc01b1fffc1df5057e10caae90fc23",
+      "size_bytes": 25976
+    }
+  ],
+  "limitations": [
+    "Exact destination profile remains authoritative."
+  ],
+  "metrics": {
+    "minimum_gap_mm": 8.0,
+    "object_count": 5,
+    "objects": [
+      {
+        "name": "dock",
+        "x0": 10.0,
+        "x1": 186.0,
+        "y0": 10.0,
+        "y1": 118.0
+      },
+      {
+        "name": "device-fit-gauge",
+        "x0": 200.0,
+        "x1": 283.0,
+        "y0": 10.0,
+        "y1": 46.0
+      },
+      {
+        "name": "device-key-comb",
+        "x0": 200.0,
+        "x1": 276.0,
+        "y0": 60.0,
+        "y1": 90.0
+      },
+      {
+        "name": "book-fit-gauge",
+        "x0": 200.0,
+        "x1": 305.0,
+        "y0": 110.0,
+        "y1": 146.0
+      },
+      {
+        "name": "book-key-comb",
+        "x0": 200.0,
+        "x1": 298.0,
+        "y0": 165.0,
+        "y1": 195.0
+      }
+    ],
+    "plate_count": 1
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-031-nesting-layout",
+  "tool_version": "0.1.0-draft.1"
+}

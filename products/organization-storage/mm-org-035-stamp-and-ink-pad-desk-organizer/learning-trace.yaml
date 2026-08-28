@@ -1,0 +1,14 @@
+schema_version: 1.0
+project: MM-ORG-035
+revision: 0.1.0-draft.2
+captured_at: 2026-08-28
+scope: {process: FFF, machine: Anycubic Kobra 3 Max reference profile, material: Anycubic PETG, nozzle_mm: 0.4, orientation: left frame down, slicer: Anycubic Slicer Next 1.3.9.4}
+observations:
+  - Draft.1 was a watertight, single-component mesh but its split front retention tabs began partway through the side-print build sequence; the exact full-plate slicer run reported floating regions.
+  - Draft.2 added a continuous 1.2 mm low front sill under every split tab, retaining the centered finger opening above it.
+  - The revised coupon and full plates sliced with supports disabled, one tool, zero tool changes, empty native warning lists, and preserved exact G-code hashes.
+explanation_status: hypothesis_supported_by_revised_geometry
+physical_evidence: none
+learning_candidates_updated: [EXP-00020]
+targeted_evals: [EVAL-interfaces-side-print-continuous-sill-native-warning-001]
+promotion: forbidden_without_repeat_physical_evidence_and_human_review

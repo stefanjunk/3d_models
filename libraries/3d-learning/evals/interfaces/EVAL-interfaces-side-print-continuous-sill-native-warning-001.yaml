@@ -1,0 +1,44 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-side-print-continuous-sill-native-warning-001
+title: Continuous front sill removes the exact-slicer floating warning from side-printed split tabs
+category: interfaces
+status: draft
+trigger: Side-printed split retention tabs begin partway through the build direction and the exact destination slicer reports floating regions.
+risk: A watertight, single-component mesh can still contain later-starting islands or cantilevers that violate the selected no-support process.
+given:
+  project: products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer
+  parameter_source: config/model-parameters.json
+  initial_slicer_report: validation/slicer-anycubic-petg-full-run-001.json
+  revised_slicer_report: validation/slicer-anycubic-petg-full-run-002.json
+expected:
+  - The initial exact report retains a native floating-regions warning.
+  - The revised design declares a 1.2 mm continuous front sill under every split tab.
+  - The revised exact report is PASS with an empty native warning list and supports remain disabled.
+failure_conditions:
+  - The initial warning evidence disappears or is rewritten.
+  - The continuous sill is removed without replacement preceding-layer support evidence.
+  - The revised exact report is stale, non-PASS, or contains a native warning.
+fixtures:
+  - products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/config/model-parameters.json
+  - products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/validation/slicer-anycubic-petg-full-run-001.json
+  - products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/validation/slicer-anycubic-petg-full-run-002.json
+  - products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/tests/test_parameters.py
+grader:
+  type: deterministic
+  command: python3 -m pytest products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/tests/test_parameters.py::test_side_print_continuity_revision_is_warning_free -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Assert the retained warning/revised warning-free pair and the continuous-sill parameter.
+relationships:
+  lessons: [EXP-00020]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-28
+  report: products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/validation/slicer-preflight-report.json
+  artifact_hashes:
+    - 623b9517229ecb5f7619a03645e8b6fe57e0312a7f135d97ab707a8257c6f0d7
+    - a7882c0f8012c00e7c518fe10976fa3fa58feb42e5c7f8105c05194f80c8ed15
+    - b6ab228ab7853a08a1fb027291d765f8941701aa22e6fe3905aebd47bfa7928c
+tags: [interfaces, support-free, side-print, continuous-root, native-warning, regression]

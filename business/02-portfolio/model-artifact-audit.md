@@ -2,11 +2,11 @@
 
 Audit date: 2026-08-28
 
-- Portfolio records: **90**
-- Records with a local neutral/manufacturing 3D artifact: **90**
+- Portfolio records: **91**
+- Records with a local neutral/manufacturing 3D artifact: **91**
 - Records without a local 3D artifact: **0**
-- Records with detected parametric source: **75**
-- Records with at least one 3MF: **58**
+- Records with detected parametric source: **76**
+- Records with at least one 3MF: **59**
 - Lifecycle/model contradictions: **0**
 
 A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is reported separately. Neither proves rights, slicability, fit, strength, physical qualification or commercial release.
@@ -103,3 +103,4 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-088 | MM-ORG-032 | Paired thread-and-bobbin rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-032-pairpin-thread-bobbin-rack/exports/3mf/DRAFT-MM-ORG-032-pairpin-eight-0.1.0-draft.1.3mf` |
 | PORT-089 | MM-ORG-033 | Diamond-painting tray staging rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf` |
 | PORT-090 | MM-ORG-034 | Snap-on journal pen loop | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf` |
+| PORT-091 | MM-ORG-035 | Stamp and ink-pad desk organizer | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-035-stamp-and-ink-pad-desk-organizer/exports/3mf/DRAFT-MM-ORG-035-inknest-duo-full-0.1.0-draft.2.3mf` |

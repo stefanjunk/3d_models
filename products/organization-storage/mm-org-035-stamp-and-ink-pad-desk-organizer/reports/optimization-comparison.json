@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "open-beam-saving",
+      "message": "Three-line shelves save at least 15% CAD volume against solid-shelf proxies",
+      "metrics": {
+        "saved_percent": 41.471066381320696
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-top-trays",
+      "message": "Optimization retains solid top stamp-rest trays",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "protected-stops-and-openings",
+      "message": "Optimization retains side rails, rear stops, front tabs, and finger openings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "supportless-orientation",
+      "message": "Manufacturing meshes are rotated left-frame-down so shelves and tray are vertical webs",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "b6ab228ab7853a08a1fb027291d765f8941701aa22e6fe3905aebd47bfa7928c",
+      "size_bytes": 818
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-035-square-cassette-0.1.0-draft.2.stl",
+      "sha256": "d242e34c8c79f7a2e1370631eaa68d3c868954e1cfbeb78c785de5cb7d68667b",
+      "size_bytes": 31284
+    },
+    {
+      "path": "exports/manufacturing/DRAFT-MM-ORG-035-rectangular-cassette-0.1.0-draft.2.stl",
+      "sha256": "03801a0466f55d42707bb9bb0815fb1bf662714e9f1359ceb9c1fecdf72cef9e",
+      "size_bytes": 31284
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-035-square-fit-coupon-0.1.0-draft.2.stl",
+      "sha256": "42933cd9501557694d01b321ef1339632f0930d29a4c1f7f38510540eeac1cb6",
+      "size_bytes": 9884
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-035-rectangular-fit-coupon-0.1.0-draft.2.stl",
+      "sha256": "4251226a88971689b5760f7eed44f0de5d75fef9a28c4d0ec85e9f26cf8f4e9d",
+      "size_bytes": 9884
+    }
+  ],
+  "limitations": [
+    "CAD volume is a deterministic material proxy, not slicer mass or print time."
+  ],
+  "metrics": {
+    "cad_volume_saved_percent": 41.471066381320696,
+    "selected_open_beam_volume_mm3": 113071.47423746689,
+    "solid_shelf_proxy_volume_mm3": 193189.0216454935
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-035-optimization-comparison",
+  "tool_version": "0.1.0-draft.2"
+}

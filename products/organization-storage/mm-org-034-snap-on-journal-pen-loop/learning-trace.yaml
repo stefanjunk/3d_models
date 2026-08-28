@@ -1,0 +1,15 @@
+schema_version: 1.0
+project: MM-ORG-034
+revision: 0.1.0-draft.2
+captured_at: 2026-08-28
+scope: {process: FFF, machine: Anycubic Kobra 3 Max reference profile, materials: [Anycubic PETG, Anycubic TPU], nozzle_mm: 0.4, orientation: profile side down, slicer: Anycubic Slicer Next 1.3.9.4}
+observations:
+  - All first slicer attempts failed because relative 3MF paths were unresolved inside the adapter's isolated working directory; fresh absolute-path attempts produced native results and G-code.
+  - The initial all-TPU loop used a 12 mm axial ring centered within a 30 mm clip. In side orientation the ring began 9 mm above the bed, and native run-002 flagged a floating cantilever despite a successful exit.
+  - Draft.2 shifted the integral ring and connector flush to one clip side. Final run-003 was warning-free with unchanged 10.8 mm ring bore and 30 mm cover-clip width.
+  - Three material-separated final jobs passed with supports disabled, one tool, zero tool changes, and preserved exact G-code hashes.
+explanation_status: hypothesis_supported_by_second_geometry
+physical_evidence: none
+learning_candidates_updated: [EXP-00003, EXP-00020]
+targeted_evals: [EVAL-interfaces-bed-built-dovetail-native-warning-001]
+promotion: forbidden_without_repeat_physical_evidence_and_human_review

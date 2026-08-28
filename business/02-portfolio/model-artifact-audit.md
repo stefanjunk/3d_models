@@ -2,11 +2,11 @@
 
 Audit date: 2026-08-28
 
-- Portfolio records: **89**
-- Records with a local neutral/manufacturing 3D artifact: **89**
+- Portfolio records: **90**
+- Records with a local neutral/manufacturing 3D artifact: **90**
 - Records without a local 3D artifact: **0**
-- Records with detected parametric source: **74**
-- Records with at least one 3MF: **57**
+- Records with detected parametric source: **75**
+- Records with at least one 3MF: **58**
 - Lifecycle/model contradictions: **0**
 
 A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is reported separately. Neither proves rights, slicability, fit, strength, physical qualification or commercial release.
@@ -102,3 +102,4 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-087 | MM-ORG-031 | Shelf-side e-reader and book dock | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-031-pageharbor-shelf-side-ereader-book-dock/exports/3mf/DRAFT-MM-ORG-031-pageharbor-duo-five-0.1.0-draft.1.3mf` |
 | PORT-088 | MM-ORG-032 | Paired thread-and-bobbin rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-032-pairpin-thread-bobbin-rack/exports/3mf/DRAFT-MM-ORG-032-pairpin-eight-0.1.0-draft.1.3mf` |
 | PORT-089 | MM-ORG-033 | Diamond-painting tray staging rack | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/exports/3mf/DRAFT-MM-ORG-033-gemstage-six-0.1.0-draft.1.3mf` |
+| PORT-090 | MM-ORG-034 | Snap-on journal pen loop | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf` |

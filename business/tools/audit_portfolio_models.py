@@ -13,6 +13,7 @@ import argparse
 import csv
 from collections import Counter
 from pathlib import Path
+import re
 
 
 BUSINESS = Path(__file__).resolve().parents[1]
@@ -69,9 +70,20 @@ def audit_row(row: dict[str, str], audit_date: str) -> dict[str, str]:
     else:
         status = "NO — no local 3D model found"
     evidence_pool = model_files or source_files
+    current_revision = ""
+    design_spec = source / "design-spec.yaml" if source.is_dir() else None
+    if design_spec and design_spec.exists():
+        revision_match = re.search(r"revision:\s*([^,}\s]+)", design_spec.read_text(encoding="utf-8"))
+        current_revision = revision_match.group(1) if revision_match else ""
     evidence_pool = sorted(
         evidence_pool,
-        key=lambda path: (PREFERENCE.get(path.suffix.lower(), 99), str(path).lower()),
+        key=lambda path: (
+            PREFERENCE.get(path.suffix.lower(), 99),
+            bool(current_revision and current_revision not in path.name),
+            "gauge" in path.name.lower(),
+            "coupon" in path.name.lower(),
+            str(path).lower(),
+        ),
     )
     evidence = str(evidence_pool[0].relative_to(WORKSPACE)) if evidence_pool else ""
     lifecycle = row["Lifecycle_Stage"]

@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "replaceable-wear-part",
+      "message": "The modular TPU wear part is independently replaceable",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "shared-insert",
+      "message": "One TPU insert serves all three PETG sizes",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "no-generated-support",
+      "message": "All manufacturing meshes use constant side profiles or flat gauge rings",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "small-material-envelope",
+      "message": "Total kit CAD volumes stay within the planning limits",
+      "metrics": {
+        "petg_mm3": 7610.152466176049,
+        "tpu_mm3": 4107.593853190092
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "92a770bcf10a2d2e1a681dfad7e6cb219dd635c0b07695db264118d75307130a",
+      "size_bytes": 1097
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-s-0.1.0-draft.2.stl",
+      "sha256": "1774ab222b3f46c808b5b314eb06e652eb3c54758b27d9ff88fec8eceaf0a246",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-m-0.1.0-draft.2.stl",
+      "sha256": "1b149a39c330383eaf8f8b31ac3f7f2e0ce12e250678d282e157e6aa0c3b8dfc",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-l-0.1.0-draft.2.stl",
+      "sha256": "28227c99622f0da0c238558aff3a198d5a8f77e4c609131356c3778eb1e3e923",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-tpu-rail-loop-0.1.0-draft.2.stl",
+      "sha256": "29daabcc6f86c28ce62181a7073c04331c2bcfd9fb12c2496be9a1e69fdc3fae",
+      "size_bytes": 43284
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-all-tpu-universal-0.1.0-draft.2.stl",
+      "sha256": "1be3f3065616f54344d78220a14c4dcd29facc8c7e6fc4f352ae7645090d08a3",
+      "size_bytes": 59484
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-tpu-pen-gauge-0.1.0-draft.2.stl",
+      "sha256": "0e6a910c7283720a6fd073c700b9d252eb17c83ca980da928dfea87d21e5e7b5",
+      "size_bytes": 103884
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-034-tpu-pen-gauge-0.1.0-draft.2.stl",
+      "sha256": "0e6a910c7283720a6fd073c700b9d252eb17c83ca980da928dfea87d21e5e7b5",
+      "size_bytes": 103884
+    }
+  ],
+  "limitations": [
+    "CAD volume is not measured mass or fatigue performance."
+  ],
+  "metrics": {
+    "petg_kit_volume_mm3": 7610.152466176049,
+    "selected_variant": "three-size-petg-plus-common-tpu-and-all-tpu",
+    "tpu_kit_volume_mm3": 4107.593853190092
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-034-optimization-comparison",
+  "tool_version": "0.1.0-draft.2"
+}

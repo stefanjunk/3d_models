@@ -20,7 +20,7 @@ feature:
     adapter_version: 1.2.0
     external_profile_layer_height_mm: 0.2
     embedded_profile_layer_height_mm: 0.24
-    independent_external_profile_runs: 2
+    independent_external_profile_runs: 5
     bed_origin_exclusion_failures: 1
     passing_build_item_margin_mm: 20.0
   named_datums:
@@ -43,8 +43,8 @@ scope:
     firmware: null
   material:
     manufacturer: Anycubic
-    product: bundled PLA profiles
-    variant: external 0.4 mm profile and embedded 0.6 mm hardened-steel-nozzle project
+    product: bundled PLA, PETG and TPU profiles
+    variant: external 0.4 mm profiles and embedded 0.6 mm hardened-steel-nozzle project
     color: null
     batch: null
     conditioning: not-applicable-no-physical-print
@@ -69,7 +69,7 @@ scope:
 observation:
   summary: Local Anycubic Slicer Next CLI runs generated parseable G-code from exact external profiles and an embedded-profile 3MF, while exposing timestamp, toolpath-repeatability, layer-summary, and isolated-working-directory path differences.
   expected: A headless local slicer could export G-code with exact input/profile provenance and no printer action.
-  actual: Both original input routes returned native success and parseable G-code. The simple STL repeat differed only by generation timestamp, but the support-bearing 3MF repeat retained nine path segmentation/order differences after removing timestamp and progress metadata, with about 0.8 mm extrusion, 56.8 mm travel, and 1 s estimate deltas. Its footer reported 95 layers while 94 executable markers and the header agreed. A later product run passed adapter existence checks with relative mesh/profile paths but failed inside the isolated slicer working directory; a fresh run with absolute paths passed. MM-ORG-033 then preserved a native exclusion-zone failure for build items at X/Y zero; the unchanged meshes passed after the 3MF layout added a 20 mm rack margin and a separately spaced coupon.
+  actual: Both original input routes returned native success and parseable G-code. The simple STL repeat differed only by generation timestamp, but the support-bearing 3MF repeat retained nine path segmentation/order differences after removing timestamp and progress metadata, with about 0.8 mm extrusion, 56.8 mm travel, and 1 s estimate deltas. Its footer reported 95 layers while 94 executable markers and the header agreed. Later product runs passed adapter existence checks with relative source paths but failed inside the isolated slicer working directory; fresh absolute-path runs passed. MM-ORG-033 preserved a native exclusion-zone failure for build items at X/Y zero and passed after a 20 mm layout margin. MM-ORG-034 independently reproduced the relative-path failure on three material-separated 3MF jobs, then produced warning-free PETG and TPU G-code from the same exact profile set with absolute paths.
   outcome: mixed
   parameter: cli_export_and_metadata_behavior
   recommended_value: Use the fail-closed adapter, retain raw hashes, compare parsed metrics, and keep metadata warnings visible.
@@ -87,11 +87,11 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 7
-  same_scope_repetitions: 3
-  geometry_count: 3
+  observations: 9
+  same_scope_repetitions: 6
+  geometry_count: 6
   machine_count: 1
-  material_count: 1
+  material_count: 3
   nozzle_count: 2
   measured: true
   measurement_method: CLI exit/native-result checks, SHA-256 comparison, timestamp/progress-stripped diagnostic diffs, and deterministic G-code parsing.
@@ -125,6 +125,14 @@ evidence:
       ref: products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/validation/slicer-anycubic-next-run-003.json
       hash: 4f2459f262368a3c18eb58484a5a6fa51dc1a5ddba2309dd37b46ba946ce5f44
       notes: Same meshes and exact profiles pass after absolute paths and a 20 mm build-item margin.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-gauge-run-001.json
+      hash: 0138f0390f4900e6510b0b9ca8e419376894120b159a075e24abc5125453b1e0
+      notes: One of three independent material-separated relative-source failures retained before the fresh absolute-path retries.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-preflight-report.json
+      hash: fe4a79d1919aa00902f8c1e44411a2efb1624d365a3a6ad694e34e2ef3a80f85
+      notes: Aggregates the three final warning-free absolute-path PETG/TPU runs with exact profile and G-code hashes.
   artifacts:
     - research/tooling/anycubic-slicer-next/validation-2026-08-27.json
     - products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation/slice-anycubic-next-single-3.1.0-draft.1.json
@@ -133,6 +141,8 @@ evidence:
     - products/organization-storage/mm-org-022-labelable-small-parts-bin-set/validation/slicer-anycubic-next.json
     - products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/validation/slicer-anycubic-next-run-002.json
     - products/organization-storage/mm-org-033-diamond-painting-tray-staging-rack/validation/slicer-anycubic-next-run-003.json
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-gauge-run-001.json
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-preflight-report.json
 applicability:
   triggers:
     - An Anycubic FDM project needs a local exact-profile slicer dry run with machine-readable evidence.

@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: One parametric hub geometry, one warning-producing draft trace transcribed before overwrite and two warning-free revised reference-profile slices; no printed underside, dock-fit or fatigue evidence.
+    notes: Two independent parametric geometries now show the same unsupported-start warning and a warning-free bed-grounded revision; no printed underside, dock/rail fit or fatigue evidence.
 feature:
   type: support-free-vertical-dovetail-docking-key
   geometry: four horizontal dovetail projections on a shared open cup, mating vertical channels in four caddy bosses, and a representative gauge/key coupon
@@ -26,6 +26,9 @@ feature:
     selected_total_clearance_mm: 0.4
     coupon_total_clearances_mm: [0.2, 0.4, 0.6]
     supports_enabled: false
+    second_geometry: MM-ORG-034 side-printed TPU ring/connector
+    second_initial_feature_start_z_mm: 9.0
+    second_revised_feature_start_z_mm: 0.0
   named_datums: [build-plate-z-zero, hub-side-face, caddy-channel-through-bottom, key-channel-centerline]
   constraints:
     - Keep the selected hub key connected to the build plate when printed in the declared base-down orientation.
@@ -35,20 +38,20 @@ feature:
 scope:
   process: FFF
   machine: {manufacturer: Anycubic, model: Kobra 3 Max reference profile, unit_id: null, firmware: null}
-  material: {manufacturer: Anycubic profile only, product: PLA, variant: unfilled, color: null, batch: null, conditioning: null}
+  material: {manufacturer: Anycubic profile only, product: PLA and TPU, variant: unfilled reference profiles, color: null, batch: null, conditioning: null}
   nozzle: {diameter_mm: 0.4, material: unknown, geometry: null, hotend: null, wear_state: null}
   orientation: hub, caddies and coupon base down; vertical channels open upward and through the bottom
   slicer: {name: Anycubic Slicer Next, version: 1.3.9.4, profile: Kobra 3 Max 0.4 nozzle with 0.20/0.28 mm Standard and Anycubic PLA, profile_hash: dec0a101aaa644997c96146f4aaf1973b7f710e73f023c4871024833ad200b81}
-  geometry_class: side-projecting-captive-dovetail-on-base-down-container
+  geometry_class: side-projecting dovetail and side-printed narrow TPU ring/connector on a wider clip
   environment: dry indoor digital candidate; no physical environment test
   transfer_limits:
     - One hub/caddy system and one slicer warning heuristic.
     - Does not establish underside quality, sliding force, wear, impact strength or fatigue life.
     - A key may safely begin above Z zero if supported by another printable feature or a qualified bridge; that case was not tested.
 observation:
-  summary: The initial Z=3 mm key origin produced a native floating-cantilever warning even though slicing exited successfully; after keys and mating channels were extended to Z=0, both exact process slices retained exit-code PASS and reported no native or parser warnings.
+  summary: Two narrower functional features that first appeared above the build plate produced native floating-cantilever warnings despite successful slice exits; grounding the same load paths at Z=0 removed the warnings.
   expected: A declared support-free system should slice with an empty native warning list while retaining the same key cross-section, caddy/hub orientation and one-tool process.
-  actual: Initial 0.20 mm live output contained one warning for shared-center-hub. Revised 0.20 and 0.28 mm reports contain zero native/parser warnings, one tool and zero tool changes; the selected 0.20 mm plate remains 325 layers.
+  actual: Initial 0.20 mm live output contained one warning for shared-center-hub. Revised 0.20 and 0.28 mm reports contain zero native/parser warnings. Independently, MM-ORG-034's 12 mm TPU ring centered within a 30 mm side-printed clip began at Z=9 mm and triggered the same warning; shifting the ring/connector flush to one side began them at Z=0 and final exact run-003 was warning-free, one-tool and 150 layers.
   outcome: mixed
   parameter: key_origin_z_mm
   recommended_value: null
@@ -63,19 +66,21 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 2
-  same_scope_repetitions: 0
-  geometry_count: 1
-  machine_count: 0
-  material_count: 0
+  observations: 4
+  same_scope_repetitions: 1
+  geometry_count: 2
+  machine_count: 1
+  material_count: 2
   nozzle_count: 1
   measured: true
-  measurement_method: Transcribed native warning from the initial exact Anycubic Slicer Next run, then retained exact 0.20/0.28 mm revised reports, parametric Z-origin assertion, topology audits and one-plate package validation; no physical measurement.
-  uncertainty: The initial JSON path was overwritten during the draft iteration and its values are preserved in a transparent reconstructed trace; the revised reports are exact retained artifacts.
+  measurement_method: Transcribed native warning from the first project, retained exact warning and warning-free reports from the second project, parametric Z-origin assertions, topology audits and package validation; no physical measurement.
+  uncertainty: The first project's initial JSON path was overwritten and transparently reconstructed; the independent TPU warning and revised reports are exact retained artifacts. Both use one slicer version and machine profile.
   sources:
     - {type: product-trace, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/learning-trace.yaml, hash: null, notes: Owns the product-local scope and lifecycle.}
     - {type: other, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/reports/slicer-warning-iteration.json, hash: 05d8872ae33ae1908433ccbbb2bcdfd1dce9566beaa0db7e79f1080f0e8435fa, notes: Separates the transcribed initial warning from the retained revised evidence and interpretation.}
     - {type: other, ref: products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json, hash: b24478478e616ae29e37f12a2683a18a40fe632cca566b8b972c14b340dfbafa, notes: Retained selected exact-profile warning-free report.}
+    - {type: product-trace, ref: products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-kit-run-002.json, hash: 1acf0d8719da9e014562c537a685384d4b90d9c310aa61f93596880446f685a6, notes: Exact initial TPU kit report with the native floating-cantilever warning.}
+    - {type: product-trace, ref: products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-kit-run-003.json, hash: c0def5b5b8eea4289bbe8b49e7526a7884f11c48751b2e1d4816898c8fccf3eb, notes: Exact revised TPU kit report after grounding the ring and connector at build-plate Z zero.}
   artifacts:
     - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/config/model-parameters.json
     - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/cad/build.py
@@ -83,6 +88,10 @@ evidence:
     - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-020.json
     - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/validation/slicer-system-028.json
     - products/organization-storage/mm-org-029-craft-night-modular-personal-supply-caddy/tests/test_parameters.py
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/cad/build.py
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/learning-trace.yaml
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-kit-run-002.json
+    - products/organization-storage/mm-org-034-snap-on-journal-pen-loop/validation/slicer-anycubic-tpu-kit-run-003.json
 applicability:
   triggers:
     - A no-support functional key, rail or hook projects horizontally from a vertical wall in base-down orientation.

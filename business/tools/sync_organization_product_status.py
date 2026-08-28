@@ -62,6 +62,20 @@ def candidate_passes(folder: Path) -> bool:
         return False
 
 
+def preferred_3mf(folder: Path) -> Path | None:
+    paths = sorted((folder / "exports" / "3mf").glob("*.3mf"))
+    if not paths:
+        return None
+    design_spec = folder / "design-spec.yaml"
+    if design_spec.exists():
+        match = re.search(r"revision:\s*([^,}\s]+)", design_spec.read_text(encoding="utf-8"))
+        if match:
+            current = [path for path in paths if match.group(1) in path.name]
+            if current:
+                paths = current
+    return sorted(paths, key=lambda path: ("gauge" in path.name.lower(), "coupon" in path.name.lower(), path.name))[0]
+
+
 def implemented_products() -> list[dict[str, object]]:
     sources = source_records()
     found = []
@@ -72,14 +86,14 @@ def implemented_products() -> list[dict[str, object]]:
         sku = product_sku(folder)
         if not sku or sku not in sources:
             continue
-        three_mf = sorted((folder / "exports" / "3mf").glob("*.3mf"))
-        if not three_mf:
+        evidence_3mf = preferred_3mf(folder)
+        if evidence_3mf is None:
             continue
         found.append({
             "working_sku": f"MM-ORG-{match.group(1)}",
             "sku": sku,
             "folder": folder,
-            "evidence": three_mf[0],
+            "evidence": evidence_3mf,
             "candidate": candidate_passes(folder),
             "source": sources[sku],
         })

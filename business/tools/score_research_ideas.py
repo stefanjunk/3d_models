@@ -529,6 +529,9 @@ def next_action(item: dict[str, object]) -> str:
     next_gate = str(item["record"]["next_gate"])
     tier = str(item["tier"])
     if tier.startswith("0 "):
+        workflow = str(item["implementation"].get("Workflow_Stage", ""))
+        if workflow == "P2-digital-print-candidate":
+            return "Print the declared first-fit coupon or gauge, then the unchanged candidate; record physical fit, use, cycle, safety, rights and commercial-release evidence."
         return f"Do not start another model first; close slicer, physical, rights and commercial evidence. Existing next gate: {next_gate}"
     if tier.startswith("1 "):
         return f"Check German search/competition and collect at least five qualified problem signals; if positive, implement the smallest coupon or prototype. Design gate: {next_gate}"

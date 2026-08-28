@@ -1,0 +1,209 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "rail-clearance",
+      "message": "Socket has explicit per-side rail clearance",
+      "metrics": {
+        "clearance_mm": 0.4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "snap-mouth",
+      "message": "TPU mouth retains the rail head while admitting the neck",
+      "metrics": {
+        "outer_diameter_mm": 14.4,
+        "part_id": "tpu-rail-loop",
+        "relaxed_inner_diameter_mm": 10.8,
+        "snap_interference_each_mm": 0.9,
+        "socket_cavity_height_mm": 6.2,
+        "socket_mouth_height_mm": 3.6000000000000005
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "same-rail-all-sizes",
+      "message": "Rail centers track the clip gap without changing the rail section",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile-side-down",
+      "message": "Manufacturing Z is the original axial width and stays at or below 30 mm",
+      "metrics": {
+        "clip-l": [
+          23.200000762939453,
+          7.400000095367432,
+          30.0
+        ],
+        "clip-m": [
+          23.200000762939453,
+          6.599999904632568,
+          30.0
+        ],
+        "clip-s": [
+          23.200000762939453,
+          5.800000190734863,
+          30.0
+        ],
+        "gauge": [
+          53.599998474121094,
+          18.200000762939453,
+          4.0
+        ],
+        "gauge-coupon": [
+          53.599998474121094,
+          18.200000762939453,
+          4.0
+        ],
+        "insert": [
+          19.200000762939453,
+          14.39762661268469,
+          12.0
+        ],
+        "universal": [
+          35.796802369644865,
+          14.399461747467285,
+          30.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "pen-range-deferred",
+      "message": "The intended range is declared and remains physically gated",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/model-parameters.json",
+      "sha256": "92a770bcf10a2d2e1a681dfad7e6cb219dd635c0b07695db264118d75307130a",
+      "size_bytes": 1097
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-s-0.1.0-draft.2.stl",
+      "sha256": "1774ab222b3f46c808b5b314eb06e652eb3c54758b27d9ff88fec8eceaf0a246",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-m-0.1.0-draft.2.stl",
+      "sha256": "1b149a39c330383eaf8f8b31ac3f7f2e0ce12e250678d282e157e6aa0c3b8dfc",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/petg/DRAFT-MM-ORG-034-petg-clip-l-0.1.0-draft.2.stl",
+      "sha256": "28227c99622f0da0c238558aff3a198d5a8f77e4c609131356c3778eb1e3e923",
+      "size_bytes": 11284
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-tpu-rail-loop-0.1.0-draft.2.stl",
+      "sha256": "29daabcc6f86c28ce62181a7073c04331c2bcfd9fb12c2496be9a1e69fdc3fae",
+      "size_bytes": 43284
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-all-tpu-universal-0.1.0-draft.2.stl",
+      "sha256": "1be3f3065616f54344d78220a14c4dcd29facc8c7e6fc4f352ae7645090d08a3",
+      "size_bytes": 59484
+    },
+    {
+      "path": "exports/manufacturing/tpu/DRAFT-MM-ORG-034-tpu-pen-gauge-0.1.0-draft.2.stl",
+      "sha256": "0e6a910c7283720a6fd073c700b9d252eb17c83ca980da928dfea87d21e5e7b5",
+      "size_bytes": 103884
+    },
+    {
+      "path": "exports/coupons/DRAFT-MM-ORG-034-tpu-pen-gauge-0.1.0-draft.2.stl",
+      "sha256": "0e6a910c7283720a6fd073c700b9d252eb17c83ca980da928dfea87d21e5e7b5",
+      "size_bytes": 103884
+    }
+  ],
+  "limitations": [
+    "Nominal CAD clearances do not infer TPU hardness, extrusion compensation, or cover compressibility."
+  ],
+  "metrics": {
+    "all_tpu": {
+      "effective_rib_gap_mm": 1.9,
+      "functional_envelope_mm": [
+        35.8,
+        30.0,
+        20.6
+      ],
+      "loop_side_shift_mm": -9.0,
+      "nominal_gap_mm": 2.8,
+      "part_id": "all-tpu-universal",
+      "relaxed_inner_diameter_mm": 10.8
+    },
+    "clips": {
+      "clip-l": {
+        "effective_rib_gap_mm": 3.05,
+        "functional_envelope_mm": [
+          23.2,
+          30.0,
+          7.3999999999999995
+        ],
+        "nominal_gap_mm": 3.4,
+        "part_id": "petg-clip-l",
+        "rail_center_z_mm": 3.6999999999999997,
+        "size": "L"
+      },
+      "clip-m": {
+        "effective_rib_gap_mm": 2.25,
+        "functional_envelope_mm": [
+          23.2,
+          30.0,
+          6.6000000000000005
+        ],
+        "nominal_gap_mm": 2.6,
+        "part_id": "petg-clip-m",
+        "rail_center_z_mm": 3.3000000000000003,
+        "size": "M"
+      },
+      "clip-s": {
+        "effective_rib_gap_mm": 1.4500000000000002,
+        "functional_envelope_mm": [
+          23.2,
+          30.0,
+          5.8
+        ],
+        "nominal_gap_mm": 1.8,
+        "part_id": "petg-clip-s",
+        "rail_center_z_mm": 2.9,
+        "size": "S"
+      }
+    },
+    "gauge": {
+      "diameters_mm": [
+        9.0,
+        12.0,
+        15.0
+      ],
+      "overall_length_mm": 53.599999999999994,
+      "part_id": "tpu-pen-gauge"
+    },
+    "insert": {
+      "outer_diameter_mm": 14.4,
+      "part_id": "tpu-rail-loop",
+      "relaxed_inner_diameter_mm": 10.8,
+      "snap_interference_each_mm": 0.9,
+      "socket_cavity_height_mm": 6.2,
+      "socket_mouth_height_mm": 3.6000000000000005
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-034-interface-validation",
+  "tool_version": "0.1.0-draft.2"
+}

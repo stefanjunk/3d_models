@@ -1,12 +1,14 @@
 # metriCreate family evolution — v3 and v4
 
-Status: `CONCEPT_SELECTION_OPEN_VECTOR_REDRAW_AND_CLEARANCE_REQUIRED`
+Status: `V3_04_SELECTED_VECTOR_R1_CLEARANCE_PENDING`
 
 Generated: 2026-08-29
 
 Generator: OpenAI built-in image generation
 
 Authoritative family reference: metriMade `MM-BRAND-001-R1`
+
+Human selection: Stefan Junk selected v3 concept `04` on 2026-08-29. The binding deterministic redraw is [metriCreate `MC-BRAND-001-R1`](../brand-assets/metricreate/README.md). This explicit selection supersedes the recommendation and all later v4-v6 shortlist exploration; the sheets remain provenance artifacts.
 
 ## Objective
 
@@ -52,7 +54,7 @@ SHA-256: `6f1891fd926f3410ec6d42bf27865730156228d4cf3fdcbacb17e8125c56721d`
 | `E` | offset scan-layer `M` | fast, digital and visually active | scan lines are fragile in print and engraving |
 | `F` | fitted orange insert | boldest color blocking and simplest compact outline | central insert weakens the negative-space `M` and can suggest a rocket or nib |
 
-## Recommendation
+## Historical recommendation before selection
 
 Use three finalists for the next human decision:
 
@@ -65,8 +67,9 @@ more forceful than metriMade. If long-term family recognition is more important,
 select `v3-01`. The wireframe-to-solid behavior of `v4-C` is best retained as a
 motion/interaction system even when it is not selected as the static mark.
 
-Do not combine all three marks. Select one geometry first, then create only the
-necessary static, motion and small-size variants from that single source system.
+The human selection resolves this step in favor of `v3-04`. Do not combine it
+with the other marks. Static, monochrome and small-size variants now derive from
+the single `MC-BRAND-001-R1` source geometry.
 
 ## Binding exploration palette
 
@@ -82,14 +85,15 @@ necessary static, motion and small-size variants from that single source system.
 Orange is a structural cut, active node, fitted insert or status edge. It is not
 a decorative gradient or a general replacement for teal/aqua.
 
-## Production gate after selection
+## Remaining production and release gate
 
-The selected concept must be reconstructed as original deterministic SVG
-geometry rather than auto-traced from the PNG. The production package must then
-include horizontal and stacked lockups, compact and monochrome marks, outlined
-licensed wordmark geometry, 16/24/32 px checks, dark/light and engraving tests,
-source/provenance hashes, and the outstanding word/device-mark similarity and
-brand-risk approval.
+The selected concept has been reconstructed as original deterministic SVG
+geometry rather than auto-traced from the PNG. `MC-BRAND-001-R1` includes
+horizontal and stacked lockups, compact and monochrome marks, an outlined
+licensed wordmark, source/provenance hashes and raster previews. Small-size,
+light/dark and reproduction checks belong to the adoption validation. The
+outstanding word/device-mark similarity review and brand-risk approval remain
+mandatory before unrestricted public use.
 
 ## Prompt provenance
 

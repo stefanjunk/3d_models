@@ -86,3 +86,10 @@
 - Abgrenzung: Das KI-generierte Blatt ist ein nicht maßhaltiges Systemkonzept. Es definiert weder Schraubenkopf, Plattendicke, Rastprofil, Passung, Keep-outs noch Behälterabmessungen. Die 17/10/37/40-mm-Bezüge und alle Prüfkriterien werden ausschließlich aus der Spezifikation und den Realmessungen abgeleitet.
 - Rechte: Die Geometrie wurde neu aus Funktionsanforderungen, eigenen R6-Merkmalen und den sechs eigenen Maschinenfotos visualisiert. Kein Drittanbieter-Mesh, -Bild, -Maß oder Befestigungsprofil wurde als Eingabe verwendet oder nachgezeichnet.
 - Folge: R7-CAD, Fertigungsexporte und Slicing bleiben bis zur ausdrücklichen Freigabe dieses Konzeptblatts gesperrt.
+
+### DEC-R7-014 – Z-Rider-Konzeptblatt v1 freigegeben
+
+- Status: vom Benutzer freigegeben
+- Entscheidung: Die im Konzeptblatt gezeigte Systemarchitektur und Formrichtung gilt seit `2026-08-29T12:17:09+02:00` als freigegeben.
+- Evidenz: Benutzerantwort „freigegeben“ auf die ausdrückliche Freigabeaufforderung für `R7 Z-Rider v1`.
+- Folge: Parametrische DRAFT-Geometrie und Testcoupons dürfen erzeugt werden. Das Bild bleibt nicht maßhaltig; reale Schraubendaten, Passung, Vollweg, Purge-Flugbahn, Kennzeichnung und finale Freigabe bleiben eigene Gates.

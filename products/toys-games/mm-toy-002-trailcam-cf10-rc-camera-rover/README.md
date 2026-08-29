@@ -2,7 +2,7 @@
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.3.0` — requirements and concept approved, decomposition pending
+Current revision: `0.4.0` — requirements approved (fully printed chassis), new concept pending
 
 Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
 
@@ -19,8 +19,8 @@ OpenQuad while retaining a surface-specific receiver and transmitter layout.
 
 - `design-spec.yaml` — current requirements contract and approval state
 - `decision-log.md` — identity, migration and redesign decisions
-- `concepts/trailcam-cf10-fpv-concept-v0.3.0-r3.png` — selected concept candidate for human review (r3 corrects the r2 wheel-count depiction artifact)
-- `concepts/concept-review-v0.3.0.md` — requirement correspondence and interpretation limits
+- `concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png` — selected 0.4.0 concept candidate for human review (fully printed chassis)
+- `concepts/concept-review-v0.4.0.md` — 0.4.0 requirement correspondence and interpretation limits
 - `architecture/hybrid-design-plan-v0.3.0.json` — machine-readable decomposition draft
 - `reports/design-review-v0.1.0.md` — evidence-based audit of the imported design
 - `validation/source-inventory.json` — exact imported-report hash and missing-artifact inventory

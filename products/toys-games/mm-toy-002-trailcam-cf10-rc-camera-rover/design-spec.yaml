@@ -4,8 +4,8 @@ project:
   id: MM-TOY-002
   sku: MM-TOY-002
   name: "TrailCam CF10 FPV Camera Rover"
-  revision: 0.3.0
-  candidate: 0.3.0-draft.1
+  revision: 0.4.0
+  candidate: 0.4.0-draft.1
   owner: Stefan
   created: "2026-08-29"
   revised: "2026-08-29"
@@ -17,23 +17,23 @@ workflow:
   autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: approved
-    spec_revision: 0.3.0
+    spec_revision: 0.4.0
     approved_by: Stefan
     approved_at: "2026-08-29"
-    evidence: "User response: freigegeben"
+    evidence: "User response: freigegeben (0.4.0 fully printed chassis route)"
+    superseded_approval: "0.3.0 approved by Stefan on 2026-08-29, superseded by 0.4.0"
   concept_approval:
-    status: approved
-    spec_revision: 0.3.0
-    approved_by: Stefan
-    approved_at: "2026-08-29"
-    evidence: "User response: freigegeben (concept r3)"
-    asset: concepts/trailcam-cf10-fpv-concept-v0.3.0-r3.png
-    asset_sha256: 498770857824577a76a0ce651a8a00a815f16876b17a1d8990ba83a9fadd46de
-    review: concepts/concept-review-v0.3.0.md
-  decomposition:
     status: pending
+    spec_revision: 0.4.0
+    asset: concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png
+    asset_sha256: 4751d6ddbc12f793b46ef4b549d31484e734404f7da111eae0ac7ab89d2adc5f
+    review: concepts/concept-review-v0.4.0.md
+    reason: "New 0.4.0 concept (fully printed chassis) ready for explicit human approval"
+    superseded_approval: "0.3.0 concept r3 approved by Stefan on 2026-08-29, invalidated by the 0.4.0 chassis-route change"
+  decomposition:
+    status: blocked
     plan: architecture/hybrid-design-plan-v0.3.0.json
-    reason: "Concept approved; decomposition draft is ready for explicit human approval before production CAD"
+    reason: "Requirements revision 0.4.0 pending; the 0.3.0 decomposition draft is superseded by the chassis-route change"
   digital_candidate:
     status: blocked
     reason: "No reproducible source or manufacturing mesh exists in the imported package"
@@ -47,7 +47,7 @@ workflow:
     status: blocked
     asset_id: MM-WM-001-R2
     product_id: MM-TOY-002
-    version: 0.3.0
+    version: 0.4.0
     reason: "Watermark is the final planned solid-geometry change after candidate verification"
   final_release_approval:
     status: blocked
@@ -84,6 +84,7 @@ requirements_trace:
     - "Make the rover specifically FPV with a camera"
     - "Reuse components similar to the flight drones, especially the control-radio and camera-transmission ecosystem"
     - "Integrate the OpenQuad flight drone and the separate remote-controlled Tethys submarine"
+    - "Correction 2026-08-29: do not use a purchased COTS chassis as the structural base; the chassis shall be 3D-printed or built from carbon-fiber tubes with printed connectors, holders, baskets and cases"
   legacy_report_stated:
     - "Low-speed modular 1:10 camera rover on a COTS crawler chassis"
     - "Two 10 x 10 x 1 mm, 390 mm rails at 84 mm center spacing"
@@ -92,14 +93,17 @@ requirements_trace:
     - "PETG starting material, ASA option, M3 fasteners and fit coupons"
     - "Bodypost and rail interfaces are parameterized rather than universally slotted"
   inferred:
-    - "The drivable chassis, steering, drivetrain, wheels, bearings, radio control and battery safety remain purchased assemblies"
-    - "The product scope is the removable printed/purchased payload structure, not a fully printed RC car"
+    - "Electronics and wear parts remain purchased: motor, ESC, steering servo, radio control, camera/VTX, wheels/tires, metal fasteners and, where available, metal shafts, bearings and springs"
+    - "The product scope is now a fully printed low-speed RC rover structure including chassis, suspension and steering links, not only a payload add-on"
     - "The intended operating surface is private, controlled ground with direct visual supervision"
-    - "Fabrication preference is balanced-hybrid"
+    - "Fabrication preference is integrated-print with a purchased electronics/drivetrain boundary"
   recommended:
-    - "Use Tamiya CC-02 as the first measured reference chassis, without claiming compatibility before measurement"
-    - "Keep the traction battery in the lowest approved COTS chassis position; do not place it on the upper sensor deck"
-    - "Route payload loads into measured chassis/frame hardpoints; bodyposts may locate a light cover but are not the primary structural load path"
+    - "Use Tamiya CC-02 only as a class/geometry reference (wheelbase, track, tire size); no donor structure, fully printed chassis per user decision"
+    - "Keep the traction battery in the lowest designed frame position; do not place it on the upper sensor deck"
+    - "Route all loads through designed frame datums and printed nodes; bodyposts may locate a light cover but are not the primary structural load path"
+    - "Fully printed route: frame, suspension arms and steering links use a PETG baseline with load-aligned print orientation, generous root radii and dedicated static, impact and fatigue coupons before any driving test"
+    - "Print gears or axles only for the low-speed stage with explicit strain justification and bench tests; purchased gearbox/diff preferred when a suitable COTS unit exists"
+    - "Compare PETG against PETG-CF or ASA for frame/arms by coupon; abrasive filled filaments require a hardened nozzle"
     - "Use a replaceable front camera guard, radiused impact features and cable strain relief"
     - "Use a removable electronics deck with local pads, edge beams, few large radiused windows and load-oriented ribs"
     - "Start with PETG and a 0.6 mm nozzle on the Anycubic Kobra 3 Max, subject to user confirmation and process coupons"
@@ -109,8 +113,10 @@ requirements_trace:
     - "Keep propulsion control and analog video as independent links so video loss cannot command or prevent a safe stop"
     - "Rebuild precise interfaces in CadQuery and retain STEP alongside DRAFT STL/3MF"
   unresolved:
-    - "Exact reference chassis/revision and measured mounting hardpoints"
-    - "Measured rail section, rail spacing, bodypost diameter/spacing and available vertical envelope"
+    - "Axle/differential approach: printed low-speed gears/axles versus purchased gearbox or diff"
+    - "Exact drivetrain set (motor, ratio, servo size) and wheel/tire size for the printed chassis"
+    - "Designed frame datums: wheelbase, track and ground-clearance targets from the 1:10 class reference"
+    - "Upper bridge/rails: integrated printed frame versus retained purchased square tubes (decomposition decision)"
     - "Measured RunCam Phoenix 2 SE V2, SpeedyBee TX800, surface ELRS receiver, antenna, cable and fastener envelopes"
     - "Final surface-radio choice: RadioMaster MT12 ELRS recommended; common RadioMaster Pocket use remains an ergonomic trade-off"
     - "Approved nominal payload and proof-load target"
@@ -118,18 +124,19 @@ requirements_trace:
 
 function:
   summary: >
-    A removable, modular first-person-view camera and electronics structure for
-    a low-speed 1:10 COTS RC crawler. The printed parts provide measured
-    adapters, a stiff lightweight deck, protected analog-FPV vision, electronics
-    retention, cable routing and antenna separation without modifying the
-    steering or drivetrain.
+    A fully printed, modular first-person-view camera rover for low-speed
+    supervised hobby use. The printed scope covers chassis frame, suspension
+    arms, steering links, drivetrain/servo mounts, a stiff lightweight
+    electronics bridge, protected analog-FPV vision, electronics retention,
+    cable routing and antenna separation. Motor, ESC, servo, radio, camera/VTX,
+    wheels/tires and small metal hardware remain purchased.
   intended_users:
     - "adult hobby builder"
     - "supervised test operator"
   included:
-    - "Measured chassis/frame adapter set"
-    - "Two purchased structural rails and printed rail nodes"
-    - "Removable electronics/sensor deck"
+    - "Fully printed chassis frame with designed datums"
+    - "Printed suspension arms, steering links and drivetrain/servo mounts"
+    - "Printed bridge/rail structure with removable electronics/sensor deck"
     - "Fixed-tilt 19 mm camera mount with replaceable guard"
     - "Cooled 20 x 20 mm analog-VTX mount with antenna strain relief"
     - "Surface-vehicle ELRS receiver mount separated from the VTX and power wiring"
@@ -137,7 +144,8 @@ function:
     - "Cable routing, strain relief and accessible fasteners"
     - "Interface coupons and staged physical test plan"
   excluded:
-    - "Steering, throttle, ESC, receiver or drivetrain redesign"
+    - "Throttle/ESC, receiver or motor electronics redesign beyond mounting and wiring retention"
+    - "Printed high-speed gears, differentials or loaded bearings without explicit justification and tests"
     - "Autonomous driving, video-only supervision, public-road use or unsupervised operation"
     - "High-speed operation or a validated payload/load rating before tests"
     - "Printer upload or print start"
@@ -160,9 +168,10 @@ geometry:
     camera_envelope_mm: [19.0, 19.0, 22.0]
     camera_tilt_slot_mm: 8.0
   redesign_constraints:
-    battery_location: "lowest approved COTS chassis location, not the payload deck"
-    primary_mount: "measured chassis/frame hardpoints; exact pattern unresolved"
-    rail_connection: "non-drilled purchased rail captured by split clamps and M3 through-fasteners"
+    battery_location: "lowest designed frame position, not the payload deck"
+    primary_mount: "designed frame datums; wheelbase/track/clearance targets frozen in decomposition from the 1:10 class reference"
+    rail_connection: "printed bridge/rail structure; purchased square tubes optional and captured without drilling if retained"
+    printed_structure: "frame, arms and links are fatigue-relevant: load-aligned orientation, root radii, replaceable wear parts and coupon qualification are mandatory"
     camera_protection: "replaceable guard must stay outside the optical field and transfer impact into reinforced nodes"
     cable_protection: "strain relief and bend radii must avoid steering, suspension, driveshaft and wheel envelopes"
     service_access: "battery disconnect, fasteners and electronic modules removable without destructive disassembly"
@@ -178,8 +187,9 @@ geometry:
 
 interfaces:
   chassis:
-    status: unresolved
-    recommended_reference: "Tamiya CC-02, exact kit/revision to be measured"
+    status: user-decided
+    route: "fully printed chassis including suspension arms and steering links (user decision 2026-08-29); no CF tubes, no COTS/donor structure"
+    class_reference: "Tamiya CC-02 as geometry/class reference only (wheelbase, track, tire size)"
   rails:
     status: provisional
     nominal: "two 10 x 10 x 1 mm square tubes"
@@ -204,19 +214,20 @@ interfaces:
     coupon_diameters_mm: [6.10, 6.25, 6.40]
 
 concept_visualization:
-  selected_asset: concepts/trailcam-cf10-fpv-concept-v0.3.0-r3.png
+  selected_asset: concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png
   role: "Appearance and architecture review only; not dimensional or manufacturing evidence"
   visible_intent:
-    - "Low battery remains in the purchased chassis"
-    - "Two carbon rails carry a low open printed electronics bridge"
-    - "Camera is centered forward inside a replaceable orange guard"
-    - "Receiver and VTX are visually separated and serviceable"
-    - "Two antenna paths are separated and protected by short rollover loops"
-    - "Exploded and underside views expose rail clamps, fastener access and chassis keep-outs"
+    - "Fully printed ribbed frame, skid plate, battery tray and bridge; no COTS structure"
+    - "Printed double-wishbone arms, steering links and coil-over shocks at all four corners"
+    - "Four wheels on two axles, consistent in every full-vehicle view"
+    - "Battery strapped low in the printed tray below bridge level"
+    - "Open printed bridge with separated receiver and VTX bays and independent antenna paths"
+    - "Camera centered forward inside a replaceable orange guard"
+    - "Exploded and underside views expose arms, links, carriers, bridge, guard and fasteners"
   deliberate_simplifications:
-    - "Purchased chassis and electronics are generic visual proxies, not exact supplier geometry"
-    - "Antenna lengths and bends are illustrative; active-element keep-outs remain authoritative in CAD"
-    - "Rail spacing, hardpoints, cover vents and cable paths require measurement before production CAD"
+    - "Tires, rims, PCBs, motor/servo and antennas are generic visual proxies, not exact supplier geometry"
+    - "Suspension geometry, shock angles and link lengths are illustrative; kinematics and keep-outs remain authoritative in CAD"
+    - "Frame datums (wheelbase, track, clearance) frozen in decomposition from the 1:10 class reference"
 
 duty:
   operating_mode: "low-speed supervised hobby rover on controlled private ground"
@@ -227,6 +238,8 @@ duty:
     mount_remove: 25
     camera_tilt_adjust: 25
     controlled_drive_minutes: 60
+    suspension_bump_cycles: 2000
+    steering_full_travel_cycles: 1000
   service_life_target: "one hobby season pending physical qualification"
 
 environment:
@@ -242,15 +255,16 @@ environment:
 
 risk:
   class: normal-functional
-  boundary: "Printed work does not modify vehicle control; any control-system or high-speed change requires qualified human review"
+  boundary: "Printed steering links and suspension arms are part of the vehicle control and motion path; they require coupon qualification and explicit human physical-test approval before driving. Any high-speed or autonomous change requires qualified human review"
   hazards:
-    - "Payload detachment or rail-clamp fracture on a moving vehicle"
+    - "Fatigue or impact fracture of printed suspension arms, steering links or frame on a moving vehicle"
+    - "Payload detachment or frame-node fracture on a moving vehicle"
     - "High center of gravity causing rollover"
     - "Camera/antenna impact and cable entanglement"
     - "LiPo damage, wiring short, BEC brownout or hot VTX"
     - "Loss of control or video and delayed stopping"
-    - "Conductive/irritating dust when cutting CFK"
   mitigations:
+    - "Load-aligned print orientation and root radii for arms/links, replaceable wear parts, static/impact/fatigue coupons and proof loads before driving"
     - "Low-mounted battery, frame-directed load path, metal through-fasteners and conservative speed"
     - "Guarded camera, bounded cable routes, visible disconnect and independent control/video paths"
     - "Fit, slip, load, BEC, thermal, failsafe, range, braking and drive tests before FPV use"
@@ -274,7 +288,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-TOY-002
-  version: 0.3.0
+  version: 0.4.0
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
@@ -283,14 +297,15 @@ branding:
   status: "planned as the last solid-geometry change after primary candidate verification"
 
 fabrication:
-  preference: balanced-hybrid
+  preference: integrated-print
   process: fdm-fff
   printer: "unresolved; Anycubic Kobra 3 Max recommended if confirmed"
   build_volume_mm: "unresolved; every individual printed part should also target a common 220 x 220 mm bed"
-  material: "PETG recommended starting point; exact manufacturer/product unresolved"
-  nozzle_mm: "0.6 recommended; user approval and exact-profile confirmation required"
+  material: "PETG recommended starting point for structure; PETG-CF/ASA coupon comparison for frame/arms; exact manufacturer/product unresolved"
+  nozzle_mm: "0.6 recommended; hardened nozzle required if abrasive filled filament is selected"
   layer_height_mm: "0.24 recommended starting point; verify below 75% of nozzle diameter"
-  supports: "none intended for primary clamp and deck parts"
+  supports: "none intended for primary frame, arm, link and deck parts"
+  orientation_rule: "suspension arms and steering links printed flat with layers aligned to the principal load; upright printing of fatigue parts is prohibited"
   target_formats: [step, stl, 3mf]
 
 printer:
@@ -348,6 +363,8 @@ acceptance:
     criterion: "Every part fits the approved printer in its intended orientation and exact slicing has no required FAIL, NOT_RUN or REVIEW_REQUIRED check."
   - id: AC-LOAD-001
     criterion: "The approved service-load, proof-load and 50 N clamp-slip tests meet the limits in acceptance_plan.physical."
+  - id: AC-STRUCT-001
+    criterion: "Printed frame, suspension arms and steering links pass static proof, impact and cycle coupons (2000 suspension bump cycles, 1000 steering full-travel cycles) with recorded measurements before any driving test."
   - id: AC-SAFE-001
     criterion: "Failsafe, receiver-stall, range, video-under-load, VTX-temperature, braking and supervised 5 km/h driving tests pass before FPV use."
   - id: AC-FPV-001
@@ -368,6 +385,8 @@ acceptance_plan:
     - "At 500 g service load, elastic deck deflection is at most 2.0 mm and residual set after unloading is at most 0.2 mm"
     - "At 1000 g static proof load, no crack, white stress mark, fastener pull-through or rail slip occurs; residual set is at most 0.5 mm"
     - "A 50 N rail-clamp slip test produces less than 0.5 mm movement"
+    - "Printed suspension arms survive 2000 bump cycles and steering links 1000 full-travel cycles without crack, white stress mark or residual set above 0.5 mm"
+    - "Printed frame passes torsion and proof-load checks with recorded residual set within limits"
     - "Camera guard survives the approved low-energy impact coupon without contacting the lens or releasing fragments"
     - "Failsafe stops propulsion, receiver does not reboot at steering stall, and the emergency disconnect stays reachable"
     - "Range, video-under-motor-load, VTX temperature, braking distance and 5 km/h supervised driving tests pass"

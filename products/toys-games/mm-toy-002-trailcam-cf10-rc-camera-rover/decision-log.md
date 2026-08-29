@@ -69,3 +69,51 @@
   `architecture/architecture-report-v0.3.0.md`) is now the next human gate.
   Production CAD, slicer work and exports remain blocked until the decomposition
   is explicitly approved.
+
+## 2026-08-29 — Requirements change 0.4.0: self-made chassis
+
+- Stefan requested during the decomposition gate: the chassis shall not be a
+  purchased COTS assembly; it shall be 3D-printed or built from carbon-fiber tubes
+  with printed connectors, holders, baskets and cases.
+- This changes approved requirements (structural base, load path, BOM, risk
+  exposure). Per workflow: requirements gate set to `changes-requested`, concept
+  approval r3 invalidated, decomposition blocked, specification raised to 0.4.0.
+- Engineering direction recommended for the review: carbon-fiber tubes with printed
+  nodes over a fully printed chassis; drivetrain, steering and precision parts stay
+  purchased; final route and drivetrain/suspension sourcing are the consequential
+  open questions of the 0.4.0 requirements review.
+- No new concept image is generated before the 0.4.0 requirements are approved.
+
+## 2026-08-29 — 0.4.0 route decisions: fully printed chassis and printed suspension
+
+- Stefan selected the fully printed chassis (not CF tubes with printed nodes) and
+  printed suspension arms plus steering links (not donor or discrete COTS
+  suspension), explicitly against the lead recommendation.
+- The decisions are recorded as user-stated requirements. The lead concern
+  (fatigue and impact in FDM parts) is converted into mandatory validation:
+  load-aligned orientation, root radii, replaceable wear links, static/impact/
+  fatigue coupons (2000 suspension bump cycles, 1000 steering full-travel cycles),
+  frame torsion/proof load and explicit human physical-test approval before any
+  driving test (AC-STRUCT-001).
+- Fabrication preference changed to integrated-print; motor, ESC, servo, radio,
+  camera/VTX, wheels/tires and small metal hardware remain purchased.
+- Risk class remains normal-functional with an explicit boundary: printed steering
+  and suspension parts are part of the control/motion path and require coupon
+  qualification plus human physical approval before driving.
+
+## 2026-08-29 — Requirements 0.4.0 approved
+
+- Stefan approved requirements revision 0.4.0 with the response "freigegeben".
+- The 0.3.0 approval is recorded as superseded; concept r3 remains invalidated.
+- Next gate: a new concept image for revision 0.4.0 (fully printed chassis with
+  printed suspension and steering), followed by decomposition re-approval.
+
+## 2026-08-29 — 0.4.0 concept candidate (r2)
+
+- Generated `trailcam-cf10-fpv-concept-v0.4.0-r1.png`; self-review found the
+  assembled view omitted the electronics bridge with separated RX/VTX bays.
+- Generated `trailcam-cf10-fpv-concept-v0.4.0-r2.png` with the bridge added;
+  self-reviewed against `EVAL-visual-concept-wheel-axle-consistency-001`
+  (four wheels / two axles consistent in all full-vehicle views) and module
+  separation visibility. Both checks pass.
+- Concept gate set to pending for 0.4.0 with `concepts/concept-review-v0.4.0.md`.

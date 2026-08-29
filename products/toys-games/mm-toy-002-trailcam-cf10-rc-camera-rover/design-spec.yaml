@@ -1,0 +1,328 @@
+schema_version: 1
+
+project:
+  id: MM-TOY-002
+  sku: MM-TOY-002
+  name: "TrailCam CF10 RC Camera Rover"
+  revision: 0.2.0
+  candidate: 0.2.0-draft.1
+  owner: Stefan
+  created: "2026-08-29"
+  revised: "2026-08-29"
+  supersedes: "Uncontrolled TrailCam CF10 v0.1.0 report dated 2026-08-13"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-096"
+  tool_route: "Recommended CadQuery B-Rep rebuild with STEP/STL/3MF outputs; blocked pending requirements and concept approval"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: pending
+    spec_revision: 0.2.0
+    reason: "Guided policy requires explicit human approval of the normalized redesign requirements"
+  concept_approval:
+    status: blocked
+    reason: "Requirements revision 0.2.0 is not approved"
+  decomposition:
+    status: blocked
+    reason: "Requirements and concept are not approved"
+  digital_candidate:
+    status: blocked
+    reason: "No reproducible source or manufacturing mesh exists in the imported package"
+  slicer_preflight:
+    status: blocked
+    reason: "No candidate geometry or approved exact machine/process/filament profile exists"
+  physical_validation:
+    status: blocked
+    reason: "No print, measurement, load, radio, thermal or driving evidence exists in the repository"
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-TOY-002
+    version: 0.2.0
+    reason: "Watermark is the final planned solid-geometry change after candidate verification"
+  final_release_approval:
+    status: blocked
+    reason: "Requirements, concept, geometry, slicer, physical, safety and commercial gates remain open"
+
+source_audit:
+  imported_report:
+    path: docs/legacy/TrailCam_CF10_Entwurfsbericht_v0.1.0.pdf
+    sha256: 21224fbd4c396d79fae382f0cd77d4781f239ec4e05c511b2a5549d49f31c4b5
+    size_bytes: 709313
+    status: "legacy evidence only"
+  report_claims:
+    - "Parametric Node.js CSG generator and central JSON dimensions"
+    - "Ten closed, oriented, single-component STL files"
+    - "Automated mesh repair and validation"
+    - "Assembly images, BOM, software path and staged acceptance plan"
+  repository_findings:
+    source_generator: missing
+    parameter_file: missing
+    stl_files: missing
+    mesh_validation_reports: missing
+    product_bom: missing
+    license_file: missing
+  unrelated_loose_file:
+    path: products/toys-games/bom_budget_de.csv
+    disposition: "Not moved; its rows describe the OpenQuad aircraft and do not belong to TrailCam"
+
+requirements_trace:
+  user_stated:
+    - "Find the RC-car design in the toy folder"
+    - "Integrate it into the repository structure with a portfolio record and product ID"
+    - "Create a product folder, move the design there, review it and improve it"
+  legacy_report_stated:
+    - "Low-speed modular 1:10 camera rover on a COTS crawler chassis"
+    - "Two 10 x 10 x 1 mm, 390 mm rails at 84 mm center spacing"
+    - "Printed nodes, 168 x 104 x 5.6 mm windowed/ribbed deck and fixed-tilt 19 mm camera bracket"
+    - "Independent RC-control and video paths"
+    - "PETG starting material, ASA option, M3 fasteners and fit coupons"
+    - "Bodypost and rail interfaces are parameterized rather than universally slotted"
+  inferred:
+    - "The drivable chassis, steering, drivetrain, wheels, bearings, radio control and battery safety remain purchased assemblies"
+    - "The product scope is the removable printed/purchased payload structure, not a fully printed RC car"
+    - "The intended operating surface is private, controlled ground with direct visual supervision"
+    - "Fabrication preference is balanced-hybrid"
+  recommended:
+    - "Use Tamiya CC-02 as the first measured reference chassis, without claiming compatibility before measurement"
+    - "Keep the traction battery in the lowest approved COTS chassis position; do not place it on the upper sensor deck"
+    - "Route payload loads into measured chassis/frame hardpoints; bodyposts may locate a light cover but are not the primary structural load path"
+    - "Use a replaceable front camera guard, radiused impact features and cable strain relief"
+    - "Use a removable electronics deck with local pads, edge beams, few large radiused windows and load-oriented ribs"
+    - "Start with PETG and a 0.6 mm nozzle on the Anycubic Kobra 3 Max, subject to user confirmation and process coupons"
+    - "Limit the first driving stage to 5 km/h and direct line of sight until braking, failsafe, latency and range tests pass"
+    - "Rebuild precise interfaces in CadQuery and retain STEP alongside DRAFT STL/3MF"
+  unresolved:
+    - "Exact reference chassis/revision and measured mounting hardpoints"
+    - "Measured rail section, rail spacing, bodypost diameter/spacing and available vertical envelope"
+    - "Exact camera, VTX, receiver, antenna, cable and fastener envelopes"
+    - "Approved nominal payload and proof-load target"
+    - "Exact printer, nozzle, PETG product, drying state and slicer profiles"
+
+function:
+  summary: >
+    A removable, modular sensor and camera payload structure for a low-speed
+    1:10 COTS RC crawler. The printed parts provide measured adapters, a stiff
+    lightweight deck, camera protection, electronics retention, cable routing
+    and antenna separation without modifying the steering or drivetrain.
+  intended_users:
+    - "adult hobby builder"
+    - "supervised test operator"
+  included:
+    - "Measured chassis/frame adapter set"
+    - "Two purchased structural rails and printed rail nodes"
+    - "Removable electronics/sensor deck"
+    - "Fixed-tilt 19 mm camera mount with replaceable guard"
+    - "Antenna mount outside conductive rail shadow"
+    - "Cable routing, strain relief and accessible fasteners"
+    - "Interface coupons and staged physical test plan"
+  excluded:
+    - "Steering, throttle, ESC, receiver or drivetrain redesign"
+    - "Autonomous driving, public-road use or unsupervised operation"
+    - "High-speed operation or a validated payload/load rating before tests"
+    - "Printer upload or print start"
+    - "Commercial or toy-safety certification claims"
+
+coordinate_system:
+  units: mm
+  origin: "vehicle longitudinal center plane at the lowest payload mounting datum; exact chassis datum unresolved"
+  x: "vehicle forward"
+  y: "vehicle left"
+  z: "up"
+
+geometry:
+  legacy_reference_only:
+    rail_section_mm: [10.0, 10.0, 1.0]
+    rail_length_mm: 390.0
+    rail_center_spacing_mm: 84.0
+    bodypost_diameter_mm: 6.0
+    deck_envelope_mm: [168.0, 104.0, 5.6]
+    camera_envelope_mm: [19.0, 19.0, 22.0]
+    camera_tilt_slot_mm: 8.0
+  redesign_constraints:
+    battery_location: "lowest approved COTS chassis location, not the payload deck"
+    primary_mount: "measured chassis/frame hardpoints; exact pattern unresolved"
+    rail_connection: "non-drilled purchased rail captured by split clamps and M3 through-fasteners"
+    camera_protection: "replaceable guard must stay outside the optical field and transfer impact into reinforced nodes"
+    cable_protection: "strain relief and bend radii must avoid steering, suspension, driveshaft and wheel envelopes"
+    service_access: "battery disconnect, fasteners and electronic modules removable without destructive disassembly"
+  protected_regions:
+    - "Steering, suspension, wheel, driveshaft and motor motion envelopes"
+    - "Battery access and visible emergency disconnect"
+    - "Measured chassis mounting datums and rail alignment"
+    - "Camera optical field and antenna active elements"
+    - "Fastener seats, clamp bores, split planes and tool access"
+    - "Bed faces and future watermark safe region"
+
+interfaces:
+  chassis:
+    status: unresolved
+    recommended_reference: "Tamiya CC-02, exact kit/revision to be measured"
+  rails:
+    status: provisional
+    nominal: "two 10 x 10 x 1 mm square tubes"
+    coupon_clearances_mm: [10.20, 10.35, 10.50]
+  fasteners:
+    recommended: "M3 metal through-bolts, washers and Nyloc nuts or captured metal nuts"
+    rule: "No printed primary fastener and no heat-set insert in a primary clamp load path without a dedicated coupon"
+  camera:
+    status: provisional
+    nominal: "19 x 19 x 22 mm with M2 mounting"
+  bodyposts:
+    status: "locator-only candidate; not accepted as primary structural support"
+    coupon_diameters_mm: [6.10, 6.25, 6.40]
+
+duty:
+  operating_mode: "low-speed supervised hobby rover on controlled private ground"
+  recommended_speed_limit_kmh: 5.0
+  recommended_service_payload_g: 500
+  recommended_static_proof_load_g: 1000
+  cycle_targets:
+    mount_remove: 25
+    camera_tilt_adjust: 25
+    controlled_drive_minutes: 60
+  service_life_target: "one hobby season pending physical qualification"
+
+environment:
+  intended: "outdoor splash/dust exposure during short supervised runs"
+  exclusions:
+    - "No immersion"
+    - "No rainproof or dustproof rating"
+    - "No hot-vehicle or prolonged UV claim before exact-material evidence"
+  review_items:
+    - "VTX cooling and temperature under stationary and moving conditions"
+    - "CFK or metal rail antenna shadowing"
+    - "Moisture drainage and cleanability"
+
+risk:
+  class: normal-functional
+  boundary: "Printed work does not modify vehicle control; any control-system or high-speed change requires qualified human review"
+  hazards:
+    - "Payload detachment or rail-clamp fracture on a moving vehicle"
+    - "High center of gravity causing rollover"
+    - "Camera/antenna impact and cable entanglement"
+    - "LiPo damage, wiring short, BEC brownout or hot VTX"
+    - "Loss of control or video and delayed stopping"
+    - "Conductive/irritating dust when cutting CFK"
+  mitigations:
+    - "Low-mounted battery, frame-directed load path, metal through-fasteners and conservative speed"
+    - "Guarded camera, bounded cable routes, visible disconnect and independent control/video paths"
+    - "Fit, slip, load, BEC, thermal, failsafe, range, braking and drive tests before FPV use"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-TOY-002
+  version: 0.2.0
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: "planned as the last solid-geometry change after primary candidate verification"
+
+fabrication:
+  preference: balanced-hybrid
+  process: fdm-fff
+  printer: "unresolved; Anycubic Kobra 3 Max recommended if confirmed"
+  build_volume_mm: "unresolved; every individual printed part should also target a common 220 x 220 mm bed"
+  material: "PETG recommended starting point; exact manufacturer/product unresolved"
+  nozzle_mm: "0.6 recommended; user approval and exact-profile confirmation required"
+  layer_height_mm: "0.24 recommended starting point; verify below 75% of nozzle diameter"
+  supports: "none intended for primary clamp and deck parts"
+  target_formats: [step, stl, 3mf]
+
+printer:
+  status: provisional
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420.0, 420.0, 500.0]
+  assumption: "Workspace-supported reference; requires user confirmation before exact slicing"
+
+manufacturing:
+  process: fdm-fff
+  nozzle_mm: 0.6
+  layer_height_mm: 0.24
+  line_width_mm: 0.66
+  material: "PETG; exact manufacturer/product and condition unresolved"
+  orientation: "part-specific and pending approved geometry"
+  support_policy: "design primary parts for support-free printing"
+
+optimization:
+  status: pending
+  objective: "Reduce upper-structure mass and print burden while improving load-path clarity, protection and serviceability"
+  baseline_status: "unavailable; report gives CAD volume only and the claimed source/meshes are missing"
+  baseline_reported_deck:
+    solid_volume_mm3: 92769.82
+    windowed_ribbed_volume_mm3: 53645.65
+    reported_reduction_percent: 42.2
+    limitation: "Not exact-slicer evidence and not reproducible from current repository contents"
+  protected_constraints:
+    - "Mounting datums, rail alignment, fastener seats and tool access"
+    - "Camera optical field, antenna keep-out and cable bend radii"
+    - "Chassis motion envelopes, battery access and low center of gravity"
+    - "Continuous edge beams, clamp load paths and impact-load path into replaceable guard"
+  planned_candidates:
+    - "A — rebuilt legacy envelope with process-only 0.4/0.6 mm nozzle comparison"
+    - "B — geometry-only deck with few large radiused windows, edge beams, load-oriented ribs and local pads"
+    - "C — combined selected geometry and process candidate"
+    - "D — conservative frame adapter and camera-guard candidate for physical proof"
+  selection_rule: "No candidate is selected without exact slicer metrics and all protected constraints passing"
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - "chassis and rail interfaces"
+      - "fastener seats and clamp split planes"
+      - "camera optical keep-out and guard interfaces"
+      - "bed datums and future watermark geometry"
+    rationale: "No manufacturing mesh exists yet; tessellation and simplification policy will be decided after approved CAD generation"
+
+acceptance:
+  - id: AC-REQ-001
+    criterion: "The approved requirements identify one exact measured reference chassis and all mounting hardpoints before production CAD starts."
+  - id: AC-DIG-001
+    criterion: "Every printed part is generated deterministically as a positive solid with STEP and watertight single-component STL outputs."
+  - id: AC-INT-001
+    criterion: "The assembly clears all declared steering, suspension, wheel, driveshaft, motor, battery-access and disconnect envelopes across the motion sweep."
+  - id: AC-MFG-001
+    criterion: "Every part fits the approved printer in its intended orientation and exact slicing has no required FAIL, NOT_RUN or REVIEW_REQUIRED check."
+  - id: AC-LOAD-001
+    criterion: "The approved service-load, proof-load and 50 N clamp-slip tests meet the limits in acceptance_plan.physical."
+  - id: AC-SAFE-001
+    criterion: "Failsafe, receiver-stall, range, video-under-load, VTX-temperature, braking and supervised 5 km/h driving tests pass before FPV use."
+
+acceptance_plan:
+  digital:
+    - "All generated printed parts are deterministic positive solids with STEP and watertight single-component STL exports"
+    - "Assembly clears steering, suspension, wheels, driveshaft, motor, battery access and disconnect envelopes across a declared motion sweep"
+    - "Rail and chassis datums match the approved measured interface contract"
+    - "No primary clamp relies on layer-peel loading, unsupported fastener roofs or inaccessible support"
+    - "Each part fits the approved printer volume in its intended orientation"
+    - "Exact machine/process/filament slicing produces no required FAIL, NOT_RUN or REVIEW_REQUIRED check"
+  physical:
+    - "Selected rail and chassis coupons assemble without cracking, forcing or uncontrolled play"
+    - "At 500 g service load, elastic deck deflection is at most 2.0 mm and residual set after unloading is at most 0.2 mm"
+    - "At 1000 g static proof load, no crack, white stress mark, fastener pull-through or rail slip occurs; residual set is at most 0.5 mm"
+    - "A 50 N rail-clamp slip test produces less than 0.5 mm movement"
+    - "Camera guard survives the approved low-energy impact coupon without contacting the lens or releasing fragments"
+    - "Failsafe stops propulsion, receiver does not reboot at steering stall, and the emergency disconnect stays reachable"
+    - "Range, video-under-motor-load, VTX temperature, braking distance and 5 km/h supervised driving tests pass"
+  release_limits:
+    - "Digital geometry does not certify strength, compatibility, radio range, safety or legal operation"
+    - "Physical-print, fit/function, appearance, safety and commercial release remain human-controlled"
+
+deliverables:
+  current:
+    - "Integrated product folder and portfolio identity"
+    - "Unchanged legacy report with SHA-256 inventory"
+    - "Requirements draft, design audit and decision log"
+  after_approval:
+    - "Approved concept sheet with overview, underside mounting and camera-guard detail"
+    - "Purchased/printed decomposition and product-specific BOM"
+    - "Parametric CadQuery source and parameter file"
+    - "DRAFT STEP/STL/3MF exports and assembly preview"
+    - "Geometry, interface, mesh, optimization and exact-slicer reports"
+    - "Fit/load/impact/electrical/radio/thermal/driving physical test plan"
+    - "Product-specific metriMade.com watermark as the last solid-geometry change"

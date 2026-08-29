@@ -1,10 +1,10 @@
 # Portfolio 3D-model artifact audit
 
-Audit date: 2026-08-28
+Audit date: 2026-08-29
 
-- Portfolio records: **95**
+- Portfolio records: **96**
 - Records with a local neutral/manufacturing 3D artifact: **95**
-- Records without a local 3D artifact: **0**
+- Records without a local 3D artifact: **1**
 - Records with detected parametric source: **80**
 - Records with at least one 3MF: **63**
 - Lifecycle/model contradictions: **0**
@@ -108,3 +108,4 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-093 | MM-ORG-037 | Sewing bobbin and presser-foot drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-stitchcell-cb-kit-0.1.0-draft.1.3mf` |
 | PORT-094 | MM-ORG-038 | Milestone photo-and-card desk display block | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/exports/3mf/DRAFT-MM-ORG-038-momentpair-base-0.1.0-draft.1.3mf` |
 | PORT-095 | MM-ORG-039 | Coin-capsule and medal drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/exports/3mf/DRAFT-MM-ORG-039-collectorgrid-round-46-kit-0.1.0-draft.1.3mf` |
+| PORT-096 | MM-TOY-002 | TrailCam CF10 RC Camera Rover | P0 Idea | NO — report only; claimed source/STLs absent | `products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/legacy/TrailCam_CF10_Entwurfsbericht_v0.1.0.pdf` |

@@ -1,11 +1,19 @@
 # Workspace Agent Instructions
 
-## 1. Git synchronization for 3D design work
+## 1. Git synchronization and main-only branch policy
+
+### Branch policy
+
+- This repository uses only the `main` branch for active work. Make every change, commit, synchronization, and push directly on `main`.
+- Do not create or use feature, agent, Codex, integration, release, or task branches in this repository. Do not create additional worktrees on non-`main` branches to perform repository work.
+- Treat any existing non-`main` branches as historical references only. Do not add commits to them or use them as the destination for new work unless the human owner explicitly changes this policy.
+- Before changing any file, verify that the current branch is exactly `main` and that its configured upstream is `origin/main`. If another branch is checked out, return to `main` only through a safe workflow that preserves every tracked and untracked change. If that cannot be done safely, stop and report the blocker.
+- Never force-push or rewrite `main` history. Integrate concurrent upstream work non-destructively, stage only the current task's files, and push the completed commit to `origin/main`.
 
 ### Start of a design or design phase
 
 - Synchronize the repository with its upstream remote before changing design artifacts.
-- Inspect the current branch, upstream, and `git status` first.
+- Inspect the current branch, upstream, and `git status` first, and confirm `main` tracks `origin/main`.
 - Preserve all existing user and agent changes. Never discard, overwrite, reset, or silently hide a dirty worktree to make synchronization succeed.
 - Fetch and integrate upstream changes with an appropriate non-destructive workflow, such as `git pull` or an equivalent fetch plus merge/rebase operation.
 - If local changes, conflicts, authentication, or branch state prevent a safe synchronization, stop design edits and report the exact blocker.
@@ -15,7 +23,7 @@
 - Review the diff and validation evidence before staging.
 - Stage only the files that belong to the completed phase; do not include unrelated user changes.
 - Consider Git LFS before staging large binary CAD, mesh, image, archive, 3MF, or other manufacturing artifacts. Follow existing `.gitattributes` and repository conventions. Do not rewrite existing Git history to migrate files into LFS without explicit approval.
-- Create a descriptive commit for the phase and push the current branch to its configured upstream.
+- Create a descriptive commit for the phase directly on `main` and push it to `origin/main`.
 - Confirm that the push succeeded. Do not describe the phase as synchronized or complete while required changes remain only local.
 
 ## 2. Evidence-gated 3D learning

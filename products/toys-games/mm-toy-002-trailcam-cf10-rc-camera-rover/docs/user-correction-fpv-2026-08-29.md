@@ -32,5 +32,6 @@ created. OpenQuad and the separate Tethys submarine were still loose packages.
   optional surface buoy because 2.4/5.8 GHz is not a viable submerged primary
   control/video architecture.
 
-Status: normalized requirements draft, pending explicit user approval. No new
-production CAD or imported safety-critical geometry was changed.
+Status: requirements revision `0.3.0` approved by Stefan on 2026-08-29 with the
+response `freigegeben`. Concept and decomposition remain pending; no production
+CAD or imported safety-critical geometry was changed.

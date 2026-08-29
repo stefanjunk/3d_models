@@ -1,0 +1,451 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-TOY-002",
+    "title": "TrailCam CF10 low-profile FPV rover functional redesign",
+    "source_modes": ["design_description", "concept_image", "measurements"],
+    "claim": "functional_redesign",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max — provisional",
+      "nozzle_mm": 0.6,
+      "line_width_mm": 0.66,
+      "layer_height_mm": 0.24,
+      "profile_id": "UNRESOLVED-PETG-0.6-0.24"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "vehicle longitudinal center plane at the lowest payload mounting datum",
+      "x_axis": "+X vehicle forward",
+      "y_axis": "+Y vehicle left",
+      "z_axis": "+Z upward",
+      "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {
+      "min": [-250.0, -170.0, -100.0],
+      "max": [250.0, 170.0, 180.0]
+    },
+    "requirements": [
+      {
+        "id": "REQ-FPV-001",
+        "statement": "The rover shall provide a forward analog-FPV view through a guarded RunCam Phoenix 2 SE V2-class camera and a separately mounted SpeedyBee TX800-class VTX.",
+        "evidence_class": "requested",
+        "source": "approved design-spec.yaml revision 0.3.0",
+        "priority": "critical",
+        "verification": "measured COTS envelopes, field-of-view collision test, power/thermal bench test and supervised video-under-load test"
+      },
+      {
+        "id": "REQ-RC-001",
+        "statement": "Control shall use the EdgeTX/ExpressLRS 2.4 GHz LBT family through a rover-specific PWM receiver, independent of the analog video link.",
+        "evidence_class": "requested",
+        "source": "approved design-spec.yaml revision 0.3.0",
+        "priority": "critical",
+        "verification": "wiring review, failsafe test with total video loss, stall/brownout test and controlled range test"
+      },
+      {
+        "id": "REQ-STRUCT-001",
+        "statement": "Primary payload loads shall pass through measured chassis hardpoints, adapter nodes and two rails; bodyposts may locate only a light cover.",
+        "evidence_class": "requested",
+        "source": "approved design-spec.yaml revision 0.3.0",
+        "priority": "critical",
+        "verification": "datum inspection, load-path section review, clamp-slip test and proof-load test"
+      },
+      {
+        "id": "REQ-MASS-001",
+        "statement": "The traction battery shall remain in the lowest approved purchased-chassis position and the upper electronics bridge shall be open, ribbed and serviceable.",
+        "evidence_class": "requested",
+        "source": "approved design-spec.yaml and concept revision 0.3.0-r2",
+        "priority": "critical",
+        "verification": "assembly proxy, center-of-mass comparison and service-access review"
+      },
+      {
+        "id": "REQ-KEEP-001",
+        "statement": "No payload component, cable or fastener may enter steering, suspension, wheel, driveshaft, motor, battery-access, disconnect, camera-view or RF-active keep-outs.",
+        "evidence_class": "requested",
+        "source": "approved design-spec.yaml revision 0.3.0",
+        "priority": "critical",
+        "verification": "exact CAD collision and swept-volume checks plus full-travel physical inspection"
+      },
+      {
+        "id": "REQ-MFG-001",
+        "statement": "Printed functional components shall be deterministic CadQuery B-Rep solids with STEP, watertight STL and 3MF handoff outputs after concept and decomposition approval.",
+        "evidence_class": "recommended",
+        "source": "functional redesign decision",
+        "priority": "important",
+        "verification": "source regeneration, solid audit, mesh validation and exact slicer preflight"
+      }
+    ],
+    "global_style": {
+      "summary": "low-profile technical crawler payload with dark structural rails and orange replaceable protection/service accents",
+      "motifs": ["continuous low edge beams", "few large radiused windows", "load-oriented ribs", "compact rollover loops"],
+      "exclude": ["broad solid roof deck", "decorative micro-texture", "unprotected tall antenna towers", "thin unsupported webs", "visual-only fasteners"],
+      "generation_material": "matte black and charcoal functional polymers with restrained orange service accents",
+      "detail_hierarchy": "measured interfaces first, camera and RF protection second, low technical silhouette third"
+    },
+    "assembly_sequence": [
+      "Measure and freeze the exact purchased chassis, hardpoints, rail section, motion envelopes and battery/disconnect access.",
+      "Attach ADAPTER_SET to CHASSIS_COTS with HARDWARE_KIT and verify full suspension/steering travel.",
+      "Capture the two RAILS_COTS in split clamps without drilling the rails.",
+      "Fasten ELECTRONICS_BRIDGE to the rails and verify load path, tool access and battery removal.",
+      "Install CAMERA_COTS in CAMERA_GUARD, then install the guarded module at the front bridge interface.",
+      "Install RX_COTS and VTX_COTS in their separated RF_MOUNT_SET bodies with cable strain relief and antenna keep-outs.",
+      "Complete electrical, failsafe, thermal, RF, load and low-speed driving checks before FPV operation."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-CONCEPT-001",
+      "topic": "Approve concept revision 0.3.0-r2 and this functional decomposition before production CAD.",
+      "status": "open",
+      "current_basis": "Requirements revision 0.3.0 is approved; the selected concept and decomposition are awaiting explicit human approval.",
+      "evidence_needed": "User approval or corrections naming concept revision 0.3.0-r2 and the decomposition direction.",
+      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-CHASSIS-001",
+      "topic": "Freeze the exact 1:10 crawler chassis revision and measured hardpoint/motion contract.",
+      "status": "open",
+      "current_basis": "Tamiya CC-02 is only the recommended first reference; legacy dimensions are not verified.",
+      "evidence_needed": "Named chassis kit/revision, calibrated measurements, hardpoint table, motion sweeps and battery/disconnect envelope.",
+      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-COTS-001",
+      "topic": "Freeze measured camera, VTX, receiver, antenna, connector, cable and fastener envelopes.",
+      "status": "provisional",
+      "current_basis": "RunCam Phoenix 2 SE V2, SpeedyBee TX800 and RadioMaster ER5C are platform-family candidates, not measured CAD authorities.",
+      "evidence_needed": "Exact purchased revisions, supplier drawings, calibrated samples, connector exits, bend radii and antenna active-element boundaries.",
+      "blocks_gates": ["proxy", "component", "integration", "physical", "release"]
+    },
+    {
+      "id": "DEC-LOAD-001",
+      "topic": "Approve payload mass, proof load and impact severity.",
+      "status": "provisional",
+      "current_basis": "Planning values are 500 g service payload, 1000 g static proof load and supervised operation at or below 5 km/h.",
+      "evidence_needed": "Weighed electronics assembly, approved test fixture and test acceptance confirmation.",
+      "blocks_gates": ["component", "integration", "physical", "release"]
+    },
+    {
+      "id": "DEC-PROCESS-001",
+      "topic": "Freeze printer, PETG product, material condition, orientation and Anycubic process profile.",
+      "status": "provisional",
+      "current_basis": "Kobra 3 Max, 0.6 mm nozzle, 0.66 mm line width and 0.24 mm layers are planning assumptions.",
+      "evidence_needed": "Complete exact machine/process/filament JSON profiles and process-matched coupon results.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-RADIO-001",
+      "topic": "Select RadioMaster MT12 ELRS or protocol-family-compatible Pocket transmitter ergonomics.",
+      "status": "open",
+      "current_basis": "MT12 is recommended for surface controls; Pocket preserves more operator familiarity with OpenQuad.",
+      "evidence_needed": "Operator choice plus bound-receiver, channel-map and failsafe evidence.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "CHASSIS_COTS",
+      "name": "Purchased 1:10 crawler chassis assembly",
+      "role": "authoritative drivetrain, suspension, battery, frame and primary mounting datums",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["DEC-CHASSIS-001", "exact chassis drawing and measured sample pending"], "confidence": "low"},
+      "functions": ["drive and steer vehicle", "carry traction battery", "provide frame hardpoints", "define motion envelopes"],
+      "envelope_mm": {"min": [-250.0, -170.0, -100.0], "max": [250.0, 170.0, 105.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "chassis", "orientation": "vehicle datum frame"},
+      "interface_ids": ["IF-CHASSIS-ADAPTERS"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["exact revision", "hardpoint coordinates", "full motion sweep", "battery/disconnect access"]}
+    },
+    {
+      "id": "ADAPTER_SET",
+      "name": "Measured chassis adapter and split rail-clamp set",
+      "role": "primary printed load path between chassis hardpoints and purchased rails",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["CHASSIS_COTS measurements", "legacy two-rail architecture", "REQ-STRUCT-001"], "confidence": "medium"},
+      "functions": ["mate measured hardpoints", "capture rails without drilling", "spread payload load", "preserve tool access"],
+      "envelope_mm": {"min": [-180.0, -70.0, 5.0], "max": [180.0, 70.0, 55.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending process approval", "color_body": "structural", "orientation": "clamp split faces on bed with primary loads in-layer where practical"},
+      "interface_ids": ["IF-CHASSIS-ADAPTERS", "IF-ADAPTERS-RAILS", "IF-ADAPTERS-HARDWARE"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["hardpoint datums", "rail coupon fit", "minimum ligaments", "tool access", "50 N slip resistance"]}
+    },
+    {
+      "id": "RAILS_COTS",
+      "name": "Two purchased longitudinal square rails",
+      "role": "lightweight structural span and bridge datum",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["legacy nominal 10 x 10 x 1 mm, 390 mm", "physical rail measurement pending"], "confidence": "medium"},
+      "functions": ["span chassis adapters", "carry electronics bridge", "align modules"],
+      "envelope_mm": {"min": [-195.0, -47.0, 35.0], "max": [195.0, 47.0, 45.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased and cut to approved length", "material": "square tube; exact material pending", "color_body": "rail", "orientation": "longitudinal +X"},
+      "interface_ids": ["IF-ADAPTERS-RAILS", "IF-RAILS-BRIDGE"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["section and wall measurement", "straightness", "cut length", "burr removal", "RF shadow review"]}
+    },
+    {
+      "id": "ELECTRONICS_BRIDGE",
+      "name": "Low open electronics bridge",
+      "role": "serviceable printed platform with edge beams, radiused windows and local mounting pads",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "concept_image", "refs": ["concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png", "REQ-MASS-001", "REQ-KEEP-001"], "confidence": "medium"},
+      "functions": ["carry camera and RF mounts", "route cables", "protect modules", "keep upper mass low"],
+      "envelope_mm": {"min": [-110.0, -60.0, 42.0], "max": [130.0, 60.0, 90.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "FDM", "material": "PETG pending process approval", "color_body": "structural", "orientation": "largest datum face on bed; no supports in fastener or rail interfaces"},
+      "interface_ids": ["IF-RAILS-BRIDGE", "IF-BRIDGE-CAMERA-GUARD", "IF-BRIDGE-RF-MOUNTS"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["continuous edge beams", "load-oriented ribs", "large radiused windows", "service/tool access", "keep-out clearance"]}
+    },
+    {
+      "id": "CAMERA_GUARD",
+      "name": "Replaceable camera cradle and impact guard",
+      "role": "precise camera interface, fixed tilt and sacrificial frontal protection",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["CAMERA_COTS measured interface pending", "concept revision 0.3.0-r2", "REQ-FPV-001"], "confidence": "medium"},
+      "functions": ["locate camera", "protect lens", "transfer impact into bridge nodes", "preserve optical field"],
+      "envelope_mm": {"min": [105.0, -30.0, 35.0], "max": [155.0, 30.0, 95.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM body", "material": "PETG pending impact coupon", "color_body": "orange service/protection accent", "orientation": "camera seat and bridge datum support-free; impact loop strength prioritized"},
+      "interface_ids": ["IF-BRIDGE-CAMERA-GUARD", "IF-CAMERA-GUARD-CAMERA"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["camera fit", "optical field", "lens setback", "replaceability", "impact coupon"]}
+    },
+    {
+      "id": "CAMERA_COTS",
+      "name": "RunCam Phoenix 2 SE V2-class analog FPV camera",
+      "role": "purchased optical and mounting-envelope authority",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["exact purchased camera and supplier drawing pending", "nominal 19 x 19 x 22 mm"], "confidence": "medium"},
+      "functions": ["capture forward FPV video", "define lens field and connector exit"],
+      "envelope_mm": {"min": [118.0, -9.5, 52.0], "max": [140.0, 9.5, 71.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "camera", "orientation": "forward with approved fixed tilt"},
+      "interface_ids": ["IF-CAMERA-GUARD-CAMERA"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "mount pattern", "lens envelope", "connector and cable exit"]}
+    },
+    {
+      "id": "RF_MOUNT_SET",
+      "name": "Separated receiver, VTX and antenna mounting set",
+      "role": "printed retention, cooling clearance, cable strain relief and RF keep-out enforcement",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["RX_COTS and VTX_COTS measured interfaces pending", "concept revision 0.3.0-r2", "REQ-FPV-001", "REQ-RC-001"], "confidence": "medium"},
+      "functions": ["retain receiver", "retain and cool VTX", "separate signal and power cables", "protect antenna routes"],
+      "envelope_mm": {"min": [-85.0, -58.0, 48.0], "max": [70.0, 58.0, 120.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending thermal and fit coupons", "color_body": "structural with orange service tabs", "orientation": "module seats and bridge datums support-free"},
+      "interface_ids": ["IF-BRIDGE-RF-MOUNTS", "IF-RF-MOUNTS-RX", "IF-RF-MOUNTS-VTX"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["module retention", "cooling exposure", "connector/tool access", "strain relief", "RF separation"]}
+    },
+    {
+      "id": "RX_COTS",
+      "name": "RadioMaster ER5C-class ExpressLRS PWM receiver",
+      "role": "purchased rover control interface and antenna authority",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["exact purchased receiver and antenna pending", "DEC-COTS-001"], "confidence": "low"},
+      "functions": ["receive 2.4 GHz control", "provide PWM outputs", "execute configured failsafe"],
+      "envelope_mm": {"min": [-65.0, -48.0, 52.0], "max": [-25.0, -15.0, 78.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "receiver", "orientation": "connectors accessible and antenna outside rail shadow"},
+      "interface_ids": ["IF-RF-MOUNTS-RX"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "PWM/BEC compatibility", "connector exits", "antenna active-element envelope", "failsafe configuration"]}
+    },
+    {
+      "id": "VTX_COTS",
+      "name": "SpeedyBee TX800-class analog 5.8 GHz video transmitter",
+      "role": "purchased video transmitter, thermal and antenna-connector authority",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["exact purchased VTX, antenna and supplier drawing pending", "20 x 20 mm class provisional"], "confidence": "medium"},
+      "functions": ["transmit analog video", "define cooling and antenna constraints"],
+      "envelope_mm": {"min": [5.0, 15.0, 52.0], "max": [40.0, 50.0, 80.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "video transmitter", "orientation": "heat-generating surfaces exposed to airflow; antenna attached before power"},
+      "interface_ids": ["IF-RF-MOUNTS-VTX"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "mount pattern", "MMCX and cable exits", "antenna active element", "stationary temperature"]}
+    },
+    {
+      "id": "HARDWARE_KIT",
+      "name": "Purchased metal fastener and retention hardware",
+      "role": "primary bolted-joint and tool-envelope authority",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["M3 bolts, washers and Nyloc/captured metal nuts pending joint stack measurement"], "confidence": "medium"},
+      "functions": ["clamp adapters to chassis", "clamp rails", "retain bridge and service modules"],
+      "envelope_mm": {"min": [-185.0, -75.0, 0.0], "max": [185.0, 75.0, 90.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased", "material": "metal to approved specification", "color_body": "hardware", "orientation": "joint-axis specific"},
+      "interface_ids": ["IF-ADAPTERS-HARDWARE"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["joint stack", "thread engagement", "washer seat", "tool access", "retention method"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-CHASSIS-ADAPTERS",
+      "a": "CHASSIS_COTS",
+      "b": "ADAPTER_SET",
+      "owner": "CHASSIS_COTS",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [0, 0, 15], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "measured chassis hardpoint pattern", "status": "unresolved", "bodyposts": "locator-only"},
+      "joining": {"method": "metal through-fasteners at measured frame hardpoints", "assembly_direction": "+Z", "anti_rotation": "two or more separated hardpoints per adapter pair", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.2, "solver_margin_mm": 0.1},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS", "KEEP-DISCONNECT"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "all payload static, dynamic and impact loads into measured frame hardpoints"},
+      "verification": ["calibrated hardpoint measurements", "exact CAD mate", "full motion sweep", "proof-load and residual-set test"]
+    },
+    {
+      "id": "IF-ADAPTERS-RAILS",
+      "a": "ADAPTER_SET",
+      "b": "RAILS_COTS",
+      "owner": "RAILS_COTS",
+      "kind": "fastener",
+      "local_frame": {"origin_mm": [0, 0, 40], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "two split square-tube clamps", "legacy_rail_section_mm": [10.0, 10.0], "legacy_center_spacing_mm": 84.0},
+      "joining": {"method": "split printed clamp with M3 through-bolts; rail remains undrilled", "assembly_direction": "+Z", "anti_rotation": "square rail capture and separated clamps", "lead_in_mm": 0.8, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "clamp and shear transfer from rail into chassis adapters without rail drilling"},
+      "verification": ["10.20/10.35/10.50 mm process coupon", "rail straightness check", "50 N slip test", "repeated assembly inspection"]
+    },
+    {
+      "id": "IF-RAILS-BRIDGE",
+      "a": "RAILS_COTS",
+      "b": "ELECTRONICS_BRIDGE",
+      "owner": "RAILS_COTS",
+      "kind": "fastener",
+      "local_frame": {"origin_mm": [0, 0, 45], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "bridge feet on two square rails with paired clamp blocks", "spacing_status": "measure before CAD"},
+      "joining": {"method": "removable M3 bolted bridge clamps", "assembly_direction": "+Z", "anti_rotation": "two rail lines plus asymmetric longitudinal spacing", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS", "KEEP-DISCONNECT"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4.0, "load_or_flow": "distributed payload load from low open bridge into both rails"},
+      "verification": ["rail/bridge coupon", "fastener access review", "500 g deflection test", "1000 g proof-load test"]
+    },
+    {
+      "id": "IF-BRIDGE-CAMERA-GUARD",
+      "a": "ELECTRONICS_BRIDGE",
+      "b": "CAMERA_GUARD",
+      "owner": "ELECTRONICS_BRIDGE",
+      "kind": "fastener",
+      "local_frame": {"origin_mm": [120, 0, 60], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
+      "nominal_geometry": {"type": "two reinforced front mounting pads with replaceable guard fasteners"},
+      "joining": {"method": "removable metal fasteners into captured metal nuts", "assembly_direction": "+X", "anti_rotation": "two vertically or laterally separated fasteners and keyed shoulder", "lead_in_mm": 0.8, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-CAMERA-FOV", "KEEP-MOTION"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "camera mass and frontal guard impact into reinforced bridge nodes"},
+      "verification": ["section and tool-access review", "optical keep-out collision", "replaceability cycles", "approved impact coupon"]
+    },
+    {
+      "id": "IF-CAMERA-GUARD-CAMERA",
+      "a": "CAMERA_GUARD",
+      "b": "CAMERA_COTS",
+      "owner": "CAMERA_COTS",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [130, 0, 62], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
+      "nominal_geometry": {"type": "supplier camera side-mount pattern and lens envelope", "nominal_body_mm": [19.0, 19.0, 22.0], "status": "measure exact unit"},
+      "joining": {"method": "supplier-compatible M2 metal fasteners", "assembly_direction": "+Y/-Y", "anti_rotation": "paired side fasteners and cradle faces", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-CAMERA-FOV"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.5, "load_or_flow": "locate camera without lens contact and maintain fixed tilt under vibration"},
+      "verification": ["measured camera gauge", "mount and cable fit", "field-of-view render", "vibration and driving inspection"]
+    },
+    {
+      "id": "IF-BRIDGE-RF-MOUNTS",
+      "a": "ELECTRONICS_BRIDGE",
+      "b": "RF_MOUNT_SET",
+      "owner": "ELECTRONICS_BRIDGE",
+      "kind": "fastener",
+      "local_frame": {"origin_mm": [-20, 0, 58], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "separate keyed mounting pads for receiver, VTX and two antenna supports"},
+      "joining": {"method": "removable small metal fasteners with keyed footprints", "assembly_direction": "+Z", "anti_rotation": "asymmetric keys and separated fasteners", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-DISCONNECT", "KEEP-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.5, "load_or_flow": "module retention and rollover protection without coupling VTX heat into receiver"},
+      "verification": ["module separation inspection", "cable-path collision", "antenna keep-out review", "service-removal sequence"]
+    },
+    {
+      "id": "IF-RF-MOUNTS-RX",
+      "a": "RF_MOUNT_SET",
+      "b": "RX_COTS",
+      "owner": "RX_COTS",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [-45, -32, 60], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "measured receiver body, connector, wire and antenna retention envelope", "status": "unresolved"},
+      "joining": {"method": "serviceable clip or strap isolated from active antenna", "assembly_direction": "+Z", "anti_rotation": "asymmetric body stop and cable exit", "lead_in_mm": 1.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.1, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.2, "solver_margin_mm": 0.1},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 3.0, "load_or_flow": "retain receiver and strain-relieve PWM/power leads without covering antenna active element"},
+      "verification": ["measured receiver fit coupon", "connector insertion/removal", "antenna clearance", "stall/brownout and range test"]
+    },
+    {
+      "id": "IF-RF-MOUNTS-VTX",
+      "a": "RF_MOUNT_SET",
+      "b": "VTX_COTS",
+      "owner": "VTX_COTS",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [22, 32, 60], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "measured 20 x 20 mm-class VTX mount, connector and cooling envelope", "status": "measure exact unit"},
+      "joining": {"method": "supplier-pattern fasteners or approved retained standoffs", "assembly_direction": "+Z", "anti_rotation": "supplier hole pattern", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.1, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 3.0, "load_or_flow": "retain VTX while exposing heat-generating surfaces and strain-relieving the antenna connector"},
+      "verification": ["measured VTX gauge", "connector and antenna fit", "airflow/free-area review", "stationary and moving temperature test"]
+    },
+    {
+      "id": "IF-ADAPTERS-HARDWARE",
+      "a": "ADAPTER_SET",
+      "b": "HARDWARE_KIT",
+      "owner": "HARDWARE_KIT",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [0, 0, 25], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "joint-specific M3 through-bolt, washer, nut and tool envelopes"},
+      "joining": {"method": "metal through-fastener with washer and Nyloc or captured metal nut", "assembly_direction": "joint-axis specific", "anti_rotation": "captured nut flats or external tool", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0,
+      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS", "KEEP-DISCONNECT"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "maintain clamp preload and prevent pull-through in primary joints"},
+      "verification": ["joint-stack drawing", "thread engagement", "washer-seat section", "torque and proof-load inspection"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-MOTION", "type": "swept_volume", "purpose": "steering, suspension, wheels, driveshaft and motor motion across full travel", "source": "exact chassis CAD or measured motion sweep pending"},
+    {"id": "KEEP-BATTERY-ACCESS", "type": "aabb", "purpose": "traction-battery installation and removal corridor; provisional proxy only", "min_mm": [-125, -80, -20], "max_mm": [90, 80, 70], "source": "exact chassis battery tray measurement pending"},
+    {"id": "KEEP-DISCONNECT", "type": "aabb", "purpose": "visible emergency battery-disconnect hand and cable path; provisional proxy only", "min_mm": [-75, -120, 0], "max_mm": [40, 0, 100], "source": "exact connector position and operator access study pending"},
+    {"id": "KEEP-CAMERA-FOV", "type": "swept_volume", "purpose": "camera optical field including lens protection margin at approved fixed tilt", "source": "measured lens model and field-of-view render pending"},
+    {"id": "KEEP-RF-ACTIVE", "type": "swept_volume", "purpose": "2.4 GHz receiver and 5.8 GHz video antenna active-element clearance, separation and rollover envelope", "source": "exact antenna drawings and mounted samples pending"},
+    {"id": "KEEP-CABLES", "type": "swept_volume", "purpose": "power, video, PWM and antenna cable bend radii, connector insertion and strain-relief paths", "source": "exact harness and connector measurements pending"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "review function, load path, RF separation, ownership and service sequence", "acceptance": "purchased chassis owns motion and battery; adapters/rails own primary load; bridge and guards remain serviceable; control and video remain independent"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble measured chassis, rail, electronics, fastener, cable and swept-volume proxies", "acceptance": "all datums are frozen and no component enters motion, battery, disconnect, view, RF or cable keep-outs"},
+    {"id": "VAL-COMP", "gate": "component", "method": "deterministic CadQuery solid audit, interface sections, minimum-wall review and STL round trip", "acceptance": "every printed body is a positive B-Rep solid with matching STEP and watertight single-component STL"},
+    {"id": "VAL-INT", "gate": "integration", "method": "exact assembly collision, tool access, clamp/fastener, cable and service-removal checks", "acceptance": "all interface contracts pass and camera/RX/VTX can be serviced without disturbing drivetrain or battery"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "slice every printed part with complete explicit Anycubic machine, process and filament JSON profiles", "acceptance": "all parts fit the bed in approved orientation and required slicer/G-code checks have no FAIL, NOT_RUN or unresolved REVIEW_REQUIRED result"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "fit coupons, 50 N clamp-slip, 500 g deflection, 1000 g proof-load, camera impact, thermal, failsafe, range, braking and supervised 5 km/h driving tests", "acceptance": "all numeric design-spec acceptance limits pass with recorded measurements and no unsafe control/video coupling"}
+  ]
+}

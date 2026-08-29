@@ -11,20 +11,27 @@ project:
   revised: "2026-08-29"
   supersedes: "Uncontrolled TrailCam CF10 v0.1.0 report dated 2026-08-13"
   portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-096"
-  tool_route: "Recommended CadQuery B-Rep rebuild with STEP/STL/3MF outputs; blocked pending requirements and concept approval"
+  tool_route: "CadQuery B-Rep rebuild with STEP/STL/3MF outputs after concept and decomposition approval"
 
 workflow:
   autonomy_policy: autonomy-policy.json
   requirements_approval:
+    status: approved
+    spec_revision: 0.3.0
+    approved_by: Stefan
+    approved_at: "2026-08-29"
+    evidence: "User response: freigegeben"
+  concept_approval:
     status: pending
     spec_revision: 0.3.0
-    reason: "Guided policy requires explicit human approval of the FPV and shared-component requirements"
-  concept_approval:
-    status: blocked
-    reason: "Requirements revision 0.3.0 is not approved"
+    asset: concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png
+    asset_sha256: ee0ebeeb2da98fdff0bd0c83eae2405902daa7caeb4ae0627f205f892b609efc
+    review: concepts/concept-review-v0.3.0.md
+    reason: "Concept sheet is ready for explicit human approval or correction"
   decomposition:
     status: blocked
-    reason: "Requirements and concept are not approved"
+    plan: architecture/hybrid-design-plan-v0.3.0.json
+    reason: "Architecture draft exists, but concept and decomposition remain human gates"
   digital_candidate:
     status: blocked
     reason: "No reproducible source or manufacturing mesh exists in the imported package"
@@ -157,6 +164,8 @@ geometry:
     camera_protection: "replaceable guard must stay outside the optical field and transfer impact into reinforced nodes"
     cable_protection: "strain relief and bend radii must avoid steering, suspension, driveshaft and wheel envelopes"
     service_access: "battery disconnect, fasteners and electronic modules removable without destructive disassembly"
+    massing: "low open electronics bridge with continuous edge beams, few large radiused windows, local pads and load-oriented ribs"
+    module_separation: "receiver and VTX use separate protected bays with independent cable paths and antenna keep-outs"
   protected_regions:
     - "Steering, suspension, wheel, driveshaft and motor motion envelopes"
     - "Battery access and visible emergency disconnect"
@@ -191,6 +200,21 @@ interfaces:
   bodyposts:
     status: "locator-only candidate; not accepted as primary structural support"
     coupon_diameters_mm: [6.10, 6.25, 6.40]
+
+concept_visualization:
+  selected_asset: concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png
+  role: "Appearance and architecture review only; not dimensional or manufacturing evidence"
+  visible_intent:
+    - "Low battery remains in the purchased chassis"
+    - "Two carbon rails carry a low open printed electronics bridge"
+    - "Camera is centered forward inside a replaceable orange guard"
+    - "Receiver and VTX are visually separated and serviceable"
+    - "Two antenna paths are separated and protected by short rollover loops"
+    - "Exploded and underside views expose rail clamps, fastener access and chassis keep-outs"
+  deliberate_simplifications:
+    - "Purchased chassis and electronics are generic visual proxies, not exact supplier geometry"
+    - "Antenna lengths and bends are illustrative; active-element keep-outs remain authoritative in CAD"
+    - "Rail spacing, hardpoints, cover vents and cable paths require measurement before production CAD"
 
 duty:
   operating_mode: "low-speed supervised hobby rover on controlled private ground"
@@ -353,7 +377,9 @@ deliverables:
   current:
     - "Integrated product folder and portfolio identity"
     - "Unchanged legacy report with SHA-256 inventory"
-    - "Requirements draft, design audit and decision log"
+    - "Approved requirements revision 0.3.0, design audit and decision log"
+    - "Concept candidate 0.3.0-r2 with review metadata"
+    - "Validated decomposition draft with explicit interface owners and keep-outs"
   after_approval:
     - "Approved concept sheet with overview, underside mounting and camera-guard detail"
     - "Purchased/printed decomposition and product-specific BOM"

@@ -2,7 +2,7 @@
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.3.0` FPV requirements draft
+Current revision: `0.3.0` — requirements approved, concept pending
 
 Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
 
@@ -19,11 +19,14 @@ OpenQuad while retaining a surface-specific receiver and transmitter layout.
 
 - `design-spec.yaml` — current requirements contract and approval state
 - `decision-log.md` — identity, migration and redesign decisions
+- `concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png` — selected concept candidate for human review
+- `concepts/concept-review-v0.3.0.md` — requirement correspondence and interpretation limits
+- `architecture/hybrid-design-plan-v0.3.0.json` — machine-readable decomposition draft
 - `reports/design-review-v0.1.0.md` — evidence-based audit of the imported design
 - `validation/source-inventory.json` — exact imported-report hash and missing-artifact inventory
 - `autonomy-policy.json` — guided workflow; requirements and concept remain human gates
 - `docs/legacy/TrailCam_CF10_Entwurfsbericht_v0.1.0.pdf` — unchanged imported report
 
-No STL, STEP, 3MF or G-code in this product may be described as final until the
-requirements and concept gates are approved and the rebuilt candidate passes the
-declared digital and physical checks.
+No production CAD is generated until the concept and decomposition gates are
+approved. No later STL, STEP, 3MF or G-code may be described as final until the
+rebuilt candidate passes the declared digital and physical checks.

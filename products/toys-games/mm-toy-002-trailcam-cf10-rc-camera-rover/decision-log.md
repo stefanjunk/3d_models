@@ -30,3 +30,13 @@
 - Standardized on the EdgeTX/ExpressLRS 2.4 GHz LBT ecosystem, while keeping platform-specific interfaces: serial CRSF/twin-stick for OpenQuad and PWM/surface controls for TrailCam.
 - Kept control and video independent. Loss of the video link must not interfere with propulsion failsafe or a commanded stop.
 - Excluded submerged RF reuse for Tethys; its primary control/video link remains the Ethernet tether, with ELRS/Wi-Fi permitted only on an optional surface buoy.
+
+## 2026-08-29 — Requirements approval and concept candidate
+
+- Stefan approved requirements revision `0.3.0` with the response `freigegeben`.
+- Requirements are approved; concept revision `0.3.0-r2` remains pending explicit approval.
+- Selected the second concept because its lower open bridge reduces upper mass,
+  improves service access and visibly separates the receiver and video transmitter.
+- The image is appearance and architecture evidence only. Purchased components,
+  antenna geometry and fasteners remain generic proxies pending exact hardware measurements.
+- Production CAD remains blocked until concept and decomposition are explicitly approved.

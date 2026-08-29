@@ -1,0 +1,64 @@
+schema_version: 1.0.0
+kind: user-correction-trace
+captured_at: "2026-08-29"
+project:
+  id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  baseline_revision: R6
+  proposed_revision: 0.7.0-requirements.1
+  process: FFF
+  machine: "Anycubic Kobra 3 Max"
+baseline_proposal:
+  source: "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6"
+  catcher: "62 x 44 mm offener Fangkopf mit geschlossener Trefferzone"
+  machine_interface: "separater Adapter am vertikalen Wiper-Schraubenpaar"
+  removable_interface: "vertikale Schwalbenschwanzführung mit 0,35 mm nominalem Spiel je Seite"
+  storage_interface: "keine mechanische Verbindung; Unterbehälter steht 10 bis 40 mm frei unter der Fallöffnung"
+  physical_status: NOT_RUN
+user_correction:
+  language: de
+  verbatim: "schaue dir unsere purge cathcer an. und schau mal hier /home/stefan/Projekte/3d_models/research/third-party/printer-workshop da sind einige beispiele wie so ein purge cathcer montuiert oder aufgestellt werden kann. unser purge cathcer design ist gut, aber die montage/ aufstellung /physisches interface ist nicht gut. überlege dir etwas anderes. nutze die beispiele aber kopiere nicht, damit wir keine lizenz probleme bekommen"
+  normalized:
+    - "Catcher-Körper beibehalten."
+    - "Montage, Aufstellung und physisches Interface neu entwerfen."
+    - "Drittanbieterbeispiele nur als qualitative Inspiration verwenden; keine Kopie."
+  accepted_result: null
+analysis:
+  observed_problem:
+    - "Wiper-Schrauben tragen die Zubehörlast und müssen für die Erstmontage angefasst werden."
+    - "Die Entnahmerichtung der Schwalbenschwanzführung liegt vertikal in Maschinennähe."
+    - "Fangkopf und Unterbehälter besitzen keine gemeinsame Datumskette."
+    - "Alle realen Pass-, Kollisions- und Fangtests sind offen."
+  preferred_response: "freistehender, weich am stationären Chassis registrierter Dock-Tower mit entnehmbarem Innenbehälter"
+  status: "awaiting-requirements-approval"
+  causal_hypothesis: >
+    Die unbefriedigende Bedien- und Montagesituation entsteht nicht primär aus
+    der Fangkopfgeometrie, sondern aus einer Last- und Datumskette, die eine
+    wartungssensitive Maschinenbaugruppe belastet und zwei unabhängig
+    positionierte Zubehörteile erzeugt.
+  alternatives:
+    - "Der R6-Adapter könnte am realen Drucker besser funktionieren als die digitale Bewertung vermuten lässt."
+    - "Ein neu vermessenes, direktes Clipinterface könnte bei absoluter Stellflächenpriorität sinnvoller sein."
+    - "Ein rein lose stehender Behälter könnte genügen, falls die reale Purge-Flugbahn sehr tolerant ist."
+scope:
+  material: "PETG target; exact manufacturer/product/color/batch unknown"
+  nozzle: "0.4 mm hardened-steel target; physical identity unknown"
+  orientation: unknown
+  slicer: "Anycubic Slicer Next; exact run not started"
+  environment: "digital review of local R6 source/previews and local third-party references; no physical measurements"
+  measurement_method: "visual and structural design review only"
+  uncertainty: "high until real printer datums, keep-outs, stability and purge trajectory are measured"
+evidence:
+  - type: user-statement
+    ref: "conversation 2026-08-29"
+  - type: baseline-source
+    ref: "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/src/generate_purge_catcher.py"
+  - type: baseline-report
+    ref: "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/reports/interface-validation.json"
+  - type: rights-separated-analysis
+    ref: INTERFACE-REFERENCE-ANALYSIS-R7.md
+result:
+  requirements_spec: design-spec.yaml
+  candidate: "libraries/3d-learning/experience/candidates/EXP-00034.yaml"
+  eval: "libraries/3d-learning/evals/interfaces/EVAL-interfaces-machine-accessory-service-registration-001.yaml"
+  maturity: E0
+  validation: not-run

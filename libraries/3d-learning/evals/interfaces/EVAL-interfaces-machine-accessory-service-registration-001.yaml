@@ -1,0 +1,54 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-machine-accessory-service-registration-001
+title: Machine accessory interface preserves service, load and registration through normal use
+category: interfaces
+status: draft
+trigger: "A functional accessory works near a service-sensitive or moving machine module and its functional head, support or downstream container can be mounted or positioned separately."
+risk: "A locally fitting accessory can still disturb machine hardware, collide during service, tip or drift, or leave two plausible but functionally misaligned bodies."
+given:
+  project: products/printer-workshop/unregistered-kobra3max-purge-catcher
+  requirements: design-spec.yaml
+  correction_trace: learning-trace-interface-r7.yaml
+  baseline_interface_report: Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/reports/interface-validation.json
+  rights_analysis: INTERFACE-REFERENCE-ANALYSIS-R7.md
+expected:
+  - "The interface report names the owner of every accessory load and every positioning datum from stationary support through functional head to downstream container."
+  - "Normal installation, emptying and cleaning do not loosen, clamp or structurally load a service-sensitive host component unless that exact use is explicitly measured and approved."
+  - "Removing and reinserting a service part cannot produce a plausible wrong state that breaks the functional alignment."
+  - "The assembly and service path is collision-free over the declared machine keep-outs and does not depend on unmeasured overhead or tool access."
+  - "The design defines repeated-placement, stability, full-motion and functional-cycle tests before physical qualification."
+  - "Third-party reference meshes, contours, dimensions, contact profiles and project metadata are absent from the implementation and release package."
+failure_conditions:
+  - "A service-sensitive machine component silently becomes the accessory load owner."
+  - "Functional head and downstream container remain independently positionable without a shared registration check."
+  - "Normal service requires releasing machine-critical fasteners or entering an unverified collision path."
+  - "A wrong or shifted assembly state is mechanically plausible and not detected by geometry or a gauge."
+  - "Repeated setup, stability, machine motion or end-to-end function remains untested when physical readiness is claimed."
+  - "Any third-party geometric feature or restricted project content is imported, traced or redistributed."
+fixtures:
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/INTERFACE-REFERENCE-ANALYSIS-R7.md
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/reports/interface-validation.json
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: >-
+    PASS only when the interface graph has one explicit datum/load chain and no
+    unresolved keep-out collision; five complete repositionings meet the
+    project tolerance; empty and approved-fill stability tests pass; the
+    service part completes its cycle test; full power-off motion and at least
+    three supervised purge cycles pass without escape, jam, contact or drift;
+    and source/package review finds no copied or embedded third-party content.
+  measurement_method: "Review the interface graph and provenance, then use the project-specific registration gauge, force method, full-motion sweep and supervised functional cycles."
+relationships:
+  lessons: [EXP-00034]
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags: [interfaces, machine-accessory, serviceability, registration, load-path, wrong-assembly, physical-gate]

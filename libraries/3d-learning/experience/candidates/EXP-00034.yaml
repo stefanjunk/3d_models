@@ -1,0 +1,155 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00034
+title: Machine-side accessories need a shared service and datum-chain review in addition to local fit
+captured_at: 2026-08-29
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One design-review correction on one unprinted purge-catcher candidate; no physical mechanism has been isolated or accepted yet."
+feature:
+  type: purge-catcher-mounting-setup-and-service-interface
+  geometry: "R6 open-bottom catcher, separate Wiper screw adapter with vertical dovetail, and independently positioned lower bin"
+  design_parameters:
+    baseline_catcher_envelope_mm: [62.0, 44.0, 62.0]
+    baseline_drop_opening_mm: [57.0, 39.0]
+    baseline_slide_clearance_each_side_mm: 0.35
+    baseline_mount_pitch_mm: 17.0
+    baseline_mount_adjustable_range_mm: [13.2, 20.8]
+    baseline_bin_air_gap_mm: [10.0, 40.0]
+    proposed_registration_repeatability_mm: 1.5
+    proposed_lateral_test_force_n: 3.0
+  named_datums:
+    - purge-exit-region
+    - catcher-mouth
+    - open-drop-axis
+    - lower-bin-entry
+    - stationary-printer-chassis
+    - work-surface-plane
+  constraints:
+    - "The catcher must remain close enough to intercept the spring-ejected purge stream."
+    - "Normal installation and service must not silently alter a service-sensitive machine component."
+    - "Capture head and downstream container need one explicit, testable datum chain."
+    - "Third-party geometry, contours, dimensions and project metadata remain excluded."
+scope:
+  process: FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG-target
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: hardened-steel-target
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: Anycubic Slicer Next
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: "small local capture head plus machine-side support and downstream waste container"
+  environment: "digital source, report, preview and third-party-reference review; no physical fit or purge test"
+  transfer_limits:
+    - "Evidence covers one Anycubic Kobra 3 Max accessory concept and one user's design-review correction."
+    - "The proposed freestanding dock is an experiment, not a reusable rule or proven best architecture."
+    - "The recorded 3 N, ±1.5 mm and cycle targets are R7 proposed acceptance values, not general machine-accessory limits."
+    - "No claim is made about another printer, table surface, material, nozzle, temperature or vibration context."
+observation:
+  summary: "The user accepted the R6 catcher design direction but rejected its mounting, setup and physical interface after comparing several local examples."
+  expected: "A useful purge catcher should preserve close interception while being simple to place, empty and clean without disturbing the printer or requiring two independent alignments."
+  actual: "R6 places the accessory load on an unverified Wiper screw adapter, removes the catcher vertically through a tolerance-sensitive slide and leaves the lower bin independently positioned."
+  outcome: correction
+  parameter: service-and-datum-chain-architecture
+  recommended_value: "Before retaining any machine accessory interface, grade its load owner, sensitive-host interaction, datum chain, service path, wrong-assembly states, repeated placement and full-motion evidence together."
+  units: interface-contract
+explanation:
+  hypothesis: "The rejected experience is caused by the system-level load, datum and service chain rather than by the local catch geometry alone."
+  mechanism: "A service-sensitive Wiper becomes the structural support while a second freestanding body owns storage, so installation, removal and bin placement can each disturb function independently even when the local slide fits."
+  alternatives:
+    - "The digital R6 depiction may undersell an interface that would be acceptable after real fit and access testing."
+    - "The user may primarily object to visual bulk rather than the load or datum chain."
+    - "A fully measured direct clip could outperform a freestanding dock where floor space is the dominant requirement."
+    - "The loose lower bin may be adequate if the real purge trajectory and work surface are unusually tolerant."
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: "User design-review statement plus structural inspection of R6 source, interface report and previews; no physical measurement."
+  uncertainty: "High: the exact rejected attribute and the real printer/table datums have not yet been measured, and the proposed R7 architecture awaits requirements approval."
+  sources:
+    - type: user-statement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+      hash: 075b037a0c370d45e4d156f50aaafaa5344f8f15912ac740502ada055478a7e6
+      notes: "Preserves the original R6 proposal, exact correction, current hypothesis, alternatives and still-unaccepted R7 response."
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+      hash: fe572704b9f2fc2230306363d8769bfc8ee0f87fef851d40a18ba3ef0e73a435
+      notes: "Pending R7 requirements and measurable acceptance proposal."
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/src/generate_purge_catcher.py
+      hash: e8f2a4b6e7b0244b3abf5f8650180164ababc0363b367f9d55e057884a750a0c
+      notes: "Untracked local R6 generator inspected read-only; not part of the candidate commit."
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/reports/interface-validation.json
+      hash: 6d3d4cbfda0b2b300f60f0154b177495f2cf30ac69f31af3cadec686c72bf4fe
+      notes: "Digital slide checks pass while all physical gates remain open."
+    - type: other
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/INTERFACE-REFERENCE-ANALYSIS-R7.md
+      hash: cfb513e2a23d707677099264687b4dc7459c8f68996dda731f4c3442ffaac921
+      notes: "Rights-separated principle analysis; no third-party geometry or dimensions are proposed for reuse."
+  artifacts:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/DECISION-LOG-R7.md
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+applicability:
+  triggers:
+    - "A removable FFF accessory is placed near a service-sensitive or moving machine subsystem."
+    - "A local functional head and a downstream bin/support can be positioned independently."
+    - "A fit check passes digitally but installation, servicing or repeated placement remains ungraded."
+  exclusions:
+    - "Verified manufacturer accessory interfaces with documented loads, hardware and service procedures."
+    - "Accessories whose only datum and load path is a qualified stationary bench or frame and whose downstream function cannot be misaligned."
+    - "Safety-critical machinery, which requires separate engineering and certification review."
+  transfer_limits:
+    - "Reuse only the combined review questions; select freestanding, screwed, clamped or clipped architecture from product-specific evidence."
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00020]
+  evals: [EVAL-interfaces-machine-accessory-service-registration-001]
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  part_revision: 0.7.0-requirements.1
+  trace: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  source_commit: "27553710"
+  created_by: Codex via 3d-skill-maintainer from explicit user correction
+tags: [interfaces, purge-catcher, machine-accessory, mounting, serviceability, datum-chain, user-correction, digital-only]

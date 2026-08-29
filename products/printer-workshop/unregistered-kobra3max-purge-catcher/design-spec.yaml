@@ -1,0 +1,295 @@
+project:
+  id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  name: "Anycubic Kobra 3 Max Purge Catcher — Interface-Neuentwurf"
+  revision: 0.7.0-requirements.1
+  owner: Stefan
+  revised: "2026-08-29"
+  units: mm
+  baseline:
+    revision: R6
+    location: "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6"
+    status: "digitaler, ungetrackter Druckkandidat; physisch nicht geprüft"
+
+workflow:
+  requirements_approval:
+    status: pending
+    spec_revision: 0.7.0-requirements.1
+    approved_by: null
+    approved_at: null
+  concept_approval:
+    status: blocked
+    spec_revision: null
+    asset: null
+    approved_by: null
+    approved_at: null
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: MM-WM-001-R2
+    product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+    version: 0.7.0-requirements.1
+    approved_by: null
+    approved_at: null
+  final_release_approval:
+    status: blocked
+    spec_revision: null
+    approved_by: null
+    approved_at: null
+
+requirements_trace:
+  user_stated:
+    - "Der vorhandene Purge-Catcher-Körper ist gut."
+    - "Montage, Aufstellung und physisches Interface des vorhandenen Entwurfs sind nicht gut und sollen grundlegend anders gelöst werden."
+    - "Die Modelle in research/third-party/printer-workshop dürfen als Beispiele betrachtet, aber wegen Lizenzrisiken nicht kopiert werden."
+  inferred:
+    - "Die R6-Fangfunktion nahe am Wiper, die offene Fallstrecke, die glatte Wabenstruktur und die metriMade-Gestaltung sollen grundsätzlich erhalten bleiben."
+    - "Die Lösung soll ohne Eingriff in die Einstellung oder Befestigung des Purge-Wipers montierbar und wartbar sein."
+    - "Fangkopf und Sammelbehälter sollen nicht länger als zwei unabhängig auszurichtende Objekte funktionieren."
+    - "Das Maschineninterface ist normal-funktional, aber wegen möglicher Kollision mit Bett, Kopf, Kabeln und Wiper physisch zu qualifizieren."
+  recommended:
+    - "R7 wird als freistehender, am unbewegten Druckerchassis nur weich registrierter Dock-Tower ausgelegt; der Wiper trägt keine Zubehörlast."
+    - "Eine breite Dockbasis trägt eine schlanke Rückensäule und den R6-Fangkopf; ein separat entnehmbarer Innenbehälter wird von derselben Basis positioniert."
+    - "Drei weiche, austauschbare Anschläge bilden eine überbestimmungsarme 3-Punkt-Registrierung an zwei stationären Chassisflächen, ohne Klemmen oder Verschrauben."
+    - "Die Erstjustage erfolgt außerhalb des Wipers über eine parametrierte X/Z-Verstellung mit handelsüblichen M4-Schrauben und Heat-Set-Inserts; im täglichen Betrieb bleibt sie unangetastet."
+    - "Der Sammelbehälter wird zum Entleeren horizontal vom Drucker weg entnommen; weder Fangkopf noch Maschinenhardware müssen gelöst werden."
+    - "Der R6-Schraubadapter, seine vertikale Schwalbenschwanzführung und der lose freistehende R6-Unterbehälter entfallen."
+  unresolved_consequential:
+    - id: DEC-R7-01
+      question: "Soll jede Befestigung am Wiper einschließlich vorhandener Schrauben und aufgeschnappter Clips ausgeschlossen werden?"
+      recommendation: "Ja; nur weiche, lastfreie Registrierung an einem stationären Chassisteil zulassen."
+      tradeoff: "Mehr Standfläche und eine Rückensäule gegen deutlich geringeres Risiko für Wiper-Ausrichtung, Schraubeneingriff und Wartung."
+      default_if_approved: "Kein Wiper-Schraub-, Klemm- oder Clipinterface."
+    - id: DEC-R7-02
+      question: "Darf der Unterbehälter Teil eines gemeinsamen Docks werden, solange der eigentliche Innenbehälter werkzeuglos entnehmbar bleibt?"
+      recommendation: "Ja; gemeinsamer Datumspfad für Fangkopf und Behälter, aber separater herausziehbarer Innenbehälter."
+      tradeoff: "Ein zusätzliches Dockteil gegen reproduzierbare Ausrichtung und einfacheres Entleeren."
+      default_if_approved: "Dockbasis plus entnehmbarer Innenbehälter."
+    - id: DEC-R7-03
+      question: "Ist eine einmalige X/Z-Justage mit zwei M4-Verbindungen akzeptabel?"
+      recommendation: "Ja; sie fängt unbekannte Maschinenmaße ab, ohne tägliche Bedienung oder Wiper-Hardware zu belasten."
+      tradeoff: "Zwei Kaufteile und ein Einstellschritt gegen einen riskanten festen Bildmaß-Entwurf."
+      default_if_approved: "M4-Hybridjustage mit separatem Maß-/Kollisionscoupon."
+
+function:
+  summary: >
+    Ein kurzer Fangkopf fängt federnd ausgeworfene Filamentreste direkt am
+    Purge-Wiper ab und leitet sie über eine offene, vollständig vom Dock
+    ausgerichtete Fallstrecke in einen entnehmbaren Sammelbehälter.
+  intended_user: "Betreiber eines Anycubic Kobra 3 Max"
+  included:
+    - "R6-Fangkopf als gestalterische und funktionale Ausgangsbasis"
+    - "freistehende Dockbasis mit rutschhemmenden Füßen"
+    - "schlanke, versteifte Tragsäule außerhalb des Bewegungsraums"
+    - "lastfreie 3-Punkt-Registrierung am stationären Druckerchassis"
+    - "einmalig einstellbare Fangkopfposition"
+    - "werkzeuglos entnehmbarer Innenbehälter"
+    - "Maß-, Registrierungs- und Kollisionscoupons vor dem Vollsatz"
+  excluded:
+    - "keine Schrauben, Clips oder Formabnahmen am Purge-Wiper"
+    - "keine Magnete ohne verifizierte Chassiswerkstoffe und Elektronikabstände"
+    - "keine Übernahme, Nachzeichnung oder Skalierung fremder Meshes, Konturen, Lochbilder oder Maße"
+    - "kein Drucker-Upload und kein Druckstart"
+
+geometry:
+  coordinate_system:
+    x: "+X vom Wiper in Richtung Prallwand"
+    y: "+Y zur Bediener-/Druckerfront"
+    z: "+Z nach oben"
+  protected_baseline_features:
+    - "Fangbereich nominell 62 x 44 mm"
+    - "offene Fallstrecke nominell 57 x 39 mm"
+    - "62 mm hohe Prallwand mit 12 mm Fanghaube"
+    - "geschlossener oberer Schlagraum und glatte offene Waben darunter"
+    - "vollständige metriMade-Lockups auf den drei sichtbaren Seiten"
+  permitted_changes:
+    - "Entfernung des R6-Schwalbenschwanzempfängers auf der Maschinenseite"
+    - "lokale, eigene Verbindung zwischen Fangkopf und Dockträger"
+    - "lokale Rippen und Lastpfade außerhalb von Einflug, Fallöffnung, Logos und Waben"
+  planned_architecture:
+    dock_base: "breite, tiefe Standfläche mit vier rutschhemmenden Füßen und Aufnahme für den Innenbehälter"
+    registration: "drei austauschbare weiche Kontaktpunkte gegen zwei stationäre Chassis-Datumsflächen; keine Klemmkraft"
+    mast: "kasten- oder U-förmiger Leichtbauquerschnitt mit Rippen; außerhalb aller Maschinen-Keep-outs"
+    head_adjustment: "einmalige X/Z-Einstellung mit zwei M4-Klemmstellen; kein Spiel im täglichen Betrieb"
+    bin_service: "horizontaler Auszug vom Drucker weg mit eindeutiger Endlage und Griff"
+  unresolved_measurements:
+    - "Tisch-zu-Wiper-Höhe am realen Drucker"
+    - "Abstand und Orientierung geeigneter stationärer Chassisflächen zur Purge-Flugbahn"
+    - "verfügbarer horizontaler Auszugsweg für den Innenbehälter"
+    - "vollständige Bett-, Kopf-, Kabel- und Wiper-Keep-outs"
+
+interfaces:
+  - id: IF-R7-DOCK-TABLE
+    kind: "gravity/friction support"
+    owner: "DOCK_BASE"
+    joining: "vier rutschhemmende Füße; keine Tischverschraubung"
+    verification: ["Kippprüfung", "3-N-Seitenlastprüfung", "Vibrations-/Purge-Zyklusprüfung"]
+  - id: IF-R7-DOCK-CHASSIS
+    kind: "non-load-bearing registration"
+    owner: "REGISTRATION_PADS"
+    joining: "drei weiche Anschläge, nur an stationären Außenflächen"
+    verification: ["Papier-/Spaltprüfung", "fünffache Neuaufstellung", "vollständiger Maschinenbewegungstest"]
+  - id: IF-R7-MAST-HEAD
+    kind: "adjustable bolted joint"
+    owner: "MAST_CARRIAGE"
+    joining: "zwei M4-Schrauben in Heat-Set-Inserts; einmalige X/Z-Einstellung"
+    verification: ["Coupon", "Dreh-/Senkprüfung", "Positionswiederholbarkeit"]
+  - id: IF-R7-DOCK-BIN
+    kind: "tool-free keyed slide"
+    owner: "DOCK_BASE"
+    joining: "horizontaler Auszug mit Endanschlag und eindeutiger Orientierung"
+    verification: ["zehn Entnahmezyklen", "freie Fallöffnung", "kein unbeabsichtigtes Herauswandern"]
+
+duty:
+  loading: "Eigengewicht von Fangkopf, Mast und leerem/gefülltem Innenbehälter; geringe Druckervibration und Bedienberührung"
+  service_cycle_target:
+    bin_removal: 100
+    head_adjustment: 10
+  service_life: "gelegentliche Werkstattnutzung; physische Qualifikation offen"
+  maintenance: "Innenbehälter werkzeuglos; Fangkopf ohne Eingriff in Maschinenhardware zugänglich"
+
+environment:
+  use: "Innenraum neben FDM-Drucker"
+  temperature: "lokale Abwärme und warme Purge-Reste; exakte Oberflächentemperatur unbekannt"
+  chemicals: "übliche trockene Filamentreste; keine Lösungsmittelbeständigkeit behauptet"
+  uv: "keine Außenbewitterung vorgesehen"
+
+fabrication:
+  preference: balanced-hybrid
+  process: FFF
+  printer: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420, 420, 500]
+  target_material: "PETG, exakter Hersteller/Produkt/Charge bei Druck festzulegen"
+  nozzle_mm: 0.4
+  nozzle_material: "hardened steel laut vorhandenem Profil; physische Identität zu bestätigen"
+  supports: "keine unzugänglichen Supports an Führungen oder Registrierungspunkten"
+  hardware:
+    - "2 x M4-Schraube, Länge nach finaler Wand-/Klemmgeometrie"
+    - "2 x M4 Heat-Set-Insert, exakter Typ vor CAD festzulegen"
+    - "4 x rutschhemmender Standardfuß oder Silikonpad"
+
+printer:
+  manufacturer: Anycubic
+  model: "Kobra 3 Max"
+  build_volume_mm: [420, 420, 500]
+  enclosure: unknown
+  unit_id: null
+  firmware: null
+
+manufacturing:
+  process: FFF
+  material: "PETG target; exact manufacturer/product/color/batch pending"
+  nozzle_mm: 0.4
+  nozzle_material: "hardened steel target; physical identity pending"
+  layer_height_mm: 0.20
+  line_width_mm: 0.45
+  orientation: "pending concept and part decomposition"
+  profile: "complete Anycubic machine/process/filament profile set required before slicing"
+  target_formats: ["editable parametric source", STEP, 3MF, STL, reports, coupons]
+
+optimization:
+  status: pending
+  objective: "minimize mast/dock material, support and print time without reducing stability, registration or protected catcher geometry"
+  protected:
+    - "machine and purge keep-outs"
+    - "registration datums"
+    - "mast/head clamp zones"
+    - "bin slide and stops"
+    - "catcher mouth, drop path, impact wall, honeycomb and logos"
+    - "stability footprint and bed contacts"
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  mesh_simplification:
+    status: pending
+    master_mesh: null
+    manufacturing_mesh: null
+    tolerance_mm: 0.08
+    protected_regions:
+      - "registration datums and pads"
+      - "M4 bores and insert pockets"
+      - "bin guide and end stops"
+      - "catcher mouth and drop opening"
+      - "bed contacts and watermark host surface"
+    resource_budget: null
+    slicer_resolution_check: null
+
+appearance:
+  body_language: "R6-Fangkopf beibehalten; Dock und Mast ruhig, schlank und technisch integriert"
+  visible_hardware: "nur an der rückwärtigen Einstellstelle; nicht im Fangraum"
+  branding: "bestehendes vollständiges metriMade-Lockup bleibt geschützt; finale Kennzeichnung erst nach Primärverifikation"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  version: 0.7.0-requirements.1
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  selected_surface: null
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: "blocked until concept approval and stable production geometry"
+
+risk:
+  class: normal-functional
+  hazards:
+    - "Kollision mit bewegtem Bett, Werkzeugkopf, Kabeln oder Wiper"
+    - "Verrutschen oder Kippen des freistehenden Docks"
+    - "Fehlausrichtung zwischen Fangkopf und Innenbehälter"
+    - "heiße oder fadenförmige Purge-Reste außerhalb des Fangwegs"
+  mitigations:
+    - "keine Last oder Montagehandlung am Wiper"
+    - "gemeinsamer Datumspfad von Dockbasis zu Fangkopf und Innenbehälter"
+    - "billige Maß-/Registrierungs-/Keep-out-Coupons vor dem Vollmodell"
+    - "vollständige manuelle Maschinenbewegung und beaufsichtigte Purge-Zyklen"
+
+acceptance:
+  - id: no-wiper-service-interface
+    criterion: "Installation, Entleerung und normale Reinigung lösen oder belasten keine Wiper-Schraube und greifen nicht klemmend am Wipergehäuse an."
+    method: "Montageablauf- und Lastpfadprüfung am realen Drucker"
+  - id: one-datum-chain
+    criterion: "Fangkopf und Innenbehälter werden vom selben Dock positioniert; der Behälter kann nicht in einer plausiblen, aber fehlausgerichteten Endlage eingesetzt werden."
+    method: "CAD-Interfaceprüfung plus fünf Neuaufstellungen und zehn Behälterzyklen"
+  - id: repeatable-registration
+    criterion: "Nach fünf vollständigen Neuaufstellungen liegt die Fangöffnung jeweils innerhalb ±1,5 mm ihrer freigegebenen X/Y/Z-Lage."
+    method: "Registrierungslehre und Messschieber; Messmethode/Unsicherheit dokumentieren"
+  - id: stability
+    criterion: "Das leere und das freigegebene Füllszenario kippen bei 3 N horizontaler Last am Fangkopf nicht und verschieben sich nach Entlastung höchstens 2 mm."
+    method: "Federwaage/Kraftmessung auf realer Stellfläche; keine universelle Belastbarkeitsangabe"
+  - id: machine-clearance
+    criterion: "Bett, Kopf, Kabel und Wiper bleiben über den vollständigen stromlosen Bewegungsbereich kollisionsfrei; Zielreserve mindestens 5 mm, Abweichungen nur mit menschlicher Freigabe."
+    method: "Keep-out-Lehre und manueller Vollwegtest"
+  - id: capture-function
+    criterion: "Mindestens drei beaufsichtigte Purge-Zyklen werden vollständig gefangen und alle Teile erreichen den Innenbehälter ohne Rückstau."
+    method: "physischer Funktionstest"
+  - id: independent-rights
+    criterion: "Kein Drittanbieter-Mesh, keine Kontur, kein Maß, kein Clip-/Hakenprofil und keine Drittanbieter-Projektmetadaten sind in Quelle oder Export enthalten."
+    method: "Provenienz-, Diff- und Paketprüfung"
+
+deliverables:
+  - "freigegebenes R7-Konzeptblatt mit Gesamtansicht, Seitenschnitt und Explosionsdetail"
+  - "parametrische Quelle für Dockbasis, Mast, Fangkopfanschluss, Innenbehälter und Coupons"
+  - "STEP für dimensionale Funktionsteile sowie DRAFT-3MF/STL für Fertigungstests"
+  - "BOM, Montage-/Entleerungsablauf und Druckprofil"
+  - "Geometrie-, Interface-, Stabilitäts-, Mesh- und Anycubic-Slicer-Nachweise"
+  - "physischer Testplan für Registrierung, Kollisionsfreiheit, Standfestigkeit und Purge-Funktion"
+
+provenance:
+  reference_policy: >
+    Dateien unter research/third-party/printer-workshop werden ausschließlich
+    zur Abstraktion allgemeiner Funktionsprinzipien betrachtet. Ihre Geometrie,
+    Maße, Konturen, Befestigungsprofile, Bilder und Projektmetadaten werden weder
+    importiert noch nachgezeichnet noch mit ausgeliefert.
+  analysis: INTERFACE-REFERENCE-ANALYSIS-R7.md
+  user_correction_trace: learning-trace-interface-r7.yaml
+
+learning:
+  candidate: EXP-00034
+  eval: EVAL-interfaces-machine-accessory-service-registration-001
+  maturity: E0
+  status: "unvalidierter Kandidat; keine Produktionsregel"

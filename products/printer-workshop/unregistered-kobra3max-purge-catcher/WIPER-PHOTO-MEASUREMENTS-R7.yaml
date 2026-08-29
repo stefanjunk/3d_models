@@ -1,0 +1,118 @@
+schema_version: 1.0.0
+kind: physical-interface-measurement-trace
+captured_at: "2026-08-29"
+project:
+  id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  machine: "Anycubic Kobra 3 Max"
+  unit_id: null
+  requirement_revision: 0.7.0-requirements.2
+
+measurement_context:
+  measured_by: user
+  tool: "Gliedermaßstab mit 1-mm-Teilung"
+  method: "direkte Benutzerablesung am realen Drucker, durch sechs Fotos mit angelegtem Maßstab gestützt"
+  resolution_mm: 1
+  uncertainty_mm: null
+  uncertainty_note: >-
+    Keine wiederholte Messreihe und keine rechtwinklige Messlehre dokumentiert.
+    Perspektive, Maßstabauflage und nicht überall sichtbare Enddatums erlauben
+    keine kleinere Unsicherheit zu behaupten. Vor endgültigem CAD werden die
+    kritischen Datums durch einen gedruckten Lochbild-/Abstands-Coupon geprüft.
+
+datum_definitions:
+  screw_axis:
+    id: D-WIPER-SCREW-AXIS
+    definition: "gemeinsame vertikale Mittellinie der beiden sichtbaren Wiper-Befestigungsschrauben"
+  screw_seating_plane:
+    id: D-WIPER-SCREW-PLANE
+    definition: "sichtbare ebene Auflagefläche der schwarzen Halterung unmittelbar unter den Schraubenköpfen"
+  lower_screw_center:
+    id: D-WIPER-LOWER-SCREW
+    definition: "Mittelpunkt der unteren der beiden sichtbaren Wiper-Befestigungsschrauben"
+  purge_deposition_plane:
+    id: D-PURGE-DEPOSIT
+    definition: "vom Benutzer bezeichnete Ebene, auf der das Purge zunächst extrudiert/abgelegt wird"
+  purge_throw_plane:
+    id: D-PURGE-THROW
+    definition: "vom Benutzer bezeichnete horizontale Ebene bzw. Bahn, entlang der das Purge ausgeworfen wird"
+  rear_wiper_extent:
+    id: D-WIPER-REAR
+    definition: "rückwärtige Ausdehnung der Wiper-Einheit, wie in den seitlich angelegten Maßstabfotos bezeichnet"
+
+measurements:
+  - id: M-R7-001
+    quantity: vertical_screw_center_pitch
+    value_mm: 17
+    from: "Mittelpunkt untere Schraube"
+    to: "Mittelpunkt obere Schraube"
+    direction: "parallel zur lokalen Z-Achse"
+    authority: "user-measured"
+    photo_support:
+      - Photos-1-001/PXL_20260829_092936101.jpg
+      - Photos-1-001/PXL_20260829_093122291.jpg
+    status: "usable for requirements; verify with hole-pattern coupon before production CAD release"
+  - id: M-R7-002
+    quantity: lower_screw_center_to_purge_deposition_plane
+    value_mm: 10
+    from: D-WIPER-LOWER-SCREW
+    to: D-PURGE-DEPOSIT
+    direction: "vertikal zur vom Benutzer bezeichneten Ablageebene"
+    authority: "user-measured"
+    photo_support:
+      - Photos-1-001/PXL_20260829_093122291.jpg
+    status: "usable for concept placement; verify with datum coupon"
+  - id: M-R7-003
+    quantity: screw_datum_to_horizontal_purge_throw_plane
+    value_mm: 37
+    from: "vom Benutzer bezeichnetes Schraubendatum"
+    to: D-PURGE-THROW
+    direction: "horizontal; endgültige lokale X/Y-Zuordnung im Konzeptblatt explizit darstellen"
+    authority: "user-measured"
+    photo_support:
+      - Photos-1-001/PXL_20260829_093010509.jpg
+    status: "usable for concept envelope; endpoint/axis to be confirmed by coupon or annotated concept"
+  - id: M-R7-004
+    quantity: screw_seating_plane_to_rear_wiper_extent
+    value_mm: 40
+    from: D-WIPER-SCREW-PLANE
+    to: D-WIPER-REAR
+    direction: "horizontal nach hinten"
+    authority: "user-measured"
+    photo_support:
+      - Photos-1-001/PXL_20260829_093025887.jpg
+      - Photos-1-001/PXL_20260829_093039938.jpg
+    status: "usable for concept envelope; verify collision boundary over full motion"
+
+visual_observations:
+  - "Zwei Innensechskant-Schrauben liegen vertikal übereinander und sind von der sichtbaren Seite zugänglich."
+  - "Die Schraubenköpfe sitzen auf einer schmalen schwarzen, mitfahrenden Halterung; Gewinde, Kopfmaße, Schraubenlänge und Bauteildicke sind aus den Fotos nicht belastbar bestimmbar."
+  - "Purge-Ablage/Abstreifbereich liegt unterhalb und seitlich der Schrauben; ein dünner direkter Adapter kann näher am Maschinendatum bleiben als ein gehäuseumgreifender Clip."
+  - "Unmittelbar hinter und neben der Schraubenebene befinden sich Wiper-/Führungsbauteile; tiefe rückwärtige Haken oder ein langer vertikaler Serviceweg sind kollisionskritisch."
+  - "Die Fotos zeigen nur einen statischen Zustand und belegen weder die vollständige X/Y/Z-Hüllkurve noch die dynamische Purge-Flugbahn."
+
+images:
+  - file: Photos-1-001/PXL_20260829_092936101.jpg
+    sha256: fe84c80aa18122483059e15a614088cac4e03888bc71e692bfd7fe34b13f7314
+    pixels: [6144, 8160]
+  - file: Photos-1-001/PXL_20260829_093010509.jpg
+    sha256: 6d1cdc8337e4834aa9bcfe7abeab839e0e4f1c439ee4d6275473d80414014f08
+    pixels: [6144, 8160]
+  - file: Photos-1-001/PXL_20260829_093025887.jpg
+    sha256: a62f707561d6fc9532bd3e7f6aafa67e9e32b5f130819abb57eaf04b0e3f1443
+    pixels: [8160, 6144]
+  - file: Photos-1-001/PXL_20260829_093031316.jpg
+    sha256: bcdbbe46be9c37009c54c922e56da6956e8c4378c5d3192e16c5ffa5b7be60ce
+    pixels: [8160, 6144]
+  - file: Photos-1-001/PXL_20260829_093039938.jpg
+    sha256: 09ee7c41fa9fe7af833e72de41a4363037f7b4e5b3a42040f875d8501c6b8b62
+    pixels: [8160, 6144]
+  - file: Photos-1-001/PXL_20260829_093122291.jpg
+    sha256: 13283f27168d09dd7e5eefa777f4dc9cd60c44a63a9c62ecbd65f36700f4c01d
+    pixels: [6144, 8160]
+
+remaining_unknowns:
+  - "Schraubengewinde, Kopf-Durchmesser/-Höhe, vorhandene Schraubenlänge, Halterdicke und verbleibender Gewindeeingriff"
+  - "exakte lokale X/Y-Zuordnung und Enddatums der 37-mm-Messung"
+  - "freie Hüllkurve um den Adapter über den vollständigen X/Y/Z-Bewegungsbereich"
+  - "reale Purge-Landefläche bei niedriger, mittlerer und hoher Z-Position"
+  - "zulässige Zusatzmasse und Beschleunigung der Wiper-Baugruppe"

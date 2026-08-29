@@ -13,15 +13,15 @@ given:
   baseline_interface_report: Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/reports/interface-validation.json
   rights_analysis: INTERFACE-REFERENCE-ANALYSIS-R7.md
 expected:
-  - "The interface report names the owner of every accessory load and every positioning datum from stationary support through functional head to downstream container."
+  - "The interface report names the owner of every accessory load and every positioning datum or quantified non-contact transfer envelope from support through functional head to downstream container."
   - "Normal installation, emptying and cleaning do not loosen, clamp or structurally load a service-sensitive host component unless that exact use is explicitly measured and approved."
-  - "Removing and reinserting a service part cannot produce a plausible wrong state that breaks the functional alignment."
+  - "Removing and reinserting a service part cannot produce a plausible wrong state that breaks functional alignment or moves a non-contact receiver outside its verified target envelope."
   - "The assembly and service path is collision-free over the declared machine keep-outs and does not depend on unmeasured overhead or tool access."
   - "The design defines repeated-placement, stability, full-motion and functional-cycle tests before physical qualification."
   - "Third-party reference meshes, contours, dimensions, contact profiles and project metadata are absent from the implementation and release package."
 failure_conditions:
   - "A service-sensitive machine component silently becomes the accessory load owner."
-  - "Functional head and downstream container remain independently positionable without a shared registration check."
+  - "Functional head and downstream container remain independently positionable without either a shared registration check or a measured transfer envelope with edge reserve."
   - "Normal service requires releasing machine-critical fasteners or entering an unverified collision path."
   - "A wrong or shifted assembly state is mechanically plausible and not detected by geometry or a gauge."
   - "Repeated setup, stability, machine motion or end-to-end function remains untested when physical readiness is claimed."
@@ -36,12 +36,13 @@ grader:
   command: null
   expected_exit_code: 0
   rubric: >-
-    PASS only when the interface graph has one explicit datum/load chain and no
-    unresolved keep-out collision; five complete repositionings meet the
-    project tolerance; empty and approved-fill stability tests pass; the
-    service part completes its cycle test; full power-off motion and at least
-    three supervised purge cycles pass without escape, jam, contact or drift;
-    and source/package review finds no copied or embedded third-party content.
+    PASS only when the interface graph has an explicit datum/load chain plus a
+    measured contract for every non-contact transfer and no unresolved keep-out
+    collision; repeated service/placement meets the project tolerance or target
+    reserve; stability and service-cycle tests pass; full power-off motion and
+    the project-required supervised purge cycles pass without escape, jam,
+    contact or drift; and source/package review finds no copied or embedded
+    third-party content.
   measurement_method: "Review the interface graph and provenance, then use the project-specific registration gauge, force method, full-motion sweep and supervised functional cycles."
 relationships:
   lessons: [EXP-00034]

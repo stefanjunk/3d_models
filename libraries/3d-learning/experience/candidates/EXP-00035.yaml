@@ -1,0 +1,155 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00035
+title: A capture interface must resolve the moving source frame before choosing stationary support
+captured_at: 2026-08-29
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once on one Anycubic Kobra 3 Max purge-Wiper; source motion is user-confirmed, but the replacement architecture has not been built or function-tested."
+feature:
+  type: moving-source-frame-capture
+  geometry: "Z-moving purge Wiper/source, co-moving local catch/downward-diversion head, and stationary non-contact waste bin"
+  design_parameters:
+    source_motion_axis: Z
+    measured_mount_pitch_mm: 17.0
+    measured_lower_screw_to_purge_deposition_plane_mm: 10.0
+    measured_screw_datum_to_throw_plane_mm: 37.0
+    measured_screw_plane_to_rear_wiper_extent_mm: 40.0
+    proposed_moving_mass_target_g: 25.0
+    proposed_service_cycles: 100
+  named_datums:
+    - moving-wiper-frame
+    - upper-wiper-screw-center
+    - lower-wiper-screw-center
+    - screw-seating-plane
+    - purge-deposition-plane
+    - purge-throw-plane
+    - moving-catcher-outlet
+    - stationary-bin-entry
+  constraints:
+    - "The local catcher must maintain its source-relative placement throughout the declared Z travel."
+    - "Only capture and immediate downward diversion should move; accumulated waste mass remains stationary."
+    - "Every non-contact moving-to-stationary transfer needs a measured landing envelope and edge reserve."
+    - "Added moving mass, moment arm, retention, screw engagement and machine keep-outs require explicit evidence."
+    - "Third-party geometry, dimensions, contours and project metadata remain excluded."
+scope:
+  process: FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG-target
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: hardened-steel-target
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: Anycubic Slicer Next
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: "small co-moving capture/diversion head transferring purge by gravity to a stationary receiver"
+  environment: "one physical Anycubic Kobra 3 Max Wiper viewed in six photos; no accessory prototype, motion sweep or purge trajectory test"
+  transfer_limits:
+    - "Evidence covers one user's correction and four user-read dimensions on one unidentified Kobra 3 Max unit."
+    - "The 17/10/37/40 mm dimensions are product-local inputs, not transferable printer-family standards."
+    - "The rejection applies to this fixed-height dock proposal; it does not prove that every stationary catcher is invalid where a complete emission envelope is independently covered."
+    - "The 25 g mass and 100-cycle values are unvalidated project targets, not machine ratings or universal limits."
+observation:
+  summary: "A stationary Dock-Tower was proposed after the mounting interface was rejected, but the user clarified that the Wiper and purge source rise along Z and can eject purge at higher positions."
+  expected: "The capture head should remain adjacent to the purge source throughout operation while storage capacity stays off the moving Wiper."
+  actual: "The stationary proposal fixed the catch opening at one world-Z position and would need a full-height tower to cover the moving source; the user instead requested a Wiper-mounted catcher with immediate downward diversion."
+  outcome: correction
+  parameter: source-and-catcher-coordinate-frame
+  recommended_value: "Before architecture selection, identify the emitting source's coordinate frame and full travel; co-move the local catcher or prove complete stationary coverage, then verify the downstream transfer at representative travel positions."
+  units: interface-contract
+explanation:
+  hypothesis: "The failed proposal assigned the local catch function to the stationary machine frame even though the emitting source belongs to the moving Wiper frame."
+  mechanism: "As the Wiper translates in Z, a fixed catch opening loses source-relative alignment; extending stationary geometry across the full travel restores coverage only by adding bulk and collision area. A lightweight local head keeps the short source-relative path while gravity transfers waste to stationary storage."
+  alternatives:
+    - "Firmware or G-code may restrict purge to a few known heights, but no evidence currently supports using that restriction as a requirement."
+    - "A flexible hose could connect moving and stationary stages, but may add drag, snagging, purge adhesion and service burden."
+    - "A stationary wide or full-height receiver could work if its complete envelope and keep-outs were proven, despite the user's stated preference against a tower."
+    - "A direct one-piece screw mount may reduce mass relative to a quick release but could worsen cleaning and repeated machine-fastener service."
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: "User correction plus four direct readings with a 1-mm folding rule, visually supported by six original photos; no repeated right-angle/caliper measurement or dynamic test."
+  uncertainty: "Low that the source/Wiper moves in Z; high for screw hardware, 37-mm endpoint mapping, full collision envelope, permitted moving load and actual purge landing distribution."
+  sources:
+    - type: user-statement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+      hash: 3e980fb3caccc5a4e87ac9e8cca07ccb94104f0f9b9e7eba5c927e814974c8cd
+      notes: "Preserves the rejected stationary proposal, exact moving-Wiper correction, measurement message, alternatives and unaccepted response."
+    - type: measurement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+      hash: 1a678e9356e33cfc2ea112143195d8852751d143b274bbd48208663af2cfd6e0
+      notes: "Records datum definitions, four user measurements, photo hashes and remaining uncertainty."
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+      hash: 4a3f705631b9fe79512eee1415a5b6071a0b2585b7650665fb4e1256a07fdc18
+      notes: "Pending R7 requirements for the co-moving catcher and measurable acceptance gates."
+    - type: other
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/INTERFACE-REFERENCE-ANALYSIS-R7.md
+      hash: c3ee1b3060687eb4e79ddd9daddf8ccf318dc3aee4bd46302e3082f3aa5ce5cc
+      notes: "Clean-room principle analysis and photo-informed independent architecture; no third-party geometry or dimensions reused."
+  artifacts:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/DECISION-LOG-R7.md
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+applicability:
+  triggers:
+    - "A material source, nozzle, chute, cutter or ejector changes position during operation."
+    - "A local catcher appears correct at home position but downstream storage is stationary."
+    - "A stationary tower, hose or full-travel wall is proposed to compensate for uncertain source motion."
+  exclusions:
+    - "Sources proven to emit only at one fixed coordinate under the exact controlled firmware/process."
+    - "Stationary catchers whose complete emission envelope, machine keep-outs and end-to-end function are already physically qualified."
+    - "Safety-critical, high-temperature, high-energy or hazardous-material machinery requiring separate engineering review."
+  transfer_limits:
+    - "Reuse only the coordinate-frame/full-travel review and test pattern; choose moving or stationary architecture from product-specific evidence."
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: [EXP-00034]
+  evals: [EVAL-interfaces-moving-source-frame-capture-001]
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  part_revision: 0.7.0-requirements.2
+  trace: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  source_commit: "c6e5ca3d"
+  created_by: Codex via 3d-skill-maintainer from explicit user correction and physical measurement follow-up
+tags: [interfaces, coordinate-frame, moving-source, motion-envelope, purge-catcher, trajectory, user-correction, physical-measurement]

@@ -23,19 +23,25 @@ feature:
     baseline_mount_pitch_mm: 17.0
     baseline_mount_adjustable_range_mm: [13.2, 20.8]
     baseline_bin_air_gap_mm: [10.0, 40.0]
-    proposed_registration_repeatability_mm: 1.5
-    proposed_lateral_test_force_n: 3.0
+    measured_mount_pitch_mm: 17.0
+    measured_lower_screw_to_purge_plane_mm: 10.0
+    measured_screw_datum_to_throw_plane_mm: 37.0
+    measured_screw_plane_to_rear_wiper_extent_mm: 40.0
+    proposed_moving_mass_target_g: 25.0
   named_datums:
     - purge-exit-region
     - catcher-mouth
     - open-drop-axis
     - lower-bin-entry
+    - moving-wiper-frame
+    - purge-deposition-plane
+    - purge-throw-plane
     - stationary-printer-chassis
     - work-surface-plane
   constraints:
     - "The catcher must remain close enough to intercept the spring-ejected purge stream."
     - "Normal installation and service must not silently alter a service-sensitive machine component."
-    - "Capture head and downstream container need one explicit, testable datum chain."
+    - "Capture head and downstream container need either one explicit datum chain or a quantified non-contact transfer envelope with edge reserve."
     - "Third-party geometry, contours, dimensions and project metadata remain excluded."
 scope:
   process: FFF
@@ -64,26 +70,26 @@ scope:
     profile: null
     profile_hash: null
   geometry_class: "small local capture head plus machine-side support and downstream waste container"
-  environment: "digital source, report, preview and third-party-reference review; no physical fit or purge test"
+  environment: "digital source/report/reference review plus one physical Wiper documented by user measurements and six photos; no accessory fit, motion or purge test"
   transfer_limits:
     - "Evidence covers one Anycubic Kobra 3 Max accessory concept and one user's design-review correction."
-    - "The proposed freestanding dock is an experiment, not a reusable rule or proven best architecture."
-    - "The recorded 3 N, ±1.5 mm and cycle targets are R7 proposed acceptance values, not general machine-accessory limits."
+    - "The proposed freestanding dock was rejected after the source motion was clarified; this negative result is product-specific evidence, not a universal ban on freestanding accessories."
+    - "The recorded 17/10/37/40 mm measurements and 25 g target belong only to this physical unit/concept and are not general machine-accessory limits."
     - "No claim is made about another printer, table surface, material, nozzle, temperature or vibration context."
 observation:
-  summary: "The user accepted the R6 catcher design direction but rejected its mounting, setup and physical interface after comparing several local examples."
+  summary: "The user accepted the R6 catcher direction, rejected its mounting/setup, then rejected the stationary R7 dock proposal because the Wiper and purge source move along Z."
   expected: "A useful purge catcher should preserve close interception while being simple to place, empty and clean without disturbing the printer or requiring two independent alignments."
-  actual: "R6 places the accessory load on an unverified Wiper screw adapter, removes the catcher vertically through a tolerance-sensitive slide and leaves the lower bin independently positioned."
+  actual: "R6 uses an unverified screw adapter and long vertical slide; the intermediate R7 dock removed Wiper load but incorrectly fixed the catcher in the world frame while the purge source moves with the Wiper along Z."
   outcome: correction
   parameter: service-and-datum-chain-architecture
-  recommended_value: "Before retaining any machine accessory interface, grade its load owner, sensitive-host interaction, datum chain, service path, wrong-assembly states, repeated placement and full-motion evidence together."
+  recommended_value: "Before retaining any machine accessory interface, grade source coordinate frame, load owner, sensitive-host interaction, datum/transfer chain, service path, wrong-assembly states, repeated placement and full-motion evidence together."
   units: interface-contract
 explanation:
-  hypothesis: "The rejected experience is caused by the system-level load, datum and service chain rather than by the local catch geometry alone."
-  mechanism: "A service-sensitive Wiper becomes the structural support while a second freestanding body owns storage, so installation, removal and bin placement can each disturb function independently even when the local slide fits."
+  hypothesis: "The rejected experience is caused by the system-level coordinate-frame, load, datum and service chain rather than by the local catch geometry alone."
+  mechanism: "R6 couples normal service to an unverified moving Wiper interface, while the intermediate dock overcorrected by placing the local catcher in the stationary frame; neither architecture had yet reconciled source motion, low moving mass, short service and the non-contact transfer to storage."
   alternatives:
     - "The digital R6 depiction may undersell an interface that would be acceptable after real fit and access testing."
-    - "The user may primarily object to visual bulk rather than the load or datum chain."
+    - "The source could purge only at firmware-restricted heights, but no machine/G-code evidence currently supports designing around that assumption."
     - "A fully measured direct clip could outperform a freestanding dock where floor space is the dominant requirement."
     - "The loose lower bin may be adequate if the real purge trajectory and work surface are unusually tolerant."
   validated: false
@@ -95,18 +101,22 @@ evidence:
   machine_count: 1
   material_count: 0
   nozzle_count: 0
-  measured: false
-  measurement_method: "User design-review statement plus structural inspection of R6 source, interface report and previews; no physical measurement."
-  uncertainty: "High: the exact rejected attribute and the real printer/table datums have not yet been measured, and the proposed R7 architecture awaits requirements approval."
+  measured: true
+  measurement_method: "User correction, structural inspection of R6 source/reports, and direct user readings with a 1-mm folding rule documented in six photos; no repeated right-angle or caliper series."
+  uncertainty: "High outside the measured 17/10/37/40 mm user datums: screw hardware, exact 37-mm axis endpoints, full motion, moving load and purge trajectory remain unqualified; requirements are unapproved."
   sources:
     - type: user-statement
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
-      hash: 075b037a0c370d45e4d156f50aaafaa5344f8f15912ac740502ada055478a7e6
-      notes: "Preserves the original R6 proposal, exact correction, current hypothesis, alternatives and still-unaccepted R7 response."
+      hash: 3e980fb3caccc5a4e87ac9e8cca07ccb94104f0f9b9e7eba5c927e814974c8cd
+      notes: "Preserves R6, the rejected stationary intermediate, exact corrections, physical-measurement message, alternatives and still-unaccepted R7 response."
     - type: product-trace
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
-      hash: fe572704b9f2fc2230306363d8769bfc8ee0f87fef851d40a18ba3ef0e73a435
+      hash: 4a3f705631b9fe79512eee1415a5b6071a0b2585b7650665fb4e1256a07fdc18
       notes: "Pending R7 requirements and measurable acceptance proposal."
+    - type: measurement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+      hash: 1a678e9356e33cfc2ea112143195d8852751d143b274bbd48208663af2cfd6e0
+      notes: "Records four user measurements and SHA-256 identities for the six original physical-interface photos."
     - type: product-trace
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/src/generate_purge_catcher.py
       hash: e8f2a4b6e7b0244b3abf5f8650180164ababc0363b367f9d55e057884a750a0c
@@ -117,10 +127,12 @@ evidence:
       notes: "Digital slide checks pass while all physical gates remain open."
     - type: other
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/INTERFACE-REFERENCE-ANALYSIS-R7.md
-      hash: cfb513e2a23d707677099264687b4dc7459c8f68996dda731f4c3442ffaac921
+      hash: c3ee1b3060687eb4e79ddd9daddf8ccf318dc3aee4bd46302e3082f3aa5ce5cc
       notes: "Rights-separated principle analysis; no third-party geometry or dimensions are proposed for reuse."
   artifacts:
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/DECISION-LOG-R7.md
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
 applicability:
@@ -138,7 +150,7 @@ relationships:
   duplicates: []
   conflicts: []
   supersedes: []
-  related: [EXP-00020]
+  related: [EXP-00020, EXP-00035]
   evals: [EVAL-interfaces-machine-accessory-service-registration-001]
   patterns: []
   references: []
@@ -148,8 +160,8 @@ validation:
   reports: []
 provenance:
   project: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-  part_revision: 0.7.0-requirements.1
+  part_revision: 0.7.0-requirements.2
   trace: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
-  source_commit: "27553710"
+  source_commit: "c6e5ca3d"
   created_by: Codex via 3d-skill-maintainer from explicit user correction
-tags: [interfaces, purge-catcher, machine-accessory, mounting, serviceability, datum-chain, user-correction, digital-only]
+tags: [interfaces, purge-catcher, machine-accessory, mounting, serviceability, datum-chain, user-correction, physical-measurement]

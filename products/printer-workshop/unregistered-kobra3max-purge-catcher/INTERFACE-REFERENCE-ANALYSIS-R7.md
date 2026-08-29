@@ -5,7 +5,7 @@ Status: Anforderungen/Ideation, keine CAD-Ableitung
 
 ## Ausgangslage
 
-Der R6-Fangkopf erfüllt die gewünschte kurze Fangstrecke grundsätzlich, sein physisches System ist aber ungünstig: Ein unsicheres Wiper-Schraubenpaar trägt einen separaten Adapter, der Fangkopf muss von oben in eine reibschlüssige Schwalbenschwanzführung gesetzt werden, und der Unterbehälter steht als zweites, unabhängig auszurichtendes Objekt darunter. Die reale Passung und alle Kollisions- und Purge-Tests sind weiterhin offen.
+Der R6-Fangkopf erfüllt die gewünschte kurze Fangstrecke grundsätzlich, sein physisches System ist aber ungünstig: Ein nicht real vermessenes Wiper-Schraubenpaar trägt einen separaten Adapter, der Fangkopf muss von oben in eine reibschlüssige Schwalbenschwanzführung gesetzt werden, und der Unterbehälter steht als zweites Objekt darunter. Entscheidend ist außerdem die vom Benutzer nachgereichte Kinematik: Der Purge-Wiper und damit die Auswurfquelle fahren während des Drucks entlang Z nach oben; Purge kann deshalb auf verschiedenen Z-Höhen entstehen. Ein stationärer Fangkopf oder Dock-Tower auf nur einer Höhe löst die Aufgabe nicht. Die reale Passung und alle Kollisions- und Purge-Tests sind weiterhin offen.
 
 ## Rechte- und Nutzungspolitik
 
@@ -23,28 +23,41 @@ Die Dateien unter `research/third-party/printer-workshop/` bleiben reine Betrach
 
 ## Abstrahierte Lösungsräume
 
-1. **Direkt verschraubter Hängebehälter:** kompakt und eindeutig positioniert, belastet aber Wiper-Hardware und macht Schraubenlänge, Gewindeeingriff und Wartung kritisch.
+1. **Direkt verschraubter, mitfahrender Fangkopf:** bleibt im Bezugssystem der Auswurfquelle und ist kompakt, macht aber bewegte Masse, Schraubenlänge, Gewindeeingriff und Wiper-Ausrichtung kritisch.
 2. **Aufgeschnappter Kurz-Umlenker:** sehr wenig Masse nahe am Auswurf, benötigt jedoch ein präzises, noch unbekanntes Gehäuseprofil und kann durch Wärme, Kriechen oder Montagekräfte ausfallen.
 3. **Lose freistehende Großbox:** keine Maschinenlast und einfache Reinigung, aber keine gemeinsame Datumskette zwischen Auswurf, Fangzone und Behälter.
-4. **Zweistufiges System:** kleine Fangzone plus separate Speicherkapazität ist funktional sinnvoll; beide Stufen müssen jedoch von einem gemeinsamen, eigenen Träger ausgerichtet werden.
+4. **Zweistufiges System:** Die kleine Fang-/Umlenkzone folgt der bewegten Auswurfquelle, während die große Speicherkapazität stationär bleibt. Der stationäre Einlauf muss die reale Landefläche über den gesamten freigegebenen Z-Bereich mit Reserve abdecken.
 
 ## Eigenständige R7-Richtung
 
 R7 kombiniert nur das abstrakte zweistufige Funktionsprinzip mit einer neu konstruierten Mechanik:
 
-- Eine breite Dockbasis steht auf der Arbeitsfläche und trägt alle Zubehörlasten.
-- Eine schlanke, verrippte Rückensäule positioniert den weitgehend erhaltenen R6-Fangkopf.
-- Drei austauschbare weiche Anschläge berühren ausschließlich stationäre Chassisflächen und stellen die Position wieder her, ohne zu klemmen.
-- Ein eigener Innenbehälter fährt horizontal in das Dock und erhält eine formschlüssige Endlage unter der offenen Fallstrecke.
-- Eine einmalige X/Z-Justage sitzt zwischen Mast und Fangkopf, nicht am Wiper.
+- Ein leichter „Z-Rider“ aus Fangkopf und kurzem Abwärts-Umlenker fährt direkt mit dem Wiper und bleibt damit auf jeder Z-Höhe an der Purge-Quelle.
+- Eine minimale, eigene Datumplatte nutzt das am realen Drucker mit 17 mm Mitte-Mitte-Abstand gemessene Wiper-Schraubenpaar; weder Kontaktprofile noch Maße aus Fremdmodellen werden übernommen. Die Übereinstimmung mit dem bisherigen R6-Parameter ist eine unabhängige Realbestätigung, keine Referenzübernahme.
+- Der Fangkopf wird über zwei eigene Führungsdatums und eine positive Rastung mit sehr kurzem seitlichem oder schwenkendem Serviceweg gelöst; eine lange vertikale Entnahme entfällt.
+- Der Umlenker führt offen und stetig nach unten, ohne Purge in einem Tower, Schlauch oder mitfahrenden Speicher zu sammeln.
+- Ein großer stationärer Behälter steht darunter. Seine Einlaufkontur wird nicht aus Referenzgeometrie, sondern aus markierten realen Landepunkten bei niedriger, mittlerer und hoher Z-Position abgeleitet.
 
-Damit entfallen das Wiper-Schraubinterface, der vertikale R6-Schwalbenschwanz und die unabhängige Ausrichtung des Unterbehälters. Die konkrete Geometrie wird erst nach Anforderungs- und Konzeptfreigabe erzeugt.
+Damit entfallen der freistehende Dock-Tower aus Anforderungen `.1`, der vertikale R6-Schwalbenschwanz und jede Führung über die volle Z-Höhe. Die konkrete Geometrie wird erst nach Anforderungs- und Konzeptfreigabe erzeugt.
+
+## Lokale Foto- und Maßevidenz
+
+Sechs Originalfotos unter `Photos-1-001/` zeigen die reale Wiper-Baugruppe, die zwei vertikal angeordneten Schrauben und mehrere angelegte Maßstäbe. Die Rohdateien, Hashes, Pixelmaße, Datumsdefinitionen und Unsicherheitsgrenzen sind in `WIPER-PHOTO-MEASUREMENTS-R7.yaml` erfasst. Benutzerseitig gemessen wurden:
+
+- 17 mm Mitte–Mitte zwischen oberer und unterer Wiper-Schraube;
+- 10 mm von der unteren Schraube zur bezeichneten Purge-Ablageebene;
+- 37 mm vom bezeichneten Schraubendatum zur horizontalen Purge-Wurfbahn;
+- 40 mm von der Schraubenebene horizontal nach hinten bis zur Wiper-Ausdehnung.
+
+Die Bilder stützen eine dünne frontseitige Schrauben-Datumplatte: Die Köpfe sind zugänglich, während direkt hinter und neben der Auflage bewegte bzw. wipernahe Bauteile liegen. Ein tief gehäuseumgreifender Clip oder langer vertikaler Schlitten würde mehr unbekannte Kontur und Kollisionsraum beanspruchen. Die Fotos ersetzen dennoch keinen rechtwinkligen Datums- oder Vollwegcoupon.
 
 ## Noch benötigte reale Evidenz
 
-- Foto mit Maßstab oder Messwerte für Tischfläche, Wiperhöhe und erreichbare stationäre Chassisflächen.
-- Vollständiger stromloser Bewegungsraum von Bett, Kopf, Kabeln und Wiper.
-- Verfügbarer Auszugsweg zum Entleeren des Innenbehälters.
-- Fünf Neuaufstellungen mit Registrierungslehre, Stabilitätstest und mindestens drei beaufsichtigte Purge-Zyklen.
+- Schraubenkopf-Durchmesser/-Höhe, Gewinde, Länge, Bauteildicke und verbleibender Gewindeeingriff.
+- Rechtwinklige Bestätigung der 10-/37-/40-mm-Enddatums und explizite lokale X/Y-Zuordnung der 37-mm-Messung.
+- Ergänzende Messwerte oder ein Konturcoupon für den freien Bauraum unmittelbar um die Schraubenebene.
+- Vollständiger stromloser X/Y/Z-Bewegungsraum von Bett, Kopf, Kabeln, Wiper und geplanter Zusatzkontur.
+- Gewogene bewegte Baugruppe und 100 Fangkopf-Entnahmezyklen mit Rastprüfung.
+- Je mindestens drei beaufsichtigte Purge-Zyklen bei niedriger, mittlerer und hoher Z-Position; Landepunkte und Randreserve des stationären Behälters werden markiert.
 
 Diese Analyse ist eine technische Clean-Room-Dokumentation, keine rechtliche Freigabe und keine Aussage zur Schutzfähigkeit oder Patentfreiheit.

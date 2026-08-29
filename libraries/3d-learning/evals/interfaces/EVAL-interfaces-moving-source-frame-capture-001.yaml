@@ -1,0 +1,53 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-moving-source-frame-capture-001
+title: Capture interface follows a moving source or proves coverage of its complete emission trajectory
+category: interfaces
+status: draft
+trigger: "A machine emits, ejects or transfers material from a source whose position changes during operation."
+risk: "A locally plausible stationary catcher can work at one machine position but miss material, collide or require an oversized full-travel structure elsewhere in the motion envelope."
+given:
+  project: products/printer-workshop/unregistered-kobra3max-purge-catcher
+  requirements: design-spec.yaml
+  correction_trace: learning-trace-interface-r7.yaml
+  physical_measurements: WIPER-PHOTO-MEASUREMENTS-R7.yaml
+expected:
+  - "The requirements identify the material source, its owning coordinate frame, every relevant machine axis and the complete declared motion range before selecting a catcher architecture."
+  - "The local capture interface either moves rigidly with the source or a stationary alternative demonstrably spans the complete measured emission envelope without entering a machine keep-out."
+  - "Any transfer from a moving local catcher to a stationary downstream receiver has an explicit trajectory/target-envelope contract with documented edge reserve."
+  - "A co-moving accessory records added mass, center-of-mass direction, fastener/load path, cable and mechanism clearances, retention and service path before physical-readiness claims."
+  - "Fit and end-to-end capture are checked at representative low, middle and high positions of every axis that changes the source-to-world transform."
+  - "Unknown firmware restrictions or assumed fixed purge heights are not used as design facts without machine or G-code evidence."
+failure_conditions:
+  - "The catcher is positioned from a stationary datum even though the source changes position and no complete trajectory envelope is proven."
+  - "Only the lowest, home or visually convenient machine position is inspected or tested."
+  - "A full-height tower, hose or guide occupies the motion envelope merely to compensate for an unmodelled moving source."
+  - "A moving catcher is selected without checking mass, moment arm, retention, fastener engagement or full machine travel."
+  - "The downstream stationary receiver can be plausibly placed outside the verified landing envelope or with insufficient documented edge reserve."
+fixtures:
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: >-
+    PASS only when the moving source frame and complete relevant travel are
+    explicit; the chosen local catcher remains registered to that source or a
+    stationary alternative proves full-envelope coverage; all moving-accessory
+    load, retention and keep-out checks pass; and supervised end-to-end tests at
+    representative low, middle and high source positions land inside the
+    stationary receiver with the project-approved edge reserve and no jam,
+    escape, contact or drift.
+  measurement_method: "Review frame transforms and keep-outs, weigh/inspect the moving assembly, perform a power-off full-motion sweep, then mark downstream landing points during supervised low/mid/high functional cycles."
+relationships:
+  lessons: [EXP-00035]
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags: [interfaces, coordinate-frame, moving-source, motion-envelope, purge-catcher, trajectory, physical-gate]

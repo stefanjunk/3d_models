@@ -13,6 +13,13 @@ The selection fixes the visual direction but does not yet constitute trademark c
 
 ## Concept sheets
 
+New metriCreate family evolution, generated after selection of the binding
+metriMade mark:
+
+- [metriCreate v3 — controlled sister-brand concepts](metricreate-metrimade-sibling-concepts-v3.png) — SHA-256 `821fc7fccab16f71db2b71d17f3d404848fc9c13f8648608d54f271da7e00f5b`
+- [metriCreate v4 — Midnight Forge overdrive concepts](metricreate-midnight-forge-overdrive-concepts-v4.png) — SHA-256 `6f1891fd926f3410ec6d42bf27865730156228d4cf3fdcbacb17e8125c56721d`
+- [Evaluation, recommendation and prompt provenance](metricreate-metrimade-family-evolution-v3-v4.md)
+
 Selected V7-04 rounded four-color refinement:
 
 - [metriMade V7-04 four-color variations v10](metrimade-v7-04-four-color-variations-v10.png) — SHA-256 `9baf6e78a2ae2600861078752e890c464a7b923d95fbba520a857deb26f16d00`

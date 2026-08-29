@@ -3,7 +3,7 @@
   "phase": "concept-visualization",
   "project_revision": "0.7.0-requirements.2",
   "date": "2026-08-29",
-  "status": "PASS_WITH_OPEN_CONCEPT_APPROVAL",
+  "status": "PASS_CONCEPT_APPROVED",
   "repository_sync": {
     "branch": "main",
     "upstream": "origin/main",
@@ -16,6 +16,13 @@
     "approved_by": "Stefan via conversation",
     "approved_at": "2026-08-29T12:01:09+02:00",
     "approval_message": "freigegebene"
+  },
+  "concept_gate": {
+    "status": "APPROVED_HUMAN",
+    "approved_by": "Stefan via conversation",
+    "approved_at": "2026-08-29T12:17:09+02:00",
+    "approval_message": "freigegeben",
+    "scope": "system architecture and form direction shown in R7 Z-Rider v1; dimensional and physical gates remain open"
   },
   "concept_asset": {
     "path": "concepts/R7-concept-sheet-z-rider-v1.png",
@@ -82,17 +89,17 @@
     "design_spec_structure": {
       "status": "PASS",
       "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml",
-      "spec_sha256": "ac8a9e51f61d9fac4d5185cc61e90b75838f2d9fd1f6e0a8d46ecafa638a1ad4",
+      "spec_sha256": "848365e783323bc553f6163b974fb5989822e9fc5d980963218d42ab828845e1",
       "warnings": [
-        "production CAD remains gated until concept approval",
+        "final release remains gated until watermark approval",
         "print-time/material optimization decision remains pending",
         "manufacturing-mesh simplification decision remains pending"
       ]
     }
   },
   "workflow_gates": {
-    "concept_approval": "PENDING_HUMAN",
-    "production_cad": "BLOCKED_BY_CONCEPT",
+    "concept_approval": "APPROVED_HUMAN_2026-08-29T12:17:09+02:00",
+    "production_cad": "AUTHORIZED_DRAFT",
     "physical_validation": "NOT_RUN",
     "commercial_release": "BLOCKED"
   }

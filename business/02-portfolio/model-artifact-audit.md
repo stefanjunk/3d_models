@@ -2,11 +2,11 @@
 
 Audit date: 2026-08-29
 
-- Portfolio records: **96**
-- Records with a local neutral/manufacturing 3D artifact: **95**
-- Records without a local 3D artifact: **1**
-- Records with detected parametric source: **80**
-- Records with at least one 3MF: **63**
+- Portfolio records: **98**
+- Records with a local neutral/manufacturing 3D artifact: **96**
+- Records without a local 3D artifact: **2**
+- Records with detected parametric source: **82**
+- Records with at least one 3MF: **64**
 - Lifecycle/model contradictions: **0**
 
 A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is reported separately. Neither proves rights, slicability, fit, strength, physical qualification or commercial release.
@@ -34,7 +34,7 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-018 | MM-TOY-001 | 20 mm Rubber-Ball Toy Popper | P1 Model present | YES — controlled CAD/source + model artifact | `products/toys-games/mm-toy-001-rubber-ball-toy-popper/rubber_ball_toy_popper/output/toy_popper_assembly_preview_NOT_FOR_PRINT.stl` |
 | PORT-019 | MM-BOAT-001 | Fisher Boat | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-001-fisher-boat/textured_mesh.3mf` |
 | PORT-020 | MM-BOAT-002 | Fisher Boat Detailed | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-002-fisher-boat-detailed/textured_mesh.stl` |
-| PORT-021 | MM-BOAT-003 | Flapping-Tail Submarine | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/toys-games/mm-boat-003-flapping-tail-submarine/exports/stl/ballast_box.stl` |
+| PORT-021 | MM-BOAT-003 | Flapping-Tail Submarine | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/toys-games/mm-boat-003-flapping-tail-submarine/exports/anycubic-v1.1.0-draft.1/DRAFT-MM-BOAT-003-v1.1.0-draft.1-Kobra3Max-PETG-complete.3mf` |
 | PORT-022 | MM-BOAT-004 | Rocket Boat | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-004-rocket-boat/textured_mesh.stl` |
 | PORT-023 | MM-BOAT-005 | Toy Boat | P1 Model present | YES — model artifact present | `products/toys-games/mm-boat-005-toy-boat/textured_mesh.3mf` |
 | PORT-024 | MM-DEC-003 | Sunflower Bowl / Tray | P1 Model present | YES — controlled CAD/source + model artifact | `products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/sunflower_bowl/sunflower_bowl.3mf` |
@@ -108,4 +108,6 @@ A `YES` requires a local neutral/manufacturing 3D artifact. Parametric source is
 | PORT-093 | MM-ORG-037 | Sewing bobbin and presser-foot drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette/exports/3mf/DRAFT-MM-ORG-037-stitchcell-cb-kit-0.1.0-draft.1.3mf` |
 | PORT-094 | MM-ORG-038 | Milestone photo-and-card desk display block | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-038-milestone-photo-card-desk-display-block/exports/3mf/DRAFT-MM-ORG-038-momentpair-base-0.1.0-draft.1.3mf` |
 | PORT-095 | MM-ORG-039 | Coin-capsule and medal drawer cassette | P2 Digital print candidate | YES — controlled CAD/source + model artifact | `products/organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette/exports/3mf/DRAFT-MM-ORG-039-collectorgrid-round-46-kit-0.1.0-draft.1.3mf` |
-| PORT-096 | MM-TOY-002 | TrailCam CF10 RC Camera Rover | P0 Idea | NO — report only; claimed source/STLs absent | `products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/legacy/TrailCam_CF10_Entwurfsbericht_v0.1.0.pdf` |
+| PORT-096 | MM-TOY-002 | TrailCam CF10 FPV Camera Rover | P0 Idea | NO — no local 3D model found | `` |
+| PORT-097 | MM-DRN-001 | OpenQuad CF5 FPV Quadcopter | P0 Idea | NO — source found, no local 3D model artifact | `products/toys-games/mm-drn-001-openquad-cf5-fpv-quadcopter/legacy-package/openquad_cf5/CAD/openquad_cf5.scad` |
+| PORT-098 | MM-ROV-001 | Tethys Mini ROV | P2 Digital candidate | YES — controlled CAD/source + model artifact | `products/toys-games/mm-rov-001-tethys-mini-rov/legacy-package/cad/stl/ballast_tray.stl` |

@@ -14,7 +14,7 @@ or generator claims can be independently rerun or accepted.
 
 ## Findings
 
-| Priority | Finding | Design impact | Revision 0.2.0 response |
+| Priority | Finding | Design impact | Revision 0.3.0 response |
 |---|---|---|---|
 | Blocker | Claimed generator, JSON parameters, ten STL files, validation reports, product BOM and license are absent | No editable source, no artifact hash chain and no reproducible digital candidate | Rebuild from an approved measured contract; retain the PDF as legacy evidence only |
 | High | The report places a 2S pack on the upper payload rails | Raises the center of gravity and rollover energy | Keep the traction battery at the lowest approved COTS chassis position |
@@ -24,6 +24,8 @@ or generator claims can be independently rerun or accepted.
 | Medium | The rail clamp result is shown but its split, fastener bearing, nut capture, torque and layer orientation are not evidenced | Clamp cracking, creep or slip can release the payload | Use M3 metal through-fasteners, continuous clamp load paths, local pads/gussets and a 50 N slip coupon |
 | Medium | The reported 42.2% saving is CAD volume only | It does not establish print-time, deposited mass, support burden or retained stiffness | Recreate a baseline and compare process-only, geometry-only and combined candidates with exact slicer profiles |
 | Medium | VTX cooling, antenna keep-out and cable motion clearances are prose-only | Video loss, heat failure or mechanical interference may occur | Convert them to explicit envelopes and thermal/range/motion acceptance checks |
+| High | FPV was not a core requirement and no exact radio/video family was selected | Mounts, cooling, power and failure behavior could be designed around incompatible placeholders | Use the OpenQuad RunCam Phoenix 2 SE V2/TX800 analog-FPV reference and the EdgeTX/ELRS family, subject to exact measurement and legal/electrical verification |
+| High | “Similar drone components” did not distinguish exact reuse from platform-specific interfaces | A serial aircraft receiver or twin-stick control layout could be incorrectly treated as a surface-vehicle drop-in | Share the ELRS ecosystem, camera, VTX and goggles; use a surface PWM receiver and surface controls for TrailCam; keep propulsion/video independent |
 | Medium | Several COTS, price, firmware and legal statements are dated 2026-08-13 | Procurement and operating assumptions can become stale | Re-verify primary manufacturer/regulatory sources before BOM freeze; no purchase recommendation is approved here |
 
 ## Protected geometry for the redesign
@@ -38,7 +40,7 @@ or generator claims can be independently rerun or accepted.
 ## Planned comparison
 
 The legacy geometry cannot be an exact baseline because it is missing. After
-requirements and concept approval, revision 0.2.0 will establish a reproducible
+requirements and concept approval, revision 0.3.0 will establish a reproducible
 reconstructed baseline and compare:
 
 1. process-only 0.4/0.6 mm nozzle candidates;

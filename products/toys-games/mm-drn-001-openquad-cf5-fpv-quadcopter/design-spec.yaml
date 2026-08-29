@@ -1,0 +1,151 @@
+schema_version: 1
+
+project:
+  id: MM-DRN-001
+  sku: MM-DRN-001
+  name: "OpenQuad CF5 FPV Quadcopter"
+  revision: "0.1.0"
+  candidate: "0.1.0-import.1"
+  owner: Stefan
+  created: "2026-08-29"
+  revised: "2026-08-29"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-097"
+  lifecycle: "P0 Idea"
+  source: "legacy-package/openquad_cf5/CAD/openquad_cf5.scad"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: pending
+    spec_revision: "0.1.0"
+    reason: "Imported design and later FPV BOM require explicit normalization approval"
+  concept_approval:
+    status: blocked
+    reason: "Current requirements are not approved"
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-DRN-001
+    version: "0.1.0"
+    reason: "No controlled manufacturing geometry exists"
+  digital_candidate:
+    status: blocked
+    reason: "No exported STL/STEP/3MF is present"
+  physical_validation:
+    status: blocked
+    reason: "No coupon, propulsion, proof-load or flight evidence is present"
+
+source_audit:
+  archive:
+    path: imports/OpenQuad_CF5_Entwurfspaket_2026-08-13.zip
+    sha256: 435578b64356e995273b21521d8663594aa0b0744843400b6f39b64cb1fc702d
+    size_bytes: 676677
+  extracted_package: legacy-package/openquad_cf5
+  loose_reports:
+    sha256: 7833056f62f688c75be55018f93e366d840d4bc678a8fb2314a7881fe48c1dc2
+    disposition: "Two byte-identical copies retained as provenance evidence"
+  later_fpv_bom:
+    path: imports/loose-originals/bom_budget_de_2026-08-14.csv
+    sha256: fff68866d710a58cd9320ce3c54d2e480667cd80800259bcedcecc76912b14d6
+    disposition: "Supersedes the 2026-08-13 archive BOM only for component planning; archive remains unchanged"
+  licenses: "OpenSCAD source declares CERN-OHL-P-2.0; third-party components retain their own terms"
+
+function:
+  summary: "Modular five-inch FPV quadcopter research frame using four 10 x 10 x 1 mm carbon square tubes, printed PA-CF nodes and common 30.5 mm electronics."
+  included:
+    - "Parametric hub, arm clamps, motor mounts, battery deck and fit coupon"
+    - "ExpressLRS control, analog camera/VTX and independently powered recovery buzzer requirements"
+    - "Staged manufacturing, electrical, propulsion and flight acceptance plan"
+  excluded:
+    - "Flight authorization, autonomous operation or certification claims"
+    - "Operation above people, public space or outside applicable legal rules"
+    - "Any claim that current source-only geometry is print- or flight-approved"
+
+geometry:
+  legacy_reference:
+    wheelbase_mm: 230
+    arms: "four 10 x 10 x 1 mm CFK square tubes, nominal 103 mm cuts"
+    flight_stack: "30.5 x 30.5 mm class"
+    battery_deck_mm: [80, 52]
+    camera_envelope_mm: [19, 19, 22]
+  protected_regions:
+    - "Motor/propeller sweep and arm-to-node clamp load paths"
+    - "Flight-controller, ESC, camera, VTX, antenna, battery and fastener envelopes"
+    - "Carbon isolation, wiring bend radii, cooling flow and tool access"
+
+interfaces:
+  control: "RadioMaster RP1 V2 ELRS 2.4 GHz LBT over serial CRSF; Pocket M2 EdgeTX transmitter"
+  video: "RunCam Phoenix 2 SE V2 plus SpeedyBee TX800 analog 5.8 GHz; exact units and legal settings must be verified"
+  power: "4S 1300 mAh XT60 candidate; flight stack, motor/propeller and voltage compatibility remain qualification items"
+  family_matrix: "../FPV-VEHICLE-COMPONENT-MATRIX.md"
+
+risk:
+  class: safety-critical
+  boundary: "Propulsion and vehicle-control changes require qualified human review; no unsupervised or unproven flight"
+  hazards:
+    - "High-energy propeller contact, flyaway or loss of control"
+    - "Carbon clamp or motor-mount fracture in flight"
+    - "LiPo fire, electrical short, VTX overheating or radio interference"
+  mitigations:
+    - "Props-off electrical gates, smoke stopper, serial failsafe and bounded test area"
+    - "Fit coupons, proof loads, instrumented propulsion tests and qualified inspection before hover"
+
+loads:
+  - "Measured motor thrust, torque and vibration across the approved propeller/output limit"
+  - "Arm/node static proof and cyclic clamp retention loads derived from the selected propulsion system"
+  - "Battery retention and landing-impact loads with explicit factors and test fixtures"
+
+test_plan: "legacy-package/openquad_cf5/configs/acceptance_test_plan.md"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-DRN-001
+  version: "0.1.0"
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+fabrication:
+  preference: balanced-hybrid
+  process: fdm-fff
+  material: "Dried PA11-CF or PA612-CF15 candidate; PETG only for nonflight fit prototypes"
+
+printer:
+  status: provisional
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420.0, 420.0, 500.0]
+
+manufacturing:
+  process: fdm-fff
+  nozzle_mm: 0.6
+  layer_height_mm: 0.24
+  line_width_mm: 0.66
+  material: "Exact PA-CF product, drying and hardened-nozzle profile unresolved"
+
+optimization:
+  status: pending
+  objective: "Compare the hybrid frame against a conventional carbon frame and minimize printed mass without weakening clamp paths"
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - "arm clamps and motor fasteners"
+      - "stack, camera, VTX and battery interfaces"
+      - "bed datums and future watermark region"
+
+acceptance:
+  - id: AC-SRC-001
+    criterion: "OpenSCAD source and numerical analysis remain synchronized and deterministic."
+  - id: AC-MFG-001
+    criterion: "Each approved part has a watertight manufacturing mesh and an exact Anycubic slicer report with explicit profiles."
+  - id: AC-MECH-001
+    criterion: "Fit coupons, arm/node proof loads, motor fasteners and battery retention pass the approved physical plan."
+  - id: AC-ELEC-001
+    criterion: "Props-off power, receiver failsafe, VTX cooling and radio/video interference tests pass."
+  - id: AC-FLT-001
+    criterion: "Instrumented propulsion and restrained tests pass before a qualified reviewer authorizes the first bounded hover."

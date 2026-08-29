@@ -1,8 +1,8 @@
-# MM-TOY-002 — TrailCam CF10 RC Camera Rover
+# MM-TOY-002 — TrailCam CF10 FPV Camera Rover
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.2.0` requirements draft
+Current revision: `0.3.0` FPV requirements draft
 
 Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
 
@@ -11,7 +11,9 @@ controlled product structure. The imported report describes a modular low-speed
 1:10 RC camera rover and claims a Node.js CSG generator plus ten validated STL
 files. Those claimed source and mesh deliverables were not present in the
 workspace or embedded in the PDF, so the report is retained as legacy evidence,
-not treated as a digital model candidate.
+not treated as a digital model candidate. Revision 0.3.0 defines the rover as an
+FPV vehicle and aligns its analog camera/VTX and ExpressLRS ecosystem with
+OpenQuad while retaining a surface-specific receiver and transmitter layout.
 
 ## Controlled files
 

@@ -3,9 +3,9 @@ schema_version: 1
 project:
   id: MM-TOY-002
   sku: MM-TOY-002
-  name: "TrailCam CF10 RC Camera Rover"
-  revision: 0.2.0
-  candidate: 0.2.0-draft.1
+  name: "TrailCam CF10 FPV Camera Rover"
+  revision: 0.3.0
+  candidate: 0.3.0-draft.1
   owner: Stefan
   created: "2026-08-29"
   revised: "2026-08-29"
@@ -17,11 +17,11 @@ workflow:
   autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: pending
-    spec_revision: 0.2.0
-    reason: "Guided policy requires explicit human approval of the normalized redesign requirements"
+    spec_revision: 0.3.0
+    reason: "Guided policy requires explicit human approval of the FPV and shared-component requirements"
   concept_approval:
     status: blocked
-    reason: "Requirements revision 0.2.0 is not approved"
+    reason: "Requirements revision 0.3.0 is not approved"
   decomposition:
     status: blocked
     reason: "Requirements and concept are not approved"
@@ -38,7 +38,7 @@ workflow:
     status: blocked
     asset_id: MM-WM-001-R2
     product_id: MM-TOY-002
-    version: 0.2.0
+    version: 0.3.0
     reason: "Watermark is the final planned solid-geometry change after candidate verification"
   final_release_approval:
     status: blocked
@@ -62,15 +62,19 @@ source_audit:
     mesh_validation_reports: missing
     product_bom: missing
     license_file: missing
-  unrelated_loose_file:
-    path: products/toys-games/bom_budget_de.csv
-    disposition: "Not moved; its rows describe the OpenQuad aircraft and do not belong to TrailCam"
+  related_loose_file:
+    original_path: products/toys-games/bom_budget_de.csv
+    integrated_path: ../mm-drn-001-openquad-cf5-fpv-quadcopter/imports/loose-originals/bom_budget_de_2026-08-14.csv
+    disposition: "Moved with OpenQuad as its later FPV BOM; used only as a component-family reference"
 
 requirements_trace:
   user_stated:
     - "Find the RC-car design in the toy folder"
     - "Integrate it into the repository structure with a portfolio record and product ID"
     - "Create a product folder, move the design there, review it and improve it"
+    - "Make the rover specifically FPV with a camera"
+    - "Reuse components similar to the flight drones, especially the control-radio and camera-transmission ecosystem"
+    - "Integrate the OpenQuad flight drone and the separate remote-controlled Tethys submarine"
   legacy_report_stated:
     - "Low-speed modular 1:10 camera rover on a COTS crawler chassis"
     - "Two 10 x 10 x 1 mm, 390 mm rails at 84 mm center spacing"
@@ -91,20 +95,25 @@ requirements_trace:
     - "Use a removable electronics deck with local pads, edge beams, few large radiused windows and load-oriented ribs"
     - "Start with PETG and a 0.6 mm nozzle on the Anycubic Kobra 3 Max, subject to user confirmation and process coupons"
     - "Limit the first driving stage to 5 km/h and direct line of sight until braking, failsafe, latency and range tests pass"
+    - "Adopt the OpenQuad analog FPV reference stack: RunCam Phoenix 2 SE V2 camera and SpeedyBee TX800 VTX, after exact electrical, thermal and legal-power verification"
+    - "Use the same EdgeTX/ExpressLRS 2.4 GHz LBT ecosystem as OpenQuad, but a surface-vehicle PWM receiver and surface-radio ergonomics rather than the aircraft receiver/controller"
+    - "Keep propulsion control and analog video as independent links so video loss cannot command or prevent a safe stop"
     - "Rebuild precise interfaces in CadQuery and retain STEP alongside DRAFT STL/3MF"
   unresolved:
     - "Exact reference chassis/revision and measured mounting hardpoints"
     - "Measured rail section, rail spacing, bodypost diameter/spacing and available vertical envelope"
-    - "Exact camera, VTX, receiver, antenna, cable and fastener envelopes"
+    - "Measured RunCam Phoenix 2 SE V2, SpeedyBee TX800, surface ELRS receiver, antenna, cable and fastener envelopes"
+    - "Final surface-radio choice: RadioMaster MT12 ELRS recommended; common RadioMaster Pocket use remains an ergonomic trade-off"
     - "Approved nominal payload and proof-load target"
     - "Exact printer, nozzle, PETG product, drying state and slicer profiles"
 
 function:
   summary: >
-    A removable, modular sensor and camera payload structure for a low-speed
-    1:10 COTS RC crawler. The printed parts provide measured adapters, a stiff
-    lightweight deck, camera protection, electronics retention, cable routing
-    and antenna separation without modifying the steering or drivetrain.
+    A removable, modular first-person-view camera and electronics structure for
+    a low-speed 1:10 COTS RC crawler. The printed parts provide measured
+    adapters, a stiff lightweight deck, protected analog-FPV vision, electronics
+    retention, cable routing and antenna separation without modifying the
+    steering or drivetrain.
   intended_users:
     - "adult hobby builder"
     - "supervised test operator"
@@ -113,12 +122,14 @@ function:
     - "Two purchased structural rails and printed rail nodes"
     - "Removable electronics/sensor deck"
     - "Fixed-tilt 19 mm camera mount with replaceable guard"
+    - "Cooled 20 x 20 mm analog-VTX mount with antenna strain relief"
+    - "Surface-vehicle ELRS receiver mount separated from the VTX and power wiring"
     - "Antenna mount outside conductive rail shadow"
     - "Cable routing, strain relief and accessible fasteners"
     - "Interface coupons and staged physical test plan"
   excluded:
     - "Steering, throttle, ESC, receiver or drivetrain redesign"
-    - "Autonomous driving, public-road use or unsupervised operation"
+    - "Autonomous driving, video-only supervision, public-road use or unsupervised operation"
     - "High-speed operation or a validated payload/load rating before tests"
     - "Printer upload or print start"
     - "Commercial or toy-safety certification claims"
@@ -167,7 +178,16 @@ interfaces:
     rule: "No printed primary fastener and no heat-set insert in a primary clamp load path without a dedicated coupon"
   camera:
     status: provisional
-    nominal: "19 x 19 x 22 mm with M2 mounting"
+    nominal: "RunCam Phoenix 2 SE V2, 19 x 19 x 22 mm; verify actual unit and M2 pattern"
+  video_transmitter:
+    status: provisional
+    nominal: "SpeedyBee TX800, 20 x 20 mm class, 5 V input and MMCX antenna; verify actual unit"
+    safety: "Never power without the antenna; use only locally permitted channels/power and prove stationary cooling"
+  radio_control:
+    ecosystem: "EdgeTX plus ExpressLRS 2.4 GHz LBT, aligned with OpenQuad"
+    rover_receiver: "RadioMaster ER5C PWM candidate; exact channel and BEC/failsafe compatibility unresolved"
+    transmitter: "RadioMaster MT12 ELRS recommended for steering-wheel ergonomics; Pocket M2 remains compatible at the protocol-family level"
+    independence: "Receiver/control and analog-FPV paths remain electrically and functionally independent"
   bodyposts:
     status: "locator-only candidate; not accepted as primary structural support"
     coupon_diameters_mm: [6.10, 6.25, 6.40]
@@ -209,6 +229,18 @@ risk:
     - "Guarded camera, bounded cable routes, visible disconnect and independent control/video paths"
     - "Fit, slip, load, BEC, thermal, failsafe, range, braking and drive tests before FPV use"
 
+shared_platform:
+  architecture: "products/toys-games/FPV-VEHICLE-COMPONENT-MATRIX.md"
+  exact_reuse_candidates:
+    - "RunCam Phoenix 2 SE V2 analog camera"
+    - "SpeedyBee TX800 analog 5.8 GHz VTX and matching receiving goggles/display"
+    - "ExpressLRS 2.4 GHz LBT protocol family, EdgeTX configuration practice and bench tooling"
+    - "Smoke-stopper workflow, LC filtering strategy, antenna-clearance rules and connector labeling"
+  platform_specific:
+    - "TrailCam uses a surface PWM receiver and surface-radio ergonomics; OpenQuad uses serial CRSF and twin-stick flight controls"
+    - "Batteries, ESCs and power distribution remain platform-rated and are not interchangeable by default"
+    - "Tethys has no submerged 2.4/5.8 GHz control or video link; RF may exist only on an optional surface buoy"
+
 branding:
   required: true
   brand: metriMade
@@ -216,7 +248,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-TOY-002
-  version: 0.2.0
+  version: 0.3.0
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
@@ -292,6 +324,10 @@ acceptance:
     criterion: "The approved service-load, proof-load and 50 N clamp-slip tests meet the limits in acceptance_plan.physical."
   - id: AC-SAFE-001
     criterion: "Failsafe, receiver-stall, range, video-under-load, VTX-temperature, braking and supervised 5 km/h driving tests pass before FPV use."
+  - id: AC-FPV-001
+    criterion: "The selected ELRS control path and analog-FPV path are independent; commanded stop and receiver failsafe still work during complete video loss."
+  - id: AC-FPV-002
+    criterion: "RunCam/TX800 video remains usable under steering stall and motor load without receiver reboot, unsafe VTX temperature or antenna shadowing."
 
 acceptance_plan:
   digital:

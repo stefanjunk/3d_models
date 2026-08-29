@@ -1,0 +1,146 @@
+schema_version: 1
+
+project:
+  id: MM-ROV-001
+  sku: MM-ROV-001
+  name: "Tethys Mini ROV"
+  revision: "0.1.0"
+  candidate: "0.1.0-import.1"
+  owner: Stefan
+  created: "2026-08-29"
+  revised: "2026-08-29"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-098"
+  lifecycle: "P2 Digital candidate"
+  source: "legacy-package/cad/generate_parts.py"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: pending
+    spec_revision: "0.1.0"
+    reason: "Imported ROV dimensions, purchased revisions and test limits require explicit approval"
+  concept_approval:
+    status: blocked
+    reason: "Current requirements are not approved"
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ROV-001
+    version: "0.1.0"
+    reason: "Imported reference meshes are not the approved watermarked geometry"
+  digital_candidate:
+    status: provisional
+    reason: "Source, 13 reference STLs, manifest and tests exist; exact regeneration and slicer evidence remain open"
+  physical_validation:
+    status: blocked
+    reason: "No purchased-part measurements, leak, vacuum, thrust, trim or water-trial records are present"
+
+source_audit:
+  archive:
+    path: imports/Tethys_Mini_ROV_v0.1.zip
+    sha256: 9baebeaebd9420b0ed34dc97aa8af24d1b2e599ee5c09021fc3b8fda1475327c
+    size_bytes: 18000590
+  extracted_package: legacy-package
+  manufacturing_meshes: "13 one-component watertight STL reference parts plus cad/stl/mesh_manifest.json; 10 require winding/positive-volume review"
+  licenses: "Original CAD/docs CC BY 4.0; software, tests and generator MIT; third-party components retain their terms"
+
+function:
+  summary: "Supervised three-thruster tethered mini ROV for clear, calm freshwater tests, with a purchased 75 mm watertight enclosure, printed PETG frame interfaces and Pi/Pico control."
+  included:
+    - "Forward/reverse, yaw and vertical thrust using two horizontal and one vertical thruster"
+    - "Ethernet tether control/video, wide camera, independent microcontroller watchdog and leak sensing"
+    - "Optional above-water Wi-Fi/ExpressLRS buoy after direct-tether validation"
+  excluded:
+    - "Direct submerged Wi-Fi, Bluetooth, ExpressLRS or 5.8 GHz FPV as a primary link"
+    - "Occupancy, rescue, open-water, current, saltwater or depth-rating claims"
+    - "Printed pressure hull, printed propellers or unverified cable penetrators"
+
+geometry:
+  legacy_reference:
+    envelope_mm: [320, 240, 180]
+    tube: "10 x 8 mm CFK/GFK; two 300 mm and two 190 mm cuts"
+    enclosure: "75 mm COTS locking WTE, approximately 220 mm usable"
+    thrusters: "three 2828 underwater outrunners with 60 mm purchased CW/CCW propellers"
+  protected_regions:
+    - "Propeller sweep, guards, nozzle clearances and fastener depth"
+    - "WTE sealing faces, O-rings, penetrators, vent and tether strain relief"
+    - "Camera field, flotation/ballast adjustment, tube interfaces and service access"
+
+interfaces:
+  control_video: "5–10 m Ethernet data tether between topside and Pi Zero 2 W; Pico 2 provides PWM and 300 ms watchdog"
+  optional_surface_link: "Wi-Fi and/or ExpressLRS only on a buoy above water"
+  camera: "Raspberry Pi Camera Module 3 Wide behind a planar transparent COTS front"
+  power: "3S 2200 mAh LiPo, fused distribution, verified 5 V BEC and three separate bidirectional ESCs"
+  family_matrix: "../FPV-VEHICLE-COMPONENT-MATRIX.md"
+
+risk:
+  class: safety-critical
+  boundary: "Pressure, propulsion, LiPo and vehicle-control changes require qualified human review and staged adult-supervised testing"
+  hazards:
+    - "Leak, pressure-body failure, trapped pressure or LiPo short in water"
+    - "Propeller injury, unexpected thrust, tether entanglement or loss of vehicle"
+    - "Loss of topside/agent link, brownout or uncontrolled ESC neutral"
+  mitigations:
+    - "Purchased WTE, cable-matched penetrators, vent, vacuum/leak gates and leak sensor"
+    - "Props-off failsafe gates, 300 ms watchdog, fusing, guards and bounded pool trials"
+
+loads:
+  - "External pressure and leak integrity through staged 0.5–1 m tests before any increase, with 3 m maximum project target only after approval"
+  - "Tether tensile load bypassing the penetrator through a dedicated strain-relief load path"
+  - "Measured bidirectional thruster current, thrust, vibration and guard/nozzle clearance"
+  - "Buoyancy, ballast and passive roll/pitch righting behavior of the complete wet assembly"
+
+test_plan: "legacy-package/docs/BUILD_AND_TEST.md"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ROV-001
+  version: "0.1.0"
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+fabrication:
+  preference: balanced-hybrid
+  process: fdm-fff
+  material: "PETG baseline; exact wet-aging profile unresolved"
+
+printer:
+  status: provisional
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420.0, 420.0, 500.0]
+
+manufacturing:
+  process: fdm-fff
+  nozzle_mm: 0.6
+  layer_height_mm: 0.30
+  line_width_mm: 0.66
+  material: "Exact PETG product, drying and profile unresolved"
+
+optimization:
+  status: pending
+  objective: "Verify the imported FDM baseline against conservative and lower-material variants without weakening wet interfaces or guards"
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - "WTE, tube, motor, fastener and tether interfaces"
+      - "propeller guards/nozzles and camera field"
+      - "bed datums and future watermark region"
+
+acceptance:
+  - id: AC-SRC-001
+    criterion: "Generator, manifest, protocol and package tests pass from a clean environment."
+  - id: AC-MESH-001
+    criterion: "All 13 reference STLs pass independent watertight, consistently wound, positive-volume topology audit before slicing; the current import has 10 review findings."
+  - id: AC-WTE-001
+    criterion: "Purchased WTE and penetrators pass documented dry inspection, vacuum and staged leak tests without electronics."
+  - id: AC-CTRL-001
+    criterion: "All link and process-loss cases command neutral within 300 ms during props-off measurement."
+  - id: AC-WET-001
+    criterion: "Measured thrust/current, passive stability and the gated 0.5–1 m freshwater trials pass before any deeper test."

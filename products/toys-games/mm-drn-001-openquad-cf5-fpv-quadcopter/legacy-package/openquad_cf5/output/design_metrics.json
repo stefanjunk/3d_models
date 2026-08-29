@@ -1,0 +1,115 @@
+{
+  "status": "PRELIMINARY_NOT_FLIGHT_PROVEN",
+  "geometry": {
+    "wheelbase_mm": 230.0,
+    "motor_radius_mm": 115.0,
+    "adjacent_motor_distance_mm": 162.6345596729059,
+    "prop_diameter_mm": 129.7,
+    "adjacent_prop_tip_gap_mm": 32.93455967290592,
+    "deck_prop_xy_clearance_mm": 10.150000000000006,
+    "hub_prop_xy_clearance_mm": 7.150000000000006,
+    "arm_cut_length_each_mm": 103.0,
+    "hub_arm_overlap_mm": 31.0,
+    "motor_saddle_overlap_mm": 28.0,
+    "motor_hole_to_clamp_hole_min_web_mm": 4.737257748298549,
+    "clamp_hole_to_channel_min_web_mm": 2.175,
+    "clamp_hole_to_outer_edge_min_web_mm": 2.3
+  },
+  "mass": {
+    "items_g": {
+      "CFK-Rohre (4 x 103 mm)": 22.9896,
+      "FDM-Bauteile, Vorschaetzung": 123.0,
+      "Schrauben, Abstandshalter, Gurte": 35.0,
+      "4 Motoren": 134.0,
+      "FC/ESC-Stack (SpeedyBee F405 V5, Herstellerangabe)": 27.2,
+      "4S-1300-mAh-Akku": 151.0,
+      "Propeller": 14.4,
+      "ELRS-Empfaenger": 2.2,
+      "Autonomer Buzzer": 5.0,
+      "Kabel, XT60, Schutzschlauch": 25.0
+    },
+    "estimated_takeoff_mass_g": 539.7896,
+    "pre_slicer_printed_mass_range_g": [
+      110.0,
+      135.0
+    ],
+    "uncertainty_note": "Re-slice with the exact material profile and weigh every part."
+  },
+  "energy": {
+    "usable_energy_wh_assuming_80_percent": 15.392000000000003,
+    "illustrative_hover_power_w": [
+      120.0,
+      160.0
+    ],
+    "illustrative_flight_time_min": {
+      "at_120_W": 7.6960000000000015,
+      "at_160_W": 5.772000000000001
+    }
+  },
+  "arm_beam_screening": {
+    "warning": "Illustrative tube-only screening; clamps, fatigue and resonance are not covered.",
+    "assumed_tip_load_n": 15.0,
+    "assumed_longitudinal_modulus_mpa": 60000.0,
+    "unsupported_length_mm": 72.0,
+    "second_moment_mm4": 492.0,
+    "root_bending_stress_mpa": 10.975609756097562,
+    "tip_deflection_mm": 0.06321951219512195
+  },
+  "checks": [
+    {
+      "name": "Abstand benachbarter Propellerspitzen",
+      "value_mm": 32.93455967290592,
+      "limit_mm": 20.0,
+      "pass": true
+    },
+    {
+      "name": "Propellerabstand zum Akkudeck (XY-Huelle)",
+      "value_mm": 10.150000000000006,
+      "limit_mm": 8.0,
+      "pass": true
+    },
+    {
+      "name": "Propellerabstand zur Nabenplatte (XY-Huelle)",
+      "value_mm": 7.150000000000006,
+      "limit_mm": 5.0,
+      "pass": true
+    },
+    {
+      "name": "Einspannlaenge Arm in Zentralknoten",
+      "value_mm": 31.0,
+      "limit_mm": 25.0,
+      "pass": true
+    },
+    {
+      "name": "Einspannlaenge Arm im Motorhalter",
+      "value_mm": 28.0,
+      "limit_mm": 25.0,
+      "pass": true
+    },
+    {
+      "name": "Akkuschrauben ausserhalb 74 x 33 mm Grundflaeche",
+      "value_mm": 3.5,
+      "limit_mm": 1.7,
+      "pass": true
+    },
+    {
+      "name": "Mindeststeg Motorloch zu Pod-Klemmloch",
+      "value_mm": 4.737257748298549,
+      "limit_mm": 2.0,
+      "pass": true
+    },
+    {
+      "name": "Mindeststeg Pod-Klemmloch zu Rohrkanal",
+      "value_mm": 2.175,
+      "limit_mm": 2.0,
+      "pass": true
+    },
+    {
+      "name": "Mindeststeg Pod-Klemmloch zur Aussenkante",
+      "value_mm": 2.3,
+      "limit_mm": 2.0,
+      "pass": true
+    }
+  ],
+  "all_numeric_design_rules_pass": true
+}

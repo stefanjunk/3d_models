@@ -1,0 +1,18 @@
+[Unit]
+Description=Tethys Mini ROV control agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rov
+Group=rov
+WorkingDirectory=/opt/tethys-mini
+ExecStart=/opt/tethys-mini/.venv/bin/python /opt/tethys-mini/software/rov/rov_agent.py --controller-ip 192.168.2.1 --serial /dev/ttyACM0
+Restart=always
+RestartSec=0.5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

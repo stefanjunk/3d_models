@@ -1,0 +1,17 @@
+[Unit]
+Description=Tethys Mini low-latency camera stream
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rov
+Group=video
+ExecStart=/usr/bin/rpicam-vid -t 0 -n --width 1280 --height 720 --framerate 30 --bitrate 2500000 --autofocus-mode continuous --codec libav --libav-format mpegts -o tcp://0.0.0.0:8888?listen=1
+Restart=always
+RestartSec=1
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

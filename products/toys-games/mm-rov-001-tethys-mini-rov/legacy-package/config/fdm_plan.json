@@ -1,0 +1,52 @@
+{
+  "opposing_wall_core_check": {
+    "estimated_combined_wall_depth_mm": 5.0537166941154075,
+    "estimated_remaining_infill_core_mm": -1.0537166941154075,
+    "estimated_wall_depth_per_side_mm": 2.5268583470577037,
+    "infill_percentage_can_change_bulk": false,
+    "interpretation": "NO_INFILL_CORE means opposing wall stacks consume the plate; SUB_LINE_WIDTH_CORE is likely gap-fill/variable-width territory. Verify exact paths in the target slicer.",
+    "plate_thickness_mm": 4.0,
+    "status": "NO_INFILL_CORE",
+    "wall_lines_per_side": 4
+  },
+  "process": {
+    "constant_width_path_spacing_mm": 0.6156194490192345,
+    "flow_limited_speed_mm_s": 58.8235294117647,
+    "layer_height_mm": 0.3,
+    "layer_to_nozzle_ratio": 0.5,
+    "line_width_mm": 0.68,
+    "line_width_to_nozzle_ratio": 1.1333333333333335,
+    "max_flow_mm3_s": 12.0,
+    "nozzle_mm": 0.6,
+    "requested_flow_mm3_s": 9.180000000000001,
+    "speed_mm_s": 45.0
+  },
+  "sections": {
+    "floor_or_skin": {
+      "layers": 5,
+      "nominal_thickness_mm": 1.5
+    },
+    "functional_shell": {
+      "nominal_thickness_mm": 2.5268583470577037,
+      "paths": 4
+    },
+    "rib_or_web": {
+      "nominal_thickness_mm": 1.911238898038469,
+      "paths": 3
+    },
+    "rib_root_radius_starting_point_mm": 0.68,
+    "sealed_wall_starting_point": {
+      "nominal_thickness_mm": 3.142477796076938,
+      "paths": 5
+    }
+  },
+  "verification": [
+    "Inspect exact wall paths in the target slicer; variable-width generators may differ from this constant-width estimate.",
+    "For thin plates, confirm whether the two opposing wall stacks meet before treating infill as an optimization lever.",
+    "Validate rib spacing, root, floor span, interface pads, and sealed walls for the actual load/process.",
+    "Leak-test wetted walls and coupon any process-sensitive thin feature."
+  ],
+  "warnings": [
+    "The thin-plate estimate leaves no reliable infill core; changing infill percentage may not change material or strength."
+  ]
+}

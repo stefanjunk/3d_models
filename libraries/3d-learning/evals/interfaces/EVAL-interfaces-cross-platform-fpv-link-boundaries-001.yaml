@@ -1,0 +1,58 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-cross-platform-fpv-link-boundaries-001
+title: "Cross-platform FPV plans separate reusable families from platform-specific links"
+category: interfaces
+status: draft
+trigger: "A requirements package proposes shared FPV camera, video or control components across air, ground and underwater vehicles."
+risk: "Unqualified exact-component reuse can create incompatible receiver interfaces, unsafe power paths, coupled control/video failures or a nonfunctional submerged RF link."
+given:
+  vehicle_classes:
+    - airborne FPV quadcopter
+    - ground FPV rover
+    - tethered underwater ROV
+  requested_reuse:
+    - control-radio ecosystem
+    - camera and video-transmission ecosystem
+  evidence_required:
+    - component/interface matrix
+    - independent control/video failure behavior
+    - operating-medium exceptions
+expected:
+  - "The plan names exact air/ground modules that may be reused and labels every unmeasured envelope or electrical compatibility item provisional."
+  - "The plan uses a serial flight receiver/flight controls for the aircraft and a surface PWM receiver/surface controls for the rover, or documents an evidence-backed alternative."
+  - "The rover and aircraft control links remain independent from analog video so complete video loss cannot command or prevent failsafe stop/disarm behavior."
+  - "The underwater vehicle uses a tether or another medium-appropriate submerged primary control/video link; 2.4/5.8 GHz RF is limited to an above-water surface node."
+  - "Battery, ESC, power, cooling, connector, legal RF and antenna checks remain platform-specific."
+failure_conditions:
+  - "The design says components are shared without distinguishing exact module reuse, protocol-family reuse and exclusions."
+  - "An aircraft serial receiver is assumed to be a drop-in PWM rover receiver, or one controller layout is imposed without interface/ergonomic review."
+  - "Loss of video can interfere with control failsafe, stop or disarm behavior."
+  - "Direct submerged Wi-Fi, ExpressLRS or 5.8 GHz analog FPV is proposed as the primary ROV link without medium-specific evidence."
+  - "A battery, ESC or power distribution is treated as cross-platform merely because connectors or nominal voltage appear similar."
+fixtures:
+  - products/toys-games/FPV-VEHICLE-COMPONENT-MATRIX.md
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/design-spec.yaml
+  - products/toys-games/mm-drn-001-openquad-cf5-fpv-quadcopter/design-spec.yaml
+  - products/toys-games/mm-rov-001-tethys-mini-rov/design-spec.yaml
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: "A reviewer checks every expected item and failure condition against the controlled requirements and component matrix; hardware/legal/physical claims require human evidence."
+  measurement_method: "Requirements traceability review followed by platform-specific electrical, failsafe, interference and operating-medium tests after approval."
+relationships:
+  lessons:
+    - EXP-00036
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - fpv
+  - expresslrs
+  - interface-boundary
+  - vehicle-control
+  - underwater-link

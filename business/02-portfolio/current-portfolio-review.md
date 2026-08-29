@@ -7,11 +7,11 @@ Review date: 2026-08-29. The detailed row-level inventory is in `product-portfol
 - Commercially existing (`P5+`): **0**.
 - Staged (`P6`): **0**.
 - Live (`P7`): **0**.
-- Local neutral/manufacturing 3D-artifact coverage: **95/96 records**; detected parametric source: **80/96**; at least one 3MF: **63/96**; missing: **1**; portfolio/evidence contradictions: **0**.
+- Local neutral/manufacturing 3D-artifact coverage: **96/98 records**; detected parametric source: **82/98**; at least one 3MF: **64/98**; missing: **2**; portfolio/evidence contradictions: **0**.
 - Initial launch set: **3/3 at `P2 Digital candidate`**, with exact slicer and physical qualification still open.
 - Best on-strategy existing digital candidate: DrawerFit drawer inlay (`P2`).
 - Closest technical pipeline pilot: CyberVault nozzle case (`P2`; inherited physical evidence is not a complete R4 release).
-- Model-coverage gap: `MM-TOY-002` TrailCam CF10 is report-only; its claimed generator and ten STL files are absent. Other remaining launch gaps are slicer, physical, rights, safety, packaging, economics and signed release evidence.
+- Model-coverage gaps: `MM-TOY-002` TrailCam CF10 is report-only and its claimed generator/ten STLs are absent; `MM-DRN-001` OpenQuad has controlled OpenSCAD source but no exported neutral/manufacturing mesh. `MM-ROV-001` Tethys supplies 13 reference STLs, although ten require winding/positive-volume review. Other remaining launch gaps are slicer, physical, rights, safety, packaging, economics and signed release evidence.
 
 ## Core and adjacent models
 
@@ -37,7 +37,9 @@ Review date: 2026-08-29. The detailed row-level inventory is in `product-portfol
 | Hair clip | body/hair contact, hinge/latch cycles, wear and comfort tests open |
 | Barefoot shoe variants | fit, skin contact, abrasion, wet grip, fatigue, and production process unqualified |
 | Rubber-ball toy popper | projectile toy; explicitly not certified; commercial toy and misuse burden |
-| TrailCam CF10 camera rover | report-only concept; claimed CAD/STLs absent; moving-vehicle payload, LiPo, radio/failsafe, thermal and foreseeable toy-use evidence open |
+| TrailCam CF10 FPV camera rover | report-only concept; claimed CAD/STLs absent; shared analog-FPV/ELRS requirements are documented but chassis, payload, LiPo, radio/failsafe, VTX thermal and supervised driving evidence remain open |
+| OpenQuad CF5 FPV quadcopter | source-only and explicitly not flight-proven; no exported mesh, exact slice, coupon, proof-load, propulsion, radio/video or qualified flight evidence |
+| Tethys Mini ROV | 13 watertight single-component reference STLs exist, but ten need winding/positive-volume correction; WTE/penetrator measurement, vacuum/leak, propulsion, tether, failsafe, trim and staged-depth evidence remain open |
 | Flapping submarine and other boats | water ingress, batteries/motor, buoyancy, endurance, child/toy context |
 | Rainwater filter well | ~10 kg PETG system; leak, flow, overflow, tip and environmental tests open |
 | Cup and measuring spoon | food-contact/material/process and measurement-accuracy issues |
@@ -56,4 +58,4 @@ The shop demo names and pictures are not evidence of products. `GridFit`, `Arc C
 
 ## Review limitation
 
-The 95/96 result is a deterministic path and artifact-existence audit, not proof that every historical triangle was freshly inspected, physically printable, rights-cleared or commercially releasable. TrailCam is deliberately recorded as the one missing-model entry because only its legacy report exists. ShelfFit, Mystery Puzzle Box and the Modern Carbon Compact derivative received new fail-closed digital project validation; other records retain their recorded evidence level. Unknown provenance still blocks release. External folders remain excluded as model evidence.
+The 96/98 result is a deterministic path and artifact-existence audit, not proof that every historical triangle is printable, rights-cleared or commercially releasable. TrailCam and OpenQuad are deliberately recorded as missing manufacturing/neutral artifacts. Tethys received independent audit of every imported STL: all 13 are watertight and single-component, while ten still require winding/positive-volume review. ShelfFit, Mystery Puzzle Box and the Modern Carbon Compact derivative retain their prior fail-closed digital project validation; other records retain their recorded evidence level. Unknown provenance still blocks release. External folders remain excluded as model evidence.

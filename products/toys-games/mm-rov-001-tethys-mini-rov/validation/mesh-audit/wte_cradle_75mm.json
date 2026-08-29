@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": false
+      },
+      "required": false,
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": false
+      },
+      "required": false,
+      "status": "REVIEW_REQUIRED"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/toys-games/mm-rov-001-tethys-mini-rov/legacy-package/cad/stl/wte_cradle_75mm.stl",
+      "sha256": "be4ebfeb192270aabe25dee7f8c12c8f3a48d418dbaea70e99205c97acafdc5e",
+      "size_bytes": 11204484
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          -16.000064849853516,
+          -46.000064849853516,
+          -6.500000017695129e-05
+        ],
+        [
+          16.000064849853516,
+          46.000064849853516,
+          22.000064849853516
+        ]
+      ],
+      "components": 1,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": -4,
+      "extents_mm": [
+        32.00012969970703,
+        92.00012969970703,
+        22.000129849853693
+      ],
+      "faces": 224088,
+      "manifold_edges": 336132,
+      "nonmanifold_edges": 0,
+      "positive_volume": false,
+      "signed_volume_mm3": 34709.0255172059,
+      "surface_area_mm2": 11661.70514883343,
+      "vertices": 112040,
+      "watertight": true,
+      "winding_consistent": false
+    },
+    "file_mib": 10.685428619384766,
+    "raw_file_representation": {
+      "faces": 224088,
+      "vertices": 672264
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.2.1"
+}

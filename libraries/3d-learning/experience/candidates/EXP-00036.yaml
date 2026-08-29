@@ -1,0 +1,136 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00036
+title: "Cross-platform FPV reuse needs explicit shared and excluded interfaces"
+captured_at: 2026-08-29
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One user correction normalized across three unapproved vehicle requirements; not a promoted rule."
+feature:
+  type: cross-platform-electronics-interface
+  geometry: "Purchased radio/video modules plus parametric mounts in air, ground and tethered underwater vehicles"
+  design_parameters:
+    control_family: "EdgeTX / ExpressLRS 2.4 GHz LBT"
+    air_ground_video_family: "RunCam Phoenix 2 SE V2 / SpeedyBee TX800 analog 5.8 GHz"
+    underwater_primary_link: "Ethernet tether"
+  named_datums:
+    - "platform-specific purchased-component envelope"
+    - "antenna active-element keep-out"
+    - "surface waterline for optional RF buoy"
+  constraints:
+    - "Control and video loss behavior must remain independent"
+    - "Receiver electrical interfaces and operator ergonomics are platform-specific"
+    - "No submerged 2.4/5.8 GHz primary link is inferred from air/ground reuse"
+scope:
+  process: "hybrid vehicle-system design"
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: "mixed purchased-electronics and parametric vehicle mounts"
+  environment: "air, controlled ground and freshwater pool concepts"
+  transfer_limits:
+    - "Does not prove exact voltage, connector, protocol-version, legal RF or mechanical compatibility"
+    - "Does not authorize direct submerged RF or one battery/ESC family across platforms"
+observation:
+  summary: "The user corrected a generic RC-camera rover brief to require explicit FPV and drone-family component reuse, then requested integration of the related drone and separate ROV."
+  expected: "A generic 19 mm camera and independent but unresolved RC/video paths were sufficient for the rover requirements draft."
+  actual: "The user required FPV as the core function and a documented shared radio/video component ecosystem across related vehicles."
+  outcome: correction
+  parameter: cross_platform_component_strategy
+  recommended_value: "shared protocol/component family with documented platform-specific exceptions"
+  units: null
+explanation:
+  hypothesis: "A component-reuse request is underspecified unless the requirements distinguish exact reusable modules from protocol-only reuse and physical or safety exclusions."
+  mechanism: "Electrical interfaces, control ergonomics, power ratings and RF propagation differ by platform; a matrix makes the reusable layer and each exception reviewable before CAD."
+  alternatives:
+    - "The user may have intended only common purchasing brands rather than exact module reuse."
+    - "Final measured envelopes or regional RF rules may require different air/ground camera or VTX components."
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: null
+  uncertainty: "Requirements are normalized but not yet approved; no hardware or physical RF test exists."
+  sources:
+    - type: user-statement
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/user-correction-fpv-2026-08-29.md
+      hash: null
+      notes: "Preserves earlier proposal, correction and pending normalized response."
+    - type: product-trace
+      ref: products/toys-games/FPV-VEHICLE-COMPONENT-MATRIX.md
+      hash: null
+      notes: "Requirements-level shared/excluded interface matrix."
+  artifacts:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/design-spec.yaml
+    - products/toys-games/mm-drn-001-openquad-cf5-fpv-quadcopter/design-spec.yaml
+    - products/toys-games/mm-rov-001-tethys-mini-rov/design-spec.yaml
+applicability:
+  triggers:
+    - "A product family requests similar control, camera or video components across vehicles with different operating media or control interfaces."
+  exclusions:
+    - "Single-platform designs without a component-reuse requirement"
+    - "Claims of certified RF, flight, pressure or vehicle safety"
+  transfer_limits:
+    - "Exact modules still require measured envelopes, voltage/current/cooling checks and regional legal review."
+    - "Underwater systems require a medium-appropriate primary link; surface RF cannot be silently transferred below water."
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-interfaces-cross-platform-fpv-link-boundaries-001
+  patterns: []
+  references:
+    - products/toys-games/FPV-VEHICLE-COMPONENT-MATRIX.md
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-TOY-002
+  part_revision: "0.3.0-draft.1"
+  trace: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/user-correction-fpv-2026-08-29.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - fpv
+  - expresslrs
+  - analog-video
+  - cross-platform
+  - underwater-link
+  - user-correction

@@ -19,8 +19,10 @@ metriMade mark:
 - [metriCreate v3 — controlled sister-brand concepts](metricreate-metrimade-sibling-concepts-v3.png) — SHA-256 `821fc7fccab16f71db2b71d17f3d404848fc9c13f8648608d54f271da7e00f5b`
 - [metriCreate v4 — Midnight Forge overdrive concepts](metricreate-midnight-forge-overdrive-concepts-v4.png) — SHA-256 `6f1891fd926f3410ec6d42bf27865730156228d4cf3fdcbacb17e8125c56721d`
 - [Evaluation, recommendation and prompt provenance](metricreate-metrimade-family-evolution-v3-v4.md)
-- [metriCreate v5 — Voxel Forge variants after selection of v3-04 and v4-D](metricreate-voxel-forge-variations-v5.png) — SHA-256 `24c9dc24c6179abc83ff641bfda95ccd9b02fb47f534d18ee4c71ff905211c5f`
-- [Voxel Forge v5 assessment and prompt provenance](metricreate-voxel-forge-v5.md)
+- [metriCreate v5 — rejected Voxel Forge variants](metricreate-voxel-forge-variations-v5.png) — rejected because the `M` became unreadable; SHA-256 `24c9dc24c6179abc83ff641bfda95ccd9b02fb47f534d18ee4c71ff905211c5f`
+- [Rejected Voxel Forge v5 record](metricreate-voxel-forge-v5.md)
+- [metriCreate v6 — corrected M-Locked Voxel Forge variants](metricreate-m-locked-voxel-forge-v6.png) — SHA-256 `eb9fd9863adccaaf24173f725a8e3f82a392a95ba57cfb9a495a17274855723d`
+- [M-Locked Voxel Forge v6 assessment and prompt provenance](metricreate-m-locked-voxel-forge-v6.md)
 
 Selected V7-04 rounded four-color refinement:
 

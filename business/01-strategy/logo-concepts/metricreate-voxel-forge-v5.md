@@ -1,12 +1,17 @@
 # metriCreate Voxel Forge — v5
 
-Status: `CONCEPT_SELECTION_OPEN_VECTOR_REDRAW_AND_CLEARANCE_REQUIRED`
+Status: `REJECTED_M_LEGIBILITY_2026-08-29`
 
 Generated: 2026-08-29
 
 Generator: OpenAI built-in image generation
 
 Human direction: Stefan Junk selected `v3-04` and `v4-D` for further exploration.
+
+Human review: this entire v5 sheet was rejected because the uppercase `M` was
+lost in the wall-like split-plane construction. The corrected exploration is
+[M-Locked Voxel Forge v6](metricreate-m-locked-voxel-forge-v6.md). The
+assessment below is retained only as immutable concept provenance.
 
 ## Objective
 
@@ -38,9 +43,8 @@ SHA-256: `24c9dc24c6179abc83ff641bfda95ccd9b02fb47f534d18ee4c71ff905211c5f`
 | `11` | restrained pixel crown | balanced compromise between clean body and digital activity |
 | `12` | maximum bilateral fragmentation | strongest overdrive statement; unsuitable as the only small-size mark |
 
-Recommended shortlist: `01`, `02`, `04`, `09`, and `12`. Use `04` when
-small-size robustness is the priority, `09` for the most ownable active-state
-idea, and `12` when metriCreate should be deliberately louder than metriMade.
+No v5 concept may advance. The former shortlist (`01`, `02`, `04`, `09`, and
+`12`) is superseded by the protected-M rule documented in v6.
 
 ## Production gate
 

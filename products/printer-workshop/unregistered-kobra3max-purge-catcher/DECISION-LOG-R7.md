@@ -71,3 +71,18 @@
 - Status: erfasst; Anforderungsfreigabe und Coupon ausstehend
 - Entscheidung: `WIPER-PHOTO-MEASUREMENTS-R7.yaml` hält die Benutzermaße 17 mm Schraubenabstand, 10 mm zur Purge-Ablageebene, 37 mm zur horizontalen Purge-Wurfbahn und 40 mm rückwärtige Wiper-Ausdehnung samt sechs gehashten Originalfotos fest.
 - Grund: Die Fotos bestätigen Orientierung und Bauraum wesentlich besser als die bisherigen Renderannahmen. Wegen Maßstabperspektive und teilweise verdeckter Enddatums bleiben die Werte bis zum Lochbild-/Abstandscoupon physisch zu bestätigen; besonders die lokale Achszuordnung der 37-mm-Messung wird im Konzept explizit dargestellt.
+
+### DEC-R7-012 – Anforderungen `.2` freigegeben
+
+- Status: vom Benutzer freigegeben
+- Entscheidung: Die Requirements-Revision `0.7.0-requirements.2` gilt seit `2026-08-29T12:01:09+02:00` als freigegeben. Die empfohlenen Standardentscheidungen DEC-R7-01 bis DEC-R7-03 und die Interpretation der 37 mm als horizontaler Seitenversatz werden übernommen.
+- Evidenz: Benutzerantwort „freigegebene“ unmittelbar auf die ausdrückliche Freigabeaufforderung für Revision `.2`.
+- Folge: Konzeptstatus wechselt auf `pending`; ein Konzeptbild darf erzeugt werden. Produktions-CAD und Fertigungsexporte bleiben bis zur separaten Konzeptfreigabe gesperrt.
+
+### DEC-R7-013 – Eigenständiges Z-Rider-Konzeptblatt v1 zur Prüfung ausgegeben
+
+- Status: Konzeptfreigabe ausstehend
+- Entscheidung: `concepts/R7-concept-sheet-z-rider-v1.png` visualisiert die freigegebene Architektur als kompakten Fangkopf am mitfahrenden Wiper, dünne Zwei-Schrauben-Datumplatte, kurzen lösbaren Anschluss, offene direkte Abwärtsumlenkung und separaten stationären Unterbehälter.
+- Abgrenzung: Das KI-generierte Blatt ist ein nicht maßhaltiges Systemkonzept. Es definiert weder Schraubenkopf, Plattendicke, Rastprofil, Passung, Keep-outs noch Behälterabmessungen. Die 17/10/37/40-mm-Bezüge und alle Prüfkriterien werden ausschließlich aus der Spezifikation und den Realmessungen abgeleitet.
+- Rechte: Die Geometrie wurde neu aus Funktionsanforderungen, eigenen R6-Merkmalen und den sechs eigenen Maschinenfotos visualisiert. Kein Drittanbieter-Mesh, -Bild, -Maß oder Befestigungsprofil wurde als Eingabe verwendet oder nachgezeichnet.
+- Folge: R7-CAD, Fertigungsexporte und Slicing bleiben bis zur ausdrücklichen Freigabe dieses Konzeptblatts gesperrt.

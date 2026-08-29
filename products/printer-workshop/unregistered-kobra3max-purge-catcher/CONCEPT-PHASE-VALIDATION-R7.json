@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "phase": "concept-visualization",
+  "project_revision": "0.7.0-requirements.2",
+  "date": "2026-08-29",
+  "status": "PASS_WITH_OPEN_CONCEPT_APPROVAL",
+  "repository_sync": {
+    "branch": "main",
+    "upstream": "origin/main",
+    "base_commit": "0177e577",
+    "ahead_before_phase": 0,
+    "behind_before_phase": 0
+  },
+  "requirements_gate": {
+    "status": "APPROVED_HUMAN",
+    "approved_by": "Stefan via conversation",
+    "approved_at": "2026-08-29T12:01:09+02:00",
+    "approval_message": "freigegebene"
+  },
+  "concept_asset": {
+    "path": "concepts/R7-concept-sheet-z-rider-v1.png",
+    "sha256": "3505742788b3c128aca81cdb9d23a67b083214ceec2067994d5b61ff59bf0e00",
+    "width_px": 1523,
+    "height_px": 1032,
+    "colorspace": "sRGB",
+    "generator": "OpenAI imagegen",
+    "mode": "stylized-concept",
+    "dimensional_authority": false
+  },
+  "checks": {
+    "requirements_correspondence": {
+      "status": "PASS_VISUAL_REVIEW",
+      "shown": [
+        "catcher co-moves with the Z-moving Wiper",
+        "thin two-screw moving datum plate",
+        "short removable catcher interface with positive latch concept",
+        "local enclosed impact zone and direct open downward diversion",
+        "separate stationary lower bin",
+        "no full-height tower, hose or moving storage mass"
+      ]
+    },
+    "clean_room_reference_separation": {
+      "status": "PASS_DOCUMENTED",
+      "third_party_visual_or_geometry_inputs": false,
+      "inputs": [
+        {
+          "role": "own physical printer and Wiper spatial reference",
+          "path": "Photos-1-001/PXL_20260829_093031316.jpg",
+          "sha256": "bcdbbe46be9c37009c54c922e56da6956e8c4378c5d3192e16c5ffa5b7be60ce"
+        },
+        {
+          "role": "own physical screw-datum reference",
+          "path": "Photos-1-001/PXL_20260829_093122291.jpg",
+          "sha256": "13283f27168d09dd7e5eefa777f4dc9cd60c44a63a9c62ecbd65f36700f4c01d"
+        },
+        {
+          "role": "own R6 catcher function and form reference",
+          "path": "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/previews/catcher-r6-section.png",
+          "sha256": "09ef0a595fc8fe9753f06533148de89a96fd9c567dc6c6bd446b05ca1ee4f934"
+        }
+      ]
+    },
+    "dimensional_claims": {
+      "status": "PASS_NONE_IN_IMAGE",
+      "authoritative_source": "design-spec.yaml and WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+      "image_may_not_be_measured": true
+    },
+    "known_visual_ambiguities": {
+      "status": "DOCUMENTED_FOR_HUMAN_REVIEW",
+      "items": [
+        "simplified Wiper and machine geometry",
+        "illustrative plate, guides and latch",
+        "exploded view may read as straight pull-off rather than the allowed lateral or pivot service motion",
+        "stationary bin envelope remains trajectory-test dependent"
+      ]
+    },
+    "production_artifacts": {
+      "cad_generated": false,
+      "manufacturing_export_generated": false,
+      "slicing_run": false
+    },
+    "design_spec_structure": {
+      "status": "PASS",
+      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml",
+      "spec_sha256": "ac8a9e51f61d9fac4d5185cc61e90b75838f2d9fd1f6e0a8d46ecafa638a1ad4",
+      "warnings": [
+        "production CAD remains gated until concept approval",
+        "print-time/material optimization decision remains pending",
+        "manufacturing-mesh simplification decision remains pending"
+      ]
+    }
+  },
+  "workflow_gates": {
+    "concept_approval": "PENDING_HUMAN",
+    "production_cad": "BLOCKED_BY_CONCEPT",
+    "physical_validation": "NOT_RUN",
+    "commercial_release": "BLOCKED"
+  }
+}

@@ -12,14 +12,21 @@ project:
 
 workflow:
   requirements_approval:
+    status: approved
+    spec_revision: 0.7.0-requirements.2
+    approved_by: "Stefan via conversation"
+    approved_at: "2026-08-29T12:01:09+02:00"
+    approval_message: "freigegebene"
+    accepted_defaults: [DEC-R7-01, DEC-R7-02, DEC-R7-03]
+    accepted_measurement_interpretation: "37 mm horizontaler Seitenversatz vom Schraubendatum zur Purge-Wurfbahn"
+  concept_approval:
     status: pending
     spec_revision: 0.7.0-requirements.2
-    approved_by: null
-    approved_at: null
-  concept_approval:
-    status: blocked
-    spec_revision: null
-    asset: null
+    asset: "concepts/R7-concept-sheet-z-rider-v1.png"
+    asset_sha256: "3505742788b3c128aca81cdb9d23a67b083214ceec2067994d5b61ff59bf0e00"
+    generated_at: "2026-08-29T12:03:52+02:00"
+    review_document: "CONCEPT-REVIEW-R7.md"
+    interpretation: "stylized, non-dimensional system concept; design-spec measurements remain authoritative"
     approved_by: null
     approved_at: null
   watermark_approval:
@@ -61,22 +68,25 @@ requirements_trace:
     - "Die bewegte Baugruppe soll einschließlich Adapter höchstens 25 g wiegen; der Schwerpunkt bleibt möglichst dicht an Schraubenebene und Wiper. Dieser Wert ist ein vorläufiges Projektziel, keine zulässige Maschinenlast."
     - "Ein großer, stationärer Behälter unterhalb des Wipers speichert den Purge; seine Fangfläche wird aus beaufsichtigten Auswürfen bei niedriger, mittlerer und hoher Z-Position abgeleitet."
     - "Der freistehende Dock-Tower und die vertikale R6-Schwalbenschwanzführung entfallen."
-  unresolved_consequential:
+  resolved_by_requirements_approval:
     - id: DEC-R7-01
       question: "Darf eine minimale Datumplatte mit dem vorhandenen, vertikal 17 mm beabstandeten Wiper-Schraubenpaar befestigt werden, sobald Kopfmaß, Schraubenlänge und Gewindeeingriff ergänzt wurden?"
       recommendation: "Ja; die nun gemessene Schraubenlage als eindeutiges Bewegungsdatum nutzen und die reale Schraubenlänge nur nach Messcoupon festlegen."
       tradeoff: "Einmalige Arbeit an zwei Maschinenverschraubungen gegen die leichteste, steifste und in jeder Z-Höhe korrekt ausgerichtete Lösung."
       default_if_approved: "Vermessene Zwei-Schrauben-Datumplatte; keine blind angenommene R6-Lochgeometrie."
+      selected: "Vermessene Zwei-Schrauben-Datumplatte; Schraubendetails bleiben Couponpflicht."
     - id: DEC-R7-02
       question: "Soll der Fangkopf von der festen Datumplatte mit einem sehr kurzen seitlichen bzw. schwenkenden Schnellverschluss lösbar sein?"
       recommendation: "Ja; zweipunktig geführt, formschlüssig gegen Schwerkraft und mit positiver Rastung, ohne den langen vertikalen R6-Serviceweg."
       tradeoff: "Ein kleines zusätzliches Interface und ein Passcoupon gegen einfachere Reinigung ohne erneutes Lösen der Wiper-Schrauben."
       default_if_approved: "Kurzhub-Schnellverschluss; genaue Geometrie erst im freizugebenden Konzept."
+      selected: "Kurzhub-Schnellverschluss mit zwei Führungsdatums und positiver Rastung."
     - id: DEC-R7-03
       question: "Darf der große Sammelbehälter stationär unter dem Wiper stehen und anhand der realen Purge-Landeflächen bei niedriger, mittlerer und hoher Z-Position dimensioniert werden?"
       recommendation: "Ja; nur Fangkopf und kurze Umlenkung bewegen, Speichervolumen und Abfallmasse bleiben stationär."
       tradeoff: "Eine etwas größere Boden-Fangfläche gegen sehr geringe bewegte Masse und den vollständigen Verzicht auf Tower oder Schlauch."
       default_if_approved: "Stationärer, werkzeuglos entnehmbarer Unterbehälter mit testbasiertem Einlaufbereich."
+      selected: "Stationärer Unterbehälter mit aus Niedrig-/Mittel-/Hoch-Z-Tests abgeleitetem Einlaufbereich."
 
 function:
   summary: >
@@ -235,6 +245,18 @@ appearance:
   body_language: "R6-Fangkopf beibehalten; Adapter optisch zurücknehmen und dicht am Wiper integrieren; kein vertikaler Tower"
   visible_hardware: "nur das vorhandene Wiper-Schraubenpaar an der maschinenseitigen Datumplatte; nicht im Fangraum"
   branding: "bestehendes vollständiges metriMade-Lockup bleibt geschützt; finale Kennzeichnung erst nach Primärverifikation"
+  concept_v1:
+    visualized:
+      - "kompakter, direkt am bewegten Wiper angeordneter Fangkopf"
+      - "dünne Zwei-Schrauben-Datumplatte mit kurzem lösbarem Anschluss"
+      - "geschlossene lokale Trefferzone mit offenem, stetigem Abwärtsauslass"
+      - "stationärer Großbehälter unterhalb des bewegten Fangkopfs"
+      - "niedrige, mittlere und hohe Z-Position als Bewegungssequenz"
+    non_authoritative:
+      - "Proportionen, Schraubenköpfe, Plattendicke, Rastgeometrie und Maschinen-Keep-outs"
+      - "Unterbehältergröße und exakte Landefläche"
+      - "Druckteilteilung, Wandstärken, Toleranzen und Fertigungsorientierung"
+    forbidden_inference: "Keine Maße oder Passungen aus dem KI-generierten Konzeptbild abnehmen; CAD ausschließlich aus freigegebener Spezifikation und Realmaßen ableiten."
 
 branding:
   required: true

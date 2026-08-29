@@ -2,7 +2,7 @@
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.3.0` — requirements approved, concept pending
+Current revision: `0.3.0` — requirements and concept approved, decomposition pending
 
 Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
 

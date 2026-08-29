@@ -59,3 +59,13 @@
   approval. r2 is retained as history. User correction recorded in
   `docs/user-correction-concept-wheels-2026-08-29.md` with an eval candidate via
   `3d-skill-maintainer`.
+
+## 2026-08-29 — Concept approval (r3)
+
+- Stefan approved concept revision 0.3.0-r3 with the response "freigegeben".
+- Approval recorded in `design-spec.yaml` and `concepts/concept-review-v0.3.0.md`;
+  r2 remains history only.
+- The decomposition draft (`architecture/hybrid-design-plan-v0.3.0.json` plus
+  `architecture/architecture-report-v0.3.0.md`) is now the next human gate.
+  Production CAD, slicer work and exports remain blocked until the decomposition
+  is explicitly approved.

@@ -4,7 +4,7 @@ Concept asset: `trailcam-cf10-fpv-concept-v0.3.0-r3.png`
 
 SHA-256: `498770857824577a76a0ce651a8a00a815f16876b17a1d8990ba83a9fadd46de`
 
-Status: **pending explicit human approval**
+Status: **approved** by Stefan on 2026-08-29 (response: "freigegeben", concept r3)
 
 ## Revision history
 

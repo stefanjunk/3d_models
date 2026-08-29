@@ -1,10 +1,21 @@
 # TrailCam CF10 FPV concept review — revision 0.3.0
 
-Concept asset: `trailcam-cf10-fpv-concept-v0.3.0-r2.png`
+Concept asset: `trailcam-cf10-fpv-concept-v0.3.0-r3.png`
 
-SHA-256: `ee0ebeeb2da98fdff0bd0c83eae2405902daa7caeb4ae0627f205f892b609efc`
+SHA-256: `498770857824577a76a0ce651a8a00a815f16876b17a1d8990ba83a9fadd46de`
 
 Status: **pending explicit human approval**
+
+## Revision history
+
+- `r2` (superseded): user reported that the main view showed only one axle / two
+  wheels while the underside view showed four. Confirmed as a generation artifact
+  and internal inconsistency. Retained as history only.
+- `r3` (current): regenerated with r2 as style/layout reference and an explicit
+  constraint of two axles / four wheels, visible and consistent in every view.
+  The main view now includes the far-side wheels; the underside view shows both
+  axles with differentials; the exploded payload view is unchanged. See
+  `../docs/user-correction-concept-wheels-2026-08-29.md`.
 
 ## Selected direction
 

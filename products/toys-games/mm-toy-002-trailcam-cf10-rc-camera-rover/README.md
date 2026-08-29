@@ -19,7 +19,7 @@ OpenQuad while retaining a surface-specific receiver and transmitter layout.
 
 - `design-spec.yaml` — current requirements contract and approval state
 - `decision-log.md` — identity, migration and redesign decisions
-- `concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png` — selected concept candidate for human review
+- `concepts/trailcam-cf10-fpv-concept-v0.3.0-r3.png` — selected concept candidate for human review (r3 corrects the r2 wheel-count depiction artifact)
 - `concepts/concept-review-v0.3.0.md` — requirement correspondence and interpretation limits
 - `architecture/hybrid-design-plan-v0.3.0.json` — machine-readable decomposition draft
 - `reports/design-review-v0.1.0.md` — evidence-based audit of the imported design

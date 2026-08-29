@@ -1,0 +1,37 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-concept-wheel-axle-consistency-001
+title: "Multi-view concept sheets of wheeled vehicles show a consistent, requirement-conform wheel and axle count in every full-vehicle view"
+category: visual
+status: draft
+trigger: "A multi-view concept sheet for a wheeled vehicle is generated or presented for human approval."
+risk: "A misleading sheet hides a wrong chassis configuration; the user may approve an incorrect architecture or lose trust in the concept review."
+given:
+  input: "Approved requirements stating the wheel and axle count, plus the generated multi-view concept sheet."
+expected:
+  - "Every view that depicts the full vehicle shows the same wheel and axle count as the approved requirements."
+  - "All full-vehicle views of one sheet agree with each other on wheel and axle count."
+  - "Views that intentionally omit wheels are limited to the payload structure and say so in the review document."
+  - "The review document states that pixel geometry is non-authoritative."
+failure_conditions:
+  - "Any full-vehicle view shows fewer or more wheels or axles than the approved requirements."
+  - "Two views of the same sheet disagree on wheel or axle count."
+fixtures: []
+grader:
+  type: visual-rubric
+  command: null
+  expected_exit_code: null
+  rubric: "Count wheels and axles in every full-vehicle view; compare with the approved requirements and across views; any mismatch fails."
+  measurement_method: "visual inspection"
+relationships:
+  lessons:
+    - EXP-00037
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - concept-image
+  - wheeled-vehicle

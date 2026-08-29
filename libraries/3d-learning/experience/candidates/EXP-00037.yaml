@@ -1,0 +1,124 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00037
+title: "Multi-view concept sheets of wheeled vehicles must depict the requirement-conform wheel and axle count consistently in every full-vehicle view"
+captured_at: 2026-08-29
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: ""
+feature:
+  type: concept-visualization
+  geometry: wheeled-vehicle
+  design_parameters:
+    wheel_count: 4
+    axle_count: 2
+  named_datums: []
+  constraints:
+    - "every full-vehicle view shows the same wheel and axle count as the approved requirements"
+scope:
+  process: ai-image-generation
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: multi-view-concept-sheet
+  environment: null
+  transfer_limits:
+    - "applies to AI-generated multi-view concept sheets of wheeled vehicles; not a print-process lesson"
+observation:
+  summary: "User noticed that the r2 concept main view of the TrailCam CF10 rover showed only two wheels while the underside view showed four; regenerating r3 with an explicit two-axle/four-wheel constraint for every view resolved the inconsistency."
+  expected: "Every full-vehicle view of the concept sheet shows four wheels on two axles, matching the approved requirements."
+  actual: "The r2 main view omitted the far-side wheels (two visible wheels, one-axle impression) while the r2 underside view showed four wheels; the sheet was internally inconsistent."
+  outcome: correction
+  parameter: wheel/axle depiction consistency across views
+  recommended_value: "state wheel and axle count as a hard per-view prompt constraint and self-review every view before presenting the sheet"
+  units: null
+explanation:
+  hypothesis: "Image generators treat far-side wheels as occludable detail unless the wheel/axle count is stated as a hard constraint per view; multi-panel sheets drift in consistency between panels."
+  mechanism: ""
+  alternatives:
+    - "the reference image layout dominated generation and missing far-side wheels were inherited"
+    - "panels were generated without a shared vehicle structure graph"
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: false
+  measurement_method: "visual inspection of generated sheets by agent and user"
+  uncertainty: "single observation; the correction has not yet been re-tested on another vehicle concept"
+  sources:
+    - type: user-statement
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/user-correction-concept-wheels-2026-08-29.md
+      hash: null
+      notes: "user question 2026-08-29: concept image shows the rover with only one axle / two wheels"
+    - type: product-trace
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/decision-log.md
+      hash: null
+      notes: "section 2026-08-29 — Concept depiction correction (r3)"
+  artifacts:
+    - "products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/concepts/trailcam-cf10-fpv-concept-v0.3.0-r2.png"
+    - "products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/concepts/trailcam-cf10-fpv-concept-v0.3.0-r3.png"
+applicability:
+  triggers:
+    - "generating or reviewing a multi-view concept sheet of a wheeled vehicle (rover, car, truck, wheeled robot)"
+  exclusions:
+    - "exploded payload views where wheels are intentionally omitted"
+    - "single-view sketches explicitly labeled incomplete"
+  transfer_limits:
+    - "E0 single observation; do not promote without repetition in another scope"
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-visual-concept-wheel-axle-consistency-001
+  patterns: []
+  references: []
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: MM-TOY-002
+  part_revision: 0.3.0
+  trace: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/docs/user-correction-concept-wheels-2026-08-29.md
+  source_commit: null
+  created_by: agent
+tags:
+  - concept-image
+  - user-correction
+  - wheeled-vehicle
+  - multi-view-consistency

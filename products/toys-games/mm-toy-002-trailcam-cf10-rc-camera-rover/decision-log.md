@@ -40,3 +40,22 @@
 - The image is appearance and architecture evidence only. Purchased components,
   antenna geometry and fasteners remain generic proxies pending exact hardware measurements.
 - Production CAD remains blocked until concept and decomposition are explicitly approved.
+
+## 2026-08-29 — Concept depiction correction (r3)
+
+- User reported that the r2 main view showed only one axle / two wheels while the
+  underside view showed four wheels. Confirmed as a generation artifact and internal
+  inconsistency of `trailcam-cf10-fpv-concept-v0.3.0-r2.png`.
+- Approved requirements remain unchanged: purchased 1:10 COTS crawler chassis with two
+  axles and four wheels (reference candidate Tamiya CC-02). The correction changes only
+  the depiction, not the requirements; the requirements gate stays approved at 0.3.0.
+- The first r3 generation attempt failed with `401 token_expired` from the image
+  service; the user chose re-authentication plus regeneration and re-authenticated.
+- Generated `trailcam-cf10-fpv-concept-v0.3.0-r3.png` with r2 as style reference and an
+  explicit two-axle / four-wheel constraint in every view. Main view now includes the
+  far-side wheels; underside view shows four wheels and both axles with differentials;
+  exploded payload view unchanged.
+- Concept gate remains `pending`; r3 replaces r2 as the candidate for explicit human
+  approval. r2 is retained as history. User correction recorded in
+  `docs/user-correction-concept-wheels-2026-08-29.md` with an eval candidate via
+  `3d-skill-maintainer`.

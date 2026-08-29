@@ -117,3 +117,10 @@
   (four wheels / two axles consistent in all full-vehicle views) and module
   separation visibility. Both checks pass.
 - Concept gate set to pending for 0.4.0 with `concepts/concept-review-v0.4.0.md`.
+
+## 2026-08-29 — Concept 0.4.0 approved
+
+- Stefan approved concept v0.4.0-r2 with the response "freigeben".
+- Approval recorded in `design-spec.yaml` and `concepts/concept-review-v0.4.0.md`.
+- Next gate: decomposition 0.4.0 (printed part families, purchased scope, open
+  decisions on axle/diff, drivetrain set and frame datums).

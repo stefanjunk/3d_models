@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-002
   name: "TrailCam CF10 FPV Camera Rover"
   revision: 0.4.0
-  candidate: 0.4.0-draft.2
+  candidate: 0.4.0-draft.3
   owner: Stefan
   created: "2026-08-29"
   revised: "2026-08-30"
@@ -44,15 +44,15 @@ workflow:
   parametric_source:
     status: blocked
     decision: BLOCKED
-    reason: "The v2 point/axis source now closes a genuine double-wishbone motion contract, but it intentionally contains no printable arm/upright geometry and the current chassis v1 has incompatible y-axis lower pivots and no upper pivots"
-    evidence: validation/double-wishbone-v2-kinematics-2026-08-30.json
+    reason: "Separate front/rear pivot-host coupons now qualify the required chassis-side x-axis clevis topology, but straight 6 mm arm-neck proxies still intersect the hosts by up to 46.276 mm3 and no printable arm/upright or integrated chassis-v2 geometry exists"
+    evidence: validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
   digital_candidate:
     status: blocked
-    reason: "Kinematic topology passes only as a non-manufacturing skeleton; chassis integration fails and ball-joint, wheel/hub, shock and CVD interfaces remain unmeasured"
-    evidence: architecture/double-wishbone-v2-interface-contract-v0.4.0.json
+    reason: "The pivot-host coupon passes its isolated geometry/mesh/tire-envelope scope only; final arm-neck routing, shock host, full chassis integration and ball-joint, wheel/hub and CVD interfaces remain unresolved or unmeasured"
+    evidence: validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
   slicer_preflight:
     status: blocked
-    reason: "No v2 manufacturing STL/3MF exists and no complete approved exact machine/process/filament JSON profile set exists"
+    reason: "The v2 STL files are DRAFT interface/process coupons rather than vehicle parts, and no complete approved exact machine/process/filament JSON profile set exists"
   physical_validation:
     status: blocked
     reason: "No print, measurement, load, radio, thermal or driving evidence exists in the repository"
@@ -381,7 +381,7 @@ optimization:
       - "fastener seats and clamp split planes"
       - "camera optical keep-out and guard interfaces"
       - "bed datums and future watermark geometry"
-    rationale: "No manufacturing mesh exists yet; tessellation and simplification policy will be decided after approved CAD generation"
+    rationale: "Only isolated pivot-host coupon meshes exist; vehicle-part tessellation and simplification policy will be decided after approved integrated CAD generation"
 
 acceptance:
   - id: AC-REQ-001
@@ -433,6 +433,7 @@ deliverables:
     - "Parametric CHASSIS_PRINTED v1 DRAFT with STEP/STL outputs"
     - "Fail-closed CAD phase 2 corner-stack integration review with exact input hashes, collision metrics and kinematic bounds"
     - "Non-manufacturing double-wishbone v2 point/axis skeleton with deterministic full-travel and steering sweep"
+    - "Front/rear chassis-side x-axis pivot-host interface/process coupons with STEP/STL, preview, manifest and fail-closed validation"
     - "Official-source drivetrain envelope study and explicit purchased-sample measurement gates"
     - "E0 learning candidate and targeted interface eval for the rejected suspension joint topology"
   after_approval:

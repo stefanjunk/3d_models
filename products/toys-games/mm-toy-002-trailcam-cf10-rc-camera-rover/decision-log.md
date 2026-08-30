@@ -288,3 +288,38 @@
   `EXP-00040` with targeted eval
   `EVAL-interfaces-articulated-shaft-full-sweep-envelope-001`; validation and
   duplicate/conflict audit pass, and no promotion is claimed.
+
+## 2026-08-30 — CAD phase 4: chassis-side pivot-host coupons
+
+- Added separate front/rear 80 mm rail coupons for the required longitudinal
+  x-axis lower and upper wishbone pivots. Chassis v1 remains unchanged and is
+  still rejected as an integration target.
+- The numeric interface uses a 6.6 mm clevis gap around a 6.0 mm arm eye,
+  13.4 mm eye pockets around a 12.8 mm eye, 3.5 mm M3 process bores, 13.6 mm
+  bosses and 4.0 mm lugs. This yields 0.30 mm eye clearance per side,
+  0.30 mm radial pocket clearance, 0.25 mm M3 radial clearance and 5.05 mm
+  boss ligament.
+- The lower-eye pockets are required: each unrelieved lower eye intersects the
+  hollow rail by 136.438 mm3, while all final eye proxies have zero B-Rep
+  overlap. Every lower boss and upper web has positive volumetric rail overlap,
+  and each coupon remains one valid solid.
+- Front and rear STEP/STL artifacts pass source/STEP agreement and watertight
+  single-body mesh checks. Across 924 conservative solid-tire Boolean samples
+  (90 and 115 mm diameters; full declared front steer/travel and rear travel),
+  the coupons have zero tire-envelope overlap.
+- A straight 6 mm diameter arm-neck proxy still intersects a host by up to
+  46.276 mm3. This is retained as `REVIEW_REQUIRED`: the coupon qualifies the
+  inboard eye and clevis, not the final arm neck. A dog-leg/tapered arm route
+  must pass a new full-sweep integration check before arm STL generation.
+- The proposed physical shock host was removed from this phase because its
+  location depends on the unresolved arm path and an exact measured shock
+  envelope. Ball joints, CVDs, hubs/bearings and wheel backspacing remain
+  purchased-sample gates.
+- Exact Anycubic slicing is `NOT_RUN`: no complete explicit
+  machine/process/filament JSON profile set is approved. Circular horizontal
+  pivot bores remain ream-after-print process candidates requiring a physical
+  coupon. Watermarking stays deferred until the stable product candidate.
+- Captured the eye-versus-neck clearance finding as E0 candidate `EXP-00042`
+  with targeted eval `EVAL-interfaces-wishbone-clevis-eye-neck-sweep-001`.
+  Learning-store validation and duplicate/conflict audit pass; no promotion is
+  claimed.

@@ -1,0 +1,60 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-wishbone-clevis-eye-neck-sweep-001
+title: Wishbone eye and outgoing arm neck clear the host across the complete suspension sweep
+category: interfaces
+status: draft
+trigger: A wishbone or linkage eye is captured in a printed clevis and the arm section leaves the eye toward a moving outer joint.
+risk: Pin fit and eye clearance can pass while the adjacent arm neck collides with a boss, rail or tower under static or swept motion.
+given:
+  required_inputs:
+    - Frozen inboard pivot axes and outer-joint kinematics
+    - Exact clevis, boss, rail and tower solids
+    - Final arm-eye and load-bearing arm-neck geometry
+    - Complete declared suspension and steering pose matrix
+    - Protected tire, halfshaft, shock, fastener and tool-access envelopes
+    - Numeric Boolean tolerance and physical fit/cycle test plan
+  current_fixture:
+    project: MM-TOY-002
+    revision: 0.4.0-draft.3
+    arm_geometry: 12.8 mm eye plus trimmed 6 mm diameter straight-neck proxy
+expected:
+  - Every seated arm eye has the specified axial and radial clearance without host overlap.
+  - Every complete arm-neck solid has zero unintended host overlap at every required pose.
+  - Boss ligament, rail/tower continuity, tire clearance and approved pivot axes remain valid after any relief or rerouting.
+  - Unknown final arm sections, load paths or protected envelopes produce REVIEW_REQUIRED and block arm manufacturing approval.
+failure_conditions:
+  - Any arm eye or arm-neck solid intersects the host above the declared Boolean tolerance.
+  - Only the neutral pose or seated eye cylinder is checked.
+  - The arm section is thinned without structural evidence solely to make the collision disappear.
+  - Approved kinematic axes are moved without reopening the interface contract.
+  - Host relief breaks boss ligament, rail attachment, tool access or another protected keep-out.
+fixtures:
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/architecture/double-wishbone-v2-interface-contract-v0.4.0.json
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/double_wishbone_v2_kinematics.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/double_wishbone_v2_pivot_host_coupon.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_double_wishbone_v2_pivot_host_coupon.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
+grader:
+  type: hybrid
+  command: "python products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_double_wishbone_v2_pivot_host_coupon.py --output <new-evidence-path>.json; test $? -eq 1; jq -e '.checks[] | select(.id == \"straight-arm-neck-routing\") | .status == \"PASS\"' <new-evidence-path>.json"
+  expected_exit_code: 0
+  rubric: The deterministic report must show PASS for eye clearance and the final arm-neck route over all required poses; a human additionally reviews the real arm section, load path, fastener/tool access and printed motion coupon.
+  measurement_method: Full-pose B-Rep Boolean intersection followed by physical assembly, reamed-pivot fit and guarded full-travel cycling.
+relationships:
+  lessons:
+    - EXP-00042
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-08-30
+  report: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
+  artifact_hashes:
+    - sha256:c1ec5c103be85ed740a3f8121c5e50921a0d5f53ec2dd4b08b974f50bb7e6091
+tags:
+  - suspension
+  - wishbone
+  - clevis
+  - arm-neck
+  - full-sweep
+  - collision

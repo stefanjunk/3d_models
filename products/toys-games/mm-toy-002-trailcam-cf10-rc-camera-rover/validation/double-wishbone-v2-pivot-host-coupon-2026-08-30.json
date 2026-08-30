@@ -1,0 +1,467 @@
+{
+  "schema_version": "1.0",
+  "tool": "validate_double_wishbone_v2_pivot_host_coupon.py",
+  "tool_version": "1.0.0",
+  "project_id": "MM-TOY-002",
+  "project_revision": "0.4.0",
+  "candidate": "0.4.0-draft.3",
+  "profile": "chassis-pivot-host-interface-process-coupon",
+  "run_date": "2026-08-30",
+  "status": "REVIEW_REQUIRED",
+  "decision": "DRAFT_COUPON_ONLY",
+  "coupon_scope_status": "PASS",
+  "passed_scope": "front/rear chassis-side longitudinal clevis topology, nominal clearances, artifact topology and tire-envelope clearance",
+  "excluded_scope": "wishbone necks, shock mounts, uprights, drivetrain, full chassis integration, slicing and physical qualification",
+  "scope_failures": [],
+  "checks": [
+    {
+      "id": "artifact-integrity",
+      "status": "PASS",
+      "message": "All manifest input/output hashes and the exact artifact set match."
+    },
+    {
+      "id": "brep-step-stl-topology",
+      "status": "PASS",
+      "message": "Front and rear source/STEP are one valid solid; both STL files are one watertight, consistently wound body with bounded tessellation error."
+    },
+    {
+      "id": "nominal-clevis-process-geometry",
+      "status": "PASS",
+      "message": "M3 radial clearance, boss ligament, eye clearances, rail wall and lug thickness meet the current numeric contract."
+    },
+    {
+      "id": "rail-pocket-and-eye-clearance",
+      "status": "PASS",
+      "message": "The unrelieved rail would intersect both lower eyes, while the final four eye pockets per coupon have zero B-Rep overlap."
+    },
+    {
+      "id": "boss-and-upper-web-attachment",
+      "status": "PASS",
+      "message": "Every lower boss and upper tower web has positive volumetric overlap with the rail; each completed coupon remains one solid."
+    },
+    {
+      "id": "tire-full-sweep-clearance",
+      "status": "PASS",
+      "message": "Full solid tire envelopes at 90 mm nominal and 115 mm maximum diameter have zero overlap across the declared front steering/travel and rear travel sweeps."
+    },
+    {
+      "id": "straight-arm-neck-routing",
+      "status": "REVIEW_REQUIRED",
+      "message": "Trimmed 6 mm diameter straight arm-neck proxies reach a maximum host overlap of 46.275362 mm3; final dog-leg/neck geometry is outside this coupon scope."
+    },
+    {
+      "id": "horizontal-pivot-hole-process",
+      "status": "REVIEW_REQUIRED",
+      "message": "The x-axis 3.5 mm circular holes are intentional ream-after-print process candidates; bridge quality and final M3 fit require a physical coupon before freezing circular versus teardrop pilot geometry."
+    },
+    {
+      "id": "shock-host-and-purchased-interfaces",
+      "status": "REVIEW_REQUIRED",
+      "message": "Shock host, ball joints, CVD plunge/articulation, hub/bearing and wheel backspacing remain excluded pending measured samples and arm-path resolution."
+    },
+    {
+      "id": "anycubic-exact-slicer",
+      "status": "NOT_RUN",
+      "message": "The repository has no complete approved machine/process/filament JSON profile set for this coupon; exact Anycubic slicing remains fail-closed."
+    },
+    {
+      "id": "physical-fit-load-fatigue",
+      "status": "NOT_RUN",
+      "message": "No printed coupon, reamed bore measurement, proof load, impact or fatigue evidence exists."
+    },
+    {
+      "id": "watermark",
+      "status": "NOT_RUN",
+      "message": "No watermark is added to an interface/process coupon; watermark remains the last solid change for a stable product candidate."
+    }
+  ],
+  "metrics": {
+    "nominal_contract": {
+      "m3_radial_clearance_mm": 0.25,
+      "boss_radial_ligament_mm": 5.05,
+      "eye_axial_clearance_per_side_mm": 0.2999999999999998,
+      "eye_radial_pocket_clearance_mm": 0.2999999999999998,
+      "rail_wall_mm": 2.4,
+      "lug_thickness_mm": 4.0
+    },
+    "variants": {
+      "front": {
+        "geometry": {
+          "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-front-pivot-host-coupon.stl",
+          "watertight": true,
+          "winding_consistent": true,
+          "body_count": 1,
+          "vertex_count": 3592,
+          "face_count": 7224,
+          "source_brep_valid": true,
+          "source_brep_solid_count": 1,
+          "step_brep_valid": true,
+          "step_brep_solid_count": 1,
+          "source_volume_mm3": 17477.93964886067,
+          "step_volume_mm3": 17477.939648860585,
+          "mesh_volume_mm3": 17476.8900112579,
+          "step_source_relative_volume_error": 4.787378503653536e-15,
+          "mesh_source_relative_volume_error": 6.005499640444921e-05,
+          "source_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.8,
+              41.8
+            ],
+            "size_mm": [
+              80.0,
+              23.8,
+              41.8
+            ]
+          },
+          "step_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.799999999999997,
+              41.8
+            ],
+            "size_mm": [
+              80.0,
+              23.799999999999997,
+              41.8
+            ]
+          },
+          "mesh_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.799999237060547,
+              41.79788589477539
+            ],
+            "size_mm": [
+              80.0,
+              23.799999237060547,
+              41.79788589477539
+            ]
+          },
+          "step_source_maximum_bound_delta_mm": 3.552713678800501e-15,
+          "mesh_source_maximum_bound_delta_mm": 0.002114105224606533
+        },
+        "eye_clearance": {
+          "final_eye_intersections": [
+            {
+              "level": "lower",
+              "center_x_mm": -16.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "lower",
+              "center_x_mm": 16.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "upper",
+              "center_x_mm": -17.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "upper",
+              "center_x_mm": 11.0,
+              "intersection_mm3": 0.0
+            }
+          ],
+          "maximum_final_eye_intersection_mm3": 0.0,
+          "unrelieved_lower_eye_intersections_mm3": [
+            136.43779710125526,
+            136.43779710125526
+          ],
+          "minimum_unrelieved_lower_eye_intersection_mm3": 136.43779710125526
+        },
+        "attachments": {
+          "lower_boss_to_rail_intersections_mm3": [
+            101.23982008819367,
+            101.23982008819368,
+            101.23982008819367,
+            101.23982008819367
+          ],
+          "minimum_lower_boss_to_rail_intersection_mm3": 101.23982008819367,
+          "upper_web_to_rail_intersections_mm3": [
+            53.26628571428574,
+            53.26628571428574,
+            53.26628571428574,
+            53.26628571428574
+          ],
+          "minimum_upper_web_to_rail_intersection_mm3": 53.26628571428574
+        },
+        "tire_sweep": {
+          "sample_count": 882,
+          "radii": {
+            "radius_45_mm": {
+              "maximum_intersection_mm3": 0.0,
+              "worst_pose": null,
+              "sample_count": 441
+            },
+            "radius_57.5_mm": {
+              "maximum_intersection_mm3": 0.0,
+              "worst_pose": null,
+              "sample_count": 441
+            }
+          }
+        },
+        "straight_arm_neck_proxy": {
+          "lower": {
+            "maximum_intersection_mm3": 28.490561986813187,
+            "worst_case": {
+              "travel_mm": 6.0,
+              "inboard_x_mm": 142.0
+            },
+            "sample_count": 42
+          },
+          "upper": {
+            "maximum_intersection_mm3": 46.275362274357306,
+            "worst_case": {
+              "travel_mm": -10.0,
+              "inboard_x_mm": 137.0
+            },
+            "sample_count": 42
+          }
+        }
+      },
+      "rear": {
+        "geometry": {
+          "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-rear-pivot-host-coupon.stl",
+          "watertight": true,
+          "winding_consistent": true,
+          "body_count": 1,
+          "vertex_count": 3592,
+          "face_count": 7224,
+          "source_brep_valid": true,
+          "source_brep_solid_count": 1,
+          "step_brep_valid": true,
+          "step_brep_solid_count": 1,
+          "source_volume_mm3": 17477.939648860665,
+          "step_volume_mm3": 17477.939648860607,
+          "mesh_volume_mm3": 17476.890256316212,
+          "step_source_relative_volume_error": 3.330350263411156e-15,
+          "mesh_source_relative_volume_error": 6.004097539734018e-05,
+          "source_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.8,
+              41.8
+            ],
+            "size_mm": [
+              80.0,
+              23.8,
+              41.8
+            ]
+          },
+          "step_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.799999999999997,
+              41.8
+            ],
+            "size_mm": [
+              80.0,
+              23.799999999999997,
+              41.8
+            ]
+          },
+          "mesh_bounds": {
+            "minimum_mm": [
+              -40.0,
+              -7.0,
+              0.0
+            ],
+            "maximum_mm": [
+              40.0,
+              16.799999237060547,
+              41.79788589477539
+            ],
+            "size_mm": [
+              80.0,
+              23.799999237060547,
+              41.79788589477539
+            ]
+          },
+          "step_source_maximum_bound_delta_mm": 3.552713678800501e-15,
+          "mesh_source_maximum_bound_delta_mm": 0.002114105224606533
+        },
+        "eye_clearance": {
+          "final_eye_intersections": [
+            {
+              "level": "lower",
+              "center_x_mm": -16.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "lower",
+              "center_x_mm": 16.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "upper",
+              "center_x_mm": -14.0,
+              "intersection_mm3": 0.0
+            },
+            {
+              "level": "upper",
+              "center_x_mm": 14.0,
+              "intersection_mm3": 0.0
+            }
+          ],
+          "maximum_final_eye_intersection_mm3": 0.0,
+          "unrelieved_lower_eye_intersections_mm3": [
+            136.43779710125526,
+            136.43779710125526
+          ],
+          "minimum_unrelieved_lower_eye_intersection_mm3": 136.43779710125526
+        },
+        "attachments": {
+          "lower_boss_to_rail_intersections_mm3": [
+            101.23982008819367,
+            101.23982008819368,
+            101.23982008819367,
+            101.23982008819367
+          ],
+          "minimum_lower_boss_to_rail_intersection_mm3": 101.23982008819367,
+          "upper_web_to_rail_intersections_mm3": [
+            53.26628571428574,
+            53.26628571428573,
+            53.26628571428574,
+            53.26628571428574
+          ],
+          "minimum_upper_web_to_rail_intersection_mm3": 53.26628571428573
+        },
+        "tire_sweep": {
+          "sample_count": 42,
+          "radii": {
+            "radius_45_mm": {
+              "maximum_intersection_mm3": 0.0,
+              "worst_pose": null,
+              "sample_count": 21
+            },
+            "radius_57.5_mm": {
+              "maximum_intersection_mm3": 0.0,
+              "worst_pose": null,
+              "sample_count": 21
+            }
+          }
+        },
+        "straight_arm_neck_proxy": {
+          "lower": {
+            "maximum_intersection_mm3": 28.490561986641758,
+            "worst_case": {
+              "travel_mm": 6.0,
+              "inboard_x_mm": -110.0
+            },
+            "sample_count": 42
+          },
+          "upper": {
+            "maximum_intersection_mm3": 46.27536227436305,
+            "worst_case": {
+              "travel_mm": -10.0,
+              "inboard_x_mm": -112.0
+            },
+            "sample_count": 42
+          }
+        }
+      }
+    },
+    "tire_boolean_sample_count": 924,
+    "arm_neck_boolean_sample_count": 168,
+    "straight_arm_neck_maximum_intersection_mm3": 46.27536227436305
+  },
+  "inputs": [
+    {
+      "path": "cad/validate_double_wishbone_v2_pivot_host_coupon.py",
+      "sha256": "70e3397837d6e16e0de572fcd1d8c44a4f5d1782286fccea0f901ab85f6a280c",
+      "size_bytes": 24140
+    },
+    {
+      "path": "cad/double_wishbone_v2_pivot_host_coupon.py",
+      "sha256": "17f0cb95c3b5b5e5f64eb5cc14e213806e9e66dcea197896008566b8d8952677",
+      "size_bytes": 11350
+    },
+    {
+      "path": "cad/double_wishbone_v2_kinematics.py",
+      "sha256": "b805a78a4b60c9ff85dbd5d458649f495f8bcd5878101757c4e5c297d31c6558",
+      "size_bytes": 27940
+    },
+    {
+      "path": "cad/parameters.py",
+      "sha256": "0fe2a00ebbc5d827fba710a274af0ef1aa281e9fa4bedb700304fab25a12fba4",
+      "size_bytes": 5105
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "a18fbcab160f659df59fc1f7fd2dd748ed6c7c37f5063f2cc6c33bc2d0c54ee2",
+      "size_bytes": 27804
+    },
+    {
+      "path": "architecture/double-wishbone-v2-interface-contract-v0.4.0.json",
+      "sha256": "71855b651f8dc8f139c2389a62005757d837055e09f2f8067378ac558ec1a99d",
+      "size_bytes": 6775
+    },
+    {
+      "path": "validation/double-wishbone-v2-kinematics-2026-08-30.json",
+      "sha256": "ccf286b53f9f944cc96d97bf3789926101bf471e03c824ec31e69c645d1e7e73",
+      "size_bytes": 9243
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-front-pivot-host-coupon.step",
+      "sha256": "9f3a8213a96505586bc1b54d81ab1c4b1dd98bb15f76d0b9e9256227ba59d085",
+      "size_bytes": 333166
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-front-pivot-host-coupon.stl",
+      "sha256": "4e9766a74bc84bddcf59e9923d5f82bb7785fe9486b4eed85974ddb7a3f0b7e1",
+      "size_bytes": 361284
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-rear-pivot-host-coupon.step",
+      "sha256": "12d2805513aff5a6e145977d84292f5873e4973929e98902fddcb0c5a228605d",
+      "size_bytes": 333192
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-rear-pivot-host-coupon.stl",
+      "sha256": "787782021dcd51e1e2d4e84bb9c7174ceaa792d21e25468aa25b953cf4919e31",
+      "size_bytes": 361284
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/DRAFT-dwv2-pivot-host-coupons-preview.png",
+      "sha256": "95a78b710e8a9cf984a9aedb889ceec51b8d81cea423e6e15d170c6fb4d3b283",
+      "size_bytes": 566824
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.3-pivot-host-coupon/manifest.json",
+      "sha256": "52346b9508379029c36e03361d0ddb8f9457ea88d9e85f023fa6ea3652ddc33d",
+      "size_bytes": 2784
+    }
+  ],
+  "limitations": [
+    "A collision-free interface coupon does not prove a collision-free arm or complete vehicle.",
+    "The solid-cylinder tire test is a conservative keep-out, not a rim-cavity or backspacing model.",
+    "No strength, fatigue, layer-adhesion, wear or driving-safety claim is made."
+  ]
+}

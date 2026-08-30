@@ -1,0 +1,150 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00042
+title: Wishbone clevis validation must include the outgoing arm-neck sweep, not only the seated eye
+captured_at: 2026-08-30
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One deterministic digital rover coupon and cylindrical arm-neck proxy; no final arm solid, print or physical motion test exists.
+feature:
+  type: wishbone-clevis-arm-neck-interface
+  geometry: Chassis-side longitudinal-axis clevis on a hollow printed rail with separate lower bosses and upper tower webs
+  design_parameters:
+    arm_eye_width_mm: 6.0
+    arm_eye_diameter_mm: 12.8
+    clevis_gap_mm: 6.6
+    eye_pocket_diameter_mm: 13.4
+    pivot_bore_mm: 3.5
+    boss_diameter_mm: 13.6
+    arm_neck_proxy_diameter_mm: 6.0
+    lower_neck_maximum_intersection_mm3: 28.490562
+    upper_neck_maximum_intersection_mm3: 46.275362
+  named_datums:
+    - lower and upper inboard wishbone-eye axes
+    - clevis lug inner faces
+    - relieved arm-eye pocket boundary
+    - rail outer wall and upper tower-web boundary
+    - lower and upper outer spherical-joint centers
+  constraints:
+    - Approved inboard kinematic axes are not moved to manufacture a clearance pass.
+    - Eye clearance, arm-neck clearance and attachment continuity are graded separately.
+    - Every declared suspension-travel pose is evaluated before arm geometry can become a manufacturing candidate.
+scope:
+  process: digital FFF interface/process coupon design
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG baseline target
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.6
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: rail-down process candidate; exact slicing not run
+  slicer:
+    name: Anycubic Slicer Next target
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: low-speed 1:10-class printed double-wishbone chassis pivot host
+  environment: deterministic CadQuery B-Rep Boolean sweep; no physical print or load test
+  transfer_limits:
+    - Evidence covers one rover kinematic contract and one front/rear coupon family.
+    - The cylindrical 6 mm arm-neck proxy is conservative and is not a final structural arm section.
+    - Required neck thickness, fillets, load paths and keep-outs remain project-specific.
+observation:
+  summary: All seated arm-eye proxies had zero host overlap and nominal clearances passed, yet the outgoing straight arm-neck proxy intersected the same host across the suspension sweep.
+  expected: A clevis with adequate axial/radial eye clearance and a relieved rail pocket would also admit the provisional straight 6 mm arm-neck route.
+  actual: Eye overlap is zero, but the maximum straight-neck overlap is 28.490562 mm3 for a lower leg and 46.275362 mm3 for an upper leg; the final arm therefore needs a separately validated dog-leg, taper or host transition.
+  outcome: failure
+  parameter: swept Boolean intersection between the host and the arm section immediately outside each inboard eye
+  recommended_value: null
+  units: mm3
+explanation:
+  hypothesis: A seated-eye clearance check ignores the volume occupied by bosses, rail walls and tower webs along the moving arm's outgoing direction.
+  mechanism: The arm rotates about the longitudinal inboard axis while its two legs converge on the outer joint, so a finite-radius neck leaves the eye obliquely and can enter adjacent host material even when the eye cylinder itself is clear.
+  alternatives:
+    - A tapered or dog-leg neck may route through the available corridor without changing the approved joint centers.
+    - Local host relief may be possible if boss ligament, rail continuity and tire clearance remain valid.
+    - The 6 mm cylindrical proxy may overstate a final noncircular load-aligned section, but reducing it without strength evidence would not establish a pass.
+  validated: false
+  validation_method: Generate a structural arm-neck candidate, sweep its full B-Rep against both host variants and all protected envelopes, then verify fit and motion with a printed, reamed physical coupon.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: CadQuery Boolean intersection of four trimmed arm-neck proxies per front/rear pose over 21 travel samples, with eye clearance and host attachment measured independently.
+  uncertainty: The digital host geometry is exact within the model, but the neck proxy is not a final load-qualified arm section and no printed fit has been observed.
+  sources:
+    - type: measurement
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
+      hash: c1ec5c103be85ed740a3f8121c5e50921a0d5f53ec2dd4b08b974f50bb7e6091
+      notes: Fail-closed B-Rep, mesh, tire-envelope and arm-neck evidence.
+    - type: product-trace
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/reports/cad-phase-4-pivot-host-coupon-v0.4.0.md
+      hash: null
+      notes: Scope decision and permitted next design phase.
+  artifacts:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/double_wishbone_v2_pivot_host_coupon.py
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_double_wishbone_v2_pivot_host_coupon.py
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/exports/v0.4.0-draft.3-pivot-host-coupon/manifest.json
+applicability:
+  triggers:
+    - A printed wishbone or linkage eye sits inside a chassis clevis and the arm leaves the eye toward a remote joint.
+    - Interface approval currently checks only pin fit, clevis gap, boss ligament or the eye cylinder.
+  exclusions:
+    - Pure revolute links whose complete swept solid has already been collision-tested against the same host
+    - Supplier-authoritative joint assemblies with verified full-motion CAD and equivalent installed clearance evidence
+  transfer_limits:
+    - E0 digital observation; use to plan targeted checks, not as a universal geometry rule or clearance value.
+    - Required proxy section, poses and collision tolerance must be justified per mechanism.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00038
+    - EXP-00040
+  evals:
+    - EVAL-interfaces-wishbone-clevis-eye-neck-sweep-001
+  patterns: []
+  references: []
+validation:
+  targeted: review-required
+  regression: not-run
+  reports:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-pivot-host-coupon-2026-08-30.json
+provenance:
+  project: MM-TOY-002
+  part_revision: 0.4.0-draft.3
+  trace: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/decision-log.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - suspension
+  - wishbone
+  - clevis
+  - arm-neck
+  - swept-clearance
+  - negative-result
+  - digital-only

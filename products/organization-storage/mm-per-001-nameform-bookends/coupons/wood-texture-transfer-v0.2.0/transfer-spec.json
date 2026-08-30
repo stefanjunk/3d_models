@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "transfer_id": "MM-PER-001-WOOD-DIRECT-TRANSFER",
+  "revision": "0.2.0",
+  "status": "DRAFT_PHYSICAL_REVIEW_REQUIRED",
+  "failure_being_corrected": {
+    "artifact": "../wood-texture-pitch-v0.1.0/exports/DRAFT-nameform-wood-texture-pitch-coupon-v0.1.0.stl",
+    "physical_result": "User reports that all fields printed essentially flat and did not reproduce the Honeycomb shelf wood appearance.",
+    "identified_pipeline_difference": "The failed coupon Lanczos-resampled the full 1254x1254 master to a printer-pitch build raster before mesh sampling; the successful Honeycomb generator samples the full source directly at mesh vertices.",
+    "measured_effect": "On the same 45x45 mm wall patch, direct sampling gives 0.5763 normalized P95-P5 span versus 0.3760 after the failed prefilter, a 34.8% contrast loss before printing."
+  },
+  "source": {
+    "texture_id": "wood-001",
+    "master": "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png",
+    "registration": "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png.source.json",
+    "reference_source": "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/assets/holz.png",
+    "reference_generator": "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/scripts/generate_textured_mesh.py",
+    "sampling": "direct bilinear sampling of the full 1254x1254 master at every physical mesh vertex; no build-raster downsampling",
+    "periodic_edge_blend_px": 24
+  },
+  "process": {
+    "technology": "FFF/FDM",
+    "printer": "Anycubic Kobra 3 Max",
+    "material_scope": "PETG family; exact product, color, batch and conditioning must be recorded by the operator",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.12,
+    "nominal_line_width_mm": 0.45,
+    "orientation": "Coupon and NameForm stay upright on z=0; textured front faces point -Y",
+    "supports": false
+  },
+  "coupon": {
+    "panel_width_mm": 42.0,
+    "panel_height_mm": 50.0,
+    "panel_thickness_mm": 3.2,
+    "panel_gap_mm": 4.0,
+    "base_depth_mm": 18.0,
+    "base_thickness_mm": 2.0,
+    "mesh_pitch_mm": 0.45,
+    "edge_taper_mm": 1.2,
+    "glyph": {
+      "shape": "rectilinear capital E",
+      "width_mm": 15.0,
+      "height_mm": 24.0,
+      "stroke_mm": 3.0,
+      "raise_mm": 2.0,
+      "boolean_overlap_mm": 0.1,
+      "texture_keepout_mm": 1.2
+    },
+    "candidates": [
+      {
+        "id": "A",
+        "position": "left",
+        "role": "exact Honeycomb vertical-wall mapping control",
+        "master": "raw",
+        "image_x_axis": "model Z descending",
+        "image_y_axis": "panel-local X",
+        "period_x_y_mm": [62.0, 252.0],
+        "depth_mm": 0.6
+      },
+      {
+        "id": "B",
+        "position": "center-left",
+        "role": "direct repeated patch at Honeycomb front-ring physical scale",
+        "master": "raw",
+        "image_x_axis": "panel-local X",
+        "image_y_axis": "model Z descending",
+        "period_x_y_mm": [120.0, 45.0],
+        "depth_mm": 0.6
+      },
+      {
+        "id": "C",
+        "position": "center-right",
+        "role": "seam-blended direct repeated patch for NameForm",
+        "master": "blend24",
+        "image_x_axis": "panel-local X",
+        "image_y_axis": "model Z descending",
+        "period_x_y_mm": [120.0, 45.0],
+        "depth_mm": 0.6
+      },
+      {
+        "id": "D",
+        "position": "right",
+        "role": "visibility reserve if vertical perimeters still suppress 0.6 mm relief",
+        "master": "blend24",
+        "image_x_axis": "panel-local X",
+        "image_y_axis": "model Z descending",
+        "period_x_y_mm": [120.0, 45.0],
+        "depth_mm": 0.9
+      }
+    ]
+  },
+  "nameform_candidate": {
+    "source_revision": "0.3.0",
+    "source_left": "products/organization-storage/mm-per-001-nameform-bookends/exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.stl",
+    "source_right": "products/organization-storage/mm-per-001-nameform-bookends/exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.stl",
+    "candidate_basis": "coupon candidate C",
+    "mapping": "direct blend24 master, image X along model X with 120 mm period, image Y along model Z descending with 45 mm period",
+    "depth_mm": 0.6,
+    "mesh_pitch_mm": 0.45,
+    "wing_edge_taper_mm": 2.4,
+    "text_keepout_mm": 1.2,
+    "protected": [
+      "raised text and its bond",
+      "rounded wing boundary",
+      "z=0 bed edge",
+      "side-blade junction",
+      "foot, ribs, gussets, book-contact face and watermark"
+    ]
+  },
+  "budgets": {
+    "max_coupon_triangles": 200000,
+    "max_nameform_triangles_each": 400000,
+    "max_mesh_mib_each": 25.0,
+    "max_peak_memory_gib": 2.0,
+    "max_exact_slicer_seconds": 180.0
+  }
+}

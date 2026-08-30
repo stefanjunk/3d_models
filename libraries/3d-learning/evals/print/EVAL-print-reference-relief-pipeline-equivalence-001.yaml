@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-print-reference-relief-pipeline-equivalence-001
+title: Successful image relief transfer preserves the reference pipeline before resolution optimization
+category: print
+status: draft
+trigger: A physically successful image-derived FFF relief is transferred to another object while preprocessing, raster resolution, patching, mapping or mesh density is changed to reduce compute cost.
+risk: An optimization that is described as a resolution change can silently alter tonal span, physical scale, phase, axis mapping or relief amplitude and produce a visually flat surface even when topology and slicing pass.
+given:
+  reference_pipeline: immutable source image, preprocessing sequence, sampler/interpolator, physical axis mapping, period, phase, relief normalization and successful physical scope
+  proposed_transfer: target surface, protected regions, physical mesh grid, patching/seam treatment and relief-depth candidates
+  process_context: nozzle, layer height, orientation, machine, material, slicer and exact profile hashes where known
+expected:
+  - At least one control uses the exact reference source preprocessing, sampler, physical scale, phase and relief depth; unknown parts of the physical reference process remain explicit.
+  - Source-raster downsampling is not treated as free merely because the physical mesh grid is coarser; a same-coordinate metric reports source-value and resulting relief-span change before the optimized path can replace the control.
+  - Compute cost is first bounded by the physical exposed-surface grid and local patch extent, with source resolution preserved when source sampling does not itself create mesh vertices.
+  - Repeating patches state physical period and axis mapping, include a raw-patch control, and isolate seam blending from scale and depth changes.
+  - The coupon distinguishes reference mapping, patch mapping, seam treatment and depth reserve without changing more than the stated variable between relevant fields.
+  - Exact generated meshes are watertight, single-body, inside triangle/file budgets, reproducible, and sliced with explicit complete profiles.
+  - A human physical comparison under fixed lighting, distance and view angles selects or rejects the transfer before an integrated product becomes final.
+failure_conditions:
+  - The optimized pipeline changes preprocessing or interpolation without measuring equivalence against the successful reference coordinates.
+  - A build raster tied to mesh pitch removes contrast or physical feature bandwidth but the candidate is still called equivalent based only on mesh pitch.
+  - Patch scale, phase, axis mapping, seam blend and relief depth change together with no isolating control.
+  - A render, mesh audit or successful G-code export is used to pass physical wood recognition.
+  - One product result is promoted as a universal resolution, nozzle or layer-height rule.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/transfer-spec.json
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/source/check_reproducibility.py
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/validation-project.locked.json
+grader:
+  type: hybrid
+  command: python products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/source/check_reproducibility.py --json-out /new/empty/reproducibility-report.json
+  expected_exit_code: 0
+  rubric: "Digital checks pass only the pipeline, mesh and slicer portion. Physical PASS requires the unchanged A/B/C/D coupon record, controlled comparison and an explicit selection; until then the result is review-required."
+  measurement_method: "Exact rebuild/hash comparison, same-coordinate source and relief-span metrics, deterministic mesh/slicer validation, then fixed-condition human visual and tactile review."
+relationships:
+  lessons:
+    - EXP-00046
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-08-30
+  report: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/validation-summary-locked.json
+  artifact_hashes:
+    - 1ab9ea0ebce7f57c6ec256f5e03ff49c66aa6fed6f2f71ff5b96a4c8a02b10a1
+    - 4d43ac651dc652c0fbcafad0cc8c2d81334b81f977481a9abd6cf02aae578d07
+    - beaa10e9e2bb87de6ff5d908960d3c88ae83a4ccdca2e211777788499ea986fe
+tags:
+  - print
+  - surface-texture
+  - heightmap
+  - preprocessing
+  - pipeline-equivalence
+  - direct-sampling
+  - physical-review

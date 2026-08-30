@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once in this recorded scope. The NameForm pitch coupon is digitally validated but has not been printed or appearance-reviewed."
+    notes: "Observed once in this recorded scope. The later v0.1 coupon print was reported visually flat and is recorded separately in EXP-00046; this candidate is not promoted."
 feature:
   type: continuous-tone image-relief surface texture
   geometry: Honeycomb shelf textured envelope transferred to an upright planar NameForm front coupon
@@ -126,7 +126,8 @@ relationships:
   duplicates: []
   conflicts: []
   supersedes: []
-  related: []
+  related:
+    - EXP-00046
   evals:
     - EVAL-print-image-relief-pitch-transfer-001
   patterns: []
@@ -134,10 +135,11 @@ relationships:
     - .agents/skills/design-printable-surface-textures/SKILL.md
     - .agents/skills/3d-print-heightmap-relief/SKILL.md
 validation:
-  targeted: review-required
+  targeted: fail
   regression: not-run
   reports:
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/project-validation-draft.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
 provenance:
   project: MM-PER-001-WOOD-PITCH-COUPON
   part_revision: 0.1.0-draft.1

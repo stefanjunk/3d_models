@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-PER-001-WOOD-DIRECT-TRANSFER",
+    "revision": "0.2.0-draft.1",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420, 420, 500]
+  },
+  "artifacts": [
+    {"id": "transfer-spec", "path": "transfer-spec.json", "kind": "design-contract", "revision": "0.2.0-draft.1"},
+    {"id": "generator", "path": "source/generate_transfer.py", "kind": "source", "revision": "0.2.0-draft.1"},
+    {"id": "repro-checker", "path": "source/check_reproducibility.py", "kind": "source", "revision": "0.2.0-draft.1"},
+    {"id": "pipeline-comparator", "path": "source/compare_reference_pipeline.py", "kind": "source", "revision": "0.2.0-draft.1"},
+    {"id": "honeycomb-source", "path": "../../../mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/assets/holz.png", "kind": "reference-image"},
+    {"id": "wood-master", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png", "kind": "heightmap"},
+    {"id": "wood-registration", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png.source.json", "kind": "provenance"},
+    {"id": "failed-build-raster", "path": "../wood-texture-pitch-v0.1.0/build/heightmaps/wood-001-pitch-0p45-16bit.png", "kind": "heightmap", "revision": "0.2.0-draft.1"},
+    {"id": "coupon", "path": "exports/DRAFT-nameform-wood-direct-transfer-coupon-v0.2.0.stl", "kind": "mesh", "revision": "0.2.0-draft.1"},
+    {"id": "nameform-left", "path": "exports/nameform/DRAFT-nameform-STE-FAN-left-wood-direct-v0.3.0-tx0.2.0.stl", "kind": "mesh", "revision": "0.2.0-draft.1"},
+    {"id": "nameform-right", "path": "exports/nameform/DRAFT-nameform-STE-FAN-right-wood-direct-v0.3.0-tx0.2.0.stl", "kind": "mesh", "revision": "0.2.0-draft.1"},
+    {"id": "generation-report", "path": "reports/generation-report.json", "kind": "validation-report", "revision": "0.2.0-draft.1"},
+    {"id": "repro-report", "path": "reports/reproducibility-report.json", "kind": "validation-report", "revision": "0.2.0-draft.1"},
+    {"id": "pipeline-comparison-report", "path": "reports/reference-pipeline-comparison.json", "kind": "validation-report", "revision": "0.2.0-draft.1"},
+    {"id": "machine-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "process-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/process/0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "filament-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/filament/Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "coupon-slice-report", "path": "reports/anycubic-slice-coupon.json", "kind": "slicer-report"},
+    {"id": "left-slice-report", "path": "reports/anycubic-slice-nameform-left.json", "kind": "slicer-report"},
+    {"id": "right-slice-report", "path": "reports/anycubic-slice-nameform-right.json", "kind": "slicer-report"},
+    {"id": "coupon-gcode", "path": "slicer-runs/anycubic-next-kobra3max-petg-0p12-coupon-run-001/plate_1.gcode", "kind": "gcode"},
+    {"id": "left-gcode", "path": "slicer-runs/anycubic-next-kobra3max-petg-0p12-left-run-001/plate_1.gcode", "kind": "gcode"},
+    {"id": "right-gcode", "path": "slicer-runs/anycubic-next-kobra3max-petg-0p12-right-run-001/plate_1.gcode", "kind": "gcode"},
+    {"id": "physical-evaluation", "path": "physical-evaluation.md", "kind": "physical-review-record", "revision": "0.2.0-draft.1"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.2.0-draft.1"},
+    {"id": "autonomy-validation", "path": "reports/autonomy-validation.json", "kind": "validation-report", "revision": "0.2.0-draft.1"}
+  ],
+  "checks": [
+    {
+      "id": "coupon-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "coupon",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 200000,
+        "max_file_mib": 25,
+        "require_self_intersection_check": false
+      }
+    },
+    {
+      "id": "nameform-left-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "nameform-left",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 400000,
+        "max_file_mib": 25,
+        "require_self_intersection_check": false
+      }
+    },
+    {
+      "id": "nameform-right-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "nameform-right",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 400000,
+        "max_file_mib": 25,
+        "require_self_intersection_check": false
+      }
+    },
+    {"id": "generation", "type": "external_report", "required": true, "artifact": "generation-report", "expected_inputs": ["transfer-spec", "generator", "wood-master", "wood-registration"]},
+    {"id": "reproducibility", "type": "external_report", "required": true, "artifact": "repro-report", "expected_inputs": ["generator", "transfer-spec", "wood-master"]},
+    {"id": "reference-pipeline-comparison", "type": "external_report", "required": true, "artifact": "pipeline-comparison-report", "expected_inputs": ["pipeline-comparator", "honeycomb-source", "wood-master", "failed-build-raster"]},
+    {"id": "coupon-slice", "type": "external_report", "required": true, "artifact": "coupon-slice-report", "expected_inputs": ["coupon", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "left-slice", "type": "external_report", "required": true, "artifact": "left-slice-report", "expected_inputs": ["nameform-left", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "right-slice", "type": "external_report", "required": true, "artifact": "right-slice-report", "expected_inputs": ["nameform-right", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "autonomy-policy", "type": "external_report", "required": true, "artifact": "autonomy-validation", "expected_inputs": ["autonomy-policy"]},
+    {"id": "gui-layer-review", "type": "review", "required": true, "status": "REVIEW_REQUIRED", "criterion": "Human layer-by-layer and seam review in Anycubic Slicer Next before printing.", "evidence_artifact": null},
+    {"id": "physical-appearance", "type": "physical", "required": true, "status": "REVIEW_REQUIRED", "criterion": "Print the exact v0.2 coupon upright at 0.4/0.12 mm and select A, C-0.6, C-0.9, or reject all according to physical-evaluation.md.", "evidence_artifact": "physical-evaluation"}
+  ],
+  "release": {
+    "required_approvals": ["physical-appearance", "final-model"],
+    "approvals": {
+      "physical-appearance": "blocked-until-v0.2-coupon-print",
+      "final-model": "pending-selected-relief-depth-and-human-review"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00046
+title: Prefiltered build rasters can break equivalence to a successful direct-sampled image relief
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once in this recorded scope. The physical failure is certain from the user report; the preprocessing explanation remains a hypothesis until the direct-transfer coupon is printed."
+feature:
+  type: continuous-tone image-relief surface texture transfer
+  geometry: successful Honeycomb shelf wood relief transferred to four upright planar coupon fields and broad planar NameForm wings
+  design_parameters:
+    texture_id: wood-001
+    master_pixels: [1254, 1254]
+    failed_coupon_mesh_pitch_mm: [0.45, 0.5, 0.6]
+    failed_coupon_relief_depth_mm: 0.6
+    failed_prefilter: Lanczos resize to mesh-pitch build raster
+    control_mesh_pitch_mm: 0.45
+    control_relief_depth_mm: 0.6
+    reserve_relief_depth_mm: 0.9
+    repeating_patch_mm: [120.0, 45.0]
+    seam_blend_px: 24
+    direct_span_normalized: 0.5763
+    failed_prefilter_span_normalized: 0.3760
+    prefilter_span_loss_percent: 34.8
+  named_datums:
+    - coupon-z0-build-plane
+    - coupon-front-minus-y
+    - nameform-front-minus-y
+    - model-x
+    - model-z
+  constraints:
+    - The direct control samples the full registered master bilinearly at every physical mesh vertex.
+    - Geometry density is limited by the 0.45 mm physical grid, not by downsampling the source image.
+    - Text, boundaries, bed datum and NameForm functional regions remain protected from relief.
+    - No NameForm depth is accepted until the v0.2 physical appearance gate passes.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: "Failed v0.1 and v0.2 coupon geometry use upright vertical textured faces; successful Honeycomb wall orientation is reconstructed digitally but its exact physical slicer trace remains incomplete."
+  slicer:
+    name: unknown
+    version: null
+    profile: "User explicitly reports 0.12 mm layers; exact profile and overrides for the failed physical print are unknown."
+    profile_hash: null
+  geometry_class: repeating image-derived relief on upright appearance-critical FFF walls
+  environment: unknown
+  transfer_limits:
+    - The physical failure is one visual user report without photos or measured surface amplitude.
+    - The 34.8 percent span loss is a digital comparison of this wood source and preprocessing path, not a universal filter penalty.
+    - Printer, filament identity, conditioning, wall count, seam placement and exact physical profiles remain unknown.
+observation:
+  summary: The user printed the v0.1 pitch coupon at a stated 0.4 mm nozzle and 0.12 mm layer height and reported that all three panels looked flat with little or no recognizable wood texture.
+  expected: The 0.45 mm field would retain the successful Honeycomb wood character closely enough to serve as the reference for coarser-pitch selection.
+  actual: None of the 0.45, 0.50 or 0.60 mm fields reproduced enough of the original wood appearance.
+  outcome: failure
+  parameter: preprocessing and sampling pipeline equivalence
+  recommended_value: "direct full-master bilinear sampling at the physical mesh vertices; no low-resolution build-raster prefilter"
+  units: null
+explanation:
+  hypothesis: The added Lanczos downsampling before mesh sampling suppressed much of the source contrast and was a major contributor to the visually flat print.
+  mechanism: On an equivalent 45 x 45 mm wall patch, direct full-master sampling retains a normalized P95-P5 span of 0.5763 while the failed build-raster path retains 0.3760. At 0.6 mm maximum depth this reduces robust modeled relief span from about 0.346 mm to 0.226 mm before slicing. Limiting only the physical mesh grid avoids paying for source-image pixels as geometry while preserving the successful sampling behavior.
+  alternatives:
+    - Upright perimeter deposition may suppress the relief even when the direct-sampled mesh has adequate digital amplitude.
+    - The failed coupon may differ from the shelf in filament color, gloss, drying, temperature, flow, wall count or seam placement.
+    - Physical scale or source-axis mapping may be more important than the prefilter.
+    - The absence of photos or measured surface depth can hide an orientation or lighting failure rather than a geometry-amplitude failure.
+  validated: false
+  validation_method: "Print the unchanged v0.2 A/B/C/D coupon upright at 0.4 mm nozzle and 0.12 mm layers. A reproduces the exact Honeycomb wall mapping; B/C isolate patch mapping and seam blending; D isolates a 0.9 mm depth reserve."
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: "User visual result plus deterministic bilinear-sampling comparison on the same 45 x 45 mm wall coordinates; no physical profilometry."
+  uncertainty: "Physical result has no photo, profilometry, exact printer, filament or slicer-profile evidence. The digital contrast loss is measured, but causation is not isolated."
+  sources:
+    - type: user-statement
+      ref: "User correction in the 2026-08-30 NameForm wood-texture phase"
+      hash: null
+      notes: "Printed v0.1 coupon looked flat; original Honeycomb shelf wood appearance was not reproduced; user requested renewed pipeline comparison and patch-based transfer."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/transfer-spec.json
+      hash: c244913506127aa6395a1f55d72f8cbb10e1479a752b2ca38ce962c64360c6c9
+      notes: "Records the failed preprocessing difference, direct-transfer mapping, process claims and test matrix."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+      hash: bc30b858d1708de38ab3e37b713c33db2356d3a2b4f47130e6e32cad426ff41e
+      notes: "Preserves the v0.1 failure report and the unresolved v0.2 physical gate."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json
+      hash: 4d43ac651dc652c0fbcafad0cc8c2d81334b81f977481a9abd6cf02aae578d07
+      notes: "Reproduces source/master equivalence and the 34.76 percent robust-span loss on identical physical coordinates."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/exports/DRAFT-nameform-wood-texture-pitch-coupon-v0.1.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/exports/DRAFT-nameform-wood-direct-transfer-coupon-v0.2.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/reproducibility-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/validation-summary-locked.json
+applicability:
+  triggers:
+    - A successful image-derived relief is transferred to another FFF geometry and a lower-cost raster or mesh representation is proposed.
+  exclusions:
+    - Primarily optical material effects that do not need height geometry.
+    - Recognizable nonrepeating subjects where patch repetition changes the design.
+    - Functional interfaces or sealing surfaces without a separately approved relief allowance.
+    - Other patterns, scales, nozzle sizes, layer heights, orientations, machines or materials without a new controlled coupon.
+  transfer_limits:
+    - Preserve the reference preprocessing and sampler until an A/B comparison shows that an optimization is physically equivalent.
+    - Treat the 0.45 mm grid, 120 x 45 mm patch and 0.6/0.9 mm depths as NameForm experiment values, not universal settings.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00039
+  evals:
+    - EVAL-print-image-relief-pitch-transfer-001
+    - EVAL-print-reference-relief-pipeline-equivalence-001
+  patterns: []
+  references:
+    - .agents/skills/design-printable-surface-textures/SKILL.md
+    - .agents/skills/3d-print-heightmap-relief/SKILL.md
+validation:
+  targeted: review-required
+  regression: fail
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/validation-summary-locked.json
+provenance:
+  project: MM-PER-001-WOOD-DIRECT-TRANSFER
+  part_revision: 0.2.0-draft.1
+  trace: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - surface-texture
+  - wood-grain
+  - heightmap
+  - preprocessing
+  - direct-sampling
+  - print-orientation
+  - fff
+  - nameform
+  - coupon

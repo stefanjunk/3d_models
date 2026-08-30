@@ -1,0 +1,109 @@
+{
+  "checks": {
+    "direct_sampling_preserves_more_robust_span": true,
+    "documented_span_loss_reproduced": true,
+    "failed_path_contains_low_resolution_prefilter": true,
+    "registered_master_matches_reference": true,
+    "same_physical_coordinates": true
+  },
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/source/compare_reference_pipeline.py",
+      "sha256": "06a3145e2a0a03f6118f682f768e1d64164039af80f727e489f87ffcae22bf1f"
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/assets/holz.png",
+      "sha256": "86370b7c1bac7cd17d51c4086f67d0862ee8154f034dffe8ae58489b9449df11"
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png",
+      "sha256": "4d7b212b7d5fc1c9eede170b95450d92c4bda387693cdb31bdb42baefb4178f6"
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/build/heightmaps/wood-001-pitch-0p45-16bit.png",
+      "sha256": "331300befb29a0352a4d1e2ba6db019b734aad2c29f8f1e2944b1b369688c4a5"
+    }
+  ],
+  "limitations": [
+    "This isolates the digital sampling path; it does not prove physical causation.",
+    "The physical v0.1 failure has no photo or profilometry and its exact filament and slicer overrides remain unknown."
+  ],
+  "metrics": {
+    "comparison_patch_mm": [
+      45.0,
+      45.0
+    ],
+    "direct_span_gain_over_failed_percent": 53.27428726593212,
+    "failed_v0p1_lanczos_build_raster": {
+      "maximum_relief_mm_at_0p6": 0.4556549549102783,
+      "relief_p05_p95_span_mm_at_0p6": 0.22560977339744567,
+      "sample_min_max": [
+        0.040009647607803345,
+        0.7594249248504639
+      ],
+      "sample_p05_p95": [
+        0.15430888533592224,
+        0.530325174331665
+      ],
+      "sample_p05_p95_span": 0.3760162889957428,
+      "sample_standard_deviation": 0.11624184995889664,
+      "source_pixels_xy": [
+        138,
+        560
+      ]
+    },
+    "grid_vertices_xy": [
+      101,
+      101
+    ],
+    "honeycomb_direct_source": {
+      "maximum_relief_mm_at_0p6": 0.5348741054534912,
+      "relief_p05_p95_span_mm_at_0p6": 0.34580177217721936,
+      "sample_min_max": [
+        0.0006812295177951455,
+        0.8914568424224854
+      ],
+      "sample_p05_p95": [
+        0.08210311084985733,
+        0.6584393978118896
+      ],
+      "sample_p05_p95_span": 0.5763362869620323,
+      "sample_standard_deviation": 0.17628370225429535,
+      "source_pixels_xy": [
+        1254,
+        1254
+      ]
+    },
+    "mapping": "u=(45-z)/62, v=x/252",
+    "mesh_pitch_mm": 0.45,
+    "reference_to_registered_master": {
+      "maximum_absolute_error": 5.125999450683594e-06,
+      "pearson_correlation": 0.999999999742346,
+      "root_mean_square_error": 4.148688276472967e-06
+    },
+    "registered_master_direct": {
+      "maximum_relief_mm_at_0p6": 0.5348742485046386,
+      "relief_p05_p95_span_mm_at_0p6": 0.34580104798078537,
+      "sample_min_max": [
+        0.0006809255573898554,
+        0.8914570808410645
+      ],
+      "sample_p05_p95": [
+        0.08210783451795578,
+        0.6584429144859314
+      ],
+      "sample_p05_p95_span": 0.5763350799679756,
+      "sample_standard_deviation": 0.17628373205661774,
+      "source_pixels_xy": [
+        1254,
+        1254
+      ]
+    },
+    "robust_span_loss_percent": 34.75748490906423
+  },
+  "profile": "diagnostic",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-PER-001 reference relief pipeline comparison",
+  "tool_version": "0.2.0"
+}

@@ -1,0 +1,389 @@
+schema_version: 1
+
+project:
+  id: MM-TOY-003
+  sku: MM-TOY-003
+  name: "TrailCam B2 Balance FPV Rover"
+  revision: "0.1.0"
+  candidate: "0.1.0-requirements.1"
+  owner: Stefan
+  created: "2026-08-30"
+  revised: "2026-08-30"
+  source_project: "MM-TOY-002 TrailCam CF10 FPV Camera Rover"
+  portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-099"
+  design_claim: "new design using selected TrailCam appearance and FPV platform ideas"
+  tool_route: "CadQuery B-Rep for all critical geometry after requirements and concept approval"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  requirements_approval:
+    status: pending
+    spec_revision: "0.1.0"
+    requested_from: Stefan
+    review: docs/requirements-review-v0.1.0.md
+  concept_approval:
+    status: blocked
+    reason: "Requirements revision 0.1.0 is not approved"
+  decomposition:
+    status: blocked
+    reason: "Requirements and concept approval are required first"
+  parametric_source:
+    status: blocked
+    reason: "Requirements, concept and decomposition are not approved"
+  digital_candidate:
+    status: blocked
+    reason: "No production geometry exists"
+  slicer_preflight:
+    status: blocked
+    reason: "No approved geometry or complete exact machine/process/filament profile exists"
+  physical_validation:
+    status: blocked
+    reason: "No physical prototype or measurement evidence exists"
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-TOY-003
+    version: "0.1.0"
+    reason: "Watermark is the final planned solid-geometry change after candidate verification"
+  final_release_approval:
+    status: blocked
+    reason: "Requirements, concept, digital, physical, safety and commercial gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Review the TrailCam rover"
+    - "Create a similar design as a new product in another folder"
+    - "Use only one axle and two wheels"
+    - "Add a control system that keeps the rover upright"
+  inferred:
+    - "Similar design includes the TrailCam FPV camera function and serviceable printed architecture"
+    - "One axle means one common geometric wheel axis; the two wheels remain independently driven"
+    - "The rover is a low-speed, remotely controlled hobby platform for supervised private use"
+    - "The new product must not modify or replace MM-TOY-002"
+  recommended:
+    - "Use 120 mm wheels and firm, mostly level surfaces for the first controlled prototype"
+    - "Use two encoder gearmotors, a rigidly mounted 6-axis IMU, a real-time controller and a dual bidirectional motor driver"
+    - "Use cascaded pitch/rate, velocity and yaw control; do not derive balance directly from the RC receiver"
+    - "Keep ELRS control and analog 5.8 GHz FPV independent"
+    - "Use non-rolling sacrificial landing skids/hoops so a powered-off or tipped rover does not strike the camera or electronics"
+    - "Use a balanced-hybrid construction: printed frame/guards/trays with purchased motors, encoders, hubs, tires, fasteners and electronics"
+  unresolved:
+    - "Whether the first prototype should target smooth indoor/hard outdoor ground only or rough terrain"
+    - "Whether analog FPV and the TrailCam/OpenQuad radio ecosystem shall be retained exactly"
+    - "Whether non-rolling landing skids/hoops are accepted despite the strict two-wheel architecture"
+    - "Exact motor, encoder, controller, IMU, motor-driver, battery and wheel products and measured envelopes"
+    - "Exact printer, PETG product, drying state and Anycubic machine/process/filament JSON profiles"
+
+function:
+  summary: >
+    A two-wheel, single-axis FPV camera rover that actively balances its body as
+    an inverted pendulum. Two independently driven coaxial wheels provide pitch
+    stabilization, forward/reverse motion and differential yaw steering. A
+    protected front camera, independent control/video links and serviceable
+    electronics remain visually and functionally related to TrailCam CF10.
+  intended_users:
+    - "adult hobby builder"
+    - "supervised test operator"
+  included:
+    - "One geometric wheel axis and exactly two driven wheels"
+    - "Two independent motor/encoder channels; no mechanical differential"
+    - "IMU-based active upright stabilization"
+    - "Remote forward/reverse and differential steering commands"
+    - "Protected fixed-tilt FPV camera and analog video transmitter mounts"
+    - "Independent ELRS control receiver path"
+    - "Printed structural core, motor pods, battery cradle, electronics tray, camera guard and landing protection"
+    - "Accessible emergency battery disconnect, current protection and bounded cable paths"
+    - "Deterministic control-model, geometry, interface and slicer evidence before a print candidate"
+  excluded:
+    - "Four-wheel chassis, second axle, suspension arms, steering linkage or caster wheel"
+    - "Autonomous navigation, person transport, public-road use or unsupervised operation"
+    - "Operation on stairs, steep slopes, loose deep terrain, water or near traffic"
+    - "A safety, balance, runtime, range or payload claim before physical tests"
+    - "Printer upload or print start"
+    - "Commercial or toy-safety certification claims"
+
+operating_scenarios:
+  start:
+    - "Place the rover near upright while supported by the landing protection"
+    - "Power the control system; require sensor calibration and a deliberate arm command"
+    - "Enable motor torque only inside the approved capture-angle and health limits"
+  drive:
+    - "Balance continuously while tracking bounded speed and yaw commands"
+    - "Keep FPV loss independent from motion control and retain a visible line-of-sight operator"
+  stop:
+    - "Command zero speed while maintaining balance"
+    - "Disarm and let the body settle onto a non-rolling sacrificial landing surface"
+    - "Use the reachable battery disconnect before service"
+  off_nominal:
+    - "On excessive tilt, sensor fault, encoder fault, motor-driver fault, undervoltage or overcurrent, command a bounded shutdown and disarm after tip detection"
+    - "On RC loss, command zero velocity/yaw while balance remains healthy; indicate the fault and disarm after a confirmed tip"
+
+coordinate_system:
+  units: mm
+  origin: "intersection of the common wheel axis and vehicle longitudinal center plane"
+  x: "vehicle forward"
+  y: "vehicle left along the wheel axis"
+  z: "up in the nominal balanced pose"
+
+geometry:
+  architecture:
+    wheel_count: 2
+    axle_count: 1
+    axle_definition: "one shared geometric axis; no mandatory continuous shaft"
+    motor_count: 2
+    suspension: "none in revision 0.1.0; compliant tires provide the only passive terrain compliance"
+  target_envelope_mm:
+    overall_width_max: 260
+    body_length_max: 190
+    upright_height_max: 250
+    individual_print_part_max: [220, 220, 250]
+  wheels:
+    target_diameter: 120
+    allowed_diameter_range: [110, 130]
+    target_tread_width: 40
+    wheel_center_track_target: 205
+  mass_properties:
+    target_total_mass_g: 1800
+    maximum_design_mass_g: 2200
+    target_center_of_mass_above_axis_mm: [70, 110]
+    lateral_center_of_mass_offset_max_mm: 3
+    longitudinal_center_of_mass_trim_range_mm: [-12, 12]
+  upright_clearances:
+    minimum_body_ground_clearance_mm: 25
+    landing_protection_contact_tilt_min_deg: 22
+  appearance:
+    language: "open ribbed FDM frame, anthracite structural parts, orange replaceable camera/landing accents, visible service fasteners"
+    source_boundary: "MM-TOY-002 concept is style and platform evidence only, not dimensional authority"
+  protected_regions:
+    - "wheel and tire rotation envelopes"
+    - "motor/encoder shaft and hub interfaces"
+    - "IMU datum and vibration-isolation boundary"
+    - "battery access, restraint and disconnect corridor"
+    - "camera optical field and antenna active regions"
+    - "landing contact zones and motor/electronics cooling paths"
+    - "fastener seats, mating faces, bed faces and future watermark region"
+
+interfaces:
+  wheel_drive:
+    status: provisional
+    owner: "purchased motor, shaft, metal hub and wheel components"
+    contract: "left and right output axes coaxial within the measured assembly tolerance; each wheel independently reversible and encoder-observed"
+  structure:
+    status: recommended
+    contract: "printed central spine/cage carries motor pods, battery, electronics and landing loads through metal M3/M4 through-fasteners or captured nuts"
+  imu:
+    status: provisional
+    contract: "rigid, repeatable datum near the central frame; axis mapping, vibration spectrum and temperature drift must be calibrated"
+  control:
+    status: provisional
+    controller: "real-time MCU class with deterministic timer/interrupt control; exact board unresolved"
+    sensors: "6-axis gyro/accelerometer plus one quadrature encoder per wheel"
+    actuators: "two bidirectional DC gearmotor channels with current limiting and fault reporting"
+  camera:
+    status: provisional
+    nominal: "RunCam Phoenix 2 SE V2 19 mm analog camera family; measure the exact unit before CAD freeze"
+  video_transmitter:
+    status: provisional
+    nominal: "SpeedyBee TX800 20 x 20 mm analog VTX family; exact revision, cooling and legal power unresolved"
+  radio_control:
+    status: provisional
+    ecosystem: "EdgeTX plus ExpressLRS 2.4 GHz LBT"
+    receiver: "surface PWM or serial receiver compatible with the controller; exact unit unresolved"
+    independence: "loss or failure of the FPV video path shall not prevent a commanded stop or control failsafe"
+  battery:
+    status: unresolved
+    contract: "centered above the wheel axis inside a guarded, strapped, serviceable cradle with fuse/current protection and reachable disconnect"
+  landing_protection:
+    status: recommended
+    contract: "non-rolling front/rear skids or hoops remain clear during normal balance motion and limit camera/electronics impact after disarm or tip-over"
+
+control_system:
+  architecture:
+    inner_loop: "gyro-rate and pitch stabilization"
+    outer_loop: "wheel velocity/position trim"
+    yaw_loop: "differential wheel torque/speed command"
+    command_source: "bounded remote speed and yaw demands; never raw pass-through motor PWM"
+  minimum_rates_hz:
+    imu_sample: 500
+    pitch_control_update: 250
+    encoder_velocity_update: 100
+    command_and_failsafe_update: 50
+  provisional_limits:
+    arm_capture_angle_deg: 5
+    normal_dynamic_pitch_deg: 12
+    tip_detection_angle_deg: 35
+    tip_confirmation_ms: 150
+    speed_limit_kmh: 2.5
+  required_protections:
+    - "positive arm/disarm state and startup self-test"
+    - "watchdog and stale-sensor/encoder detection"
+    - "motor current limit, driver thermal fault and battery undervoltage handling"
+    - "tip-over motor disarm and deliberate re-arm"
+    - "RC-loss zero speed/yaw command with independent balance-health handling"
+    - "parameter logging and versioned firmware/configuration"
+  engineering_targets:
+    motor_output_speed_range_rpm: [100, 150]
+    continuous_wheel_torque_min_nm_each: 0.35
+    transient_current_limited_wheel_torque_target_nm_each: 1.0
+    note: "Selection targets only; verify with identified hardware, system identification and a restrained test rig"
+
+duty:
+  operating_mode: "low-speed supervised hobby rover on firm, mostly level private ground"
+  speed_limit_kmh: 2.5
+  target_runtime_min: 20
+  cycle_targets:
+    arm_disarm: 100
+    controlled_drive_minutes: 120
+    tip_recovery_or_protected_landing: 50
+    battery_remove_install: 50
+  service_life_target: "one hobby season pending physical qualification"
+
+environment:
+  intended: "indoor floor and dry, firm outdoor pavement/compacted ground during supervised tests"
+  provisional_temperature_c: [10, 35]
+  exclusions:
+    - "No rain, immersion, deep dust, mud, sand or grass claim"
+    - "No steep slope, stair, curb or drop-edge operation"
+    - "No prolonged UV or hot-vehicle storage claim before exact material evidence"
+
+risk:
+  class: normal-functional
+  boundary: >
+    This is a moving vehicle with active stability control. Digital models and
+    bench calculations cannot qualify its control safety. All powered balance,
+    failsafe and driving stages require restrained tests followed by explicit
+    supervised human approval; any higher speed, autonomous or public-space use
+    requires qualified engineering review.
+  hazards:
+    - "Unexpected wheel acceleration during arming, tuning or sensor failure"
+    - "Tip-over impact damaging the camera, battery or electronics"
+    - "Loss of balance or control near people, pets, edges or traffic"
+    - "Motor stall, driver overheating, LiPo damage, short circuit or BEC brownout"
+    - "Loose wheel/hub, printed motor-pod fracture or battery release"
+    - "RC or FPV loss, interference and delayed stopping"
+  mitigations:
+    - "Restrained wheels-off-ground and tethered low-energy test ladder before free balancing"
+    - "Deliberate arming, bounded commands, watchdog, current limiting, tip disarm and reachable disconnect"
+    - "Guarded battery/camera, metal wheel hubs and fasteners, protected cables and non-rolling landing protection"
+    - "Private clear test area, direct line of sight and conservative speed limit"
+
+fabrication:
+  preference: balanced-hybrid
+  printed_scope:
+    - "central structural cage/spine"
+    - "motor pods and alignment features"
+    - "battery cradle and electronics tray"
+    - "camera guard and antenna/cable retainers"
+    - "sacrificial non-rolling landing skids/hoops"
+  purchased_scope:
+    - "motors, encoders, metal shafts/hubs, wheels and tires"
+    - "controller, IMU, motor driver, receiver, camera, VTX and power electronics"
+    - "battery, fuse/disconnect and metal fasteners"
+  target_formats: [step, stl, 3mf]
+
+printer:
+  status: provisional
+  model: "Anycubic Kobra 3 Max"
+  build_volume_mm: [420, 420, 500]
+  compatibility_target: "Every individual printed body also fits within 220 x 220 x 250 mm"
+
+manufacturing:
+  process: fdm-fff
+  material: "PETG baseline; exact manufacturer/product and condition unresolved"
+  nozzle_mm: 0.6
+  layer_height_mm: 0.24
+  line_width_mm: 0.66
+  supports: "none intended for primary structural bodies; local removable support only after review"
+  orientation: "load paths and motor-clamp ligaments remain in-plane where practical; all orientations require anisotropy review"
+  exact_profiles: "complete Anycubic machine, process and filament JSON profiles required before slicing STL/OBJ"
+
+optimization:
+  status: pending
+  objective: "reduce mass and print time without reducing motor alignment, landing load paths, battery retention or control-sensor rigidity"
+  protected_constraints:
+    - "wheel-axis coaxiality and motor/hub datums"
+    - "target center-of-mass adjustment range"
+    - "IMU rigidity and cable/thermal keep-outs"
+    - "landing load paths and battery/camera protection"
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - "all purchased-part interfaces"
+      - "wheel-axis and IMU datums"
+      - "bed contacts and future watermark"
+    rationale: "No manufacturing mesh exists yet"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-TOY-003
+  version: "0.1.0"
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: "blocked until stable verified production geometry"
+
+deliverables:
+  current:
+    - "New controlled product folder, identity and portfolio record"
+    - "Requirements candidate with traceable assumptions and approval gates"
+    - "Guided autonomy policy and structural validation evidence"
+  after_requirements_approval:
+    - "Concept sheet with three-quarter, side/cutaway and landing-protection views"
+    - "Functional/physical/appearance/manufacturing decomposition and interface graph"
+    - "Control block diagram, preliminary plant model and hardware-selection contract"
+  after_concept_and_decomposition_approval:
+    - "Parametric CadQuery source and parameter set"
+    - "DRAFT STEP/STL/3MF manufacturing candidates and assembly renders"
+    - "Geometry, mass-property, interface, control-model, optimization, mesh and exact-slicer reports"
+    - "Restrained bench, tethered balance, failsafe, thermal and supervised driving test plan"
+    - "Product-specific metriMade.com watermark as the last solid-geometry change"
+
+acceptance:
+  - id: ACC-ARCH-001
+    criterion: "Every full-vehicle artifact has exactly two wheels on one common geometric axis and no caster or second axle"
+    method: "component inventory, orthographic review and assembly-axis check"
+  - id: ACC-MASS-001
+    criterion: "Calculated assembled center of mass is 70-110 mm above the wheel axis, within 3 mm laterally, with at least +/-12 mm longitudinal trim provision"
+    method: "mass-property report using measured purchased-component masses and registered CAD proxies"
+  - id: ACC-GEO-001
+    criterion: "Overall envelope is at most 260 x 190 x 250 mm in the nominal upright pose and each printed body fits 220 x 220 x 250 mm"
+    method: "deterministic CAD bounds and bed-fit checks"
+  - id: ACC-AXIS-001
+    criterion: "The left/right output axes and hub interfaces meet the hardware-derived coaxiality and runout tolerance frozen before production CAD"
+    method: "interface contract, CAD inspection gauge and physical dial/roll test"
+  - id: ACC-LAND-001
+    criterion: "Landing protection remains clear through +/-12 degrees pitch and contacts before camera, battery or exposed electronics at a tip"
+    method: "motion sweep, collision check and unpowered low-height tip coupon"
+  - id: ACC-CTRL-001
+    criterion: "On a restrained rig the controller meets declared loop deadlines with no stale IMU/encoder sample, watchdog reset or unbounded motor command"
+    method: "timestamped firmware log and hardware-in-loop report"
+  - id: ACC-BAL-001
+    criterion: "On a firm level surface the supervised prototype holds zero command for 60 seconds with pitch RMS <=1.5 degrees and wheel drift <=100 mm"
+    method: "logged IMU/encoder trial after identified plant and current-limited tuning"
+  - id: ACC-REC-001
+    criterion: "The supervised prototype recovers from release at +/-8 degrees without landing contact, current-limit violation or leaving a 1 m test corridor"
+    method: "tethered repeated trial, five passes per direction"
+  - id: ACC-FAIL-001
+    criterion: "Tip, stale sensor/encoder, watchdog, RC-loss, undervoltage and overcurrent cases produce the specified bounded state transition and require deliberate re-arm"
+    method: "fault-injection matrix on a restrained rig before free driving"
+  - id: ACC-MECH-001
+    criterion: "Motor pods, wheel hubs, battery restraint and landing parts show no crack, loosening, pull-through or permanent set after the approved proof/cycle tests"
+    method: "process-matched coupons and assembled physical test plan"
+  - id: ACC-FPV-001
+    criterion: "Camera field remains unobstructed and FPV loss cannot command or inhibit the RC/controller stop path"
+    method: "view-frustum CAD check and powered interference/failsafe bench test"
+  - id: ACC-MFG-001
+    criterion: "All DRAFT manufacturing meshes are watertight, correctly oriented, within wall/feature thresholds and exact-slice successfully with complete approved profiles"
+    method: "fdm_ci mesh audits and slice-anycubic-next reports plus human layer/support/seam review"
+
+release_limits:
+  - "Requirements approval authorizes concept work, not production CAD or operation"
+  - "Concept approval authorizes decomposition, not a physical safety claim"
+  - "Digital validation cannot qualify active vehicle control, LiPo safety, RF legality or physical durability"
+  - "Physical-print, fit/function, appearance, safety and commercial release remain human-controlled"

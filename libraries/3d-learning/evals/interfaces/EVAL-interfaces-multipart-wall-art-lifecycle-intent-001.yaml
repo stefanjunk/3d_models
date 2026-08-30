@@ -1,0 +1,69 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-multipart-wall-art-lifecycle-intent-001
+title: Multipart wall art separates print-bed segmentation from lifecycle serviceability
+category: interfaces
+status: draft
+trigger: A wall artwork must be manufactured in multiple prints because its assembled dimensions exceed the target printer bed.
+risk: Treating the manufacturing split as a request for modular service can add unwanted grids, magnets, visible seams, parts, weight and failure modes.
+given:
+  project_city: products/art-decor/mm-art-010-modular-city-map-wall-panel
+  project_topography: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel
+  requirements_city: products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+  requirements_topography: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
+  user_intent: permanent one-off pilots with no rear grid and no replaceable sections
+  target_machine: Anycubic Kobra 3 Max Combo with verified 420 x 420 x 500 mm build volume and four-color configuration
+expected:
+  - Manufacturing segmentation, assembled product identity and lifecycle/service intent are recorded as separate requirements.
+  - Permanent one-off intent produces no magnets, removable retainers, replaceable-tile datums or service-cycle requirements.
+  - The design selects the fewest reasonable bed-fitting main parts after checking the exact target machine envelope and seam/handling tradeoffs.
+  - A rejected full rear grid is not reintroduced under another name; any proposed local joiner or isolated standoff has a bounded permanent role and requires explicit requirements approval.
+  - Optional lighting preparation remains an unsupplied interface and does not turn the rear construction into a removable carrier.
+  - A user correction that changes lifecycle architecture increments the requirements revision, blocks prior concept/decomposition authority and marks their artifacts as superseded before new CAD work.
+failure_conditions:
+  - The phrase "multiple prints" alone is used to justify replaceable tiles, magnets, a rear grid or repeated service-cycle tests.
+  - A generic small printer envelope is used after the user identifies a larger exact target machine.
+  - The old serviceable architecture remains current or authorizes CAD after the user rejects it.
+  - Local permanent connectors grow into a continuous rear raster without a new approved requirement.
+  - The part count is preserved solely because it appeared in an earlier concept, despite the verified bed fitting larger main parts.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concept-review.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/plan/hybrid-design-plan.json
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/concept-review.md
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/plan/hybrid-design-plan.json
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: >-
+    PASS when lifecycle intent is explicit and separate from bed segmentation,
+    the current architecture contains no rear grid or replaceability features,
+    the selected main parts fit the exact target machine, local permanent parts
+    remain bounded and approval-gated, and all prior contradictory artifacts are
+    visibly superseded. Physical joint and mounting performance remain NOT_RUN.
+  measurement_method: Requirements/decomposition trace review, exact machine-envelope comparison and later process-matched seam/bond/standoff coupon tests.
+relationships:
+  lessons:
+    - EXP-00045
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-30
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
+  artifact_hashes:
+    - c7ec1f4928df2efc37f094389dcd72f50fbf720271fb8d1d1a220fb2eab3076b
+    - 3763eb162ccda7b25cd868960e0b63d2d2d317107a912dabce87cad8743cac28
+    - 048f5e65de69952a536796242c3f04ad1e1ff30d0dd4a2edf3f9a725ec1d94fc
+    - 7ae527de8fa9da601ea373cffbee67bb3cb6407df19b0627aac1c9f7f3bf010a
+tags:
+  - interfaces
+  - multipart-wall-art
+  - permanent-assembly
+  - rear-grid
+  - serviceability
+  - print-envelope
+  - user-correction

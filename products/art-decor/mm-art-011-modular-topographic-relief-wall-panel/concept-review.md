@@ -1,5 +1,7 @@
 # Concept review — MM-ART-011 Harz and Rheinisches Revier
 
+> **Superseded 2026-08-30:** This revision 0.2.0 concept shows replaceable tiles and a rear grid rejected by the user. It is retained only as design history and cannot authorize current work. Revision 0.3.0 requirements approval and a replacement concept are required.
+
 Review artifact: `concepts/modular-relief-collection-concept-v01.png`
 
 The image is a non-authoritative product visualization. The Harz and Rheinisches Braunkohlerevier pilots will use frozen official terrain sources only after concept approval; the terrain shown in the concept image is deliberately schematic.

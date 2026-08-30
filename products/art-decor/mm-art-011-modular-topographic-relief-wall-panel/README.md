@@ -1,11 +1,11 @@
-# MM-ART-011 — Modular Topographic Relief Wall Panel
+# MM-ART-011 — Permanent One-off Topographic Relief Wall Panels
 
-Status: **requirements and concept v01 approved; decomposition approval pending; no CAD or print candidate exists**.
+Status: **requirements revision 0.3.0 awaiting approval; the rear-grid concept and decomposition are superseded; no CAD or print candidate exists**.
 
-The first planned pilots are 600 × 400 mm Harz and Rheinisches Braunkohlerevier terrain reliefs, each assembled from six 200 mm FDM modules. Continuous 16-bit elevation geometry remains independent from broad abstract four-color altitude bands. The shared segmented rear grid reserves a ventilated halo-light envelope, cable exits and protected through-openings for customer-supplied lighting; no lighting or electrical hardware is part of the product.
+The planned pilots are unique 600 × 400 mm Harz and Rheinisches Braunkohlerevier terrain reliefs. Revision 0.3.0 proposes two 300 × 400 mm four-color main prints per pilot, permanently joined into one non-serviceable artwork. Continuous 16-bit elevation geometry remains independent from broad abstract four-color altitude bands. Small local seam keys and isolated hanger/standoff blocks prepare an 18 mm halo-light cavity and protected light-through openings without a rear grid; electrical hardware remains a customer add-on.
 
-The authoritative requirements are in `design-spec.yaml`. Production geometry is blocked until decomposition approval.
+The authoritative draft requirements are in `design-spec.yaml`; the concise approval record is `requirements-review-0.3.0.md`. New concept work, terrain acquisition and production geometry are blocked until revision 0.3.0 requirements approval.
 
-Concept for review: `concepts/modular-relief-collection-concept-v01.png`; controlled review notes: `concept-review.md`. The image is a visual direction only; the dimensions and interfaces in `design-spec.yaml` remain authoritative.
+Historical concept: `concepts/modular-relief-collection-concept-v01.png`; controlled notes: `concept-review.md`. It documents the rejected six-tile rear-grid direction and is not current design authority.
 
-Decomposition for review: `decomposition-review.md`; machine-readable authority: `plan/hybrid-design-plan.json`.
+Historical decomposition: `decomposition-review.md` and `plan/hybrid-design-plan.json`. Both are superseded by revision 0.3.0 and cannot authorize CAD.

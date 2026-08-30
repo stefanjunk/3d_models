@@ -43,3 +43,12 @@
 - Recommended service interface: grid-owned gravity shoulder and three-point datum with four captive 6 × 2 mm magnet envelopes and steel counterparts per tile.
 - Berlin color route: named disjoint color solids; the validated planning contract is `multicolor-job.yaml`.
 - Decomposition approval remains pending; no production geometry has been generated.
+
+## 2026-08-30 — User correction reopens requirements as revision 0.3.0
+
+- Human correction: no rear grid, no replaceable sections and no magnets; every pilot is one permanently assembled 3D-printed one-off.
+- Confirmed target: Anycubic Kobra 3 Max Combo in its four-color configuration. The official product page reports a 420 × 420 × 500 mm build volume and four colors with one ACE Pro.
+- Recommended new split: two 300 × 400 mm main prints with one permanent vertical center seam, replacing six 200 mm service tiles and reducing visible internal seams from seven to one.
+- Recommended joining/mounting: a shallow tongue/groove, three small local rear bridge keys, process-qualified adhesive and isolated bonded hanger/standoff blocks. These are local parts, not a rear raster or service interface.
+- Lighting remains optional customer equipment. The printed artwork reserves an 18 mm open halo cavity, local strip lands/clips, cable routes and deliberate front-through openings.
+- Gate effect: the revision 0.2.0 concept, decomposition and multicolor job are superseded. Revision 0.3.0 requirements are awaiting approval; no replacement concept or production CAD is authorized yet.

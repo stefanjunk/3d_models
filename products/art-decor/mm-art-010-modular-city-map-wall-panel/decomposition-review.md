@@ -1,6 +1,6 @@
 # Decomposition review — MM-ART-010 Berlin
 
-Status: architecture planner `PASS`; human decomposition approval pending. Production CAD remains blocked.
+Status: **superseded by requirements revision 0.3.0**. The historical planner result was `PASS` only against the now-rejected revision 0.2.0 rear-grid requirements. Production CAD remains blocked.
 
 ## Proposed product architecture
 

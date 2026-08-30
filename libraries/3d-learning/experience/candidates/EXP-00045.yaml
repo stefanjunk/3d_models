@@ -1,0 +1,150 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00045
+title: A print-bed split does not imply a replaceable wall-art architecture
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One explicit correction across three related one-off wall-relief pilots; no physical permanent-join evidence exists yet.
+feature:
+  type: multipart-wall-art-lifecycle-architecture
+  geometry: 600 x 400 mm wall relief split into bed-fitting printed main parts with optional rear halo lighting
+  design_parameters:
+    previous_print_split: "3 x 2 replaceable 200 x 200 mm tiles"
+    corrected_print_split: "2 x 1 permanent 300 x 400 mm halves"
+    target_printer: "Anycubic Kobra 3 Max Combo"
+    verified_build_volume_mm: [420.0, 420.0, 500.0]
+    requested_color_count: 4
+    requested_rear_grid: false
+    requested_replaceability: false
+    requested_one_off: true
+  named_datums:
+    - assembled visible panel frame
+    - permanent center seam
+    - local bridge-key bond lands
+    - isolated hanger/standoff wall plane
+  constraints:
+    - Manufacturing segmentation and customer service segmentation are separate requirement decisions.
+    - A permanent one-off split only to fit the print bed receives no magnets, removable retainers or service-cycle acceptance tests.
+    - Local seam joiners and isolated standoffs do not become a full rear grid or exchange interface.
+scope:
+  process: FFF/FDM requirements and architecture planning
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PLA candidate
+    variant: null
+    color: four abstract colors; exact batches unknown
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: standard
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; visible relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: large multipart indoor map and topographic wall relief with optional halo/front-through lighting
+  environment: requirements correction before replacement concept or production CAD
+  transfer_limits:
+    - Evidence covers three related 600 x 400 mm one-off relief pilots on one verified large-format printer.
+    - It does not validate the proposed adhesive, tongue/groove, bridge keys, hanger blocks or proof loads.
+    - Serviceable wall-art products may still require a rear grid when replaceability is explicitly requested and justified.
+observation:
+  summary: The initial architecture incorrectly turned a request for multiple prints into six replaceable tiles on a magnetic rear grid; the user required no rear grid, no replaceability and one permanent one-off per pilot.
+  expected: The workflow asks or records lifecycle intent independently from printer-bed segmentation and selects the fewest reasonable main parts that fit the verified machine.
+  actual: Revision 0.2.0 added a segmented grid, magnets and service interfaces that were not required; revision 0.3.0 replaces them with a proposed permanent two-half architecture and reopens approval gates.
+  outcome: correction
+  parameter: relationship between manufacturing split and lifecycle/service architecture
+  recommended_value: Treat bed-fit splitting as manufacturing decomposition only unless replaceability or repeated service is explicitly approved.
+  units: architecture-contract
+explanation:
+  hypothesis: The phrase "from multiple prints" was conflated with modular ownership and serviceability rather than interpreted as a printer-envelope constraint.
+  mechanism: A 3 x 2 tile solution introduced a separate rear-grid owner, magnets, retention datums, seven visible seams and service-cycle requirements even though the 420 x 420 mm bed permits two 300 x 400 mm halves and the customer wants one permanent artwork.
+  alternatives:
+    - Six permanent tiles could satisfy non-replaceability, but add unnecessary seams and alignment work on the verified target machine.
+    - A separate rear frame could simplify hanging, but the user explicitly rejected a rear grid and it remains outside the current requirement.
+  validated: false
+  validation_method: Apply the targeted lifecycle-intent eval now, then validate the selected permanent seam, bond and isolated standoffs with process-matched coupons before full assembly.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 3
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 1
+  measured: false
+  measurement_method: Explicit user correction, requirements trace review and official target-printer envelope check; no printed measurement.
+  uncertainty: The user has not yet approved local bridge keys and bonded standoffs, and their dimensions and strength remain untested.
+  sources:
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+      hash: c7ec1f4928df2efc37f094389dcd72f50fbf720271fb8d1d1a220fb2eab3076b
+      notes: Records the Berlin user correction, two-half recommendation and reopened requirements gate.
+    - type: product-trace
+      ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
+      hash: 048f5e65de69952a536796242c3f04ad1e1ff30d0dd4a2edf3f9a725ec1d94fc
+      notes: Records the Harz and Rhenish pilot correction and permanent architecture recommendation.
+    - type: user-statement
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+      hash: 8854aedc63cb98b28511da869205b2060550e3e953293b273c86c71d62f3d699
+      notes: Preserves the correction and its gate impact in the owning product trace.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
+applicability:
+  triggers:
+    - A large printed artwork is divided because the assembled envelope exceeds the printer bed.
+    - Terms such as multipart, modular or multiple prints appear without explicit lifecycle/service intent.
+    - Magnets, replaceable tiles or a rear carrier are being proposed for a commissioned one-off.
+  exclusions:
+    - Replaceability, transport breakdown, recurring maintenance or interchangeable content is an explicit approved requirement.
+    - A rear carrier is explicitly requested or independently required by validated loads and mounting constraints.
+  transfer_limits:
+    - E0 correction candidate; use to trigger requirement separation and targeted review, not to prohibit all modular systems.
+    - The smallest part count still depends on bed margin, warping, handling, transport and actual process evidence.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-interfaces-multipart-wall-art-lifecycle-intent-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
+provenance:
+  project: MM-ART-010/MM-ART-011
+  part_revision: 0.3.0-requirements-draft.1
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - user-correction
+  - multipart-wall-art
+  - requirements-gate
+  - permanent-assembly
+  - rear-grid
+  - serviceability
+  - print-envelope

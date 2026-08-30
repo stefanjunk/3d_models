@@ -46,3 +46,12 @@
 - Terrain route: separate 16-bit global masters, seam-locked tiles, adaptive meshes and three global Z color changes per pilot.
 - Conservative per-tile mesh-budget planning passes at 898,890 triangles, approximately 42.9 MiB and 0.86 GiB estimated working memory; measured mesh and exact-slicer evidence remain pending.
 - Decomposition approval remains pending; no production geometry or source download has been generated.
+
+## 2026-08-30 — User correction reopens requirements as revision 0.3.0
+
+- Human correction: no rear grid, no replaceable sections and no magnets; Harz and Rheinisches Braunkohlerevier are each one permanently assembled 3D-printed one-off.
+- Confirmed target: Anycubic Kobra 3 Max Combo in its four-color configuration. The official product page reports a 420 × 420 × 500 mm build volume and four colors with one ACE Pro.
+- Recommended new split: two 300 × 400 mm main prints per pilot with one permanent vertical center seam, replacing six 200 mm service tiles and reducing visible internal seams from seven to one.
+- Recommended joining/mounting: a shallow tongue/groove, three small local rear bridge keys, process-qualified adhesive and isolated bonded hanger/standoff blocks. These are local parts, not a rear raster or service interface.
+- The continuous 16-bit terrain master, abstract four-band color strategy and optional customer-added halo/front-through lighting remain. Each one-off keeps its own immutable global source and transform.
+- Gate effect: revision 0.2.0 concept, decomposition, relief jobs and multicolor jobs are superseded. Revision 0.3.0 requirements are awaiting approval; no data acquisition, replacement concept or production geometry is authorized yet.

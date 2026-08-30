@@ -1,100 +1,126 @@
+schema_version: "1.0"
+
 project:
   id: MM-ART-010
-  name: "Modular City Map Wall Panel"
+  name: "Permanent One-off City Map Wall Relief"
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
-  revision: 0.2.0
-  candidate: 0.2.0-concept-draft.1
+  revision: 0.3.0
+  candidate: 0.3.0-requirements-draft.1
   owner: Stefan
   created: "2026-08-30"
-  design_claim: "new configurable indoor wall-art product"
+  design_claim: "new permanent one-off indoor wall-art product"
 
 workflow:
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
-    status: approved
-    spec_revision: 0.2.0
-    approved_by: "Stefan"
-    approved_on: "2026-08-30"
-    basis: "User approved the 600 x 400 mm modular format, requested curated abstract four-color palettes, and approved halo lighting with deliberate front-through light openings"
+    status: changes-requested
+    previous_approved_revision: 0.2.0
+    change_requested_by: "Stefan"
+    change_requested_on: "2026-08-30"
+    basis: "User rejected the rear grid and replaceable-tile architecture, specified one-off permanent pilots, and identified the Anycubic Kobra 3 Max Combo as the four-color target printer"
   concept_approval:
-    status: approved
-    spec_revision: 0.2.0
-    review_artifact: concepts/modular-relief-collection-concept-v01.png
-    artifact_role: "non-authoritative visual concept; dimensions and interfaces remain controlled by this specification"
-    approved_by: "Stefan"
-    approved_on: "2026-08-30"
-    basis: "User explicitly approved concept v01 in chat"
+    status: blocked
+    reason: "Revision 0.3.0 changes segmentation, rear construction, mounting and appearance; requirements must be approved and a new concept must be reviewed"
+  watermark_approval:
+    status: blocked
+    spec_revision: null
+    geometry_revision: null
+    asset_id: MM-WM-001-R2
+    product_id: MM-ART-010
+    version: 0.3.0
+    reason: "Requirements and replacement concept are not approved and no current production geometry exists"
   decomposition_approval:
-    status: pending
-    spec_revision: 0.2.0
-    review_artifact: plan/hybrid-design-plan.json
-    review_report: reports/architecture.md
+    status: blocked
+    reason: "The revision 0.2.0 rear-grid decomposition is superseded"
   digital_candidate:
     status: blocked
+    reason: "Requirements and concept revision 0.3.0 are not approved"
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
   final_release_approval:
     status: blocked
-    reason: "Concept, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open"
+    reason: "Requirements, concept, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open"
+
+history:
+  superseded_revision: 0.2.0
+  superseded_concept_artifact: concepts/modular-relief-collection-concept-v01.png
+  superseded_decomposition_artifact: plan/hybrid-design-plan.json
+  superseded_reason: "Shows a six-tile replaceable rear-grid architecture explicitly rejected by the user"
 
 requirements_trace:
   user_stated:
     - "Create the city/street-map wall product with the 3D-design workflow"
     - "Allow and plan for up to four colors"
-    - "Make the wall picture large and assemblable from multiple prints"
+    - "Make the 600 x 400 mm wall picture from multiple 3D-printed parts"
     - "Create Berlin as the first city-map pilot"
-    - "Prepare optional rear lighting that is not included and can be added by the customer"
-    - "Recommend curated four-color schemes and select four matching colors for each pilot"
-    - "Keep the appearance abstract rather than pretending to be realistic with only four colors"
-    - "Avoid color strategies that create unnecessary filament waste"
-    - "Add openings through which rear LED light can pass to the front"
+    - "Prepare optional customer-added rear halo lighting and light-through openings"
+    - "Keep the palette abstract and avoid wasteful pseudo-realistic color mixing"
+    - "Do not use a rear grid"
+    - "Do not make the printed sections replaceable"
+    - "Treat each pilot as a permanent one-off artwork"
+    - "Use the Anycubic Kobra 3 Max Combo for four-color printing"
   inferred:
+    - "One-off means one permanently assembled physical Berlin artwork, even though its main body requires more than one print"
     - "Indoor decorative adult product, not a navigation aid or structural wall component"
-    - "The design should remain useful and mountable with no lighting installed"
-    - "Front-through illumination is a deliberate abstract graphic layer, not a realistic geographic legend"
+    - "The design remains complete and mountable without customer lighting"
+    - "Local seam joiners and isolated spacer/hanger blocks are allowed because they are not a full rear grid and are not service interfaces"
   recommended:
-    - "Use a 600 x 400 mm landscape pilot built from a 3 x 2 grid on a 200 mm module pitch"
-    - "Use removable art tiles on a common segmented rear rail/grid so damaged or personalized tiles can be reprinted"
-    - "Use explicit aligned color solids rather than slicer-only paint"
-    - "Use broad semantic color regions with no dithering, pseudo-photographic mixing or sub-print color islands"
-    - "Use the selected Urban Signal palette: Anycubic PLA Matte Bone White, Nardo Grey, Black and Orange"
-    - "Offer additional Urban Monochrome, Desert Architecture, Neon Dusk and Soft Rainbow presets from the same filament family"
+    - "Use two permanent 300 x 400 mm printed halves instead of the superseded six 200 mm tiles; both halves fit the verified 420 x 420 mm Kobra 3 Max bed and reduce visible seams from seven to one"
+    - "Join the halves permanently with a controlled tongue/groove seam plus three small rear bridge keys and adhesive; the bridge keys are local seam parts, not a rear raster"
+    - "Create the 18 mm halo gap with isolated bonded printed hanger/standoff blocks, not a frame or grid"
+    - "Apply optional LED strip directly to declared rear adhesive lands or small local clips and reserve matched cable passages across the center seam"
+    - "Use explicit aligned color solids, broad semantic regions and the approved Urban Signal palette without dithering"
     - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
-    - "Use indoor PLA for the colored art tiles and a 0.4 mm nozzle at 0.20 mm layers as the provisional pilot process"
-    - "Reserve a generic low-voltage LED-strip envelope and cable routing in the rear grid; provide no electronics"
-    - "Cut selected abstract water/void paths through the tile so customer lighting reaches the front while keeping seams, datums and mounting lands solid"
+    - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
+  unresolved_consequential:
+    - "Approve the recommended two-half permanent assembly with local bridge keys, bonded standoff/hanger blocks and no full rear structure"
   unresolved_nonblocking:
+    - "Exact adhesive system, surface preparation and bond coupon remain to be selected before print-candidate approval"
     - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
-    - "Final aperture pattern and visual density remain subject to concept and physical light-coupon approval"
+    - "Final aperture pattern and visual density remain subject to the new concept and a physical light coupon"
 
 function:
   summary: >
-    A configurable large-format street-map wall picture whose vector map is
-    divided on a global coordinate grid into removable, seam-registered FDM
-    modules. The Berlin pilot renders water, green areas and major transport
-    lines as abstract printable color/relief regions rather than a realistic
-    palette. Selected void paths pass light through the artwork. A separate rear rail/grid aligns
-    the modules, transfers self-weight to user-selected wall anchors, creates a
-    halo-light gap and provides optional LED/cable interfaces.
+    A unique permanent 600 x 400 mm Berlin street-map wall artwork printed as
+    two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo. The
+    halves are permanently registered and bonded into one non-serviceable
+    picture. Local rear seam keys and isolated hanger/standoff blocks provide
+    assembly and an 18 mm halo cavity without a rear grid. Selected abstract
+    paths pass optional customer-added light through the visible face.
   intended_users:
     - "adult indoor decor customers"
-    - "customers ordering a personalized city or meaningful location"
+    - "customers commissioning one unique city artwork"
   included:
-    - "six Berlin art modules for the pilot"
-    - "segmented printed rear alignment/mounting grid"
-    - "printed seam/interface coupon and lighting-interface gauge"
-    - "portable aligned multi-part 3MF plus named per-color meshes"
-    - "rebuildable map-data and CAD pipeline"
-    - "source attribution geometry/label and documentation"
+    - "two permanent Berlin main relief halves"
+    - "small printed rear seam bridge keys"
+    - "small printed hanger/standoff blocks and lighting-interface gauge"
+    - "portable aligned four-color 3MFs and named per-color meshes"
+    - "rebuildable map-data and CAD pipeline with provenance"
   excluded:
+    - "separate rear grid, rear frame or replaceable tile system"
+    - "magnets, serviceable retainers or tile-removal features"
     - "LED strip, controller, power supply, wiring, diffuser and electrical connectors"
-    - "wall screws, plugs/anchors, adhesive tape and installation services"
-    - "outdoor, wet-room, emergency-signage or navigation use"
-    - "load-bearing shelf function or any wall-anchor load rating"
-    - "building-by-building architectural accuracy claim"
+    - "wall screws, plugs/anchors, adhesive and installation services"
+    - "outdoor, wet-room, emergency-signage, navigation or wall-load-rating claims"
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ART-010
+  version: 0.3.0
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  proposed_placement: "protected lower rear land outside seam, hanger, lighting, attribution and adhesive regions"
+  status: "blocked until stable revision 0.3.0 geometry, generated placement evidence and human approval"
 
 coordinate_system:
   units: mm
@@ -106,169 +132,251 @@ coordinate_system:
   geospatial_frame:
     working_crs: "ETRS89 / UTM zone 33N (EPSG:25833)"
     source_crs: "WGS84 / OSM source coordinates, transformed without anisotropic art scaling"
-  tile_indexing:
-    columns: [A, B, C]
-    rows: [1, 2]
-    order: "A1 is lower-left; C2 is upper-right"
+  print_part_indexing:
+    parts: [left, right]
+    split: "one vertical seam at global X = 300 mm"
 
 geometry:
   assembled_nominal_mm: [600.0, 400.0]
-  pilot_grid: {columns: 3, rows: 2}
-  module_pitch_mm: [200.0, 200.0]
-  module_envelope_max_mm: [200.0, 200.0, 5.0]
-  internal_seam_target_mm: 0.25
-  internal_seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
+  print_split: {columns: 2, rows: 1}
+  main_part_nominal_mm: [300.0, 400.0]
+  main_part_envelope_max_mm: [300.0, 400.0, 5.0]
+  permanent_center_seam_target_mm: 0.25
+  seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
   outer_frame_target_mm: 8.0
-  tile_backer_thickness_mm: 3.0
+  backer_thickness_mm: 3.0
   front_relief:
-    water_and_green_inlay_depth_mm: 0.6
+    inlay_depth_mm: 0.6
     transport_emboss_height_mm: 0.6
     minimum_isolated_color_width_mm: 0.9
     minimum_label_stroke_mm: 1.0
     small_island_min_area_mm2: 0.8
   light_apertures:
-    representation: "through-tile negative geometry derived from selected simplified map paths"
+    representation: "through-part negative geometry derived from selected simplified map paths"
     minimum_width_mm: 2.0
     minimum_ligament_mm: 5.0
-    maximum_open_area_fraction_per_tile: 0.12
-    seam_keepout_mm: 8.0
-    datum_and_retention_keepout_mm: 12.0
+    maximum_open_area_fraction_per_part: 0.12
+    center_seam_keepout_mm: 8.0
+    joiner_hanger_keepout_mm: 12.0
     rear_diffuser_land_width_mm: 6.0
   segmentation:
-    rule: "clip every semantic source layer against one immutable global panel frame, then split by module; never fit or normalize tiles independently"
-    seam_protection_mm: 2.0
-    seam_rule: "global feature coordinates and elevations remain identical on both sides of every seam"
+    rule: "clip every semantic source layer against one immutable global panel frame, then split once at X = 300 mm; never fit or normalize halves independently"
+    seam_rule: "global feature coordinates and relief heights remain identical on both sides of the permanent seam"
 
-modular_interface:
-  architecture: "removable art tiles on a separately printed segmented rear rail/grid"
-  nominal_owner: "rear grid owns module pitch, wall plane, tile datums and light standoff"
-  tile_interface: "three-point rear registration plus a serviceable retaining feature; exact concept pending"
+permanent_assembly:
+  architecture: "two non-replaceable main prints permanently joined into one unique artwork; no rear grid"
+  nominal_owner: "one parametric global seam skeleton owns both mating edges, bridge-key pockets, standoff lands and wall plane"
+  seam_interface: "shallow tongue/groove alignment plus three local rear bridge keys and a process-qualified adhesive bond"
+  wall_interface: "isolated upper hanger/standoff blocks and lower standoff blocks bonded to declared rear lands; exact wall anchors remain installer-selected"
   assembly_sequence:
-    - "assemble and square the segmented rear grid"
-    - "mount the grid using wall-appropriate customer-selected anchors"
-    - "route optional customer lighting and cable without energizing it during mechanical assembly"
-    - "install tiles from a defined datum corner and verify every seam"
-  service_target_cycles: 25
+    - "dry-fit the two main halves and select the seam allowance with the process-matched coupon"
+    - "bond the center seam and three local rear bridge keys on a flat assembly fixture"
+    - "bond the isolated hanger/standoff blocks and verify the 18 mm wall plane"
+    - "optionally apply customer lighting directly to the rear lands and route the cable without energizing it during mechanical assembly"
+    - "mount the finished single artwork using substrate-appropriate customer-selected anchors"
+  replaceable_sections: false
+  service_cycles: 0
   protected_regions:
-    - "visible map face and all cross-seam features"
-    - "wall-contact lands and mounting holes"
-    - "tile datums and retention geometry"
-    - "LED envelope and cable exits"
+    - "visible map face and cross-seam features"
+    - "center seam tongue/groove and bridge-key pockets"
+    - "hanger/standoff bond lands and wall-fastener access"
+    - "LED lands, cable routes, attribution and future watermark"
 
 backlight_preparation:
   included_as: "mechanical preparation only"
-  effect: "indirect halo against the wall"
-  front_effect: "selected abstract map openings transmit light from the rear cavity to the visible face"
+  effect: "indirect halo against the wall plus selected front-through abstract paths"
   wall_standoff_target_mm: 18.0
   led_strip_keepout_mm: {width: 12.0, thickness: 4.0}
   compatible_nominal_strip_width_mm: [8.0, 10.0]
   cable_channel_min_mm: [6.0, 4.0]
   exits: [left, right, bottom]
-  attachment: "replaceable printed clips or adhesive land on the rear grid; no live electrical interface"
-  optional_customer_diffuser: "rear land accepts a thin removable diffuser film or sheet; diffuser is not supplied"
-  aperture_policy: "openings remain outside seams, tile datums, retention features, attribution text and outer frame"
+  attachment: "direct rear adhesive lands or small local printed clips; no grid and no live electrical interface"
+  optional_customer_diffuser: "local 6 mm lands accept thin removable diffuser film behind selected openings; diffuser is not supplied"
   thermal_rule: "open, ventilated low-power LED installation only; no temperature or fire-safety claim until the exact customer system is qualified"
-  no_light_state: "all modules and mounting functions must pass without any light component installed"
+  no_light_state: "the permanently assembled artwork and wall mounting must pass without any light component installed"
 
 map_content:
   pilot: Berlin
+  production_mode: "unique one-off pilot"
   source: "OpenStreetMap vector data"
-  source_snapshot: "to be frozen after requirements/concept approval"
+  source_snapshot: "to be frozen after revision 0.3.0 requirements and concept approval"
   target_extent: "Berlin administrative boundary contained without distortion inside the 600 x 400 mm visible frame"
-  semantic_layers:
-    land_base: "dominant base body"
-    water: "rivers, canals and principal lakes"
-    green: "principal parks, forests and large recreation areas"
-    transport_accent: "major road/rail hierarchy, city title and optional location marker"
-  excluded_detail:
-    - "individual small buildings by default"
-    - "minor service roads and sub-print-width islands"
-    - "map labels below the declared stroke width"
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
-    placement: "readable lower-edge/rear attribution area plus complete digital notice"
+    placement: "readable rear/lower-edge area plus complete digital notice"
     status: "rights review required before release"
 
 multicolor:
   maximum_simultaneous_filaments: 4
-  representation: "named disjoint solids in one shared frame; portable 3MF base-material intent"
+  target_machine_configuration: "Anycubic Kobra 3 Max Combo with one ACE Pro, four-color configuration"
+  representation: "named disjoint solids in one shared frame; portable 3MF material intent"
   palette_catalog: palette-catalog.yaml
   selected_palette: urban_signal
-  selected_palette_is_abstract: true
   realistic_color_claim: false
   dithering: prohibited
-  color_island_policy: "merge or omit non-semantic islands below the physical width/area thresholds and report them"
-  polymer_rule: "one polymer family per co-sliced tile; PLA with PLA by default"
-  active_color_strategy: "restrict water/green pockets and raised transport to the top 0.6–0.8 mm where practical"
+  polymer_rule: "one PLA family per co-sliced half"
+  active_color_strategy: "restrict accent bodies to shallow top bands and merge sub-print islands"
   purge_budget:
     status: pending
     target_waste_ratio_max: 0.25
-    physical_coupon_required: true
-  machine_slot_mapping: "destination-slicer responsibility; never inferred from 3MF display colors"
+    physical_directed_transition_coupon_required: true
+  machine_slot_mapping: "assigned and reviewed in Anycubic Slicer Next; never inferred from 3MF display colors"
 
 duty:
   risk_class: decorative
   environment: "indoor residential use, nominal 10–30 °C, normal humidity, no direct weather exposure"
   service_life_target: "2 years pending physical qualification"
-  loads: "self-weight only plus light handling during tile service"
+  loads: "self-weight plus handling during one permanent assembly and wall installation"
   foreseeable_hazards:
-    - "panel or tile detachment from unsuitable wall anchors"
+    - "artwork detachment from unsuitable wall anchors or failed hanger bonds"
+    - "permanent center bond or bridge-key failure"
     - "sharp fragments after impact"
-    - "warping that opens seams or defeats retention"
+    - "warping that opens the visible permanent seam"
     - "customer-installed lighting heat, wiring or power-supply misuse"
-  safety_boundary: "no supplied or certified electrical system and no universal wall-anchor claim"
+  safety_boundary: "no supplied/certified electrical system and no universal wall-anchor claim"
+
+risk:
+  class: decorative
+  hazards:
+    - "artwork or local hanger bond detaches from the wall"
+    - "permanent center seam or rear bridge bond fails"
+    - "warping creates a visible seam step or unstable wall plane"
+    - "customer lighting overheats, is wired incorrectly or blocks ventilation"
+  mitigations:
+    - "coupon-qualified adhesive, surface preparation, seam geometry and flat assembly fixture"
+    - "mass-based proof load on the assembled hanger/standoff system before installation"
+    - "open 18 mm cavity, explicit LED keep-outs and no supplied electrical claim"
+    - "installer selects wall anchors for the actual substrate"
 
 fabrication:
-  preference: balanced-hybrid
+  preference: integrated-print
   process: fdm-fff
-  target_printer: "Anycubic Kobra 3 Max"
-  portable_minimum_build_volume_mm: [220.0, 220.0, 50.0]
-  art_tile_material: "PLA candidate; exact product/color unresolved"
-  rear_grid_material: "PETG recommended, or same-family PLA for a simplified all-PLA pilot"
+  target_printer: "Anycubic Kobra 3 Max Combo, four-color configuration"
+  verified_build_volume_mm: [420.0, 420.0, 500.0]
+  verified_multicolor: "supports four-color printing with one ACE Pro; official product page also documents an optional eight-color configuration"
+  official_machine_source: "https://store.anycubic.com/products/kobra-3-max-combo"
+  source_checked: "2026-08-30"
+  main_part_bed_margin_mm: [120.0, 20.0]
+  main_material: "PLA candidate; exact Anycubic PLA Matte products/batches unresolved"
+  local_joiner_and_standoff_material: "same-family PLA candidate unless bond testing selects another compatible printed material"
   nozzle_mm: 0.4
   line_width_mm: 0.45
   layer_height_mm: 0.20
-  tile_orientation: "map back flat on the bed; map face upward"
-  supports: "none on visible tiles; rear-grid support strategy concept-dependent"
+  main_orientation: "flat back on the bed; map face upward"
+  supports: "none on visible main halves; local secondary parts designed support-free"
   target_formats: [step, stl, 3mf]
 
-resource_budgets:
-  max_triangles_per_tile: 500000
-  stop_triangles_per_tile: 1000000
-  peak_working_memory_gib: 4.0
-  max_mesh_mib_per_tile: 50.0
-  max_exact_slicer_seconds_per_tile: 180.0
+printer:
+  manufacturer: Anycubic
+  model: "Kobra 3 Max Combo, one ACE Pro four-color configuration"
+  build_volume_mm: [420.0, 420.0, 500.0]
+  enclosure: open
+  unit_id: null
+  firmware: null
+  source: "https://store.anycubic.com/products/kobra-3-max-combo"
+  source_checked: "2026-08-30"
 
-acceptance:
+manufacturing:
+  process: FFF/FDM
+  printer: "Anycubic Kobra 3 Max Combo"
+  build_volume_mm: [420.0, 420.0, 500.0]
+  target_material: "same-family PLA; exact products, colors and batches pending"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.20
+  line_width_mm: 0.45
+  preferred_orientation: "flat rear face on bed, map face upward"
+  supports: "none on visible main halves; local secondary parts support-free"
+  slicer: "Anycubic Slicer Next through fdm_ci.py slice-anycubic-next with explicit machine, process and filament profiles"
+
+optimization:
+  status: pending
+  objective: "minimize seam count, filament, support, purge and print time while preserving flatness, permanent bond area, relief readability and lighting apertures"
+  protected:
+    - "visible global map registration and center seam"
+    - "bridge-key, hanger/standoff and adhesive lands"
+    - "light apertures, LED/cable keep-outs, attribution and watermark host"
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  mesh_simplification:
+    status: pending
+    master_mesh: null
+    manufacturing_mesh: null
+    tolerance_mm: 0.03
+    protected_regions:
+      - "outer perimeter and center seam"
+      - "thin map/color boundaries and through-openings"
+      - "bridge-key, hanger/standoff and adhesive lands"
+      - "attribution and watermark geometry"
+    resource_budget:
+      triangle_target: 750000
+      triangle_stop: 1500000
+      peak_memory_gib: 4.0
+      max_mesh_mib: 75.0
+      max_slicer_seconds: 240.0
+    slicer_resolution_check: null
+
+resource_budgets:
+  max_triangles_per_main_half: 750000
+  stop_triangles_per_main_half: 1500000
+  peak_working_memory_gib: 4.0
+  max_mesh_mib_per_main_half: 75.0
+  max_exact_slicer_seconds_per_main_half: 240.0
+
+acceptance_details:
   digital:
-    - "Six globally registered Berlin modules reconstruct a nominal 600 x 400 mm map without independent tile scaling"
-    - "All required color solids are manifold, positive-volume, aligned and pairwise non-overlapping"
-    - "No intended road/label stroke is below 0.9 mm after cleanup; removed islands are reported"
-    - "Rear-grid and tile interfaces are uniquely owned, assemble in the declared sequence and pass clearance checks"
-    - "Every tile and rear-grid segment fits 220 x 220 mm and stays inside resource budgets"
-    - "A standard multi-part 3MF validates and preserves one assembly plus semantic material names"
-    - "OSM source snapshot, transformation and attribution are hash-bound"
-    - "Every light aperture is a true through-opening, stays inside the open-area cap and preserves seam/datum/retention keep-outs and minimum ligaments"
+    - "Two globally registered Berlin halves reconstruct one nominal 600 x 400 mm artwork with one vertical seam and no independent scaling"
+    - "No rear grid, magnet pocket, replaceable-tile datum or service retainer exists in the current production architecture"
+    - "All color solids are manifold, positive-volume, aligned and pairwise non-overlapping"
+    - "Both 300 x 400 mm main halves fit the verified 420 x 420 mm Kobra 3 Max bed"
+    - "Permanent seam, local bridge keys, isolated hanger/standoff blocks and LED lands have unique parametric owners and pass collision/ligament checks"
+    - "Every intended light opening is truly open and preserves seam/joiner/hanger/attribution keep-outs"
   slicer:
-    - "Exact Anycubic Slicer Next profiles import every tile without dropped bodies or auto-arrangement"
-    - "All four semantic bodies map to intended tools and remain visible in the final layer preview"
-    - "No first-layer island, missing thin road, unsupported inlay or cross-seam feature loss"
-    - "Every intended light opening remains open in the exact layer preview and is not closed by thin-wall, gap-fill or support interpretation"
-    - "Transition count and purge estimate stay within the approved pilot budget"
+    - "Exact Anycubic Slicer Next profiles import each half as one aligned four-color assembly without auto-arrangement"
+    - "All four semantic bodies map to the intended ACE slots and remain visible in the final layer preview"
+    - "No first-layer island, missing thin route, unsupported inlay or cross-seam feature loss"
+    - "Transition count and purge estimate stay within the approved one-off pilot budget"
   physical:
-    - "0.15/0.25/0.35/0.45 mm interface coupon selects the actual seam/retention allowance"
-    - "Assembled 3 x 2 panel remains aligned and retains every tile through 25 removal/reinstall cycles"
-    - "Installed panel survives a defined proof load based on measured complete mass; wall anchor remains user/installer-selected"
-    - "Halo/light-through gauge confirms 8 and 10 mm strip envelopes, three cable exits, optional diffuser land and visible light passage without pinching"
+    - "The seam coupon selects the actual permanent tongue/groove and bridge-key allowance"
+    - "A representative bonded seam/bridge coupon passes handling and a defined proof load before full assembly"
+    - "The completed two-half artwork remains flat, permanently aligned and visually continuous"
+    - "Installed artwork survives a mass-based proof load; wall anchors remain user/installer-selected"
+    - "Halo/light-through gauge confirms strip envelopes, cable exits, diffuser lands and visible passage without a rear grid"
     - "Appearance, seam visibility, color contamination and lighting effect receive human approval"
 
+acceptance:
+  - id: AC-REQ
+    criterion: "Revision 0.3.0 permanent one-off requirements are explicitly approved before replacement concept or CAD work."
+    method: "human approval recorded against this exact revision"
+    status: NOT_RUN
+  - id: AC-ENVELOPE
+    criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
+    method: "CAD envelope report and exact slicer import"
+    status: NOT_RUN
+  - id: AC-PERMANENT-ASSEMBLY
+    criterion: "The two halves form one flat permanent artwork without a rear grid or replaceable interface."
+    method: "digital interface audit, seam/bond coupon and assembled proof test"
+    status: NOT_RUN
+  - id: AC-MULTICOLOR
+    criterion: "Four named abstract color solids slice with correct ACE slot mapping and approved purge evidence."
+    method: "3MF audit, exact Anycubic slice and physical transition coupon"
+    status: NOT_RUN
+  - id: AC-LIGHT
+    criterion: "The unlit artwork passes mechanically and the optional unsupplied lighting envelopes create the approved halo/front-through effect."
+    method: "keep-out report, light gauge and human appearance review"
+    status: NOT_RUN
+  - id: AC-BRAND
+    criterion: "The required product-specific metriMade.com watermark is recessed on an approved protected rear land."
+    method: "watermark placement manifest, geometry validation and human approval"
+    status: NOT_RUN
+
 deliverables:
-  - "Approved requirements and concept sheet"
-  - "Parametric map extraction/simplification and modular CAD source"
+  - "Approved revision 0.3.0 requirements and replacement concept sheet"
+  - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"
-  - "Berlin master assembly, six DRAFT manufacturing tiles and segmented rear grid"
-  - "Named color meshes and portable four-color 3MF"
-  - "Interface, light-envelope and multicolor coupons"
-  - "Mesh, interface, 3MF, slicer, purge and physical-test reports"
+  - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"
+  - "Small printed rear bridge keys and hanger/standoff parts; no rear grid"
+  - "Named color meshes and four-color Anycubic-oriented 3MFs"
+  - "Seam/bond, light-envelope and multicolor coupons plus validation reports"
   - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

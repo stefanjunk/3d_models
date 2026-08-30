@@ -2,12 +2,12 @@
 
 Portfolio record: `PORT-099`
 
-Current revision: `0.1.0` — requirements and concept r1 approved; decomposition
-candidate `0.1.0-decomposition.1` awaits explicit approval; production CAD remains blocked
+Current revision: `0.1.0` — requirements, concept r1 and decomposition approved;
+parametric candidate `0.1.0-parametric.1` is a blocked DRAFT
 
-Lifecycle: `P0 Idea` — controlled requirements, an approved concept and a
-validated decomposition candidate exist; no approved decomposition, CAD,
-manufacturing export or physical evidence exists
+Lifecycle: `P1 Concept / digital proxy` — a deterministic CadQuery assembly,
+provisional purchased-part proxies and an idealized control model exist. No
+manufacturing candidate or physical balance evidence exists.
 
 TrailCam B2 is a new product inspired by the open, ribbed, serviceable FPV
 architecture of `MM-TOY-002`. It is not a two-wheel rendering of the four-wheel
@@ -37,12 +37,28 @@ outside this product.
 - `reports/purchased-parts-research-v0.1.0.md` — manufacturer-backed component research and selection gaps
 - `reports/preliminary-balance-sizing-v0.1.0.md` — wheel-speed and static torque sanity checks
 - `docs/decomposition-review-v0.1.0.md` — concise human approval boundary for the next phase
+- `cad/parameters.py` and `cad/build_rover.py` — axle-centered parametric source and deterministic DRAFT export generator
+- `cad/validate_geometry.py` — geometry, envelope, landing and mass-property checks
+- `control/plant_model.py` — nonlinear cart-pendulum proxy with sampled 250 Hz LQR validation
+- `architecture/interface-contract-v0.1.0-parametric.1.json` — proxy wheel, battery, camera and motor/bracket interface checks
+- `previews/DRAFT-trailcam-b2-assembly.png` and `.glb` — non-manufacturing assembly visualization
+- `reports/parametric-candidate-v0.1.0.md` — concise result and open decision
+- `validation-project.json` — aggregate fail-closed validation contract
 - `validation/` — generated structural and policy-validation evidence
 
 ## Current boundary
 
-No CAD source, STL, STEP, 3MF or G-code may be created until decomposition
-candidate `0.1.0-decomposition.1` is explicitly approved. The plan assigns all
-critical geometry to parametric CAD or exact measured purchased parts; it uses
-no image-to-3D geometry. Exact wheels/hubs, IMU carrier, power/current-sensing
-architecture, mass properties and print profiles remain downstream blockers.
+The current STEP/STL/GLB files are `DRAFT` digital proxies, not manufacturing
+or print-release artifacts. The assembly has exactly two wheels on one common
+axis and all 12 printed bodies fit the 220 × 220 × 250 mm compatibility target.
+The idealized controller recovers from ±8° in simulation, but that result is
+not firmware, hardware, failsafe or safety evidence.
+
+Parametric approval is blocked by the scope of `ACC-MASS-001`: the provisional
+whole-system center of mass is 54.61 mm above the axle, while the actively
+modeled reduced-order pendulum lump—excluding the provisional axle-grouped
+wheels, hubs, motors and brackets—is 84.90 mm above it. That grouping is a
+control-model diagnostic, not physical mass-property authority. Exact purchased
+components, an exact-clearance backend, certified mesh self-intersection
+checking and complete Anycubic machine/process/filament profiles are also still
+required. No 3MF or G-code was generated.

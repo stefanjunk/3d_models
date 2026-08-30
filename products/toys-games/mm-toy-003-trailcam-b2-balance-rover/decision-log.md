@@ -97,3 +97,47 @@
   continuous-motor qualification.
 - Set decomposition approval to `pending`. Production CAD and all powered tests
   remain blocked until Stefan explicitly approves this candidate.
+
+## 2026-08-30 — Decomposition approval
+
+- Stefan approved `0.1.0-decomposition.1` with the response `freigegeben`.
+- Froze the component authority, axle-centered coordinate frame, interface
+  ownership, keep-outs, provisional COTS routing, control decomposition and
+  fail-closed test ladder as the basis for deterministic proxy/CAD work.
+- Opened the agent-controlled `parametric-source` stage under the guided
+  autonomy policy. Exact purchased-part interfaces, slicer profiles, powered
+  tests, watermark and release gates remain blocked by their recorded evidence.
+
+## 2026-08-30 — Parametric candidate 0.1.0-parametric.1
+
+- Created an axle-centered CadQuery assembly with exactly two 120 mm wheel
+  proxies, two independent coaxial motor proxies, five structural chassis
+  bodies and seven removable printed modules. All 12 printed bodies remain
+  individually orientable within 220 × 220 × 250 mm.
+- Exported editable STEP masters and explicitly labeled `DRAFT` STL validation
+  meshes. The assembly view is also available as a DRAFT GLB/PNG preview; none
+  of these files is a print release.
+- Verified the 179 × 245 × 250 mm upright envelope, 7.5 mm nominal wheel/body
+  gap, 22.88° first landing contact and 14.32 mm landing clearance at 12° pitch.
+- Added a nonlinear inverted-pendulum proxy and sampled 250 Hz LQR. Its
+  provisional ±8° cases settle below 1° in 1.21 s and stay within the declared
+  transient-force/corridor limits. This is model evidence only, not firmware or
+  hardware safety evidence.
+- Kept the parameter-source stage blocked because `ACC-MASS-001` currently says
+  “assembled center of mass.” The provisional whole assembly is 1875.65 g with
+  COM 54.61 mm above the axle and fails the 70–110 mm band. The reduced-order
+  pendulum lump used by the provisional plant, excluding the axle-grouped
+  wheels, hubs, motors and brackets, is 1210.65 g with COM 84.90 mm and passes
+  that band diagnostically. This grouping is not physical mass-property
+  authority. The approved requirement must be clarified or the mass layout
+  deliberately changed; it was not silently reinterpreted.
+- Required proxy clearances exceed their thresholds, but the available
+  nearest-vertex method is diagnostic only and therefore remains
+  `REVIEW_REQUIRED`. Exact Manifold motor/bracket overlap checks pass.
+- All DRAFT part meshes are watertight, consistently wound, positive-volume
+  single components within size/face budgets. Release remains blocked because
+  no certified self-intersection backend is configured.
+- Did not apply speculative lightweighting. The optimization workflow requires
+  a complete exact Anycubic machine/process/filament profile and a reproducible
+  slicer baseline; those inputs are not yet available. No 3MF or G-code was
+  generated.

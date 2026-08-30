@@ -2,9 +2,9 @@
 
 Candidate: `0.1.0-decomposition.1`
 
-Status: pending explicit approval
+Status: approved by Stefan on 2026-08-30 (`freigegeben`)
 
-## Approval requested
+## Approved boundary
 
 Approve the following as the basis for deterministic proxy and production-CAD
 work:

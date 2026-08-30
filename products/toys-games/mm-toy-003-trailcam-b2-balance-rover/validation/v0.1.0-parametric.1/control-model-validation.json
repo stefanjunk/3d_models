@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-TOY-003 preliminary nonlinear plant study",
+  "tool_version": "0.1.0",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "control/plant_model.py",
+      "sha256": "8846fd399ead0f307a92181d1ce2c3a85333f09c622a0320626094ef13cff539",
+      "size_bytes": 7980
+    }
+  ],
+  "plant": {
+    "cart_mass_kg": 0.62,
+    "body_mass_kg": 1.18,
+    "com_height_m": 0.09,
+    "body_pitch_inertia_kg_m2": 0.0075,
+    "cart_damping_n_s_m": 0.2,
+    "pitch_damping_n_m_s_rad": 0.01,
+    "wheel_radius_m": 0.06,
+    "actuator_tau_s": 0.02,
+    "continuous_torque_nm_each": 0.35,
+    "transient_torque_nm_each": 1.0,
+    "controller_hz": 250.0,
+    "integrator_dt_s": 0.001
+  },
+  "derived": {
+    "continuous_force_n": 11.666666666666666,
+    "transient_force_limit_n": 33.333333333333336
+  },
+  "cases": [
+    {
+      "initial_pitch_deg": -8.0,
+      "duration_s": 5.0,
+      "lqr_gain": [
+        -2.1081851067789197,
+        -4.925571929402254,
+        -54.01035928650063,
+        -7.3972352444814895
+      ],
+      "max_abs_pitch_deg": 8.027160623323189,
+      "final_abs_pitch_deg": 0.08429148243531204,
+      "max_abs_position_m": 0.18252527499740628,
+      "max_abs_velocity_m_s": 0.2687446047296002,
+      "max_abs_force_n": 5.875958988685376,
+      "max_abs_command_n": 7.931771005506215,
+      "settle_below_1deg_s": 1.21,
+      "sample_count": 501
+    },
+    {
+      "initial_pitch_deg": 8.0,
+      "duration_s": 5.0,
+      "lqr_gain": [
+        -2.1081851067789197,
+        -4.925571929402254,
+        -54.01035928650063,
+        -7.3972352444814895
+      ],
+      "max_abs_pitch_deg": 8.027160623323189,
+      "final_abs_pitch_deg": 0.08429148243531204,
+      "max_abs_position_m": 0.18252527499740628,
+      "max_abs_velocity_m_s": 0.2687446047296002,
+      "max_abs_force_n": 5.875958988685376,
+      "max_abs_command_n": 7.931771005506215,
+      "settle_below_1deg_s": 1.21,
+      "sample_count": 501
+    }
+  ],
+  "checks": [
+    {
+      "id": "sample-rate",
+      "required": true,
+      "status": "PASS",
+      "message": "Controller sample rate meets the approved minimum",
+      "metrics": {
+        "controller_hz": 250.0
+      }
+    },
+    {
+      "id": "symmetric-release",
+      "required": true,
+      "status": "PASS",
+      "message": "Both idealized +/-8 degree releases settle below 1 degree within 3 seconds",
+      "metrics": {
+        "-8.0": 1.21,
+        "8.0": 1.21
+      }
+    },
+    {
+      "id": "transient-force-limit",
+      "required": true,
+      "status": "PASS",
+      "message": "Sampled controller command remains inside the declared transient torque proxy",
+      "metrics": {
+        "limit_n": 33.333333333333336,
+        "case_max_n": [
+          7.931771005506215,
+          7.931771005506215
+        ]
+      }
+    },
+    {
+      "id": "capture-corridor",
+      "required": true,
+      "status": "PASS",
+      "message": "Idealized release remains inside the one-metre test corridor",
+      "metrics": {
+        "case_max_abs_position_m": [
+          0.18252527499740628,
+          0.18252527499740628
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Parameters are provisional and not identified from physical hardware.",
+    "The model omits motor electrical speed/voltage limits, backlash, tire compliance/slip, encoder quantization, IMU bias/noise, delay variation, yaw coupling and floor irregularity.",
+    "A model PASS only establishes internal numerical plausibility; it does not qualify firmware tuning, free balance or vehicle-control safety."
+  ]
+}

@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-003
   name: "TrailCam B2 Balance FPV Rover"
   revision: "0.1.0"
-  candidate: "0.1.0-decomposition.1"
+  candidate: "0.1.0-parametric.1"
   owner: Stefan
   created: "2026-08-30"
   revised: "2026-08-30"
@@ -34,10 +34,12 @@ workflow:
     review: concepts/concept-review-v0.1.0.md
     metadata: concepts/imagegen-metadata-v0.1.0-r1.json
   decomposition:
-    status: pending
+    status: approved
     spec_revision: "0.1.0"
-    requested_from: Stefan
     candidate: "0.1.0-decomposition.1"
+    approved_by: Stefan
+    approved_at: "2026-08-30"
+    evidence: "User response: freigegeben"
     plan: architecture/hybrid-design-plan-v0.1.0.json
     report: architecture/architecture-report-v0.1.0.md
     control_architecture: architecture/control-architecture-v0.1.0.md
@@ -46,13 +48,18 @@ workflow:
     sizing: reports/preliminary-balance-sizing-v0.1.0.md
     review: docs/decomposition-review-v0.1.0.md
     validation: validation/hybrid-plan-validation-v0.1.0.json
-    reason: "Functional decomposition and interface skeleton await explicit approval"
   parametric_source:
     status: blocked
-    reason: "Decomposition candidate 0.1.0-decomposition.1 is not approved"
+    candidate: "0.1.0-parametric.1"
+    reason: "DRAFT CadQuery source and idealized control model exist, but ACC-MASS-001 is ambiguous: whole-system proxy COM is 54.61 mm while the reduced-order pendulum-lump diagnostic is 84.90 mm above the axle"
+    evidence:
+      geometry: validation/v0.1.0-parametric.1/geometry-validation.json
+      control: validation/v0.1.0-parametric.1/control-model-validation.json
+      interfaces: validation/v0.1.0-parametric.1/interface-validation.json
+      aggregate: validation/v0.1.0-parametric.1/project-validation.json
   digital_candidate:
     status: blocked
-    reason: "No production geometry exists"
+    reason: "Parametric proxy geometry is DRAFT only; mass-requirement scope, exact purchased parts, certified mesh self-intersection and exact clearances remain unresolved"
   slicer_preflight:
     status: blocked
     reason: "No approved geometry or complete exact machine/process/filament profile exists"
@@ -320,7 +327,10 @@ fabrication:
   target_formats: [step, stl, 3mf]
 
 decomposition_contract:
-  status: pending_approval
+  status: approved
+  approved_by: Stefan
+  approved_at: "2026-08-30"
+  approval_evidence: "User response: freigegeben"
   plan_integrity: "PASS: 0 errors, 0 warnings"
   geometry_routes:
     parametric:
@@ -373,6 +383,7 @@ manufacturing:
 optimization:
   status: pending
   objective: "reduce mass and print time without reducing motor alignment, landing load paths, battery retention or control-sensor rigidity"
+  reason: "No complete exact Anycubic machine/process/filament profile exists for the required slicer baseline; no speculative geometry optimization was applied"
   protected_constraints:
     - "wheel-axis coaxiality and motor/hub datums"
     - "target center-of-mass adjustment range"
@@ -384,7 +395,7 @@ optimization:
       - "all purchased-part interfaces"
       - "wheel-axis and IMU datums"
       - "bed contacts and future watermark"
-    rationale: "No manufacturing mesh exists yet"
+    rationale: "DRAFT validation meshes preserve the direct CadQuery tessellation; release simplification is blocked until protected-region and exact-slicer comparisons exist"
 
 branding:
   required: true
@@ -405,7 +416,10 @@ deliverables:
   current:
     - "New controlled product folder, identity and portfolio record"
     - "Approved requirements and concept revision 0.1.0-r1"
-    - "Functional decomposition candidate with interface graph, keep-outs, control architecture, BOM research and sizing"
+    - "Approved functional decomposition with interface graph, keep-outs, control architecture, BOM research and sizing"
+    - "DRAFT parametric CadQuery assembly with 12 printed parts, provisional COTS proxies, STEP/STL exports and assembly GLB/PNG"
+    - "Idealized nonlinear balance-plant and sampled-LQR evidence at 250 Hz"
+    - "Fail-closed geometry, interface, mesh and aggregate validation reports"
     - "Guided autonomy policy and structural validation evidence"
   after_requirements_approval:
     - "Concept sheet with three-quarter, side/cutaway and landing-protection views"

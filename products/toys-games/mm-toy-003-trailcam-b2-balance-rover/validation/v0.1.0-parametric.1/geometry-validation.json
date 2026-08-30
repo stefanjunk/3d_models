@@ -1,0 +1,391 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-TOY-003 geometry validator",
+  "tool_version": "0.1.0",
+  "status": "FAIL",
+  "inputs": [
+    {
+      "path": "cad/parameters.py",
+      "sha256": "c684b96223f09c5c718a48424df4698a0398ea7d82e65578b63c6f9536b71f98",
+      "size_bytes": 4092
+    },
+    {
+      "path": "cad/build_rover.py",
+      "sha256": "cc8428cb35d3b66250c49487373590639aeb13de06b2ea5fb870afe8e906deb8",
+      "size_bytes": 22477
+    },
+    {
+      "path": "cad/validate_geometry.py",
+      "sha256": "afa724d3031f82c22f0f7c7cd01308bcac0437f09ff9c2b27411c2f3287baf6a",
+      "size_bytes": 8781
+    }
+  ],
+  "checks": [
+    {
+      "id": "printed-solids",
+      "required": true,
+      "status": "PASS",
+      "message": "All printed B-Reps must be valid with positive volume",
+      "metrics": {
+        "invalid": [],
+        "count": 12
+      }
+    },
+    {
+      "id": "chassis-part-count",
+      "required": true,
+      "status": "PASS",
+      "message": "Approved chassis set contains two side frames and three crossmembers",
+      "metrics": {
+        "count": 5
+      }
+    },
+    {
+      "id": "two-wheels-one-axis",
+      "required": true,
+      "status": "PASS",
+      "message": "Exactly two wheel proxies share the project Y axis",
+      "metrics": {
+        "wheel_count": 2,
+        "xz_centres_mm": [
+          [
+            -7.752903939711037e-17,
+            -9.264036960195245e-15
+          ],
+          [
+            -7.752903939711037e-17,
+            -9.264036960195245e-15
+          ]
+        ]
+      }
+    },
+    {
+      "id": "master-envelope",
+      "required": true,
+      "status": "PASS",
+      "message": "Assembly proxy remains inside the approved upright envelope",
+      "metrics": {
+        "length_x_mm": 179.0,
+        "width_y_mm": 245.0,
+        "height_ground_to_top_mm": 250.0,
+        "min_mm": [
+          -88.0,
+          -122.5,
+          -60.0
+        ],
+        "max_mm": [
+          91.0,
+          122.5,
+          190.0
+        ]
+      }
+    },
+    {
+      "id": "individual-bed-fit",
+      "required": true,
+      "status": "PASS",
+      "message": "Every printed part can be oriented inside 220 x 220 x 250 mm",
+      "metrics": {
+        "oversized": {}
+      }
+    },
+    {
+      "id": "wheel-body-gap",
+      "required": true,
+      "status": "PASS",
+      "message": "Nominal wheel-to-side-frame axial gap is at least 5 mm",
+      "metrics": {
+        "gap_mm": 7.5
+      }
+    },
+    {
+      "id": "landing-contact-angle",
+      "required": true,
+      "status": "PASS",
+      "message": "Landing corner remains clear through normal pitch and contacts no earlier than 22 degrees",
+      "metrics": {
+        "first_contact_deg": 22.88,
+        "clearance_at_12deg_mm": 14.315638387490623
+      }
+    },
+    {
+      "id": "proxy-mass-properties",
+      "required": true,
+      "status": "FAIL",
+      "message": "Provisional mass ledger must meet approved mass and COM limits before exact-part intake",
+      "metrics": {
+        "total_mass_g": 1875.6464567490361,
+        "center_of_mass_mm": [
+          1.8461941314717758,
+          -1.1228925543123817e-08,
+          54.611476559160096
+        ],
+        "limits": {
+          "mass_max_g": 2200,
+          "com_z_mm": [
+            70,
+            110
+          ],
+          "abs_com_y_max_mm": 3,
+          "abs_com_x_max_mm": 12.0
+        }
+      }
+    },
+    {
+      "id": "balance-body-com-diagnostic",
+      "required": false,
+      "status": "PASS",
+      "message": "Diagnostic inverted-pendulum body COM excluding axle-fixed wheels, hubs, motors and brackets",
+      "metrics": {
+        "body_mass_g": 1210.6464567490361,
+        "center_of_mass_mm": [
+          2.860296217662603,
+          -1.7396899344771696e-08,
+          84.89829704868833
+        ],
+        "excluded": [
+          "brackets_pair",
+          "motor_left",
+          "motor_right",
+          "wheel_hub_left",
+          "wheel_hub_right"
+        ]
+      }
+    },
+    {
+      "id": "side-frame-symmetry",
+      "required": true,
+      "status": "PASS",
+      "message": "Left/right side-frame solids are mirrored volume equivalents",
+      "metrics": {
+        "volume_delta_mm3": 1.4551915228366852e-11
+      }
+    }
+  ],
+  "mass_properties": {
+    "entries": [
+      {
+        "name": "side-frame-left",
+        "group": "CHASSIS_SET",
+        "mass_g": 97.85152975689887,
+        "x_mm": 0.5983351382837906,
+        "y_mm": 72.00000000000001,
+        "z_mm": 75.24904207047213,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "side-frame-right",
+        "group": "CHASSIS_SET",
+        "mass_g": 97.85152975689887,
+        "x_mm": 0.5983351382837906,
+        "y_mm": -72.00000000000001,
+        "z_mm": 75.24904207047213,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "axle-crossmember",
+        "group": "CHASSIS_SET",
+        "mass_g": 98.06854367866146,
+        "x_mm": -3.7689827230598783e-16,
+        "y_mm": 2.5440633380654176e-15,
+        "z_mm": -20.869316057744594,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "battery-crossmember",
+        "group": "CHASSIS_SET",
+        "mass_g": 32.92865938959093,
+        "x_mm": 1.5363987850903334e-14,
+        "y_mm": -2.52558704398411e-15,
+        "z_mm": 64.98532011465511,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "upper-crossmember",
+        "group": "CHASSIS_SET",
+        "mass_g": 39.77848647335524,
+        "x_mm": 9.712130177595153,
+        "y_mm": -2.1814241898293795e-15,
+        "z_mm": 116.98784798047247,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "battery-cradle",
+        "group": "BATTERY_CRADLE",
+        "mass_g": 77.50425091240064,
+        "x_mm": 2.9806320496075144e-17,
+        "y_mm": -2.02682979373311e-15,
+        "z_mm": 84.93015219426712,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "control-tray",
+        "group": "CONTROL_TRAY",
+        "mass_g": 28.18079904632938,
+        "x_mm": 6.51699991994829e-15,
+        "y_mm": 4.303679192418682e-16,
+        "z_mm": 124.20269638025667,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "camera-guard",
+        "group": "CAMERA_GUARD",
+        "mass_g": 25.48780759278414,
+        "x_mm": 71.97078911233004,
+        "y_mm": -1.4799182524133445e-16,
+        "z_mm": 137.22713196166546,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "landing-front",
+        "group": "LANDING_SET",
+        "mass_g": 22.917327592784144,
+        "x_mm": 71.85018806999071,
+        "y_mm": -1.3608294072478704e-15,
+        "z_mm": -23.999999999999996,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "landing-rear",
+        "group": "LANDING_SET",
+        "mass_g": 22.91732759278414,
+        "x_mm": -71.85018806999072,
+        "y_mm": -2.520054457866427e-16,
+        "z_mm": -24.000000000000004,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "antenna-mount-left",
+        "group": "ANTENNA_SET",
+        "mass_g": 2.0800973465976416,
+        "x_mm": 2.061288031103705e-09,
+        "y_mm": 79.14206810903096,
+        "z_mm": 173.14888450680945,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "antenna-mount-right",
+        "group": "ANTENNA_SET",
+        "mass_g": 2.080097609950705,
+        "x_mm": -5.191253735691148e-08,
+        "y_mm": -79.14206821440503,
+        "z_mm": 173.14888447514497,
+        "basis": "solid PETG B-Rep proxy"
+      },
+      {
+        "name": "motor_left",
+        "group": "COTS_PROXY",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": 47.5,
+        "z_mm": 0.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "motor_right",
+        "group": "COTS_PROXY",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": -47.5,
+        "z_mm": 0.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "brackets_pair",
+        "group": "COTS_PROXY",
+        "mass_g": 35.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": -10.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "wheel_hub_left",
+        "group": "COTS_PROXY",
+        "mass_g": 105.0,
+        "x_mm": 0.0,
+        "y_mm": 102.5,
+        "z_mm": 0.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "wheel_hub_right",
+        "group": "COTS_PROXY",
+        "mass_g": 105.0,
+        "x_mm": 0.0,
+        "y_mm": -102.5,
+        "z_mm": 0.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "battery_power_set",
+        "group": "COTS_PROXY",
+        "mass_g": 390.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 94.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "control_stack",
+        "group": "COTS_PROXY",
+        "mass_g": 150.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 140.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "camera_vtx_rx",
+        "group": "COTS_PROXY",
+        "mass_g": 25.0,
+        "x_mm": 45.0,
+        "y_mm": 0.0,
+        "z_mm": 140.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "antennas",
+        "group": "COTS_PROXY",
+        "mass_g": 18.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 186.0,
+        "basis": "provisional purchased-part mass ledger"
+      },
+      {
+        "name": "hardware",
+        "group": "COTS_PROXY",
+        "mass_g": 80.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 70.0,
+        "basis": "provisional purchased-part mass ledger"
+      }
+    ],
+    "total_mass_g": 1875.6464567490361,
+    "center_of_mass_mm": [
+      1.8461941314717758,
+      -1.1228925543123817e-08,
+      54.611476559160096
+    ],
+    "balance_body_excludes": [
+      "brackets_pair",
+      "motor_left",
+      "motor_right",
+      "wheel_hub_left",
+      "wheel_hub_right"
+    ],
+    "balance_body_mass_g": 1210.6464567490361,
+    "balance_body_center_of_mass_mm": [
+      2.860296217662603,
+      -1.7396899344771696e-08,
+      84.89829704868833
+    ]
+  },
+  "limitations": [
+    "COTS dimensions and masses are provisional proxies.",
+    "B-Rep validity and envelope checks do not qualify printed strength, fit, control safety or service life.",
+    "Landing contact uses the declared planar controlling corner; physical tire compression and floor compliance remain unmodeled."
+  ]
+}

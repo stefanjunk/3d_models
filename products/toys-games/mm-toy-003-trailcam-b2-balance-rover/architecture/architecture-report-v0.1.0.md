@@ -7,7 +7,7 @@
 - Master envelope: [-95, -130, -60] → [95, 130, 190] (190 × 260 × 250 mm)
 - Plan integrity: PASS (0 errors, 0 warnings)
 - Release readiness: BLOCKED
-- Blocked gates: component, integration, manufacturing, physical, proxy, release
+- Blocked gates: component, integration, manufacturing, physical, release
 
 ## Requirements
 
@@ -27,7 +27,7 @@
 
 | ID | Status | Topic | Current basis | Evidence needed | Blocks |
 |---|---|---|---|---|---|
-| DEC-DECOMP-001 | open | Approve this functional decomposition, interface ownership and validation routing before production CAD. | Requirements and concept revision 0.1.0-r1 are approved; this plan is the first controlled decomposition candidate. | Explicit human approval of the decomposition candidate. | proxy, component, integration, manufacturing, physical, release |
+| DEC-DECOMP-001 | resolved | Approve this functional decomposition, interface ownership and validation routing before production CAD. | Stefan approved candidate 0.1.0-decomposition.1 on 2026-08-30 with the response 'freigegeben'. | Approval recorded in design-spec.yaml and decision-log.md. |  |
 | DEC-PROCESS-001 | open | Freeze the Anycubic printer, PETG product, drying state, orientation and complete machine/process/filament JSON profile set. | A 0.6 mm nozzle and 0.24 mm layers are planning assumptions only. | Named installed profiles and process-matched fit coupons. | manufacturing, physical, release |
 | DEC-MOTOR-001 | provisional | Qualify the two motor and encoder assemblies. | Pololu item 4755, 100:1 37D 12 V encoder gearmotor, matches the 100 rpm speed class and offers a measured supplier envelope. | Two purchased samples, shaft runout and encoder polarity checks, torque/current/thermal characterization and exact mass. | component, integration, physical, release |
 | DEC-WHEEL-001 | open | Select the exact 120 mm class wheels and metal 6 mm D-shaft to wheel-hub system. | Only a 120 x 40 mm planning envelope and 205 mm wheel-center track are frozen. | Supplier drawing plus two measured wheel and hub samples, retention method, mass and inertia. | component, integration, manufacturing, physical, release |

@@ -141,3 +141,32 @@
   a complete exact Anycubic machine/process/filament profile and a reproducible
   slicer baseline; those inputs are not yet available. No 3MF or G-code was
   generated.
+
+## 2026-08-30 — Option A and parametric candidate 0.1.0-parametric.2
+
+- Stefan selected Option A. `ACC-MASS-001` therefore remains unchanged and
+  applies to the complete assembled rover proxy; the prior reduced-order mass
+  grouping remains diagnostic only.
+- Raised the battery center from 94 to 136 mm, its cradle and crossmember by
+  42 mm, and the control tray/board stack into the protected upper frame. The
+  battery remains below the electronics as shown by the approved concept.
+- Extended the ribbed side-frame shoulders and roof without exceeding the
+  original 250 mm ground-to-top envelope. Shifted the front camera/guard 8 mm
+  forward to keep a non-interpenetrating mounting boundary around the raised
+  upper crossmember.
+- The revised complete proxy is 1877.15 g with COM `[1.69, 0.00, 71.23]` mm.
+  It passes maximum mass, 70–110 mm vertical COM, 3 mm lateral offset and the
+  centered longitudinal bound. Cradle slots provide 12.2 mm motion per side
+  after the M3 shank allowance, satisfying the ±12 mm trim provision.
+- The vertical result has only 1.23 mm margin above the lower band. It is a
+  proxy PASS, not robustness evidence; exact installed masses and positions
+  must be measured before integration approval.
+- Correlated the nonlinear plant to the revised proxy: total-mass error is
+  0.684% and gravitational-first-moment error is 0.275%. Both ±8° idealized
+  release cases settle below 1° in 1.22 s and remain inside command/corridor
+  limits.
+- Kept the outputs as DRAFT. Exact COTS measurements, exact interface-distance
+  validation, certified self-intersection checks, complete Anycubic profiles,
+  coupons and all physical/powered tests remain release blockers.
+- Aggregate draft validation is `NOT_RUN`, because those required mesh/profile
+  capabilities and human physical evidence are intentionally fail-closed.

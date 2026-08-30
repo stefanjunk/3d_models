@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-003
   name: "TrailCam B2 Balance FPV Rover"
   revision: "0.1.0"
-  candidate: "0.1.0-parametric.1"
+  candidate: "0.1.0-parametric.2"
   owner: Stefan
   created: "2026-08-30"
   revised: "2026-08-30"
@@ -49,17 +49,17 @@ workflow:
     review: docs/decomposition-review-v0.1.0.md
     validation: validation/hybrid-plan-validation-v0.1.0.json
   parametric_source:
-    status: blocked
-    candidate: "0.1.0-parametric.1"
-    reason: "DRAFT CadQuery source and idealized control model exist, but ACC-MASS-001 is ambiguous: whole-system proxy COM is 54.61 mm while the reduced-order pendulum-lump diagnostic is 84.90 mm above the axle"
+    status: passed
+    candidate: "0.1.0-parametric.2"
+    reason: "Option A preserves whole-system ACC-MASS-001; the revised complete assembly proxy is 1877.15 g with COM [1.69, 0.00, 71.23] mm and all required geometry/control checks pass"
     evidence:
-      geometry: validation/v0.1.0-parametric.1/geometry-validation.json
-      control: validation/v0.1.0-parametric.1/control-model-validation.json
-      interfaces: validation/v0.1.0-parametric.1/interface-validation.json
-      aggregate: validation/v0.1.0-parametric.1/project-validation.json
+      geometry: validation/v0.1.0-parametric.2/geometry-validation.json
+      control: validation/v0.1.0-parametric.2/control-model-validation.json
+      interfaces: validation/v0.1.0-parametric.2/interface-validation.json
+      aggregate: validation/v0.1.0-parametric.2/project-validation.json
   digital_candidate:
     status: blocked
-    reason: "Parametric proxy geometry is DRAFT only; mass-requirement scope, exact purchased parts, certified mesh self-intersection and exact clearances remain unresolved"
+    reason: "Parametric proxy geometry is DRAFT only; the 1.23 mm lower-band COM margin must be repeated with exact purchased-part masses, and certified mesh self-intersection plus exact clearances remain unresolved"
   slicer_preflight:
     status: blocked
     reason: "No approved geometry or complete exact machine/process/filament profile exists"
@@ -175,6 +175,14 @@ geometry:
     target_center_of_mass_above_axis_mm: [70, 110]
     lateral_center_of_mass_offset_max_mm: 3
     longitudinal_center_of_mass_trim_range_mm: [-12, 12]
+    acceptance_scope: "complete assembled rover including wheels, hubs, motors, brackets, printed parts and all declared COTS masses"
+    scope_decision:
+      status: approved
+      selected_option: A
+      approved_by: Stefan
+      approved_at: "2026-08-30"
+      evidence: "User response: A"
+      effect: "retain ACC-MASS-001 unchanged and redesign the mass stack"
   upright_clearances:
     minimum_body_ground_clearance_mm: 25
     landing_protection_contact_tilt_min_deg: 22
@@ -417,8 +425,9 @@ deliverables:
     - "New controlled product folder, identity and portfolio record"
     - "Approved requirements and concept revision 0.1.0-r1"
     - "Approved functional decomposition with interface graph, keep-outs, control architecture, BOM research and sizing"
-    - "DRAFT parametric CadQuery assembly with 12 printed parts, provisional COTS proxies, STEP/STL exports and assembly GLB/PNG"
-    - "Idealized nonlinear balance-plant and sampled-LQR evidence at 250 Hz"
+    - "DRAFT parametric.2 CadQuery assembly with 12 printed parts, raised battery/electronics stack, provisional COTS proxies, STEP/STL exports and assembly GLB/PNG"
+    - "Whole-system proxy COM PASS at 71.23 mm plus 12.2 mm per-side cradle trim provision"
+    - "Idealized nonlinear balance plant correlated to proxy mass/first moment and sampled-LQR evidence at 250 Hz"
     - "Fail-closed geometry, interface, mesh and aggregate validation reports"
     - "Guided autonomy policy and structural validation evidence"
   after_requirements_approval:

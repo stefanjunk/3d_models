@@ -49,7 +49,7 @@ def mass_properties() -> dict[str, object]:
         "brackets_pair": (0.0, 0.0, -10.0),
         "wheel_hub_left": (0.0, P.WHEEL_CENTER_Y_MM, 0.0), "wheel_hub_right": (0.0, -P.WHEEL_CENTER_Y_MM, 0.0),
         "battery_power_set": P.BATTERY_CENTER_MM,
-        "control_stack": (0.0, 0.0, 140.0),
+        "control_stack": (0.0, 0.0, P.CONTROL_STACK_MASS_CENTER_Z_MM),
         "camera_vtx_rx": (45.0, 0.0, 140.0),
         "antennas": (0.0, 0.0, 186.0),
         "hardware": (0.0, 0.0, 70.0),
@@ -121,9 +121,11 @@ def main() -> int:
     mass_ok = mass["total_mass_g"] <= 2200.0 and 70.0 <= com[2] <= 110.0 and abs(com[1]) <= 3.0 and abs(com[0]) <= P.BATTERY_TRIM_MM
     checks.append(check("proxy-mass-properties", mass_ok, "Provisional mass ledger must meet approved mass and COM limits before exact-part intake", {"total_mass_g": mass["total_mass_g"], "center_of_mass_mm": com, "limits": {"mass_max_g": 2200, "com_z_mm": [70, 110], "abs_com_y_max_mm": 3, "abs_com_x_max_mm": P.BATTERY_TRIM_MM}}))
 
+    trim_each_side = (P.BATTERY_CRADLE_SLOT_LENGTH_MM - P.M3_CLEARANCE_MM) / 2.0
+    checks.append(check("battery-trim-provision", trim_each_side >= P.BATTERY_TRIM_MM, "Cradle mounting slots provide at least +/-12 mm longitudinal trim after M3 shank allowance", {"available_each_side_mm": trim_each_side, "required_each_side_mm": P.BATTERY_TRIM_MM, "slot_length_mm": P.BATTERY_CRADLE_SLOT_LENGTH_MM, "m3_clearance_mm": P.M3_CLEARANCE_MM}))
+
     body_com = mass["balance_body_center_of_mass_mm"]
-    body_com_ok = 70.0 <= body_com[2] <= 110.0 and abs(body_com[1]) <= 3.0 and abs(body_com[0]) <= P.BATTERY_TRIM_MM
-    checks.append({"id": "balance-body-com-diagnostic", "required": False, "status": "PASS" if body_com_ok else "FAIL", "message": "Diagnostic inverted-pendulum body COM excluding axle-fixed wheels, hubs, motors and brackets", "metrics": {"body_mass_g": mass["balance_body_mass_g"], "center_of_mass_mm": body_com, "excluded": mass["balance_body_excludes"]}})
+    checks.append({"id": "balance-body-com-diagnostic", "required": False, "status": "REVIEW_REQUIRED", "message": "Diagnostic reduced-order pendulum grouping only; Option A makes whole-system COM the acceptance authority", "metrics": {"body_mass_g": mass["balance_body_mass_g"], "center_of_mass_mm": body_com, "excluded": mass["balance_body_excludes"]}})
 
     left = printed["side-frame-left"].shape
     right = printed["side-frame-right"].shape.mirror("XZ")
@@ -135,12 +137,13 @@ def main() -> int:
         "schema_version": "1.0",
         "tool": "MM-TOY-003 geometry validator",
         "tool_version": "0.1.0",
-        "status": "PASS" if all(item["status"] == "PASS" for item in checks) else "FAIL",
+        "status": "PASS" if all(item["status"] == "PASS" for item in checks if item["required"]) else "FAIL",
         "inputs": [file_record(path) for path in source_paths],
         "checks": checks,
         "mass_properties": mass,
         "limitations": [
             "COTS dimensions and masses are provisional proxies.",
+            "Stefan selected Option A: the complete assembly proxy owns the 70-110 mm COM acceptance band; the reduced-order pendulum grouping is diagnostic only.",
             "B-Rep validity and envelope checks do not qualify printed strength, fit, control safety or service life.",
             "Landing contact uses the declared planar controlling corner; physical tire compression and floor compliance remain unmodeled."
         ]

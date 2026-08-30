@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -18,15 +19,19 @@ from scipy.linalg import solve_continuous_are
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-OUT = ROOT / "validation" / "v0.1.0-parametric.1" / "control-model-validation.json"
+sys.path.insert(0, str(ROOT / "cad"))
+import parameters as P
+
+OUT = ROOT / "validation" / f"v{P.CANDIDATE}" / "control-model-validation.json"
+GEOMETRY_REPORT = ROOT / "validation" / f"v{P.CANDIDATE}" / "geometry-validation.json"
 
 
 @dataclass(frozen=True)
 class Plant:
     cart_mass_kg: float = 0.62
-    body_mass_kg: float = 1.18
-    com_height_m: float = 0.090
-    body_pitch_inertia_kg_m2: float = 0.0075
+    body_mass_kg: float = 1.27
+    com_height_m: float = 0.105
+    body_pitch_inertia_kg_m2: float = 0.0100
     cart_damping_n_s_m: float = 0.20
     pitch_damping_n_m_s_rad: float = 0.010
     wheel_radius_m: float = 0.060
@@ -137,9 +142,18 @@ def file_record(path: Path) -> dict[str, object]:
 
 def main() -> int:
     plant = Plant()
+    geometry = json.loads(GEOMETRY_REPORT.read_text(encoding="utf-8"))
+    proxy_total_mass_kg = float(geometry["mass_properties"]["total_mass_g"]) / 1000.0
+    proxy_com_height_m = float(geometry["mass_properties"]["center_of_mass_mm"][2]) / 1000.0
+    proxy_first_moment_kg_m = proxy_total_mass_kg * proxy_com_height_m
+    plant_total_mass_kg = plant.cart_mass_kg + plant.body_mass_kg
+    plant_first_moment_kg_m = plant.body_mass_kg * plant.com_height_m
+    mass_error_fraction = abs(plant_total_mass_kg - proxy_total_mass_kg) / proxy_total_mass_kg
+    first_moment_error_fraction = abs(plant_first_moment_kg_m - proxy_first_moment_kg_m) / proxy_first_moment_kg_m
     cases = [simulate(-8.0), simulate(8.0)]
     checks = [
         {"id": "sample-rate", "required": True, "status": "PASS" if plant.controller_hz >= 250 else "FAIL", "message": "Controller sample rate meets the approved minimum", "metrics": {"controller_hz": plant.controller_hz}},
+        {"id": "mass-model-correlation", "required": True, "status": "PASS" if mass_error_fraction <= 0.05 and first_moment_error_fraction <= 0.05 else "FAIL", "message": "Reduced-order plant preserves revised proxy total mass and gravitational first moment within 5%", "metrics": {"proxy_total_mass_kg": proxy_total_mass_kg, "plant_total_mass_kg": plant_total_mass_kg, "mass_error_fraction": mass_error_fraction, "proxy_first_moment_kg_m": proxy_first_moment_kg_m, "plant_first_moment_kg_m": plant_first_moment_kg_m, "first_moment_error_fraction": first_moment_error_fraction}},
         {"id": "symmetric-release", "required": True, "status": "PASS" if all(case["settle_below_1deg_s"] is not None and case["settle_below_1deg_s"] <= 3.0 for case in cases) else "FAIL", "message": "Both idealized +/-8 degree releases settle below 1 degree within 3 seconds", "metrics": {str(case["initial_pitch_deg"]): case["settle_below_1deg_s"] for case in cases}},
         {"id": "transient-force-limit", "required": True, "status": "PASS" if all(case["max_abs_command_n"] <= plant.transient_force_limit_n + 1e-9 for case in cases) else "FAIL", "message": "Sampled controller command remains inside the declared transient torque proxy", "metrics": {"limit_n": plant.transient_force_limit_n, "case_max_n": [case["max_abs_command_n"] for case in cases]}},
         {"id": "capture-corridor", "required": True, "status": "PASS" if all(case["max_abs_position_m"] <= 1.0 for case in cases) else "FAIL", "message": "Idealized release remains inside the one-metre test corridor", "metrics": {"case_max_abs_position_m": [case["max_abs_position_m"] for case in cases]}},
@@ -147,11 +161,12 @@ def main() -> int:
     status = "PASS" if all(check["status"] == "PASS" for check in checks) else "FAIL"
     report = {
         "schema_version": "1.0", "tool": "MM-TOY-003 preliminary nonlinear plant study", "tool_version": "0.1.0", "status": status,
-        "inputs": [file_record(Path(__file__).resolve())], "plant": asdict(plant),
+        "inputs": [file_record(Path(__file__).resolve()), file_record(ROOT / "cad" / "parameters.py"), file_record(GEOMETRY_REPORT)], "plant": asdict(plant),
         "derived": {"continuous_force_n": plant.continuous_force_n, "transient_force_limit_n": plant.transient_force_limit_n},
         "cases": cases, "checks": checks,
         "limitations": [
             "Parameters are provisional and not identified from physical hardware.",
+            "The reduced-order cart/body split is correlated to proxy total mass and gravitational first moment; it is not a unique physical mass decomposition.",
             "The model omits motor electrical speed/voltage limits, backlash, tire compliance/slip, encoder quantization, IMU bias/noise, delay variation, yaw coupling and floor irregularity.",
             "A model PASS only establishes internal numerical plausibility; it does not qualify firmware tuning, free balance or vehicle-control safety."
         ]

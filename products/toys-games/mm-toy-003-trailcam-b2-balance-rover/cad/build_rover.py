@@ -103,19 +103,19 @@ def side_frame(side: int) -> cq.Shape:
     y0, y1 = yc - P.SIDE_FRAME_THICKNESS_MM / 2.0, yc + P.SIDE_FRAME_THICKNESS_MM / 2.0
     bars = [
         bar_xz((-72, -12), (72, -12), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((-72, -12), (-58, 142), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((72, -12), (58, 150), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((-58, 142), (0, 172), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((0, 172), (58, 150), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((0, -12), (0, 168), P.BAR_MAIN_MM, y0, y1),
-        bar_xz((-50, 66), (50, 66), P.BAR_SECONDARY_MM, y0, y1),
-        bar_xz((-50, 118), (60, 118), P.BAR_SECONDARY_MM, y0, y1),
-        bar_xz((-48, 66), (0, 118), P.BAR_BRACE_MM, y0, y1),
-        bar_xz((48, 66), (0, 118), P.BAR_BRACE_MM, y0, y1),
+        bar_xz((-72, -12), (-58, 168), P.BAR_MAIN_MM, y0, y1),
+        bar_xz((72, -12), (58, 168), P.BAR_MAIN_MM, y0, y1),
+        bar_xz((-58, 168), (0, 182), P.BAR_MAIN_MM, y0, y1),
+        bar_xz((0, 182), (58, 168), P.BAR_MAIN_MM, y0, y1),
+        bar_xz((0, -12), (0, 178), P.BAR_MAIN_MM, y0, y1),
+        bar_xz((-50, 108), (50, 108), P.BAR_SECONDARY_MM, y0, y1),
+        bar_xz((-50, 156), (60, 156), P.BAR_SECONDARY_MM, y0, y1),
+        bar_xz((-48, 108), (0, 156), P.BAR_BRACE_MM, y0, y1),
+        bar_xz((48, 108), (0, 156), P.BAR_BRACE_MM, y0, y1),
     ]
     frame = fuse(bars)
     cutters: list[cq.Shape] = []
-    for x, z in ((-20, -12), (20, -12), (-40, 66), (40, 66), (-40, 118), (40, 118), (0, 172)):
+    for x, z in ((-20, -12), (20, -12), (-40, 108), (40, 108), (-56, 156), (56, 156), (0, 182)):
         cutters.append(cyl((x, y0 - 2, z), (x, y1 + 2, z), P.M3_CLEARANCE_MM / 2.0))
     cutters.append(cyl((0, y0 - 2, 0), (0, y1 + 2, 0), P.MOTOR_SHAFT_FRAME_CLEARANCE_MM / 2.0))
     for x in (-55.0, 55.0):
@@ -153,7 +153,7 @@ def axle_crossmember() -> cq.Shape:
 
 def battery_crossmember() -> cq.Shape:
     end = P.CROSSMEMBER_END_Y_MM
-    z0, z1 = 62.0, 68.0
+    z0, z1 = P.BATTERY_CROSSMEMBER_Z0_MM, P.BATTERY_CROSSMEMBER_Z1_MM
     positives = [
         box(-46, -34, -end, end, z0, z1),
         box(34, 46, -end, end, z0, z1),
@@ -161,24 +161,24 @@ def battery_crossmember() -> cq.Shape:
         box(-35, 35, 22, 30, z0, z1),
     ]
     shape = fuse(positives)
-    cutters = [insert_pilot_y(x, side, 66.0) for side in (-1, 1) for x in (-40.0, 40.0)]
+    cutters = [insert_pilot_y(x, side, 108.0) for side in (-1, 1) for x in (-40.0, 40.0)]
     return cut_many(shape, cutters)
 
 
 def upper_crossmember() -> cq.Shape:
     end = P.CROSSMEMBER_END_Y_MM
-    z0, z1 = 114.0, 120.0
+    z0, z1 = P.UPPER_CROSSMEMBER_Z0_MM, P.UPPER_CROSSMEMBER_Z1_MM
     positives = [
-        box(-46, -34, -end, end, z0, z1),
-        box(34, 46, -end, end, z0, z1),
-        box(-35, 35, -40, -32, z0, z1),
-        box(-35, 35, 32, 40, z0, z1),
-        box(34, 62, -30, 30, z0, z1),
+        box(-62, -50, -end, end, z0, z1),
+        box(50, 62, -end, end, z0, z1),
+        box(-50, 50, -40, -32, z0, z1),
+        box(-50, 50, 32, 40, z0, z1),
+        box(50, 62, -30, 30, z0, z1),
     ]
     shape = fuse(positives)
-    cutters = [insert_pilot_y(x, side, 118.0) for side in (-1, 1) for x in (-40.0, 40.0)]
-    for x, y in ((-40, -45), (-40, 45), (40, -45), (40, 45), (56, -18), (56, 18)):
-        cutters.append(cyl((x, y, 112), (x, y, 122), P.M3_CLEARANCE_MM / 2.0))
+    cutters = [insert_pilot_y(x, side, 156.0) for side in (-1, 1) for x in (-56.0, 56.0)]
+    for x, y in ((-56, -45), (-56, 45), (56, -45), (56, 45), (56, -18), (56, 18)):
+        cutters.append(cyl((x, y, z0 - 2), (x, y, z1 + 2), P.M3_CLEARANCE_MM / 2.0))
     return cut_many(shape, cutters)
 
 
@@ -195,38 +195,40 @@ def rounded_slot_z(x: float, y: float, length_x: float, width: float, z0: float,
 
 
 def battery_cradle() -> cq.Shape:
+    base = P.BATTERY_CRADLE_BASE_Z_MM
+    top = P.BATTERY_CRADLE_TOP_Z_MM
     positives = [
-        box(-50, 50, -31, 31, 70, 74),
-        box(-50, 50, 26, 31, 74, 114),
-        box(-50, 50, -31, -26, 74, 114),
-        box(-50, -46, -26, 26, 74, 82),
-        box(46, 50, -26, 26, 74, 82),
+        box(-50, 50, -31, 31, base, base + 4),
+        box(-50, 50, 26, 31, base + 4, top),
+        box(-50, 50, -31, -26, base + 4, top),
+        box(-50, -46, -26, 26, base + 4, base + 12),
+        box(46, 50, -26, 26, base + 4, base + 12),
     ]
     shape = fuse(positives)
     cutters: list[cq.Shape] = []
     for x in (-30.0, 30.0):
         for y in (-23.0, 23.0):
-            cutters.append(rounded_slot_z(x, y, 28.0, 4.2, 68.0, 76.0))
+            cutters.append(rounded_slot_z(x, y, P.BATTERY_CRADLE_SLOT_LENGTH_MM, P.BATTERY_CRADLE_SLOT_WIDTH_MM, base - 2, base + 6))
     for x in (-25.0, 25.0):
-        cutters.append(box(x - 6, x + 6, -34, 34, 82, 104))
+        cutters.append(box(x - 6, x + 6, -34, 34, base + 12, top - 4))
     return cut_many(shape, cutters)
 
 
 def control_tray() -> cq.Shape:
-    plate = box(-50, 50, -54, 54, P.CONTROL_TRAY_Z_MM, P.CONTROL_TRAY_Z_MM + 3.0)
+    plate = box(-62, 62, -54, 54, P.CONTROL_TRAY_Z_MM, P.CONTROL_TRAY_Z_MM + 3.0)
     windows = []
-    for x0, x1 in ((-42, -8), (8, 42)):
+    for x0, x1 in ((-54, -10), (10, 54)):
         for y0, y1 in ((-46, -8), (8, 46)):
             windows.append(box(x0, x1, y0, y1, P.CONTROL_TRAY_Z_MM - 1, P.CONTROL_TRAY_Z_MM + 4))
     shape = cut_many(plate, windows)
     bosses = []
-    for x, y in ((-40, -45), (-40, 45), (40, -45), (40, 45)):
+    for x, y in ((-56, -45), (-56, 45), (56, -45), (56, 45)):
         bosses.append(cyl((x, y, P.CONTROL_TRAY_Z_MM), (x, y, P.CONTROL_TRAY_Z_MM + 7), 4.5))
     bosses.append(box(-15, 15, -15, 15, P.CONTROL_TRAY_Z_MM, P.CONTROL_TRAY_Z_MM + 7))
     shape = fuse([shape, *bosses])
     cutters = [
         cyl((x, y, P.CONTROL_TRAY_Z_MM - 1), (x, y, P.CONTROL_TRAY_Z_MM + 9), P.M3_CLEARANCE_MM / 2)
-        for x, y in ((-40, -45), (-40, 45), (40, -45), (40, 45))
+        for x, y in ((-56, -45), (-56, 45), (56, -45), (56, 45))
     ]
     return cut_many(shape, cutters)
 
@@ -251,7 +253,7 @@ def camera_guard() -> cq.Shape:
         cyl((56, y, 112), (56, y, 124), P.M3_CLEARANCE_MM / 2)
         for y in (-18.0, 18.0)
     ]
-    return cut_many(shape, cutters)
+    return cut_many(shape, cutters).translate((P.CAMERA_X_SHIFT_MM, 0, 0))
 
 
 def landing_part(front: bool) -> cq.Shape:
@@ -321,10 +323,10 @@ def battery_proxy() -> cq.Shape:
 
 
 def control_stack_proxy() -> cq.Shape:
-    driver = box(-42.25, 42.25, -31, 31, 128, 133)
-    controller = box(-31, 31, -10, 10, 139, 143)
-    imu = box(-15, 15, -15, 15, 149, 153)
-    spacers = [cyl((x, y, 133), (x, y, 139), 2.0) for x in (-25, 25) for y in (-8, 8)]
+    driver = box(-42.25, 42.25, -31, 31, 164, 169)
+    controller = box(-31, 31, -10, 10, 175, 179)
+    imu = box(-15, 15, -15, 15, 183, 187)
+    spacers = [cyl((x, y, 169), (x, y, 175), 2.0) for x in (-25, 25) for y in (-8, 8)]
     return fuse([driver, controller, imu, *spacers])
 
 
@@ -477,7 +479,7 @@ def export_all() -> dict[str, object]:
 
     asm = assembly()
     assembly_step = STEP_DIR / "DRAFT-trailcam-b2-assembly.step"
-    assembly_glb = PREVIEW_DIR / "DRAFT-trailcam-b2-assembly.glb"
+    assembly_glb = PREVIEW_DIR / f"DRAFT-trailcam-b2-assembly-v{P.CANDIDATE}.glb"
     asm.save(str(assembly_step), exportType="STEP", mode="default")
     asm.save(str(assembly_glb), exportType="GLTF", mode="default", tolerance=0.2, angularTolerance=0.2)
     artifacts.extend([

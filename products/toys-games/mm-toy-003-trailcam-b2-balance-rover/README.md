@@ -3,7 +3,8 @@
 Portfolio record: `PORT-099`
 
 Current revision: `0.1.0` — requirements, concept r1 and decomposition approved;
-parametric candidate `0.1.0-parametric.1` is a blocked DRAFT
+parametric candidate `0.1.0-parametric.2` passes its required source/geometry
+and idealized-control checks but remains a non-manufacturing DRAFT
 
 Lifecycle: `P1 Concept / digital proxy` — a deterministic CadQuery assembly,
 provisional purchased-part proxies and an idealized control model exist. No
@@ -40,9 +41,9 @@ outside this product.
 - `cad/parameters.py` and `cad/build_rover.py` — axle-centered parametric source and deterministic DRAFT export generator
 - `cad/validate_geometry.py` — geometry, envelope, landing and mass-property checks
 - `control/plant_model.py` — nonlinear cart-pendulum proxy with sampled 250 Hz LQR validation
-- `architecture/interface-contract-v0.1.0-parametric.1.json` — proxy wheel, battery, camera and motor/bracket interface checks
-- `previews/DRAFT-trailcam-b2-assembly.png` and `.glb` — non-manufacturing assembly visualization
-- `reports/parametric-candidate-v0.1.0.md` — concise result and open decision
+- `architecture/interface-contract-v0.1.0-parametric.2.json` — current proxy wheel, battery, camera and motor/bracket interface checks
+- `previews/DRAFT-trailcam-b2-assembly-v0.1.0-parametric.2.png` and `.glb` — current non-manufacturing assembly visualization
+- `reports/parametric-candidate-v0.1.0-parametric.2.md` — current model result and evidence
 - `validation-project.json` — aggregate fail-closed validation contract
 - `validation/` — generated structural and policy-validation evidence
 
@@ -54,11 +55,17 @@ axis and all 12 printed bodies fit the 220 × 220 × 250 mm compatibility target
 The idealized controller recovers from ±8° in simulation, but that result is
 not firmware, hardware, failsafe or safety evidence.
 
-Parametric approval is blocked by the scope of `ACC-MASS-001`: the provisional
-whole-system center of mass is 54.61 mm above the axle, while the actively
-modeled reduced-order pendulum lump—excluding the provisional axle-grouped
-wheels, hubs, motors and brackets—is 84.90 mm above it. That grouping is a
-control-model diagnostic, not physical mass-property authority. Exact purchased
-components, an exact-clearance backend, certified mesh self-intersection
-checking and complete Anycubic machine/process/filament profiles are also still
-required. No 3MF or G-code was generated.
+Stefan selected Option A, so `ACC-MASS-001` remains a whole-assembly criterion.
+The battery/cradle and electronics tiers were raised while preserving their
+ordering and the 250 mm height limit. The complete provisional assembly is now
+1877.15 g with COM `[1.69, 0.00, 71.23]` mm relative to the axle and passes the
+70–110 mm vertical, 3 mm lateral and 12 mm longitudinal limits. The cradle
+mounting slots provide 12.2 mm trim per side.
+
+The provisional vertical COM clears the lower limit by only 1.23 mm. Exact
+component masses and installed positions therefore remain an integration gate,
+even though the current whole-assembly proxy passes.
+
+Exact purchased components, an exact-clearance backend, certified mesh
+self-intersection checking and complete Anycubic machine/process/filament
+profiles are still required. No 3MF or G-code was generated.

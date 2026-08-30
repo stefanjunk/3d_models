@@ -5,7 +5,7 @@ Zweck: technische Messreferenz und kommerzielle Eingangskontrolle; keine Rechtsb
 
 ## Ergebnis
 
-Der bisherige runde Fan-Cage ist nicht der richtige geometrische Grundtyp für einen vollständigen Printhead-Cover. Die belastbare Kobra-3-Referenz ist eine 61,2 × 81,0 × 15,8 mm große, gebogene Vollfront mit vier seitlichen Rastzungen. Die Referenzen sind jedoch für den **Kobra 3/Combo**; der Projekteigentümer hat den **Kobra 3 Max/Max Combo** ausdrücklich als Ziel bestätigt. Die Maße dürfen deshalb nicht ungeprüft als Max-Schnittstelle verwendet werden.
+Der bisherige runde Fan-Cage ist nicht der richtige geometrische Grundtyp für einen vollständigen Printhead-Cover. Die belastbare Kobra-3-Referenz ist eine 61,2 × 81,0 × 15,8 mm große, gebogene Vollfront mit vier seitlichen Rastzungen. Die Referenzen sind jedoch für den **Kobra 3/Combo**; der Projekteigentümer hat den **Kobra 3 Max** ausdrücklich als Ziel bestätigt. Die Maße dürfen deshalb nicht ungeprüft als Max-Schnittstelle verwendet werden.
 
 Für den kommerziellen Neuaufbau wird keine lokale Fremdgeometrie übernommen. Der ursprüngliche Kobra-3-Grundkörper ist als CC BY 4.0 identifiziert und bleibt Messreferenz mit Attribution. Alle Dateien mit unklarer Lizenz, Fremdmarken, Franchise-Motiven, Fremdschrift oder bezahltem Skulpturasset sind als Produktionsinput ausgeschlossen.
 

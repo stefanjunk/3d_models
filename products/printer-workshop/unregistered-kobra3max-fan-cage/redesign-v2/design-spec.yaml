@@ -1,0 +1,329 @@
+schema_version: "1.0"
+
+project:
+  id: "UNREGISTERED-K3M-PHC"
+  name: "metriMade Kobra 3 Max Printhead Cover – eigenständiger Neuaufbau"
+  revision: "0.2.0-requirements.1"
+  owner: "Stefan"
+  revised: "2026-08-30"
+  units: "mm"
+  commercial_project_id: "29770b03-7470-401b-baad-f95532122f8a"
+  release_id: "UNREGISTERED-K3M-PHC-2026-001"
+
+workflow:
+  requirements_approval:
+    status: "pending"
+    spec_revision: "0.2.0-requirements.1"
+    approved_by: null
+    approved_at: null
+    blocking_questions:
+      - "Ist das Zielgerät wirklich Anycubic Kobra 3 Max/Max Combo oder der kleinere Kobra 3/Combo?"
+      - "Für Kobra 3 Max fehlen physisch gemessene Außen- und Clipmaße; die Kobra-3-Referenzen sind nicht als Max-Passmaß freigegeben."
+  concept_approval:
+    status: "blocked"
+    spec_revision: null
+    asset: null
+    reason: "Anforderungen und Ziel-Schnittstelle sind noch nicht freigegeben."
+  watermark_approval:
+    status: "blocked"
+    spec_revision: null
+    geometry_revision: null
+    asset_id: "MM-WM-001-R2"
+    product_id: "UNREGISTERED-K3M-PHC"
+    version: "0.2.0-requirements.1"
+  final_release_approval:
+    status: "blocked"
+    reason: "Konzept, CAD, physische Passung, Betriebsprüfung und kommerzielle Freigabe fehlen."
+
+requirements_trace:
+  user_stated:
+    - "Den vorhandenen Fan Cage / Printhead Cover prüfen."
+    - "Die fünf lokalen Beispiele im Ordner research/third-party/printer-workshop/printhead_cover zur Maß- und Aufbauanalyse verwenden."
+    - "Das eigene Printhead Cover neu und mit dem eigenen Logo erstellen."
+    - "Lizenzprobleme für eine spätere kommerzielle Nutzung vermeiden."
+  inferred:
+    - "Der Produktordner und die bisherigen Entwürfe benennen Kobra 3 Max als Zielgerät."
+    - "Das bisherige runde Fan-Cage-Konzept soll durch eine vollständige Frontabdeckung ersetzt werden."
+    - "Als maßgebliches Markenasset gilt das zentrale metriMade-Vektorasset im Repository."
+    - "Geplant sind sowohl digitale Modelldateien als auch physische Verkäufe; DE/EU ist vorläufiger Prüfbereich."
+  recommended:
+    - "Keine Dreiecke, Flächen, Logos, Figuren oder Schriften aus den fünf Fremdmodellen in das Produkt übernehmen."
+    - "Den nachweislich unter CC BY 4.0 veröffentlichten Kobra-3-Grundkörper nur als bemaßte technische Referenz verwenden und konservativ trotzdem attribuieren."
+    - "Die neue Hülle vollständig parametrisch in CadQuery konstruieren; STEP ist der geometrische Master, STL/3MF sind abgeleitete DRAFT-Exporte."
+    - "Für einen Max-Entwurf die reale Max-Schnittstelle mit Messschieber oder kalibrierten Fotos erfassen, bevor Clips oder Vollhülle modelliert werden."
+    - "PETG mit 0,4-mm-Düse als Startprozess; sichtbare Logo-Inlays optional vierfarbig, zusätzlich ein einfarbiger Export."
+    - "Fremde Marken nur sachlich in der Kompatibilitätsangabe nennen; kein Anycubic-Logo und keine Franchise-Motive auf dem Produkt."
+  unresolved:
+    - id: "Q-TARGET"
+      question: "Zielgerät Kobra 3 Max/Max Combo oder Kobra 3/Combo?"
+      recommendation: "Kobra 3 Max/Max Combo beibehalten, wenn der Produktordner korrekt ist; dann die 61,2 × 81,0-mm-Referenz nicht als Passmaß verwenden."
+      tradeoff: "Ein zusätzlicher Messschritt verhindert einen konstruktiv sauberen, aber unpassenden Deckel."
+    - id: "Q-MAX-MEASUREMENTS"
+      question: "Welche realen Außen-, Tiefen- und Clipmaße besitzt die Originalabdeckung des Zielgeräts?"
+      recommendation: "Originalabdeckung mit Messschieber vermessen und Front/Rückseite/Seitenprofil mit Maßstab fotografieren."
+      tradeoff: "Kurzer manueller Aufwand gegen belastbare Passung und wesentlich geringeres Reklamationsrisiko."
+
+function:
+  summary: >-
+    Vollständige, reversible Printhead-Frontabdeckung mit eigener metriMade-Gestaltung.
+    Sie schützt und verkleidet den Druckkopf, bleibt wartbar und darf Lüfter, Sensoren,
+    Kabel, Hotend, Werkzeugwechsel oder Achsbewegung nicht beeinträchtigen.
+  intended_user: "Betreiber des bestätigten Anycubic-Zielmodells"
+  included:
+    - "eigenständig modellierte sichtbare Hülle"
+    - "parametrische, couponfähige Rast-/Clip-Schnittstelle"
+    - "metriMade-Bildmarke aus dem autorisierten Repository-Asset"
+    - "einfarbige und optional vierfarbige Druckausgabe"
+    - "Passcoupon vor Vollteil"
+  excluded:
+    - "keine Übernahme fremder Mesh-Geometrie"
+    - "keine Bambu-, Anycubic-, Mandalorian-, Star-Wars- oder sonstigen Fremdlogos/-figuren"
+    - "keine Aussage, dass Kobra 3 und Kobra 3 Max dieselbe Abdeckung verwenden"
+    - "kein Drucker-Upload und kein Druckstart"
+
+classification:
+  risk_class:
+    value: "normal-functional"
+    basis: "recommended"
+  fabrication_preference:
+    value: "balanced-hybrid"
+    basis: "default-recommended"
+  release_state:
+    value: "requirements-only; no CAD or manufacturing export approved"
+    basis: "workflow-gate"
+
+reference_measurements:
+  coordinate_system:
+    width_x: "links nach rechts in Frontansicht"
+    height_z: "unten nach oben"
+    depth_y: "Rückseite/Clipseite nach vorne zur Sichtfläche"
+  applicability: >-
+    Nur für Anycubic Kobra 3/Combo und nur als technische Referenz. Nicht als
+    Schnittstellenmaß für Kobra 3 Max/Max Combo freigegeben.
+  cc_by_base:
+    source: "https://www.makeronline.com/en/model/Anycubic%20Kobra%203%20printhead%20cover/16100.html"
+    creator: "DuckDoCad"
+    license: "CC-BY-4.0"
+    envelope_mm: [61.2, 81.0, 15.8]
+    projected_front_area_mm2: 4313.274
+    mesh_volume_mm3: 9218.875
+    center_shell_wall_mm: 2.0
+    center_front_plateau_width_mm: 35.284
+    side_to_center_bow_depth_mm: 10.8
+    waist_outer_width_mm: 49.226
+    clip_count: 4
+    clip_vertical_bands_from_bottom_mm:
+      - [7.8, 14.0]
+      - [67.2, 73.4]
+    clip_band_height_mm: 6.2
+    clip_rearward_reach_from_side_root_mm: 5.073
+    clip_hook_depth_band_mm: [0.9, 2.5]
+    clip_outer_edge_inset_mm: 0.6
+    confidence: "high for the measured mesh; unknown for any Kobra 3 Max interface"
+  local_examples:
+    - file: "Bambuzle v2.stl"
+      envelope_mm: [61.2, 80.966, 15.914]
+      status: "reference-only; license unknown; Bambu-type mark excluded"
+    - file: "Kobra 3 Face plate .stl"
+      envelope_mm: [59.95, 83.239, 11.066]
+      status: "reference-only; license unknown; foreign brand geometry excluded"
+    - file: "Kobra3Logo.3mf"
+      base_envelope_mm: [61.2, 81.0, 15.8]
+      status: "excluded; embeds paid King Cobra asset and foreign text/font with no purchase/redistribution evidence"
+    - file: "Printheadcover.stl"
+      envelope_mm: [61.27, 80.494, 14.873]
+      status: "reference-only; source and license unknown"
+    - file: "k3-printheadcover-mando-v2.3mf"
+      envelope_mm: [61.2, 81.0, 15.975]
+      status: "excluded; source page has blank license field and uses protected franchise motif"
+
+target_geometry:
+  printer_model: "Anycubic Kobra 3 Max / Max Combo – inferred, awaiting explicit confirmation"
+  envelope_mm: null
+  shell_wall_mm: null
+  clip_count: null
+  clip_datums_mm: null
+  fit_clearance_mm: null
+  status: "blocked pending physical target evidence"
+  design_language:
+    - "full front cover rather than round add-on grille"
+    - "clean original perimeter with softened technical facets"
+    - "large central metriMade M mark; no copied Kobra-3 openings or decorative contours"
+
+interfaces:
+  - id: "IF-TARGET-COVER"
+    kind: "removable printhead cover retention"
+    authority: "physical target measurements and fit coupon"
+    status: "unresolved"
+    validation:
+      - "independent caliper record"
+      - "three-clearance clip coupon"
+      - "50 installation/removal cycles without cracking, whitening or loss of retention"
+  - id: "IF-THERMAL-AIRFLOW"
+    kind: "fan, hotend, cable and sensor keep-outs"
+    authority: "physical printer inspection and official service documentation"
+    status: "unresolved"
+    validation:
+      - "section/clearance report"
+      - "powered fan checks at commanded speeds"
+      - "supervised reference print and temperature/noise comparison"
+
+duty:
+  load: "own mass, clip insertion/removal, printer acceleration and vibration"
+  cycle_target: 50
+  service_life: "workshop accessory; physical qualification required"
+  maintenance: "tool-free removal without changing factory screws or wiring"
+
+environment:
+  use: "indoor FFF printer"
+  temperature: "local printhead heat unknown; measure on target printer"
+  moisture: "normal indoor environment"
+  uv: "no outdoor rating"
+  chemicals: "no solvent or oil resistance claim"
+
+manufacturing:
+  process: "FFF/FDM"
+  printer: "Anycubic Kobra 3 Max – inferred"
+  build_volume_mm: [420, 420, 500]
+  target_material: "PETG; exact manufacturer/product/color/batch pending"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  line_width_mm: 0.45
+  preferred_orientation: "visible face on bed if clip geometry can be support-free; otherwise concept must show a validated split/orientation"
+  supports: "no inaccessible support on clip contact faces or inside airflow/keep-out regions"
+  slicer: "Anycubic Slicer Next through fdm_ci.py slice-anycubic-next with explicit machine/process/filament profiles"
+  target_formats:
+    - "CadQuery source"
+    - "STEP"
+    - "DRAFT STL"
+    - "DRAFT 3MF"
+    - "dimension and validation reports"
+    - "fit coupons"
+
+fabrication:
+  preference: "balanced-hybrid"
+  process: "FFF/FDM"
+  printed_part: "parametric removable cover"
+  purchased_part: "existing Anycubic printhead assembly; not redistributed"
+  status: "pending target-interface confirmation"
+
+printer:
+  manufacturer: "Anycubic"
+  model: "Kobra 3 Max – inferred; explicit confirmation pending"
+  build_volume_mm: [420, 420, 500]
+  enclosure: "unknown"
+  unit_id: null
+  firmware: null
+
+optimization:
+  status: "pending"
+  objective: "minimize print time, support and moving mass without weakening clips, shell protection or logo readability"
+  protected:
+    - "all target-printer fit datums and clip roots"
+    - "fan, hotend, cable and sensor keep-outs"
+    - "visible logo geometry"
+    - "bed-contact datum and future watermark host"
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  mesh_simplification:
+    status: "pending"
+    master_mesh: null
+    manufacturing_mesh: null
+    tolerance_mm: 0.05
+    protected_regions:
+      - "clip contact faces and roots"
+      - "shell perimeter and keep-outs"
+      - "visible logo edges"
+      - "watermark and bed datum"
+    resource_budget:
+      triangle_stop: 250000
+      peak_memory_gib: 2.0
+      mesh_file_mib: 25.0
+      exact_slicer_seconds: 180
+    slicer_resolution_check: null
+
+appearance:
+  brand: "metriMade"
+  primary_logo_asset: "business/01-strategy/brand-assets/metrimade/exports/metrimade-mark-color.svg"
+  primary_logo_sha256: "41f67ccf2df52c14ee03f4c5b61f877996c680ddafcf776b6fb4e15a0cda3554"
+  fallback_lockup_asset: "business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-horizontal-color.svg"
+  fallback_lockup_sha256: "030602129f236af1fa2bfb9a016831be60be10acec82587b5d352f65824db2b5"
+  logo_treatment: "recommended flush or shallow 0.6-mm color inlay; single-color relief fallback"
+  palette: ["#112431", "#08777D", "#7FD5D3", "#C7AB82"]
+  visible_hardware: "none preferred"
+
+branding:
+  required: true
+  brand: "metriMade"
+  domain: "metriMade.com"
+  asset_id: "MM-WM-001-R2"
+  layout_tier: "auto"
+  product_id: "UNREGISTERED-K3M-PHC"
+  version: "0.2.0-requirements.1"
+  operation: "recessed"
+  preferred_surface: "flat-nonfunctional-low-stress-underside"
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: "blocked until stable production geometry and primary verification"
+
+risk:
+  class: "normal-functional"
+  hazards:
+    - "wrong Kobra variant causes non-fit or contact with moving/hot parts"
+    - "clip fracture can drop debris into the build area"
+    - "cover can obstruct cooling airflow or rub the fan"
+    - "insufficient heat resistance can soften the clips"
+    - "uncleared foreign geometry, marks, fonts or characters can block commercial release"
+  mitigations:
+    - "confirm exact printer and measure its original cover"
+    - "coupon-first clip sweep and cycle test"
+    - "explicit fan/hotend/cable/sensor keep-outs"
+    - "PETG baseline plus measured operating-temperature margin"
+    - "independent parametric CAD and source/rights register"
+
+acceptance:
+  - id: "AC-TARGET"
+    criterion: "Exact printer model and original-cover interface are physically documented."
+    method: "owner confirmation plus caliper/photo evidence"
+    status: "NOT_RUN"
+  - id: "AC-GEOMETRY"
+    criterion: "Selected cover fits without shell distortion and preserves all keep-outs."
+    method: "fit frame then full prototype"
+    status: "NOT_RUN"
+  - id: "AC-CLIPS"
+    criterion: "Retention remains functional after 50 removal cycles without cracks or white stress marks."
+    method: "physical cycle test"
+    status: "NOT_RUN"
+  - id: "AC-THERMAL-AIR"
+    criterion: "No fan rubbing, abnormal noise, airflow obstruction or adverse temperature change in supervised tests."
+    method: "fan-speed checks and controlled reference print"
+    status: "NOT_RUN"
+  - id: "AC-LICENSE"
+    criterion: "No foreign mesh, logo, font or character is embedded; all retained references and the owner logo have complete records/notices."
+    method: "rights graph, source hashes and release audit"
+    status: "REVIEW_REQUIRED"
+  - id: "AC-MESH"
+    criterion: "Manufacturing mesh is watertight, one intended component per body, within envelope and bound to the source hash."
+    method: "fdm_ci.py audit-mesh"
+    status: "NOT_RUN"
+  - id: "AC-SLICE"
+    criterion: "Exact Anycubic Slicer Next run passes with complete profile set and human layer/support/seam review."
+    method: "fdm_ci.py slice-anycubic-next"
+    status: "NOT_RUN"
+
+deliverables:
+  current_phase:
+    - "design-spec.yaml"
+    - "decision-log.md"
+    - "reports/reference-audit.md"
+    - "commercial-clearance source and rights records"
+  blocked_until_requirements_and_concept_approval:
+    - "concept sheet"
+    - "CadQuery source"
+    - "STEP"
+    - "STL/3MF"
+    - "fit coupons"
+    - "slicer evidence"
+  release_state: "No manufacturing file from redesign-v2 exists or is approved."

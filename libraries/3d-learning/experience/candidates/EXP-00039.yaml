@@ -1,0 +1,155 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00039
+title: Image-relief texture transfer may depend on physical sampling and printed surface orientation
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once in this recorded scope. The NameForm pitch coupon is digitally validated but has not been printed or appearance-reviewed."
+feature:
+  type: continuous-tone image-relief surface texture
+  geometry: Honeycomb shelf textured envelope transferred to an upright planar NameForm front coupon
+  design_parameters:
+    texture_id: wood-001
+    reference_mesh_pitch_mm: 0.45
+    coupon_mesh_pitch_candidates_mm: [0.45, 0.5, 0.6]
+    relief_depth_mm: 0.6
+    coupon_panel_thickness_mm: 3.2
+    edge_and_glyph_taper_mm: 1.2
+    source_period_u_v_mm: [62.0, 252.0]
+  named_datums:
+    - coupon-z0-build-plane
+    - coupon-front-minus-y
+    - panel-local-x
+    - model-z
+  constraints:
+    - The same registered physical source patch, phase, relief depth and masks are used in every coupon field.
+    - The raised test glyph footprint and panel boundaries remain texture-free.
+    - Pitch selection remains blocked until a physical print is compared under fixed viewing conditions.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: "PETG family assumed by the Honeycomb project; actual printed product unknown"
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: "Successful Honeycomb print orientation not fully reconstructed; NameForm coupon uses upright vertical textured faces"
+  slicer:
+    name: unknown
+    version: null
+    profile: "User reports 0.12 mm layers; repository Honeycomb default documents 0.20 mm, so the exact successful profile is unresolved"
+    profile_hash: null
+  geometry_class: repeating image-derived relief on appearance-critical FFF walls
+  environment: unknown
+  transfer_limits:
+    - The successful observation is specific to one wood pattern and Honeycomb shelf print reported by the user.
+    - Unsuccessful products, patterns, orientations, materials and profiles were not individually identified.
+    - The coupon's Anycubic PETG slice is provisional and does not identify the actual successful filament or printer.
+observation:
+  summary: The user reports that the image-derived wood surface printed very well on the Honeycomb shelf, while other products and patterns were less successful, using a 0.4 mm nozzle and 0.12 mm layers.
+  expected: Image engraving with comparable source quality would transfer consistently to other products and patterns.
+  actual: The Honeycomb wood result was judged very good, but unspecified other products and patterns were not; the user suspects print direction may contribute.
+  outcome: correction
+  parameter: physical texture mesh pitch for the upright NameForm coupon
+  recommended_value: null
+  units: mm
+explanation:
+  hypothesis: Physical surface sampling near the extrusion width, local print orientation and the texture's spatial-frequency content may dominate visible fidelity after a practical raster resolution has been reached.
+  mechanism: A denser source image cannot create printable detail below the deposited line/layer response, while geometry-dependent extrusion direction, seams, curvature and grazing light can reinforce or suppress the same relief. Sampling only the exposed patch at a physical pitch can therefore reduce mesh cost without necessarily reducing printed quality.
+  alternatives:
+    - The successful and unsuccessful prints may differ mainly in filament color, gloss, drying, flow calibration or temperature.
+    - Different source images may have different tonal range, feature scale, seams or relief-depth normalization.
+    - Surface curvature, mapping distortion, wall count, seam placement or lighting may explain the reported difference independently of orientation.
+    - The repository's 0.20 mm Honeycomb default and the user's 0.12 mm actual-print statement may refer to different revisions.
+  validated: false
+  validation_method: "Print the unchanged A/B/C upright coupon at 0.4 mm nozzle and 0.12 mm layers, then use the fixed-condition physical rubric."
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: false
+  measurement_method: null
+  uncertainty: "No photos, profile export, machine identity, filament identity, quantitative surface metric or individually scoped failure trace was supplied."
+  sources:
+    - type: user-statement
+      ref: "User statement in the 2026-08-30 NameForm wood-texture design phase"
+      hash: null
+      notes: "Honeycomb wood appearance very good; other products/patterns less good; 0.4 mm nozzle and 0.12 mm layers; orientation proposed as a possible factor."
+    - type: product-trace
+      ref: products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/parameters.json
+      hash: null
+      notes: "Digital Honeycomb source records 0.45 mm production mesh pitch; it does not prove the user's actual slicer settings."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/coupon-spec.json
+      hash: null
+      notes: "Controlled A/B/C transfer experiment; physical result pending."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/exports/DRAFT-nameform-wood-texture-pitch-coupon-v0.1.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/reproducibility.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/anycubic-slice-petg-0p12-run-002.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/physical-evaluation.md
+applicability:
+  triggers:
+    - A successful image-derived repeating texture is being transferred to a different FFF product or surface orientation and full-resolution engraving would create excessive mesh or compute cost.
+  exclusions:
+    - Recognizable heightmap subjects whose local continuous-tone relief cannot be tiled or phase-cropped without changing the subject.
+    - Functional mating, sealing, bearing, label or grip surfaces where relief has not been separately allowed.
+    - Nozzles, layer heights, materials, machines or orientations outside the recorded scope without a new coupon.
+  transfer_limits:
+    - Treat 0.45, 0.50 and 0.60 mm as experiment candidates for this coupon, not universal texture resolutions.
+    - Do not infer that coarser sampling preserves every pattern; spatial content and mapping must be held constant and physically reviewed.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-print-image-relief-pitch-transfer-001
+  patterns: []
+  references:
+    - .agents/skills/design-printable-surface-textures/SKILL.md
+    - .agents/skills/3d-print-heightmap-relief/SKILL.md
+validation:
+  targeted: review-required
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/project-validation-draft.json
+provenance:
+  project: MM-PER-001-WOOD-PITCH-COUPON
+  part_revision: 0.1.0-draft.1
+  trace: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/coupon-spec.json
+  source_commit: null
+  created_by: Codex
+tags:
+  - surface-texture
+  - wood-grain
+  - heightmap
+  - mesh-pitch
+  - print-orientation
+  - fff
+  - nameform
+  - coupon

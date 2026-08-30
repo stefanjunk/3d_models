@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-PER-001-WOOD-PITCH-COUPON",
+    "revision": "0.1.0-draft.1",
+    "units": "mm",
+    "risk_class": "decorative",
+    "build_volume_mm": [426.0, 420.0, 501.0]
+  },
+  "artifacts": [
+    {"id": "generator", "path": "source/generate_coupon.py", "kind": "source", "revision": "0.1.0-draft.1"},
+    {"id": "repro-checker", "path": "source/check_reproducibility.py", "kind": "source", "revision": "0.1.0-draft.1"},
+    {"id": "spec", "path": "coupon-spec.json", "kind": "contract", "revision": "0.1.0-draft.1"},
+    {"id": "master", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png", "kind": "image"},
+    {"id": "registration", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png.source.json", "kind": "contract"},
+    {"id": "recipe", "path": "../../../../../libraries/surface-textures/wood-001/recipe.json", "kind": "contract"},
+    {"id": "heightmap-a", "path": "build/heightmaps/wood-001-pitch-0p45-16bit.png", "kind": "image", "revision": "0.1.0-draft.1"},
+    {"id": "heightmap-b", "path": "build/heightmaps/wood-001-pitch-0p50-16bit.png", "kind": "image", "revision": "0.1.0-draft.1"},
+    {"id": "heightmap-c", "path": "build/heightmaps/wood-001-pitch-0p60-16bit.png", "kind": "image", "revision": "0.1.0-draft.1"},
+    {"id": "coupon-mesh", "path": "exports/DRAFT-nameform-wood-texture-pitch-coupon-v0.1.0.stl", "kind": "mesh", "revision": "0.1.0-draft.1"},
+    {"id": "render", "path": "renders/DRAFT-nameform-wood-texture-pitch-coupon-v0.1.0.png", "kind": "image", "revision": "0.1.0-draft.1"},
+    {"id": "generation-report", "path": "reports/generation-report.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "reproducibility-report", "path": "reports/reproducibility.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "draft-mesh-report", "path": "reports/mesh-audit-draft.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "slicer-report", "path": "reports/anycubic-slice-petg-0p12-run-002.json", "kind": "report", "revision": "0.1.0-draft.1"},
+    {"id": "machine-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "contract"},
+    {"id": "process-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/process/0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "contract"},
+    {"id": "filament-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/filament/Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "contract"},
+    {"id": "gcode", "path": "slicer-runs/anycubic-next-kobra3max-petg-0p12-run-002/plate_1.gcode", "kind": "gcode", "revision": "0.1.0-draft.1"},
+    {"id": "physical-form", "path": "physical-evaluation.md", "kind": "contract", "revision": "0.1.0-draft.1"}
+  ],
+  "checks": [
+    {
+      "id": "coupon-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "coupon-mesh",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [426.0, 420.0, 501.0],
+        "allow_axis_permutation": false,
+        "max_faces": 1000000,
+        "max_file_mib": 25.0,
+        "require_self_intersection_check": false
+      },
+      "report": "reports/project-mesh.json"
+    },
+    {"id": "generation", "type": "external_report", "required": true, "artifact": "generation-report", "expected_inputs": ["spec", "master", "registration", "recipe"]},
+    {"id": "reproducibility", "type": "external_report", "required": true, "artifact": "reproducibility-report", "expected_inputs": ["generator", "spec", "coupon-mesh", "heightmap-a", "heightmap-b", "heightmap-c"]},
+    {"id": "exact-slicer", "type": "external_report", "required": true, "artifact": "slicer-report", "expected_inputs": ["coupon-mesh", "machine-profile", "process-profile", "filament-profile"]},
+    {
+      "id": "gcode-audit",
+      "type": "gcode",
+      "required": true,
+      "artifact": "gcode",
+      "policy": {
+        "filament_diameter_mm": 1.75,
+        "allowed_tools": [0],
+        "max_tool_changes": 0,
+        "require_complete_motion": true,
+        "require_layer_markers": true,
+        "min_layers": 370,
+        "min_positive_extrusion_mm": 1.0,
+        "bed_mm": [426.0, 420.0, 501.0],
+        "max_flow_mm3_s": 10.0
+      },
+      "report": "reports/project-gcode.json"
+    },
+    {"id": "layer-seam-preview", "type": "review", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Human layer, seam, and first-layer review of the retained exact slice", "evidence_artifact": null},
+    {"id": "physical-surface-selection", "type": "physical", "required": false, "status": "REVIEW_REQUIRED", "criterion": "Print unchanged coupon and select the coarsest A/B/C field that is not visibly or tactually worse than A under the documented method", "evidence_artifact": null}
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {},
+    "scope": "DRAFT digital coupon with exact provisional PETG slice; physical and appearance selection remain human-controlled"
+  }
+}

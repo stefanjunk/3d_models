@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "coupon_id": "MM-PER-001-WOOD-PITCH-COUPON",
+  "revision": "0.1.0",
+  "status": "DRAFT_PHYSICAL_REVIEW_REQUIRED",
+  "intent": {
+    "effect": "Preserve the successful Honeycomb shelf wood engraving on the upright NameForm front while finding the coarsest low-loss mesh pitch.",
+    "comparison_rule": "All three fields use the same physical source coordinates, relief depth, wall, glyph, mask, and print orientation; only mesh pitch changes.",
+    "human_gate": "Select a pitch only after exact-slicer layer review and a physical appearance/tactility comparison."
+  },
+  "source": {
+    "texture_id": "wood-001",
+    "class": "repeating continuous-tone wood texture",
+    "master": "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png",
+    "registration": "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png.source.json",
+    "recipe": "libraries/surface-textures/wood-001/recipe.json",
+    "reference_product": "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf"
+  },
+  "process": {
+    "technology": "FFF/FDM",
+    "printer": "Anycubic Kobra 3 Max",
+    "material_scope": "PETG family; exact printed product, color, and batch remain to be recorded by the operator",
+    "nozzle_mm": 0.4,
+    "nominal_line_width_mm": 0.45,
+    "layer_height_mm": 0.12,
+    "orientation": "Coupon foot on z=0; all three textured faces are vertical and face -Y",
+    "supports": false
+  },
+  "geometry": {
+    "panel_width_mm": 45.0,
+    "panel_height_mm": 45.0,
+    "panel_thickness_mm": 3.2,
+    "panel_gap_mm": 5.0,
+    "outer_base_margin_mm": 2.0,
+    "base_depth_mm": 18.0,
+    "base_thickness_mm": 2.0,
+    "glyph": {
+      "shape": "rectilinear capital E",
+      "width_mm": 16.0,
+      "height_mm": 24.0,
+      "stroke_mm": 3.0,
+      "raise_mm": 2.0,
+      "boolean_overlap_mm": 0.1,
+      "texture_keepout_mm": 1.2
+    }
+  },
+  "relief": {
+    "mode": "engrave",
+    "depth_mm": 0.6,
+    "edge_taper_mm": 1.2,
+    "taper_profile": "smoothstep01",
+    "candidates": [
+      {"id": "A", "mesh_pitch_mm": 0.45, "position": "left", "role": "proven-reference pitch"},
+      {"id": "B", "mesh_pitch_mm": 0.5, "position": "center", "role": "low-loss candidate"},
+      {"id": "C", "mesh_pitch_mm": 0.6, "position": "right", "role": "reduced-compute candidate"}
+    ]
+  },
+  "mapping": {
+    "surface_coordinates": "planar physical millimetres",
+    "image_u": "model Z, descending as in the Honeycomb shelf wall mapping",
+    "image_v": "panel-local X",
+    "u_period_mm": 62.0,
+    "v_period_mm": 252.0,
+    "u_phase": 0.0,
+    "v_phase": 0.0,
+    "aspect_policy": "intentional reference texture mapping; no per-panel stretching",
+    "repeat_policy": "same registered source phase in every field"
+  },
+  "budgets": {
+    "max_triangles": 1000000,
+    "max_mesh_mib": 25.0,
+    "max_peak_memory_gib": 1.0,
+    "max_exact_slicer_seconds": 120.0
+  },
+  "acceptance": {
+    "expected_body_count": 1,
+    "expected_bounds_mm": [149.0, 20.0, 45.0],
+    "minimum_residual_panel_wall_mm": 2.6,
+    "required_mesh": [
+      "watertight",
+      "consistent winding",
+      "positive volume",
+      "single connected body",
+      "z=0 bed datum preserved",
+      "texture fades to zero at panel boundaries and glyph footprint"
+    ],
+    "required_human": [
+      "wood family remains recognizable at the intended viewing distance",
+      "glyph is continuously bonded and legible",
+      "no objectionable tile seam, aliasing, snagging, or dirt-trapping roughness",
+      "selected pitch is judged under fixed light and at three viewing angles"
+    ]
+  }
+}

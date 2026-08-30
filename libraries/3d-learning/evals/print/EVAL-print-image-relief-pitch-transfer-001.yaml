@@ -1,0 +1,54 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-print-image-relief-pitch-transfer-001
+title: Image-relief pitch transfer isolates sampling cost before physical selection
+category: print
+status: draft
+trigger: A successful repeating image-derived FFF surface texture is transferred to another geometry and a lower-cost mesh or build raster is proposed.
+risk: A visually different source patch, scale, relief, orientation or print process can be mistaken for a sampling-resolution result, or an unprinted digital mesh can be accepted as appearance evidence.
+given:
+  reference_texture: registered immutable continuous-tone master and physical mapping
+  candidate_coupon: at least one reference pitch and one coarser pitch on process-representative exposed geometry
+  protected_regions: boundaries, glyphs, mating regions and other declared keep-outs
+  print_context: nozzle, layer height, orientation, machine, material, slicer and exact profile hashes where known
+expected:
+  - Every candidate uses the same registered source coordinates, physical texture period, phase, relief depth, taper, keep-outs and exposed-surface orientation; only the declared sampling pitch changes.
+  - Build rasters are derived from the immutable master at dimensions computed from physical period and pitch, retain sufficient tonal precision, and record actual physical pixel pitch rather than an arbitrary DPI.
+  - The generator records triangles, mesh size, bounds, wall reserve and protected-region displacement for every candidate and can rebuild the retained STL and build rasters byte-identically.
+  - The exact candidate is sliced with explicit machine, process and filament profiles; support, brim, layer count, tool changes and flow are reported without uploading or starting a print.
+  - The coarsest accepted pitch is chosen only after a process-matched physical print is compared with the reference under fixed distance, lighting, view angles and tactile criteria.
+  - Unknown machine, filament, conditioning, unsuccessful geometries and conflicting profile records remain explicit and limit transfer.
+failure_conditions:
+  - Candidate fields change source phase, physical scale, relief depth, mask, surface orientation or slicer process together with pitch.
+  - Image pixels or nominal DPI are reported without physical surface scale and actual build-raster dimensions.
+  - Texture enters declared boundaries, glyph footprints or functional keep-outs, or residual wall drops below the contract.
+  - A render, topology PASS or exact slice is used to select a production pitch without the physical appearance/tactility review.
+  - Coupon-specific values are promoted as a universal nozzle-resolution rule after one observation.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/coupon-spec.json
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/source/check_reproducibility.py
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/physical-evaluation.md
+grader:
+  type: hybrid
+  command: python products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/source/check_reproducibility.py --check-only
+  expected_exit_code: 0
+  rubric: Confirm that the physical form records an unchanged process context and fixed-condition A/B/C scores; reject selection if the coupon changed, required context is unknown without qualification, photos are absent, or a coarser field is visibly or tactually worse than A.
+  measurement_method: Byte-exact rebuild and deterministic mesh/G-code reports followed by controlled human visual and tactile comparison of the unchanged print.
+relationships:
+  lessons:
+    - EXP-00039
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-08-30
+  report: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-pitch-v0.1.0/reports/project-validation-draft.json
+  artifact_hashes:
+    - af3d23461718935180ee6488c909e844b7425ba34f47aaa80acd4d750aa6aa26
+    - 0c4e8b422d876ae25638430bdb2cbf8b92a1e2923fecf4f52923af6ad19bab2b
+tags:
+  - print
+  - surface-texture
+  - heightmap
+  - mesh-pitch
+  - orientation
+  - physical-review

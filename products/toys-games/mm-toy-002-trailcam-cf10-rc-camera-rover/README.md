@@ -21,7 +21,8 @@ OpenQuad while retaining a surface-specific receiver and transmitter layout.
 - `decision-log.md` — identity, migration and redesign decisions
 - `concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png` — selected 0.4.0 concept candidate for human review (fully printed chassis)
 - `concepts/concept-review-v0.4.0.md` — 0.4.0 requirement correspondence and interpretation limits
-- `architecture/hybrid-design-plan-v0.3.0.json` — machine-readable decomposition draft
+- `architecture/hybrid-design-plan-v0.4.0.json` — machine-readable 0.4.0 decomposition draft (validated, pending human approval)
+- `architecture/architecture-report-v0.4.0.md` — 0.4.0 architecture report with decision and gate log
 - `reports/design-review-v0.1.0.md` — evidence-based audit of the imported design
 - `validation/source-inventory.json` — exact imported-report hash and missing-artifact inventory
 - `autonomy-policy.json` — guided workflow; requirements and concept remain human gates

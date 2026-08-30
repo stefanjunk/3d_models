@@ -124,3 +124,17 @@
 - Approval recorded in `design-spec.yaml` and `concepts/concept-review-v0.4.0.md`.
 - Next gate: decomposition 0.4.0 (printed part families, purchased scope, open
   decisions on axle/diff, drivetrain set and frame datums).
+
+## 2026-08-30 — Decomposition draft 0.4.0
+
+- Built `architecture/hybrid-design-plan-v0.4.0.json` (bounded subagent draft
+  under lead specification; lead-reviewed): 7 printed part families
+  (CHASSIS_PRINTED, SUSPENSION_ARMS, STEERING_LINKS, AXLE_CARRIERS,
+  ELECTRONICS_BRIDGE, CAMERA_GUARD, RF_MOUNT_SET) and 8 purchased components
+  (camera, RX, VTX, drivetrain unit, servo, shocks, wheels, hardware).
+- 16 interfaces with keep-out assignments; 7 keep-outs including new
+  KEEP-STEERING; DEC-CHASSIS-001 removed, DEC-DATUM-001/DEC-AXLE-001/DEC-DRIVE-001
+  added; VAL-PHY extended with AC-STRUCT-001.
+- `plan_hybrid_design.py` validation: PASS, 0 errors / 0 warnings; release
+  remains blocked behind component/integration/manufacturing/physical/proxy gates.
+- Decomposition gate set to pending for explicit human approval.

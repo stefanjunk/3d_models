@@ -29,3 +29,17 @@
 - Berlin direction: warm Bone White/Nardo Grey ground, Black primary routes and Orange accent fields; selected route/void lines transmit warm rear light.
 - Shared construction direction shown: six removable tiles, segmented rear frame, halo-light cavity, customer-added LED route and cable exits.
 - Exact controlled values remain 600 × 400 mm overall, 3 × 2 tiles, 200 mm pitch and 18 mm nominal wall standoff; concept approval is still pending.
+
+## 2026-08-30 — Concept v01 approved
+
+- Human decision: Stefan explicitly approved the displayed concept v01 in chat.
+- Scope: approved appearance direction, palettes, 3 × 2 composition, removable-module intent, 18 mm halo and deliberate front-through light paths for specification revision 0.2.0.
+- The concept remains non-dimensional evidence; `design-spec.yaml` continues to control all dimensions and acceptance limits.
+- Next gate: review and approval of `plan/hybrid-design-plan.json`; production CAD remains blocked until that decomposition is approved.
+
+## 2026-08-30 — Decomposition candidate generated
+
+- Planner result: `PASS`, zero errors and zero warnings; unresolved evidence remains fail-closed in `reports/architecture.json`.
+- Recommended service interface: grid-owned gravity shoulder and three-point datum with four captive 6 × 2 mm magnet envelopes and steel counterparts per tile.
+- Berlin color route: named disjoint color solids; the validated planning contract is `multicolor-job.yaml`.
+- Decomposition approval remains pending; no production geometry has been generated.

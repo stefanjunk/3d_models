@@ -1,0 +1,74 @@
+{
+  "actual": null,
+  "input": {
+    "base_triangles": 10000,
+    "depth_mm": 7.0,
+    "displaced_area_mm2": 40000.0,
+    "layer_height_mm": 0.2,
+    "nozzle_mm": 0.4,
+    "pitch_mm": [
+      0.3,
+      0.3
+    ],
+    "process": "fdm"
+  },
+  "policy": {
+    "assessed_triangles": 898890,
+    "scope": "Conservative portable workflow policy, not a printer-resolution limit.",
+    "status": "PASS",
+    "stop_triangles": 5000000,
+    "target_triangles": 900000,
+    "triangle_status": "PASS"
+  },
+  "recommended_order": [
+    "limit relief to applied/visible regions",
+    "remove unintended flat background",
+    "generate adaptively from physical error or curvature",
+    "simplify the relief cutter with protected seams and interfaces",
+    "boolean into the exact functional base",
+    "measure the final mesh and benchmark the exact slicer"
+  ],
+  "resource_budget": {
+    "estimated_binary_stl_mib": 42.86249542236328,
+    "estimated_peak_memory_gib": 0.8572483062744141,
+    "file_planning_status": "PASS",
+    "max_mesh_mib": 60.0,
+    "max_slicer_seconds": 180.0,
+    "measured_status": {
+      "file_size": "PENDING",
+      "peak_memory": "PENDING",
+      "slicer_time": "PENDING"
+    },
+    "memory_budget_gib": 8.0,
+    "memory_headroom_pct": 25.0,
+    "memory_planning_status": "PASS",
+    "note": "Calibrate working bytes per triangle with the chosen kernel; measured peak memory and exact-slicer time remain mandatory release evidence.",
+    "release_status": "PENDING",
+    "usable_memory_gib": 6.0,
+    "working_bytes_per_triangle": 1024.0
+  },
+  "simplification": {
+    "basis": {
+      "portable_cap_mm": 0.05,
+      "ten_percent_nozzle_mm": 0.04000000000000001,
+      "twelve_and_half_percent_relief_depth_mm": 0.875,
+      "twenty_percent_layer_height_mm": 0.04000000000000001
+    },
+    "candidate_sweep_mm": [
+      0.02,
+      0.04,
+      0.06
+    ],
+    "formula": "min(0.10*nozzle, 0.20*layer_height, 0.125*relief_depth, 0.05 mm)",
+    "note": "Candidate tolerances require geometric, relief-amplitude, wall, bed-contact, and slicer acceptance checks.",
+    "starting_tolerance_mm": 0.04
+  },
+  "uniform_grid_worst_case": {
+    "cells": 444445,
+    "estimated_binary_stl_bytes": 44944584,
+    "estimated_binary_stl_size": "42.86 MiB",
+    "estimated_total_triangles": 898890,
+    "note": "Excludes Boolean splits and is not a final mesh prediction.",
+    "relief_triangles": 888890
+  }
+}

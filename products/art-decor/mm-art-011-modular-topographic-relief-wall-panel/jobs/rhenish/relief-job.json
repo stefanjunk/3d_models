@@ -1,0 +1,74 @@
+{
+  "schema": "heightmap-relief-job-v2.4",
+  "status": "planning-only-decomposition-approval-pending",
+  "pilot": "rheinisches-braunkohlerevier",
+  "source": {
+    "raw_geodata": "source/geobasis-nrw-dgm1-immutable.tif",
+    "spec": "source/source-spec.json",
+    "master": "source/source-master-16bit.png",
+    "manifest": "source/source-master-16bit.png.source.json",
+    "provenance_gate": "DEC-RHENISH-DATA-001"
+  },
+  "target": {
+    "width_mm": 600.0,
+    "height_mm": 400.0,
+    "surface_type": "plane",
+    "placement_mode": "full_panel_global_frame_then_tile_split",
+    "axis_mode": "xy-z",
+    "pitch_x_mm": 0.3,
+    "pitch_y_mm": 0.3,
+    "dpi_x": 84.6667,
+    "dpi_y": 84.6667,
+    "grid": {"columns": 3, "rows": 2, "tile_width_mm": 200.0, "tile_height_mm": 200.0}
+  },
+  "image": {
+    "class": "authored_geospatial_heightmap",
+    "repeating": false,
+    "fit_mode": "contain",
+    "aspect_policy": "preserve",
+    "allow_aspect_distortion": false,
+    "aspect_tolerance_pct": 0.75,
+    "bit_depth": 16,
+    "normalization": "one acquisition-state global elevation-to-Z transform before tile split"
+  },
+  "printer": {
+    "process": "fdm",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2
+  },
+  "relief": {
+    "mode": "emboss",
+    "depth_mm": 7.0,
+    "wall_thickness_mm": 3.0,
+    "vertical_scale_gate": "DEC-Z-SCALE-001"
+  },
+  "complexity_budget": {
+    "scope": "per 200 x 200 mm manufacturing tile",
+    "triangle_target": 900000,
+    "triangle_stop": 5000000,
+    "memory_budget_gib": 8.0,
+    "working_bytes_per_triangle": 1024.0,
+    "max_mesh_mib": 60.0,
+    "max_slicer_seconds": 180.0,
+    "planning_report": "build/relief-mesh-budget.json"
+  },
+  "mesh_acceptance": {
+    "max_abs_volume_delta_pct": 0.1,
+    "min_relief_correlation": 0.98,
+    "max_relief_contrast_loss_pct": 5.0,
+    "max_rms_nozzle_fraction": 0.05,
+    "protected_regions": ["all seam sample rows and columns", "rear datum plane", "major mine benches", "pit rims", "light-aperture keep-outs"]
+  },
+  "geometry": {
+    "reference_mesh_path": "build/reference-master-assembly.3mf",
+    "manufacturing_mesh_path": "build/manufacturing-assembly.3mf",
+    "reference_tile_pattern": "build/reference/rhenish-tile-{row}-{column}.stl",
+    "manufacturing_tile_pattern": "build/manufacturing/rhenish-tile-{row}-{column}.stl",
+    "comparison_report_path": "build/relief-mesh-comparison.json",
+    "budget_report_path": "build/relief-mesh-budget.json",
+    "slicer_report_path": "build/slicer-report.json",
+    "output_path": "build/manufacturing-assembly.3mf",
+    "cwd": ".",
+    "command": []
+  }
+}

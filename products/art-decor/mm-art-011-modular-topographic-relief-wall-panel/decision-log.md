@@ -31,3 +31,18 @@
 - Rheinisches Revier direction: Black/Chocolate Brown/Desert Tan/Orange terraced geometry with restrained illuminated infrastructure traces.
 - Shared construction direction shown: six removable tiles, segmented rear frame, halo-light cavity, customer-added LED route and cable exits.
 - Exact controlled values remain 600 × 400 mm overall, 3 × 2 tiles, 200 mm pitch and 18 mm nominal wall standoff; concept approval is still pending.
+
+## 2026-08-30 — Concept v01 approved
+
+- Human decision: Stefan explicitly approved the displayed concept v01 in chat.
+- Scope: approved appearance direction, both palettes, 3 × 2 composition, removable-module intent, 18 mm halo and deliberate front-through terrain paths for specification revision 0.2.0.
+- The concept remains non-dimensional evidence; `design-spec.yaml` continues to control all dimensions and acceptance limits.
+- Next gate: review and approval of `plan/hybrid-design-plan.json`; production CAD and terrain processing remain blocked until that decomposition is approved.
+
+## 2026-08-30 — Decomposition candidate generated
+
+- Planner result: `PASS`, zero errors and zero warnings; unresolved evidence remains fail-closed in `reports/architecture.json`.
+- Shared service interface: grid-owned gravity shoulder and three-point datum with four captive 6 × 2 mm magnet envelopes and steel counterparts per tile.
+- Terrain route: separate 16-bit global masters, seam-locked tiles, adaptive meshes and three global Z color changes per pilot.
+- Conservative per-tile mesh-budget planning passes at 898,890 triangles, approximately 42.9 MiB and 0.86 GiB estimated working memory; measured mesh and exact-slicer evidence remain pending.
+- Decomposition approval remains pending; no production geometry or source download has been generated.

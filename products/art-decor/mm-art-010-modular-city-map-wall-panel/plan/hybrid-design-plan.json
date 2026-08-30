@@ -1,0 +1,349 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-ART-010",
+    "title": "Modular Berlin city-map wall panel",
+    "source_modes": ["concept_image", "design_description", "measurements"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic FDM printer with at least 220 x 220 mm XY build area and four-filament single-nozzle system",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "PROVISIONAL-ANYCUBIC-PLA-0.4-0.20"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "lower-left corner of the assembled art-tile rear datum plane",
+      "x_axis": "+X right in the installed front view",
+      "y_axis": "+Y upward in the installed front view",
+      "z_axis": "+Z from the wall toward the viewer",
+      "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [0.0, 0.0, -30.0], "max": [600.0, 400.0, 5.5]},
+    "product_envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 5.0]},
+    "requirements": [
+      {
+        "id": "REQ-MODULES",
+        "statement": "The 600 x 400 mm artwork shall consist of six individually printable 200 mm-pitch tiles on a segmented rear grid.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.2.0",
+        "priority": "critical",
+        "verification": "global-frame bounds, bed-fit checks, assembled seam report and physical 3 x 2 alignment test"
+      },
+      {
+        "id": "REQ-MAP",
+        "statement": "One immutable Berlin vector master shall own map position and cross-seam feature continuity; tiles shall never be scaled or normalized independently.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.2.0",
+        "priority": "critical",
+        "verification": "source hash, global clipping audit and matched seam-coordinate report"
+      },
+      {
+        "id": "REQ-COLOR",
+        "statement": "The artwork shall use no more than four broad explicit color regions in the approved Urban Signal palette without dithering.",
+        "evidence_class": "requested",
+        "source": "approved concept v01 and palette catalog 0.2.0",
+        "priority": "important",
+        "verification": "named color-body audit, portable 3MF validation and exact-slicer tool/change/purge report"
+      },
+      {
+        "id": "REQ-LIGHT",
+        "statement": "The printed product shall work unlit while reserving an 18 mm halo cavity, generic LED routes and protected true through-openings for customer-added lighting.",
+        "evidence_class": "requested",
+        "source": "approved design specification and concept v01",
+        "priority": "critical",
+        "verification": "keep-out collision checks, aperture geometry report, light gauge and physical illuminated coupon"
+      },
+      {
+        "id": "REQ-SERVICE",
+        "statement": "Each art tile shall be replaceable without disturbing the wall-mounted rear grid and shall survive 25 removal/reinstall cycles in the declared test.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.2.0",
+        "priority": "important",
+        "verification": "interface coupon followed by repeated tile service-cycle test"
+      },
+      {
+        "id": "REQ-SCOPE",
+        "statement": "LEDs, electrical parts and wall anchors are excluded and no structural wall-anchor compatibility or electrical-safety claim shall be made.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.2.0",
+        "priority": "critical",
+        "verification": "BOM, instructions, risk register and release-package review"
+      }
+    ],
+    "global_style": {
+      "summary": "Abstract architectural Berlin map with restrained relief, crisp color solids and sparse luminous paths",
+      "motifs": ["broad urban fields", "strong primary routes", "quiet map ground", "restrained orange signals", "few continuous light paths"],
+      "exclude": ["photographic realism", "dither", "tiny color islands", "uncontrolled micro-roads", "LED components in the sold print set"],
+      "generation_material": "matte Anycubic PLA palette with a neutral PETG rear grid",
+      "detail_hierarchy": "whole-panel composition first, seam-continuous primary routes second, broad fields third, printable minor routes last"
+    },
+    "assembly_sequence": [
+      "Join and square the six REAR_GRID segments in the global 3 x 2 frame.",
+      "Install customer-selected wall anchors through the documented generic mounting slots after substrate-specific review.",
+      "Optionally install customer lighting into the halo and front-light envelopes, route the cable through one selected exit and add diffuser film if desired.",
+      "Place each ART_TILE_SET member on its gravity shoulder and datum pads; retention hardware supplies only normal holding force.",
+      "Verify 0.25 mm target seams, cross-seam map continuity, tile retention and unobstructed intended light openings."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-DECOMP-001",
+      "topic": "Approve this component, interface and manufacturing decomposition.",
+      "status": "open",
+      "current_basis": "Concept v01 is approved; the guided autonomy policy assigns decomposition approval to the human owner.",
+      "evidence_needed": "Explicit approval of plan/hybrid-design-plan.json or requested corrections.",
+      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-RETENTION-001",
+      "topic": "Freeze the exact magnetic tile-retention hardware and pocket compensation.",
+      "status": "provisional",
+      "current_basis": "Recommended architecture uses gravity shoulders and three datum pads for load/alignment plus four captive 6 x 2 mm magnets and steel counterparts per tile for normal retention.",
+      "evidence_needed": "Exact magnet/steel part records, pull-off target, same-process pocket coupon and captive-retention test.",
+      "blocks_gates": ["integration", "physical", "release"]
+    },
+    {
+      "id": "DEC-SOURCE-001",
+      "topic": "Freeze the Berlin OpenStreetMap extraction extent, timestamp, hashes and attribution treatment.",
+      "status": "open",
+      "current_basis": "Official OpenStreetMap data is the approved route, but production source download starts after decomposition approval.",
+      "evidence_needed": "Immutable local vector snapshot, extraction manifest, hashes and reviewed ODbL notice.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-FILAMENT-001",
+      "topic": "Freeze actual Urban Signal filament spools and transition purge matrix.",
+      "status": "provisional",
+      "current_basis": "Retail Anycubic PLA Matte names and display colors are selected; batch identity and measured swatches are not yet available.",
+      "evidence_needed": "Spool/batch identities, physical swatches, opacity notes and exact-profile transition coupon.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-WALL-001",
+      "topic": "Select wall-substrate-specific anchors outside the product package.",
+      "status": "open",
+      "current_basis": "The printed grid will expose generic mounting slots but cannot determine the customer's wall substrate.",
+      "evidence_needed": "Actual wall substrate, chosen anchor data and installed proof test by the responsible installer.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "REAR_GRID",
+      "name": "Segmented parametric mounting and lighting grid",
+      "role": "global pitch, wall plane, load shoulder, tile datums, retention pockets, lighting routes and cable exits",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["REQ-MODULES", "REQ-LIGHT", "REQ-SERVICE"], "confidence": "high"},
+      "functions": ["square six tiles", "transfer self-weight toward wall hardware", "locate tiles", "reserve halo and LED routes", "route cable"],
+      "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 0.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "six interlocking FDM segments", "material": "PETG candidate", "color_body": "rear grid", "orientation": "wall-side plane on bed; segment-specific support-free join geometry"},
+      "interface_ids": ["IF-GRID-TILE", "IF-GRID-LIGHTING", "IF-GRID-RETENTION", "IF-GRID-WALL"],
+      "acceptance": {"expected_components": 6, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["220 x 220 mm bed fit", "global pitch", "flat wall lands", "LED keep-outs", "cable exits", "grid join alignment"]}
+    },
+    {
+      "id": "ART_TILE_SET",
+      "name": "Six parametric Berlin tile substrates",
+      "role": "print-bed face, minimum wall, outer frame, seam boundary and rear interface authority",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["REAR_GRID", "approved design specification 0.2.0"], "confidence": "high"},
+      "functions": ["carry map bodies", "protect seams", "provide rear datums", "remain printable and replaceable"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "six separate FDM tiles", "material": "Anycubic PLA Matte", "color_body": "Bone White base", "orientation": "rear datum plane on bed, visible map face upward"},
+      "interface_ids": ["IF-GRID-TILE", "IF-TILE-MAP", "IF-TILE-APERTURES"],
+      "acceptance": {"expected_components": 6, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["backer thickness", "seam dimensions", "datum geometry", "minimum wall", "bed contact"]}
+    },
+    {
+      "id": "BERLIN_VECTOR_FIELD",
+      "name": "Globally registered Berlin vector relief and color-field set",
+      "role": "appearance, four-color semantics and cross-seam map continuity",
+      "authority": "hybrid",
+      "representation": "mixed",
+      "source": {"kind": "derived", "refs": ["immutable OpenStreetMap snapshot", "palette-catalog.yaml", "REQ-MAP", "REQ-COLOR"], "confidence": "medium"},
+      "functions": ["express Berlin abstractly", "define named color solids", "preserve primary routes across seams"],
+      "envelope_mm": {"min": [0.0, 0.0, 3.0], "max": [600.0, 400.0, 5.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "aligned closed color solids exported as portable multi-part 3MF", "material": "four Anycubic PLA Matte colors", "color_body": "Urban Signal semantic fields", "orientation": "inherit ART_TILE_SET; color solids share one global transform"},
+      "interface_ids": ["IF-TILE-MAP"],
+      "acceptance": {"expected_components": 6, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["four-color maximum", "no dithering", "minimum feature size", "cross-seam continuity", "non-overlapping named solids"]}
+    },
+    {
+      "id": "LIGHT_CUTTER_SET",
+      "name": "Globally registered abstract light-path cutters",
+      "role": "controlled negative geometry for front-through illumination",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "derived", "refs": ["BERLIN_VECTOR_FIELD simplified paths", "approved concept v01", "REQ-LIGHT"], "confidence": "medium"},
+      "functions": ["cut true openings", "protect seam and datum zones", "limit open area"],
+      "envelope_mm": {"min": [0.0, 0.0, -0.5], "max": [600.0, 400.0, 5.5]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "non-exported Boolean cutter set", "material": "not applicable", "color_body": "negative light path", "orientation": "global panel frame before tile split"},
+      "interface_ids": ["IF-TILE-APERTURES"],
+      "acceptance": {"expected_components": 6, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["2 mm minimum width", "5 mm ligament", "12 percent open-area cap", "8 mm seam keep-out", "12 mm datum keep-out"]}
+    },
+    {
+      "id": "LIGHTING_ENVELOPES",
+      "name": "Optional customer lighting and diffuser envelopes",
+      "role": "non-product keep-out authority for halo strip, front-light strip, cable and diffuser",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "design_description", "refs": ["REQ-LIGHT", "approved concept v01"], "confidence": "medium"},
+      "functions": ["reserve 8 and 10 mm LED-strip routes", "reserve three cable exits", "reserve diffuser lands", "keep lighting removable"],
+      "envelope_mm": {"min": [0.0, 0.0, -17.0], "max": [600.0, 400.0, -3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "non-exported envelope and optional printed clips only", "material": "customer-supplied lighting; printed clips match rear-grid material", "color_body": "not applicable", "orientation": "rear-grid coordinate frame"},
+      "interface_ids": ["IF-GRID-LIGHTING"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["12 x 4 mm LED keep-out", "6 x 4 mm cable route", "left/right/bottom exits", "6 mm diffuser land", "no datum collision"]}
+    },
+    {
+      "id": "TILE_RETENTION_HARDWARE",
+      "name": "Purchased magnetic tile-retention set",
+      "role": "normal retention only; gravity shoulders carry tile self-weight",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["provisional 6 x 2 mm magnets", "steel counterparts", "DEC-RETENTION-001"], "confidence": "low"},
+      "functions": ["hold tiles against datum pads", "allow service removal", "avoid structural printed flexures"],
+      "envelope_mm": {"min": [0.0, 0.0, -4.0], "max": [600.0, 400.0, 1.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "purchased and captively installed", "material": "neodymium magnets plus steel counterparts, exact grade pending", "color_body": "hidden hardware", "orientation": "four distributed positions per tile"},
+      "interface_ids": ["IF-GRID-RETENTION"],
+      "acceptance": {"expected_components": 48, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact purchased dimensions", "captive retention", "pull-off force", "25 service cycles", "small-part risk review"]}
+    },
+    {
+      "id": "WALL_HARDWARE_REFERENCE",
+      "name": "Customer-selected wall hardware reference envelope",
+      "role": "generic hole, head and tool-access envelope only; not supplied or rated",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["DEC-WALL-001"], "confidence": "low"},
+      "functions": ["reserve wall-fastener access", "prevent false compatibility claim"],
+      "envelope_mm": {"min": [0.0, 0.0, -30.0], "max": [600.0, 400.0, -8.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "manufacturing": {"method": "customer-selected purchased hardware", "material": "substrate-specific", "color_body": "not applicable", "orientation": "normal to wall"},
+      "interface_ids": ["IF-GRID-WALL"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["selected anchor drawing", "tool access", "head clearance", "installed proof test"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-GRID-TILE",
+      "a": "REAR_GRID",
+      "b": "ART_TILE_SET",
+      "owner": "REAR_GRID",
+      "kind": "other",
+      "local_frame": {"origin_mm": [100.0, 100.0, 0.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "three datum pads plus bottom gravity shoulder and magnetic normal retention", "module_pitch_mm": [200.0, 200.0], "target_visible_seam_mm": 0.25, "service_cycles": 25},
+      "joining": {"method": "front placement against pads and shoulder, then magnetic seating", "assembly_direction": "-Z", "anti_rotation": "asymmetric three-point datum pattern and gravity shoulder", "lead_in_mm": 0.6, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "seam_band_mm": 8.0,
+      "keepout_ids": ["KEEP-SEAMS", "KEEP-DATUMS", "KEEP-LED-HALO", "KEEP-LED-FRONT"],
+      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 5.0, "load_or_flow": "gravity shoulder carries self-weight; magnets resist wall-normal handling only"},
+      "verification": ["0.15/0.25/0.35/0.45 mm seam coupon", "exact interface checks", "full 3 x 2 alignment", "25 removal/reinstall cycles"]
+    },
+    {
+      "id": "IF-TILE-MAP",
+      "a": "ART_TILE_SET",
+      "b": "BERLIN_VECTOR_FIELD",
+      "owner": "ART_TILE_SET",
+      "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0.0, 0.0, 3.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "planar substrate with disjoint inlay and relief solids", "inlay_depth_mm": 0.6, "emboss_height_mm": 0.6, "minimum_color_width_mm": 0.9},
+      "joining": {"method": "co-sliced aligned closed solids sharing controlled non-overlapping boundaries", "assembly_direction": "+Z during model construction", "anti_rotation": "one global coordinate frame and tile index", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.02, "solver_margin_mm": 0.02},
+      "seam_band_mm": 2.0,
+      "keepout_ids": ["KEEP-SEAMS", "KEEP-DATUMS", "KEEP-ATTRIBUTION"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 0.9, "load_or_flow": "appearance and color-body continuity only"},
+      "verification": ["color-body overlap/gap check", "global seam-coordinate comparison", "3MF part/material-reference validation", "exact layer preview"]
+    },
+    {
+      "id": "IF-TILE-APERTURES",
+      "a": "ART_TILE_SET",
+      "b": "LIGHT_CUTTER_SET",
+      "owner": "ART_TILE_SET",
+      "kind": "other",
+      "local_frame": {"origin_mm": [0.0, 0.0, 0.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "through-subtracted abstract path set", "minimum_width_mm": 2.0, "minimum_ligament_mm": 5.0, "maximum_open_area_fraction": 0.12},
+      "joining": {"method": "subtract global cutter after protected keep-outs, then split by tile", "assembly_direction": "+Z through full tile thickness", "anti_rotation": "global source coordinates and tile IDs", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.5, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.02},
+      "seam_band_mm": 8.0,
+      "keepout_ids": ["KEEP-SEAMS", "KEEP-DATUMS", "KEEP-ATTRIBUTION"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "visible light from rear cavity to front without weakening protected interfaces"},
+      "verification": ["true-through topology", "minimum-width and ligament scan", "open-area calculation", "exact-slicer thin-wall/gap-fill review", "physical light coupon"]
+    },
+    {
+      "id": "IF-GRID-LIGHTING",
+      "a": "REAR_GRID",
+      "b": "LIGHTING_ENVELOPES",
+      "owner": "REAR_GRID",
+      "kind": "other",
+      "local_frame": {"origin_mm": [0.0, 0.0, -9.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "halo perimeter and selected straight front-light lands", "led_keepout_mm": [12.0, 4.0], "strip_widths_mm": [8.0, 10.0], "cable_channel_mm": [6.0, 4.0], "diffuser_land_mm": 6.0},
+      "joining": {"method": "optional removable clips or customer adhesive on dedicated lands", "assembly_direction": "+Z before art tiles", "anti_rotation": "keyed clip lands and directional cable exits", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 1.0, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.25, "adhesive_gap_per_side_mm": 0.3, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.2, "solver_margin_mm": 0.05},
+      "seam_band_mm": 8.0,
+      "keepout_ids": ["KEEP-DATUMS", "KEEP-LED-HALO", "KEEP-LED-FRONT", "KEEP-WALL-TOOLS"],
+      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 5.0, "load_or_flow": "low-voltage customer lighting envelope only; no electrical or thermal qualification"},
+      "verification": ["8/10 mm strip gauge", "cable-route gauge", "no interface collision", "no-light assembly test", "human lighting review"]
+    },
+    {
+      "id": "IF-GRID-RETENTION",
+      "a": "REAR_GRID",
+      "b": "TILE_RETENTION_HARDWARE",
+      "owner": "TILE_RETENTION_HARDWARE",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [25.0, 25.0, -1.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
+      "nominal_geometry": {"type": "four captive round magnet pockets per tile plus steel counterparts", "provisional_magnet_diameter_mm": 6.0, "provisional_magnet_thickness_mm": 2.0},
+      "joining": {"method": "captively retained purchased parts; adhesive only as secondary retention", "assembly_direction": "+Z into rear-grid and tile pockets before service", "anti_rotation": "distributed four-position pattern", "lead_in_mm": 0.3, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.05, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0.1, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.03},
+      "seam_band_mm": 0.0,
+      "keepout_ids": ["KEEP-DATUMS", "KEEP-LED-HALO", "KEEP-LED-FRONT"],
+      "requirements": {"minimum_wall_mm": 1.2, "minimum_ligament_mm": 3.0, "load_or_flow": "normal retention only; loose-part escape is prohibited"},
+      "verification": ["exact hardware measurement", "same-process pocket coupon", "captive-retention test", "pull-off measurement", "small-part risk review"]
+    },
+    {
+      "id": "IF-GRID-WALL",
+      "a": "REAR_GRID",
+      "b": "WALL_HARDWARE_REFERENCE",
+      "owner": "WALL_HARDWARE_REFERENCE",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [100.0, 100.0, -18.0], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, -1]},
+      "nominal_geometry": {"type": "generic slotted mounting envelope; final fastener and substrate remain customer-specific"},
+      "joining": {"method": "customer-selected wall fastener through printed slot", "assembly_direction": "-Z into wall", "anti_rotation": "multiple distributed wall slots", "lead_in_mm": 0.5, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.5, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.5, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.5, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0.0,
+      "keepout_ids": ["KEEP-WALL-TOOLS", "KEEP-LED-HALO"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 8.0, "load_or_flow": "complete panel self-weight; capacity is not claimed without substrate-specific proof"},
+      "verification": ["selected fastener drawing and sample", "tool-access volume", "ligament sections", "installer proof test"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-SEAMS", "type": "mesh", "purpose": "8 mm protected bands around all internal tile seams; exact cross-shaped body is generated parametrically", "source": "global 200 mm pitch and light-aperture policy"},
+    {"id": "KEEP-DATUMS", "type": "mesh", "purpose": "12 mm protected volumes around tile datums, gravity shoulders, magnet pockets and rear-grid joins", "source": "REAR_GRID interface skeleton"},
+    {"id": "KEEP-LED-HALO", "type": "mesh", "purpose": "12 x 4 mm perimeter halo-strip and bend-radius envelope inside the 18 mm wall cavity", "source": "LIGHTING_ENVELOPES"},
+    {"id": "KEEP-LED-FRONT", "type": "mesh", "purpose": "selected straight 12 x 4 mm strip lands and diffuser access behind light-opening clusters", "source": "LIGHTING_ENVELOPES and LIGHT_CUTTER_SET"},
+    {"id": "KEEP-WALL-TOOLS", "type": "mesh", "purpose": "wall-fastener head, driver and installation approach volumes", "source": "WALL_HARDWARE_REFERENCE"},
+    {"id": "KEEP-ATTRIBUTION", "type": "aabb", "purpose": "protected lower rear attribution and future watermark zone", "min_mm": [8.0, 8.0, 0.0], "max_mm": [192.0, 28.0, 3.0], "source": "licence and release requirements"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "plan_hybrid_design.py plus manual functional/physical/appearance tree review", "acceptance": "all critical requirements allocated, every interface has one owner and no lighting or map data owns a structural mating surface"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble six tile, rear-grid, keep-out and hardware-envelope proxies", "acceptance": "600 x 400 mm assembly, individual 220 x 220 mm bed fit, feasible install/service sequence and no keep-out collision"},
+    {"id": "VAL-COMP", "gate": "component", "method": "source manifests, vector simplification audit and parametric source assertions", "acceptance": "one global Berlin frame, printable features and all expected tile/color/cutter bodies"},
+    {"id": "VAL-INT", "gate": "integration", "method": "exact sections, overlap/gap checks, seam-coordinate comparison and retention/light collision checks", "acceptance": "all interface dimensions, ligaments, seams and service paths pass"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "mesh/3MF audits and exact Anycubic Slicer Next run with complete profiles", "acceptance": "expected bodies/tools, four-color maximum, intended openings stay open, no first-layer islands and resource budgets pass"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "seam/retention coupon, lighting gauge, one representative tile and full 3 x 2 assembly", "acceptance": "selected fit, 25 service cycles, stable unlit assembly and human-approved lit/unlit appearance"}
+  ]
+}

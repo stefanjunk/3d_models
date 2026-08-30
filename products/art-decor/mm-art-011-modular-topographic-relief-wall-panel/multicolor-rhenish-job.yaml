@@ -1,0 +1,70 @@
+version: 1
+project:
+  name: MM-ART-011 Rhenish Industrial Earth
+  purpose: "abstract four-band modular Rhenish lignite district topographic wall relief"
+  risk_class: decorative
+  units: mm
+
+printer:
+  model: "Anycubic FDM printer; exact machine profile pending"
+  material_changer: "ACE-class four-filament single-nozzle system"
+  nozzle_mm: 0.4
+  layer_height_mm: 0.2
+  max_filaments: 4
+  slicer: "Anycubic Slicer Next"
+
+source:
+  path: manufacturing/rhenish/reference-master-tile-set.3mf
+  kind: existing_3mf
+  preserve_immutable: true
+  units: mm
+  texture_paths: []
+  source_sha256: null
+
+representation:
+  method: layer_change
+  authoritative_color_data: "one pilot-global elevation-to-Z transform and three common change heights"
+  destination_format: slicer_project
+  slicer_project_required: true
+
+palette:
+  path: palette-catalog.yaml
+  selected_preset: rhenish_industrial_earth
+  maximum_colors: 4
+  mapping_method: manual
+  dither: false
+  actual_spools_status: "pending batch and swatch verification"
+
+geometry:
+  minimum_color_width_mm: 0.9
+  minimum_inlay_depth_mm: 0.0
+  interface_clearance_mm: 0.0
+  overlap_allowed: false
+  gap_allowed_mm: 0.0
+  shell_depth_mm: 0.0
+  voxel_pitch_mm: 0.6
+
+materials:
+  require_same_polymer_family: true
+  allowed_family: PLA
+  opacity_review_required: true
+
+purge:
+  matrix_path: null
+  matrix_status: "required physical directed transition coupon before print-candidate approval"
+  maximum_changes: 3
+  maximum_changes_scope: "per 200 x 200 mm tile"
+  maximum_purge_volume_mm3: 3000
+  maximum_purge_volume_scope: "per tile; provisional ceiling to be tightened from exact slicer evidence"
+  permit_flush_into_infill: false
+  light_wall_show_through_review: true
+
+acceptance:
+  all_color_parts_manifold: true
+  preserve_common_coordinate_frame: true
+  final_slicer_slot_mapping_reviewed: true
+  final_slicer_preview_reviewed: true
+  color_boundary_coupon_required: true
+  maximum_mean_delta_e: 18.0
+  maximum_p95_delta_e: 35.0
+  release_note: "Schema validity is planning evidence only; missing physical spool, purge and preview evidence blocks print-candidate approval."

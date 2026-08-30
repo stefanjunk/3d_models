@@ -147,3 +147,25 @@
 - Next phase: freeze designed frame datums (DEC-DATUM-001) from sourced 1:10
   class-reference values, select drivetrain/axle candidates (DEC-AXLE-001,
   DEC-DRIVE-001), then start the parametric CadQuery source phase.
+
+## 2026-08-30 — Frame datum freeze (DEC-DATUM-001)
+
+- Sourced 1:10 class reference from Tamiya CC-02 product pages (58715: wheelbase
+  252 mm, tread 164/167 mm, tires 33 x 90 mm, width 198-200 mm, length 390 mm;
+  58736: wheelbase 242 mm, tread 160/163 mm; G500 variant wheelbase 267 mm).
+- Frozen for CAD start: wheelbase 252 mm, tread 165 mm, tire diameter 90 mm
+  (envelope 90-115 mm), overall width max 200 mm, length target 400 mm, ground
+  clearance target 40 mm. Recorded in design-spec.yaml geometry.designed_datums.
+- Datums are a class reference for the designed printed chassis; they are
+  re-verified against the purchased wheels/tires before manufacturing.
+- Suspension architecture remains printed independent wishbones per the approved
+  0.4.0 concept (the CC-02 4-link rigid axle is reference only, not adopted).
+
+## 2026-08-30 — Drivetrain decision (DEC-AXLE-001 / DEC-DRIVE-001)
+
+- Stefan selected two purchased geared motors, one per axle, with no
+  differential/transfer case (recommended option).
+- Printed rigid axle housings/carriers carry the motor units; steering remains
+  servo plus printed links per the approved 0.4.0 concept.
+- Exact motor model/ratio and ESC count stay open until purchase; a 540/550-class
+  planetary-geared motor envelope is used for CAD keep-outs and mounts.

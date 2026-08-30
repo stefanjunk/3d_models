@@ -111,6 +111,7 @@ requirements_trace:
     - "Fully printed route: frame, suspension arms and steering links use a PETG baseline with load-aligned print orientation, generous root radii and dedicated static, impact and fatigue coupons before any driving test"
     - "Print gears or axles only for the low-speed stage with explicit strain justification and bench tests; purchased gearbox/diff preferred when a suitable COTS unit exists"
     - "Compare PETG against PETG-CF or ASA for frame/arms by coupon; abrasive filled filaments require a hardened nozzle"
+    - "Two purchased geared motors, one per axle, no differential/transfer case; printed rigid axle housings; one brushed ESC for both motors or two ESCs (user decision 2026-08-30)"
     - "Use a replaceable front camera guard, radiused impact features and cable strain relief"
     - "Use a removable electronics deck with local pads, edge beams, few large radiused windows and load-oriented ribs"
     - "Start with PETG and a 0.6 mm nozzle on the Anycubic Kobra 3 Max, subject to user confirmation and process coupons"
@@ -120,10 +121,8 @@ requirements_trace:
     - "Keep propulsion control and analog video as independent links so video loss cannot command or prevent a safe stop"
     - "Rebuild precise interfaces in CadQuery and retain STEP alongside DRAFT STL/3MF"
   unresolved:
-    - "Axle/differential approach: printed low-speed gears/axles versus purchased gearbox or diff"
-    - "Exact drivetrain set (motor, ratio, servo size) and wheel/tire size for the printed chassis"
-    - "Designed frame datums: wheelbase, track and ground-clearance targets from the 1:10 class reference"
-    - "Upper bridge/rails: integrated printed frame versus retained purchased square tubes (decomposition decision)"
+    - "Exact geared motor model, ratio, mounting envelope and ESC count (architecture decided: two geared 540/550-class motors, one per axle, no diff)"
+    - "Exact wheel/tire purchase (90 mm kit-class diameter frozen; envelope 90-115 mm)"
     - "Measured RunCam Phoenix 2 SE V2, SpeedyBee TX800, surface ELRS receiver, antenna, cable and fastener envelopes"
     - "Final surface-radio choice: RadioMaster MT12 ELRS recommended; common RadioMaster Pocket use remains an ergonomic trade-off"
     - "Approved nominal payload and proof-load target"
@@ -174,6 +173,18 @@ geometry:
     deck_envelope_mm: [168.0, 104.0, 5.6]
     camera_envelope_mm: [19.0, 19.0, 22.0]
     camera_tilt_slot_mm: 8.0
+  designed_datums:
+    source: "Tamiya CC-02 class product pages (58715 / 58736), retrieved 2026-08-30; geometry reference only"
+    wheelbase_mm: 252
+    wheelbase_class_range_mm: [242, 267]
+    tread_mm: 165
+    tread_class_range_mm: [160, 167]
+    tire_diameter_mm: 90
+    tire_diameter_envelope_mm: [90, 115]
+    overall_width_max_mm: 200
+    overall_length_target_mm: 400
+    ground_clearance_target_mm: 40
+    status: "frozen for CAD start; re-verify against the purchased wheels/tires before manufacturing"
   redesign_constraints:
     battery_location: "lowest designed frame position, not the payload deck"
     primary_mount: "designed frame datums; wheelbase/track/clearance targets frozen in decomposition from the 1:10 class reference"
@@ -211,6 +222,10 @@ interfaces:
     status: provisional
     nominal: "SpeedyBee TX800, 20 x 20 mm class, 5 V input and MMCX antenna; verify actual unit"
     safety: "Never power without the antenna; use only locally permitted channels/power and prove stationary cooling"
+  drivetrain:
+    status: user-decided
+    architecture: "two purchased geared motors (one per axle), no differential/transfer case; printed rigid axle housings/carriers; low-speed <=5 km/h"
+    esc: "one brushed ESC for both motors or two ESCs; exact model unresolved"
   radio_control:
     ecosystem: "EdgeTX plus ExpressLRS 2.4 GHz LBT, aligned with OpenQuad"
     rover_receiver: "RadioMaster ER5C PWM candidate; exact channel and BEC/failsafe compatibility unresolved"

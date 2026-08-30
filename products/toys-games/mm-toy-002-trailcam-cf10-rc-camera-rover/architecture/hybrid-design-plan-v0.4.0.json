@@ -3,13 +3,17 @@
   "project": {
     "id": "MM-TOY-002",
     "title": "TrailCam CF10 low-profile FPV rover functional redesign",
-    "source_modes": ["design_description", "concept_image", "measurements"],
+    "source_modes": [
+      "design_description",
+      "concept_image",
+      "measurements"
+    ],
     "claim": "functional_redesign",
     "units": "mm",
     "spec_revision": "0.4.0",
     "process": {
       "technology": "FDM",
-      "printer": "Anycubic Kobra 3 Max — provisional",
+      "printer": "Anycubic Kobra 3 Max \u2014 provisional",
       "nozzle_mm": 0.6,
       "line_width_mm": 0.66,
       "layer_height_mm": 0.24,
@@ -24,8 +28,16 @@
       "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
     },
     "master_envelope_mm": {
-      "min": [-250.0, -170.0, -100.0],
-      "max": [250.0, 170.0, 180.0]
+      "min": [
+        -250.0,
+        -170.0,
+        -100.0
+      ],
+      "max": [
+        250.0,
+        170.0,
+        180.0
+      ]
     },
     "requirements": [
       {
@@ -79,8 +91,19 @@
     ],
     "global_style": {
       "summary": "low-profile technical crawler payload with dark printed frame structure and orange replaceable protection/service accents",
-      "motifs": ["continuous low edge beams", "few large radiused windows", "load-oriented ribs", "compact rollover loops"],
-      "exclude": ["broad solid roof deck", "decorative micro-texture", "unprotected tall antenna towers", "thin unsupported webs", "visual-only fasteners"],
+      "motifs": [
+        "continuous low edge beams",
+        "few large radiused windows",
+        "load-oriented ribs",
+        "compact rollover loops"
+      ],
+      "exclude": [
+        "broad solid roof deck",
+        "decorative micro-texture",
+        "unprotected tall antenna towers",
+        "thin unsupported webs",
+        "visual-only fasteners"
+      ],
       "generation_material": "matte black and charcoal functional polymers with restrained orange service accents",
       "detail_hierarchy": "designed frame datums first, camera and RF protection second, low technical silhouette third"
     },
@@ -110,23 +133,36 @@
       "status": "open",
       "current_basis": "User decision 2026-08-29 removes any COTS/donor chassis; the fully printed chassis takes over frame, suspension and steering, but class-reference values are not yet sourced.",
       "evidence_needed": "Sourced 1:10 class-reference values and a frozen parameter table before production CAD.",
-      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+      "blocks_gates": [
+        "proxy",
+        "component",
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
     },
     {
       "id": "DEC-AXLE-001",
       "topic": "Select the axle/differential approach: purchased gearbox/diff unit preferred; printed low-speed gears/axles only with explicit strain justification and bench tests.",
-      "status": "open",
-      "current_basis": "design-spec.yaml revision 0.4.0 recommends a purchased gearbox/diff unit when a suitable COTS unit exists; printed gears or axles are restricted to the low-speed stage.",
-      "evidence_needed": "Named candidate gearbox/diff unit with measured envelope, or printed low-speed gear/axle strain justification plus bench test results per design-spec 0.4.0.",
-      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+      "status": "resolved",
+      "current_basis": "User decision 2026-08-30: two purchased geared motors, one per axle; no differential/transfer case; printed rigid axle housings/carriers. Printed gears/axles remain prohibited without strain justification and bench tests.",
+      "evidence_needed": "Named geared motor model with measured mounting envelope before manufacturing.",
+      "blocks_gates": []
     },
     {
       "id": "DEC-DRIVE-001",
       "topic": "Freeze the exact drivetrain set (motor class, ratio, servo size) and wheel/tire size for the printed chassis.",
-      "status": "open",
-      "current_basis": "design-spec.yaml revision 0.4.0 lists motor/ratio/servo and wheel/tire size as unresolved; only 1:10 class values exist.",
-      "evidence_needed": "Named motor, reduction ratio, steering servo size and wheel/tire selection with measured envelopes.",
-      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+      "status": "provisional",
+      "current_basis": "Architecture frozen 2026-08-30: two 540/550-class planetary geared motors (one per axle), steering via servo plus printed links; exact motor model/ratio, ESC count and wheel/tire purchase remain open.",
+      "evidence_needed": "Named motor/ratio, ESC count, servo size and wheel/tire selection with measured envelopes.",
+      "blocks_gates": [
+        "component",
+        "integration",
+        "manufacturing",
+        "physical",
+        "release"
+      ]
     },
     {
       "id": "DEC-COTS-001",
@@ -134,7 +170,13 @@
       "status": "provisional",
       "current_basis": "RunCam Phoenix 2 SE V2, SpeedyBee TX800 and RadioMaster ER5C are platform-family candidates, not measured CAD authorities.",
       "evidence_needed": "Exact purchased revisions, supplier drawings, calibrated samples, connector exits, bend radii and antenna active-element boundaries.",
-      "blocks_gates": ["proxy", "component", "integration", "physical", "release"]
+      "blocks_gates": [
+        "proxy",
+        "component",
+        "integration",
+        "physical",
+        "release"
+      ]
     },
     {
       "id": "DEC-LOAD-001",
@@ -142,7 +184,12 @@
       "status": "provisional",
       "current_basis": "Planning values are 500 g service payload, 1000 g static proof load and supervised operation at or below 5 km/h.",
       "evidence_needed": "Weighed electronics assembly, approved test fixture and test acceptance confirmation.",
-      "blocks_gates": ["component", "integration", "physical", "release"]
+      "blocks_gates": [
+        "component",
+        "integration",
+        "physical",
+        "release"
+      ]
     },
     {
       "id": "DEC-PROCESS-001",
@@ -150,7 +197,11 @@
       "status": "provisional",
       "current_basis": "Kobra 3 Max, 0.6 mm nozzle, 0.66 mm line width and 0.24 mm layers are planning assumptions.",
       "evidence_needed": "Complete exact machine/process/filament JSON profiles and process-matched coupon results.",
-      "blocks_gates": ["manufacturing", "physical", "release"]
+      "blocks_gates": [
+        "manufacturing",
+        "physical",
+        "release"
+      ]
     },
     {
       "id": "DEC-RADIO-001",
@@ -158,7 +209,10 @@
       "status": "open",
       "current_basis": "MT12 is recommended for surface controls; Pocket preserves more operator familiarity with OpenQuad.",
       "evidence_needed": "Operator choice plus bound-receiver, channel-map and failsafe evidence.",
-      "blocks_gates": ["physical", "release"]
+      "blocks_gates": [
+        "physical",
+        "release"
+      ]
     }
   ],
   "components": [
@@ -168,14 +222,80 @@
       "role": "printed frame with ribbed side rails, skid plate, integrated battery tray, suspension pivot bosses, servo and drivetrain mounts and bridge mounts; envelope is provisional until DEC-DATUM-001 freezes the designed frame datums",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "derived", "refs": ["design-spec.yaml 0.4.0 fully printed chassis route", "DEC-DATUM-001", "AC-STRUCT-001", "REQ-STRUCT-001"], "confidence": "medium"},
-      "functions": ["carry all vehicle and payload loads through designed frame datums", "carry traction battery in the lowest printed tray", "locate suspension, steering, drivetrain and servo", "provide electronics bridge mounts"],
-      "envelope_mm": {"min": [-210.0, -110.0, -60.0], "max": [210.0, 110.0, 0.0]},
+      "source": {
+        "kind": "derived",
+        "refs": [
+          "design-spec.yaml 0.4.0 fully printed chassis route",
+          "DEC-DATUM-001",
+          "AC-STRUCT-001",
+          "REQ-STRUCT-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "carry all vehicle and payload loads through designed frame datums",
+        "carry traction battery in the lowest printed tray",
+        "locate suspension, steering, drivetrain and servo",
+        "provide electronics bridge mounts"
+      ],
+      "envelope_mm": {
+        "min": [
+          -210.0,
+          -110.0,
+          -60.0
+        ],
+        "max": [
+          210.0,
+          110.0,
+          0.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "integrated FDM print", "material": "PETG pending process approval", "color_body": "structural", "orientation": "skid plate on bed; load-aligned orientation and generous root radii, no supports in fastener and mount interfaces"},
-      "interface_ids": ["IF-CHASSIS-SUSP", "IF-CHASSIS-STEERING", "IF-CHASSIS-SERVO", "IF-CHASSIS-DRIVE", "IF-CHASSIS-BRIDGE", "IF-CHASSIS-HARDWARE", "IF-CHASSIS-SHOCKS"],
-      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["frozen frame datum table per DEC-DATUM-001", "battery tray access corridor", "suspension pivot boss positions", "static, impact and fatigue coupons per AC-STRUCT-001", "keep-out clearance"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "integrated FDM print",
+        "material": "PETG pending process approval",
+        "color_body": "structural",
+        "orientation": "skid plate on bed; load-aligned orientation and generous root radii, no supports in fastener and mount interfaces"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-SUSP",
+        "IF-CHASSIS-STEERING",
+        "IF-CHASSIS-SERVO",
+        "IF-CHASSIS-DRIVE",
+        "IF-CHASSIS-BRIDGE",
+        "IF-CHASSIS-HARDWARE",
+        "IF-CHASSIS-SHOCKS"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "frozen frame datum table per DEC-DATUM-001",
+          "battery tray access corridor",
+          "suspension pivot boss positions",
+          "static, impact and fatigue coupons per AC-STRUCT-001",
+          "keep-out clearance"
+        ]
+      }
     },
     {
       "id": "SUSPENSION_ARMS",
@@ -183,14 +303,73 @@
       "role": "replaceable printed wishbone arms at all four corners with load-aligned print orientation and generous root radii per AC-STRUCT-001",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "concept_image", "refs": ["concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png", "AC-STRUCT-001", "DEC-DATUM-001"], "confidence": "medium"},
-      "functions": ["locate axle carriers", "transfer wheel and impact loads into the frame", "define suspension travel"],
-      "envelope_mm": {"min": [-230.0, -160.0, -95.0], "max": [230.0, 160.0, -25.0]},
+      "source": {
+        "kind": "concept_image",
+        "refs": [
+          "concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png",
+          "AC-STRUCT-001",
+          "DEC-DATUM-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "locate axle carriers",
+        "transfer wheel and impact loads into the frame",
+        "define suspension travel"
+      ],
+      "envelope_mm": {
+        "min": [
+          -230.0,
+          -160.0,
+          -95.0
+        ],
+        "max": [
+          230.0,
+          160.0,
+          -25.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending fatigue coupon", "color_body": "structural with orange replaceable-wear accent", "orientation": "printed flat with layers aligned to the principal load; upright printing prohibited"},
-      "interface_ids": ["IF-CHASSIS-SUSP", "IF-SUSP-CARRIERS", "IF-SUSP-SHOCKS"],
-      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["load-aligned layer orientation", "root radii", "2000 bump cycles without crack, white stress mark or residual set above 0.5 mm", "replaceability"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "separate FDM bodies",
+        "material": "PETG pending fatigue coupon",
+        "color_body": "structural with orange replaceable-wear accent",
+        "orientation": "printed flat with layers aligned to the principal load; upright printing prohibited"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-SUSP",
+        "IF-SUSP-CARRIERS",
+        "IF-SUSP-SHOCKS"
+      ],
+      "acceptance": {
+        "expected_components": 4,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "load-aligned layer orientation",
+          "root radii",
+          "2000 bump cycles without crack, white stress mark or residual set above 0.5 mm",
+          "replaceability"
+        ]
+      }
     },
     {
       "id": "STEERING_LINKS",
@@ -198,14 +377,71 @@
       "role": "replaceable printed steering links with load-aligned print orientation and generous root radii per AC-STRUCT-001",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "concept_image", "refs": ["concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png", "AC-STRUCT-001", "DEC-DRIVE-001"], "confidence": "medium"},
-      "functions": ["transfer servo force to the steered axle", "define steering travel and trim", "stay inside KEEP-STEERING across full lock"],
-      "envelope_mm": {"min": [80.0, -140.0, -80.0], "max": [230.0, 140.0, -30.0]},
+      "source": {
+        "kind": "concept_image",
+        "refs": [
+          "concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png",
+          "AC-STRUCT-001",
+          "DEC-DRIVE-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "transfer servo force to the steered axle",
+        "define steering travel and trim",
+        "stay inside KEEP-STEERING across full lock"
+      ],
+      "envelope_mm": {
+        "min": [
+          80.0,
+          -140.0,
+          -80.0
+        ],
+        "max": [
+          230.0,
+          140.0,
+          -30.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending fatigue coupon", "color_body": "structural with orange replaceable-wear accent", "orientation": "printed flat with layers aligned to the principal load; upright printing prohibited"},
-      "interface_ids": ["IF-CHASSIS-STEERING"],
-      "acceptance": {"expected_components": 2, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["load-aligned layer orientation", "root radii", "1000 full-travel cycles without crack, white stress mark or residual set above 0.5 mm", "replaceability"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "separate FDM bodies",
+        "material": "PETG pending fatigue coupon",
+        "color_body": "structural with orange replaceable-wear accent",
+        "orientation": "printed flat with layers aligned to the principal load; upright printing prohibited"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-STEERING"
+      ],
+      "acceptance": {
+        "expected_components": 2,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "load-aligned layer orientation",
+          "root radii",
+          "1000 full-travel cycles without crack, white stress mark or residual set above 0.5 mm",
+          "replaceability"
+        ]
+      }
     },
     {
       "id": "AXLE_CARRIERS",
@@ -213,14 +449,73 @@
       "role": "printed uprights/axle carriers; drivetrain interface mates a purchased or printed axle per DEC-AXLE-001",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "derived", "refs": ["DEC-AXLE-001", "DEC-DATUM-001", "AC-STRUCT-001"], "confidence": "medium"},
-      "functions": ["carry wheel bearings", "connect arms to wheels", "receive drive axle or shaft"],
-      "envelope_mm": {"min": [-230.0, -165.0, -90.0], "max": [230.0, 165.0, 0.0]},
+      "source": {
+        "kind": "derived",
+        "refs": [
+          "DEC-AXLE-001",
+          "DEC-DATUM-001",
+          "AC-STRUCT-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "carry wheel bearings",
+        "connect arms to wheels",
+        "receive drive axle or shaft"
+      ],
+      "envelope_mm": {
+        "min": [
+          -230.0,
+          -165.0,
+          -90.0
+        ],
+        "max": [
+          230.0,
+          165.0,
+          0.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending process approval", "color_body": "structural", "orientation": "bearing bore axis normal to bed where load path allows; no supports in bearing seats"},
-      "interface_ids": ["IF-SUSP-CARRIERS", "IF-CARRIERS-WHEELS", "IF-DRIVE-CARRIERS"],
-      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["bearing seat fit", "arm pin alignment", "axle interface per DEC-AXLE-001", "full-travel clearance"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "separate FDM bodies",
+        "material": "PETG pending process approval",
+        "color_body": "structural",
+        "orientation": "bearing bore axis normal to bed where load path allows; no supports in bearing seats"
+      },
+      "interface_ids": [
+        "IF-SUSP-CARRIERS",
+        "IF-CARRIERS-WHEELS",
+        "IF-DRIVE-CARRIERS"
+      ],
+      "acceptance": {
+        "expected_components": 4,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "bearing seat fit",
+          "arm pin alignment",
+          "axle interface per DEC-AXLE-001",
+          "full-travel clearance"
+        ]
+      }
     },
     {
       "id": "ELECTRONICS_BRIDGE",
@@ -228,14 +523,75 @@
       "role": "serviceable printed platform with edge beams, radiused windows and local mounting pads; mounts to CHASSIS_PRINTED bridge mounts",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "concept_image", "refs": ["concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png", "REQ-MASS-001", "REQ-KEEP-001"], "confidence": "medium"},
-      "functions": ["carry camera and RF mounts", "route cables", "protect modules", "keep upper mass low"],
-      "envelope_mm": {"min": [-110.0, -60.0, 42.0], "max": [130.0, 60.0, 90.0]},
+      "source": {
+        "kind": "concept_image",
+        "refs": [
+          "concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png",
+          "REQ-MASS-001",
+          "REQ-KEEP-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "carry camera and RF mounts",
+        "route cables",
+        "protect modules",
+        "keep upper mass low"
+      ],
+      "envelope_mm": {
+        "min": [
+          -110.0,
+          -60.0,
+          42.0
+        ],
+        "max": [
+          130.0,
+          60.0,
+          90.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "FDM", "material": "PETG pending process approval", "color_body": "structural", "orientation": "largest datum face on bed; no supports in fastener or chassis interfaces"},
-      "interface_ids": ["IF-CHASSIS-BRIDGE", "IF-BRIDGE-CAMERA-GUARD", "IF-BRIDGE-RF-MOUNTS"],
-      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["continuous edge beams", "load-oriented ribs", "large radiused windows", "service/tool access", "keep-out clearance"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "FDM",
+        "material": "PETG pending process approval",
+        "color_body": "structural",
+        "orientation": "largest datum face on bed; no supports in fastener or chassis interfaces"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-BRIDGE",
+        "IF-BRIDGE-CAMERA-GUARD",
+        "IF-BRIDGE-RF-MOUNTS"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": [
+          "continuous edge beams",
+          "load-oriented ribs",
+          "large radiused windows",
+          "service/tool access",
+          "keep-out clearance"
+        ]
+      }
     },
     {
       "id": "CAMERA_GUARD",
@@ -243,14 +599,74 @@
       "role": "precise camera interface, fixed tilt and sacrificial frontal protection",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "derived", "refs": ["CAMERA_COTS measured interface pending", "concept revision 0.4.0-r2", "REQ-FPV-001"], "confidence": "medium"},
-      "functions": ["locate camera", "protect lens", "transfer impact into bridge nodes", "preserve optical field"],
-      "envelope_mm": {"min": [105.0, -30.0, 35.0], "max": [155.0, 30.0, 95.0]},
+      "source": {
+        "kind": "derived",
+        "refs": [
+          "CAMERA_COTS measured interface pending",
+          "concept revision 0.4.0-r2",
+          "REQ-FPV-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "locate camera",
+        "protect lens",
+        "transfer impact into bridge nodes",
+        "preserve optical field"
+      ],
+      "envelope_mm": {
+        "min": [
+          105.0,
+          -30.0,
+          35.0
+        ],
+        "max": [
+          155.0,
+          30.0,
+          95.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "separate FDM body", "material": "PETG pending impact coupon", "color_body": "orange service/protection accent", "orientation": "camera seat and bridge datum support-free; impact loop strength prioritized"},
-      "interface_ids": ["IF-BRIDGE-CAMERA-GUARD", "IF-CAMERA-GUARD-CAMERA"],
-      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["camera fit", "optical field", "lens setback", "replaceability", "impact coupon"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "separate FDM body",
+        "material": "PETG pending impact coupon",
+        "color_body": "orange service/protection accent",
+        "orientation": "camera seat and bridge datum support-free; impact loop strength prioritized"
+      },
+      "interface_ids": [
+        "IF-BRIDGE-CAMERA-GUARD",
+        "IF-CAMERA-GUARD-CAMERA"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "camera fit",
+          "optical field",
+          "lens setback",
+          "replaceability",
+          "impact coupon"
+        ]
+      }
     },
     {
       "id": "CAMERA_COTS",
@@ -258,14 +674,69 @@
       "role": "purchased optical and mounting-envelope authority",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["exact purchased camera and supplier drawing pending", "nominal 19 x 19 x 22 mm"], "confidence": "medium"},
-      "functions": ["capture forward FPV video", "define lens field and connector exit"],
-      "envelope_mm": {"min": [118.0, -9.5, 52.0], "max": [140.0, 9.5, 71.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "exact purchased camera and supplier drawing pending",
+          "nominal 19 x 19 x 22 mm"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "capture forward FPV video",
+        "define lens field and connector exit"
+      ],
+      "envelope_mm": {
+        "min": [
+          118.0,
+          -9.5,
+          52.0
+        ],
+        "max": [
+          140.0,
+          9.5,
+          71.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "camera", "orientation": "forward with approved fixed tilt"},
-      "interface_ids": ["IF-CAMERA-GUARD-CAMERA"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "mount pattern", "lens envelope", "connector and cable exit"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "camera",
+        "orientation": "forward with approved fixed tilt"
+      },
+      "interface_ids": [
+        "IF-CAMERA-GUARD-CAMERA"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "exact revision",
+          "mount pattern",
+          "lens envelope",
+          "connector and cable exit"
+        ]
+      }
     },
     {
       "id": "RF_MOUNT_SET",
@@ -273,14 +744,76 @@
       "role": "printed retention, cooling clearance, cable strain relief and RF keep-out enforcement",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "derived", "refs": ["RX_COTS and VTX_COTS measured interfaces pending", "concept revision 0.4.0-r2", "REQ-FPV-001", "REQ-RC-001"], "confidence": "medium"},
-      "functions": ["retain receiver", "retain and cool VTX", "separate signal and power cables", "protect antenna routes"],
-      "envelope_mm": {"min": [-85.0, -58.0, 48.0], "max": [70.0, 58.0, 120.0]},
+      "source": {
+        "kind": "derived",
+        "refs": [
+          "RX_COTS and VTX_COTS measured interfaces pending",
+          "concept revision 0.4.0-r2",
+          "REQ-FPV-001",
+          "REQ-RC-001"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "retain receiver",
+        "retain and cool VTX",
+        "separate signal and power cables",
+        "protect antenna routes"
+      ],
+      "envelope_mm": {
+        "min": [
+          -85.0,
+          -58.0,
+          48.0
+        ],
+        "max": [
+          70.0,
+          58.0,
+          120.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "separate FDM bodies", "material": "PETG pending thermal and fit coupons", "color_body": "structural with orange service tabs", "orientation": "module seats and bridge datums support-free"},
-      "interface_ids": ["IF-BRIDGE-RF-MOUNTS", "IF-RF-MOUNTS-RX", "IF-RF-MOUNTS-VTX"],
-      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["module retention", "cooling exposure", "connector/tool access", "strain relief", "RF separation"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "separate FDM bodies",
+        "material": "PETG pending thermal and fit coupons",
+        "color_body": "structural with orange service tabs",
+        "orientation": "module seats and bridge datums support-free"
+      },
+      "interface_ids": [
+        "IF-BRIDGE-RF-MOUNTS",
+        "IF-RF-MOUNTS-RX",
+        "IF-RF-MOUNTS-VTX"
+      ],
+      "acceptance": {
+        "expected_components": 4,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.15,
+        "checks": [
+          "module retention",
+          "cooling exposure",
+          "connector/tool access",
+          "strain relief",
+          "RF separation"
+        ]
+      }
     },
     {
       "id": "RX_COTS",
@@ -288,14 +821,71 @@
       "role": "purchased rover control interface and antenna authority",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["exact purchased receiver and antenna pending", "DEC-COTS-001"], "confidence": "low"},
-      "functions": ["receive 2.4 GHz control", "provide PWM outputs", "execute configured failsafe"],
-      "envelope_mm": {"min": [-65.0, -48.0, 52.0], "max": [-25.0, -15.0, 78.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "exact purchased receiver and antenna pending",
+          "DEC-COTS-001"
+        ],
+        "confidence": "low"
+      },
+      "functions": [
+        "receive 2.4 GHz control",
+        "provide PWM outputs",
+        "execute configured failsafe"
+      ],
+      "envelope_mm": {
+        "min": [
+          -65.0,
+          -48.0,
+          52.0
+        ],
+        "max": [
+          -25.0,
+          -15.0,
+          78.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "receiver", "orientation": "connectors accessible and antenna outside frame shadow"},
-      "interface_ids": ["IF-RF-MOUNTS-RX"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "PWM/BEC compatibility", "connector exits", "antenna active-element envelope", "failsafe configuration"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "receiver",
+        "orientation": "connectors accessible and antenna outside frame shadow"
+      },
+      "interface_ids": [
+        "IF-RF-MOUNTS-RX"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "exact revision",
+          "PWM/BEC compatibility",
+          "connector exits",
+          "antenna active-element envelope",
+          "failsafe configuration"
+        ]
+      }
     },
     {
       "id": "VTX_COTS",
@@ -303,29 +893,143 @@
       "role": "purchased video transmitter, thermal and antenna-connector authority",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["exact purchased VTX, antenna and supplier drawing pending", "20 x 20 mm class provisional"], "confidence": "medium"},
-      "functions": ["transmit analog video", "define cooling and antenna constraints"],
-      "envelope_mm": {"min": [5.0, 15.0, 52.0], "max": [40.0, 50.0, 80.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "exact purchased VTX, antenna and supplier drawing pending",
+          "20 x 20 mm class provisional"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "transmit analog video",
+        "define cooling and antenna constraints"
+      ],
+      "envelope_mm": {
+        "min": [
+          5.0,
+          15.0,
+          52.0
+        ],
+        "max": [
+          40.0,
+          50.0,
+          80.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "video transmitter", "orientation": "heat-generating surfaces exposed to airflow; antenna attached before power"},
-      "interface_ids": ["IF-RF-MOUNTS-VTX"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "mount pattern", "MMCX and cable exits", "antenna active element", "stationary temperature"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "video transmitter",
+        "orientation": "heat-generating surfaces exposed to airflow; antenna attached before power"
+      },
+      "interface_ids": [
+        "IF-RF-MOUNTS-VTX"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "exact revision",
+          "mount pattern",
+          "MMCX and cable exits",
+          "antenna active element",
+          "stationary temperature"
+        ]
+      }
     },
     {
       "id": "DRIVETRAIN_COTS",
       "name": "Purchased motor, reduction gearbox and differential unit",
-      "role": "purchased drivetrain authority: motor, reduction gearbox and diff unit candidate per DEC-AXLE-001/DEC-DRIVE-001; printed low-speed gears/axles only if no suitable purchased unit exists and only with explicit strain justification and bench tests",
+      "role": "purchased drivetrain authority: two geared motor units (one per axle) without differential/transfer case per user decision 2026-08-30; printed rigid axle housings/carriers mate the motor gearboxes",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["DEC-AXLE-001", "DEC-DRIVE-001", "exact unit and measured envelope pending"], "confidence": "low"},
-      "functions": ["drive both axles", "define motor class, ratio and mount loads", "keep loaded gear stages out of printed parts"],
-      "envelope_mm": {"min": [-120.0, -110.0, -75.0], "max": [120.0, 110.0, -5.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "DEC-AXLE-001",
+          "DEC-DRIVE-001",
+          "exact unit and measured envelope pending"
+        ],
+        "confidence": "low"
+      },
+      "functions": [
+        "drive both axles",
+        "define motor class, ratio and mount loads",
+        "keep loaded gear stages out of printed parts"
+      ],
+      "envelope_mm": {
+        "min": [
+          -120.0,
+          -110.0,
+          -75.0
+        ],
+        "max": [
+          120.0,
+          110.0,
+          -5.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "drivetrain", "orientation": "output aligned with axle centerline"},
-      "interface_ids": ["IF-CHASSIS-DRIVE", "IF-DRIVE-CARRIERS"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact unit revision", "output shaft interface", "mount pattern", "bench run-in and thermal check"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "drivetrain",
+        "orientation": "output aligned with axle centerline"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-DRIVE",
+        "IF-DRIVE-CARRIERS"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "exact unit revision",
+          "output shaft interface",
+          "mount pattern",
+          "bench run-in and thermal check"
+        ]
+      }
     },
     {
       "id": "SERVO_COTS",
@@ -333,14 +1037,69 @@
       "role": "purchased steering authority; standard 1:10 steering servo class with exact size per DEC-DRIVE-001",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["DEC-DRIVE-001", "exact servo and horn envelope pending"], "confidence": "low"},
-      "functions": ["steer the front axle", "define servo horn travel envelope"],
-      "envelope_mm": {"min": [100.0, -15.0, -55.0], "max": [145.0, 15.0, -15.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "DEC-DRIVE-001",
+          "exact servo and horn envelope pending"
+        ],
+        "confidence": "low"
+      },
+      "functions": [
+        "steer the front axle",
+        "define servo horn travel envelope"
+      ],
+      "envelope_mm": {
+        "min": [
+          100.0,
+          -15.0,
+          -55.0
+        ],
+        "max": [
+          145.0,
+          15.0,
+          -15.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "servo", "orientation": "horn axis vertical, output toward steering links"},
-      "interface_ids": ["IF-CHASSIS-SERVO"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact size class per DEC-DRIVE-001", "horn/saver interface", "stall current and BEC check", "full-travel torque margin"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "servo",
+        "orientation": "horn axis vertical, output toward steering links"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-SERVO"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "exact size class per DEC-DRIVE-001",
+          "horn/saver interface",
+          "stall current and BEC check",
+          "full-travel torque margin"
+        ]
+      }
     },
     {
       "id": "SHOCK_SET",
@@ -348,14 +1107,71 @@
       "role": "purchased coil-over shock candidate set; printed shock bodies are only a later coupon-gated option",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["exact shock length and mounting eyes pending", "DEC-DATUM-001"], "confidence": "low"},
-      "functions": ["damp suspension motion", "set spring rates and ride height", "define shock travel envelope"],
-      "envelope_mm": {"min": [-230.0, -160.0, -90.0], "max": [230.0, 160.0, 5.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "exact shock length and mounting eyes pending",
+          "DEC-DATUM-001"
+        ],
+        "confidence": "low"
+      },
+      "functions": [
+        "damp suspension motion",
+        "set spring rates and ride height",
+        "define shock travel envelope"
+      ],
+      "envelope_mm": {
+        "min": [
+          -230.0,
+          -160.0,
+          -90.0
+        ],
+        "max": [
+          230.0,
+          160.0,
+          5.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier assembly", "color_body": "shocks", "orientation": "mounting eyes on frame and arm bosses at approved angles"},
-      "interface_ids": ["IF-CHASSIS-SHOCKS", "IF-SUSP-SHOCKS"],
-      "acceptance": {"expected_components": 4, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["eye-to-eye length", "mounting bore size", "spring rate selection", "stroke across full suspension travel"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier assembly",
+        "color_body": "shocks",
+        "orientation": "mounting eyes on frame and arm bosses at approved angles"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-SHOCKS",
+        "IF-SUSP-SHOCKS"
+      ],
+      "acceptance": {
+        "expected_components": 4,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "eye-to-eye length",
+          "mounting bore size",
+          "spring rate selection",
+          "stroke across full suspension travel"
+        ]
+      }
     },
     {
       "id": "WHEELS_COTS",
@@ -363,14 +1179,68 @@
       "role": "purchased traction and rolling-envelope authority",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["DEC-DRIVE-001 wheel/tire size", "exact tire and rim measurement pending"], "confidence": "low"},
-      "functions": ["provide traction", "define rolling radius, track and wheel envelopes"],
-      "envelope_mm": {"min": [-235.0, -170.0, -100.0], "max": [235.0, 170.0, 10.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "DEC-DRIVE-001 wheel/tire size",
+          "exact tire and rim measurement pending"
+        ],
+        "confidence": "low"
+      },
+      "functions": [
+        "provide traction",
+        "define rolling radius, track and wheel envelopes"
+      ],
+      "envelope_mm": {
+        "min": [
+          -235.0,
+          -170.0,
+          -100.0
+        ],
+        "max": [
+          235.0,
+          170.0,
+          10.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "supplier tire and rim", "color_body": "wheels", "orientation": "axle axis lateral"},
-      "interface_ids": ["IF-CARRIERS-WHEELS"],
-      "acceptance": {"expected_components": 4, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["tire diameter and width per DEC-DRIVE-001", "rim hex/bore fit", "free rotation across full travel and lock"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "supplier tire and rim",
+        "color_body": "wheels",
+        "orientation": "axle axis lateral"
+      },
+      "interface_ids": [
+        "IF-CARRIERS-WHEELS"
+      ],
+      "acceptance": {
+        "expected_components": 4,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "tire diameter and width per DEC-DRIVE-001",
+          "rim hex/bore fit",
+          "free rotation across full travel and lock"
+        ]
+      }
     },
     {
       "id": "HARDWARE_KIT",
@@ -378,14 +1248,70 @@
       "role": "primary bolted-joint and tool-envelope authority",
       "authority": "purchased",
       "representation": "cots",
-      "source": {"kind": "measurements", "refs": ["M3 bolts, washers, Nyloc/captured metal nuts and pivot pins pending joint stack measurement"], "confidence": "medium"},
-      "functions": ["fasten suspension, steering, drivetrain and bridge joints", "provide metal pivot pins", "retain service modules"],
-      "envelope_mm": {"min": [-185.0, -75.0, 0.0], "max": [185.0, 75.0, 90.0]},
+      "source": {
+        "kind": "measurements",
+        "refs": [
+          "M3 bolts, washers, Nyloc/captured metal nuts and pivot pins pending joint stack measurement"
+        ],
+        "confidence": "medium"
+      },
+      "functions": [
+        "fasten suspension, steering, drivetrain and bridge joints",
+        "provide metal pivot pins",
+        "retain service modules"
+      ],
+      "envelope_mm": {
+        "min": [
+          -185.0,
+          -75.0,
+          0.0
+        ],
+        "max": [
+          185.0,
+          75.0,
+          90.0
+        ]
+      },
       "source_to_mm_scale": 1.0,
-      "placement_transform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "manufacturing": {"method": "purchased", "material": "metal to approved specification", "color_body": "hardware", "orientation": "joint-axis specific"},
-      "interface_ids": ["IF-CHASSIS-HARDWARE"],
-      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["joint stack", "thread engagement", "washer seat", "tool access", "retention method"]}
+      "placement_transform": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "manufacturing": {
+        "method": "purchased",
+        "material": "metal to approved specification",
+        "color_body": "hardware",
+        "orientation": "joint-axis specific"
+      },
+      "interface_ids": [
+        "IF-CHASSIS-HARDWARE"
+      ],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": false,
+        "max_bounds_error_mm": 0.1,
+        "checks": [
+          "joint stack",
+          "thread engagement",
+          "washer seat",
+          "tool access",
+          "retention method"
+        ]
+      }
     }
   ],
   "interfaces": [
@@ -395,14 +1321,64 @@
       "b": "SUSPENSION_ARMS",
       "owner": "CHASSIS_PRINTED",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [160, 0, -55], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "printed pivot bosses with double-wishbone arm mounts at four corners", "status": "datum freeze pending DEC-DATUM-001"},
-      "joining": {"method": "metal pivot pins from HARDWARE_KIT preferred, retained by captured nuts", "assembly_direction": "+Y/-Y", "anti_rotation": "captured pin heads and separated bosses", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          0,
+          -55
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "printed pivot bosses with double-wishbone arm mounts at four corners",
+        "status": "datum freeze pending DEC-DATUM-001"
+      },
+      "joining": {
+        "method": "metal pivot pins from HARDWARE_KIT preferred, retained by captured nuts",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "captured pin heads and separated bosses",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "wheel, suspension and impact loads from arms into designed frame pivot bosses"},
-      "verification": ["pivot-pin process coupon", "full suspension travel sweep", "static and fatigue coupon per AC-STRUCT-001", "2000 bump cycles"]
+      "keepout_ids": [
+        "KEEP-MOTION",
+        "KEEP-BATTERY-ACCESS"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "wheel, suspension and impact loads from arms into designed frame pivot bosses"
+      },
+      "verification": [
+        "pivot-pin process coupon",
+        "full suspension travel sweep",
+        "static and fatigue coupon per AC-STRUCT-001",
+        "2000 bump cycles"
+      ]
     },
     {
       "id": "IF-SUSP-CARRIERS",
@@ -410,14 +1386,63 @@
       "b": "AXLE_CARRIERS",
       "owner": "SUSPENSION_ARMS",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [160, 120, -55], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "wishbone arm pins or ball joints into uprights", "status": "kinematics pending CAD"},
-      "joining": {"method": "metal pins or ball studs from HARDWARE_KIT with locknuts", "assembly_direction": "+Y/-Y", "anti_rotation": "captured pins and separated arm mounts", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          120,
+          -55
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "wishbone arm pins or ball joints into uprights",
+        "status": "kinematics pending CAD"
+      },
+      "joining": {
+        "method": "metal pins or ball studs from HARDWARE_KIT with locknuts",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "captured pins and separated arm mounts",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "suspension and cornering loads between arms and uprights"},
-      "verification": ["full-travel sweep", "pin/ball-joint fit coupon", "impact coupon", "2000 bump cycles per AC-STRUCT-001"]
+      "keepout_ids": [
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "suspension and cornering loads between arms and uprights"
+      },
+      "verification": [
+        "full-travel sweep",
+        "pin/ball-joint fit coupon",
+        "impact coupon",
+        "2000 bump cycles per AC-STRUCT-001"
+      ]
     },
     {
       "id": "IF-CARRIERS-WHEELS",
@@ -425,14 +1450,63 @@
       "b": "WHEELS_COTS",
       "owner": "WHEELS_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [160, 140, -45], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "supplier wheel hex/bore and bearing seat", "status": "measure exact wheel per DEC-DRIVE-001"},
-      "joining": {"method": "supplier wheel hex on carrier bearings with axle nut", "assembly_direction": "+Y/-Y", "anti_rotation": "hex drive", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          140,
+          -45
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "supplier wheel hex/bore and bearing seat",
+        "status": "measure exact wheel per DEC-DRIVE-001"
+      },
+      "joining": {
+        "method": "supplier wheel hex on carrier bearings with axle nut",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "hex drive",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "transfer wheel loads into carriers through bearings"},
-      "verification": ["measured wheel gauge", "bearing seat fit", "full-lock and full-travel clearance", "roll test"]
+      "keepout_ids": [
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "transfer wheel loads into carriers through bearings"
+      },
+      "verification": [
+        "measured wheel gauge",
+        "bearing seat fit",
+        "full-lock and full-travel clearance",
+        "roll test"
+      ]
     },
     {
       "id": "IF-CHASSIS-STEERING",
@@ -440,14 +1514,63 @@
       "b": "STEERING_LINKS",
       "owner": "CHASSIS_PRINTED",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [160, 0, -50], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "printed steering link mounts driven by the SERVO_COTS horn", "status": "kinematics pending CAD"},
-      "joining": {"method": "metal ball studs and rod ends from HARDWARE_KIT with locknuts", "assembly_direction": "+Z", "anti_rotation": "threaded adjustment locked by nuts", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          0,
+          -50
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "printed steering link mounts driven by the SERVO_COTS horn",
+        "status": "kinematics pending CAD"
+      },
+      "joining": {
+        "method": "metal ball studs and rod ends from HARDWARE_KIT with locknuts",
+        "assembly_direction": "+Z",
+        "anti_rotation": "threaded adjustment locked by nuts",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-STEERING", "KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "steering forces from servo horn through printed links into frame mounts"},
-      "verification": ["full-lock sweep against KEEP-STEERING", "1000 full-travel cycles per AC-STRUCT-001", "bump-steer review"]
+      "keepout_ids": [
+        "KEEP-STEERING",
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "steering forces from servo horn through printed links into frame mounts"
+      },
+      "verification": [
+        "full-lock sweep against KEEP-STEERING",
+        "1000 full-travel cycles per AC-STRUCT-001",
+        "bump-steer review"
+      ]
     },
     {
       "id": "IF-CHASSIS-SERVO",
@@ -455,14 +1578,64 @@
       "b": "SERVO_COTS",
       "owner": "SERVO_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [120, 0, -40], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "standard 1:10 servo body and horn pattern", "status": "exact size per DEC-DRIVE-001"},
-      "joining": {"method": "supplier servo screws into printed servo mount with servo saver and horn", "assembly_direction": "+Z", "anti_rotation": "servo body in keyed printed pocket", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          120,
+          0,
+          -40
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "standard 1:10 servo body and horn pattern",
+        "status": "exact size per DEC-DRIVE-001"
+      },
+      "joining": {
+        "method": "supplier servo screws into printed servo mount with servo saver and horn",
+        "assembly_direction": "+Z",
+        "anti_rotation": "servo body in keyed printed pocket",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-STEERING", "KEEP-BATTERY-ACCESS"],
-      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4.0, "load_or_flow": "retain servo against stall torque without printed creep"},
-      "verification": ["measured servo gauge", "stall torque mount test", "horn travel sweep", "BEC/brownout test"]
+      "keepout_ids": [
+        "KEEP-STEERING",
+        "KEEP-BATTERY-ACCESS"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 4.0,
+        "load_or_flow": "retain servo against stall torque without printed creep"
+      },
+      "verification": [
+        "measured servo gauge",
+        "stall torque mount test",
+        "horn travel sweep",
+        "BEC/brownout test"
+      ]
     },
     {
       "id": "IF-CHASSIS-DRIVE",
@@ -470,14 +1643,64 @@
       "b": "DRIVETRAIN_COTS",
       "owner": "DRIVETRAIN_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [0, 0, -50], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "motor, reduction gearbox and diff unit mount pattern", "status": "unit selection pending DEC-AXLE-001"},
-      "joining": {"method": "metal screws from HARDWARE_KIT into printed drivetrain mounts with captured nuts", "assembly_direction": "+Z", "anti_rotation": "two separated mount lines", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          -50
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "two geared motor unit mount patterns, one per axle",
+        "status": "motor model pending DEC-DRIVE-001"
+      },
+      "joining": {
+        "method": "metal screws from HARDWARE_KIT into printed drivetrain mounts with captured nuts",
+        "assembly_direction": "+Z",
+        "anti_rotation": "two separated mount lines",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "drive torque reaction into designed frame mounts"},
-      "verification": ["unit fit gauge", "torque reaction test", "alignment with axle centerline", "thermal check"]
+      "keepout_ids": [
+        "KEEP-MOTION",
+        "KEEP-BATTERY-ACCESS"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "drive torque reaction into designed frame mounts"
+      },
+      "verification": [
+        "unit fit gauge",
+        "torque reaction test",
+        "alignment with axle centerline",
+        "thermal check"
+      ]
     },
     {
       "id": "IF-DRIVE-CARRIERS",
@@ -485,14 +1708,62 @@
       "b": "AXLE_CARRIERS",
       "owner": "DRIVETRAIN_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [0, 120, -45], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "drive axle or shaft output into uprights", "status": "pending DEC-AXLE-001"},
-      "joining": {"method": "supplier axle or driveshaft retention per selected unit", "assembly_direction": "+Y/-Y", "anti_rotation": "splined or keyed axle", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          0,
+          120,
+          -45
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "drive axle or shaft output into uprights",
+        "status": "pending DEC-AXLE-001"
+      },
+      "joining": {
+        "method": "supplier axle or driveshaft retention per selected unit",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "splined or keyed axle",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "transfer drive torque from gearbox/diff to wheel carriers"},
-      "verification": ["axle retention check", "full-travel plunge and binding check", "bench drive test"]
+      "keepout_ids": [
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "transfer drive torque from gearbox/diff to wheel carriers"
+      },
+      "verification": [
+        "axle retention check",
+        "full-travel plunge and binding check",
+        "bench drive test"
+      ]
     },
     {
       "id": "IF-CHASSIS-BRIDGE",
@@ -500,14 +1771,65 @@
       "b": "ELECTRONICS_BRIDGE",
       "owner": "CHASSIS_PRINTED",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [0, 0, -10], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "bridge feet on printed chassis bridge mounts", "spacing_status": "freeze with frame datums per DEC-DATUM-001"},
-      "joining": {"method": "removable M3 bolted bridge feet", "assembly_direction": "+Z", "anti_rotation": "two separated mount lines plus asymmetric longitudinal spacing", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          -10
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "bridge feet on printed chassis bridge mounts",
+        "spacing_status": "freeze with frame datums per DEC-DATUM-001"
+      },
+      "joining": {
+        "method": "removable M3 bolted bridge feet",
+        "assembly_direction": "+Z",
+        "anti_rotation": "two separated mount lines plus asymmetric longitudinal spacing",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS", "KEEP-DISCONNECT"],
-      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 4.0, "load_or_flow": "distributed payload load from low open bridge into printed frame mounts"},
-      "verification": ["bridge/chassis coupon", "fastener access review", "500 g deflection test", "1000 g proof-load test"]
+      "keepout_ids": [
+        "KEEP-MOTION",
+        "KEEP-BATTERY-ACCESS",
+        "KEEP-DISCONNECT"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 4.0,
+        "load_or_flow": "distributed payload load from low open bridge into printed frame mounts"
+      },
+      "verification": [
+        "bridge/chassis coupon",
+        "fastener access review",
+        "500 g deflection test",
+        "1000 g proof-load test"
+      ]
     },
     {
       "id": "IF-BRIDGE-CAMERA-GUARD",
@@ -515,14 +1837,63 @@
       "b": "CAMERA_GUARD",
       "owner": "ELECTRONICS_BRIDGE",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [120, 0, 60], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
-      "nominal_geometry": {"type": "two reinforced front mounting pads with replaceable guard fasteners"},
-      "joining": {"method": "removable metal fasteners into captured metal nuts", "assembly_direction": "+X", "anti_rotation": "two vertically or laterally separated fasteners and keyed shoulder", "lead_in_mm": 0.8, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          120,
+          0,
+          60
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ],
+        "y_axis": [
+          0,
+          0,
+          1
+        ],
+        "z_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "nominal_geometry": {
+        "type": "two reinforced front mounting pads with replaceable guard fasteners"
+      },
+      "joining": {
+        "method": "removable metal fasteners into captured metal nuts",
+        "assembly_direction": "+X",
+        "anti_rotation": "two vertically or laterally separated fasteners and keyed shoulder",
+        "lead_in_mm": 0.8,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-CAMERA-FOV", "KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "camera mass and frontal guard impact into reinforced bridge nodes"},
-      "verification": ["section and tool-access review", "optical keep-out collision", "replaceability cycles", "approved impact coupon"]
+      "keepout_ids": [
+        "KEEP-CAMERA-FOV",
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "camera mass and frontal guard impact into reinforced bridge nodes"
+      },
+      "verification": [
+        "section and tool-access review",
+        "optical keep-out collision",
+        "replaceability cycles",
+        "approved impact coupon"
+      ]
     },
     {
       "id": "IF-CAMERA-GUARD-CAMERA",
@@ -530,14 +1901,68 @@
       "b": "CAMERA_COTS",
       "owner": "CAMERA_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [130, 0, 62], "x_axis": [0, 1, 0], "y_axis": [0, 0, 1], "z_axis": [1, 0, 0]},
-      "nominal_geometry": {"type": "supplier camera side-mount pattern and lens envelope", "nominal_body_mm": [19.0, 19.0, 22.0], "status": "measure exact unit"},
-      "joining": {"method": "supplier-compatible M2 metal fasteners", "assembly_direction": "+Y/-Y", "anti_rotation": "paired side fasteners and cradle faces", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.1, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          130,
+          0,
+          62
+        ],
+        "x_axis": [
+          0,
+          1,
+          0
+        ],
+        "y_axis": [
+          0,
+          0,
+          1
+        ],
+        "z_axis": [
+          1,
+          0,
+          0
+        ]
+      },
+      "nominal_geometry": {
+        "type": "supplier camera side-mount pattern and lens envelope",
+        "nominal_body_mm": [
+          19.0,
+          19.0,
+          22.0
+        ],
+        "status": "measure exact unit"
+      },
+      "joining": {
+        "method": "supplier-compatible M2 metal fasteners",
+        "assembly_direction": "+Y/-Y",
+        "anti_rotation": "paired side fasteners and cradle faces",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.1,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-CAMERA-FOV"],
-      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.5, "load_or_flow": "locate camera without lens contact and maintain fixed tilt under vibration"},
-      "verification": ["measured camera gauge", "mount and cable fit", "field-of-view render", "vibration and driving inspection"]
+      "keepout_ids": [
+        "KEEP-CAMERA-FOV"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 3.5,
+        "load_or_flow": "locate camera without lens contact and maintain fixed tilt under vibration"
+      },
+      "verification": [
+        "measured camera gauge",
+        "mount and cable fit",
+        "field-of-view render",
+        "vibration and driving inspection"
+      ]
     },
     {
       "id": "IF-BRIDGE-RF-MOUNTS",
@@ -545,14 +1970,64 @@
       "b": "RF_MOUNT_SET",
       "owner": "ELECTRONICS_BRIDGE",
       "kind": "fastener",
-      "local_frame": {"origin_mm": [-20, 0, 58], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "separate keyed mounting pads for receiver, VTX and two antenna supports"},
-      "joining": {"method": "removable small metal fasteners with keyed footprints", "assembly_direction": "+Z", "anti_rotation": "asymmetric keys and separated fasteners", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          -20,
+          0,
+          58
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "separate keyed mounting pads for receiver, VTX and two antenna supports"
+      },
+      "joining": {
+        "method": "removable small metal fasteners with keyed footprints",
+        "assembly_direction": "+Z",
+        "anti_rotation": "asymmetric keys and separated fasteners",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-DISCONNECT", "KEEP-CABLES"],
-      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.5, "load_or_flow": "module retention and rollover protection without coupling VTX heat into receiver"},
-      "verification": ["module separation inspection", "cable-path collision", "antenna keep-out review", "service-removal sequence"]
+      "keepout_ids": [
+        "KEEP-RF-ACTIVE",
+        "KEEP-DISCONNECT",
+        "KEEP-CABLES"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.4,
+        "minimum_ligament_mm": 3.5,
+        "load_or_flow": "module retention and rollover protection without coupling VTX heat into receiver"
+      },
+      "verification": [
+        "module separation inspection",
+        "cable-path collision",
+        "antenna keep-out review",
+        "service-removal sequence"
+      ]
     },
     {
       "id": "IF-RF-MOUNTS-RX",
@@ -560,14 +2035,64 @@
       "b": "RX_COTS",
       "owner": "RX_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [-45, -32, 60], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "measured receiver body, connector, wire and antenna retention envelope", "status": "unresolved"},
-      "joining": {"method": "serviceable clip or strap isolated from active antenna", "assembly_direction": "+Z", "anti_rotation": "asymmetric body stop and cable exit", "lead_in_mm": 1.0, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.1, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.2, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          -45,
+          -32,
+          60
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "measured receiver body, connector, wire and antenna retention envelope",
+        "status": "unresolved"
+      },
+      "joining": {
+        "method": "serviceable clip or strap isolated from active antenna",
+        "assembly_direction": "+Z",
+        "anti_rotation": "asymmetric body stop and cable exit",
+        "lead_in_mm": 1.0,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.15,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.1,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.2,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-CABLES"],
-      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 3.0, "load_or_flow": "retain receiver and strain-relieve PWM/power leads without covering antenna active element"},
-      "verification": ["measured receiver fit coupon", "connector insertion/removal", "antenna clearance", "stall/brownout and range test"]
+      "keepout_ids": [
+        "KEEP-RF-ACTIVE",
+        "KEEP-CABLES"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.0,
+        "minimum_ligament_mm": 3.0,
+        "load_or_flow": "retain receiver and strain-relieve PWM/power leads without covering antenna active element"
+      },
+      "verification": [
+        "measured receiver fit coupon",
+        "connector insertion/removal",
+        "antenna clearance",
+        "stall/brownout and range test"
+      ]
     },
     {
       "id": "IF-RF-MOUNTS-VTX",
@@ -575,14 +2100,64 @@
       "b": "VTX_COTS",
       "owner": "VTX_COTS",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [22, 32, 60], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "measured 20 x 20 mm-class VTX mount, connector and cooling envelope", "status": "measure exact unit"},
-      "joining": {"method": "supplier-pattern fasteners or approved retained standoffs", "assembly_direction": "+Z", "anti_rotation": "supplier hole pattern", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.1, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          22,
+          32,
+          60
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "measured 20 x 20 mm-class VTX mount, connector and cooling envelope",
+        "status": "measure exact unit"
+      },
+      "joining": {
+        "method": "supplier-pattern fasteners or approved retained standoffs",
+        "assembly_direction": "+Z",
+        "anti_rotation": "supplier hole pattern",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.15,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.1,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-RF-ACTIVE", "KEEP-CABLES"],
-      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 3.0, "load_or_flow": "retain VTX while exposing heat-generating surfaces and strain-relieving the antenna connector"},
-      "verification": ["measured VTX gauge", "connector and antenna fit", "airflow/free-area review", "stationary and moving temperature test"]
+      "keepout_ids": [
+        "KEEP-RF-ACTIVE",
+        "KEEP-CABLES"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 2.0,
+        "minimum_ligament_mm": 3.0,
+        "load_or_flow": "retain VTX while exposing heat-generating surfaces and strain-relieving the antenna connector"
+      },
+      "verification": [
+        "measured VTX gauge",
+        "connector and antenna fit",
+        "airflow/free-area review",
+        "stationary and moving temperature test"
+      ]
     },
     {
       "id": "IF-CHASSIS-HARDWARE",
@@ -590,14 +2165,64 @@
       "b": "HARDWARE_KIT",
       "owner": "HARDWARE_KIT",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [0, 0, -30], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "joint-specific M3 through-bolt, washer, nut, pivot pin and tool envelopes"},
-      "joining": {"method": "metal through-fastener with washer and Nyloc or captured metal nut", "assembly_direction": "joint-axis specific", "anti_rotation": "captured nut flats or external tool", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.1, "solver_margin_mm": 0.05},
+      "local_frame": {
+        "origin_mm": [
+          0,
+          0,
+          -30
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "joint-specific M3 through-bolt, washer, nut, pivot pin and tool envelopes"
+      },
+      "joining": {
+        "method": "metal through-fastener with washer and Nyloc or captured metal nut",
+        "assembly_direction": "joint-axis specific",
+        "anti_rotation": "captured nut flats or external tool",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.1,
+        "solver_margin_mm": 0.05
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION", "KEEP-BATTERY-ACCESS", "KEEP-DISCONNECT"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "maintain clamp preload and prevent pull-through in primary joints"},
-      "verification": ["joint-stack drawing", "thread engagement", "washer-seat section", "torque and proof-load inspection"]
+      "keepout_ids": [
+        "KEEP-MOTION",
+        "KEEP-BATTERY-ACCESS",
+        "KEEP-DISCONNECT"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "maintain clamp preload and prevent pull-through in primary joints"
+      },
+      "verification": [
+        "joint-stack drawing",
+        "thread engagement",
+        "washer-seat section",
+        "torque and proof-load inspection"
+      ]
     },
     {
       "id": "IF-CHASSIS-SHOCKS",
@@ -605,14 +2230,62 @@
       "b": "SHOCK_SET",
       "owner": "SHOCK_SET",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [160, 90, -30], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "shock eye mount on printed frame towers", "status": "shock length pending DEC-DATUM-001"},
-      "joining": {"method": "metal shock mounting screws from HARDWARE_KIT with washers", "assembly_direction": "+Z", "anti_rotation": "mounting eye on single bolt", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          90,
+          -30
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "shock eye mount on printed frame towers",
+        "status": "shock length pending DEC-DATUM-001"
+      },
+      "joining": {
+        "method": "metal shock mounting screws from HARDWARE_KIT with washers",
+        "assembly_direction": "+Z",
+        "anti_rotation": "mounting eye on single bolt",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "transfer shock loads into the frame"},
-      "verification": ["full-travel sweep", "mount strength test", "bump cycles per AC-STRUCT-001"]
+      "keepout_ids": [
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "transfer shock loads into the frame"
+      },
+      "verification": [
+        "full-travel sweep",
+        "mount strength test",
+        "bump cycles per AC-STRUCT-001"
+      ]
     },
     {
       "id": "IF-SUSP-SHOCKS",
@@ -620,31 +2293,164 @@
       "b": "SHOCK_SET",
       "owner": "SHOCK_SET",
       "kind": "purchased_mate",
-      "local_frame": {"origin_mm": [160, 100, -60], "x_axis": [1, 0, 0], "y_axis": [0, 1, 0], "z_axis": [0, 0, 1]},
-      "nominal_geometry": {"type": "shock eye mount on suspension arms", "status": "shock angle pending CAD"},
-      "joining": {"method": "metal shock mounting screws from HARDWARE_KIT with washers", "assembly_direction": "+Z", "anti_rotation": "mounting eye on single bolt", "lead_in_mm": 0.5, "serviceable": true},
-      "allowances": {"functional_clearance_per_side_mm": 0.1, "process_compensation_per_side_mm": 0.15, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.1},
+      "local_frame": {
+        "origin_mm": [
+          160,
+          100,
+          -60
+        ],
+        "x_axis": [
+          1,
+          0,
+          0
+        ],
+        "y_axis": [
+          0,
+          1,
+          0
+        ],
+        "z_axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "nominal_geometry": {
+        "type": "shock eye mount on suspension arms",
+        "status": "shock angle pending CAD"
+      },
+      "joining": {
+        "method": "metal shock mounting screws from HARDWARE_KIT with washers",
+        "assembly_direction": "+Z",
+        "anti_rotation": "mounting eye on single bolt",
+        "lead_in_mm": 0.5,
+        "serviceable": true
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.1,
+        "process_compensation_per_side_mm": 0.15,
+        "assembly_allowance_per_side_mm": 0.05,
+        "adhesive_gap_per_side_mm": 0,
+        "boolean_overlap_mm": 0,
+        "registration_uncertainty_mm": 0.15,
+        "solver_margin_mm": 0.1
+      },
       "seam_band_mm": 0,
-      "keepout_ids": ["KEEP-MOTION"],
-      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "transfer shock loads into the arms"},
-      "verification": ["full-travel sweep", "mount strength test", "bump cycles per AC-STRUCT-001"]
+      "keepout_ids": [
+        "KEEP-MOTION"
+      ],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 5.0,
+        "load_or_flow": "transfer shock loads into the arms"
+      },
+      "verification": [
+        "full-travel sweep",
+        "mount strength test",
+        "bump cycles per AC-STRUCT-001"
+      ]
     }
   ],
   "keepouts": [
-    {"id": "KEEP-MOTION", "type": "swept_volume", "purpose": "steering, suspension, wheels, driveshaft and motor motion across full travel", "source": "frame CAD and full-travel motion sweep pending"},
-    {"id": "KEEP-BATTERY-ACCESS", "type": "aabb", "purpose": "traction-battery installation and removal corridor in the designed printed tray; provisional proxy only", "min_mm": [-125, -80, -20], "max_mm": [90, 80, 70], "source": "designed printed tray envelope pending frame datum freeze per DEC-DATUM-001"},
-    {"id": "KEEP-DISCONNECT", "type": "aabb", "purpose": "visible emergency battery-disconnect hand and cable path; provisional proxy only", "min_mm": [-75, -120, 0], "max_mm": [40, 0, 100], "source": "exact connector position and operator access study pending"},
-    {"id": "KEEP-CAMERA-FOV", "type": "swept_volume", "purpose": "camera optical field including lens protection margin at approved fixed tilt", "source": "measured lens model and field-of-view render pending"},
-    {"id": "KEEP-RF-ACTIVE", "type": "swept_volume", "purpose": "2.4 GHz receiver and 5.8 GHz video antenna active-element clearance, separation and rollover envelope", "source": "exact antenna drawings and mounted samples pending"},
-    {"id": "KEEP-CABLES", "type": "swept_volume", "purpose": "power, video, PWM and antenna cable bend radii, connector insertion and strain-relief paths", "source": "exact harness and connector measurements pending"},
-    {"id": "KEEP-STEERING", "type": "swept_volume", "purpose": "steering link and servo horn travel across full lock", "source": "steering kinematics and servo horn sweep pending CAD"}
+    {
+      "id": "KEEP-MOTION",
+      "type": "swept_volume",
+      "purpose": "steering, suspension, wheels, driveshaft and motor motion across full travel",
+      "source": "frame CAD and full-travel motion sweep pending"
+    },
+    {
+      "id": "KEEP-BATTERY-ACCESS",
+      "type": "aabb",
+      "purpose": "traction-battery installation and removal corridor in the designed printed tray; provisional proxy only",
+      "min_mm": [
+        -125,
+        -80,
+        -20
+      ],
+      "max_mm": [
+        90,
+        80,
+        70
+      ],
+      "source": "designed printed tray envelope pending frame datum freeze per DEC-DATUM-001"
+    },
+    {
+      "id": "KEEP-DISCONNECT",
+      "type": "aabb",
+      "purpose": "visible emergency battery-disconnect hand and cable path; provisional proxy only",
+      "min_mm": [
+        -75,
+        -120,
+        0
+      ],
+      "max_mm": [
+        40,
+        0,
+        100
+      ],
+      "source": "exact connector position and operator access study pending"
+    },
+    {
+      "id": "KEEP-CAMERA-FOV",
+      "type": "swept_volume",
+      "purpose": "camera optical field including lens protection margin at approved fixed tilt",
+      "source": "measured lens model and field-of-view render pending"
+    },
+    {
+      "id": "KEEP-RF-ACTIVE",
+      "type": "swept_volume",
+      "purpose": "2.4 GHz receiver and 5.8 GHz video antenna active-element clearance, separation and rollover envelope",
+      "source": "exact antenna drawings and mounted samples pending"
+    },
+    {
+      "id": "KEEP-CABLES",
+      "type": "swept_volume",
+      "purpose": "power, video, PWM and antenna cable bend radii, connector insertion and strain-relief paths",
+      "source": "exact harness and connector measurements pending"
+    },
+    {
+      "id": "KEEP-STEERING",
+      "type": "swept_volume",
+      "purpose": "steering link and servo horn travel across full lock",
+      "source": "steering kinematics and servo horn sweep pending CAD"
+    }
   ],
   "validation": [
-    {"id": "VAL-ARCH", "gate": "architecture", "method": "review function, load path, RF separation, ownership and service sequence", "acceptance": "printed frame owns motion, battery and primary load; bridge and guards remain serviceable; control and video remain independent"},
-    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble frame, suspension, steering, drivetrain, servo, electronics, fastener, cable and swept-volume proxies", "acceptance": "all datums are frozen per DEC-DATUM-001 and no component enters motion, steering, battery, disconnect, view, RF or cable keep-outs"},
-    {"id": "VAL-COMP", "gate": "component", "method": "deterministic CadQuery solid audit, interface sections, minimum-wall review and STL round trip", "acceptance": "every printed body is a positive B-Rep solid with matching STEP and watertight single-component STL"},
-    {"id": "VAL-INT", "gate": "integration", "method": "exact assembly collision, tool access, fastener, cable and service-removal checks", "acceptance": "all interface contracts pass and camera/RX/VTX can be serviced without disturbing drivetrain or battery"},
-    {"id": "VAL-MFG", "gate": "manufacturing", "method": "slice every printed part with complete explicit Anycubic machine, process and filament JSON profiles", "acceptance": "all parts fit the bed in approved orientation and required slicer/G-code checks have no FAIL, NOT_RUN or unresolved REVIEW_REQUIRED result"},
-    {"id": "VAL-PHY", "gate": "physical", "method": "fit, static/impact/fatigue coupons, 50 N clamp-slip, 500 g deflection, 1000 g proof-load, frame torsion, camera impact, thermal, failsafe, range, braking and supervised 5 km/h driving tests", "acceptance": "all numeric design-spec acceptance limits pass with recorded measurements, AC-STRUCT-001 passes (2000 suspension bump cycles, 1000 steering full-travel cycles, frame torsion and proof load) and human physical approval is recorded before any driving test"}
+    {
+      "id": "VAL-ARCH",
+      "gate": "architecture",
+      "method": "review function, load path, RF separation, ownership and service sequence",
+      "acceptance": "printed frame owns motion, battery and primary load; bridge and guards remain serviceable; control and video remain independent"
+    },
+    {
+      "id": "VAL-PROXY",
+      "gate": "proxy",
+      "method": "assemble frame, suspension, steering, drivetrain, servo, electronics, fastener, cable and swept-volume proxies",
+      "acceptance": "all datums are frozen per DEC-DATUM-001 and no component enters motion, steering, battery, disconnect, view, RF or cable keep-outs"
+    },
+    {
+      "id": "VAL-COMP",
+      "gate": "component",
+      "method": "deterministic CadQuery solid audit, interface sections, minimum-wall review and STL round trip",
+      "acceptance": "every printed body is a positive B-Rep solid with matching STEP and watertight single-component STL"
+    },
+    {
+      "id": "VAL-INT",
+      "gate": "integration",
+      "method": "exact assembly collision, tool access, fastener, cable and service-removal checks",
+      "acceptance": "all interface contracts pass and camera/RX/VTX can be serviced without disturbing drivetrain or battery"
+    },
+    {
+      "id": "VAL-MFG",
+      "gate": "manufacturing",
+      "method": "slice every printed part with complete explicit Anycubic machine, process and filament JSON profiles",
+      "acceptance": "all parts fit the bed in approved orientation and required slicer/G-code checks have no FAIL, NOT_RUN or unresolved REVIEW_REQUIRED result"
+    },
+    {
+      "id": "VAL-PHY",
+      "gate": "physical",
+      "method": "fit, static/impact/fatigue coupons, 50 N clamp-slip, 500 g deflection, 1000 g proof-load, frame torsion, camera impact, thermal, failsafe, range, braking and supervised 5 km/h driving tests",
+      "acceptance": "all numeric design-spec acceptance limits pass with recorded measurements, AC-STRUCT-001 passes (2000 suspension bump cycles, 1000 steering full-travel cycles, frame torsion and proof load) and human physical approval is recorded before any driving test"
+    }
   ]
 }

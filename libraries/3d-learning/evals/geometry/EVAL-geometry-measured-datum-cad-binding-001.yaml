@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-measured-datum-cad-binding-001
+title: Every declared user measurement drives and verifies a named CAD relation
+category: geometry
+status: draft
+trigger: Functional parametric CAD declares user-measured interface or keep-out dimensions.
+risk: A value can appear in requirements and parameters while the generated model silently ignores it and therefore does not match the physical interface.
+given:
+  project: products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7
+  generator: src/generate_r7_z_rider.py
+  parameters: params/r7-z-rider-draft2.json
+  measured_values_mm: [17.0, 10.0, 37.0, 40.0]
+expected:
+  - A fresh generator run succeeds in a new temporary output directory.
+  - The geometry report contains exactly four measurement-binding records with stable identifiers and non-empty named features.
+  - Each binding records equal expected and actual values with zero nominal deviation.
+  - Separate checks pass for screw-center pitch, purge-Z capture, throw-X capture center and rear-Y keep-out compliance.
+failure_conditions:
+  - A measurement exists only in requirements or parameters without a named geometric consumer.
+  - Any expected/actual pair differs or a binding is missing.
+  - The generator cannot reproduce the report from source in a fresh directory.
+fixtures:
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/src/generate_r7_z_rider.py
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/params/r7-z-rider-draft2.json
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/tests/test_measured_datum_bindings.py
+grader:
+  type: deterministic
+  command: python3 -m unittest products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/tests/test_measured_datum_bindings.py -v
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Regenerate R7-DRAFT-2, load the machine-readable geometry report and compare each expected value, actual relation, deviation and named feature.
+relationships:
+  lessons: [EXP-00041]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-30
+  report: products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
+  artifact_hashes:
+    - 824955ebff0e63876faf8a5e9b585f6fa5872dd2e6068de2a38668746af65e44
+    - db50fc8c62713b642c6646acabb365eb4afd5b5b6c178eab024c10bf0839c1bb
+    - f95f09c477c378c36a8d034218cb976cc6538a656e5e1cb87d265527e91b51d4
+    - f97904974cf1fa25273e022340c90a950876a2a5c51955f2a2154662c5f5ae37
+tags: [geometry, measurement, cad-binding, user-correction, regression, digital-only]

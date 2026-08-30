@@ -1,0 +1,147 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00041
+title: User measurements must bind to named CAD features rather than exist only as parameters
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One user correction on one digitally regenerated purge-catcher interface; deterministic geometry checks pass, but no physical coupon has been measured.
+feature:
+  type: measurement-driven-machine-interface
+  geometry: Two-screw Wiper datum plate, co-moving purge catcher and machine rear keep-out
+  design_parameters:
+    screw_pitch_z_mm: 17.0
+    lower_screw_to_purge_deposition_plane_mm: 10.0
+    screw_datum_to_purge_throw_plane_x_mm: 37.0
+    screw_plane_to_rear_wiper_extent_mm: 40.0
+  named_datums:
+    - lower Wiper screw center and seating plane
+    - upper Wiper screw slot center
+    - purge deposition Z datum
+    - catcher capture-center X plane
+    - rear Wiper Y keep-out plane
+  constraints:
+    - Every user-measured value has a named geometric owner.
+    - Generated evidence records expected, actual and deviation values.
+    - A parameter that is not consumed by geometry or a keep-out check does not count as implemented.
+scope:
+  process: FFF parametric CAD generation
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG target
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: hardened steel target, identity pending
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: generated on-bed orientation; final human preview pending
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20mm Standard with Anycubic PETG and Kobra 3 Max 0.4 mm machine profile
+    profile_hash: c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab
+  geometry_class: moving printer accessory with measured screw interface and purge-flight datums
+  environment: deterministic CadQuery and Trimesh build; no physical print yet
+  transfer_limits:
+    - Evidence covers one R7-DRAFT-2 generator and four user-provided measurements.
+    - Nominal CAD binding does not prove photo endpoint interpretation, screw identity, physical fit or full-machine clearance.
+    - Feature names and coordinate frames remain project-specific.
+observation:
+  summary: The rejected R7-DRAFT-1 stored the four measurements in parameters, but only the 17 mm screw pitch was verifiably represented in the generated geometry; the user correctly could not find a model matching all dimensions.
+  expected: All 17, 10, 37 and 40 mm measurements would be visible as mounting, capture or keep-out relationships in the generated model and validation evidence.
+  actual: R7-DRAFT-1 treated multiple values as documentation-only parameters; R7-DRAFT-2 now binds all four to named features and reports zero nominal deviation.
+  outcome: correction
+  parameter: measured datum to CAD-feature binding
+  recommended_value: null
+  units: mm
+explanation:
+  hypothesis: A requirements table can appear complete while the CAD silently ignores entries unless every measurement has a named geometric consumer and an independently graded relation.
+  mechanism: R7-DRAFT-2 constructs the hole/slot centers, capture zone, capture-center plane and rear keep-out from the measurement fields, then compares actual geometric relations with the expected values.
+  alternatives:
+    - Some photo endpoints may have been interpreted differently than the physical reference intended.
+    - Nominal equality in the generator may still miss physical printer offsets or tolerance stack-up.
+  validated: true
+  validation_method: Fresh generator run plus deterministic regression test of all four named bindings and the associated geometry checks.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: User measurements and ruler photographs, followed by deterministic nominal CAD relation checks.
+  uncertainty: Screw details, exact photo endpoints, machine keep-out envelope and physical fit remain unmeasured or untested.
+  sources:
+    - type: user-statement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/DECISION-LOG-R7.md
+      hash: null
+      notes: Records rejection of the parameter-only R7-DRAFT-1 interpretation.
+    - type: measurement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+      hash: 1b1bb4964246adf8429a46dbd4ac5c5641aebde78325e681794bc05a2aa54fcd
+      notes: Owns the four measurement records and their R7-DRAFT-2 CAD bindings.
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
+      hash: f95f09c477c378c36a8d034218cb976cc6538a656e5e1cb87d265527e91b51d4
+      notes: Machine-readable expected/actual/deviation evidence.
+  artifacts:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/src/generate_r7_z_rider.py
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/params/r7-z-rider-draft2.json
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/tests/test_measured_datum_bindings.py
+applicability:
+  triggers:
+    - A user states that a generated model does not match dimensions already present in requirements or parameter files.
+    - Functional CAD is driven by photographed or manually recorded machine-interface measurements.
+  exclusions:
+    - Purely descriptive values intentionally not used as geometry or keep-outs
+    - Values already proven by an authoritative imported interface model with equivalent named-datum checks
+  transfer_limits:
+    - E0 correction candidate; use for targeted review and regression planning, not as a universal production rule.
+    - The physical measurement method and tolerance must still be selected per interface.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00034
+    - EXP-00035
+  evals:
+    - EVAL-geometry-measured-datum-cad-binding-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
+provenance:
+  project: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  part_revision: R7-DRAFT-2
+  trace: products/printer-workshop/unregistered-kobra3max-purge-catcher/DECISION-LOG-R7.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - user-correction
+  - measured-datum
+  - cad-binding
+  - machine-interface
+  - regression
+  - digital-only

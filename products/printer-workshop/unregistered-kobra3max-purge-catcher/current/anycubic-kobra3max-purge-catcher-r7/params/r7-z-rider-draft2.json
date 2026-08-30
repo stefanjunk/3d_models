@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "project_id": "ANYCUBIC-K3MAX-PURGE-CATCHER-R7",
+  "spec_revision": "0.7.0-requirements.2",
+  "geometry_revision": "R7-DRAFT-2",
+  "units": "mm",
+  "coordinate_system": {
+    "origin": "lower Wiper screw center on the screw seating plane",
+    "x": "+X horizontally from screw axis toward measured purge throw datum and impact wall",
+    "y": "+Y normal to screw seating plane toward printer front and catcher removal direction",
+    "z": "+Z upward"
+  },
+  "measured_datums": {
+    "screw_pitch_z_mm": 17.0,
+    "lower_screw_to_purge_deposition_plane_mm": 10.0,
+    "screw_datum_to_purge_throw_plane_x_mm": 37.0,
+    "screw_plane_to_rear_wiper_extent_mm": 40.0
+  },
+  "datum_plate": {
+    "thickness_y_mm": 2.4,
+    "width_x_mm": 18.0,
+    "z_min_mm": -13.0,
+    "z_max_mm": 28.0,
+    "lower_hole_diameter_mm": 4.4,
+    "upper_slot_width_mm": 4.4,
+    "upper_slot_total_length_z_mm": 6.4,
+    "assumed_screw_head_keepout_diameter_mm": 8.5
+  },
+  "lateral_guides": {
+    "rail_center_z_mm": [-8.5, 8.5],
+    "rail_y_min_mm": 2.2,
+    "rail_y_max_mm": 14.2,
+    "rail_base_x_mm": 2.2,
+    "rail_tip_x_mm": 6.2,
+    "rail_base_half_height_z_mm": 1.6,
+    "rail_tip_half_height_z_mm": 2.5,
+    "receiver_x_min_mm": 2.6,
+    "receiver_x_max_mm": 8.0,
+    "receiver_y_min_mm": 2.4,
+    "receiver_y_max_mm": 17.8,
+    "receiver_pad_half_height_z_mm": 3.4,
+    "receiver_front_stop_mm": 1.2,
+    "default_clearance_mm": 0.3,
+    "clearance_coupon_variants_mm": [0.2, 0.3, 0.4],
+    "maximum_service_stroke_mm": 15.0
+  },
+  "latch": {
+    "beam_length_z_mm": 18.0,
+    "beam_thickness_x_mm": 1.5,
+    "beam_width_y_mm": 8.0,
+    "root_thickness_x_mm": 2.0,
+    "nominal_deflection_x_mm": 0.8,
+    "hook_overlap_x_mm": 0.7,
+    "hard_stop_gap_x_mm": 0.9,
+    "petg_modulus_range_mpa": [1300.0, 2100.0],
+    "cycle_target": 100
+  },
+  "catcher": {
+    "capture_center_x_mm": 37.0,
+    "width_x_mm": 62.0,
+    "rear_face_y_mm": 2.4,
+    "depth_y_mm": 44.0,
+    "bottom_z_mm": -36.0,
+    "height_z_mm": 62.0,
+    "lattice_wall_mm": 1.35,
+    "solid_wall_mm": 1.6,
+    "bottom_frame_height_mm": 4.0,
+    "edge_frame_mm": 3.0,
+    "honeycomb_cell_radius_mm": 5.4,
+    "capture_zone_lower_z_mm": -20.0,
+    "hood_start_z_mm": 8.0,
+    "hood_depth_x_mm": 12.0,
+    "impact_top_z_mm": 26.0,
+    "cheek_start_z_mm": -20.0,
+    "cheek_top_z_mm": 8.0,
+    "front_rear_top_frame_z_mm": 24.0,
+    "hood_profile_samples": 16
+  },
+  "machine_keepout": {
+    "screw_seating_plane_y_mm": 0.0,
+    "rear_wiper_extent_y_mm": -40.0,
+    "rule": "All added manufacturing geometry remains on or in front of the measured screw seating plane; the 40 mm rear extent is reference-only machine space."
+  },
+  "manufacturing": {
+    "material": "PETG",
+    "density_g_cm3": 1.27,
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.45,
+    "stl_linear_tolerance_mm": 0.03,
+    "stl_angular_tolerance_rad": 0.12,
+    "moving_mass_target_g": 25.0
+  },
+  "physical_gates": {
+    "mount_pattern_coupon": "NOT_RUN",
+    "screw_identity_and_engagement": "NOT_RUN",
+    "slide_clearance_coupon": "NOT_RUN",
+    "latch_cycle_coupon": "NOT_RUN",
+    "manual_full_motion": "NOT_RUN",
+    "purge_low_mid_high": "NOT_RUN"
+  }
+}

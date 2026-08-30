@@ -93,3 +93,26 @@
 - Entscheidung: Die im Konzeptblatt gezeigte Systemarchitektur und Formrichtung gilt seit `2026-08-29T12:17:09+02:00` als freigegeben.
 - Evidenz: Benutzerantwort „freigegeben“ auf die ausdrückliche Freigabeaufforderung für `R7 Z-Rider v1`.
 - Folge: Parametrische DRAFT-Geometrie und Testcoupons dürfen erzeugt werden. Das Bild bleibt nicht maßhaltig; reale Schraubendaten, Passung, Vollweg, Purge-Flugbahn, Kennzeichnung und finale Freigabe bleiben eigene Gates.
+
+## 2026-08-30 – Benutzerkorrektur und R7-DRAFT-2
+
+### DEC-R7-015 – R7-DRAFT-1 wegen nur deklarierter Maße verwerfen
+
+- Status: verworfen und als negativer Nachweis erhalten
+- Benutzerkorrektur: Im vorhandenen Dateibestand war kein Modell erkennbar, das den eingebrachten Maßen entspricht.
+- Feststellung: R7-DRAFT-1 lud 17/10/37/40 mm in die Parameterdatei, prüfte geometrisch aber nur den 17-mm-Schraubenabstand. Die übrigen Werte waren nicht an benannte CAD-Flächen, Fangzonen oder Maschinen-Keep-outs gebunden.
+- Entscheidung: Ein Zahlenvergleich im Parameterobjekt gilt nicht als Maßnachweis. R7-DRAFT-1 und R2–R6 werden aus dem aktiven Produktbestand entfernt; Rohmessungen und Freigaben bleiben erhalten.
+
+### DEC-R7-016 – Vier Realmaße als explizite CAD-Zwangsbedingungen
+
+- Status: R7-DRAFT-2 digital bestanden, physisch couponpflichtig
+- Entscheidung: 17 mm steuern die Lochmittelpunkte, 10 mm legen das Purge-Datum bei `Z=-10` in die geschlossene Fangzone, 37 mm legen die Fangmittelebene bei `X=37` fest und 40 mm definieren den rückwärtigen Wiper-Keep-out bis `Y=-40`; sämtliche neue Fertigungsgeometrie bleibt bei `Y>=0`.
+- Ergebnis: Alle vier nominalen Abweichungen sind 0,00 mm. Fangkopf und Datumplatte bilden je einen gültigen Einzelkörper; die bewegte PETG-Masse der ausgewählten Variante beträgt digital rund 24,44 g.
+- Grenze: Schraubenidentität, reale Enddatums, Kollisionsfreiheit, Rastzyklen und Purge-Funktion bleiben physisch offen. Der Anycubic-Slicer warnt beim Vollteil und bei der Datumplatte vor Auskragungen; die 17-mm-Messlehre sliced ohne Warnung und bleibt der erste Druckschritt.
+
+### DEC-R7-017 – Balanced auswählen und native Anycubic-3MF getrennt ausweisen
+
+- Status: digital ausgewählt; menschliche Slicer-Vorschau und physische Coupons ausstehend
+- Entscheidung: Die balanced-Geometrie mit 1,35-mm-Wabengitter und 1,60-mm-Vollwänden ist die einzige aktive Hauptkörpervariante. Sie bleibt mit 24,44 g unter dem 25-g-Ziel und besitzt mehr Wandreserve als aggressive; conservative überschreitet mit 29,80 g das Massenziel.
+- 3MF-Handoff: Minimal-Core-3MFs bleiben als unabhängig validierte Austauschpakete erhalten, werden von Anycubic Slicer Next 1.3.9.4 im Headless-Modus aber nicht als belegte Platte erkannt. Die anwendbaren Dateien werden deshalb zusätzlich nativ mit den vollständigen Kobra-3-Max-/0,20-mm-/PETG-Profilen exportiert und müssen einen erneuten `slice-anycubic-next`-Lauf bestehen.
+- Ergebnis: Alle fünf nativen Anycubic-Projekt-3MFs bestehen den Zielslicer-Rücktest. Hauptkörper und Datumplatte behalten die native Warnung vor möglicher Auskragung; daraus folgt ausdrücklich keine automatische Druckfreigabe.

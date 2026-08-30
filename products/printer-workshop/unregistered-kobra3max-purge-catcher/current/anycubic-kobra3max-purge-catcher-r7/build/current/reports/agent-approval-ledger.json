@@ -1,0 +1,37 @@
+{
+  "agent_stages": [
+    {
+      "evidence": "R7-DESIGN-DECOMPOSITION.md",
+      "stage": "decomposition",
+      "status": "AUTO_APPROVED"
+    },
+    {
+      "evidence": "reports/geometry-validation.json",
+      "stage": "parametric-source",
+      "status": "AUTO_APPROVED"
+    },
+    {
+      "evidence": "reports/geometry-validation.json",
+      "stage": "mesh-generation",
+      "status": "AUTO_APPROVED"
+    },
+    {
+      "reason": "required physical coupons and full-motion test are NOT_RUN",
+      "stage": "interface-validation",
+      "status": "BLOCKED"
+    },
+    {
+      "reason": "exact Anycubic run is not part of source generation",
+      "stage": "slicer-preflight",
+      "status": "BLOCKED"
+    },
+    {
+      "reason": "physical and slicer gates remain open",
+      "stage": "print-candidate",
+      "status": "BLOCKED"
+    }
+  ],
+  "geometry_revision": "R7-DRAFT-2",
+  "policy_source": "autonomy-policy.json; human gates remain authoritative in design-spec.yaml",
+  "schema_version": "1.0"
+}

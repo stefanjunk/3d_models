@@ -1,0 +1,176 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "gcode-parse",
+      "message": "G-code parsed without executing or uploading it",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "filament-diameter",
+      "message": "Filament diameter 1.75 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "layer-count-consistency",
+      "message": "Layer markers 310; header [310]; summary [310]",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tool-change-budget",
+      "message": "Tool changes 0 / 0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "flow-budget",
+      "message": "Peak estimated flow 7.79899 / 13.3 mm³/s",
+      "metrics": {
+        "actual_mm3_s": 7.798989796955231,
+        "limit_mm3_s": 13.3,
+        "line": 1675
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-extrusion",
+      "message": "Positive extrusion 7464.23 mm; minimum 1 mm",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tool-allowlist",
+      "message": "All tools are allowed",
+      "metrics": {
+        "allowed": [
+          0
+        ],
+        "seen": [
+          0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-bed-bounds",
+      "message": "Motion stays within declared non-negative build bounds",
+      "metrics": {
+        "bed_mm": [
+          420,
+          420,
+          500
+        ],
+        "motion_bounds_mm": {
+          "X": [
+            0.0,
+            420.0
+          ],
+          "Y": [
+            0.0,
+            420.0
+          ],
+          "Z": [
+            0.0,
+            64.0
+          ]
+        }
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "layer-markers",
+      "message": "Recognized layer markers: 310",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-layers",
+      "message": "Recognized layers 310; minimum 300",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/build/current/slices/anycubic-project-purge-catcher-body/plate_1.gcode",
+      "sha256": "74f4aafdfda518d124537369324f4bd2b81a1aeb42e705e59592312ad9f4be96",
+      "size_bytes": 946956
+    }
+  ],
+  "limitations": [
+    "Motion time ignores acceleration, cooling, dwell, firmware behavior, and many slicer-specific commands.",
+    "Peak flow is derived from positive E and linear move time; pressure advance and firmware limits can differ.",
+    "Arc endpoints are parsed, but curved bounds, path length, time, and flow require a slicer-native or arc-aware backend.",
+    "Layer and metadata parsing depends on common comments; retain the exact slicer project and preview."
+  ],
+  "metrics": {
+    "arc_moves": 0,
+    "extruded_volume_mm3": 17953.58487785908,
+    "filament_diameter_mm": 1.75,
+    "layers_declared": 310,
+    "layers_declared_header": 310,
+    "layers_declared_summary": 310,
+    "layers_from_comments": 310,
+    "motion_bounds_mm": {
+      "X": [
+        0.0,
+        420.0
+      ],
+      "Y": [
+        0.0,
+        420.0
+      ],
+      "Z": [
+        0.0,
+        64.0
+      ]
+    },
+    "motion_time_lower_bound_s": 3126.4888876265545,
+    "peak_flow_line": 1675,
+    "peak_flow_mm3_s": 7.798989796955231,
+    "positive_extrusion_mm_by_tool": {
+      "0": 7464.2332199998045
+    },
+    "positive_extrusion_total_mm": 7464.2332199998045,
+    "printing_move_path_mm": 207296.7768696948,
+    "slicer_metadata_time_s": 3601.0,
+    "tool_changes": 0,
+    "tools_seen": [
+      0
+    ],
+    "travel_path_mm": 35550.45772636389,
+    "volumetric_extrusion_seen": false,
+    "warnings": []
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "analyze-gcode",
+  "tool_version": "1.2.1"
+}

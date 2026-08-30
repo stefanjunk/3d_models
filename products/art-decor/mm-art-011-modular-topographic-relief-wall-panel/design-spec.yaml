@@ -1,0 +1,296 @@
+project:
+  id: MM-ART-011
+  name: "Modular Topographic Relief Wall Panel"
+  sku: MM-ART-011
+  portfolio_idea: "SKU-032 — Custom topographic relief tile"
+  revision: 0.2.0
+  candidate: 0.2.0-concept-draft.1
+  owner: Stefan
+  created: "2026-08-30"
+  design_claim: "new configurable indoor topographic wall-art product"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  mode: guided
+  requirements_approval:
+    status: approved
+    spec_revision: 0.2.0
+    approved_by: "Stefan"
+    approved_on: "2026-08-30"
+    basis: "User approved the 600 x 400 mm modular format, requested curated abstract four-color palettes, and approved halo lighting with deliberate front-through light openings"
+  concept_approval:
+    status: pending
+    spec_revision: 0.2.0
+    review_artifact: concepts/modular-relief-collection-concept-v01.png
+    artifact_role: "non-authoritative visual concept; dimensions and interfaces remain controlled by this specification"
+  decomposition_approval:
+    status: blocked
+    reason: "Concept is not yet approved"
+  digital_candidate:
+    status: blocked
+  physical_validation:
+    status: blocked
+    reason: "No autonomous print or wall installation"
+  final_release_approval:
+    status: blocked
+    reason: "Concept, CAD, slicer, physical, appearance, source rights, watermark, safety and commercial gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Create the topographic relief wall product with the 3D-design workflow"
+    - "Allow and plan for up to four colors"
+    - "Make the wall picture large and assemblable from multiple prints"
+    - "Create Harz and Rheinisches Braunkohlerevier height-map pilots"
+    - "Prepare optional rear lighting that is not included and can be added by the customer"
+    - "Recommend curated four-color schemes and select four matching colors for each pilot"
+    - "Keep the appearance abstract rather than pretending to be realistic with only four colors"
+    - "Avoid color strategies that create unnecessary filament waste"
+    - "Add openings through which rear LED light can pass to the front"
+  inferred:
+    - "Indoor decorative adult product, not a surveying, planning or mining-safety model"
+    - "Terrain relief is continuous-tone geometry; color bands do not replace the 16-bit source master"
+    - "The customer-supplied lighting is an indirect rear halo and is not required for legibility"
+  recommended:
+    - "Use a 600 x 400 mm landscape pilot built from a 3 x 2 grid on a 200 mm module pitch"
+    - "Reuse the same removable-tile rear rail/grid and lighting interface as MM-ART-010"
+    - "Use square 0.30 mm physical XY samples for the unsimplified relief reference, then adaptive/error-bounded manufacturing meshes"
+    - "Use up to four altitude bands implemented primarily as horizontal layer changes to minimize purge"
+    - "Use broad abstract altitude bands with no dithering or pseudo-photographic color mixing"
+    - "Use Anycubic PLA Matte Moss & Stone for Harz and Industrial Earth for Rheinisches Braunkohlerevier"
+    - "Use Copernicus DEM GLO-30 for the cross-state Harz pilot and current official GeoBasis NRW DGM1 for the changing mining-region pilot"
+    - "Use indoor PLA, 0.4 mm nozzle and 0.20 mm layers as the provisional pilot process"
+    - "Cut selected abstract valley/contour paths through the tile so customer lighting reaches the front while keeping seams, datums and mounting lands solid"
+  unresolved_nonblocking:
+    - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
+    - "Final aperture pattern and visual density remain subject to concept and physical light-coupon approval"
+
+function:
+  summary: >
+    A configurable large-format topographic wall relief generated from an
+    immutable geospatial elevation master, mapped in physical coordinates and
+    split into seam-locked removable FDM modules. The Harz and Rheinisches
+    Braunkohlerevier pilots share a common segmented rear alignment/mounting
+    grid. Up to four elevation colors are planned as efficient Z-band changes.
+    Selected abstract contour/valley voids pass light to the front. The grid
+    creates an optional customer-added halo-light gap and cable route.
+  intended_users:
+    - "adult indoor decor customers"
+    - "customers ordering a meaningful landscape, mountain or regional terrain panel"
+  included:
+    - "six Harz art modules and six Rheinisches Braunkohlerevier art modules for the pilots"
+    - "segmented printed rear alignment/mounting grid shared by the product family"
+    - "printed seam/interface, relief-depth and lighting-interface coupons"
+    - "rebuildable source-registration, heightmap and adaptive mesh pipeline"
+    - "continuous 16-bit height masters, previews and source/attribution records"
+  excluded:
+    - "LED strip, controller, power supply, wiring, diffuser and electrical connectors"
+    - "wall screws, plugs/anchors, adhesive tape and installation services"
+    - "outdoor, wet-room, navigation, survey, engineering-grade elevation or mine-safety use"
+    - "claim that a historical/static DEM represents current mining operations"
+    - "unverified vertical-scale accuracy after deliberate relief exaggeration"
+
+coordinate_system:
+  units: mm
+  global_panel_frame:
+    origin: "lower-left corner of assembled visible panel"
+    x: "projected east/right"
+    y: "projected north/up"
+    z: "out from wall toward viewer"
+  geospatial_policy:
+    source_crs: "record per dataset"
+    working_crs: "appropriate ETRS89 UTM zone in metres; never use latitude/longitude degrees as physical XY"
+    aspect_policy: preserve
+    fit: contain
+    distortion_tolerance_pct: 0.75
+  tile_indexing:
+    columns: [A, B, C]
+    rows: [1, 2]
+    order: "A1 is lower-left; C2 is upper-right"
+
+geometry:
+  assembled_nominal_mm: [600.0, 400.0]
+  pilot_grid: {columns: 3, rows: 2}
+  module_pitch_mm: [200.0, 200.0]
+  module_envelope_max_mm: [200.0, 200.0, 12.0]
+  internal_seam_target_mm: 0.25
+  internal_seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
+  outer_frame_target_mm: 8.0
+  tile_backer_thickness_mm: 3.0
+  relief:
+    maximum_depth_mm: 7.0
+    target_total_thickness_max_mm: 10.0
+    reference_pitch_mm: [0.30, 0.30]
+    physical_pixel_aspect: 1.0
+    continuous_tone_bits: 16
+    normalization: "one global min/max and gamma/contrast transform per complete pilot; never normalize tiles independently"
+    vertical_scale: "reported physical exaggeration chosen to use no more than 7.0 mm relief without clipping source elevations"
+  light_apertures:
+    representation: "through-tile negative geometry derived from selected simplified contour, valley or mine-bench paths"
+    minimum_width_mm: 2.0
+    minimum_ligament_mm: 5.0
+    maximum_open_area_fraction_per_tile: 0.12
+    seam_keepout_mm: 8.0
+    datum_and_retention_keepout_mm: 12.0
+    rear_diffuser_land_width_mm: 6.0
+  segmentation:
+    rule: "generate/register one global terrain raster, then derive seam-locked tile rasters from global coordinates"
+    seam_vertices: "locked against simplification and derived from identical global samples"
+    internal_border: "none; terrain continues through seams"
+    external_border: "outer-perimeter tiles only"
+
+modular_interface:
+  architecture: "removable art tiles on the same separately printed segmented rear rail/grid family as MM-ART-010"
+  nominal_owner: "rear grid owns module pitch, wall plane, tile datums and light standoff"
+  tile_interface: "three-point rear registration plus a serviceable retaining feature; exact concept pending"
+  assembly_sequence:
+    - "assemble and square the segmented rear grid"
+    - "mount the grid using wall-appropriate customer-selected anchors"
+    - "route optional customer lighting and cable without energizing it during mechanical assembly"
+    - "install tiles from a defined datum corner and verify geometric/visual seam continuity"
+  service_target_cycles: 25
+  protected_regions:
+    - "relief surface and seam rows/columns"
+    - "wall-contact lands and mounting holes"
+    - "tile datums and retention geometry"
+    - "LED envelope and cable exits"
+
+backlight_preparation:
+  included_as: "mechanical preparation only"
+  effect: "indirect halo against the wall"
+  front_effect: "selected abstract terrain openings transmit light from the rear cavity to the visible face"
+  wall_standoff_target_mm: 18.0
+  led_strip_keepout_mm: {width: 12.0, thickness: 4.0}
+  compatible_nominal_strip_width_mm: [8.0, 10.0]
+  cable_channel_min_mm: [6.0, 4.0]
+  exits: [left, right, bottom]
+  attachment: "replaceable printed clips or adhesive land on the rear grid; no live electrical interface"
+  optional_customer_diffuser: "rear land accepts a thin removable diffuser film or sheet; diffuser is not supplied"
+  aperture_policy: "openings remain outside seams, seam vertices, tile datums, retention features, attribution text and outer frame"
+  thermal_rule: "open, ventilated low-power LED installation only; no temperature or fire-safety claim until the exact customer system is qualified"
+  no_light_state: "all modules and mounting functions must pass without any light component installed"
+
+pilots:
+  harz:
+    title: "Harz topographic relief"
+    target_extent: "landscape crop containing the Harz massif and Brocken, projected and contained without distortion"
+    source_dataset: "Copernicus DEM GLO-30 Public, 30 m DSM"
+    source_access: "public Cloud Optimized GeoTIFF tiles; exact snapshot and hashes to be frozen after approval"
+    source_limitations:
+      - "surface model includes vegetation and structures"
+      - "underlying acquisition is primarily 2011–2015 and is not a live terrain survey"
+    attribution_notice: "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+    target_relief_depth_mm: 7.0
+    selected_palette: harz_moss_stone
+    palette_intent: [dark_green, chocolate_brown, caramel, bone_white]
+  rheinisches_braunkohlerevier:
+    title: "Rheinisches Braunkohlerevier topographic relief"
+    target_extent: "landscape crop covering the Garzweiler, Hambach and Inden mining areas"
+    preferred_source_dataset: "current official GeoBasis NRW DGM1, 1 m ground model"
+    source_access: "OpenGeodata NRW; exact tile set, acquisition dates, CRS, licence and hashes to be frozen after approval"
+    fallback_dataset: "Copernicus DEM GLO-30 for pipeline smoke testing only, not accepted as current mining-terrain evidence"
+    source_limitations:
+      - "open-cast mine terrain changes materially; acquisition date must be visible in the product metadata"
+      - "the wall relief is decorative and must not be used for planning, navigation or safety decisions"
+    attribution_intent: "GeoBasis NRW / Bezirksregierung Köln under the applicable Data Licence Germany attribution terms; exact required notice must be verified from the selected dataset metadata"
+    target_relief_depth_mm: 7.0
+    selected_palette: rhenish_industrial_earth
+    palette_intent: [black, chocolate_brown, desert_tan, orange]
+
+multicolor:
+  maximum_simultaneous_filaments: 4
+  palette_catalog: palette-catalog.yaml
+  default_representation: layer_change
+  rationale: "horizontal Z-band changes require at most three planned changes and avoid multi-tool purge on every relief layer"
+  altitude_thresholds: "derived from real elevation values and applied globally across all six tiles of one pilot"
+  source_master_rule: "color thresholds never posterize or replace the continuous 16-bit geometry master"
+  palette_character: "curated abstract display art; not a realistic land-cover or photographic rendering"
+  realistic_color_claim: false
+  dithering: prohibited
+  polymer_rule: "one polymer family per tile; PLA with PLA by default"
+  alternative_representation: "named top-shell color solids only if a layer-change concept cannot meet the approved appearance"
+  purge_budget:
+    expected_minimum_changes_per_tile: 3
+    target_waste_ratio_max: 0.10
+    physical_transition_coupon_required: true
+  machine_slot_mapping: "destination-slicer responsibility; never inferred from 3MF display colors"
+
+duty:
+  risk_class: decorative
+  environment: "indoor residential use, nominal 10–30 °C, normal humidity, no direct weather exposure"
+  service_life_target: "2 years pending physical qualification"
+  loads: "self-weight only plus light handling during tile service"
+  foreseeable_hazards:
+    - "panel or tile detachment from unsuitable wall anchors"
+    - "sharp relief peaks or fragments after impact"
+    - "warping that opens seams or defeats retention"
+    - "customer-installed lighting heat, wiring or power-supply misuse"
+    - "misinterpretation of deliberately exaggerated or historical terrain"
+  safety_boundary: "decorative model only; no supplied/certified electrical system, navigation value or universal wall-anchor claim"
+
+fabrication:
+  preference: balanced-hybrid
+  process: fdm-fff
+  target_printer: "Anycubic Kobra 3 Max"
+  portable_minimum_build_volume_mm: [220.0, 220.0, 50.0]
+  art_tile_material: "PLA candidate; exact product/color unresolved"
+  rear_grid_material: "PETG recommended, or same-family PLA for a simplified all-PLA pilot"
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  tile_orientation: "flat back on the bed; relief face upward"
+  supports: "none on visible tiles; rear-grid support strategy concept-dependent"
+  target_formats: [stl, 3mf]
+  editable_formats: [python, json, png16, geotiff]
+
+resource_budgets:
+  reference_triangle_target_per_tile: 900000
+  hard_stop_triangles_per_tile: 5000000
+  manufacturing_triangle_target_per_tile: 500000
+  peak_working_memory_gib: 4.0
+  max_mesh_mib_per_tile: 60.0
+  max_exact_slicer_seconds_per_tile: 180.0
+  simplification_start_tolerance_mm: 0.02
+  protected_regions: [tile_edges, seam_vertices, rear_datums, wall_plane, intentional_sharp_terrain_breaks]
+
+relief_validation:
+  physical_aspect_tolerance_pct: 0.75
+  max_volume_delta_pct: 0.10
+  min_relief_height_correlation: 0.98
+  max_robust_contrast_loss_pct: 5.0
+  max_rms_surface_error_mm: 0.02
+  reference_and_manufacturing_paths: "must remain separate and immutable after generation"
+  exact_slicer_gate: "independent of mesh-comparison acceptance"
+
+acceptance:
+  digital:
+    - "Each pilot reconstructs a nominal 600 x 400 mm projected terrain extent without anisotropic distortion or independent tile normalization"
+    - "All six tile meshes are watertight, positive-volume, correctly wound and seam-continuous in the global frame"
+    - "Every 16-bit source/build master, transform, source date, CRS and licence record is hash-bound"
+    - "Reference meshes stay at or below 900,000 target triangles per tile; any simplification passes relief metrics and protects seams"
+    - "Rear-grid and tile interfaces are uniquely owned, assemble in the declared sequence and pass clearance checks"
+    - "Every tile and rear-grid segment fits 220 x 220 mm and stays inside memory, file and slicer budgets"
+    - "Vertical exaggeration, source elevation min/max, relief depth and acquisition-date limitations are reported"
+    - "Every light aperture is a true through-opening, stays inside the open-area cap and preserves seam/datum/retention keep-outs and minimum ligaments"
+  slicer:
+    - "Exact Anycubic Slicer Next profiles import every tile without missing terrain, thin walls or auto-arranged color bodies"
+    - "Layer-change heights are identical across all tiles of one pilot and use no more than four colors"
+    - "No first-layer islands, seam-edge gaps, missing peaks or unsupported relief regions"
+    - "Every intended light opening remains open in the exact layer preview and is not closed by thin-wall, gap-fill or support interpretation"
+    - "Reported time/material and G-code tool/color changes are hash-bound to exact profiles and artifacts"
+  physical:
+    - "0.15/0.25/0.35/0.45 mm interface coupon selects the actual seam/retention allowance"
+    - "Relief-depth and color-band coupon selects readable depth/thresholds under normal and grazing light"
+    - "Assembled 3 x 2 panel remains aligned and retains every tile through 25 removal/reinstall cycles"
+    - "Installed panel survives a defined proof load based on measured complete mass; wall anchor remains user/installer-selected"
+    - "Halo/light-through gauge confirms 8 and 10 mm strip envelopes, three cable exits, optional diffuser land and visible light passage without pinching"
+    - "Appearance, seam continuity, sharp-edge handling and lighting effect receive human approval"
+
+deliverables:
+  - "Approved requirements and concept sheet"
+  - "Parametric source registration, heightmap, tiling and adaptive mesh pipeline"
+  - "Immutable DEM source tiles, 16-bit masters, previews, manifests and attribution notices"
+  - "Harz and Rheinisches Braunkohlerevier master assemblies, each with six DRAFT manufacturing tiles"
+  - "Segmented rear grid, layer-change/palette plan and portable 3MFs"
+  - "Interface, relief-depth, color-band and light-envelope coupons"
+  - "Aspect, relief, mesh, interface, 3MF, slicer and physical-test reports"
+  - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

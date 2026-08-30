@@ -1,0 +1,269 @@
+project:
+  id: MM-ART-010
+  name: "Modular City Map Wall Panel"
+  sku: MM-ART-010
+  portfolio_idea: "SKU-031 — City skyline and street-map panel"
+  revision: 0.2.0
+  candidate: 0.2.0-concept-draft.1
+  owner: Stefan
+  created: "2026-08-30"
+  design_claim: "new configurable indoor wall-art product"
+
+workflow:
+  autonomy_policy: autonomy-policy.json
+  mode: guided
+  requirements_approval:
+    status: approved
+    spec_revision: 0.2.0
+    approved_by: "Stefan"
+    approved_on: "2026-08-30"
+    basis: "User approved the 600 x 400 mm modular format, requested curated abstract four-color palettes, and approved halo lighting with deliberate front-through light openings"
+  concept_approval:
+    status: pending
+    spec_revision: 0.2.0
+    review_artifact: concepts/modular-relief-collection-concept-v01.png
+    artifact_role: "non-authoritative visual concept; dimensions and interfaces remain controlled by this specification"
+  decomposition_approval:
+    status: blocked
+    reason: "Concept is not yet approved"
+  digital_candidate:
+    status: blocked
+  physical_validation:
+    status: blocked
+    reason: "No autonomous print or wall installation"
+  final_release_approval:
+    status: blocked
+    reason: "Concept, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open"
+
+requirements_trace:
+  user_stated:
+    - "Create the city/street-map wall product with the 3D-design workflow"
+    - "Allow and plan for up to four colors"
+    - "Make the wall picture large and assemblable from multiple prints"
+    - "Create Berlin as the first city-map pilot"
+    - "Prepare optional rear lighting that is not included and can be added by the customer"
+    - "Recommend curated four-color schemes and select four matching colors for each pilot"
+    - "Keep the appearance abstract rather than pretending to be realistic with only four colors"
+    - "Avoid color strategies that create unnecessary filament waste"
+    - "Add openings through which rear LED light can pass to the front"
+  inferred:
+    - "Indoor decorative adult product, not a navigation aid or structural wall component"
+    - "The design should remain useful and mountable with no lighting installed"
+    - "Front-through illumination is a deliberate abstract graphic layer, not a realistic geographic legend"
+  recommended:
+    - "Use a 600 x 400 mm landscape pilot built from a 3 x 2 grid on a 200 mm module pitch"
+    - "Use removable art tiles on a common segmented rear rail/grid so damaged or personalized tiles can be reprinted"
+    - "Use explicit aligned color solids rather than slicer-only paint"
+    - "Use broad semantic color regions with no dithering, pseudo-photographic mixing or sub-print color islands"
+    - "Use the selected Urban Signal palette: Anycubic PLA Matte Bone White, Nardo Grey, Black and Orange"
+    - "Offer additional Urban Monochrome, Desert Architecture, Neon Dusk and Soft Rainbow presets from the same filament family"
+    - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
+    - "Use indoor PLA for the colored art tiles and a 0.4 mm nozzle at 0.20 mm layers as the provisional pilot process"
+    - "Reserve a generic low-voltage LED-strip envelope and cable routing in the rear grid; provide no electronics"
+    - "Cut selected abstract water/void paths through the tile so customer lighting reaches the front while keeping seams, datums and mounting lands solid"
+  unresolved_nonblocking:
+    - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
+    - "Final aperture pattern and visual density remain subject to concept and physical light-coupon approval"
+
+function:
+  summary: >
+    A configurable large-format street-map wall picture whose vector map is
+    divided on a global coordinate grid into removable, seam-registered FDM
+    modules. The Berlin pilot renders water, green areas and major transport
+    lines as abstract printable color/relief regions rather than a realistic
+    palette. Selected void paths pass light through the artwork. A separate rear rail/grid aligns
+    the modules, transfers self-weight to user-selected wall anchors, creates a
+    halo-light gap and provides optional LED/cable interfaces.
+  intended_users:
+    - "adult indoor decor customers"
+    - "customers ordering a personalized city or meaningful location"
+  included:
+    - "six Berlin art modules for the pilot"
+    - "segmented printed rear alignment/mounting grid"
+    - "printed seam/interface coupon and lighting-interface gauge"
+    - "portable aligned multi-part 3MF plus named per-color meshes"
+    - "rebuildable map-data and CAD pipeline"
+    - "source attribution geometry/label and documentation"
+  excluded:
+    - "LED strip, controller, power supply, wiring, diffuser and electrical connectors"
+    - "wall screws, plugs/anchors, adhesive tape and installation services"
+    - "outdoor, wet-room, emergency-signage or navigation use"
+    - "load-bearing shelf function or any wall-anchor load rating"
+    - "building-by-building architectural accuracy claim"
+
+coordinate_system:
+  units: mm
+  global_panel_frame:
+    origin: "lower-left corner of assembled visible panel"
+    x: "east/right across the map"
+    y: "north/up across the map"
+    z: "out from wall toward viewer"
+  geospatial_frame:
+    working_crs: "ETRS89 / UTM zone 33N (EPSG:25833)"
+    source_crs: "WGS84 / OSM source coordinates, transformed without anisotropic art scaling"
+  tile_indexing:
+    columns: [A, B, C]
+    rows: [1, 2]
+    order: "A1 is lower-left; C2 is upper-right"
+
+geometry:
+  assembled_nominal_mm: [600.0, 400.0]
+  pilot_grid: {columns: 3, rows: 2}
+  module_pitch_mm: [200.0, 200.0]
+  module_envelope_max_mm: [200.0, 200.0, 5.0]
+  internal_seam_target_mm: 0.25
+  internal_seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
+  outer_frame_target_mm: 8.0
+  tile_backer_thickness_mm: 3.0
+  front_relief:
+    water_and_green_inlay_depth_mm: 0.6
+    transport_emboss_height_mm: 0.6
+    minimum_isolated_color_width_mm: 0.9
+    minimum_label_stroke_mm: 1.0
+    small_island_min_area_mm2: 0.8
+  light_apertures:
+    representation: "through-tile negative geometry derived from selected simplified map paths"
+    minimum_width_mm: 2.0
+    minimum_ligament_mm: 5.0
+    maximum_open_area_fraction_per_tile: 0.12
+    seam_keepout_mm: 8.0
+    datum_and_retention_keepout_mm: 12.0
+    rear_diffuser_land_width_mm: 6.0
+  segmentation:
+    rule: "clip every semantic source layer against one immutable global panel frame, then split by module; never fit or normalize tiles independently"
+    seam_protection_mm: 2.0
+    seam_rule: "global feature coordinates and elevations remain identical on both sides of every seam"
+
+modular_interface:
+  architecture: "removable art tiles on a separately printed segmented rear rail/grid"
+  nominal_owner: "rear grid owns module pitch, wall plane, tile datums and light standoff"
+  tile_interface: "three-point rear registration plus a serviceable retaining feature; exact concept pending"
+  assembly_sequence:
+    - "assemble and square the segmented rear grid"
+    - "mount the grid using wall-appropriate customer-selected anchors"
+    - "route optional customer lighting and cable without energizing it during mechanical assembly"
+    - "install tiles from a defined datum corner and verify every seam"
+  service_target_cycles: 25
+  protected_regions:
+    - "visible map face and all cross-seam features"
+    - "wall-contact lands and mounting holes"
+    - "tile datums and retention geometry"
+    - "LED envelope and cable exits"
+
+backlight_preparation:
+  included_as: "mechanical preparation only"
+  effect: "indirect halo against the wall"
+  front_effect: "selected abstract map openings transmit light from the rear cavity to the visible face"
+  wall_standoff_target_mm: 18.0
+  led_strip_keepout_mm: {width: 12.0, thickness: 4.0}
+  compatible_nominal_strip_width_mm: [8.0, 10.0]
+  cable_channel_min_mm: [6.0, 4.0]
+  exits: [left, right, bottom]
+  attachment: "replaceable printed clips or adhesive land on the rear grid; no live electrical interface"
+  optional_customer_diffuser: "rear land accepts a thin removable diffuser film or sheet; diffuser is not supplied"
+  aperture_policy: "openings remain outside seams, tile datums, retention features, attribution text and outer frame"
+  thermal_rule: "open, ventilated low-power LED installation only; no temperature or fire-safety claim until the exact customer system is qualified"
+  no_light_state: "all modules and mounting functions must pass without any light component installed"
+
+map_content:
+  pilot: Berlin
+  source: "OpenStreetMap vector data"
+  source_snapshot: "to be frozen after requirements/concept approval"
+  target_extent: "Berlin administrative boundary contained without distortion inside the 600 x 400 mm visible frame"
+  semantic_layers:
+    land_base: "dominant base body"
+    water: "rivers, canals and principal lakes"
+    green: "principal parks, forests and large recreation areas"
+    transport_accent: "major road/rail hierarchy, city title and optional location marker"
+  excluded_detail:
+    - "individual small buildings by default"
+    - "minor service roads and sub-print-width islands"
+    - "map labels below the declared stroke width"
+  attribution:
+    required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
+    required_url: "https://www.openstreetmap.org/copyright"
+    placement: "readable lower-edge/rear attribution area plus complete digital notice"
+    status: "rights review required before release"
+
+multicolor:
+  maximum_simultaneous_filaments: 4
+  representation: "named disjoint solids in one shared frame; portable 3MF base-material intent"
+  palette_catalog: palette-catalog.yaml
+  selected_palette: urban_signal
+  selected_palette_is_abstract: true
+  realistic_color_claim: false
+  dithering: prohibited
+  color_island_policy: "merge or omit non-semantic islands below the physical width/area thresholds and report them"
+  polymer_rule: "one polymer family per co-sliced tile; PLA with PLA by default"
+  active_color_strategy: "restrict water/green pockets and raised transport to the top 0.6–0.8 mm where practical"
+  purge_budget:
+    status: pending
+    target_waste_ratio_max: 0.25
+    physical_coupon_required: true
+  machine_slot_mapping: "destination-slicer responsibility; never inferred from 3MF display colors"
+
+duty:
+  risk_class: decorative
+  environment: "indoor residential use, nominal 10–30 °C, normal humidity, no direct weather exposure"
+  service_life_target: "2 years pending physical qualification"
+  loads: "self-weight only plus light handling during tile service"
+  foreseeable_hazards:
+    - "panel or tile detachment from unsuitable wall anchors"
+    - "sharp fragments after impact"
+    - "warping that opens seams or defeats retention"
+    - "customer-installed lighting heat, wiring or power-supply misuse"
+  safety_boundary: "no supplied or certified electrical system and no universal wall-anchor claim"
+
+fabrication:
+  preference: balanced-hybrid
+  process: fdm-fff
+  target_printer: "Anycubic Kobra 3 Max"
+  portable_minimum_build_volume_mm: [220.0, 220.0, 50.0]
+  art_tile_material: "PLA candidate; exact product/color unresolved"
+  rear_grid_material: "PETG recommended, or same-family PLA for a simplified all-PLA pilot"
+  nozzle_mm: 0.4
+  line_width_mm: 0.45
+  layer_height_mm: 0.20
+  tile_orientation: "map back flat on the bed; map face upward"
+  supports: "none on visible tiles; rear-grid support strategy concept-dependent"
+  target_formats: [step, stl, 3mf]
+
+resource_budgets:
+  max_triangles_per_tile: 500000
+  stop_triangles_per_tile: 1000000
+  peak_working_memory_gib: 4.0
+  max_mesh_mib_per_tile: 50.0
+  max_exact_slicer_seconds_per_tile: 180.0
+
+acceptance:
+  digital:
+    - "Six globally registered Berlin modules reconstruct a nominal 600 x 400 mm map without independent tile scaling"
+    - "All required color solids are manifold, positive-volume, aligned and pairwise non-overlapping"
+    - "No intended road/label stroke is below 0.9 mm after cleanup; removed islands are reported"
+    - "Rear-grid and tile interfaces are uniquely owned, assemble in the declared sequence and pass clearance checks"
+    - "Every tile and rear-grid segment fits 220 x 220 mm and stays inside resource budgets"
+    - "A standard multi-part 3MF validates and preserves one assembly plus semantic material names"
+    - "OSM source snapshot, transformation and attribution are hash-bound"
+    - "Every light aperture is a true through-opening, stays inside the open-area cap and preserves seam/datum/retention keep-outs and minimum ligaments"
+  slicer:
+    - "Exact Anycubic Slicer Next profiles import every tile without dropped bodies or auto-arrangement"
+    - "All four semantic bodies map to intended tools and remain visible in the final layer preview"
+    - "No first-layer island, missing thin road, unsupported inlay or cross-seam feature loss"
+    - "Every intended light opening remains open in the exact layer preview and is not closed by thin-wall, gap-fill or support interpretation"
+    - "Transition count and purge estimate stay within the approved pilot budget"
+  physical:
+    - "0.15/0.25/0.35/0.45 mm interface coupon selects the actual seam/retention allowance"
+    - "Assembled 3 x 2 panel remains aligned and retains every tile through 25 removal/reinstall cycles"
+    - "Installed panel survives a defined proof load based on measured complete mass; wall anchor remains user/installer-selected"
+    - "Halo/light-through gauge confirms 8 and 10 mm strip envelopes, three cable exits, optional diffuser land and visible light passage without pinching"
+    - "Appearance, seam visibility, color contamination and lighting effect receive human approval"
+
+deliverables:
+  - "Approved requirements and concept sheet"
+  - "Parametric map extraction/simplification and modular CAD source"
+  - "Immutable OSM snapshot, source register and attribution notice"
+  - "Berlin master assembly, six DRAFT manufacturing tiles and segmented rear grid"
+  - "Named color meshes and portable four-color 3MF"
+  - "Interface, light-envelope and multicolor coupons"
+  - "Mesh, interface, 3MF, slicer, purge and physical-test reports"
+  - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

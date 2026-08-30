@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-backlit-wall-relief-through-apertures-001
+title: Backlit wall-relief apertures remain open without defeating modular structure
+category: geometry
+status: draft
+trigger: A modular FFF wall panel uses through-openings to transmit customer-supplied rear light to the visible face.
+risk: Decorative light paths can be closed by mesh or slicer interpretation, create fragile ligaments, expose LED hotspots, or cut through seam, datum, retention, attribution or wall-mount regions.
+given:
+  panel_contract: "global panel frame, module seams, wall plane, datums, retention geometry and outer frame"
+  aperture_contract: "minimum opening width, minimum ligament, maximum open-area fraction and protected keep-outs"
+  lighting_envelope: "wall standoff, LED-strip keep-out, cable exits and optional diffuser land"
+  process_context: "printer, nozzle, line width, layer height, material and exact slicer profiles where known"
+expected:
+  - Every intended light path is a true back-to-front opening in the manufacturing mesh and remains open in the exact-slicer layer preview.
+  - Apertures preserve the declared minimum ligament and open-area cap and stay outside seam, seam-vertex, datum, retention, attribution, outer-frame and wall-mount keep-outs.
+  - The panel remains a positive watertight solid with intentionally bounded through-holes and no unintended disconnected islands or non-manifold edges.
+  - A rear light/diffuser envelope can be installed and removed without pinching wires or blocking tile service access.
+  - The no-light configuration remains structurally complete and visually intentional.
+  - A physical light coupon checks hotspot visibility, front/halo balance, heat assumptions and edge handling before appearance approval.
+failure_conditions:
+  - Any intended opening is capped, filled, supported shut or reduced below the printable width in the manufacturing interpretation.
+  - An aperture intersects a protected seam, registration datum, retainer, attribution mark, outer frame or wall-mount load path.
+  - Ligament or open-area limits are violated, or the tile breaks into unintended components.
+  - LED points are directly visible contrary to the concept and no diffuser/standoff mitigation is evaluated.
+  - Lighting is treated as required for function even though the electrical kit is excluded from the product.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: "Require deterministic aperture/keep-out geometry checks, mesh audit, exact-slicer open-path inspection and a physical lighting coupon. Any protected-region intersection, closed intended path, unintended island or missing no-light review fails the candidate."
+  measurement_method: "Boolean/section and minimum-distance checks in the global frame, mesh topology audit, exact-slicer layer review, then photographed physical illumination and handling coupon."
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: not-run
+  date: "2026-08-30"
+  report: null
+  artifact_hashes: []
+tags:
+  - backlight
+  - wall-art
+  - through-aperture
+  - modular-interface
+  - slicer-review
+  - physical-review

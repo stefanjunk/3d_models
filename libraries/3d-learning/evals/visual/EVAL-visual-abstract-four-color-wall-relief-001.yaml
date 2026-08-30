@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-abstract-four-color-wall-relief-001
+title: Four-color wall relief stays intentionally abstract and purge-bounded
+category: visual
+status: draft
+trigger: A map or topographic wall relief is reduced to four FFF colors for a single-nozzle material changer.
+risk: A pseudo-realistic palette can imply accuracy the four-color process cannot provide, while dithering and many small color islands can create excessive tool changes and filament waste without improving the readable abstraction.
+given:
+  source_geometry: "registered vector map or continuous-tone height master"
+  palette: "four exact same-family filament identities with recorded swatches or explicit unknown status"
+  color_contract: "semantic regions or horizontal elevation bands, minimum physical feature sizes and purge budget"
+  user_intent: "abstract wall art rather than realistic cartography or land-cover rendering"
+expected:
+  - The product and listing describe the palette as abstract and make no realistic land-cover, photographic or survey-color claim.
+  - No raster dithering, checkerboard mixing or sub-print decorative color islands are used to simulate intermediate colors.
+  - Every retained color region is an explicit solid or documented horizontal layer band and satisfies the declared physical width and area thresholds.
+  - The source geometry remains independent of the four-color quantization; continuous relief is not posterized to obtain the palette.
+  - Color topology is compared by exact-slicer transition count, directed purge estimate, waste ratio and visual readability before selection.
+  - Actual spool identity, batch variation, opacity and destination-slicer slot mapping remain explicit and require a physical swatch/purge coupon.
+failure_conditions:
+  - The four colors are presented as realistic terrain, land-cover or photographic reproduction without supporting evidence.
+  - Dithering or dense small islands are introduced primarily to fake unavailable colors.
+  - A colorful concept render is accepted without explicit printable color bodies or layer bands and final-slicer evidence.
+  - A palette is optimized to display RGB values without confirming purchasable or loaded filament identities.
+  - A lower purge estimate is claimed without identical geometry, layer height, profiles and color order.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/palette-catalog.yaml
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/palette-catalog.yaml
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: "Reject a candidate if its source geometry is color-posterized, its palette implies realism, any retained feature violates physical thresholds, or exact-slicer transition/purge evidence and a physical swatch coupon are absent. Human review compares abstraction quality at intended viewing distance."
+  measurement_method: "Schema/palette inspection, mesh/3MF color-body validation, exact-slicer transition and purge reports, then fixed-lighting visual comparison of printed coupons."
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: not-run
+  date: "2026-08-30"
+  report: null
+  artifact_hashes: []
+tags:
+  - multicolor
+  - wall-art
+  - abstraction
+  - purge
+  - color-islands
+  - physical-review

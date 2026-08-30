@@ -1,7 +1,7 @@
 project:
   id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
   name: "Anycubic Kobra 3 Max Purge Catcher — Interface-Neuentwurf"
-  revision: 0.7.0-requirements.2
+  revision: 0.7.0-requirements.3
   owner: Stefan
   revised: "2026-08-30"
   units: mm
@@ -12,35 +12,48 @@ project:
   current_geometry:
     revision: R7-DRAFT-2
     location: "current/anycubic-kobra3max-purge-catcher-r7"
-    status: "digitaler Maß- und Fertigungsentwurf; physische Gates offen"
+    status: "vom Benutzer als nicht passend verworfen; nur negative Evidenz, nicht drucken"
 
 workflow:
   requirements_approval:
-    status: approved
-    spec_revision: 0.7.0-requirements.2
-    approved_by: "Stefan via conversation"
-    approved_at: "2026-08-29T12:01:09+02:00"
-    approval_message: "freigegebene"
+    status: changes-requested
+    spec_revision: 0.7.0-requirements.3
+    approved_by: null
+    approved_at: null
+    approval_message: null
+    change_reason: "R7-DRAFT-2 bindet interne Maßbezüge, besitzt aber keinen nachgewiesenen realen Einbauraum; Benutzerkorrektur: Modelle werden nicht passen."
+    previous_approval:
+      spec_revision: 0.7.0-requirements.2
+      approved_by: "Stefan via conversation"
+      approved_at: "2026-08-29T12:01:09+02:00"
+      approval_message: "freigegebene"
     accepted_defaults: [DEC-R7-01, DEC-R7-02, DEC-R7-03]
     accepted_measurement_interpretation: "37 mm horizontaler Seitenversatz vom Schraubendatum zur Purge-Wurfbahn"
   concept_approval:
-    status: approved
-    spec_revision: 0.7.0-requirements.2
-    asset: "concepts/R7-concept-sheet-z-rider-v1.png"
-    asset_sha256: "3505742788b3c128aca81cdb9d23a67b083214ceec2067994d5b61ff59bf0e00"
-    generated_at: "2026-08-29T12:03:52+02:00"
-    review_document: "CONCEPT-REVIEW-R7.md"
-    interpretation: "stylized, non-dimensional system concept; design-spec measurements remain authoritative"
-    approved_by: "Stefan via conversation"
-    approved_at: "2026-08-29T12:17:09+02:00"
-    approval_message: "freigegeben"
+    status: blocked
+    spec_revision: null
+    asset: null
+    asset_sha256: null
+    generated_at: null
+    review_document: null
+    interpretation: null
+    approved_by: null
+    approved_at: null
+    approval_message: null
+    previous_approval:
+      spec_revision: 0.7.0-requirements.2
+      asset: "concepts/R7-concept-sheet-z-rider-v1.png"
+      asset_sha256: "3505742788b3c128aca81cdb9d23a67b083214ceec2067994d5b61ff59bf0e00"
+      approved_by: "Stefan via conversation"
+      approved_at: "2026-08-29T12:17:09+02:00"
+      approval_message: "freigegeben"
   watermark_approval:
     status: blocked
     spec_revision: null
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-    version: 0.7.0-requirements.2
+    version: 0.7.0-requirements.3
     approved_by: null
     approved_at: null
   final_release_approval:
@@ -60,6 +73,7 @@ requirements_trace:
     - "Von der unteren Schraube bis zur Purge-Ablageebene wurden 10 mm gemessen."
     - "Vom Schraubendatum bis zur horizontalen Purge-Wurfbahn wurden 37 mm und von der Schraubenebene horizontal nach hinten bis zur Wiper-Ausdehnung 40 mm angegeben."
     - "Sechs Fotos in Photos-1-001 dokumentieren Wiper, Schrauben und angelegte Maßstäbe."
+    - "R7-DRAFT-2 wird trotz plausibler Maßgrafik nicht an den realen Drucker passen."
   inferred:
     - "Die R6-Fangfunktion nahe am Wiper, die offene Fallstrecke, die glatte Wabenstruktur und die metriMade-Gestaltung sollen grundsätzlich erhalten bleiben."
     - "Der lokale Fangkopf muss dasselbe bewegte Z-Bezugssystem wie der Purge-Wiper besitzen; eine stationäre Fangöffnung an nur einer Z-Höhe ist ungeeignet."
@@ -141,7 +155,7 @@ geometry:
     lower_screw_to_purge_deposition_plane_mm: 10
     screw_datum_to_horizontal_purge_throw_plane_mm: 37
     screw_plane_to_rear_wiper_extent_mm: 40
-    status: "R7-DRAFT-2 binds all four values to named CAD features with zero nominal deviation; critical endpoints and fit still require physical coupons"
+    status: "R7-DRAFT-2 besitzt nominale interne Bindungen, wurde aber wegen fehlendem realem Einbaunachweis vom Benutzer verworfen"
   unresolved_measurements:
     - "Schraubenkopf-Durchmesser und -Höhe, Gewindegröße, vorhandene Schraubenlänge, Bauteildicke und verbleibender Gewindeeingriff"
     - "Wiper-Außenkontur und freier Bauraum links, rechts, unterhalb und vor der Schraubenebene"
@@ -149,6 +163,8 @@ geometry:
     - "Purge-Austrittsdatum relativ zum Schraubenpaar jenseits der angegebenen 10-/37-mm-Bezüge"
     - "vollständige Bett-, Kopf-, Kabel- und Wiper-Keep-outs über X/Y und den gesamten Z-Weg"
     - "Purge-Landeflächen bei niedriger, mittlerer und hoher Z-Position sowie verfügbare Stellfläche des Unterbehälters"
+    - "vom Benutzer erkannte konkrete Fehlpassung: falsche Seite/Ausrichtung, Hüllkurvenkollision oder unpassendes Schraubeninterface"
+    - "zulässige freie X/Y/Z-Hüllkurve für Platte, Verriegelung und Catcher relativ zu vorhandener Wiper-Schale, Metallablage, Rollen, Kabeln und Bett"
 
 interfaces:
   - id: IF-R7-WIPER-PLATE
@@ -222,7 +238,7 @@ manufacturing:
   target_formats: ["editable parametric source", STEP, 3MF, STL, reports, coupons]
 
 optimization:
-  status: "balanced digital variant selected; physical constraints remain open"
+  status: pending
   objective: "bewegte Masse, Biegemoment, Support und Druckzeit minimieren, ohne Wiper-Datum, Verriegelung, Purge-Weg oder geschützte Fanggeometrie zu schwächen"
   protected:
     - "machine and purge keep-outs"
@@ -231,10 +247,10 @@ optimization:
     - "catcher mouth, drop path, impact wall, honeycomb and logos"
     - "nach unten gerichteter freier Auslass"
   baseline_slicer_report: "current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/slice-anycubic-balanced.json"
-  selected_variant: balanced
+  selected_variant: null
   comparison_report: "current/anycubic-kobra3max-purge-catcher-r7/reports/optimization-selection.json"
   mesh_simplification:
-    status: "not required: low-complexity 620-triangle manufacturing mesh already passes topology checks"
+    status: pending
     master_mesh: "current/anycubic-kobra3max-purge-catcher-r7/build/current/models/stl/moving-catcher-balanced-draft.stl"
     manufacturing_mesh: "current/anycubic-kobra3max-purge-catcher-r7/build/current/models/stl/moving-catcher-balanced-draft.stl"
     tolerance_mm: 0.08
@@ -244,7 +260,10 @@ optimization:
       - "catcher mouth and drop opening"
       - "Abwärts-Umlenkfläche und watermark host surface"
     resource_budget: null
-    slicer_resolution_check: "Anycubic Slicer Next 1.3.9.4, 310 layers; warning requires human preview"
+    slicer_resolution_check:
+      status: pending
+      report: null
+    rationale: "Die frühere balanced-Variante ist als nicht passend verworfen; Mesh- und Slicer-Auswahl werden erst für eine neu freigegebene Geometrie wiederholt."
 
 appearance:
   body_language: "R6-Fangkopf beibehalten; Adapter optisch zurücknehmen und dicht am Wiper integrieren; kein vertikaler Tower"
@@ -270,7 +289,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-  version: 0.7.0-requirements.2
+  version: 0.7.0-requirements.3
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   selected_surface: null
@@ -340,10 +359,11 @@ provenance:
   user_correction_trace: learning-trace-interface-r7.yaml
 
 learning:
-  candidates: [EXP-00034, EXP-00035, EXP-00041]
+  candidates: [EXP-00034, EXP-00035, EXP-00041, EXP-00043]
   evals:
     - EVAL-interfaces-machine-accessory-service-registration-001
     - EVAL-interfaces-moving-source-frame-capture-001
     - EVAL-geometry-measured-datum-cad-binding-001
+    - EVAL-interfaces-external-machine-envelope-fit-001
   maturity: E0
   status: "unvalidierter Kandidat; keine Produktionsregel"

@@ -1,6 +1,10 @@
 # Validierungszusammenfassung — R7-DRAFT-2
 
-Status: **digitaler Maß- und Fertigungsentwurf bestanden; physische Freigabe blockiert**.
+Status: **REJECTED_BY_USER – interne Digitalprüfungen bestanden, realer Fit nicht nachgewiesen und vom Benutzer verneint**.
+
+Die früheren PASS-Aussagen gelten nur für Topologie, Slicer-Import und intern
+definierte CAD-Beziehungen. Sie dürfen nicht als Einbau- oder Druckfreigabe
+interpretiert werden.
 
 ## Bestanden
 
@@ -15,6 +19,10 @@ Status: **digitaler Maß- und Fertigungsentwurf bestanden; physische Freigabe bl
 - Deterministischer Messbindungs-Regressionscheck: PASS.
 
 ## Warnungen und offene Gates
+
+- Benutzerkorrektur vom 30. August 2026: Die Modelle werden nicht passen; R7-DRAFT-2 ist deshalb vollständig vom Druck zurückgezogen.
+- Es existiert kein Modell der realen Wiper-Schale, Metallablage, Rollen, Kabel- und Bett-Hüllkurve. Der Zubehörkörper wurde nur gegen selbst definierte Referenzebenen geprüft.
+- 37 mm wurden ohne bestätigten Endpunkt zur Catcher-Mitte, 40 mm zu einem einseitigen Referenz-Keep-out und 10 mm lediglich zu einer Ebene innerhalb einer 28 mm hohen Fangzone abstrahiert. Diese Beziehungen beweisen keinen Fit.
 
 - Anycubic Slicer Next meldet für Hauptkörper und Datumplatte einen möglichen frei schwebenden Überhang. Finale Orientierung, Support und Schichtansicht müssen manuell geprüft werden.
 - Die montierte Maßreferenz enthält absichtlich getrennte Maßleisten und schwebende Einbaugeometrie; ihre Slicer-Warnung bestätigt zusätzlich, dass sie nicht als Druckplatte zu verwenden ist.

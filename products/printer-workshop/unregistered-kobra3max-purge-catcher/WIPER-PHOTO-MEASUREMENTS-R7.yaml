@@ -120,9 +120,18 @@ remaining_unknowns:
 cad_binding:
   geometry_revision: R7-DRAFT-2
   implementation: current/anycubic-kobra3max-purge-catcher-r7
-  status: "digital PASS; physical endpoint and fit verification remain open"
+  status: "internal nominal bindings pass, but external machine fit rejected by user; R7-DRAFT-2 not for print"
   bindings:
     M-R7-001: "centres of lower round hole and upper compensating slot"
     M-R7-002: "purge datum Z=-10 inside closed capture zone Z=-20..8"
     M-R7-003: "catcher capture centre plane X=37"
     M-R7-004: "rear reference keep-out boundary Y=-40; all added manufacturing geometry Y>=0"
+  fit_correction:
+    captured_at: "2026-08-30"
+    observation: "Benutzer bewertet die Maßgrafik als grundsätzlich plausibel, die erzeugten Modelle jedoch als nicht passend."
+    confirmed_limitation: "Die Bindungen prüfen nur interne CAD-Beziehungen; vollständige reale Maschinenhüllkurven und Montagewege fehlen."
+    unresolved:
+      - "konkrete Fehlpassung oder Kollisionsstelle"
+      - "eindeutige physische Achsrichtung und Endpunkte insbesondere für M-R7-003 und M-R7-004"
+      - "freier X/Y/Z-Hüllraum für Catcher, Platte, Verriegelung und Montagebewegung"
+    disposition: "R7-DRAFT-2 rejected; no replacement geometry before renewed requirements and concept approval"

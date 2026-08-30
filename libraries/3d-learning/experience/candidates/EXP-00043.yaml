@@ -1,0 +1,160 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00043
+title: Internal datum consistency does not prove fit to an unmodelled machine envelope
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One user fit rejection on one unprinted R7-DRAFT-2 machine accessory; exact collision or orientation error is not yet localized."
+feature:
+  type: external-machine-envelope-fit
+  geometry: Two-screw Wiper datum plate, forward slide/latch and 62 x 44 x 62 mm moving purge catcher
+  design_parameters:
+    screw_pitch_z_mm: 17.0
+    purge_datum_offset_z_mm: 10.0
+    interpreted_catcher_center_x_mm: 37.0
+    interpreted_rear_keepout_y_mm: -40.0
+    catcher_bounds_x_mm: [6.0, 68.0]
+    catcher_bounds_y_mm: [2.4, 46.4]
+    catcher_bounds_z_mm: [-36.0, 26.0]
+  named_datums:
+    - lower and upper Wiper screw centers
+    - screw seating plane
+    - interpreted purge deposition plane
+    - interpreted catcher center plane
+    - interpreted rear Wiper reference plane
+  constraints:
+    - Internal expected/actual dimension equality is not an external fit check.
+    - Every accessory envelope and installation sweep needs a measured machine counterpart or conservative keep-out.
+    - Unknown measurement endpoints, screw hardware and machine clearance remain blocking rather than receiving invented defaults.
+scope:
+  process: FFF parametric CAD generation
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG target
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: hardened steel target, physical identity unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unprinted assembly in measured-machine coordinate convention
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20mm Standard with Anycubic PETG and Kobra 3 Max 0.4 mm machine profile
+    profile_hash: c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab
+  geometry_class: moving printer accessory attached near Wiper, bed, rollers, cables and stock purge hardware
+  environment: User fit review plus source, report and six ruler-photo inspections; no confirmed physical print attempt
+  transfer_limits:
+    - Evidence covers one rejected R7-DRAFT-2 interpretation on one Anycubic Kobra 3 Max.
+    - The exact wrong side, collision body or fastener mismatch remains unknown.
+    - No material, nozzle or slicer effect caused or resolves the observed external fit failure.
+observation:
+  summary: The R7-DRAFT-2 datum illustration looked plausible to the user, but the user stated that the generated models would not fit the real machine.
+  expected: A model advertised as the current print candidate would occupy a measured free machine envelope and mount through physically confirmed hardware and service paths.
+  actual: Digital checks proved self-consistency only. The model assigned 37 mm to its own catcher center, 40 mm to one reference plane and 10 mm to a plane within its own capture zone while stock machine solids and the full installation envelope were absent.
+  outcome: failure
+  parameter: internal-datum-proof versus external-machine-fit proof
+  recommended_value: null
+  units: interface-contract
+explanation:
+  hypothesis: The fit rejection arose because an internally consistent accessory coordinate model was mistaken for a registered external interface model.
+  mechanism: Without machine-side solids or conservative measured keep-outs, the checker can prove accessory topology and nominal relationships while being mathematically unable to detect collisions, mirror/orientation errors or insufficient installation clearance.
+  alternatives:
+    - The catcher may be on the wrong side or mirrored relative to the physical Wiper.
+    - The 62 x 44 x 62 mm envelope may collide with stock purge hardware, head, roller, cable or bed.
+    - The assumed 18 x 41 x 2.4 mm plate, 4.4 mm holes or 8.5 mm head keep-out may not match the real fasteners and bracket.
+    - More than one of these unresolved causes may contribute.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: User design-fit correction followed by comparison of the generated bounds/checks with the six existing ruler photographs and missing machine-envelope evidence.
+  uncertainty: Exact failing surface, physical orientation intended by the user and whether any part was test-printed are unknown.
+  sources:
+    - type: user-statement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+      hash: 1cd176a2238bb62607c4d96edb8f05d0e8ed918688186da32da5551f958dcf16
+      notes: Preserves the exact fit correction and unknown failure location.
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+      hash: 75dacdfabf51c020c606b71ffb7b79231a50071a8d5564f0f599cc7bb56587c4
+      notes: Separates proven internal dimensions from absent external interface evidence.
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
+      hash: f95f09c477c378c36a8d034218cb976cc6538a656e5e1cb87d265527e91b51d4
+      notes: Records the internally passing datum relations and all physical gates as NOT_RUN.
+    - type: measurement
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+      hash: 05cda5af9244a1c2f53ea3f377723d31f9576883ccd001cfab6feb7907ac7490
+      notes: Original ruler-photo measurements plus the new external-fit rejection.
+  artifacts:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/params/r7-z-rider-draft2.json
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/src/generate_r7_z_rider.py
+applicability:
+  triggers:
+    - A functional accessory is dimensioned from user measurements but the mating machine envelope is absent from CAD and validation.
+    - An internally passing datum report is used to support an external fit or print-candidate statement.
+    - Photo measurements have ambiguous axes, endpoints or free-space implications.
+  exclusions:
+    - Accessories checked against an authoritative machine interface model with complete keep-outs and verified installation sweep
+    - Purely internal parts whose complete mating system is modeled and independently dimensioned
+  transfer_limits:
+    - E0 correction candidate; use for targeted review and experiment planning, not as a universal rule.
+    - Required machine representation and physical coupon depend on the specific interface and risk.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00034
+    - EXP-00041
+  evals:
+    - EVAL-interfaces-external-machine-envelope-fit-001
+    - EVAL-interfaces-machine-accessory-service-registration-001
+  patterns: []
+  references: []
+validation:
+  targeted: fail
+  regression: not-run
+  reports:
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+provenance:
+  project: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
+  part_revision: R7-DRAFT-2
+  trace: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  source_commit: null
+  created_by: Codex
+tags:
+  - user-correction
+  - machine-interface
+  - external-fit
+  - keepout
+  - coordinate-frame
+  - negative-result
+  - digital-only

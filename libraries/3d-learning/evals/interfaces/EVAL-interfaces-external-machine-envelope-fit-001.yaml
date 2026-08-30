@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-external-machine-envelope-fit-001
+title: External machine fit requires registered mating geometry and a complete installation envelope
+category: interfaces
+status: draft
+trigger: A functional printed accessory attaches to or moves near an existing machine using manually measured or photo-derived datums.
+risk: Internally exact CAD dimensions can pass while the accessory is mirrored, intersects omitted machine hardware, uses incorrect fasteners or cannot follow its installation path.
+given:
+  project: products/printer-workshop/unregistered-kobra3max-purge-catcher
+  requirements: design-spec.yaml
+  measurement_trace: WIPER-PHOTO-MEASUREMENTS-R7.yaml
+  correction_trace: learning-trace-interface-r7.yaml
+  rejected_geometry_report: current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
+  fit_failure_analysis: FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+expected:
+  - Every user measurement has unambiguous physical start/end datums, signed axis direction and uncertainty before it drives an external interface.
+  - The mating hardware, stock machine parts, cables, moving members and bed are represented by measured solids or explicitly conservative keep-outs covering the complete relevant motion.
+  - The accessory body, fasteners, tool access and complete insertion/removal sweep meet the project clearance contract against those external owners.
+  - Added envelope beyond measured datums is justified by separately measured free space rather than by arbitrary centering, mirroring or one-sided assumptions.
+  - A minimal hole-pattern and outline/keep-out gauge passes on the real machine before a full accessory body is treated as a print candidate.
+  - Unresolved external geometry or a user fit rejection forces the candidate to rejected/blocked status even when topology, slicer and internal datum checks pass.
+failure_conditions:
+  - Validation compares only accessory features with other accessory features.
+  - A measurement with ambiguous endpoint or axis is converted into a body center, side or keep-out without physical confirmation.
+  - A machine part that could intersect the accessory or service sweep has neither geometry nor a conservative keep-out.
+  - Screw thread, head, length, seating thickness or engagement is assumed for a machine-mounted plate.
+  - A full model is recommended for printing before a minimal interface/envelope coupon passes.
+  - User or physical evidence says the model will not fit but the model remains current or print-recommended.
+fixtures:
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: >-
+    PASS only when physical datums and signs are unambiguous; all relevant
+    machine, fastener, motion and service-envelope owners are measured or
+    conservatively bounded; digital collision/clearance checks pass; a minimal
+    real-machine interface/outline coupon passes; and no unresolved or rejected
+    fit claim remains. Internal accessory equality and slicability alone cannot
+    earn PASS.
+  measurement_method: Review datum annotations and external keep-out ownership, run registered collision and insertion-sweep checks, then fit a minimal hole-pattern/outline gauge on the powered-off machine.
+relationships:
+  lessons: [EXP-00043]
+  regression_suites: []
+last_run:
+  result: fail
+  date: 2026-08-30
+  report: products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+  artifact_hashes:
+    - 75dacdfabf51c020c606b71ffb7b79231a50071a8d5564f0f599cc7bb56587c4
+    - f95f09c477c378c36a8d034218cb976cc6538a656e5e1cb87d265527e91b51d4
+    - db50fc8c62713b642c6646acabb365eb4afd5b5b6c178eab024c10bf0839c1bb
+tags: [interfaces, machine-envelope, keepout, coordinate-frame, physical-fit, coupon, user-correction]

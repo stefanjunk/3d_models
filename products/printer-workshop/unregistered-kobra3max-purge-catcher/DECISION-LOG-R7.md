@@ -123,3 +123,11 @@
 - Anlass: In der getrennten Fertigungsübergabe zeigt die Fangkörper-3MF das 17-mm-Lochbild der separaten Datumplatte nicht. Dadurch ist die vollständige Maßbindung beim Öffnen nur einer Bauteildatei nicht unmittelbar sichtbar.
 - Entscheidung: Eine zusätzliche 3MF kombiniert Datumplatte und Fangkörper in Einbaukoordinaten mit vier abgesetzten Maßleisten von exakt 17/10/37/40 mm. Die Leisten sind keine Fertigungsgeometrie; Datei und Berichte tragen `REFERENCE_ONLY_DO_NOT_PRINT`.
 - Ergebnis: Sechs Komponenten bestehen Mesh- und Core-3MF-Prüfung. Der native Anycubic-Import/Slice besteht mit vollständigem Kobra-3-Max-/0,20-mm-/PETG-Profilsatz und meldet erwartungsgemäß schwebende Bereiche. Die fünf getrennten Druckprojekte bleiben die einzigen Fertigungsdateien.
+
+### DEC-R7-019 – R7-DRAFT-2 wegen fehlendem realem Einbaunachweis verwerfen
+
+- Status: verworfen; keine R7-Datei drucken oder montieren
+- Benutzerkorrektur: Die Maßgrafik wirkt plausibel, die Modelle werden jedoch nicht passen.
+- Feststellung: Die Digitalprüfung bewies nur interne Beziehungen im erfundenen CAD-Koordinatensystem. Für vorhandene Wiper-Schale, Metallablage, Rollen, Kabel, Bett, reale Schraubenköpfe und den Montageweg existierten weder Maschinensolids noch konservative vollständige Keep-outs.
+- Kritische Abstraktionen: 37 mm wurden zur Mitte eines 62-mm-Catchers, 40 mm nur zu einer rückwärtigen Referenzebene und 10 mm zu einer beliebigen Ebene innerhalb der Fangzone. Der Catcher belegt nominal `X=6..68`, `Y=2,4..46,4` und `Z=-36..26` mm, ohne dass dieser freie Raum am Drucker nachgewiesen wurde.
+- Entscheidung: Anforderungen wechseln auf `0.7.0-requirements.3 / changes-requested`; Konzept und Produktion sind blockiert. Vor neuer Geometrie müssen konkrete Fehlpassung, Achsrichtung/Endpunkte und zulässige X/Y/Z-Hüllkurve geklärt und mit einer flachen Interface-/Umrisslehre geprüft werden.

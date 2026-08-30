@@ -1,22 +1,14 @@
-# Aktuelle Fassung
+# Aktueller Status
 
-Aktuell ist ausschließlich **R7-DRAFT-2** unter
-[`current/anycubic-kobra3max-purge-catcher-r7`](current/anycubic-kobra3max-purge-catcher-r7/README-DE.md)
-aktiv.
+Es gibt derzeit **keine passende oder zum Druck empfohlene Fassung**.
+R7-DRAFT-2 wurde am 30. August 2026 durch die Benutzerkorrektur „die Modelle
+werden nicht passen“ verworfen. Die Dateien bleiben ausschließlich als
+negative Entwicklungs- und Validierungsevidenz erhalten.
 
-Alle vier eingebrachten Maße sind zusammen mit Datumplatte und Catcher in
-dieser reinen Prüfdatei sichtbar:
+Die folgende Datei darf nur zur Analyse des Fehlers geöffnet werden:
 
 [`ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf`](current/anycubic-kobra3max-purge-catcher-r7/build/current/models/3mf/anycubic/ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf)
 
-**Nur ansehen und nachmessen – diese Montage-Referenz nicht drucken.** Die vier
-abgesetzten Maßleisten sind exakt 17/10/37/40 mm lang und gehören nicht zur
-Fertigungsgeometrie.
-
-Die direkt in Anycubic Slicer Next geprüfte Hauptdatei zum Drucken ist:
-
-[`ANYCUBIC-R7-purge-catcher-body.3mf`](current/anycubic-kobra3max-purge-catcher-r7/build/current/models/3mf/anycubic/ANYCUBIC-R7-purge-catcher-body.3mf)
-
-Vor dem Hauptkörper zuerst die Lochbildlehre drucken und die offenen physischen
-Prüfungen im aktuellen [`PRINT-CHECKLIST-DE.md`](current/anycubic-kobra3max-purge-catcher-r7/PRINT-CHECKLIST-DE.md)
-abarbeiten. R7-DRAFT-2 ist digital geprüft, aber noch nicht physisch freigegeben.
+**Nicht drucken.** Die 17/10/37/40-mm-Leisten stimmen als interne CAD-Bezüge,
+aber die reale Maschinenhüllkurve fehlt. Der Fehlerbericht steht in
+[`FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md`](FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md).

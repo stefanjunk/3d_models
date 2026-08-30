@@ -1,8 +1,13 @@
 # Anycubic Kobra 3 Max Purge Catcher — R7-DRAFT-2
 
-Dies ist die einzige aktive Fassung des Projekts. R7-DRAFT-1 wurde verworfen,
-weil mehrere Messwerte nur als Parameter vorhanden waren und die erzeugte
-Geometrie deshalb nicht vollständig den Maßen entsprach.
+> **VERWORFEN – NICHT DRUCKEN.** Der Benutzer hat bestätigt, dass die Modelle
+> trotz plausibler Maßgrafik nicht passen werden. Die Digitalprüfungen belegen
+> nur interne CAD-Beziehungen, keinen realen Einbau am Drucker. Diese Fassung
+> bleibt ausschließlich als negative Entwicklungsevidenz erhalten.
+
+Diese Fassung ist nicht mehr aktiv. R7-DRAFT-1 wurde wegen nur deklarierter
+Maße verworfen; R7-DRAFT-2 ist nun zusätzlich wegen fehlendem realem
+Einbaunachweis und der ausdrücklichen Fit-Korrektur des Benutzers verworfen.
 
 ## Alle Maße in einem Modell ansehen
 
@@ -20,18 +25,20 @@ erhaltene G-Code ist nur Validierungsevidenz und darf nicht gedruckt werden.
 
 ## Welche 3MF ist die aktuelle?
 
-Für Anycubic Slicer Next ist diese Datei maßgeblich:
+Es gibt aus dieser Fassung **keine aktuelle Druck-3MF**. Die folgende ehemalige
+Hauptdatei ist verworfen und darf nur zur Fehleranalyse geöffnet werden:
 
 [`build/current/models/3mf/anycubic/ANYCUBIC-R7-purge-catcher-body.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-purge-catcher-body.3mf)
 
-Sie enthält die ausgewählte **balanced**-Geometrie und die vollständigen
+Sie enthält die verworfene **balanced**-Geometrie und die vollständigen
 Profile für Anycubic Kobra 3 Max, 0,4-mm-Düse, 0,20-mm-Prozess und Anycubic
 PETG. Ein frischer Headless-Slice mit Anycubic Slicer Next 1.3.9.4 war
 erfolgreich: 310 Schichten, etwa 60 Minuten und 17.953,6 mm³ Extrusionsvolumen.
 
 Der Slicer meldet am Hauptkörper weiterhin einen möglichen frei schwebenden
 Überhang. Deshalb ist vor einem Druck eine menschliche Schicht-/Supportprüfung
-Pflicht. Es wurde nichts zum Drucker hochgeladen oder gestartet.
+Pflicht. Unabhängig davon ist die Geometrie nun als nicht passend verworfen. Es
+wurde nichts zum Drucker hochgeladen oder gestartet.
 
 ## Eingebrachte Maße
 
@@ -50,13 +57,10 @@ Die maschinenlesbare Prüfung steht in
 die Maßgrafik in
 [`build/current/previews/r7-measured-datums.png`](build/current/previews/r7-measured-datums.png).
 
-## Dateien für die Prüf-Reihenfolge
+## Historische Testdateien – nicht drucken
 
-1. [`ANYCUBIC-R7-mount-pattern-gauge.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-mount-pattern-gauge.3mf) — zuerst drucken; 17-mm-Lochbild prüfen.
-2. [`ANYCUBIC-R7-slide-clearance-coupon.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-slide-clearance-coupon.3mf) — 0,20/0,30/0,40-mm-Führung vergleichen.
-3. [`ANYCUBIC-R7-latch-cycle-coupon.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-latch-cycle-coupon.3mf) — Rastung und 100 Zyklen prüfen.
-4. [`ANYCUBIC-R7-wiper-datum-plate.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-wiper-datum-plate.3mf) — erst nach Schraubenidentifikation und Lochbildfreigabe.
-5. [`ANYCUBIC-R7-purge-catcher-body.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-purge-catcher-body.3mf) — erst nach Coupon- und Slicer-Vorschau-Freigabe.
+Die fünf damaligen Test-/Bauteildateien bleiben nur zur Reproduzierbarkeit der
+negativen Evidenz erhalten. Keine davon ist für einen neuen Druck freigegeben.
 
 Die Standard-Core-3MFs direkt unter `build/current/models/3mf/` sind formal
 gültige Austauschdateien. Anycubic Slicer Next 1.3.9.4 erkannte diese

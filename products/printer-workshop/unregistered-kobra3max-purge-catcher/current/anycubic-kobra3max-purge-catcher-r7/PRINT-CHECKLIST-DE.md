@@ -1,5 +1,10 @@
 # Druck- und Freigabecheckliste — R7-DRAFT-2
 
+> **STOPP: R7-DRAFT-2 ist verworfen und darf nicht gedruckt oder montiert
+> werden.** Die folgende Checkliste bleibt nur als Dokumentation der offenen
+> Prüfungen erhalten. Für eine neue Revision ist zuerst ein bestätigter
+> Maschinen-Hüllraum- und Interfacevertrag erforderlich.
+
 Der Hauptkörper ist noch **kein physisch freigegebenes Serienteil**. Die
 Reihenfolge ist absichtlich fail-closed.
 

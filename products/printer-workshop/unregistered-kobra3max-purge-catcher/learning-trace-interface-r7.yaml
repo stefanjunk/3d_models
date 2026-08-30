@@ -50,6 +50,18 @@ physical_measurement_follow_up:
     - "sechs Fotos in Photos-1-001 als physische Kontextevidenz prüfen"
   measurement_manifest: WIPER-PHOTO-MEASUREMENTS-R7.yaml
   accepted_result: null
+r7_draft2_fit_correction:
+  captured_at: "2026-08-30"
+  language: de
+  verbatim: "das image zu measured datums sieht ganz ok aus, aber die modelle werden nicht passen"
+  normalized:
+    - "Die schematische Darstellung der 17-/10-/37-/40-mm-Bezüge ist grundsätzlich plausibel."
+    - "Die erzeugten R7-DRAFT-2-Modelle passen dennoch nicht an die reale Maschine."
+    - "Interne CAD-Maßbindung darf nicht als externer Einbaunachweis gewertet werden."
+  exact_failure_location: unknown
+  physical_print_attempt: unknown
+  accepted_result: null
+  disposition: "R7-DRAFT-2 verworfen; Anforderungen changes-requested; keine Ersatzgeometrie vor Klärung der Fehlpassung und Maschinenhüllkurve"
 analysis:
   observed_problem:
     - "Wiper-Schrauben tragen die Zubehörlast und müssen für die Erstmontage angefasst werden."
@@ -58,8 +70,9 @@ analysis:
     - "Die Purge-Quelle bewegt sich mit dem Wiper entlang Z; der vorgeschlagene stationäre Dock-Tower besaß nur eine feste Fanghöhe."
     - "Die Fotos zeigen ein zugängliches vertikales Zwei-Schrauben-Datum mit 17 mm Mitte-Mitte-Abstand und unmittelbar benachbarte Wiper-/Führungsgeometrie."
     - "Alle realen Pass-, Kollisions- und Fangtests sind offen."
+    - "R7-DRAFT-2 bildete die reale Wiper-Schale, Metallablage, Rollen, Kabel-, Bett- und Montagehüllkurve nicht ab und wurde vom Benutzer als nicht passend verworfen."
   preferred_response: "leichter, direkt am Wiper mitfahrender Fangkopf mit kurzer offener Abwärtsumlenkung und stationärem Unterbehälter"
-  status: "awaiting-requirements-approval"
+  status: "requirements changes-requested after R7-DRAFT-2 external-fit rejection"
   causal_hypothesis: >
     Der erste R7-Vorschlag schlug die Fangfunktion fälschlich dem stationären
     Druckerbezugssystem zu. Da die Purge-Quelle zusammen mit dem Wiper entlang Z
@@ -96,8 +109,12 @@ result:
   candidates:
     - "libraries/3d-learning/experience/candidates/EXP-00034.yaml"
     - "libraries/3d-learning/experience/candidates/EXP-00035.yaml"
+    - "libraries/3d-learning/experience/candidates/EXP-00041.yaml"
+    - "libraries/3d-learning/experience/candidates/EXP-00043.yaml"
   evals:
     - "libraries/3d-learning/evals/interfaces/EVAL-interfaces-machine-accessory-service-registration-001.yaml"
     - "libraries/3d-learning/evals/interfaces/EVAL-interfaces-moving-source-frame-capture-001.yaml"
+    - "libraries/3d-learning/evals/geometry/EVAL-geometry-measured-datum-cad-binding-001.yaml"
+    - "libraries/3d-learning/evals/interfaces/EVAL-interfaces-external-machine-envelope-fit-001.yaml"
   maturity: E0
   validation: not-run

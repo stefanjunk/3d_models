@@ -2,7 +2,7 @@
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.4.0` — requirements and concept approved, decomposition pending
+Current revision: `0.4.0` — requirements, concept and decomposition approved; datum freeze and part candidates next, then CAD
 
 Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
 

@@ -138,3 +138,12 @@
 - `plan_hybrid_design.py` validation: PASS, 0 errors / 0 warnings; release
   remains blocked behind component/integration/manufacturing/physical/proxy gates.
 - Decomposition gate set to pending for explicit human approval.
+
+## 2026-08-30 — Decomposition 0.4.0 approved
+
+- Stefan approved the 0.4.0 decomposition with the response "freigegeben".
+- All three upstream human gates (requirements, concept, decomposition) are now
+  approved for revision 0.4.0.
+- Next phase: freeze designed frame datums (DEC-DATUM-001) from sourced 1:10
+  class-reference values, select drivetrain/axle candidates (DEC-AXLE-001,
+  DEC-DRIVE-001), then start the parametric CadQuery source phase.

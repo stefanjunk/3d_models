@@ -17,13 +17,21 @@ project:
 workflow:
   autonomy_policy: autonomy-policy.json
   requirements_approval:
+    status: approved
+    spec_revision: "0.1.0"
+    approved_by: Stefan
+    approved_at: "2026-08-30"
+    evidence: "User response: freigegeben"
+    review: docs/requirements-review-v0.1.0.md
+  concept_approval:
     status: pending
     spec_revision: "0.1.0"
     requested_from: Stefan
-    review: docs/requirements-review-v0.1.0.md
-  concept_approval:
-    status: blocked
-    reason: "Requirements revision 0.1.0 is not approved"
+    asset: concepts/trailcam-b2-balance-concept-v0.1.0-r1.png
+    asset_sha256: 7eff5b88a5e3085398d82c96724dd4f9a6099a48725998b7170a466823ba29a8
+    review: concepts/concept-review-v0.1.0.md
+    metadata: concepts/imagegen-metadata-v0.1.0-r1.json
+    reason: "Concept r1 is ready for explicit human review"
   decomposition:
     status: blocked
     reason: "Requirements and concept approval are required first"
@@ -196,6 +204,24 @@ interfaces:
   landing_protection:
     status: recommended
     contract: "non-rolling front/rear skids or hoops remain clear during normal balance motion and limit camera/electronics impact after disarm or tip-over"
+
+concept_visualization:
+  selected_asset: concepts/trailcam-b2-balance-concept-v0.1.0-r1.png
+  role: "Appearance and architecture review only; not dimensional, control, strength or manufacturing evidence"
+  style_reference: "MM-TOY-002 concept v0.4.0-r2 for open ribbed FDM language, orange protection and studio presentation only"
+  visible_intent:
+    - "Exactly two large wheels on one transverse geometric axis in every full-vehicle view"
+    - "Two independent coaxial motor pods with no suspension, steering linkage or caster"
+    - "Compact upright ribbed printed cage between the wheels"
+    - "Battery centered above the axle, with electronics and controller above it"
+    - "Forward camera inside a replaceable orange guard and separated antenna mounts"
+    - "Non-rolling orange landing protection and accessible modular electronics"
+    - "Exploded separation of wheels, motors, frame, battery, electronics, camera and protection"
+  deliberate_simplifications:
+    - "Wheel, motor, PCB, camera, antenna, fastener and battery shapes are generic visual proxies, not supplier-authoritative geometry"
+    - "The upper-right side view shows one wheel silhouette because the far wheel is coaxially occluded"
+    - "The apparent skid-to-floor gap is illustrative; the 22 degree contact threshold and all clearances remain specification/CAD-owned"
+    - "No image proportion, board placement, cable path, center of mass or field-of-view cone is a measured result"
 
 control_system:
   architecture:

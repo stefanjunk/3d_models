@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-TOY-003",
+  "spec_revision": "0.1.0",
+  "asset": "concepts/trailcam-b2-balance-concept-v0.1.0-r1.png",
+  "asset_sha256": "7eff5b88a5e3085398d82c96724dd4f9a6099a48725998b7170a466823ba29a8",
+  "dimensions_px": [1536, 1024],
+  "generator": {
+    "mode": "built-in image_gen",
+    "use_case": "stylized-concept",
+    "created": "2026-08-30",
+    "iterations": 3
+  },
+  "reference": {
+    "role": "style and material reference only",
+    "path": "products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/concepts/trailcam-cf10-fpv-concept-v0.4.0-r2.png",
+    "sha256": "4751d6ddbc12f793b46ef4b549d31484e734404f7da111eae0ac7ab89d2adc5f",
+    "excluded_authority": "four-wheel chassis, suspension, proportions, layout and dimensions"
+  },
+  "iteration_hashes": [
+    {
+      "stage": "initial generation",
+      "sha256": "2e893ce9fbdfa05de0c391ce5418cfa156c38ed94bbbb870e8db33023f059209",
+      "disposition": "not selected; tower too tall and landing member appeared ground-contacting"
+    },
+    {
+      "stage": "compact proportion and skid iteration",
+      "sha256": "e3e22a8884670edbabfbe19ffd7ac7a1f6a9229ef2a7c225f0c4850497b68498",
+      "disposition": "not selected; upper-right panel remained a front view"
+    },
+    {
+      "stage": "side/cutaway panel iteration",
+      "sha256": "7eff5b88a5e3085398d82c96724dd4f9a6099a48725998b7170a466823ba29a8",
+      "disposition": "selected as workspace concept r1"
+    }
+  ],
+  "final_prompt": [
+    "Use case: precise-object-edit",
+    "Asset type: final concept approval sheet for MM-TOY-003",
+    "Input images: Image 1 is the edit target.",
+    "Primary request: Change ONLY the upper-right panel. Preserve the large left three-quarter hero view and lower-right exploded view pixel-for-pixel in composition, component count, proportions, exactly two wheels, materials, palette, lighting and background.",
+    "Upper-right replacement panel: show a strict true LEFT-SIDE ORTHOGRAPHIC CUTAWAY of the same upright self-balancing rover, vehicle forward pointing left. Because both wheels share one transverse axis, the far wheel is exactly hidden behind the near wheel and the side silhouette contains one circular tire, not an extra wheel. Cut away the near side frame only enough to reveal: common axle center through the wheel hub, one motor aligned to it, the strapped battery centered 70-110 mm above the axle, electronics and rigid IMU tray above the battery, and the forward camera with a faint view cone. Show a clearly separate orange FRONT landing skid extending left and a clearly separate orange REAR landing skid extending right. Both skids are non-rolling and visibly 15-25 mm above the horizontal floor line in the balanced upright pose; only the rubber tire touches the floor. Keep the top protective orange rail if already present.",
+    "Constraints: top-right panel is side view, not front or three-quarter; exactly one visible wheel silhouette in that side panel because the second wheel is directly occluded on the same axis; no caster, roller, suspension, second axle, handlebar, text, labels, dimensions, logos, trademarks or watermark. Match the exact same rover identity as the unchanged panels.",
+    "Avoid: changing the left hero panel; changing the bottom-right exploded panel; front view in the upper-right; any skid touching the ground."
+  ],
+  "limitations": [
+    "The selected image inherits prior built-in generation iterations; their exact prompts are recorded in the task trace but only the final selection prompt is repeated here.",
+    "Generated imagery is appearance and architecture evidence only, not dimensional or engineering proof.",
+    "The apparent skid-to-floor gap is non-authoritative and remains a declared CAD validation gate."
+  ]
+}

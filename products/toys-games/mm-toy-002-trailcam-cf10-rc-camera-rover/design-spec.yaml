@@ -8,7 +8,7 @@ project:
   candidate: 0.4.0-draft.1
   owner: Stefan
   created: "2026-08-29"
-  revised: "2026-08-29"
+  revised: "2026-08-30"
   supersedes: "Uncontrolled TrailCam CF10 v0.1.0 report dated 2026-08-13"
   portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-096"
   tool_route: "CadQuery B-Rep rebuild with STEP/STL/3MF outputs after concept and decomposition approval"
@@ -41,12 +41,18 @@ workflow:
     plan: architecture/hybrid-design-plan-v0.4.0.json
     report: architecture/architecture-report-v0.4.0.md
     validation: validation/hybrid-plan-validation-v0.4.0.json
+  parametric_source:
+    status: blocked
+    decision: BLOCKED
+    reason: "CHASSIS_PRINTED v1 is reproducible, but the experimental suspension/carrier source violates the approved double-wishbone joint topology, locks steering, conflicts with the two chassis-fixed motor decision and intersects the chassis"
+    evidence: reports/cad-phase-2-corner-stack-review-v0.4.0.md
   digital_candidate:
     status: blocked
-    reason: "No reproducible source or manufacturing mesh exists in the imported package"
+    reason: "The reproducible chassis v1 remains DRAFT; no architecture-conform, collision-free suspension/steering/drivetrain assembly exists"
+    evidence: validation/corner-stack-v1-integration-2026-08-30-r4.json
   slicer_preflight:
     status: blocked
-    reason: "No candidate geometry or approved exact machine/process/filament profile exists"
+    reason: "No integration-valid candidate geometry or approved exact machine/process/filament profile exists"
   physical_validation:
     status: blocked
     reason: "No print, measurement, load, radio, thermal or driving evidence exists in the repository"
@@ -348,7 +354,8 @@ manufacturing:
 optimization:
   status: pending
   objective: "Reduce upper-structure mass and print burden while improving load-path clarity, protection and serviceability"
-  baseline_status: "unavailable; report gives CAD volume only and the claimed source/meshes are missing"
+  baseline_status: "A 507.9 cm3 chassis CAD-volume DRAFT exists, but no exact slicer baseline and no valid suspension/control load path exist"
+  blocker: "Structural lightweighting of vehicle-control geometry is deferred until the double-wishbone/drivetrain interfaces pass digital integration and qualified engineering/physical evidence exists"
   baseline_reported_deck:
     solid_volume_mm3: 92769.82
     windowed_ribbed_volume_mm3: 53645.65
@@ -420,9 +427,10 @@ deliverables:
   current:
     - "Integrated product folder and portfolio identity"
     - "Unchanged legacy report with SHA-256 inventory"
-    - "Approved requirements revision 0.3.0, design audit and decision log"
-    - "Concept candidate 0.3.0-r2 with review metadata"
-    - "Validated decomposition draft with explicit interface owners and keep-outs"
+    - "Approved requirements, concept and decomposition revision 0.4.0"
+    - "Parametric CHASSIS_PRINTED v1 DRAFT with STEP/STL outputs"
+    - "Fail-closed CAD phase 2 corner-stack integration review with exact input hashes, collision metrics and kinematic bounds"
+    - "E0 learning candidate and targeted interface eval for the rejected suspension joint topology"
   after_approval:
     - "Approved concept sheet with overview, underside mounting and camera-guard detail"
     - "Purchased/printed decomposition and product-specific BOM"

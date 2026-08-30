@@ -2,9 +2,9 @@
 
 Portfolio record: `PORT-096`
 
-Current revision: `0.4.0` — requirements, concept and decomposition approved; datum freeze and part candidates next, then CAD
+Current revision: `0.4.0` — requirements, concept and decomposition approved; chassis v1 is a reproducible DRAFT, suspension/drivetrain integration is BLOCKED
 
-Lifecycle: `P0 Idea` — no reproducible CAD or manufacturing mesh is present
+Lifecycle: `P0 Idea` — partial reproducible CAD exists, but no collision-free or manufacturing-authoritative vehicle assembly exists
 
 This folder integrates the previously loose TrailCam CF10 design report into the
 controlled product structure. The imported report describes a modular low-speed
@@ -24,10 +24,19 @@ OpenQuad while retaining a surface-specific receiver and transmitter layout.
 - `architecture/hybrid-design-plan-v0.4.0.json` — machine-readable 0.4.0 decomposition draft (validated, pending human approval)
 - `architecture/architecture-report-v0.4.0.md` — 0.4.0 architecture report with decision and gate log
 - `reports/design-review-v0.1.0.md` — evidence-based audit of the imported design
+- `reports/cad-phase-2-corner-stack-review-v0.4.0.md` — rejected suspension/carrier integration, measured blockers and permitted continuation route
 - `validation/source-inventory.json` — exact imported-report hash and missing-artifact inventory
+- `validation/corner-stack-v1-integration-2026-08-30-r4.json` — current fail-closed STEP collision, interface and kinematic evidence with exact source/export hashes
+- `validation/corner-stack-v1-mesh-audit-2026-08-30/` — isolated topology reports for the six rejected DRAFT meshes; topology pass does not imply assembly pass
+- `validation/design-spec-validation-2026-08-30-cad-phase-2-r2.json` — current specification schema/gate validation (PASS with expected draft warnings)
+- `cad/validate_corner_stack.py` — deterministic read-only integration audit; refuses evidence overwrite
 - `autonomy-policy.json` — guided workflow; requirements and concept remain human gates
 - `docs/legacy/TrailCam_CF10_Entwurfsbericht_v0.1.0.pdf` — unchanged imported report
 
-No production CAD is generated until the concept and decomposition gates are
-approved. No later STL, STEP, 3MF or G-code may be described as final until the
-rebuilt candidate passes the declared digital and physical checks.
+Concept and decomposition gates are approved, and `cad/chassis.py` provides the
+first reproducible DRAFT. The experimental lower-arm/carrier work does not match
+the approved double-wishbone joint contract and collides with that chassis, so
+it is retained only as failure evidence. No STL, STEP, 3MF or G-code may be
+described as a vehicle candidate or final until a compliant suspension,
+steering and drivetrain assembly passes the declared digital and physical
+checks.

@@ -19,6 +19,10 @@ GROUND_CLEARANCE_MM = 40.0
 # --- Derived datums ---
 AXLE_X_MM = WHEELBASE_MM / 2.0          # +/-126 axle planes
 WHEEL_Y_MM = TREAD_MM / 2.0             # +/-82.5 wheel center planes
+# Rejected experiment-only datums retained to reproduce the blocked corner-stack
+# trace. New geometry must not consume these values; see the phase-2 review.
+PIVOT_X_MM = 86.0                       # REJECTED corner-stack-v2 proposal
+PIVOT_Z_MM = 8.0                        # REJECTED corner-stack-v2 proposal
 FRAME_LENGTH_MM = 340.0                 # ladder frame without bumpers
 FRAME_RAIL_Y_MM = 32.0                  # rail centerline offset from vehicle center plane
 RAIL_W_MM = 14.0

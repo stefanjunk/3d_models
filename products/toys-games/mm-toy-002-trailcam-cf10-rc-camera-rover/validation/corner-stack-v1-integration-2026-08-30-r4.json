@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0",
+  "tool": "validate_corner_stack.py",
+  "tool_version": "1.0.0",
+  "project_id": "MM-TOY-002",
+  "project_revision": "0.4.0",
+  "profile": "draft-integration-review",
+  "run_date": "2026-08-30",
+  "status": "FAIL",
+  "decision": "BLOCKED",
+  "checks": [
+    {
+      "id": "approved-architecture-match",
+      "status": "FAIL",
+      "message": "Experimental lower-arm/shock/carrier source contradicts the approved double-wishbone and ball-joint contract."
+    },
+    {
+      "id": "neutral-assembly-collision",
+      "status": "FAIL",
+      "message": "Every measured v1 suspension part has non-zero Boolean common with the chassis."
+    },
+    {
+      "id": "printed-interface-clearance",
+      "status": "FAIL",
+      "message": "Rejected v2 tang/flange proposals provide 0.20 mm/side, below the approved 0.25 mm/side contract."
+    },
+    {
+      "id": "pivot-ligament",
+      "status": "FAIL",
+      "message": "A 3.2 mm bore with 5.0 mm ligament above the base requires pivot z >= 10.85 mm; the rejected proposal uses z=8.0 mm."
+    },
+    {
+      "id": "purchased-component-authority",
+      "status": "REVIEW_REQUIRED",
+      "message": "Exact motor, wheel, bearing/shaft, ball-joint, CVD and shock identities or measurements are absent."
+    }
+  ],
+  "metrics": {
+    "baseline_collision_common_volume_mm3": {
+      "arm_left": 434.40792808982366,
+      "arm_right": 434.40792808984395,
+      "carrier_left_front": 713.9865135561727,
+      "carrier_right_front": 713.98651355616
+    },
+    "provisional_motor_proxy_chassis_common_volume_mm3": 23788.643845119273,
+    "rejected_pivot_plate_tire_proxy_common_volume_mm3": {
+      "diameter_90_mm": 535.8589188598428,
+      "diameter_115_mm": 720.0
+    },
+    "interface_clearance_mm_per_side": {
+      "required": 0.25,
+      "tang": 0.19999999999999996,
+      "arm_plate_between_carrier_flanges": 0.20000000000000018
+    },
+    "pivot_ligament": {
+      "bore_diameter_mm": 3.2,
+      "required_ligament_mm": 5.0,
+      "required_local_section_diameter_mm": 13.2,
+      "rejected_pivot_z_mm": 8.0,
+      "minimum_pivot_z_above_base_mm": 10.85
+    },
+    "rejected_trailing_arm_kinematics": [
+      {
+        "wheel_delta_z_mm": -15.0,
+        "rotation_deg": -22.37369911732468,
+        "wheel_x_mm": 121.84689665786985,
+        "wheel_z_mm": -10.0,
+        "lower_shock_eye_x_mm": 125.27271007628967,
+        "lower_shock_eye_y_mm": 78.0,
+        "lower_shock_eye_z_mm": -1.6775122455977973,
+        "shock_eye_distance_mm": 53.92883366132688,
+        "nominal_tire_ground_clearance_mm": -15.0,
+        "max_tire_envelope_ground_clearance_mm": -27.5
+      },
+      {
+        "wheel_delta_z_mm": -10.0,
+        "rotation_deg": -14.621285122823721,
+        "wheel_x_mm": 123.94733192202055,
+        "wheel_z_mm": -5.0,
+        "lower_shock_eye_x_mm": 126.21919148579026,
+        "lower_shock_eye_y_mm": 78.0,
+        "lower_shock_eye_z_mm": 3.7085391497373514,
+        "shock_eye_distance_mm": 49.3359177887289,
+        "nominal_tire_ground_clearance_mm": -10.0,
+        "max_tire_envelope_ground_clearance_mm": -22.5
+      },
+      {
+        "wheel_delta_z_mm": 0.0,
+        "rotation_deg": 0.0,
+        "wheel_x_mm": 126.0,
+        "wheel_z_mm": 5.0,
+        "lower_shock_eye_x_mm": 126.0,
+        "lower_shock_eye_y_mm": 78.0,
+        "lower_shock_eye_z_mm": 14.0,
+        "shock_eye_distance_mm": 41.10960958218893,
+        "nominal_tire_ground_clearance_mm": 0.0,
+        "max_tire_envelope_ground_clearance_mm": -12.5
+      },
+      {
+        "wheel_delta_z_mm": 10.0,
+        "rotation_deg": 14.33929070659991,
+        "wheel_x_mm": 125.496835316263,
+        "wheel_z_mm": 15.0,
+        "lower_shock_eye_x_mm": 123.26786418292608,
+        "lower_shock_eye_y_mm": 78.0,
+        "lower_shock_eye_z_mm": 23.719615111158905,
+        "shock_eye_distance_mm": 34.48650963985997,
+        "nominal_tire_ground_clearance_mm": 10.0,
+        "max_tire_envelope_ground_clearance_mm": -2.5
+      },
+      {
+        "wheel_delta_z_mm": 15.0,
+        "rotation_deg": 21.6962986689586,
+        "wheel_x_mm": 124.27531841800928,
+        "wheel_z_mm": 20.0,
+        "lower_shock_eye_x_mm": 120.94813781062193,
+        "lower_shock_eye_y_mm": 78.0,
+        "lower_shock_eye_z_mm": 28.362408098498037,
+        "shock_eye_distance_mm": 32.11433910049203,
+        "nominal_tire_ground_clearance_mm": 15.0,
+        "max_tire_envelope_ground_clearance_mm": 2.5
+      }
+    ]
+  },
+  "approved_contract": {
+    "suspension_name": "Printed double-wishbone suspension arms",
+    "suspension_functions": [
+      "locate axle carriers",
+      "transfer wheel and impact loads into the frame",
+      "define suspension travel"
+    ],
+    "shock_functions": [
+      "damp suspension motion",
+      "set spring rates and ride height",
+      "define shock travel envelope"
+    ],
+    "carrier_interface_type": "wishbone arm pins or ball joints into uprights"
+  },
+  "experimental_source_flags": {
+    "shock_used_as_upper_link": true,
+    "carrier_contains_motor_clamp": true,
+    "carrier_has_chassis_anti_rotation_tabs": true,
+    "two_vertical_arm_carrier_holes": true
+  },
+  "inputs": [
+    {
+      "path": "cad/validate_corner_stack.py",
+      "sha256": "061213563c730d336ef6ec346838f05c018a3de4f2c43230922cb32f8b9d2faf",
+      "size_bytes": 12400
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "4088d5e59f1db75104694de68b2e975ebd49d773a37889b11a41bbe118d356c5",
+      "size_bytes": 26806
+    },
+    {
+      "path": "architecture/hybrid-design-plan-v0.4.0.json",
+      "sha256": "6e25cd75cdbbc7c44bf734a92b597d5cb2e68313d6e3516defa400efc9c1fba6",
+      "size_bytes": 67917
+    },
+    {
+      "path": "cad/parameters.py",
+      "sha256": "49ae43fada3e13355cd4e7c59e5656d8e8f6238b522f56df0e637943a1813a29",
+      "size_bytes": 2821
+    },
+    {
+      "path": "cad/chassis.py",
+      "sha256": "4ddda1abebea19a5cd73b032c03c9aba9c580ed131f7299186126ce7ac3a00b4",
+      "size_bytes": 23528
+    },
+    {
+      "path": "cad/suspension.py",
+      "sha256": "498c91934a6a021d24f1f8b8f039c445fc2f5f4f8d5cf679be2dec38d1453a40",
+      "size_bytes": 35042
+    },
+    {
+      "path": "cad/exports/DRAFT-chassis-printed.step",
+      "sha256": "0154745795d7cc6def314dccf4042cea1149cbe5b6b531a2c51c65afdf4ba621",
+      "size_bytes": 1301277
+    },
+    {
+      "path": "cad/exports/DRAFT-chassis-printed.stl",
+      "sha256": "aef154b21cef97434b5c4da6f72691e48c05bfb6852c7521f48b3606c512f8bd",
+      "size_bytes": 820284
+    },
+    {
+      "path": "cad/exports/DRAFT-suspension-arm-left.step",
+      "sha256": "8820c3d7e40709dff460437002fe54f14cb16b968148c1b8f530b07ee80e8c16",
+      "size_bytes": 49296
+    },
+    {
+      "path": "cad/exports/DRAFT-suspension-arm-left.stl",
+      "sha256": "86208161f64eb5884e6edd707c794cf3aa8361bea22d9061774912a722c262b0",
+      "size_bytes": 135484
+    },
+    {
+      "path": "cad/exports/DRAFT-suspension-arm-right.step",
+      "sha256": "d59a336bde9511e716858594045e27556185c6e73babb500ff628527efa40982",
+      "size_bytes": 48882
+    },
+    {
+      "path": "cad/exports/DRAFT-suspension-arm-right.stl",
+      "sha256": "e7c8123fb085abba2775ae3a7b1706115b02a270efc3bfbe131685c8d62b06b7",
+      "size_bytes": 135484
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-left-front.step",
+      "sha256": "2e95c632061afd71d53b336c9ca81d9e532bfe3219a24021cef2d53458f486ae",
+      "size_bytes": 351035
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-left-front.stl",
+      "sha256": "fa1ce79dff4c8c5a0384136785cbcd593367327bd74493034d66d9596b5f9a20",
+      "size_bytes": 341684
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-right-front.step",
+      "sha256": "e804d8efa23d1372d4690d78495d92647a2105f004bcc80c7d103747d128bc1e",
+      "size_bytes": 361072
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-right-front.stl",
+      "sha256": "d66aee46f344b984a8ba04006f1b902868f7e7eb8e2f1c94a271f43abc3760da",
+      "size_bytes": 341584
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-left-rear.step",
+      "sha256": "f7815b299aa0cc9f9a8bdb5f7751548979b91963115fcba74cd46965b9c1d911",
+      "size_bytes": 321285
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-left-rear.stl",
+      "sha256": "8c367d6293937daf7d40bf95fb2c4e1c7fbb99cad5f9fe5dfd4c62fcf99e5d77",
+      "size_bytes": 314584
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-right-rear.step",
+      "sha256": "974a166b0fe233053f53ae71a0633716db304c9a4f400a723300be72ea6bb6d5",
+      "size_bytes": 330670
+    },
+    {
+      "path": "cad/exports/DRAFT-axle-carrier-right-rear.stl",
+      "sha256": "7a3328f99d8f30045d15c7035c107a683f98d748d34f6d9fc9049c1d7a971afc",
+      "size_bytes": 314484
+    }
+  ],
+  "limitations": [
+    "The audit rejects an experimental architecture; it does not validate a replacement design.",
+    "Wheel and motor solids are conservative envelopes, not supplier-authoritative geometry.",
+    "No exact steering, suspension, driveshaft, shock, fastener-tool or diagonal-articulation sweep exists.",
+    "No exact machine/process/filament profiles or slicer run exist.",
+    "No physical strength, fatigue, fit, control or safety evidence exists."
+  ],
+  "recommended_next_contract": {
+    "suspension": "approved upper and lower wishbones with purchased ball joints/kingpin; shock is damping/spring element only",
+    "drivetrain": "one chassis-fixed motor module per axle with locked output/spool and two purchased articulated half-shafts",
+    "manufacturing_boundary": "keep every purchased interface provisional until exact selected parts are measured"
+  }
+}

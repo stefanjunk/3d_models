@@ -1,0 +1,146 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00038
+title: "Vehicle suspension CAD must preserve the approved joint topology and required degrees of freedom before geometry refinement"
+captured_at: 2026-08-30
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One digital rover integration failure with deterministic collision measurements; not a promoted mechanism rule."
+feature:
+  type: suspension-kinematics-interface
+  geometry: "FFF double-wishbone RC rover suspension with steerable uprights, coil-over shocks and chassis-fixed axle drive modules"
+  design_parameters:
+    approved_suspension: double-wishbone
+    experimental_suspension: "single lower/trailing arm plus shock as upper locating link"
+    approved_motor_count: 2
+    experimental_carrier_motor_mounts: 4
+    required_printed_clearance_per_side_mm: 0.25
+    experimental_clearance_per_side_mm: 0.20
+  named_datums:
+    - "wheel and axle center planes"
+    - "upper and lower arm joint axes"
+    - "upright kingpin/ball-joint axis"
+    - "shock upper and lower eye centers"
+    - "chassis-fixed motor output and articulated half-shaft axes"
+  constraints:
+    - "Shock functions are spring and damping only unless an explicitly approved strut architecture assigns wheel-location loads."
+    - "A front upright retains steering rotation about its approved kingpin/ball-joint axis."
+    - "Purchased drivetrain location and count match the approved decomposition."
+    - "Neutral and swept assemblies clear protected wheel, suspension, steering and drivetrain envelopes."
+scope:
+  process: "FFF digital mechanism design"
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.6
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: "approved arms printed flat; exact replacement geometry not generated"
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: "low-speed 1:10-class steerable independent vehicle suspension"
+  environment: "digital B-Rep/STEP integration review; no physical print"
+  transfer_limits:
+    - "Observed on one rover revision; does not establish universal suspension dimensions or strength."
+    - "Does not exclude explicitly engineered MacPherson struts, trailing arms, live axles or hub motors when those architectures are approved and validated."
+observation:
+  summary: "An experimental suspension source diverged from the approved double-wishbone/ball-joint decomposition, statically collided with the chassis and over-constrained steering and drivetrain motion."
+  expected: "Upper and lower wishbones locate each upright through approved pins/ball joints, the shock only springs/damps, two chassis-fixed motor modules drive articulated half-shafts, and the neutral/swept assembly has required clearance."
+  actual: "The source used one lower/trailing arm, named the shock as the upper link, rigidly fastened the carrier with two vertical screws, added a motor clamp and chassis tabs to every carrier, and produced 434.408 mm3 arm/chassis plus 713.987 mm3 carrier/chassis common volume per measured side."
+  outcome: failure
+  parameter: suspension_joint_topology_and_degrees_of_freedom
+  recommended_value: "trace every locating, steering, damping and drive function to an approved joint/part before refining solids; fail the source when joint topology or degrees of freedom differ"
+  units: null
+explanation:
+  hypothesis: "Part-by-part geometry refinement can appear locally plausible while silently changing the mechanism when the approved joint graph and degrees of freedom are not asserted as source-level contracts."
+  mechanism: "Using the shock as a locating link removes the approved upper arm; two separated vertical carrier fasteners remove steering rotation; carrier motor clamps plus chassis tabs over-constrain suspension and change the purchased-component count."
+  alternatives:
+    - "The experimental source may have been intended only as a static packaging proxy but was named and exported like component CAD."
+    - "Ambiguous use of 'carrier' and 'rigid axle housing' may have mixed independent-suspension and live-axle concepts."
+    - "Missing exact purchased motor, joint, wheel and shock geometry encouraged placeholders to become unintended interfaces."
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: "CadQuery/OpenCascade STEP Boolean-common volumes, contract extraction from approved JSON, analytic kinematic calculation and independent read-only design review"
+  uncertainty: "Static collisions and contract mismatch are measured; the causal workflow explanation and replacement architecture have not been repeated on another mechanism or physically validated."
+  sources:
+    - type: product-trace
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/reports/cad-phase-2-corner-stack-review-v0.4.0.md
+      hash: null
+      notes: "Model-centered integration review and permitted continuation contract."
+    - type: measurement
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/corner-stack-v1-integration-2026-08-30-r4.json
+      hash: "7ee8e936b4d2a96aa65aa9ac8ad8ad84063c7b1c8eadf267c8711447b9d2dc42"
+      notes: "Fail-closed digital audit with exact input hashes."
+  artifacts:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/design-spec.yaml
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/architecture/hybrid-design-plan-v0.4.0.json
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/suspension.py
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/corner-stack-v1-mesh-audit-2026-08-30/
+applicability:
+  triggers:
+    - "A vehicle or mechanism CAD revision refines suspension, steering, damping or drivetrain joints after topology approval."
+    - "One part is proposed to replace another approved locating member or a purchased component moves between fixed and sprung/unsprung assemblies."
+  exclusions:
+    - "Architecture exploration explicitly labeled as a non-component kinematic sketch before approval"
+    - "Mechanisms whose approved specification intentionally assigns combined strut/location or hub-motor functions"
+  transfer_limits:
+    - "E0 digital observation; apply as an eval candidate, not a universal prohibition."
+    - "Exact joint count, axis direction, clearance and load paths remain design-specific."
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-interfaces-suspension-dof-contract-001
+  patterns: []
+  references: []
+validation:
+  targeted: fail
+  regression: not-run
+  reports:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/corner-stack-v1-integration-2026-08-30-r4.json
+provenance:
+  project: MM-TOY-002
+  part_revision: "0.4.0 experimental CAD phase 2"
+  trace: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/reports/cad-phase-2-corner-stack-review-v0.4.0.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - suspension
+  - mechanism
+  - degrees-of-freedom
+  - steering
+  - drivetrain
+  - collision
+  - negative-result

@@ -188,3 +188,58 @@
   arm). This matches the approved concept, keeps fatigue parts minimal and uses
   the existing interface bores.
 - Steering remains servo plus printed links to front axle-carrier steering arms.
+
+## 2026-08-30 — Corner stack v2 (lead redesign after suspension v1 integration review)
+
+- Suspension v1 exposed contract errors: shock eye coaxial with the tower bore
+  (no stroke) and chassis corner bosses colliding with arm outer ends, carriers
+  and the per-axle motor envelope.
+- Lead decision corner stack v2: lower wishbone pivots move inboard to
+  x=+/-86 (PIVOT_X_MM) at z=8 (PIVOT_Z_MM); chassis clevis inner boss y 55..63,
+  4 mm gap y 63..67, outer boss y 67..75, base plate ending at y=75.
+- Arm tang 3.6 mm in the gap with >=2 mm bore lip; legs route around the outer
+  boss in plan; arm outer plate y 76..80 z 4.2..8.2 with two M3 holes.
+- Carrier becomes a clevis over the arm outer plate (flanges z 0.5..4.0 and
+  8.4..12.0), upright y 76..82, motor clamp bore 36.8 at (126, z=5) axis y,
+  wheel shaft bore 5.0; no upper inward shock arm.
+- Shock lower eye moves to the arm outer end (bore 3.2 along y at z ~ 14,
+  y 75..81); shock upper eye remains the tower bore at z=45 -> inclined
+  coil-over acting as upper link with real stroke.
+- Acceptance now includes pairwise boolean-common collision checks between
+  chassis, arms and carriers (zero overlap), plus re-run of all v1 checks.
+
+## 2026-08-30 — CAD phase 2 integration gate BLOCKED; trailing-arm v2 rejected
+
+- Deterministic STEP review confirms the v1 static collisions: each measured
+  arm intersects the chassis by 434.408 mm3 and each measured front carrier by
+  713.987 mm3. The exact report, input hashes and analytic v2 kinematics are in
+  `validation/corner-stack-v1-integration-2026-08-30-r4.json`.
+- Independent contract review found that the two preceding lead-only
+  suspension decisions diverge from the human-approved 0.4.0 concept and
+  decomposition. Those approved artifacts require upper and lower wishbones,
+  upright pins/ball joints and a coil-over used only for spring/damping. The
+  experimental lower/trailing arm instead uses the shock as an upper locating
+  link; two vertical M3 carrier fasteners would also remove front steering.
+- The experimental carrier motor clamp and chassis anti-rotation tabs conflict
+  with the approved quantity/location of two chassis-fixed motor modules, one
+  per axle, and imply four over-constrained carrier motor mounts. Exact motor,
+  spool/output, articulated half-shaft, bearing, ball-joint, wheel and shock
+  identities remain absent from the local parts store.
+- The proposed 4.0 mm gap around a 3.6 mm tang and the proposed carrier flanges
+  both give only 0.20 mm clearance per side, below the approved 0.25 mm. A 3.2
+  mm pivot bore with the interface's 5.0 mm ligament requires a 13.2 mm local
+  section and pivot z at least 10.85 mm above the proposed base, not z=8.0 mm.
+- `PIVOT_X_MM=86` and `PIVOT_Z_MM=8` remain rejected experimental values; they
+  are not production datums. The untracked v1 suspension source/exports are
+  preserved as failure evidence and must not be described as a candidate.
+- Requirements, concept and decomposition approvals remain valid because this
+  decision returns implementation to their explicit double-wishbone contract.
+  Production suspension CAD is BLOCKED pending confirmation of the compliant
+  route and exact purchased interfaces.
+- Recommended continuation: upper and lower printed wishbones with purchased
+  ball-joint/kingpin hardware, shock attached only to the lower arm, and one
+  chassis-fixed geared drive module per axle feeding a locked spool plus two
+  purchased articulated half-shafts/CVDs. Rigid live axles or four wheel motors
+  would reopen requirements, concept and decomposition approval.
+- Captured the single-scope failure as `EXP-00038` and the targeted contract
+  eval as `EVAL-interfaces-suspension-dof-contract-001`; neither is promoted.

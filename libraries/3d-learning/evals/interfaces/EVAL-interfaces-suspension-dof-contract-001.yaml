@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-suspension-dof-contract-001
+title: "Suspension CAD preserves approved locating, steering, damping and drivetrain degrees of freedom"
+category: interfaces
+status: draft
+trigger: "Production or DRAFT component CAD is generated for a steerable suspended vehicle after a suspension/drivetrain topology has been approved."
+risk: "A locally plausible part can remove steering or suspension freedom, assign locating load to a damper, duplicate motors, bind articulated shafts or collide through travel."
+given:
+  required_inputs:
+    - "approved requirements, concept and decomposition revision"
+    - "joint/part graph naming fixed, moving and purchased bodies"
+    - "joint axes and allowed degrees of freedom"
+    - "neutral plus bump/droop/steering poses"
+    - "purchased-component identities or explicitly conservative keep-outs"
+  current_fixture:
+    project: MM-TOY-002
+    revision: "0.4.0 experimental CAD phase 2"
+expected:
+  - "Every upper/lower arm, upright, tie rod, shock and drivetrain function maps to the approved part and joint graph; a topology change reopens the applicable approval gates."
+  - "A shock is modeled as a spring/damper only unless the approved architecture explicitly makes it a locating strut and provides the corresponding guided joint and load path."
+  - "A steerable upright retains rotation about its declared kingpin/ball-joint axis and is not rigidly locked by separated fasteners or tabs."
+  - "Motor quantity and fixed/moving placement match the approved decomposition; moving uprights receive torque through the declared articulated shaft or approved hub-drive interface."
+  - "Neutral, full bump, full droop, diagonal articulation and steering-lock combinations pass collision and minimum-clearance checks for solids, purchased keep-outs, fasteners and tool paths."
+  - "Unknown purchased interfaces remain provisional and cannot be labeled manufacturing-ready."
+failure_conditions:
+  - "Source or exported geometry replaces an approved locating member without an updated approval record."
+  - "A damper eye is used as an upper suspension link without an explicitly approved strut architecture."
+  - "Carrier fasteners or anti-rotation features prevent the required steering or suspension degree of freedom."
+  - "Motor count or location differs from the approved decomposition, or chassis and moving carriers are rigidly connected across a suspension joint."
+  - "Any required pose has nonzero unintended Boolean common, less than contracted clearance, or an unreviewed purchased-part proxy."
+fixtures:
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/design-spec.yaml
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/architecture/hybrid-design-plan-v0.4.0.json
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_corner_stack.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/corner-stack-v1-integration-2026-08-30-r4.json
+grader:
+  type: hybrid
+  command: "python products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_corner_stack.py --output <new-evidence-path>.json"
+  expected_exit_code: 0
+  rubric: "The deterministic audit must pass architecture, neutral collision, clearance and purchased-interface checks; a reviewer additionally verifies the complete joint graph and all required motion poses."
+  measurement_method: "Approved-contract traceability plus exact B-Rep/mesh collision and clearance sweeps over declared suspension/steering poses."
+relationships:
+  lessons:
+    - EXP-00038
+  regression_suites: []
+last_run:
+  result: fail
+  date: 2026-08-30
+  report: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/corner-stack-v1-integration-2026-08-30-r4.json
+  artifact_hashes:
+    - "sha256:7ee8e936b4d2a96aa65aa9ac8ad8ad84063c7b1c8eadf267c8711447b9d2dc42"
+tags:
+  - suspension
+  - interface-contract
+  - degrees-of-freedom
+  - steering
+  - drivetrain
+  - collision-sweep

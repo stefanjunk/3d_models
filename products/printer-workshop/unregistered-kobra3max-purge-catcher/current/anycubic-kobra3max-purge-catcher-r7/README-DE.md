@@ -4,6 +4,20 @@ Dies ist die einzige aktive Fassung des Projekts. R7-DRAFT-1 wurde verworfen,
 weil mehrere Messwerte nur als Parameter vorhanden waren und die erzeugte
 Geometrie deshalb nicht vollständig den Maßen entsprach.
 
+## Alle Maße in einem Modell ansehen
+
+Diese Datei zeigt Datumplatte, Catcher und alle vier Messbezüge gemeinsam in
+ihren Einbaukoordinaten:
+
+[`build/current/models/3mf/anycubic/ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf`](build/current/models/3mf/anycubic/ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf)
+
+**Nur ansehen und nachmessen – nicht drucken.** Vier abgesetzte, nicht zur
+Fertigungsgeometrie gehörende Maßleisten sind exakt 17, 10, 37 und 40 mm lang.
+Sie machen die Bindung der Benutzermaße in einer einzigen 3MF sichtbar. Das
+eigentliche Bauteil bleibt aus Montagegrund in Datumplatte und Fangkörper
+getrennt. Auch der unter `build/current/slices/anycubic-project-inspection-assembly-absolute/`
+erhaltene G-Code ist nur Validierungsevidenz und darf nicht gedruckt werden.
+
 ## Welche 3MF ist die aktuelle?
 
 Für Anycubic Slicer Next ist diese Datei maßgeblich:
@@ -53,7 +67,8 @@ Zielslicer erfolgreich geprüft.
 ## Stand und Grenzen
 
 - CAD-BRep, STL-Meshes und Core-3MF-Topologie: PASS.
-- Anycubic-Projektexport und erneuter Zielslicer-Lauf aller fünf 3MFs: PASS.
+- Anycubic-Projektexport und erneuter Zielslicer-Lauf aller fünf Druck-3MFs: PASS.
+- Kombinierte Maß-Prüf-3MF: Mesh, Core-3MF und Zielslicer-Import/Slice PASS; ausdrücklich keine Druckdatei.
 - Bewegte CAD-Masse aus PETG-Dichte 1,27 g/cm³: 24,44 g; Ziel ≤ 25 g.
 - Schraubengröße, Kopfmaß, Schraubenlänge und Gewindeeingriff: noch offen.
 - Vollständige Bett-/Kopf-/Kabel-/Wiper-Kollision über den Maschinenweg: noch offen.
@@ -71,3 +86,6 @@ Werte stehen in `params/r7-z-rider-draft2.json`. Der Generator schreibt nur in
 einen neuen, leeren Ausgabeordner. Die Anycubic-Projekt-3MFs werden anschließend
 mit `src/export_anycubic_3mf.py` aus den geprüften STL-Körpern und einem
 vollständigen Maschinen-/Prozess-/Filamentprofilsatz erzeugt.
+Die kombinierte Maßreferenz erzeugt
+`src/export_measured_assembly_reference.py`; auch sie verweigert das
+Überschreiben vorhandener Ausgabedateien.

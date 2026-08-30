@@ -9,6 +9,14 @@
       "sha256": "824955ebff0e63876faf8a5e9b585f6fa5872dd2e6068de2a38668746af65e44"
     },
     {
+      "id": "inspection-exporter",
+      "kind": "source",
+      "path": "src/export_measured_assembly_reference.py",
+      "required": true,
+      "revision": "R7-DRAFT-2",
+      "sha256": "1df65d297f1799c16356e46deccb1ad71c330af7daa95a5e529f5727557d76c2"
+    },
+    {
       "id": "parameters",
       "kind": "source",
       "path": "params/r7-z-rider-draft2.json",
@@ -39,6 +47,14 @@
       "required": true,
       "revision": "R7-DRAFT-2",
       "sha256": "7b1329166f9ae888700da9194d05a472e1ee8e4ec2c0591f078ce8de07994993"
+    },
+    {
+      "id": "inspection-mesh",
+      "kind": "mesh",
+      "path": "build/current/models/reference/INSPECTION-R7-measured-assembly-reference.stl",
+      "required": true,
+      "revision": "R7-DRAFT-2",
+      "sha256": "3d4e91718933e8e3b883a99fe65286a546302ba51fa43686bcaacefbff21e97d"
     },
     {
       "id": "body-core-3mf",
@@ -81,6 +97,14 @@
       "sha256": "b31ee35074462b86f34b1bbf7abd92ad465950f9bcb6f9dc18f6466f4fcb43b9"
     },
     {
+      "id": "inspection-core-3mf",
+      "kind": "3mf",
+      "path": "build/current/models/3mf/INSPECTION-R7-measured-assembly-reference.3mf",
+      "required": true,
+      "revision": "R7-DRAFT-2",
+      "sha256": "5167f1d71d6be0783c85ed60ce3bb311154b03bc0e05da0497993c1454216e1f"
+    },
+    {
       "id": "body-anycubic-3mf",
       "kind": "target-slicer-project",
       "path": "build/current/models/3mf/anycubic/ANYCUBIC-R7-purge-catcher-body.3mf",
@@ -119,6 +143,14 @@
       "required": true,
       "revision": "R7-DRAFT-2",
       "sha256": "7503e83931f57e99f148a53786aca5ed6f9c64761c147d1d41d3a53244db3034"
+    },
+    {
+      "id": "inspection-anycubic-3mf",
+      "kind": "target-slicer-project",
+      "path": "build/current/models/3mf/anycubic/ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf",
+      "required": true,
+      "revision": "R7-DRAFT-2",
+      "sha256": "917ad45e9cde76adb337991e7681ac83523d4ffb9f215064e9bd0c8a72748e60"
     },
     {
       "id": "body-gcode",
@@ -243,6 +275,30 @@
       "type": "mesh"
     },
     {
+      "artifact": "inspection-mesh",
+      "id": "inspection-mesh-audit",
+      "policy": {
+        "allow_axis_permutation": false,
+        "bed_mm": [
+          420,
+          420,
+          500
+        ],
+        "expected_components": 6,
+        "max_boundary_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "max_faces": 10000,
+        "max_file_mib": 10,
+        "max_nonmanifold_edges": 0,
+        "require_positive_volume": true,
+        "require_watertight": true,
+        "require_winding_consistent": true
+      },
+      "required": true,
+      "type": "mesh"
+    },
+    {
       "artifact": "body-core-3mf",
       "id": "body-core-package",
       "policy": {
@@ -309,6 +365,22 @@
     {
       "artifact": "latch-core-3mf",
       "id": "latch-core-package",
+      "policy": {
+        "inspect_meshes": true,
+        "max_compression_ratio": 200,
+        "max_package_members": 20,
+        "max_uncompressed_mib": 20,
+        "min_mesh_objects": 1,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "require_watertight_meshes": true
+      },
+      "required": true,
+      "type": "3mf"
+    },
+    {
+      "artifact": "inspection-core-3mf",
+      "id": "inspection-core-package",
       "policy": {
         "inspect_meshes": true,
         "max_compression_ratio": 200,
@@ -469,7 +541,7 @@
   ],
   "lock": {
     "schema_version": "1.0",
-    "source_project_sha256": "c2881ff178e6efe9e1cface913fff5f2151c87ff51428c26f11c02d2098d6a84",
+    "source_project_sha256": "4969f7eb46a043104ab9edf0a3d73e06309199c8629d95c67bb420d13e916271",
     "tool": "validate-printable-3d-projects"
   },
   "project": {

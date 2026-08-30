@@ -3,6 +3,11 @@
 Der Hauptkörper ist noch **kein physisch freigegebenes Serienteil**. Die
 Reihenfolge ist absichtlich fail-closed.
 
+Die Datei `ANYCUBIC-R7-INSPECTION-measured-assembly-reference.3mf` ist nur zum
+gemeinsamen Ansehen und Nachmessen der 17/10/37/40-mm-Bezüge bestimmt. Sie
+enthält zusätzliche Maßleisten und eine montierte Darstellung: **nicht
+drucken** und nicht als Fertigungsplatte verwenden.
+
 ## 1. Maschine und Schrauben dokumentieren
 
 - [ ] Drucker stromlos schalten.

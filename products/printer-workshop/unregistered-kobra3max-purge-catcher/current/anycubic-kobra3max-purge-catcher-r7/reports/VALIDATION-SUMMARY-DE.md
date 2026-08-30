@@ -10,12 +10,14 @@ Status: **digitaler Maß- und Fertigungsentwurf bestanden; physische Freigabe bl
 - Fünf Standard-Core-3MFs: gültige Struktur, wasserdicht, positives Volumen.
 - Fünf native Anycubic-Projekt-3MFs wurden mit vollständigem Maschinen-, Prozess- und PETG-Profilsatz erzeugt.
 - Alle fünf nativen Anycubic-Projekt-3MFs wurden anschließend mit `slice-anycubic-next` erfolgreich gesliced und analysiert.
+- Die kombinierte Maßreferenz besteht den STL-Audit mit sechs wasserdichten Komponenten sowie Core-3MF-Prüfung und nativen Anycubic-Import/Slice. Sie ist `REFERENCE_ONLY_DO_NOT_PRINT`.
 - Bewegte CAD-Masse der balanced-Auswahl: 24,444 g bei Ziel ≤ 25 g.
 - Deterministischer Messbindungs-Regressionscheck: PASS.
 
 ## Warnungen und offene Gates
 
 - Anycubic Slicer Next meldet für Hauptkörper und Datumplatte einen möglichen frei schwebenden Überhang. Finale Orientierung, Support und Schichtansicht müssen manuell geprüft werden.
+- Die montierte Maßreferenz enthält absichtlich getrennte Maßleisten und schwebende Einbaugeometrie; ihre Slicer-Warnung bestätigt zusätzlich, dass sie nicht als Druckplatte zu verwenden ist.
 - Minimal-Core-3MFs werden vom Anycubic-Headless-Modus als leere Platte abgelehnt; die nativen Dateien im Unterordner `models/3mf/anycubic/` bestehen den Zielslicer-Lauf.
 - Schraubenidentität, Kopfmaß, Länge und Gewindeeingriff: NOT_RUN.
 - Lochbildlehre, Führungsspiel und 100 Rastzyklen: NOT_RUN.

@@ -116,3 +116,10 @@
 - Entscheidung: Die balanced-Geometrie mit 1,35-mm-Wabengitter und 1,60-mm-Vollwänden ist die einzige aktive Hauptkörpervariante. Sie bleibt mit 24,44 g unter dem 25-g-Ziel und besitzt mehr Wandreserve als aggressive; conservative überschreitet mit 29,80 g das Massenziel.
 - 3MF-Handoff: Minimal-Core-3MFs bleiben als unabhängig validierte Austauschpakete erhalten, werden von Anycubic Slicer Next 1.3.9.4 im Headless-Modus aber nicht als belegte Platte erkannt. Die anwendbaren Dateien werden deshalb zusätzlich nativ mit den vollständigen Kobra-3-Max-/0,20-mm-/PETG-Profilen exportiert und müssen einen erneuten `slice-anycubic-next`-Lauf bestehen.
 - Ergebnis: Alle fünf nativen Anycubic-Projekt-3MFs bestehen den Zielslicer-Rücktest. Hauptkörper und Datumplatte behalten die native Warnung vor möglicher Auskragung; daraus folgt ausdrücklich keine automatische Druckfreigabe.
+
+### DEC-R7-018 – Gemeinsame Maßreferenz getrennt von Fertigungsdateien
+
+- Status: digital bestanden; ausschließlich Inspektionsartefakt
+- Anlass: In der getrennten Fertigungsübergabe zeigt die Fangkörper-3MF das 17-mm-Lochbild der separaten Datumplatte nicht. Dadurch ist die vollständige Maßbindung beim Öffnen nur einer Bauteildatei nicht unmittelbar sichtbar.
+- Entscheidung: Eine zusätzliche 3MF kombiniert Datumplatte und Fangkörper in Einbaukoordinaten mit vier abgesetzten Maßleisten von exakt 17/10/37/40 mm. Die Leisten sind keine Fertigungsgeometrie; Datei und Berichte tragen `REFERENCE_ONLY_DO_NOT_PRINT`.
+- Ergebnis: Sechs Komponenten bestehen Mesh- und Core-3MF-Prüfung. Der native Anycubic-Import/Slice besteht mit vollständigem Kobra-3-Max-/0,20-mm-/PETG-Profilsatz und meldet erwartungsgemäß schwebende Bereiche. Die fünf getrennten Druckprojekte bleiben die einzigen Fertigungsdateien.

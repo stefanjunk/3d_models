@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "texture_id": "wood-001",
+  "name": "FDM-Holzgravur, vertikale Maserung (Referenz: Honeycomb-Wandregal)",
+  "master": {
+    "tile": "master/wood-001-tile-16bit.png",
+    "registration": "master/wood-001-tile-16bit.png.source.json",
+    "tile_px": [1254, 1254],
+    "periodic": true,
+    "grain_axis": "image x = u",
+    "seam_policy": "raw tile by default; optional periodic edge blend via build_master.py --blend-px for long wrapped surfaces"
+  },
+  "provenance": {
+    "reference_product": "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf",
+    "source_image": "products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/setzkasten/honeycomb-wood-wall-shelf/assets/holz.png",
+    "source_sha256": "86370b7c1bac7cd17d51c4086f67d0862ee8154f034dffe8ae58489b9449df11",
+    "source_precision_bits": 8,
+    "evidence": "Produktionsdruck des Wandregals mit sehr gutem Nutzerurteil (2026-08-30); Erfolgsfaktoren: vertikale Waende, Maserung entlang Modell-Z, Gravurtiefe 0,6 mm bei 0,12 mm Schichthoehe",
+    "failure_context": "mm-org-001 Schubladen-Organizer: Bildgravur auf horizontalen Boeden und mit Metallmustern blieb unter Erwartung; prozedurale Ausweichstufen R1.4/R1.5 blieben physisch unvalidiert"
+  },
+  "process": {
+    "technology": "FDM",
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.12,
+    "material": "PETG",
+    "orientation_rule": "texturierte Flachen muessen vertikale Waende sein; Bauteil flach auf dem Bett, Maserung (image u) laeuft entlang Modell-Z"
+  },
+  "relief": {
+    "mode": "engrave",
+    "depth_mm": 0.6,
+    "edge_taper_mm": 1.2,
+    "taper_profile": "smoothstep01",
+    "mesh_pitch_mm": 0.45,
+    "secondary_pitch_mm": 0.7,
+    "pitch_note": "0,45 mm auf Hero-Flaechen, 0,7 mm auf sekundaeren Flanken; feiner als 0,4 mm in XY nie noetig bei 0,4-mm-Duese"
+  },
+  "reference_mapping": {
+    "walls": {
+      "u": "entlang Modell-Z bzw. Regaltiefe, wall_depth_repeat 1.0",
+      "v": "entlang Umfang, wall_perimeter_repeat 2.0",
+      "note": "durchgehender Umfangsparameter: kein Maserungsneustart pro Flaeche"
+    },
+    "horizontal_ring": {
+      "projection": "globales XY",
+      "tile_width_mm": 120.0,
+      "tile_height_mm": 45.0,
+      "note": "nur wenn eine horizontale Flaeche unvermeidbar ist; dort wirkt die Maserung deutlich groeber"
+    }
+  },
+  "keep_outs": [
+    "Bettauflage",
+    "Funktions-, Pass- und Dichtflaechen",
+    "horizontale Oberkanten und Wandtops",
+    "Wassermarke und Kennzeichnung",
+    "Fasen und Handkanten nach Bedarf"
+  ],
+  "limits": {
+    "max_relief_triangles_per_part": 1000000,
+    "review_relief_triangles_per_part": 5000000,
+    "min_residual_wall_mm": 2.0,
+    "max_depth_fraction_of_wall": 0.25,
+    "memory_budget_note": "Pitch-Staffelung und Flaechenauswahl vor Mesh-Vergroesserung pruefen; Bild-Sampling ist nicht der Engpass"
+  },
+  "coupon": {
+    "default_size_mm": [70.0, 45.0],
+    "thickness_mm": 2.4,
+    "mapping": "tile_width 120 mm, tile_height 45 mm, globale XY-Projektion wie der Regal-Frontring"
+  }
+}

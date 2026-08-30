@@ -57,9 +57,20 @@ workflow:
       control: validation/v0.1.0-parametric.2/control-model-validation.json
       interfaces: validation/v0.1.0-parametric.2/interface-validation.json
       aggregate: validation/v0.1.0-parametric.2/project-validation.json
+  procurement_bom:
+    status: candidate
+    candidate: "0.1.0-bom.1"
+    checked_at: "2026-08-30"
+    bom: architecture/bom-procurement-v0.1.0-bom.1.csv
+    report: reports/procurement-bom-v0.1.0-bom.1.md
+    validation: validation/procurement-bom-validation-v0.1.0-bom.1.json
+    scope: "real manufacturer parts and current purchase sources for samples and bench work; no production or powered-operation approval"
+    estimated_onboard_parts_cost_eur_ex_shipping: 571.67
+    estimated_complete_ground_control_cost_eur_ex_shipping_without_fpv_viewer: 706.86
+    reason: "A coherent motor-wheel-driver-controller-IMU-radio-power-FPV chain is selected, but exact delivered-part measurements and a component-driven CAD revision remain mandatory"
   digital_candidate:
     status: blocked
-    reason: "Parametric proxy geometry is DRAFT only; the 1.23 mm lower-band COM margin must be repeated with exact purchased-part masses, and certified mesh self-intersection plus exact clearances remain unresolved"
+    reason: "Parametric proxy geometry is DRAFT only; procurement BOM 0.1.0-bom.1 projects about 1.95 kg and COM near 60 mm before upper trim, so the battery cradle, wheel stack and mechanically retained ballast cassette require measured-part CAD and a repeated mass-property check"
   slicer_preflight:
     status: blocked
     reason: "No approved geometry or complete exact machine/process/filament profile exists"
@@ -98,7 +109,8 @@ requirements_trace:
     - "Whether the first prototype should target smooth indoor/hard outdoor ground only or rough terrain"
     - "Whether analog FPV and the TrailCam/OpenQuad radio ecosystem shall be retained exactly"
     - "Whether non-rolling landing skids/hoops are accepted despite the strict two-wheel architecture"
-    - "Exact motor, encoder, controller, IMU, motor-driver, battery and wheel products and measured envelopes"
+    - "Delivered-sample dimensions, masses and revisions for the selected motor, wheel, adapter, battery, controller, IMU, motor-driver, camera, VTX and receiver products"
+    - "Measured whole-rover center of mass and the exact mechanically retained upper trim mass within the 2200 g limit"
     - "Exact printer, PETG product, drying state and Anycubic machine/process/filament JSON profiles"
 
 function:
@@ -200,9 +212,9 @@ geometry:
 
 interfaces:
   wheel_drive:
-    status: provisional
-    owner: "purchased motor, shaft, metal hub and wheel components"
-    contract: "left and right output axes coaxial within the measured assembly tolerance; each wheel independently reversible and encoder-observed"
+    status: selected_candidate_unmeasured
+    owner: "Pololu 4755 motor and 2686 adapter plus INJORA CRAW18003 rim and CRAW20161023 tire"
+    contract: "6 mm D-shaft to 20 mm long 12 mm hex adapter and zero-offset beadlock rim; left and right output axes coaxial within measured assembly tolerance; each wheel independently reversible and encoder-observed"
   structure:
     status: recommended
     contract: "printed central spine/cage carries motor pods, battery, electronics and landing loads through metal M3/M4 through-fasteners or captured nuts"
@@ -210,24 +222,25 @@ interfaces:
     status: provisional
     contract: "rigid, repeatable datum near the central frame; axis mapping, vibration spectrum and temperature drift must be calibrated"
   control:
-    status: provisional
-    controller: "real-time MCU class with deterministic timer/interrupt control; exact board unresolved"
-    sensors: "6-axis gyro/accelerometer plus one quadrature encoder per wheel"
-    actuators: "two bidirectional DC gearmotor channels with current limiting and fault reporting"
+    status: selected_candidate_unmeasured
+    controller: "PJRC Teensy 4.1 without headers"
+    sensors: "Adafruit 4502 ISM330DHCX carrier over rigid SPI plus one quadrature encoder per Pololu 4755 motor"
+    actuators: "Pololu 2507 dual VNH5019 driver with about 140 mV/A current sense and EN/DIAG per channel"
   camera:
-    status: provisional
-    nominal: "RunCam Phoenix 2 SE V2 19 mm analog camera family; measure the exact unit before CAD freeze"
+    status: selected_candidate_unmeasured
+    nominal: "RunCam Phoenix 2 SE V2 19 x 19 x 22 mm analog camera; measure exact delivered lens and screw geometry before CAD freeze"
   video_transmitter:
-    status: provisional
-    nominal: "SpeedyBee TX800 20 x 20 mm analog VTX family; exact revision, cooling and legal power unresolved"
+    status: selected_candidate_unmeasured
+    nominal: "SpeedyBee TX800 with 20 x 20 mm M3 pattern; exact revision, cooling, antenna strain and lawful local configuration remain test/review owned"
   radio_control:
-    status: provisional
+    status: selected_candidate_unmeasured
     ecosystem: "EdgeTX plus ExpressLRS 2.4 GHz LBT"
-    receiver: "surface PWM or serial receiver compatible with the controller; exact unit unresolved"
+    receiver: "RadioMaster RP3 V2 EU-LBT diversity receiver over CRSF UART"
     independence: "loss or failure of the FPV video path shall not prevent a commanded stop or control failsafe"
   battery:
-    status: unresolved
-    contract: "centered above the wheel axis inside a guarded, strapped, serviceable cradle with fuse/current protection and reachable disconnect"
+    status: selected_candidate_cad_change_required
+    candidate: "Gens ace GEA503S60X6GT 3S 5000 mAh XT60; retailer-declared 153 x 44 x 25 mm and 359 g"
+    contract: "centered above the wheel axis inside a redesigned guarded, strapped, serviceable cradle with Littelfuse ATO protection, Pololu D24V50F5 logic rail and reachable AMASS XT60E-M service disconnect"
   landing_protection:
     status: recommended
     contract: "non-rolling front/rear skids or hoops remain clear during normal balance motion and limit camera/electronics impact after disarm or tip-over"
@@ -363,11 +376,12 @@ decomposition_contract:
     - "The approved concept owns appearance direction only; it owns no dimension or hidden geometry"
     - "The control architecture owns loop boundaries, state transitions and safety-supervisor behavior; physical tuning remains test-owned"
   critical_open_decisions:
-    - "Exact 120 mm class wheel and metal 6 mm D-shaft hub system"
-    - "Exact IMU carrier board and mechanically rigid axis datum"
-    - "Motor driver with qualified current/fault sensing or MDD10A plus validated external sensing"
-    - "Battery, BEC, fuse, current sensor, regeneration and emergency-disconnect topology"
+    - "Delivered-part measurement and joint fit of INJORA wheel/rim, Pololu 2686 adapter and Pololu 4755 shaft"
+    - "Mechanically rigid datum and measured axes for the Adafruit 4502 IMU carrier"
+    - "Calibrated current/fault path, thermal margin and regenerative behavior of the Pololu 2507 motor driver"
+    - "Measured Gens ace pack, final BEC/fuse/harness layout, regeneration transient and service-disconnect behavior"
     - "Measured mass, inertia, center of mass and wheel radius under load"
+    - "Exact mechanically retained upper trim mass after the complete unsupplemented rover is weighed"
     - "Exact printer, PETG product and complete Anycubic machine/process/filament profiles"
     - "Human-approved restrained tuning rig and staged powered-test procedure"
   downstream_rule: "No production CAD, manufacturing mesh or powered balance test until decomposition approval and applicable component decisions are closed"
@@ -429,6 +443,7 @@ deliverables:
     - "Whole-system proxy COM PASS at 71.23 mm plus 12.2 mm per-side cradle trim provision"
     - "Idealized nonlinear balance plant correlated to proxy mass/first moment and sampled-LQR evidence at 250 Hz"
     - "Fail-closed geometry, interface, mesh and aggregate validation reports"
+    - "Real-parts procurement candidate 0.1.0-bom.1 with manufacturer identifiers, current EU/Amazon/AliExpress-class sources, cost and mass-impact gates"
     - "Guided autonomy policy and structural validation evidence"
   after_requirements_approval:
     - "Concept sheet with three-quarter, side/cutaway and landing-protection views"

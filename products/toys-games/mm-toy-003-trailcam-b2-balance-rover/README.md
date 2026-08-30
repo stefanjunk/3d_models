@@ -6,6 +6,10 @@ Current revision: `0.1.0` — requirements, concept r1 and decomposition approve
 parametric candidate `0.1.0-parametric.2` passes its required source/geometry
 and idealized-control checks but remains a non-manufacturing DRAFT
 
+Procurement candidate: `0.1.0-bom.1` — real manufacturer parts and current
+purchase sources are selected for samples and bench work; exact delivered-part
+measurements and a component-driven CAD revision remain required
+
 Lifecycle: `P1 Concept / digital proxy` — a deterministic CadQuery assembly,
 provisional purchased-part proxies and an idealized control model exist. No
 manufacturing candidate or physical balance evidence exists.
@@ -35,7 +39,10 @@ outside this product.
 - `architecture/architecture-report-v0.1.0.md` — generated human-readable architecture report
 - `architecture/control-architecture-v0.1.0.md` — balance loops, state machine, safety supervisor and test ladder
 - `architecture/bom-candidates-v0.1.0.csv` — purchased-part candidates, authority and blocking evidence
+- `architecture/bom-procurement-v0.1.0-bom.1.csv` — selected real parts, quantities, current suppliers, prices, masses and procurement gates
 - `reports/purchased-parts-research-v0.1.0.md` — manufacturer-backed component research and selection gaps
+- `reports/procurement-bom-v0.1.0-bom.1.md` — coherent drive/control/power/FPV selection, cost, mass impact and order/test sequence
+- `validation/procurement-bom-validation-v0.1.0-bom.1.json` — deterministic row, cost, mass and reference checks plus open physical gates
 - `reports/preliminary-balance-sizing-v0.1.0.md` — wheel-speed and static torque sanity checks
 - `docs/decomposition-review-v0.1.0.md` — concise human approval boundary for the next phase
 - `cad/parameters.py` and `cad/build_rover.py` — axle-centered parametric source and deterministic DRAFT export generator
@@ -65,6 +72,15 @@ mounting slots provide 12.2 mm trim per side.
 The provisional vertical COM clears the lower limit by only 1.23 mm. Exact
 component masses and installed positions therefore remain an integration gate,
 even though the current whole-assembly proxy passes.
+
+The real-parts BOM changes that result materially. The selected INJORA
+wheel/tire/adapter set is estimated at about 358 g for the active pair instead
+of the 210 g proxy, while the real upper electronics are much lighter than the
+150 g proxy. With the selected 5000 mAh battery and estimated harness/protection
+mass, the unchanged digital model would be about 1.95 kg with COM near 60 mm.
+The next CAD revision therefore needs the 153 mm battery cradle, exact wheel
+offsets and a mechanically retained upper trim cassette. About 180 g at the top
+is the current calculation point, not a released ballast quantity.
 
 Exact purchased components, an exact-clearance backend, certified mesh
 self-intersection checking and complete Anycubic machine/process/filament

@@ -170,3 +170,38 @@
   coupons and all physical/powered tests remain release blockers.
 - Aggregate draft validation is `NOT_RUN`, because those required mesh/profile
   capabilities and human physical evidence are intentionally fail-closed.
+
+## 2026-08-30 — Real-parts procurement candidate 0.1.0-bom.1
+
+- Replaced open or family-level component placeholders with a real procurement
+  chain and current sources: Pololu 4755 motors, 1995 brackets and 2686 wheel
+  adapters; INJORA CRAW18003 rims and CRAW20161023 tires; Gens ace
+  GEA503S60X6GT battery; Teensy 4.1; Adafruit 4502 IMU; RadioMaster RP3 V2;
+  RunCam Phoenix 2 SE V2; SpeedyBee TX800; and explicit fuse/BEC/disconnect
+  components.
+- Replaced the provisional Cytron MDD10A choice with Pololu item 2507 Dual
+  VNH5019. The selected board exposes per-channel current sense and EN/DIAG and
+  better matches the approved fault-monitoring contract. Current calibration,
+  regeneration and thermal behavior remain restrained-bench gates.
+- Replaced the ER5C PWM receiver candidate with the smaller RP3 V2 EU-LBT
+  diversity receiver using CRSF UART so link health and stale-frame behavior
+  can be supervised explicitly.
+- Selected a 5000 mAh 3S XT60 pack rather than a light 2200 mAh shorty. Its
+  153 mm retailer-declared length requires a new cradle, but its 359 g estimated
+  mass preserves useful elevated pendulum mass and provides more credible
+  runtime headroom.
+- Recorded a current rover-parts estimate of 571.67 EUR before shipping;
+  transmitter, transmitter cells and charger bring the estimate to 706.86 EUR.
+  A new analog FPV viewer is optional and raises the example total to 945.86 EUR.
+- The selected wheel/rim/adapter pair is about 358 g instead of the 210 g proxy,
+  while the real upper control stack is substantially lighter than its 150 g
+  proxy. The unchanged assembly is therefore estimated near 1.95 kg and 60 mm
+  vertical COM before trim, which fails the approved 70–110 mm band.
+- Added a real 300 g steel-segment trim product to the procurement list, but did
+  not freeze the installed amount. Approximately 180 g at z about 186 mm gives
+  a calculation point near 2.13 kg and 70.8 mm; the actual 150–250 g expected
+  range must be set from measured printed and purchased parts inside a closed,
+  mechanically retained cassette. Adhesive alone is not structural retention.
+- Kept all geometry and operation blocked. Delivered-part intake, a new
+  component-driven CAD revision, repeated whole-system mass properties and the
+  existing restrained electrical/control test ladder are still required.

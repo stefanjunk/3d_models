@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-TOY-003 component-correlated nonlinear plant study",
+  "tool_version": "0.1.0",
+  "status": "PASS",
+  "candidate": "0.1.0-parametric.3",
+  "inputs": [
+    {
+      "path": "control/plant_model_component.py",
+      "sha256": "932b09393a766fb07eaa6b46ded2776cc84a9ffcc9bf9e167e131a232e0c0415",
+      "size_bytes": 8707
+    },
+    {
+      "path": "cad/component_parameters.py",
+      "sha256": "e5eedba63befad99f9a8e147947d78b75449ca500986df01810538f5cb85fd0a",
+      "size_bytes": 8605
+    },
+    {
+      "path": "validation/v0.1.0-parametric.3/geometry-validation.json",
+      "sha256": "d88903b00a21d7ccdefe0de0b91f16a1133a0bd7d5b97d50968bb883afcf95c8",
+      "size_bytes": 45039
+    }
+  ],
+  "plant": {
+    "cart_mass_kg": 0.85,
+    "body_mass_kg": 1.2646558919863078,
+    "com_height_m": 0.11898140308585904,
+    "body_pitch_inertia_kg_m2": 0.017903195073897506,
+    "cart_damping_n_s_m": 0.2,
+    "pitch_damping_n_m_s_rad": 0.01,
+    "wheel_radius_m": 0.06,
+    "actuator_tau_s": 0.02,
+    "continuous_torque_nm_each": 0.35,
+    "transient_torque_nm_each": 1.0,
+    "controller_hz": 250.0,
+    "integrator_dt_s": 0.001
+  },
+  "derived": {
+    "continuous_force_n": 11.666666666666666,
+    "transient_force_limit_n": 33.333333333333336
+  },
+  "cases": [
+    {
+      "initial_pitch_deg": -8.0,
+      "duration_s": 5.0,
+      "lqr_gain": [
+        -2.1081851067788953,
+        -5.10187942639024,
+        -61.04636318819659,
+        -9.365791273867794
+      ],
+      "max_abs_pitch_deg": 8.019994942339657,
+      "final_abs_pitch_deg": 0.1049663267004595,
+      "max_abs_position_m": 0.21884213767986813,
+      "max_abs_velocity_m_s": 0.3361574082856798,
+      "max_abs_force_n": 7.006092046823849,
+      "max_abs_command_n": 8.844896479911574,
+      "settle_below_1deg_s": 1.32,
+      "sample_count": 501
+    },
+    {
+      "initial_pitch_deg": 8.0,
+      "duration_s": 5.0,
+      "lqr_gain": [
+        -2.1081851067788953,
+        -5.10187942639024,
+        -61.04636318819659,
+        -9.365791273867794
+      ],
+      "max_abs_pitch_deg": 8.019994942339657,
+      "final_abs_pitch_deg": 0.1049663267004595,
+      "max_abs_position_m": 0.21884213767986813,
+      "max_abs_velocity_m_s": 0.3361574082856798,
+      "max_abs_force_n": 7.006092046823849,
+      "max_abs_command_n": 8.844896479911574,
+      "settle_below_1deg_s": 1.32,
+      "sample_count": 501
+    }
+  ],
+  "checks": [
+    {
+      "id": "sample-rate",
+      "required": true,
+      "status": "PASS",
+      "message": "Controller sample rate meets the approved minimum",
+      "metrics": {
+        "controller_hz": 250.0
+      }
+    },
+    {
+      "id": "mass-model-correlation",
+      "required": true,
+      "status": "PASS",
+      "message": "Reduced model preserves component-driven total mass and gravitational first moment",
+      "metrics": {
+        "proxy_total_mass_kg": 2.114655891986308,
+        "plant_total_mass_kg": 2.114655891986308,
+        "proxy_first_moment_kg_m": 0.1504705324493295,
+        "plant_first_moment_kg_m": 0.1504705324493295
+      }
+    },
+    {
+      "id": "symmetric-release",
+      "required": true,
+      "status": "PASS",
+      "message": "Both idealized +/-8 degree releases settle below 1 degree within 3 seconds",
+      "metrics": {
+        "-8.0": 1.32,
+        "8.0": 1.32
+      }
+    },
+    {
+      "id": "transient-force-limit",
+      "required": true,
+      "status": "PASS",
+      "message": "Command stays inside the declared transient torque proxy",
+      "metrics": {
+        "limit_n": 33.333333333333336,
+        "case_max_n": [
+          8.844896479911574,
+          8.844896479911574
+        ]
+      }
+    },
+    {
+      "id": "capture-corridor",
+      "required": true,
+      "status": "PASS",
+      "message": "Idealized release remains inside the one-metre test corridor",
+      "metrics": {
+        "case_max_abs_position_m": [
+          0.21884213767986813,
+          0.21884213767986813
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "The cart/body split and inertia are a correlated reduced-order assumption, not a measured physical decomposition.",
+    "The model omits electrical speed/voltage limits, backlash, tire compliance/slip, sensor noise/bias, delay variation, yaw coupling and floor irregularity.",
+    "A numerical PASS does not qualify firmware gains, restrained hardware behavior or free balance."
+  ]
+}

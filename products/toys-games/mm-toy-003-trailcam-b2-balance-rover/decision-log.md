@@ -205,3 +205,36 @@
 - Kept all geometry and operation blocked. Delivered-part intake, a new
   component-driven CAD revision, repeated whole-system mass properties and the
   existing restrained electrical/control test ladder are still required.
+
+## 2026-08-30 — Component-driven print parts 0.1.0-parametric.3
+
+- Treated Stefan's instruction to create the print components for BOM
+  `0.1.0-bom.1` as authorization for the already approved parametric-source
+  phase, without expanding authority to printing or powered operation.
+- Replaced the 12-part planning proxy with 19 serviceable printed rover parts:
+  two side frames, axle member, two bracket pods, three upper crossmembers,
+  battery cradle, electronics deck, IMU datum, power panel, camera guard, two
+  landing parts, two antenna guides and a bolted ballast cassette/lid.
+- Registered manufacturer- or retailer-declared envelopes for Pololu
+  4755/1995/2686 and 2507, INJORA 120 × 42 mm wheel stack, Gens ace
+  153 × 44 × 25 mm battery, Teensy 4.1, Adafruit 4502, TX800, RP3, RunCam,
+  XT60E-M and fuse holder. Delivered samples remain interface authority.
+- Set the wheel track to 216 mm. The nominal 42 mm tire retains 6.0 mm to the
+  nearest printed structure; a declared 44 mm case retains 5.0 mm, while 46 mm
+  is explicitly outside the contract.
+- Sized the battery cradle for 1.0 mm nominal clearance per side and at least
+  ±12 mm longitudinal trim. Added six process-matched coupons for the highest
+  uncertainty sample interfaces instead of freezing retailer dimensions as
+  production truth.
+- Added a mechanically bolted 180 g-capacity ballast cassette. The current
+  complete digital ledger uses only 120 g and totals 2114.66 g with COM
+  `[0.31, -0.75, 71.16]` mm; installed mass remains measurement-owned.
+- Verified 19 valid B-Rep solids, one-axis/two-wheel architecture, envelope,
+  bed fit, clearances, mass/COM and ±8° control plausibility. The 25 STL files
+  have no topology failure; certified self-intersection remains `NOT_RUN`.
+- Chose direct analytic B-Rep tessellation without decimation because the 19
+  rover meshes total only 68,582 triangles and protected fit surfaces would be
+  exposed to unnecessary approximation.
+- Kept the aggregate result at DRAFT/`NOT_RUN`: exact sample intake, physical
+  coupon fit, certified self-intersection, complete Anycubic profiles, 3MF/
+  G-code, watermark regression and all powered tests remain open gates.

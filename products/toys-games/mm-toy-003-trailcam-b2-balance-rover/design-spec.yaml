@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-003
   name: "TrailCam B2 Balance FPV Rover"
   revision: "0.1.0"
-  candidate: "0.1.0-parametric.2"
+  candidate: "0.1.0-parametric.3"
   owner: Stefan
   created: "2026-08-30"
   revised: "2026-08-30"
@@ -50,13 +50,15 @@ workflow:
     validation: validation/hybrid-plan-validation-v0.1.0.json
   parametric_source:
     status: passed
-    candidate: "0.1.0-parametric.2"
-    reason: "Option A preserves whole-system ACC-MASS-001; the revised complete assembly proxy is 1877.15 g with COM [1.69, 0.00, 71.23] mm and all required geometry/control checks pass"
+    candidate: "0.1.0-parametric.3"
+    reason: "The component-driven 19-part assembly follows BOM 0.1.0-bom.1 envelopes and passes required B-Rep, mass/COM, parameter-sweep and idealized-control checks at 2114.66 g with COM [0.31, -0.75, 71.16] mm"
     evidence:
-      geometry: validation/v0.1.0-parametric.2/geometry-validation.json
-      control: validation/v0.1.0-parametric.2/control-model-validation.json
-      interfaces: validation/v0.1.0-parametric.2/interface-validation.json
-      aggregate: validation/v0.1.0-parametric.2/project-validation.json
+      geometry: validation/v0.1.0-parametric.3/geometry-validation.json
+      control: validation/v0.1.0-parametric.3/control-model-validation.json
+      parameter_sweep: validation/v0.1.0-parametric.3/parameter-sweep.json
+      coupons: validation/v0.1.0-parametric.3/coupon-build-report.json
+      interfaces: validation/v0.1.0-parametric.3/interface-validation.json
+      aggregate: validation/v0.1.0-parametric.3/project-validation.json
   procurement_bom:
     status: candidate
     candidate: "0.1.0-bom.1"
@@ -67,13 +69,13 @@ workflow:
     scope: "real manufacturer parts and current purchase sources for samples and bench work; no production or powered-operation approval"
     estimated_onboard_parts_cost_eur_ex_shipping: 571.67
     estimated_complete_ground_control_cost_eur_ex_shipping_without_fpv_viewer: 706.86
-    reason: "A coherent motor-wheel-driver-controller-IMU-radio-power-FPV chain is selected, but exact delivered-part measurements and a component-driven CAD revision remain mandatory"
+    reason: "A coherent motor-wheel-driver-controller-IMU-radio-power-FPV chain is selected and represented in component-driven CAD; exact delivered-part measurements and coupon fits remain mandatory"
   digital_candidate:
     status: blocked
-    reason: "Parametric proxy geometry is DRAFT only; procurement BOM 0.1.0-bom.1 projects about 1.95 kg and COM near 60 mm before upper trim, so the battery cradle, wheel stack and mechanically retained ballast cassette require measured-part CAD and a repeated mass-property check"
+    reason: "Component-driven geometry passes its deterministic source checks, but exact sample fits, certified self-intersection, complete Anycubic profiles, watermark regression and physical evidence remain open"
   slicer_preflight:
     status: blocked
-    reason: "No approved geometry or complete exact machine/process/filament profile exists"
+    reason: "No complete exact machine/process/filament JSON profile exists; no 3MF or G-code has been generated"
   physical_validation:
     status: blocked
     reason: "No physical prototype or measurement evidence exists"
@@ -179,8 +181,8 @@ geometry:
   wheels:
     target_diameter: 120
     allowed_diameter_range: [110, 130]
-    target_tread_width: 40
-    wheel_center_track_target: 205
+    target_tread_width: 42
+    wheel_center_track_target: 216
   mass_properties:
     target_total_mass_g: 1800
     maximum_design_mass_g: 2200
@@ -238,7 +240,7 @@ interfaces:
     receiver: "RadioMaster RP3 V2 EU-LBT diversity receiver over CRSF UART"
     independence: "loss or failure of the FPV video path shall not prevent a commanded stop or control failsafe"
   battery:
-    status: selected_candidate_cad_change_required
+    status: component_driven_draft_unmeasured
     candidate: "Gens ace GEA503S60X6GT 3S 5000 mAh XT60; retailer-declared 153 x 44 x 25 mm and 359 g"
     contract: "centered above the wheel axis inside a redesigned guarded, strapped, serviceable cradle with Littelfuse ATO protection, Pololu D24V50F5 logic rail and reachable AMASS XT60E-M service disconnect"
   landing_protection:
@@ -384,7 +386,7 @@ decomposition_contract:
     - "Exact mechanically retained upper trim mass after the complete unsupplemented rover is weighed"
     - "Exact printer, PETG product and complete Anycubic machine/process/filament profiles"
     - "Human-approved restrained tuning rig and staged powered-test procedure"
-  downstream_rule: "No production CAD, manufacturing mesh or powered balance test until decomposition approval and applicable component decisions are closed"
+  downstream_rule: "No print candidate or powered balance test until exact-component, coupon, mesh, slicer and applicable human gates are closed"
 
 printer:
   status: provisional
@@ -405,19 +407,33 @@ manufacturing:
 optimization:
   status: pending
   objective: "reduce mass and print time without reducing motor alignment, landing load paths, battery retention or control-sensor rigidity"
-  reason: "No complete exact Anycubic machine/process/filament profile exists for the required slicer baseline; no speculative geometry optimization was applied"
+  reason: "Open ribbed frames and local load paths are selected; no complete exact Anycubic profile exists for a reproducible time/material A/B baseline"
   protected_constraints:
     - "wheel-axis coaxiality and motor/hub datums"
     - "target center-of-mass adjustment range"
     - "IMU rigidity and cable/thermal keep-outs"
     - "landing load paths and battery/camera protection"
   mesh_simplification:
-    status: pending
+    status: not-beneficial
+    master_mesh: "exact STEP and CadQuery B-Rep source; no triangle mesh is design authority"
+    manufacturing_mesh: cad/exports/v0.1.0-parametric.3/validation-mesh/DRAFT-*.stl
+    method: direct-cadquery-tessellation-no-lossy-decimation
+    tolerance_mm: 0.10
     protected_regions:
       - "all purchased-part interfaces"
       - "wheel-axis and IMU datums"
       - "bed contacts and future watermark"
-    rationale: "DRAFT validation meshes preserve the direct CadQuery tessellation; release simplification is blocked until protected-region and exact-slicer comparisons exist"
+    comparison_report: reports/optimization-gate-v0.1.0-parametric.3.md
+    resource_budget:
+      triangle_target: 100000
+      triangle_stop: 1000000
+      peak_memory_gib: 4
+      max_mesh_mib: 100
+      max_slicer_seconds: 300
+    slicer_resolution_check:
+      status: pending
+      report: null
+    rationale: "Direct B-Rep tessellation totals only 68582 triangles and 3.272 MiB over 19 rover meshes; decimation has no demonstrated benefit and could move protected interfaces"
 
 branding:
   required: true
@@ -439,9 +455,10 @@ deliverables:
     - "New controlled product folder, identity and portfolio record"
     - "Approved requirements and concept revision 0.1.0-r1"
     - "Approved functional decomposition with interface graph, keep-outs, control architecture, BOM research and sizing"
-    - "DRAFT parametric.2 CadQuery assembly with 12 printed parts, raised battery/electronics stack, provisional COTS proxies, STEP/STL exports and assembly GLB/PNG"
-    - "Whole-system proxy COM PASS at 71.23 mm plus 12.2 mm per-side cradle trim provision"
-    - "Idealized nonlinear balance plant correlated to proxy mass/first moment and sampled-LQR evidence at 250 Hz"
+    - "DRAFT parametric.3 CadQuery assembly with 19 component-driven rover parts, purchased-component proxies, STEP/STL exports and assembly GLB/PNG"
+    - "Six process-matched fit coupons for bracket, battery, camera, driver, TX800 and XT60 interfaces"
+    - "Whole-system BOM/solid-density COM PASS at 71.16 mm, 2114.66 g and at least 12 mm per-side cradle trim provision"
+    - "Idealized nonlinear balance plant correlated to the component-driven mass/first-moment ledger and sampled-LQR evidence at 250 Hz"
     - "Fail-closed geometry, interface, mesh and aggregate validation reports"
     - "Real-parts procurement candidate 0.1.0-bom.1 with manufacturer identifiers, current EU/Amazon/AliExpress-class sources, cost and mass-impact gates"
     - "Guided autonomy policy and structural validation evidence"

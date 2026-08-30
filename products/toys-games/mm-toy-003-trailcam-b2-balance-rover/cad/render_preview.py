@@ -35,10 +35,13 @@ def main() -> None:
     # Remap only the studio materials; the source GLB remains untouched.
     studio_colors = {
         "mat_0": (0.12, 0.16, 0.22, 1.0),  # anthracite printed structure
-        "mat_2": (0.018, 0.020, 0.025, 1.0),  # tires/camera/antennas
-        "mat_3": (0.32, 0.35, 0.40, 1.0),  # motor and bracket metal
-        "mat_4": (0.05, 0.06, 0.075, 1.0),  # battery
-        "mat_5": (0.015, 0.16, 0.07, 1.0),  # electronics
+        "mat_1": (0.08, 0.26, 0.38, 1.0),  # blue-grey service parts
+        "mat_2": (1.0, 0.22, 0.015, 1.0),  # orange printed accents
+        "mat_3": (0.018, 0.020, 0.025, 1.0),  # tires/camera/antennas
+        "mat_4": (0.32, 0.35, 0.40, 1.0),  # motor and bracket metal
+        "mat_5": (0.05, 0.06, 0.075, 1.0),  # battery
+        "mat_6": (0.015, 0.16, 0.07, 1.0),  # electronics
+        "mat_7": (0.95, 0.16, 0.01, 1.0),  # XT60 service disconnect
     }
     for name, color in studio_colors.items():
         material = bpy.data.materials.get(name)

@@ -3,16 +3,19 @@
 Portfolio record: `PORT-099`
 
 Current revision: `0.1.0` — requirements, concept r1 and decomposition approved;
-parametric candidate `0.1.0-parametric.2` passes its required source/geometry
-and idealized-control checks but remains a non-manufacturing DRAFT
+component-driven candidate `0.1.0-parametric.3` passes its required B-Rep
+geometry, parameter-sweep and idealized-control checks but remains a
+non-manufacturing DRAFT
 
 Procurement candidate: `0.1.0-bom.1` — real manufacturer parts and current
-purchase sources are selected for samples and bench work; exact delivered-part
-measurements and a component-driven CAD revision remain required
+purchase sources are selected for samples and bench work; the CAD now follows
+those declared envelopes, while exact delivered-part measurements and
+process-matched coupon results remain required
 
-Lifecycle: `P1 Concept / digital proxy` — a deterministic CadQuery assembly,
-provisional purchased-part proxies and an idealized control model exist. No
-manufacturing candidate or physical balance evidence exists.
+Lifecycle: `P2 component-driven DRAFT` — a deterministic CadQuery assembly,
+19 separate rover parts, six fit coupons, purchased-part registration proxies
+and an idealized control model exist. No print release or physical balance
+evidence exists.
 
 TrailCam B2 is a new product inspired by the open, ribbed, serviceable FPV
 architecture of `MM-TOY-002`. It is not a two-wheel rendering of the four-wheel
@@ -45,43 +48,42 @@ outside this product.
 - `validation/procurement-bom-validation-v0.1.0-bom.1.json` — deterministic row, cost, mass and reference checks plus open physical gates
 - `reports/preliminary-balance-sizing-v0.1.0.md` — wheel-speed and static torque sanity checks
 - `docs/decomposition-review-v0.1.0.md` — concise human approval boundary for the next phase
-- `cad/parameters.py` and `cad/build_rover.py` — axle-centered parametric source and deterministic DRAFT export generator
-- `cad/validate_geometry.py` — geometry, envelope, landing and mass-property checks
-- `control/plant_model.py` — nonlinear cart-pendulum proxy with sampled 250 Hz LQR validation
-- `architecture/interface-contract-v0.1.0-parametric.2.json` — current proxy wheel, battery, camera and motor/bracket interface checks
-- `previews/DRAFT-trailcam-b2-assembly-v0.1.0-parametric.2.png` and `.glb` — current non-manufacturing assembly visualization
-- `reports/parametric-candidate-v0.1.0-parametric.2.md` — current model result and evidence
+- `cad/component_parameters.py` and `cad/build_component_rover.py` — BOM-driven dimensions and deterministic 19-part DRAFT export generator
+- `cad/validate_component_geometry.py` and `cad/sweep_component_contract.py` — B-Rep, envelope, mass/COM and declared-size-range checks
+- `cad/build_fit_coupons.py` — six process-matched sample-fit coupons
+- `control/plant_model_component.py` — component-correlated nonlinear balance plausibility model at 250 Hz
+- `architecture/printed-parts-bom-v0.1.0-parametric.3.csv` — 19 rover parts plus six mandatory coupons
+- `architecture/interface-contract-v0.1.0-parametric.3.json` — current wheel, battery, camera and motor/bracket checks
+- `previews/DRAFT-trailcam-b2-assembly-v0.1.0-parametric.3.png` and `.glb` — current non-manufacturing assembly visualization
+- `docs/assembly-v0.1.0-parametric.3.md` — intake, coupon, assembly and restrained-test order
+- `reports/component-driven-candidate-v0.1.0-parametric.3.md` — current model result, evidence and release boundary
+- `reports/optimization-gate-v0.1.0-parametric.3.md` — protected geometry, mesh-efficiency evidence and open slicer baseline
 - `validation-project.json` — aggregate fail-closed validation contract
 - `validation/` — generated structural and policy-validation evidence
 
 ## Current boundary
 
-The current STEP/STL/GLB files are `DRAFT` digital proxies, not manufacturing
-or print-release artifacts. The assembly has exactly two wheels on one common
-axis and all 12 printed bodies fit the 220 × 220 × 250 mm compatibility target.
-The idealized controller recovers from ±8° in simulation, but that result is
-not firmware, hardware, failsafe or safety evidence.
+The current STEP/STL/GLB files are `DRAFT`, not print-release artifacts. The
+assembly has exactly two 120 × 42 mm wheel envelopes on one common axis and all
+19 rover parts fit the 220 × 220 × 250 mm target in their documented
+orientations. The overall DRAFT envelope is 183 × 258 × 249.5 mm.
 
-Stefan selected Option A, so `ACC-MASS-001` remains a whole-assembly criterion.
-The battery/cradle and electronics tiers were raised while preserving their
-ordering and the 250 mm height limit. The complete provisional assembly is now
-1877.15 g with COM `[1.69, 0.00, 71.23]` mm relative to the axle and passes the
-70–110 mm vertical, 3 mm lateral and 12 mm longitudinal limits. The cradle
-mounting slots provide 12.2 mm trim per side.
+The component-driven mass ledger includes the real BOM estimates, conservative
+solid-PETG part volumes and a 120 g calculation ballast. It totals 2114.66 g
+with COM `[0.31, -0.75, 71.16]` mm relative to the axle and therefore passes the
+approved complete-assembly bounds digitally. The cassette can hold up to 180 g,
+but its installed mass must be derived from the weighed rover; 180 g is not an
+automatic installation instruction.
 
-The provisional vertical COM clears the lower limit by only 1.23 mm. Exact
-component masses and installed positions therefore remain an integration gate,
-even though the current whole-assembly proxy passes.
+Nominal CAD clearances are 6.0 mm from the 42 mm tire to printed structure,
+1.0 mm per side around the declared battery envelope and 1.0 mm around the
+19 mm camera body. Six coupons own the physical fit decision. The idealized
+controller recovers from ±8° in simulation, but that result is not firmware,
+hardware, failsafe or safety evidence.
 
-The real-parts BOM changes that result materially. The selected INJORA
-wheel/tire/adapter set is estimated at about 358 g for the active pair instead
-of the 210 g proxy, while the real upper electronics are much lighter than the
-150 g proxy. With the selected 5000 mAh battery and estimated harness/protection
-mass, the unchanged digital model would be about 1.95 kg with COM near 60 mm.
-The next CAD revision therefore needs the 153 mm battery cradle, exact wheel
-offsets and a mechanically retained upper trim cassette. About 180 g at the top
-is the current calculation point, not a released ballast quantity.
-
-Exact purchased components, an exact-clearance backend, certified mesh
-self-intersection checking and complete Anycubic machine/process/filament
-profiles are still required. No 3MF or G-code was generated.
+Mesh topology, volume, complexity and bed fit pass without a reported failure.
+Certified self-intersection remains `NOT_RUN`; exact delivered parts and coupon
+results remain `REVIEW_REQUIRED`. Complete Anycubic machine/process/filament
+profiles are absent, so no 3MF, G-code, print-time or filament claim was
+generated. Watermark, printing, powered test and release remain separate human
+gates.

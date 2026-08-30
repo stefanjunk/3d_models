@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-TOY-003 component contract sweep",
+  "tool_version": "0.1.0",
+  "candidate": "0.1.0-parametric.3",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "cad/sweep_component_contract.py",
+      "sha256": "b03f174e96544bfed45e68569bb75ccd00059efb1626af8b0034241e0a87a782",
+      "size_bytes": 4637
+    },
+    {
+      "path": "cad/component_parameters.py",
+      "sha256": "e5eedba63befad99f9a8e147947d78b75449ca500986df01810538f5cb85fd0a",
+      "size_bytes": 8605
+    },
+    {
+      "path": "validation/v0.1.0-parametric.3/geometry-validation.json",
+      "sha256": "d88903b00a21d7ccdefe0de0b91f16a1133a0bd7d5b97d50968bb883afcf95c8",
+      "size_bytes": 45039
+    }
+  ],
+  "supported_ranges": {
+    "tire_width_mm": [
+      42.0,
+      44.0
+    ],
+    "battery_overall_growth_each_dimension_mm": [
+      0.0,
+      1.0
+    ],
+    "calculation_ballast_g": [
+      100.0,
+      180.0
+    ]
+  },
+  "wheel_cases": [
+    {
+      "tire_width_mm": 42.0,
+      "supported": true,
+      "overall_width_mm": 258.0,
+      "wheel_to_printed_clearance_mm": 6.0,
+      "status": "PASS"
+    },
+    {
+      "tire_width_mm": 44.0,
+      "supported": true,
+      "overall_width_mm": 260.0,
+      "wheel_to_printed_clearance_mm": 5.0,
+      "status": "PASS"
+    },
+    {
+      "tire_width_mm": 46.0,
+      "supported": false,
+      "overall_width_mm": 262.0,
+      "wheel_to_printed_clearance_mm": 4.0,
+      "status": "OUT_OF_CONTRACT"
+    }
+  ],
+  "battery_cases": [
+    {
+      "overall_growth_each_dimension_mm": 0.0,
+      "size_mm": [
+        153.0,
+        44.0,
+        25.0
+      ],
+      "supported": true,
+      "clearance_each_side_mm": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "status": "PASS"
+    },
+    {
+      "overall_growth_each_dimension_mm": 1.0,
+      "size_mm": [
+        154.0,
+        45.0,
+        26.0
+      ],
+      "supported": true,
+      "clearance_each_side_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "status": "PASS"
+    },
+    {
+      "overall_growth_each_dimension_mm": 2.0,
+      "size_mm": [
+        155.0,
+        46.0,
+        27.0
+      ],
+      "supported": false,
+      "clearance_each_side_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "status": "OUT_OF_CONTRACT"
+    }
+  ],
+  "ballast_cases": [
+    {
+      "ballast_g": 100.0,
+      "total_mass_g": 2094.655891986308,
+      "center_of_mass_mm": [
+        0.3150325865630121,
+        -0.7556989445602834,
+        70.10723480221611
+      ],
+      "status": "PASS"
+    },
+    {
+      "ballast_g": 120.0,
+      "total_mass_g": 2114.655891986308,
+      "center_of_mass_mm": [
+        0.31205307024778695,
+        -0.7485516924004963,
+        71.15603679045469
+      ],
+      "status": "PASS"
+    },
+    {
+      "ballast_g": 180.0,
+      "total_mass_g": 2174.655891986308,
+      "center_of_mass_mm": [
+        0.30344334753999536,
+        -0.7278987230228875,
+        74.18669456801825
+      ],
+      "status": "PASS"
+    }
+  ],
+  "boundary_findings": [
+    "A 46 mm tire width exceeds both the 260 mm overall-width contract and 5 mm printed clearance; it is intentionally outside the supported range.",
+    "Battery growth above 1 mm per complete dimension leaves less than the 0.5 mm coupon starting clearance.",
+    "Metal-bracket-to-tire clearance is not accepted by this sweep because rim hex depth, sidewall overhang and the delivered bracket stack remain unmeasured."
+  ]
+}

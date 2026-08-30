@@ -1,0 +1,1437 @@
+{
+  "schema_version": "1.0",
+  "tool": "MM-TOY-003 component geometry validator",
+  "tool_version": "0.1.0",
+  "project_id": "MM-TOY-003",
+  "candidate": "0.1.0-parametric.3",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "cad/component_parameters.py",
+      "sha256": "e5eedba63befad99f9a8e147947d78b75449ca500986df01810538f5cb85fd0a",
+      "size_bytes": 8605
+    },
+    {
+      "path": "cad/build_component_rover.py",
+      "sha256": "8978cc8940352bbfc65be6f779901a1bf58e0504ab816b1335bb6608b2a224f3",
+      "size_bytes": 36263
+    },
+    {
+      "path": "cad/validate_component_geometry.py",
+      "sha256": "dad300a40a034ff981435b408adee7b318452efe16656f6773c160f9fee1689e",
+      "size_bytes": 14362
+    }
+  ],
+  "checks": [
+    {
+      "id": "printed-brep-solids",
+      "required": true,
+      "status": "PASS",
+      "message": "All 19 printed parts must be one valid positive-volume solid",
+      "metrics": {
+        "count": 19,
+        "invalid_or_multisolid": []
+      }
+    },
+    {
+      "id": "side-frame-symmetry",
+      "required": true,
+      "status": "PASS",
+      "message": "Left and right frame volumes must be mirrored equivalents",
+      "metrics": {
+        "volume_delta_mm3": 0.0
+      }
+    },
+    {
+      "id": "assembly-envelope",
+      "required": true,
+      "status": "PASS",
+      "message": "Registered assembly must remain within 190 x 260 x 250 mm",
+      "metrics": {
+        "length_x_mm": 183.0,
+        "width_y_mm": 258.0,
+        "height_ground_to_top_mm": 249.5,
+        "min_mm": [
+          -88.0,
+          -129.0,
+          -60.0
+        ],
+        "max_mm": [
+          95.0,
+          129.0,
+          189.5
+        ]
+      }
+    },
+    {
+      "id": "individual-print-bed-fit",
+      "required": true,
+      "status": "PASS",
+      "message": "Every documented print orientation must fit 220 x 220 x 250 mm",
+      "metrics": {
+        "oversized": {},
+        "bed_mm": [
+          220.0,
+          220.0,
+          250.0
+        ]
+      }
+    },
+    {
+      "id": "two-wheels-one-axis",
+      "required": true,
+      "status": "PASS",
+      "message": "Exactly two wheel envelopes share one common geometric axis",
+      "metrics": {
+        "wheel_count": 2,
+        "centres_mm": [
+          [
+            6.95571532992874e-16,
+            107.99999999999999,
+            -9.803213714492322e-15
+          ],
+          [
+            6.95571532992874e-16,
+            -107.99999999999999,
+            -9.803213714492322e-15
+          ]
+        ],
+        "track_mm": 216.0
+      }
+    },
+    {
+      "id": "wheel-to-printed-clearance",
+      "required": true,
+      "status": "PASS",
+      "message": "The conservative 120 x 42 mm tire envelopes retain at least 5 mm to printed parts",
+      "metrics": {
+        "clearance_mm": {
+          "wheel-left-proxy": 6.0,
+          "wheel-right-proxy": 6.0
+        },
+        "required_mm": 5.0
+      }
+    },
+    {
+      "id": "motor-body-central-gap",
+      "required": true,
+      "status": "PASS",
+      "message": "The two 73 mm motor proxies must not overlap at the centre plane",
+      "metrics": {
+        "overlap_mm3": 0.0,
+        "each_inner_end_from_centre_mm": 11.5
+      }
+    },
+    {
+      "id": "battery-cradle-envelope",
+      "required": true,
+      "status": "PASS",
+      "message": "The 153 x 44 x 25 mm battery proxy must retain 1 mm nominal cradle clearance",
+      "metrics": {
+        "x_each_side_mm": 1.0,
+        "y_each_side_mm": 1.0,
+        "floor_gap_mm": 1.0,
+        "unexpected_intersection_mm3": 0.0
+      }
+    },
+    {
+      "id": "battery-longitudinal-trim",
+      "required": true,
+      "status": "PASS",
+      "message": "Cradle slots retain at least +/-12 mm longitudinal adjustment",
+      "metrics": {
+        "available_each_side_mm": 12.2,
+        "required_each_side_mm": 12.0
+      }
+    },
+    {
+      "id": "camera-guard-clearance",
+      "required": true,
+      "status": "PASS",
+      "message": "RunCam body/lens proxy must remain clear of the protective guard",
+      "metrics": {
+        "intersection_mm3": 0.0,
+        "minimum_distance_mm": 1.0
+      }
+    },
+    {
+      "id": "electronics-footprint-contract",
+      "required": true,
+      "status": "PASS",
+      "message": "Protected VTX and motor-driver mounting relations match manufacturer declarations",
+      "metrics": {
+        "tx800_hole_pitch_mm": 20.0,
+        "driver_hole_delta_mm": [
+          7.62,
+          43.18
+        ],
+        "driver_slots_allow_x_registration_mm": 4.0
+      }
+    },
+    {
+      "id": "landing-contact-angle",
+      "required": true,
+      "status": "PASS",
+      "message": "Landing geometry stays clear through normal pitch and contacts no earlier than 22 degrees",
+      "metrics": {
+        "first_contact_deg": 22.88,
+        "clearance_at_12deg_mm": 14.315638387490623
+      }
+    },
+    {
+      "id": "bom-mass-properties",
+      "required": true,
+      "status": "PASS",
+      "message": "Conservative solid-PETG plus BOM ledger must satisfy the complete-rover mass/COM gate",
+      "metrics": {
+        "total_mass_g": 2114.655891986308,
+        "center_of_mass_mm": [
+          0.31205307024778695,
+          -0.7485516924004963,
+          71.15603679045469
+        ],
+        "printed_solid_density_mass_g": 597.855891986308,
+        "calculation_ballast_g": 120.0,
+        "limits": {
+          "mass_max_g": 2200.0,
+          "com_z_mm": [
+            70.0,
+            110.0
+          ],
+          "abs_com_y_max_mm": 3.0,
+          "abs_com_x_max_mm": 12.0
+        }
+      }
+    },
+    {
+      "id": "delivered-part-intake",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "message": "Manufacturer-derived fits remain DRAFT until exact samples and process coupons pass",
+      "metrics": {
+        "required_samples": [
+          "Pololu 4755 + 1995 + 2686 motor stack",
+          "INJORA CRAW18003 + CRAW20161023 assembled wheel",
+          "Gens ace GEA503S60X6GT battery including leads",
+          "Pololu 2507 board and installed terminals",
+          "Adafruit 4502 carrier revision",
+          "AMASS XT60E-M and Littelfuse 178.6152.0001",
+          "RunCam Phoenix 2 SE V2 and SpeedyBee TX800"
+        ],
+        "mass_without_trim": {
+          "entries": [
+            {
+              "name": "side-frame-left",
+              "group": "CHASSIS",
+              "mass_g": 96.02958088562826,
+              "x_mm": 5.310623550199011e-15,
+              "y_mm": 69.99999999999999,
+              "z_mm": 88.04543083945799,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "side-frame-right",
+              "group": "CHASSIS",
+              "mass_g": 96.02958088562826,
+              "x_mm": 4.924312834526104e-15,
+              "y_mm": -70.00000000000001,
+              "z_mm": 88.04543083945799,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "axle-crossmember",
+              "group": "CHASSIS",
+              "mass_g": 54.60908069670113,
+              "x_mm": -8.883586168023257e-16,
+              "y_mm": 3.8072512148671095e-15,
+              "z_mm": -25.542916777060746,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "motor-pod-left",
+              "group": "MOTOR_POD",
+              "mass_g": 8.78866800888822,
+              "x_mm": -4.533165483682502e-15,
+              "y_mm": 75.85639433289917,
+              "z_mm": -11.421207392475162,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "motor-pod-right",
+              "group": "MOTOR_POD",
+              "mass_g": 8.788668008888221,
+              "x_mm": -3.4976734360508358e-15,
+              "y_mm": -75.85639433289911,
+              "z_mm": -11.421207392475162,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "battery-crossmember",
+              "group": "CHASSIS",
+              "mass_g": 43.106581471656845,
+              "x_mm": 1.3783555885137916e-13,
+              "y_mm": 3.59058415359347e-15,
+              "z_mm": 106.98885696255394,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "electronics-crossmember",
+              "group": "CHASSIS",
+              "mass_g": 42.61585077876724,
+              "x_mm": 2.5531929355758357e-14,
+              "y_mm": -1.5720296206305571e-15,
+              "z_mm": 150.0,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "upper-crossmember",
+              "group": "CHASSIS",
+              "mass_g": 35.93398738959104,
+              "x_mm": -1.0607484924521546e-15,
+              "y_mm": 1.7357702603762529e-15,
+              "z_mm": 171.00000000000006,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "battery-cradle",
+              "group": "BATTERY",
+              "mass_g": 46.6003137583072,
+              "x_mm": 1.5501526529340621,
+              "y_mm": 5.254736154253706e-15,
+              "z_mm": 121.44230600919128,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "electronics-deck",
+              "group": "ELECTRONICS",
+              "mass_g": 37.31424856989182,
+              "x_mm": 0.4916345319229819,
+              "y_mm": 3.3869808736182576,
+              "z_mm": 155.58256784465388,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "imu-datum",
+              "group": "IMU",
+              "mass_g": 3.3618388180942667,
+              "x_mm": 34.99999999999998,
+              "y_mm": -32.99999999999997,
+              "z_mm": 159.49999999999974,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "power-service-panel",
+              "group": "POWER",
+              "mass_g": 15.946424836752005,
+              "x_mm": -17.443823699312315,
+              "y_mm": -64.0,
+              "z_mm": 129.99999999999991,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "camera-guard",
+              "group": "CAMERA",
+              "mass_g": 24.913137990909757,
+              "x_mm": 74.60339023256009,
+              "y_mm": -1.2981757499535411e-15,
+              "z_mm": 137.27320430432465,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "landing-front",
+              "group": "LANDING",
+              "mass_g": 21.291727592784145,
+              "x_mm": 72.11500305413693,
+              "y_mm": -4.448430867335161e-15,
+              "z_mm": -23.99999999999999,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "landing-rear",
+              "group": "LANDING",
+              "mass_g": 21.291727592784135,
+              "x_mm": -72.11500305413695,
+              "y_mm": -1.627474707561645e-16,
+              "z_mm": -23.999999999999996,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "antenna-guide-left",
+              "group": "RADIO",
+              "mass_g": 1.8763718366891369,
+              "x_mm": -1.4672965533359514e-09,
+              "y_mm": 77.11017803929695,
+              "z_mm": 179.64573736724518,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "antenna-guide-right",
+              "group": "RADIO",
+              "mass_g": 1.8763721255190449,
+              "x_mm": -6.139059174023505e-08,
+              "y_mm": -77.11017814040993,
+              "z_mm": 179.6457373978968,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "ballast-cassette",
+              "group": "TRIM",
+              "mass_g": 23.966575044239267,
+              "x_mm": -1.559093654642631e-14,
+              "y_mm": -9.638909765951351e-17,
+              "z_mm": 178.22551963786023,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "ballast-lid",
+              "group": "TRIM",
+              "mass_g": 13.515155694588104,
+              "x_mm": -2.2327450765907143e-15,
+              "y_mm": 3.5788019170233938e-16,
+              "z_mm": 188.00000000000003,
+              "basis": "conservative solid-density PETG B-Rep"
+            },
+            {
+              "name": "motor_left",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 210.0,
+              "x_mm": 0.0,
+              "y_mm": 48.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "motor_right",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 210.0,
+              "x_mm": 0.0,
+              "y_mm": -48.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "bracket_left",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 14.0,
+              "x_mm": 0.0,
+              "y_mm": 78.0,
+              "z_mm": -9.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "bracket_right",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 14.0,
+              "x_mm": 0.0,
+              "y_mm": -78.0,
+              "z_mm": -9.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "wheel_adapter_left",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 7.5,
+              "x_mm": 0.0,
+              "y_mm": 108.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "wheel_adapter_right",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 7.5,
+              "x_mm": 0.0,
+              "y_mm": -108.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "wheel_rim_tire_left",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 171.5,
+              "x_mm": 0.0,
+              "y_mm": 108.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "wheel_rim_tire_right",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 171.5,
+              "x_mm": 0.0,
+              "y_mm": -108.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "battery",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 359.0,
+              "x_mm": 0.0,
+              "y_mm": 0.0,
+              "z_mm": 129.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "motor_driver",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 32.0,
+              "x_mm": -30.0,
+              "y_mm": 0.0,
+              "z_mm": 162.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "controller",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 10.0,
+              "x_mm": 40.0,
+              "y_mm": 27.0,
+              "z_mm": 162.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "controller_headers",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 2.0,
+              "x_mm": 40.0,
+              "y_mm": 27.0,
+              "z_mm": 162.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "imu",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 3.0,
+              "x_mm": 35.0,
+              "y_mm": -33.0,
+              "z_mm": 164.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "logic_bec",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 3.0,
+              "x_mm": -5.0,
+              "y_mm": 45.0,
+              "z_mm": 162.5,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "rc_receiver",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 4.6,
+              "x_mm": 28.0,
+              "y_mm": 48.0,
+              "z_mm": 160.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "fpv_camera",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 8.6,
+              "x_mm": 76.0,
+              "y_mm": 0.0,
+              "z_mm": 139.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "video_transmitter",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 10.0,
+              "x_mm": -47.0,
+              "y_mm": 44.0,
+              "z_mm": 162.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "service_disconnect",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 3.0,
+              "x_mm": 24.0,
+              "y_mm": -55.0,
+              "z_mm": 130.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "fuse_holder",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 23.6,
+              "x_mm": -42.0,
+              "y_mm": -56.0,
+              "z_mm": 130.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "main_fuse",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 2.0,
+              "x_mm": -42.0,
+              "y_mm": -56.0,
+              "z_mm": 130.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "bus_capacitor",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 4.0,
+              "x_mm": -12.0,
+              "y_mm": 0.0,
+              "z_mm": 160.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "motor_suppression_caps",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 1.0,
+              "x_mm": 0.0,
+              "y_mm": 0.0,
+              "z_mm": 0.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "wire_harness",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 45.0,
+              "x_mm": 0.0,
+              "y_mm": 0.0,
+              "z_mm": 90.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            },
+            {
+              "name": "fasteners_and_straps",
+              "group": "BOM_0.1.0-bom.1",
+              "mass_g": 80.0,
+              "x_mm": 0.0,
+              "y_mm": 0.0,
+              "z_mm": 75.0,
+              "basis": "BOM installed-mass estimate at component registration proxy"
+            }
+          ],
+          "total_mass_g": 1994.6558919863078,
+          "printed_solid_density_mass_g": 597.855891986308,
+          "center_of_mass_mm": [
+            0.33082641786136696,
+            -0.7935851257104439,
+            64.54774127537249
+          ],
+          "ballast_included_g": 0.0
+        },
+        "cassette_capacity_g": 180.0
+      }
+    }
+  ],
+  "mass_properties": {
+    "entries": [
+      {
+        "name": "side-frame-left",
+        "group": "CHASSIS",
+        "mass_g": 96.02958088562826,
+        "x_mm": 5.310623550199011e-15,
+        "y_mm": 69.99999999999999,
+        "z_mm": 88.04543083945799,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "side-frame-right",
+        "group": "CHASSIS",
+        "mass_g": 96.02958088562826,
+        "x_mm": 4.924312834526104e-15,
+        "y_mm": -70.00000000000001,
+        "z_mm": 88.04543083945799,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "axle-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 54.60908069670113,
+        "x_mm": -8.883586168023257e-16,
+        "y_mm": 3.8072512148671095e-15,
+        "z_mm": -25.542916777060746,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor-pod-left",
+        "group": "MOTOR_POD",
+        "mass_g": 8.78866800888822,
+        "x_mm": -4.533165483682502e-15,
+        "y_mm": 75.85639433289917,
+        "z_mm": -11.421207392475162,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor-pod-right",
+        "group": "MOTOR_POD",
+        "mass_g": 8.788668008888221,
+        "x_mm": -3.4976734360508358e-15,
+        "y_mm": -75.85639433289911,
+        "z_mm": -11.421207392475162,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "battery-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 43.106581471656845,
+        "x_mm": 1.3783555885137916e-13,
+        "y_mm": 3.59058415359347e-15,
+        "z_mm": 106.98885696255394,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "electronics-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 42.61585077876724,
+        "x_mm": 2.5531929355758357e-14,
+        "y_mm": -1.5720296206305571e-15,
+        "z_mm": 150.0,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "upper-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 35.93398738959104,
+        "x_mm": -1.0607484924521546e-15,
+        "y_mm": 1.7357702603762529e-15,
+        "z_mm": 171.00000000000006,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "battery-cradle",
+        "group": "BATTERY",
+        "mass_g": 46.6003137583072,
+        "x_mm": 1.5501526529340621,
+        "y_mm": 5.254736154253706e-15,
+        "z_mm": 121.44230600919128,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "electronics-deck",
+        "group": "ELECTRONICS",
+        "mass_g": 37.31424856989182,
+        "x_mm": 0.4916345319229819,
+        "y_mm": 3.3869808736182576,
+        "z_mm": 155.58256784465388,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "imu-datum",
+        "group": "IMU",
+        "mass_g": 3.3618388180942667,
+        "x_mm": 34.99999999999998,
+        "y_mm": -32.99999999999997,
+        "z_mm": 159.49999999999974,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "power-service-panel",
+        "group": "POWER",
+        "mass_g": 15.946424836752005,
+        "x_mm": -17.443823699312315,
+        "y_mm": -64.0,
+        "z_mm": 129.99999999999991,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "camera-guard",
+        "group": "CAMERA",
+        "mass_g": 24.913137990909757,
+        "x_mm": 74.60339023256009,
+        "y_mm": -1.2981757499535411e-15,
+        "z_mm": 137.27320430432465,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "landing-front",
+        "group": "LANDING",
+        "mass_g": 21.291727592784145,
+        "x_mm": 72.11500305413693,
+        "y_mm": -4.448430867335161e-15,
+        "z_mm": -23.99999999999999,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "landing-rear",
+        "group": "LANDING",
+        "mass_g": 21.291727592784135,
+        "x_mm": -72.11500305413695,
+        "y_mm": -1.627474707561645e-16,
+        "z_mm": -23.999999999999996,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "antenna-guide-left",
+        "group": "RADIO",
+        "mass_g": 1.8763718366891369,
+        "x_mm": -1.4672965533359514e-09,
+        "y_mm": 77.11017803929695,
+        "z_mm": 179.64573736724518,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "antenna-guide-right",
+        "group": "RADIO",
+        "mass_g": 1.8763721255190449,
+        "x_mm": -6.139059174023505e-08,
+        "y_mm": -77.11017814040993,
+        "z_mm": 179.6457373978968,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "ballast-cassette",
+        "group": "TRIM",
+        "mass_g": 23.966575044239267,
+        "x_mm": -1.559093654642631e-14,
+        "y_mm": -9.638909765951351e-17,
+        "z_mm": 178.22551963786023,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "ballast-lid",
+        "group": "TRIM",
+        "mass_g": 13.515155694588104,
+        "x_mm": -2.2327450765907143e-15,
+        "y_mm": 3.5788019170233938e-16,
+        "z_mm": 188.00000000000003,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": 48.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": -48.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bracket_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 14.0,
+        "x_mm": 0.0,
+        "y_mm": 78.0,
+        "z_mm": -9.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bracket_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 14.0,
+        "x_mm": 0.0,
+        "y_mm": -78.0,
+        "z_mm": -9.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_adapter_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 7.5,
+        "x_mm": 0.0,
+        "y_mm": 108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_adapter_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 7.5,
+        "x_mm": 0.0,
+        "y_mm": -108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_rim_tire_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 171.5,
+        "x_mm": 0.0,
+        "y_mm": 108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_rim_tire_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 171.5,
+        "x_mm": 0.0,
+        "y_mm": -108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "battery",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 359.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 129.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_driver",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 32.0,
+        "x_mm": -30.0,
+        "y_mm": 0.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "controller",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 10.0,
+        "x_mm": 40.0,
+        "y_mm": 27.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "controller_headers",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 2.0,
+        "x_mm": 40.0,
+        "y_mm": 27.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "imu",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": 35.0,
+        "y_mm": -33.0,
+        "z_mm": 164.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "logic_bec",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": -5.0,
+        "y_mm": 45.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "rc_receiver",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 4.6,
+        "x_mm": 28.0,
+        "y_mm": 48.0,
+        "z_mm": 160.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fpv_camera",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 8.6,
+        "x_mm": 76.0,
+        "y_mm": 0.0,
+        "z_mm": 139.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "video_transmitter",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 10.0,
+        "x_mm": -47.0,
+        "y_mm": 44.0,
+        "z_mm": 162.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "service_disconnect",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": 24.0,
+        "y_mm": -55.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fuse_holder",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 23.6,
+        "x_mm": -42.0,
+        "y_mm": -56.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "main_fuse",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 2.0,
+        "x_mm": -42.0,
+        "y_mm": -56.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bus_capacitor",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 4.0,
+        "x_mm": -12.0,
+        "y_mm": 0.0,
+        "z_mm": 160.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_suppression_caps",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 1.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wire_harness",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 45.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 90.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fasteners_and_straps",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 80.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 75.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "upper_trim_ballast",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 120.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 181.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      }
+    ],
+    "total_mass_g": 2114.655891986308,
+    "printed_solid_density_mass_g": 597.855891986308,
+    "center_of_mass_mm": [
+      0.31205307024778695,
+      -0.7485516924004963,
+      71.15603679045469
+    ],
+    "ballast_included_g": 120.0
+  },
+  "mass_properties_without_trim": {
+    "entries": [
+      {
+        "name": "side-frame-left",
+        "group": "CHASSIS",
+        "mass_g": 96.02958088562826,
+        "x_mm": 5.310623550199011e-15,
+        "y_mm": 69.99999999999999,
+        "z_mm": 88.04543083945799,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "side-frame-right",
+        "group": "CHASSIS",
+        "mass_g": 96.02958088562826,
+        "x_mm": 4.924312834526104e-15,
+        "y_mm": -70.00000000000001,
+        "z_mm": 88.04543083945799,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "axle-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 54.60908069670113,
+        "x_mm": -8.883586168023257e-16,
+        "y_mm": 3.8072512148671095e-15,
+        "z_mm": -25.542916777060746,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor-pod-left",
+        "group": "MOTOR_POD",
+        "mass_g": 8.78866800888822,
+        "x_mm": -4.533165483682502e-15,
+        "y_mm": 75.85639433289917,
+        "z_mm": -11.421207392475162,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor-pod-right",
+        "group": "MOTOR_POD",
+        "mass_g": 8.788668008888221,
+        "x_mm": -3.4976734360508358e-15,
+        "y_mm": -75.85639433289911,
+        "z_mm": -11.421207392475162,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "battery-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 43.106581471656845,
+        "x_mm": 1.3783555885137916e-13,
+        "y_mm": 3.59058415359347e-15,
+        "z_mm": 106.98885696255394,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "electronics-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 42.61585077876724,
+        "x_mm": 2.5531929355758357e-14,
+        "y_mm": -1.5720296206305571e-15,
+        "z_mm": 150.0,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "upper-crossmember",
+        "group": "CHASSIS",
+        "mass_g": 35.93398738959104,
+        "x_mm": -1.0607484924521546e-15,
+        "y_mm": 1.7357702603762529e-15,
+        "z_mm": 171.00000000000006,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "battery-cradle",
+        "group": "BATTERY",
+        "mass_g": 46.6003137583072,
+        "x_mm": 1.5501526529340621,
+        "y_mm": 5.254736154253706e-15,
+        "z_mm": 121.44230600919128,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "electronics-deck",
+        "group": "ELECTRONICS",
+        "mass_g": 37.31424856989182,
+        "x_mm": 0.4916345319229819,
+        "y_mm": 3.3869808736182576,
+        "z_mm": 155.58256784465388,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "imu-datum",
+        "group": "IMU",
+        "mass_g": 3.3618388180942667,
+        "x_mm": 34.99999999999998,
+        "y_mm": -32.99999999999997,
+        "z_mm": 159.49999999999974,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "power-service-panel",
+        "group": "POWER",
+        "mass_g": 15.946424836752005,
+        "x_mm": -17.443823699312315,
+        "y_mm": -64.0,
+        "z_mm": 129.99999999999991,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "camera-guard",
+        "group": "CAMERA",
+        "mass_g": 24.913137990909757,
+        "x_mm": 74.60339023256009,
+        "y_mm": -1.2981757499535411e-15,
+        "z_mm": 137.27320430432465,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "landing-front",
+        "group": "LANDING",
+        "mass_g": 21.291727592784145,
+        "x_mm": 72.11500305413693,
+        "y_mm": -4.448430867335161e-15,
+        "z_mm": -23.99999999999999,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "landing-rear",
+        "group": "LANDING",
+        "mass_g": 21.291727592784135,
+        "x_mm": -72.11500305413695,
+        "y_mm": -1.627474707561645e-16,
+        "z_mm": -23.999999999999996,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "antenna-guide-left",
+        "group": "RADIO",
+        "mass_g": 1.8763718366891369,
+        "x_mm": -1.4672965533359514e-09,
+        "y_mm": 77.11017803929695,
+        "z_mm": 179.64573736724518,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "antenna-guide-right",
+        "group": "RADIO",
+        "mass_g": 1.8763721255190449,
+        "x_mm": -6.139059174023505e-08,
+        "y_mm": -77.11017814040993,
+        "z_mm": 179.6457373978968,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "ballast-cassette",
+        "group": "TRIM",
+        "mass_g": 23.966575044239267,
+        "x_mm": -1.559093654642631e-14,
+        "y_mm": -9.638909765951351e-17,
+        "z_mm": 178.22551963786023,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "ballast-lid",
+        "group": "TRIM",
+        "mass_g": 13.515155694588104,
+        "x_mm": -2.2327450765907143e-15,
+        "y_mm": 3.5788019170233938e-16,
+        "z_mm": 188.00000000000003,
+        "basis": "conservative solid-density PETG B-Rep"
+      },
+      {
+        "name": "motor_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": 48.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 210.0,
+        "x_mm": 0.0,
+        "y_mm": -48.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bracket_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 14.0,
+        "x_mm": 0.0,
+        "y_mm": 78.0,
+        "z_mm": -9.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bracket_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 14.0,
+        "x_mm": 0.0,
+        "y_mm": -78.0,
+        "z_mm": -9.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_adapter_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 7.5,
+        "x_mm": 0.0,
+        "y_mm": 108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_adapter_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 7.5,
+        "x_mm": 0.0,
+        "y_mm": -108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_rim_tire_left",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 171.5,
+        "x_mm": 0.0,
+        "y_mm": 108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wheel_rim_tire_right",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 171.5,
+        "x_mm": 0.0,
+        "y_mm": -108.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "battery",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 359.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 129.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_driver",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 32.0,
+        "x_mm": -30.0,
+        "y_mm": 0.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "controller",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 10.0,
+        "x_mm": 40.0,
+        "y_mm": 27.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "controller_headers",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 2.0,
+        "x_mm": 40.0,
+        "y_mm": 27.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "imu",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": 35.0,
+        "y_mm": -33.0,
+        "z_mm": 164.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "logic_bec",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": -5.0,
+        "y_mm": 45.0,
+        "z_mm": 162.5,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "rc_receiver",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 4.6,
+        "x_mm": 28.0,
+        "y_mm": 48.0,
+        "z_mm": 160.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fpv_camera",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 8.6,
+        "x_mm": 76.0,
+        "y_mm": 0.0,
+        "z_mm": 139.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "video_transmitter",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 10.0,
+        "x_mm": -47.0,
+        "y_mm": 44.0,
+        "z_mm": 162.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "service_disconnect",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 3.0,
+        "x_mm": 24.0,
+        "y_mm": -55.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fuse_holder",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 23.6,
+        "x_mm": -42.0,
+        "y_mm": -56.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "main_fuse",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 2.0,
+        "x_mm": -42.0,
+        "y_mm": -56.0,
+        "z_mm": 130.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "bus_capacitor",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 4.0,
+        "x_mm": -12.0,
+        "y_mm": 0.0,
+        "z_mm": 160.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "motor_suppression_caps",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 1.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 0.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "wire_harness",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 45.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 90.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      },
+      {
+        "name": "fasteners_and_straps",
+        "group": "BOM_0.1.0-bom.1",
+        "mass_g": 80.0,
+        "x_mm": 0.0,
+        "y_mm": 0.0,
+        "z_mm": 75.0,
+        "basis": "BOM installed-mass estimate at component registration proxy"
+      }
+    ],
+    "total_mass_g": 1994.6558919863078,
+    "printed_solid_density_mass_g": 597.855891986308,
+    "center_of_mass_mm": [
+      0.33082641786136696,
+      -0.7935851257104439,
+      64.54774127537249
+    ],
+    "ballast_included_g": 0.0
+  },
+  "limitations": [
+    "Digital B-Rep and proxy checks do not qualify printed strength, component fit, electrical safety, dynamic balance or service life.",
+    "Solid-density PETG is conservative for CAD mass comparison and is not an exact slicer/material prediction.",
+    "The 100 g ballast value is a calculation point, not an instruction; the complete rover must be weighed and its COM measured before loading the cassette.",
+    "The 260 mm width is consumed by the declared 218 mm track plus two 42 mm tire widths and therefore has no unmeasured envelope margin."
+  ]
+}

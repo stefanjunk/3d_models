@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "parts": [
+    {"id": "printed", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-printed-assembly.stl"},
+    {"id": "wheel_left", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-wheel-left-proxy-assembly.stl"},
+    {"id": "wheel_right", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-wheel-right-proxy-assembly.stl"},
+    {"id": "battery_cradle", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-battery-cradle-assembly.stl"},
+    {"id": "battery", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-battery-proxy-assembly.stl"},
+    {"id": "camera_guard", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-camera-guard-assembly.stl"},
+    {"id": "camera", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-camera-proxy-assembly.stl"},
+    {"id": "motor_left", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-motor-left-proxy-assembly.stl"},
+    {"id": "motor_right", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-motor-right-proxy-assembly.stl"},
+    {"id": "bracket_left", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-bracket-left-proxy-assembly.stl"},
+    {"id": "bracket_right", "path": "../cad/exports/v0.1.0-parametric.3/assembly-mesh/DRAFT-bracket-right-proxy-assembly.stl"}
+  ],
+  "interfaces": [
+    {"id": "wheel-left-to-printed-clearance", "a": "wheel_left", "b": "printed", "mode": "clearance", "min_clearance_mm": 5.0, "required": true},
+    {"id": "wheel-right-to-printed-clearance", "a": "wheel_right", "b": "printed", "mode": "clearance", "min_clearance_mm": 5.0, "required": true},
+    {"id": "battery-to-cradle-clearance", "a": "battery", "b": "battery_cradle", "mode": "clearance", "min_clearance_mm": 0.8, "required": true},
+    {"id": "camera-to-guard-clearance", "a": "camera", "b": "camera_guard", "mode": "clearance", "min_clearance_mm": 0.8, "required": true},
+    {"id": "motor-centre-gap", "a": "motor_left", "b": "motor_right", "mode": "clearance", "min_clearance_mm": 20.0, "required": true},
+    {"id": "motor-left-to-bracket-registration", "a": "motor_left", "b": "bracket_left", "mode": "overlap", "min_overlap_volume_mm3": 1.0, "required": false},
+    {"id": "motor-right-to-bracket-registration", "a": "motor_right", "b": "bracket_right", "mode": "overlap", "min_overlap_volume_mm3": 1.0, "required": false}
+  ],
+  "motions": []
+}

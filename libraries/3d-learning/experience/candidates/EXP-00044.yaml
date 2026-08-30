@@ -1,0 +1,143 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00044
+title: Sibling printer-variant references must not supply unverified machine-interface dimensions
+captured_at: 2026-08-30
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One explicit target-variant correction during requirements review; no Kobra 3 Max cover measurement or physical fit evidence exists.
+feature:
+  type: machine-variant-interface-identity
+  geometry: Removable printhead-cover shell, clips and fan/hotend/cable/sensor keep-outs
+  design_parameters:
+    confirmed_target_model: "Anycubic Kobra 3 Max"
+    measured_reference_model: "Anycubic Kobra 3"
+    measured_reference_envelope_mm: [61.2, 81.0, 15.8]
+    measured_reference_clip_count: 4
+  named_datums:
+    - target cover outer envelope
+    - target clip roots and hook contact faces
+    - target fan, hotend, cable and sensor keep-outs
+  constraints:
+    - The exact printer variant is explicit in the requirements before concept or CAD.
+    - A dimension belongs to the target interface only when its evidence names or physically verifies the exact target variant.
+    - Sibling-variant models may inform construction principles but do not close target-interface unknowns.
+scope:
+  process: FFF parametric CAD planning
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: Anycubic Slicer Next
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: clipped machine cover with variant-specific external interface
+  environment: requirements and reference-audit phase; no production geometry or physical test
+  transfer_limits:
+    - Evidence covers one Anycubic Kobra 3 Max cover project and a local reference set labelled for Kobra 3.
+    - It does not prove that the two covers are incompatible; it proves only that compatibility is unverified.
+    - It supplies no Kobra 3 Max dimension, clearance or clip value.
+observation:
+  summary: The product folder suggested Kobra 3 Max while every dimensioned reference described Kobra 3, so the target variant remained blocked until the user explicitly confirmed Kobra 3 Max.
+  expected: The exact printer variant and the applicability of every dimensional reference are explicit before any machine-interface geometry is created.
+  actual: The user confirmed Kobra 3 Max; the requirements now keep the Kobra 3 dimensions as construction-only evidence and leave all Max interface fields unknown.
+  outcome: correction
+  parameter: target-printer variant identity and dimensional-evidence applicability
+  recommended_value: Confirm the exact target variant and quarantine sibling-variant dimensions until target-specific physical or authoritative compatibility evidence exists.
+  units: interface-contract
+explanation:
+  hypothesis: Shared family naming can make a plausible sibling-variant mesh appear authoritative for an unmeasured target interface.
+  mechanism: The reference title and files name Kobra 3, while the target is Kobra 3 Max and official replacement-part information treats their printhead assemblies as distinct variants; therefore a numerical transfer lacks an evidence bridge.
+  alternatives:
+    - The covers may coincidentally share an interface, but that remains an unverified compatibility hypothesis.
+    - A later target-specific supplier drawing or physical comparison may establish some shared datums.
+  validated: false
+  validation_method: Measure the Kobra 3 Max original cover or compare both physical covers against named datums, then qualify a minimal Max interface coupon.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 1
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: User target-model identification plus file/source metadata review; no Max physical measurement.
+  uncertainty: Exact Kobra 3 versus Kobra 3 Max cover compatibility and every Max interface dimension remain unknown.
+  sources:
+    - type: user-statement
+      ref: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/learning-trace-target-variant.yaml
+      hash: 02aa7897161baa567e919c739a7179c093abe970a1b5a109a9f9315517b7763b
+      notes: Preserves the original ambiguity, exact user correction and accepted target identity.
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/design-spec.yaml
+      hash: a17b4f9e26947916b6334d539b74f91348016ef140de27a64e3f02c08fe4d497
+      notes: Records confirmed target identity and intentionally null Max interface fields.
+    - type: research
+      ref: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/reports/reference-audit.md
+      hash: 05747ba26a79ccd8a296456a20721a6ae6163e9b27bcbf276883998ff9fe1f99
+      notes: Records measured Kobra 3 geometry, source identity and the Max applicability exclusion.
+  artifacts:
+    - products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/decision-log.md
+applicability:
+  triggers:
+    - A machine accessory is intended for one printer variant while available CAD, meshes, photos or measurements name a sibling variant.
+    - A product-family name is being used as if it proved a shared mounting or keep-out interface.
+  exclusions:
+    - The manufacturer explicitly documents the exact interface as identical across the named variants.
+    - Both physical variants have been compared against the same named datums with recorded uncertainty.
+  transfer_limits:
+    - E0 correction candidate; use for targeted review and experiment planning, not as a universal incompatibility claim.
+    - Required evidence depth depends on interface risk and the consequences of non-fit.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00041
+    - EXP-00043
+  evals:
+    - EVAL-interfaces-target-printer-variant-evidence-001
+  patterns: []
+  references: []
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/learning-trace-target-variant.yaml
+provenance:
+  project: UNREGISTERED-K3M-PHC
+  part_revision: 0.2.0-requirements.2
+  trace: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/learning-trace-target-variant.yaml
+  source_commit: null
+  created_by: Codex
+tags:
+  - user-correction
+  - printer-variant
+  - machine-interface
+  - evidence-scope
+  - physical-fit
+  - requirements-gate

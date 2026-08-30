@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-target-printer-variant-evidence-001
+title: Target-printer variant and interface dimensions share an explicit evidence identity
+category: interfaces
+status: draft
+trigger: A functional machine accessory uses dimensional references that name a sibling model or variant rather than the confirmed target.
+risk: Plausible dimensions from the wrong variant can produce a non-fitting cover or contact hot, moving, electrical or airflow-critical machine parts.
+given:
+  project: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2
+  requirements: design-spec.yaml
+  correction_trace: learning-trace-target-variant.yaml
+  reference_audit: reports/reference-audit.md
+expected:
+  - The exact target manufacturer and model variant are recorded as user-stated or otherwise explicitly verified.
+  - Every critical interface dimension is linked to evidence for that exact target variant or remains explicitly unknown.
+  - Sibling-variant dimensions are labelled construction-only unless an authoritative compatibility statement or physical datum comparison bridges the variants.
+  - Unknown target envelope, retention and keep-out fields block production CAD and manufacturing exports rather than receiving copied or guessed values.
+  - A target-specific interface/keep-out coupon is planned before the full accessory is treated as physically qualified.
+failure_conditions:
+  - Product-folder naming or family resemblance is treated as proof of the exact target variant.
+  - A Kobra 3 envelope, clip datum or keep-out is assigned to Kobra 3 Max without recorded compatibility evidence.
+  - Unknown target fields are replaced with visually plausible defaults and no uncertainty is preserved.
+  - A full manufacturing candidate is recommended before the target-specific interface evidence or coupon gate passes.
+fixtures:
+  - products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/design-spec.yaml
+  - products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/learning-trace-target-variant.yaml
+  - products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/reports/reference-audit.md
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: >-
+    PASS when the target variant is explicit, every target interface field is
+    target-evidenced or unknown, sibling dimensions are quarantined, and the
+    workflow blocks production output until target-specific interface evidence
+    is obtained. Physical compatibility itself remains NOT_RUN until measured.
+  measurement_method: Review source identity and specification traceability; later compare named physical datums and fit a minimal target-interface coupon.
+relationships:
+  lessons:
+    - EXP-00044
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-30
+  report: products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/learning-trace-target-variant.yaml
+  artifact_hashes:
+    - 02aa7897161baa567e919c739a7179c093abe970a1b5a109a9f9315517b7763b
+    - a17b4f9e26947916b6334d539b74f91348016ef140de27a64e3f02c08fe4d497
+    - 05747ba26a79ccd8a296456a20721a6ae6163e9b27bcbf276883998ff9fe1f99
+tags:
+  - interfaces
+  - printer-variant
+  - evidence-scope
+  - machine-accessory
+  - physical-fit
+  - user-correction

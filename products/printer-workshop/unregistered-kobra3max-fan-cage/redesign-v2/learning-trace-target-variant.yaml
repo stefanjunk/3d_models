@@ -1,0 +1,68 @@
+schema_version: "1.0"
+trace_id: "K3M-PHC-TARGET-VARIANT-2026-08-30"
+captured_at: "2026-08-30"
+project: "UNREGISTERED-K3M-PHC"
+part_revision: "0.2.0-requirements.2"
+source_type: "user-correction"
+
+correction:
+  original_proposal: >-
+    The target was inferred from the product folder as Anycubic Kobra 3 Max,
+    but the measured local references were identified as Anycubic Kobra 3 and
+    the exact target variant remained an explicit blocking question.
+  user_statement_verbatim: "es geht um den kobra 3 max"
+  accepted_interpretation: >-
+    The product must fit the Anycubic Kobra 3 Max / Max Combo printhead. Kobra 3
+    reference dimensions may inform only the construction principle and must not
+    become Kobra 3 Max interface dimensions without target-specific evidence.
+  verification_state: "target identity confirmed; physical Max interface not measured"
+
+scope:
+  process: "FFF/FDM accessory requirements and parametric CAD planning"
+  machine:
+    manufacturer: "Anycubic"
+    model: "Kobra 3 Max"
+    unit_id: null
+    firmware: null
+  feature: "removable printhead-cover shell, clips and keep-outs"
+  material:
+    manufacturer: "unknown"
+    product: "PETG recommended, exact product not selected"
+    color: null
+    batch: null
+  nozzle:
+    diameter_mm: 0.4
+    material: "unknown"
+  orientation: "unknown until Max geometry exists"
+  slicer:
+    name: "Anycubic Slicer Next"
+    version: null
+    profile: null
+    profile_hash: null
+  measurement_method: "user model identification only; no physical dimension supplied"
+
+design_effect:
+  closed_questions:
+    - "Target is Kobra 3 Max rather than Kobra 3/Combo."
+  still_blocked:
+    - "Max cover envelope and curvature"
+    - "Max clip count, positions, reach, hook geometry and fit clearance"
+    - "fan, hotend, cable, sensor and motion keep-outs"
+  prohibited_transfer:
+    - "Do not bind 61.2 × 81.0 × 15.8 mm Kobra 3 envelope to Max CAD."
+    - "Do not bind the four Kobra 3 clip datums to Max CAD."
+  next_evidence:
+    - "orthogonal front and rear photographs of the Max original cover with scale"
+    - "side profile photograph with scale"
+    - "caliper measurements of envelope and every retention feature"
+
+evidence:
+  design_spec: "products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/design-spec.yaml"
+  decision_log: "products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/decision-log.md"
+  reference_audit: "products/printer-workshop/unregistered-kobra3max-fan-cage/redesign-v2/reports/reference-audit.md"
+  related_eval: "EVAL-interfaces-target-printer-variant-evidence-001"
+
+review:
+  status: "pending requirements approval"
+  approved_by: null
+  approved_at: null

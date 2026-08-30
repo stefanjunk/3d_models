@@ -3,7 +3,7 @@ schema_version: "1.0"
 project:
   id: "UNREGISTERED-K3M-PHC"
   name: "metriMade Kobra 3 Max Printhead Cover – eigenständiger Neuaufbau"
-  revision: "0.2.0-requirements.1"
+  revision: "0.2.0-requirements.2"
   owner: "Stefan"
   revised: "2026-08-30"
   units: "mm"
@@ -13,24 +13,23 @@ project:
 workflow:
   requirements_approval:
     status: "pending"
-    spec_revision: "0.2.0-requirements.1"
+    spec_revision: "0.2.0-requirements.2"
     approved_by: null
     approved_at: null
     blocking_questions:
-      - "Ist das Zielgerät wirklich Anycubic Kobra 3 Max/Max Combo oder der kleinere Kobra 3/Combo?"
       - "Für Kobra 3 Max fehlen physisch gemessene Außen- und Clipmaße; die Kobra-3-Referenzen sind nicht als Max-Passmaß freigegeben."
   concept_approval:
     status: "blocked"
     spec_revision: null
     asset: null
-    reason: "Anforderungen und Ziel-Schnittstelle sind noch nicht freigegeben."
+    reason: "Anforderungen und physische Kobra-3-Max-Schnittstelle sind noch nicht freigegeben."
   watermark_approval:
     status: "blocked"
     spec_revision: null
     geometry_revision: null
     asset_id: "MM-WM-001-R2"
     product_id: "UNREGISTERED-K3M-PHC"
-    version: "0.2.0-requirements.1"
+    version: "0.2.0-requirements.2"
   final_release_approval:
     status: "blocked"
     reason: "Konzept, CAD, physische Passung, Betriebsprüfung und kommerzielle Freigabe fehlen."
@@ -41,8 +40,8 @@ requirements_trace:
     - "Die fünf lokalen Beispiele im Ordner research/third-party/printer-workshop/printhead_cover zur Maß- und Aufbauanalyse verwenden."
     - "Das eigene Printhead Cover neu und mit dem eigenen Logo erstellen."
     - "Lizenzprobleme für eine spätere kommerzielle Nutzung vermeiden."
+    - "Das Zielgerät ist ausdrücklich der Anycubic Kobra 3 Max."
   inferred:
-    - "Der Produktordner und die bisherigen Entwürfe benennen Kobra 3 Max als Zielgerät."
     - "Das bisherige runde Fan-Cage-Konzept soll durch eine vollständige Frontabdeckung ersetzt werden."
     - "Als maßgebliches Markenasset gilt das zentrale metriMade-Vektorasset im Repository."
     - "Geplant sind sowohl digitale Modelldateien als auch physische Verkäufe; DE/EU ist vorläufiger Prüfbereich."
@@ -54,10 +53,6 @@ requirements_trace:
     - "PETG mit 0,4-mm-Düse als Startprozess; sichtbare Logo-Inlays optional vierfarbig, zusätzlich ein einfarbiger Export."
     - "Fremde Marken nur sachlich in der Kompatibilitätsangabe nennen; kein Anycubic-Logo und keine Franchise-Motive auf dem Produkt."
   unresolved:
-    - id: "Q-TARGET"
-      question: "Zielgerät Kobra 3 Max/Max Combo oder Kobra 3/Combo?"
-      recommendation: "Kobra 3 Max/Max Combo beibehalten, wenn der Produktordner korrekt ist; dann die 61,2 × 81,0-mm-Referenz nicht als Passmaß verwenden."
-      tradeoff: "Ein zusätzlicher Messschritt verhindert einen konstruktiv sauberen, aber unpassenden Deckel."
     - id: "Q-MAX-MEASUREMENTS"
       question: "Welche realen Außen-, Tiefen- und Clipmaße besitzt die Originalabdeckung des Zielgeräts?"
       recommendation: "Originalabdeckung mit Messschieber vermessen und Front/Rückseite/Seitenprofil mit Maßstab fotografieren."
@@ -138,7 +133,7 @@ reference_measurements:
       status: "excluded; source page has blank license field and uses protected franchise motif"
 
 target_geometry:
-  printer_model: "Anycubic Kobra 3 Max / Max Combo – inferred, awaiting explicit confirmation"
+  printer_model: "Anycubic Kobra 3 Max / Max Combo – explicitly confirmed by the project owner"
   envelope_mm: null
   shell_wall_mm: null
   clip_count: null
@@ -183,7 +178,7 @@ environment:
 
 manufacturing:
   process: "FFF/FDM"
-  printer: "Anycubic Kobra 3 Max – inferred"
+  printer: "Anycubic Kobra 3 Max – explicitly confirmed"
   build_volume_mm: [420, 420, 500]
   target_material: "PETG; exact manufacturer/product/color/batch pending"
   nozzle_mm: 0.4
@@ -209,7 +204,7 @@ fabrication:
 
 printer:
   manufacturer: "Anycubic"
-  model: "Kobra 3 Max – inferred; explicit confirmation pending"
+  model: "Kobra 3 Max – explicitly confirmed"
   build_volume_mm: [420, 420, 500]
   enclosure: "unknown"
   unit_id: null
@@ -260,7 +255,7 @@ branding:
   asset_id: "MM-WM-001-R2"
   layout_tier: "auto"
   product_id: "UNREGISTERED-K3M-PHC"
-  version: "0.2.0-requirements.1"
+  version: "0.2.0-requirements.2"
   operation: "recessed"
   preferred_surface: "flat-nonfunctional-low-stress-underside"
   depth_mm: 0.4
@@ -277,7 +272,7 @@ risk:
     - "insufficient heat resistance can soften the clips"
     - "uncleared foreign geometry, marks, fonts or characters can block commercial release"
   mitigations:
-    - "confirm exact printer and measure its original cover"
+    - "retain the confirmed Kobra 3 Max identity and measure its original cover before binding CAD datums"
     - "coupon-first clip sweep and cycle test"
     - "explicit fan/hotend/cable/sensor keep-outs"
     - "PETG baseline plus measured operating-temperature margin"
@@ -319,6 +314,7 @@ deliverables:
     - "decision-log.md"
     - "reports/reference-audit.md"
     - "commercial-clearance source and rights records"
+    - "learning-trace-target-variant.yaml"
   blocked_until_requirements_and_concept_approval:
     - "concept sheet"
     - "CadQuery source"

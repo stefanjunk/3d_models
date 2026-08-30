@@ -11,3 +11,11 @@
 7. Maßgebliches Logo ist `business/01-strategy/brand-assets/metrimade/exports/metrimade-mark-color.svg` mit SHA-256 `41f67ccf2df52c14ee03f4c5b61f877996c680ddafcf776b6fb4e15a0cda3554`. Kopien im Altprojekt haben für den horizontalen Lockup denselben Hash wie das zentrale Markenasset.
 8. Release-ID und Produkt-ID bleiben bis zur formalen Registrierung absichtlich als `UNREGISTERED-K3M-PHC` gekennzeichnet.
 9. Gemäß Design-Gate entsteht vor expliziter Anforderungsfreigabe kein Konzeptbild, kein CAD-Code und kein Fertigungsexport.
+
+## 2026-08-30 – Zielvariante durch Projekteigentümer bestätigt
+
+1. Der Projekteigentümer hat ausdrücklich bestätigt: Zielgerät ist der **Anycubic Kobra 3 Max**.
+2. Die Spezifikation wird auf Revision `0.2.0-requirements.2` angehoben; die Variantenfrage ist geschlossen.
+3. Die Bestätigung ändert nicht die Evidenzlage der Fremdmodelle: Sie gehören zum kleineren Kobra 3/Combo und bleiben reine Aufbau- und Lizenzreferenzen.
+4. Außenhülle, Schalenwölbung, Rastnasen und alle Fan-/Hotend-/Kabel-/Sensor-Keep-outs des Kobra 3 Max bleiben unbemaßt. Kein Kobra-3-Maß wird als Max-Passmaß in CAD gebunden.
+5. Nächster Freigabeschritt ist eine reale Maß-/Fotoreferenz der Max-Originalabdeckung und danach die explizite Freigabe der aktualisierten Anforderungen.

@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-002
   name: "TrailCam CF10 FPV Camera Rover"
   revision: 0.4.0
-  candidate: 0.4.0-draft.1
+  candidate: 0.4.0-draft.2
   owner: Stefan
   created: "2026-08-29"
   revised: "2026-08-30"
@@ -44,15 +44,15 @@ workflow:
   parametric_source:
     status: blocked
     decision: BLOCKED
-    reason: "CHASSIS_PRINTED v1 is reproducible, but the experimental suspension/carrier source violates the approved double-wishbone joint topology, locks steering, conflicts with the two chassis-fixed motor decision and intersects the chassis"
-    evidence: reports/cad-phase-2-corner-stack-review-v0.4.0.md
+    reason: "The v2 point/axis source now closes a genuine double-wishbone motion contract, but it intentionally contains no printable arm/upright geometry and the current chassis v1 has incompatible y-axis lower pivots and no upper pivots"
+    evidence: validation/double-wishbone-v2-kinematics-2026-08-30.json
   digital_candidate:
     status: blocked
-    reason: "The reproducible chassis v1 remains DRAFT; no architecture-conform, collision-free suspension/steering/drivetrain assembly exists"
-    evidence: validation/corner-stack-v1-integration-2026-08-30-r4.json
+    reason: "Kinematic topology passes only as a non-manufacturing skeleton; chassis integration fails and ball-joint, wheel/hub, shock and CVD interfaces remain unmeasured"
+    evidence: architecture/double-wishbone-v2-interface-contract-v0.4.0.json
   slicer_preflight:
     status: blocked
-    reason: "No integration-valid candidate geometry or approved exact machine/process/filament profile exists"
+    reason: "No v2 manufacturing STL/3MF exists and no complete approved exact machine/process/filament JSON profile set exists"
   physical_validation:
     status: blocked
     reason: "No print, measurement, load, radio, thermal or driving evidence exists in the repository"
@@ -117,7 +117,7 @@ requirements_trace:
     - "Fully printed route: frame, suspension arms and steering links use a PETG baseline with load-aligned print orientation, generous root radii and dedicated static, impact and fatigue coupons before any driving test"
     - "Print gears or axles only for the low-speed stage with explicit strain justification and bench tests; purchased gearbox/diff preferred when a suitable COTS unit exists"
     - "Compare PETG against PETG-CF or ASA for frame/arms by coupon; abrasive filled filaments require a hardened nozzle"
-    - "Two purchased geared motors, one per axle, no differential/transfer case; printed rigid axle housings; one brushed ESC for both motors or two ESCs (user decision 2026-08-30)"
+    - "Two chassis-fixed purchased geared motors, one per axle, each feeding a purchased metal right-angle transfer, locked spool and two articulated halfshafts; one brushed ESC for both motors or two ESCs remains open (confirmed continuation 2026-08-30)"
     - "Use a replaceable front camera guard, radiused impact features and cable strain relief"
     - "Use a removable electronics deck with local pads, edge beams, few large radiused windows and load-oriented ribs"
     - "Start with PETG and a 0.6 mm nozzle on the Anycubic Kobra 3 Max, subject to user confirmation and process coupons"
@@ -127,7 +127,8 @@ requirements_trace:
     - "Keep propulsion control and analog video as independent links so video loss cannot command or prevent a safe stop"
     - "Rebuild precise interfaces in CadQuery and retain STEP alongside DRAFT STL/3MF"
   unresolved:
-    - "Exact geared motor model, ratio, mounting envelope and ESC count (architecture decided: two geared 540/550-class motors, one per axle, no diff)"
+    - "Final geared motor purchase and ESC count; Pololu #4743 50:1 is only the current official-source CAD-envelope candidate"
+    - "Measured right-angle gear, locked-spool, halfshaft/CVD, ball-joint, hub/bearing and shock interfaces"
     - "Exact wheel/tire purchase (90 mm kit-class diameter frozen; envelope 90-115 mm)"
     - "Measured RunCam Phoenix 2 SE V2, SpeedyBee TX800, surface ELRS receiver, antenna, cable and fastener envelopes"
     - "Final surface-radio choice: RadioMaster MT12 ELRS recommended; common RadioMaster Pocket use remains an ergonomic trade-off"
@@ -230,7 +231,8 @@ interfaces:
     safety: "Never power without the antenna; use only locally permitted channels/power and prove stationary cooling"
   drivetrain:
     status: user-decided
-    architecture: "two purchased geared motors (one per axle), no differential/transfer case; printed rigid axle housings/carriers; low-speed <=5 km/h"
+    architecture: "two chassis-fixed purchased geared motors (one per axle), no differential/transfer case; each drives a purchased metal 1:1 right-angle stage, supported locked spool and two articulated halfshafts; low-speed target <=5 km/h"
+    envelope_candidate: "Pololu #4743 50:1 plus ServoCity MOD 0.8 miter gears and RC4WD VVV-S0183 halfshafts; all provisional per reports/cots-drivetrain-study-v0.4.0.md"
     esc: "one brushed ESC for both motors or two ESCs; exact model unresolved"
   radio_control:
     ecosystem: "EdgeTX plus ExpressLRS 2.4 GHz LBT, aligned with OpenQuad"
@@ -430,6 +432,8 @@ deliverables:
     - "Approved requirements, concept and decomposition revision 0.4.0"
     - "Parametric CHASSIS_PRINTED v1 DRAFT with STEP/STL outputs"
     - "Fail-closed CAD phase 2 corner-stack integration review with exact input hashes, collision metrics and kinematic bounds"
+    - "Non-manufacturing double-wishbone v2 point/axis skeleton with deterministic full-travel and steering sweep"
+    - "Official-source drivetrain envelope study and explicit purchased-sample measurement gates"
     - "E0 learning candidate and targeted interface eval for the rejected suspension joint topology"
   after_approval:
     - "Approved concept sheet with overview, underside mounting and camera-guard detail"

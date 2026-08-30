@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-TOY-002",
+  "project_revision": "0.4.0",
+  "candidate": "0.4.0-draft.2",
+  "contract_id": "DWV2-KIN-001",
+  "artifact_class": "non-manufacturing-kinematic-contract",
+  "approval_lineage": {
+    "requirements": "approved 0.4.0",
+    "concept": "approved 0.4.0-r2",
+    "decomposition": "approved 0.4.0",
+    "implementation_route": "confirmed by Stefan on 2026-08-30 with the response 'bestätigt, fahre fort'",
+    "interpretation": "restore the already approved double-wishbone topology; no gate reopening"
+  },
+  "coordinate_frame": {
+    "units": "mm",
+    "x": "forward",
+    "y": "left",
+    "z": "up",
+    "front_axle_x": 126.0,
+    "rear_axle_x": -126.0,
+    "left_side_sign": 1,
+    "right_side_sign": -1
+  },
+  "nominal_datums": {
+    "lower_inboard_axis": "(X-16, s*42, 10) to (X+16, s*42, 10)",
+    "upper_inboard_axis": "(xU-14, s*41, 35) to (xU+14, s*41, 35)",
+    "lower_outer_spherical_joint": "(X, s*70, 7)",
+    "upper_outer_spherical_joint": "(xU, s*68, 31)",
+    "front_upper_x": 123.0,
+    "rear_upper_x": -126.0,
+    "wheel_center": "(X, s*82.5, 5)",
+    "lower_shock_eye": "(X, s*56, 8.5)",
+    "upper_shock_eye": "(X, s*49, 48)",
+    "front_tie_outer": "(114, s*67, 22)",
+    "front_tie_inner_neutral": "(114, s*34, 28)",
+    "rear_toe_outer": "(-138, s*67, 18)",
+    "rear_toe_inner": "(-138, s*40, 21)",
+    "inner_halfshaft_proxy": "(X, s*18, 15)",
+    "outer_halfshaft_proxy": "(X, s*72, 5) upright-fixed"
+  },
+  "nominal_metrics": {
+    "lower_arm_radius_mm": 28.160255681,
+    "upper_arm_radius_mm": 27.294688128,
+    "front_steering_axis_vector_left_mm": [-3.0, -2.0, 24.0],
+    "front_steering_axis_length_mm": 24.2693222,
+    "front_caster_deg": 7.13,
+    "front_kingpin_inclination_deg": 4.76
+  },
+  "joint_graph": [
+    {
+      "a": "chassis",
+      "b": "lower_wishbone",
+      "joint": "revolute",
+      "axis": "x"
+    },
+    {
+      "a": "chassis",
+      "b": "upper_wishbone",
+      "joint": "revolute",
+      "axis": "x"
+    },
+    {
+      "a": "lower_wishbone",
+      "b": "upright",
+      "joint": "spherical"
+    },
+    {
+      "a": "upper_wishbone",
+      "b": "upright",
+      "joint": "spherical"
+    },
+    {
+      "a": "front_tie_rod",
+      "b": "front_upright",
+      "joint": "spherical-spherical actuator closure",
+      "function": "controls steering rotation around the current lower-to-upper joint line"
+    },
+    {
+      "a": "rear_toe_link",
+      "b": "rear_upright",
+      "joint": "constant-length spherical-spherical closure",
+      "function": "removes free rear steering"
+    },
+    {
+      "a": "shock",
+      "b": "chassis and lower_wishbone",
+      "joint": "variable-length spherical-prismatic-spherical",
+      "function": "spring and damping only; never a locating link"
+    },
+    {
+      "a": "wheel_hub",
+      "b": "upright",
+      "joint": "revolute wheel-spin"
+    },
+    {
+      "a": "motor_and_locked_spool",
+      "b": "chassis",
+      "joint": "fixed housing plus drive rotation",
+      "quantity": 2
+    },
+    {
+      "a": "locked_spool",
+      "b": "two_halfshafts",
+      "joint": "locked rotational relation without differential"
+    },
+    {
+      "a": "halfshaft",
+      "b": "upright",
+      "joint": "articulation plus required plunge",
+      "function": "torque only; no wheel location"
+    }
+  ],
+  "sweep_contract": {
+    "travel_mm": {
+      "minimum": -10.0,
+      "maximum": 10.0,
+      "step": 1.0
+    },
+    "front_steering_deg": {
+      "minimum": -20.0,
+      "maximum": 20.0,
+      "step": 2.0
+    },
+    "tire_radii_mm": [45.0, 57.5],
+    "diagonal_states": [
+      "front-left +10 / front-right -10",
+      "front-left -10 / front-right +10",
+      "rear-left +10 / rear-right -10",
+      "rear-left -10 / rear-right +10"
+    ],
+    "front_pose_count_per_side_per_radius": 441,
+    "continuity_tolerance_mm": 1e-6
+  },
+  "provisional_cots_envelopes": [
+    {
+      "function": "one geared motor per axle",
+      "candidate": "Pololu #4743 50:1 37D 12 V gearmotor",
+      "source": "https://www.pololu.com/product/4743",
+      "drawing": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+      "documented_envelope_mm": "diameter 36.8 flange; 54.7 body behind front gearbox face; 76.7 axial body-plus-front-output envelope",
+      "status": "GO-D envelope only"
+    },
+    {
+      "function": "1:1 right-angle transfer",
+      "candidate": "ServoCity 2317 MOD 0.8 24T steel miter gears, 6 mm and 5 mm bores",
+      "sources": [
+        "https://www.servocity.com/2317-series-mod-0-8-steel-miter-gear-set-screw-6mm-round-bore-24-tooth/",
+        "https://www.servocity.com/2317-series-mod-0-8-steel-miter-gear-set-screw-5mm-round-bore-24-tooth/"
+      ],
+      "status": "GO-D envelope only; thrust reaction and shaft retention unresolved"
+    },
+    {
+      "function": "articulated halfshaft",
+      "candidate": "RC4WD VVV-S0183 Mega Truck Universal Shaft Ver.2",
+      "source": "https://store.rc4wd.com/Mega-Truck-Universal-Shaft-Ver-2-55mm--70mm-217--276-5mm_p_5419.html",
+      "documented_envelope_mm": "55 to 70 length, 10 body diameter, 5 mm end bores",
+      "status": "REVIEW_REQUIRED; no published articulation, plunge-under-angle, torque or engagement limit"
+    }
+  ],
+  "deterministic_assertions": [
+    "both wishbone link radii remain constant within 1e-6 mm",
+    "upright lower-to-upper spherical-joint distance remains constant within 1e-6 mm",
+    "circle-intersection branch remains continuous and nonsingular across the full sweep",
+    "shock length is reported as variable and is not used as a closure constraint",
+    "rear toe-link length remains constant and provisional absolute rear toe stays at or below 1 degree",
+    "front tie rod reaches the declared fixed x/z rack corridor in every pose",
+    "halfshaft length and angle are reported but never converted into a hardware PASS without measured supplier limits",
+    "no STL or printable-part claim is emitted from this skeleton phase"
+  ],
+  "known_blockers": [
+    "chassis v1 has y-axis pivot bores and solid regions in the required x-axis wishbone paths",
+    "ball joint, shock, hub/bearing, wheel backspacing, halfshaft articulation and steering actuator interfaces are unmeasured",
+    "the lower and upper outer joints lie inside a full-width tire proxy; measured rim cavity and offset are required",
+    "a 57.5 mm tire radius cannot share the nominal radius-45 ground datum without changing static ride height",
+    "no strength, material, fatigue, load or safety claim follows from the point model"
+  ],
+  "gate": {
+    "kinematic_topology": "PASS",
+    "current_chassis_integration": "FAIL",
+    "purchased_hardware_compatibility": "REVIEW_REQUIRED",
+    "manufacturing_candidate": "BLOCKED"
+  }
+}

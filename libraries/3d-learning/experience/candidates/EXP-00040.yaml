@@ -1,0 +1,147 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00040
+title: Articulated halfshaft selection must use the complete joint-center sweep rather than nominal track arithmetic
+captured_at: 2026-08-30
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One deterministic digital rover sweep; no purchased sample, torque test or physical articulation measurement exists.
+feature:
+  type: articulated-halfshaft-interface
+  geometry: Chassis-fixed locked spool to independently suspended and steerable RC-rover upright
+  design_parameters:
+    nominal_track_mm: 165.0
+    suspension_travel_mm: [-10.0, 10.0]
+    front_steering_deg: [-20.0, 20.0]
+    proxy_inner_joint_y_mm: 18.0
+    proxy_outer_joint_y_mm: 72.0
+    proxy_length_sweep_mm: [53.056684, 55.105130]
+    proxy_angle_sweep_deg: [0.003371, 21.522384]
+    supplier_published_length_range_mm: [55.0, 70.0]
+  named_datums:
+    - chassis-fixed inner halfshaft joint center
+    - upright-fixed outer halfshaft joint center
+    - lower and upper wishbone spherical-joint centers
+    - front steering axis
+  constraints:
+    - Every required suspension, steering and diagonal-articulation pose is evaluated.
+    - Supplier overall dimensions do not substitute for verified running length, spline engagement, articulation and plunge-under-angle limits.
+    - Unknown actual joint centers remain provisional and cannot be moved solely to make the selected part pass.
+scope:
+  process: digital mechanism and purchased-interface design
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.6
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: non-manufacturing kinematic point/axis model
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: low-speed 1:10-class driven double-wishbone suspension
+  environment: deterministic Python/CadQuery kinematic sweep; no physical print or drivetrain test
+  transfer_limits:
+    - Observed on one rover point model and one provisional shaft family.
+    - Does not establish RC4WD shaft working limits, fatigue life, torque capacity or universal safety margins.
+    - Actual spool, cup, stub-axle and wheel backspacing datums are unmeasured.
+observation:
+  summary: A halfshaft family that appeared compatible from nominal track/spool arithmetic only partially overlapped its published length range when the declared three-dimensional suspension and steering sweep was evaluated.
+  expected: The provisional RC4WD VVV-S0183 published 55–70 mm length envelope would contain every halfshaft length in the v2 point model.
+  actual: The deterministic point model spans 53.056684–55.105130 mm and 0.003371–21.522384 degrees, so most short-length poses fall below 55 mm; the supplier publishes no running articulation, plunge-under-angle, minimum engagement or torque limit.
+  outcome: failure
+  parameter: installed halfshaft length and articulation over the complete required motion matrix
+  recommended_value: null
+  units: mm and degrees
+explanation:
+  hypothesis: Nominal track-minus-spool arithmetic omits the exact inner/outer joint-center positions and their three-dimensional movement under suspension and steering, so it can falsely suggest COTS compatibility.
+  mechanism: Steering rotates the upright-fixed outer joint around an inclined axis while unequal wishbones translate and roll the upright; the resulting shaft vector changes in x, y and z rather than only across half the track.
+  alternatives:
+    - The current proxy joint centers may not match the eventual measured cups and stub axle; a farther-out outer joint could place all poses inside the published range.
+    - The supplier's 55–70 mm values may describe overall installation extrema rather than a safe running range with adequate spline engagement.
+    - A different spool width, cup adapter or shaft family may satisfy the sweep without changing suspension geometry.
+  validated: false
+  validation_method: Measure one exact shaft sample at declared angles and engagements, freeze both installed joint centers, then rerun the deterministic full-pose eval and a guarded torque bench test.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Analytic four-bar and Rodrigues steering transform over 882 mirrored front poses plus 42 rear poses; link closure and derived shaft vector recorded in JSON.
+  uncertainty: Digital joint-center calculations are deterministic, but actual purchased-part datums and allowable running limits are unknown.
+  sources:
+    - type: product-trace
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/reports/cots-drivetrain-study-v0.4.0.md
+      hash: null
+      notes: Official-source envelope study and missing-measurement list.
+    - type: measurement
+      ref: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-kinematics-2026-08-30.json
+      hash: ccf286b53f9f944cc96d97bf3789926101bf471e03c824ec31e69c645d1e7e73
+      notes: Fail-closed deterministic kinematic evidence.
+  artifacts:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/architecture/double-wishbone-v2-interface-contract-v0.4.0.json
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/double_wishbone_v2_kinematics.py
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/exports/v0.4.0-draft.2-double-wishbone/DRAFT-double-wishbone-v2-kinematic-skeleton.step
+applicability:
+  triggers:
+    - A purchased telescoping or articulated shaft is selected between a fixed gearbox/spool and a suspended or steerable upright.
+    - Compatibility is currently inferred from nominal track, axle width or neutral installed length.
+  exclusions:
+    - Rigid axles whose verified joint centers do not move relative to each other
+    - Shafts with supplier-authoritative full-motion CAD and operating limits already proven against the same installed datums
+  transfer_limits:
+    - E0 digital observation; use for experiment planning and eval coverage, not as a universal design rule.
+    - Required poses, margins and joint-center definitions remain project-specific.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00038
+  evals:
+    - EVAL-interfaces-articulated-shaft-full-sweep-envelope-001
+  patterns: []
+  references: []
+validation:
+  targeted: review-required
+  regression: not-run
+  reports:
+    - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-kinematics-2026-08-30.json
+provenance:
+  project: MM-TOY-002
+  part_revision: 0.4.0-draft.2
+  trace: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/decision-log.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - drivetrain
+  - halfshaft
+  - cvd
+  - suspension-sweep
+  - purchased-interface
+  - negative-result
+  - digital-only

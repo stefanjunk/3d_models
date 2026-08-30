@@ -1,0 +1,279 @@
+{
+  "schema_version": "1.0",
+  "tool": "validate_double_wishbone_v2.py",
+  "tool_version": "1.0.0",
+  "project_id": "MM-TOY-002",
+  "project_revision": "0.4.0",
+  "candidate": "0.4.0-draft.2",
+  "profile": "non-manufacturing-kinematic-skeleton",
+  "run_date": "2026-08-30",
+  "status": "FAIL",
+  "decision": "BLOCKED",
+  "passed_scope": "point/axis double-wishbone topology and deterministic motion closure",
+  "blocking_scope": "current chassis integration, measured purchased interfaces and all manufacturing evidence",
+  "checks": [
+    {
+      "id": "four-bar-link-closure",
+      "status": "PASS",
+      "message": "Maximum rigid-link closure error is 1.066e-14 mm."
+    },
+    {
+      "id": "continuous-nonsingular-branch",
+      "status": "PASS",
+      "message": "Maximum outer-joint movement between adjacent 1 mm travel samples is 1.162075 mm."
+    },
+    {
+      "id": "front-suspension-steering-sweep",
+      "status": "PASS",
+      "message": "Solved 882 mirrored front poses (441 per side) across the full declared matrix."
+    },
+    {
+      "id": "rear-toe-link-closure",
+      "status": "PASS",
+      "message": "Rear toe closure remains -0.502304 to 0.927208 degrees within the provisional planning bound."
+    },
+    {
+      "id": "shock-is-not-locating-link",
+      "status": "PASS",
+      "message": "Shock eye distance varies from 35.132826 to 44.837373 mm and is not used in four-bar closure."
+    },
+    {
+      "id": "skeleton-artifact-integrity",
+      "status": "PASS",
+      "message": "STEP is a valid multi-solid proxy compound; manifest hashes match; no STL was generated."
+    },
+    {
+      "id": "current-chassis-v1-interface",
+      "status": "FAIL",
+      "message": "Current chassis source explicitly uses y-axis lower pivot bores, has no upper wishbone pivots and consumes no v2 x-axis datums."
+    },
+    {
+      "id": "halfshaft-cots-compatibility",
+      "status": "REVIEW_REQUIRED",
+      "message": "Skeleton proxy spans 53.056684 to 55.105130 mm versus the published candidate range 55.0 to 70.0 mm; actual joint centers and angular/plunge limits are unmeasured."
+    },
+    {
+      "id": "wheel-rim-cavity-and-dynamic-envelope",
+      "status": "REVIEW_REQUIRED",
+      "message": "Full tire cylinders overlap the joint region by construction; rim cavity, wheel backspacing and the acceptable dynamic width definition require measured hardware."
+    },
+    {
+      "id": "manufacturing-geometry",
+      "status": "NOT_RUN",
+      "message": "This phase intentionally contains no printable arm, upright or chassis-v2 solid."
+    },
+    {
+      "id": "anycubic-exact-slicer",
+      "status": "NOT_RUN",
+      "message": "No manufacturing STL/3MF exists and complete explicit machine/process/filament JSON profiles are absent."
+    },
+    {
+      "id": "watermark",
+      "status": "NOT_RUN",
+      "message": "Watermark remains deferred until a stable physical candidate; applying it to a skeleton would be premature."
+    }
+  ],
+  "metrics": {
+    "pose_counts": {
+      "front_per_side": 441,
+      "front_total": 882,
+      "rear_per_side": 21,
+      "rear_total": 42,
+      "tire_radii_checked": 2
+    },
+    "link_closure_max_error_mm": 1.0658141036401503e-14,
+    "adjacent_branch_step_max_mm": 1.1620751128417046,
+    "front_wheel_center_sweep_mm": {
+      "x": {
+        "minimum": 121.81695710832027,
+        "maximum": 130.21442080158724
+      },
+      "absolute_y": {
+        "minimum": 78.70276001735394,
+        "maximum": 82.65172330541962
+      },
+      "z": {
+        "minimum": -5.308432807657493,
+        "maximum": 15.301882916448589
+      }
+    },
+    "front_rack_inner_absolute_y_corridor_mm": {
+      "minimum": 29.89503804989569,
+      "maximum": 37.57059555112293
+    },
+    "shock_eye_distance_mm": {
+      "minimum": 35.13282590743589,
+      "maximum": 44.83737342937078
+    },
+    "rear_toe_deg": {
+      "minimum": -0.5023037129102161,
+      "maximum": 0.9272077433313827
+    },
+    "halfshaft_proxy": {
+      "length_mm": {
+        "minimum": 53.05668394283008,
+        "maximum": 55.10512997077984
+      },
+      "length_change_mm": 2.0484460279497654,
+      "angle_deg": {
+        "minimum": 0.003370676144316329,
+        "maximum": 21.522384246588718
+      },
+      "published_candidate_length_range_mm": [
+        55.0,
+        70.0
+      ],
+      "inside_published_length_range": false,
+      "compatibility_claim": false
+    },
+    "tire_envelopes": {
+      "neutral_total_width_mm": {
+        "radius_45_mm": 198.0,
+        "radius_57.5_mm": 198.0
+      },
+      "front_dynamic_swept_width_mm": {
+        "radius_45_mm": {
+          "minimum_y_mm": -112.84963199770036,
+          "maximum_y_mm": 112.84963199770036,
+          "total_swept_width_mm": 225.6992639954007
+        },
+        "radius_57.5_mm": {
+          "minimum_y_mm": -117.11144158785527,
+          "maximum_y_mm": 117.11144158785527,
+          "total_swept_width_mm": 234.22288317571054
+        }
+      },
+      "project_nominal_width_limit_mm": 200.0,
+      "interpretation": "dynamic sweep is a keep-out metric; whether the nominal width limit applies at steering lock remains a requirement review item"
+    },
+    "diagonal_states": [
+      {
+        "axle": "front",
+        "left_travel_mm": 10.0,
+        "right_travel_mm": -10.0,
+        "left_wheel_center": [
+          126.02164624981229,
+          81.74682072842086,
+          14.823483216340284
+        ],
+        "right_wheel_center": [
+          125.9633609184667,
+          -79.52421577161871,
+          -4.700325670138949
+        ]
+      },
+      {
+        "axle": "front",
+        "left_travel_mm": -10.0,
+        "right_travel_mm": 10.0,
+        "left_wheel_center": [
+          125.9633609184667,
+          79.52421577161871,
+          -4.700325670138949
+        ],
+        "right_wheel_center": [
+          126.02164624981229,
+          -81.74682072842086,
+          14.823483216340284
+        ]
+      },
+      {
+        "axle": "rear",
+        "left_travel_mm": 10.0,
+        "right_travel_mm": -10.0,
+        "left_wheel_center": [
+          -126.198890104424,
+          81.74475642433104,
+          14.820638174407762
+        ],
+        "right_wheel_center": [
+          -125.89225034033618,
+          -79.52443104497456,
+          -4.69571191451564
+        ]
+      },
+      {
+        "axle": "rear",
+        "left_travel_mm": -10.0,
+        "right_travel_mm": 10.0,
+        "left_wheel_center": [
+          -125.89225034033618,
+          79.52443104497456,
+          -4.69571191451564
+        ],
+        "right_wheel_center": [
+          -126.198890104424,
+          -81.74475642433104,
+          14.820638174407762
+        ]
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "path": "cad/validate_double_wishbone_v2.py",
+      "sha256": "b4d45b82373bdd1bb692bc58ee2ff5737181ec335f5de81a000a7f8587b02099",
+      "size_bytes": 17744
+    },
+    {
+      "path": "cad/double_wishbone_v2_kinematics.py",
+      "sha256": "b805a78a4b60c9ff85dbd5d458649f495f8bcd5878101757c4e5c297d31c6558",
+      "size_bytes": 27940
+    },
+    {
+      "path": "cad/parameters.py",
+      "sha256": "8309e0a9344782fc749b7c754e1306e1a42ea8adae37a13c18992ae0355cfba5",
+      "size_bytes": 4694
+    },
+    {
+      "path": "design-spec.yaml",
+      "sha256": "71af9a382d9415a82104a649618974a01a2dd28f2ae483f9a669c5d506ed41c5",
+      "size_bytes": 27494
+    },
+    {
+      "path": "architecture/hybrid-design-plan-v0.4.0.json",
+      "sha256": "6e25cd75cdbbc7c44bf734a92b597d5cb2e68313d6e3516defa400efc9c1fba6",
+      "size_bytes": 67917
+    },
+    {
+      "path": "architecture/double-wishbone-v2-interface-contract-v0.4.0.json",
+      "sha256": "71855b651f8dc8f139c2389a62005757d837055e09f2f8067378ac558ec1a99d",
+      "size_bytes": 6775
+    },
+    {
+      "path": "reports/cots-drivetrain-study-v0.4.0.md",
+      "sha256": "9ff33b24a26e97b74ae546d192a5bb7a2b0de4362a084c8415c13269d5c15ea0",
+      "size_bytes": 5084
+    },
+    {
+      "path": "cad/chassis.py",
+      "sha256": "4ddda1abebea19a5cd73b032c03c9aba9c580ed131f7299186126ce7ac3a00b4",
+      "size_bytes": 23528
+    },
+    {
+      "path": "cad/exports/DRAFT-chassis-printed.step",
+      "sha256": "0154745795d7cc6def314dccf4042cea1149cbe5b6b531a2c51c65afdf4ba621",
+      "size_bytes": 1301277
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.2-double-wishbone/DRAFT-double-wishbone-v2-kinematic-skeleton.step",
+      "sha256": "da1d9cc0e6ad07ed463c5e5bfc9aeb1f14f07adc492def4a7e0ca79ddc15b758",
+      "size_bytes": 1781746
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.2-double-wishbone/DRAFT-double-wishbone-v2-neutral-preview.png",
+      "sha256": "cc6a30ff466381efd181830b7741169033bf595c28db478c6cf51408a725ccc0",
+      "size_bytes": 388967
+    },
+    {
+      "path": "cad/exports/v0.4.0-draft.2-double-wishbone/manifest.json",
+      "sha256": "176e4b0c82415da30f69d386d8965cff24e42e2750c7d4087ea567d7b76589df",
+      "size_bytes": 2160
+    }
+  ],
+  "limitations": [
+    "No arm/upright section, bearing seat, fastener geometry or structural load model exists in this phase.",
+    "Proxy collision cannot prove rim, CVD, shock or chassis clearance without measured hardware.",
+    "Analytic closure does not certify material strength, fatigue life, safety or driving behavior."
+  ]
+}

@@ -243,3 +243,48 @@
   would reopen requirements, concept and decomposition approval.
 - Captured the single-scope failure as `EXP-00038` and the targeted contract
   eval as `EVAL-interfaces-suspension-dof-contract-001`; neither is promoted.
+
+## 2026-08-30 — Compliant continuation confirmed
+
+- Stefan confirmed the recommended continuation with the response
+  "bestätigt, fahre fort" and permitted the official-source COTS research.
+- This does not reopen requirements, concept or decomposition: it restores
+  their explicit upper/lower-wishbone contract after the rejected trailing-arm
+  experiment.
+- Frozen implementation topology: printed upper and lower wishbones; two
+  spherical outer joints locating each upright; shock attached to chassis and
+  lower arm for spring/damping only; front tie rod controls steering; rear toe
+  link removes free rear steer; one chassis-fixed geared motor per axle drives
+  a locked cross-spool and two articulated purchased halfshafts.
+- Exact purchased interfaces remain provisional. Online specifications may
+  define conservative envelopes, but only measured samples can freeze joint,
+  hub, shock, CVD and wheel geometry.
+
+## 2026-08-30 — CAD phase 3: double-wishbone v2 kinematic skeleton
+
+- Added the independent four-bar contract
+  `architecture/double-wishbone-v2-interface-contract-v0.4.0.json` and its
+  import-safe CadQuery solver `cad/double_wishbone_v2_kinematics.py`.
+- The deterministic matrix solves 441 front poses per side across -10..+10 mm
+  nominal suspension travel and -20..+20 degrees steer. Rigid-link closure
+  error is <=1.1e-14 mm; rear toe closure remains -0.503..+0.928 degrees and
+  shock eye distance varies 35.13..44.84 mm, confirming the shock is not a
+  locating link.
+- The selected digital drivetrain envelope is Pololu #4743 50:1, purchased
+  1:1 MOD-0.8 steel miter gears, a supported 5 mm locked cross-shaft and RC4WD
+  VVV-S0183 articulated shafts. This is `GO-D` for analytic packaging only.
+- The skeleton halfshaft proxy spans about 53.06..55.11 mm, while the selected
+  supplier publishes 55..70 mm. Because actual inner/outer joint centers,
+  articulation and plunge limits are absent, hardware compatibility remains
+  `REVIEW_REQUIRED` rather than being adjusted to manufacture a paper PASS.
+- The current chassis v1 integration remains `FAIL`: its lower pivot bores are
+  y-axis features and it has no required upper x-axis pivots. The v2 phase
+  therefore exports a versioned multi-solid STEP and preview only, intentionally
+  no arm/upright STL or 3MF.
+- Exact Anycubic slicing is `NOT_RUN`: no v2 manufacturing mesh and no complete
+  explicit machine/process/filament profile set exist. The watermark remains
+  deferred until the stable physical-candidate stage.
+- Captured the single-scope full-sweep/COTS mismatch as E0 candidate
+  `EXP-00040` with targeted eval
+  `EVAL-interfaces-articulated-shaft-full-sweep-envelope-001`; validation and
+  duplicate/conflict audit pass, and no promotion is claimed.

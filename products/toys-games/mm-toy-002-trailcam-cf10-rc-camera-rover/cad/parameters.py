@@ -45,6 +45,55 @@ PIVOT_PIN_MM = 3.0                # metal pin or M3 bolt in printed bosses
 CLEARANCE_FASTENER_MM = 0.25      # per side, printed-to-printed fastened parts
 CLEARANCE_PURCHASED_MM = 0.4      # per side, printed-to-purchased mates
 
+# --- Double-wishbone v2 kinematic contract (0.4.0-draft.2) ---
+# These are digital point/axis datums, not manufacturing interfaces.  The
+# current chassis v1 does not provide the required longitudinal (x-axis)
+# wishbone pivots.  Exact ball joints, shocks, CVDs, hubs and wheels remain a
+# purchased-sample gate; see reports/cots-drivetrain-study-v0.4.0.md.
+DWV2_LOWER_INBOARD_Y_MM = 42.0
+DWV2_LOWER_INBOARD_Z_MM = 10.0
+DWV2_LOWER_INBOARD_HALF_SPAN_X_MM = 16.0
+DWV2_UPPER_INBOARD_Y_MM = 41.0
+DWV2_UPPER_INBOARD_Z_MM = 35.0
+DWV2_UPPER_INBOARD_HALF_SPAN_X_MM = 14.0
+DWV2_LOWER_OUTER_Y_MM = 70.0
+DWV2_LOWER_OUTER_Z_MM = 7.0
+DWV2_UPPER_OUTER_Y_MM = 68.0
+DWV2_UPPER_OUTER_Z_MM = 31.0
+DWV2_FRONT_UPPER_OUTER_X_MM = 123.0
+DWV2_REAR_UPPER_OUTER_X_MM = -126.0
+DWV2_WHEEL_CENTER_Z_MM = 5.0
+DWV2_LOWER_SHOCK_Y_MM = 56.0
+DWV2_LOWER_SHOCK_Z_MM = 8.5
+DWV2_UPPER_SHOCK_Y_MM = 49.0
+DWV2_UPPER_SHOCK_Z_MM = 48.0
+DWV2_FRONT_TIE_OUTER_MM = (114.0, 67.0, 22.0)
+DWV2_FRONT_TIE_INNER_MM = (114.0, 34.0, 28.0)
+DWV2_REAR_TOE_OUTER_MM = (-138.0, 67.0, 18.0)
+DWV2_REAR_TOE_INNER_MM = (-138.0, 40.0, 21.0)
+DWV2_INNER_HALFSHAFT_Y_MM = 18.0
+DWV2_INNER_HALFSHAFT_Z_MM = 15.0
+DWV2_OUTER_HALFSHAFT_Y_MM = 72.0
+DWV2_OUTER_HALFSHAFT_Z_MM = 5.0
+DWV2_TRAVEL_MIN_MM = -10.0
+DWV2_TRAVEL_MAX_MM = 10.0
+DWV2_TRAVEL_STEP_MM = 1.0
+DWV2_STEER_MIN_DEG = -20.0
+DWV2_STEER_MAX_DEG = 20.0
+DWV2_STEER_STEP_DEG = 2.0
+
+# Provisional official COTS-envelope baseline only.  It is not an interface
+# freeze and it carries no torque, life or compatibility claim.
+POLOLU_4743_BODY_DIAMETER_MM = 34.8
+POLOLU_4743_FLANGE_DIAMETER_MM = 36.8
+POLOLU_4743_BODY_LENGTH_MM = 54.7
+POLOLU_4743_AXIAL_ENVELOPE_WITH_SHAFT_MM = 76.7
+POLOLU_4743_OUTPUT_SHAFT_DIAMETER_MM = 6.0
+POLOLU_4743_OUTPUT_SHAFT_LENGTH_MM = 16.0
+RC4WD_VVV_S0183_LENGTH_RANGE_MM = (55.0, 70.0)
+RC4WD_VVV_S0183_BODY_DIAMETER_MM = 10.0
+RC4WD_VVV_S0183_END_BORE_MM = 5.0
+
 # --- Process planning values (DEC-PROCESS-001, provisional) ---
 NOZZLE_MM = 0.6
 LAYER_MM = 0.24

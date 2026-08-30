@@ -1,0 +1,59 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-articulated-shaft-full-sweep-envelope-001
+title: Articulated shaft remains inside verified operating limits across every required suspension and steering pose
+category: interfaces
+status: draft
+trigger: A purchased telescoping, universal or CV shaft is selected between a chassis-fixed drivetrain output and a suspended or steerable upright.
+risk: A nominally compatible shaft can bottom out, overextend, lose spline engagement or bind at articulation even though its neutral or track-derived length looks acceptable.
+given:
+  required_inputs:
+    - Exact purchased shaft revision and supplier drawing or measured sample
+    - Chassis-fixed inner and upright-fixed outer joint centers in the project coordinate frame
+    - Full declared bump, droop, steering-lock and diagonal-articulation pose matrix
+    - Verified running minimum/maximum length, minimum spline engagement, allowable articulation and plunge-under-angle limits
+    - Measurement uncertainty and any required assembly margin
+  current_fixture:
+    project: MM-TOY-002
+    revision: 0.4.0-draft.2
+    shaft_candidate: RC4WD VVV-S0183
+expected:
+  - Every required pose keeps installed length inside the verified running range after uncertainty and required margin are applied.
+  - Every required pose keeps articulation and plunge inside verified operating limits without bottoming, overextension or loss of minimum spline engagement.
+  - Joint centers come from frozen measured interfaces or supplier-authoritative CAD, not nominal track arithmetic alone.
+  - Unknown operating limits or proxy joint centers produce REVIEW_REQUIRED and block manufacturing-interface approval.
+failure_conditions:
+  - Any required pose is shorter or longer than the verified running range.
+  - Any required pose exceeds articulation, plunge-under-angle or minimum-engagement limits.
+  - Only neutral length, half-track or spool-width arithmetic is checked.
+  - Proxy endpoints are moved without measured interface evidence to make the selected shaft pass.
+  - A supplier overall-length listing is treated as a safe running range without confirmation.
+fixtures:
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/architecture/double-wishbone-v2-interface-contract-v0.4.0.json
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/reports/cots-drivetrain-study-v0.4.0.md
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/double_wishbone_v2_kinematics.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_double_wishbone_v2.py
+  - products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-kinematics-2026-08-30.json
+grader:
+  type: hybrid
+  command: "python products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/cad/validate_double_wishbone_v2.py --output <new-evidence-path>.json; jq -e '.checks[] | select(.id == \"halfshaft-cots-compatibility\") | .status == \"PASS\"' <new-evidence-path>.json"
+  expected_exit_code: 0
+  rubric: The deterministic report must show PASS for the halfshaft check using measured joint centers and verified operating limits; a human additionally reviews sample identity, engagement marks, play, guarded torque behavior and evidence uncertainty.
+  measurement_method: Full-pose joint-center vector calculation followed by sample measurements at the reported length/angle extrema and a guarded forward/reverse bench test.
+relationships:
+  lessons:
+    - EXP-00040
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-08-30
+  report: products/toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover/validation/double-wishbone-v2-kinematics-2026-08-30.json
+  artifact_hashes:
+    - sha256:ccf286b53f9f944cc96d97bf3789926101bf471e03c824ec31e69c645d1e7e73
+tags:
+  - drivetrain
+  - halfshaft
+  - cvd
+  - full-sweep
+  - purchased-interface
+  - engagement

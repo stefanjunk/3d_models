@@ -5,7 +5,7 @@ project:
   sku: MM-TOY-003
   name: "TrailCam B2 Balance FPV Rover"
   revision: "0.1.0"
-  candidate: "0.1.0-requirements.1"
+  candidate: "0.1.0-decomposition.1"
   owner: Stefan
   created: "2026-08-30"
   revised: "2026-08-30"
@@ -24,20 +24,32 @@ workflow:
     evidence: "User response: freigegeben"
     review: docs/requirements-review-v0.1.0.md
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: "0.1.0"
-    requested_from: Stefan
+    approved_by: Stefan
+    approved_at: "2026-08-30"
+    evidence: "User response: freigegeben"
     asset: concepts/trailcam-b2-balance-concept-v0.1.0-r1.png
     asset_sha256: 7eff5b88a5e3085398d82c96724dd4f9a6099a48725998b7170a466823ba29a8
     review: concepts/concept-review-v0.1.0.md
     metadata: concepts/imagegen-metadata-v0.1.0-r1.json
-    reason: "Concept r1 is ready for explicit human review"
   decomposition:
-    status: blocked
-    reason: "Requirements and concept approval are required first"
+    status: pending
+    spec_revision: "0.1.0"
+    requested_from: Stefan
+    candidate: "0.1.0-decomposition.1"
+    plan: architecture/hybrid-design-plan-v0.1.0.json
+    report: architecture/architecture-report-v0.1.0.md
+    control_architecture: architecture/control-architecture-v0.1.0.md
+    bom_candidates: architecture/bom-candidates-v0.1.0.csv
+    research: reports/purchased-parts-research-v0.1.0.md
+    sizing: reports/preliminary-balance-sizing-v0.1.0.md
+    review: docs/decomposition-review-v0.1.0.md
+    validation: validation/hybrid-plan-validation-v0.1.0.json
+    reason: "Functional decomposition and interface skeleton await explicit approval"
   parametric_source:
     status: blocked
-    reason: "Requirements, concept and decomposition are not approved"
+    reason: "Decomposition candidate 0.1.0-decomposition.1 is not approved"
   digital_candidate:
     status: blocked
     reason: "No production geometry exists"
@@ -307,6 +319,41 @@ fabrication:
     - "battery, fuse/disconnect and metal fasteners"
   target_formats: [step, stl, 3mf]
 
+decomposition_contract:
+  status: pending_approval
+  plan_integrity: "PASS: 0 errors, 0 warnings"
+  geometry_routes:
+    parametric:
+      - "printed structural chassis set"
+      - "sliding battery cradle"
+      - "control and IMU tray"
+      - "replaceable camera guard"
+      - "front and rear non-rolling landing set"
+      - "printed portions of antenna mounts"
+    purchased:
+      - "metal motor brackets"
+      - "two encoder gearmotors"
+      - "metal hubs, wheels and tires"
+      - "battery and protected power set"
+      - "controller, IMU carrier, motor driver and current-sensing stack"
+      - "camera, VTX, ELRS receiver and antennas"
+      - "metal fasteners, nuts, straps, connectors and cable hardware"
+    organic: []
+  authority_rules:
+    - "The parametric chassis owns the coordinate frame, common axle datum, load paths and printed interfaces"
+    - "Each exact purchased component owns its mounting, shaft, connector, cooling and tool envelope"
+    - "The approved concept owns appearance direction only; it owns no dimension or hidden geometry"
+    - "The control architecture owns loop boundaries, state transitions and safety-supervisor behavior; physical tuning remains test-owned"
+  critical_open_decisions:
+    - "Exact 120 mm class wheel and metal 6 mm D-shaft hub system"
+    - "Exact IMU carrier board and mechanically rigid axis datum"
+    - "Motor driver with qualified current/fault sensing or MDD10A plus validated external sensing"
+    - "Battery, BEC, fuse, current sensor, regeneration and emergency-disconnect topology"
+    - "Measured mass, inertia, center of mass and wheel radius under load"
+    - "Exact printer, PETG product and complete Anycubic machine/process/filament profiles"
+    - "Human-approved restrained tuning rig and staged powered-test procedure"
+  downstream_rule: "No production CAD, manufacturing mesh or powered balance test until decomposition approval and applicable component decisions are closed"
+
 printer:
   status: provisional
   model: "Anycubic Kobra 3 Max"
@@ -357,7 +404,8 @@ branding:
 deliverables:
   current:
     - "New controlled product folder, identity and portfolio record"
-    - "Requirements candidate with traceable assumptions and approval gates"
+    - "Approved requirements and concept revision 0.1.0-r1"
+    - "Functional decomposition candidate with interface graph, keep-outs, control architecture, BOM research and sizing"
     - "Guided autonomy policy and structural validation evidence"
   after_requirements_approval:
     - "Concept sheet with three-quarter, side/cutaway and landing-protection views"

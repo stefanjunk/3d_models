@@ -54,3 +54,46 @@
   no suspension, protected FPV, battery above axle and an exploded component
   arrangement. Exact dimensions and visible skid clearance remain non-authoritative.
 - Concept approval remains `pending`; no production CAD is authorized yet.
+
+## 2026-08-30 — Concept approval
+
+- Stefan approved concept `0.1.0-r1` with the response `freigegeben`.
+- Froze the concept-level architecture and appearance direction: two coaxial
+  independently driven wheels, compact upright ribbed core, battery above the
+  axis, protected front camera, separated antennas and non-rolling landing
+  protection.
+- Opened the decomposition gate. Production CAD remains blocked until the
+  component authority, interface graph, keep-outs, control architecture,
+  purchased-part candidates and assembly sequence are explicitly approved.
+
+## 2026-08-30 — Decomposition candidate 0.1.0-decomposition.1
+
+- Routed all custom functional geometry to parametric B-Rep and all exact motor,
+  wheel, hub, electronics, battery, RF and fastener geometry to purchased-part
+  records. No organic or image-to-3D component is required; concept r1 remains
+  appearance evidence only.
+- Established the axle-centered right-handed frame, 15 component groups, 21
+  owned interfaces and 11 functional keep-outs. The generated plan validation
+  passes with zero errors and zero warnings.
+- Selected Pololu item 4755 encoder gearmotors and item 1995 metal brackets as
+  provisional candidates because their official speed class and interface data
+  suit the architecture. Exact wheels and metal hubs remain open and block exact
+  drive-interface CAD.
+- Selected Teensy 4.1, an ICM-42688-P-class SPI IMU, Cytron MDD10A, RunCam
+  Phoenix 2 SE V2, SpeedyBee TX800 and RadioMaster ER5C as research candidates,
+  not qualified inventory. Exact delivered parts must be measured.
+- Recorded that the MDD10A does not satisfy current telemetry/fault reporting by
+  itself. External current sensing and a fail-safe enable path must be qualified,
+  or the driver must be replaced.
+- Recorded regeneration versus emergency-disconnect behavior as a power hazard;
+  battery, BEC, fuse, sensing and disconnect topology remain powered-test
+  blockers.
+- Defined cascaded velocity, pitch/rate and yaw control, a supervisory state
+  machine, independent video/control paths and a fail-closed test ladder from
+  simulation through restrained and supervised physical operation.
+- Preliminary checks give 2.26 km/h at 100 rpm with a 120 mm wheel and static
+  per-wheel gravity torque of 0.165 Nm at the target case or 0.247 Nm at the
+  conservative mass/COM envelope. These are sizing checks, not stability or
+  continuous-motor qualification.
+- Set decomposition approval to `pending`. Production CAD and all powered tests
+  remain blocked until Stefan explicitly approves this candidate.

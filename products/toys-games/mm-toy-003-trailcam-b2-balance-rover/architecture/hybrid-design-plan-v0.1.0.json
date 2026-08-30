@@ -1,0 +1,437 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-TOY-003",
+    "title": "TrailCam B2 Balance FPV Rover",
+    "source_modes": ["design_description", "approved_concept_image", "supplier_data"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max candidate; exact machine profile unresolved",
+      "nozzle_mm": 0.6,
+      "line_width_mm": 0.66,
+      "layer_height_mm": 0.24,
+      "profile_id": "OPEN-DEC-PROCESS-001"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "intersection of the common wheel axis and vehicle longitudinal center plane",
+      "x_axis": "+X vehicle forward",
+      "y_axis": "+Y vehicle left along the wheel axis",
+      "z_axis": "+Z up in the nominal balanced pose",
+      "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [-95.0, -130.0, -60.0], "max": [95.0, 130.0, 190.0]},
+    "requirements": [
+      {"id": "REQ-ARCH-001", "statement": "The product shall have exactly two independently driven wheels on one common geometric axis and no caster, suspension, steering linkage or second axle.", "evidence_class": "approved", "source": "design-spec.yaml and user approvals", "priority": "critical", "verification": "component count, datum and assembly-envelope checks"},
+      {"id": "REQ-CTRL-001", "statement": "The body shall use IMU and wheel-encoder feedback in a bounded active balance controller; direct RC-to-motor PWM is prohibited.", "evidence_class": "approved", "source": "design-spec.yaml", "priority": "critical", "verification": "control architecture review, deterministic simulation, HIL and restrained physical tests"},
+      {"id": "REQ-GEO-001", "statement": "The assembled design shall remain within 260 mm width, 190 mm length and 250 mm upright height with 110 to 130 mm wheels.", "evidence_class": "approved", "source": "design-spec.yaml", "priority": "critical", "verification": "exact CAD bounds and purchased-part envelope audit"},
+      {"id": "REQ-MASS-001", "statement": "The target mass is 1800 g, maximum design mass 2200 g, with center of mass 70 to 110 mm above the axle, lateral offset at most 3 mm and longitudinal trim of plus or minus 12 mm.", "evidence_class": "approved", "source": "design-spec.yaml", "priority": "critical", "verification": "CAD mass-property estimate followed by component weighing and assembled balance measurement"},
+      {"id": "REQ-LAND-001", "statement": "Non-rolling replaceable landing protection shall remain clear in normal balance motion and contact no earlier than 22 degrees body tilt.", "evidence_class": "approved", "source": "design-spec.yaml and approved concept", "priority": "critical", "verification": "exact pitch sweep and restrained tip test"},
+      {"id": "REQ-DRIVE-001", "statement": "Each wheel channel shall target 100 to 150 rpm, at least 0.35 Nm continuous output torque and a current-limited transient target of 1.0 Nm.", "evidence_class": "approved_target", "source": "design-spec.yaml", "priority": "critical", "verification": "supplier-curve review and restrained drivetrain dynamometer test"},
+      {"id": "REQ-FPV-001", "statement": "The protected fixed-tilt analog FPV camera and ELRS control receiver shall use independent video and control paths.", "evidence_class": "approved", "source": "design-spec.yaml and approved concept", "priority": "important", "verification": "wiring review, camera field-of-view check and independent link-loss tests"},
+      {"id": "REQ-MFG-001", "statement": "Critical geometry shall be parametric B-Rep; purchased components own their exact mating geometry; concept pixels are not dimensional authority.", "evidence_class": "approved", "source": "design-spec.yaml and concept review", "priority": "critical", "verification": "source audit, interface-owner audit and CAD regression tests"},
+      {"id": "REQ-SAFE-001", "statement": "Arming, watchdog, stale-data detection, bounded commands, overcurrent and undervoltage handling, tip disarm and deliberate re-arm shall be verified before free balancing.", "evidence_class": "approved", "source": "design-spec.yaml", "priority": "critical", "verification": "fault-injection matrix, HIL and restrained physical test ladder"}
+    ],
+    "global_style": {
+      "summary": "Open ribbed anthracite FDM structure with orange replaceable camera and landing protection, visible service fasteners and compact centered massing.",
+      "motifs": ["open structural ribs", "symmetrical coaxial drive pods", "orange sacrificial protection", "readable service modules"],
+      "exclude": ["four-wheel cues", "caster", "suspension arms", "decorative microtexture", "hidden service fasteners", "pixel-derived dimensions"],
+      "generation_material": "No image-to-3D generation; the approved image is appearance evidence only.",
+      "detail_hierarchy": "axle and protected envelopes first, load path and service access second, TrailCam styling last"
+    },
+    "assembly_sequence": [
+      "Join the printed chassis set with measured metal through-fasteners and verify the axle datum.",
+      "Install the purchased motor brackets and encoder gearmotors without wheels.",
+      "Install the battery cradle, control tray and the measured electronics stack with the IMU on its rigid datum.",
+      "Route fused battery power, motor leads, encoder leads and signal harnesses through their separated cable corridors.",
+      "Install camera guard, camera, VTX, receiver and antenna mounts while preserving optical, RF and cooling keep-outs.",
+      "Install the non-rolling landing set and verify the exact pitch-contact sweep before powered tests.",
+      "Install measured metal hubs and wheels; verify coaxiality, retention, rotation and pinch clearances.",
+      "Measure total mass and center of mass, trim the battery position and repeat the pitch/contact sweep.",
+      "Perform unpowered, wheels-off-ground, restrained, tethered and only then free-balance validation stages."
+    ]
+  },
+  "decision_log": [
+    {"id": "DEC-DECOMP-001", "topic": "Approve this functional decomposition, interface ownership and validation routing before production CAD.", "status": "open", "current_basis": "Requirements and concept revision 0.1.0-r1 are approved; this plan is the first controlled decomposition candidate.", "evidence_needed": "Explicit human approval of the decomposition candidate.", "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]},
+    {"id": "DEC-PROCESS-001", "topic": "Freeze the Anycubic printer, PETG product, drying state, orientation and complete machine/process/filament JSON profile set.", "status": "open", "current_basis": "A 0.6 mm nozzle and 0.24 mm layers are planning assumptions only.", "evidence_needed": "Named installed profiles and process-matched fit coupons.", "blocks_gates": ["manufacturing", "physical", "release"]},
+    {"id": "DEC-MOTOR-001", "topic": "Qualify the two motor and encoder assemblies.", "status": "provisional", "current_basis": "Pololu item 4755, 100:1 37D 12 V encoder gearmotor, matches the 100 rpm speed class and offers a measured supplier envelope.", "evidence_needed": "Two purchased samples, shaft runout and encoder polarity checks, torque/current/thermal characterization and exact mass.", "blocks_gates": ["component", "integration", "physical", "release"]},
+    {"id": "DEC-WHEEL-001", "topic": "Select the exact 120 mm class wheels and metal 6 mm D-shaft to wheel-hub system.", "status": "open", "current_basis": "Only a 120 x 40 mm planning envelope and 205 mm wheel-center track are frozen.", "evidence_needed": "Supplier drawing plus two measured wheel and hub samples, retention method, mass and inertia.", "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]},
+    {"id": "DEC-CONTROL-001", "topic": "Freeze the exact controller, IMU carrier, motor driver, current sensing, regulated supplies, fuse and disconnect.", "status": "provisional", "current_basis": "Teensy 4.1, ICM-42688-P-class SPI IMU and Cytron MDD10A are candidates; MDD10A has no intrinsic current telemetry and therefore needs qualified external sensing or replacement.", "evidence_needed": "Purchased and measured boards, current-sensor choice, timing and noise tests, thermal/fault behavior and complete power schematic.", "blocks_gates": ["component", "integration", "physical", "release"]},
+    {"id": "DEC-POWER-001", "topic": "Freeze battery voltage, capacity, connector, BEC, fusing, regeneration and emergency-disconnect behavior.", "status": "open", "current_basis": "A centered 3S LiPo-class pack is a packaging assumption; opening the circuit during regenerative braking is an unresolved hazard.", "evidence_needed": "Power budget, measured pack, safe disconnect architecture, transient test and runtime evidence.", "blocks_gates": ["component", "integration", "physical", "release"]},
+    {"id": "DEC-MASS-001", "topic": "Close the mass and center-of-mass budget.", "status": "provisional", "current_basis": "Target geometry provides a sliding battery trim but supplier and printed masses are incomplete.", "evidence_needed": "Mass ledger, CAD properties using qualified densities, physical weighing and hang/balance measurement.", "blocks_gates": ["integration", "physical", "release"]},
+    {"id": "DEC-SAFETY-001", "topic": "Approve the restrained tuning rig, exclusion zone, fault matrix and staged energy limits.", "status": "open", "current_basis": "The design specification defines the test ladder but no rig or physical procedure is approved.", "evidence_needed": "Human-reviewed test plan, rig inspection and witnessed staged results.", "blocks_gates": ["physical", "release"]}
+  ],
+  "components": [
+    {
+      "id": "CHASSIS_SET", "name": "Printed structural chassis set", "role": "primary structural, axle, landing, battery, electronics and appearance datum authority", "authority": "parametric", "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["design-spec.yaml", "approved concept r1", "REQ-ARCH-001", "REQ-MFG-001"], "confidence": "high"},
+      "functions": ["carry motor reactions", "locate one axle", "protect electronics", "provide service access", "express TrailCam ribs"],
+      "envelope_mm": {"min": [-90.0, -75.0, -45.0], "max": [90.0, 75.0, 185.0]}, "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM as mirrored side frames plus bolted crossmembers", "material": "PETG candidate", "color_body": "anthracite structure", "orientation": "flat structural faces on bed; final orientation after load-path and slicer review"},
+      "interface_ids": ["IF-CHASSIS-BRACKETS", "IF-CHASSIS-CRADLE", "IF-CHASSIS-TRAY", "IF-CHASSIS-GUARD", "IF-CHASSIS-VTX", "IF-CHASSIS-RX", "IF-CHASSIS-LANDING", "IF-CHASSIS-ANTENNAS", "IF-CHASSIS-HARDWARE"],
+      "acceptance": {"expected_components": 5, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["single axle datum", "symmetry", "minimum walls and ligaments", "load path", "part envelope", "service and tool access"]}
+    },
+    {
+      "id": "MOTOR_BRACKET_SET", "name": "Metal motor bracket pair", "role": "supplier-owned transition from printed chassis to 37D motors", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["Pololu item 1995 product page and drawing"], "confidence": "medium"},
+      "functions": ["locate motors", "spread torque reaction", "preserve serviceability"],
+      "envelope_mm": {"min": [-25.0, -98.0, -25.0], "max": [25.0, 98.0, 25.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased and measured", "material": "machined aluminium", "color_body": "metal hardware", "orientation": "one bracket at each side of the common axle"},
+      "interface_ids": ["IF-CHASSIS-BRACKETS", "IF-BRACKETS-DRIVE"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["supplier identity", "hole pattern", "flatness", "included screw engagement"]}
+    },
+    {
+      "id": "DRIVE_SET", "name": "Encoder gearmotor pair", "role": "independent left and right balance and yaw actuation", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["Pololu item 4755 page, drawing and STEP candidate"], "confidence": "medium"},
+      "functions": ["apply wheel torque", "measure wheel motion", "support differential yaw"],
+      "envelope_mm": {"min": [-20.0, -106.0, -20.0], "max": [20.0, 106.0, 20.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased, electrically characterized and measured", "material": "supplier assembly", "color_body": "drive hardware", "orientation": "output shafts coaxial on project Y axis"},
+      "interface_ids": ["IF-BRACKETS-DRIVE", "IF-DRIVE-WHEELS", "IF-ELEC-CONTROL-DRIVE"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["speed/current curve", "encoder counts and polarity", "shaft dimensions", "runout", "mass", "thermal behavior"]}
+    },
+    {
+      "id": "HUB_WHEEL_SET", "name": "Metal hubs and wheel pair", "role": "ground contact, motor-shaft retention and passive tire compliance", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "planning_proxy", "refs": ["120 x 40 mm requirement envelope", "DEC-WHEEL-001"], "confidence": "low"},
+      "functions": ["transmit traction", "provide tire compliance", "protect motor shafts from printed hub creep"],
+      "envelope_mm": {"min": [-60.0, -126.0, -60.0], "max": [60.0, 126.0, 60.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased wheels and metal hubs", "material": "rubber or foam tires with metal hubs", "color_body": "black wheels", "orientation": "wheel centers on Y axis at provisional plus or minus 102.5 mm"},
+      "interface_ids": ["IF-DRIVE-WHEELS"],
+      "acceptance": {"expected_components": 4, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["diameter and width", "hub fit and retention", "radial runout", "mass and inertia", "tire grip"]}
+    },
+    {
+      "id": "BATTERY_CRADLE", "name": "Sliding printed battery cradle", "role": "centered restraint and longitudinal center-of-mass trim", "authority": "parametric", "representation": "brep",
+      "source": {"kind": "derived", "refs": ["REQ-MASS-001", "battery removal keep-out", "measured battery envelope pending"], "confidence": "medium"},
+      "functions": ["restrain battery", "permit plus or minus 12 mm trim", "expose disconnect", "spread landing loads away from pack"],
+      "envelope_mm": {"min": [-55.0, -50.0, 20.0], "max": [55.0, 50.0, 105.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM removable module", "material": "PETG candidate plus purchased strap", "color_body": "anthracite structure", "orientation": "large restraint face on bed where load path permits"},
+      "interface_ids": ["IF-CHASSIS-CRADLE", "IF-CRADLE-BATTERY"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["trim travel", "strap path", "pack protection", "disconnect access", "no ejection in landing test"]}
+    },
+    {
+      "id": "BATTERY_COTS", "name": "Battery and protected power-set candidate", "role": "energy source, fuse, regulated supplies and reachable disconnect", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "planning_proxy", "refs": ["3S LiPo class assumption", "DEC-POWER-001"], "confidence": "low"},
+      "functions": ["supply motor and logic power", "limit fault energy", "support safe service disconnect", "absorb permitted regenerative energy"],
+      "envelope_mm": {"min": [-48.0, -42.0, 32.0], "max": [48.0, 42.0, 98.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased, electrically qualified and measured", "material": "supplier battery and power hardware", "color_body": "power module", "orientation": "centered above axle with connector in removal corridor"},
+      "interface_ids": ["IF-CRADLE-BATTERY", "IF-ELEC-BATTERY-CONTROL"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.5, "checks": ["pack envelope and mass", "connector keying", "fuse rating", "undervoltage", "regeneration transient", "disconnect reach"]}
+    },
+    {
+      "id": "CONTROL_TRAY", "name": "Printed control and IMU tray", "role": "rigid electronics datum and serviceable harness-routing authority", "authority": "parametric", "representation": "brep",
+      "source": {"kind": "derived", "refs": ["REQ-CTRL-001", "measured control components pending"], "confidence": "medium"},
+      "functions": ["locate IMU repeatably", "mount controller and driver", "separate power and sensor wiring", "permit module removal"],
+      "envelope_mm": {"min": [-52.0, -55.0, 88.0], "max": [52.0, 55.0, 153.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM removable module", "material": "PETG candidate", "color_body": "anthracite structure", "orientation": "IMU datum face on bed or post-machined flat after validation"},
+      "interface_ids": ["IF-CHASSIS-TRAY", "IF-TRAY-CONTROL"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.15, "checks": ["IMU datum flatness", "axis marks", "hole patterns", "cooling and cable clearance", "tool access"]}
+    },
+    {
+      "id": "CONTROL_STACK_COTS", "name": "Controller, IMU, motor driver and protection stack", "role": "deterministic sensing, safety supervision and two-channel motor actuation", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["Teensy 4.1 candidate", "ICM-42688-P-class SPI board pending", "Cytron MDD10A candidate", "external current sensing pending"], "confidence": "low"},
+      "functions": ["sample IMU and encoders", "execute balance controller", "supervise faults", "drive two motors", "measure current and voltage"],
+      "envelope_mm": {"min": [-47.0, -48.0, 95.0], "max": [47.0, 48.0, 148.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased boards and qualified wiring harness", "material": "supplier electronics", "color_body": "electronics", "orientation": "IMU axes mapped to project frame; driver in airflow"},
+      "interface_ids": ["IF-TRAY-CONTROL", "IF-ELEC-BATTERY-CONTROL", "IF-ELEC-CONTROL-DRIVE", "IF-ELEC-RX-CONTROL", "IF-ELEC-CONTROL-VTX"],
+      "acceptance": {"expected_components": 5, "require_watertight": false, "max_bounds_error_mm": 0.25, "checks": ["exact board identities and envelopes", "loop timing", "IMU noise and axes", "current sensing", "brownout and thermal faults", "watchdog behavior"]}
+    },
+    {
+      "id": "CAMERA_GUARD", "name": "Replaceable camera guard", "role": "protect camera and express the approved orange TrailCam accent", "authority": "parametric", "representation": "brep",
+      "source": {"kind": "approved_concept_image", "refs": ["concept r1 appearance only", "RunCam measured envelope pending"], "confidence": "medium"},
+      "functions": ["protect lens/body", "locate camera", "preserve optical field", "remain replaceable"],
+      "envelope_mm": {"min": [45.0, -30.0, 108.0], "max": [94.0, 30.0, 165.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM replaceable module", "material": "orange PETG candidate", "color_body": "orange protection", "orientation": "lens opening and impact ribs reviewed for supports and layer load"},
+      "interface_ids": ["IF-CHASSIS-GUARD", "IF-GUARD-CAMERA"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["lens field", "camera fit", "impact stand-off", "fastener access", "print support"]}
+    },
+    {
+      "id": "CAMERA_COTS", "name": "Analog FPV camera", "role": "forward visual sensing for the operator", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["RunCam Phoenix 2 SE V2 official page"], "confidence": "medium"},
+      "functions": ["capture forward analog video"],
+      "envelope_mm": {"min": [62.0, -10.0, 124.0], "max": [87.0, 10.0, 147.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased and measured", "material": "supplier electronics", "color_body": "camera", "orientation": "fixed forward pitch, final angle after field-of-view test"},
+      "interface_ids": ["IF-GUARD-CAMERA", "IF-ELEC-CAMERA-VTX"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact revision", "body and lens envelope", "mount pattern", "field of view", "power and video polarity"]}
+    },
+    {
+      "id": "VTX_COTS", "name": "Analog video transmitter", "role": "independent 5.8 GHz video link", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["SpeedyBee TX800 official page"], "confidence": "medium"},
+      "functions": ["transmit camera video", "support legal configured power", "dissipate heat"],
+      "envelope_mm": {"min": [-42.0, 10.0, 125.0], "max": [-8.0, 44.0, 145.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased and measured", "material": "supplier electronics", "color_body": "video module", "orientation": "airflow maintained; antenna attached before powered operation"},
+      "interface_ids": ["IF-CHASSIS-VTX", "IF-ANTENNAS-VTX", "IF-ELEC-CAMERA-VTX", "IF-ELEC-CONTROL-VTX"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["revision", "hole pattern", "cooling clearance", "antenna connector strain relief", "legal power setting"]}
+    },
+    {
+      "id": "RX_COTS", "name": "ExpressLRS control receiver", "role": "independent bounded control-command and failsafe input", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["RadioMaster ER5C official page candidate"], "confidence": "medium"},
+      "functions": ["receive speed, yaw, arm and disarm commands", "report link health"],
+      "envelope_mm": {"min": [-43.0, -44.0, 125.0], "max": [1.0, -12.0, 149.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased and measured", "material": "supplier electronics", "color_body": "radio module", "orientation": "antenna active region separated from VTX and motor wiring"},
+      "interface_ids": ["IF-CHASSIS-RX", "IF-ANTENNAS-RX", "IF-ELEC-RX-CONTROL"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["exact receiver protocol", "failsafe channels", "envelope", "voltage", "antenna routing"]}
+    },
+    {
+      "id": "LANDING_SET", "name": "Replaceable front and rear landing protection", "role": "non-rolling low-energy resting and tip-impact surfaces", "authority": "parametric", "representation": "brep",
+      "source": {"kind": "derived", "refs": ["REQ-LAND-001", "approved concept r1"], "confidence": "high"},
+      "functions": ["support disarmed rover", "protect camera and electronics", "avoid a third rolling contact"],
+      "envelope_mm": {"min": [-95.0, -70.0, -56.0], "max": [95.0, 70.0, -24.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM as two replaceable modules", "material": "orange PETG candidate; TPU contact pads optional after test", "color_body": "orange protection", "orientation": "landing load aligned through continuous layers and metal fasteners"},
+      "interface_ids": ["IF-CHASSIS-LANDING"],
+      "acceptance": {"expected_components": 2, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["no contact before 22 degrees", "no rolling element", "impact load path", "camera and battery clearance", "replaceability"]}
+    },
+    {
+      "id": "ANTENNA_SET", "name": "Printed antenna mounts and purchased antennas", "role": "RF positioning, connector strain relief and active-region keep-out", "authority": "hybrid", "representation": "mixed",
+      "source": {"kind": "supplier_data_and_parametric", "refs": ["exact antenna products pending", "REQ-FPV-001"], "confidence": "low"},
+      "functions": ["retain RX and VTX antennas", "separate active regions", "protect connectors"],
+      "envelope_mm": {"min": [-32.0, -62.0, 132.0], "max": [32.0, 62.0, 190.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM or TPU mounts plus purchased antennas", "material": "PETG/TPU candidate and supplier RF parts", "color_body": "orange or black mounts", "orientation": "active elements outside printed carbon-filled material and motor-current loops"},
+      "interface_ids": ["IF-CHASSIS-ANTENNAS", "IF-ANTENNAS-VTX", "IF-ANTENNAS-RX"],
+      "acceptance": {"expected_components": 4, "require_watertight": false, "max_bounds_error_mm": 0.5, "checks": ["connector match", "bend radius", "strain relief", "RF separation", "tip clearance"]}
+    },
+    {
+      "id": "HARDWARE_KIT", "name": "Standard metal fastener and restraint kit", "role": "serviceable structural joining and retention", "authority": "purchased", "representation": "cots",
+      "source": {"kind": "supplier_data", "refs": ["M3 and M4 ISO hardware candidates", "measured samples pending"], "confidence": "medium"},
+      "functions": ["join printed modules", "retain brackets and landing parts", "support repeated service"],
+      "envelope_mm": {"min": [-90.0, -78.0, -50.0], "max": [90.0, 78.0, 180.0]}, "source_to_mm_scale": 1.0, "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased and lot-measured", "material": "steel fasteners, metal nuts and straps", "color_body": "hardware", "orientation": "tool access and thread engagement owned by each mating interface"},
+      "interface_ids": ["IF-CHASSIS-HARDWARE"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["grade and dimensions", "thread engagement", "washer and nut access", "retention method", "service cycle"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-CHASSIS-BRACKETS", "a": "CHASSIS_SET", "b": "MOTOR_BRACKET_SET", "owner": "MOTOR_BRACKET_SET", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "mirrored_supplier_bracket_pattern", "datum": "common Y axle", "count": 2},
+      "joining": {"method": "metal screws through printed chassis into measured bracket pattern", "assembly_direction": "from outboard toward center", "anti_rotation": "flat bracket seat and separated fasteners"},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0, "keepout_ids": ["KO-WHEEL-LEFT", "KO-WHEEL-RIGHT", "KO-SHAFTS", "KO-TOOL"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "bidirectional balance torque and landing reaction"},
+      "verification": ["measured bracket pattern", "axle coaxiality gauge", "torque-load review", "fit coupon before full chassis"]
+    },
+    {
+      "id": "IF-BRACKETS-DRIVE", "a": "MOTOR_BRACKET_SET", "b": "DRIVE_SET", "owner": "DRIVE_SET", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "Pololu_37D_flange_and_screw_pattern", "count": 2},
+      "joining": {"method": "supplier bracket screws to motor gearbox face", "assembly_direction": "along wheel axis", "anti_rotation": "supplier six-hole flange pattern"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.02},
+      "seam_band_mm": 0, "keepout_ids": ["KO-SHAFTS", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "full motor torque and gearbox radial load"},
+      "verification": ["supplier drawing", "sample assembly", "fastener engagement", "shaft runout"]
+    },
+    {
+      "id": "IF-DRIVE-WHEELS", "a": "DRIVE_SET", "b": "HUB_WHEEL_SET", "owner": "HUB_WHEEL_SET", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "measured_6mm_D_shaft_to_metal_hub", "track_mm": 205, "status": "open"},
+      "joining": {"method": "qualified metal hub with axial retention", "assembly_direction": "outboard along plus or minus Y", "anti_rotation": "D-flat or qualified clamping feature"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.05, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0, "keepout_ids": ["KO-WHEEL-LEFT", "KO-WHEEL-RIGHT", "KO-SHAFTS", "KO-PINCH"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "traction torque, radial impact and axial retention"},
+      "verification": ["measured hub and wheel", "retention proof load", "radial runout", "rotation sweep"]
+    },
+    {
+      "id": "IF-CHASSIS-CRADLE", "a": "CHASSIS_SET", "b": "BATTERY_CRADLE", "owner": "CHASSIS_SET", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,60], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_rail_trim_pattern", "travel_mm": 24, "centered_at_x_mm": 0},
+      "joining": {"method": "two clamped rails with captured metal nuts", "assembly_direction": "+Z then trim along X", "anti_rotation": "paired rails"},
+      "allowances": {"functional_clearance_per_side_mm": 0.20, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.10, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-BATTERY-REMOVAL", "KO-CABLES", "KO-GROUND-SWEEP"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "battery inertia and landing shock without uncontrolled sliding"},
+      "verification": ["fit coupon", "trim-range measurement", "proof load", "tool access"]
+    },
+    {
+      "id": "IF-CRADLE-BATTERY", "a": "BATTERY_CRADLE", "b": "BATTERY_COTS", "owner": "BATTERY_COTS", "kind": "flexible_flange",
+      "local_frame": {"origin_mm": [0,0,62], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "measured_pack_pocket_plus_two_straps", "status": "open"},
+      "joining": {"method": "soft pad and two independent hook-and-loop straps", "assembly_direction": "+Z", "anti_rotation": "pocket shoulders and crossed restraint"},
+      "allowances": {"functional_clearance_per_side_mm": 0.75, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.50, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.50, "solver_margin_mm": 0.50},
+      "seam_band_mm": 0, "keepout_ids": ["KO-BATTERY-REMOVAL", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "no pack ejection or cell abrasion"},
+      "verification": ["measured pack", "strap cycle test", "restrained landing test", "disconnect reach"]
+    },
+    {
+      "id": "IF-CHASSIS-TRAY", "a": "CHASSIS_SET", "b": "CONTROL_TRAY", "owner": "CHASSIS_SET", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,120], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "four_point_rigid_tray_mount", "datum": "project frame"},
+      "joining": {"method": "metal screws and captured nuts", "assembly_direction": "+Z", "anti_rotation": "four non-collinear points"},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0, "keepout_ids": ["KO-ELECTRONICS", "KO-CABLES", "KO-TOOL"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "rigid IMU registration and electronics mass"},
+      "verification": ["datum flatness", "hole-position check", "modal/vibration test", "service cycle"]
+    },
+    {
+      "id": "IF-TRAY-CONTROL", "a": "CONTROL_TRAY", "b": "CONTROL_STACK_COTS", "owner": "CONTROL_STACK_COTS", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,112], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "measured_board_patterns_and_IMU_datum", "status": "open"},
+      "joining": {"method": "nylon/metal standoffs and screws; rigid IMU seat", "assembly_direction": "+Z", "anti_rotation": "board hole patterns and keyed axis marks"},
+      "allowances": {"functional_clearance_per_side_mm": 0.20, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.10, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-ELECTRONICS", "KO-CABLES", "KO-TOOL"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.0, "load_or_flow": "repeatable sensor axes, board support and cooling"},
+      "verification": ["measured board coupons", "axis mapping", "IMU vibration spectrum", "thermal and service review"]
+    },
+    {
+      "id": "IF-CHASSIS-GUARD", "a": "CHASSIS_SET", "b": "CAMERA_GUARD", "owner": "CHASSIS_SET", "kind": "fastener",
+      "local_frame": {"origin_mm": [67,0,135], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_point_replaceable_front_mount", "symmetry": "about XZ plane"},
+      "joining": {"method": "two metal screws into captured nuts", "assembly_direction": "+X", "anti_rotation": "spaced mount faces and keyed shoulder"},
+      "allowances": {"functional_clearance_per_side_mm": 0.20, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.10, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.15, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CAMERA-FOV", "KO-GROUND-SWEEP", "KO-TOOL"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 4.0, "load_or_flow": "camera impact transferred to chassis away from lens"},
+      "verification": ["fit coupon", "field-of-view ray test", "restrained landing test", "replacement cycle"]
+    },
+    {
+      "id": "IF-GUARD-CAMERA", "a": "CAMERA_GUARD", "b": "CAMERA_COTS", "owner": "CAMERA_COTS", "kind": "fastener",
+      "local_frame": {"origin_mm": [73,0,135], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "measured_19mm_camera_mount", "tilt_deg": "open after FOV test"},
+      "joining": {"method": "camera side screws or qualified cradle", "assembly_direction": "+Y", "anti_rotation": "paired side mounts"},
+      "allowances": {"functional_clearance_per_side_mm": 0.20, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CAMERA-FOV", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.0, "load_or_flow": "retain camera without lens or PCB contact"},
+      "verification": ["measured camera", "fit coupon", "field-of-view check", "cable bend check"]
+    },
+    {
+      "id": "IF-CHASSIS-VTX", "a": "CHASSIS_SET", "b": "VTX_COTS", "owner": "VTX_COTS", "kind": "fastener",
+      "local_frame": {"origin_mm": [-25,27,134], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "20x20_board_pattern_in_measured_envelope"},
+      "joining": {"method": "standoffs and screws", "assembly_direction": "+Z", "anti_rotation": "four-hole pattern"},
+      "allowances": {"functional_clearance_per_side_mm": 0.20, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.10, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-ELECTRONICS", "KO-RF", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.0, "load_or_flow": "board support while preserving airflow and RF connector"},
+      "verification": ["measured VTX", "thermal test", "antenna strain check", "service access"]
+    },
+    {
+      "id": "IF-CHASSIS-RX", "a": "CHASSIS_SET", "b": "RX_COTS", "owner": "RX_COTS", "kind": "flexible_flange",
+      "local_frame": {"origin_mm": [-22,-28,136], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "measured_receiver_cradle_or_strap"},
+      "joining": {"method": "removable soft strap or printed clip after coupon", "assembly_direction": "+Z", "anti_rotation": "shallow keyed pocket"},
+      "allowances": {"functional_clearance_per_side_mm": 0.25, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.15, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.25, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-ELECTRONICS", "KO-RF", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.0, "minimum_ligament_mm": 2.4, "load_or_flow": "receiver retention without crushing case or antenna"},
+      "verification": ["measured receiver", "retention coupon", "link and failsafe test", "antenna inspection"]
+    },
+    {
+      "id": "IF-CHASSIS-LANDING", "a": "CHASSIS_SET", "b": "LANDING_SET", "owner": "CHASSIS_SET", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,-38], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "front_and_rear_replaceable_landing_mounts", "contact_tilt_min_deg": 22},
+      "joining": {"method": "metal screws and captured nuts", "assembly_direction": "from below along +Z", "anti_rotation": "paired fasteners per module"},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.10},
+      "seam_band_mm": 0, "keepout_ids": ["KO-GROUND-SWEEP", "KO-WHEEL-LEFT", "KO-WHEEL-RIGHT", "KO-PINCH"],
+      "requirements": {"minimum_wall_mm": 3.2, "minimum_ligament_mm": 5.0, "load_or_flow": "tip and resting loads into multiple chassis nodes"},
+      "verification": ["exact pitch sweep", "static proof load", "restrained tip test", "replaceability check"]
+    },
+    {
+      "id": "IF-CHASSIS-ANTENNAS", "a": "CHASSIS_SET", "b": "ANTENNA_SET", "owner": "CHASSIS_SET", "kind": "flexible_flange",
+      "local_frame": {"origin_mm": [0,0,160], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_separated_replaceable_mounts"},
+      "joining": {"method": "screws or snap-in flexible mounts after coupon", "assembly_direction": "+Z", "anti_rotation": "keyed asymmetry"},
+      "allowances": {"functional_clearance_per_side_mm": 0.25, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.15, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.30, "solver_margin_mm": 0.20},
+      "seam_band_mm": 0, "keepout_ids": ["KO-RF", "KO-GROUND-SWEEP", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 2.4, "minimum_ligament_mm": 3.0, "load_or_flow": "connector strain relief and flexible impact response"},
+      "verification": ["antenna sample fit", "bend and pull test", "tip sweep", "RF range comparison"]
+    },
+    {
+      "id": "IF-ANTENNAS-VTX", "a": "ANTENNA_SET", "b": "VTX_COTS", "owner": "VTX_COTS", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [-25,30,145], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "supplier_RF_connector_and_coax", "status": "open"},
+      "joining": {"method": "matched RF connector with strain relief", "assembly_direction": "supplier connector axis", "anti_rotation": "connector retention and cable clamp"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.50, "solver_margin_mm": 0.50},
+      "seam_band_mm": 0, "keepout_ids": ["KO-RF", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "5.8 GHz RF path; never power VTX without antenna"},
+      "verification": ["connector identity", "continuity inspection", "strain test", "powered thermal/RF test"]
+    },
+    {
+      "id": "IF-ANTENNAS-RX", "a": "ANTENNA_SET", "b": "RX_COTS", "owner": "RX_COTS", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [-20,-30,145], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "receiver_antenna_and_active_region", "status": "open"},
+      "joining": {"method": "supplier antenna retained only in non-active region", "assembly_direction": "along cable path", "anti_rotation": "soft strain relief"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.50, "solver_margin_mm": 0.50},
+      "seam_band_mm": 0, "keepout_ids": ["KO-RF", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "2.4 GHz control link with preserved active element"},
+      "verification": ["receiver and antenna identity", "visual damage check", "failsafe range test"]
+    },
+    {
+      "id": "IF-CHASSIS-HARDWARE", "a": "CHASSIS_SET", "b": "HARDWARE_KIT", "owner": "HARDWARE_KIT", "kind": "fastener",
+      "local_frame": {"origin_mm": [0,0,60], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "controlled_M3_M4_clearance_and_captured_nut_features"},
+      "joining": {"method": "metal through-fasteners and captured nuts; no primary printed threads", "assembly_direction": "per joint tool axis", "anti_rotation": "hex pockets or metal locknuts"},
+      "allowances": {"functional_clearance_per_side_mm": 0.15, "process_compensation_per_side_mm": 0.10, "assembly_allowance_per_side_mm": 0.05, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0.10, "solver_margin_mm": 0.05},
+      "seam_band_mm": 0, "keepout_ids": ["KO-TOOL", "KO-CABLES"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 3.5, "load_or_flow": "repeatable structural preload and service"},
+      "verification": ["process-matched hole and nut coupons", "thread engagement audit", "torque witness marks", "service cycle"]
+    },
+    {
+      "id": "IF-ELEC-BATTERY-CONTROL", "a": "BATTERY_COTS", "b": "CONTROL_STACK_COTS", "owner": "BATTERY_COTS", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,98], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "fused_power_bus_regulators_disconnect_and_current_sensing", "status": "open"},
+      "joining": {"method": "polarized connectors and strain-relieved harness", "assembly_direction": "along accessible connector axis", "anti_rotation": "keyed connectors"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 1.0},
+      "seam_band_mm": 0, "keepout_ids": ["KO-BATTERY-REMOVAL", "KO-CABLES", "KO-ELECTRONICS"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "motor and logic power, measured voltage/current, safe regeneration"},
+      "verification": ["schematic review", "polarity test", "fuse/disconnect test", "brownout and regeneration transient test"]
+    },
+    {
+      "id": "IF-ELEC-CONTROL-DRIVE", "a": "CONTROL_STACK_COTS", "b": "DRIVE_SET", "owner": "CONTROL_STACK_COTS", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,75], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_motor_power_channels_plus_two_quadrature_encoder_channels"},
+      "joining": {"method": "keyed service connectors with separate motor and sensor routing", "assembly_direction": "along harness service loops", "anti_rotation": "polarized connectors and labels"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 1.0},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CABLES", "KO-WHEEL-LEFT", "KO-WHEEL-RIGHT"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "bidirectional current-limited motor power and noise-resistant encoder signals"},
+      "verification": ["continuity and polarity test", "encoder direction test", "EMI/noise log", "stall/current fault test"]
+    },
+    {
+      "id": "IF-ELEC-CAMERA-VTX", "a": "CAMERA_COTS", "b": "VTX_COTS", "owner": "VTX_COTS", "kind": "other",
+      "local_frame": {"origin_mm": [40,0,135], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "analog_video_ground_and_qualified_camera_power"},
+      "joining": {"method": "polarized service connector and shield-aware harness", "assembly_direction": "along front service corridor", "anti_rotation": "keyed connector"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 1.0},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CABLES", "KO-RF", "KO-CAMERA-FOV"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "stable analog video independent of RC command path"},
+      "verification": ["video bench test", "motor-noise test", "independent video-loss test"]
+    },
+    {
+      "id": "IF-ELEC-RX-CONTROL", "a": "RX_COTS", "b": "CONTROL_STACK_COTS", "owner": "CONTROL_STACK_COTS", "kind": "other",
+      "local_frame": {"origin_mm": [-20,-15,132], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "bounded_serial_or_PWM_command_and_link_health", "status": "protocol freeze pending"},
+      "joining": {"method": "keyed low-current connector", "assembly_direction": "along tray harness", "anti_rotation": "polarized connector"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 1.0},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CABLES", "KO-RF"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "speed, yaw, arm/disarm and explicit link-health data"},
+      "verification": ["channel mapping", "stale-frame test", "RF-loss fault injection", "recovery/re-arm test"]
+    },
+    {
+      "id": "IF-ELEC-CONTROL-VTX", "a": "CONTROL_STACK_COTS", "b": "VTX_COTS", "owner": "CONTROL_STACK_COTS", "kind": "other",
+      "local_frame": {"origin_mm": [-22,15,130], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "regulated_VTX_power_and_optional_control", "status": "open"},
+      "joining": {"method": "fused regulated branch with service connector", "assembly_direction": "along tray harness", "anti_rotation": "polarized connector"},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 1.0, "solver_margin_mm": 1.0},
+      "seam_band_mm": 0, "keepout_ids": ["KO-CABLES", "KO-ELECTRONICS", "KO-RF"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "regulated VTX power without control-system brownout"},
+      "verification": ["power budget", "startup transient", "thermal test", "video loss must not affect balance command path"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KO-WHEEL-LEFT", "type": "cylinder", "purpose": "exact left wheel and tire rotation plus radial growth", "axis": "Y", "center_mm": [0,102.5,0], "radius_mm": 65, "length_mm": 47},
+    {"id": "KO-WHEEL-RIGHT", "type": "cylinder", "purpose": "exact right wheel and tire rotation plus radial growth", "axis": "Y", "center_mm": [0,-102.5,0], "radius_mm": 65, "length_mm": 47},
+    {"id": "KO-SHAFTS", "type": "swept_volume", "purpose": "motor output shaft, hub retention and tool envelope on the common axle"},
+    {"id": "KO-GROUND-SWEEP", "type": "swept_volume", "purpose": "body, camera and antenna pitch sweep from minus 35 to plus 35 degrees over the ground plane; landing contacts are evaluated separately"},
+    {"id": "KO-BATTERY-REMOVAL", "type": "aabb", "purpose": "battery, strap and connector removal corridor", "min_mm": [-70,-58,20], "max_mm": [70,58,125]},
+    {"id": "KO-ELECTRONICS", "type": "aabb", "purpose": "board cooling, connector and probe-access volume", "min_mm": [-55,-58,88], "max_mm": [55,58,160]},
+    {"id": "KO-CAMERA-FOV", "type": "swept_volume", "purpose": "camera lens, full field of view and service corridor"},
+    {"id": "KO-RF", "type": "swept_volume", "purpose": "VTX and receiver antenna active regions, separation and connector bend radii"},
+    {"id": "KO-CABLES", "type": "swept_volume", "purpose": "power, motor, encoder, sensor, video and RF harness corridors with separation and bend radii"},
+    {"id": "KO-PINCH", "type": "swept_volume", "purpose": "human finger exclusion and moving wheel-to-frame pinch clearance"},
+    {"id": "KO-TOOL", "type": "aabb", "purpose": "representative driver and nut-tool access through the central service zone", "min_mm": [-94,-90,-50], "max_mm": [94,90,188]}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH-001", "gate": "architecture", "method": "hybrid-plan schema, cross-reference and decision-gate validation plus human review", "acceptance": "zero validation errors, no unowned component/interface and explicit decomposition approval"},
+    {"id": "VAL-PROXY-001", "gate": "proxy", "method": "low-detail parametric envelope assembly, wheel/ground sweeps and mass-ledger estimate", "acceptance": "exactly two wheels/one axis, master envelope pass, no critical keep-out collision and plausible trim range"},
+    {"id": "VAL-COMP-001", "gate": "component", "method": "measured supplier-part audit and process-matched printed interface coupons", "acceptance": "all candidate parts identified and measured; every mechanical interface coupon passes before full parts"},
+    {"id": "VAL-INT-001", "gate": "integration", "method": "exact assembly collision, accessibility, mass-properties, pitch-contact, harness and control-model regression tests", "acceptance": "all deterministic gates pass with evidence; unresolved mass, power, driver or wheel decisions are closed"},
+    {"id": "VAL-MFG-001", "gate": "manufacturing", "method": "fresh Anycubic Slicer Next headless run using complete explicit machine/process/filament JSON profiles and artifact audit", "acceptance": "adapter PASS, readable G-code and report, support/seam/layer human review and no stale exports"},
+    {"id": "VAL-PHYS-001", "gate": "physical", "method": "unpowered inspection followed by wheels-off-ground, restrained, tethered and supervised free-balance test ladder with fault injection", "acceptance": "human-approved plan and rig; dimensional, thermal, control, failsafe, landing and service targets pass without uncontrolled motion"}
+  ]
+}

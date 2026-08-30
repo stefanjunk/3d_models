@@ -169,3 +169,22 @@
   servo plus printed links per the approved 0.4.0 concept.
 - Exact motor model/ratio and ESC count stay open until purchase; a 540/550-class
   planetary-geared motor envelope is used for CAD keep-outs and mounts.
+
+## 2026-08-30 — CAD phase 1: CHASSIS_PRINTED v1 draft
+
+- `cad/parameters.py` created as the shared parametric contract (frozen datums,
+  provisional purchased envelopes, printed-structure rules).
+- `cad/chassis.py` v1 built by a bounded cad-microtask under lead contract and
+  lead-reviewed: single valid B-Rep solid, watertight single-body STL,
+  396 x 160 x 52 mm, 507.9 cm3, all ten contract features present.
+- Accepted as DRAFT; mass optimization (solid servo pedestal, rail cavities) is
+  a later optimize-fdm-design candidate, teardrop bores are the v2 DFM candidate.
+
+## 2026-08-30 — Suspension architecture decision (lead)
+
+- The v1 chassis provides lower pivot clevises (z=6) and shock towers (z=45) but
+  no upper wishbone pivots. Lead decision: suspension = printed lower wishbone
+  arm plus upper coil-over shock acting as the upper link (no printed upper
+  arm). This matches the approved concept, keeps fatigue parts minimal and uses
+  the existing interface bores.
+- Steering remains servo plus printed links to front axle-carrier steering arms.

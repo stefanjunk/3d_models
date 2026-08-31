@@ -1,81 +1,59 @@
-# Prospective 3D-design preflight — NameForm 0.4.0
+# Prospective 3D-design preflight — NameForm 0.4.1
 
 `NameForm letter-dominant split-pair bookends | C3 (41.25/100) | R3 | K1 | Lane C | CONDITIONAL`
 
+Assessment: `PREFLIGHT-MM-PER-001-008`, version `0.4.4`.
+
 ## Decision
 
-- Release route: `GO_WITH_CONTROLS`
-- Lane: `C — Iterative Engineering`
-- The retained functional core and the physically preferred direct-sampled C
-  texture make the redesign feasible.
-- Requirements and concept 0.4.0 are approved. Parametric CAD may proceed with
-  controls; the new rear connector, textured glyph geometry, exact slice, and
-  complete pair remain test items.
+- Design route: `GO_WITH_CONTROLS` through the sectioned concept and coupon gates.
+- The 0.4.1 reinforcement requirements are approved; the generated reinforced concept is still pending human concept approval.
+- Production CAD, manufacturing exports, and release remain blocked until concept approval, a process-matched glyph/connector coupon, exact slicing, and complete-pair physical tests pass.
 
 ## Assessed revision
 
-The visible rectangular wing is replaced by large outline-packed glyphs. A
-glyph-shaped rear layer and local bridges connect adjacent glyphs 6.0 mm behind
-their front faces. The existing side blade and inward foot retain the book load;
-the glyph facade remains visually and structurally secondary to that load path.
+The 0.4.1 proposal preserves the letter-dominant `MA | RITA` appearance, the retained side-blade/inward-foot book-load path, and the physically preferred direct-sampled candidate-C texture on glyph fronts. It changes the insufficiently stable-looking 0.4.0 facade to:
 
-Candidate C is carried forward unchanged on glyph fronts:
+- 12.0 mm glyph depth;
+- a 4.0 mm rear connector beginning 10.0 mm behind the front datum;
+- at least 2.0 mm positive glyph/connector overlap;
+- at least 12.0 mm local bridge bands;
+- at least 1.2 mm finished glyph gaps, open counters, and no rectangular front panel.
 
-- full 1254 x 1254 16-bit master sampled directly at mesh vertices;
-- 120 x 45 mm physical patch and 24 px seam blend;
-- 0.6 mm maximum front relief and 0.45 mm surface grid;
-- upright front face pointing toward `-Y`;
-- 0.4 mm nozzle and 0.12 mm layer height.
-
-The physical statement “variant C already looks quite good” supports this route,
-but exact filament identity, conditioning, complete profile, and the new glyph
-mask remain unresolved.
+The concept image makes this architecture reviewable but is not dimensional CAD or strength evidence.
 
 ## Complexity and readiness
 
-| Dimension | Score | Rationale |
+| Dimension | Result | Boundary |
 |---|---:|---|
-| REQ | 3 | Appearance, personalized glyphs, hidden connection, load path, texture fidelity, and print limits are coupled. |
-| CTX | 1 | One known indoor use context and one target printer dominate the current revision. |
-| PAR | 2 | Two mirrored manufacturing parts contain logical functional-core and glyph-facade subsystems. |
-| INT | 2 | Shelf, books, facade bond, and human visual/handling interfaces require separate acceptance. |
-| CPL | 2 | Font, gap, bridge, texture mask, footprint, and side-blade junction share datums. |
-| MOT | 0 | No mechanism. |
-| GEO | 2 | Vector glyphs, local connector synthesis, and masked image relief are more than simple primitives. |
-| PHY | 1 | Modest static book load and handling only. |
-| MAT | 2 | Upright FFF orientation and appearance are process/material sensitive. |
-| EXT | 0 | No purchased parts or electronics. |
-| VER | 3 | Deterministic checks plus texture, connector, handling, and full-pair physical tests are required. |
+| Complexity | C3 · 41.25/100 | Personalized glyph layout, hidden connection, texture, load path, and verification are coupled. |
+| Readiness | R3 · 76% | Scope, requirements, process route, and nominal interfaces are defined; the changed connection lacks generated and physical evidence. |
+| Criticality | K1 | Credible failures are appearance/function loss, limited item damage, or a sharp decorative break edge. |
+| Lane | C | Iterative engineering with concept, coupon, slice, and pair-test controls. |
 
-Readiness is `R3`: scope, requirements, and manufacturing route are defined,
-but the glyph connector still has no CAD or physical evidence.
+Readiness does not advance beyond R3 because the 0.4.1 connector has no measured deflection/fracture result and the exact filament product, batch, conditioning, and complete profile remain unknown.
 
 ## Interface register
 
-| Contract | Interface | Evidence | Criticality | Verification |
+| Contract | Interface | Evidence | Criticality | Required verification |
 |---|---|---:|---:|---|
-| `IF-EXT-MEC-SUP-PLN-001` | Inward foot to shelf | E3 | K1 | planned pair test |
-| `IF-EXT-MEC-LOD-PLN-002` | Side blade/foot to book row | E3 | K1 | planned proof load |
-| `IF-INT-MEC-FST-EDGE-001` | Glyph facade to core | E1 | K1 | planned connector coupon |
-| `IF-HUM-OPT-VIS-BODY-001` | Letter-only wood appearance | E3 | K0 | planned concept and textured-letter review |
+| `IF-EXT-MEC-SUP-PLN-001` | Inward foot to shelf | E3 | K1 | complete-pair test |
+| `IF-EXT-MEC-LOD-PLN-002` | Side blade/foot to book row | E3 | K1 | representative proof load |
+| `IF-INT-MEC-FST-EDGE-001` | Reinforced glyph facade to core | E1 | K1 | sectioned concept, generated-body checks, and connector coupon |
+| `IF-HUM-OPT-VIS-BODY-001` | Letter-only wood appearance | E3 | K0 | concept and textured-letter review |
 
 ## Hard gates
 
-| Gate | Status | Reason |
-|---|---|---|
-| G0 | PASS | Product, user, default text, and indoor use are defined. |
-| G1 | PASS | Functional, structural, host, and visual interfaces are registered. |
-| G2 | WARN | The new connector has requirement-level evidence only. |
-| G3 | WARN | Printer/nozzle/layer/orientation are known; exact physical-C filament and full profile are not. |
-| G4 | PASS | Requirements 0.4.0 and their measurable acceptance methods are approved. |
-| G5 | PASS | K1 permits Lane C with physical gates. |
-| G6 | PASS | Transport, handling, cleaning, service, and storage are included. |
+`G0 PASS · G1 PASS · G2 WARN · G3 WARN · G4 PASS · G5 PASS · G6 PASS`
+
+- `G2 WARN`: the revised connector remains requirement/concept evidence only.
+- `G3 WARN`: printer, nozzle, layer height, and orientation are known, but the exact successful filament/profile identity is incomplete.
+- The remaining gates permit controlled concept work; they do not authorize production geometry or release.
 
 ## Required next evidence
 
-1. Print one representative textured glyph/bridge coupon; require visible gaps,
-   open counters, one connected body, recognizable C texture, and handling pass.
-2. Build, exactly slice, and physically test the complete pair before release.
+1. Obtain explicit human approval for `concept/nameform-bookends-v0.4.1-reinforced-concept.png` against the approved dimensions.
+2. Generate and test one reinforced glyph/bridge coupon; require visible gaps, open counters, one connected body, recognizable candidate-C texture, and the approved handling/deflection result.
+3. Rebuild, exactly slice, and physically test the complete `MA | RITA` pair before release.
 
-The preceding prospective assessment is `PREFLIGHT-MM-PER-001-003`; this
-post-concept Gate 1 update is `PREFLIGHT-MM-PER-001-004`.
+Previous assessment: `PREFLIGHT-MM-PER-001-007`. Canonical machine-readable evidence: `preflight-result.json`; input trace: `preflight-input.yaml`.

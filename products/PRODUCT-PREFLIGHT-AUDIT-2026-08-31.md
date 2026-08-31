@@ -35,8 +35,8 @@ result, not a validation failure of the document.
 | `art-decor/mm-art-007-racehorse-mesh-collection` | C0 (13.0) | R2 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-art-008-sports-car-mesh` | C0 (13.0) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-art-009-whale-mesh-collection` | C0 (13.0) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `art-decor/mm-art-010-modular-city-map-wall-panel` | C2 (31.5) | R0 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `art-decor/mm-art-011-modular-topographic-relief-wall-panel` | C2 (31.5) | R0 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `art-decor/mm-art-010-modular-city-map-wall-panel` | C3 (59.0) | R2 | K2 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `art-decor/mm-art-011-modular-topographic-relief-wall-panel` | C3 (59.0) | R2 | K2 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-auto-001-opel-grandland-2018-mesh` | C1 (15.5) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-001-marble-tile` | C2 (37.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-002-roman-pillar` | C3 (42.8) | R1 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
@@ -116,7 +116,7 @@ result, not a validation failure of the document.
 | `printer-workshop/mm-tool-004-claw-hammer-mesh` | C3 (57.8) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `printer-workshop/unregistered-kobra3max-fan-cage` | C4 (64.2) | R2 | K3 | E | HOLD | REVIEW_REQUIRED |
 | `printer-workshop/unregistered-kobra3max-poop-bin` | C3 (54.2) | R0 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `printer-workshop/unregistered-kobra3max-purge-catcher` | C3 (56.8) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `printer-workshop/unregistered-kobra3max-purge-catcher` | C3 (52.5) | R2 | K2 | E | CONCEPT_ONLY | CLEAN_OR_NO_VERSION_CONFLICT |
 | `printer-workshop/unregistered-magnetic-mouse-jiggler` | C3 (59.2) | R0 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `toys-games/mm-boat-001-fisher-boat` | C3 (49.2) | R1 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `toys-games/mm-boat-002-fisher-boat-detailed` | C3 (49.2) | R1 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
@@ -130,7 +130,7 @@ result, not a validation failure of the document.
 | `toys-games/mm-rov-001-tethys-mini-rov` | C3 (56.8) | R0 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `toys-games/mm-toy-001-rubber-ball-toy-popper` | C3 (52.8) | R1 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `toys-games/mm-toy-002-trailcam-cf10-rc-camera-rover` | C3 (52.5) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `toys-games/mm-toy-003-trailcam-b2-balance-rover` | C3 (59.2) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `toys-games/mm-toy-003-trailcam-b2-balance-rover` | C5 (91.75) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `toys-games/unregistered-duck-boat` | C3 (44.0) | R0 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `wearables/mm-acc-001-honeycomb-hair-clip` | C5 (83.0) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `wearables/mm-sho-001-barefoot-shoe-collection` | C5 (85.5) | R2 | K3 | E | HOLD | REVIEW_REQUIRED |

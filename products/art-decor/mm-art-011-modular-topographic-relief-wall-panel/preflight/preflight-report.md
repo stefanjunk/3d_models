@@ -1,4 +1,4 @@
-# Retrospective 3D-design preflight — MM-ART-011 terrain pilots
+# Prospective 3D-design preflight — MM-ART-011 terrain pilots
 
 `Harz/Rhenish wall reliefs | C3 (59.0/100) | R2 | K2 | Lane C | LOW_UNKNOWN`
 
@@ -6,7 +6,7 @@
 
 - Design route: `GO_WITH_CONTROLS` through concept approval, coupon-first interface CAD and immutable global relief pipelines.
 - Release remains blocked until exact terrain sources, filament/profile evidence, connector/snap coupons, assembled proof testing and human appearance review pass.
-- This is a retrospective update of the earlier backfill after the approved connector-interface change; no historical measurement was inferred.
+- This prospective reassessment follows the approved connector-interface change and governs the next concept/CAD work; no historical measurement was inferred.
 
 ## Main drivers and interfaces
 

@@ -1,4 +1,4 @@
-# Retrospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
+# Prospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
 
 `Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf | C3 (59.3/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
 
@@ -9,9 +9,9 @@
 - Rationale: The installed third-party reference materially improves variant, side, orientation and two-screw-interface evidence, but it cannot supply clean-room geometry or commercial rights. R7 remains held until its own envelope, hardware and architecture are approved and physically checked.
 - Purpose: Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.
 
-This focused retrospective reassessment includes the 31 August 2026 user fit
-assessment and the audited BY-NC reference 3MF. Unknown facts were not
-reconstructed or inferred as owned measurements.
+This focused prospective reassessment governs the next R7 design work after
+the 31 August 2026 user fit assessment and the audited BY-NC reference 3MF.
+Unknown facts were not reconstructed or inferred as owned measurements.
 
 ## Complexity score rationale
 

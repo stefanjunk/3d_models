@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render fixed front and grazing-light previews for NameForm 0.4.0."""
+"""Render fixed front and grazing-light previews for NameForm 0.4.0 variants."""
 
 from __future__ import annotations
 
@@ -108,10 +108,15 @@ def render_coupon(input_path: Path, output: Path) -> None:
     bpy.ops.render.render(write_still=True)
 
 
-def prepare_pair(left_path: Path, right_path: Path) -> None:
+def prepare_pair(
+    left_path: Path,
+    right_path: Path,
+    left_label: str,
+    right_label: str,
+) -> None:
     wood = material("warm wood filament", (0.43, 0.19, 0.055, 1.0), 0.66)
-    left = import_stl(left_path, "left STE", wood)
-    right = import_stl(right_path, "right FAN", wood)
+    left = import_stl(left_path, f"left {left_label}", wood)
+    right = import_stl(right_path, f"right {right_label}", wood)
     left.location.x -= 120.0
     right.location.x += 120.0
     add_floor((0.0, 55.0, -0.03), 1100.0)
@@ -127,9 +132,15 @@ def pair_lighting() -> tuple[float, float, float]:
     return target
 
 
-def render_pair_front(left_path: Path, right_path: Path, output: Path) -> None:
+def render_pair_front(
+    left_path: Path,
+    right_path: Path,
+    left_label: str,
+    right_label: str,
+    output: Path,
+) -> None:
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    prepare_pair(left_path, right_path)
+    prepare_pair(left_path, right_path, left_label, right_label)
     target = pair_lighting()
     bpy.ops.object.camera_add(location=(10.0, -950.0, 110.0))
     camera = bpy.context.object
@@ -142,9 +153,15 @@ def render_pair_front(left_path: Path, right_path: Path, output: Path) -> None:
     bpy.ops.render.render(write_still=True)
 
 
-def render_pair_three_quarter(left_path: Path, right_path: Path, output: Path) -> None:
+def render_pair_three_quarter(
+    left_path: Path,
+    right_path: Path,
+    left_label: str,
+    right_label: str,
+    output: Path,
+) -> None:
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    prepare_pair(left_path, right_path)
+    prepare_pair(left_path, right_path, left_label, right_label)
     target = pair_lighting()
     bpy.ops.object.camera_add(location=(600.0, -1450.0, 430.0))
     camera = bpy.context.object
@@ -159,23 +176,39 @@ def render_pair_three_quarter(left_path: Path, right_path: Path, output: Path) -
 def main() -> None:
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--coupon", type=Path, required=True)
+    parser.add_argument("--coupon", type=Path)
     parser.add_argument("--left", type=Path, required=True)
     parser.add_argument("--right", type=Path, required=True)
-    parser.add_argument("--coupon-output", type=Path, required=True)
+    parser.add_argument("--coupon-output", type=Path)
     parser.add_argument("--pair-front-output", type=Path, required=True)
     parser.add_argument("--pair-three-quarter-output", type=Path, required=True)
+    parser.add_argument("--left-label", default="LEFT")
+    parser.add_argument("--right-label", default="RIGHT")
     args = parser.parse_args(argv)
-    for output in (
-        args.coupon_output,
-        args.pair_front_output,
-        args.pair_three_quarter_output,
-    ):
+    if (args.coupon is None) != (args.coupon_output is None):
+        parser.error("--coupon and --coupon-output must be supplied together")
+    outputs = [args.pair_front_output, args.pair_three_quarter_output]
+    if args.coupon_output is not None:
+        outputs.append(args.coupon_output)
+    for output in outputs:
         if output.exists():
             raise FileExistsError(f"refusing to overwrite preview: {output}")
-    render_coupon(args.coupon, args.coupon_output)
-    render_pair_front(args.left, args.right, args.pair_front_output)
-    render_pair_three_quarter(args.left, args.right, args.pair_three_quarter_output)
+    if args.coupon is not None and args.coupon_output is not None:
+        render_coupon(args.coupon, args.coupon_output)
+    render_pair_front(
+        args.left,
+        args.right,
+        args.left_label,
+        args.right_label,
+        args.pair_front_output,
+    )
+    render_pair_three_quarter(
+        args.left,
+        args.right,
+        args.left_label,
+        args.right_label,
+        args.pair_three_quarter_output,
+    )
 
 
 if __name__ == "__main__":

@@ -1,14 +1,15 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-004",
-  "assessment_version": "0.4.0",
+  "assessment_id": "PREFLIGHT-MM-PER-001-005",
+  "assessment_version": "0.4.1",
   "assessment_date": "2026-08-31",
   "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
     "intended_use": "A coordinated left/right indoor bookend pair whose visible front facade is formed by large, tightly spaced name glyphs. The wood appearance uses the physically preferred direct-sampled candidate C on the glyph fronts. A recessed rear web only connects the glyphs; the existing side-blade and inward-foot architecture carries the books.",
-    "user_context": "Adult indoor use on a flat shelf or desk; default STE | FAN pair; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers.",
+    "user_context": "Adult indoor use on a flat shelf or desk; requested MARITA pair with contour-balanced MA | RITA split; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers.",
     "variants": [
       "0.4.0 requirements draft",
-      "default name STEFAN split STE | FAN"
+      "default name STEFAN split STE | FAN",
+      "requested name MARITA; planned automatic contour-balanced split MA | RITA"
     ],
     "out_of_scope": [
       "Wall mounting, stacking, child-directed use, structural shelving, or loads beyond the approved physical test",
@@ -269,7 +270,8 @@
   },
   "warnings": [
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The recessed rear connector topology and recommended 2.4 mm thickness are not yet supported by a sectioned concept, generated body, or physical handling coupon."},
-    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The preferred C print confirms appearance qualitatively, but the exact filament identity, conditioning, and complete slicer profile remain unknown."}
+    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The preferred C print confirms appearance qualitatively, but the exact filament identity, conditioning, and complete slicer profile remain unknown."},
+    {"code": "VARIANT_ENVELOPE_MARGIN_LOW", "severity": "WARN", "message": "At the approved 122 mm cap height, the planned MA | RITA split has only about 1.25 mm X margin to the 350 mm per-part design envelope; exact generated bounds and slicer bed placement must pass before this variant is a print candidate."}
   ],
   "next_actions": [
     {
@@ -279,7 +281,7 @@
     },
     {
       "priority": 2,
-      "action": "Build, validate, exactly slice, and physically test the complete left/right pair.",
+      "action": "Build, validate, exactly slice, and physically test the requested MA | RITA pair.",
       "exit_criterion": "Both bodies pass topology, bed, support, texture, watermark, package, 2.0 kg load/slide, and final human appearance gates."
     }
   ],
@@ -310,10 +312,12 @@
       "layer_height_changes_to_0p12_mm",
       "explicit_requirements_approval",
       "gate_0b_concept_generated",
-      "explicit_concept_approval"
+      "explicit_concept_approval",
+      "requested_name_variant_MARITA",
+      "automatic_split_envelope_recheck"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-003",
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-004",
     "created_at": "2026-08-31T14:46:24+02:00",
-    "updated_at": "2026-08-31T14:46:24+02:00"
+    "updated_at": "2026-08-31T16:42:03+02:00"
   }
 }

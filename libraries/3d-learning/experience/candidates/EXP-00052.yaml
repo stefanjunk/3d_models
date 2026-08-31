@@ -1,0 +1,160 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00052
+title: Binary STL float32 quantization can collapse distinct relief-Boolean vertices
+captured_at: 2026-08-31
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One controlled RITA before/after export at large positive X; the quantization guard also left the MA control unchanged. No cross-kernel or second float32 format replication."
+feature:
+  type: binary STL serialization of a dense image-relief Boolean
+  geometry: 122 mm RITA glyph fronts with a 0.45 mm masked Manifold height-field cutter and a functional bookend core
+  design_parameters:
+    source_precision: float64
+    destination_precision: float32
+    run01_components_after_exact_coordinate_weld: 2
+    run01_nonmanifold_edges: 2
+    corrected_collision_groups: 1
+    corrected_vertices: 2
+    maximum_vertex_nudge_mm: 0.000022927073246137297
+    nudge_limit_mm: 0.0001
+    run02_components: 1
+    run02_nonmanifold_edges: 0
+  named_datums:
+    - glyph-front-y0
+    - print-bed-z0
+    - cap-plane-z122
+  constraints:
+    - The serialized STL must remain one watertight positive-volume body after exact coordinate welding by an independent reader.
+    - Quantization collision handling may move only the colliding positions and must stay below a declared physical error bound.
+    - Texture scale, relief amplitude, protected silhouette, counters, gaps, bounds and bed datum must remain unchanged.
+scope:
+  process: Manifold3D Boolean through binary float32 STL serialization and exact-coordinate re-import audit
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG family
+    variant: Anycubic PETG profile; physical filament not confirmed
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: upright glyphs on z=0 with textured fronts toward -Y
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle
+    profile_hash: d3b71ea02eb8192b2ca5ad8cd03f56cfdb1f64aea7e1b8e41789003d2584efbf
+  geometry_class: large-coordinate dense clipped height-field Boolean exported to binary STL
+  environment: digital-only topology and exact-slicer comparison; intended indoor FFF print
+  transfer_limits:
+    - Observed once on the RITA geometry with Manifold3D and binary STL.
+    - The adjacent-float correction is not a general mesh repair and must never hide a source boundary or nonmanifold defect.
+    - Formats with different coordinate representations and smaller/larger coordinate magnitudes need separate evidence.
+observation:
+  summary: The certified float64 RITA Boolean became two-component and nonmanifold only after distinct vertices collapsed to one binary-STL float32 coordinate; separating the single collision by adjacent representable float32 values restored the serialized topology.
+  expected: A certified one-body Manifold output would remain one watertight body after ordinary binary STL serialization.
+  actual: Run01 re-import had two components and two nonmanifold edges. Run02 changed two vertices by at most 0.000022927 mm, retained 237192 triangles and the same relief contract, then passed exact-coordinate topology audit and exact slicing.
+  outcome: mixed
+  parameter: float32 serialization collision handling
+  recommended_value: detect-distinct-vertex-collisions-before-stl-write-and-prove-the-serialized-artifact
+  units: topology-contract
+explanation:
+  hypothesis: At the RITA facade's large positive X coordinate, two distinct float64 Boolean vertices were closer than the local float32 representable spacing and rounded to one coordinate tuple. Exact-coordinate readers welded them, producing zero-area faces and a nonmanifold edge island.
+  mechanism: Binary STL stores 32-bit coordinates. Quantization is geometric and independent of indexed Manifold topology; distinct source positions can therefore alias even when the in-memory half-edge graph is valid. Assigning adjacent representable values in original geometric order preserves separate positions within a bounded sub-process error.
+  alternatives:
+    - A topology-aware remesh or a higher-precision manufacturing format may avoid the collision without coordinate nudging.
+    - A different cutter phase or Boolean tessellation may avoid the near-coincident vertex pair.
+    - Some importers may not weld exact coordinates and therefore may not expose the same defect, but slicer portability would remain unproved.
+  validated: true
+  validation_method: Controlled run01/run02 export comparison, exact-coordinate edge-incidence audit of the actual STL files, bounded vertex-displacement report, unchanged texture/triangle metrics, and exact Anycubic slicing of run02.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Mesh64-to-float32 collision enumeration, maximum Euclidean vertex displacement, independent exact-coordinate STL audit, and hashed exact-slicer export.
+  uncertainty: "The float32 collision and mitigation are directly measured. Durability across other coordinates, glyphs, kernels and interchange formats is unknown."
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/mesh-audit-right.json
+      hash: 0e634964606b3159116dbefbc18e1c0364dd41854cc5def6466672a3ff3c6d04
+      notes: "Run01 failure: two components and two nonmanifold edges after exact-coordinate weld."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+      hash: ffc25891fc22de3a4787872279ab21acdf585aa95fd7bb83a5ee294b91f4d618
+      notes: "Records one corrected collision group, two vertices, and the 0.000022927 mm maximum nudge."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json
+      hash: 34b201cb9228c40182698c452720eb4ff8fe81fb26db7a29f606709d9cac555f
+      notes: "Run02 PASS: one watertight body and zero boundary/nonmanifold edges."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/validation-project-locked-result.json
+      hash: 19dd84c7086f8aac7f11c7cb3036a64adcd650fb0f1e3b625f8230b861ecce20
+      notes: "Hash-locked digital checks pass; human physical and review gates remain NOT_RUN or REVIEW_REQUIRED."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py
+applicability:
+  triggers:
+    - A certified indexed Boolean mesh is serialized to binary STL at coordinates where float32 spacing approaches the separation of distinct vertices.
+    - In-memory topology passes but an exact-coordinate audit of the written STL adds nonmanifold edges, zero-area islands or components.
+  exclusions:
+    - Source meshes that already have boundary, nonmanifold, negative-volume or disconnected-body defects before quantization.
+    - Unbounded smoothing, generic vertex welding, or coordinate nudging without a physical error limit and serialized-artifact regression checks.
+  transfer_limits:
+    - Recompute collisions from the exact candidate; do not reuse the observed 0.000022927 mm value as a universal tolerance.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00051
+  evals:
+    - EVAL-geometry-stl-float32-quantization-collision-001
+  patterns: []
+  references:
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/mesh-audit-right.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/validation-project-locked-result.json
+provenance:
+  project: MM-PER-001
+  part_revision: 0.4.0-MARITA-run02-draft
+  trace: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - binary-stl
+  - float32
+  - quantization
+  - manifold3d
+  - heightfield
+  - topology
+  - exact-coordinate-audit
+  - fail-closed

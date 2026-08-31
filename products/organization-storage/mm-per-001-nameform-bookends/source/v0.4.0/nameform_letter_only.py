@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the approved letter-only NameForm 0.4.0 pair and FA process coupon.
+"""Build personalized letter-only NameForm 0.4.0 pairs and the FA process coupon.
 
 The functional core and untextured glyph/connector bodies are exact CadQuery
 B-Reps. Candidate-C wood relief is a manufacturing-mesh operation: a directly
@@ -97,11 +97,13 @@ MESH_TOLERANCE = 0.05
 MESH_ANGULAR_TOLERANCE = 0.35
 MAX_TRIANGLES = 1_000_000
 MAX_MESH_MIB = 50.0
+MAX_PART_X = 350.0
+MAX_PART_Y = 120.0
+MAX_PART_Z = 165.0
+MAX_STL_QUANTIZATION_NUDGE_MM = 0.0001
+MAX_NUMERIC_SLIVER_FACES = 10
 
-ALLOWED_CHARS = (
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    " -'ÄÖÜäöüẞß"
-)
+ALLOWED_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'ÄÖÜẞ"
 
 
 @dataclass(frozen=True)
@@ -109,6 +111,42 @@ class PlacedGlyph:
     char: str
     geometry: Polygon | MultiPolygon
     source_holes: int
+
+
+@dataclass(frozen=True)
+class PairPlan:
+    requested_name: str
+    left_text: str
+    right_text: str
+    split_method: str
+    split_index: int | None
+    candidates: tuple[dict, ...]
+
+    @property
+    def slug(self) -> str:
+        value = unicodedata.normalize("NFKD", self.requested_name)
+        value = "".join(char for char in value if not unicodedata.combining(char))
+        value = re.sub(r"[^A-Za-z0-9]+", "-", value).strip("-").upper()
+        if not value:
+            raise ValueError("name does not produce a safe output slug")
+        return value
+
+    def as_report(self) -> dict:
+        left_width = packed_width(self.left_text)
+        right_width = packed_width(self.right_text)
+        return {
+            "requested_name": self.requested_name,
+            "split_method": self.split_method,
+            "split_index": self.split_index,
+            "left_text": self.left_text,
+            "right_text": self.right_text,
+            "left_outline_width_mm": left_width,
+            "right_outline_width_mm": right_width,
+            "left_estimated_part_x_mm": estimated_part_width(left_width),
+            "right_estimated_part_x_mm": estimated_part_width(right_width),
+            "maximum_part_x_mm": MAX_PART_X,
+            "candidates": list(self.candidates),
+        }
 
 
 def sha256(path: Path) -> str:
@@ -147,15 +185,20 @@ def _font() -> TTFont:
 
 def validate_glyphs(text: str) -> None:
     cmap = _font().getBestCmap()
-    missing = [f"U+{ord(ch):04X} {ch!r}" for ch in text if ch != " " and ord(ch) not in cmap]
+    missing = [f"U+{ord(ch):04X} {ch!r}" for ch in text if ord(ch) not in cmap]
     if missing:
         raise ValueError("font lacks requested glyph(s): " + ", ".join(missing))
     unsupported = [f"U+{ord(ch):04X} {ch!r}" for ch in text if ch not in ALLOWED_CHARS]
     if unsupported:
         raise ValueError("unsupported character(s): " + ", ".join(unsupported))
+    if any(char.islower() for char in text):
+        raise ValueError(
+            "lowercase glyphs are intentionally fail-closed until descenders and detached marks "
+            "have a process-matched connector sweep; use uppercase name text"
+        )
     if " " in text:
         raise ValueError(
-            "spaces need an explicit rear word bridge and are intentionally fail-closed in 0.4.0"
+            "spaces are intentionally fail-closed until an explicit rear word bridge is validated"
         )
 
 
@@ -279,6 +322,92 @@ def place_half(text: str, side: str) -> list[PlacedGlyph]:
     else:
         raise ValueError("side must be left or right")
     return move_glyphs(glyphs, xoff)
+
+
+def packed_width(text: str) -> float:
+    glyphs = pack_glyphs(text)
+    bounds = unary_union([item.geometry for item in glyphs]).bounds
+    return float(bounds[2] - bounds[0])
+
+
+def estimated_part_width(outline_width: float) -> float:
+    """Conservative X extent for one half at the fixed 122 mm cap height."""
+    return float(outline_width + GLYPH_GAP + PLATE_T / 2.0 + FOOT_L)
+
+
+def automatic_pair_plan(name: str) -> PairPlan:
+    name = normalize_text(name)
+    validate_glyphs(name)
+    if len(name) < 2:
+        raise ValueError("automatic split needs at least two glyphs")
+    candidates: list[dict] = []
+    for split_index in range(1, len(name)):
+        left_text = name[:split_index]
+        right_text = name[split_index:]
+        left_width = packed_width(left_text)
+        right_width = packed_width(right_text)
+        left_part = estimated_part_width(left_width)
+        right_part = estimated_part_width(right_width)
+        candidates.append(
+            {
+                "split_index": split_index,
+                "left_text": left_text,
+                "right_text": right_text,
+                "left_outline_width_mm": left_width,
+                "right_outline_width_mm": right_width,
+                "left_estimated_part_x_mm": left_part,
+                "right_estimated_part_x_mm": right_part,
+                "maximum_estimated_part_x_mm": max(left_part, right_part),
+                "fits_part_envelope": max(left_part, right_part) <= MAX_PART_X,
+            }
+        )
+    fitting = [candidate for candidate in candidates if candidate["fits_part_envelope"]]
+    if not fitting:
+        best = min(candidates, key=lambda item: item["maximum_estimated_part_x_mm"])
+        raise ValueError(
+            f"name {name!r} cannot fit the {MAX_PART_X:.1f} mm per-part X envelope "
+            f"at {CAP_HEIGHT:.1f} mm cap height; best split "
+            f"{best['left_text']} | {best['right_text']} needs "
+            f"{best['maximum_estimated_part_x_mm']:.3f} mm"
+        )
+    selected = min(
+        fitting,
+        key=lambda item: (
+            item["maximum_estimated_part_x_mm"],
+            abs(item["left_outline_width_mm"] - item["right_outline_width_mm"]),
+            abs(item["split_index"] - len(name) / 2.0),
+        ),
+    )
+    return PairPlan(
+        requested_name=name,
+        left_text=selected["left_text"],
+        right_text=selected["right_text"],
+        split_method="automatic-outline-balanced-envelope-fit",
+        split_index=int(selected["split_index"]),
+        candidates=tuple(candidates),
+    )
+
+
+def explicit_pair_plan(left_text: str, right_text: str) -> PairPlan:
+    left_text = normalize_text(left_text)
+    right_text = normalize_text(right_text)
+    validate_glyphs(left_text)
+    validate_glyphs(right_text)
+    for side, text in (("left", left_text), ("right", right_text)):
+        required = estimated_part_width(packed_width(text))
+        if required > MAX_PART_X:
+            raise ValueError(
+                f"explicit {side} text {text!r} needs {required:.3f} mm and exceeds "
+                f"the {MAX_PART_X:.1f} mm per-part X envelope"
+            )
+    return PairPlan(
+        requested_name=f"{left_text}-{right_text}",
+        left_text=left_text,
+        right_text=right_text,
+        split_method="explicit-pair",
+        split_index=None,
+        candidates=(),
+    )
 
 
 def bridge_between(first: Polygon | MultiPolygon, second: Polygon | MultiPolygon) -> Polygon:
@@ -453,8 +582,11 @@ def build_side_brep(
     bb = part.val().BoundingBox()
     if abs(bb.zmin) > 1.0e-6 or abs(bb.zmax - TOTAL_H) > 1.0e-6:
         raise AssertionError(f"{side}: invalid bed/height bounds {bb.zmin}, {bb.zmax}")
-    if bb.xlen > 350.0 or bb.ylen > 120.0 or bb.zlen > 165.0:
-        raise AssertionError(f"{side}: exceeds approved part envelope")
+    if bb.xlen > MAX_PART_X or bb.ylen > MAX_PART_Y or bb.zlen > MAX_PART_Z:
+        raise AssertionError(
+            f"{side}: exceeds approved part envelope: "
+            f"{bb.xlen:.3f} x {bb.ylen:.3f} x {bb.zlen:.3f} mm"
+        )
     return part, glyphs, profile, bridges
 
 
@@ -479,12 +611,26 @@ def export_step_once(part: cq.Workplane, path: Path) -> None:
     normalize_step_header(path)
 
 
-def export_assembly_step_once(left: cq.Workplane, right: cq.Workplane, path: Path) -> None:
+def export_assembly_step_once(
+    left: cq.Workplane,
+    right: cq.Workplane,
+    left_text: str,
+    right_text: str,
+    path: Path,
+) -> None:
     if path.exists():
         raise FileExistsError(f"refusing to overwrite existing artifact: {path}")
     assembly = cq.Assembly(name=f"NameForm-{PRODUCT_ID}-{REVISION}")
-    assembly.add(left, name="left-STE", loc=cq.Location(cq.Vector(-120.0, 0.0, 0.0)))
-    assembly.add(right, name="right-FAN", loc=cq.Location(cq.Vector(120.0, 0.0, 0.0)))
+    assembly.add(
+        left,
+        name=f"left-{left_text}",
+        loc=cq.Location(cq.Vector(-120.0, 0.0, 0.0)),
+    )
+    assembly.add(
+        right,
+        name=f"right-{right_text}",
+        loc=cq.Location(cq.Vector(120.0, 0.0, 0.0)),
+    )
     path.parent.mkdir(parents=True, exist_ok=True)
     assembly.save(str(path), exportType="STEP", mode="default")
     normalize_step_header(path)
@@ -660,11 +806,88 @@ def cadquery_to_manifold(shape: cq.Shape) -> Manifold:
 
 
 def manifold_arrays(manifold: Manifold) -> tuple[np.ndarray, np.ndarray]:
-    output = manifold.to_mesh()
+    output = manifold.to_mesh64()
     return (
         np.asarray(output.vert_properties, dtype=np.float64)[:, :3],
         np.asarray(output.tri_verts, dtype=np.int64),
     )
+
+
+def quantize_stl_vertices(vertices: np.ndarray) -> tuple[np.ndarray, dict]:
+    """Quantize to STL float32 without collapsing distinct Boolean vertices.
+
+    Binary STL stores float32 coordinates. At large X values, two legitimate
+    float64 Boolean vertices can round to the same float32 tuple even though
+    their mesh indices are distinct. Exact-coordinate STL readers then weld
+    them and can create a zero-area island or nonmanifold edge. Separate only
+    those colliding positions by adjacent representable float32 values; shared
+    topological vertices keep one identical coordinate.
+    """
+    source = np.asarray(vertices, dtype=np.float64)
+    quantized = np.asarray(source, dtype=np.float32).copy()
+    _, inverse, counts = np.unique(
+        quantized, axis=0, return_inverse=True, return_counts=True
+    )
+    corrected_groups = 0
+    corrected_vertices = 0
+    for group_id in np.flatnonzero(counts > 1):
+        indices = np.flatnonzero(inverse == group_id)
+        originals, original_inverse = np.unique(
+            source[indices], axis=0, return_inverse=True
+        )
+        if len(originals) <= 1:
+            continue
+        ranges = np.ptp(originals, axis=0)
+        ulps = np.maximum(
+            np.abs(np.spacing(quantized[indices[0]])), np.finfo(np.float32).tiny
+        )
+        axis = int(np.argmax(ranges / ulps))
+        order = np.argsort(originals[:, axis])
+        base = quantized[indices[0], axis]
+        values = [base]
+        lower = base
+        upper = base
+        while len(values) < len(originals):
+            lower = np.nextafter(
+                lower, np.float32(-np.inf), dtype=np.float32
+            )
+            values.insert(0, lower)
+            if len(values) < len(originals):
+                upper = np.nextafter(
+                    upper, np.float32(np.inf), dtype=np.float32
+                )
+                values.append(upper)
+        for rank, original_id in enumerate(order):
+            quantized[indices[original_inverse == original_id], axis] = values[rank]
+        corrected_groups += 1
+        corrected_vertices += len(indices)
+    _, final_inverse, final_counts = np.unique(
+        quantized, axis=0, return_inverse=True, return_counts=True
+    )
+    unresolved = 0
+    for group_id in np.flatnonzero(final_counts > 1):
+        indices = np.flatnonzero(final_inverse == group_id)
+        if len(np.unique(source[indices], axis=0)) > 1:
+            unresolved += 1
+    result = np.asarray(quantized, dtype=np.float64)
+    displacement = np.linalg.norm(result - source, axis=1)
+    report = {
+        "storage_type": "binary STL float32",
+        "corrected_collision_groups": corrected_groups,
+        "corrected_vertices": corrected_vertices,
+        "unresolved_collision_groups": unresolved,
+        "maximum_vertex_nudge_mm": float(displacement.max(initial=0.0)),
+        "nudge_limit_mm": MAX_STL_QUANTIZATION_NUDGE_MM,
+    }
+    if unresolved:
+        raise RuntimeError(
+            f"STL float32 quantization leaves {unresolved} unresolved vertex collision group(s)"
+        )
+    if report["maximum_vertex_nudge_mm"] > MAX_STL_QUANTIZATION_NUDGE_MM:
+        raise RuntimeError(
+            "STL float32 quantization exceeds the approved sub-micron nudge limit"
+        )
+    return result, report
 
 
 def clean_mesh(vertices: np.ndarray, faces: np.ndarray) -> tuple[np.ndarray, np.ndarray, int]:
@@ -702,14 +925,29 @@ def write_binary_stl_once(path: Path, vertices: np.ndarray, faces: np.ndarray) -
 
 
 def mesh_metrics(vertices: np.ndarray, faces: np.ndarray) -> tuple[trimesh.Trimesh, dict]:
-    mesh = trimesh.Trimesh(vertices=vertices, faces=faces, process=False)
+    unique_vertices, inverse = np.unique(vertices, axis=0, return_inverse=True)
+    mesh = trimesh.Trimesh(
+        vertices=unique_vertices,
+        faces=inverse[np.asarray(faces, dtype=np.int64)],
+        process=False,
+    )
     components = mesh.split(only_watertight=False)
+    edge_counts = np.bincount(
+        mesh.edges_unique_inverse, minlength=len(mesh.edges_unique)
+    )
+    area_threshold = max(float(mesh.area), 1.0) * np.finfo(float).eps * 100.0
     return mesh, {
         "vertices": int(len(vertices)),
         "triangles": int(len(faces)),
         "watertight": bool(mesh.is_watertight),
         "winding_consistent": bool(mesh.is_winding_consistent),
         "body_count": len(components),
+        "boundary_edges": int(np.count_nonzero(edge_counts == 1)),
+        "nonmanifold_edges": int(np.count_nonzero(edge_counts > 2)),
+        "numeric_sliver_faces": int(
+            np.count_nonzero(np.asarray(mesh.area_faces) <= area_threshold)
+        ),
+        "numeric_sliver_area_threshold_mm2": float(area_threshold),
         "volume_mm3": float(mesh.volume),
         "surface_area_mm2": float(mesh.area),
         "bounds_min_mm": mesh.bounds[0].tolist(),
@@ -753,6 +991,7 @@ def engrave_part(
     if result.status() != Error.NoError or result.is_empty():
         raise RuntimeError(f"texture Boolean failed: {result.status()}")
     vertices, faces = manifold_arrays(result)
+    vertices, quantization = quantize_stl_vertices(vertices)
     # Manifold's output is already a certified 2-manifold. Do not apply a
     # decimal-place vertex weld here: at exact cap/bed clipping planes it can
     # collapse valid sub-0.0001 mm Boolean transition triangles and open the
@@ -767,6 +1006,11 @@ def engrave_part(
         "watertight": bool(mesh.is_watertight),
         "winding_consistent": bool(mesh.is_winding_consistent),
         "single_body": bool(metrics["body_count"] == 1),
+        "no_boundary_edges": bool(metrics["boundary_edges"] == 0),
+        "no_nonmanifold_edges": bool(metrics["nonmanifold_edges"] == 0),
+        "numeric_sliver_budget": bool(
+            metrics["numeric_sliver_faces"] <= MAX_NUMERIC_SLIVER_FACES
+        ),
         "positive_volume": bool(mesh.volume > 0.0),
         "bed_datum": bool(abs(float(mesh.bounds[0, 2])) <= 1.0e-6),
         "envelope_preserved": bool(np.allclose(mesh.bounds, base_mesh.bounds, atol=1.0e-5)),
@@ -775,6 +1019,11 @@ def engrave_part(
         "file_size_budget": bool(size_mib <= MAX_MESH_MIB),
         "outline_taper_protected": bool(cutter_report["boundary_relief_max_mm"] <= 1.0e-8),
         "candidate_c_relief_span": bool(cutter_report["active_relief_robust_span_mm"] >= 0.20),
+        "stl_float32_quantization": bool(
+            quantization["unresolved_collision_groups"] == 0
+            and quantization["maximum_vertex_nudge_mm"]
+            <= MAX_STL_QUANTIZATION_NUDGE_MM
+        ),
     }
     return {
         "path": str(path.relative_to(REPO_ROOT)),
@@ -786,6 +1035,7 @@ def engrave_part(
         "removed_volume_mm3": float(base_mesh.volume - mesh.volume),
         "metrics": metrics,
         "texture": cutter_report,
+        "stl_quantization": quantization,
         "checks": checks,
     }
 
@@ -886,18 +1136,42 @@ def build_coupon(sampler: PeriodicSampler, wood: dict) -> dict:
     return report
 
 
-def build_pair(sampler: PeriodicSampler, wood: dict) -> dict:
-    engineering_dir = PROJECT_ROOT / "exports/v0.4.0/engineering"
-    candidate_dir = PROJECT_ROOT / "exports/v0.4.0/candidate"
-    report_path = PROJECT_ROOT / "validation/v0.4.0/generation-report.json"
-    left, left_glyphs, left_connector, left_bridges = build_side_brep("left", DEFAULT_LEFT)
-    right, right_glyphs, right_connector, right_bridges = build_side_brep("right", DEFAULT_RIGHT)
-    left_step = engineering_dir / "nameform-STE-left-v0.4.0.step"
-    right_step = engineering_dir / "nameform-FAN-right-v0.4.0.step"
-    assembly_step = engineering_dir / "nameform-STE-FAN-assembly-v0.4.0.step"
+def build_pair(
+    sampler: PeriodicSampler,
+    wood: dict,
+    plan: PairPlan,
+    run_id: str | None = None,
+) -> dict:
+    variant_path = Path(plan.slug)
+    if run_id is not None:
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", run_id):
+            raise ValueError(
+                "run_id must start with an alphanumeric character and contain only "
+                "letters, digits, dot, underscore, or hyphen"
+            )
+        variant_path /= run_id
+    variant_root = PROJECT_ROOT / f"exports/v{REVISION}/generated" / variant_path
+    engineering_dir = variant_root / "engineering"
+    candidate_dir = variant_root / "candidate"
+    validation_dir = PROJECT_ROOT / f"validation/v{REVISION}/generated" / variant_path
+    report_path = validation_dir / "generation-report.json"
+    left, left_glyphs, left_connector, left_bridges = build_side_brep(
+        "left", plan.left_text
+    )
+    right, right_glyphs, right_connector, right_bridges = build_side_brep(
+        "right", plan.right_text
+    )
+    left_step = engineering_dir / f"nameform-{plan.left_text}-left-v{REVISION}.step"
+    right_step = engineering_dir / f"nameform-{plan.right_text}-right-v{REVISION}.step"
+    assembly_step = (
+        engineering_dir
+        / f"nameform-{plan.left_text}-{plan.right_text}-assembly-v{REVISION}.step"
+    )
     export_step_once(left, left_step)
     export_step_once(right, right_step)
-    export_assembly_step_once(left, right, assembly_step)
+    export_assembly_step_once(
+        left, right, plan.left_text, plan.right_text, assembly_step
+    )
     left_engineering = engineering_report(
         left, left_glyphs, left_connector, left_bridges, left_step
     )
@@ -908,13 +1182,15 @@ def build_pair(sampler: PeriodicSampler, wood: dict) -> dict:
         left,
         left_glyphs,
         sampler,
-        candidate_dir / "DRAFT-nameform-STE-left-wood-C-v0.4.0.stl",
+        candidate_dir
+        / f"DRAFT-nameform-{plan.left_text}-left-wood-C-v{REVISION}.stl",
     )
     right_candidate = engrave_part(
         right,
         right_glyphs,
         sampler,
-        candidate_dir / "DRAFT-nameform-FAN-right-wood-C-v0.4.0.stl",
+        candidate_dir
+        / f"DRAFT-nameform-{plan.right_text}-right-wood-C-v{REVISION}.stl",
     )
     checks = {
         "left_engineering": all(left_engineering["checks"].values()),
@@ -927,16 +1203,22 @@ def build_pair(sampler: PeriodicSampler, wood: dict) -> dict:
             and right_engineering["bbox_min_max_mm"][0] <= -FOOT_L + 1.0e-6
         ),
         "candidate_c_exact_contract": True,
+        "selected_split_fits_envelope": (
+            left_engineering["extents_mm"][0] <= MAX_PART_X
+            and right_engineering["extents_mm"][0] <= MAX_PART_X
+        ),
     }
     report = {
         "schema_version": "1.0",
         "tool": "NameForm letter-only generator",
         "tool_version": REVISION,
-        "profile": "DRAFT STE | FAN pair",
+        "profile": f"DRAFT {plan.left_text} | {plan.right_text} pair",
         "status": "PASS" if all(checks.values()) else "FAIL",
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "inputs": common_report_inputs(wood),
         "wood": wood,
+        "pair_plan": plan.as_report(),
+        "run_id": run_id,
         "assembly_step": {
             "path": str(assembly_step.relative_to(REPO_ROOT)),
             "sha256": sha256(assembly_step),
@@ -962,8 +1244,37 @@ def build_pair(sampler: PeriodicSampler, wood: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", choices=("coupon", "pair", "all"), default="all")
+    parser.add_argument("--target", choices=("coupon", "pair", "all"), default="pair")
+    parser.add_argument(
+        "--name",
+        default=DEFAULT_NAME,
+        help="uppercase single name to split automatically by real outline width",
+    )
+    parser.add_argument("--left-text", help="explicit uppercase text for the left part")
+    parser.add_argument("--right-text", help="explicit uppercase text for the right part")
+    parser.add_argument(
+        "--plan-only",
+        action="store_true",
+        help="validate and report the split without generating CAD or mesh artifacts",
+    )
+    parser.add_argument(
+        "--run-id",
+        help="optional immutable run subdirectory for a repeated name build",
+    )
     args = parser.parse_args()
+    if (args.left_text is None) != (args.right_text is None):
+        parser.error("--left-text and --right-text must be supplied together")
+    if args.left_text is not None:
+        if args.name != DEFAULT_NAME:
+            parser.error("use either --name or the explicit --left-text/--right-text pair")
+        plan = explicit_pair_plan(args.left_text, args.right_text)
+    else:
+        plan = automatic_pair_plan(args.name)
+    if args.plan_only:
+        if args.target == "coupon":
+            parser.error("--plan-only applies to pair generation, not the fixed coupon")
+        print(json.dumps({"target": "pair-plan", "pair_plan": plan.as_report()}, indent=2))
+        return 0
     sampler, wood = load_sampler()
     payload: dict[str, object] = {"target": args.target}
     if args.target in {"coupon", "all"}:
@@ -975,9 +1286,12 @@ def main() -> int:
             "triangles": coupon["candidate"]["metrics"]["triangles"],
         }
     if args.target in {"pair", "all"}:
-        pair = build_pair(sampler, wood)
+        pair = build_pair(sampler, wood, plan, args.run_id)
         payload["pair"] = {
             "status": pair["status"],
+            "requested_name": plan.requested_name,
+            "left_text": plan.left_text,
+            "right_text": plan.right_text,
             "left_stl": pair["left"]["candidate"]["path"],
             "right_stl": pair["right"]["candidate"]["path"],
             "triangles": [

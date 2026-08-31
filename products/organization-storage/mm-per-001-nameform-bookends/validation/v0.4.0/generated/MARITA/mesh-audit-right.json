@@ -1,0 +1,203 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": false
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": false
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "component-count",
+      "message": "Expected 1 component(s), found 2",
+      "metrics": {
+        "actual": 2,
+        "expected": 1
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "boundary-edges",
+      "message": "boundary_edges=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nonmanifold-edges",
+      "message": "nonmanifold_edges=2, limit=0",
+      "metrics": {
+        "actual": 2,
+        "limit": 0
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "degenerate-faces",
+      "message": "degenerate_faces=10, limit=0",
+      "metrics": {
+        "actual": 10,
+        "limit": 0
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "duplicate-faces",
+      "message": "duplicate_faces=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "Triangles 237192 / 400000",
+      "metrics": {
+        "actual": 237192,
+        "limit": 400000
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "Mesh file 11.310 MiB / 50 MiB",
+      "metrics": {
+        "actual_mib": 11.31027603149414,
+        "limit_mib": 50.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-fit",
+      "message": "Mesh fits declared build volume",
+      "metrics": {
+        "axis_order": [
+          0,
+          1,
+          2
+        ],
+        "bed_mm": [
+          420,
+          420,
+          500
+        ],
+        "extents_mm": [
+          348.74835205078125,
+          115.0,
+          160.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl",
+      "sha256": "9eb012eb357e14ff7c7f5af454b74d2bd9c2ca86ff6bdd46e310528aae84f249",
+      "size_bytes": 11859684
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          -70.0,
+          0.0,
+          0.0
+        ],
+        [
+          278.74835205078125,
+          115.0,
+          160.0
+        ]
+      ],
+      "components": 2,
+      "degenerate_faces": 10,
+      "duplicate_faces": 0,
+      "euler_number": -1,
+      "extents_mm": [
+        348.74835205078125,
+        115.0,
+        160.0
+      ],
+      "faces": 237192,
+      "manifold_edges": 355784,
+      "nonmanifold_edges": 2,
+      "positive_volume": false,
+      "signed_volume_mm3": 258339.77379440892,
+      "surface_area_mm2": 121491.43314141064,
+      "vertices": 118593,
+      "watertight": false,
+      "winding_consistent": true
+    },
+    "file_mib": 11.31027603149414,
+    "raw_file_representation": {
+      "faces": 237192,
+      "vertices": 711576
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "FAIL",
+  "tool": "audit-mesh",
+  "tool_version": "1.2.1"
+}

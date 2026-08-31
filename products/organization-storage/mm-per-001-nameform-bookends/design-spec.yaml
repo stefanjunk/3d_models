@@ -15,13 +15,13 @@ project:
 workflow:
   preflight:
     status: current
-    mode: PROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-004
-    assessment_version: 0.4.0
-    previous_assessment_id: PREFLIGHT-MM-PER-001-003
+    assessment_id: PREFLIGHT-MM-PER-001-005
+    assessment_version: 0.4.1
+    previous_assessment_id: PREFLIGHT-MM-PER-001-004
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-08-31T14:46:24+02:00"
+    updated_at: "2026-08-31T16:42:03+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -32,6 +32,8 @@ workflow:
       - explicit_requirements_approval
       - gate_0b_concept_generated
       - explicit_concept_approval
+      - requested_name_variant_MARITA
+      - automatic_split_envelope_recheck
   requirements_approval:
     status: approved
     spec_revision: 0.4.0
@@ -50,7 +52,7 @@ workflow:
   watermark_approval:
     status: blocked
     spec_revision: 0.4.0
-    asset_id: null
+    asset_id: MM-WM-001-R2
     product_id: MM-PER-001
     version: 0.4.0
     digital_status: "NOT GENERATED for the revised geometry"
@@ -68,18 +70,24 @@ workflow:
       - "validation/v0.4.0/mesh-audits/audit-right.json"
       - "coupons/nameform-letter-bridge-v0.4.0/reports/generation-report.json"
       - "coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json"
-    reason: "Exact glyph/core B-Reps and textured manufacturing meshes pass digital generation, topology, gap, counter, relief, envelope, and compute-budget checks; physical and branding gates remain open."
+      - "validation/v0.4.0/generated/MARITA/run02/generation-report.json"
+      - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-left.json"
+      - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json"
+      - "validation/v0.4.0/generated/MARITA/run02/parametric-plan-sweep.json"
+    reason: "Exact glyph/core B-Reps and textured manufacturing meshes pass digital generation, topology, gap, counter, relief, envelope, compute-budget, and parametric-plan checks for STEFAN and the requested MA | RITA variant; physical and branding gates remain open."
   slicer_preflight:
     status: pass-with-human-review
     evidence:
       - "coupons/nameform-letter-bridge-v0.4.0/reports/anycubic-slice-coupon-v0.4.0-run03.json"
       - "validation/v0.4.0/anycubic-slice-left-run01.json"
       - "validation/v0.4.0/anycubic-slice-right-run01.json"
-    reason: "All exact Anycubic Slicer Next 1.3.9.4 runs returned native success and valid G-code. Expected floating-region/cantilever warnings at glyph crossbars and local rear bridges require human layer review and physical coupon evidence."
+      - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-MA-run02.json"
+      - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-RITA-run02.json"
+    reason: "All selected exact Anycubic Slicer Next 1.3.9.4 runs returned native success and valid G-code. The requested MA half has no native geometry warning; RITA retains the expected floating-cantilever warning at glyph/bridge geometry and requires human layer review plus physical evidence."
   physical_validation:
     status: blocked
     evidence_plan: "test-plan.yaml"
-    reason: "The revised glyph connector, textured glyph surfaces, and complete pair are not yet tested."
+    reason: "The requested MA | RITA connector geometry, textured glyph surfaces, and complete pair are digitally validated but not yet physically tested."
   final_release_approval:
     status: blocked
     reason: "Requirements, concept, slicer, physical, watermark, and final human approval gates remain open."
@@ -93,6 +101,7 @@ provenance:
     - "Apply the wood appearance to the letters, explicitly including their front faces"
     - "Move the background far behind the letters so it is barely visible from the front and serves only to connect the letters"
     - "Set letters very close together while retaining a visible gap"
+    - "The new name is MARITA"
   previously_approved:
     - "True mechanically mirrored left/right pair with books between the ends"
     - "Inward feet under the books so book weight stabilizes the pair"
@@ -109,7 +118,8 @@ provenance:
     - "Use accepted candidate C unchanged on glyph fronts; use a shallower mapped treatment on exposed glyph flanks only after a process-matched letter coupon"
   inferred:
     - "Front viewing direction is -Y; the complete split name reads left-to-right across the book row"
-    - "First demonstration name is STEFAN, split STE | FAN"
+    - "The historical demonstration name is STEFAN, split STE | FAN"
+    - "The requested MARITA variant uses the outline-balanced split MA | RITA because MAR | ITA exceeds the 350 mm per-part design envelope at 122 mm cap height"
     - "Indoor adult decorative/normal-functional use only"
   unresolved_nonblocking:
     - "Final color/material finish and optional heavy-duty fillable-ballast derivative"
@@ -140,7 +150,7 @@ function:
     default_text: STEFAN
     font: "Bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded under source/v0.4.0/assets/fonts"
     normalization: "Unicode NFC"
-    supported_initial_set: "A-Z, a-z, digits, space, hyphen, apostrophe, ÄÖÜäöüẞß"
+    supported_initial_set: "Uppercase single-name variants A-Z, digits, hyphen, apostrophe, ÄÖÜẞ; spaces and lowercase remain fail-closed until their detached/descender connector behavior is explicitly implemented and swept"
     unsupported_glyph_behavior: "Fail closed with the missing code point; never substitute silently"
     split_rule: "Choose a character boundary minimizing the larger outline-packed half width, then use one common cap height and baseline"
     minimum_printed_stroke_mm: 1.8
@@ -171,7 +181,7 @@ geometry:
     overall_height: 160
     side_blade_height: 150
     side_blade_depth: 115
-    default_letter_facade_width: "derived from glyph outlines; approximately 193 mm for STE and 241 mm for FAN at the recommended cap height and gap"
+    default_letter_facade_width: "derived from glyph outlines; 208.025 mm for MA and 275.348 mm for RITA at the requested MARITA split, cap height, and gap"
     inward_foot_length: 70
     inward_foot_thickness: "2.0 with a 15 mm support-free taper to a 0.6 mm inner toe"
     nominal_plate_thickness: 3.2
@@ -183,7 +193,7 @@ geometry:
     nominal_inter_glyph_gap: 1.8
     minimum_finished_inter_glyph_gap: 1.2
   maximum_part_envelope_mm: [350, 120, 165]
-  build_margin_on_420_mm_bed: ">=35 mm in X and >=150 mm in Y for the default STE | FAN pair before brim"
+  build_margin_on_420_mm_bed: "Requested MA | RITA limiting half retains about 71 mm in X and 305 mm in Y on the 420 mm bed before brim; it has only about 1.25 mm margin to the stricter 350 mm internal part-envelope gate"
   architecture:
     - "Continuous side blade and inward foot form the primary L-shaped book load path"
     - "Large extruded glyphs replace the rectangular front wing and create the visible facade silhouette"
@@ -272,7 +282,7 @@ manufacturing:
   target_formats: [step, stl, 3mf]
 
 optimization:
-  status: restarted-for-0.4.0
+  status: pending
   historical_0_3_0_geometry_result:
     candidate_pair_mass_g_at_pla_1_24: 319.98
     historical_pair_mass_g_at_pla_1_24: 3682.4
@@ -316,10 +326,10 @@ acceptance:
     criterion: "Left and right are mechanically mirrored; feet point inward; text reads normally from -Y"
     method: "Exact bounds/orientation assertions, assembly render, and interface contract"
   - id: geometry-valid
-    criterion: "Each side is one positive watertight body with no nonmanifold or degenerate faces"
+    criterion: "Each side is one positive watertight body with zero boundary/nonmanifold/duplicate faces; up to 10 sub-2.7e-9 mm² numerical Boolean sliver faces are permitted only when the exact-coordinate audit remains watertight and the exact slicer succeeds"
     method: "fdm_ci audit-mesh"
   - id: bed-fit
-    criterion: "Each sequential default STE | FAN part fits the declared 350x120x165 mm maximum envelope and the 420x420x500 mm Kobra 3 Max profile"
+    criterion: "Each requested MA | RITA part fits the declared 350x120x165 mm maximum envelope and the 420x420x500 mm Kobra 3 Max profile"
     method: "mesh bounds plus exact slicer bed check"
   - id: text-valid
     criterion: "Requested glyphs exist; counters remain open; minimum stroke >=1.8 mm; default cap height is 122 mm; adjacent fronts retain >=1.2 mm visible gap; both halves share cap height and baseline"
@@ -354,6 +364,7 @@ branding:
   brand: metriMade
   domain: metriMade.com
   asset_id: MM-WM-001-R2
+  layout_tier: auto
   product_id: MM-PER-001
   version: 0.4.0
   operation: recessed

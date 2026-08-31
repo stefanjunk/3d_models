@@ -1,65 +1,55 @@
 # NameForm Bookends
 
-Status: v0.3.0 remains the existing generated baseline. Revision 0.4.0 is an
-approved requirements revision for a letter-dominant facade with candidate-C
-wood relief on the glyph fronts; its concept sheet awaits approval, and no
-0.4.0 CAD or manufacturing export exists before that gate closes.
+Status: revision 0.4.0 has an approved letter-only concept and digitally
+validated DRAFT variants. The current requested name is `MARITA`; the fixed
+122 mm cap height and 350 mm internal part-envelope gate produce the
+outline-balanced split `MA | RITA`.
 
-Status: digitally validated DRAFT candidate. The geometry, marked STEP/STL/3MF
-pair, text sweep, and validation evidence exist. Exact slicer review, watermark
-coupon, complete-pair tests, and final release approval remain open.
+Each bookend keeps the approved inward foot and 160 mm functional side blade.
+The visible facade consists of separate 6 mm deep glyphs. A 2.4 mm recessed,
+glyph-shaped rear web and local bridges connect the letters without creating a
+rectangular front panel. Candidate-C wood relief is applied only to the glyph
+fronts from the registered 16-bit master.
 
-The design is a true left/right pair. Each foot points inward under the books;
-each decorative wing points outward. Text is never mirrored, and the fixed
-160 mm book stop does not shrink when a longer name is used.
+## Personalization
 
-## Personalization modes
-
-Preview the automatic width-balanced split without building CAD:
+Preview a split without generating CAD:
 
 ```bash
-python3 products/organization-storage/mm-per-001-nameform-bookends/scripts/customize_v030.py \
-  --name STEFAN --plan-only
+python3 products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py \
+  --name MARITA --plan-only
 ```
 
-This produces `STE | FAN`. A longer name is split at the character boundary
-that minimizes the wider rendered half; both halves then share one font size
-and baseline.
-
-Build a marked DRAFT pair with STEP, STL, separate left/right 3MFs, an assembly
-STEP, and a hash report:
+Generate a new immutable pair:
 
 ```bash
-python3 products/organization-storage/mm-per-001-nameform-bookends/scripts/customize_v030.py \
-  --name ALEXANDER \
-  --out-dir products/organization-storage/mm-per-001-nameform-bookends/exports/v0.3.0/custom/alexander
+python3 products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py \
+  --target pair --name MARITA --run-id run03
 ```
 
-Choose the two sides explicitly for initials, words, or a manual split:
+The planner evaluates actual outline-packed widths at every character boundary,
+selects the smallest maximum part width that fits, and preserves one shared cap
+height, baseline, 1.8 mm outline gap, connector construction, and texture scale.
+Explicit uppercase halves can be supplied with `--left-text` and `--right-text`.
+Existing output paths are never overwritten.
 
-```bash
-python3 products/organization-storage/mm-per-001-nameform-bookends/scripts/customize_v030.py \
-  --left-text BÜ --right-text Qß \
-  --out-dir products/organization-storage/mm-per-001-nameform-bookends/exports/v0.3.0/custom/bue-qss
-```
+The validated scope is uppercase single-name variants using `A-Z`, digits,
+hyphen, apostrophe, and `ÄÖÜẞ`. Lowercase, spaces, missing glyphs, one-character
+automatic splits, and names that cannot fit the 350 mm envelope at 122 mm cap
+height fail closed. Automatic cap-height reduction for longer names is not yet
+implemented.
 
-Put the whole name on both sides:
+## MARITA candidate
 
-```bash
-python3 products/organization-storage/mm-per-001-nameform-bookends/scripts/customize_v030.py \
-  --name STEFAN --same-on-both \
-  --out-dir products/organization-storage/mm-per-001-nameform-bookends/exports/v0.3.0/custom/stefan-both
-```
+- Manufacturing STLs and engineering STEPs:
+  `exports/v0.4.0/generated/MARITA/run02/`
+- Validation, renders, exact slices, and print handoff:
+  `validation/v0.4.0/generated/MARITA/run02/`
+- Process: Anycubic Kobra 3 Max, 0.4 mm nozzle, 0.12 mm layers, recorded PETG
+  profile, upright orientation, separate sequential prints, no generated support.
 
-Supported input is NFC-normalized `A-Z`, `a-z`, digits, spaces, hyphen,
-apostrophe, and German `ÄÖÜäöüẞß`. Missing or unsupported glyphs fail closed.
-A one-character name is repeated on both sides. Text that would fall below the
-18 mm outline-height guard is rejected.
-
-## Manufacturing boundary
-
-The generated 3MFs are standards-valid geometry packages, not slicer-native
-production jobs. Print left and right separately on their designed `z=0`
-datum. Before use or release, complete the exact-slicer preflight in
-`print-profile-v0.3.0.json` and all tests in `test-plan.yaml`. No script in this
-project uploads to or starts a printer.
+Both meshes and exact Anycubic Slicer Next exports pass digitally. `RITA`
+retains a slicer warning for a floating cantilever; final layer/seam inspection,
+the physical appearance/handling test, the complete-pair load/slide test,
+watermark integration, and final release approval remain human gates. Nothing
+in this project uploads to or starts a printer.

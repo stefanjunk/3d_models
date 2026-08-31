@@ -55,6 +55,13 @@ but it remains a draft print candidate until this coupon is accepted.
 ## Tool and artifact plan
 
 - `nameform_letter_only.py`: deterministic source and texture integration.
+- `--name NAME --plan-only`: evaluate every character-boundary split using the
+  real outline-packed width and fail closed when no half fits the fixed 350 mm
+  part envelope at 122 mm cap height.
+- `--name NAME [--run-id ID]`: generate an immutable personalized pair under
+  `exports/v0.4.0/generated/NAME/` and its matching validation directory.
+- `--left-text TEXT --right-text TEXT`: explicit uppercase halves with the same
+  envelope, glyph, connector, and texture checks.
 - `exports/v0.4.0/engineering/`: exact untextured STEP masters.
 - `exports/v0.4.0/candidate/`: textured manufacturing STLs.
 - `coupons/nameform-letter-bridge-v0.4.0/`: coupon STL, report, exact slice, and
@@ -71,3 +78,15 @@ but it remains a draft print candidate until this coupon is accepted.
   native success plus G-code, or slicing exceeds the 240 second budget.
 - Do not generate the 0.4.0 watermark until the revised safe underside placement
   has its own approval and evidence.
+
+## MARITA transfer proof
+
+The requested `MARITA` variant resolves to `MA | RITA`. `MAR | ITA` would need
+363.019 mm at the approved 122 mm cap height; `MA | RITA` limits the larger part
+to 348.748 mm and is the only fitting split. Run02 preserves the exact
+candidate-C texture contract and adds a binary-STL quantization guard: distinct
+float64 Boolean vertices that would otherwise collapse to one float32 coordinate
+are separated by adjacent representable values, with a hard 0.0001 mm movement
+limit. The observed maximum correction on `RITA` is 0.000023 mm. Exact-coordinate
+mesh audits then confirm one watertight body, zero boundary edges, and zero
+nonmanifold edges for both halves.

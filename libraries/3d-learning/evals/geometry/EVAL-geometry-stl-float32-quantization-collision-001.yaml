@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-stl-float32-quantization-collision-001
+title: Float32 STL serialization preserves distinct Boolean vertices and shell topology
+category: geometry
+status: draft
+trigger: A dense manifold Boolean mesh is exported to binary STL and the source contains distinct vertices close enough to alias at local float32 precision.
+risk: The written STL can gain zero-area faces, nonmanifold edges or disconnected islands even though the indexed in-memory source reports a valid manifold.
+given:
+  source_mesh: indexed manifold result with float64 positions and recorded topology, bounds, relief metrics and triangle count
+  destination_format: binary STL with float32 coordinates and unindexed triangle records
+  protected_contract: one watertight positive-volume body, zero boundary/nonmanifold/duplicate faces, fixed bounds/bed datum, texture scale, counters, gaps and a physical displacement limit
+expected:
+  - Quantize the exact source positions to the destination representation before claiming export validity.
+  - Detect groups where different source positions become the same destination coordinate; do not confuse them with intentionally shared topological positions.
+  - Reject the export or resolve each collision by a documented topology-preserving method within the declared physical error budget.
+  - Re-import the actual written STL, weld exact coordinate tuples as portable readers may do, and rerun body-count, watertightness, winding, volume, boundary-edge, nonmanifold-edge, duplicate-face, bounds and complexity checks.
+  - Regenerate and hash exact slicer evidence after any collision correction; an in-memory Manifold PASS is not a substitute for the serialized-artifact audit.
+failure_conditions:
+  - The exporter writes float32 STL directly from a valid float64 mesh without checking distinct-position aliasing.
+  - A topology failure found only after serialization is dismissed because the source half-edge graph was manifold.
+  - Zero-area faces are merely deleted when that creates boundary edges or changes body topology.
+  - Vertex nudging is applied globally, without original-position ordering, without a millimetre error limit, or without re-auditing the exact file.
+  - Slicer evidence predates the corrected STL hash.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/mesh-audit-right.json
+  - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+  - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json
+  - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
+  - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: "Pass only when the source-to-float32 collision report is bounded and the exact written candidate independently returns one watertight positive-volume body with zero boundary/nonmanifold edges, followed by fresh exact-slicer success. Physical printing is outside this digital eval."
+  measurement_method: Source/destination coordinate collision groups, maximum vertex displacement in millimetres, exact-coordinate edge incidence and components on the written STL, immutable artifact hashes, and exact slicer native result.
+relationships:
+  lessons:
+    - EXP-00051
+    - EXP-00052
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-31
+  report: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/validation-project-locked-result.json
+  artifact_hashes:
+    - 9eb012eb357e14ff7c7f5af454b74d2bd9c2ca86ff6bdd46e310528aae84f249
+    - 230bb21a7cc9aa11026a63148eff4246a43c2a24ca39052f8382f6176a00ae72
+    - 19dd84c7086f8aac7f11c7cb3036a64adcd650fb0f1e3b625f8230b861ecce20
+tags:
+  - geometry
+  - binary-stl
+  - float32
+  - quantization
+  - manifold3d
+  - topology
+  - regression

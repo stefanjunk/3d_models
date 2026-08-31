@@ -4,8 +4,9 @@
 
 - Anforderungsrevision: `0.7.0-requirements.5`
 - Anforderungsfreigabe: aus der Benutzeranweisung „erstelle erstmal eine bemaßte zeichnung“ als Freigabe für dieses Prüfblatt erfasst
-- Zeichnungs-/Konzeptfreigabe: **ausstehend**
-- Produktions-CAD, Fertigungs-3MF und Slicing: **weiter gesperrt**
+- Zeichnungs-/Konzeptfreigabe: **durch Stefan am 31. August 2026 freigegeben**
+- Freigabeevidenz: Benutzerantwort „freigegeben“
+- Produktions-CAD, Fertigungs-3MF und Slicing: **weiter durch Preflight und offene physische Interface-Gates gesperrt**
 
 ## Dateien
 
@@ -59,13 +60,12 @@ Die Drittanbieter-3MF wurde weder importiert noch nachgezeichnet. Das Blatt
 verwendet nur die eigene R6-Fanggeometrie, eigene Benutzermaße, eigene Fotos und
 die ausdrücklich gewählte neue Architektur.
 
-## Erbetene Entscheidung
+## Erfasste Entscheidung
 
-Bitte die Lage der Schrauben, Richtung der 37-/40-mm-Bezüge, Formrichtung,
-Waben-/Logoanordnung und den bodenlosen Schnitt prüfen.
+Stefan hat das Blatt mit „freigegeben“ bestätigt. Die Freigabe umfasst Lage und
+Richtung der dargestellten Datumsbezüge, Formrichtung, direkte feste
+Zweischraubenarchitektur, Waben-/Logoanordnung und bodenlosen Schnitt.
 
-Freigabeformulierung: `Bemaßte Zeichnung R7-REQ5-DWG-001 freigegeben.`
-
-Korrekturen können direkt mit Bezug auf Feld `A`, `B` oder `C` und das jeweilige
-Maß genannt werden. Die Freigabe erlaubt anschließend die Parametrik- und
-Couponplanung, aber noch keine Behauptung physischer Passung.
+Sie erlaubt die Parametrik- und Couponplanung, aber noch keine Behauptung
+physischer Passung. Rot markierte `TBD`-Werte bleiben ungelöst und dürfen nicht
+aus der Zeichnung skaliert werden.

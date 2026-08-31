@@ -15,15 +15,16 @@ Schnellverschluss. Offene Wabenwände und das mittige eigene metriMade-Logo
 bleiben geschützt.
 
 Hierzu existiert noch **keine freigegebene Modell- oder 3MF-Datei**. Die
-Anforderungen sind für ein bemaßtes Prüfblatt freigegeben. Aktuell zur
-Zeichnungs-/Konzeptprüfung stehen:
+Anforderungen und das bemaßte Konzeptblatt `R7-REQ5-DWG-001` sind durch Stefan
+freigegeben:
 
 - [`R7-REQ5-DWG-001-dimensioned-concept.png`](drawings/R7-REQ5-DWG-001-dimensioned-concept.png)
 - [`R7-REQ5-DWG-001-dimensioned-concept.svg`](drawings/R7-REQ5-DWG-001-dimensioned-concept.svg)
 - [`R7-REQ5-DWG-001-dimensioned-concept.pdf`](drawings/R7-REQ5-DWG-001-dimensioned-concept.pdf)
 
-Produktions-CAD folgt erst nach separater Zeichnungs-/Konzeptfreigabe sowie
-realer Schrauben- und Maschinenhüllkurvenprüfung.
+Die nächste zulässige Phase ist die Parametrik- und Couponplanung. Produktions-
+CAD für den vollständigen Umlenker folgt erst nach realer Schrauben- und
+Maschinenhüllkurvenprüfung; eine Fertigungs-3MF existiert weiterhin nicht.
 
 ## Passende Drittanbieter-Referenz
 

@@ -187,3 +187,11 @@
 - Schraubengate: Loch-Ø, Kopf-Ø/-Höhe, Schraubenlänge, Auflagendicke und Gewindeeingriff bleiben ausdrücklich offen.
 - Rechte: Das Blatt wurde als eigene Vektorzeichnung aus der Spezifikation aufgebaut; die Drittanbieter-3MF war keine Geometrie-, Kontur- oder Maßquelle.
 - Folge: Produktions-CAD bleibt bis zur ausdrücklichen Freigabe von `R7-REQ5-DWG-001` gesperrt.
+
+### DEC-R7-027 – R7-REQ5-DWG-001 freigegeben
+
+- Status: vom Benutzer freigegeben
+- Evidenz: Benutzerantwort „freigegeben“ am 31. August 2026 auf die vorgelegte bemaßte Zeichnung.
+- Umfang: Freigegeben sind Formrichtung, direkte feste Zweischraubenarchitektur, bodenloser Schnitt, offene Wabenwände, mittige eigene Logo-Insel und die dargestellten eigenen Datumsbezüge.
+- Grenze: Die Freigabe macht keine rot markierte `TBD`-Größe zu einem Maß und ist kein physischer Pass-, Last- oder Drucknachweis.
+- Folge: Parametrik- und Couponplanung sind freigegeben. Die vollständige Umlenkergeometrie und eine Fertigungs-3MF bleiben durch `CONCEPT_ONLY`, den unbekannten Schraubenvertrag und die fehlende eigene Maschinenhüllkurve gesperrt.

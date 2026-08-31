@@ -1,0 +1,161 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00053
+title: A shallow rear-connected printed name facade can look insufficiently stable despite being one watertight body
+captured_at: 2026-08-31
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once on a printed NameForm 0.4.0 MARITA artifact. The report is qualitative; no force, deflection, fracture, photo, material identity, or profile deviation is recorded."
+feature:
+  type: letter-dominant personalized facade with hidden structural connector
+  geometry: MA and RITA glyph groups with 6 mm front-to-back depth, one recessed glyph-shaped rear layer, and one local bridge band between each neighboring node
+  design_parameters:
+    cap_height_mm: 122.0
+    nominal_inter_glyph_gap_mm: 1.8
+    glyph_body_depth_mm: 6.0
+    rear_connector_thickness_mm: 2.4
+    rear_connector_nominal_front_setback_mm: 6.0
+    rear_connector_boolean_overlap_mm: 0.1
+    local_bridge_band_width_mm: 6.0
+    front_texture_depth_mm: 0.6
+    proposed_glyph_body_depth_mm: 12.0
+    proposed_rear_connector_front_setback_mm: 10.0
+    proposed_rear_connector_thickness_mm: 4.0
+    proposed_minimum_positive_overlap_mm: 2.0
+    proposed_local_bridge_band_width_mm: 12.0
+  named_datums:
+    - glyph-front-y0
+    - glyph-back-y6
+    - rear-connector-front-near-y6
+    - print-bed-z0
+  constraints:
+    - The front must still read as separate large glyphs rather than a plaque.
+    - Counters and at least the approved finished inter-glyph gaps remain open.
+    - The connector stays behind the glyph front and outside the wood-relief mask.
+    - A watertight one-body result alone is not evidence of adequate perceived or physical stiffness.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: "Project orientation is upright on z=0 with glyph fronts toward -Y; confirmation of the physical print orientation is not recorded."
+  slicer:
+    name: unknown
+    version: null
+    profile: "User previously stated 0.12 mm layers; whether the supplied Anycubic reports were used without deviation is unknown."
+    profile_hash: null
+  geometry_class: tall freestanding FFF glyphs joined by a thin deeply recessed local web
+  environment: indoor; exact physical test environment unknown
+  transfer_limits:
+    - The observation applies to the printed NameForm 0.4.0 MARITA geometry and a 0.4 mm nozzle / 0.12 mm layer context.
+    - It does not prove that the current connector fractured or fails a specified load.
+    - It does not validate the proposed 0.4.1 dimensions; they require concept, digital section, slicer, and physical coupon review.
+observation:
+  summary: The printed 0.4.0 MARITA letter-to-letter connections looked insufficiently stable to the user even though the digital meshes were connected and watertight.
+  expected: The 6 mm-deep glyphs, 2.4 mm rear web, 0.1 mm nominal depth overlap, and 6 mm local bridge bands would look adequately integrated while the connector remained visually subordinate.
+  actual: The user reported that the letters did not look very stable where they hang together and requested deeper letters plus a stronger connection farther behind the visible front.
+  outcome: correction
+  parameter: glyph depth, connector setback/thickness/overlap, and local bridge-band width
+  recommended_value: "Unapproved 0.4.1 proposal: 12 mm glyph depth; connector front at y=10 mm; 4 mm connector thickness; at least 2 mm positive overlap; 12 mm local bridge bands."
+  units: mm
+explanation:
+  hypothesis: The combination of shallow glyph extrusion, almost tangent connector overlap, thin rear-web depth, and narrow single local bridge bands can make the facade appear and potentially behave like lightly attached plates even though a mesh connectivity audit passes.
+  mechanism: Greater glyph depth increases the visible and geometric section behind each front. A thicker connector with meaningful positive overlap transfers load through a finite shared volume, while wider local bands enlarge the inter-glyph section; moving that structure farther back preserves the letter-only front hierarchy.
+  alternatives:
+    - The geometry may only look delicate while still being adequate under normal handling.
+    - Material, perimeter count, under-extrusion, layer adhesion, cooling, or profile deviations may dominate the physical result.
+    - A single nearest-point bridge location may be the main weakness even if its width and depth are increased.
+    - A stronger full rear panel would improve rigidity but violate the approved letter-only appearance.
+  validated: false
+  validation_method: "Compare the historical and approved reinforced sections digitally, exact-slice the reinforced candidate, then print a process-matched representative glyph/bridge coupon and record front visibility, handling, force/deflection if available, and any fracture."
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: false
+  measurement_method: "Qualitative user assessment of a printed STL; the supplied 0.4.0 mesh reports establish the nominal geometry only."
+  uncertainty: "No photo, part identification, printed half, material, machine confirmation, slicer/profile deviation, force, deflection, fracture, or connector close-up is recorded."
+  sources:
+    - type: user-statement
+      ref: "User feedback in the 2026-08-31 NameForm MARITA reinforcement phase"
+      hash: null
+      notes: "The letters do not look very stable where they join; make them deeper and connect them more strongly farther behind."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md
+      hash: null
+      notes: "Raw product-local feedback record with unknown process fields preserved."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
+      hash: null
+      notes: "0.4.1 requirements proposal and explicit gate status."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-MA-left-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+applicability:
+  triggers:
+    - Tall personalized glyphs are joined mainly by a recessed rear web and local bridge bands.
+    - Digital one-body topology passes but the printed facade appears weak or flexes during handling.
+  exclusions:
+    - Independent loose letters that intentionally have no shared connector.
+    - Text embossed on a deliberately visible solid plaque.
+    - Safety-critical or structurally rated text assemblies.
+  transfer_limits:
+    - Do not reuse the proposed dimensions as universal values across fonts, sizes, names, materials, orientations, nozzles, or machines.
+relationships:
+  duplicates: []
+  conflicts:
+    - EXP-00050
+  supersedes: []
+  related:
+    - EXP-00052
+  evals:
+    - EVAL-geometry-letter-facade-rear-connector-stability-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/design-printable-surface-textures/SKILL.md
+validation:
+  targeted: not-run
+  regression: pass
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+provenance:
+  project: MM-PER-001
+  part_revision: 0.4.0-printed-feedback-to-0.4.1-requirements
+  trace: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md
+  source_commit: null
+  created_by: Codex
+tags:
+  - nameform
+  - freestanding-text
+  - glyph-depth
+  - recessed-connector
+  - bridge-stiffness
+  - user-correction
+  - fff

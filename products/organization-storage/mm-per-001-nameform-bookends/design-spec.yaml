@@ -1,27 +1,27 @@
 # NameForm Bookends — active design specification (single source of truth)
-# Revision 0.4.0 is the requirements draft for the letter-dominant wood-texture redesign.
+# Revision 0.4.1 is the requirements proposal for the reinforced letter-only facade.
 
 project:
   id: MM-PER-001
   name: "NameForm Split-Pair Bookends"
   sku: MM-PER-001
-  revision: 0.4.0
+  revision: 0.4.1
   owner: "Stefan"
   created: "2026-08-26"
-  supersedes: "0.3.0 (existing source, exports, concept, and validation remain historical evidence)"
+  supersedes: "0.4.0 draft candidate (existing source, exports, concept, and validation remain historical evidence)"
   portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-002"
   tool_route: "CadQuery B-Rep functional core and glyph outlines; masked direct-sampled heightmap patches on visible glyph surfaces; Trimesh and validate-printable-3d-projects evidence"
 
 workflow:
   preflight:
     status: current
-    mode: PROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-005
-    assessment_version: 0.4.1
-    previous_assessment_id: PREFLIGHT-MM-PER-001-004
-    assessed_project_revision: "0.4.0"
-    updated_at: "2026-08-31T16:42:03+02:00"
+    assessment_id: PREFLIGHT-MM-PER-001-006
+    assessment_version: 0.4.2
+    previous_assessment_id: PREFLIGHT-MM-PER-001-005
+    assessed_project_revision: "0.4.1"
+    updated_at: "2026-08-31T17:51:12+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -34,36 +34,36 @@ workflow:
       - explicit_concept_approval
       - requested_name_variant_MARITA
       - automatic_split_envelope_recheck
+      - user_printed_MARITA_v0p4p0
+      - user_reports_facade_looks_insufficiently_stable
+      - requested_deeper_glyphs
+      - requested_stronger_more_recessed_rear_connector
   requirements_approval:
-    status: approved
-    spec_revision: 0.4.0
-    approved_by: "Stefan — 'freigegeben'"
-    approved_at: "2026-08-31T14:22:45+02:00"
-    reason: "User explicitly approved the structured 0.4.0 requirements without changes."
+    status: changes-requested
+    spec_revision: 0.4.1
+    previous_approved_revision: 0.4.0
+    reason: "The printed 0.4.0 facade looks insufficiently stable; deeper glyphs and a stronger connector recessed farther behind the front require renewed approval."
   concept_approval:
-    status: approved
-    spec_revision: 0.4.0
-    asset: "concept/nameform-bookends-v0.4.0-concept.png"
-    asset_sha256: "14e21a1e86c3a2f1fa28ef2939c9fd0987a3434713476126039911bf8dfa57bc"
-    generated_at: "2026-08-31T14:22:45+02:00"
-    approved_by: "Stefan — 'freigegeben'"
-    approved_at: "2026-08-31T14:46:24+02:00"
-    reason: "User explicitly approved the 0.4.0 concept without changes."
+    status: blocked
+    spec_revision: 0.4.1
+    asset: null
+    previous_approved_asset: "concept/nameform-bookends-v0.4.0-concept.png"
+    reason: "A new sectioned concept must show the reinforced rear connection after 0.4.1 requirements approval."
   watermark_approval:
     status: blocked
-    spec_revision: 0.4.0
+    spec_revision: 0.4.1
     asset_id: MM-WM-001-R2
     product_id: MM-PER-001
-    version: 0.4.0
+    version: 0.4.1
     digital_status: "NOT GENERATED for the revised geometry"
     generated_profile: null
     manifest_asset: null
     placement: null
     preview_asset: null
     validation_asset: null
-    reason: "The 0.4.0 geometry exists, but the revised safe underside region, generated R2 asset, placement preview, and human branding review are not yet approved."
+    reason: "The 0.4.1 production geometry does not exist; watermark work remains blocked until the reinforced geometry is stable."
   digital_candidate:
-    status: draft-pass
+    status: stale
     evidence:
       - "validation/v0.4.0/generation-report.json"
       - "validation/v0.4.0/mesh-audits/audit-left.json"
@@ -74,20 +74,20 @@ workflow:
       - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-left.json"
       - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json"
       - "validation/v0.4.0/generated/MARITA/run02/parametric-plan-sweep.json"
-    reason: "Exact glyph/core B-Reps and textured manufacturing meshes pass digital generation, topology, gap, counter, relief, envelope, compute-budget, and parametric-plan checks for STEFAN and the requested MA | RITA variant; physical and branding gates remain open."
+    reason: "The 0.4.0 meshes remain valid historical evidence but are superseded by the requested structural change and cannot validate 0.4.1."
   slicer_preflight:
-    status: pass-with-human-review
+    status: stale
     evidence:
       - "coupons/nameform-letter-bridge-v0.4.0/reports/anycubic-slice-coupon-v0.4.0-run03.json"
       - "validation/v0.4.0/anycubic-slice-left-run01.json"
       - "validation/v0.4.0/anycubic-slice-right-run01.json"
       - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-MA-run02.json"
       - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-RITA-run02.json"
-    reason: "All selected exact Anycubic Slicer Next 1.3.9.4 runs returned native success and valid G-code. The requested MA half has no native geometry warning; RITA retains the expected floating-cantilever warning at glyph/bridge geometry and requires human layer review plus physical evidence."
+    reason: "The exact 0.4.0 slices remain historical evidence; deeper glyphs and the new connector require fresh isolated slicer runs."
   physical_validation:
     status: blocked
     evidence_plan: "test-plan.yaml"
-    reason: "The requested MA | RITA connector geometry, textured glyph surfaces, and complete pair are digitally validated but not yet physically tested."
+    reason: "The user printed the 0.4.0 STL and reports that the letter-to-letter connection looks insufficiently stable. No force, deflection, material, profile deviation, photo, or fracture result is recorded yet."
   final_release_approval:
     status: blocked
     reason: "Requirements, concept, slicer, physical, watermark, and final human approval gates remain open."
@@ -102,6 +102,8 @@ provenance:
     - "Move the background far behind the letters so it is barely visible from the front and serves only to connect the letters"
     - "Set letters very close together while retaining a visible gap"
     - "The new name is MARITA"
+    - "The printed letters do not look sufficiently stable where they connect to one another"
+    - "Make the letters deeper and connect them more strongly farther behind the visible front"
   previously_approved:
     - "True mechanically mirrored left/right pair with books between the ends"
     - "Inward feet under the books so book weight stabilizes the pair"
@@ -112,7 +114,7 @@ provenance:
   approved_design_basis:
     - "Use Noto Sans ExtraCondensed ExtraBold as the default open-licensed glyph source so the letters can grow materially without exceeding the Kobra 3 Max bed"
     - "Use 122 mm default cap height and outline-position glyphs with 1.8 mm nominal gaps; preserve at least 1.2 mm after any side relief"
-    - "Replace the full wing with 6.0 mm deep glyph bodies and a 2.4 mm rear connector web whose front begins 6.0 mm behind the glyph front"
+    - "The 0.4.0 appearance hierarchy remains the baseline: large glyphs, open counters, visible front gaps, and no rectangular front panel"
     - "Generate only local rear bridges between neighboring glyphs and the functional side blade; do not fill counters or create a rectangular background"
     - "Keep the side-blade and inward-foot load path from 0.3.0 while making it visually subordinate from the front"
     - "Use accepted candidate C unchanged on glyph fronts; use a shallower mapped treatment on exposed glyph flanks only after a process-matched letter coupon"
@@ -121,6 +123,12 @@ provenance:
     - "The historical demonstration name is STEFAN, split STE | FAN"
     - "The requested MARITA variant uses the outline-balanced split MA | RITA because MAR | ITA exceeds the 350 mm per-part design envelope at 122 mm cap height"
     - "Indoor adult decorative/normal-functional use only"
+    - "The reported issue is a qualitative visual/handling concern, not a recorded fracture or measured stiffness result"
+  recommended_revision_basis:
+    - "Increase glyph body depth from 6.0 mm to 12.0 mm"
+    - "Place the connector front 10.0 mm behind the glyph front, increase connector thickness from 2.4 mm to 4.0 mm, and let it extend 2.0 mm behind the glyph backs"
+    - "Increase each local bridge band from 6.0 mm to 12.0 mm width while keeping front gaps, counters, wood relief, and functional load surfaces unchanged"
+    - "Require at least 2.0 mm positive glyph-to-connector overlap; tangent-only or 0.1 mm nominal fusion is not acceptable"
   unresolved_nonblocking:
     - "Final color/material finish and optional heavy-duty fillable-ballast derivative"
     - "Exact filament product, color, batch, conditioning, and the complete profile used for the physical C print"
@@ -157,7 +165,7 @@ function:
     default_cap_height_mm: 122.0
     nominal_inter_glyph_gap_mm: 1.8
     minimum_finished_gap_mm: 1.2
-    glyph_body_depth_mm: 6.0
+    glyph_body_depth_mm: 12.0
   interfaces:
     - "Shelf/desk: flat underside; optional anti-slip pads are a later accessory, not assumed in the load claim"
     - "Books: side blade contacts the outer book cover; inward foot lies beneath the book row"
@@ -187,9 +195,12 @@ geometry:
     nominal_plate_thickness: 3.2
     nominal_rib_thickness: 2.4
     corner_radius: 3.0
-    glyph_body_depth: 6.0
-    rear_connector_thickness: 2.4
-    rear_connector_setback_from_glyph_front: 6.0
+    glyph_body_depth: 12.0
+    rear_connector_thickness: 4.0
+    rear_connector_front_setback_from_glyph_front: 10.0
+    rear_connector_extension_behind_glyph: 2.0
+    minimum_glyph_connector_overlap: 2.0
+    local_bridge_band_width: 12.0
     nominal_inter_glyph_gap: 1.8
     minimum_finished_inter_glyph_gap: 1.2
   maximum_part_envelope_mm: [350, 120, 165]
@@ -197,8 +208,8 @@ geometry:
   architecture:
     - "Continuous side blade and inward foot form the primary L-shaped book load path"
     - "Large extruded glyphs replace the rectangular front wing and create the visible facade silhouette"
-    - "A glyph-shaped rear layer and only the local bridges needed between adjacent glyphs connect the facade; counters remain open and no rectangular background is permitted"
-    - "The connector web begins 6.0 mm behind the glyph front so only small shadowed bridges can be seen through the gaps"
+    - "A 4.0 mm glyph-shaped rear layer and 12.0 mm-wide local bridges connect adjacent glyphs and the blade; counters remain open and no rectangular background is permitted"
+    - "The connector begins 10.0 mm behind the glyph front, overlaps the 12.0 mm-deep glyph bodies by 2.0 mm, and extends 2.0 mm behind them so it is both better anchored and more deeply shadowed"
     - "Rounded triangular gussets connect side blade, glyph facade, and foot where hidden from the intended front view"
     - "Glyph geometry does not control stop height, foot length, or side-blade depth"
 
@@ -293,20 +304,21 @@ optimization:
     - "Side blade/book contact face"
     - "Inward foot top and bed datum"
     - "Side-blade/foot/gusset load path"
-    - "Glyph silhouette, counters, minimum finished gaps, rear connector bonds, and shared baseline"
+    - "Glyph silhouette, 12.0 mm body depth, counters, minimum finished gaps, >=2.0 mm rear connector overlap, 12.0 mm bridge bands, and shared baseline"
     - "Accepted candidate-C phase, scale, depth, seam treatment, and direct-sampling pipeline on glyph fronts"
     - "Watermark safe region after geometry lock"
   baseline: "Historical 0.2.0 M: 1484.805 cm3 and 1841.2 g per part at PLA density 1.24 g/cm3"
   candidates:
-    - "A baseline: letter-dominant facade with candidate C on glyph fronts only and local recessed bridges"
-    - "B optional: candidate A plus shallower direct-sampled relief on approved exposed glyph flanks"
-    - "C fallback: candidate A with flank appearance carried only by material/finish if side mapping harms gaps, bonds, mesh budget, or slice quality"
-  acceptance: "Select no 0.4.0 candidate without approved concept correspondence, exact slicer metrics, protected-region checks, and the process-matched glyph/connector coupon"
+    - "A historical baseline: 6.0 mm glyphs with a 2.4 mm web, 0.1 mm nominal overlap, and 6.0 mm local bridge bands; user reports insufficient apparent stability"
+    - "B recommended 0.4.1: 12.0 mm glyphs with a 4.0 mm connector beginning at y=10.0 mm, >=2.0 mm overlap, and 12.0 mm local bridge bands"
+    - "C optional after structural proof: candidate B plus shallower direct-sampled relief on approved exposed glyph flanks"
+    - "D fallback: candidate B with flank appearance carried only by material/finish if side mapping harms gaps, bonds, mesh budget, or slice quality"
+  acceptance: "Select no 0.4.1 candidate without approved concept correspondence, exact slicer metrics, protected-region checks, and the process-matched glyph/connector coupon"
   mesh_simplification:
     status: pending
     master_mesh: null
     comparison_report: null
-    rationale: "The 0.4.0 reference and manufacturing meshes do not exist yet; any relief simplification must be local and physically error-bounded."
+    rationale: "The 0.4.1 reference and manufacturing meshes do not exist yet; any relief simplification must be local and physically error-bounded."
     protected_regions:
       - "Side blade/book contact face"
       - "Inward foot top and bed datum"
@@ -341,8 +353,8 @@ acceptance:
     criterion: "Glyph fronts preserve candidate C source, 120 x 45 mm physical period, 24 px seam blend, 0.6 mm depth, 0.45 mm pitch, and direct full-master sampling"
     method: "Source-coordinate regression, relief-span report, mesh audit, exact slice, and process-matched letter coupon"
   - id: connector-integrity
-    criterion: "Every glyph is fused through the recessed rear web with no disconnected island and survives the defined handling coupon without fracture"
-    method: "Connectivity graph, watertight-body audit, section review, and physical handling test"
+    criterion: "Every glyph is fused through a rear connector beginning >=10.0 mm behind the front, with >=2.0 mm positive depth overlap and >=12.0 mm local bridge-band width; no disconnected island, visible front closure, crack, or unacceptable flex is permitted"
+    method: "Connectivity graph, exact overlap/section assertions, watertight-body audit, front render, and process-matched physical handling/deflection test"
   - id: supports
     criterion: "No generated support; bridges/overhangs remain within the qualified profile"
     method: "CAD construction and exact slicer layer review"
@@ -366,7 +378,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-PER-001
-  version: 0.4.0
+  version: 0.4.1
   operation: recessed
   depth_mm: 0.4
   preferred_surface: flat-nonfunctional-low-stress-underside
@@ -385,8 +397,8 @@ deliverables:
 
 paths:
   historical_release: "release/manifest.json, release/design-spec-0.2.0.yaml, and committed 0.3.0 source/exports/validation"
-  concept: "concept/nameform-bookends-v0.4.0-concept.png"
-  source: "source/v0.4.0/"
-  exports: "exports/v0.4.0/"
-  validation: "validation/v0.4.0/"
+  concept: "concept/nameform-bookends-v0.4.1-reinforced-concept.png (pending requirements approval)"
+  source: "source/v0.4.1/ (blocked until concept approval)"
+  exports: "exports/v0.4.1/ (blocked until concept approval)"
+  validation: "validation/v0.4.1/"
   test_plan: "test-plan.yaml"

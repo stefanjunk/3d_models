@@ -1,15 +1,16 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-005",
-  "assessment_version": "0.4.1",
+  "assessment_id": "PREFLIGHT-MM-PER-001-006",
+  "assessment_version": "0.4.2",
   "assessment_date": "2026-08-31",
   "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
-    "intended_use": "A coordinated left/right indoor bookend pair whose visible front facade is formed by large, tightly spaced name glyphs. The wood appearance uses the physically preferred direct-sampled candidate C on the glyph fronts. A recessed rear web only connects the glyphs; the existing side-blade and inward-foot architecture carries the books.",
-    "user_context": "Adult indoor use on a flat shelf or desk; requested MARITA pair with contour-balanced MA | RITA split; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers.",
+    "intended_use": "A coordinated left/right indoor bookend pair whose visible front facade is formed by large, tightly spaced name glyphs. The wood appearance uses the physically preferred direct-sampled candidate C on the glyph fronts. Revision 0.4.1 must deepen the glyph bodies and strengthen the more deeply recessed rear connection without turning it into a visible rectangular panel; the existing side-blade and inward-foot architecture carries the books.",
+    "user_context": "Adult indoor use on a flat shelf or desk; requested MARITA pair with contour-balanced MA | RITA split; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers. The user printed the 0.4.0 STL and reports that the letters do not look sufficiently stable where they join; no measured load, deflection, fracture, material identity, or photo is recorded.",
     "variants": [
       "0.4.0 requirements draft",
       "default name STEFAN split STE | FAN",
-      "requested name MARITA; planned automatic contour-balanced split MA | RITA"
+      "requested name MARITA; planned automatic contour-balanced split MA | RITA",
+      "0.4.1 reinforced facade requirements proposal: 12 mm glyph depth and stronger rear connector"
     ],
     "out_of_scope": [
       "Wall mounting, stacking, child-directed use, structural shelving, or loads beyond the approved physical test",
@@ -112,7 +113,7 @@
         {
           "id": "DIM-CONNECTOR-SETBACK-001",
           "feature": "Recommended glyph-front to connector-front setback",
-          "nominal_mm": 6.0,
+          "nominal_mm": 10.0,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
@@ -124,7 +125,7 @@
         {
           "id": "DIM-CONNECTOR-THICKNESS-001",
           "feature": "Recommended rear connector web thickness",
-          "nominal_mm": 2.4,
+          "nominal_mm": 4.0,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
@@ -140,10 +141,10 @@
       ],
       "evidence": {
         "level": "E1",
-        "sources": ["design-spec.yaml", "user requirement recorded 2026-08-31"],
+        "sources": ["design-spec.yaml", "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md", "user correction recorded 2026-08-31"],
         "variant_confirmed": false,
         "coverage_percent": 35,
-        "uncertainty_note": "The topology and dimensions are requirements-stage recommendations; no concept, CAD section, coupon, or physical result exists yet.",
+        "uncertainty_note": "The printed 0.4.0 result is qualitatively reported as looking insufficiently stable, but there is no force/deflection/fracture measurement. The proposed 12 mm glyph depth, 10 mm connector-front setback, 4 mm connector thickness, 2 mm positive overlap, and 12 mm bridge bands remain requirements-stage recommendations without concept, CAD section, coupon, or physical proof.",
         "observability": "INFERRED"
       },
       "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 2, "total": 9, "tier": "I2"},
@@ -152,12 +153,12 @@
         {
           "mode": "A glyph or bridge is disconnected or breaks during handling",
           "effect": "Appearance failure, sharp edge, and loss of the personalized facade.",
-          "mitigation": "Fail closed on disconnected glyph graphs, preserve 2.4 mm nominal rear structure, and print a representative connector/letter coupon before the full pair."
+          "mitigation": "Fail closed on disconnected glyph graphs or insufficient positive overlap; deepen glyphs, enlarge and recess the rear bridge structure, inspect sections and front visibility, then print a representative connector/letter coupon before the full pair."
         }
       ],
       "verification": {
         "method": "test_coupon",
-        "acceptance_criteria": ["Every glyph is part of one watertight body and the representative bridge coupon survives normal handling without fracture."],
+        "acceptance_criteria": ["Every glyph is part of one watertight body; the rear connector begins at least 10 mm behind the front, overlaps glyph bodies by at least 2 mm in depth, uses at least 12 mm-wide local bridge bands, remains visually subordinate from the approved front view, and the representative coupon survives the approved handling/deflection test without fracture."],
         "status": "PLANNED",
         "result_refs": []
       },
@@ -251,10 +252,10 @@
     "level": "R3",
     "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
     "blocking_unknowns": [
-      "Physical connector and textured-glyph coupon evidence",
+      "Measured 0.4.0 connector deflection/fracture evidence and process-matched proof of the proposed 0.4.1 connector",
       "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
     ],
-    "completeness_percent": 80.0
+    "completeness_percent": 76.0
   },
   "criticality": {
     "level": "K1",
@@ -266,29 +267,29 @@
     "lane": "C",
     "confidence": "CONDITIONAL",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retained functional core, approved requirements/concept, and physically preferred C texture route permit parametric CAD with controls. Release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
+    "rationale": "The retained functional core and physically preferred C texture route permit a controlled reinforced concept. The changed structural/appearance requirement reopens requirements and concept approval; no 0.4.1 production CAD or export is permitted before those gates pass. Release additionally requires a connector/glyph coupon, exact slicing, and full-pair physical tests."
   },
   "warnings": [
-    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The recessed rear connector topology and recommended 2.4 mm thickness are not yet supported by a sectioned concept, generated body, or physical handling coupon."},
+    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The printed 0.4.0 facade is reported as looking insufficiently stable. The proposed deeper glyphs and stronger connector are not yet supported by an approved sectioned concept, generated body, measured deflection, or physical handling coupon."},
     {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The preferred C print confirms appearance qualitatively, but the exact filament identity, conditioning, and complete slicer profile remain unknown."},
     {"code": "VARIANT_ENVELOPE_MARGIN_LOW", "severity": "WARN", "message": "At the approved 122 mm cap height, the planned MA | RITA split has only about 1.25 mm X margin to the 350 mm per-part design envelope; exact generated bounds and slicer bed placement must pass before this variant is a print candidate."}
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Generate a process-matched representative letter/bridge coupon before the complete pair.",
-      "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, and passes handling plus visual review."
+      "action": "Approve the 0.4.1 reinforced requirements and a sectioned concept before production geometry.",
+      "exit_criterion": "The approved concept shows 12 mm glyphs, a 4 mm rear connector starting 10 mm behind the front, at least 2 mm positive overlap, 12 mm local bridge bands, open counters, visible gaps, and no rectangular front panel."
     },
     {
       "priority": 2,
-      "action": "Build, validate, exactly slice, and physically test the requested MA | RITA pair.",
-      "exit_criterion": "Both bodies pass topology, bed, support, texture, watermark, package, 2.0 kg load/slide, and final human appearance gates."
+      "action": "After concept approval, generate and test a reinforced letter/bridge coupon before rebuilding the complete MA | RITA pair.",
+      "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, remains visually letter-dominant, and passes the approved handling/deflection test."
     }
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-PER-001",
-    "project_revision": "0.4.0",
+    "project_revision": "0.4.1",
     "basis_refs": [
       "design-spec.yaml",
       "source/v0.3.0/nameform_bookends.py",
@@ -301,7 +302,8 @@
       "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
       "coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json",
       "concept/nameform-bookends-v0.4.0-concept.png",
-      "concept/nameform-bookends-v0.4.0-concept.md"
+      "concept/nameform-bookends-v0.4.0-concept.md",
+      "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md"
     ],
     "change_triggers": [
       "user_selected_direct_sampled_texture_candidate_c",
@@ -314,10 +316,14 @@
       "gate_0b_concept_generated",
       "explicit_concept_approval",
       "requested_name_variant_MARITA",
-      "automatic_split_envelope_recheck"
+      "automatic_split_envelope_recheck",
+      "user_printed_MARITA_v0p4p0",
+      "user_reports_facade_looks_insufficiently_stable",
+      "requested_deeper_glyphs",
+      "requested_stronger_more_recessed_rear_connector"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-004",
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-005",
     "created_at": "2026-08-31T14:46:24+02:00",
-    "updated_at": "2026-08-31T16:42:03+02:00"
+    "updated_at": "2026-08-31T17:51:12+02:00"
   }
 }

@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-letter-facade-rear-connector-stability-001
+title: A recessed connector provides reviewable positive engagement and physical stability without closing the letter-only front
+category: geometry
+status: draft
+trigger: A tall FFF name facade uses individual glyph bodies joined primarily by a connector recessed behind the intended front view.
+risk: A mesh can be watertight and one-bodied while the glyph depth, connector overlap, or local bridge sections remain too slight for acceptable appearance or handling; simply adding a full panel can destroy the intended letter-only hierarchy.
+given:
+  approved_requirements: glyph depth, connector front/rear datums, connector thickness, minimum positive overlap, local bridge width/count policy, permitted regions, and front-view visibility criterion
+  geometry_candidate: exact glyph, connector, local bridge, side-blade junction, counter, and gap solids for the personalized text variant
+  process_context: physical printer/material/nozzle/layer/orientation/profile scope plus the representative glyph/bridge coupon
+expected:
+  - Section analysis proves finite positive volume engagement between every glyph and the rear connector; tangent-only contact or an incidental tessellation weld is prohibited.
+  - Every neighboring glyph pair and the side-blade junction have an approved load path whose minimum bridge dimensions and locations are reported from exact geometry.
+  - The glyph front-to-back depth and connector section satisfy the approved process-relative minimums and preserve one connected watertight manufacturing body.
+  - Front and three-quarter views plus a rear section show that counters and finished glyph gaps stay open and the stronger connector remains visually subordinate rather than becoming a plaque.
+  - Texture displacement and mesh conversion leave connector bonds, minimum sections, gaps, counters, and bed datums unchanged within approved tolerances.
+  - A process-matched representative coupon passes the approved appearance and handling/deflection test before the full personalized pair is released.
+failure_conditions:
+  - Any glyph-to-connector junction is tangent-only, relies on less positive overlap than approved, or lacks a reported exact section.
+  - A local bridge is narrower/thinner than approved, is disconnected after mesh export, or fractures or flexes beyond the approved physical criterion.
+  - The connector strength is increased by closing counters, eliminating the approved finished gap, or adding a front-dominant rectangular panel.
+  - A watertight mesh, render, or successful slice is used as the sole evidence of facade stiffness.
+  - The physical coupon scope omits material, nozzle, layer height, orientation, profile deviations, or the observed outcome.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
+  - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+  - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: "Digital evidence must prove positive overlap, minimum bridge sections, one watertight body, protected gaps/counters, and front-view hierarchy. Physical coupon evidence must separately decide appearance and handling/deflection."
+  measurement_method: "Exact B-Rep intersection/section assertions, mesh topology and protected-region regression, orthographic/three-quarter/section review, exact slicer preview, then a process-matched physical coupon."
+relationships:
+  lessons:
+    - EXP-00053
+    - EXP-00050
+  regression_suites: []
+last_run:
+  result: not-run
+  date: 2026-08-31
+  report: products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+  artifact_hashes: []
+tags:
+  - geometry
+  - nameform
+  - freestanding-text
+  - recessed-connector
+  - positive-overlap
+  - physical-coupon

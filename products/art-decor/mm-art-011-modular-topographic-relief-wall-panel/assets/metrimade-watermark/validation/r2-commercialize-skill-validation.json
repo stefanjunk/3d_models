@@ -1,0 +1,363 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "frontmatter-name",
+      "message": "Skill name: 'commercialize-3d-models'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "frontmatter-description",
+      "message": "Description length: 477",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "skill-context-budget",
+      "message": "SKILL.md characters 18347; compact-instruction budget 24000",
+      "metrics": {
+        "characters": 18347,
+        "rough_tokens_at_4_chars": 4587
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "resource-references",
+      "message": "All explicit SKILL.md resource paths exist",
+      "metrics": {
+        "missing": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "python-ast",
+      "message": "Parsed 6 Python file(s) without bytecode writes",
+      "metrics": {
+        "errors": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "dependency-declarations",
+      "message": "Detected third-party imports are represented in requirements files",
+      "metrics": {
+        "undeclared": []
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "test-suite-present",
+      "message": "Test files: 1",
+      "metrics": {},
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "symlink-containment",
+      "message": "All symlinks remain inside the skill",
+      "metrics": {
+        "escaping": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "opencode-command-portability",
+      "message": "OpenCode command payloads are model/provider-neutral",
+      "metrics": {
+        "errors": []
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "deterministic-validation-profile",
+      "message": "Companion validation profile returned PASS",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/.agents/skills/commercialize-3d-models/SKILL.md",
+      "sha256": "9a3d66b061682f34ec01dfe0df3d9d475ece177aa124a120d76f1f3ffaaf7ca4",
+      "size_bytes": 18433
+    }
+  ],
+  "limitations": [
+    "Dependency declaration matching is static and does not prove the environment can import optional backends."
+  ],
+  "metrics": {
+    "logical_name": "commercialize-3d-models",
+    "python_imports": [
+      "__future__",
+      "argparse",
+      "csv",
+      "dataclasses",
+      "datetime",
+      "embed_3mf_provenance",
+      "hashlib",
+      "io",
+      "json",
+      "os",
+      "pathlib",
+      "re",
+      "shutil",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "typing",
+      "unittest",
+      "uuid",
+      "xml",
+      "zipfile"
+    ],
+    "runtime": "portable",
+    "skill_characters": 18347,
+    "validation_profile": {
+      "checks": [
+        {
+          "evidence": [],
+          "id": "profile-contract",
+          "message": "Profile structure and IDs are valid",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:release-model",
+          "message": "Artifact role kind: 'mesh'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:technical-summary",
+          "message": "Artifact role kind: 'report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:rights-graph",
+          "message": "Artifact role kind: 'report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:customer-package",
+          "message": "Artifact role kind: 'document'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:autonomy-policy",
+          "message": "Artifact role kind: 'autonomy-policy'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:agent-approval-ledger",
+          "message": "Artifact role kind: 'approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "artifact-role:human-approval-ledger",
+          "message": "Artifact role kind: 'approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:technical-evidence",
+          "message": "Declared check type: 'external_report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:technical-evidence:release-model",
+          "message": "Referenced artifact role: 'release-model'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:technical-evidence:technical-summary",
+          "message": "Referenced artifact role: 'technical-summary'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:rights-evidence",
+          "message": "Declared check type: 'external_report'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:rights-evidence:rights-graph",
+          "message": "Referenced artifact role: 'rights-graph'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-type:stage-provenance",
+          "message": "Declared check type: 'approvals'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:autonomy-policy",
+          "message": "Referenced artifact role: 'autonomy-policy'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:agent-approval-ledger",
+          "message": "Referenced artifact role: 'agent-approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "check-role:stage-provenance:human-approval-ledger",
+          "message": "Referenced artifact role: 'human-approval-ledger'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:engineering-approval",
+          "message": "Manual gate kind: 'approval'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:ip-legal-approval",
+          "message": "Manual gate kind: 'approval'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:safety-compliance-approval",
+          "message": "Manual gate kind: 'approval'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "manual-gate:business-approval",
+          "message": "Manual gate kind: 'approval'",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:block-statuses",
+          "message": "Release must block FAIL, NOT_RUN, and REVIEW_REQUIRED",
+          "metrics": {
+            "declared": [
+              "FAIL",
+              "NOT_RUN",
+              "REVIEW_REQUIRED"
+            ]
+          },
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:require_sha256",
+          "message": "require_sha256 must be true",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "release-policy:require_fresh_external_reports",
+          "message": "require_fresh_external_reports must be true",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        }
+      ],
+      "inputs": [
+        {
+          "path": "/home/stefan/Projekte/3d_models/.agents/skills/commercialize-3d-models/assets/validation-profile.json",
+          "sha256": "481db5e4c7fb77c6fdc4f4fb50ad642da302041226893c80a42c0b11784a7191",
+          "size_bytes": 1495
+        }
+      ],
+      "limitations": [],
+      "metrics": {
+        "artifact_role_count": 7,
+        "check_count": 3,
+        "manual_gate_count": 4,
+        "skill": "commercialize-3d-models"
+      },
+      "profile": "draft",
+      "required_capabilities": [],
+      "schema_version": "1.0",
+      "status": "PASS",
+      "tool": "validate-profile",
+      "tool_version": "1.2.1"
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-skill",
+  "tool_version": "1.2.1"
+}

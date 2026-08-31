@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/exports/v0.3.0/harz/harz-left-composite.stl",
+      "sha256": "3eab13ee8ac21baff2da68810b9a2be572580ae52c770e37fe20361d74e04899",
+      "size_bytes": 21929384
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          299.875,
+          400.0,
+          10.0
+        ]
+      ],
+      "components": 1,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": -4,
+      "extents_mm": [
+        299.875,
+        400.0,
+        10.0
+      ],
+      "faces": 438586,
+      "manifold_edges": 657879,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 550193.0537420316,
+      "surface_area_mm2": 249653.58694832312,
+      "vertices": 219289,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 20.913490295410156,
+    "raw_file_representation": {
+      "faces": 438586,
+      "vertices": 1315758
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.2.1"
+}

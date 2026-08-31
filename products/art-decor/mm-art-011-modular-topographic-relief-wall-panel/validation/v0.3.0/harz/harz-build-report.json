@@ -1,0 +1,529 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-011",
+  "revision": "0.3.0",
+  "pilot": "harz",
+  "title": "Harz Moss Stone",
+  "status": "PASS",
+  "failure_reasons": [],
+  "source": {
+    "master": "source-data/v0.3.0/harz/harz-height-master-16bit.tif",
+    "master_sha256": "88e0bb153f72ed395396882268328b425b99a3c2fac6352be93083f0ebf841d4",
+    "float_source": "source-data/v0.3.0/harz/harz-source-crop-float32.tif",
+    "float_source_sha256": "e9df5860108e6e953e4c267343d9d52de1efc4140a6688ac74a474d36f5d2e60",
+    "source_elevation_m": [
+      10.661,
+      1139.006
+    ],
+    "extent_epsg25832": [
+      553824.1565,
+      5697857.4304,
+      673824.1565,
+      5777857.4304
+    ],
+    "attribution": "produced using Copernicus WorldDEM-30 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+  },
+  "heightmap": {
+    "reference_samples": [
+      1201,
+      801
+    ],
+    "reference_generation_pitch_mm": 0.5,
+    "reference_generation_ppi": 50.8,
+    "manufacturing_samples": [
+      801,
+      535
+    ],
+    "manufacturing_pitch_mm": [
+      0.75,
+      0.7490636704119851
+    ],
+    "manufacturing_ppi_x": 33.86666666666667,
+    "base_thickness_mm": 3.0,
+    "relief_depth_mm": 7.0,
+    "independent_half_normalization": false,
+    "downsampling": "bicubic order 3 with anti-aliasing from the frozen global 16-bit master",
+    "round_trip_normalized_rms": 0.0022244667634367943,
+    "round_trip_normalized_max_abs": 0.032533228397369385,
+    "round_trip_correlation": 0.9998619654940806
+  },
+  "color": {
+    "palette": [
+      {
+        "id": "dark-green",
+        "name": "Dark Green",
+        "display_hex": "#68724D"
+      },
+      {
+        "id": "chocolate-brown",
+        "name": "Chocolate Brown",
+        "display_hex": "#746759"
+      },
+      {
+        "id": "caramel",
+        "name": "Caramel",
+        "display_hex": "#C4A981"
+      },
+      {
+        "id": "bone-white",
+        "name": "Bone White",
+        "display_hex": "#EFEDE3"
+      }
+    ],
+    "thresholds": [
+      {
+        "quantile": 0.45,
+        "z_mm": 4.2,
+        "source_elevation_m_approx": 204.09157142857146
+      },
+      {
+        "quantile": 0.7,
+        "z_mm": 4.800000000000001,
+        "source_elevation_m_approx": 300.80685714285727
+      },
+      {
+        "quantile": 0.9,
+        "z_mm": 6.0,
+        "source_elevation_m_approx": 494.23742857142855
+      }
+    ],
+    "layer_height_mm": 0.2,
+    "named_body_count": 8,
+    "intended_global_color_changes": 3,
+    "dithering": false,
+    "color_plane_degeneracy_guard": {
+      "method": "vertices within 0.0001 mm of a color plane moved to plane + 0.001 mm",
+      "total_vertices_nudged": 72,
+      "maximum_displacement_mm": 0.0010986328125,
+      "planes": [
+        {
+          "z_mm": 4.2,
+          "vertices_nudged": 44
+        },
+        {
+          "z_mm": 4.800000000000001,
+          "vertices_nudged": 16
+        },
+        {
+          "z_mm": 6.0,
+          "vertices_nudged": 12
+        }
+      ]
+    }
+  },
+  "lighting": {
+    "optional_addon_not_included": true,
+    "nominal_halo_gap_mm": 18.0,
+    "front_through_aperture_width_mm": 2.2,
+    "selected_segments": [
+      {
+        "level_normalized": 0.19003704190254211,
+        "side": "left",
+        "area_mm2": 196.0874930258169,
+        "centroid_mm": [
+          32.42322711986581,
+          268.0286968230744
+        ]
+      },
+      {
+        "level_normalized": 0.19003704190254211,
+        "side": "left",
+        "area_mm2": 195.03832286261084,
+        "centroid_mm": [
+          90.65948388945425,
+          280.34737990072364
+        ]
+      },
+      {
+        "level_normalized": 0.19003704190254211,
+        "side": "right",
+        "area_mm2": 191.45241870506817,
+        "centroid_mm": [
+          389.4106284929832,
+          300.4332658401858
+        ]
+      },
+      {
+        "level_normalized": 0.19003704190254211,
+        "side": "left",
+        "area_mm2": 191.33579876472223,
+        "centroid_mm": [
+          28.5328638756246,
+          54.20863216274729
+        ]
+      },
+      {
+        "level_normalized": 0.25450780987739563,
+        "side": "right",
+        "area_mm2": 190.19646705952022,
+        "centroid_mm": [
+          526.5946013503028,
+          144.14235891300603
+        ]
+      },
+      {
+        "level_normalized": 0.19003704190254211,
+        "side": "right",
+        "area_mm2": 189.74553250969794,
+        "centroid_mm": [
+          335.84759150304507,
+          59.46802562128456
+        ]
+      }
+    ]
+  },
+  "seam": {
+    "nominal_gap_mm": 0.25,
+    "global_field_sample_delta_max_mm": 0.5220932960510254,
+    "global_field_sample_delta_mean_mm": 0.05315272882580757,
+    "split_after_global_scaling": true
+  },
+  "reference_mesh": {
+    "path": "exports/v0.3.0/harz/harz-reference-full.stl",
+    "triangles": 1932000,
+    "watertight": true,
+    "bounds_mm": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        600.0,
+        400.0,
+        10.0
+      ]
+    ],
+    "bytes": 96600084,
+    "sha256": "47cf66e83071a2022af9c03275cc12e9e9d146a06a158b1c521c664e4c93fb4b"
+  },
+  "halves": {
+    "left": {
+      "local_width_mm": 299.875,
+      "composite": {
+        "path": "exports/v0.3.0/harz/harz-left-composite.stl",
+        "vertices": 219289,
+        "triangles": 438586,
+        "volume_mm3": 550193.0533039559,
+        "watertight": true,
+        "components": 1,
+        "bounds_mm": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            299.875,
+            400.0,
+            10.0
+          ]
+        ],
+        "bytes": 21929384,
+        "sha256": "3eab13ee8ac21baff2da68810b9a2be572580ae52c770e37fe20361d74e04899"
+      },
+      "component_cleanup": {
+        "components_before_cleanup": 1,
+        "tiny_orphan_components_removed": []
+      },
+      "colors": {
+        "dark-green": {
+          "path": "exports/v0.3.0/harz/harz-left-01-dark-green.stl",
+          "vertices": 116593,
+          "triangles": 233194,
+          "volume_mm3": 484122.2045364112,
+          "watertight": true,
+          "components": 1,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              299.875,
+              400.0,
+              4.199999809265137
+            ]
+          ],
+          "bytes": 11659784,
+          "sha256": "61e87098f961b46dd5ed8e721383eb89bb91bcbe4129dad88030da62588d30ca",
+          "material": {
+            "id": "dark-green",
+            "name": "Dark Green",
+            "display_hex": "#68724D"
+          },
+          "z_interval_mm": [
+            0.0,
+            4.2
+          ]
+        },
+        "chocolate-brown": {
+          "path": "exports/v0.3.0/harz/harz-left-02-chocolate-brown.stl",
+          "vertices": 108788,
+          "triangles": 217252,
+          "volume_mm3": 29770.492295396896,
+          "watertight": true,
+          "components": 157,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              4.199999809265137
+            ],
+            [
+              299.875,
+              400.0,
+              4.800000190734863
+            ]
+          ],
+          "bytes": 10862684,
+          "sha256": "5c835892b36f624a14a0ad027d5660e4f822080ed033b5f09b18eed0cc30a833",
+          "material": {
+            "id": "chocolate-brown",
+            "name": "Chocolate Brown",
+            "display_hex": "#746759"
+          },
+          "z_interval_mm": [
+            4.2,
+            4.800000000000001
+          ]
+        },
+        "caramel": {
+          "path": "exports/v0.3.0/harz/harz-left-03-caramel.stl",
+          "vertices": 61016,
+          "triangles": 121264,
+          "volume_mm3": 25105.47422910359,
+          "watertight": true,
+          "components": 237,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              4.800000190734863
+            ],
+            [
+              299.875,
+              365.1718444824219,
+              6.0
+            ]
+          ],
+          "bytes": 6063284,
+          "sha256": "ecaaeee8febe15bcc6d4acc70fa3853f5297f93a77294bcad26956ae06fd0be0",
+          "material": {
+            "id": "caramel",
+            "name": "Caramel",
+            "display_hex": "#C4A981"
+          },
+          "z_interval_mm": [
+            4.800000000000001,
+            6.0
+          ]
+        },
+        "bone-white": {
+          "path": "exports/v0.3.0/harz/harz-left-04-bone-white.stl",
+          "vertices": 34173,
+          "triangles": 68334,
+          "volume_mm3": 11194.882243044234,
+          "watertight": true,
+          "components": 40,
+          "bounds_mm": [
+            [
+              150.70162963867188,
+              4.070892333984375,
+              6.0
+            ],
+            [
+              299.875,
+              284.65179443359375,
+              10.0
+            ]
+          ],
+          "bytes": 3416784,
+          "sha256": "5c6b6a48218140030631dcc9baf8910e287f521dd63e373e3c9eb8f5a6a79101",
+          "material": {
+            "id": "bone-white",
+            "name": "Bone White",
+            "display_hex": "#EFEDE3"
+          },
+          "z_interval_mm": [
+            6.0,
+            10.0
+          ]
+        }
+      },
+      "aperture_area_mm2": 582.4616146531499,
+      "aperture_fraction": 0.004855870067971237,
+      "aperture_limit": 0.12,
+      "triangle_target": 900000,
+      "triangle_stop": 1500000
+    },
+    "right": {
+      "local_width_mm": 299.875,
+      "composite": {
+        "path": "exports/v0.3.0/harz/harz-right-composite.stl",
+        "vertices": 219692,
+        "triangles": 439392,
+        "volume_mm3": 524749.7105173084,
+        "watertight": true,
+        "components": 1,
+        "bounds_mm": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            299.875,
+            400.0,
+            8.724982261657715
+          ]
+        ],
+        "bytes": 21969684,
+        "sha256": "ba9d441ed487bc00bbc65cee406f92c1d1d32ce40d5ccc7c5bb27a298c855bcf"
+      },
+      "component_cleanup": {
+        "components_before_cleanup": 1,
+        "tiny_orphan_components_removed": []
+      },
+      "colors": {
+        "dark-green": {
+          "path": "exports/v0.3.0/harz/harz-right-01-dark-green.stl",
+          "vertices": 133576,
+          "triangles": 267160,
+          "volume_mm3": 471453.03658790106,
+          "watertight": true,
+          "components": 1,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              299.875,
+              400.0,
+              4.199999809265137
+            ]
+          ],
+          "bytes": 13358084,
+          "sha256": "046f3ac5a014739bf83eb95f455f743aabdc9603ae254c6c5225a7081749eec3",
+          "material": {
+            "id": "dark-green",
+            "name": "Dark Green",
+            "display_hex": "#68724D"
+          },
+          "z_interval_mm": [
+            0.0,
+            4.2
+          ]
+        },
+        "chocolate-brown": {
+          "path": "exports/v0.3.0/harz/harz-right-02-chocolate-brown.stl",
+          "vertices": 60565,
+          "triangles": 120910,
+          "volume_mm3": 24982.55699111944,
+          "watertight": true,
+          "components": 93,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              4.199999809265137
+            ],
+            [
+              299.875,
+              400.0,
+              4.800000190734863
+            ]
+          ],
+          "bytes": 6045584,
+          "sha256": "211549437923a33e27f5abc40f110111e3fff8e568a550061a339c0deb4b9cfb",
+          "material": {
+            "id": "chocolate-brown",
+            "name": "Chocolate Brown",
+            "display_hex": "#746759"
+          },
+          "z_interval_mm": [
+            4.2,
+            4.800000000000001
+          ]
+        },
+        "caramel": {
+          "path": "exports/v0.3.0/harz/harz-right-03-caramel.stl",
+          "vertices": 61769,
+          "triangles": 123346,
+          "volume_mm3": 25276.018714152528,
+          "watertight": true,
+          "components": 114,
+          "bounds_mm": [
+            [
+              0.0,
+              0.0,
+              4.800000190734863
+            ],
+            [
+              299.875,
+              303.5868225097656,
+              6.0
+            ]
+          ],
+          "bytes": 6167384,
+          "sha256": "c62da6519437b0d0966bc402044b49370f9e99691e54dead667a6440c45fc806",
+          "material": {
+            "id": "caramel",
+            "name": "Caramel",
+            "display_hex": "#C4A981"
+          },
+          "z_interval_mm": [
+            4.800000000000001,
+            6.0
+          ]
+        },
+        "bone-white": {
+          "path": "exports/v0.3.0/harz/harz-right-04-bone-white.stl",
+          "vertices": 24259,
+          "triangles": 48366,
+          "volume_mm3": 3038.0982241354204,
+          "watertight": true,
+          "components": 83,
+          "bounds_mm": [
+            [
+              0.0,
+              68.91018676757812,
+              6.0
+            ],
+            [
+              155.526611328125,
+              243.4460906982422,
+              8.724982261657715
+            ]
+          ],
+          "bytes": 2418384,
+          "sha256": "4f136a540c66e698836a529df9452747fbdef0d9c72b8d40c00f824463db340e",
+          "material": {
+            "id": "bone-white",
+            "name": "Bone White",
+            "display_hex": "#EFEDE3"
+          },
+          "z_interval_mm": [
+            6.0,
+            10.0
+          ]
+        }
+      },
+      "aperture_area_mm2": 571.3944182742863,
+      "aperture_fraction": 0.004763604987697259,
+      "aperture_limit": 0.12,
+      "triangle_target": 900000,
+      "triangle_stop": 1500000
+    }
+  },
+  "limitations": [
+    "The preview is a palette/hillshade/light-path diagram, not a destination-slicer preview or a lit physical photograph.",
+    "The 0.25 mm connector/socket clearance is provisional until the physical four-clearance coupon selects the production value.",
+    "Final ACE slot mapping, purge tower, seam, first layer, wall fastening and aperture survival require human destination-slicer and physical review.",
+    "Copernicus GLO-30 is a surface model; vegetation and built structures may influence the Harz source elevations."
+  ],
+  "physical_validation": "NOT_RUN"
+}

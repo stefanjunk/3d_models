@@ -1,0 +1,163 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00055
+title: Move sampled height vertices off exact layer-color planes before splitting bands
+captured_at: 2026-09-01
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Two corrected pilot geometries with four 3MF and exact-slicer passes; no cross-kernel or physical replication."
+feature:
+  type: horizontal color-band split of a sampled heightfield solid
+  geometry: two 600 x 400 mm continuous heightfields split into four layer-only color bodies and two print halves
+  design_parameters:
+    layer_height_mm: 0.2
+    plane_proximity_test_mm: 0.0001
+    selected_nudge_above_plane_mm: 0.001
+    measured_maximum_displacement_mm: 0.0010995865
+    harz_planes_mm: [4.2, 4.8, 6.0]
+    harz_vertices_nudged: 72
+    rhenish_planes_mm: [7.6, 7.8, 8.2]
+    rhenish_vertices_nudged: 141
+    final_color_stl_count: 16
+    final_3mf_count: 4
+  named_datums:
+    - rear bed datum Z0
+    - three pilot-global color planes
+    - continuous sampled top surface
+    - permanent center seam
+  constraints:
+    - Color planes remain on complete 0.20 mm layer boundaries.
+    - Only vertices numerically within the declared proximity test may move.
+    - The displacement and affected-vertex count are recorded for each candidate.
+    - Every serialized color body must remain watertight after exact-coordinate welding and 3MF packaging.
+scope:
+  process: Manifold3D plane split, Trimesh validated STL serialization and standard 3MF packaging for FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: Anycubic candidate
+    product: PLA Matte candidate
+    variant: null
+    color: Dark Green/Brown/Caramel/Bone White and Black/Brown/Tan/Orange
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: standard candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle
+    profile_hash: c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab
+  geometry_class: dense sampled terrain solid with global horizontal material bands
+  environment: digital-only indoor decorative product candidate
+  transfer_limits:
+    - Evidence covers Manifold3D, Trimesh, binary STL and the local standard 3MF writer at approximately 600 mm XY scale.
+    - It does not establish a universal nudge magnitude for other scales, kernels, layer heights or interchange formats.
+observation:
+  summary: Vertices numerically on a horizontal material plane produced zero-area split facets that became repeated indices or an open body after STL welding; a bounded pre-split nudge eliminated the failures across both pilots.
+  expected: Each horizontal band remains a closed material body after STL and 3MF vertex welding.
+  actual: The initial Rhenish-right 3MF had two repeated-index triangles and a non-watertight material object; post-export cleanup then opened a Harz band. Moving only 72 Harz and 141 Rhenish near-plane vertices before the split yielded sixteen watertight STL color bodies and four warning-free valid 3MF packages.
+  outcome: mixed
+  parameter: sampled vertex distance from a horizontal split plane
+  recommended_value: detect-near-plane-vertices-and-apply-a-recorded-pre-split-perturbation-below-the-process-error-budget
+  units: topology-and-error-budget-contract
+explanation:
+  hypothesis: A sampled vertex at or within float32 precision of the split plane creates a tangent intersection; welding the serialized mesh collapses the resulting zero-area triangle.
+  mechanism: The in-memory indexed manifold can retain distinct topology around the tangent point, while STL coordinate welding aliases coincident points and turns a triangle into repeated indices. Removing that face after export may expose a boundary, whereas moving the source vertex before splitting changes the intersection topology cleanly.
+  alternatives:
+    - A topology-aware indexed manufacturing format or kernel may preserve components without the same STL welding failure.
+    - Shifting the entire color plane would break the approved layer-aligned color threshold and was rejected.
+    - Generic post-export degenerate-face removal was observed to open another band's shell and was rejected.
+  validated: true
+  validation_method: Count near-plane vertices, apply the bounded source perturbation, rebuild both pilots, validate sixteen color STLs and four 3MF packages, then match all four composite hashes to exact Anycubic PASS inputs.
+evidence:
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Float32 surface-to-plane distance enumeration, recorded maximum vertex displacement, STL watertightness, 3MF repeated-index/topology validation and exact source-hash comparison to slicer inputs.
+  uncertainty: The topology mechanism is strongly indicated but has not been reproduced with a second Boolean kernel, higher-precision mesh format or physical print.
+  sources:
+    - type: product-trace
+      ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+      hash: null
+      notes: Preserves the rejected post-export cleanup and selected pre-split correction.
+    - type: product-trace
+      ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/harz/harz-build-report.json
+      hash: 0cef56c4cb559b73765988ff77a0c9ed1e091f30e952d3e923963b3dba0139e7
+      notes: Records 72 affected vertices and 0.0010986328 mm maximum displacement.
+    - type: product-trace
+      ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/rhenish/rhenish-build-report.json
+      hash: d79b48cf3ce971d04424b90e7eec1afeea35db21ccd0a23b35f45abbc84b14f3
+      notes: Records 141 affected vertices and 0.0010995865 mm maximum displacement.
+    - type: product-trace
+      ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/rhenish/rhenish-right-3mf-validation.json
+      hash: ef0ed363254b0c840154927edc9e8d4d58a8d0856a7533a07ccbc925eb556744
+      notes: Final package has four watertight material objects and no errors or warnings.
+  artifacts:
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/source/v0.3.0/build_terrain.py
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/harz/harz-left-3mf-validation.json
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/rhenish/rhenish-right-3mf-validation.json
+applicability:
+  triggers:
+    - A sampled or image-derived heightfield is split by horizontal planes into material bodies.
+    - In-memory topology passes but welded STL or 3MF contains repeated-index, degenerate or open band meshes at the split plane.
+  exclusions:
+    - The source solid is already open, nonmanifold or disconnected before plane splitting.
+    - A color boundary is not required to stay on a declared layer plane.
+  transfer_limits:
+    - Recompute the affected vertices and physical error bound for every model; do not reuse 0.001 mm as an untested universal constant.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00051
+    - EXP-00052
+  evals:
+    - EVAL-geometry-heightfield-layer-plane-degeneracy-001
+    - EVAL-geometry-heightfield-boolean-weld-preservation-001
+  patterns: []
+  references:
+    - .agents/skills/3d-print-heightmap-relief/SKILL.md
+    - .agents/skills/multicolor-fdm-design/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/harz/harz-left-3mf-validation.json
+    - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/rhenish/rhenish-right-3mf-validation.json
+provenance:
+  project: MM-ART-011
+  part_revision: 0.3.0-digital-candidate
+  trace: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - heightfield
+  - multicolor
+  - layer-change
+  - plane-split
+  - degenerate-face
+  - float32-stl
+  - 3mf
+  - topology
+  - fail-closed

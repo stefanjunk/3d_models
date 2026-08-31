@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-011",
+  "revision": "0.3.0",
+  "status": "PASS",
+  "protected_requirements": [
+    "one global 16-bit height authority per pilot",
+    "physical aspect and center-seam registration",
+    "outer perimeter, connector/socket pockets and light apertures",
+    "four layer-only color bands"
+  ],
+  "baseline": {
+    "samples": [1201, 801],
+    "pitch_mm": 0.5,
+    "triangles_per_complete_pilot": 1932000
+  },
+  "selected": {
+    "samples": [801, 535],
+    "pitch_mm": [0.75, 0.7490636704],
+    "method": "global cubic anti-aliased resampling before the center split",
+    "support_required": false
+  },
+  "pilots": {
+    "harz": {
+      "manufacturing_triangles_complete": 877978,
+      "triangle_reduction_pct": 54.5560,
+      "round_trip_height_correlation": 0.9998619655,
+      "round_trip_normalized_rms": 0.0022244668,
+      "single_tool_geometry_filament_total_mm": 244619.1373,
+      "single_tool_geometry_time_total_s": 111069
+    },
+    "rhenish": {
+      "manufacturing_triangles_complete": 877682,
+      "triangle_reduction_pct": 54.5713,
+      "round_trip_height_correlation": 0.9995269678,
+      "round_trip_normalized_rms": 0.0022372513,
+      "single_tool_geometry_filament_total_mm": 256004.6640,
+      "single_tool_geometry_time_total_s": 108793
+    }
+  },
+  "limitations": [
+    "The exact Anycubic runs are single-tool composite geometry baselines; final four-color purge time and material require human destination-slicer review.",
+    "No material reduction that would introduce a rear raster, replaceable system or unsupported visible surface was permitted.",
+    "Physical print, flatness, seam, connector, lighting and appearance evidence is not yet available."
+  ]
+}

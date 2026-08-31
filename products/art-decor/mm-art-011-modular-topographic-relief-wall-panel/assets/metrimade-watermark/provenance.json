@@ -1,0 +1,44 @@
+{
+  "asset_family": "metriMade product-specific geometry watermark",
+  "asset_revision": "MM-WM-001-R2",
+  "created_at": "2026-08-28",
+  "predecessor_asset_revision": "MM-WM-001-R1",
+  "status": "digital-production-candidate-physical-test-pending",
+  "intended_rights_owner": "Stefan Junk Holding UG (haftungsbeschränkt)",
+  "brand": "metriMade",
+  "mandatory_visible_identity": {
+    "every_tier": ["owned metriMade logo", "<PRODUCT_ID>", "v<VERSION>"],
+    "full_and_compact": ["metriMade.com"],
+    "micro": "domain may be omitted only after full and compact fail the measured safe-region fit"
+  },
+  "layout_family": {
+    "selection_order": ["full", "compact", "micro"],
+    "allowed_rotations_deg": [0, 90],
+    "uniform_scale": 1.0,
+    "fallback": "block when micro does not fit the measured safe region"
+  },
+  "logo_source": {
+    "asset_revision": "MM-BRAND-001-R1",
+    "source": "../business/01-strategy/brand-assets/metrimade/source/build_brand_assets.py",
+    "selected_concept": "V10 concept 08",
+    "concept_sheet_sha256": "9baf6e78a2ae2600861078752e890c464a7b923d95fbba520a857deb26f16d00",
+    "manufacturing_adaptation": "one-color geometry omits the color-only aqua micro-edge at small size"
+  },
+  "generation": {
+    "source": "tools/generate_watermark.py",
+    "method": "validated product ID/version and layout tier to OpenSCAD outlines, DXF, mirrored cutter, coupon, metadata and hashes",
+    "font": "Inter ExtraBold / weight 800",
+    "font_license": "SIL Open Font License 1.1",
+    "font_bundled": false
+  },
+  "ai_assistance": {
+    "concept_origin": "OpenAI built-in image generation under Stefan Junk's direction",
+    "deterministic_redraw_and_engineering": "OpenAI Codex under Stefan Junk's direction",
+    "human_selection": "Stefan Junk"
+  },
+  "limitations": [
+    "Trademark/name/device-mark clearance remains open under BRD-001.",
+    "Digital topology passed for the R2 examples; slicer and physical coupon evidence remain mandatory for each tier used in production.",
+    "The geometry mark supports traceability but does not replace required legal product identification."
+  ]
+}

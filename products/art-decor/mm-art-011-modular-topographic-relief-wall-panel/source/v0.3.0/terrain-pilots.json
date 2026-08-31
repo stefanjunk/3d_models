@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-011",
+  "revision": "0.3.0",
+  "common": {
+    "panel_mm": [600.0, 400.0],
+    "split_x_mm": 300.0,
+    "seam_gap_mm": 0.25,
+    "base_thickness_mm": 3.0,
+    "relief_depth_mm": 7.0,
+    "reference_samples": [1201, 801],
+    "manufacturing_samples": [801, 535],
+    "reference_pitch_mm": 0.5,
+    "manufacturing_pitch_x_mm": 0.75,
+    "layer_height_mm": 0.2,
+    "color_quantiles": [0.45, 0.70, 0.90],
+    "light_aperture_width_mm": 2.2,
+    "maximum_open_area_fraction_per_half": 0.12,
+    "triangle_target_per_half": 900000,
+    "triangle_stop_per_half": 1500000
+  },
+  "pilots": {
+    "harz": {
+      "title": "Harz Moss Stone",
+      "master": "source-data/v0.3.0/harz/harz-height-master-16bit.tif",
+      "float_source": "source-data/v0.3.0/harz/harz-source-crop-float32.tif",
+      "source_elevation_m": [10.661, 1139.006],
+      "extent_epsg25832": [553824.1565, 5697857.4304, 673824.1565, 5777857.4304],
+      "light_contour_quantiles": [0.55, 0.72, 0.86],
+      "light_segment_count": 6,
+      "palette": [
+        {"id": "dark-green", "name": "Dark Green", "display_hex": "#68724D"},
+        {"id": "chocolate-brown", "name": "Chocolate Brown", "display_hex": "#746759"},
+        {"id": "caramel", "name": "Caramel", "display_hex": "#C4A981"},
+        {"id": "bone-white", "name": "Bone White", "display_hex": "#EFEDE3"}
+      ],
+      "attribution": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+    },
+    "rhenish": {
+      "title": "Rhenish Industrial Earth",
+      "master": "source-data/v0.3.0/rhenish/rhenish-height-master-16bit.tif",
+      "float_source": "source-data/v0.3.0/rhenish/rhenish-source-crop-float32.tif",
+      "source_elevation_m": [-324.9, 294.96],
+      "extent_epsg25832": [295000.0, 5630000.0, 355000.0, 5670000.0],
+      "light_contour_quantiles": [0.04, 0.12, 0.25],
+      "light_segment_count": 7,
+      "palette": [
+        {"id": "black", "name": "Black", "display_hex": "#484A49"},
+        {"id": "chocolate-brown", "name": "Chocolate Brown", "display_hex": "#746759"},
+        {"id": "desert-tan", "name": "Desert Tan", "display_hex": "#DCCAA9"},
+        {"id": "orange", "name": "Orange", "display_hex": "#FF9351"}
+      ],
+      "attribution": "GeoBasis NRW · Datenlizenz Deutschland – Zero 2.0"
+    }
+  }
+}

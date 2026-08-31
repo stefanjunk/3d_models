@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-open-contour-aperture-no-island-001
+title: Buffered open contour apertures cannot enclose a loose panel island
+category: geometry
+status: draft
+trigger: An open contour fragment is buffered and subtracted through a printable relief or panel as a lighting or decorative slot.
+risk: A locally self-closing buffer can create an annular cutter and leave a loose disconnected solid inside the intended opening.
+given:
+  source_path: open LineString or equivalent ordered contour fragment
+  cutter: finite-width buffered polygon clipped to declared safe regions
+  host: connected watertight positive-volume panel before subtraction
+expected:
+  - Every accepted cutter polygon has zero interior rings unless an explicitly supported island is part of the approved design.
+  - Cutter selection preserves the declared seam, interface, mount and outer-border keep-outs.
+  - Subtraction does not increase the host's connected-component count or create an orphan requiring post-hoc deletion.
+  - The final manufacturing mesh is watertight, positive-volume and retains the intended through-opening.
+failure_conditions:
+  - A candidate buffer with an interior ring is accepted without an explicit supported-island contract.
+  - Boolean subtraction increases component count or a nontrivial component is silently discarded.
+  - A final mesh topology pass is used without also checking the intended opening remains open.
+fixtures:
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/source/v0.3.0/build_terrain.py
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: Pass only when accepted cutter polygons contain no unintended interior ring and the post-Boolean panel retains its declared connected-component count with a true through-opening.
+  measurement_method: Shapely polygon interior count, Manifold3D decomposition, final mesh topology audit and destination-slicer opening review.
+relationships:
+  lessons:
+    - EXP-00054
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+  artifact_hashes:
+    - 0cef56c4cb559b73765988ff77a0c9ed1e091f30e952d3e923963b3dba0139e7
+    - d79b48cf3ce971d04424b90e7eec1afeea35db21ccd0a23b35f45abbc84b14f3
+tags:
+  - geometry
+  - contour-buffer
+  - through-aperture
+  - disconnected-island
+  - wall-relief
+  - regression

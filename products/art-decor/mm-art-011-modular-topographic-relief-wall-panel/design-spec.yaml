@@ -48,7 +48,7 @@ workflow:
     asset_id: MM-WM-001-R2
     product_id: MM-ART-011
     version: 0.3.0
-    reason: "Requirements and replacement concept are not approved and no current production geometry exists"
+    reason: "Full/Compact/Micro assets and a Full-tier placement candidate exist; physical watermark coupon, integrated production geometry, slicer-layer evidence and explicit human approval remain pending"
   decomposition_approval:
     status: approved
     spec_revision: 0.3.0
@@ -58,14 +58,14 @@ workflow:
     approved_at: "2026-08-31"
     basis: "User explicitly approved decomposition revision 0.3.0 in chat"
   digital_candidate:
-    status: pending
-    reason: "Shared interface STEP/STL and four-clearance coupon have deterministic digital PASS evidence under MM-ART-010; terrain masters, integrated panel meshes and physical coupon selection remain pending"
+    status: review-required
+    reason: "Both frozen terrain masters, four watertight panel halves, sixteen watertight named color meshes, four portable 3MFs and four geometry-only exact Anycubic preflights have deterministic PASS evidence; physical coupon selection, destination-slicer ACE mapping, watermark and human print-candidate approval remain pending"
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
   final_release_approval:
     status: blocked
-    reason: "Requirements, concept, CAD, slicer, physical, appearance, source rights, watermark, safety and commercial gates remain open"
+    reason: "Physical fit/proof, appearance, final ACE/purge review, watermark, safety and commercial gates remain open"
 
 history:
   superseded_revision: 0.2.0
@@ -104,7 +104,7 @@ requirements_trace:
   unresolved_nonblocking:
     - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
     - "Exact filament batches, swatches, opacity and layer-change purge matrix remain pending"
-    - "Final vertical exaggeration, three color thresholds and light-path density remain subject to data/concept/coupon evidence"
+    - "Final physical appearance of the selected vertical exaggeration, color thresholds and light-path density remains subject to coupon and full-scale review"
 
 function:
   summary: >
@@ -146,7 +146,23 @@ branding:
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
   proposed_placement: "protected lower rear land outside seam, connector, hanger, lighting and attribution regions"
-  status: "blocked until stable revision 0.3.0 geometry, generated placement evidence and human approval"
+  generated_profiles: assets/metrimade-watermark/generated
+  selector_report: validation/v0.3.0/watermark-placement-candidate.json
+  placement_candidate:
+    layout_tier: full
+    domain_visible: true
+    uniform_scale: 1.0
+    rotation_deg: 0
+    actual_envelope_mm: [63.239, 12.8]
+    safe_region_local_mm: [180.0, 20.0, 280.0, 55.0]
+    intended_coverage:
+      - "Harz left primary panel rear"
+      - "Rhenish left primary panel rear"
+    host_wall_mm: 3.0
+    remaining_wall_mm: 2.6
+  physical_coupon: NOT_RUN
+  integration: BLOCKED
+  status: "placement candidate generated; physical coupon, integrated underside evidence and human approval pending"
 
 coordinate_system:
   units: mm
@@ -177,7 +193,8 @@ geometry:
   relief:
     maximum_depth_mm: 7.0
     target_total_thickness_max_mm: 10.0
-    reference_pitch_mm: [0.30, 0.30]
+    reference_pitch_mm: [0.50, 0.50]
+    manufacturing_pitch_mm: [0.75, 0.7491]
     physical_pixel_aspect: 1.0
     continuous_tone_bits: 16
     normalization: "one global min/max and contrast transform per complete one-off; never normalize halves independently"
@@ -235,7 +252,7 @@ pilots:
     production_mode: "unique one-off pilot"
     target_extent: "landscape crop containing the Harz massif and Brocken without distortion"
     source_dataset: "Copernicus DEM GLO-30 Public, 30 m DSM"
-    source_access: "public COG tiles; exact snapshot and hashes frozen after revision 0.3.0 approvals"
+    source_access: "six public Copernicus GLO-30 COG tiles; exact EPSG:25832 crop, 16-bit master and hashes frozen under source-data/v0.3.0/harz"
     source_limitations: ["surface model includes vegetation and structures", "not a live terrain survey"]
     target_relief_depth_mm: 7.0
     selected_palette: harz_moss_stone
@@ -244,7 +261,7 @@ pilots:
     production_mode: "unique one-off pilot"
     target_extent: "landscape crop covering Garzweiler, Hambach and Inden"
     preferred_source_dataset: "current official GeoBasis NRW DGM1, 1 m ground model"
-    source_access: "exact tile set, acquisition state, CRS, licence and hashes frozen after revision 0.3.0 approvals"
+    source_access: "official GeoBasis NRW WCS nw_dgm; exact EPSG:25832 request/capabilities, crop, 16-bit master and hashes frozen under source-data/v0.3.0/rhenish"
     fallback_dataset: "Copernicus GLO-30 for pipeline smoke testing only"
     source_limitations: ["mine terrain changes materially", "decorative and not usable for planning or safety decisions"]
     target_relief_depth_mm: 7.0
@@ -339,20 +356,22 @@ manufacturing:
   slicer: "Anycubic Slicer Next through fdm_ci.py slice-anycubic-next with explicit machine, process and filament profiles"
 
 optimization:
-  status: pending
+  status: applied
   objective: "minimize seam count, filament, support, purge, mesh cost and print time while preserving flatness, connector retention, continuous terrain and lighting apertures"
   protected:
     - "global 16-bit terrain registration, center-seam samples and intentional sharp terrain breaks"
     - "connector pockets, one-way spring roots and hanger/standoff snap sockets"
     - "light apertures, LED/cable keep-outs, attribution and watermark host"
-  baseline_slicer_report: null
-  selected_variant: null
-  comparison_report: null
+  baseline_slicer_report: "the immutable 1201 x 801 reference solid at 1,932,000 triangles per complete pilot"
+  selected_variant: "one 801 x 535 global manufacturing field split only after scaling; 0.75 mm XY pitch, 3.0 mm backer and 7.0 mm relief"
+  comparison_report: validation/v0.3.0/optimization-report.json
   mesh_simplification:
-    status: pending
-    master_mesh: null
-    manufacturing_mesh: null
-    tolerance_mm: 0.02
+    status: applied
+    master_mesh: "exports/v0.3.0/{harz,rhenish}/{pilot}-reference-full.stl plus immutable 1201 x 801 uint16 GeoTIFF"
+    manufacturing_mesh: "exports/v0.3.0/{harz,rhenish}/{pilot}-{left,right}-composite.stl"
+    method: "global cubic anti-aliased resampling from 1201 x 801 to 801 x 535 before any split; no independent half normalization"
+    tolerance_mm: 0.23
+    comparison_report: validation/v0.3.0/optimization-report.json
     protected_regions:
       - "outer perimeter and center seam vertices"
       - "intentional sharp terrain breaks and through-openings"
@@ -360,20 +379,24 @@ optimization:
       - "attribution and watermark geometry"
     resource_budget:
       triangle_target: 900000
-      triangle_stop: 5000000
+      triangle_stop: 1500000
       peak_memory_gib: 8.0
       max_mesh_mib: 60.0
-      max_slicer_seconds: 240.0
-    slicer_resolution_check: null
+      max_slicer_seconds: 1800.0
+    slicer_resolution_check:
+      status: passed
+      method: "exact Anycubic Slicer Next 1.3.9.4 composite preflight plus portable four-material 3MF structural validation"
+      result: "all four final composites slice at 437,952 to 439,730 triangles; all four 3MF packages contain four watertight named material objects"
+      report: validation/v0.3.0/release-summary.md
 
 resource_budgets:
-  reference_triangle_target_per_main_half: 2800000
-  hard_stop_triangles_per_main_half: 5000000
+  reference_triangle_target_per_complete_pilot: 2000000
+  hard_stop_triangles_per_main_half: 1500000
   manufacturing_triangle_target_per_main_half: 900000
   peak_working_memory_gib: 8.0
   max_reference_mesh_mib_per_half: 150.0
   max_manufacturing_mesh_mib_per_half: 60.0
-  max_exact_slicer_seconds_per_main_half: 240.0
+  max_exact_slicer_seconds_per_main_half: 1800.0
   simplification_start_tolerance_mm: 0.02
   protected_regions: [outer_edges, center_seam_vertices, connector_pockets, snap_socket_lands, wall_plane, intentional_sharp_terrain_breaks]
 
@@ -418,23 +441,23 @@ acceptance:
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves of each pilot fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"
-    status: NOT_RUN
+    status: PASS
   - id: AC-PERMANENT-ASSEMBLY
     criterion: "Each pair of halves forms one flat permanent artwork without a rear grid or replaceable interface."
     method: "digital interface audit, one-way connector coupon and assembled proof test"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-RELIEF
     criterion: "Each pilot preserves one immutable 16-bit master, physical aspect and continuous seam-locked height field."
     method: "source manifest, relief comparison and seam validation reports"
-    status: NOT_RUN
+    status: PASS
   - id: AC-MULTICOLOR
     criterion: "Three common global Z changes yield four abstract bands with correct ACE slot mapping and approved purge evidence."
     method: "3MF audit, exact Anycubic slice and physical transition/relief coupon"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-LIGHT
     criterion: "The unlit artwork passes mechanically and the optional unsupplied lighting envelopes create the approved halo/front-through effect."
     method: "keep-out report, light gauge and human appearance review"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-BRAND
     criterion: "The required product-specific metriMade.com watermark is recessed on an approved protected rear land."
     method: "watermark placement manifest, geometry validation and human approval"

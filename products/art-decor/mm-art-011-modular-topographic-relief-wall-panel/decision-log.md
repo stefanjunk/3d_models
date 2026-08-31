@@ -85,3 +85,16 @@
 - The deterministic mesh and exact Anycubic Slicer Next coupon checks pass; the complete evidence remains with MM-ART-010 so it is not duplicated or allowed to drift.
 - The provisional production clearance is 0.25 mm per side. Harz and Rheinisches Revier may share one physical coupon result only when the connector/standoff filament product and batch, nozzle, orientation and process profile are identical.
 - Physical fit, installed proof, source terrain, integrated panel meshes and final human slicer/color review remain open.
+
+## 2026-08-31 — Harz and Rhenish digital pilot geometry built
+
+- Harz source authority: a frozen 120 × 80 km EPSG:25832 crop from six Copernicus GLO-30 COG tiles, retained as Float32 source and a 1201 × 801 UInt16 master.
+- Rhenish source authority: a frozen 60 × 40 km EPSG:25832 `nw_dgm` WCS request from GeoBasis NRW, retained as Float32 source and a 1201 × 801 UInt16 master.
+- Both pilots use one global elevation transform and one 801 × 535 manufacturing field. The halves are split only after scaling; no half is normalized independently.
+- Each pilot exports two 299.875 × 400 mm watertight composite STL bodies, eight watertight named color STL bodies and two standard four-material 3MF packages.
+- Harz uses Dark Green, Chocolate Brown, Caramel and Bone White at model-Z 4.2, 4.8 and 6.0 mm. Rhenish uses Black, Chocolate Brown, Desert Tan and Orange at model-Z 7.6, 7.8 and 8.2 mm.
+- Six Harz and seven Rhenish open contour fragments form protected front-through light paths. Closed contours that could create loose terrain islands are rejected.
+- Zero-area triangles at a sampled vertex exactly on a color plane are prevented by a documented maximum 0.0011 mm numerical nudge; color planes remain on 0.20 mm layer boundaries.
+- All four portable 3MF validators pass with four named watertight objects and no warnings. Exact Z-occupancy reports three color transitions and zero mixed-color layers per half.
+- All four composite geometry preflights pass in Anycubic Slicer Next 1.3.9.4 with exact Kobra 3 Max 0.4 mm, 0.20 mm Standard and PLA Matte profiles. These single-tool preflights do not approve ACE slot mapping or purge behavior.
+- No G-code was uploaded and no print was started. Physical clearance selection, assembled proof, wall installation, lighting appearance, watermark and release approval remain open.

@@ -1,0 +1,53 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-heightfield-layer-plane-degeneracy-001
+title: Layer-aligned heightfield color planes serialize without tangent null faces
+category: geometry
+status: draft
+trigger: A sampled heightfield solid is split at layer-aligned horizontal planes into separate multicolor FFF bodies.
+risk: A vertex numerically on a split plane can create zero-area tangent facets that become repeated indices, boundary edges or a non-watertight material body after STL or 3MF welding.
+given:
+  source_solid: connected watertight positive-volume sampled heightfield
+  split_planes: globally declared model-Z color boundaries aligned to the intended layer height
+  destination: welded STL color bodies and a standard multipart material 3MF
+  physical_error_budget: declared maximum permitted source-vertex displacement in millimetres
+expected:
+  - Source vertices are checked against every split plane with an explicit numeric proximity threshold.
+  - Any perturbation is applied before the plane split, affects only declared near-plane vertices, preserves the color-plane Z values and stays below the physical error budget.
+  - Affected-vertex counts and maximum displacement are recorded per manufacturing candidate.
+  - Every serialized color body is watertight and contains no repeated-index triangle after exact-coordinate welding.
+  - The packaged 3MF retains the intended material count and all mesh objects validate without topology warnings.
+failure_conditions:
+  - Degenerate faces are merely deleted after export without proving watertightness and body count.
+  - The whole color plane is shifted away from its approved layer boundary to hide a local tangent.
+  - A fixed nudge from another model is reused without measuring the current candidate and its error budget.
+  - In-memory manifold status is accepted without validation of the actual serialized STL and 3MF.
+fixtures:
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/source/v0.3.0/build_terrain.py
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: Pass only when pre-split proximity/displacement evidence is bounded and the exact serialized color bodies plus packaged 3MF pass topology validation with unchanged layer-aligned plane values.
+  measurement_method: Surface-to-plane distance enumeration, maximum source displacement, exact-coordinate face/index audit, watertightness/body count and standard 3MF validation.
+relationships:
+  lessons:
+    - EXP-00055
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/validation/v0.3.0/terrain-build-failure-trace.md
+  artifact_hashes:
+    - f7e212d0edd361e7625d0ed721034afca9708ddbbea711aa2a01da16e5370f05
+    - ef0ed363254b0c840154927edc9e8d4d58a8d0856a7533a07ccbc925eb556744
+tags:
+  - geometry
+  - heightfield
+  - multicolor
+  - plane-split
+  - float32
+  - 3mf
+  - topology
+  - regression

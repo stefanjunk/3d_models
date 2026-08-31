@@ -1,0 +1,21 @@
+{
+  "schema": "heightmap-relief-job-v2.4",
+  "status": "digital-candidate-build-authorized",
+  "pilot": "harz",
+  "source": {
+    "raw_geodata": "../../source-data/v0.3.0/harz/harz-source-crop-float32.tif",
+    "master": "../../source-data/v0.3.0/harz/harz-height-master-16bit.tif",
+    "bit_depth": 16,
+    "normalization": "10.661 to 1139.006 source metres mapped once to 0..65535 and once to 3..10 model mm"
+  },
+  "target": {
+    "width_mm": 600.0,
+    "height_mm": 400.0,
+    "reference_pitch_mm": 0.5,
+    "manufacturing_pitch_mm": 0.75,
+    "split": "one global X split with 0.25 mm removed seam gap; no half normalization"
+  },
+  "relief": {"mode": "emboss", "depth_mm": 7.0, "wall_thickness_mm": 3.0},
+  "colors": {"strategy": "three global Z changes from global quantiles", "maximum": 4, "dithering": false},
+  "printer": {"machine": "Anycubic Kobra 3 Max Combo", "nozzle_mm": 0.4, "layer_height_mm": 0.2}
+}

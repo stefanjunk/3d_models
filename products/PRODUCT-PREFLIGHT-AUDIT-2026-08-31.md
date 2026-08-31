@@ -107,7 +107,7 @@ result, not a validation failure of the document.
 | `organization-storage/mm-org-037-sewing-bobbin-presser-foot-drawer-cassette` | C3 (43.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-038-milestone-photo-card-desk-display-block` | C2 (37.2) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette` | C2 (37.2) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `organization-storage/mm-per-001-nameform-bookends` | C3 (43.5) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-per-001-nameform-bookends` | C3 (41.25) | R3 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-wall-001-honeycomb-wood-wall-shelf` | C2 (39.8) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `printer-workshop/mm-mkr-001-cybervault-nozzle-case` | C3 (54.2) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `printer-workshop/mm-tool-001-kobra3max-enclosure` | C4 (61.0) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |

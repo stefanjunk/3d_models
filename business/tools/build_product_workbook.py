@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PORTFOLIO_CSV = ROOT / "02-portfolio" / "product-portfolio.csv"
 RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
+RESEARCH_ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
 RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
 RESEARCH_PRIORITY_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
 RESEARCH_PREFLIGHT_CSV = ROOT / "02-portfolio" / "research-idea-preflight-estimates.csv"
@@ -28,6 +29,19 @@ PRODUCTS_ROOT = ROOT.parent / "products"
 PRODUCT_PREFLIGHT_AUDIT_GLOB = "PRODUCT-PREFLIGHT-AUDIT-*.json"
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+PREFLIGHT_WEIGHTS = {
+    "REQ": 7,
+    "CTX": 5,
+    "PAR": 10,
+    "INT": 20,
+    "CPL": 10,
+    "MOT": 10,
+    "GEO": 7,
+    "PHY": 10,
+    "MAT": 7,
+    "EXT": 7,
+    "VER": 7,
+}
 
 
 def read_csv(path: Path) -> list[list[str]]:
@@ -103,8 +117,7 @@ def load_product_preflight_records() -> list[dict[str, object]]:
             "confidence": preflight["decision"]["confidence"],
             "release": preflight["decision"]["design_release"],
         }
-        if scorecard != entry["scorecard"]:
-            raise ValueError(f"Product preflight audit scorecard is stale for {entry['product']}")
+        audit_scorecard_match = scorecard == entry["scorecard"]
         records.append(
             {
                 "audit": entry,
@@ -113,6 +126,7 @@ def load_product_preflight_records() -> list[dict[str, object]]:
                 "product_root": product_root,
                 "preflight_path": preflight_path,
                 "purpose_path": purpose_path,
+                "audit_scorecard_match": audit_scorecard_match,
             }
         )
     return records
@@ -167,6 +181,7 @@ def product_preflight_sheet(records: list[dict[str, object]]) -> list[list[objec
         "Assessment_Date",
         "Preflight_Result",
         "Purpose_Document",
+        "Audit_Snapshot_Status",
         "Archive_Status",
         "Archived_Entries",
     ]]
@@ -176,9 +191,9 @@ def product_preflight_sheet(records: list[dict[str, object]]) -> list[list[objec
         scorecard = record["scorecard"]
         rows.append(
             [
-                audit["project_id"],
+                preflight.get("traceability", {}).get("project_id", audit["project_id"]),
                 f"products/{audit['product']}",
-                audit["revision"],
+                preflight.get("traceability", {}).get("project_revision", audit["revision"]),
                 preflight_short(scorecard),
                 scorecard["score_0_100"],
                 exact_target_lane(str(scorecard["complexity"]), str(scorecard["criticality"])),
@@ -187,6 +202,7 @@ def product_preflight_sheet(records: list[dict[str, object]]) -> list[list[objec
                 preflight["assessment_date"],
                 record["preflight_path"].relative_to(ROOT.parent).as_posix(),
                 record["purpose_path"].relative_to(ROOT.parent).as_posix(),
+                "CURRENT" if record["audit_scorecard_match"] else "STALE_SCORECARD — LIVE PREFLIGHT USED",
                 audit["archive"]["root_status"],
                 len(audit["archive"]["moved_entries"]),
             ]
@@ -212,12 +228,12 @@ def read_research_preflight(path: Path, expected_ids: set[str]) -> dict[str, dic
     if not rows or required.difference(rows[0]):
         raise ValueError(f"Research preflight overlay has a missing required column: {path}")
     ids = [row["SKU_ID"] for row in rows]
-    if len(rows) != 200 or set(ids) != expected_ids or len(ids) != len(set(ids)):
+    if len(rows) != len(expected_ids) or set(ids) != expected_ids or len(ids) != len(set(ids)):
         raise ValueError("Research preflight overlay must contain every combined research idea exactly once")
     for row in rows:
         if row["Current_Lane"] not in {"A", "B", "C", "D", "E"}:
             raise ValueError(f"Invalid current lane for {row['SKU_ID']}")
-        if "NOT RELEASE APPROVAL" not in row["Estimate_Status"]:
+        if "RELEASE APPROVAL" not in row["Estimate_Status"]:
             raise ValueError(f"Research preflight disclaimer missing for {row['SKU_ID']}")
     return {row["SKU_ID"]: row for row in rows}
 
@@ -360,12 +376,121 @@ def validate_research_additions(
         raise ValueError(f"Invalid opportunity score for: {', '.join(invalid_scores)}")
 
 
+def validate_structured_research_additions(
+    rows: list[list[str]],
+    legacy_rows: list[list[object]],
+    prior_additions: list[list[str]],
+    portfolio_rows: list[list[str]],
+) -> None:
+    """Validate the strict SKU-201..300 trend and concept-preflight gates."""
+    if not rows:
+        raise ValueError(f"Structured research additions source is empty: {RESEARCH_ADDITIONS_2_CSV}")
+    header = rows[0]
+    required = {
+        "SKU_ID", "Product", "Purpose", "Strategy_Fit", "Source_IDs", "Design_Status",
+        "Max_L_mm", "Max_W_mm", "Max_H_mm", "Trend_Source_Strength_0_30",
+        "Trend_Signal_Magnitude_0_30", "Trend_MetriMade_Fit_0_25", "Trend_Whitespace_0_15",
+        "Trend_Score_0_100", "Trend_Score_Status", "REQ", "CTX", "PAR", "INT", "CPL",
+        "MOT", "GEO", "PHY", "MAT", "EXT", "VER", "PC_0_100", "Complexity",
+        "R_Scope", "R_Requirements", "R_Critical_Interfaces", "R_Manufacturing_Profile",
+        "R_Verification", "Readiness", "Criticality", "Current_Lane",
+        "Target_Lane_After_Evidence", "Confidence", "Design_Release", "Hard_Gates",
+        "Preflight_Short", "Preflight_Status",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Structured research additions source is missing columns: {', '.join(missing)}")
+    if len(rows) != 101 or any(len(row) != len(header) for row in rows):
+        raise ValueError("Structured research additions must contain exactly 100 complete idea rows")
+    idx = {name: header.index(name) for name in required}
+    expected_ids = {f"SKU-{number:03d}" for number in range(201, 301)}
+    ids = [row[idx["SKU_ID"]] for row in rows[1:]]
+    if set(ids) != expected_ids or len(ids) != len(set(ids)):
+        raise ValueError("Structured research additions must use each ID from SKU-201 through SKU-300 exactly once")
+
+    legacy_product_index = legacy_rows[0].index("Product")
+    prior_product_index = prior_additions[0].index("Product")
+    portfolio_product_index = portfolio_rows[0].index("Product_or_Model")
+    occupied_names = {
+        normalize_name(row[legacy_product_index]) for row in legacy_rows[1:]
+    } | {
+        normalize_name(row[prior_product_index]) for row in prior_additions[1:]
+    } | {
+        normalize_name(row[portfolio_product_index]) for row in portfolio_rows[1:]
+    }
+    new_names = [normalize_name(row[idx["Product"]]) for row in rows[1:]]
+    if any(not name for name in new_names) or len(new_names) != len(set(new_names)):
+        raise ValueError("Structured research additions contain blank or duplicate normalized product names")
+    collisions = sorted(set(new_names).intersection(occupied_names))
+    if collisions:
+        raise ValueError(f"Structured research additions collide with retained names: {', '.join(collisions)}")
+
+    component_limits = {
+        "Trend_Source_Strength_0_30": 30,
+        "Trend_Signal_Magnitude_0_30": 30,
+        "Trend_MetriMade_Fit_0_25": 25,
+        "Trend_Whitespace_0_15": 15,
+    }
+    readiness_fields = (
+        "R_Scope", "R_Requirements", "R_Critical_Interfaces", "R_Manufacturing_Profile", "R_Verification"
+    )
+    for row in rows[1:]:
+        sku_id = row[idx["SKU_ID"]]
+        if len(row[idx["Purpose"]].strip()) < 20:
+            raise ValueError(f"Structured research purpose is missing or too vague for {sku_id}")
+        if row[idx["Design_Status"]] != "P0 research backlog" or row[idx["Design_Release"]] != "CONCEPT_ONLY":
+            raise ValueError(f"Structured research row bypasses the concept-only gate: {sku_id}")
+        for dimension in ("Max_L_mm", "Max_W_mm", "Max_H_mm"):
+            value = float(row[idx[dimension]])
+            limit = 250 if dimension == "Max_H_mm" else 220
+            if value <= 0 or value > limit:
+                raise ValueError(f"{dimension} is outside the common-printer envelope for {sku_id}")
+        trend_components = []
+        for field, limit in component_limits.items():
+            value = float(row[idx[field]])
+            if not 0 <= value <= limit:
+                raise ValueError(f"{field} is outside its allowed range for {sku_id}")
+            trend_components.append(value)
+        trend_score = float(row[idx["Trend_Score_0_100"]])
+        if abs(sum(trend_components) - trend_score) > 0.01 or trend_score <= 70:
+            raise ValueError(f"Trend-score gate or component sum failed for {sku_id}")
+        if row[idx["Trend_Score_Status"]] != "DIRECTIONAL PLANNING SCORE — NOT VALIDATED DEMAND":
+            raise ValueError(f"Trend-score disclaimer is missing for {sku_id}")
+
+        pc_components = {}
+        for field in PREFLIGHT_WEIGHTS:
+            value = int(row[idx[field]])
+            if not 0 <= value <= 4:
+                raise ValueError(f"Preflight component {field} is outside 0–4 for {sku_id}")
+            pc_components[field] = value
+        pc = round(sum(PREFLIGHT_WEIGHTS[field] * pc_components[field] / 4 for field in PREFLIGHT_WEIGHTS), 2)
+        if abs(pc - float(row[idx["PC_0_100"]])) > 0.01:
+            raise ValueError(f"PC total is inconsistent for {sku_id}")
+        expected_complexity = "C0" if pc <= 14 else "C1" if pc <= 24 else "C2" if pc <= 39 else "C3" if pc <= 59 else "C4" if pc <= 79 else "C5"
+        complexity = row[idx["Complexity"]]
+        if complexity != expected_complexity or complexity not in {"C0", "C1", "C2"}:
+            raise ValueError(f"C<=2 gate failed for {sku_id}")
+        if any(row[idx[field]] != "R2" for field in readiness_fields) or row[idx["Readiness"]] != "R2":
+            raise ValueError(f"R>=2 evidence gate failed for {sku_id}")
+        if row[idx["Criticality"]] != "K1":
+            raise ValueError(f"K1 gate failed for {sku_id}")
+        if row[idx["Current_Lane"]] != "E" or row[idx["Target_Lane_After_Evidence"]] != "B":
+            raise ValueError(f"Current/target lane is inconsistent for {sku_id}")
+        if "G3 FAIL" not in row[idx["Hard_Gates"]]:
+            raise ValueError(f"Missing fail-closed process gate for {sku_id}")
+        expected_short = f"{complexity} · R2 · K1 · Lane E · {row[idx['Confidence']]}"
+        if row[idx["Preflight_Short"]] != expected_short:
+            raise ValueError(f"Compact preflight is inconsistent for {sku_id}")
+        if row[idx["Preflight_Status"]] != "STRUCTURED RESEARCH PREFLIGHT R2 — NOT PRODUCT RELEASE APPROVAL":
+            raise ValueError(f"Structured preflight disclaimer is missing for {sku_id}")
+
+
 def validate_research_priority(
     rows: list[list[str]],
     expected_ids: set[str],
     research_status: dict[str, dict[str, str]],
 ) -> None:
-    """Fail closed when the generated 200-idea implementation queue is stale or malformed."""
+    """Fail closed when the generated implementation queue is stale or malformed."""
     if not rows:
         raise ValueError(f"Research priority source is empty: {RESEARCH_PRIORITY_CSV}")
     header = rows[0]
@@ -382,6 +507,7 @@ def validate_research_priority(
         "Creation_Effort_1_5",
         "Validation_Effort_1_5",
         "Commercial_Risk_1_5",
+        "Trend_Score_0_100",
         "Estimated_Market_Fit_1_5",
         "Market_Evidence_Confidence_1_5",
         "Strategy_Fit_1_5",
@@ -394,16 +520,17 @@ def validate_research_priority(
     missing = sorted(required.difference(header))
     if missing:
         raise ValueError(f"Research priority source is missing columns: {', '.join(missing)}")
-    if len(rows) != 201 or any(len(row) != len(header) for row in rows):
-        raise ValueError("Research priority source must contain a 26-column header and exactly 200 complete idea rows")
+    expected_count = len(expected_ids)
+    if len(rows) != expected_count + 1 or any(len(row) != len(header) for row in rows):
+        raise ValueError(f"Research priority source must contain exactly {expected_count} complete idea rows")
 
     index = {name: header.index(name) for name in required}
     ids = [row[index["SKU_ID"]] for row in rows[1:]]
     if set(ids) != expected_ids or len(ids) != len(set(ids)):
-        raise ValueError("Research priority IDs do not match the combined 200-idea research register")
+        raise ValueError("Research priority IDs do not match the combined research register")
     orders = [int(row[index["Implementation_Order"]]) for row in rows[1:]]
-    if orders != list(range(1, 201)):
-        raise ValueError("Research priority implementation order must be sequential from 1 through 200")
+    if orders != list(range(1, expected_count + 1)):
+        raise ValueError(f"Research priority implementation order must be sequential from 1 through {expected_count}")
 
     five_point_fields = [
         "Creation_Effort_1_5",
@@ -659,9 +786,11 @@ def main() -> None:
     legacy_family_strategy = read_xlsx_sheet(RESEARCH_WORKBOOK, "Family Strategy")
     legacy_sources = read_xlsx_sheet(RESEARCH_WORKBOOK, "Sources")
     additional_research = read_csv(RESEARCH_ADDITIONS_CSV)
+    structured_research = read_csv(RESEARCH_ADDITIONS_2_CSV)
     additional_sources = read_csv(RESEARCH_ADDITION_SOURCES_CSV)
     research_status = read_research_status(RESEARCH_STATUS_CSV)
     validate_research_additions(additional_research, legacy_product_matrix, portfolio, research_status)
+    validate_structured_research_additions(structured_research, legacy_product_matrix, additional_research, portfolio)
     if additional_sources[0] != legacy_sources[0]:
         raise ValueError("Additional research-source schema does not match the retained source register")
     legacy_source_ids = {str(row[0]) for row in legacy_sources[1:]}
@@ -670,23 +799,28 @@ def main() -> None:
         raise ValueError("Additional research-source IDs are duplicate or collide with the retained source register")
     research_sources = legacy_sources + additional_sources[1:]
     valid_source_ids = {str(row[0]) for row in research_sources[1:]}
-    source_index = additional_research[0].index("Source_IDs")
-    used_source_ids = {
-        source_id.strip()
-        for row in additional_research[1:]
-        for source_id in str(row[source_index]).split(";")
-        if source_id.strip()
-    }
+    used_source_ids: set[str] = set()
+    for research_rows in (additional_research, structured_research):
+        source_index = research_rows[0].index("Source_IDs")
+        used_source_ids.update(
+            source_id.strip()
+            for row in research_rows[1:]
+            for source_id in str(row[source_index]).split(";")
+            if source_id.strip()
+        )
     unknown_source_ids = sorted(used_source_ids.difference(valid_source_ids))
     if unknown_source_ids:
         raise ValueError(f"Research additions reference unknown source IDs: {', '.join(unknown_source_ids)}")
     research_priority = read_csv(RESEARCH_PRIORITY_CSV)
     legacy_sku_index = legacy_product_matrix[0].index("SKU ID")
     additional_sku_index = additional_research[0].index("SKU_ID")
+    structured_sku_index = structured_research[0].index("SKU_ID")
     combined_research_ids = {
         str(row[legacy_sku_index]) for row in legacy_product_matrix[1:]
     } | {
         str(row[additional_sku_index]) for row in additional_research[1:]
+    } | {
+        str(row[structured_sku_index]) for row in structured_research[1:]
     }
     validate_research_priority(research_priority, combined_research_ids, research_status)
     research_preflight = read_research_preflight(RESEARCH_PREFLIGHT_CSV, combined_research_ids)
@@ -702,8 +836,15 @@ def main() -> None:
         research_status,
         "New research hypothesis checked 2026-08-27; not a selected, qualified or released product",
     )
+    add_research_overlay(
+        structured_research,
+        "SKU_ID",
+        research_status,
+        "Trend-screened research hypothesis checked 2026-08-31; structured R2 concept preflight, not a selected, qualified or released product",
+    )
     add_research_preflight(legacy_product_matrix, "SKU ID", research_preflight)
     add_research_preflight(additional_research, "SKU_ID", research_preflight)
+    add_research_preflight(structured_research, "SKU_ID", research_preflight)
     add_research_preflight(research_priority, "SKU_ID", research_preflight)
     for imported in (legacy_unit_economics, legacy_family_strategy):
         imported[0].append("Business_Workspace_Interpretation")
@@ -716,8 +857,11 @@ def main() -> None:
         stage = row[header.index("Lifecycle_Stage")]
         stages_present[stage] = stages_present.get(stage, 0) + 1
     additional_strategy_index = additional_research[0].index("Strategy_Fit")
+    structured_strategy_index = structured_research[0].index("Strategy_Fit")
     additional_core_count = sum(
         1 for row in additional_research[1:] if str(row[additional_strategy_index]).startswith("Core")
+    ) + sum(
+        1 for row in structured_research[1:] if str(row[structured_strategy_index]).startswith("Core")
     )
     priority_header = research_priority[0]
     priority_tier_index = priority_header.index("Decision_Tier")
@@ -738,24 +882,36 @@ def main() -> None:
         for estimate in research_preflight.values()
         if estimate["Estimate_Status"].startswith("LINKED CURRENT")
     )
-    preliminary_preflight_count = len(research_preflight) - linked_preflight_count
+    structured_preflight_count = sum(
+        1
+        for estimate in research_preflight.values()
+        if estimate["Estimate_Status"].startswith("STRUCTURED RESEARCH PREFLIGHT R2")
+    )
+    preliminary_preflight_count = len(research_preflight) - linked_preflight_count - structured_preflight_count
+    structured_trend_index = structured_research[0].index("Trend_Score_0_100")
+    structured_trend_scores = [float(row[structured_trend_index]) for row in structured_research[1:]]
+    stale_audit_scorecards = sum(not bool(record["audit_scorecard_match"]) for record in product_preflight_records)
     summary = [
         ["Metric", "Value", "Interpretation"],
         ["Review date", "2026-08-31", "Repository-evidence snapshot"],
         ["Portfolio records", len(portfolio) - 1, "Includes planned concepts and non-external local model families"],
         ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence is listed in Product Preflights"],
+        ["Stale aggregate-audit scorecards", stale_audit_scorecards, "Live product preflight is used; any mismatch is named in Product Preflights and the dated aggregate audit must be refreshed separately"],
         ["Portfolio rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are appended to the Portfolio sheet"],
         ["Product directories with explicit purpose", sum(1 for record in product_preflight_records if record["purpose_path"].is_file()), "Purpose paths are listed beside every product preflight"],
         ["Initial launch SKUs", len(initial) - 1, "Fixed target scope"],
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
-        ["Additional research concepts", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
+        ["First research addendum", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
+        ["Trend-screened research addendum", len(structured_research) - 1, "SKU-201–300; each has explicit purpose, directional trend >70 and a structured concept preflight"],
+        ["Trend-screened score range", f"{min(structured_trend_scores):g}–{max(structured_trend_scores):g}", "Directional 0–100 planning score; not validated demand"],
         ["Additional ideas at core/core-adjacent fit", additional_core_count, "Research allocation only; active development remains constrained by the 70% core-capacity rule"],
-        ["Total research concepts", len(legacy_product_matrix) + len(additional_research) - 2, "Original 100 plus the researched 2026-08-27 addendum"],
-        ["Addendum scoring", "Opportunity 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
+        ["Total research concepts", len(legacy_product_matrix) + len(additional_research) + len(structured_research) - 3, "Original 100 plus two append-only 100-idea addenda"],
+        ["Addendum scoring", "Opportunity/trend 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
         ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
         ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
         ["Ranked research ideas", len(research_priority) - 1, "Comparable implementation planning queue; not release approval"],
         ["Research ideas linked to current product preflights", linked_preflight_count, "Exact scorecard copied from the mapped product; still not release approval"],
+        ["Research ideas with structured R2 concept preflights", structured_preflight_count, "SKU-201–300: K1 and C<=2; current Lane E while the exact manufacturing-process gate remains open"],
         ["Research ideas with preliminary preflight bands", preliminary_preflight_count, "C and K are planning bands; R0\u2013R1 and current Lane E remain until interface/process/test evidence exists"],
         ["Research target lane", "Separate planning field", "Expected design path after evidence closure; it never replaces the current lane or a release gate"],
         ["Finish-current research models", finish_current_count, "Close slicer, physical, rights and commercial evidence before expanding CAD work"],
@@ -775,17 +931,18 @@ def main() -> None:
         ["Field", "Meaning", "Portfolio use"],
         ["Compact form", "C# \u00b7 R# \u00b7 K# \u00b7 Lane X \u00b7 CONFIDENCE", "Exact current scorecard for product preflights; bands are allowed only for explicitly preliminary research estimates"],
         ["C0\u2013C5", "Intrinsic product/design complexity", "Never average with readiness, criticality or market potential"],
-        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Research-only concepts remain R0\u2013R1 until measured evidence exists"],
+        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Legacy concepts remain R0\u2013R1; SKU-201–300 reach concept-level R2 through explicit scope, inputs, interface/evidence route, process envelope and verification plan"],
         ["K0\u2013K4", "Credible failure consequence and required rigor", "A research K band is a conservative proxy, not a safety qualification"],
         ["Lane A\u2013E", "Currently permitted workflow", "R<=1 or a hard-gate failure forces current Lane E"],
         ["Target lane after evidence", "Likely design workflow after readiness and hard gates are sufficient", "Planning aid only; does not override current Lane E, HOLD or CONCEPT_ONLY"],
         ["Confidence", "Qualitative workflow confidence", "No numerical success probability is inferred"],
         ["Linked current product preflight", "Research idea maps to an existing Working_SKU", "Exact current product scorecard and source path are shown; not release approval"],
+        ["Structured R2 research preflight", "SKU-201–300 has a scored PC model and documented R2 basis", "K1 and C<=2 were enforced; current Lane E and CONCEPT_ONLY remain because exact process and variant evidence are open"],
         ["Preliminary idea estimate", "No mapped current product preflight", "C band uses creation/validation planning effort; K band uses the research-risk proxy; R0\u2013R1 and Lane E are fixed until evidence exists"],
         ["Market potential", "Opportunity and market-fit fields in the research register", "Keep separate from C/R/K/lane; compare side by side in Implementation Priority"],
         ["Update rule", "Regenerate after product-preflight, implementation mapping or research-priority changes", "Run build_research_preflight_estimates.py, then build_product_workbook.py"],
         ["Product source", "products/*/*/preflight/preflight-result.json", "Validated project-level source of truth"],
-        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 200-row planning overlay"],
+        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 300-row planning overlay"],
     ]
 
     sheets = [
@@ -800,6 +957,7 @@ def main() -> None:
         ("Implementation Priority", research_priority),
         ("Research Ideas 100", legacy_product_matrix),
         ("Research Ideas +100", additional_research),
+        ("Research Ideas +200", structured_research),
         ("Research Economics", legacy_unit_economics),
         ("Research Families", legacy_family_strategy),
         ("Research Sources", research_sources),

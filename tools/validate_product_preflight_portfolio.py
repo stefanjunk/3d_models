@@ -85,7 +85,10 @@ def main() -> int:
         )
         errors.extend(f"{key}: {error}" for error in schema_errors)
         trace = result.get("traceability", {})
-        if trace.get("mode") != "RETROSPECTIVE" or "backfill_missing_preflight" not in trace.get("change_triggers", []):
+        mode = trace.get("mode")
+        if mode not in {"RETROSPECTIVE", "PROSPECTIVE"}:
+            errors.append(f"{key}: unsupported preflight mode {mode!r}")
+        if mode == "RETROSPECTIVE" and "backfill_missing_preflight" not in trace.get("change_triggers", []):
             errors.append(f"{key}: missing retrospective backfill traceability")
         if not trace.get("basis_refs"):
             errors.append(f"{key}: no preflight basis refs")
@@ -101,7 +104,7 @@ def main() -> int:
         else:
             expected = {
                 "status": "current",
-                "mode": "RETROSPECTIVE",
+                "mode": mode,
                 "artifact": "preflight/preflight-result.json",
                 "assessment_id": result.get("assessment_id"),
                 "assessment_version": result.get("assessment_version"),
@@ -114,8 +117,21 @@ def main() -> int:
         entry = audit_entries.get(key)
         if entry is None:
             errors.append(f"{key}: absent from portfolio audit")
-        elif key in backfill.ROOT_REVIEW_EXCEPTIONS:
-            if entry.get("archive", {}).get("root_status") != "REVIEW_REQUIRED":
+        else:
+            expected_scorecard = {
+                "complexity": result.get("complexity", {}).get("class"),
+                "score_0_100": result.get("complexity", {}).get("score_0_100"),
+                "readiness": result.get("readiness", {}).get("level"),
+                "criticality": result.get("criticality", {}).get("level"),
+                "lane": result.get("decision", {}).get("lane"),
+                "confidence": result.get("decision", {}).get("confidence"),
+                "release": result.get("decision", {}).get("design_release"),
+            }
+            if entry.get("scorecard") != expected_scorecard:
+                errors.append(f"{key}: aggregate audit scorecard is stale")
+            if entry.get("project_id") != trace.get("project_id") or str(entry.get("revision")) != str(trace.get("project_revision")):
+                errors.append(f"{key}: aggregate audit identity/revision is stale")
+            if key in backfill.ROOT_REVIEW_EXCEPTIONS and entry.get("archive", {}).get("root_status") != "REVIEW_REQUIRED":
                 errors.append(f"{key}: dirty/ambiguous root exception not preserved")
 
     errors.extend(backfill.verify_archive_moves())

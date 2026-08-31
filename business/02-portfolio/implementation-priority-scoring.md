@@ -1,14 +1,14 @@
 # Research-idea implementation priority
 
-Status: planning model plus 3D-preflight overlay reviewed 2026-08-31. Priority-scoring version: `1.0`; preflight-estimate version: `1.0`.
+Status: planning model plus 3D-preflight overlay reviewed 2026-08-31. Priority-scoring version: `1.1`; preflight-estimate version: `1.1`.
 
-This model orders all 200 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
+This model orders all 300 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
 The ordered source is `research-idea-priority.csv`; the generated workbook presents it as `Implementation Priority`.
 
 ## 3D-preflight planning overlay
 
-The workbook keeps market potential and implementation feasibility separate. `Research Ideas 100`, `Research Ideas +100`, and `Implementation Priority` therefore show a compact preflight field beside the existing opportunity and market-fit fields:
+The workbook keeps market potential and implementation feasibility separate. `Research Ideas 100`, `Research Ideas +100`, `Research Ideas +200`, and `Implementation Priority` therefore show a compact preflight field beside the opportunity, trend, and market-fit fields:
 
 `C# · R# · K# · Lane X · CONFIDENCE`
 
@@ -16,14 +16,20 @@ The workbook keeps market potential and implementation feasibility separate. `Re
 - The 163 ideas without a mapped product are explicitly marked `PRELIMINARY IDEA ESTIMATE — NOT RELEASE APPROVAL`.
 - For those preliminary rows, the C band is derived conservatively from the existing creation- and validation-effort estimates; the K band uses the existing research-risk value only as a broad proxy. It is not a safety qualification.
 - An unstarted idea remains `R0–R1`, current `Lane E`, and `LOW_UNKNOWN` until scope, critical interfaces, manufacturing profile, acceptance criteria, and verification evidence exist. A research-risk proxy of 5 is shown as `K3` and `NOT_AUTONOMOUSLY_RELEASABLE`.
+- SKU-201 through SKU-300 have an explicit purpose and a structured concept preflight. Every row passes `K1`, `C1–C2`, and `R2`; all remain current `Lane E`, `LOW_UNKNOWN`, and `CONCEPT_ONLY` because the exact printer, filament product/color/batch, nozzle, process profile, and customer variant evidence are still open. Their target is Lane B only after those gates close.
 - `Preflight_Target_Lane_After_Evidence` is a planning aid for the likely design path after readiness and hard gates are sufficient. It never replaces the current lane, a `HOLD`/`CONCEPT_ONLY` decision, or product release gates.
 
 The version-controlled row-level source is `research-idea-preflight-estimates.csv`. Regenerate and verify it before rebuilding the workbook:
 
 ```bash
+python business/tools/build_research_ideas_201_300.py
+python business/tools/build_research_ideas_201_300.py --check
+python business/tools/score_research_ideas.py
+python business/tools/score_research_ideas.py --check
 python business/tools/build_research_preflight_estimates.py
 python business/tools/build_research_preflight_estimates.py --check
 python business/tools/build_product_workbook.py
+python business/tools/validate_portfolio_preflight_overlay.py
 ```
 
 Do not combine C, R, K, lane, confidence, and market opportunity into one average. For later market-potential-versus-complexity analysis, compare `Opportunity_Score` or `Estimated_Market_Fit_1_5` beside `Preflight_Complexity_Band`, while retaining K and the current/target lane as separate gates.
@@ -90,7 +96,10 @@ The current signals are directional:
 - `S33` provides North American retailer search, sales, and survey evidence for sewing, needlepoint, yarn, journaling, and group crafts.
 - `S34` supports collector and recommerce hypotheses across nine markets including Germany.
 - `S35` is a US physical-media signal only.
+- `S36` is Pinterest's 2026 platform-search forecast for correspondence, Poetcore, and fragrance rituals; it is not German product-level demand.
 - `S29` supports the EU repair direction but does not prove demand for a specific printed replacement part.
+
+For SKU-201–300, `Trend_Score_0_100` is a transparent directional screen: primary-source strength (0–30) + signal magnitude (0–30) + metriMade strategy fit (0–25) + nonduplicate portfolio whitespace (0–15). All 100 score 87–94 and therefore exceed the requested `>70` gate. This is a prioritization judgment, not a statistically calibrated trend index or demand forecast.
 
 No current source supplies German product-level search volume, listing competition, conversion, acquisition cost, return rate, or validated price. `Market_Evidence_Confidence_1_5` is therefore capped at `4`, and most ideas score `2` or `3`.
 
@@ -104,4 +113,4 @@ For each tier-1 candidate:
 4. Define the smallest coupon or prototype that can disprove fit, usability, or willingness-to-pay assumptions.
 5. Assign CAD capacity only after the evidence is recorded and the candidate remains ahead of the other tier-1 ideas.
 
-The deterministic generator is `business/tools/score_research_ideas.py`. Run it after changing research rows or implementation status, and use `--check` in validation to detect stale rankings.
+The deterministic SKU-201–300 source generator is `business/tools/build_research_ideas_201_300.py`; the common queue generator is `business/tools/score_research_ideas.py`. Run both after changing the curated rows or implementation status, and use `--check` to detect stale outputs.

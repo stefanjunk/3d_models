@@ -1,18 +1,20 @@
 schema_version: 1.0.0
 kind: eval
 id: EVAL-core-product-portfolio-preflight-purpose-archive-001
-title: Existing product portfolios receive explicit purposes, honest preflight backfills, and conservative version archives
+title: Existing product portfolios retain honest backfills, current successors, purposes, and conservative archives
 category: core
 status: draft
 trigger: A product portfolio is bulk-audited, backfilled with preflights, reorganized by version, or extended with a new product boundary.
-risk: Products can remain undocumented, retrospective assessments can be mislabeled as prospective, schema validity can be mistaken for release permission, or cleanup can hide/delete active user work and merge independent version lineages.
+risk: Products can remain undocumented, retrospective assessments can be mislabeled as prospective, newer product-owned assessments can be reverted by the backfill tool, aggregate scorecards can become stale, schema validity can be mistaken for release permission, or cleanup can hide/delete active user work and merge independent version lineages.
 given:
   repository: A products/<family>/<product> portfolio containing heterogeneous existing artifacts, incomplete root documentation, version-labelled packages, and possibly dirty or untracked work.
   required_artifacts: PURPOSE.md, preflight/preflight-input.yaml, preflight/preflight-result.json, preflight/preflight-report.md, and design-spec.yaml workflow.preflight at every product boundary.
   cleanup_policy: Move only unambiguously older or explicitly legacy entries into product-local archive/; preserve and document ambiguity.
 expected:
   - Every discovered product boundary has a non-TODO explicit PURPOSE.md with intended use, scope/release limits, assessed revision, and evidence basis.
-  - Every preflight result satisfies the 3d-design-preflight schema, uses RETROSPECTIVE with backfill_missing_preflight, preserves UNKNOWN facts, and cites at least one repository basis reference.
+  - Every preflight result satisfies the 3d-design-preflight schema, preserves UNKNOWN facts, and cites at least one repository basis reference; a generated missing-assessment backfill uses RETROSPECTIVE with backfill_missing_preflight.
+  - A later complete schema-valid product-owned current assessment may use PROSPECTIVE and is preserved when its result trace and design-spec link agree on mode, project, revision, assessment identity/version, and artifact path.
+  - The aggregate audit matches every live current preflight's project identity, revision, compact scorecard values, purpose path, and archive state.
   - Every root design-spec.yaml cross-links the current assessment identity, version, mode, product revision, timestamp, change triggers, and canonical artifact path.
   - HOLD, CONCEPT_ONLY, LOW_UNKNOWN, NOT_AUTONOMOUSLY_RELEASABLE, and Lane D/E remain visible controlling results rather than being treated as document-validation failures or release approval.
   - Every declared archive move has an absent source and present destination, an archive README, and no deletion requirement.
@@ -21,6 +23,7 @@ expected:
 failure_conditions:
   - Any product boundary lacks one required document, an explicit purpose, schema-valid traceability, or a matching design-spec link.
   - A retrospective backfill claims PROSPECTIVE mode or reconstructs unsupported dimensions, variants, loads, material/profile facts, or physical validation.
+  - Re-running the backfill generator would replace a newer valid current product-owned assessment or leave its aggregate audit entry stale.
   - A blocked/restricted preflight is summarized as production-releasable merely because the JSON validates.
   - A planned archive source remains outside archive, an archive target is missing, or dirty/untracked ambiguity is silently moved, deleted, ignored, or labelled clean.
   - Re-running the generator would rewrite generated documents without a changed input or declared reassessment trigger.
@@ -33,8 +36,8 @@ grader:
   type: hybrid
   command: python tools/validate_product_preflight_portfolio.py
   expected_exit_code: 0
-  rubric: Review the three root exceptions and confirm they preserve rather than hide pre-existing dirty/untracked state; sample at least one R0, one K3, one GO_WITH_CONTROLS, and one archived multi-version product for purpose and gate honesty.
-  measurement_method: Deterministic product enumeration, schema and YAML-link validation, archive destination checks, audit reconciliation, and idempotence plus human review of ambiguous-root handling.
+  rubric: Review the three root exceptions and confirm they preserve rather than hide pre-existing dirty/untracked state; sample at least one R0, one K3, one GO_WITH_CONTROLS, one PROSPECTIVE successor, and one archived multi-version product for purpose and gate honesty.
+  measurement_method: Deterministic product enumeration, schema and YAML-link validation, live audit identity/scorecard reconciliation, archive destination checks, and idempotence plus human review of ambiguous-root handling.
 relationships:
   lessons:
     - EXP-00048
@@ -44,7 +47,7 @@ last_run:
   date: 2026-08-31
   report: products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
   artifact_hashes:
-    - e3f59fc8f9388b9139b11698b59e4eb4ce4068dc0bab99d6aa7802f49356292b
+    - 245c546d76193b2d3a9946ff166107c74fc418eb42db640f5f64deadef6a83d2
 tags:
   - core
   - portfolio
@@ -52,5 +55,6 @@ tags:
   - purpose
   - archive
   - retrospective
+  - prospective
   - dirty-worktree
   - idempotence

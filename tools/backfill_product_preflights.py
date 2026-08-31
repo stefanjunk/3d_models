@@ -1182,7 +1182,68 @@ def verify_archive_moves() -> list[str]:
     return errors
 
 
+def existing_current_result(ctx: ProductContext) -> dict[str, Any] | None:
+    """Preserve a product-owned preflight that has superseded the retrospective backfill."""
+    purpose_path = ctx.root / "PURPOSE.md"
+    result_path = ctx.root / "preflight/preflight-result.json"
+    input_path = ctx.root / "preflight/preflight-input.yaml"
+    report_path = ctx.root / "preflight/preflight-report.md"
+    spec_path = ctx.root / "design-spec.yaml"
+    if not all(path.is_file() for path in (purpose_path, result_path, input_path, report_path, spec_path)):
+        return None
+    purpose = purpose_path.read_text(encoding="utf-8", errors="replace")
+    if not purpose.startswith("# Purpose — ") or "TODO" in purpose:
+        return None
+    try:
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+        spec = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, yaml.YAMLError):
+        return None
+    if not isinstance(result, dict) or not isinstance(spec, dict):
+        return None
+    trace = result.get("traceability")
+    workflow = nested_get(spec, "workflow", "preflight")
+    if not isinstance(trace, dict) or not isinstance(workflow, dict):
+        return None
+    required_score_paths = (
+        nested_get(result, "complexity", "class"),
+        nested_get(result, "complexity", "score_0_100"),
+        nested_get(result, "readiness", "level"),
+        nested_get(result, "criticality", "level"),
+        nested_get(result, "decision", "lane"),
+        nested_get(result, "decision", "confidence"),
+        nested_get(result, "decision", "design_release"),
+    )
+    if any(value is None for value in required_score_paths):
+        return None
+    expected_workflow = {
+        "status": "current",
+        "artifact": "preflight/preflight-result.json",
+        "mode": trace.get("mode"),
+        "assessment_id": result.get("assessment_id"),
+        "assessment_version": result.get("assessment_version"),
+        "assessed_project_revision": trace.get("project_revision"),
+    }
+    if any(workflow.get(field) != value for field, value in expected_workflow.items()):
+        return None
+    if trace.get("mode") not in {"RETROSPECTIVE", "PROSPECTIVE"}:
+        return None
+    if trace.get("project_id") != ctx.project_id or str(trace.get("project_revision")) != str(ctx.revision):
+        return None
+    if not trace.get("basis_refs"):
+        return None
+    return result
+
+
 def process_product(ctx: ProductContext, write: bool) -> tuple[dict[str, Any], list[str]]:
+    current_result = existing_current_result(ctx)
+    if current_result is not None:
+        changed: list[str] = []
+        archive_content = archive_readme(ctx)
+        if archive_content is not None and write_text(ctx.root / "archive" / "README.md", archive_content, write):
+            changed.append((ctx.root / "archive" / "README.md").relative_to(REPO_ROOT).as_posix())
+        return current_result, changed
+
     result, rationales = build_result(ctx)
     changed: list[str] = []
     outputs = {

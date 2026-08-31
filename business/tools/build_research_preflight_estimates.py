@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the 200-row preliminary research preflight planning overlay."""
+"""Build the 300-row research preflight planning overlay."""
 
 from __future__ import annotations
 
@@ -15,9 +15,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 PORTFOLIO_CSV = REPO_ROOT / "business/02-portfolio/product-portfolio.csv"
 PRIORITY_CSV = REPO_ROOT / "business/02-portfolio/research-idea-priority.csv"
 STATUS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-implementation.csv"
+STRUCTURED_RESEARCH_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-additions-2.csv"
 OUTPUT = REPO_ROOT / "business/02-portfolio/research-idea-preflight-estimates.csv"
 ASSESSMENT_DATE = "2026-08-31"
-ESTIMATE_VERSION = "1.0"
+ESTIMATE_VERSION = "1.1"
 
 FIELDNAMES = [
     "SKU_ID",
@@ -167,26 +168,78 @@ def preliminary_idea_row(idea: dict[str, str]) -> dict[str, str]:
     }
 
 
+def structured_research_row(source: dict[str, str]) -> dict[str, str]:
+    """Carry the explicit R2 concept preflight without treating it as a release."""
+    required = {
+        "Preflight_Short",
+        "Complexity",
+        "Readiness",
+        "Criticality",
+        "Current_Lane",
+        "Target_Lane_After_Evidence",
+        "Confidence",
+        "Design_Release",
+        "Preflight_Status",
+        "PC_0_100",
+        "Readiness_Basis",
+        "Hard_Gates",
+    }
+    missing = sorted(required.difference(source))
+    if missing:
+        raise ValueError(f"Structured research row {source.get('SKU_ID', '?')} lacks: {', '.join(missing)}")
+    if source["Readiness"] != "R2" or source["Criticality"] != "K1":
+        raise ValueError(f"Structured research row violates the requested R2/K1 gate: {source['SKU_ID']}")
+    if source["Complexity"] not in {"C0", "C1", "C2"}:
+        raise ValueError(f"Structured research row exceeds C2: {source['SKU_ID']}")
+    if float(source["Trend_Score_0_100"]) <= 70:
+        raise ValueError(f"Structured research row does not exceed trend score 70: {source['SKU_ID']}")
+    if source["Current_Lane"] != "E" or "G3 FAIL" not in source["Hard_Gates"]:
+        raise ValueError(f"Structured research row must remain Lane E while the process gate is open: {source['SKU_ID']}")
+    return {
+        "Preflight_Short": source["Preflight_Short"],
+        "Complexity_Band": source["Complexity"],
+        "Readiness_Band": source["Readiness"],
+        "Criticality_Band": source["Criticality"],
+        "Current_Lane": source["Current_Lane"],
+        "Target_Lane_After_Evidence": source["Target_Lane_After_Evidence"],
+        "Confidence": source["Confidence"],
+        "Design_Release": source["Design_Release"],
+        "Estimate_Status": source["Preflight_Status"],
+        "Basis": (
+            f"Explicit concept preflight PC={source['PC_0_100']}/100. {source['Readiness_Basis']} "
+            f"Hard gates: {source['Hard_Gates']}"
+        ),
+        "Source_Or_Linked_Preflight": "business/02-portfolio/research-ideas-additions-2.csv",
+    }
+
+
 def build_rows() -> list[dict[str, str]]:
     priority = read_dict_rows(PRIORITY_CSV)
-    if len(priority) != 200:
-        raise ValueError(f"Expected 200 research ideas; found {len(priority)}")
+    if len(priority) != 300:
+        raise ValueError(f"Expected 300 research ideas; found {len(priority)}")
     ids = [row["SKU_ID"] for row in priority]
-    expected = {f"SKU-{number:03d}" for number in range(1, 201)}
+    expected = {f"SKU-{number:03d}" for number in range(1, 301)}
     if set(ids) != expected or len(ids) != len(set(ids)):
-        raise ValueError("Research priority must contain each SKU-001 through SKU-200 exactly once")
+        raise ValueError("Research priority must contain each SKU-001 through SKU-300 exactly once")
 
     implementation_by_id = {row["SKU_ID"]: row for row in read_dict_rows(STATUS_CSV)}
     portfolio_rows = read_dict_rows(PORTFOLIO_CSV)
     portfolio_by_sku = {row["Working_SKU"]: row for row in portfolio_rows}
     if len(portfolio_by_sku) != len(portfolio_rows):
         raise ValueError("Portfolio Working_SKU values must be unique for linked preflight lookup")
+    structured_rows = read_dict_rows(STRUCTURED_RESEARCH_CSV)
+    structured_by_id = {row["SKU_ID"]: row for row in structured_rows}
+    expected_structured = {f"SKU-{number:03d}" for number in range(201, 301)}
+    if len(structured_rows) != 100 or set(structured_by_id) != expected_structured:
+        raise ValueError("Structured research source must contain each SKU-201 through SKU-300 exactly once")
 
     output: list[dict[str, str]] = []
     for idea in sorted(priority, key=lambda row: int(row["SKU_ID"].split("-")[1])):
         implementation = implementation_by_id.get(idea["SKU_ID"], {})
         if implementation.get("Implementation_Status") == "MODEL_EXISTS":
             assessment = linked_product_row(idea, implementation, portfolio_by_sku)
+        elif idea["SKU_ID"] in structured_by_id:
+            assessment = structured_research_row(structured_by_id[idea["SKU_ID"]])
         else:
             assessment = preliminary_idea_row(idea)
         output.append(
@@ -219,10 +272,10 @@ def main() -> int:
     if args.check:
         if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
             raise SystemExit(f"stale or missing generated research preflight overlay: {OUTPUT}")
-        print(f"PASS: {OUTPUT} is current with 200 research preflight rows")
+        print(f"PASS: {OUTPUT} is current with 300 research preflight rows")
         return 0
     OUTPUT.write_text(content, encoding="utf-8")
-    print(f"Wrote {OUTPUT} with 200 research preflight rows")
+    print(f"Wrote {OUTPUT} with 300 research preflight rows")
     return 0
 
 

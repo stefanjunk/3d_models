@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 kind: lesson
 id: EXP-00049
-title: Portfolio planning must distinguish exact product preflights from preliminary research bands
+title: Portfolio planning must distinguish exact product preflights from evidence-tiered research preflights
 captured_at: 2026-08-31
 source_type: design-trace
 lifecycle:
@@ -12,16 +12,22 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once in one 108-product and 200-idea portfolio. Coverage and source reconciliation pass, but the usefulness and calibration of the preliminary bands have not been validated against completed idea-to-product projects."
+    notes: "Observed once in one 108-product and 300-idea portfolio. Coverage and source reconciliation pass, but neither the preliminary bands nor the structured R2 concept preflights and directional trend scores have been calibrated against completed idea-to-product projects or German sales evidence."
 feature:
   type: portfolio preflight scorecard and research-planning overlay
   geometry: heterogeneous existing products and pre-CAD research concepts; planning workflow rather than one geometry class
   design_parameters:
     product_directories: 108
     portfolio_rows: 99
-    research_ideas: 200
+    research_ideas: 300
     linked_product_preflights: 37
     preliminary_idea_estimates: 163
+    structured_r2_concept_preflights: 100
+    structured_complexity_split:
+      C1: 5
+      C2: 95
+    structured_criticality: K1
+    structured_trend_score_range: "87–94"
     compact_form: "C# · R# · K# · Lane X · CONFIDENCE"
     preliminary_readiness: "R0–R1"
     preliminary_current_lane: E
@@ -29,8 +35,11 @@ feature:
   constraints:
     - Existing products use exact current values from their documented product-local preflight.
     - Unstarted ideas use labelled C/K bands and retain R0–R1, Lane E, and low/limited confidence until product evidence exists.
+    - A research idea may use exact R2 only when purpose, exclusions, envelope, measurable customer inputs, critical-interface evidence route, candidate manufacturing envelope, and verification plan are explicit.
+    - Structured R2 concepts remain Lane E and CONCEPT_ONLY while an exact manufacturing profile or another hard gate is open.
     - The likely target lane after evidence is stored separately and never replaces the current lane or release decision.
     - Market opportunity remains separate from complexity, readiness, criticality, lane, and confidence.
+    - A directional trend score remains separate from the preflight scorecard and is labelled as unvalidated demand.
 scope:
   process: 3D product-portfolio and pre-CAD research planning
   machine:
@@ -62,24 +71,27 @@ scope:
   transfer_limits:
     - The preliminary C bands are derived from existing 1–5 creation/validation planning inputs, not a completed 11-dimension PC assessment.
     - The preliminary K bands use a research-risk proxy and are not a product-safety qualification.
+    - The structured SKU-201–300 PC and R2 values are concept assessments, not product geometry, manufacturing-process, or physical evidence.
+    - The trend score is a transparent weighted judgment over cited directional signals and portfolio fit, not a calibrated market statistic.
     - A target lane is a planning hypothesis after evidence closure, not current design or release authorization.
 observation:
-  summary: The portfolio workbook contained market and implementation-priority fields but no compact C/R/K/lane/confidence view. A source-linked overlay now exposes exact product preflights and explicitly preliminary idea bands without averaging market potential and implementation feasibility.
-  expected: Every existing product and every idea in both 100-row research tabs has a compact, traceable preflight view that preserves unknowns and distinguishes current permission from the likely workflow after evidence capture.
-  actual: The generated workbook now contains exact scorecards for all 99 portfolio rows, a separate 108-product preflight/purpose register, and complete 200-idea overlays split into 37 linked current product preflights and 163 labelled preliminary estimates. All preliminary unstarted ideas remain R0–R1 and Lane E.
+  summary: The portfolio overlay now supports exact product scorecards, explicitly preliminary legacy bands, and structured R2 concept preflights without averaging market potential, trend, and implementation feasibility.
+  expected: Every existing product and every idea in all three 100-row research tabs has a compact, traceable preflight view that preserves unknowns, distinguishes evidence classes, and keeps current permission separate from the likely workflow after evidence capture.
+  actual: The generated workbook contains exact scorecards for all 99 portfolio rows, a separate 108-product preflight/purpose register, and complete 300-idea overlays split into 37 linked current product preflights, 163 labelled preliminary estimates, and 100 structured R2 concept preflights. The structured batch has explicit purposes, C1–C2, K1, directional trend scores 87–94, and current Lane E because G3 remains open.
   outcome: success
   parameter: portfolio-level market-potential versus implementation-complexity planning
-  recommended_value: source-linked exact product scorecards plus visibly preliminary research bands, separate target lanes, and deterministic 200-row coverage validation
+  recommended_value: source-linked exact product scorecards plus explicitly classified preliminary or structured concept assessments, separate trend/market fields and target lanes, and deterministic 300-row coverage validation
   units: repository workflow contract
 explanation:
-  hypothesis: Keeping the exact/preliminary status, current lane, target lane, and market score in separate filterable fields prevents a compact portfolio view from implying evidence or release permission that does not exist.
-  mechanism: The generated CSV links mapped ideas to product-local preflights and derives conservative bands for unmapped ideas; the workbook builder joins those rows into both research tabs and the priority sheet; a validator reconciles IDs, values, source paths, disclaimers, and counts.
+  hypothesis: Keeping the exact/preliminary/structured status, current lane, target lane, and trend/market scores in separate filterable fields prevents a compact portfolio view from implying evidence, demand, or release permission that does not exist.
+  mechanism: The generated CSV links mapped ideas to product-local preflights, derives conservative bands for legacy unmapped ideas, and carries explicit PC/R/K/gate evidence for the structured batch; the workbook builder joins those rows into all three research tabs and the priority sheet; a validator reconciles IDs, values, source paths, disclaimers, formulas, and counts.
   alternatives:
     - Assigning Lane B–D directly to raw ideas would appear more discriminating but would violate the R<=1 Lane E rule.
     - Showing only current Lane E would be safe but would hide the likely engineering path; a separate target-lane field preserves both facts.
     - Folding market potential and preflight into one score would simplify ranking but erase criticality and evidence gates.
+    - Assigning R2 from trend strength or a broad product name would be simpler but would not establish interface, process-envelope, or verification readiness.
   validated: false
-  validation_method: Re-run the linked eval after research, mapping, preflight, or workbook changes and compare preliminary bands with the eventual full preflight of multiple newly implemented ideas before considering promotion.
+  validation_method: Re-run the linked eval after research, mapping, preflight, or workbook changes; compare both preliminary and structured concept assessments with eventual full preflights and implementation outcomes for multiple selected ideas before considering promotion.
 evidence:
   observations: 1
   same_scope_repetitions: 0
@@ -88,28 +100,35 @@ evidence:
   material_count: 0
   nozzle_count: 0
   measured: false
-  measurement_method: Deterministic CSV generation, 200-ID reconciliation, live product-directory/source checks, and XLSX XML/ZIP validation.
-  uncertainty: The preliminary research bands are planning estimates only; they have not been calibrated against measured implementation duration, iteration count, test effort, or eventual full PC scores.
+  measurement_method: Deterministic CSV generation, 300-ID reconciliation, PC/trend component checks, live product-directory/source checks, XLSX XML/ZIP validation, and LibreOffice round-trip opening.
+  uncertainty: The research assessments are planning estimates only; they have not been calibrated against measured implementation duration, iteration count, test effort, eventual full PC scores, German product-level demand, conversion, or willingness to pay.
   sources:
     - type: user-statement
       ref: User request in the 2026-08-31 portfolio preflight summary and research-estimation phase
       hash: null
-      notes: Requested compact preflight results in the portfolio and a preliminary result for every idea in Research Ideas 100 and +100 for later market-potential/complexity comparison.
+      notes: Requested compact preflight results across the portfolio, then 100 more high-trend K1/C<=2/R>=2 ideas in the XLSX for later market-potential/complexity comparison.
     - type: product-trace
       ref: products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
-      hash: e3f59fc8f9388b9139b11698b59e4eb4ce4068dc0bab99d6aa7802f49356292b
+      hash: 245c546d76193b2d3a9946ff166107c74fc418eb42db640f5f64deadef6a83d2
       notes: Exact current product scorecards and purpose/preflight coverage for 108 product directories.
     - type: other
       ref: business/02-portfolio/research-idea-preflight-estimates.csv
-      hash: 347d058d3364420e55c4267a588fe66f7e1dbed996e3528d9d75dc0a734ded46
-      notes: Version-controlled 200-row exact/preliminary overlay.
+      hash: dc02593c0904a1ded6e13786e16e7f6b9a87582a10288da4423efa8e79ee1893
+      notes: Version-controlled 300-row exact/preliminary/structured overlay.
+    - type: other
+      ref: business/02-portfolio/research-ideas-additions-2.csv
+      hash: 7396d50ff796086f3c402c5d2c95489713078a17c009cf1f021941473a7912f2
+      notes: One hundred explicit-purpose trend-screened concepts with PC components, R2 basis, hard gates, and release disclaimers.
     - type: other
       ref: business/tools/validate_portfolio_preflight_overlay.py
-      hash: f19e1ea534e4ca24dd2fd751c4e9250baf1d36dc248a19d253409597cb4adf07
-      notes: Deterministic workbook/source reconciliation and conservative-band checks.
+      hash: 0ec1308c376c52f1439bc404f661792525b5a526832487d100d4355da6194616
+      notes: Deterministic workbook/source reconciliation and strict preliminary/structured assessment checks.
   artifacts:
     - business/02-portfolio/product-portfolio.xlsx
     - business/02-portfolio/research-idea-preflight-estimates.csv
+    - business/02-portfolio/research-ideas-additions-2.csv
+    - business/02-portfolio/research-idea-priority.csv
+    - business/tools/build_research_ideas_201_300.py
     - business/tools/build_research_preflight_estimates.py
     - business/tools/build_product_workbook.py
     - business/tools/validate_portfolio_preflight_overlay.py
@@ -117,13 +136,15 @@ applicability:
   triggers:
     - A portfolio view combines released/current products and pre-CAD research ideas.
     - Market opportunity needs to be compared with implementation complexity without hiding evidence or criticality gates.
+    - A research batch is screened for trend and preflight constraints before CAD selection.
     - A compact preflight score is copied outside the owning product folder.
   exclusions:
     - Product release, safety approval, certification, or replacement of the full preflight artifact.
     - Numeric success probabilities or a combined market/preflight average.
+    - Treating a directional trend score as German demand evidence or as input to R, K, or current-lane permission.
     - Reuse of a mapped product scorecard when the research concept is not actually represented by that product scope.
   transfer_limits:
-    - Keep this at E0 until multiple ideas receive later full preflights and demonstrate whether the preliminary band and target lane were directionally useful.
+    - Keep this at E0 until multiple ideas receive later full preflights and demonstrate whether the preliminary/structured assessments and target lanes were directionally useful.
     - Regenerate the overlay whenever product preflights, implementation mappings, or research planning inputs change.
 relationships:
   duplicates: []
@@ -145,7 +166,7 @@ validation:
     - business/tools/validate_portfolio_preflight_overlay.py
 provenance:
   project: WORKSPACE-PORTFOLIO-PREFLIGHT-OVERLAY
-  part_revision: 0.1.0
+  part_revision: 0.2.0
   trace: User request in the 2026-08-31 portfolio preflight summary and research-estimation phase
   source_commit: 44e701f
   created_by: Codex

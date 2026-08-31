@@ -15,10 +15,11 @@ from build_product_workbook import read_xlsx_sheet
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
 ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
+ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
 IMPLEMENTATION_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 OUTPUT_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
-SCORED_ON = "2026-08-27"
-SCORING_VERSION = "1.0"
+SCORED_ON = "2026-08-31"
+SCORING_VERSION = "1.1"
 
 CURRENT_FINISH_ORDER = {
     "SKU-001": 1,
@@ -141,6 +142,7 @@ OUTPUT_FIELDS = [
     "Creation_Effort_1_5",
     "Validation_Effort_1_5",
     "Commercial_Risk_1_5",
+    "Trend_Score_0_100",
     "Estimated_Market_Fit_1_5",
     "Market_Evidence_Confidence_1_5",
     "Strategy_Fit_1_5",
@@ -212,22 +214,22 @@ def legacy_records() -> list[dict[str, object]]:
     return records
 
 
-def additions_records() -> list[dict[str, object]]:
+def additions_records(path: Path, source_group: str) -> list[dict[str, object]]:
     difficulty_map = {"Easy": 1, "Moderate": 2, "Hard": 4}
     records = []
-    for source in read_dict_csv(ADDITIONS_CSV):
+    for source in read_dict_csv(path):
         difficulty = difficulty_map.get(source["Difficulty"])
         if difficulty is None:
             raise ValueError(f"Unknown difficulty for {source['SKU_ID']}: {source['Difficulty']}")
         records.append(
             {
-                "source_group": "addition",
+                "source_group": source_group,
                 "sku_id": source["SKU_ID"],
                 "product": source["Product"],
                 "family": source["Product_Family"],
                 "customer_job": source["Customer_Job"],
                 "trend_signal": source["Trend_Signal"],
-                "trend_score": None,
+                "trend_score": float(source["Trend_Score_0_100"]) if source.get("Trend_Score_0_100") else None,
                 "opportunity_score": float(source["Opportunity_Score"]),
                 "difficulty": difficulty,
                 "risk": int(source["Risk_Score"]),
@@ -293,7 +295,7 @@ def market_prior(record: dict[str, object]) -> int:
 
 
 def score_market_fit(record: dict[str, object]) -> int:
-    if record["source_group"] == "legacy":
+    if record["trend_score"] is not None:
         trend = float(record["trend_score"])
         base = 5 if trend >= 92 else 4 if trend >= 84 else 3 if trend >= 75 else 2 if trend >= 65 else 1
     else:
@@ -315,7 +317,7 @@ def score_evidence_confidence(record: dict[str, object]) -> int:
     text = record_text(record)
     sources = {item.strip() for item in str(record["source_ids"]).split(";") if item.strip()}
     score = 2
-    if sources.intersection({"S01", "S06", "S07", "S08", "S31", "S33", "S34"}):
+    if sources.intersection({"S01", "S06", "S07", "S08", "S31", "S33", "S34", "S36"}):
         score = 3
     if "S01" in sources and ("mahjong" in text or "journal" in text):
         score = 4
@@ -434,11 +436,11 @@ def priority_score(scores: dict[str, int]) -> float:
 
 def score_records() -> list[dict[str, object]]:
     implementations = implementation_map()
-    records = legacy_records() + additions_records()
+    records = legacy_records() + additions_records(ADDITIONS_CSV, "addition") + additions_records(ADDITIONS_2_CSV, "addition2")
     ids = [str(record["sku_id"]) for record in records]
-    expected = {f"SKU-{number:03d}" for number in range(1, 201)}
-    if len(records) != 200 or len(ids) != len(set(ids)) or set(ids) != expected:
-        raise ValueError("Scoring inputs must contain each ID from SKU-001 through SKU-200 exactly once")
+    expected = {f"SKU-{number:03d}" for number in range(1, 301)}
+    if len(records) != 300 or len(ids) != len(set(ids)) or set(ids) != expected:
+        raise ValueError("Scoring inputs must contain each ID from SKU-001 through SKU-300 exactly once")
 
     scored = []
     for record in records:
@@ -563,6 +565,7 @@ def output_rows() -> list[dict[str, object]]:
                 "Creation_Effort_1_5": scores["creation"],
                 "Validation_Effort_1_5": scores["validation"],
                 "Commercial_Risk_1_5": scores["risk"],
+                "Trend_Score_0_100": record["trend_score"] if record["trend_score"] is not None else "",
                 "Estimated_Market_Fit_1_5": scores["market"],
                 "Market_Evidence_Confidence_1_5": scores["evidence"],
                 "Strategy_Fit_1_5": scores["strategy"],
@@ -600,7 +603,7 @@ def main() -> None:
         print(f"Validated {OUTPUT_CSV}")
         return
     OUTPUT_CSV.write_text(rendered, encoding="utf-8")
-    print(f"Wrote {OUTPUT_CSV} with 200 scored ideas")
+    print(f"Wrote {OUTPUT_CSV} with 300 scored ideas")
 
 
 if __name__ == "__main__":

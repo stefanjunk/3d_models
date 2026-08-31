@@ -76,11 +76,11 @@ def validate_product_sheets() -> tuple[int, int]:
     return len(portfolio), len(products)
 
 
-def validate_research_sheets() -> tuple[int, int]:
+def validate_research_sheets() -> tuple[int, int, int]:
     with workbook.RESEARCH_PREFLIGHT_CSV.open(newline="", encoding="utf-8") as handle:
         estimates = {row["SKU_ID"]: row for row in csv.DictReader(handle)}
-    if len(estimates) != 200:
-        raise ValueError(f"Expected 200 research preflight estimates, found {len(estimates)}")
+    if len(estimates) != 300:
+        raise ValueError(f"Expected 300 research preflight estimates, found {len(estimates)}")
 
     workbook_columns = {
         "Preflight_Short": "Preflight_Short",
@@ -94,7 +94,12 @@ def validate_research_sheets() -> tuple[int, int]:
         "Preflight_Source": "Source_Or_Linked_Preflight",
     }
     combined: set[str] = set()
-    for sheet_name, key in (("Research Ideas 100", "SKU ID"), ("Research Ideas +100", "SKU_ID")):
+    research_sheets = (
+        ("Research Ideas 100", "SKU ID"),
+        ("Research Ideas +100", "SKU_ID"),
+        ("Research Ideas +200", "SKU_ID"),
+    )
+    for sheet_name, key in research_sheets:
         header, rows = rows_by_key(sheet_name, key)
         if len(rows) != 100:
             raise ValueError(f"Expected 100 ideas in {sheet_name}, found {len(rows)}")
@@ -112,15 +117,36 @@ def validate_research_sheets() -> tuple[int, int]:
             if estimate["Estimate_Status"].startswith("PRELIMINARY"):
                 if estimate["Readiness_Band"] != "R0\u2013R1" or estimate["Current_Lane"] != "E":
                     raise ValueError(f"Preliminary idea bypasses R0\u2013R1/Lane E for {sku_id}")
+            elif estimate["Estimate_Status"].startswith("STRUCTURED RESEARCH PREFLIGHT R2"):
+                if (
+                    estimate["Readiness_Band"] != "R2"
+                    or estimate["Criticality_Band"] != "K1"
+                    or estimate["Complexity_Band"] not in {"C0", "C1", "C2"}
+                    or estimate["Current_Lane"] != "E"
+                    or estimate["Target_Lane_After_Evidence"] != "B"
+                    or estimate["Design_Release"] != "CONCEPT_ONLY"
+                ):
+                    raise ValueError(f"Structured concept preflight violates the C/R/K/lane gate for {sku_id}")
             elif not (REPO_ROOT / estimate["Source_Or_Linked_Preflight"]).is_file():
                 raise ValueError(f"Linked product preflight is missing for {sku_id}")
     if combined != set(estimates):
-        raise ValueError("The two research sheets do not cover the same 200 IDs as the estimate source")
+        raise ValueError("The three research sheets do not cover the same 300 IDs as the estimate source")
+
+    structured_header, structured = rows_by_key("Research Ideas +200", "SKU_ID")
+    for sku_id, row in structured.items():
+        if not str(cell(structured_header, row, "Purpose")).strip():
+            raise ValueError(f"Explicit purpose is missing for {sku_id}")
+        if float(cell(structured_header, row, "Trend_Score_0_100")) <= 70:
+            raise ValueError(f"Trend score does not exceed 70 for {sku_id}")
+        if str(cell(structured_header, row, "Trend_Score_Status")) != "DIRECTIONAL PLANNING SCORE — NOT VALIDATED DEMAND":
+            raise ValueError(f"Trend-score disclaimer is missing for {sku_id}")
+        if "G3 FAIL" not in str(cell(structured_header, row, "Hard_Gates")):
+            raise ValueError(f"Fail-closed process gate is missing for {sku_id}")
 
     priority_header, priority = rows_by_key("Implementation Priority", "SKU_ID")
-    if len(priority) != 200:
-        raise ValueError(f"Expected 200 Implementation Priority rows, found {len(priority)}")
-    for required in ("Priority_Score_0_100", "Estimated_Market_Fit_1_5", *workbook_columns):
+    if len(priority) != 300:
+        raise ValueError(f"Expected 300 Implementation Priority rows, found {len(priority)}")
+    for required in ("Priority_Score_0_100", "Trend_Score_0_100", "Estimated_Market_Fit_1_5", *workbook_columns):
         if required not in priority_header:
             raise ValueError(f"Implementation Priority is missing comparison column {required}")
     for sku_id, row in priority.items():
@@ -130,10 +156,11 @@ def validate_research_sheets() -> tuple[int, int]:
                 raise ValueError(f"Stale {workbook_column} for {sku_id} in Implementation Priority")
 
     linked = sum(1 for row in estimates.values() if row["Estimate_Status"].startswith("LINKED"))
-    preliminary = len(estimates) - linked
-    if (linked, preliminary) != (37, 163):
-        raise ValueError(f"Unexpected linked/preliminary split: {linked}/{preliminary}")
-    return linked, preliminary
+    structured_count = sum(1 for row in estimates.values() if row["Estimate_Status"].startswith("STRUCTURED"))
+    preliminary = len(estimates) - linked - structured_count
+    if (linked, preliminary, structured_count) != (37, 163, 100):
+        raise ValueError(f"Unexpected linked/preliminary/structured split: {linked}/{preliminary}/{structured_count}")
+    return linked, preliminary, structured_count
 
 
 def main() -> int:
@@ -145,11 +172,12 @@ def main() -> int:
     if bad_member:
         raise ValueError(f"Corrupt workbook member: {bad_member}")
     portfolio_count, product_count = validate_product_sheets()
-    linked, preliminary = validate_research_sheets()
+    linked, preliminary, structured_count = validate_research_sheets()
     print(
         "PASS: portfolio preflight overlay; "
         f"portfolio={portfolio_count}, products={product_count}, "
-        f"research_linked={linked}, research_preliminary={preliminary}"
+        f"research_linked={linked}, research_preliminary={preliminary}, "
+        f"research_structured_r2={structured_count}"
     )
     return 0
 

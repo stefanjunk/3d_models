@@ -82,3 +82,13 @@
 - Coupon: one 184 × 118 × 3 mm build with exactly 20 watertight bodies covers 0.15, 0.25, 0.35 and 0.45 mm clearance per side. The product source uses 0.25 mm only provisionally.
 - Deterministic checks: all four functional meshes are watertight single bodies; the coupon audit passes with 20 components. The first relative-path slicer attempt failed closed and produced no G-code; the preserved absolute-path rerun passes in Anycubic Slicer Next 1.3.9.4 with the exact Kobra 3 Max 0.4/0.20 mm Standard/Anycubic PLA Matte profile set.
 - Slicer metrics: 15 layers, one tool, zero tool changes, 4,139.45 mm estimated filament and 1,771 s normal-mode estimate. This is local export evidence only; physical fit and final slicer preview remain open.
+
+## 2026-08-31 — Berlin four-color digital artwork generated and optimized
+
+- Frozen source: verified 99,132,753-byte Geofabrik Berlin PBF snapshot, SHA-256 `44878bac7391c7d1e9d86e583a0cbd9713a69d164ac47ad1e4ab7e7d374d407c`; derived EPSG:25833 layers contain one Berlin boundary, 34,057 major-road, 1,466 accent-road, 8,588 rail and 247 river/canal features.
+- The initial direct vector union was stopped after memory exceeded 8.7 GiB. The accepted rebuild uses a protected 0.25 mm manufacturing mask, below the 0.45 mm target line width, then vectorizes exact contours for Manifold3D extrusion.
+- Output: two 299.875 × 400 × 4.6 mm watertight composites, eight named watertight color bodies and two portable four-material 3MFs. Triangle counts are 71,996 left and 59,326 right, both below the 750,000 target.
+- Color strategy: Bone White 0–3.0 mm, Nardo Grey 3.0–3.6 mm, Black 3.6–4.2 mm and Orange 4.2–4.6 mm. Both halves have exactly three estimated global changes and zero multi-color layers; no dithering is present.
+- Through-light water paths occupy 1.52% left and 1.88% right, below the 12% limit, after seam and connector/hanger keep-outs.
+- Optimization: reducing the rejected 3.4 mm source baseline to the approved 3.0 mm backer cuts the measured left single-material preflight from 105,158.03 to 102,400.49 mm filament (-2.62%) and from 45,072 to 43,695 s (-3.06%) without changing the visible field.
+- Final geometry-only Anycubic preflight passes for both halves with exact profiles: 102,400.49 mm / 43,695 s left and 99,093.48 mm / 41,553 s right. These composite slices validate bed fit, layers and apertures only; ACE slot mapping, purge tower and final color preview remain human-controlled.

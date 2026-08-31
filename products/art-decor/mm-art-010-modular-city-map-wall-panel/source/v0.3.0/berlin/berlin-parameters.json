@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.3.0",
+  "pilot": "Berlin",
+  "units": "mm",
+  "panel": {
+    "width": 600.0,
+    "height": 400.0,
+    "split_x": 300.0,
+    "seam_gap": 0.25,
+    "outer_border": 8.0
+  },
+  "z_bands": {
+    "Bone White": [0.0, 3.0],
+    "Nardo Grey": [3.0, 3.6],
+    "Black": [3.6, 4.2],
+    "Orange": [4.2, 4.6]
+  },
+  "network_widths": {
+    "nardo_buffer": 1.6,
+    "black_buffer": 1.05,
+    "orange_buffer": 0.75,
+    "line_simplification": 0.12,
+    "polygon_simplification": 0.06,
+    "minimum_component_area": 0.8
+  },
+  "light_apertures": {
+    "waterway_radius": 1.1,
+    "minimum_nominal_width": 2.2,
+    "ligament_closing_radius": 2.5,
+    "seam_keepout_half_width": 8.0,
+    "functional_keepout_half_width": 12.0,
+    "maximum_open_area_fraction_per_half": 0.12
+  },
+  "palette": {
+    "Bone White": "#E9E1D0",
+    "Nardo Grey": "#73777A",
+    "Black": "#171717",
+    "Orange": "#F05A24"
+  },
+  "source": {
+    "pbf": "source-data/v0.3.0/berlin/berlin-snapshot.osm.pbf",
+    "boundary": "source-data/v0.3.0/berlin/boundary.geojson",
+    "roads_major": "source-data/v0.3.0/berlin/roads-major.geojson",
+    "roads_accent": "source-data/v0.3.0/berlin/roads-accent.geojson",
+    "rail": "source-data/v0.3.0/berlin/rail.geojson",
+    "waterways": "source-data/v0.3.0/berlin/waterways.geojson",
+    "working_crs": "EPSG:25833"
+  },
+  "manufacturing": {
+    "representation": "four named closed bodies per half in touching global Z bands",
+    "no_dithering": true,
+    "intended_global_color_changes": 3,
+    "rear_datum_on_bed": true,
+    "optimization_decision": "3.0 mm approved backer retained; rejected 3.4 mm source baseline is preserved only as A/B slicing evidence"
+  }
+}

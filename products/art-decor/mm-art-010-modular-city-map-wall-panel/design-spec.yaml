@@ -58,8 +58,8 @@ workflow:
     approved_at: "2026-08-31"
     basis: "User explicitly approved decomposition revision 0.3.0 in chat"
   digital_candidate:
-    status: pending
-    reason: "Shared interface STEP/STL and four-clearance coupon have deterministic digital PASS evidence; Berlin art geometry, integrated panel meshes and physical coupon selection remain pending"
+    status: review-required
+    reason: "Shared interface/coupon, Berlin source freeze, eight named color meshes, two portable 3MFs and geometry-only exact Anycubic preflight have deterministic PASS evidence; physical coupon selection, destination-slicer ACE mapping, watermark and human print-candidate approval remain pending"
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -315,20 +315,22 @@ manufacturing:
   slicer: "Anycubic Slicer Next through fdm_ci.py slice-anycubic-next with explicit machine, process and filament profiles"
 
 optimization:
-  status: pending
+  status: applied
   objective: "minimize seam count, filament, support, purge and print time while preserving flatness, connector retention, relief readability and lighting apertures"
   protected:
     - "visible global map registration and center seam"
     - "connector pockets, one-way spring roots and hanger/standoff snap sockets"
     - "light apertures, LED/cable keep-outs, attribution and watermark host"
-  baseline_slicer_report: null
-  selected_variant: null
-  comparison_report: null
+  baseline_slicer_report: validation/v0.3.0/berlin/slice-left-composite-r1.json
+  selected_variant: "3.0 mm backer with 0.6/0.6/0.4 mm sequential color bands; 4.6 mm maximum"
+  comparison_report: validation/v0.3.0/berlin/optimization/optimization-report.json
   mesh_simplification:
-    status: pending
-    master_mesh: null
-    manufacturing_mesh: null
+    status: applied
+    master_mesh: "immutable EPSG:25833 OSM vectors plus protected 0.25 mm manufacturing mask"
+    manufacturing_mesh: "exports/v0.3.0/berlin/berlin-{left,right}-composite.stl"
+    method: "rasterize the immutable vector field at 0.25 mm pitch, remove sub-0.8 mm2 islands, rebuild simplified contours, and preserve seam/interface/light keep-outs exactly"
     tolerance_mm: 0.03
+    comparison_report: validation/v0.3.0/berlin/berlin-build-report.json
     protected_regions:
       - "outer perimeter and center seam"
       - "thin map/color boundaries and through-openings"
@@ -340,7 +342,11 @@ optimization:
       peak_memory_gib: 4.0
       max_mesh_mib: 75.0
       max_slicer_seconds: 240.0
-    slicer_resolution_check: null
+    slicer_resolution_check:
+      status: passed
+      method: "exact Anycubic Slicer Next 1.3.9.4 composite preflight plus portable 3MF structural validation"
+      result: "both final composites slice; right/left triangle counts are 59,326 and 71,996"
+      report: validation/v0.3.0/berlin/mesh-summary.json
 
 resource_budgets:
   max_triangles_per_main_half: 750000
@@ -378,19 +384,19 @@ acceptance:
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"
-    status: NOT_RUN
+    status: PASS
   - id: AC-PERMANENT-ASSEMBLY
     criterion: "The two halves form one flat permanent artwork without a rear grid or replaceable interface."
     method: "digital interface audit, one-way connector coupon and assembled proof test"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-MULTICOLOR
     criterion: "Four named abstract color solids slice with correct ACE slot mapping and approved purge evidence."
     method: "3MF audit, exact Anycubic slice and physical transition coupon"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-LIGHT
     criterion: "The unlit artwork passes mechanically and the optional unsupplied lighting envelopes create the approved halo/front-through effect."
     method: "keep-out report, light gauge and human appearance review"
-    status: NOT_RUN
+    status: REVIEW_REQUIRED
   - id: AC-BRAND
     criterion: "The required product-specific metriMade.com watermark is recessed on an approved protected rear land."
     method: "watermark placement manifest, geometry validation and human approval"

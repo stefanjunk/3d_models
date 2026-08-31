@@ -1,0 +1,220 @@
+{
+  "assessment_id": "PREFLIGHT-MM-BTH-003-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Linear Shower Drain Hair Trap",
+  "scope": {
+    "intended_use": "Develop a removable segmented insert that retains hair in a linear shower drain while preserving drainage and cleanability.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "3.1.0-draft.1"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Linear Shower Drain Hair Trap"
+    },
+    {
+      "id": "E-MED-001",
+      "kind": "MEDIUM",
+      "name": "Intended fluid or process medium"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-ENV-FLU-FLW-VOLUME-001",
+      "name": "Printed product to process medium",
+      "endpoint_b": "E-MED-001",
+      "boundary": "ENV",
+      "domains": [
+        "GEO",
+        "FLU",
+        "ENV"
+      ],
+      "function": "FLW",
+      "geometry": "VOLUME",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml",
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/design-spec.yaml",
+          "abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/README.md",
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/README.md",
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/README.md",
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/README.md",
+          "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation-project.json",
+          "abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/functional_test_tile_80mm.stl"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 3,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 3,
+        "total": 13,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 1,
+      "CTX": 3,
+      "PAR": 3,
+      "INT": 3,
+      "CPL": 0,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 3,
+      "MAT": 1,
+      "EXT": 0,
+      "VER": 3
+    },
+    "score_0_100": 44.2,
+    "class": "C3",
+    "drivers": [
+      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "PHY=3: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested.",
+      "PAR=3: The current evidence exposes approximately 32 distinct geometry-file stems; exports may duplicate physical parts."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 48.0
+  },
+  "criticality": {
+    "level": "K2",
+    "rationale": "The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.",
+    "credible_failure_effects": [
+      "functional failure",
+      "leakage, obstruction, or detachment",
+      "minor injury or property damage"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "PASS",
+    "G4": "WARN",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "THERMAL_OR_FLOW_CRITICAL",
+      "severity": "WARN",
+      "message": "Flow, drainage, humidity, heat, or airflow performance needs a controlled functional test."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 2,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-BTH-003",
+    "project_revision": "3.1.0-draft.1",
+    "basis_refs": [
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/design-spec.yaml",
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/design-spec.yaml",
+      "abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/README.md",
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/README.md",
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/README.md",
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/assets/metrimade-watermark/README.md",
+      "abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/validation-project.json",
+      "abflusssieb/shower_drain_hairtrap_945x65_funnel_edge_v1_3/shower_drain_hairtrap_945x65_funnel_edge/functional_test_tile_80mm.stl"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

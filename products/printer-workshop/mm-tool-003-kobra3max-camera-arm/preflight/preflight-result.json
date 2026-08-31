@@ -1,0 +1,246 @@
+{
+  "assessment_id": "PREFLIGHT-MM-TOOL-003-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Mm Tool 003 Kobra3Max Camera Arm",
+  "scope": {
+    "intended_use": "Mount and position an Anycubic printer camera on a slim articulated arm attached to a Kobra 3 Max.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "UNVERSIONED-CURRENT"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Mm Tool 003 Kobra3Max Camera Arm"
+    },
+    {
+      "id": "E-HOST-001",
+      "kind": "HOST_OBJECT",
+      "name": "Intended host object or storage envelope"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CON-MIXED-001",
+      "name": "Printed product to intended host",
+      "endpoint_b": "E-HOST-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "CON",
+      "geometry": "MIXED",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/README.md",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/README.md",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/08_printer_interface_fit_test_coupon.stl",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/06_anycubic_camera_fit_test_frame_FROM_ORIGINAL_MODEL.stl",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/K3M_camera_arm_v6_from_original_model_printplate.3mf",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/01_printer_interface_FIRST_hinge.stl",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/camera_housing_assembly.3mf",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/07_M4_friction_washer_0p8mm.stl",
+          "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/05_anycubic_camera_back_cover_with_ball_FROM_ORIGINAL_MODEL.stl"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 35,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "expert_review",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
+      "INT": 3,
+      "CPL": 2,
+      "MOT": 1,
+      "GEO": 2,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 3,
+      "VER": 3
+    },
+    "score_0_100": 56.0,
+    "class": "C3",
+    "drivers": [
+      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "VER=3: Several fit, function, flow, load, motion, or process checks are required.",
+      "EXT=3: Purchased hardware, printer equipment, electronics, or software participates in the system."
+    ]
+  },
+  "readiness": {
+    "level": "R1",
+    "component_levels": {
+      "scope_variant": "R2",
+      "requirements": "R1",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R1",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "stable current product revision",
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "complete printer/material/nozzle/orientation/process-profile set",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 32.0
+  },
+  "criticality": {
+    "level": "K3",
+    "rationale": "A human-load, powered vehicle, machine-adjacent, projectile, or wall-mounted interface can plausibly cause injury or significant property damage.",
+    "credible_failure_effects": [
+      "injury",
+      "damage to host equipment",
+      "loss of controlled function"
+    ]
+  },
+  "gates": {
+    "G0": "WARN",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "FAIL",
+    "G4": "WARN",
+    "G5": "WARN",
+    "G6": "FAIL"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "NOT_AUTONOMOUSLY_RELEASABLE",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "VARIANT_UNKNOWN",
+      "severity": "WARN",
+      "message": "No stable current product revision is evidenced at the product boundary."
+    },
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "BLOCKER",
+      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
+    },
+    {
+      "code": "SAFETY_EXPERT_REQUIRED",
+      "severity": "BLOCKER",
+      "message": "K3 scope requires expert-in-the-loop review and controlled prototypes; autonomous release is prohibited."
+    },
+    {
+      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
+      "severity": "BLOCKER",
+      "message": "The credible failure consequence exceeds autonomous release authority."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Obtain an expert review of credible failure modes and the staged prototype plan.",
+      "exit_criterion": "A named reviewer approves the test scope, controls, and stop conditions."
+    },
+    {
+      "priority": 2,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 3,
+      "action": "Record the exact manufacturing profile.",
+      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
+    },
+    {
+      "priority": 4,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-TOOL-003",
+    "project_revision": "UNVERSIONED-CURRENT",
+    "basis_refs": [
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/README.md",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/08_printer_interface_fit_test_coupon.stl",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/06_anycubic_camera_fit_test_frame_FROM_ORIGINAL_MODEL.stl",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/K3M_camera_arm_v6_from_original_model_printplate.3mf",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/01_printer_interface_FIRST_hinge.stl",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/camera_housing_assembly.3mf",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/07_M4_friction_washer_0p8mm.stl",
+      "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/05_anycubic_camera_back_cover_with_ball_FROM_ORIGINAL_MODEL.stl"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

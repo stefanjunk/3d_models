@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "honeycomb-wood-wall-shelf"
+  name: "Mm Wall 001 Honeycomb Wood Wall Shelf"
+  version: "1.1.0"
+  status: retrospective-inventory
+
+function:
+  summary: "Develop a modular honeycomb wall shelf and display system with wood-inspired surfaces and printable mounting interfaces."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "setzkasten/honeycomb-wood-wall-shelf/design-spec.yaml"
+    - "setzkasten/honeycomb-wood-wall-shelf/README.md"
+    - "setzkasten/honeycomb-wood-wall-shelf/assets/README.md"
+    - "setzkasten/honeycomb-wood-wall-shelf/acceptance-tests.yaml"
+    - "setzkasten/honeycomb-wood-wall-shelf/generated/unit-tests.txt"
+    - "setzkasten/honeycomb-wood-wall-shelf/generated/reimport-textured-validation.json"
+    - "setzkasten/honeycomb-wood-wall-shelf/generated/reimport-texture-coupon-validation.json"
+    - "setzkasten/honeycomb-wood-wall-shelf/generated/reimport-rear-wall-spacer-validation.json"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-HONEYCOMB-WOOD-WALL-SHELF-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "1.1.0"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

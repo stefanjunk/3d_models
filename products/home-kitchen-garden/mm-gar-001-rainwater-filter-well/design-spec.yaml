@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-GAR-001"
+  name: "Regenwasser Filterbrunnen Fuer Pool"
+  version: "3"
+  status: retrospective-inventory
+
+function:
+  summary: "Develop a printable rainwater filter-well assembly that separates debris while maintaining a serviceable water path."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "regenwasser-filterbrunnen_R3_DRAFT/design-spec.yaml"
+    - "regenwasser-filterbrunnen_R3_DRAFT/README.md"
+    - "regenwasser-filterbrunnen_R3_DRAFT/VALIDATION.md"
+    - "regenwasser-filterbrunnen_R3_DRAFT/TEST-PLAN.md"
+    - "regenwasser-filterbrunnen_R3_DRAFT/PRINTING.md"
+    - "regenwasser-filterbrunnen_R3_DRAFT/assets/just-innovation-watermark/source/just-innovation-watermark.scad"
+    - "regenwasser-filterbrunnen_R3_DRAFT/THIRD_PARTY_NOTICES.md"
+    - "regenwasser-filterbrunnen_R3_DRAFT/package.json"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-GAR-001-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "3"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

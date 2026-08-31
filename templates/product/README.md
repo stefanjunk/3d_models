@@ -6,6 +6,7 @@ inside this template or to a sibling product.
 
 Recommended roles:
 
+- `PURPOSE.md`: mandatory explicit purpose, scope limits, and evidence basis;
 - `preflight/`: mandatory pre-design input and current validated preflight result;
 - `source/`: editable CAD, mesh, and generator source;
 - `assets/`: reference images, measurements, textures, branding, and disclosed
@@ -17,8 +18,10 @@ Recommended roles:
 - `tests/`: automated and physical plans/results;
 - `build/`: reproducible temporary output;
 - `releases/`: immutable approved packages.
+- `archive/`: preserved older or explicitly legacy versions; never an active
+  source of truth without a documented restore decision.
 
-Keep `README.md`, `design-spec.yaml`, `decision-log.md`, `bom.yaml`, and
+Keep `README.md`, `PURPOSE.md`, `design-spec.yaml`, `decision-log.md`, `bom.yaml`, and
 `validation-project.json` at the product root when they apply. Complete
 `preflight/preflight-result.json` with the `3d-design-preflight` skill before
 concept, CAD, source, or manufacturing export work.

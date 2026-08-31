@@ -1,0 +1,224 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ORG-008-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Custom Lipstick And Tube Grid",
+  "scope": {
+    "intended_use": "Parametric support-free PETG vanity organizer implementing Research Ideas 100 `SKU-006`. The default is a 4 × 3 mixed-diameter grid plus a seven-hole diameter capture guide. Generate with `python3 cad/build.py`.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "0.1.0-draft.1"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Custom Lipstick And Tube Grid"
+    },
+    {
+      "id": "E-HOST-001",
+      "kind": "HOST_OBJECT",
+      "name": "Intended host object or storage envelope"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CON-MIXED-001",
+      "name": "Printed product to intended host",
+      "endpoint_b": "E-HOST-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "CON",
+      "geometry": "MIXED",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "design-spec.yaml",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "design-spec.yaml",
+          "README.md",
+          "validation-project.json",
+          "PRINT-GUIDE.md",
+          "requirements-review.md",
+          "protected-geometry-map.md",
+          "optimization-plan.md",
+          "final-model-result-report.md"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 2,
+        "PHY": 1,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 8,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
+      "INT": 2,
+      "CPL": 1,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 1,
+      "MAT": 2,
+      "EXT": 0,
+      "VER": 2
+    },
+    "score_0_100": 34.8,
+    "class": "C2",
+    "drivers": [
+      "INT=2: At least one functional host, human, medium, or assembly boundary governs success.",
+      "PAR=2: The current evidence exposes approximately 3 distinct geometry-file stems; exports may duplicate physical parts.",
+      "VER=2: Several fit, function, flow, load, motion, or process checks are required."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R2",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "complete printer/material/nozzle/orientation/process-profile set",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 44.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.",
+    "credible_failure_effects": [
+      "loss of intended function",
+      "minor item or surface damage"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "WARN",
+    "G3": "FAIL",
+    "G4": "WARN",
+    "G5": "PASS",
+    "G6": "WARN"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "BLOCKER",
+      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 2,
+      "action": "Record the exact manufacturing profile.",
+      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
+    },
+    {
+      "priority": 3,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-ORG-008",
+    "project_revision": "0.1.0-draft.1",
+    "basis_refs": [
+      "design-spec.yaml",
+      "README.md",
+      "validation-project.json",
+      "PRINT-GUIDE.md",
+      "requirements-review.md",
+      "protected-geometry-map.md",
+      "optimization-plan.md",
+      "final-model-result-report.md"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

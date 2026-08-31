@@ -1,0 +1,33 @@
+schema_version: 1
+product:
+  id: "MM-ART-006"
+  name: "Mm Art 006 Mouse Mesh Collection"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Provide printable mouse-themed decorative meshes for non-functional display use."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "textured_mesh.stl"
+    - "textured_mesh.glb"
+    - "textured_mesh.3mf"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ART-006-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

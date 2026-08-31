@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-TOOL-003"
+  name: "Mm Tool 003 Kobra3Max Camera Arm"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Mount and position an Anycubic printer camera on a slim articulated arm attached to a Kobra 3 Max."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/README.md"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/08_printer_interface_fit_test_coupon.stl"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/06_anycubic_camera_fit_test_frame_FROM_ORIGINAL_MODEL.stl"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/K3M_camera_arm_v6_from_original_model_printplate.3mf"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/01_printer_interface_FIRST_hinge.stl"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/camera_housing_assembly.3mf"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/07_M4_friction_washer_0p8mm.stl"
+    - "Kobra3Max_Slim_Camera_Arm_v6_FROM_ORIGINAL_MODEL/k3m_camera_arm_v6_from_original_model/05_anycubic_camera_back_cover_with_ball_FROM_ORIGINAL_MODEL.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-TOOL-003-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

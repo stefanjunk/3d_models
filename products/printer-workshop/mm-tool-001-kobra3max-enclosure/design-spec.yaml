@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-TOOL-001"
+  name: "Kobra 3 Max Enclosure – Camera Ready White Box Revision"
+  version: "1.3-camera-reconstruction-draft"
+  status: retrospective-inventory
+
+function:
+  summary: "Provide a modular enclosure and accessory-mount system for an Anycubic Kobra 3 Max workspace; thermal and machine-clearance performance remain test-gated."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "kobra3max_enclosure_project/design-spec.yaml"
+    - "kobra3max_enclosure_project/baseline_v1/README_DE_v1.md"
+    - "kobra3max_enclosure_project/README_DE.md"
+    - "kobra3max_enclosure_project/README_CAMERA_WHITEBOX_DE.md"
+    - "kobra3max_enclosure_project/validation-project.json"
+    - "kobra3max_enclosure_project/VALIDATION_CAMERA_WHITEBOX_DRAFT.md"
+    - "kobra3max_enclosure_project/VALIDATION.txt"
+    - "kobra3max_enclosure_project/STL/rail_test_coupon.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-TOOL-001-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "1.3-camera-reconstruction-draft"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

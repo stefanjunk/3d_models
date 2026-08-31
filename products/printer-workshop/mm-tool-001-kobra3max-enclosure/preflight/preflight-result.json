@@ -1,0 +1,223 @@
+{
+  "assessment_id": "PREFLIGHT-MM-TOOL-001-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Kobra 3 Max Enclosure – Camera Ready White Box Revision",
+  "scope": {
+    "intended_use": "Provide a modular enclosure and accessory-mount system for an Anycubic Kobra 3 Max workspace; thermal and machine-clearance performance remain test-gated.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "1.3-camera-reconstruction-draft"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Kobra 3 Max Enclosure – Camera Ready White Box Revision"
+    },
+    {
+      "id": "E-HOST-001",
+      "kind": "HOST_OBJECT",
+      "name": "Intended host object or storage envelope"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CON-MIXED-001",
+      "name": "Printed product to intended host",
+      "endpoint_b": "E-HOST-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "CON",
+      "geometry": "MIXED",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "kobra3max_enclosure_project/design-spec.yaml",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "kobra3max_enclosure_project/design-spec.yaml",
+          "kobra3max_enclosure_project/baseline_v1/README_DE_v1.md",
+          "kobra3max_enclosure_project/README_DE.md",
+          "kobra3max_enclosure_project/README_CAMERA_WHITEBOX_DE.md",
+          "kobra3max_enclosure_project/validation-project.json",
+          "kobra3max_enclosure_project/VALIDATION_CAMERA_WHITEBOX_DRAFT.md",
+          "kobra3max_enclosure_project/VALIDATION.txt",
+          "kobra3max_enclosure_project/STL/rail_test_coupon.stl"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "expert_review",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 4,
+      "INT": 3,
+      "CPL": 2,
+      "MOT": 1,
+      "GEO": 2,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 3,
+      "VER": 3
+    },
+    "score_0_100": 61.0,
+    "class": "C4",
+    "drivers": [
+      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "PAR=4: The current evidence exposes approximately 49 distinct geometry-file stems; exports may duplicate physical parts.",
+      "VER=3: Several fit, function, flow, load, motion, or process checks are required."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R3",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R3"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty"
+    ],
+    "completeness_percent": 56.0
+  },
+  "criticality": {
+    "level": "K3",
+    "rationale": "A human-load, powered vehicle, machine-adjacent, projectile, or wall-mounted interface can plausibly cause injury or significant property damage.",
+    "credible_failure_effects": [
+      "injury",
+      "damage to host equipment",
+      "loss of controlled function"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "WARN",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "NOT_AUTONOMOUSLY_RELEASABLE",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "SAFETY_EXPERT_REQUIRED",
+      "severity": "BLOCKER",
+      "message": "K3 scope requires expert-in-the-loop review and controlled prototypes; autonomous release is prohibited."
+    },
+    {
+      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
+      "severity": "BLOCKER",
+      "message": "The credible failure consequence exceeds autonomous release authority."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Obtain an expert review of credible failure modes and the staged prototype plan.",
+      "exit_criterion": "A named reviewer approves the test scope, controls, and stop conditions."
+    },
+    {
+      "priority": 2,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-TOOL-001",
+    "project_revision": "1.3-camera-reconstruction-draft",
+    "basis_refs": [
+      "kobra3max_enclosure_project/design-spec.yaml",
+      "kobra3max_enclosure_project/baseline_v1/README_DE_v1.md",
+      "kobra3max_enclosure_project/README_DE.md",
+      "kobra3max_enclosure_project/README_CAMERA_WHITEBOX_DE.md",
+      "kobra3max_enclosure_project/validation-project.json",
+      "kobra3max_enclosure_project/VALIDATION_CAMERA_WHITEBOX_DRAFT.md",
+      "kobra3max_enclosure_project/VALIDATION.txt",
+      "kobra3max_enclosure_project/STL/rail_test_coupon.stl"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

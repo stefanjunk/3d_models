@@ -1,0 +1,214 @@
+{
+  "assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf",
+  "scope": {
+    "intended_use": "Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "0.7.0-requirements.3"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf"
+    },
+    {
+      "id": "E-HOST-001",
+      "kind": "HOST_OBJECT",
+      "name": "Intended host object or storage envelope"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CON-MIXED-001",
+      "name": "Printed product to intended host",
+      "endpoint_b": "E-HOST-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "CON",
+      "geometry": "MIXED",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "design-spec.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "design-spec.yaml",
+          "REQUIREMENTS-PHASE-VALIDATION-R7.json",
+          "CONCEPT-PHASE-VALIDATION-R7.json",
+          "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
+          "current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json",
+          "current/anycubic-kobra3max-purge-catcher-r7/validation-project.json",
+          "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json",
+          "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 14,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
+      "INT": 3,
+      "CPL": 2,
+      "MOT": 1,
+      "GEO": 2,
+      "PHY": 3,
+      "MAT": 2,
+      "EXT": 2,
+      "VER": 3
+    },
+    "score_0_100": 56.8,
+    "class": "C3",
+    "drivers": [
+      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "PHY=3: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested.",
+      "VER=3: Several fit, function, flow, load, motion, or process checks are required."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 48.0
+  },
+  "criticality": {
+    "level": "K2",
+    "rationale": "The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.",
+    "credible_failure_effects": [
+      "functional failure",
+      "leakage, obstruction, or detachment",
+      "minor injury or property damage"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "PASS",
+    "G4": "WARN",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 2,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "ANYCUBIC-K3MAX-PURGE-CATCHER-R7",
+    "project_revision": "0.7.0-requirements.3",
+    "basis_refs": [
+      "design-spec.yaml",
+      "REQUIREMENTS-PHASE-VALIDATION-R7.json",
+      "CONCEPT-PHASE-VALIDATION-R7.json",
+      "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
+      "current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json",
+      "current/anycubic-kobra3max-purge-catcher-r7/validation-project.json",
+      "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json",
+      "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

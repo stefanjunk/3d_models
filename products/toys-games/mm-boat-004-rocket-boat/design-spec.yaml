@@ -1,0 +1,32 @@
+schema_version: 1
+product:
+  id: "MM-BOAT-004"
+  name: "Mm Boat 004 Rocket Boat"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Provide a rocket-boat-shaped printable display or supervised toy concept; propulsion, flotation, and safety are not yet defined."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "textured_mesh.stl"
+    - "textured_mesh (1).obj"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-BOAT-004-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "UNREGISTERED-KOBRA3MAX-POOP-BIN"
+  name: "Unregistered Kobra3Max Poop Bin"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Collect purge waste from an Anycubic Kobra 3 Max in a printable bin and mounting-bracket system."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "anycubic-kobra3-max-poop-bin/README-DE.md"
+    - "anycubic-kobra3-max-poop-bin/validation-project.json"
+    - "anycubic-kobra3-max-poop-bin/validation/agent-approvals.json"
+    - "anycubic-kobra3-max-poop-bin/reports/VALIDATION-SUMMARY-DE.md"
+    - "anycubic-kobra3-max-poop-bin/reports/three-mf-validation.json"
+    - "anycubic-kobra3-max-poop-bin/reports/project-validation.json"
+    - "anycubic-kobra3-max-poop-bin/reports/architecture-validation.json"
+    - "anycubic-kobra3-max-poop-bin/PRINT-CHECKLIST-DE.md"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-UNREGISTERED-KOBRA3MAX-POOP-BIN-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

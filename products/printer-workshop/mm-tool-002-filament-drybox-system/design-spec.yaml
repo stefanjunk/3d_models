@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-TOOL-002"
+  name: "Mm Tool 002 Filament Drybox System"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Support dry filament storage and routing with printable holders, feedthroughs, desiccant containers, and an inline feeding mechanism."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "README_DE_23_5MM_ROHRHALTER.txt"
+    - "README_DE_20MM_WANDHALTER.txt"
+    - "drybox_filament_system_v10_23_5mm_bodenhalter/README_DE_BODENHALTER_23_5MM.txt"
+    - "drybox_feedthrough_v11_23_5mm/README_DE.txt"
+    - "drybox_feedthrough_v13_10mm/README_DE_10MM.txt"
+    - "slim_inline_filament_feeder_v4_retained_female/README_DE_V4.txt"
+    - "slim_inline_filament_feeder/README_DE.txt"
+    - "filament_clip_and_cable_holder_star/README_DE.txt"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-TOOL-002-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

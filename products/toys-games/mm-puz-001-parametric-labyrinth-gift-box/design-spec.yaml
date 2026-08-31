@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-PUZ-001"
+  name: "Mm Puz 001 Parametric Labyrinth Gift Box"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "A two-piece cylindrical gift box generated with Python and CadQuery. The inner cup has an optional full-diameter grip collar, one part carries a recessed cylindrical maze, and the other carries a single follower. The maze graph is a perfect spanning tree, so it has exactly one validated graph route between the locked position and the opening."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "README.md"
+    - "reports/validation-summary.md"
+    - "exports/outer_maze/outer.stl"
+    - "exports/outer_maze/outer.step"
+    - "exports/outer_maze/inner.stl"
+    - "exports/outer_maze/inner.step"
+    - "exports/outer_maze/assembly.step"
+    - "exports/inner_maze/outer.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-PUZ-001-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

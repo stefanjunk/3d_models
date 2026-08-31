@@ -135,3 +135,17 @@ release_gates:
   fit_coupons: blocked
   physical_load: blocked
   production: blocked
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-SYSTEMMOEBEL-TOP20-CAD-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "R0.2-DRAFT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup

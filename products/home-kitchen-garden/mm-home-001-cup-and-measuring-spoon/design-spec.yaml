@@ -1,0 +1,37 @@
+schema_version: 1
+product:
+  id: "MM-HOME-001"
+  name: "Mm Home 001 Cup And Measuring Spoon"
+  version: "UNVERSIONED-CURRENT"
+  status: retrospective-inventory
+
+function:
+  summary: "Provide a lidded cup and small measuring spoon for storing and portioning a dry supplement; volume and mass claims require calibration."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "README_Messloeffel_3g.txt"
+    - "README_Druckhinweise.txt"
+    - "messloeffel_3g_6ml.stl"
+    - "innerer_becher_100ml.stl"
+    - "deckel_innengewinde.stl"
+    - "becher.3mf"
+    - "aussenbecher.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-HOME-001-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "UNVERSIONED-CURRENT"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

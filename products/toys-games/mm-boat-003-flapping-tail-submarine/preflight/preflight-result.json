@@ -1,0 +1,234 @@
+{
+  "assessment_id": "PREFLIGHT-MM-BOAT-003-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "Flapping Tail Spielzeug U Boot — Fish Silhouette Revision",
+  "scope": {
+    "intended_use": "Ein gelenkiges, ballastierbares Spielzeug-U-Boot, das sich über eine motorisch schlagende Schwanzflosse fortbewegt und in neutraler Stellung als kompakter, stromlinienförmiger Fisch lesbar ist.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "1.1.0-draft.1"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Flapping Tail Spielzeug U Boot — Fish Silhouette Revision"
+    },
+    {
+      "id": "E-ENV-001",
+      "kind": "ENVIRONMENT",
+      "name": "Supervised use environment"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-ENV-MEC-LOD-BODY-001",
+      "name": "Printed product to supervised use environment",
+      "endpoint_b": "E-ENV-001",
+      "boundary": "ENV",
+      "domains": [
+        "MEC",
+        "ENV"
+      ],
+      "function": "LOD",
+      "geometry": "BODY",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "design-spec.yaml",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "design-spec.yaml",
+          "README.md",
+          "validation-project.json",
+          "assets/metrimade-watermark/design-spec.yaml",
+          "ANYCUBIC_PRINT_CANDIDATE_1.1.0-draft.1.md",
+          "mechanism/README.md",
+          "assets/metrimade-watermark/README.md",
+          "validation/watermark-selector-v1.1.0-draft.1.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 3,
+        "TOL": 2,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 14,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "expert_review",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 1,
+      "CTX": 2,
+      "PAR": 4,
+      "INT": 2,
+      "CPL": 2,
+      "MOT": 3,
+      "GEO": 2,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 3,
+      "VER": 2
+    },
+    "score_0_100": 57.5,
+    "class": "C3",
+    "drivers": [
+      "PAR=4: The current evidence exposes approximately 57 distinct geometry-file stems; exports may duplicate physical parts.",
+      "INT=2: At least one functional host, human, medium, or assembly boundary governs success.",
+      "MOT=3: The purpose or evidence includes repeated motion, flexure, or a guided mechanism."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 48.0
+  },
+  "criticality": {
+    "level": "K3",
+    "rationale": "A human-load, powered vehicle, machine-adjacent, projectile, or wall-mounted interface can plausibly cause injury or significant property damage.",
+    "credible_failure_effects": [
+      "injury",
+      "damage to host equipment",
+      "loss of controlled function"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "PASS",
+    "G4": "WARN",
+    "G5": "WARN",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "NOT_AUTONOMOUSLY_RELEASABLE",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
+  "warnings": [
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "SAFETY_EXPERT_REQUIRED",
+      "severity": "BLOCKER",
+      "message": "K3 scope requires expert-in-the-loop review and controlled prototypes; autonomous release is prohibited."
+    },
+    {
+      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
+      "severity": "BLOCKER",
+      "message": "The credible failure consequence exceeds autonomous release authority."
+    },
+    {
+      "code": "DYNAMIC_OR_FATIGUE_LOAD",
+      "severity": "BLOCKER",
+      "message": "Repeated motion, flexure, vibration, or dynamic contact needs cycle and failure testing."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Obtain an expert review of credible failure modes and the staged prototype plan.",
+      "exit_criterion": "A named reviewer approves the test scope, controls, and stop conditions."
+    },
+    {
+      "priority": 2,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 3,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
+  ],
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-BOAT-003",
+    "project_revision": "1.1.0-draft.1",
+    "basis_refs": [
+      "design-spec.yaml",
+      "README.md",
+      "validation-project.json",
+      "assets/metrimade-watermark/design-spec.yaml",
+      "ANYCUBIC_PRINT_CANDIDATE_1.1.0-draft.1.md",
+      "mechanism/README.md",
+      "assets/metrimade-watermark/README.md",
+      "validation/watermark-selector-v1.1.0-draft.1.json"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
+}

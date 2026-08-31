@@ -1,0 +1,160 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00048
+title: Portfolio preflight backfill must separate complete documentation from release permission and preserve ambiguous active versions
+captured_at: 2026-08-31
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once across one repository-wide backfill. Structural coverage and idempotence passed, but the explanation has not been tested in another portfolio and three intentionally unresolved dirty/ambiguous roots remain."
+feature:
+  type: product-portfolio preflight, purpose, and version-archive governance
+  geometry: heterogeneous existing product folders; documentation workflow rather than one geometry class
+  design_parameters:
+    product_boundaries: 108
+    canonical_purpose: PURPOSE.md
+    canonical_preflight: preflight/preflight-result.json
+    retrospective_mode: RETROSPECTIVE
+    archive_moves: 42
+    root_review_exceptions: 3
+  named_datums: []
+  constraints:
+    - Every products/<family>/<product> boundary receives an explicit evidence-linked purpose.
+    - Every missing assessment is backfilled from current evidence and never described as historically prospective.
+    - Schema validity and current status do not override HOLD, CONCEPT_ONLY, or restricted lanes.
+    - Only unambiguously older or explicitly legacy entries are moved; dirty, untracked, or multi-lineage ambiguity remains visible for human review.
+    - Archive moves preserve files and are idempotently verifiable.
+scope:
+  process: 3D product portfolio documentation and FFF/FDM design workflow
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: mixed portfolio; decorative, static functional, human-interface, machine, vehicle, flow, and mechanism products
+  environment: Codex workspace at /home/stefan/Projekte/3d_models on main
+  transfer_limits:
+    - The observation covers one repository layout with products exactly two directories below products/.
+    - It validates document structure, traceability, archive moves, and conservative gate handling, not the physical truth of individual product scores.
+    - It does not establish that name- or artifact-derived purpose is equivalent to human-approved product intent.
+    - It does not authorize moving dirty or untracked user content without an explicit reviewed decision.
+observation:
+  summary: The portfolio contained 108 product boundaries, no canonical preflight results, no uniform explicit PURPOSE.md documents, and multiple mixed current/legacy roots. A conservative retrospective backfill produced complete purpose and preflight coverage, archived 42 unambiguous entries, and preserved three dirty or ambiguous cases as explicit review exceptions.
+  expected: Every existing product has an explicit purpose, a source-linked schema-valid retrospective preflight cross-linked from its root design spec, and only current/unambiguous work outside archive, without treating documentation completeness as product release permission.
+  actual: Before correction, coverage was inconsistent and preflight results were absent. After correction, 108/108 purposes and preflights validate, 42 archive destinations verify, the generator dry-run is idempotent, 103 products remain HOLD, five are GO_WITH_CONTROLS, and three roots remain visibly review-required instead of being guessed clean.
+  outcome: mixed
+  parameter: portfolio documentation coverage and conservative version-root cleanup
+  recommended_value: deterministic full-boundary audit with explicit purpose, retrospective traceability, fail-closed gates, product-local archives, and documented dirty/ambiguous exceptions
+  units: repository workflow contract
+explanation:
+  hypothesis: Enumerating formal product boundaries, generating canonical source-linked artifacts, validating cross-file identity, and recording rather than hiding ambiguous root state makes omissions and unsafe cleanup decisions detectable while preserving honest release gates.
+  mechanism: The backfill script derives only from non-archived evidence, writes one stable product contract set, links workflow.preflight, verifies every planned archive destination, emits an aggregate audit, and fails validation when coverage, schema, links, traceability, archive evidence, or idempotence diverges.
+  alternatives:
+    - Manual one-off documentation could reach the same coverage, but consistency and stale omissions would be harder to detect.
+    - A naive version-name sort could clean more roots, but it would conflate separate component lineages and absorb dirty or untracked user content.
+    - Treating every schema-valid assessment as releasable would simplify the summary, but would erase hard-gate and evidence limitations.
+  validated: false
+  validation_method: Re-run the linked eval on later portfolio changes and repeat the workflow in another repository or a newly added batch before considering promotion.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 108
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: Deterministic filesystem inventory, JSON Schema validation, YAML cross-link validation, archive destination checks, and generator idempotence dry-run.
+  uncertainty: Individual purposes and scores remain retrospective and require product-owner confirmation; three roots intentionally remain review-required.
+  sources:
+    - type: user-statement
+      ref: User request in the 2026-08-31 portfolio preflight and product-root cleanup phase
+      hash: null
+      notes: Requested preflight documents for all products, explicit purpose coverage, and older versions under archive while current versions remain at the product root.
+    - type: product-trace
+      ref: products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
+      hash: e3f59fc8f9388b9139b11698b59e4eb4ce4068dc0bab99d6aa7802f49356292b
+      notes: Machine-readable 108-product scorecard, archive record, and exception ledger.
+    - type: other
+      ref: tools/backfill_product_preflights.py
+      hash: a71a39e5f0a7b9195c4ba10b2abc2bdd712df611658a806b8bb44c8ef7e4cdde
+      notes: Deterministic evidence extraction, document generation, score reporting, and archive move verification.
+    - type: other
+      ref: tools/validate_product_preflight_portfolio.py
+      hash: 492f84e1a4185de526628c50d6f2f9c130c42d57525601d5af238f5128189890
+      notes: Passed 108 purposes, 108 schema-valid results, design-spec links, 42 archive moves, three exceptions, and idempotence.
+  artifacts:
+    - products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
+    - products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.md
+    - tools/backfill_product_preflights.py
+    - tools/validate_product_preflight_portfolio.py
+applicability:
+  triggers:
+    - An existing products portfolio is missing per-product purpose or preflight documents.
+    - Product roots contain multiple version-labelled or legacy packages that need conservative archival.
+    - A bulk documentation pass must preserve dirty, untracked, or multi-lineage product state.
+  exclusions:
+    - Physical product validation, certification, or compatibility approval.
+    - Automatic selection among ambiguous active variants or independent component lineages.
+    - Destructive deletion of old or user-owned artifacts.
+  transfer_limits:
+    - Keep this at E0 until another portfolio or later product batch reproduces the coverage and exception behavior.
+    - Re-score products when scope, evidence, variant, manufacturing profile, or tests change; do not reuse the 2026-08-31 scores as timeless facts.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00047
+  evals:
+    - EVAL-core-product-portfolio-preflight-purpose-archive-001
+  patterns: []
+  references:
+    - .agents/skills/3d-design-preflight/SKILL.md
+    - .agents/skills/functional-3d-design/references/preflight-integration.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
+    - tools/validate_product_preflight_portfolio.py
+provenance:
+  project: WORKSPACE-PRODUCT-PREFLIGHT-BACKFILL
+  part_revision: 0.1.0
+  trace: User request in the 2026-08-31 portfolio preflight and product-root cleanup phase
+  source_commit: 7a50f9e46aa0
+  created_by: Codex
+tags:
+  - workflow
+  - preflight
+  - purpose
+  - portfolio
+  - archive
+  - retrospective
+  - dirty-worktree
+  - release-gate
+  - user-correction

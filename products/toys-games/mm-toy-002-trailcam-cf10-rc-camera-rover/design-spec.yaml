@@ -14,6 +14,18 @@ project:
   tool_route: "CadQuery B-Rep rebuild with STEP/STL/3MF outputs after concept and decomposition approval"
 
 workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-TOY-002-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "0.4.0"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
   autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: approved

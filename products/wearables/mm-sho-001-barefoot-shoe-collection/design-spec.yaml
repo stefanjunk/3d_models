@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "MM-SHO-001"
+  name: "Barfußschuh V6.2 – Freeform Upper Mit Komfortkragen"
+  version: "6.2.0-draft.3"
+  status: retrospective-inventory
+
+function:
+  summary: "Develop a parametric barefoot-shoe system with flexible sole, upper, and foot-fit interfaces for walking prototypes, not production footwear release."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "barfussschuh_v6_2_freeform/design-spec.yaml"
+    - "barfussschuh_v6_2_freeform/README.md"
+    - "barfussschuh_v6_1_fitfix/README_V6_1_FITFIX.md"
+    - "barfussschuh_v6_1_fitfix (2)/README_V6_1_FITFIX.md"
+    - "barfussschuh_v6_source/README_V6.md"
+    - "barfussschuh_v6_source/barfussschuh_v6_print_right/README_V6.md"
+    - "barfussschuh_v6_source/barfussschuh_v6_print_left/README_V6.md"
+    - "white_mesh_v2.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-SHO-001-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "6.2.0-draft.3"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

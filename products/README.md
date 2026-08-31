@@ -32,8 +32,10 @@ that apply:
 
 ```text
 README.md
+PURPOSE.md
 preflight/preflight-input.yaml
 preflight/preflight-result.json
+preflight/preflight-report.md
 design-spec.yaml
 decision-log.md
 bom.yaml
@@ -50,7 +52,13 @@ validation/
 tests/
 build/
 releases/
+archive/
 ```
+
+`PURPOSE.md` is mandatory at the product boundary and states the intended use,
+scope limits, assessed revision, and evidence basis explicitly. `archive/`
+contains older or explicitly legacy versions; only current work and documented
+root-review exceptions remain outside it.
 
 Existing products retain some legacy internal names so that the migration does
 not merge or overwrite artifacts. New work should follow the template in

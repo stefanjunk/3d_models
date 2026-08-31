@@ -1,0 +1,38 @@
+schema_version: 1
+product:
+  id: "polygonal-dice-tower-functionalization"
+  name: "Polygonal Dice Tower"
+  version: "0.1.2"
+  status: retrospective-inventory
+
+function:
+  summary: "Guide tabletop dice through a printable polygonal tower and deliver randomized rolls into a controlled collection area."
+
+source_of_truth:
+  status: retrospective-index
+  current_artifact_refs:
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/design-spec.yaml"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/README.md"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/reports/watermark-validation-0.1.2-g1.json"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/reports/geometry-validation-0.1.2-g1.json"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/source/polygonal-source-working-mm-0.1.2-g1.stl"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/result/polygonal-dice-tower-FINAL-0.1.2-g1.stl"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/inserts/sloped-floor-insert-0.1.2-g1.stl"
+    - "unicorn_tower/polygonal-dice-tower-FINAL-release-0.1.2-g1/dice_tower_project/release-0.1.2-g1/inserts/rear-upper-entry-channel-liner-0.1.2-g1.stl"
+
+workflow:
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-POLYGONAL-DICE-TOWER-FUNCTIONALIZATION-001
+    assessment_version: 0.1.0
+    assessed_project_revision: "0.1.2"
+    updated_at: "2026-08-31T12:29:39+02:00"
+    change_triggers:
+      - backfill_missing_preflight
+      - portfolio_documentation_audit
+      - product_root_version_cleanup
+  requirements: review-required
+  concept: existing-artifacts
+  final_release: blocked-by-preflight

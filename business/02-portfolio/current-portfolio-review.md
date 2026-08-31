@@ -22,6 +22,8 @@ The evidence-backed variant approach fits metriMade when it is used as a tightly
 
 It does not justify publishing all 314 ideas or all 14 variants as storefront products. Variant R3 and trend score remain separate from demand, rights, physical qualification, fulfillment, content quality, and release status. Active development must retain the 70% initial low-risk release allocation, and compatibility/trademark wording must name the exact tested revision. The shared product/revision system should model a generic family and its named children without duplicating divergent catalog records; only physically qualified, premium consumer-suitable revisions become metriMade-eligible.
 
+Public staging check on 2026-08-31: `https://metrimade.com` correctly states that product data, prices and legal texts are not released, blocks live orders, and does not expose unfinished products as available. Before public launch, normalize the page/OG title from `MetriMade` to the binding `metriMade` spelling. The current `Studio`, `Download & Print`, dimensions and material journey also blurs the approved brand split: metriMade should lead with curated printed `as-is` products, while advanced configuration and digital model packages hand off to the exact shared SKU/revision in metriCreate. Keep the staging/no-index state until brand clearance and the applicable technical, commercial and fulfillment gates pass.
+
 ## Headline
 
 - Commercially existing (`P5+`): **0**.

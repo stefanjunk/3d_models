@@ -78,3 +78,10 @@
 - Human decision: Stefan explicitly approved the revision 0.3.0 decomposition in chat.
 - Authorized work: shared connector/standoff interface calculation, shared multi-clearance coupon, frozen Harz and Rhenish terrain acquisition, 16-bit processing, proxy assemblies and production-model generation.
 - Remaining boundaries: no printer upload/start; physical connector fit, installed wall proof, terrain/lighting appearance, watermark and final release remain human-controlled.
+
+## 2026-08-31 — Shared interface authority and coupon digital candidate available
+
+- MM-ART-010 `source/v0.3.0/interface_geometry.py` is the single family authority for the connector, derived pockets, local slide/snap socket, 18 mm hanger/standoff parts and four-clearance coupon used by both terrain pilots.
+- The deterministic mesh and exact Anycubic Slicer Next coupon checks pass; the complete evidence remains with MM-ART-010 so it is not duplicated or allowed to drift.
+- The provisional production clearance is 0.25 mm per side. Harz and Rheinisches Revier may share one physical coupon result only when the connector/standoff filament product and batch, nozzle, orientation and process profile are identical.
+- Physical fit, installed proof, source terrain, integrated panel meshes and final human slicer/color review remain open.

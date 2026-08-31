@@ -74,3 +74,11 @@
 - Human decision: Stefan explicitly approved the revision 0.3.0 decomposition in chat.
 - Authorized work: shared connector/standoff interface calculation, multi-clearance coupon, Berlin source freeze, proxy assembly and production-model generation.
 - Remaining boundaries: no printer upload/start; physical connector fit, installed wall proof, lighting appearance, watermark and final release remain human-controlled.
+
+## 2026-08-31 — Shared interface and coupon digital candidate generated
+
+- Family source: `source/v0.3.0/interface_geometry.py` with frozen `interface-parameters.json`; it owns the three double-ended seam springs, rear-open derived pockets, local slide/snap sockets, two upper hangers and two lower 18 mm standoffs.
+- Geometry estimate: 0.75% nominal connector-arm surface strain and 0.74% socket-detent surface strain using `epsilon = 1.5*t*delta/L^2`. No material allowable, retention force, fatigue life or wall-load rating is claimed.
+- Coupon: one 184 × 118 × 3 mm build with exactly 20 watertight bodies covers 0.15, 0.25, 0.35 and 0.45 mm clearance per side. The product source uses 0.25 mm only provisionally.
+- Deterministic checks: all four functional meshes are watertight single bodies; the coupon audit passes with 20 components. The first relative-path slicer attempt failed closed and produced no G-code; the preserved absolute-path rerun passes in Anycubic Slicer Next 1.3.9.4 with the exact Kobra 3 Max 0.4/0.20 mm Standard/Anycubic PLA Matte profile set.
+- Slicer metrics: 15 layers, one tool, zero tool changes, 4,139.45 mm estimated filament and 1,771 s normal-mode estimate. This is local export evidence only; physical fit and final slicer preview remain open.

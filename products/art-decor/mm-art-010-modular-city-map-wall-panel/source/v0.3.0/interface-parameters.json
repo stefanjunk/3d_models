@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010 / MM-ART-011 shared permanent relief interface",
+  "revision": "0.3.0",
+  "units": "mm",
+  "status": "digital-candidate; physical coupon selection required",
+  "panel": {
+    "thickness": 3.0,
+    "nominal_center_seam_gap": 0.25,
+    "connector_y_positions": [72.0, 200.0, 328.0],
+    "socket_centers_global": [
+      [118.0, 330.0, "upper_hanger_left"],
+      [482.0, 330.0, "upper_hanger_right"],
+      [118.0, 70.0, "lower_standoff_left"],
+      [482.0, 70.0, "lower_standoff_right"]
+    ]
+  },
+  "connector": {
+    "overall_length": 32.0,
+    "central_bridge_length": 8.0,
+    "arm_free_length": 12.0,
+    "arm_thickness_in_plane": 1.2,
+    "inner_gap": 1.6,
+    "body_outer_width": 4.0,
+    "barb_outer_width": 5.2,
+    "barb_nominal_deflection_per_arm": 0.6,
+    "z_thickness": 1.0,
+    "root_radius_target": 1.2,
+    "selected_provisional_clearance_per_side": 0.25,
+    "coupon_clearance_per_side": [0.15, 0.25, 0.35, 0.45]
+  },
+  "socket_anchor": {
+    "head_z_thickness": 1.0,
+    "shaft_width": 5.0,
+    "tail_width": 9.0,
+    "rail_nominal_width": 6.0,
+    "detent_arm_length": 9.0,
+    "detent_arm_thickness_in_plane": 1.0,
+    "detent_nominal_deflection": 0.4,
+    "selected_provisional_clearance_per_side": 0.25,
+    "coupon_clearance_per_side": [0.15, 0.25, 0.35, 0.45],
+    "lock_slide": 6.0,
+    "installed_wall_gap": 18.0
+  },
+  "manufacturing": {
+    "machine": "Anycubic Kobra 3 Max Combo",
+    "nozzle": 0.4,
+    "layer_height": 0.2,
+    "coupon_material_profile": "Anycubic PLA Matte @Anycubic Kobra 3 Max 0.4 nozzle",
+    "supports": false,
+    "coupon_rule": "reprint with the exact production filament, nozzle and process whenever any of them changes"
+  },
+  "qualification": {
+    "connector_geometric_surface_strain_percent": 0.75,
+    "socket_detent_geometric_surface_strain_percent": 0.7407407407,
+    "calculation_model": "epsilon = 1.5 * t * delta / L^2",
+    "allowable_material_strain": null,
+    "reason_allowable_material_strain_is_null": "No batch- and orientation-specific flexural allowable has been established. The values above are geometry checks, not a strength claim.",
+    "physical_gate": "Select the smallest clearance that inserts once without crack or whitening, seats fully, and survives the documented destructive pull observation."
+  }
+}

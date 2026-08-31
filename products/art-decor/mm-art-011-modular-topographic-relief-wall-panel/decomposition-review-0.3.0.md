@@ -1,6 +1,6 @@
 # Decomposition review 0.3.0 — MM-ART-011 Harz and Rheinisches Revier
 
-Status: **human decomposition approval requested; terrain acquisition, CAD and coupon geometry remain blocked**.
+Status: **approved by Stefan on 2026-08-31 for specification revision 0.3.0**.
 
 Machine-readable authority: `plan/hybrid-design-plan-v0.3.0.json`
 
@@ -41,4 +41,4 @@ Any material or profile change forces a fresh coupon. Spring length, thickness, 
 
 Approval authorizes the shared interface skeleton, flexure calculation, shared coupon source/export, frozen terrain acquisition, 16-bit processing, proxy assemblies and both production-model pipelines for revision 0.3.0. It does not approve printing, physical fit, wall anchors, lighting electronics, terrain appearance, safety, watermark, data rights or commercial release.
 
-Please approve this decomposition explicitly or request corrections.
+Approval evidence: Stefan wrote `freigegeben` in the project chat in direct response to this decomposition review. Terrain acquisition, parametric source and coupon work may proceed under the remaining fail-closed physical and release gates.

@@ -68,3 +68,9 @@
 - The off-product coupon combines four 0.15/0.25/0.35/0.45 mm per-side pocket/locating variants, one calculated seam connector and one representative hanger snap in production orientation.
 - Planner result for `plan/hybrid-design-plan-v0.3.0.json`: `PASS`, zero errors and zero warnings. Unknown spring, snap and wall-hardware dimensions remain explicitly unselected and block source generation until their named calculation/evidence exists.
 - Next gate: human approval of `decomposition-review-0.3.0.md`. The guided autonomy policy keeps CAD and coupon geometry blocked until that approval.
+
+## 2026-08-31 — Decomposition 0.3.0 approved
+
+- Human decision: Stefan explicitly approved the revision 0.3.0 decomposition in chat.
+- Authorized work: shared connector/standoff interface calculation, multi-clearance coupon, Berlin source freeze, proxy assembly and production-model generation.
+- Remaining boundaries: no printer upload/start; physical connector fit, installed wall proof, lighting appearance, watermark and final release remain human-controlled.

@@ -72,3 +72,9 @@
 - Harz and Rheinisches Revier retain separate immutable 16-bit height authorities, separate pilot light cutters and exactly three global model-Z color changes each.
 - Planner result for `plan/hybrid-design-plan-v0.3.0.json`: `PASS`, zero errors and zero warnings. Unknown spring, snap, source and wall-hardware dimensions remain fail-closed.
 - Next gate: human approval of `decomposition-review-0.3.0.md`. The guided autonomy policy keeps terrain acquisition, CAD and coupon geometry blocked until that approval.
+
+## 2026-08-31 — Decomposition 0.3.0 approved
+
+- Human decision: Stefan explicitly approved the revision 0.3.0 decomposition in chat.
+- Authorized work: shared connector/standoff interface calculation, shared multi-clearance coupon, frozen Harz and Rhenish terrain acquisition, 16-bit processing, proxy assemblies and production-model generation.
+- Remaining boundaries: no printer upload/start; physical connector fit, installed wall proof, terrain/lighting appearance, watermark and final release remain human-controlled.

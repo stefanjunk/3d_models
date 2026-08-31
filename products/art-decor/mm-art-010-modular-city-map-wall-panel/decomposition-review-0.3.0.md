@@ -1,6 +1,6 @@
 # Decomposition review 0.3.0 — MM-ART-010 Berlin
 
-Status: **human decomposition approval requested; CAD and coupon geometry remain blocked**.
+Status: **approved by Stefan on 2026-08-31 for specification revision 0.3.0**.
 
 Machine-readable authority: `plan/hybrid-design-plan-v0.3.0.json`
 
@@ -40,4 +40,4 @@ Spring length, thickness, root radius, lead-in, allowable strain and structural 
 
 Approval authorizes the shared interface skeleton, flexure calculation, coupon source/export, Berlin source freeze, proxy assembly and production-model pipeline for revision 0.3.0. It does not approve printing, physical fit, wall anchors, lighting electronics, final appearance, safety, watermark, rights or commercial release.
 
-Please approve this decomposition explicitly or request corrections.
+Approval evidence: Stefan wrote `freigegeben` in the project chat in direct response to this decomposition review. Parametric source and coupon work may proceed under the remaining fail-closed physical and release gates.

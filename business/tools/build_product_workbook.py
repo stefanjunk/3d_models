@@ -19,9 +19,11 @@ PORTFOLIO_CSV = ROOT / "02-portfolio" / "product-portfolio.csv"
 RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 RESEARCH_ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
+RESEARCH_R3_VARIANTS_CSV = ROOT / "02-portfolio" / "research-ideas-r3-variants.csv"
 RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
 RESEARCH_PRIORITY_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
 RESEARCH_PREFLIGHT_CSV = ROOT / "02-portfolio" / "research-idea-preflight-estimates.csv"
+READINESS_ADVANCEMENT_CSV = ROOT / "02-portfolio" / "readiness-advancement-register.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
 RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
@@ -485,6 +487,138 @@ def validate_structured_research_additions(
             raise ValueError(f"Structured preflight disclaimer is missing for {sku_id}")
 
 
+def validate_specific_r3_variants(
+    rows: list[list[str]],
+    parent_ids: set[str],
+    occupied_product_names: set[str],
+) -> None:
+    """Validate named-interface R3 children without promoting their generic parents."""
+    if not rows:
+        raise ValueError(f"Specific R3 variant source is empty: {RESEARCH_R3_VARIANTS_CSV}")
+    header = rows[0]
+    required = {
+        "SKU_ID", "Parent_SKU_ID", "Product", "Purpose", "Strategy_Fit", "Source_IDs",
+        "Design_Status", "Next_Gate", "Trend_Source_Strength_0_30",
+        "Trend_Signal_Magnitude_0_30", "Trend_MetriMade_Fit_0_25", "Trend_Whitespace_0_15",
+        "Trend_Score_0_100", "Trend_Score_Status", "Process_Profile_Refs", "Acceptance_Criteria",
+        "REQ", "CTX", "PAR", "INT", "CPL", "MOT", "GEO", "PHY", "MAT", "EXT", "VER",
+        "PC_0_100", "Complexity", "R_Scope", "R_Requirements", "R_Critical_Interfaces",
+        "R_Manufacturing_Profile", "R_Verification", "Readiness", "Criticality", "Current_Lane",
+        "Target_Lane_After_Evidence", "Confidence", "Design_Release", "Hard_Gates",
+        "Preflight_Short", "Preflight_Status",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Specific R3 variant source is missing columns: {', '.join(missing)}")
+    if len(rows) != 15 or any(len(row) != len(header) for row in rows):
+        raise ValueError("Specific R3 variant source must contain exactly 14 complete rows")
+    idx = {name: header.index(name) for name in required}
+    expected_ids = {f"SKU-{number:03d}" for number in range(301, 315)}
+    ids = [row[idx["SKU_ID"]] for row in rows[1:]]
+    if set(ids) != expected_ids or len(ids) != len(set(ids)):
+        raise ValueError("Specific R3 variants must use SKU-301 through SKU-314 exactly once")
+    names = [normalize_name(row[idx["Product"]]) for row in rows[1:]]
+    if any(not name for name in names) or len(names) != len(set(names)):
+        raise ValueError("Specific R3 variants contain blank or duplicate product names")
+    collisions = sorted(set(names).intersection(occupied_product_names))
+    if collisions:
+        raise ValueError(f"Specific R3 variants collide with existing idea/product names: {', '.join(collisions)}")
+
+    component_limits = {
+        "Trend_Source_Strength_0_30": 30,
+        "Trend_Signal_Magnitude_0_30": 30,
+        "Trend_MetriMade_Fit_0_25": 25,
+        "Trend_Whitespace_0_15": 15,
+    }
+    readiness_fields = (
+        "R_Scope", "R_Requirements", "R_Critical_Interfaces", "R_Manufacturing_Profile", "R_Verification"
+    )
+    required_gates = {f"G{number} PASS" for number in range(7)}
+    for row in rows[1:]:
+        sku_id = row[idx["SKU_ID"]]
+        if row[idx["Parent_SKU_ID"]] not in parent_ids:
+            raise ValueError(f"Specific R3 variant has an unknown generic parent: {sku_id}")
+        if len(row[idx["Purpose"]].strip()) < 20:
+            raise ValueError(f"Specific R3 variant purpose is missing or vague: {sku_id}")
+        if row[idx["Design_Status"]] != "P0 evidence-backed specific variant":
+            raise ValueError(f"Specific R3 variant design status is inconsistent: {sku_id}")
+        if row[idx["Design_Release"]] != "GO_WITH_CONTROLS":
+            raise ValueError(f"Specific R3 variant bypasses the controlled design gate: {sku_id}")
+        trend_components = []
+        for field, limit in component_limits.items():
+            value = float(row[idx[field]])
+            if not 0 <= value <= limit:
+                raise ValueError(f"{field} is outside its allowed range for {sku_id}")
+            trend_components.append(value)
+        trend_score = float(row[idx["Trend_Score_0_100"]])
+        if abs(sum(trend_components) - trend_score) > 0.01 or trend_score <= 70:
+            raise ValueError(f"Specific R3 variant trend score failed for {sku_id}")
+        if row[idx["Trend_Score_Status"]] != "INHERITED DIRECTIONAL PLANNING SCORE — NOT VALIDATED VARIANT DEMAND":
+            raise ValueError(f"Specific R3 variant demand disclaimer is missing: {sku_id}")
+        pc_components = {field: int(row[idx[field]]) for field in PREFLIGHT_WEIGHTS}
+        if any(not 0 <= value <= 4 for value in pc_components.values()):
+            raise ValueError(f"Specific R3 variant PC component is outside 0–4: {sku_id}")
+        pc = round(sum(PREFLIGHT_WEIGHTS[field] * pc_components[field] / 4 for field in PREFLIGHT_WEIGHTS), 2)
+        if abs(pc - float(row[idx["PC_0_100"]])) > 0.01:
+            raise ValueError(f"Specific R3 variant PC total is inconsistent: {sku_id}")
+        expected_complexity = "C0" if pc <= 14 else "C1" if pc <= 24 else "C2" if pc <= 39 else "C3" if pc <= 59 else "C4" if pc <= 79 else "C5"
+        complexity = row[idx["Complexity"]]
+        if complexity != expected_complexity or complexity not in {"C1", "C2", "C3"}:
+            raise ValueError(f"Specific R3 variant complexity is inconsistent: {sku_id}")
+        if any(row[idx[field]] != "R3" for field in readiness_fields) or row[idx["Readiness"]] != "R3":
+            raise ValueError(f"Specific R3 variant readiness evidence is inconsistent: {sku_id}")
+        if row[idx["Criticality"]] != "K1":
+            raise ValueError(f"Specific R3 variant must remain K1: {sku_id}")
+        expected_lane = "C" if complexity == "C3" else "B"
+        if row[idx["Current_Lane"]] != expected_lane or row[idx["Target_Lane_After_Evidence"]] != expected_lane:
+            raise ValueError(f"Specific R3 variant lane is inconsistent: {sku_id}")
+        if row[idx["Confidence"]] != "CONDITIONAL":
+            raise ValueError(f"Specific R3 variant confidence must remain CONDITIONAL: {sku_id}")
+        gates = {gate.strip() for gate in row[idx["Hard_Gates"]].split(";")}
+        if not required_gates.issubset(gates):
+            raise ValueError(f"Specific R3 variant must pass G0–G6: {sku_id}")
+        expected_short = f"{complexity} · R3 · K1 · Lane {expected_lane} · CONDITIONAL"
+        if row[idx["Preflight_Short"]] != expected_short:
+            raise ValueError(f"Specific R3 variant compact preflight is inconsistent: {sku_id}")
+        if row[idx["Preflight_Status"]] != "STRUCTURED SPECIFIC-VARIANT PREFLIGHT R3 — NOT PRODUCT RELEASE APPROVAL":
+            raise ValueError(f"Specific R3 variant release disclaimer is missing: {sku_id}")
+        if row[idx["Process_Profile_Refs"]] != "business/02-portfolio/research-r3-process-baseline.json":
+            raise ValueError(f"Specific R3 variant exact-process reference is missing: {sku_id}")
+
+
+def validate_readiness_advancement(rows: list[list[str]], research_ids: set[str]) -> None:
+    """Validate the complete all-idea/all-product advancement triage."""
+    if not rows:
+        raise ValueError(f"Readiness advancement source is empty: {READINESS_ADVANCEMENT_CSV}")
+    header = rows[0]
+    required = {
+        "Record_Key", "Record_Type", "Record_ID", "Purpose_or_Intended_Use", "Purpose_Documented",
+        "Current_Preflight_Short", "Wave", "Advancement_Potential", "Suggested_Target_R", "Bottleneck",
+        "Exact_Next_Evidence", "Evidence_Boundary", "Assessment_Status",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Readiness advancement source is missing columns: {', '.join(missing)}")
+    if len(rows) != 423 or any(len(row) != len(header) for row in rows):
+        raise ValueError("Readiness advancement register must contain 314 research and 108 product rows")
+    idx = {name: header.index(name) for name in required}
+    keys = [row[idx["Record_Key"]] for row in rows[1:]]
+    if len(keys) != len(set(keys)):
+        raise ValueError("Readiness advancement register has duplicate record keys")
+    research_records = {row[idx["Record_ID"]] for row in rows[1:] if row[idx["Record_Type"]] == "RESEARCH_IDEA"}
+    product_count = sum(row[idx["Record_Type"]] == "PRODUCT_DIRECTORY" for row in rows[1:])
+    if research_records != research_ids or product_count != 108:
+        raise ValueError("Readiness advancement register does not cover the complete research/product inventory")
+    for row in rows[1:]:
+        if row[idx["Purpose_Documented"]] != "YES" or len(row[idx["Purpose_or_Intended_Use"]].strip()) < 12:
+            raise ValueError(f"Readiness advancement record lacks an explicit purpose: {row[idx['Record_Key']]}")
+        if row[idx["Assessment_Status"]] != "COMPLETE PORTFOLIO TRIAGE — NOT RELEASE APPROVAL":
+            raise ValueError(f"Readiness advancement disclaimer is missing: {row[idx['Record_Key']]}")
+        for field in ("Current_Preflight_Short", "Wave", "Advancement_Potential", "Suggested_Target_R", "Bottleneck", "Exact_Next_Evidence", "Evidence_Boundary"):
+            if not row[idx[field]].strip():
+                raise ValueError(f"Readiness advancement field {field} is empty: {row[idx['Record_Key']]}")
+
+
 def validate_research_priority(
     rows: list[list[str]],
     expected_ids: set[str],
@@ -787,10 +921,32 @@ def main() -> None:
     legacy_sources = read_xlsx_sheet(RESEARCH_WORKBOOK, "Sources")
     additional_research = read_csv(RESEARCH_ADDITIONS_CSV)
     structured_research = read_csv(RESEARCH_ADDITIONS_2_CSV)
+    specific_r3_variants = read_csv(RESEARCH_R3_VARIANTS_CSV)
+    readiness_advancement = read_csv(READINESS_ADVANCEMENT_CSV)
     additional_sources = read_csv(RESEARCH_ADDITION_SOURCES_CSV)
     research_status = read_research_status(RESEARCH_STATUS_CSV)
     validate_research_additions(additional_research, legacy_product_matrix, portfolio, research_status)
     validate_structured_research_additions(structured_research, legacy_product_matrix, additional_research, portfolio)
+    legacy_sku_index = legacy_product_matrix[0].index("SKU ID")
+    additional_sku_index = additional_research[0].index("SKU_ID")
+    structured_sku_index = structured_research[0].index("SKU_ID")
+    prior_research_ids = {
+        str(row[legacy_sku_index]) for row in legacy_product_matrix[1:]
+    } | {
+        str(row[additional_sku_index]) for row in additional_research[1:]
+    } | {
+        str(row[structured_sku_index]) for row in structured_research[1:]
+    }
+    occupied_product_names = {
+        normalize_name(row[legacy_product_matrix[0].index("Product")]) for row in legacy_product_matrix[1:]
+    } | {
+        normalize_name(row[additional_research[0].index("Product")]) for row in additional_research[1:]
+    } | {
+        normalize_name(row[structured_research[0].index("Product")]) for row in structured_research[1:]
+    } | {
+        normalize_name(row[portfolio[0].index("Product_or_Model")]) for row in portfolio[1:]
+    }
+    validate_specific_r3_variants(specific_r3_variants, prior_research_ids, occupied_product_names)
     if additional_sources[0] != legacy_sources[0]:
         raise ValueError("Additional research-source schema does not match the retained source register")
     legacy_source_ids = {str(row[0]) for row in legacy_sources[1:]}
@@ -800,7 +956,7 @@ def main() -> None:
     research_sources = legacy_sources + additional_sources[1:]
     valid_source_ids = {str(row[0]) for row in research_sources[1:]}
     used_source_ids: set[str] = set()
-    for research_rows in (additional_research, structured_research):
+    for research_rows in (additional_research, structured_research, specific_r3_variants):
         source_index = research_rows[0].index("Source_IDs")
         used_source_ids.update(
             source_id.strip()
@@ -812,17 +968,12 @@ def main() -> None:
     if unknown_source_ids:
         raise ValueError(f"Research additions reference unknown source IDs: {', '.join(unknown_source_ids)}")
     research_priority = read_csv(RESEARCH_PRIORITY_CSV)
-    legacy_sku_index = legacy_product_matrix[0].index("SKU ID")
-    additional_sku_index = additional_research[0].index("SKU_ID")
-    structured_sku_index = structured_research[0].index("SKU_ID")
-    combined_research_ids = {
-        str(row[legacy_sku_index]) for row in legacy_product_matrix[1:]
-    } | {
-        str(row[additional_sku_index]) for row in additional_research[1:]
-    } | {
-        str(row[structured_sku_index]) for row in structured_research[1:]
+    variant_sku_index = specific_r3_variants[0].index("SKU_ID")
+    combined_research_ids = prior_research_ids | {
+        str(row[variant_sku_index]) for row in specific_r3_variants[1:]
     }
     validate_research_priority(research_priority, combined_research_ids, research_status)
+    validate_readiness_advancement(readiness_advancement, combined_research_ids)
     research_preflight = read_research_preflight(RESEARCH_PREFLIGHT_CSV, combined_research_ids)
     add_research_overlay(
         legacy_product_matrix,
@@ -842,9 +993,16 @@ def main() -> None:
         research_status,
         "Trend-screened research hypothesis checked 2026-08-31; structured R2 concept preflight, not a selected, qualified or released product",
     )
+    add_research_overlay(
+        specific_r3_variants,
+        "SKU_ID",
+        research_status,
+        "Named-interface child checked 2026-08-31; R3 nominal design inputs only, not physical qualification, demand proof or release",
+    )
     add_research_preflight(legacy_product_matrix, "SKU ID", research_preflight)
     add_research_preflight(additional_research, "SKU_ID", research_preflight)
     add_research_preflight(structured_research, "SKU_ID", research_preflight)
+    add_research_preflight(specific_r3_variants, "SKU_ID", research_preflight)
     add_research_preflight(research_priority, "SKU_ID", research_preflight)
     for imported in (legacy_unit_economics, legacy_family_strategy):
         imported[0].append("Business_Workspace_Interpretation")
@@ -858,10 +1016,13 @@ def main() -> None:
         stages_present[stage] = stages_present.get(stage, 0) + 1
     additional_strategy_index = additional_research[0].index("Strategy_Fit")
     structured_strategy_index = structured_research[0].index("Strategy_Fit")
+    variant_strategy_index = specific_r3_variants[0].index("Strategy_Fit")
     additional_core_count = sum(
         1 for row in additional_research[1:] if str(row[additional_strategy_index]).startswith("Core")
     ) + sum(
         1 for row in structured_research[1:] if str(row[structured_strategy_index]).startswith("Core")
+    ) + sum(
+        1 for row in specific_r3_variants[1:] if str(row[variant_strategy_index]).startswith("Core")
     )
     priority_header = research_priority[0]
     priority_tier_index = priority_header.index("Decision_Tier")
@@ -887,9 +1048,21 @@ def main() -> None:
         for estimate in research_preflight.values()
         if estimate["Estimate_Status"].startswith("STRUCTURED RESEARCH PREFLIGHT R2")
     )
-    preliminary_preflight_count = len(research_preflight) - linked_preflight_count - structured_preflight_count
+    specific_r3_preflight_count = sum(
+        1
+        for estimate in research_preflight.values()
+        if estimate["Estimate_Status"].startswith("STRUCTURED SPECIFIC-VARIANT PREFLIGHT R3")
+    )
+    preliminary_preflight_count = (
+        len(research_preflight) - linked_preflight_count - structured_preflight_count - specific_r3_preflight_count
+    )
     structured_trend_index = structured_research[0].index("Trend_Score_0_100")
     structured_trend_scores = [float(row[structured_trend_index]) for row in structured_research[1:]]
+    variant_complexity_index = specific_r3_variants[0].index("Complexity")
+    variant_complexity_counts = {
+        complexity: sum(1 for row in specific_r3_variants[1:] if row[variant_complexity_index] == complexity)
+        for complexity in ("C1", "C2", "C3")
+    }
     stale_audit_scorecards = sum(not bool(record["audit_scorecard_match"]) for record in product_preflight_records)
     summary = [
         ["Metric", "Value", "Interpretation"],
@@ -903,16 +1076,20 @@ def main() -> None:
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
         ["First research addendum", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
         ["Trend-screened research addendum", len(structured_research) - 1, "SKU-201–300; each has explicit purpose, directional trend >70 and a structured concept preflight"],
+        ["Named-interface R3 variants", len(specific_r3_variants) - 1, "SKU-301–314; separate children with cited E3 nominals and an exact research process baseline; generic parents remain unchanged"],
+        ["R3 variant complexity split", f"C1={variant_complexity_counts['C1']}; C2={variant_complexity_counts['C2']}; C3={variant_complexity_counts['C3']}", "R3 is nominal design-input maturity, not physical qualification or demand proof"],
         ["Trend-screened score range", f"{min(structured_trend_scores):g}–{max(structured_trend_scores):g}", "Directional 0–100 planning score; not validated demand"],
         ["Additional ideas at core/core-adjacent fit", additional_core_count, "Research allocation only; active development remains constrained by the 70% core-capacity rule"],
-        ["Total research concepts", len(legacy_product_matrix) + len(additional_research) + len(structured_research) - 3, "Original 100 plus two append-only 100-idea addenda"],
+        ["Total research concepts", len(combined_research_ids), "Original 300 plus 14 append-only named-interface variants"],
         ["Addendum scoring", "Opportunity/trend 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
         ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
         ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
         ["Ranked research ideas", len(research_priority) - 1, "Comparable implementation planning queue; not release approval"],
         ["Research ideas linked to current product preflights", linked_preflight_count, "Exact scorecard copied from the mapped product; still not release approval"],
         ["Research ideas with structured R2 concept preflights", structured_preflight_count, "SKU-201–300: K1 and C<=2; current Lane E while the exact manufacturing-process gate remains open"],
+        ["Research ideas with specific R3 preflights", specific_r3_preflight_count, "Named-interface children only; all are CONDITIONAL and require independent coupon/device/host validation"],
         ["Research ideas with preliminary preflight bands", preliminary_preflight_count, "C and K are planning bands; R0\u2013R1 and current Lane E remain until interface/process/test evidence exists"],
+        ["Readiness advancement records", len(readiness_advancement) - 1, "Complete triage for 314 research ideas plus 108 product directories, with purpose, bottleneck and exact next evidence"],
         ["Research target lane", "Separate planning field", "Expected design path after evidence closure; it never replaces the current lane or a release gate"],
         ["Finish-current research models", finish_current_count, "Close slicer, physical, rights and commercial evidence before expanding CAD work"],
         ["Gated next-candidate pool", len(next_candidate_rows), "Candidate pool only; demand-test and select at most one new CAD workstream"],
@@ -931,18 +1108,20 @@ def main() -> None:
         ["Field", "Meaning", "Portfolio use"],
         ["Compact form", "C# \u00b7 R# \u00b7 K# \u00b7 Lane X \u00b7 CONFIDENCE", "Exact current scorecard for product preflights; bands are allowed only for explicitly preliminary research estimates"],
         ["C0\u2013C5", "Intrinsic product/design complexity", "Never average with readiness, criticality or market potential"],
-        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Legacy concepts remain R0\u2013R1; SKU-201–300 reach concept-level R2 through explicit scope, inputs, interface/evidence route, process envelope and verification plan"],
+        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Legacy concepts remain R0\u2013R1; SKU-201–300 reach concept-level R2; only separate SKU-301–314 named-interface children reach nominal R3"],
         ["K0\u2013K4", "Credible failure consequence and required rigor", "A research K band is a conservative proxy, not a safety qualification"],
         ["Lane A\u2013E", "Currently permitted workflow", "R<=1 or a hard-gate failure forces current Lane E"],
         ["Target lane after evidence", "Likely design workflow after readiness and hard gates are sufficient", "Planning aid only; does not override current Lane E, HOLD or CONCEPT_ONLY"],
         ["Confidence", "Qualitative workflow confidence", "No numerical success probability is inferred"],
         ["Linked current product preflight", "Research idea maps to an existing Working_SKU", "Exact current product scorecard and source path are shown; not release approval"],
         ["Structured R2 research preflight", "SKU-201–300 has a scored PC model and documented R2 basis", "K1 and C<=2 were enforced; current Lane E and CONCEPT_ONLY remain because exact process and variant evidence are open"],
+        ["Specific R3 variant preflight", "SKU-301–314 is a separate named-interface child with cited E3 nominals and a pinned exact research process", "Generic parents do not inherit R3; confidence remains CONDITIONAL and a physical coupon/exact item or host is the next gate"],
         ["Preliminary idea estimate", "No mapped current product preflight", "C band uses creation/validation planning effort; K band uses the research-risk proxy; R0\u2013R1 and Lane E are fixed until evidence exists"],
         ["Market potential", "Opportunity and market-fit fields in the research register", "Keep separate from C/R/K/lane; compare side by side in Implementation Priority"],
-        ["Update rule", "Regenerate after product-preflight, implementation mapping or research-priority changes", "Run build_research_preflight_estimates.py, then build_product_workbook.py"],
+        ["Update rule", "Regenerate after product-preflight, implementation mapping, source, variant or research-priority changes", "Run the R3 variant, priority, preflight and advancement builders, then build_product_workbook.py"],
         ["Product source", "products/*/*/preflight/preflight-result.json", "Validated project-level source of truth"],
-        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 300-row planning overlay"],
+        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 314-row planning overlay"],
+        ["Advancement source", "readiness-advancement-register.csv", "Complete 422-row triage: 314 research ideas plus 108 product directories"],
     ]
 
     sheets = [
@@ -958,6 +1137,8 @@ def main() -> None:
         ("Research Ideas 100", legacy_product_matrix),
         ("Research Ideas +100", additional_research),
         ("Research Ideas +200", structured_research),
+        ("Research Variants R3", specific_r3_variants),
+        ("R Advancement", readiness_advancement),
         ("Research Economics", legacy_unit_economics),
         ("Research Families", legacy_family_strategy),
         ("Research Sources", research_sources),

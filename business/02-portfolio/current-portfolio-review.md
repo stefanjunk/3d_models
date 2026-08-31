@@ -1,12 +1,26 @@
 # Current model and portfolio review
 
-Review date: 2026-08-29. The detailed row-level inventory is in `product-portfolio.xlsx` and its version-control source `product-portfolio.csv`; deterministic artifact evidence is in `model-artifact-audit.csv` and `model-artifact-audit.md`.
+Review date: 2026-08-31. The detailed row-level inventory is in `product-portfolio.xlsx` and its version-control sources; deterministic artifact evidence is in `model-artifact-audit.csv` and `model-artifact-audit.md`.
 
 ## 3D-preflight portfolio overlay — 2026-08-31
 
 The generated workbook now adds the exact compact preflight result to all 99 existing `Portfolio` rows and lists all 108 current product directories in `Product Preflights`. Every one of those 108 products links both a validated `preflight/preflight-result.json` and an explicit `PURPOSE.md`. The compact format is `C# · R# · K# · Lane X · CONFIDENCE`; `Preflight_Target_Lane_After_Evidence` remains a separate planning field and never overrides the current lane or release decision.
 
-All three 100-row research tabs now carry row-level preflight planning fields. The 37 ideas already mapped to a product use its current scorecard; 163 legacy ideas use clearly labeled preliminary bands with `R0–R1` and current `Lane E`. The new SKU-201–300 batch adds 100 explicit-purpose ideas with directional trend scores of 87–94 and structured `K1 · C1–C2 · R2` concept preflights. Those new ideas also remain current `Lane E`, `LOW_UNKNOWN`, and `CONCEPT_ONLY` until the exact process and variant evidence close. These assessments support side-by-side market-potential/implementation-complexity analysis only and are not safety qualifications, demand proof, or release approvals. The method and regeneration commands are documented in `implementation-priority-scoring.md`.
+The workbook now covers 314 research ideas. The 37 ideas already mapped to a product use its current scorecard; 163 legacy ideas use clearly labeled preliminary bands with `R0–R1` and current `Lane E`. SKU-201–300 add 100 explicit-purpose ideas with directional trend scores of 87–94 and structured `K1 · C1–C2 · R2` concept preflights. They remain `Lane E`, `LOW_UNKNOWN`, and `CONCEPT_ONLY` until exact process and variant evidence close.
+
+SKU-301–314 are separate, named-interface children of retained generic ideas. All 14 have explicit purpose, primary-source nominal interface evidence, a hashed research-only Kobra 3 Max/PETG process baseline, measurable acceptance criteria, and compact `C1–C3 · R3 · K1 · Lane B/C · CONDITIONAL` preflights. Eight are C1, four C2, and two C3. Their generic parents do not inherit R3. R3 here means nominal design inputs are complete enough to start controlled CAD; it does not mean a real device/host has fitted, a coupon has passed, demand is proven, or commercial release is approved.
+
+`readiness-advancement-register.csv` and the workbook tab `R Advancement` assess every one of the 314 ideas and 108 product directories. Each row records purpose, current compact preflight, priority wave, advancement potential, evidence boundary, bottleneck, and exact next evidence. This makes the requested high-trend/low-complexity-first sequence explicit without averaging market potential into C/R/K.
+
+The current product estate still has only one R3 product preflight (`MM-PER-001` NameForm); all other product R increases remain evidence-gated. In particular, the Anycubic Kobra 3 Max purge catcher remains R2: own machine photos and the independently measured 17 mm screw pitch improve the interface evidence, but a complete variant-confirmed clean-room envelope, screw hardware/tolerances, full motion keep-outs, storage-architecture decision, independent coupon, and low/mid/high-Z purge tests remain open. The existing ALEX tray remains R1 until the exact furniture article/revision, real drawer measurements, exact process, and physical 209.3/210.0/210.7 mm gauge result exist.
+
+These assessments support side-by-side market-potential/implementation-complexity analysis only and are not safety qualifications, demand proof, or release approvals. The method and regeneration commands are documented in `implementation-priority-scoring.md`.
+
+## metriMade strategy check
+
+The evidence-backed variant approach fits metriMade when it is used as a tightly curated consumer layer: a benefit-first, named, guided `as-is` product can remove measurement ambiguity and create a premium exact-fit proposition. The best candidates are dry, stationary, low-consequence organization/display products such as named notebook and photo formats, a no-case iPhone stand, an open AirTag tile, or a standardized coin/envelope tray.
+
+It does not justify publishing all 314 ideas or all 14 variants as storefront products. Variant R3 and trend score remain separate from demand, rights, physical qualification, fulfillment, content quality, and release status. Active development must retain the 70% initial low-risk release allocation, and compatibility/trademark wording must name the exact tested revision. The shared product/revision system should model a generic family and its named children without duplicating divergent catalog records; only physically qualified, premium consumer-suitable revisions become metriMade-eligible.
 
 ## Headline
 

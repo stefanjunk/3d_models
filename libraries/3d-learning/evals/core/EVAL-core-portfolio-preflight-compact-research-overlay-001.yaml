@@ -5,20 +5,25 @@ title: Portfolio scorecards preserve exact product evidence and evidence-tiered 
 category: core
 status: draft
 trigger: A portfolio workbook, product preflight, research-idea register, implementation mapping, or preflight-planning overlay is created or changed.
-risk: Compact labels can silently turn research assumptions into apparent product evidence, hide Lane E hard gates, lose product/purpose traceability, or combine market potential with engineering risk into one misleading score.
+risk: Compact labels can silently turn research assumptions into apparent product evidence, transfer one named variant's maturity to a generic parent, hide Lane E or physical-test gates, lose purpose traceability, or combine market potential with engineering risk into one misleading score.
 given:
   product_scope: Every current products/<family>/<product> directory with its product-local preflight and PURPOSE.md.
   portfolio_scope: The 99 controlled Portfolio rows in product-portfolio.xlsx.
-  research_scope: SKU-001 through SKU-300 split across Research Ideas 100, Research Ideas +100, and Research Ideas +200.
+  research_scope: SKU-001 through SKU-314 split across Research Ideas 100, Research Ideas +100, Research Ideas +200, and Research Variants R3.
   structured_batch_gate: SKU-201 through SKU-300 require explicit purpose, directional trend >70, K1, C<=2, R2 evidence basis, current Lane E while G3 is open, and CONCEPT_ONLY.
+  named_variant_gate: SKU-301 through SKU-314 require a valid generic parent, exact named scope, cited E3 nominal interface evidence, hash-pinned exact research process, measurable acceptance criteria, R3 across all readiness components, K1, C1–C3, CONDITIONAL, all G0–G6 PASS, and a NOT PRODUCT RELEASE APPROVAL disclaimer.
+  advancement_scope: One row for all 314 research ideas and all 108 current product directories.
   compact_form: "C# · R# · K# · Lane X · CONFIDENCE"
 expected:
   - Every Portfolio row shows an exact compact scorecard and links an existing product-local preflight and PURPOSE.md.
   - Product Preflights lists every current product directory exactly once with an exact scorecard, PC value, assessment identity/date, current release decision, target lane, purpose path, and archive status.
-  - Every research SKU appears exactly once in the 300-row estimate source and exactly once across the three 100-row research sheets.
+  - Every research SKU appears exactly once in the 314-row estimate source and exactly once across the four research sheets.
   - A mapped current product uses its exact product-preflight scorecard and source; a legacy unmapped idea is labelled PRELIMINARY IDEA ESTIMATE — NOT RELEASE APPROVAL.
   - Every preliminary idea remains R0–R1 and current Lane E; its separate target lane cannot replace the current lane, confidence, or CONCEPT_ONLY status.
   - Every SKU-201–300 row has an explicit purpose, trend score >70 with an unvalidated-demand disclaimer, PC-consistent C0–C2, R2 across all five readiness components, K1, current Lane E, target Lane B, G3 FAIL, LOW_UNKNOWN, and CONCEPT_ONLY.
+  - Every SKU-301–314 row remains a separate child of an existing generic SKU; it has an explicit purpose, primary-source nominal interface, exact process reference, PC-consistent C1–C3, R3 across all five readiness components, K1, Lane B for C1/C2 or Lane C for C3, CONDITIONAL, GO_WITH_CONTROLS, and G0–G6 PASS.
+  - No generic parent or sibling inherits R3 from one named child; the relationship and evidence boundary remain explicit in both the variant and advancement sources.
+  - R Advancement contains exactly 422 unique records split 314/108, and every row has an explicit purpose, current compact preflight, wave, bottleneck, evidence boundary, and exact next evidence action.
   - The Implementation Priority sheet retains market-potential and trend fields beside, not merged into, the preflight fields.
   - Re-running the estimate generator and workbook build leaves complete source-to-workbook reconciliation.
 failure_conditions:
@@ -26,6 +31,9 @@ failure_conditions:
   - A preliminary idea receives an exact-looking readiness value above R1 or a current Lane A–D without a linked current product preflight.
   - A structured research idea receives R2 without an explicit scope, requirements, critical-interface evidence route, manufacturing envelope, or verification plan.
   - A structured idea exceeds K1 or C2, has trend <=70, omits purpose/disclaimers, or bypasses current Lane E while G3 is open.
+  - A named R3 child lacks a parent, E3 nominal source, exact hashed process, acceptance threshold, coupon/prototype method, G0–G6 pass, conditional confidence, or its required Lane B/C.
+  - A generic parent is raised because one specific child was researched, or a named child is presented as physically qualified, demand-validated, rights-cleared, or commercially released.
+  - Any of the 314 research ideas or 108 product directories is absent from the advancement register or lacks purpose/bottleneck/next-evidence content.
   - A target lane is presented as the current lane or as release permission.
   - A research estimate omits the NOT RELEASE APPROVAL disclaimer or presents its K proxy as a safety qualification.
   - Market opportunity and C/R/K/lane/confidence are collapsed into one average or the market comparison fields disappear from Implementation Priority.
@@ -34,17 +42,22 @@ fixtures:
   - business/02-portfolio/product-portfolio.xlsx
   - business/02-portfolio/research-idea-preflight-estimates.csv
   - business/02-portfolio/research-ideas-additions-2.csv
+  - business/02-portfolio/research-ideas-r3-variants.csv
+  - business/02-portfolio/research-r3-process-baseline.json
+  - business/02-portfolio/readiness-advancement-register.csv
   - business/02-portfolio/research-idea-priority.csv
   - business/tools/build_research_ideas_201_300.py
   - business/tools/build_research_preflight_estimates.py
+  - business/tools/build_research_r3_variants.py
+  - business/tools/build_readiness_advancement_register.py
   - business/tools/build_product_workbook.py
   - business/tools/validate_portfolio_preflight_overlay.py
 grader:
   type: hybrid
   command: python business/tools/validate_portfolio_preflight_overlay.py
   expected_exit_code: 0
-  rubric: Sample linked, preliminary, and structured rows from all three research tabs, including one K3/NOT_AUTONOMOUSLY_RELEASABLE case and one C1/R2/K1 case; confirm the legend states that trend, target lane, and market potential do not override current preflight or release gates.
-  measurement_method: Deterministic ID/value/source reconciliation, PC/trend component validation, live product-directory coverage, compact-form validation, generated-source freshness, XLSX ZIP integrity, LibreOffice opening, and human review of the legend wording.
+  rubric: Sample linked, preliminary, structured-R2, and specific-R3 rows from all four research tabs, including one K3/NOT_AUTONOMOUSLY_RELEASABLE case, one C1/R2/K1 case, one C1/C2 Lane-B R3 child, one C3 Lane-C furniture child, each generic parent, the R2 purge catcher, and the R1 ALEX product; confirm the legend preserves market/readiness/release separation.
+  measurement_method: Deterministic 314-ID and 422-record value/source reconciliation, parent-child isolation, profile-hash and PC/trend validation, live product-directory/purpose coverage, compact-form validation, generated-source freshness, XLSX ZIP integrity, workbook opening, and human review of evidence boundaries.
 relationships:
   lessons:
     - EXP-00049
@@ -54,8 +67,10 @@ last_run:
   date: 2026-08-31
   report: business/tools/validate_portfolio_preflight_overlay.py
   artifact_hashes:
-    - dc02593c0904a1ded6e13786e16e7f6b9a87582a10288da4423efa8e79ee1893
-    - 0ec1308c376c52f1439bc404f661792525b5a526832487d100d4355da6194616
+    - 97283d82af5a6c173e5e94b066265ff071a811c3c5c976b5166f8f02a52bea2f
+    - c1d2d96bb0f8e7c9bcd5c5c4600d1811f79ac66fa3b44d11b1468548c5efd917
+    - c01a32bd4b9b8c490f41ce37cc99d84cc220769cc236b56431624d82434253d4
+    - 6092b5935be70b70b1f9485c6e24ad6da232cd12fb4ffa27e1fd27669f1da0dd
 tags:
   - core
   - portfolio
@@ -65,3 +80,6 @@ tags:
   - complexity
   - traceability
   - release-gate
+  - named-variant
+  - generic-parent
+  - evidence-boundary

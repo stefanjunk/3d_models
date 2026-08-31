@@ -1,14 +1,14 @@
 # Research-idea implementation priority
 
-Status: planning model plus 3D-preflight overlay reviewed 2026-08-31. Priority-scoring version: `1.1`; preflight-estimate version: `1.1`.
+Status: planning model plus 3D-preflight and readiness-advancement overlay reviewed 2026-08-31. Priority-scoring version: `1.2`; preflight-estimate version: `1.2`.
 
-This model orders all 300 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
+This model orders all 314 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
 The ordered source is `research-idea-priority.csv`; the generated workbook presents it as `Implementation Priority`.
 
 ## 3D-preflight planning overlay
 
-The workbook keeps market potential and implementation feasibility separate. `Research Ideas 100`, `Research Ideas +100`, `Research Ideas +200`, and `Implementation Priority` therefore show a compact preflight field beside the opportunity, trend, and market-fit fields:
+The workbook keeps market potential and implementation feasibility separate. `Research Ideas 100`, `Research Ideas +100`, `Research Ideas +200`, `Research Variants R3`, and `Implementation Priority` therefore show a compact preflight field beside the opportunity, trend, and market-fit fields:
 
 `C# · R# · K# · Lane X · CONFIDENCE`
 
@@ -17,22 +17,40 @@ The workbook keeps market potential and implementation feasibility separate. `Re
 - For those preliminary rows, the C band is derived conservatively from the existing creation- and validation-effort estimates; the K band uses the existing research-risk value only as a broad proxy. It is not a safety qualification.
 - An unstarted idea remains `R0–R1`, current `Lane E`, and `LOW_UNKNOWN` until scope, critical interfaces, manufacturing profile, acceptance criteria, and verification evidence exist. A research-risk proxy of 5 is shown as `K3` and `NOT_AUTONOMOUSLY_RELEASABLE`.
 - SKU-201 through SKU-300 have an explicit purpose and a structured concept preflight. Every row passes `K1`, `C1–C2`, and `R2`; all remain current `Lane E`, `LOW_UNKNOWN`, and `CONCEPT_ONLY` because the exact printer, filament product/color/batch, nozzle, process profile, and customer variant evidence are still open. Their target is Lane B only after those gates close.
+- SKU-301 through SKU-314 are new, separate children of retained generic ideas. Their scope names one exact device, product article, or published format; critical interface nominals come from cited primary sources; the research-only printer/material/nozzle/orientation/process baseline is exact and hash-pinned; and acceptance criteria plus a coupon method are defined. They therefore reach nominal `R3`, not R4. C1/C2 children use Lane B and C3 children Lane C; all remain `K1`, `CONDITIONAL`, and `GO_WITH_CONTROLS — NOT PRODUCT RELEASE APPROVAL`.
+- A named child never raises its generic parent automatically. The parent remains at its current R until representative variants, parameter-domain limits, and boundary coupons justify broader evidence.
 - `Preflight_Target_Lane_After_Evidence` is a planning aid for the likely design path after readiness and hard gates are sufficient. It never replaces the current lane, a `HOLD`/`CONCEPT_ONLY` decision, or product release gates.
 
-The version-controlled row-level source is `research-idea-preflight-estimates.csv`. Regenerate and verify it before rebuilding the workbook:
+The version-controlled row-level sources are `research-ideas-r3-variants.csv`, `research-idea-preflight-estimates.csv`, and `readiness-advancement-register.csv`. The last file covers all 314 ideas plus all 108 product directories and assigns a purpose, wave, bottleneck, evidence boundary, and next R-evidence action. Regenerate and verify them before rebuilding the workbook:
 
 ```bash
 python business/tools/build_research_ideas_201_300.py
 python business/tools/build_research_ideas_201_300.py --check
+python business/tools/build_research_r3_variants.py
+python business/tools/build_research_r3_variants.py --check
 python business/tools/score_research_ideas.py
 python business/tools/score_research_ideas.py --check
 python business/tools/build_research_preflight_estimates.py
 python business/tools/build_research_preflight_estimates.py --check
+python business/tools/build_readiness_advancement_register.py
+python business/tools/build_readiness_advancement_register.py --check
 python business/tools/build_product_workbook.py
 python business/tools/validate_portfolio_preflight_overlay.py
 ```
 
 Do not combine C, R, K, lane, confidence, and market opportunity into one average. For later market-potential-versus-complexity analysis, compare `Opportunity_Score` or `Estimated_Market_Fit_1_5` beside `Preflight_Complexity_Band`, while retaining K and the current/target lane as separate gates.
+
+## Readiness-advancement order
+
+The `R Advancement` tab sequences the full estate without pretending every row deserves new CAD:
+
+1. `W1 HIGH-TREND / LOW-COMPLEXITY`: trend at least 85, complexity no higher than C2, criticality no higher than K1, and current readiness below R3.
+2. `W1 R3 NOMINAL — COUPON NEXT`: named variants whose nominal inputs are already R3; the next work is independent dimensional/physical evidence, not more market-score inflation.
+3. `W2 LOW-COMPLEXITY`: C1–C2/K0–K1 rows without the W1 trend threshold.
+4. `W3 CONTROLLED`: up to C3/K2, advanced only through the stated interface/process/test gate.
+5. `W4 SPECIALIST / HOLD`: higher complexity or criticality; no autonomous readiness promotion.
+
+The current purge catcher illustrates the fail-closed rule: own machine photos, the independently measured 17 mm screw pitch, abstracted third-party principles, and an exact process improve evidence, but do not supply a complete variant-confirmed clean-room envelope, screw hardware/tolerances, full-machine keep-outs, an approved storage architecture, an independent coupon, or low/mid/high-Z purge results. It therefore remains R2. Likewise, the ALEX tray's digital width gauges do not raise it above R1 without an exact article/revision, measured real drawer, pinned process, and recorded physical gauge result.
 
 ## Strategic rule before the score
 

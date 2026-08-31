@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the 300-row research preflight planning overlay."""
+"""Build the complete research preflight planning overlay."""
 
 from __future__ import annotations
 
@@ -16,9 +16,11 @@ PORTFOLIO_CSV = REPO_ROOT / "business/02-portfolio/product-portfolio.csv"
 PRIORITY_CSV = REPO_ROOT / "business/02-portfolio/research-idea-priority.csv"
 STATUS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-implementation.csv"
 STRUCTURED_RESEARCH_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-additions-2.csv"
+R3_VARIANTS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-r3-variants.csv"
 OUTPUT = REPO_ROOT / "business/02-portfolio/research-idea-preflight-estimates.csv"
 ASSESSMENT_DATE = "2026-08-31"
-ESTIMATE_VERSION = "1.1"
+ESTIMATE_VERSION = "1.2"
+RESEARCH_ID_MAX = 314
 
 FIELDNAMES = [
     "SKU_ID",
@@ -213,14 +215,66 @@ def structured_research_row(source: dict[str, str]) -> dict[str, str]:
     }
 
 
+def specific_variant_row(source: dict[str, str]) -> dict[str, str]:
+    """Carry an evidence-backed named-interface R3 variant without releasing it."""
+    required = {
+        "Preflight_Short",
+        "Complexity",
+        "Readiness",
+        "Criticality",
+        "Current_Lane",
+        "Target_Lane_After_Evidence",
+        "Confidence",
+        "Design_Release",
+        "Preflight_Status",
+        "PC_0_100",
+        "Readiness_Basis",
+        "Hard_Gates",
+    }
+    missing = sorted(required.difference(source))
+    if missing:
+        raise ValueError(f"Specific variant row {source.get('SKU_ID', '?')} lacks: {', '.join(missing)}")
+    if source["Readiness"] != "R3" or source["Criticality"] != "K1":
+        raise ValueError(f"Specific variant violates the R3/K1 gate: {source['SKU_ID']}")
+    if source["Complexity"] not in {"C1", "C2", "C3"}:
+        raise ValueError(f"Specific variant is outside C1-C3: {source['SKU_ID']}")
+    expected_lane = "C" if source["Complexity"] == "C3" else "B"
+    if source["Current_Lane"] != expected_lane or source["Target_Lane_After_Evidence"] != expected_lane:
+        raise ValueError(f"Specific variant lane is inconsistent: {source['SKU_ID']}")
+    if source["Confidence"] != "CONDITIONAL" or source["Design_Release"] != "GO_WITH_CONTROLS":
+        raise ValueError(f"Specific variant confidence/release is inconsistent: {source['SKU_ID']}")
+    required_gates = {f"G{number} PASS" for number in range(7)}
+    gates = {gate.strip() for gate in source["Hard_Gates"].split(";")}
+    if not required_gates.issubset(gates):
+        raise ValueError(f"Specific variant does not pass G0-G6: {source['SKU_ID']}")
+    return {
+        "Preflight_Short": source["Preflight_Short"],
+        "Complexity_Band": source["Complexity"],
+        "Readiness_Band": source["Readiness"],
+        "Criticality_Band": source["Criticality"],
+        "Current_Lane": source["Current_Lane"],
+        "Target_Lane_After_Evidence": source["Target_Lane_After_Evidence"],
+        "Confidence": source["Confidence"],
+        "Design_Release": source["Design_Release"],
+        "Estimate_Status": source["Preflight_Status"],
+        "Basis": (
+            f"Evidence-backed named-interface variant PC={source['PC_0_100']}/100. "
+            f"{source['Readiness_Basis']} Hard gates: {source['Hard_Gates']}"
+        ),
+        "Source_Or_Linked_Preflight": "business/02-portfolio/research-ideas-r3-variants.csv",
+    }
+
+
 def build_rows() -> list[dict[str, str]]:
     priority = read_dict_rows(PRIORITY_CSV)
-    if len(priority) != 300:
-        raise ValueError(f"Expected 300 research ideas; found {len(priority)}")
+    if len(priority) != RESEARCH_ID_MAX:
+        raise ValueError(f"Expected {RESEARCH_ID_MAX} research ideas; found {len(priority)}")
     ids = [row["SKU_ID"] for row in priority]
-    expected = {f"SKU-{number:03d}" for number in range(1, 301)}
+    expected = {f"SKU-{number:03d}" for number in range(1, RESEARCH_ID_MAX + 1)}
     if set(ids) != expected or len(ids) != len(set(ids)):
-        raise ValueError("Research priority must contain each SKU-001 through SKU-300 exactly once")
+        raise ValueError(
+            f"Research priority must contain each SKU-001 through SKU-{RESEARCH_ID_MAX:03d} exactly once"
+        )
 
     implementation_by_id = {row["SKU_ID"]: row for row in read_dict_rows(STATUS_CSV)}
     portfolio_rows = read_dict_rows(PORTFOLIO_CSV)
@@ -232,12 +286,19 @@ def build_rows() -> list[dict[str, str]]:
     expected_structured = {f"SKU-{number:03d}" for number in range(201, 301)}
     if len(structured_rows) != 100 or set(structured_by_id) != expected_structured:
         raise ValueError("Structured research source must contain each SKU-201 through SKU-300 exactly once")
+    variant_rows = read_dict_rows(R3_VARIANTS_CSV)
+    variant_by_id = {row["SKU_ID"]: row for row in variant_rows}
+    expected_variants = {f"SKU-{number:03d}" for number in range(301, RESEARCH_ID_MAX + 1)}
+    if len(variant_rows) != 14 or set(variant_by_id) != expected_variants:
+        raise ValueError("Specific R3 variant source must contain each SKU-301 through SKU-314 exactly once")
 
     output: list[dict[str, str]] = []
     for idea in sorted(priority, key=lambda row: int(row["SKU_ID"].split("-")[1])):
         implementation = implementation_by_id.get(idea["SKU_ID"], {})
         if implementation.get("Implementation_Status") == "MODEL_EXISTS":
             assessment = linked_product_row(idea, implementation, portfolio_by_sku)
+        elif idea["SKU_ID"] in variant_by_id:
+            assessment = specific_variant_row(variant_by_id[idea["SKU_ID"]])
         elif idea["SKU_ID"] in structured_by_id:
             assessment = structured_research_row(structured_by_id[idea["SKU_ID"]])
         else:
@@ -272,10 +333,10 @@ def main() -> int:
     if args.check:
         if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
             raise SystemExit(f"stale or missing generated research preflight overlay: {OUTPUT}")
-        print(f"PASS: {OUTPUT} is current with 300 research preflight rows")
+        print(f"PASS: {OUTPUT} is current with {RESEARCH_ID_MAX} research preflight rows")
         return 0
     OUTPUT.write_text(content, encoding="utf-8")
-    print(f"Wrote {OUTPUT} with 300 research preflight rows")
+    print(f"Wrote {OUTPUT} with {RESEARCH_ID_MAX} research preflight rows")
     return 0
 
 

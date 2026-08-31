@@ -16,10 +16,11 @@ ROOT = Path(__file__).resolve().parents[1]
 LEGACY_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
 ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
+R3_VARIANTS_CSV = ROOT / "02-portfolio" / "research-ideas-r3-variants.csv"
 IMPLEMENTATION_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 OUTPUT_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
 SCORED_ON = "2026-08-31"
-SCORING_VERSION = "1.1"
+SCORING_VERSION = "1.2"
 
 CURRENT_FINISH_ORDER = {
     "SKU-001": 1,
@@ -436,11 +437,16 @@ def priority_score(scores: dict[str, int]) -> float:
 
 def score_records() -> list[dict[str, object]]:
     implementations = implementation_map()
-    records = legacy_records() + additions_records(ADDITIONS_CSV, "addition") + additions_records(ADDITIONS_2_CSV, "addition2")
+    records = (
+        legacy_records()
+        + additions_records(ADDITIONS_CSV, "addition")
+        + additions_records(ADDITIONS_2_CSV, "addition2")
+        + additions_records(R3_VARIANTS_CSV, "r3_variant")
+    )
     ids = [str(record["sku_id"]) for record in records]
-    expected = {f"SKU-{number:03d}" for number in range(1, 301)}
-    if len(records) != 300 or len(ids) != len(set(ids)) or set(ids) != expected:
-        raise ValueError("Scoring inputs must contain each ID from SKU-001 through SKU-300 exactly once")
+    expected = {f"SKU-{number:03d}" for number in range(1, 315)}
+    if len(records) != 314 or len(ids) != len(set(ids)) or set(ids) != expected:
+        raise ValueError("Scoring inputs must contain each ID from SKU-001 through SKU-314 exactly once")
 
     scored = []
     for record in records:
@@ -603,7 +609,7 @@ def main() -> None:
         print(f"Validated {OUTPUT_CSV}")
         return
     OUTPUT_CSV.write_text(rendered, encoding="utf-8")
-    print(f"Wrote {OUTPUT_CSV} with 300 scored ideas")
+    print(f"Wrote {OUTPUT_CSV} with 314 scored ideas")
 
 
 if __name__ == "__main__":

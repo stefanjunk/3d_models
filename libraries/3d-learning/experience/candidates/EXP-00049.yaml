@@ -12,14 +12,14 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once in one 108-product and 300-idea portfolio. Coverage and source reconciliation pass, but neither the preliminary bands nor the structured R2 concept preflights and directional trend scores have been calibrated against completed idea-to-product projects or German sales evidence."
+    notes: "Observed across the initial 300-idea overlay and one same-scope extension to 314 ideas plus a 422-record advancement register. Coverage, source reconciliation, generic-parent isolation, and R3 child gates pass, but the estimates and variants have not been calibrated against completed idea-to-product projects, physical fit results, or German sales evidence."
 feature:
   type: portfolio preflight scorecard and research-planning overlay
   geometry: heterogeneous existing products and pre-CAD research concepts; planning workflow rather than one geometry class
   design_parameters:
     product_directories: 108
     portfolio_rows: 99
-    research_ideas: 300
+    research_ideas: 314
     linked_product_preflights: 37
     preliminary_idea_estimates: 163
     structured_r2_concept_preflights: 100
@@ -28,6 +28,14 @@ feature:
       C2: 95
     structured_criticality: K1
     structured_trend_score_range: "87–94"
+    named_r3_variant_preflights: 14
+    named_r3_complexity_split:
+      C1: 8
+      C2: 4
+      C3: 2
+    named_r3_criticality: K1
+    named_r3_confidence: CONDITIONAL
+    advancement_register_records: 422
     compact_form: "C# · R# · K# · Lane X · CONFIDENCE"
     preliminary_readiness: "R0–R1"
     preliminary_current_lane: E
@@ -37,99 +45,128 @@ feature:
     - Unstarted ideas use labelled C/K bands and retain R0–R1, Lane E, and low/limited confidence until product evidence exists.
     - A research idea may use exact R2 only when purpose, exclusions, envelope, measurable customer inputs, critical-interface evidence route, candidate manufacturing envelope, and verification plan are explicit.
     - Structured R2 concepts remain Lane E and CONCEPT_ONLY while an exact manufacturing profile or another hard gate is open.
+    - A separate named child may reach R3 only when exact scope, cited E3 nominal interface data, a hash-pinned exact process, measurable acceptance criteria, and a coupon or prototype method are present.
+    - Evidence captured for a named R3 child never raises the generic parent automatically; the parent keeps its own scorecard until its broader parameter domain and boundary variants are evidenced.
+    - Nominal R3 remains CONDITIONAL and does not imply physical fit, demand, rights, safety, or commercial-release approval.
+    - Every research idea and product directory retains an explicit purpose, bottleneck, evidence boundary, and exact next readiness action in the advancement register.
     - The likely target lane after evidence is stored separately and never replaces the current lane or release decision.
     - Market opportunity remains separate from complexity, readiness, criticality, lane, and confidence.
     - A directional trend score remains separate from the preflight scorecard and is labelled as unvalidated demand.
 scope:
   process: 3D product-portfolio and pre-CAD research planning
   machine:
-    manufacturer: unknown
-    model: unknown
+    manufacturer: Anycubic
+    model: Kobra 3 Max
     unit_id: null
     firmware: null
   material:
-    manufacturer: unknown
-    product: unknown
+    manufacturer: SUNLU
+    product: PETG
     variant: null
-    color: null
+    color: Black
     batch: null
     conditioning: null
   nozzle:
-    diameter_mm: null
-    material: unknown
+    diameter_mm: 0.4
+    material: hardened steel
     geometry: null
     hotend: null
     wear_state: null
-  orientation: unknown
+  orientation: flat stable base down; support-free research baseline for the 14 named variants
   slicer:
-    name: unknown
+    name: Anycubic Slicer Next
     version: null
-    profile: null
-    profile_hash: null
+    profile: 0.20mm PETG Tool @AC K3 Max
+    profile_hash: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
   geometry_class: mixed portfolio plus structured research concepts
   environment: Codex workspace at /home/stefan/Projekte/3d_models on main
   transfer_limits:
     - The preliminary C bands are derived from existing 1–5 creation/validation planning inputs, not a completed 11-dimension PC assessment.
     - The preliminary K bands use a research-risk proxy and are not a product-safety qualification.
     - The structured SKU-201–300 PC and R2 values are concept assessments, not product geometry, manufacturing-process, or physical evidence.
+    - The SKU-301–314 R3 value is limited to one named interface plus the exact research baseline; local unit, filament batch, dimensional output, real-item fit, cycles, surface marking, and commercial qualification remain open.
+    - Official furniture companion-product dimensions are nominal proxies, not unit-specific drawer/cubby tolerances; those variants remain C3 and require a physical host gauge.
     - The trend score is a transparent weighted judgment over cited directional signals and portfolio fit, not a calibrated market statistic.
     - A target lane is a planning hypothesis after evidence closure, not current design or release authorization.
 observation:
-  summary: The portfolio overlay now supports exact product scorecards, explicitly preliminary legacy bands, and structured R2 concept preflights without averaging market potential, trend, and implementation feasibility.
-  expected: Every existing product and every idea in all three 100-row research tabs has a compact, traceable preflight view that preserves unknowns, distinguishes evidence classes, and keeps current permission separate from the likely workflow after evidence capture.
-  actual: The generated workbook contains exact scorecards for all 99 portfolio rows, a separate 108-product preflight/purpose register, and complete 300-idea overlays split into 37 linked current product preflights, 163 labelled preliminary estimates, and 100 structured R2 concept preflights. The structured batch has explicit purposes, C1–C2, K1, directional trend scores 87–94, and current Lane E because G3 remains open.
+  summary: The portfolio overlay now supports exact product scorecards, explicitly preliminary legacy bands, structured R2 concepts, and separate evidence-backed R3 named children without transferring their maturity to generic parents or averaging market and engineering fields.
+  expected: Every existing product and every research idea has a compact, traceable preflight view and explicit purpose; specific variants may advance only through their own evidence, while all 422 records retain a named bottleneck and next evidence action.
+  actual: The generated workbook contains exact scorecards for all 99 portfolio rows, a separate 108-product preflight/purpose register, and complete 314-idea overlays split into 37 linked current product preflights, 163 labelled preliminary estimates, 100 structured R2 concepts, and 14 separate R3 named variants. The 422-row advancement register covers all 314 ideas and 108 product directories; generic parents remain unchanged, and the R3 children remain conditional pending real coupons/items/hosts.
   outcome: success
   parameter: portfolio-level market-potential versus implementation-complexity planning
-  recommended_value: source-linked exact product scorecards plus explicitly classified preliminary or structured concept assessments, separate trend/market fields and target lanes, and deterministic 300-row coverage validation
+  recommended_value: source-linked exact product scorecards plus classified preliminary/R2/R3-child assessments, strict generic-parent evidence isolation, separate trend/market fields and lanes, and deterministic 314-idea plus 108-product advancement coverage
   units: repository workflow contract
 explanation:
   hypothesis: Keeping the exact/preliminary/structured status, current lane, target lane, and trend/market scores in separate filterable fields prevents a compact portfolio view from implying evidence, demand, or release permission that does not exist.
-  mechanism: The generated CSV links mapped ideas to product-local preflights, derives conservative bands for legacy unmapped ideas, and carries explicit PC/R/K/gate evidence for the structured batch; the workbook builder joins those rows into all three research tabs and the priority sheet; a validator reconciles IDs, values, source paths, disclaimers, formulas, and counts.
+  mechanism: The generated CSV links mapped ideas to product-local preflights, derives conservative bands for legacy unmapped ideas, carries explicit PC/R/K/gate evidence for R2 concepts, and assigns R3 only to separate named children with E3 nominal sources and a pinned exact process. The workbook and validator reconcile four research tabs, priority, the 422-row advancement register, parent/child IDs, formulas, sources, gates, purposes, and disclaimers.
   alternatives:
     - Assigning Lane B–D directly to raw ideas would appear more discriminating but would violate the R<=1 Lane E rule.
     - Showing only current Lane E would be safe but would hide the likely engineering path; a separate target-lane field preserves both facts.
     - Folding market potential and preflight into one score would simplify ranking but erase criticality and evidence gates.
     - Assigning R2 from trend strength or a broad product name would be simpler but would not establish interface, process-envelope, or verification readiness.
+    - Raising a generic parent after researching one exact device or furniture article would overstate the evidence domain; a separate child SKU preserves both the broad opportunity and the narrow maturity claim.
+    - Calling source-complete nominal data R4 would skip independent dimensional and physical validation; R3 plus CONDITIONAL keeps the next gate visible.
   validated: false
-  validation_method: Re-run the linked eval after research, mapping, preflight, or workbook changes; compare both preliminary and structured concept assessments with eventual full preflights and implementation outcomes for multiple selected ideas before considering promotion.
+  validation_method: Re-run the linked eval after research, mapping, source, process, variant, preflight, or workbook changes; physically test multiple named children and compare preliminary/R2/R3 planning assessments with eventual full product preflights before considering promotion.
 evidence:
-  observations: 1
-  same_scope_repetitions: 0
+  observations: 2
+  same_scope_repetitions: 1
   geometry_count: 108
-  machine_count: 0
-  material_count: 0
-  nozzle_count: 0
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
   measured: false
-  measurement_method: Deterministic CSV generation, 300-ID reconciliation, PC/trend component checks, live product-directory/source checks, XLSX XML/ZIP validation, and LibreOffice round-trip opening.
-  uncertainty: The research assessments are planning estimates only; they have not been calibrated against measured implementation duration, iteration count, test effort, eventual full PC scores, German product-level demand, conversion, or willingness to pay.
+  measurement_method: Deterministic CSV generation, 314-ID and 422-record reconciliation, PC/trend component checks, parent/child/source/process checks, live product-directory checks, XLSX XML/ZIP validation, and workbook opening.
+  uncertainty: The research assessments are planning estimates only; the 14 R3 variants have official nominal inputs but no recorded physical coupons or real-item/host fits, and none of the estimates has been calibrated against implementation duration, test effort, German demand, conversion, or willingness to pay.
   sources:
     - type: user-statement
       ref: User request in the 2026-08-31 portfolio preflight summary and research-estimation phase
       hash: null
       notes: Requested compact preflight results across the portfolio, then 100 more high-trend K1/C<=2/R>=2 ideas in the XLSX for later market-potential/complexity comparison.
+    - type: user-statement
+      ref: User request in the 2026-08-31 full-portfolio readiness-advancement and specific-variant phase
+      hash: null
+      notes: Requested review of every idea and product, retention of generic concepts, separate more-specific variants, primary-source/COTS interface research, and high-trend/low-complexity-first advancement.
     - type: product-trace
       ref: products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
       hash: 245c546d76193b2d3a9946ff166107c74fc418eb42db640f5f64deadef6a83d2
       notes: Exact current product scorecards and purpose/preflight coverage for 108 product directories.
     - type: other
       ref: business/02-portfolio/research-idea-preflight-estimates.csv
-      hash: dc02593c0904a1ded6e13786e16e7f6b9a87582a10288da4423efa8e79ee1893
-      notes: Version-controlled 300-row exact/preliminary/structured overlay.
+      hash: 97283d82af5a6c173e5e94b066265ff071a811c3c5c976b5166f8f02a52bea2f
+      notes: Version-controlled 314-row exact/preliminary/R2/R3-child overlay.
     - type: other
       ref: business/02-portfolio/research-ideas-additions-2.csv
       hash: 7396d50ff796086f3c402c5d2c95489713078a17c009cf1f021941473a7912f2
       notes: One hundred explicit-purpose trend-screened concepts with PC components, R2 basis, hard gates, and release disclaimers.
     - type: other
+      ref: business/02-portfolio/research-ideas-r3-variants.csv
+      hash: c1d2d96bb0f8e7c9bcd5c5c4600d1811f79ac66fa3b44d11b1468548c5efd917
+      notes: Fourteen separate named-interface children with cited nominal evidence, exact research process references, R3 basis, acceptance criteria, and release disclaimers.
+    - type: other
+      ref: business/02-portfolio/readiness-advancement-register.csv
+      hash: c01a32bd4b9b8c490f41ce37cc99d84cc220769cc236b56431624d82434253d4
+      notes: Complete 314-research plus 108-product purpose, wave, bottleneck, evidence-boundary, and next-action triage.
+    - type: other
+      ref: business/02-portfolio/research-r3-process-baseline.json
+      hash: 772cab90d0608b48255514fea026a511b027e8ce2dbb299a91cb330e32125c61
+      notes: Exact hash-pinned research-only machine, material, nozzle, orientation and process baseline; explicitly not physical qualification.
+    - type: other
       ref: business/tools/validate_portfolio_preflight_overlay.py
-      hash: 0ec1308c376c52f1439bc404f661792525b5a526832487d100d4355da6194616
-      notes: Deterministic workbook/source reconciliation and strict preliminary/structured assessment checks.
+      hash: 6092b5935be70b70b1f9485c6e24ad6da232cd12fb4ffa27e1fd27669f1da0dd
+      notes: Deterministic workbook/source reconciliation and strict preliminary/R2/specific-R3/advancement checks.
   artifacts:
     - business/02-portfolio/product-portfolio.xlsx
     - business/02-portfolio/research-idea-preflight-estimates.csv
     - business/02-portfolio/research-ideas-additions-2.csv
+    - business/02-portfolio/research-ideas-r3-variants.csv
+    - business/02-portfolio/readiness-advancement-register.csv
+    - business/02-portfolio/research-r3-process-baseline.json
     - business/02-portfolio/research-idea-priority.csv
     - business/tools/build_research_ideas_201_300.py
     - business/tools/build_research_preflight_estimates.py
+    - business/tools/build_research_r3_variants.py
+    - business/tools/build_readiness_advancement_register.py
     - business/tools/build_product_workbook.py
     - business/tools/validate_portfolio_preflight_overlay.py
 applicability:
@@ -138,14 +175,16 @@ applicability:
     - Market opportunity needs to be compared with implementation complexity without hiding evidence or criticality gates.
     - A research batch is screened for trend and preflight constraints before CAD selection.
     - A compact preflight score is copied outside the owning product folder.
+    - A generic idea is narrowed to one named product revision, published standard, or dimensioned COTS interface to raise design-input readiness.
   exclusions:
     - Product release, safety approval, certification, or replacement of the full preflight artifact.
     - Numeric success probabilities or a combined market/preflight average.
     - Treating a directional trend score as German demand evidence or as input to R, K, or current-lane permission.
     - Reuse of a mapped product scorecard when the research concept is not actually represented by that product scope.
+    - Copying one named child's R3 to a generic parent or sibling without equivalent interface/process/verification evidence.
   transfer_limits:
-    - Keep this at E0 until multiple ideas receive later full preflights and demonstrate whether the preliminary/structured assessments and target lanes were directionally useful.
-    - Regenerate the overlay whenever product preflights, implementation mappings, or research planning inputs change.
+    - Keep this at E0 until multiple named children complete physical coupons and later full preflights demonstrate whether the preliminary/R2/R3 assessments and target lanes were directionally useful.
+    - Regenerate the overlay and advancement register whenever product preflights, implementation mappings, sources, variants, process baselines, or research planning inputs change.
 relationships:
   duplicates: []
   conflicts: []
@@ -166,9 +205,9 @@ validation:
     - business/tools/validate_portfolio_preflight_overlay.py
 provenance:
   project: WORKSPACE-PORTFOLIO-PREFLIGHT-OVERLAY
-  part_revision: 0.2.0
-  trace: User request in the 2026-08-31 portfolio preflight summary and research-estimation phase
-  source_commit: 44e701f
+  part_revision: 0.3.0
+  trace: User request in the 2026-08-31 full-portfolio readiness-advancement and specific-variant phase
+  source_commit: null
   created_by: Codex
 tags:
   - workflow
@@ -179,3 +218,6 @@ tags:
   - market-potential
   - readiness
   - release-gate
+  - named-variant
+  - generic-parent
+  - evidence-boundary

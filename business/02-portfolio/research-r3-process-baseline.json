@@ -1,0 +1,57 @@
+{
+  "baseline_id": "MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31",
+  "status": "RESEARCH_DESIGN_BASELINE_ONLY",
+  "purpose": "Pin one exact nominal FFF process for R3 research-variant planning without claiming a qualified print or commercial release.",
+  "printer": {
+    "manufacturer": "Anycubic",
+    "model": "Kobra 3 Max",
+    "machine_profile": "Anycubic Kobra 3 Max 0.4 hardened steel nozzle",
+    "nozzle_material": "hardened steel",
+    "nozzle_diameter_mm": 0.4,
+    "machine_source_id": "S53"
+  },
+  "material": {
+    "manufacturer": "SUNLU",
+    "product_profile": "SUNLU PETG Black new @Anycubic Kobra 3 Max 0.4 nozzle",
+    "polymer": "PETG",
+    "color": "Black",
+    "physical_batch": "UNKNOWN_UNTIL_PROTOTYPE"
+  },
+  "process": {
+    "profile": "0.20mm PETG Tool @AC K3 Max",
+    "layer_height_mm": 0.2,
+    "initial_layer_height_mm": 0.24,
+    "wall_loops": 4,
+    "top_shell_thickness_mm": 1.2,
+    "bottom_shell_thickness_mm": 1.2,
+    "sparse_infill_percent": 5,
+    "sparse_infill_pattern": "adaptivecubic",
+    "default_orientation_rule": "flat stable base on the build plate; support-free unless a variant record explicitly supersedes this rule"
+  },
+  "profile_artifacts": [
+    {
+      "role": "machine",
+      "path": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json",
+      "sha256": "d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1"
+    },
+    {
+      "role": "process",
+      "path": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json",
+      "sha256": "fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1"
+    },
+    {
+      "role": "filament",
+      "path": "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json",
+      "sha256": "02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd"
+    }
+  ],
+  "readiness_boundary": {
+    "supports": "R3 manufacturing-profile planning because printer, nozzle, material product/color, orientation rule, process files, versions and hashes are uniquely identified",
+    "does_not_support": [
+      "a physical printer-unit, nozzle-serial or filament-batch qualification",
+      "a slicer result before variant geometry exists",
+      "R4 verification, production repeatability or commercial release"
+    ]
+  },
+  "checked_on": "2026-08-31"
+}

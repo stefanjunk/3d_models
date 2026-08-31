@@ -17,11 +17,11 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-006
-    assessment_version: 0.4.2
-    previous_assessment_id: PREFLIGHT-MM-PER-001-005
+    assessment_id: PREFLIGHT-MM-PER-001-008
+    assessment_version: 0.4.4
+    previous_assessment_id: PREFLIGHT-MM-PER-001-007
     assessed_project_revision: "0.4.1"
-    updated_at: "2026-08-31T17:51:12+02:00"
+    updated_at: "2026-08-31T18:18:55+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -38,17 +38,23 @@ workflow:
       - user_reports_facade_looks_insufficiently_stable
       - requested_deeper_glyphs
       - requested_stronger_more_recessed_rear_connector
+      - explicit_requirements_approval_0p4p1
+      - gate_0b_reinforcement_concept_generated
   requirements_approval:
-    status: changes-requested
+    status: approved
     spec_revision: 0.4.1
     previous_approved_revision: 0.4.0
-    reason: "The printed 0.4.0 facade looks insufficiently stable; deeper glyphs and a stronger connector recessed farther behind the front require renewed approval."
+    approved_by: "Stefan — 'freigegeben'"
+    approved_at: "2026-08-31T18:13:41+02:00"
+    reason: "User explicitly approved the 0.4.1 reinforcement requirements without changes."
   concept_approval:
-    status: blocked
+    status: pending
     spec_revision: 0.4.1
-    asset: null
+    asset: "concept/nameform-bookends-v0.4.1-reinforced-concept.png"
+    asset_sha256: "0dfabffa0554a51f41493ab729c1239f6fb8e71b9cc2674b62f865c73c5a1651"
+    generated_at: "2026-08-31T18:18:55+02:00"
     previous_approved_asset: "concept/nameform-bookends-v0.4.0-concept.png"
-    reason: "A new sectioned concept must show the reinforced rear connection after 0.4.1 requirements approval."
+    reason: "The selected concept shows deep glyph bodies, glyph-shaped rear reinforcement, and short local bridges without a rectangular front panel; explicit human concept approval remains required."
   watermark_approval:
     status: blocked
     spec_revision: 0.4.1
@@ -397,7 +403,8 @@ deliverables:
 
 paths:
   historical_release: "release/manifest.json, release/design-spec-0.2.0.yaml, and committed 0.3.0 source/exports/validation"
-  concept: "concept/nameform-bookends-v0.4.1-reinforced-concept.png (pending requirements approval)"
+  concept: "concept/nameform-bookends-v0.4.1-reinforced-concept.png"
+  concept_review: "concept/nameform-bookends-v0.4.1-reinforced-concept.md"
   source: "source/v0.4.1/ (blocked until concept approval)"
   exports: "exports/v0.4.1/ (blocked until concept approval)"
   validation: "validation/v0.4.1/"

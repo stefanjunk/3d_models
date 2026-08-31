@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "phase": "interface-measurement-coupon",
+  "project_revision": "0.7.0-requirements.5",
+  "coupon_id": "R7-C01",
+  "coupon_revision": "0.1.0-draft.1",
+  "date": "2026-08-31",
+  "status": "PASS_DIGITAL_COUPON_PHYSICAL_TEST_PENDING",
+  "repository_sync": {
+    "branch": "main",
+    "upstream": "origin/main",
+    "base_commit": "a9650ab2",
+    "ahead_before_phase": 0,
+    "behind_before_phase": 0
+  },
+  "authorization": {
+    "requirements_revision": "0.7.0-requirements.5",
+    "dimensioned_concept": "R7-REQ5-DWG-001",
+    "concept_approved_at": "2026-08-31T21:00:50+02:00",
+    "continuation_message": "go on",
+    "scope": "measurement and fit coupon only; no full purge-diverter production CAD"
+  },
+  "clean_room_scope": {
+    "authoritative_machine_dimension_mm": {"screw_center_pitch": 17.0},
+    "third_party_geometry_or_dimensions_used": false,
+    "third_party_assets_loaded_by_generator": [],
+    "full_diverter_geometry_generated": false
+  },
+  "artifacts": [
+    {
+      "role": "manufacturing mesh",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/models/stl/DRAFT-R7-C01-interface-measurement-coupon.stl",
+      "sha256": "875a0350592e549028db53082c4b22e55f417dcbe8c69aeb31e732287493c2fb"
+    },
+    {
+      "role": "exact CAD exchange",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/models/step/DRAFT-R7-C01-interface-measurement-coupon.step",
+      "sha256": "7c8d4f328346b29dc9955397b142d76dd213e06ffc32235c3dfe7d6eb3551408"
+    },
+    {
+      "role": "Anycubic destination-slicer project",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon.3mf",
+      "sha256": "1297cc388c5b543b1018f8b588406303ff7847ad0810e07290322f5f4c274b8a"
+    },
+    {
+      "role": "neutral standards-core exchange 3MF",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon-core.3mf",
+      "sha256": "99802ccfb7f9a1f4dea5d2cde635aa2c1a6e6d7785109d273f495474030d0992"
+    },
+    {
+      "role": "human-readable coupon map",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/previews/DRAFT-R7-C01-interface-measurement-coupon.png",
+      "sha256": "8c68ae63cd6837c251311af08c2f8b28c4029a44080783f3203a719334221b1a"
+    },
+    {
+      "role": "exact local manufacturing G-code evidence; not uploaded",
+      "path": "current/r7-interface-measurement-coupon-c01/build/run-001/slices/anycubic-embedded-petg-run-002/plate_1.gcode",
+      "sha256": "8247fd981e9fd660c019046b30846b7890f856486b99b65d51e264ea9546e2c2"
+    }
+  ],
+  "checks": {
+    "source_assertions_and_pytest": {
+      "status": "PASS",
+      "tests": 4
+    },
+    "interface_geometry": {
+      "status": "PASS_DIGITAL",
+      "mount_tabs": 11,
+      "mounting_holes_per_tab": 2,
+      "mounting_hole_kind": "closed circular through holes",
+      "slot_features": 0,
+      "center_pitch_mm": 17.0,
+      "hole_diameter_sweep_mm": [2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8],
+      "head_width_sweep_mm": [4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5]
+    },
+    "mesh": {
+      "status": "PASS",
+      "report": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/mesh-audit.json",
+      "components": 13,
+      "watertight": true,
+      "winding_consistent": true,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "triangles": 45532,
+      "bounds_mm": [174.0, 73.0, 1.2],
+      "estimated_petg_mass_g": 10.9541
+    },
+    "neutral_core_3mf": {
+      "status": "PASS",
+      "report": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/core-3mf-validation.json"
+    },
+    "anycubic_project_3mf": {
+      "status": "PASS_DESTINATION_SLICER_WITH_STANDARD_VALIDATOR_LIMITATION",
+      "export_report": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/anycubic-3mf-export.json",
+      "standard_validator_diagnostic": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/3mf-validation.json",
+      "note": "Anycubic external object-part relationship is not followed by the generic validator; the exact same 3MF passes the destination slicer round-trip."
+    },
+    "anycubic_slice": {
+      "status": "PASS",
+      "report": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/anycubic-slice-run-002.json",
+      "failed_relative_path_diagnostic": "current/r7-interface-measurement-coupon-c01/build/run-001/reports/anycubic-slice-run-001.json",
+      "slicer_version": "1.3.9.4",
+      "layers": 6,
+      "estimated_time_s": 1994,
+      "extruded_volume_mm3": 10390.3376,
+      "tools": [0],
+      "tool_changes": 0,
+      "native_warning": "",
+      "gcode_analysis_warnings": []
+    },
+    "mesh_simplification": {
+      "status": "not-beneficial",
+      "reason": "simple analytic calibration geometry; lossy decimation would risk exact holes, notches and scale features without a meaningful manufacturing benefit"
+    },
+    "physical_fit": {
+      "status": "NOT_RUN",
+      "result_form": "current/r7-interface-measurement-coupon-c01/PHYSICAL-RESULTS-DE.md"
+    }
+  },
+  "workflow_gates": {
+    "coupon_digital_print_candidate": "PASS",
+    "human_first_layer_review": "REQUIRED",
+    "physical_cold_fit": "NOT_RUN",
+    "screw_identity_and_engagement": "NOT_RUN",
+    "complete_machine_envelope": "NOT_RUN",
+    "full_diverter_production_cad": "BLOCKED",
+    "full_diverter_manufacturing_3mf": "NOT_GENERATED",
+    "printer_upload_or_start": false,
+    "commercial_release": "BLOCKED"
+  }
+}

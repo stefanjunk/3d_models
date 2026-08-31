@@ -61,6 +61,21 @@ workflow:
       approved_by: "Stefan via conversation"
       approved_at: "2026-08-29T12:17:09+02:00"
       approval_message: "freigegeben"
+  interface_coupon_c01:
+    status: "digitaler DRAFT-Druckkandidat; physischer Kaltpass-Test ausstehend"
+    coupon_id: R7-C01
+    revision: 0.1.0-draft.1
+    location: "current/r7-interface-measurement-coupon-c01"
+    authorized_by: "Stefan via conversation"
+    authorized_at: "2026-08-31T21:00:50+02:00"
+    authorization_basis: "Freigabe von R7-REQ5-DWG-001 und anschließende Anweisung 'go on'"
+    generated_at: "2026-08-31T22:18:47+02:00"
+    scope: "eigenständige Messlehre für Schrauben-/Kopfmaß und das eigene 17-mm-Lochbild; kein Umlenkermodell"
+    anycubic_3mf: "current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon.3mf"
+    neutral_core_3mf: "current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon-core.3mf"
+    validation: "COUPON-C01-VALIDATION-R7.json"
+    physical_results: "current/r7-interface-measurement-coupon-c01/PHYSICAL-RESULTS-DE.md"
+    next_gate: "vollständig ausgefüllter Schraubenvertrag und zwangfrei bestandene 17-mm-Rundlochlasche am stromlosen realen Wiper"
   watermark_approval:
     status: blocked
     spec_revision: null
@@ -201,12 +216,31 @@ interfaces:
     kind: "direct fixed two-screw moving datum"
     owner: "BOTTOMLESS_DIVERTER"
     joining: "zwei direkt im Umlenker liegende Schraublöcher am vorhandenen Wiper-Schraubenpaar; 17 mm Achsabstand gemessen, Durchmesser, Kopfauflage und Schraubenlänge erst nach Realmaß/Coupon"
-    verification: ["Lochbildlehre", "Schraubenkopf-/Längennachweis", "Gewindeeingriff", "stromloser Vollwegtest"]
+    verification: ["R7-C01 Lochbild- und Schraubenlehre digital bereit", "physischer Kaltpass-Test ausstehend", "Schraubenkopf-/Längennachweis", "Gewindeeingriff", "stromloser Vollwegtest"]
   - id: IF-R7-CATCHER-FLOW
     kind: "bottomless open gravity diversion"
     owner: "BOTTOMLESS_DIVERTER"
     joining: "stetige Treffer- und Umlenkfläche mit vollständig offenem, nach unten gerichtetem Querschnitt ohne Boden oder Klappe"
     verification: ["Schnittprüfung", "Brücken-/Ablageprüfung", "beaufsichtigte Purge-Zyklen bei drei Z-Höhen"]
+
+calibration:
+  current_coupon:
+    id: R7-C01
+    classification: MEASUREMENT_COUPON_ONLY
+    own_machine_datum_mm:
+      screw_center_pitch: 17.0
+    hole_diameter_sweep_mm: [2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8]
+    head_width_sweep_mm: [4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5]
+    seating_thickness_mm: 1.2
+    final_hole_shape: "nicht festgelegt; Coupon verwendet ausschließlich geschlossene Rundlöcher, keine Slots"
+    digital_status: PASS
+    physical_status: NOT_RUN
+    third_party_geometry_or_dimensions_used: false
+    production_geometry_generated: false
+    powered_motion_with_coupon_allowed: false
+    mesh_simplification:
+      status: not-beneficial
+      rationale: "einfache analytische Lehre; sämtliche kalibrierten Rundlöcher, Kerben, Kennbohrungen, Skalen und Bettflächen sind geschützt"
 
 duty:
   loading: "bewegtes Eigengewicht des einteiligen bodenlosen Umlenkers; Z-Beschleunigung, Druckervibration und kurze Purge-Impulse; keine angesammelte Purge-Speichermasse"

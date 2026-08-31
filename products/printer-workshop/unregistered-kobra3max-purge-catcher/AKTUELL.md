@@ -1,6 +1,6 @@
 # Aktueller Status
 
-Es gibt derzeit **keine passende oder zum Druck empfohlene Fassung**.
+Es gibt derzeit **keine passende oder zum Druck empfohlene Vollteilfassung**.
 R7-DRAFT-2 wurde am 30. August 2026 durch die Benutzerkorrektur „die Modelle
 werden nicht passen“ verworfen. Die Dateien bleiben ausschließlich als
 negative Entwicklungs- und Validierungsevidenz erhalten.
@@ -22,9 +22,27 @@ freigegeben:
 - [`R7-REQ5-DWG-001-dimensioned-concept.svg`](drawings/R7-REQ5-DWG-001-dimensioned-concept.svg)
 - [`R7-REQ5-DWG-001-dimensioned-concept.pdf`](drawings/R7-REQ5-DWG-001-dimensioned-concept.pdf)
 
-Die nächste zulässige Phase ist die Parametrik- und Couponplanung. Produktions-
-CAD für den vollständigen Umlenker folgt erst nach realer Schrauben- und
-Maschinenhüllkurvenprüfung; eine Fertigungs-3MF existiert weiterhin nicht.
+Der erste zulässige Messcoupon `R7-C01` ist nun als digital geprüfter
+DRAFT-Druckkandidat vorhanden. Er enthält elf getrennte 17-mm-Rundlochlaschen
+von Ø 2,8 bis 4,8 mm, eine Kopfbreitenlehre von 4,5 bis 9,5 mm und eine
+0–30-mm-Grobskala. Die Durchmesserserie ist ein Messbereich und keine Annahme
+eines Schraubenstandards.
+
+- [Anycubic-3MF mit eingebettetem Kobra-3-Max-/PETG-Profil](current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon.3mf)
+- [neutraler Core-3MF](current/r7-interface-measurement-coupon-c01/build/run-001/models/3mf/DRAFT-R7-C01-interface-measurement-coupon-core.3mf)
+- [beschriftete Coupon-Übersicht](current/r7-interface-measurement-coupon-c01/build/run-001/previews/DRAFT-R7-C01-interface-measurement-coupon.png)
+- [Druck- und Kaltpass-Anleitung](current/r7-interface-measurement-coupon-c01/README-DE.md)
+- [auszufüllendes physisches Ergebnis](current/r7-interface-measurement-coupon-c01/PHYSICAL-RESULTS-DE.md)
+
+Der Anycubic-Zielslicer-Rücktest besteht mit 6 Schichten, ohne Slicerwarnung
+und ohne Upload oder Druckstart. Vor dem Drucken muss das tatsächlich eingelegte
+Filament gewählt und die erste Schicht visuell geprüft werden. Der Coupon darf
+nur am ausgeschalteten, abgekühlten Drucker montiert werden und muss vor jedem
+Einschalten oder Verfahren wieder entfernt sein.
+
+Für den vollständigen Umlenker existiert weiterhin **keine Fertigungs-3MF**.
+Sein Produktions-CAD bleibt bis zum ausgefüllten Schraubenvertrag, bestandenen
+Kaltpass-Coupon und der eigenen Maschinenhüllkurvenprüfung gesperrt.
 
 ## Passende Drittanbieter-Referenz
 

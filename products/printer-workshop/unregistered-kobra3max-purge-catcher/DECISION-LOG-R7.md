@@ -195,3 +195,13 @@
 - Umfang: Freigegeben sind Formrichtung, direkte feste Zweischraubenarchitektur, bodenloser Schnitt, offene Wabenwände, mittige eigene Logo-Insel und die dargestellten eigenen Datumsbezüge.
 - Grenze: Die Freigabe macht keine rot markierte `TBD`-Größe zu einem Maß und ist kein physischer Pass-, Last- oder Drucknachweis.
 - Folge: Parametrik- und Couponplanung sind freigegeben. Die vollständige Umlenkergeometrie und eine Fertigungs-3MF bleiben durch `CONCEPT_ONLY`, den unbekannten Schraubenvertrag und die fehlende eigene Maschinenhüllkurve gesperrt.
+
+### DEC-R7-028 – R7-C01 als clean-room Messcoupon erzeugen
+
+- Status: digitaler DRAFT-Druckkandidat; physischer Kaltpass-Test ausstehend
+- Autorisierung: Freigabe von `R7-REQ5-DWG-001` und anschließende Benutzeranweisung „go on“.
+- Entscheidung: Statt Gewinde oder Kopf aus Foto beziehungsweise Fremdmodell zu raten, erfasst `R7-C01` den realen Schraubenvertrag mit elf 1,2-mm-Laschen. Jede Lasche besitzt zwei geschlossene Rundlöcher mit exakt 17 mm Achsabstand; die Loch-Ø-Reihe beträgt 2,8 bis 4,8 mm in 0,2-mm-Schritten. Hinzu kommen Kopfbreitenkerben 4,5 bis 9,5 mm und eine 0–30-mm-Grobskala.
+- Rechte: Einziger Maschinen-CAD-Input ist der eigene 17-mm-Messwert. Drittanbieterdatei, -geometrie, -kontur, -maß, -foto und -metadaten wurden nicht geladen oder übernommen.
+- Digitaler Nachweis: 13 erwartete wasserdichte Komponenten, 0 Rand-/Nichtmanifold-/degenerierte/duplizierte Flächen, 174 × 73 × 1,2 mm und etwa 10,95 g Modellvolumen. Neutraler Core-3MF besteht den Standardvalidator. Das native Anycubic-Projekt besteht den Rückslice mit Anycubic Slicer Next 1.3.9.4, 6 Schichten, 1994 s Prognose, einer Düse und ohne native Warnung.
+- Adapterhinweis: Der generische Standardvalidator kann Anycubics ausgelagerten Objektteil im nativen Projekt-3MF nicht auflösen; dessen negativer Diagnosebericht bleibt erhalten. Derselbe native 3MF-Hash wird vom Ziel-Slicer erfolgreich gelesen und gesliced. Der erste relative Slice-Pfad scheiterte im isolierten Arbeitsverzeichnis; der neue absolute Pfadlauf besteht.
+- Grenze: `R7-C01` ist kein Umlenkermodell und kein Fit-Nachweis. Keine Maschinenbewegung mit montiertem Coupon. Produktions-CAD bleibt bis zum realen Schraubenmaß, akzeptiertem Eingriff, zwangfreiem 17-mm-Kaltpass und vollständiger eigener Maschinenhüllkurve gesperrt.

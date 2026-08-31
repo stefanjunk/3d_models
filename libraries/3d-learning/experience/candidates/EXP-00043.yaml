@@ -12,10 +12,10 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "One user fit rejection on unprinted R7-DRAFT-2 plus one user-selected, physically installed third-party reference. The reference clarifies the correct side and simplest interface, but the exact R7 collision and the user's physical fit-test status remain unknown."
+    notes: "One user fit rejection on unprinted R7-DRAFT-2, one user-selected third-party fit reference and one explicit corrective architecture decision. Directly integrating the owned two-screw interface removes unverified intermediate interfaces, but the exact R7 collision, screw contract and physical coupon result remain unknown."
 feature:
   type: external-machine-envelope-fit
-  geometry: Two-screw Wiper datum plate, forward slide/latch and 62 x 44 x 62 mm moving purge catcher
+  geometry: Rejected two-screw datum plate plus slide/latch versus proposed one-piece bottomless diverter with direct screw holes
   design_parameters:
     screw_pitch_z_mm: 17.0
     purge_datum_offset_z_mm: 10.0
@@ -24,6 +24,9 @@ feature:
     catcher_bounds_x_mm: [6.0, 68.0]
     catcher_bounds_y_mm: [2.4, 46.4]
     catcher_bounds_z_mm: [-36.0, 26.0]
+    proposed_part_count: 1
+    proposed_removable_interfaces: 0
+    proposed_storage_floor: false
   named_datums:
     - lower and upper Wiper screw centers
     - screw seating plane
@@ -34,6 +37,7 @@ feature:
     - Internal expected/actual dimension equality is not an external fit check.
     - Every accessory envelope and installation sweep needs a measured machine counterpart or conservative keep-out.
     - Unknown measurement endpoints, screw hardware and machine clearance remain blocking rather than receiving invented defaults.
+    - Removing an unverified adapter, slide and latch reduces interface count, but does not validate the remaining direct screw interface.
 scope:
   process: FFF parametric CAD generation
   machine:
@@ -63,19 +67,25 @@ scope:
   geometry_class: moving printer accessory attached near Wiper, bed, rollers, cables and stock purge hardware
   environment: User fit review plus source, report and six ruler-photo inspections; no confirmed physical print attempt
   transfer_limits:
-    - Evidence covers one rejected R7-DRAFT-2 interpretation on one Anycubic Kobra 3 Max.
+    - Evidence covers one rejected R7-DRAFT-2 interpretation and one unbuilt corrective architecture on one Anycubic Kobra 3 Max.
     - The exact wrong side, collision body or fastener mismatch remains unknown.
     - No material, nozzle or slicer effect caused or resolves the observed external fit failure.
 observation:
-  summary: The R7-DRAFT-2 datum illustration looked plausible to the user, but the user stated that the generated models would not fit the real machine. The user later identified one specific BY-NC reference 3MF as a model that would fit perfectly; its embedded photos show direct installation at the same two-screw Wiper interface.
+  summary: >-
+    The R7-DRAFT-2 datum illustration looked plausible to the user, but the user
+    stated that the generated models would not fit the real machine. The user
+    later selected the physical principle for the clean-room redesign: one
+    bottomless printed diverter with both screw holes directly integrated, no
+    adapter, clip or quick-release, while preserving open honeycomb walls and a
+    centred owned logo.
   expected: A model advertised as the current print candidate would occupy a measured free machine envelope and mount through physically confirmed hardware and service paths.
-  actual: Digital checks proved self-consistency only. The model assigned 37 mm to its own catcher center, 40 mm to one reference plane and 10 mm to a plane within its own capture zone while stock machine solids and the full installation envelope were absent. The fitting reference instead minimizes the interface chain by mounting the catcher directly with the two existing screws; its nominal slot pitch is independently consistent with the user's 17 mm measurement.
+  actual: Digital checks proved self-consistency only. The model assigned 37 mm to its own catcher center, 40 mm to one reference plane and 10 mm to a plane within its own capture zone while stock machine solids and the full installation envelope were absent. The corrective clean-room requirements now minimize the interface chain by mounting one bottomless diverter directly at the independently measured 17 mm Wiper screw pair, but no new geometry or physical fit result exists yet.
   outcome: failure
   parameter: internal-datum-proof versus external-machine-fit proof
   recommended_value: null
   units: interface-contract
 explanation:
-  hypothesis: The fit rejection arose because an internally consistent accessory coordinate model was mistaken for a registered external interface model and introduced extra adapter and service-envelope geometry absent from the physically installed reference.
+  hypothesis: The fit rejection arose because an internally consistent accessory coordinate model was mistaken for a registered external interface model and introduced extra adapter, slide and service-envelope geometry without measured machine counterparts. The one-piece proposal reduces these unverified boundaries but still depends on the direct screw and full machine-envelope contracts.
   mechanism: Without machine-side solids or conservative measured keep-outs, the checker can prove accessory topology and nominal relationships while being mathematically unable to detect collisions, mirror/orientation errors or insufficient installation clearance.
   alternatives:
     - The catcher may be on the wrong side or mirrored relative to the physical Wiper.
@@ -85,7 +95,7 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 2
+  observations: 3
   same_scope_repetitions: 1
   geometry_count: 2
   machine_count: 1
@@ -93,12 +103,12 @@ evidence:
   nozzle_count: 0
   measured: false
   measurement_method: User design-fit correction followed by comparison of the generated bounds/checks with the six existing ruler photographs and missing machine-envelope evidence.
-  uncertainty: The fitting reference clarifies physical side and direct mounting, but the exact R7 failing surface, whether the user physically fitted the reference on their own unit and the complete clean-room envelope remain unknown.
+  uncertainty: The user-selected architecture clarifies the intended physical boundary, but the exact R7 failing surface, screw hardware, complete clean-room envelope and corrective coupon result remain unknown.
   sources:
     - type: user-statement
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
-      hash: ad44a592ac2bbea744d770f37953d4d4231c2ef1bf0d2ab6b7f3223b4f599d5f
-      notes: Preserves the exact fit correction and unknown failure location.
+      hash: e79d0ef18f84fad934fba46f833196f316139fcdd33c8c6ee37f87cf71abd389
+      notes: Preserves the exact fit correction, selected direct-fixed bottomless architecture and remaining unknowns.
     - type: product-trace
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
       hash: 75dacdfabf51c020c606b71ffb7b79231a50071a8d5564f0f599cc7bb56587c4
@@ -136,7 +146,7 @@ applicability:
     - Accessories checked against an authoritative machine interface model with complete keep-outs and verified installation sweep
     - Purely internal parts whose complete mating system is modeled and independently dimensioned
   transfer_limits:
-    - E0 correction candidate; the added third-party success reference narrows the hypothesis but does not validate a clean-room R7 fit.
+    - E0 correction candidate; the simplified direct-fixed architecture narrows the design response but does not validate a clean-room R7 fit.
     - Required machine representation and physical coupon depend on the specific interface and risk.
 relationships:
   duplicates: []

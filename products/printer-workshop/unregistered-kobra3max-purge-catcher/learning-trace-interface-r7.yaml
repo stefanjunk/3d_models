@@ -4,7 +4,7 @@ captured_at: "2026-08-29"
 project:
   id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
   baseline_revision: R6
-  proposed_revision: 0.7.0-requirements.2
+  proposed_revision: 0.7.0-requirements.5
   process: FFF
   machine: "Anycubic Kobra 3 Max"
 baseline_proposal:
@@ -83,6 +83,31 @@ third_party_fit_reference_follow_up:
   physical_fit_on_user_unit: unknown
   accepted_result: null
   disposition: "als starke Fit- und Orientierungsreferenz dokumentiert; R7 bleibt bis zu eigener Clean-Room-Lehre, Architekturentscheidung und physischem Vollwegtest gesperrt"
+direct_fixed_bottomless_follow_up:
+  captured_at: "2026-08-31"
+  language: de
+  verbatim: "letztlich ist es fast das gleiche. als umlenker lassen wir einfach den boden weg. nutze nicht das beispiel. passe unser design so an, dass es die gleichen pyhsikalischen interfaces verwendetn. die beiden schrauben. unser design soll fest verschraubt sein. kein clip oder abnehmbarer veschluss. designe die schrabu löcher direkt in den umlenker. behalte das design, dass wir offene waben wände haben und unser logo mittig darauf."
+  normalized:
+    - "Die Fremddatei wird nicht als Geometrie- oder Maßquelle verwendet."
+    - "Der eigene Umlenker verwendet ausschließlich das reale, unabhängig vermessene Zwei-Schrauben-Wiper-Interface."
+    - "Beide Schraublöcher werden direkt in den einteiligen Umlenker integriert; das Teil bleibt fest verschraubt."
+    - "Adapterplatte, Clip, Schlitten, Rastung und jeder abnehmbare Schnellverschluss entfallen."
+    - "Der Umlenker erhält keinen Boden und kein mitbewegtes Speichervolumen."
+    - "Offene Wabenwände und das mittige eigene metriMade-Logo bleiben erhalten."
+  accepted_architecture:
+    moving_part: "einteiliger bodenloser Fang-/Umlenkerkörper"
+    machine_interface: "zwei direkt integrierte Schraublöcher am vorhandenen Wiper-Schraubenpaar"
+    service_interface: "keines; Demontage nur durch vollständiges Lösen beider Schrauben"
+    storage: "nicht Bestandteil des Umlenkers"
+    appearance: "offene Wabenwände mit mittigem eigenem Logo"
+  unresolved_physical_contract:
+    - "Gewinde- oder Schaftdurchmesser"
+    - "Schraubenkopf-Durchmesser und -Höhe"
+    - "vorhandene Schraubenlänge unter Kopf"
+    - "gedruckte Auflagendicke und verbleibender Gewindeeingriff"
+    - "vollständige eigene Maschinen-, Werkzeug- und Servicehüllkurve"
+  accepted_result: null
+  disposition: "Anforderungen 0.7.0-requirements.5 konsolidiert; formale Anforderungsfreigabe ausstehend; nur CONCEPT_ONLY bis zu Realmaßen und Coupon"
 analysis:
   observed_problem:
     - "Wiper-Schrauben tragen die Zubehörlast und müssen für die Erstmontage angefasst werden."
@@ -93,19 +118,22 @@ analysis:
     - "Alle realen Pass-, Kollisions- und Fangtests sind offen."
     - "R7-DRAFT-2 bildete die reale Wiper-Schale, Metallablage, Rollen, Kabel-, Bett- und Montagehüllkurve nicht ab und wurde vom Benutzer als nicht passend verworfen."
     - "Die neue Referenz reduziert die Maschineninterfaces auf das vorhandene Zweischraubenpaar und belegt die montierte Seite durch eingebettete Fotos."
-    - "Die Referenz speichert Purge in einem 120 mm hohen mitfahrenden Behälter; dies weicht von der bisher freigegebenen zweistufigen R7-Architektur mit stationärem Speicher ab."
-  preferred_response: "leichter, direkt am Wiper mitfahrender Fangkopf mit kurzer offener Abwärtsumlenkung und stationärem Unterbehälter"
-  status: "requirements changes-requested; strong third-party fit reference found, clean-room architecture decision and interface coupon still open"
+    - "Der Benutzer hat die offene Architekturentscheidung aufgelöst: ein einteiliger bodenloser Umlenker wird direkt durch beide Wiper-Schrauben befestigt; kein Zwischeninterface und kein Speicher gehören zum Teil."
+    - "Die Reduktion auf ein einziges Druckteil entfernt mehrere unbestätigte Pass- und Serviceinterfaces, ändert aber nichts daran, dass Schraubenhardware und Maschinenhüllkurve real gemessen und geprüft werden müssen."
+    - "Offene Wabenwände und das mittige eigene Logo sind ausdrücklich zu erhalten, aber von Schraubenlastpfad und Purge-Flugbahn fernzuhalten."
+  preferred_response: "einteiliger, bodenloser und direkt mit beiden Wiper-Schrauben befestigter Umlenker mit offenen Wabenwänden und mittigem eigenem Logo"
+  status: "requirements 0.7.0-requirements.5 changes-requested; architecture selected; clean-room screw and envelope coupon still blocking production CAD"
   causal_hypothesis: >
     Der erste R7-Vorschlag schlug die Fangfunktion fälschlich dem stationären
     Druckerbezugssystem zu. Da die Purge-Quelle zusammen mit dem Wiper entlang Z
     verfährt, muss der lokale Fangkopf im bewegten Wiper-Bezugssystem liegen;
-    nur die nachgelagerte Speicherkapazität kann stationär bleiben.
+    ein freier bodenloser Auslass kann den Purge ohne zusätzliches bewegtes
+    oder gekoppeltes Speicherinterface nach unten abgeben.
   alternatives:
     - "Die Firmware könnte Purge trotz Wiper-Z-Bewegung nur an wenigen festen Höhen anfordern; das wird ohne Maschinen-/G-Code-Evidenz nicht vorausgesetzt."
     - "Ein flexibler Schlauch oder vollständiger Z-Kanal könnte alle Höhen abdecken, würde aber Masse, Widerstand, Kollisionsfläche und Wartungsaufwand erhöhen und widerspricht der Präferenz."
-    - "Ein direkt aufgeschnapptes Interface könnte leichter als eine Schrauben-Datumplatte sein, benötigt aber ein vollständig vermessenes Gehäuseprofil und qualifizierte Montagekräfte."
-    - "Ein einteilig verschraubter Fangkopf wäre leichter als ein Schnellverschluss, erschwert jedoch Reinigung und wiederholtes Lösen kann die Wiper-Lage beeinflussen."
+    - "Ein direkt aufgeschnapptes Interface wurde vom Benutzer ausgeschlossen und bleibt ohne vollständig vermessenes Gehäuseprofil ohnehin unbelegt."
+    - "Ein Schnellverschluss mit separater Datumplatte wurde zugunsten der einteiligen festen Zweischraubenmontage ausdrücklich verworfen."
 scope:
   material: "PETG target; exact manufacturer/product/color/batch unknown"
   nozzle: "0.4 mm hardened-steel target; physical identity unknown"
@@ -113,10 +141,12 @@ scope:
   slicer: "Anycubic Slicer Next; exact run not started"
   environment: "digital review plus user measurements and six photos of one physical Anycubic Kobra 3 Max Wiper assembly"
   measurement_method: "user reading with 1-mm folding rule; photo-supported, no repeated right-angle or caliper series"
-  uncertainty: "screw pitch is materially better constrained; thread/head/engagement, 37-mm axis endpoints, full-motion keep-outs, moving mass and low/mid/high-Z purge trajectories remain unresolved"
+  uncertainty: "screw pitch and architecture are materially better constrained; thread/head/length/engagement, 37-mm axis endpoints, full-motion keep-outs, moving mass and low/mid/high-Z purge trajectories remain unresolved"
 evidence:
   - type: user-statement
     ref: "conversation 2026-08-29"
+  - type: user-statement
+    ref: "conversation 2026-08-31 direct-fixed-bottomless correction"
   - type: baseline-source
     ref: "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/src/generate_purge_catcher.py"
   - type: baseline-report

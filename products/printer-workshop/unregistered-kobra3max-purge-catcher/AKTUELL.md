@@ -5,6 +5,20 @@ R7-DRAFT-2 wurde am 30. August 2026 durch die Benutzerkorrektur „die Modelle
 werden nicht passen“ verworfen. Die Dateien bleiben ausschließlich als
 negative Entwicklungs- und Validierungsevidenz erhalten.
 
+## Aktuelle eigene Fassung
+
+Aktuell ist ausschließlich die Anforderungsversion
+`0.7.0-requirements.5`: ein einteiliger, bodenloser Umlenker mit zwei direkt
+integrierten Schraublöchern für die vorhandenen Wiper-Schrauben. Er wird fest
+verschraubt und besitzt weder Adapterplatte noch Clip, Schlitten, Rastung oder
+Schnellverschluss. Offene Wabenwände und das mittige eigene metriMade-Logo
+bleiben geschützt.
+
+Hierzu existiert noch **keine freigegebene Modell- oder 3MF-Datei**. Vor einem
+neuen Konzept müssen die Anforderungen ausdrücklich freigegeben werden; vor
+Produktions-CAD folgen Konzeptfreigabe sowie reale Schrauben- und
+Maschinenhüllkurvenprüfung.
+
 ## Passende Drittanbieter-Referenz
 
 Die vom Benutzer am 31. August 2026 als passend bewertete Referenz ist:
@@ -13,9 +27,11 @@ Die vom Benutzer am 31. August 2026 als passend bewertete Referenz ist:
 
 Sie ist **nicht unsere aktuelle Modellversion**. Die Datei ist ein unverändertes
 Drittanbieterprojekt von `Meisech` mit eingebetteter Lizenzangabe `BY-NC`. Ihre
-direkte Zweischraubenmontage, die montierte Lage am Kobra 3 Max und der
-17-mm-Lochachsenabstand stützen die Fit-Einschätzung. Geometrie, Konturen und
-Maße dürfen nicht in ein eigenes kommerzielles Modell kopiert werden. Der
+direkte Zweischraubenmontage und die montierte Lage am Kobra 3 Max dienen nur
+als qualitative Fit-Evidenz. Ausschließlich die unabhängig am eigenen Drucker
+gemessenen 17 mm werden als Lochachsenabstand verwendet. Geometrie, Konturen,
+Bilder, Projektmetadaten und Maße der Fremddatei dürfen nicht in das eigene
+Modell übernommen werden. Der
 vollständige Befund steht in
 [`REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md`](REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md).
 

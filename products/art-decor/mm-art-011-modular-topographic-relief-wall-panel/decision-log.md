@@ -63,3 +63,12 @@
 - Preflight `PREFLIGHT-MM-ART-011-002` supersedes the earlier backfill as the current retrospective assessment: `C3 (59.0)`, `R2`, `K2`, Lane C, `LOW_UNKNOWN`, `GO_WITH_CONTROLS`.
 - Concept v02 was generated at `concepts/permanent-relief-collection-concept-v02.png`; it shows Harz, the Rheinisches Revier and the shared glue-free rear assembly and awaits human concept approval.
 - Gate effect: requirements are approved for 0.3.0; terrain acquisition, production CAD and the connector coupon remain blocked until concept v02 approval.
+
+## 2026-08-31 — Concept v02 approved and decomposition 0.3.0 prepared
+
+- Human decision: Stefan explicitly approved concept v02 in chat (`konzept 2 freigegebene`).
+- Per pilot, the replacement decomposition uses two 300 × 400 mm main halves, exactly three loose one-way seam connectors, two upper local hangers and two lower local standoffs. It contains no rear grid, magnets, adhesive or replaceable section.
+- One off-product coupon can qualify both pilots only if connector/standoff material, nozzle, orientation and process profile are identical; otherwise it must be reprinted.
+- Harz and Rheinisches Revier retain separate immutable 16-bit height authorities, separate pilot light cutters and exactly three global model-Z color changes each.
+- Planner result for `plan/hybrid-design-plan-v0.3.0.json`: `PASS`, zero errors and zero warnings. Unknown spring, snap, source and wall-hardware dimensions remain fail-closed.
+- Next gate: human approval of `decomposition-review-0.3.0.md`. The guided autonomy policy keeps terrain acquisition, CAD and coupon geometry blocked until that approval.

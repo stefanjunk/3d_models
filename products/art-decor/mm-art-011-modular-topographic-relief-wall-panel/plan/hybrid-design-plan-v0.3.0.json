@@ -1,0 +1,483 @@
+{
+  "schema_version": "1.0",
+  "status": "decomposition-candidate",
+  "revision": "0.3.0",
+  "unknown_numeric_policy": "A zero in a schema-required connector, snap, wall-hardware allowance, lead-in, minimum-wall or minimum-ligament field accompanied by dimensions_status is an explicit UNSELECTED sentinel, not an authorized CAD dimension. Parametric source generation shall fail closed until a calculation or named evidence replaces it.",
+  "project": {
+    "id": "MM-ART-011",
+    "title": "Permanent one-off Harz and Rhenish topographic wall relief pilots",
+    "source_modes": ["concept_image", "design_description", "measurements"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max Combo with one ACE Pro",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "PROVISIONAL-KOBRA3MAX-PLA-0.4-0.20"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "lower-left corner of each assembled artwork rear datum plane",
+      "x_axis": "+X right in the installed front view and projected source frame",
+      "y_axis": "+Y upward in the installed front view and projected source frame",
+      "z_axis": "+Z from the wall toward the viewer",
+      "transform_convention": "row-major 4x4 matrix maps heightfield and component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [0.0, 0.0, -35.0], "max": [600.0, 400.0, 12.0]},
+    "requirements": [
+      {
+        "id": "REQ-PANEL",
+        "statement": "Each unique 600 x 400 mm pilot shall be manufactured as two permanent 300 x 400 mm main halves with one vertical seam and no rear grid.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0 and concept v02",
+        "priority": "critical",
+        "verification": "global bounds, Kobra 3 Max bed-fit report, component audit and assembled flatness test"
+      },
+      {
+        "id": "REQ-HEIGHT",
+        "statement": "Each pilot shall preserve one immutable 16-bit global height master, physical aspect ratio and one elevation-to-model-Z transform; halves shall never be normalized independently.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0",
+        "priority": "critical",
+        "verification": "source manifest, aspect/scale report, center-seam height comparison and 16-bit master hash"
+      },
+      {
+        "id": "REQ-PILOTS",
+        "statement": "The family shall produce separate permanent one-off Harz and Rheinisches Braunkohlerevier pilots from frozen official elevation acquisitions.",
+        "evidence_class": "requested",
+        "source": "user brief and approved design specification 0.3.0",
+        "priority": "critical",
+        "verification": "pilot-specific source manifests, extents, previews and rebuild jobs"
+      },
+      {
+        "id": "REQ-COLOR",
+        "statement": "Each continuous terrain surface shall use four broad abstract altitude colors through exactly three global layer changes, without dithering or realistic land-cover claims.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0 and concept v02",
+        "priority": "important",
+        "verification": "global threshold report, 3MF validation and exact-slicer tool/change/purge report"
+      },
+      {
+        "id": "REQ-JOIN",
+        "statement": "Exactly three concealed loose printed one-way spring/tenon connectors and discrete locating lands shall join each pilot without glue, magnets, screws or a replaceable service interface.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0 and user correction",
+        "priority": "critical",
+        "verification": "interface ownership audit, strain calculation, shared process-matched coupon and one-time assembly test per pilot"
+      },
+      {
+        "id": "REQ-MOUNT",
+        "statement": "Each pilot shall use two upper local hanger parts and two lower local standoffs snapped into isolated rear sockets to create an 18 mm wall gap without a rear frame.",
+        "evidence_class": "inferred",
+        "source": "approved isolated snap-in hanger/standoff architecture; count recommended in decomposition 0.3.0",
+        "priority": "critical",
+        "verification": "proxy load-path review, same-process snap coupon, wall-plane gauge and mass-based proof test"
+      },
+      {
+        "id": "REQ-LIGHT",
+        "statement": "Each unlit pilot shall remain complete while reserving optional customer lighting envelopes for an indirect halo and selected true front-through terrain paths.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0 and concept v02",
+        "priority": "critical",
+        "verification": "keep-out collision audit, aperture report, lighting gauge and human lit/unlit appearance review"
+      },
+      {
+        "id": "REQ-SCOPE",
+        "statement": "LEDs, wiring, power supply, controller, diffuser, wall hardware and electrical work are excluded; the terrain is decorative and makes no survey, mining-safety, navigation or universal wall-load claim.",
+        "evidence_class": "requested",
+        "source": "approved design specification 0.3.0",
+        "priority": "critical",
+        "verification": "BOM, data disclaimer, installation boundary and release-package review"
+      }
+    ],
+    "global_style": {
+      "summary": "Abstract gallery-like continuous terrain with broad four-band palettes, one controlled seam and sparse luminous terrain traces",
+      "motifs": ["continuous landform", "large contour masses", "quiet outer border", "few luminous valleys or benches", "one vertical assembly seam"],
+      "exclude": ["photographic realism", "land-cover simulation", "dither", "tiny color islands", "independent half contrast", "visible grid", "visible fasteners"],
+      "generation_material": "four same-family matte PLA colors on a flat-backed printed substrate",
+      "detail_hierarchy": "whole-region relief first, seam-locked major landforms second, broad altitude breaks third, printable local terrain last"
+    },
+    "architecture_trees": {
+      "functional": ["preserve global height", "carry self-weight", "register two halves", "retain one-time seam", "mount locally", "reserve halo", "pass selected light", "communicate decorative-data limits"],
+      "physical": ["four main halves across two pilots", "six loose seam connectors", "four upper hangers", "four lower standoffs", "two height masters", "two negative light-cutter sets", "optional customer hardware envelopes", "one shared qualification coupon"],
+      "appearance": ["600 x 400 silhouette per pilot", "one center seam", "continuous terrain", "four broad altitude colors", "sparse illuminated valleys or mine traces", "warm rear halo"],
+      "manufacturing": ["two 300 x 400 flat prints per pilot", "shared support-free connector/standoff build", "one process qualification coupon", "three global layer changes", "DRAFT 3MF handoff"],
+      "lifecycle": ["source acquisition", "16-bit master build", "coupon qualification", "print", "one-time assembly", "optional customer lighting addition", "wall installation", "non-serviceable display"]
+    },
+    "assembly_sequence": [
+      "Freeze and hash the official source acquisition for the selected pilot, create one 16-bit global master and approve its extent/vertical interpretation.",
+      "Print the shared off-product connector and standoff coupon with the exact production printer, nozzle, material, orientation and profile.",
+      "Select and record the passing pocket compensation and flexure candidate; regenerate all mating bodies from the shared interface kit.",
+      "Insert three selected one-way connectors into the left main half, align both halves on a flat fixture and press the right half home once.",
+      "Snap two upper hanger parts and two lower standoffs into the isolated rear sockets and verify the 18 mm wall plane.",
+      "Optionally add customer lighting only inside the declared rear lands, strip keep-outs and cable routes, then install with substrate-appropriate wall hardware."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-DECOMP-001",
+      "topic": "Approve the revision 0.3.0 component, interface, manufacturing and coupon decomposition for both pilots.",
+      "status": "open",
+      "current_basis": "Requirements and concept v02 are approved; the guided autonomy policy assigns decomposition approval to Stefan.",
+      "evidence_needed": "Explicit approval of plan/hybrid-design-plan-v0.3.0.json or requested corrections.",
+      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-CONNECTOR-001",
+      "topic": "Freeze shared connector spring dimensions, root radius, allowed strain, pocket compensation and one-time retention behavior.",
+      "status": "provisional",
+      "current_basis": "Topology, quantity per pilot and 0.15/0.25/0.35/0.45 mm per-side process-coupon series are approved; no physical result exists.",
+      "evidence_needed": "Material-specific strain calculation followed by the shared same-process coupon and a representative seam test.",
+      "blocks_gates": ["integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-HANGER-001",
+      "topic": "Freeze shared local hanger/standoff snap geometry and pilot-specific installed proof-load acceptance.",
+      "status": "provisional",
+      "current_basis": "Two upper load points plus two lower plane-setting points per pilot are the minimal balanced candidate; no wall substrate or physical snap evidence exists.",
+      "evidence_needed": "Same-process snap coupon, each completed artwork mass, actual wall substrate/hardware and installer-owned proof-test plan.",
+      "blocks_gates": ["physical", "release"]
+    },
+    {
+      "id": "DEC-HARZ-DATA-001",
+      "topic": "Freeze Copernicus GLO-30 source tiles, extent, vertical reference, licence evidence and hashes for Harz.",
+      "status": "open",
+      "current_basis": "Copernicus GLO-30 is the approved cross-state official-data route and the target crop contains the Harz massif and Brocken.",
+      "evidence_needed": "Immutable local DEM set, acquisition manifest, CRS/vertical reference, hashes and attribution notice.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-RHENISH-DATA-001",
+      "topic": "Freeze current GeoBasis NRW DGM1 tiles, extent, acquisition state, licence evidence and hashes for the Rhenish pilot.",
+      "status": "open",
+      "current_basis": "Current DGM1 is preferred because open-cast terrain changes materially; the target crop covers Garzweiler, Hambach and Inden.",
+      "evidence_needed": "Immutable local DGM1 set, acquisition state, CRS/vertical reference, hashes and reviewed Data Licence Germany attribution.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-Z-SCALE-001",
+      "topic": "Freeze each pilot's vertical exaggeration and three global color-change heights.",
+      "status": "provisional",
+      "current_basis": "Relief depth is capped at 7 mm; continuous 16-bit geometry and broad global bands are approved, but source distributions are not yet available.",
+      "evidence_needed": "Global elevation distributions, scale/threshold report, relief previews and human appearance review.",
+      "blocks_gates": ["integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-APERTURE-001",
+      "topic": "Freeze each pilot's selected light-through path set.",
+      "status": "provisional",
+      "current_basis": "Concept v02 approves sparse Harz valley/contour and Rhenish mine-bench/infrastructure paths; final geometry depends on the frozen masters.",
+      "evidence_needed": "Pilot-specific aperture previews, minimum-width/ligament reports and physical light-envelope coupon.",
+      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-FILAMENT-001",
+      "topic": "Freeze physical Harz and Rhenish palette spools and transition purge matrices.",
+      "status": "provisional",
+      "current_basis": "Both abstract palettes are approved; supplier products, batches, measured swatches and opacity are not recorded.",
+      "evidence_needed": "Spool/batch identities, swatches, opacity notes and exact-profile directed transition coupon.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-WALL-001",
+      "topic": "Select wall-substrate-specific anchors outside each product package.",
+      "status": "open",
+      "current_basis": "The products provide local hanger geometry only; wall substrate and fasteners are customer/installer-specific.",
+      "evidence_needed": "Actual wall substrate, chosen hardware data and installed proof test by the responsible installer for each pilot.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "MAIN_HALF_SET",
+      "name": "Shared-family left and right parametric main substrates",
+      "role": "rear datum, outer boundary, center locating lands, connector pockets, standoff sockets, LED lands and minimum-wall authority for both pilots",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["REQ-PANEL", "REQ-JOIN", "REQ-MOUNT", "REQ-LIGHT"], "confidence": "high"},
+      "functions": ["form two printable halves per pilot", "carry each heightfield", "locate center seam", "receive local connectors", "reserve light and mounting interfaces"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "four separate FDM main prints across two one-off pilots", "material": "same-family PLA candidate", "color_body": "pilot-specific lowest altitude band", "orientation": "flat rear datum on bed; relief upward"},
+      "interface_ids": ["IF-MAIN-HARZ", "IF-MAIN-RHENISH", "IF-MAIN-CONNECTOR", "IF-MAIN-STANDOFF", "IF-MAIN-HARZ-APERTURE", "IF-MAIN-RHENISH-APERTURE", "IF-MAIN-LIGHTING", "IF-COUPON-MAIN"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["300 x 400 mm bed fit per half", "one vertical seam per pilot", "flat rear datum", "no rear grid or magnet feature", "pocket and keep-out ownership"]}
+    },
+    {
+      "id": "HARZ_HEIGHTFIELD",
+      "name": "Harz immutable 16-bit height master and derived relief",
+      "role": "continuous global surface, elevation transform, seam height and abstract altitude-band authority for the Harz pilot",
+      "authority": "hybrid",
+      "representation": "heightmap",
+      "source": {"kind": "derived", "refs": ["frozen Copernicus GLO-30 acquisition", "REQ-HEIGHT", "REQ-PILOTS"], "confidence": "medium"},
+      "functions": ["preserve Harz extent and aspect", "generate continuous relief", "maintain one global Z transform", "derive three shared layer changes"],
+      "envelope_mm": {"min": [0.0, 0.0, 3.0], "max": [600.0, 400.0, 10.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "16-bit master converted to reference mesh, protected manufacturing mesh and two seam-locked FDM halves", "material": "Dark Green, Chocolate Brown, Caramel and Bone White same-family matte PLA", "color_body": "Harz Moss Stone global altitude bands", "orientation": "inherit each MAIN_HALF_SET bed orientation"},
+      "interface_ids": ["IF-MAIN-HARZ"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["16-bit immutable master", "physical aspect tolerance", "one global Z transform", "seam height identity", "reference/manufacturing mesh separation", "three global color thresholds"]}
+    },
+    {
+      "id": "RHENISH_HEIGHTFIELD",
+      "name": "Rhenish district immutable 16-bit height master and derived relief",
+      "role": "continuous global surface, elevation transform, seam height and abstract altitude-band authority for the Rhenish pilot",
+      "authority": "hybrid",
+      "representation": "heightmap",
+      "source": {"kind": "derived", "refs": ["frozen current GeoBasis NRW DGM1 acquisition", "REQ-HEIGHT", "REQ-PILOTS"], "confidence": "medium"},
+      "functions": ["preserve mine-district extent and aspect", "generate continuous relief", "maintain one global Z transform", "derive three shared layer changes"],
+      "envelope_mm": {"min": [0.0, 0.0, 3.0], "max": [600.0, 400.0, 10.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "16-bit master converted to reference mesh, protected manufacturing mesh and two seam-locked FDM halves", "material": "Black, Chocolate Brown, Desert Tan and Orange same-family matte PLA", "color_body": "Rhenish Industrial Earth global altitude bands", "orientation": "inherit each MAIN_HALF_SET bed orientation"},
+      "interface_ids": ["IF-MAIN-RHENISH"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["16-bit immutable master", "physical aspect tolerance", "one global Z transform", "seam height identity", "reference/manufacturing mesh separation", "three global color thresholds"]}
+    },
+    {
+      "id": "SEAM_CONNECTOR_SET",
+      "name": "Three one-way spring/tenon connectors per pilot",
+      "role": "concealed one-time retention and connector clearance authority shared by both pilots",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["REQ-JOIN", "DEC-CONNECTOR-001"], "confidence": "medium"},
+      "functions": ["retain each permanent seam", "make wrong orientation difficult", "supply derived pocket clearance bodies", "reuse one validated interface revision"],
+      "envelope_mm": {"min": [285.0, 40.0, 0.2], "max": [315.0, 360.0, 2.8]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "six support-free FDM parts printed in the validated flexure orientation", "material": "one shared exact PLA product/profile pending", "color_body": "concealed single color", "orientation": "spring arms in the bed plane; final direction selected after strain analysis"},
+      "interface_ids": ["IF-MAIN-CONNECTOR", "IF-COUPON-CONNECTOR"],
+      "acceptance": {"expected_components": 6, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["root radius and strain calculation", "one-way insertion", "no crack or whitening", "anti-rotation", "six identical revisioned parts"]}
+    },
+    {
+      "id": "HANGER_STANDOFF_SET",
+      "name": "Two upper hangers and two lower standoffs per pilot",
+      "role": "isolated rear wall interface and 18 mm wall-plane authority without a rear frame",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "design_description", "refs": ["REQ-MOUNT", "DEC-HANGER-001"], "confidence": "medium"},
+      "functions": ["transfer self-weight to installer-selected hardware", "set 18 mm halo gap", "supply derived snap-socket bodies", "reuse one validated interface revision"],
+      "envelope_mm": {"min": [90.0, 35.0, -18.0], "max": [510.0, 365.0, 0.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "eight support-free FDM parts across both pilots", "material": "one shared exact PLA product/profile pending", "color_body": "concealed single color", "orientation": "snap flexures in validated bed-plane orientation"},
+      "interface_ids": ["IF-MAIN-STANDOFF", "IF-STANDOFF-WALL", "IF-COUPON-STANDOFF"],
+      "acceptance": {"expected_components": 8, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["four parts per pilot", "18 mm installed rear extent", "snap strain", "wall-fastener access", "pilot-specific proof-load test"]}
+    },
+    {
+      "id": "HARZ_LIGHT_CUTTERS",
+      "name": "Selected Harz front-through light cutters",
+      "role": "controlled negative geometry derived from sparse simplified valleys or contours",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "derived", "refs": ["HARZ_HEIGHTFIELD", "REQ-LIGHT", "DEC-APERTURE-001"], "confidence": "medium"},
+      "functions": ["cut true front-through openings", "protect seam and functional interfaces", "retain terrain ligaments"],
+      "envelope_mm": {"min": [0.0, 0.0, -0.5], "max": [600.0, 400.0, 10.5]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product Boolean cutter regenerated from the global Harz master", "material": "not applicable", "color_body": "negative light path", "orientation": "project frame"},
+      "interface_ids": ["IF-MAIN-HARZ-APERTURE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["2 mm minimum width", "5 mm minimum ligament", "12 percent maximum open area per half", "keep-out compliance", "no isolated fragments"]}
+    },
+    {
+      "id": "RHENISH_LIGHT_CUTTERS",
+      "name": "Selected Rhenish front-through light cutters",
+      "role": "controlled negative geometry derived from selected mine benches or infrastructure traces",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "derived", "refs": ["RHENISH_HEIGHTFIELD", "REQ-LIGHT", "DEC-APERTURE-001"], "confidence": "medium"},
+      "functions": ["cut true front-through openings", "protect seam and functional interfaces", "retain terrain ligaments"],
+      "envelope_mm": {"min": [0.0, 0.0, -0.5], "max": [600.0, 400.0, 10.5]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product Boolean cutter regenerated from the global Rhenish master", "material": "not applicable", "color_body": "negative light path", "orientation": "project frame"},
+      "interface_ids": ["IF-MAIN-RHENISH-APERTURE"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["2 mm minimum width", "5 mm minimum ligament", "12 percent maximum open area per half", "keep-out compliance", "no isolated fragments"]}
+    },
+    {
+      "id": "LIGHTING_ENVELOPES",
+      "name": "Optional customer lighting and cable envelopes per pilot",
+      "role": "non-product authority for rear strip, adhesive lands, cable routes, bend access and diffuser lands",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "design_description", "refs": ["REQ-LIGHT"], "confidence": "high"},
+      "functions": ["reserve 12 x 4 mm strip space", "reserve 6 x 4 mm cable path", "preserve ventilation", "keep optional lighting outside product scope"],
+      "envelope_mm": {"min": [8.0, 8.0, -17.0], "max": [592.0, 392.0, -3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "two non-product keep-outs; only local lands/clips are printed", "material": "customer-supplied lighting excluded", "color_body": "not applicable", "orientation": "installed rear frame"},
+      "interface_ids": ["IF-MAIN-LIGHTING"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["18 mm halo cavity", "strip and cable access", "three cable exits", "no connector/hanger collision", "unlit state unaffected"]}
+    },
+    {
+      "id": "WALL_HARDWARE_REFERENCE",
+      "name": "Customer-selected wall hardware references",
+      "role": "planning envelopes for fastener heads, shanks and installation tools only",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["actual wall substrates and chosen hardware pending"], "confidence": "low"},
+      "functions": ["represent excluded fastener envelope", "preserve tool access", "separate product geometry from wall-anchor claim"],
+      "envelope_mm": {"min": [90.0, 300.0, -35.0], "max": [510.0, 380.0, -12.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased by customer/installer; not supplied", "material": "substrate-specific", "color_body": "not applicable", "orientation": "selected by installer"},
+      "interface_ids": ["IF-STANDOFF-WALL"],
+      "acceptance": {"expected_components": 4, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["actual supplier dimensions", "actual wall substrate", "tool access", "installed proof test per pilot"]}
+    },
+    {
+      "id": "COUPON_SET",
+      "name": "Shared off-product seam, connector and standoff qualification coupon",
+      "role": "process-matched selection of pocket compensation, locating-land gap and flexure behavior before full-size source generation",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["SEAM_CONNECTOR_SET interface kit", "HANGER_STANDOFF_SET interface kit", "geometry.seam_coupon_range_mm"], "confidence": "high"},
+      "functions": ["test 0.15/0.25/0.35/0.45 mm per-side pockets", "test one representative center seam", "test one hanger/standoff snap", "qualify one shared exact material/profile"],
+      "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [180.0, 120.0, -5.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "one separate support-free FDM qualification build; reprint if material/profile changes", "material": "exact production connector/standoff PLA, nozzle and profile", "color_body": "single process-control color", "orientation": "interfaces match production layer direction"},
+      "interface_ids": ["IF-COUPON-CONNECTOR", "IF-COUPON-STANDOFF", "IF-COUPON-MAIN"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["legible variant IDs", "all four clearances present", "production orientation match", "insertion/whitening/crack/flushness observations recorded", "winning variant hash-bound"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-MAIN-HARZ", "a": "MAIN_HALF_SET", "b": "HARZ_HEIGHTFIELD", "owner": "MAIN_HALF_SET", "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0,0,3], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "flat_global_heightfield_substrate", "pilot": "Harz", "split_x_mm": 300.0, "backer_thickness_mm": 3.0, "target_relief_depth_mm": 7.0, "no_detail_border_mm": 8.0},
+      "joining": {"method": "continuous 16-bit relief is rebuilt on the exact substrate and split only at global X=300", "assembly_direction": "+Z", "anti_rotation": "asymmetric projected Harz frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 8.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-DATA-NOTE", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 0, "load_or_flow": "heightfield owns visible Z only; substrate carries handling and mounting loads"},
+      "verification": ["16-bit source hash", "aspect and scale report", "seam-sample identity", "surface correlation", "round-trip watertightness"]
+    },
+    {
+      "id": "IF-MAIN-RHENISH", "a": "MAIN_HALF_SET", "b": "RHENISH_HEIGHTFIELD", "owner": "MAIN_HALF_SET", "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0,0,3], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "flat_global_heightfield_substrate", "pilot": "Rheinisches_Braunkohlerevier", "split_x_mm": 300.0, "backer_thickness_mm": 3.0, "target_relief_depth_mm": 7.0, "no_detail_border_mm": 8.0},
+      "joining": {"method": "continuous 16-bit relief is rebuilt on the exact substrate and split only at global X=300", "assembly_direction": "+Z", "anti_rotation": "asymmetric projected mine-district frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 8.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-DATA-NOTE", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 0, "load_or_flow": "heightfield owns visible Z only; substrate carries handling and mounting loads"},
+      "verification": ["16-bit source hash", "aspect and scale report", "seam-sample identity", "surface correlation", "round-trip watertightness"]
+    },
+    {
+      "id": "IF-MAIN-CONNECTOR", "a": "MAIN_HALF_SET", "b": "SEAM_CONNECTOR_SET", "owner": "SEAM_CONNECTOR_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [300,200,1.5], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "three_asymmetric_one_way_spring_tenons_and_derived_pockets_per_pilot", "quantity_per_pilot": 3, "candidate_process_clearance_per_side_mm": [0.15,0.25,0.35,0.45], "dimensions_status": "spring dimensions and winning compensation are not frozen before calculation and coupon"},
+      "joining": {"method": "single press assembly on a flat fixture; destructive removal acceptable", "assembly_direction": "+X", "anti_rotation": "asymmetric connector section and three indexed Y positions", "lead_in_mm": 0.0, "lead_in_status": "to be calculated before CAD", "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-LED", "KEEP-CABLE"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "must be selected from material/process calculation before geometry", "load_or_flow": "retain each permanent seam under handling and installed self-weight; no universal load rating"},
+      "verification": ["material-specific flexure calculation", "shared four-clearance coupon", "two-axis section review", "one-time insertion and destructive pull observation per pilot"]
+    },
+    {
+      "id": "IF-MAIN-STANDOFF", "a": "MAIN_HALF_SET", "b": "HANGER_STANDOFF_SET", "owner": "HANGER_STANDOFF_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [300,200,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_upper_hanger_snaps_plus_two_lower_standoff_snaps_per_pilot", "installed_rear_extent_mm": 18.0, "dimensions_status": "snap dimensions and winning compensation are coupon-controlled"},
+      "joining": {"method": "rear snap insertion after center-seam assembly", "assembly_direction": "+Z toward the visible face", "anti_rotation": "distinct upper/lower keys and asymmetric sockets", "lead_in_mm": 0.0, "lead_in_status": "to be calculated before CAD", "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": ["KEEP-STANDOFFS", "KEEP-LED", "KEEP-CABLE", "KEEP-WALLTOOLS"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "must be selected from material/process calculation before geometry", "load_or_flow": "two upper parts transfer self-weight; two lower parts set each pilot wall plane"},
+      "verification": ["snap strain calculation", "shared same-process snap coupon", "socket ligament sections", "18 mm wall-plane gauge", "pilot-specific proof test"]
+    },
+    {
+      "id": "IF-MAIN-HARZ-APERTURE", "a": "MAIN_HALF_SET", "b": "HARZ_LIGHT_CUTTERS", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "Harz_through-part_negative_paths", "minimum_width_mm": 2.0, "minimum_ligament_mm": 5.0, "maximum_open_area_fraction_per_half": 0.12},
+      "joining": {"method": "Boolean subtraction after all protected keep-outs are applied", "assembly_direction": "+Z", "anti_rotation": "global Harz frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-DATA-NOTE", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "pass optional rear light without weakening functional interfaces"},
+      "verification": ["exact open-area report", "minimum-width/ligament sampling", "keep-out collision test", "slicer review", "physical light gauge"]
+    },
+    {
+      "id": "IF-MAIN-RHENISH-APERTURE", "a": "MAIN_HALF_SET", "b": "RHENISH_LIGHT_CUTTERS", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "Rhenish_through-part_negative_paths", "minimum_width_mm": 2.0, "minimum_ligament_mm": 5.0, "maximum_open_area_fraction_per_half": 0.12},
+      "joining": {"method": "Boolean subtraction after all protected keep-outs are applied", "assembly_direction": "+Z", "anti_rotation": "global Rhenish frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-DATA-NOTE", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "pass optional rear light without weakening functional interfaces"},
+      "verification": ["exact open-area report", "minimum-width/ligament sampling", "keep-out collision test", "slicer review", "physical light gauge"]
+    },
+    {
+      "id": "IF-MAIN-LIGHTING", "a": "MAIN_HALF_SET", "b": "LIGHTING_ENVELOPES", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [300,200,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "rear_halo_strip_and_cable_keepout", "wall_gap_mm": 18.0, "strip_keepout_mm": [12.0,4.0], "cable_channel_min_mm": [6.0,4.0]},
+      "joining": {"method": "customer may attach unsupplied strip to declared rear lands", "assembly_direction": "rear access before wall installation", "anti_rotation": "indexed cable exits", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": ["KEEP-LED", "KEEP-CABLE", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-WALLTOOLS"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "reserve air, light and cable space; electrical components remain outside product scope"},
+      "verification": ["proxy collision check", "strip/cable gauge", "front-through light observation", "unlit-state test"]
+    },
+    {
+      "id": "IF-STANDOFF-WALL", "a": "HANGER_STANDOFF_SET", "b": "WALL_HARDWARE_REFERENCE", "owner": "WALL_HARDWARE_REFERENCE", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [300,340,-18], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "installer_selected_fastener_and_tool_envelope", "dimensions_status": "unknown until wall substrate and hardware are selected"},
+      "joining": {"method": "installer-selected hardware engages two upper printed hangers per pilot", "assembly_direction": "wall-specific", "anti_rotation": "two spaced upper load points", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 0.0, "keepout_ids": ["KEEP-WALLTOOLS", "KEEP-LED", "KEEP-CABLE"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "hardware-specific", "load_or_flow": "transfer installed self-weight to each actual wall substrate without a universal rating"},
+      "verification": ["supplier dimension record", "tool-access proxy", "wall-substrate review", "installed proof test per pilot"]
+    },
+    {
+      "id": "IF-COUPON-CONNECTOR", "a": "COUPON_SET", "b": "SEAM_CONNECTOR_SET", "owner": "SEAM_CONNECTOR_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [60,60,-11], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "four_pocket_compensation_variants", "process_clearance_per_side_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "one insertion per labeled variant", "assembly_direction": "+X", "anti_rotation": "same asymmetric production section", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "mirrors production after calculation", "load_or_flow": "qualify fit and flexure behavior only"},
+      "verification": ["variant dimension audit", "orientation audit", "manual insertion observation", "photo and measured result record"]
+    },
+    {
+      "id": "IF-COUPON-STANDOFF", "a": "COUPON_SET", "b": "HANGER_STANDOFF_SET", "owner": "HANGER_STANDOFF_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [140,60,-11], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "representative_upper_hanger_snap_and_socket", "process_clearance_per_side_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "one insertion per selected flexure/clearance candidate", "assembly_direction": "+Z", "anti_rotation": "same keyed production section", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "mirrors production after calculation", "load_or_flow": "qualify snap insertion and damage behavior only"},
+      "verification": ["variant dimension audit", "orientation audit", "manual insertion observation", "photo and measured result record"]
+    },
+    {
+      "id": "IF-COUPON-MAIN", "a": "COUPON_SET", "b": "MAIN_HALF_SET", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [90,20,-11], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "representative_center_seam_locating_lands", "seam_gap_variants_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "dry alignment of two coupon strips on a flat fixture", "assembly_direction": "+X", "anti_rotation": "two spaced locating lands", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 0, "load_or_flow": "qualify visible gap and flushness only"},
+      "verification": ["feeler/optical gap measurement", "rear and front step measurement", "flat-fixture photo"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-SEAM", "type": "mesh", "purpose": "12 mm protected center band around locating lands and continuous terrain samples", "source": "parametric seam skeleton"},
+    {"id": "KEEP-CONNECTORS", "type": "mesh", "purpose": "protected volumes around three connector pockets, spring sweeps and insertion paths per pilot", "source": "SEAM_CONNECTOR_SET interface kit"},
+    {"id": "KEEP-STANDOFFS", "type": "mesh", "purpose": "protected volumes around two upper hanger and two lower standoff sockets and flexure sweeps per pilot", "source": "HANGER_STANDOFF_SET interface kit"},
+    {"id": "KEEP-LED", "type": "mesh", "purpose": "12 x 4 mm rear strip envelope and local front-light approach volumes inside the 18 mm cavity", "source": "LIGHTING_ENVELOPES"},
+    {"id": "KEEP-CABLE", "type": "mesh", "purpose": "6 x 4 mm minimum cable paths, bend access and left/right/bottom exits", "source": "LIGHTING_ENVELOPES"},
+    {"id": "KEEP-WALLTOOLS", "type": "mesh", "purpose": "wall-fastener head, shank, driver and installation approach volumes", "source": "WALL_HARDWARE_REFERENCE"},
+    {"id": "KEEP-DATA-NOTE", "type": "aabb", "purpose": "protected rear source attribution and decorative-data disclaimer zone", "min_mm": [8,8,0], "max_mm": [260,30,3]},
+    {"id": "KEEP-WATERMARK", "type": "aabb", "purpose": "candidate protected rear watermark host; final placement remains a later approval gate", "min_mm": [380,8,0], "max_mm": [592,30,3]}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "plan_hybrid_design.py plus manual linked-tree and interface-owner review", "acceptance": "all critical requirements allocated, no grid/magnet/glue/service interface present, every interface has one owner and each pilot assembly sequence is feasible"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble two-half, connector, standoff, lighting and wall-hardware proxies in the global frame", "acceptance": "600 x 400 mm assembly per pilot, each main half fits 420 x 420 mm, 18 mm wall plane is defined and no functional keep-out collision exists"},
+    {"id": "VAL-COMP", "gate": "component", "method": "source manifests, 16-bit master audits, parametric assertions and pilot-specific body inventories", "acceptance": "two immutable global masters, four total main halves, six connectors, eight standoff parts and continuous seam-locked terrain with three global thresholds per pilot"},
+    {"id": "VAL-INT", "gate": "integration", "method": "strain calculations, two-axis sections, gap/ligament checks, seam height comparisons, motion sweeps and shared process-matched coupon", "acceptance": "coupon-selected compensation, no damaged flexures, flush single seam, continuous terrain, protected lighting paths and no hidden islands"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "reference/manufacturing mesh comparison, 3MF audits and exact Anycubic Slicer Next runs with complete profiles", "acceptance": "mesh budgets pass, no auto-arrangement, exactly three color changes per pilot, no first-layer island, all intended terrain/apertures survive and reports are hash-bound"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "shared interface coupon, pilot relief/color coupons, representative seams, wall-plane/light gauge and completed-artwork proof/appearance tests", "acceptance": "one-time assembly passes without crack/whitening, each artwork remains flat and terrain-continuous, wall interface passes installer-owned proof test and lit/unlit appearance is approved"}
+  ],
+  "bom": [
+    {"item": "MAIN_HALF_SET", "quantity": 4, "included": true, "note": "two four-color main prints for each of two pilots"},
+    {"item": "SEAM_CONNECTOR_SET", "quantity": 6, "included": true, "note": "three concealed identical revisioned connectors per pilot"},
+    {"item": "HANGER_STANDOFF_SET", "quantity": 8, "included": true, "note": "two upper hangers and two lower standoffs per pilot"},
+    {"item": "COUPON_SET", "quantity": 1, "included": false, "note": "shared development artifact; reprint if connector/standoff material or profile changes"},
+    {"item": "customer lighting systems", "quantity": 0, "included": false, "note": "mechanical preparation only"},
+    {"item": "wall hardware", "quantity": 0, "included": false, "note": "customer/installer-selected for each actual substrate"},
+    {"item": "adhesive or magnets", "quantity": 0, "included": false, "note": "explicitly prohibited from both assembly architectures"}
+  ]
+}

@@ -1,108 +1,88 @@
-# Prospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
+# Prospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher
 
-`Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf | C3 (59.3/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
+`0.7.0-requirements.5 | C3 (52.5/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
 
 ## Decision
 
-- Release: `HOLD`
-- Lane: `E`
-- Rationale: The installed third-party reference materially improves variant, side, orientation and two-screw-interface evidence, but it cannot supply clean-room geometry or commercial rights. R7 remains held until its own envelope, hardware and architecture are approved and physically checked.
-- Purpose: Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.
+- Release: `CONCEPT_ONLY`
+- Architecture: one-piece, bottomless diverter, directly and permanently mounted through two holes with the existing Wiper screws
+- Removed: adapter plate, clip, slider, latch, quick-release, floor, flap and moving storage volume
+- Preserved: open honeycomb walls and a centred owned metriMade logo
+- Rationale: the user has resolved the product architecture, so a non-dimensional clean-room concept may follow after explicit requirements approval. Production CAD remains blocked by the unknown screw contract and incomplete owned machine envelope.
 
-This focused prospective reassessment governs the next R7 design work after
-the 31 August 2026 user fit assessment and the audited BY-NC reference 3MF.
-Unknown facts were not reconstructed or inferred as owned measurements.
+The third-party 3MF is evidence-only. Its geometry, contours, dimensions,
+images and project metadata are not design inputs.
 
-## Complexity score rationale
+## Complexity
 
-| Dimension | Score | Evidence-based rationale |
+| Dimension | Score | Rationale |
 |---|---:|---|
-| REQ | 2 | A design specification or requirement record exists, but release criteria may still be incomplete. |
-| CTX | 2 | The use context includes a host, environment, or user variant that must be confirmed. |
-| PAR | 2 | The current evidence exposes approximately 0 distinct geometry-file stems; exports may duplicate physical parts. |
-| INT | 3 | At least one functional host, human, medium, or assembly boundary governs success. |
-| CPL | 2 | Changes can propagate across multiple parts, datums, or functional subsystems. |
-| MOT | 2 | The accessory co-moves with the Purge-Wiper along the guided Z translation. |
-| GEO | 2 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
-| PHY | 3 | Load, heat, airflow, water, fatigue, or another functional physical domain must be tested. |
-| MAT | 2 | Material behavior, anisotropy, flexibility, surface process, or post-processing affects function. |
-| EXT | 2 | Purchased hardware, printer equipment, electronics, or software participates in the system. |
-| VER | 3 | Several fit, function, flow, load, motion, or process checks are required. |
+| REQ | 2 | The requested architecture is explicit; requirements approval remains open. |
+| CTX | 2 | The exact machine unit and surrounding envelope still require physical confirmation. |
+| PAR | 1 | One printed production part plus inexpensive fit coupons are planned. |
+| INT | 3 | Fastener, machine-envelope and purge-medium boundaries govern success. |
+| CPL | 1 | The one-piece architecture removes intermediate attachment and storage subsystems. |
+| MOT | 2 | The diverter co-moves with the guided Wiper along Z. |
+| GEO | 2 | Conventional printable geometry, but several external datums and keep-outs are unresolved. |
+| PHY | 3 | Screw clamping, vibration, warm purge impact and gravity diversion require physical tests. |
+| MAT | 2 | Printed anisotropy and creep affect the direct screw zone. |
+| EXT | 1 | Only the host and its two existing screws participate. |
+| VER | 3 | Fit, engagement, motion, purge flow, mesh and slicer checks are required. |
 
-## Readiness
+## Readiness and blockers
 
 | Component | Level |
 |---|---|
-| scope_variant | R3 |
-| requirements | R2 |
-| critical_interfaces | R2 |
-| manufacturing_profile | R3 |
-| verification | R3 |
+| Scope and variant | R4 |
+| Requirements | R3 |
+| Critical interfaces | R2 |
+| Manufacturing profile | R3 |
+| Verification | R3 |
 
 Blocking unknowns:
 
-- clean-room machine envelope, screw hardware, tolerances and uncertainty beyond the independently measured 17 mm pitch
-- architecture decision between a lightweight diverter with stationary storage and a directly mounted moving storage bin
-
-## Criticality
-
-`K2` — The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.
-
-Credible effects: functional failure, leakage, obstruction, or detachment, minor injury or property damage.
+- screw thread or shaft diameter, head diameter, head height and current length under head
+- required printed seating thickness and remaining thread engagement
+- owned complete Wiper, bed, rollers, head, cable, tool-access and service envelope
+- approved clean-room concept and physical bottomless purge trajectory
 
 ## Interface register
 
-| Contract | Interface | Evidence | Criticality | Verification |
+| Contract | Purpose | Evidence | Criticality | Status |
 |---|---|---:|---:|---|
-| `IF-EXT-GEO-CON-MIXED-001` | Printed product to intended host | E2 | K2 | PLANNED |
+| `IF-EXT-GEO-FST-HLP-001` | Direct fixed two-screw Wiper mount | E2 | K2 | Coupon planned |
+| `IF-INT-FLU-GDE-VOLUME-001` | Bottomless capture and gravity diversion | E1 | K2 | Prototype test planned |
+| `IF-EXT-KIN-CLR-VOLUME-001` | Full moving machine keep-out envelope | E1 | K2 | Outline coupon and motion test planned |
 
-The JSON contract records the primary discovered boundary and the independently
-measured 17 mm screw pitch. The installed reference supports the Kobra 3 Max
-variant, physical side and direct mounting principle. It does not establish the
-clean-room R7 envelope, fastener contract or tolerances, so G2 remains failed.
+The independently measured vertical screw pitch is 17 mm. That is the only
+fastener geometry currently admitted as a measured design input. Hole diameter,
+head seat and screw length are deliberately `UNKNOWN` until physically measured.
 
 ## Hard gates
 
 | Gate | Status |
 |---|---|
-| G0 | PASS |
-| G1 | PASS |
-| G2 | FAIL |
-| G3 | PASS |
-| G4 | PASS |
-| G5 | PASS |
-| G6 | WARN |
+| G0 purpose | PASS |
+| G1 entities | PASS |
+| G2 critical interfaces | FAIL |
+| G3 complexity | PASS |
+| G4 criticality | PASS |
+| G5 manufacturing context | PASS |
+| G6 maintenance and service | PASS |
 
-## Warnings
+## Main failure modes
 
-- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The exact host variant and 17 mm screw pitch are supported, but the clean-room accessory still lacks a complete machine envelope, hardware contract, tolerances and physical coupon result.
-- `THIRD_PARTY_BY_NC` (WARN): The strongest fit reference is marked BY-NC and may not be copied into a commercial R7 design; its exact license version is not embedded.
-- `REFERENCE_PROFILE_MISMATCH` (WARN): The reference 3MF embeds a Bambu Lab P1S profile, not an Anycubic Kobra 3 Max manufacturing profile.
-
-## Functional FMEA
-
-| Failure | Local/final effect | Detection | Mitigation | Verification |
-|---|---|---|---|---|
-| Primary interface misses fit or functional intent | Loss of function; consequences listed under criticality | Variant measurement, coupon, and controlled prototype inspection | Confirm host/variant, tolerance, uncertainty, keep-outs, and stop conditions | Coupon/prototype test; expert review for K3/K4 |
+| Failure | Effect | Control |
+|---|---|---|
+| Hole, head seat or screw stack does not match | No fit, Wiper distortion, loosening or printed-zone fracture | Caliper measurement plus 17 mm hole-pattern/seating coupon |
+| Added thickness reduces thread engagement | Unreliable original Wiper or accessory retention | Record screw and stack dimensions; verify replacement length if needed |
+| Body enters an omitted machine envelope | Collision or damage | Owned outline coupon and powered-off full-travel/service sweep |
+| Purge catches on internal, honeycomb or logo edges | Backlog or uncontrolled fall | Smooth bottomless section and nine supervised low/mid/high-Z purge cycles |
 
 ## Next evidence
 
-1. Build and fit a clean-room 17 mm hole-pattern plus conservative outline coupon from the user's own measurements and machine photos. Exit: The coupon fits the powered-off target machine, screw hardware and engagement are recorded, and no third-party contour or dimension is used.
-2. Select the storage architecture before reopening concept approval. Exit: The owner explicitly approves either lightweight moving diversion with stationary storage or directly mounted moving storage, including the corresponding moving-mass and service constraints.
-3. Verify the complete machine-motion and service envelope with the selected clean-room concept. Exit: Powered-off full-travel, tool-access and removal-sweep tests meet the documented clearance criteria.
+1. Measure screw/shaft diameter, head diameter, head height, current length under head and seating stack; then fit an independently designed 17 mm hole-pattern and outline coupon.
+2. Obtain explicit approval for `0.7.0-requirements.5`, then create a non-dimensional clean-room concept sheet showing the direct holes, bottomless section, open honeycomb walls and centred logo.
+3. After concept approval, implement production CAD and verify the complete powered-off motion/service envelope and physical purge path before print-candidate release.
 
-## Traceability basis
-
-- `design-spec.yaml`
-- `WIPER-PHOTO-MEASUREMENTS-R7.yaml`
-- `learning-trace-interface-r7.yaml`
-- `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md`
-- `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json`
-- `research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf`
-- `REQUIREMENTS-PHASE-VALIDATION-R7.json`
-- `CONCEPT-PHASE-VALIDATION-R7.json`
-- `current/anycubic-kobra3max-purge-catcher-r7/README-DE.md`
-- `current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json`
-- `current/anycubic-kobra3max-purge-catcher-r7/validation-project.json`
-- `current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json`
-- `current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json`
+No CAD, manufacturing 3MF or slicer run is authorized by this preflight.

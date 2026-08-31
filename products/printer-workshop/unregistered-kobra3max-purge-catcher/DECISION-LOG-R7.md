@@ -148,3 +148,26 @@
 - Konflikt: Die passende Referenz nutzt einen etwa 120 mm hohen, vollständig mitfahrenden Speicherbehälter. Die bisherige R7-Freigabe verlangte dagegen einen leichten lokalen Umlenker und einen stationären Speicherbehälter.
 - Entscheidung: Keine neue Vollgeometrie, bis der Produkteigner ausdrücklich zwischen diesen Architekturen gewählt hat. Unabhängig von der Wahl wird zuerst eine eigene 17-mm-Lochbild-/Umrisslehre aus den eigenen Maschinenmessungen erzeugt und am stromlosen Drucker geprüft.
 - Fertigung: Die Drittanbieter-3MF enthält ein Bambu-P1S-Profil und ist kein unmittelbar gültiges Anycubic-Kobra-3-Max-Projekt.
+
+## 2026-08-31 – Anforderungen 0.7.0-requirements.5
+
+### DEC-R7-022 – Einteiliger, bodenloser und direkt verschraubter Umlenker
+
+- Status: vom Benutzer vorgegeben; formale Freigabe der konsolidierten Anforderungen `.5` ausstehend
+- Entscheidung: Der Umlenker wird ein einziges Druckteil. Zwei Schraublöcher liegen direkt in einer massiven lokalen Montagezone und nutzen das vorhandene, unabhängig mit 17 mm Mitte-Mitte gemessene Wiper-Schraubenpaar. Das Teil ist im Betrieb fest verschraubt und nur nach vollständigem Lösen beider Schrauben demontierbar.
+- Entfall: Separate Datumplatte, Clip, Schlitten, Rastung, Schnellverschluss, Boden, Klappe und integriertes Speichervolumen werden nicht fortgeführt. DEC-R7-008 bis DEC-R7-010 und die entsprechende frühere Konzeptfreigabe sind für die neue Revision ersetzt.
+- Strömung: Der Trefferbereich geht ohne purgetragende horizontale Tasche in einen vollständig offenen unteren Auslass über; Filamentreste fallen unmittelbar nach unten.
+- Rechte: Aus der Drittanbieter-3MF werden weder Kontur, Maße, Loch-/Schlitzform noch Bauteilgeometrie übernommen. Nur das bereits unabhängig am eigenen Drucker gemessene 17-mm-Lochbild ist ein Designinput.
+
+### DEC-R7-023 – Offene Waben und mittiges eigenes Logo bleiben geschützt
+
+- Status: vom Benutzer vorgegeben; formale Freigabe der konsolidierten Anforderungen `.5` ausstehend
+- Entscheidung: Die sichtbaren Seitenwände behalten offene Wabenfelder. Das eigene metriMade-Logo sitzt mittig auf einer zusammenhängenden massiven Insel der sichtbaren Hauptwand.
+- Last- und Flussgrenze: Waben und Logo werden weder in die direkten Schraubenlastpfade noch in die interne Purge-Flugbahn gelegt. Massive Schraubenpads und lokale Rippen dürfen die Gestaltung nur im erforderlichen Lastbereich unterbrechen.
+
+### DEC-R7-024 – Schraubendaten und externer Bauraum bleiben physische Gates
+
+- Status: blockierend für Produktions-CAD; Messung und Coupon ausstehend
+- Entscheidung: Gewinde-/Schaftdurchmesser, Kopf-Ø, Kopfhöhe, vorhandene Länge unter Kopf, gedruckte Auflagendicke und verbleibender Gewindeeingriff werden nicht aus der Fremddatei oder einem angenommenen M-Schraubenstandard abgeleitet.
+- Nachweisfolge: Zuerst Realmaße erfassen und eine eigene 17-mm-Lochbild-/Auflagendicken-/Umrisslehre drucken. Danach stromlos Sitz, Wiper-Lage, Werkzeugzugang und vollständige Maschinenbewegung prüfen. Erst ein bestandener Coupon darf die direkte Schraubenzone für ein Vollteil freigeben.
+- Konzeptgrenze: Preflight erlaubt bis dahin nur ein nicht maßhaltiges Clean-Room-Konzept. Produktions-CAD, Fertigungs-3MF und Slicing bleiben hinter Anforderungs- und Konzeptfreigabe sowie den physischen Interface-Gates gesperrt.

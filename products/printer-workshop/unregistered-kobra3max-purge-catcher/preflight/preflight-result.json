@@ -1,53 +1,98 @@
 {
-  "assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-002",
-  "assessment_version": "0.2.0",
+  "assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-003",
+  "assessment_version": "0.3.0",
   "assessment_date": "2026-08-31",
   "product": "Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf",
   "scope": {
-    "intended_use": "Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.",
-    "user_context": "Betreiber eines Anycubic Kobra 3 Max; die konkrete Maschine ist durch eigene Fotos und Benutzermessungen dokumentiert, Serien-/Revisionskennung und vollständige Maschinenhüllkurve bleiben unbekannt.",
+    "intended_use": "Ein einteiliger, bodenloser Umlenker fährt fest mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und leitet sie durch einen freien unteren Auslass nach unten. Die beiden vorhandenen Wiper-Schrauben befestigen den Umlenker direkt; es gibt weder Adapterplatte noch Clip oder Schnellverschluss.",
+    "user_context": "Betreiber eines Anycubic Kobra 3 Max; die konkrete Maschine ist durch eigene Fotos und Benutzermessungen dokumentiert. Serien-/Revisionskennung, Schraubenhardware und vollständige Maschinenhüllkurve bleiben unbekannt.",
     "variants": [
       "Anycubic Kobra 3 Max",
-      "0.7.0-requirements.4"
+      "0.7.0-requirements.5"
     ],
     "out_of_scope": [
-      "Claims not explicitly supported by the cited repository evidence",
-      "Production release without closure of blocking gates"
+      "Storage bin, floor, flap, clip, adapter plate, slider, latch or quick-release",
+      "Geometry, contours or dimensions derived from the third-party reference",
+      "Production release before physical interface and motion-envelope verification",
+      "Printer upload or print start"
     ]
   },
   "entities": [
     {
       "id": "E-PRINT-001",
       "kind": "PRINTED_PART",
-      "name": "Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf"
+      "name": "One-piece bottomless purge diverter"
     },
     {
       "id": "E-HOST-001",
       "kind": "HOST_OBJECT",
-      "name": "Anycubic Kobra 3 Max Purge-Wiper assembly"
+      "name": "Anycubic Kobra 3 Max Purge-Wiper assembly and machine envelope"
+    },
+    {
+      "id": "E-PURCHASED-001",
+      "kind": "PURCHASED_PART",
+      "name": "Two existing Wiper screws with unverified identity"
+    },
+    {
+      "id": "E-MEDIUM-001",
+      "kind": "MEDIUM",
+      "name": "Warm filament purge remnants"
     }
   ],
   "interfaces": [
     {
-      "id": "IF-EXT-GEO-CON-MIXED-001",
-      "name": "Printed product to intended host",
+      "id": "IF-EXT-GEO-FST-HLP-001",
+      "name": "Direct fixed two-screw Wiper mount",
+      "endpoint_a": "E-PRINT-001",
       "endpoint_b": "E-HOST-001",
       "boundary": "EXT",
       "domains": [
         "GEO",
-        "MEC"
+        "MEC",
+        "KIN"
       ],
-      "function": "CON",
-      "geometry": "MIXED",
-      "endpoint_a": "E-PRINT-001",
+      "function": "FST",
+      "geometry": "HLP",
       "lifecycle_states": [
         "assembly",
         "use",
         "cleaning",
         "service",
         "disassembly",
-        "storage"
+        "failure"
       ],
+      "coordinate_frame": {
+        "origin": "centre of the lower Wiper screw at the screw seating plane",
+        "x_positive": "from the Wiper screw datum toward the purge impact wall",
+        "y_positive": "toward the operator and printer front",
+        "z_positive": "upward along the vertical screw pair",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "DAT-WIPER-SCREW-LOWER",
+          "description": "Centre of lower existing Wiper screw"
+        },
+        {
+          "id": "DAT-WIPER-SCREW-UPPER",
+          "description": "Centre of upper existing Wiper screw"
+        },
+        {
+          "id": "DAT-WIPER-SEATING-PLANE",
+          "description": "Real printed-part seating plane under the two screw heads"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [],
+        "constrained": [
+          "all translation and rotation in use"
+        ]
+      },
+      "assembly": {
+        "direction": "Align both integrated holes with the powered-off Wiper screw pair and tighten both verified screws through the printed body",
+        "contact_mode": "fixed screw-clamped printed pads against the measured host seating surface",
+        "sequence_notes": "No adapter, clip or quick-release; removal requires deliberate loosening of both screws. Confirm that screw engagement and Wiper alignment are not reduced."
+      },
       "dimensions": [
         {
           "id": "DIM-SCREW-PITCH-001",
@@ -62,116 +107,358 @@
           "criticality": "FIT_CRITICAL"
         },
         {
-          "id": "DIM-PRIMARY-001",
-          "feature": "Primary interface envelope and functional allowance",
+          "id": "DIM-SCREW-SHAFT-001",
+          "feature": "Screw thread or shaft diameter and required printed-hole clearance",
           "nominal_mm": null,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
           "uncertainty_mm": null,
           "status": "UNKNOWN",
-          "source_ref": "design-spec.yaml",
+          "source_ref": null,
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-SCREW-HEAD-001",
+          "feature": "Screw-head diameter, height and printed seating geometry",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": null,
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-SCREW-ENGAGEMENT-001",
+          "feature": "Existing screw length, printed seating thickness and remaining thread engagement",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": null,
           "criticality": "FUNCTION_CRITICAL"
         }
+      ],
+      "loads_and_performance": {
+        "load_cases": [
+          "screw clamp load",
+          "moving self-mass under Z acceleration",
+          "printer vibration",
+          "short purge impact impulses"
+        ],
+        "moving_mass_target_g": 25,
+        "target_status": "project target, not a manufacturer-approved machine load"
+      },
+      "keepouts_and_access": [
+        "Wiper shell and metal purge ledge",
+        "bed, rollers, print head and cable motion envelope",
+        "tool access to both screw heads",
+        "complete installation and disassembly sweep"
       ],
       "evidence": {
         "level": "E2",
         "sources": [
           "design-spec.yaml",
           "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+          "Photos-1-001/",
           "learning-trace-interface-r7.yaml",
-          "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md",
-          "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json",
-          "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf",
-          "REQUIREMENTS-PHASE-VALIDATION-R7.json",
-          "CONCEPT-PHASE-VALIDATION-R7.json",
-          "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
-          "current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json",
-          "current/anycubic-kobra3max-purge-catcher-r7/validation-project.json",
-          "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json",
-          "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
+          "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md"
         ],
         "variant_confirmed": true,
-        "coverage_percent": 70,
-        "uncertainty_note": "The exact Kobra 3 Max variant and 17 mm screw pitch are supported, including an installed third-party reference, but the clean-room accessory envelope, screw hardware, tolerances and full machine-motion keep-outs remain unverified.",
+        "coverage_percent": 60,
+        "uncertainty_note": "The 17 mm pitch and moving-side interface are supported by owned measurement evidence. Screw identity, head seat, seating thickness, remaining thread engagement, full host envelope and real coupon result remain unknown; no third-party contour or dimension is adopted.",
         "observability": "PARTLY_OBSERVED"
       },
       "interface_complexity": {
         "GEO": 2,
         "KIN": 1,
         "TOL": 3,
-        "PHY": 3,
-        "VAR": 2,
+        "PHY": 2,
+        "VAR": 1,
         "LIF": 3,
-        "total": 14,
+        "total": 12,
         "tier": "I3"
       },
       "criticality": "K2",
       "failure_modes": [
         {
-          "mode": "Primary interface does not meet fit or functional intent",
-          "effect": "Loss of intended function and the credible failure effects recorded at product level",
-          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+          "mode": "Hole pattern, head seat or printed mounting zone does not match the real Wiper interface",
+          "effect": "The diverter cannot be installed, distorts the Wiper, loosens, cracks or detaches during machine motion",
+          "mitigation": "Measure the real screws and seating interface, preserve solid load paths, and fit a cheap 17 mm hole-pattern and outline coupon before any full body."
+        },
+        {
+          "mode": "Printed seating thickness reduces screw engagement or changes Wiper alignment",
+          "effect": "Original Wiper function or accessory retention becomes unreliable",
+          "mitigation": "Record existing screw length, head geometry, host stack and required engagement; use verified replacement length only if necessary."
         }
       ],
       "verification": {
-        "method": "prototype_test",
+        "method": "test_coupon",
         "acceptance_criteria": [
-          "A clean-room 17 mm hole-pattern and conservative outline coupon fits the powered-off target machine without interference.",
-          "The complete installed accessory and service sweep retain the approved clearance over the full powered-off machine-motion envelope."
+          "An independently designed 17 mm hole-pattern and seating-thickness coupon fits both powered-off Wiper screws without forcing, bending or shifting the Wiper.",
+          "Thread, shaft, head diameter, head height, length under head, printed seating thickness and remaining thread engagement are recorded and accepted.",
+          "Both screws clamp the coupon and later the one-piece diverter directly; no adapter, clip, slider, latch or quick-release exists."
         ],
         "status": "PLANNED",
         "result_refs": []
       },
       "owner": "product owner",
-      "version": "0.1"
+      "version": "0.3"
+    },
+    {
+      "id": "IF-INT-FLU-GDE-VOLUME-001",
+      "name": "Bottomless purge capture and gravity diversion",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-MEDIUM-001",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "FLU",
+        "THM"
+      ],
+      "function": "GDE",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "use",
+        "cleaning",
+        "failure"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PURGE-DATUM-Z-001",
+          "feature": "Lower Wiper screw centre to user-observed purge deposition plane",
+          "nominal_mm": 10.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DIRECT_MEASURED",
+          "source_ref": "WIPER-PHOTO-MEASUREMENTS-R7.yaml#M-R7-002",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-PURGE-THROW-001",
+          "feature": "Screw datum to user-observed horizontal purge throw plane; exact endpoints and axis assignment remain to be confirmed",
+          "nominal_mm": 37.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DIRECT_MEASURED",
+          "source_ref": "WIPER-PHOTO-MEASUREMENTS-R7.yaml#M-R7-003",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-OPEN-OUTLET-001",
+          "feature": "Minimum clear cross-section from impact zone through the fully open lower outlet",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": null,
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "medium": "warm, irregular and sometimes stringy filament remnants",
+        "temperature": "unknown at impact",
+        "storage": "no storage floor or moving purge mass in the diverter"
+      },
+      "keepouts_and_access": [
+        "No horizontal pocket, flap, floor or constriction in the downward flow path",
+        "Honeycomb and logo edges must remain outside the internal purge trajectory",
+        "Cleaning access without routine disassembly"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "design-spec.yaml",
+          "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+          "learning-trace-interface-r7.yaml"
+        ],
+        "variant_confirmed": true,
+        "coverage_percent": 45,
+        "uncertainty_note": "The desired bottomless flow architecture and measured purge-related offsets are documented, but no approved new concept, geometry or low/mid/high-Z physical purge-cycle result exists.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Purge misses the impact zone or catches on internal, honeycomb or logo edges",
+          "effect": "Purge accumulates on the machine, obstructs the outlet or falls outside the intended path",
+          "mitigation": "Keep the internal path smooth and bottomless, isolate decorative openings from the flow, and test representative purge cycles at low, middle and high Z."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "The CAD section contains no purge-bearing floor, flap, horizontal pocket or long closed channel.",
+          "At least three supervised purge cycles at each of low, middle and high Z enter the diverter and leave the open lower outlet without manual assistance or back-up."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.3"
+    },
+    {
+      "id": "IF-EXT-KIN-CLR-VOLUME-001",
+      "name": "Moving diverter to complete machine keep-out envelope",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-HOST-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "KIN"
+      ],
+      "function": "CLR",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-WIPER-REAR-001",
+          "feature": "User-observed screw-plane to rear Wiper extent; exact axis and bounding use require confirmation",
+          "nominal_mm": 40.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DIRECT_MEASURED",
+          "source_ref": "WIPER-PHOTO-MEASUREMENTS-R7.yaml#M-R7-004",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-MACHINE-CLEARANCE-001",
+          "feature": "Minimum verified clearance to Wiper, bed, rollers, print head and cables over the full motion and service sweep",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": 5.0,
+          "uncertainty_mm": null,
+          "status": "ESTIMATED",
+          "source_ref": "design-spec.yaml#acceptance.machine-clearance",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Full powered-off X/Y/Z machine travel",
+        "Wiper shell, metal ledge, rollers, bed, print head and cables",
+        "Access to both screw heads",
+        "Direct-body installation and removal sweep"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+          "Photos-1-001/",
+          "FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md",
+          "learning-trace-interface-r7.yaml"
+        ],
+        "variant_confirmed": true,
+        "coverage_percent": 35,
+        "uncertainty_note": "The prior model was rejected because its internally consistent datums did not represent the external machine envelope. Complete owned keep-outs and a real-machine outline coupon remain absent.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 3,
+        "KIN": 3,
+        "TOL": 3,
+        "PHY": 1,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 15,
+        "tier": "I4"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "The directly mounted diverter intersects an omitted stock part or motion envelope",
+          "effect": "Machine collision, loss of function, accessory damage or property damage",
+          "mitigation": "Derive an owned conservative outline from physical measurements, fit an outline coupon and complete a powered-off full-travel and tool-access sweep before any print-candidate claim."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "A clean-room outline and hole-pattern coupon fits the target machine without collision or forced installation.",
+          "The installed one-piece diverter, screw heads, tool access and service sweep retain at least 5 mm target clearance over the complete powered-off motion envelope unless a smaller documented clearance receives explicit human approval."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.3"
     }
   ],
   "complexity": {
     "dimension_scores": {
       "REQ": 2,
       "CTX": 2,
-      "PAR": 2,
+      "PAR": 1,
       "INT": 3,
-      "CPL": 2,
+      "CPL": 1,
       "MOT": 2,
       "GEO": 2,
       "PHY": 3,
       "MAT": 2,
-      "EXT": 2,
+      "EXT": 1,
       "VER": 3
     },
-    "score_0_100": 59.3,
+    "score_0_100": 52.5,
     "class": "C3",
     "drivers": [
-      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
-      "MOT=2: The accessory co-moves with the Purge-Wiper along the guided Z translation.",
-      "PHY=3: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested.",
-      "VER=3: Several fit, function, flow, load, motion, or process checks are required."
+      "INT=3: Direct fastener, host-envelope and purge-medium boundaries govern fit and function.",
+      "MOT=2: The one-piece diverter co-moves with the Purge-Wiper along the guided Z translation.",
+      "PHY=3: Printed screw clamping, vibration, warm purge impact and gravity diversion require controlled physical tests.",
+      "VER=3: Hole-pattern, screw engagement, full motion, purge flow, mesh and slicer checks are all required."
     ]
   },
   "readiness": {
     "level": "R2",
     "component_levels": {
-      "scope_variant": "R3",
-      "requirements": "R2",
+      "scope_variant": "R4",
+      "requirements": "R3",
       "critical_interfaces": "R2",
       "manufacturing_profile": "R3",
       "verification": "R3"
     },
     "blocking_unknowns": [
-      "clean-room machine envelope, screw hardware, tolerances and uncertainty beyond the independently measured 17 mm pitch",
-      "architecture decision between a lightweight diverter with stationary storage and a directly mounted moving storage bin"
+      "screw thread or shaft diameter, head diameter, head height, existing length, printed seating thickness and remaining thread engagement",
+      "owned complete machine envelope and a passing 17 mm hole-pattern plus outline coupon",
+      "approved concept and physical purge trajectory through the bottomless outlet"
     ],
-    "completeness_percent": 62.0
+    "completeness_percent": 66.0
   },
   "criticality": {
     "level": "K2",
-    "rationale": "The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.",
+    "rationale": "A fixed printed accessory moves with the printer and carries screw clamp load near the Wiper, bed, head and cables; detachment, collision or purge obstruction therefore requires controlled fit and functional testing.",
     "credible_failure_effects": [
-      "functional failure",
-      "leakage, obstruction, or detachment",
-      "minor injury or property damage"
+      "inability to install or loss of purge-diversion function",
+      "Wiper misalignment, loosening or printed mounting-zone fracture",
+      "machine collision, obstruction or minor property damage"
     ]
   },
   "gates": {
@@ -181,24 +468,29 @@
     "G3": "PASS",
     "G4": "PASS",
     "G5": "PASS",
-    "G6": "WARN"
+    "G6": "PASS"
   },
   "decision": {
     "lane": "E",
     "confidence": "LOW_UNKNOWN",
-    "design_release": "HOLD",
-    "rationale": "The installed third-party reference materially improves variant, side, orientation and two-screw-interface evidence, but it cannot supply clean-room geometry or commercial rights. R7 remains held until its own envelope, hardware and architecture are approved and physically checked."
+    "design_release": "CONCEPT_ONLY",
+    "rationale": "The user has selected a simple one-piece, bottomless, direct two-screw architecture and preserved the honeycomb/logo appearance. This is sufficient to review a clean-room concept after explicit requirements approval, but production CAD remains blocked until the actual screw contract and complete owned machine envelope pass coupon and motion checks."
   },
   "warnings": [
     {
-      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "code": "CRITICAL_FASTENER_INTERFACE_UNKNOWN",
       "severity": "BLOCKER",
-      "message": "The exact host variant and 17 mm screw pitch are supported, but the clean-room accessory still lacks a complete machine envelope, hardware contract, tolerances and physical coupon result."
+      "message": "Only the 17 mm screw pitch is independently measured. Screw diameter, head geometry, length, printed seating thickness and remaining engagement are still unknown."
     },
     {
-      "code": "THIRD_PARTY_BY_NC",
+      "code": "COMPLETE_MACHINE_ENVELOPE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The prior model was rejected because internal datum consistency did not prove external fit; an owned outline/keep-out coupon and powered-off full-motion check are still required."
+    },
+    {
+      "code": "THIRD_PARTY_BY_NC_EVIDENCE_ONLY",
       "severity": "WARN",
-      "message": "The strongest fit reference is marked BY-NC and may not be copied into a commercial R7 design; its exact license version is not embedded."
+      "message": "The user-selected BY-NC 3MF may support qualitative side and mounting-principle observations only; its mesh, contours, dimensions, images and project metadata are excluded from the clean-room design."
     },
     {
       "code": "REFERENCE_PROFILE_MISMATCH",
@@ -209,46 +501,42 @@
   "next_actions": [
     {
       "priority": 1,
-      "action": "Build and fit a clean-room 17 mm hole-pattern plus conservative outline coupon from the user's own measurements and machine photos.",
-      "exit_criterion": "The coupon fits the powered-off target machine, screw hardware and engagement are recorded, and no third-party contour or dimension is used."
+      "action": "Measure the two existing Wiper screws and the real seating stack, then build an owned 17 mm hole-pattern, seating-thickness and conservative outline coupon.",
+      "exit_criterion": "Thread or shaft diameter, head diameter, head height, length under head, printed seating thickness and remaining engagement are recorded, and the coupon fits without forcing, Wiper shift or collision."
     },
     {
       "priority": 2,
-      "action": "Select the storage architecture before reopening concept approval.",
-      "exit_criterion": "The owner explicitly approves either lightweight moving diversion with stationary storage or directly mounted moving storage, including the corresponding moving-mass and service constraints."
+      "action": "After explicit approval of requirements revision 0.7.0-requirements.5, create and review a clean-room concept sheet for the one-piece bottomless diverter with direct screw holes, open honeycomb walls and centred owned logo.",
+      "exit_criterion": "The owner explicitly approves the concept architecture and appearance; the image is treated as non-dimensional and uses no third-party geometry or dimensions."
     },
     {
       "priority": 3,
-      "action": "Verify the complete machine-motion and service envelope with the selected clean-room concept.",
-      "exit_criterion": "Powered-off full-travel, tool-access and removal-sweep tests meet the documented clearance criteria."
+      "action": "Verify complete machine motion, screw access and the bottomless purge path with the approved clean-room concept and later prototype.",
+      "exit_criterion": "Powered-off full-travel and service-sweep checks meet the clearance contract, and nine supervised low/middle/high-Z purge cycles exit freely without backlog."
     }
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "ANYCUBIC-K3MAX-PURGE-CATCHER-R7",
-    "project_revision": "0.7.0-requirements.4",
+    "project_revision": "0.7.0-requirements.5",
     "basis_refs": [
       "design-spec.yaml",
       "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
       "learning-trace-interface-r7.yaml",
+      "FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md",
       "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md",
       "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json",
-      "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf",
-      "REQUIREMENTS-PHASE-VALIDATION-R7.json",
-      "CONCEPT-PHASE-VALIDATION-R7.json",
-      "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
-      "current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json",
-      "current/anycubic-kobra3max-purge-catcher-r7/validation-project.json",
-      "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json",
-      "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
+      "Photos-1-001/",
+      "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf"
     ],
     "change_triggers": [
-      "new_third_party_fit_reference",
-      "user_fit_assessment",
-      "interface_evidence_change"
+      "direct_fixed_mount_selected",
+      "removable_interface_eliminated",
+      "bottomless_diverter_selected",
+      "appearance_requirements_reconfirmed"
     ],
-    "previous_assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-001",
+    "previous_assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-002",
     "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T17:04:21+02:00"
+    "updated_at": "2026-08-31T17:47:15+02:00"
   }
 }

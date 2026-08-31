@@ -1,7 +1,7 @@
 project:
   id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
   name: "Anycubic Kobra 3 Max Purge Catcher — Interface-Neuentwurf"
-  revision: 0.7.0-requirements.4
+  revision: 0.7.0-requirements.5
   owner: Stefan
   revised: "2026-08-31"
   units: mm
@@ -17,29 +17,31 @@ project:
 workflow:
   preflight:
     status: current
-    mode: PROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-002
-    assessment_version: 0.2.0
-    assessed_project_revision: "0.7.0-requirements.4"
-    updated_at: "2026-08-31T17:04:21+02:00"
+    assessment_id: PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-003
+    assessment_version: 0.3.0
+    assessed_project_revision: "0.7.0-requirements.5"
+    updated_at: "2026-08-31T17:47:15+02:00"
     change_triggers:
-      - new_third_party_fit_reference
-      - user_fit_assessment
-      - interface_evidence_change
+      - direct_fixed_mount_selected
+      - removable_interface_eliminated
+      - bottomless_diverter_selected
+      - appearance_requirements_reconfirmed
   requirements_approval:
     status: changes-requested
-    spec_revision: 0.7.0-requirements.4
+    spec_revision: 0.7.0-requirements.5
     approved_by: null
     approved_at: null
     approval_message: null
-    change_reason: "R7-DRAFT-2 bleibt verworfen. Eine physisch montiert dokumentierte BY-NC-Drittanbieter-3MF wurde vom Benutzer als passend bewertet und verbessert die Evidenz für Seite, Orientierung und direktes Zweischraubenprinzip, darf aber nicht als eigene Geometriequelle dienen."
+    change_reason: "Der Benutzer legt eine eigenständige einteilige Architektur fest: zwei Schraublöcher direkt im bodenlosen Umlenker, fest mit beiden Wiper-Schrauben montiert, ohne Adapterplatte, Clip oder abnehmbaren Verschluss; offene Wabenwände und mittiges eigenes Logo bleiben."
     previous_approval:
       spec_revision: 0.7.0-requirements.2
       approved_by: "Stefan via conversation"
       approved_at: "2026-08-29T12:01:09+02:00"
       approval_message: "freigegebene"
-    accepted_defaults: [DEC-R7-01, DEC-R7-02, DEC-R7-03]
+    accepted_defaults: []
+    superseded_decisions: [DEC-R7-01, DEC-R7-02, DEC-R7-03]
     accepted_measurement_interpretation: "37 mm horizontaler Seitenversatz vom Schraubendatum zur Purge-Wurfbahn"
   concept_approval:
     status: blocked
@@ -65,7 +67,7 @@ workflow:
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-    version: 0.7.0-requirements.4
+    version: 0.7.0-requirements.5
     approved_by: null
     approved_at: null
   final_release_approval:
@@ -87,23 +89,28 @@ requirements_trace:
     - "Sechs Fotos in Photos-1-001 dokumentieren Wiper, Schrauben und angelegte Maßstäbe."
     - "R7-DRAFT-2 wird trotz plausibler Maßgrafik nicht an den realen Drucker passen."
     - "Die Drittanbieterdatei research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf würde nach Benutzerbewertung perfekt passen."
+    - "Das Drittanbieterbeispiel darf nicht als Geometrie- oder Maßquelle verwendet werden."
+    - "Unser Umlenker soll dieselben realen Maschinenschnittstellen nutzen: die beiden vorhandenen Wiper-Schrauben."
+    - "Die beiden Schraublöcher werden direkt in den Umlenker konstruiert; der Umlenker wird fest verschraubt."
+    - "Clip, Adapterplatte und jeder abnehmbare Schnellverschluss entfallen."
+    - "Der Umlenker erhält keinen Boden, damit Purge unmittelbar nach unten fällt."
+    - "Die offenen Wabenwände bleiben erhalten und das eigene Logo sitzt mittig auf der sichtbaren Wabenwand."
   inferred:
     - "Die R6-Fangfunktion nahe am Wiper, die offene Fallstrecke, die glatte Wabenstruktur und die metriMade-Gestaltung sollen grundsätzlich erhalten bleiben."
     - "Der lokale Fangkopf muss dasselbe bewegte Z-Bezugssystem wie der Purge-Wiper besitzen; eine stationäre Fangöffnung an nur einer Z-Höhe ist ungeeignet."
-    - "Die mitbewegte Baugruppe soll nur fangen und umlenken; die Speichermasse bleibt in einem stationären Behälter unterhalb des Bewegungsbereichs."
+    - "Die mitbewegte Baugruppe fängt nur und lenkt nach unten um; sie besitzt keinen integrierten Speicherboden."
     - "Das direkte Wiper-Interface ist normal-funktional, aber wegen bewegter Masse, Schraubeneingriff, Bett-, Kopf-, Kabel- und Wiper-Kollision physisch zu qualifizieren."
-    - "Die sichtbare schmale Schraubenauflage eignet sich eher für eine dünne frontseitige Datumplatte als für einen tief um das Wiper-Gehäuse greifenden Clip."
-    - "Die eingebetteten Montagefotos der passenden Referenz bestätigen die physische Seite und zeigen, dass ein direkt gemeinsam mit dem Wiper verschraubter Catcher ohne zusätzliches Maschineninterface grundsätzlich funktioniert."
-    - "Die passende Referenz nutzt einen integrierten mitfahrenden Speicherbehälter; ob dieses Architekturmerkmal für R7 übernommen oder nur die direkte Montage als Prinzip genutzt werden soll, ist noch nicht freigegeben."
+    - "Die direkte Schraubenzone wird als lokale massive Rippe/Lasche Bestandteil derselben Druckgeometrie wie der Umlenker."
+    - "Ein separater stationärer Behälter darf unterhalb stehen, gehört aber nicht zur aktuellen Umlenker-Geometrie."
   recommended:
     - "R7 wird als leichter, direkt am Wiper befestigter Z-Rider ausgelegt, der der Purge-Quelle über den vollständigen Z-Weg folgt."
     - "Der weitgehend erhaltene R6-Fangkopf leitet Purge unmittelbar über einen glatten, offenen Auslass nach unten; es gibt keinen Tower, Schlauch oder Führungskanal über die volle Z-Höhe."
-    - "Eine minimale feste Datumplatte nutzt das mit 17 mm Mitte-Mitte-Abstand gemessene vorhandene Wiper-Schraubenpaar; der Fangkopf wird mit einem kurzen seitlichen oder schwenkenden Serviceweg und positiver Sicherung aufgenommen."
+    - "Eine lokale massive Schraubenzone im Umlenker nutzt das unabhängig mit 17 mm Mitte-Mitte-Abstand gemessene Wiper-Schraubenpaar; ein Rundloch plus ein kurzes toleranzausgleichendes Sekundärloch wird nach bestätigtem Schraubenmaß bevorzugt."
     - "Die bewegte Baugruppe soll einschließlich Adapter höchstens 25 g wiegen; der Schwerpunkt bleibt möglichst dicht an Schraubenebene und Wiper. Dieser Wert ist ein vorläufiges Projektziel, keine zulässige Maschinenlast."
-    - "Ein großer, stationärer Behälter unterhalb des Wipers speichert den Purge; seine Fangfläche wird aus beaufsichtigten Auswürfen bei niedriger, mittlerer und hoher Z-Position abgeleitet."
+    - "Der untere Querschnitt bleibt vollständig offen; ein beliebiger separater Behälter kann darunter stehen, ohne mechanisches Interface zum Umlenker."
     - "Der freistehende Dock-Tower und die vertikale R6-Schwalbenschwanzführung entfallen."
-    - "Vor neuer Vollgeometrie zuerst eine eigene 17-mm-Lochbild- und konservative Umrisslehre aus Benutzermessungen und Maschinenfotos ableiten; keine Fremdkontur oder Fremdmaße verwenden."
-  resolved_by_requirements_approval:
+    - "Vor neuer Vollgeometrie zuerst eine eigene 17-mm-Lochbild- und konservative Umrisslehre aus Benutzermessungen und Maschinenfotos ableiten; Gewinde, Kopf und Schraubenlänge am realen Drucker erfassen; keine Fremdkontur oder Fremdmaße verwenden."
+  previous_requirements_decisions:
     - id: DEC-R7-01
       question: "Darf eine minimale Datumplatte mit dem vorhandenen, vertikal 17 mm beabstandeten Wiper-Schraubenpaar befestigt werden, sobald Kopfmaß, Schraubenlänge und Gewindeeingriff ergänzt wurden?"
       recommendation: "Ja; die nun gemessene Schraubenlage als eindeutiges Bewegungsdatum nutzen und die reale Schraubenlänge nur nach Messcoupon festlegen."
@@ -125,20 +132,24 @@ requirements_trace:
 
 function:
   summary: >
-    Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt
-    Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal
-    nach unten in einen stationären, entnehmbaren Sammelbehälter.
+    Ein einteiliger, bodenloser Umlenker ist mit den beiden vorhandenen
+    Wiper-Schrauben fest am bewegten Purge-Wiper verschraubt, fängt
+    Filamentreste unmittelbar an der Quelle und lässt sie durch einen freien
+    unteren Auslass nach unten fallen.
   intended_user: "Betreiber eines Anycubic Kobra 3 Max"
   included:
     - "R6-Fangkopf als gestalterische und funktionale Ausgangsbasis"
-    - "minimale Datumplatte am real vermessenen Wiper-Schraubenpaar"
-    - "kurzer seitlicher oder schwenkender Schnellverschluss mit positiver Sicherung"
+    - "zwei direkt in eine lokale massive Umlenkerzone integrierte Schraublöcher am real vermessenen Wiper-Schraubenpaar"
+    - "einteilige, ausschließlich durch Lösen der beiden Maschinenschrauben demontierbare Bauweise"
     - "lokaler, glatter Abwärts-Umlenker ohne Purge-Ablagekante"
-    - "stationärer, werkzeuglos entnehmbarer Unterbehälter"
-    - "Schrauben-/Lochbild-, Verriegelungs-, Kollisions- und Flugbahn-Coupons vor dem Vollsatz"
+    - "vollständig offener unterer Auslass ohne Boden oder Speichervolumen"
+    - "offene Wabenwände mit mittig angeordneter eigener metriMade-Kennzeichnung auf der sichtbaren Hauptwand"
+    - "Schrauben-/Lochbild-, Umriss-, Kollisions- und Flugbahn-Coupons vor dem Vollteil"
   excluded:
     - "kein stationärer Tower, Mast, Schlauch oder Kanal über die Z-Höhe"
     - "kein mitfahrender Speicherbehälter für angesammelten Purge"
+    - "keine separate Datumplatte, kein Clip, kein Schlitten, keine Rastung und kein werkzeugloser Schnellverschluss"
+    - "kein Boden und keine Klappe am Umlenker"
     - "keine Magnete ohne verifizierte Chassiswerkstoffe und Elektronikabstände"
     - "keine Übernahme, Nachzeichnung oder Skalierung fremder Meshes, Konturen, Lochbilder oder Maße"
     - "kein Drucker-Upload und kein Druckstart"
@@ -153,18 +164,20 @@ geometry:
     - "offene Fallstrecke nominell 57 x 39 mm"
     - "62 mm hohe Prallwand mit 12 mm Fanghaube"
     - "geschlossener oberer Schlagraum und glatte offene Waben darunter"
-    - "vollständige metriMade-Lockups auf den drei sichtbaren Seiten"
+    - "offene Wabenfelder in den sichtbaren Wänden"
+    - "mittiges eigenes metriMade-Logo auf der sichtbaren Haupt-Wabenwand"
   permitted_changes:
     - "Entfernung des R6-Schwalbenschwanzempfängers auf der Maschinenseite"
-    - "lokale, eigene Verbindung zwischen Fangkopf und Wiper-Datumplatte"
-    - "lokale Formänderung am unteren Auslass für eine unmittelbare, glatte Abwärtsumlenkung"
+    - "Entfernung von separater Datumplatte, Führung, Clip und Verriegelung"
+    - "Integration der beiden Schraublöcher und lokaler Lastpfade direkt in die maschinenseitige Umlenkerwand"
+    - "vollständige Entfernung des Bodens für eine unmittelbare, glatte Abwärtsumlenkung"
     - "lokale Rippen und Lastpfade außerhalb von Einflug, Fallöffnung, Logos und Waben"
   planned_architecture:
-    moving_frame: "Fangkopf, Umlenker und lösbarer Anschluss bewegen sich starr mit dem Purge-Wiper über dessen vollständigen Z-Weg"
-    machine_datum: "minimale frontseitige Platte am vertikalen Wiper-Schraubenpaar mit 17 mm Mitte-Mitte-Abstand; ein Runddatum plus ein toleranzausgleichendes Sekundärdatum"
-    catcher_release: "zweipunktig geführter Kurzhub-Anschluss mit kurzer lateraler oder schwenkender Entnahme und positiver Rastung"
+    moving_frame: "ein einziger Fang-/Umlenkerkörper bewegt sich starr mit dem Purge-Wiper über dessen vollständigen Z-Weg"
+    machine_datum: "direkte feste Verschraubung des Umlenkerkörpers am vertikalen Wiper-Schraubenpaar mit unabhängig gemessenen 17 mm Mitte-Mitte-Abstand"
+    catcher_release: "kein separates Interface; Demontage ausschließlich durch vollständiges Lösen der beiden Wiper-Schrauben"
     diversion: "offener, stetiger Übergang von der Trefferzone in einen nach unten gerichteten Auslass; keine Tasche, Stufe oder lange Leitung"
-    storage: "stationärer, werkzeuglos entnehmbarer Großbehälter unterhalb der gemessenen Landefläche; keine mechanische Verbindung zum Fangkopf"
+    storage: "nicht Bestandteil des Umlenkers; der Auslass bleibt bodenlos und fällt frei in den Bereich unterhalb"
   measured_datums:
     source: WIPER-PHOTO-MEASUREMENTS-R7.yaml
     screw_center_pitch_z_mm: 17
@@ -172,50 +185,36 @@ geometry:
     screw_datum_to_horizontal_purge_throw_plane_mm: 37
     screw_plane_to_rear_wiper_extent_mm: 40
     status: "R7-DRAFT-2 besitzt nominale interne Bindungen, wurde aber wegen fehlendem realem Einbaunachweis vom Benutzer verworfen"
-    reference_cross_check: "Die BY-NC-Referenz besitzt einen nominell 17 mm beabstandeten Zweischraubenanschluss und eingebettete Montagefotos am Kobra 3 Max; dies bestätigt das unabhängig gemessene Schraubenpaar qualitativ, ist aber keine CAD-Maßquelle."
+    reference_cross_check: "Die Drittanbieterdatei bleibt reine Provenienz- und Rechte-Evidenz. Ihr Lochbild, ihre Kontur und ihre Maße werden nicht geprüft oder als CAD-Input verwendet; das 17-mm-Lochbild stammt ausschließlich aus der eigenen Benutzermessung."
   unresolved_measurements:
     - "Schraubenkopf-Durchmesser und -Höhe, Gewindegröße, vorhandene Schraubenlänge, Bauteildicke und verbleibender Gewindeeingriff"
     - "Wiper-Außenkontur und freier Bauraum links, rechts, unterhalb und vor der Schraubenebene"
     - "exakte lokale X/Y-Zuordnung und Enddatums der 37-mm-Messung im Konzeptblatt"
     - "Purge-Austrittsdatum relativ zum Schraubenpaar jenseits der angegebenen 10-/37-mm-Bezüge"
     - "vollständige Bett-, Kopf-, Kabel- und Wiper-Keep-outs über X/Y und den gesamten Z-Weg"
-    - "Purge-Landeflächen bei niedriger, mittlerer und hoher Z-Position sowie verfügbare Stellfläche des Unterbehälters"
-    - "vom Benutzer erkannte konkrete Fehlpassung: falsche Seite/Ausrichtung, Hüllkurvenkollision oder unpassendes Schraubeninterface"
-    - "zulässige freie X/Y/Z-Hüllkurve für Platte, Verriegelung und Catcher relativ zu vorhandener Wiper-Schale, Metallablage, Rollen, Kabeln und Bett"
-    - "Produktentscheidung, ob R7 einen kleinen Umlenker mit stationärem Unterbehälter oder einen direkt verschraubten mitfahrenden Speicher wie die Referenz erhalten soll"
+    - "Purge-Landeflächen bei niedriger, mittlerer und hoher Z-Position unterhalb des bodenlosen Auslasses"
+    - "zulässige freie X/Y/Z-Hüllkurve für die direkte Schraubenzone und den Umlenkerkörper relativ zu Wiper-Schale, Metallablage, Rollen, Kabeln und Bett"
 
 interfaces:
-  - id: IF-R7-WIPER-PLATE
-    kind: "measured bolted moving datum"
-    owner: "WIPER_DATUM_PLATE"
-    joining: "vorhandenes Wiper-Schraubenpaar; exakte Bohrung, Kopfauflage und Schraubenlänge erst nach Realmaß/Coupon"
+  - id: IF-R7-WIPER-DIVERTER
+    kind: "direct fixed two-screw moving datum"
+    owner: "BOTTOMLESS_DIVERTER"
+    joining: "zwei direkt im Umlenker liegende Schraublöcher am vorhandenen Wiper-Schraubenpaar; 17 mm Achsabstand gemessen, Durchmesser, Kopfauflage und Schraubenlänge erst nach Realmaß/Coupon"
     verification: ["Lochbildlehre", "Schraubenkopf-/Längennachweis", "Gewindeeingriff", "stromloser Vollwegtest"]
-  - id: IF-R7-PLATE-CATCHER
-    kind: "tool-free short-stroke positive retention"
-    owner: "CATCHER_RECEIVER"
-    joining: "zwei räumlich getrennte Führungsdatums plus positive Rastung; kurze laterale oder schwenkende Bedienbewegung"
-    verification: ["Toleranzcoupon", "100 Entnahmezyklen", "Abzug-/Fallprüfung", "kein plausibler halbeingesetzter Betriebszustand"]
   - id: IF-R7-CATCHER-FLOW
-    kind: "open gravity diversion"
-    owner: "MOVING_CATCHER"
-    joining: "stetige Treffer- und Umlenkfläche mit nach unten gerichtetem, frei auslaufendem Querschnitt"
+    kind: "bottomless open gravity diversion"
+    owner: "BOTTOMLESS_DIVERTER"
+    joining: "stetige Treffer- und Umlenkfläche mit vollständig offenem, nach unten gerichtetem Querschnitt ohne Boden oder Klappe"
     verification: ["Schnittprüfung", "Brücken-/Ablageprüfung", "beaufsichtigte Purge-Zyklen bei drei Z-Höhen"]
-  - id: IF-R7-FALL-BIN
-    kind: "non-contact gravity target"
-    owner: "STATIONARY_BIN"
-    joining: "keine mechanische Verbindung; Einlauf umschließt die gemessene Landefläche über den freigegebenen Z-Bereich"
-    verification: ["Flugbahn-Markiertest niedrig/mittel/hoch", "Randreserve", "zehn Entnahmezyklen"]
 
 duty:
-  loading: "bewegtes Eigengewicht von Fangkopf, Umlenker, Schnellverschluss und Datumplatte; Z-Beschleunigung, Druckervibration und kurze Purge-Impulse"
+  loading: "bewegtes Eigengewicht des einteiligen bodenlosen Umlenkers; Z-Beschleunigung, Druckervibration und kurze Purge-Impulse; keine angesammelte Purge-Speichermasse"
   moving_mass_target_g: 25
   mass_target_status: "vorläufiges Designziel; zulässige Zusatzlast des Druckerherstellers unbekannt"
   service_cycle_target:
-    bin_removal: 100
-    catcher_removal: 100
-    wiper_plate_installation: 5
+    diverter_screw_installation: 5
   service_life: "gelegentliche Werkstattnutzung; physische Qualifikation offen"
-  maintenance: "Fangkopf und Innenbehälter werkzeuglos; die Wiper-Datumplatte verbleibt bei normaler Reinigung montiert"
+  maintenance: "Umlenker bleibt für normale Reinigung fest montiert; Demontage nur durch Lösen beider Wiper-Schrauben"
 
 environment:
   use: "Innenraum neben FDM-Drucker"
@@ -231,10 +230,9 @@ fabrication:
   target_material: "PETG, exakter Hersteller/Produkt/Charge bei Druck festzulegen"
   nozzle_mm: 0.4
   nozzle_material: "hardened steel laut vorhandenem Profil; physische Identität zu bestätigen"
-  supports: "keine unzugänglichen Supports an Rastung, Führungsdatums, Schraubenauflagen oder Purge-Flächen"
+  supports: "keine unzugänglichen Supports in Schraublöchern, Kopfauflagen, Waben, Logo oder Purge-Flächen; bodenloser Auslass supportfrei"
   hardware:
     - "2 x vorhandene oder maßgerecht verlängerte Wiper-Schraube; Gewinde, Kopf, Festigkeitsklasse und Länge am realen Drucker zu identifizieren"
-    - "optional 1 x kleiner metallischer Raststift oder Schraube nur, falls der Konzeptvergleich eine rein gedruckte Rastung verwirft"
 
 printer:
   manufacturer: Anycubic
@@ -257,25 +255,25 @@ manufacturing:
 
 optimization:
   status: pending
-  objective: "bewegte Masse, Biegemoment, Support und Druckzeit minimieren, ohne Wiper-Datum, Verriegelung, Purge-Weg oder geschützte Fanggeometrie zu schwächen"
+  objective: "durch einteiliges Direktverschrauben und bodenlosen Auslass bewegte Masse, Teilezahl, Biegemoment, Support und Druckzeit minimieren, ohne Schraubendatum, Purge-Weg, Waben oder Logo zu schwächen"
   protected:
     - "machine and purge keep-outs"
     - "Wiper-Schraubenauflagen und Gewindefreiraum"
-    - "Führungsdatums, Rastung und Kurzweg-Servicepfad"
-    - "catcher mouth, drop path, impact wall, honeycomb and logos"
+    - "lokale durchgehende Lastpfade von beiden Schrauben in Prall- und Seitenwände"
+    - "catcher mouth, drop path, impact wall, open honeycomb and centred logo"
     - "nach unten gerichteter freier Auslass"
-  baseline_slicer_report: "current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/slice-anycubic-balanced.json"
+  baseline_slicer_report: null
   selected_variant: null
   comparison_report: "current/anycubic-kobra3max-purge-catcher-r7/reports/optimization-selection.json"
   mesh_simplification:
     status: pending
-    master_mesh: "current/anycubic-kobra3max-purge-catcher-r7/build/current/models/stl/moving-catcher-balanced-draft.stl"
-    manufacturing_mesh: "current/anycubic-kobra3max-purge-catcher-r7/build/current/models/stl/moving-catcher-balanced-draft.stl"
+    master_mesh: null
+    manufacturing_mesh: null
     tolerance_mm: 0.08
     protected_regions:
       - "Wiper-Schraubenbohrungen, Kopfauflagen und Maschinendatum"
-      - "Schnellverschluss-Führungen und positive Rastung"
       - "catcher mouth and drop opening"
+      - "offene Wabenfelder und mittige Logo-Insel"
       - "Abwärts-Umlenkfläche und watermark host surface"
     resource_budget: null
     slicer_resolution_check:
@@ -284,15 +282,16 @@ optimization:
     rationale: "Die frühere balanced-Variante ist als nicht passend verworfen; Mesh- und Slicer-Auswahl werden erst für eine neu freigegebene Geometrie wiederholt."
 
 appearance:
-  body_language: "R6-Fangkopf beibehalten; Adapter optisch zurücknehmen und dicht am Wiper integrieren; kein vertikaler Tower"
-  visible_hardware: "nur das vorhandene Wiper-Schraubenpaar an der maschinenseitigen Datumplatte; nicht im Fangraum"
-  branding: "bestehendes vollständiges metriMade-Lockup bleibt geschützt; finale Kennzeichnung erst nach Primärverifikation"
-  concept_v1:
+  body_language: "R6-Fangkopf als kompakter bodenloser Umlenker beibehalten; Schraubenzone als ruhige integrale Wand/Rippe dicht am Wiper, kein Adapter und kein Tower"
+  visible_hardware: "nur das vorhandene Wiper-Schraubenpaar in den direkt integrierten Schraublöchern; nicht im Fangraum"
+  branding: "eigenes metriMade-Logo mittig auf der sichtbaren Haupt-Wabenwand; finale kanonische Kennzeichnung erst nach Primärverifikation"
+  previous_concept_v1:
+    status: "durch Anforderungen 0.7.0-requirements.5 ersetzt; nur historische Evidenz"
     visualized:
       - "kompakter, direkt am bewegten Wiper angeordneter Fangkopf"
-      - "dünne Zwei-Schrauben-Datumplatte mit kurzem lösbarem Anschluss"
+      - "damals vorgesehene dünne Zwei-Schrauben-Datumplatte mit kurzem lösbarem Anschluss"
       - "geschlossene lokale Trefferzone mit offenem, stetigem Abwärtsauslass"
-      - "stationärer Großbehälter unterhalb des bewegten Fangkopfs"
+      - "damals vorgesehener stationärer Großbehälter unterhalb des bewegten Fangkopfs"
       - "niedrige, mittlere und hohe Z-Position als Bewegungssequenz"
     non_authoritative:
       - "Proportionen, Schraubenköpfe, Plattendicke, Rastgeometrie und Maschinen-Keep-outs"
@@ -307,9 +306,10 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-  version: 0.7.0-requirements.4
+  version: 0.7.0-requirements.5
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
+  preferred_surface_note: "Schema-default only; the bottomless part has no underside host surface. Final placement must use the protected solid side-wall logo island and receive its own approval."
   selected_surface: null
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
@@ -322,14 +322,14 @@ risk:
     - "Kollision mit bewegtem Bett, Werkzeugkopf, Kabeln oder Wiper"
     - "zu hohe bewegte Masse oder zu großer Hebelarm am Wiper"
     - "unzureichender Gewindeeingriff oder veränderte Wiper-Ausrichtung durch falsche Schraubenlänge"
-    - "Lösen oder halbes Einsetzen des Fangkopf-Schnellverschlusses während der Bewegung"
-    - "Verfehlen des stationären Behälters bei hoher Z-Position oder seitlicher Purge-Streuung"
+    - "lokales Ausbrechen oder Kriechen der direkt gedruckten Schraubenzone"
+    - "Purge trifft außerhalb des freien Falls oder bleibt an Waben-/Logo-Innenkanten hängen"
     - "heiße oder fadenförmige Purge-Reste außerhalb des Fangwegs"
   mitigations:
     - "bewegte Zielmasse höchstens 25 g und Schwerpunkt so dicht wie möglich an der Schraubenebene"
     - "Realmaß, Lochbildlehre und Schraubenlängen-/Gewindeeingriff-Nachweis vor einem Vollteil"
-    - "zweipunktige Führung mit positiver, sichtbar/fühlbar eindeutiger Endrastung"
-    - "billige Maß-, Rast-, Keep-out- und Flugbahn-Coupons vor dem Vollmodell"
+    - "durchgehende massive Schraubenpads mit lokalen Rippen; keine Waben oder Logo-Ausschnitte im Lastpfad"
+    - "billige Lochbild-, Umriss-, Keep-out- und Flugbahn-Coupons vor dem Vollmodell"
     - "vollständige manuelle Maschinenbewegung und beaufsichtigte Purge-Zyklen bei niedriger, mittlerer und hoher Z-Position"
 
 acceptance:
@@ -340,31 +340,34 @@ acceptance:
     criterion: "Der gemessene vertikale Lochabstand von 17 mm sowie Schraubenkopf, Gewinde, Bauteildicke, Schraubenlänge und verbleibender Gewindeeingriff sind am realen Drucker dokumentiert; der Coupon sitzt ohne Verspannen oder Verändern der Wiper-Lage."
     method: "Messschieber, Schraubenidentifikation, Lochbild-/Dickenlehre und Vorher-Nachher-Datumsprüfung"
   - id: moving-mass
-    criterion: "Datumplatte, Schnellverschluss, Fangkopf und Umlenker wiegen zusammen höchstens 25 g; die Masse wird als Projektwert und nicht als freigegebene Maschinenlast ausgewiesen."
+    criterion: "Der einteilige bodenlose Umlenker wiegt höchstens 25 g; die Masse wird als Projektwert und nicht als freigegebene Maschinenlast ausgewiesen."
     method: "CAD-Massenschätzung mit dokumentierter Dichte, danach Waage am gedruckten Satz"
-  - id: catcher-service
-    criterion: "Der Fangkopf lässt sich mit höchstens 15 mm linear äquivalentem Kurzweg seitlich oder schwenkend entnehmen, rastet eindeutig vollständig ein und übersteht 100 Entnahmezyklen ohne unbeabsichtigtes Lösen."
-    method: "Toleranzcoupon, Wegmessung, Sicht-/Fühlprüfung und dokumentierter Zyklentest"
+  - id: direct-fixed-mount
+    criterion: "Beide Schrauben gehen direkt durch den einteiligen Umlenkerkörper; es existiert kein separates Adapter-, Clip-, Schlitten- oder Rastinterface. Der montierte Körper lässt sich nur nach vollständigem Lösen beider Schrauben abnehmen."
+    method: "CAD-Bauteil-/Schnittprüfung, BOM-Prüfung und Montageversuch am stromlosen Drucker"
   - id: open-downward-flow
-    criterion: "Zwischen Trefferzone und nach unten gerichtetem Auslass gibt es keine purgetragende horizontale Tasche, Hinterschneidung oder lange Leitung; Teststücke fallen ohne manuelles Nachhelfen aus."
+    criterion: "Zwischen Trefferzone und vollständig bodenlosem Auslass gibt es keine purgetragende horizontale Tasche, Klappe, Hinterschneidung oder lange Leitung; Teststücke fallen ohne manuelles Nachhelfen aus."
     method: "CAD-Schnitt und physischer Brücken-/Ablagetest mit repräsentativen Purge-Stücken"
+  - id: honeycomb-logo
+    criterion: "Die sichtbaren Seitenwände besitzen offene Wabenfelder; das eigene Logo liegt mittig auf einer zusammenhängenden massiven Insel der sichtbaren Hauptwand und schwächt weder Schraubenlastpfad noch freien Purge-Weg."
+    method: "CAD-Flächen-/Schwerpunktprüfung, Mesh-Audit, Slicer-Vorschau und menschliche Erscheinungsfreigabe"
   - id: machine-clearance
     criterion: "Bett, Kopf, Kabel, Wiper und Z-Rider bleiben über den vollständigen stromlosen X/Y/Z-Bewegungsbereich kollisionsfrei; Zielreserve mindestens 5 mm, Abweichungen nur mit menschlicher Freigabe."
     method: "Keep-out-Lehre und manueller Vollwegtest mit montierter bewegter Baugruppe"
   - id: capture-function
-    criterion: "Je mindestens drei beaufsichtigte Purge-Zyklen bei niedriger, mittlerer und hoher Z-Position werden lokal gefangen und erreichen den stationären Behälter ohne Rückstau; dessen freigegebene Einlauf-Randreserve wird dokumentiert."
-    method: "neun physische Funktionszyklen mit markierter Landefläche und dokumentierter Z-Position"
+    criterion: "Je mindestens drei beaufsichtigte Purge-Zyklen bei niedriger, mittlerer und hoher Z-Position werden lokal gefangen und verlassen den bodenlosen Auslass ohne Rückstau."
+    method: "neun physische Funktionszyklen mit markierter Fallbahn und dokumentierter Z-Position"
   - id: independent-rights
     criterion: "Kein Drittanbieter-Mesh, keine Kontur, kein Maß, kein Clip-/Hakenprofil und keine Drittanbieter-Projektmetadaten sind in Quelle oder Export enthalten."
     method: "Provenienz-, Diff- und Paketprüfung"
 
 deliverables:
-  - "freigegebenes R7-Konzeptblatt mit Wiper-Bezugssystem, Seitenschnitt, Kurzweg-Service und Explosionsdetail"
-  - "parametrische Quelle für Wiper-Datumplatte, Schnellverschluss, Fangkopf/Umlenker, stationären Innenbehälter und Coupons"
+  - "freigegebenes R7-Konzeptblatt mit direkter Zweischraubenmontage, bodenlosem Schnitt, offenen Waben und mittigem Logo"
+  - "parametrische Quelle für den einteiligen bodenlosen Umlenker und eigenständige Lochbild-/Umrisscoupons"
   - "STEP für dimensionale Funktionsteile sowie DRAFT-3MF/STL für Fertigungstests"
-  - "BOM, Schrauben-/Montage-/Entleerungsablauf und Druckprofil"
+  - "BOM, Schrauben-/Montage-/Reinigungsablauf und Druckprofil"
   - "Massen-, Schwerpunkt-, Geometrie-, Interface-, Mesh- und Anycubic-Slicer-Nachweise"
-  - "physischer Testplan für Schraubeneingriff, Verriegelung, Kollisionsfreiheit und Purge-Funktion über niedrige/mittlere/hohe Z-Position"
+  - "physischer Testplan für Schraubeneingriff, Schraubenzonenhalt, Kollisionsfreiheit und Purge-Funktion über niedrige/mittlere/hohe Z-Position"
 
 provenance:
   reference_policy: >

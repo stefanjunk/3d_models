@@ -1,6 +1,6 @@
 # Concept review 0.3.0 — MM-ART-010 Berlin
 
-Status: **human concept approval requested; production CAD and coupon blocked**.
+Status: **approved by Stefan on 2026-08-31 for specification revision 0.3.0**.
 
 Review artifact: `concepts/permanent-relief-collection-concept-v02.png`
 
@@ -28,3 +28,5 @@ The image is a non-dimensional appearance and assembly visualization. `design-sp
 - The wall anchors, wiring, LED strip, controller, power supply and diffuser are intentionally absent.
 
 Approval authorizes decomposition, connector-coupon CAD and production-model work for revision 0.3.0. It does not approve a print candidate, electrical installation, wall anchors, physical fit, appearance, safety or commercial release.
+
+Approval evidence: Stefan wrote `konzept 2 freigegebene` in the project chat. The guided workflow therefore advances to the separate human decomposition gate; CAD and coupon geometry remain blocked until that gate is approved.

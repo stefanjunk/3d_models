@@ -6,7 +6,7 @@ project:
   sku: MM-ART-011
   portfolio_idea: "SKU-032 — Custom topographic relief tile"
   revision: 0.3.0
-  candidate: 0.3.0-concept-candidate.2
+  candidate: 0.3.0-decomposition-candidate.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor topographic wall-art product"
@@ -14,7 +14,7 @@ project:
 workflow:
   preflight:
     status: current
-    mode: PROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
     assessment_id: PREFLIGHT-MM-ART-011-002
     assessment_version: 0.2.0
@@ -35,10 +35,12 @@ workflow:
     change_requested_on: "2026-08-30"
     basis: "User confirmed the permanent two-half architecture and then explicitly approved glue-free concealed one-way plug connectors and snap-in local hanger/standoff parts"
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 0.3.0
     asset: concepts/permanent-relief-collection-concept-v02.png
-    reason: "Replacement concept for the approved glue-free architecture requires human visual approval"
+    approved_by: Stefan
+    approved_at: "2026-08-31"
+    basis: "User explicitly approved concept v02 in chat"
   watermark_approval:
     status: blocked
     spec_revision: null
@@ -48,11 +50,14 @@ workflow:
     version: 0.3.0
     reason: "Requirements and replacement concept are not approved and no current production geometry exists"
   decomposition_approval:
-    status: blocked
-    reason: "The revision 0.2.0 rear-grid decomposition is superseded"
+    status: pending
+    spec_revision: 0.3.0
+    artifact: plan/hybrid-design-plan-v0.3.0.json
+    review: decomposition-review-0.3.0.md
+    reason: "The replacement two-half glue-free assembly decomposition requires the human approval assigned by autonomy-policy.json"
   digital_candidate:
     status: blocked
-    reason: "Concept revision 0.3.0 is not approved"
+    reason: "Decomposition revision 0.3.0 is not approved"
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -406,7 +411,7 @@ acceptance:
   - id: AC-REQ
     criterion: "Revision 0.3.0 permanent one-off requirements are explicitly approved before replacement concept, terrain acquisition or CAD work."
     method: "human approval recorded against this exact revision"
-    status: NOT_RUN
+    status: PASS
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves of each pilot fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"

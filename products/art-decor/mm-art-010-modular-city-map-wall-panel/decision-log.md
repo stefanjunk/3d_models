@@ -60,3 +60,11 @@
 - Preflight `PREFLIGHT-MM-ART-010-002` supersedes the earlier backfill as the current retrospective assessment: `C3 (59.0)`, `R2`, `K2`, Lane C, `LOW_UNKNOWN`, `GO_WITH_CONTROLS`.
 - Concept v02 was generated at `concepts/permanent-relief-collection-concept-v02.png`; it shows Berlin plus the shared glue-free rear assembly and awaits human concept approval.
 - Gate effect: requirements are approved for 0.3.0; production CAD and the connector coupon remain blocked until concept v02 approval.
+
+## 2026-08-31 — Concept v02 approved and decomposition 0.3.0 prepared
+
+- Human decision: Stefan explicitly approved concept v02 in chat (`konzept 2 freigegebene`).
+- The replacement decomposition uses two 300 × 400 mm main halves, exactly three loose one-way seam connectors, two upper local hangers and two lower local standoffs. It contains no rear grid, magnets, adhesive or replaceable section.
+- The off-product coupon combines four 0.15/0.25/0.35/0.45 mm per-side pocket/locating variants, one calculated seam connector and one representative hanger snap in production orientation.
+- Planner result for `plan/hybrid-design-plan-v0.3.0.json`: `PASS`, zero errors and zero warnings. Unknown spring, snap and wall-hardware dimensions remain explicitly unselected and block source generation until their named calculation/evidence exists.
+- Next gate: human approval of `decomposition-review-0.3.0.md`. The guided autonomy policy keeps CAD and coupon geometry blocked until that approval.

@@ -1,22 +1,32 @@
 {
   "schema_version": "1.0",
-  "phase": "requirements-reference-and-physical-interface-analysis",
-  "project_revision": "0.7.0-requirements.2",
-  "date": "2026-08-29",
-  "status": "PASS_WITH_OPEN_APPROVAL_GATES",
+  "phase": "requirements-direct-fixed-bottomless-architecture",
+  "project_revision": "0.7.0-requirements.5",
+  "date": "2026-08-31",
+  "status": "PASS_WITH_BLOCKING_PHYSICAL_GATES",
   "repository_sync": {
     "branch": "main",
     "upstream": "origin/main",
-    "base_commit": "c6e5ca3d",
+    "base_commit": "4acd35d1",
     "ahead": 0,
     "behind": 0
   },
   "checks": {
+    "preflight_structure": {
+      "status": "PASS_CONCEPT_ONLY",
+      "command": "python .agents/skills/3d-design-preflight/scripts/validate_preflight.py products/printer-workshop/unregistered-kobra3max-purge-catcher/preflight/preflight-result.json --project-id ANYCUBIC-K3MAX-PURGE-CATCHER-R7 --project-revision 0.7.0-requirements.5",
+      "result_sha256": "592bbb8d4f3ebf9ee9a973092dca86e24af529cdc4757dfe317724d41af161af",
+      "decision": "CONCEPT_ONLY",
+      "warnings": [
+        "preflight is structurally valid but its decision blocks production design release"
+      ]
+    },
     "design_spec_structure": {
       "status": "PASS",
-      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml",
-      "spec_sha256": "4a3f705631b9fe79512eee1415a5b6071a0b2585b7650665fb4e1256a07fdc18",
+      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml --require-current-preflight",
+      "spec_sha256": "05062ba582f6355771ea06faadb7d87d4ec0fd00c8dd1bf14438cc0ac5eaebf4",
       "warnings": [
+        "preflight decision blocks production design release",
         "print-time/material optimization decision remains pending",
         "manufacturing-mesh simplification decision remains pending"
       ]
@@ -24,52 +34,65 @@
     "learning_store_validation": {
       "status": "PASS",
       "command": "python .agents/skills/3d-skill-maintainer/scripts/learning_records.py validate",
-      "records": 73
+      "records": 111
     },
     "learning_store_audit": {
       "status": "PASS",
       "command": "python .agents/skills/3d-skill-maintainer/scripts/learning_records.py audit",
-      "records": 73,
+      "records": 111,
       "unresolved_conflicts": 0
     },
-    "third_party_policy": {
+    "third_party_isolation": {
       "status": "PASS_DOCUMENTED_ONLY",
-      "analysis": "INTERFACE-REFERENCE-ANALYSIS-R7.md",
+      "analysis": "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md",
       "geometry_imported_or_traced": false,
-      "reference_files_planned_for_release": false
-    },
-    "physical_interface_measurements": {
-      "status": "PASS_DOCUMENTED_WITH_OPEN_COUPON",
-      "manifest": "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
-      "manifest_sha256": "1a678e9356e33cfc2ea112143195d8852751d143b274bbd48208663af2cfd6e0",
-      "original_photos": 6,
-      "photo_storage": "Git LFS",
-      "user_measurements_mm": {
-        "vertical_screw_pitch": 17,
-        "lower_screw_to_purge_deposition_plane": 10,
-        "screw_datum_to_horizontal_purge_throw_plane": 37,
-        "screw_plane_to_rear_wiper_extent": 40
-      },
-      "open_evidence": [
-        "screw thread/head/length, bracket thickness and remaining engagement",
-        "explicit local-axis/end-datum confirmation for the 37 mm measurement",
-        "full X/Y/Z keep-out sweep",
-        "low/mid/high-Z purge trajectory",
-        "printed hole-pattern and clearance coupon"
-      ]
+      "third_party_dimensions_used": false,
+      "reference_files_planned_for_release": false,
+      "owned_measurement_used": "17 mm vertical Wiper screw pitch from WIPER-PHOTO-MEASUREMENTS-R7.yaml"
     },
     "architecture_correction": {
-      "status": "PASS_DOCUMENTED_REQUIREMENTS_APPROVED_CONCEPT_PENDING",
-      "rejected": "stationary full-height Dock-Tower",
-      "selected_for_concept": "low-mass Wiper-mounted moving catcher with immediate open downward diversion and stationary lower bin",
-      "cad_generated": false
+      "status": "PASS_DOCUMENTED_REQUIREMENTS_APPROVAL_PENDING",
+      "selected": "one-piece bottomless diverter, direct fixed two-screw mount, no intermediate removable interface",
+      "preserved": "open honeycomb walls and centred owned metriMade logo",
+      "removed": [
+        "adapter plate",
+        "clip",
+        "slider",
+        "latch",
+        "quick-release",
+        "storage floor",
+        "flap",
+        "moving storage volume"
+      ],
+      "production_cad_generated": false,
+      "concept_asset_generated": false
+    },
+    "physical_interface": {
+      "status": "BLOCKED_PENDING_MEASUREMENT_AND_COUPON",
+      "known": {
+        "vertical_screw_pitch_mm": 17,
+        "source": "WIPER-PHOTO-MEASUREMENTS-R7.yaml#M-R7-001"
+      },
+      "unknown": [
+        "thread or shaft diameter",
+        "head diameter",
+        "head height",
+        "current screw length under head",
+        "printed seating thickness",
+        "remaining thread engagement",
+        "complete owned machine and service envelope"
+      ],
+      "required_first_artifact": "independently designed 17 mm hole-pattern, seating-thickness and conservative outline coupon"
     }
   },
   "workflow_gates": {
-    "requirements_approval": "APPROVED_HUMAN_2026-08-29T12:01:09+02:00",
-    "concept_approval": "PENDING_HUMAN",
-    "production_cad": "BLOCKED_BY_CONCEPT",
-    "physical_validation": "NOT_RUN",
+    "requirements_approval": "PENDING_HUMAN_FOR_0.7.0-requirements.5",
+    "concept_generation": "BLOCKED_BY_REQUIREMENTS_APPROVAL",
+    "concept_approval": "BLOCKED",
+    "production_cad": "BLOCKED_BY_CONCEPT_AND_PHYSICAL_INTERFACE",
+    "manufacturing_3mf": "NOT_GENERATED",
+    "slicing": "NOT_RUN",
+    "printer_upload_or_start": "NOT_AUTHORIZED",
     "commercial_release": "BLOCKED"
   }
 }

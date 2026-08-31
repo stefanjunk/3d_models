@@ -3,14 +3,16 @@
 Portfolio record: `PORT-099`
 
 Current revision: `0.1.0` — requirements, concept r1 and decomposition approved;
-component-driven candidate `0.1.0-parametric.3` passes its required B-Rep
-geometry, parameter-sweep and idealized-control checks but remains a
-non-manufacturing DRAFT
+dimensioned-COTS candidate `0.1.0-bom.2` is the current integration basis.
+Preflight result: `C5 (91.75/100) | R2 | K3 | Lane E | HOLD`.
+Component-driven candidate `0.1.0-parametric.3` still passes its `bom.1`
+B-Rep, parameter-sweep and idealized-control checks, but is stale for `bom.2`
+and remains a non-manufacturing DRAFT.
 
-Procurement candidate: `0.1.0-bom.1` — real manufacturer parts and current
-purchase sources are selected for samples and bench work; the CAD now follows
-those declared envelopes, while exact delivered-part measurements and
-process-matched coupon results remain required
+Procurement candidate: `0.1.0-bom.2` — the next drive stack uses the
+manufacturer-dimensioned Pololu 4755/1995 and BaneBots T81H-RM61/T81P-496BB
+family. Official nominal data raise critical hardpoint capture to R3; exact
+delivered-part measurements and process-matched coupon results remain required.
 
 Lifecycle: `P2 component-driven DRAFT` — a deterministic CadQuery assembly,
 19 separate rover parts, six fit coupons, purchased-part registration proxies
@@ -43,9 +45,16 @@ outside this product.
 - `architecture/control-architecture-v0.1.0.md` — balance loops, state machine, safety supervisor and test ladder
 - `architecture/bom-candidates-v0.1.0.csv` — purchased-part candidates, authority and blocking evidence
 - `architecture/bom-procurement-v0.1.0-bom.1.csv` — selected real parts, quantities, current suppliers, prices, masses and procurement gates
+- `architecture/cots-interface-register-v0.1.0-bom.2.csv` — dimensioned COTS selections, official sources, availability snapshots and sample gates
+- `architecture/interface-graph-v0.1.0-bom.2.json` and `.md` — 22-node/18-edge machine and visual interface graph with change propagation
+- `preflight/preflight-result.json` and `preflight/preflight-report.md` — current schema-valid C5/R2/K3/Lane-E decision and functional FMEA
+- `preflight/build_dimensioned_cots_preflight.py`, `validate_dimensioned_cots_preflight.py` and `normalize_validation_reports.py` — deterministic generator, graph/COTS consistency checker and exact-input report binding
 - `reports/purchased-parts-research-v0.1.0.md` — manufacturer-backed component research and selection gaps
 - `reports/procurement-bom-v0.1.0-bom.1.md` — coherent drive/control/power/FPV selection, cost, mass impact and order/test sequence
+- `reports/dimensioned-cots-selection-v0.1.0-bom.2.md` — wheel-stack decision, alternatives, evidence quality and mandatory intake fields
 - `validation/procurement-bom-validation-v0.1.0-bom.1.json` — deterministic row, cost, mass and reference checks plus open physical gates
+- `validation/preflight-validation-v0.1.0-bom.2.json`, `design-spec-preflight-validation-v0.1.0-bom.2.json` and `interface-graph-validation-v0.1.0-bom.2.json` — schema, workflow-link and graph-projection evidence
+- `validation/project-validation-v0.1.0-bom.2.json` — aggregate draft gate: new documentation checks pass; legacy exact/physical gates remain fail-closed
 - `reports/preliminary-balance-sizing-v0.1.0.md` — wheel-speed and static torque sanity checks
 - `docs/decomposition-review-v0.1.0.md` — concise human approval boundary for the next phase
 - `cad/component_parameters.py` and `cad/build_component_rover.py` — BOM-driven dimensions and deterministic 19-part DRAFT export generator
@@ -62,6 +71,16 @@ outside this product.
 - `validation/` — generated structural and policy-validation evidence
 
 ## Current boundary
+
+The current interface graph selects a BaneBots T81 wheel/hub family for the
+next CAD revision: 123.825 mm nominal diameter, 20.32 mm width, 6 mm hub bore,
+two set screws at 90 degrees and snap-ring wheel retention. At the retained
+216 mm center track, nominal overall width becomes 236.32 mm. A mass-only
+substitution estimates 2074.17 g and z-COM 72.54 mm, but this is not new CAD or
+control evidence. At unchanged axle-relative body geometry the larger radius
+would also project 251.41 mm upright height, 1.41 mm above the requirement;
+roof/axle geometry, loaded radius, hub registration, clearances and mass
+properties must be rebuilt from measured `bom.2` samples.
 
 The current STEP/STL/GLB files are `DRAFT`, not print-release artifacts. The
 assembly has exactly two 120 × 42 mm wheel envelopes on one common axis and all

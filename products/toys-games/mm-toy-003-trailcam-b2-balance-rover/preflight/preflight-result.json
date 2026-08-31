@@ -1,163 +1,1989 @@
 {
-  "assessment_id": "PREFLIGHT-MM-TOY-003-001",
-  "assessment_version": "0.1.0",
+  "assessment_id": "PREFLIGHT-MM-TOY-003-002",
+  "assessment_version": "0.2.0",
   "assessment_date": "2026-08-31",
-  "product": "Trailcam B2 Balance Fpv Rover",
+  "product": "TrailCam B2 Balance FPV Rover",
   "scope": {
-    "intended_use": "A two-wheel, single-axis FPV camera rover that actively balances its body as an inverted pendulum. Two independently driven coaxial wheels provide pitch stabilization, forward/reverse motion and differential yaw steering. A protected front camera, independent control/video links and serviceable electronics remain visually and functionally related to TrailCam CF10.",
-    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "intended_use": "A supervised, low-speed, two-wheel single-axis FPV rover that actively balances as an inverted pendulum on firm level test surfaces.",
+    "user_context": "Adult hobby builder and supervised test operator; no autonomous, public-road, stair, human-carrying or unsupervised use.",
     "variants": [
-      "0.1.0"
+      "0.1.0-bom.2",
+      "Pololu 4755 drive with BaneBots T81H-RM61 hubs and T81P-496BB wheels"
     ],
     "out_of_scope": [
-      "Claims not explicitly supported by the cited repository evidence",
-      "Production release without closure of blocking gates"
+      "Production or print release",
+      "Powered free-balancing before restrained tests",
+      "Safety, range, runtime or terrain claims",
+      "Printer upload or print start"
     ]
   },
   "entities": [
     {
-      "id": "E-PRINT-001",
+      "id": "E-PRINT-FRM",
       "kind": "PRINTED_PART",
-      "name": "Trailcam B2 Balance Fpv Rover"
+      "name": "printed structural frame and motor pods"
     },
     {
-      "id": "E-ENV-001",
+      "id": "E-PRINT-BAT",
+      "kind": "PRINTED_PART",
+      "name": "printed battery cradle"
+    },
+    {
+      "id": "E-PRINT-IMU",
+      "kind": "PRINTED_PART",
+      "name": "printed IMU datum"
+    },
+    {
+      "id": "E-PRINT-CAM",
+      "kind": "PRINTED_PART",
+      "name": "printed camera guard"
+    },
+    {
+      "id": "E-PRINT-LND",
+      "kind": "PRINTED_PART",
+      "name": "printed landing protection"
+    },
+    {
+      "id": "E-COTS-MOT",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 4755 37D encoder gearmotors"
+    },
+    {
+      "id": "E-COTS-BRK",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 1995 motor brackets"
+    },
+    {
+      "id": "E-COTS-HUB",
+      "kind": "PURCHASED_PART",
+      "name": "BaneBots T81H-RM61 6 mm hubs"
+    },
+    {
+      "id": "E-COTS-WHL",
+      "kind": "PURCHASED_PART",
+      "name": "BaneBots T81P-496BB wheels"
+    },
+    {
+      "id": "E-COTS-BAT",
+      "kind": "PURCHASED_PART",
+      "name": "Gens ace GEA503S60X6GT battery"
+    },
+    {
+      "id": "E-COTS-FUS",
+      "kind": "PURCHASED_PART",
+      "name": "Littelfuse 178.6152.0001 fuse holder"
+    },
+    {
+      "id": "E-COTS-DRV",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 2507 dual VNH5019 driver"
+    },
+    {
+      "id": "E-COTS-BEC",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 2851 D24V50F5 regulator"
+    },
+    {
+      "id": "E-COTS-CTL",
+      "kind": "PURCHASED_PART",
+      "name": "PJRC Teensy 4.1 controller"
+    },
+    {
+      "id": "E-COTS-IMU",
+      "kind": "PURCHASED_PART",
+      "name": "Adafruit 4502 ISM330DHCX breakout"
+    },
+    {
+      "id": "E-COTS-RX",
+      "kind": "PURCHASED_PART",
+      "name": "RadioMaster RP3 V2 EU-LBT receiver"
+    },
+    {
+      "id": "E-COTS-CAM",
+      "kind": "PURCHASED_PART",
+      "name": "RunCam Phoenix 2 SE V2 camera"
+    },
+    {
+      "id": "E-COTS-VTX",
+      "kind": "PURCHASED_PART",
+      "name": "SpeedyBee TX800 video transmitter"
+    },
+    {
+      "id": "E-SW-BAL",
+      "kind": "SOFTWARE",
+      "name": "balance controller and safety supervisor"
+    },
+    {
+      "id": "E-ENG-BUS",
+      "kind": "ENERGY",
+      "name": "protected 3S battery and logic power buses"
+    },
+    {
+      "id": "E-HUM-OPR",
+      "kind": "HUMAN",
+      "name": "supervising operator"
+    },
+    {
+      "id": "E-ENV-GND",
       "kind": "ENVIRONMENT",
-      "name": "Supervised use environment"
+      "name": "firm level test surface and RF environment"
     }
   ],
   "interfaces": [
     {
-      "id": "IF-ENV-MEC-LOD-BODY-001",
-      "name": "Printed product to supervised use environment",
-      "endpoint_b": "E-ENV-001",
-      "boundary": "ENV",
+      "id": "IF-INT-MEC-FST-MOTBRKT-001",
+      "name": "37D motor to metal bracket",
+      "endpoint_a": "E-COTS-MOT",
+      "endpoint_b": "E-COTS-BRK",
+      "boundary": "INT",
       "domains": [
-        "MEC",
-        "ENV"
+        "GEO",
+        "MEC"
       ],
-      "function": "LOD",
-      "geometry": "BODY",
-      "endpoint_a": "E-PRINT-001",
+      "function": "FST",
+      "geometry": "MIXED",
       "lifecycle_states": [
         "assembly",
+        "calibration",
         "use",
-        "cleaning",
         "service",
         "disassembly",
-        "storage"
+        "failure"
       ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
       "dimensions": [
         {
-          "id": "DIM-PRIMARY-001",
-          "feature": "Primary interface envelope and functional allowance",
-          "nominal_mm": null,
+          "id": "DIM-MOT-DIA-001",
+          "feature": "motor body diameter",
+          "nominal_mm": 36.8,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
           "uncertainty_mm": null,
-          "status": "UNKNOWN",
-          "source_ref": "design-spec.yaml",
-          "criticality": "SAFETY_CRITICAL"
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-MOT-BOSS-002",
+          "feature": "output boss diameter",
+          "nominal_mm": 12.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "criticality": "FIT_CRITICAL"
         }
       ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
       "evidence": {
-        "level": "E2",
+        "level": "E3",
         "sources": [
-          "design-spec.yaml",
-          "README.md",
-          "validation-project.json",
-          "validation/procurement-bom-validation-v0.1.0-bom.1.json",
-          "validation/hybrid-plan-validation-v0.1.0.json",
-          "validation/v0.1.0-parametric.3/project-validation.json",
-          "validation/v0.1.0-parametric.3/parameter-sweep.json",
-          "validation/v0.1.0-parametric.3/mesh-DRAFT-upper-crossmember.json"
+          "https://www.pololu.com/product/4755",
+          "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "https://www.pololu.com/product/1995",
+          "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf"
         ],
         "variant_confirmed": false,
-        "coverage_percent": 55,
-        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "coverage_percent": 88,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 2,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 1,
+        "LIF": 3,
+        "total": 13,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Bracket seating or fastener loosening permits motor motion",
+          "effect": "Encoder frame shifts and balance torque becomes unpredictable",
+          "mitigation": "Register the exact motor/bracket drawings, use locking fasteners, inspect and witness-mark."
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Both delivered motors seat without bracket distortion; fasteners reach specified engagement; no perceptible motion after a restrained torque test."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-FST-BRKFRM-001",
+      "name": "metal bracket to printed motor pod",
+      "endpoint_a": "E-COTS-BRK",
+      "endpoint_b": "E-PRINT-FRM",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "FST",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-BRK-WID-001",
+          "feature": "bracket outside width and height",
+          "nominal_mm": 36.8,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-BRK-THK-002",
+          "feature": "bracket axial thickness",
+          "nominal_mm": 6.5,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-BRK-PAT-003",
+          "feature": "spacing of three chassis M3 holes",
+          "nominal_mm": 14.8,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf",
+          "cad/component_parameters.py"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 76,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 15,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Printed slot creeps, cracks or loses bracket clamp",
+          "effect": "Motor axis departs from the common axle datum",
+          "mitigation": "Use a process-matched coupon, through-fasteners and load-spreading washers; reject cracked or loose pods."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Both delivered brackets pass the selected coupon with documented clearance; assembled pod survives the restrained torque and cycle test without slip or crack."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-ROT-HUBSHFT-001",
+      "name": "6 mm D-shaft to T81 hub",
+      "endpoint_a": "E-COTS-MOT",
+      "endpoint_b": "E-COTS-HUB",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "ROT",
+      "geometry": "CYL",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-SHAFT-DIA-001",
+          "feature": "motor output shaft nominal diameter",
+          "nominal_mm": 6.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "criticality": "SAFETY_CRITICAL"
+        },
+        {
+          "id": "DIM-SHAFT-LEN-002",
+          "feature": "available output shaft length",
+          "nominal_mm": 16.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-HUB-ENV-003",
+          "feature": "T81 hub maximum envelope from linked STEP",
+          "nominal_mm": 20.32,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "REFERENCE_MODEL_VALIDATED",
+          "source_ref": "https://www.3dvieweronline.com/members/Id544d8a7bb8401b0c7450ed9d6950a1fc/fN6usS0aaWQQ7m5",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "https://banebots.com/t81-hub-6mm-shaft/",
+          "https://www.3dvieweronline.com/members/Id544d8a7bb8401b0c7450ed9d6950a1fc/fN6usS0aaWQQ7m5"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 82,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
         "observability": "PARTLY_OBSERVED"
       },
       "interface_complexity": {
         "GEO": 2,
         "KIN": 3,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 18,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Hub slips, walks axially or set screw damages the shaft",
+          "effect": "Wheel torque or retention is lost and the rover falls",
+          "mitigation": "Confirm shaft engagement and both 90-degree set-screw locations on samples; use the hub retention specified by the manufacturer."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Measured hub bore accepts the delivered 6 mm D-shaft; both set screws fully engage; axial clearance is positive; no slip occurs in the restrained peak-torque test."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-RET-WHLHUB-001",
+      "name": "T81 hub to T81 wheel",
+      "endpoint_a": "E-COTS-HUB",
+      "endpoint_b": "E-COTS-WHL",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "RET",
+      "geometry": "SNAP",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-WHL-OD-001",
+          "feature": "wheel outside diameter",
+          "nominal_mm": 123.825,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-WHL-WID-002",
+          "feature": "wheel width",
+          "nominal_mm": 20.32,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-SNAP-DIA-003",
+          "feature": "hub snap-ring nominal size",
+          "nominal_mm": 19.05,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://banebots.com/t81-hub-6mm-shaft/",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://banebots.com/t81-hub-6mm-shaft/",
+          "https://www.3dvieweronline.com/members/Id544d8a7bb8401b0c7450ed9d6950a1fc/fN6usS0aaWQQ7m5",
+          "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 86,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 2,
+        "TOL": 3,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 16,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Wheel disengages from hub or deforms under side load",
+          "effect": "Drive and balance support are lost",
+          "mitigation": "Use the matched T81 family and specified 3/4-inch snap ring; inspect retention before each powered test."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Matched T81 wheel seats fully, snap ring is positively retained, and neither wheel moves axially beyond the approved measured limit after the cycle test."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-MEC-LOD-WHLGRND-001",
+      "name": "wheel tread to test surface",
+      "endpoint_a": "E-COTS-WHL",
+      "endpoint_b": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "MEC",
+        "KIN",
+        "ENV"
+      ],
+      "function": "LOD",
+      "geometry": "FREEFORM",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-WHL-OD-004",
+          "feature": "loaded-wheel design diameter reference",
+          "nominal_mm": 123.825,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/",
+          "design-spec.yaml"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 68,
+        "uncertainty_note": "Nominal size and 60 Shore A compound are manufacturer-declared; loaded radius, friction, wear and batch variation require physical evidence.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 3,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 19,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Insufficient traction, tire compression or wear exceeds the controller model",
+          "effect": "The capture envelope is exceeded and the rover tips",
+          "mitigation": "Limit first tests to clean firm level ground; identify load radius and friction experimentally before free balancing."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Measured loaded radius is recorded; restrained traction and capture tests pass on the named surface before any free-balance test."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-RET-BATCRDL-001",
+      "name": "3S battery to printed cradle",
+      "endpoint_a": "E-COTS-BAT",
+      "endpoint_b": "E-PRINT-BAT",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "ELE"
+      ],
+      "function": "RET",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-BAT-LEN-001",
+          "feature": "battery length",
+          "nominal_mm": 154.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+          "criticality": "SAFETY_CRITICAL"
+        },
+        {
+          "id": "DIM-BAT-WID-002",
+          "feature": "battery width",
+          "nominal_mm": 43.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+          "criticality": "SAFETY_CRITICAL"
+        },
+        {
+          "id": "DIM-BAT-HGT-003",
+          "feature": "battery height",
+          "nominal_mm": 25.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+          "cad/component_parameters.py"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 74,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 17,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Pack is crushed, ejected, chafed or cannot be disconnected",
+          "effect": "Fire risk or sudden loss of balance power",
+          "mitigation": "Measure the delivered pack at rest and after cycles; use a guarded strap path without cell compression and retain disconnect access."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Delivered pack fits with recorded clearance and no cell compression; two independent restraints hold it through the tip and vibration test; connector remains reachable."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BATBUS-001",
+      "name": "battery through fuse to protected bus",
+      "endpoint_a": "E-COTS-BAT",
+      "endpoint_b": "E-ENG-BUS",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM",
+        "MEC"
+      ],
+      "function": "PWR",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-FUS-LEN-001",
+          "feature": "fuse-holder body length",
+          "nominal_mm": 23.2,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.littelfuse.com/assetdocs/1786152?assetguid=77ab3607-41f8-4bbc-987e-e8022a7a6f03",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-FUS-WID-002",
+          "feature": "fuse-holder body width",
+          "nominal_mm": 20.2,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.littelfuse.com/assetdocs/1786152?assetguid=77ab3607-41f8-4bbc-987e-e8022a7a6f03",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+          "https://www.littelfuse.com/assetdocs/1786152?assetguid=77ab3607-41f8-4bbc-987e-e8022a7a6f03",
+          "architecture/control-architecture-v0.1.0.md"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 72,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 17,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Short circuit, connector heating or ineffective disconnect",
+          "effect": "Battery damage, fire or uncontrolled power loss",
+          "mitigation": "Fuse close to the pack, strain-relieved harness, reachable disconnect and current/temperature-limited restrained tests."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Polarity and continuity inspection pass; fuse rating is approved from measured current; voltage drop and temperatures stay inside component limits during restrained tests."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BUSDRV-001",
+      "name": "protected 3S bus to dual motor driver",
+      "endpoint_a": "E-ENG-BUS",
+      "endpoint_b": "E-COTS-DRV",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM"
+      ],
+      "function": "PWR",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-DRV-LEN-001",
+          "feature": "driver PCB length",
+          "nominal_mm": 65.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-DRV-WID-002",
+          "feature": "driver PCB width",
+          "nominal_mm": 51.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/product/2507",
+          "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 84,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
         "TOL": 2,
-        "PHY": 2,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 15,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Driver overheats, browns out or fails short",
+          "effect": "Balance torque is asymmetric, lost or uncontrolled",
+          "mitigation": "Validate cooling, current sense, EN/DIAG and regeneration on a restrained bench with independent cutoff."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Both channels meet commanded direction/current; EN/DIAG and current sense detect injected faults; temperatures remain within the approved test limit."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BUSBEC-001",
+      "name": "protected bus to 5 V logic rail",
+      "endpoint_a": "E-ENG-BUS",
+      "endpoint_b": "E-COTS-BEC",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM"
+      ],
+      "function": "PWR",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-BEC-LEN-001",
+          "feature": "regulator length",
+          "nominal_mm": 20.3,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1436/d24v50f5-step-down-voltage-regulator-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-BEC-WID-002",
+          "feature": "regulator width",
+          "nominal_mm": 17.8,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1436/d24v50f5-step-down-voltage-regulator-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-BEC-HGT-003",
+          "feature": "regulator maximum height",
+          "nominal_mm": 8.8,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1436/d24v50f5-step-down-voltage-regulator-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/product/2851",
+          "https://www.pololu.com/file/0J1436/d24v50f5-step-down-voltage-regulator-dimensions.pdf"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 88,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 3,
         "VAR": 2,
         "LIF": 3,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Logic rail dips or becomes noisy during motor transients",
+          "effect": "Controller resets and balance torque is lost",
+          "mitigation": "Separate power routing, local capacitance and logged brownout/transient tests under restrained motor load."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "The 5 V rail remains within controller limits during worst-case restrained direction reversals and no controller reset occurs."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-DRVMOTOR-001",
+      "name": "dual driver outputs to left and right motors",
+      "endpoint_a": "E-COTS-DRV",
+      "endpoint_b": "E-COTS-MOT",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "MEC",
+        "THM"
+      ],
+      "function": "PWR",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-MOT-LEN-003",
+          "feature": "motor body and gearbox nominal length",
+          "nominal_mm": 73.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/product/2507",
+          "https://www.pololu.com/product/4755",
+          "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 80,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 2,
+        "TOL": 2,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 16,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Channels are swapped, reversed or current-limited inconsistently",
+          "effect": "The controller reinforces a fall instead of correcting it",
+          "mitigation": "Key harnesses, verify polarity channel-by-channel and require a wheel-off-ground direction test before arming."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Positive command produces the documented wheel direction on both channels; current sense is calibrated and injected disconnect/short diagnostics cause disarm."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-LOC-IMUDATM-001",
+      "name": "IMU board to printed inertial datum",
+      "endpoint_a": "E-COTS-IMU",
+      "endpoint_b": "E-PRINT-IMU",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "LOC",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-IMU-LEN-001",
+          "feature": "PCB length from official Eagle Dimension layer",
+          "nominal_mm": 25.4,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://github.com/adafruit/Adafruit-LSM6DSOX-PCB/blob/master/Adafruit_LSM6DSOX.brd",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-IMU-WID-002",
+          "feature": "PCB width from official Eagle Dimension layer",
+          "nominal_mm": 17.78,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://github.com/adafruit/Adafruit-LSM6DSOX-PCB/blob/master/Adafruit_LSM6DSOX.brd",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-IMU-PAT-003",
+          "feature": "center distance of two 2.5 mm mounting holes",
+          "nominal_mm": 20.32,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://github.com/adafruit/Adafruit-LSM6DSOX-PCB/blob/master/Adafruit_LSM6DSOX.brd",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.adafruit.com/product/4502",
+          "https://learn.adafruit.com/lsm6dsox-and-ism330dhc-6-dof-imu/downloads",
+          "https://github.com/adafruit/Adafruit-LSM6DSOX-PCB/blob/master/Adafruit_LSM6DSOX.brd",
+          "cad/component_parameters.py"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 82,
+        "uncertainty_note": "The official EagleCAD/Fab Print captures the nominal board and hole geometry; the delivered January-2024-or-later PCB revision and installed connector height remain unconfirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 2,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 17,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "IMU axis registration moves or vibrates relative to the frame",
+          "effect": "Pitch estimate is biased or delayed and balance becomes unstable",
+          "mitigation": "Export the exact official PCB revision/fab geometry or measure the sample; use a rigid keyed datum and document axis transform."
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Delivered PCB outline and two 2.5 mm holes match the registered 25.4 x 17.78 mm / 20.32 mm pattern; sensor axes are registered; repeat mounting changes static angle by no more than the approved calibration limit."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-IMUCTRL-001",
+      "name": "IMU SPI data to controller",
+      "endpoint_a": "E-COTS-IMU",
+      "endpoint_b": "E-COTS-CTL",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE"
+      ],
+      "function": "DAT",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-CTL-LEN-001",
+          "feature": "Teensy 4.1 PCB length",
+          "nominal_mm": 60.96,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pjrc.com/teensy/dimensions.html",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-CTL-WID-002",
+          "feature": "Teensy 4.1 PCB width",
+          "nominal_mm": 17.78,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pjrc.com/teensy/dimensions.html",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.adafruit.com/product/4502",
+          "https://www.pjrc.com/store/teensy41.html",
+          "https://www.pjrc.com/teensy/dimensions.html"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 78,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
         "total": 14,
         "tier": "I3"
       },
       "criticality": "K3",
       "failure_modes": [
         {
-          "mode": "Primary interface does not meet fit or functional intent",
-          "effect": "Loss of intended function and the credible failure effects recorded at product level",
-          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+          "mode": "Stale, aliased or incorrectly mapped IMU data reaches the controller",
+          "effect": "The state estimate drives incorrect motor torque",
+          "mitigation": "Rigid SPI wiring, timestamp/health checks, axis calibration and fault injection before balance arming."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Sample rate and latency meet the control budget; stale-data injection causes disarm; all six axis signs match the documented frame."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-CTRLDRV-001",
+      "name": "balance controller commands to motor driver",
+      "endpoint_a": "E-SW-BAL",
+      "endpoint_b": "E-COTS-DRV",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE"
+      ],
+      "function": "DAT",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-DRV-PAT-003",
+          "feature": "driver mounting/layout authority",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.pololu.com/product/2507",
+          "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf",
+          "architecture/control-architecture-v0.1.0.md"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 82,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 2,
+        "TOL": 2,
+        "PHY": 4,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 15,
+        "tier": "I3"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "PWM/enable logic or fault handling is wrong",
+          "effect": "Motors receive unintended or no corrective torque",
+          "mitigation": "Hardware default-off enable, bounded commands, watchdog and injected EN/DIAG fault tests."
+        }
+      ],
+      "verification": {
+        "method": "simulation",
+        "acceptance_criteria": [
+          "Power-up is torque-off; watchdog, over-tilt and injected driver fault enter the documented disarmed state within the approved deadline."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-HUM-DAT-USR-OPRRX-001",
+      "name": "operator command link to receiver",
+      "endpoint_a": "E-HUM-OPR",
+      "endpoint_b": "E-COTS-RX",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "DAT",
+        "ENV"
+      ],
+      "function": "USR",
+      "geometry": "FREEFORM",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-RX-LEN-001",
+          "feature": "receiver length",
+          "nominal_mm": 22.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://radiomasterrc.com/products/rp3-expresslrs-2-4ghz-nano-receiver",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-RX-WID-002",
+          "feature": "receiver width",
+          "nominal_mm": 13.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://radiomasterrc.com/products/rp3-expresslrs-2-4ghz-nano-receiver",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-RX-HGT-003",
+          "feature": "receiver height",
+          "nominal_mm": 4.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://radiomasterrc.com/products/rp3-expresslrs-2-4ghz-nano-receiver",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://radiomasterrc.com/products/rp3-expresslrs-2-4ghz-nano-receiver",
+          "architecture/control-architecture-v0.1.0.md"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 76,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 4,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 16,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Link loss, stale commands or incorrect failsafe state",
+          "effect": "The operator cannot request a controlled stop",
+          "mitigation": "Use EU-LBT exact variant, CRSF link-health supervision, command timeout and line-of-sight stop/disconnect access."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Loss and stale-frame injection command zero velocity/yaw and then the documented safe state; range is not claimed before a supervised site test."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-OPT-VIS-CAMGARD-001",
+      "name": "camera to printed guard and view corridor",
+      "endpoint_a": "E-COTS-CAM",
+      "endpoint_b": "E-PRINT-CAM",
+      "boundary": "INT",
+      "domains": [
+        "OPT",
+        "GEO",
+        "MEC"
+      ],
+      "function": "VIS",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-CAM-WID-001",
+          "feature": "camera body width",
+          "nominal_mm": 19.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-CAM-HGT-002",
+          "feature": "camera body height",
+          "nominal_mm": 19.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-CAM-DEP-003",
+          "feature": "camera body depth",
+          "nominal_mm": 22.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+          "cad/component_parameters.py"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 78,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Guard blocks the lens, touches the PCB or transfers impact",
+          "effect": "Video is obscured or the camera is damaged",
+          "mitigation": "Measure the lens barrel and screw pattern; run a camera-width coupon and inspect the full intended field of view."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Delivered camera fits without board contact and the guard does not vignette the approved field of view through the intended pitch range."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-CAMVTX-001",
+      "name": "analog camera output to video transmitter",
+      "endpoint_a": "E-COTS-CAM",
+      "endpoint_b": "E-COTS-VTX",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE",
+        "THM"
+      ],
+      "function": "DAT",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-VTX-LEN-001",
+          "feature": "VTX PCB length",
+          "nominal_mm": 28.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.speedybee.com/speedybee-tx800/",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-VTX-WID-002",
+          "feature": "VTX PCB width",
+          "nominal_mm": 28.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.speedybee.com/speedybee-tx800/",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-VTX-PAT-003",
+          "feature": "VTX mounting-hole pitch",
+          "nominal_mm": 20.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.speedybee.com/speedybee-tx800/",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+          "https://www.speedybee.com/speedybee-tx800/"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 76,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 4,
+        "total": 14,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Video wiring or VTX cooling fails",
+          "effect": "FPV image is lost while motion control may remain active",
+          "mitigation": "Keep video independent from balance, strain-relieve antenna, validate supply and cooling at the lawful selected output."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Video remains usable through the restrained operating test and VTX temperature stays below the approved component limit; video loss does not block stop/failsafe."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-DAT-DAT-VTXRF-001",
+      "name": "video transmitter RF path to supervised environment",
+      "endpoint_a": "E-COTS-VTX",
+      "endpoint_b": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "DAT",
+        "ENV",
+        "THM"
+      ],
+      "function": "DAT",
+      "geometry": "FREEFORM",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-VTX-PAT-004",
+          "feature": "antenna and 20 mm mount reference",
+          "nominal_mm": 20.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "https://www.speedybee.com/speedybee-tx800/",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "https://www.speedybee.com/speedybee-tx800/",
+          "design-spec.yaml"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 66,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 15,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Antenna is blocked, detached or configured unlawfully",
+          "effect": "Video is lost, RF hardware is damaged or operation violates local constraints",
+          "mitigation": "Maintain antenna keep-out/strain relief and approve regional settings before any RF test."
         }
       ],
       "verification": {
         "method": "expert_review",
         "acceptance_criteria": [
-          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+          "Antenna keep-out is visually clear through all service states and the responsible operator approves the regional channel/power configuration."
         ],
         "status": "PLANNED",
         "result_refs": []
       },
-      "owner": "product owner",
-      "version": "0.1"
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-MEC-LOD-LNDGRND-001",
+      "name": "landing protection to ground after tip",
+      "endpoint_a": "E-PRINT-LND",
+      "endpoint_b": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "MEC",
+        "KIN",
+        "ENV"
+      ],
+      "function": "LOD",
+      "geometry": "FREEFORM",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "coordinate_frame": {
+        "origin": "common wheel-axis and vehicle center-plane intersection unless the interface dimension states a local datum",
+        "x_positive": "vehicle forward",
+        "y_positive": "vehicle left along the wheel axis",
+        "z_positive": "up in the nominal balanced pose",
+        "unit": "mm"
+      },
+      "dimensions": [
+        {
+          "id": "DIM-LND-ANG-001",
+          "feature": "minimum planned first-contact tilt angle in degrees represented numerically",
+          "nominal_mm": 22.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DERIVED",
+          "source_ref": "design-spec.yaml",
+          "criticality": "SAFETY_CRITICAL"
+        }
+      ],
+      "keepouts_and_access": [
+        "Preserve tool access, cable bend radius, and the declared moving or thermal envelope."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "design-spec.yaml",
+          "validation/v0.1.0-parametric.3/geometry-validation.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 70,
+        "uncertainty_note": "Official nominal geometry is available; delivered revision, tolerance and measurement uncertainty are not yet confirmed.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 3,
+        "TOL": 3,
+        "PHY": 4,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 19,
+        "tier": "I4"
+      },
+      "criticality": "K3",
+      "failure_modes": [
+        {
+          "mode": "Landing part breaks, rolls or contacts too early",
+          "effect": "Camera/electronics strike the ground or balance authority is clipped",
+          "mitigation": "Validate printed orientation and impact cycles; keep the skids non-rolling and clear during the approved balance envelope."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "At nominal assembly the first landing contact is at or beyond 22 degrees; repeated controlled tip tests show no crack and protect camera, battery and electronics."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-TOY-003 integration",
+      "version": "0.2"
     }
   ],
   "complexity": {
     "dimension_scores": {
-      "REQ": 2,
-      "CTX": 2,
+      "REQ": 3,
+      "CTX": 3,
       "PAR": 4,
-      "INT": 2,
-      "CPL": 2,
-      "MOT": 3,
+      "INT": 4,
+      "CPL": 4,
+      "MOT": 4,
       "GEO": 2,
-      "PHY": 2,
-      "MAT": 2,
-      "EXT": 3,
-      "VER": 2
+      "PHY": 4,
+      "MAT": 3,
+      "EXT": 4,
+      "VER": 4
     },
-    "score_0_100": 59.2,
-    "class": "C3",
+    "score_0_100": 91.75,
+    "class": "C5",
     "drivers": [
-      "PAR=4: The current evidence exposes approximately 74 distinct geometry-file stems; exports may duplicate physical parts.",
-      "INT=2: At least one functional host, human, medium, or assembly boundary governs success.",
-      "MOT=3: The purpose or evidence includes repeated motion, flexure, or a guided mechanism."
+      "INT=4: 18 mechanical, electrical, data, optical, human and environmental interfaces include dynamic and safety-relevant boundaries.",
+      "CPL=4: wheel geometry, mass properties, controller model, power integrity and landing envelope propagate changes across the system.",
+      "MOT/PHY/EXT/VER=4: active balance couples repeated motion, tire contact, electronics, firmware and a staged verification ladder."
     ]
   },
   "readiness": {
     "level": "R2",
     "component_levels": {
       "scope_variant": "R3",
-      "requirements": "R3",
-      "critical_interfaces": "R2",
+      "requirements": "R4",
+      "critical_interfaces": "R3",
       "manufacturing_profile": "R2",
       "verification": "R3"
     },
     "blocking_unknowns": [
-      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
-      "complete printer/material/nozzle/orientation/process-profile set"
+      "Delivered COTS revisions, tolerances and measured installed envelopes are not confirmed.",
+      "BaneBots hub engagement, set-screw registration and snap-ring retention on the Pololu shaft are not physically verified.",
+      "With the old axle-relative body unchanged, the 123.825 mm wheel projects an upright height of 251.4125 mm and therefore needs a bom.2 envelope correction to return below 250 mm.",
+      "Loaded tire radius, traction, wear and dynamic controller correlation are untested.",
+      "Exact Anycubic printer, process and filament JSON profiles are absent.",
+      "No restrained electrical, fault-injection, tip, cycle or supervised balance evidence exists."
     ],
-    "completeness_percent": 52.0
+    "completeness_percent": 68.0
   },
   "criticality": {
     "level": "K3",
-    "rationale": "A human-load, powered vehicle, machine-adjacent, projectile, or wall-mounted interface can plausibly cause injury or significant property damage.",
+    "rationale": "A powered dynamically unstable rover with a LiPo battery can fall, shed a wheel, overheat or move unexpectedly; expert-in-the-loop staged tests and independent cutoff remain mandatory.",
     "credible_failure_effects": [
-      "injury",
-      "damage to host equipment",
-      "loss of controlled function"
+      "unexpected motion or impact injury",
+      "LiPo or wiring fire",
+      "wheel or structural separation",
+      "loss of balance and damage to camera/electronics"
     ]
   },
   "gates": {
     "G0": "PASS",
     "G1": "PASS",
-    "G2": "FAIL",
+    "G2": "WARN",
     "G3": "FAIL",
     "G4": "PASS",
     "G5": "WARN",
@@ -167,73 +1993,101 @@
     "lane": "E",
     "confidence": "NOT_AUTONOMOUSLY_RELEASABLE",
     "design_release": "HOLD",
-    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+    "rationale": "Dimensioned official COTS evidence raises the critical hardpoint interfaces to nominal R3, but the project remains R2 because the exact manufacturing profile and physical/dynamic verification are absent; G3 fails and K3 prohibits autonomous release."
   },
   "warnings": [
     {
-      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "code": "PURCHASED_PART_REVISION_UNKNOWN",
       "severity": "BLOCKER",
-      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
-    },
-    {
-      "code": "VERIFICATION_NOT_DEFINED",
-      "severity": "BLOCKER",
-      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
-    },
-    {
-      "code": "SAFETY_EXPERT_REQUIRED",
-      "severity": "BLOCKER",
-      "message": "K3 scope requires expert-in-the-loop review and controlled prototypes; autonomous release is prohibited."
-    },
-    {
-      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
-      "severity": "BLOCKER",
-      "message": "The credible failure consequence exceeds autonomous release authority."
+      "message": "Exact delivered variants and tolerances are not sample-confirmed; nominal manufacturer geometry is not a fit release."
     },
     {
       "code": "DYNAMIC_OR_FATIGUE_LOAD",
       "severity": "BLOCKER",
-      "message": "Repeated motion, flexure, vibration, or dynamic contact needs cycle and failure testing."
+      "message": "Wheel retention, tire contact, printed pod creep, tip impacts and balance dynamics require staged physical tests."
+    },
+    {
+      "code": "MANUFACTURING_PROFILE_INCOMPLETE",
+      "severity": "BLOCKER",
+      "message": "The complete exact Anycubic machine/process/filament profile set is unavailable, so G3 fails and no 3MF/G-code is authorized."
+    },
+    {
+      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
+      "severity": "BLOCKER",
+      "message": "K3 powered-vehicle scope requires expert review, controlled prototypes and a human-owned release decision."
+    },
+    {
+      "code": "SUPPLY_STATUS_RECHECK",
+      "severity": "WARN",
+      "message": "Availability snapshots are volatile; the Gens ace manufacturer page is internally inconsistent and must be checked before ordering."
+    },
+    {
+      "code": "COTS_ENVELOPE_REDESIGN_REQUIRED",
+      "severity": "BLOCKER",
+      "message": "The selected wheel is 3.825 mm larger in diameter and 21.68 mm narrower than the bom.1 proxy; an unchanged body would project to 251.4125 mm upright height, above the 250 mm requirement."
     }
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Obtain an expert review of credible failure modes and the staged prototype plan.",
-      "exit_criterion": "A named reviewer approves the test scope, controls, and stop conditions."
+      "action": "Procure and intake-measure one exact sample of every geometry-owning COTS item, beginning with the T81 wheel/hub and Pololu motor/bracket stack.",
+      "exit_criterion": "Part labels, revisions, mass, critical dimensions, tolerance/uncertainty and photos are recorded; all variant_confirmed fields for the selected drive stack can become true."
     },
     {
       "priority": 2,
-      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
-      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+      "action": "Update the parametric wheel/hub proxies and printed motor-pod/clearance/roof geometry to bom.2, then rebuild the whole-system mass/COM and control model.",
+      "exit_criterion": "A fresh candidate is at most 250 mm tall and passes the interface graph, envelope, clearance, mass/COM, parameter-sweep and idealized-control checks against measured bom.2 inputs."
     },
     {
       "priority": 3,
-      "action": "Record the exact manufacturing profile.",
-      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
+      "action": "Print only process-matched interface coupons after supplying a complete Anycubic profile set.",
+      "exit_criterion": "Motor bracket, battery, IMU, driver, camera, VTX and service-panel coupons pass documented fit criteria."
+    },
+    {
+      "priority": 4,
+      "action": "Run expert-reviewed wheel-off-ground, restrained power, fault-injection, low-energy tip/cycle and finally supervised free-balance tests.",
+      "exit_criterion": "All interface acceptance criteria pass with logs and independent cutoff available; no release claim is made before human review."
     }
   ],
   "traceability": {
-    "mode": "RETROSPECTIVE",
+    "mode": "PROSPECTIVE",
     "project_id": "MM-TOY-003",
     "project_revision": "0.1.0",
     "basis_refs": [
       "design-spec.yaml",
-      "README.md",
-      "validation-project.json",
-      "validation/procurement-bom-validation-v0.1.0-bom.1.json",
-      "validation/hybrid-plan-validation-v0.1.0.json",
-      "validation/v0.1.0-parametric.3/project-validation.json",
-      "validation/v0.1.0-parametric.3/parameter-sweep.json",
-      "validation/v0.1.0-parametric.3/mesh-DRAFT-upper-crossmember.json"
+      "architecture/bom-procurement-v0.1.0-bom.1.csv",
+      "architecture/cots-interface-register-v0.1.0-bom.2.csv",
+      "architecture/interface-graph-v0.1.0-bom.2.json",
+      "validation/v0.1.0-parametric.3/geometry-validation.json",
+      "https://banebots.com/banebots-wheel-4-7-8-x-0-8-hub-mount-60a-black/",
+      "https://banebots.com/t81-hub-6mm-shaft/",
+      "https://gensace.de/products/gens-ace-g-tech-5000mah-11-1v-60c-3s1p-lipo-with-xt60-plug",
+      "https://github.com/adafruit/Adafruit-LSM6DSOX-PCB/blob/master/Adafruit_LSM6DSOX.brd",
+      "https://learn.adafruit.com/lsm6dsox-and-ism330dhc-6-dof-imu/downloads",
+      "https://radiomasterrc.com/products/rp3-expresslrs-2-4ghz-nano-receiver",
+      "https://shop.runcam.com/runcam-phoenix-2-special-edition/",
+      "https://www.3dvieweronline.com/members/Id544d8a7bb8401b0c7450ed9d6950a1fc/fN6usS0aaWQQ7m5",
+      "https://www.adafruit.com/product/4502",
+      "https://www.littelfuse.com/assetdocs/1786152?assetguid=77ab3607-41f8-4bbc-987e-e8022a7a6f03",
+      "https://www.pjrc.com/store/teensy41.html",
+      "https://www.pjrc.com/teensy/dimensions.html",
+      "https://www.pololu.com/file/0J1403/pololu-dual-vnh5019-motor-driver-shield-dimensions.pdf",
+      "https://www.pololu.com/file/0J1436/d24v50f5-step-down-voltage-regulator-dimensions.pdf",
+      "https://www.pololu.com/file/0J1735/37d-metal-gearmotors-dimension-diagram.pdf",
+      "https://www.pololu.com/file/0J653/1995-37D-machined-bracket.pdf",
+      "https://www.pololu.com/product/1995",
+      "https://www.pololu.com/product/2507",
+      "https://www.pololu.com/product/2851",
+      "https://www.pololu.com/product/4755",
+      "https://www.speedybee.com/speedybee-tx800/"
     ],
     "change_triggers": [
-      "backfill_missing_preflight",
-      "portfolio_documentation_audit",
-      "product_root_version_cleanup"
+      "dimensioned_cots_interface_review",
+      "wheel_stack_supply_change",
+      "interface_graph_backfill"
     ],
-    "previous_assessment_id": null,
+    "previous_assessment_id": "PREFLIGHT-MM-TOY-003-001",
     "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T12:29:39+02:00"
+    "updated_at": "2026-08-31T18:20:00+02:00"
   }
 }

@@ -1,52 +1,60 @@
-product: Trailcam B2 Balance Fpv Rover
-intended_use: A two-wheel, single-axis FPV camera rover that actively balances its body as an inverted pendulum.
-  Two independently driven coaxial wheels provide pitch stabilization, forward/reverse motion and differential yaw
-  steering. A protected front camera, independent control/video links and serviceable electronics remain visually
-  and functionally related to TrailCam CF10.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+product: TrailCam B2 Balance FPV Rover
+intended_use: >-
+  Supervised low-speed two-wheel single-axis FPV rover with active inverted-pendulum balance on firm level test surfaces.
+user_context: Adult hobby builder and supervised operator; no autonomous, public-road, stair, human-carrying or unsupervised use.
 host_variant:
-  manufacturer: null
-  model: null
-  revision: null
+  manufacturer: Mixed COTS stack
+  model: Pololu 4755 / BaneBots T81H-RM61 / T81P-496BB
+  revision: 0.1.0-bom.2 candidate
   variant_confirmed: false
-lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
+lifecycle_states: [transport, assembly, calibration, use, service, disassembly, storage, failure]
 requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
+  - Exactly two independently driven wheels on one geometric axle.
+  - IMU-based active upright stabilization with supervised fail-closed testing.
+  - Maximum complete design mass 2200 g and COM 70 to 110 mm above axle.
+  - Dimension-owning COTS interfaces shall use official drawings/CAD where available.
 known_components:
-- Trailcam B2 Balance Fpv Rover
-- Supervised use environment
+  - Pololu 4755 motor and 1995 bracket
+  - BaneBots T81H-RM61 hub and T81P-496BB wheel
+  - Gens ace GEA503S60X6GT 3S battery
+  - Pololu 2507 motor driver and 2851 regulator
+  - Teensy 4.1, Adafruit 4502, RadioMaster RP3 V2, RunCam Phoenix 2 SE V2, SpeedyBee TX800
 available_evidence:
-- design-spec.yaml
-- README.md
-- validation-project.json
-- validation/procurement-bom-validation-v0.1.0-bom.1.json
-- validation/hybrid-plan-validation-v0.1.0.json
-- validation/v0.1.0-parametric.3/project-validation.json
-- validation/v0.1.0-parametric.3/parameter-sweep.json
-- validation/v0.1.0-parametric.3/mesh-DRAFT-upper-crossmember.json
+  - design-spec.yaml
+  - architecture/bom-procurement-v0.1.0-bom.1.csv
+  - architecture/cots-interface-register-v0.1.0-bom.2.csv
+  - architecture/interface-graph-v0.1.0-bom.2.json
+  - validation/v0.1.0-parametric.3/geometry-validation.json
 manufacturing_profile:
-  printer: 'status: provisional'
+  printer: unknown exact Anycubic variant/profile
   process: FDM/FFF
   nozzle_mm: 0.6
-  material: PETG
+  material: PETG product not frozen
   orientation_known: true
 known_loads_environment:
-  loads: []
+  loads: [dynamic wheel torque, tire contact, motor vibration, tip impact, battery retention]
   temperature_c: null
-  media: []
-  duration: null
+  media: [indoor air, clean firm level ground]
+  duration: staged prototype only
 safety_notes:
-- A human-load, powered vehicle, machine-adjacent, projectile, or wall-mounted interface can plausibly cause injury
-  or significant property damage.
+  - K3 powered dynamically unstable rover with LiPo energy storage.
+  - Human-controlled disconnect and expert-reviewed staged testing are mandatory.
 interfaces:
-- IF-ENV-MEC-LOD-BODY-001
+  - IF-INT-MEC-FST-MOTBRKT-001
+  - IF-INT-MEC-FST-BRKFRM-001
+  - IF-INT-MEC-ROT-HUBSHFT-001
+  - IF-INT-MEC-RET-WHLHUB-001
+  - IF-ENV-MEC-LOD-WHLGRND-001
+  - IF-INT-MEC-RET-BATCRDL-001
+  - IF-INT-ELE-PWR-BATBUS-001
+  - IF-INT-ELE-PWR-BUSDRV-001
+  - IF-INT-ELE-PWR-BUSBEC-001
+  - IF-INT-ELE-PWR-DRVMOTOR-001
+  - IF-INT-MEC-LOC-IMUDATM-001
+  - IF-INT-DAT-DAT-IMUCTRL-001
+  - IF-INT-DAT-DAT-CTRLDRV-001
+  - IF-HUM-DAT-USR-OPRRX-001
+  - IF-INT-OPT-VIS-CAMGARD-001
+  - IF-INT-DAT-DAT-CAMVTX-001
+  - IF-ENV-DAT-DAT-VTXRF-001
+  - IF-ENV-MEC-LOD-LNDGRND-001

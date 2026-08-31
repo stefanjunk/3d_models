@@ -1,0 +1,473 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-TOY-003",
+  "revision": "0.1.0-bom.2",
+  "basis_preflight": "PREFLIGHT-MM-TOY-003-002",
+  "status": "CANDIDATE_UNMEASURED",
+  "nodes": [
+    {
+      "id": "E-PRINT-FRM",
+      "kind": "PRINTED_PART",
+      "name": "printed structural frame and motor pods"
+    },
+    {
+      "id": "E-PRINT-BAT",
+      "kind": "PRINTED_PART",
+      "name": "printed battery cradle"
+    },
+    {
+      "id": "E-PRINT-IMU",
+      "kind": "PRINTED_PART",
+      "name": "printed IMU datum"
+    },
+    {
+      "id": "E-PRINT-CAM",
+      "kind": "PRINTED_PART",
+      "name": "printed camera guard"
+    },
+    {
+      "id": "E-PRINT-LND",
+      "kind": "PRINTED_PART",
+      "name": "printed landing protection"
+    },
+    {
+      "id": "E-COTS-MOT",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 4755 37D encoder gearmotors"
+    },
+    {
+      "id": "E-COTS-BRK",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 1995 motor brackets"
+    },
+    {
+      "id": "E-COTS-HUB",
+      "kind": "PURCHASED_PART",
+      "name": "BaneBots T81H-RM61 6 mm hubs"
+    },
+    {
+      "id": "E-COTS-WHL",
+      "kind": "PURCHASED_PART",
+      "name": "BaneBots T81P-496BB wheels"
+    },
+    {
+      "id": "E-COTS-BAT",
+      "kind": "PURCHASED_PART",
+      "name": "Gens ace GEA503S60X6GT battery"
+    },
+    {
+      "id": "E-COTS-FUS",
+      "kind": "PURCHASED_PART",
+      "name": "Littelfuse 178.6152.0001 fuse holder"
+    },
+    {
+      "id": "E-COTS-DRV",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 2507 dual VNH5019 driver"
+    },
+    {
+      "id": "E-COTS-BEC",
+      "kind": "PURCHASED_PART",
+      "name": "Pololu 2851 D24V50F5 regulator"
+    },
+    {
+      "id": "E-COTS-CTL",
+      "kind": "PURCHASED_PART",
+      "name": "PJRC Teensy 4.1 controller"
+    },
+    {
+      "id": "E-COTS-IMU",
+      "kind": "PURCHASED_PART",
+      "name": "Adafruit 4502 ISM330DHCX breakout"
+    },
+    {
+      "id": "E-COTS-RX",
+      "kind": "PURCHASED_PART",
+      "name": "RadioMaster RP3 V2 EU-LBT receiver"
+    },
+    {
+      "id": "E-COTS-CAM",
+      "kind": "PURCHASED_PART",
+      "name": "RunCam Phoenix 2 SE V2 camera"
+    },
+    {
+      "id": "E-COTS-VTX",
+      "kind": "PURCHASED_PART",
+      "name": "SpeedyBee TX800 video transmitter"
+    },
+    {
+      "id": "E-SW-BAL",
+      "kind": "SOFTWARE",
+      "name": "balance controller and safety supervisor"
+    },
+    {
+      "id": "E-ENG-BUS",
+      "kind": "ENERGY",
+      "name": "protected 3S battery and logic power buses"
+    },
+    {
+      "id": "E-HUM-OPR",
+      "kind": "HUMAN",
+      "name": "supervising operator"
+    },
+    {
+      "id": "E-ENV-GND",
+      "kind": "ENVIRONMENT",
+      "name": "firm level test surface and RF environment"
+    }
+  ],
+  "edges": [
+    {
+      "id": "IF-INT-MEC-FST-MOTBRKT-001",
+      "source": "E-COTS-MOT",
+      "target": "E-COTS-BRK",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "FST",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-MEC-FST-BRKFRM-001",
+      "source": "E-COTS-BRK",
+      "target": "E-PRINT-FRM",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "FST",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-MEC-ROT-HUBSHFT-001",
+      "source": "E-COTS-MOT",
+      "target": "E-COTS-HUB",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "ROT",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-MEC-RET-WHLHUB-001",
+      "source": "E-COTS-HUB",
+      "target": "E-COTS-WHL",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "RET",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-ENV-MEC-LOD-WHLGRND-001",
+      "source": "E-COTS-WHL",
+      "target": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "MEC",
+        "KIN",
+        "ENV"
+      ],
+      "function": "LOD",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-MEC-RET-BATCRDL-001",
+      "source": "E-COTS-BAT",
+      "target": "E-PRINT-BAT",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "ELE"
+      ],
+      "function": "RET",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BATBUS-001",
+      "source": "E-COTS-BAT",
+      "target": "E-ENG-BUS",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM",
+        "MEC"
+      ],
+      "function": "PWR",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BUSDRV-001",
+      "source": "E-ENG-BUS",
+      "target": "E-COTS-DRV",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM"
+      ],
+      "function": "PWR",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-BUSBEC-001",
+      "source": "E-ENG-BUS",
+      "target": "E-COTS-BEC",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "THM"
+      ],
+      "function": "PWR",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-ELE-PWR-DRVMOTOR-001",
+      "source": "E-COTS-DRV",
+      "target": "E-COTS-MOT",
+      "boundary": "INT",
+      "domains": [
+        "ELE",
+        "MEC",
+        "THM"
+      ],
+      "function": "PWR",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-MEC-LOC-IMUDATM-001",
+      "source": "E-COTS-IMU",
+      "target": "E-PRINT-IMU",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "LOC",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-IMUCTRL-001",
+      "source": "E-COTS-IMU",
+      "target": "E-COTS-CTL",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE"
+      ],
+      "function": "DAT",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-CTRLDRV-001",
+      "source": "E-SW-BAL",
+      "target": "E-COTS-DRV",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE"
+      ],
+      "function": "DAT",
+      "criticality": "K3",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-HUM-DAT-USR-OPRRX-001",
+      "source": "E-HUM-OPR",
+      "target": "E-COTS-RX",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "DAT",
+        "ENV"
+      ],
+      "function": "USR",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-OPT-VIS-CAMGARD-001",
+      "source": "E-COTS-CAM",
+      "target": "E-PRINT-CAM",
+      "boundary": "INT",
+      "domains": [
+        "OPT",
+        "GEO",
+        "MEC"
+      ],
+      "function": "VIS",
+      "criticality": "K2",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-INT-DAT-DAT-CAMVTX-001",
+      "source": "E-COTS-CAM",
+      "target": "E-COTS-VTX",
+      "boundary": "INT",
+      "domains": [
+        "DAT",
+        "ELE",
+        "THM"
+      ],
+      "function": "DAT",
+      "criticality": "K2",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-ENV-DAT-DAT-VTXRF-001",
+      "source": "E-COTS-VTX",
+      "target": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "DAT",
+        "ENV",
+        "THM"
+      ],
+      "function": "DAT",
+      "criticality": "K2",
+      "interface_tier": "I3",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    },
+    {
+      "id": "IF-ENV-MEC-LOD-LNDGRND-001",
+      "source": "E-PRINT-LND",
+      "target": "E-ENV-GND",
+      "boundary": "ENV",
+      "domains": [
+        "MEC",
+        "KIN",
+        "ENV"
+      ],
+      "function": "LOD",
+      "criticality": "K3",
+      "interface_tier": "I4",
+      "evidence_level": "E3",
+      "variant_confirmed": false,
+      "verification_status": "PLANNED"
+    }
+  ],
+  "graph_metrics": {
+    "node_count": 22,
+    "edge_count": 18,
+    "critical_edge_count": 15,
+    "unconfirmed_variant_edge_count": 18,
+    "max_interface_tier": "I4"
+  },
+  "change_propagation": [
+    {
+      "source_change": "T81 wheel diameter, width, mass or loaded radius",
+      "affected": [
+        "hub retention",
+        "wheel/ground model",
+        "track and pod clearance",
+        "overall width",
+        "upright height",
+        "mass/COM",
+        "controller model",
+        "landing geometry"
+      ]
+    },
+    {
+      "source_change": "battery size, mass or connector exit",
+      "affected": [
+        "cradle fit",
+        "retention",
+        "disconnect corridor",
+        "mass/COM",
+        "balance gains",
+        "tip behavior"
+      ]
+    },
+    {
+      "source_change": "IMU PCB revision or axis registration",
+      "affected": [
+        "printed datum",
+        "axis transform",
+        "state estimator",
+        "fault thresholds",
+        "balance verification"
+      ]
+    },
+    {
+      "source_change": "Anycubic process/material profile",
+      "affected": [
+        "coupon clearance",
+        "pod creep/strength",
+        "landing impact",
+        "all printable fit interfaces"
+      ]
+    }
+  ]
+}

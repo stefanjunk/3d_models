@@ -238,3 +238,33 @@
 - Kept the aggregate result at DRAFT/`NOT_RUN`: exact sample intake, physical
   coupon fit, certified self-intersection, complete Anycubic profiles, 3MF/
   G-code, watermark regression and all powered tests remain open gates.
+
+## 2026-08-31 — Preflight and dimensioned COTS candidate 0.1.0-bom.2
+
+- Replaced the generic retrospective preflight with a schema-valid system
+  assessment covering 22 entities and 18 mechanical, electrical, data,
+  optical, human and environmental interfaces.
+- Rated the intrinsically coupled active-balance product `C5` at 91.75/100,
+  readiness `R2`, criticality `K3`, Lane `E` and release `HOLD`. The exact
+  Anycubic profile set and all physical/dynamic evidence remain absent.
+- Raised critical hardpoint capture from R2 to nominal R3 by registering exact
+  manufacturer parts and official drawings or linked CAD, without treating
+  supplier nominal data as delivered-part tolerance authority.
+- Selected the BaneBots `T81H-RM61` 6 mm hub and `T81P-496BB` 123.825 x
+  20.32 mm wheel as the `bom.2` replacement for the cross-brand Pololu 2686 /
+  INJORA beadlock stack. The matched family has a direct hub/wheel contract,
+  linked hub STEP and currently stated manufacturer lead time.
+- Retained Pololu 4755 motors and 1995 brackets, Pololu 2507 driver and 2851
+  regulator, Teensy 4.1, Adafruit 4502, RP3 V2, RunCam Phoenix 2 SE V2, TX800,
+  Gens ace battery and Littelfuse holder with explicit evidence and sample
+  gates. The battery availability statement is contradictory and must be
+  rechecked before ordering.
+- Calculated only a non-authoritative mass substitution: the matched T81
+  wheel/hub stack reduces the prior ledger about 40.49 g total, suggesting
+  2074.17 g and z-COM 72.54 mm if every other input remains unchanged.
+- Recorded the envelope consequence instead of inheriting the old pass: the
+  larger wheel projects the unchanged 249.5 mm body to 251.41 mm upright
+  height, so the next CAD must recover at least 1.41 mm below the 250 mm limit.
+- Marked `0.1.0-parametric.3` as passed historical `bom.1` evidence but stale
+  for `bom.2`. No CAD mesh, 3MF, G-code, print or powered test was produced in
+  this phase.

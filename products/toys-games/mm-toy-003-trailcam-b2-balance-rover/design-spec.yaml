@@ -5,10 +5,10 @@ project:
   sku: MM-TOY-003
   name: "TrailCam B2 Balance FPV Rover"
   revision: "0.1.0"
-  candidate: "0.1.0-parametric.3"
+  candidate: "0.1.0-bom.2"
   owner: Stefan
   created: "2026-08-30"
-  revised: "2026-08-30"
+  revised: "2026-08-31"
   source_project: "MM-TOY-002 TrailCam CF10 FPV Camera Rover"
   portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-099"
   design_claim: "new design using selected TrailCam appearance and FPV platform ideas"
@@ -17,16 +17,16 @@ project:
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-TOY-003-001
-    assessment_version: 0.1.0
+    assessment_id: PREFLIGHT-MM-TOY-003-002
+    assessment_version: 0.2.0
     assessed_project_revision: "0.1.0"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    updated_at: "2026-08-31T18:20:00+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
+      - dimensioned_cots_interface_review
+      - wheel_stack_supply_change
+      - interface_graph_backfill
   autonomy_policy: autonomy-policy.json
   requirements_approval:
     status: approved
@@ -61,9 +61,9 @@ workflow:
     review: docs/decomposition-review-v0.1.0.md
     validation: validation/hybrid-plan-validation-v0.1.0.json
   parametric_source:
-    status: passed
+    status: stale
     candidate: "0.1.0-parametric.3"
-    reason: "The component-driven 19-part assembly follows BOM 0.1.0-bom.1 envelopes and passes required B-Rep, mass/COM, parameter-sweep and idealized-control checks at 2114.66 g with COM [0.31, -0.75, 71.16] mm"
+    reason: "The component-driven 19-part assembly remains valid evidence for BOM 0.1.0-bom.1, but it is stale for the selected BaneBots T81 wheel/hub stack and manufacturer battery envelope in 0.1.0-bom.2"
     evidence:
       geometry: validation/v0.1.0-parametric.3/geometry-validation.json
       control: validation/v0.1.0-parametric.3/control-model-validation.json
@@ -72,7 +72,7 @@ workflow:
       interfaces: validation/v0.1.0-parametric.3/interface-validation.json
       aggregate: validation/v0.1.0-parametric.3/project-validation.json
   procurement_bom:
-    status: candidate
+    status: superseded
     candidate: "0.1.0-bom.1"
     checked_at: "2026-08-30"
     bom: architecture/bom-procurement-v0.1.0-bom.1.csv
@@ -81,10 +81,24 @@ workflow:
     scope: "real manufacturer parts and current purchase sources for samples and bench work; no production or powered-operation approval"
     estimated_onboard_parts_cost_eur_ex_shipping: 571.67
     estimated_complete_ground_control_cost_eur_ex_shipping_without_fpv_viewer: 706.86
-    reason: "A coherent motor-wheel-driver-controller-IMU-radio-power-FPV chain is selected and represented in component-driven CAD; exact delivered-part measurements and coupon fits remain mandatory"
+    reason: "The bom.1 procurement chain is retained as historical CAD evidence; its cross-brand Pololu/INJORA wheel stack is superseded for the next integration candidate"
+  dimensioned_cots:
+    status: candidate_unmeasured
+    candidate: "0.1.0-bom.2"
+    checked_at: "2026-08-31"
+    register: architecture/cots-interface-register-v0.1.0-bom.2.csv
+    interface_graph: architecture/interface-graph-v0.1.0-bom.2.json
+    report: reports/dimensioned-cots-selection-v0.1.0-bom.2.md
+    validation:
+      preflight: validation/preflight-validation-v0.1.0-bom.2.json
+      design_spec_link: validation/design-spec-preflight-validation-v0.1.0-bom.2.json
+      interface_graph: validation/interface-graph-validation-v0.1.0-bom.2.json
+      aggregate_draft: validation/project-validation-v0.1.0-bom.2.json
+    selected_drive_stack: "Pololu 4755 + Pololu 1995 + BaneBots T81H-RM61 + BaneBots T81P-496BB"
+    reason: "Official nominal drawings or linked manufacturer CAD raise the critical hardpoint interfaces to R3 nominal capture; exact delivered revisions, tolerances and physical verification remain open"
   digital_candidate:
     status: blocked
-    reason: "Component-driven geometry passes its deterministic source checks, but exact sample fits, certified self-intersection, complete Anycubic profiles, watermark regression and physical evidence remain open"
+    reason: "The passed parametric.3 geometry represents superseded bom.1 wheel/battery envelopes; bom.2 CAD integration, exact sample fits, certified self-intersection, complete Anycubic profiles, watermark regression and physical evidence remain open"
   slicer_preflight:
     status: blocked
     reason: "No complete exact machine/process/filament JSON profile exists; no 3MF or G-code has been generated"
@@ -99,7 +113,7 @@ workflow:
     reason: "Watermark is the final planned solid-geometry change after candidate verification"
   final_release_approval:
     status: blocked
-    reason: "Requirements, concept, digital, physical, safety and commercial gates remain open"
+    reason: "Digital bom.2 integration, exact manufacturing profile, physical, powered-control, watermark, safety and commercial gates remain open"
 
 requirements_trace:
   user_stated:
@@ -126,6 +140,7 @@ requirements_trace:
     - "Delivered-sample dimensions, masses and revisions for the selected motor, wheel, adapter, battery, controller, IMU, motor-driver, camera, VTX and receiver products"
     - "Measured whole-rover center of mass and the exact mechanically retained upper trim mass within the 2200 g limit"
     - "Exact printer, PETG product, drying state and Anycubic machine/process/filament JSON profiles"
+    - "Delivered BaneBots T81 wheel/hub revision, 6 mm bore, Pololu shaft engagement, set-screw registration, snap-ring seating, loaded tire radius and batch variation"
 
 function:
   summary: >
@@ -195,6 +210,14 @@ geometry:
     allowed_diameter_range: [110, 130]
     target_tread_width: 42
     wheel_center_track_target: 216
+    selected_candidate: "BaneBots T81P-496BB with T81H-RM61 hub"
+    selected_candidate_diameter: 123.825
+    selected_candidate_tread_width: 20.32
+    selected_candidate_overall_width_at_target_track: 236.32
+    projected_unchanged_body_height: 251.4125
+    projected_height_excess_over_requirement: 1.4125
+    integration_status: requires_cad_envelope_revision
+    note: "The target remains an architecture requirement; selected candidate values own the next CAD revision, require a roof/axle envelope correction, and must be sample-confirmed"
   mass_properties:
     target_total_mass_g: 1800
     maximum_design_mass_g: 2200
@@ -226,15 +249,16 @@ geometry:
 
 interfaces:
   wheel_drive:
-    status: selected_candidate_unmeasured
-    owner: "Pololu 4755 motor and 2686 adapter plus INJORA CRAW18003 rim and CRAW20161023 tire"
-    contract: "6 mm D-shaft to 20 mm long 12 mm hex adapter and zero-offset beadlock rim; left and right output axes coaxial within measured assembly tolerance; each wheel independently reversible and encoder-observed"
+    status: selected_dimensioned_candidate_unmeasured
+    owner: "Pololu 4755 motor and 1995 bracket plus BaneBots T81H-RM61 6 mm hub and T81P-496BB wheel"
+    contract: "6 mm D-shaft with 16 mm available length to matched T81 hub/wheel interface; two hub set screws at 90 degrees and 3/4 inch snap-ring retention; left and right axes coaxial within measured assembly tolerance; each wheel independently reversible and encoder-observed"
   structure:
     status: recommended
     contract: "printed central spine/cage carries motor pods, battery, electronics and landing loads through metal M3/M4 through-fasteners or captured nuts"
   imu:
-    status: provisional
-    contract: "rigid, repeatable datum near the central frame; axis mapping, vibration spectrum and temperature drift must be calibrated"
+    status: selected_dimensioned_candidate_unmeasured
+    owner: "Adafruit 4502 ISM330DHCX breakout; official EagleCAD/Fab Print nominal 25.4 x 17.78 mm, two 2.5 mm holes at 20.32 mm centers"
+    contract: "rigid, repeatable keyed datum near the central frame; delivered PCB revision, installed connector height, sensor axis mapping, vibration spectrum and temperature drift must be measured and calibrated"
   control:
     status: selected_candidate_unmeasured
     controller: "PJRC Teensy 4.1 without headers"
@@ -253,7 +277,7 @@ interfaces:
     independence: "loss or failure of the FPV video path shall not prevent a commanded stop or control failsafe"
   battery:
     status: component_driven_draft_unmeasured
-    candidate: "Gens ace GEA503S60X6GT 3S 5000 mAh XT60; retailer-declared 153 x 44 x 25 mm and 359 g"
+    candidate: "Gens ace GEA503S60X6GT 3S 5000 mAh XT60; manufacturer-declared 154 x 43 x 25 mm and 359 g nominal ledger mass"
     contract: "centered above the wheel axis inside a redesigned guarded, strapped, serviceable cradle with Littelfuse ATO protection, Pololu D24V50F5 logic rail and reachable AMASS XT60E-M service disconnect"
   landing_protection:
     status: recommended

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "project": {"id": "MM-TOY-003", "revision": "0.1.0-parametric.3", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [220, 220, 250]},
+  "project": {"id": "MM-TOY-003", "revision": "0.1.0-bom.2", "units": "mm", "risk_class": "normal-functional", "build_volume_mm": [220, 220, 250]},
   "artifacts": [
     {"id":"parameters","path":"cad/component_parameters.py","kind":"source"},
     {"id":"cad-generator","path":"cad/build_component_rover.py","kind":"source"},
@@ -40,7 +40,19 @@
     {"id":"coupon-camera-width","path":"cad/coupons/v0.1.0-parametric.3/validation-mesh/DRAFT-camera-width-coupon.stl","kind":"mesh"},
     {"id":"coupon-driver-footprint","path":"cad/coupons/v0.1.0-parametric.3/validation-mesh/DRAFT-driver-footprint-coupon.stl","kind":"mesh"},
     {"id":"coupon-tx800-footprint","path":"cad/coupons/v0.1.0-parametric.3/validation-mesh/DRAFT-tx800-footprint-coupon.stl","kind":"mesh"},
-    {"id":"coupon-xt60-panel","path":"cad/coupons/v0.1.0-parametric.3/validation-mesh/DRAFT-xt60-panel-coupon.stl","kind":"mesh"}
+    {"id":"coupon-xt60-panel","path":"cad/coupons/v0.1.0-parametric.3/validation-mesh/DRAFT-xt60-panel-coupon.stl","kind":"mesh"},
+    {"id":"design-spec","path":"design-spec.yaml","kind":"source"},
+    {"id":"dimensioned-cots-preflight-builder","path":"preflight/build_dimensioned_cots_preflight.py","kind":"source"},
+    {"id":"dimensioned-cots-preflight-validator","path":"preflight/validate_dimensioned_cots_preflight.py","kind":"source"},
+    {"id":"specialist-report-normalizer","path":"preflight/normalize_validation_reports.py","kind":"source"},
+    {"id":"preflight-result","path":"preflight/preflight-result.json","kind":"report"},
+    {"id":"preflight-validation","path":"validation/preflight-validation-v0.1.0-bom.2.json","kind":"report"},
+    {"id":"design-spec-preflight-validation","path":"validation/design-spec-preflight-validation-v0.1.0-bom.2.json","kind":"report"},
+    {"id":"interface-graph-validation","path":"validation/interface-graph-validation-v0.1.0-bom.2.json","kind":"report"},
+    {"id":"cots-interface-register","path":"architecture/cots-interface-register-v0.1.0-bom.2.csv","kind":"contract"},
+    {"id":"interface-graph","path":"architecture/interface-graph-v0.1.0-bom.2.json","kind":"contract"},
+    {"id":"interface-graph-report","path":"architecture/interface-graph-v0.1.0-bom.2.md","kind":"report"},
+    {"id":"dimensioned-cots-report","path":"reports/dimensioned-cots-selection-v0.1.0-bom.2.md","kind":"report"}
   ],
   "checks": [
     {"id":"geometry","type":"external_report","required":true,"artifact":"geometry-report","expected_inputs":["parameters","cad-generator","geometry-validator"]},
@@ -67,7 +79,12 @@
     {"id":"mesh-antenna-guide-right","type":"mesh","required":true,"artifact":"mesh-antenna-guide-right","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":1000000,"max_file_mib":100,"require_self_intersection_check":true}},
     {"id":"mesh-ballast-cassette","type":"mesh","required":true,"artifact":"mesh-ballast-cassette","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":1000000,"max_file_mib":100,"require_self_intersection_check":true}},
     {"id":"mesh-ballast-lid","type":"mesh","required":true,"artifact":"mesh-ballast-lid","policy":{"require_watertight":true,"require_winding_consistent":true,"require_positive_volume":true,"expected_components":1,"max_boundary_edges":0,"max_nonmanifold_edges":0,"max_degenerate_faces":0,"max_duplicate_faces":0,"bed_mm":[220,220,250],"allow_axis_permutation":false,"max_faces":1000000,"max_file_mib":100,"require_self_intersection_check":true}},
-    {"id":"exact-purchased-parts","type":"review","required":true,"status":"REVIEW_REQUIRED","criterion":"Delivered wheels, adapters, motors, brackets, battery, boards, camera, RF parts, connector and fuse holder are identified, measured and registered","evidence_artifact":null},
+    {"id":"current-preflight","type":"external_report","required":true,"artifact":"preflight-validation","expected_inputs":["specialist-report-normalizer","preflight-result"]},
+    {"id":"design-spec-preflight-link","type":"external_report","required":true,"artifact":"design-spec-preflight-validation","expected_inputs":["specialist-report-normalizer","design-spec","preflight-result"]},
+    {"id":"dimensioned-cots-interface-graph","type":"external_report","required":true,"artifact":"interface-graph-validation","expected_inputs":["dimensioned-cots-preflight-validator","preflight-result","cots-interface-register","interface-graph"]},
+    {"id":"bom2-interface-graph-review","type":"review","required":true,"status":"REVIEW_REQUIRED","criterion":"All 18 graph edges are reconciled with measured delivered variants and the next CAD/control candidate","evidence_artifact":"interface-graph"},
+    {"id":"bom2-wheel-stack-integration","type":"review","required":true,"status":"REVIEW_REQUIRED","criterion":"BaneBots T81H-RM61/T81P-496BB samples are measured and integrated into fresh geometry, mass/COM, clearance and control evidence","evidence_artifact":null},
+    {"id":"exact-purchased-parts","type":"review","required":true,"status":"REVIEW_REQUIRED","criterion":"Delivered wheels, hubs, motors, brackets, battery, boards, camera, RF parts, connector and fuse holder are identified, measured and registered","evidence_artifact":null},
     {"id":"exact-anycubic-profiles","type":"review","required":true,"status":"NOT_RUN","criterion":"Complete explicit Anycubic machine, process and filament JSON profiles exist and are approved","evidence_artifact":null},
     {"id":"process-fit-coupons","type":"physical","required":true,"status":"REVIEW_REQUIRED","criterion":"All six coupons are printed with the intended material/profile and pass against the delivered components","evidence_artifact":null},
     {"id":"watermark-integration","type":"review","required":true,"status":"REVIEW_REQUIRED","criterion":"MM-WM-001-R2 is integrated only after digital and physical candidate acceptance, followed by regression validation","evidence_artifact":null}

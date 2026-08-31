@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "tool": "mm-toy-003-dimensioned-cots-interface-graph",
+  "tool_version": "1.0.0",
+  "status": "PASS",
+  "validator": "mm-toy-003-dimensioned-cots-interface-graph",
+  "project_id": "MM-TOY-003",
+  "revision": "0.1.0-bom.2",
+  "inputs": [
+    {
+      "path": "preflight/validate_dimensioned_cots_preflight.py",
+      "sha256": "8fbd813b38346d9ec883c79ea5192c9a860e1aedc4fb3d569f358e4a7242e321",
+      "size_bytes": 7043
+    },
+    {
+      "path": "preflight/preflight-result.json",
+      "sha256": "172c0af0bc6f5796fa61c67627a17a7d072894a3dbd3eef4cf0c4fd0c22d2b33",
+      "size_bytes": 73030
+    },
+    {
+      "path": "architecture/interface-graph-v0.1.0-bom.2.json",
+      "sha256": "119f15bc1de36f9f601696978ce25979cbd8f72ced7be9a091a3a1e401a0db40",
+      "size_bytes": 11061
+    },
+    {
+      "path": "architecture/cots-interface-register-v0.1.0-bom.2.csv",
+      "sha256": "ed31255da533a5c8376c3a67ba1e2071644c3c51f138ea08e5980fcdce9951e1",
+      "size_bytes": 6108
+    }
+  ],
+  "checks": [
+    {
+      "id": "unique-nodes",
+      "status": "PASS",
+      "required": true,
+      "message": "22 node IDs",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "unique-edges",
+      "status": "PASS",
+      "required": true,
+      "message": "18 edge IDs",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "edge-projection",
+      "status": "PASS",
+      "required": true,
+      "message": "graph edge order and IDs must exactly project preflight interfaces",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "endpoint-integrity",
+      "status": "PASS",
+      "required": true,
+      "message": "every endpoint must resolve to a graph node",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "metric-node-count",
+      "status": "PASS",
+      "required": true,
+      "message": "graph must contain 22 declared entities",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "metric-edge-count",
+      "status": "PASS",
+      "required": true,
+      "message": "graph must contain 18 declared interfaces",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "all-unconfirmed",
+      "status": "PASS",
+      "required": true,
+      "message": "no delivered-part variant may be claimed before intake measurement",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "interface-complexity",
+      "status": "PASS",
+      "required": true,
+      "message": "every IC total and tier must be arithmetically consistent",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "product-complexity",
+      "status": "PASS",
+      "required": true,
+      "message": "computed PC=91.75 must match C5 result",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "cots-row-count",
+      "status": "PASS",
+      "required": true,
+      "message": "register must contain 13 geometry-owning COTS rows",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "cots-unique-items",
+      "status": "PASS",
+      "required": true,
+      "message": "COTS item IDs must be unique",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "official-links",
+      "status": "PASS",
+      "required": true,
+      "message": "every row needs HTTPS manufacturer product and drawing/CAD references",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "selected-t81-family",
+      "status": "PASS",
+      "required": true,
+      "message": "only the matched BaneBots T81 hub/wheel replacements are SELECT",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "critical-cots-e3",
+      "status": "PASS",
+      "required": true,
+      "message": "all registered geometry-owning COTS rows must have official nominal E3 evidence",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "cots-unconfirmed",
+      "status": "PASS",
+      "required": true,
+      "message": "the register must not imply delivered-part confirmation",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "mass-arithmetic",
+      "status": "PASS",
+      "required": true,
+      "message": "mass-only substitution must remain reproducible",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "width-arithmetic",
+      "status": "PASS",
+      "required": true,
+      "message": "nominal overall width must derive from center track plus one wheel width",
+      "evidence": [],
+      "metrics": {}
+    },
+    {
+      "id": "height-change-detected",
+      "status": "PASS",
+      "required": true,
+      "message": "larger wheel must flag a bom.2 upright-envelope redesign instead of inheriting the bom.1 pass",
+      "evidence": [],
+      "metrics": {}
+    }
+  ],
+  "derived": {
+    "nominal_overall_width_mm": 236.32,
+    "projected_unchanged_upright_height_mm": 251.4125,
+    "upright_height_limit_mm": 250.0,
+    "projected_height_excess_mm": 1.4124999999999943,
+    "mass_only_estimate_g": 2074.169891986308,
+    "mass_only_com_z_mm": 72.54494100540285
+  },
+  "errors": [],
+  "warnings": [
+    "All COTS availability values are time-scoped snapshots and must be rechecked before ordering.",
+    "Passing this projection check does not validate delivered dimensions, fit, dynamics, firmware, printing or powered operation.",
+    "At unchanged axle-relative body geometry the selected wheel projects 251.4125 mm upright height, so CAD redesign is mandatory before a new envelope pass."
+  ],
+  "limitations": [
+    "All COTS availability values are time-scoped snapshots and must be rechecked before ordering.",
+    "Passing this projection check does not validate delivered dimensions, fit, dynamics, firmware, printing or powered operation.",
+    "At unchanged axle-relative body geometry the selected wheel projects 251.4125 mm upright height, so CAD redesign is mandatory before a new envelope pass."
+  ],
+  "passed": true,
+  "release_decision": "HOLD"
+}

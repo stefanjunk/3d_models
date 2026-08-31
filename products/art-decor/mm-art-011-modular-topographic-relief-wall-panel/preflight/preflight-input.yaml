@@ -1,53 +1,45 @@
-product: Permanent One Off Topographic Relief Wall Panel
-intended_use: 'Two unique permanent 600 x 400 mm topographic wall artworks: Harz and the Rheinisches Braunkohlerevier.
-  Each one-off is printed as two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo and permanently
-  joined into one non-serviceable relief. Local rear seam keys and isolated hanger/standoff blocks provide assembly
-  and an 18 mm halo cavity without a rear grid. Selected terrain-derived paths pass optional customer-added light
-  through the visible face.'
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+product: MM-ART-011 permanent Harz and Rhenish topographic wall reliefs
+intended_use: Two unique 600 x 400 mm indoor terrain artworks, each assembled without adhesive from two four-color main prints.
+user_context: Adult indoor customer; optional customer-supplied low-power rear lighting; Kobra 3 Max Combo production.
 host_variant:
-  manufacturer: null
-  model: null
+  manufacturer: Anycubic
+  model: Kobra 3 Max Combo
   revision: null
-  variant_confirmed: false
-lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
+  variant_confirmed: true
+lifecycle_states: [transport, assembly, use, failure]
 requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
+  - id: REQ-ASSEMBLY-001
+    text: No rear grid, magnets, adhesive, or replaceable image sections; use concealed printed one-way plug connectors.
+    acceptance_criterion: Each assembled artwork has one controlled terrain-continuous center seam and cannot separate during defined handling and proof tests.
+    priority: MUST
+    source: user
+  - id: REQ-RELIEF-001
+    text: Preserve one immutable 16-bit global terrain master and continuous height geometry per pilot.
+    acceptance_criterion: Physical aspect, global transform and seam samples pass the relief comparison gates.
+    priority: MUST
+    source: user
 known_components:
-- Permanent One Off Topographic Relief Wall Panel
-- Display or use surface
+  - {id: E-PANEL-L, kind: PRINTED_PART, name: Left terrain main half, source_ref: design-spec.yaml}
+  - {id: E-PANEL-R, kind: PRINTED_PART, name: Right terrain main half, source_ref: design-spec.yaml}
+  - {id: E-CONNECT, kind: PRINTED_PART, name: One-way connector set, source_ref: design-spec.yaml}
+  - {id: E-MOUNT, kind: PRINTED_PART, name: Local snap-in hanger and standoff set, source_ref: design-spec.yaml}
 available_evidence:
-- design-spec.yaml
-- README.md
-- autonomy-policy-validation.json
-- requirements-review-0.3.0.md
-- palette-catalog.yaml
-- multicolor-rhenish-job.yaml
-- multicolor-harz-job.yaml
-- decomposition-review.md
+  - id: SRC-REQ-001
+    type: user_statement
+    description: Approved permanent glue-free one-off architecture recorded in chat and the decision log.
+    variant_confirmed: true
+    scale_validated: false
 manufacturing_profile:
-  printer: anycubic kobra 3 max combo
-  process: FDM/FFF
+  printer: Anycubic Kobra 3 Max Combo
+  process: FDM
   nozzle_mm: 0.4
-  material: PLA
+  material: same-family PLA; exact product, colors, batch, and conditioning unknown
   orientation_known: true
 known_loads_environment:
-  loads: []
-  temperature_c: null
-  media: []
-  duration: null
+  loads: [self-weight, assembly handling, wall-mounted indoor use]
+  temperature_c: [10, 30]
+  media: [indoor air]
+  duration: two-year target pending qualification
 safety_notes:
-- The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled
-  functional testing.
-interfaces:
-- IF-ENV-GEO-SUP-PLN-001
+  - Wall anchors and electrical lighting are excluded and installer/customer selected.
+  - Terrain is decorative and not current survey, planning, navigation, or mine-safety data.

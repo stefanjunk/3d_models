@@ -55,3 +55,11 @@
 - Recommended joining/mounting: a shallow tongue/groove, three small local rear bridge keys, process-qualified adhesive and isolated bonded hanger/standoff blocks. These are local parts, not a rear raster or service interface.
 - The continuous 16-bit terrain master, abstract four-band color strategy and optional customer-added halo/front-through lighting remain. Each one-off keeps its own immutable global source and transform.
 - Gate effect: revision 0.2.0 concept, decomposition, relief jobs and multicolor jobs are superseded. Revision 0.3.0 requirements are awaiting approval; no data acquisition, replacement concept or production geometry is authorized yet.
+
+## 2026-08-31 — Glue-free revision 0.3.0 requirements approved
+
+- Human decision: Stefan explicitly approved plug connectors instead of structural adhesive and instructed creation of the models and coupon.
+- Current interface intent: three concealed loose one-way spring/tenon connectors register each pair of main halves; isolated hanger/standoff parts snap into local rear sockets. Destructive removal is acceptable; replaceable sections remain prohibited.
+- Preflight `PREFLIGHT-MM-ART-011-002` supersedes the earlier backfill as the current retrospective assessment: `C3 (59.0)`, `R2`, `K2`, Lane C, `LOW_UNKNOWN`, `GO_WITH_CONTROLS`.
+- Concept v02 was generated at `concepts/permanent-relief-collection-concept-v02.png`; it shows Harz, the Rheinisches Revier and the shared glue-free rear assembly and awaits human concept approval.
+- Gate effect: requirements are approved for 0.3.0; terrain acquisition, production CAD and the connector coupon remain blocked until concept v02 approval.

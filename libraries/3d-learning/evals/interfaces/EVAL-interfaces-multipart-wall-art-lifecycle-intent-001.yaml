@@ -18,6 +18,7 @@ expected:
   - Permanent one-off intent produces no magnets, removable retainers, replaceable-tile datums or service-cycle requirements.
   - The design selects the fewest reasonable bed-fitting main parts after checking the exact target machine envelope and seam/handling tradeoffs.
   - A rejected full rear grid is not reintroduced under another name; any proposed local joiner or isolated standoff has a bounded permanent role and requires explicit requirements approval.
+  - Glue-free one-way connectors may be used for permanent assembly, but their process-specific clearances and retention remain coupon-gated and do not create a replaceable product claim.
   - Optional lighting preparation remains an unsupplied interface and does not turn the rear construction into a removable carrier.
   - A user correction that changes lifecycle architecture increments the requirements revision, blocks prior concept/decomposition authority and marks their artifacts as superseded before new CAD work.
 failure_conditions:
@@ -29,10 +30,12 @@ failure_conditions:
 fixtures:
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concept-review-0.3.0.md
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/concept-review.md
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/plan/hybrid-design-plan.json
   - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
   - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
+  - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/concept-review-0.3.0.md
   - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/concept-review.md
   - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/plan/hybrid-design-plan.json
 grader:
@@ -45,20 +48,20 @@ grader:
     the selected main parts fit the exact target machine, local permanent parts
     remain bounded and approval-gated, and all prior contradictory artifacts are
     visibly superseded. Physical joint and mounting performance remain NOT_RUN.
-  measurement_method: Requirements/decomposition trace review, exact machine-envelope comparison and later process-matched seam/bond/standoff coupon tests.
+  measurement_method: Requirements/decomposition trace review, exact machine-envelope comparison and later process-matched seam-connector/snap-standoff coupon tests.
 relationships:
   lessons:
     - EXP-00045
   regression_suites: []
 last_run:
   result: pass
-  date: 2026-08-30
+  date: 2026-08-31
   report: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
   artifact_hashes:
-    - c7ec1f4928df2efc37f094389dcd72f50fbf720271fb8d1d1a220fb2eab3076b
-    - 3763eb162ccda7b25cd868960e0b63d2d2d317107a912dabce87cad8743cac28
-    - 048f5e65de69952a536796242c3f04ad1e1ff30d0dd4a2edf3f9a725ec1d94fc
-    - 7ae527de8fa9da601ea373cffbee67bb3cb6407df19b0627aac1c9f7f3bf010a
+    - 104c99a327c223ed60872493b74b640ae3ed83261877a29b1b924c0c17e45656
+    - 1f18bcd71308d541303b67921ecf2ca7716b9d79a6a3f447712481153b2d5c01
+    - 328cf568f4b24b4653a2d8f6a5587584f3abec7090f3dd12bad2c6ed521e3fa5
+    - 797de1d92c84663840a8b21e0c527cd850530bcf2cb64bfc75477e24e8e1a2b7
 tags:
   - interfaces
   - multipart-wall-art

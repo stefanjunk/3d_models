@@ -6,7 +6,7 @@ project:
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
   revision: 0.3.0
-  candidate: 0.3.0-requirements-draft.1
+  candidate: 0.3.0-concept-candidate.2
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -14,27 +14,31 @@ project:
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: retrospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-001
-    assessment_version: 0.1.0
+    assessment_id: PREFLIGHT-MM-ART-010-002
+    assessment_version: 0.2.0
+    previous_assessment_id: PREFLIGHT-MM-ART-010-001
     assessed_project_revision: "0.3.0"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    updated_at: "2026-08-31T16:44:58+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
+      - user_approved_glue_free_one_way_connectors
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
-    status: changes-requested
+    status: approved
+    spec_revision: 0.3.0
+    approved_by: Stefan
+    approved_at: "2026-08-31"
     previous_approved_revision: 0.2.0
     change_requested_by: "Stefan"
     change_requested_on: "2026-08-30"
-    basis: "User rejected the rear grid and replaceable-tile architecture, specified one-off permanent pilots, and identified the Anycubic Kobra 3 Max Combo as the four-color target printer"
+    basis: "User confirmed the permanent two-half architecture and then explicitly approved glue-free concealed one-way plug connectors and snap-in local hanger/standoff parts"
   concept_approval:
-    status: blocked
-    reason: "Revision 0.3.0 changes segmentation, rear construction, mounting and appearance; requirements must be approved and a new concept must be reviewed"
+    status: pending
+    spec_revision: 0.3.0
+    asset: concepts/permanent-relief-collection-concept-v02.png
+    reason: "Replacement concept for the approved glue-free architecture requires human visual approval"
   watermark_approval:
     status: blocked
     spec_revision: null
@@ -48,7 +52,7 @@ workflow:
     reason: "The revision 0.2.0 rear-grid decomposition is superseded"
   digital_candidate:
     status: blocked
-    reason: "Requirements and concept revision 0.3.0 are not approved"
+    reason: "Concept revision 0.3.0 is not approved"
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -74,23 +78,23 @@ requirements_trace:
     - "Do not make the printed sections replaceable"
     - "Treat each pilot as a permanent one-off artwork"
     - "Use the Anycubic Kobra 3 Max Combo for four-color printing"
+    - "Use glue-free plug connectors for the printed assembly"
   inferred:
     - "One-off means one permanently assembled physical Berlin artwork, even though its main body requires more than one print"
     - "Indoor decorative adult product, not a navigation aid or structural wall component"
     - "The design remains complete and mountable without customer lighting"
-    - "Local seam joiners and isolated spacer/hanger blocks are allowed because they are not a full rear grid and are not service interfaces"
+    - "The concealed connector and local hanger/standoff plugs are one-way assembly interfaces; destructive removal does not make the artwork a replaceable system"
   recommended:
     - "Use two permanent 300 x 400 mm printed halves instead of the superseded six 200 mm tiles; both halves fit the verified 420 x 420 mm Kobra 3 Max bed and reduce visible seams from seven to one"
-    - "Join the halves permanently with a controlled tongue/groove seam plus three small rear bridge keys and adhesive; the bridge keys are local seam parts, not a rear raster"
-    - "Create the 18 mm halo gap with isolated bonded printed hanger/standoff blocks, not a frame or grid"
+    - "Join the halves permanently with discrete seam locating lands and three concealed loose one-way spring/tenon connectors; no structural adhesive"
+    - "Create the 18 mm halo gap with isolated snap-in printed hanger/standoff parts, not a frame or grid"
     - "Apply optional LED strip directly to declared rear adhesive lands or small local clips and reserve matched cable passages across the center seam"
     - "Use explicit aligned color solids, broad semantic regions and the approved Urban Signal palette without dithering"
     - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
     - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
-  unresolved_consequential:
-    - "Approve the recommended two-half permanent assembly with local bridge keys, bonded standoff/hanger blocks and no full rear structure"
+  unresolved_consequential: []
   unresolved_nonblocking:
-    - "Exact adhesive system, surface preparation and bond coupon remain to be selected before print-candidate approval"
+    - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
     - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
     - "Final aperture pattern and visual density remain subject to the new concept and a physical light coupon"
 
@@ -98,8 +102,9 @@ function:
   summary: >
     A unique permanent 600 x 400 mm Berlin street-map wall artwork printed as
     two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo. The
-    halves are permanently registered and bonded into one non-serviceable
-    picture. Local rear seam keys and isolated hanger/standoff blocks provide
+    halves are permanently registered by concealed one-way printed connectors
+    into one non-serviceable picture. Local connector springs and isolated
+    snap-in hanger/standoff parts provide
     assembly and an 18 mm halo cavity without a rear grid. Selected abstract
     paths pass optional customer-added light through the visible face.
   intended_users:
@@ -107,15 +112,15 @@ function:
     - "customers commissioning one unique city artwork"
   included:
     - "two permanent Berlin main relief halves"
-    - "small printed rear seam bridge keys"
-    - "small printed hanger/standoff blocks and lighting-interface gauge"
+    - "three small concealed one-way printed seam connectors"
+    - "small snap-in hanger/standoff parts and lighting-interface gauge"
     - "portable aligned four-color 3MFs and named per-color meshes"
     - "rebuildable map-data and CAD pipeline with provenance"
   excluded:
     - "separate rear grid, rear frame or replaceable tile system"
     - "magnets, serviceable retainers or tile-removal features"
     - "LED strip, controller, power supply, wiring, diffuser and electrical connectors"
-    - "wall screws, plugs/anchors, adhesive and installation services"
+    - "wall screws, wall plugs/anchors, structural adhesive and installation services"
     - "outdoor, wet-room, emergency-signage, navigation or wall-load-rating claims"
 
 branding:
@@ -131,7 +136,7 @@ branding:
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
-  proposed_placement: "protected lower rear land outside seam, hanger, lighting, attribution and adhesive regions"
+  proposed_placement: "protected lower rear land outside seam, connector, hanger, lighting and attribution regions"
   status: "blocked until stable revision 0.3.0 geometry, generated placement evidence and human approval"
 
 coordinate_system:
@@ -177,21 +182,21 @@ geometry:
 
 permanent_assembly:
   architecture: "two non-replaceable main prints permanently joined into one unique artwork; no rear grid"
-  nominal_owner: "one parametric global seam skeleton owns both mating edges, bridge-key pockets, standoff lands and wall plane"
-  seam_interface: "shallow tongue/groove alignment plus three local rear bridge keys and a process-qualified adhesive bond"
-  wall_interface: "isolated upper hanger/standoff blocks and lower standoff blocks bonded to declared rear lands; exact wall anchors remain installer-selected"
+  nominal_owner: "one parametric global seam skeleton owns both mating edges, three connector pockets, snap-in standoff sockets and wall plane"
+  seam_interface: "discrete locating lands plus three concealed loose one-way spring/tenon connectors; no structural adhesive"
+  wall_interface: "isolated upper hanger/standoff and lower standoff parts lock into local rear sockets; exact wall anchors remain installer-selected"
   assembly_sequence:
-    - "dry-fit the two main halves and select the seam allowance with the process-matched coupon"
-    - "bond the center seam and three local rear bridge keys on a flat assembly fixture"
-    - "bond the isolated hanger/standoff blocks and verify the 18 mm wall plane"
+    - "print and test the process-matched multi-clearance connector coupon"
+    - "insert three selected one-way connectors into the first half, align both halves on a flat fixture and press together once"
+    - "snap the isolated hanger/standoff parts into their local rear sockets and verify the 18 mm wall plane"
     - "optionally apply customer lighting directly to the rear lands and route the cable without energizing it during mechanical assembly"
     - "mount the finished single artwork using substrate-appropriate customer-selected anchors"
   replaceable_sections: false
   service_cycles: 0
   protected_regions:
     - "visible map face and cross-seam features"
-    - "center seam tongue/groove and bridge-key pockets"
-    - "hanger/standoff bond lands and wall-fastener access"
+    - "center seam locating lands, connector pockets and one-way spring roots"
+    - "hanger/standoff snap sockets and wall-fastener access"
     - "LED lands, cable routes, attribution and future watermark"
 
 backlight_preparation:
@@ -241,8 +246,8 @@ duty:
   service_life_target: "2 years pending physical qualification"
   loads: "self-weight plus handling during one permanent assembly and wall installation"
   foreseeable_hazards:
-    - "artwork detachment from unsuitable wall anchors or failed hanger bonds"
-    - "permanent center bond or bridge-key failure"
+    - "artwork detachment from unsuitable wall anchors or failed hanger snap interfaces"
+    - "permanent center connector fracture or disengagement"
     - "sharp fragments after impact"
     - "warping that opens the visible permanent seam"
     - "customer-installed lighting heat, wiring or power-supply misuse"
@@ -251,12 +256,12 @@ duty:
 risk:
   class: decorative
   hazards:
-    - "artwork or local hanger bond detaches from the wall"
-    - "permanent center seam or rear bridge bond fails"
+    - "artwork or local hanger snap interface detaches from the wall"
+    - "permanent center connector fractures or disengages"
     - "warping creates a visible seam step or unstable wall plane"
     - "customer lighting overheats, is wired incorrectly or blocks ventilation"
   mitigations:
-    - "coupon-qualified adhesive, surface preparation, seam geometry and flat assembly fixture"
+    - "multi-clearance connector/snap coupons, in-plane spring orientation, distributed interfaces and a flat assembly fixture"
     - "mass-based proof load on the assembled hanger/standoff system before installation"
     - "open 18 mm cavity, explicit LED keep-outs and no supplied electrical claim"
     - "installer selects wall anchors for the actual substrate"
@@ -271,7 +276,7 @@ fabrication:
   source_checked: "2026-08-30"
   main_part_bed_margin_mm: [120.0, 20.0]
   main_material: "PLA candidate; exact Anycubic PLA Matte products/batches unresolved"
-  local_joiner_and_standoff_material: "same-family PLA candidate unless bond testing selects another compatible printed material"
+  local_joiner_and_standoff_material: "same-family PLA candidate; exact filament identity and spring behavior require coupon evidence"
   nozzle_mm: 0.4
   line_width_mm: 0.45
   layer_height_mm: 0.20
@@ -303,10 +308,10 @@ manufacturing:
 
 optimization:
   status: pending
-  objective: "minimize seam count, filament, support, purge and print time while preserving flatness, permanent bond area, relief readability and lighting apertures"
+  objective: "minimize seam count, filament, support, purge and print time while preserving flatness, connector retention, relief readability and lighting apertures"
   protected:
     - "visible global map registration and center seam"
-    - "bridge-key, hanger/standoff and adhesive lands"
+    - "connector pockets, one-way spring roots and hanger/standoff snap sockets"
     - "light apertures, LED/cable keep-outs, attribution and watermark host"
   baseline_slicer_report: null
   selected_variant: null
@@ -319,7 +324,7 @@ optimization:
     protected_regions:
       - "outer perimeter and center seam"
       - "thin map/color boundaries and through-openings"
-      - "bridge-key, hanger/standoff and adhesive lands"
+      - "connector pockets, one-way spring roots and hanger/standoff snap sockets"
       - "attribution and watermark geometry"
     resource_budget:
       triangle_target: 750000
@@ -342,7 +347,7 @@ acceptance_details:
     - "No rear grid, magnet pocket, replaceable-tile datum or service retainer exists in the current production architecture"
     - "All color solids are manifold, positive-volume, aligned and pairwise non-overlapping"
     - "Both 300 x 400 mm main halves fit the verified 420 x 420 mm Kobra 3 Max bed"
-    - "Permanent seam, local bridge keys, isolated hanger/standoff blocks and LED lands have unique parametric owners and pass collision/ligament checks"
+    - "Permanent seam, three one-way connectors, isolated snap-in hanger/standoff parts and LED lands have unique parametric owners and pass collision/ligament checks"
     - "Every intended light opening is truly open and preserves seam/joiner/hanger/attribution keep-outs"
   slicer:
     - "Exact Anycubic Slicer Next profiles import each half as one aligned four-color assembly without auto-arrangement"
@@ -350,8 +355,8 @@ acceptance_details:
     - "No first-layer island, missing thin route, unsupported inlay or cross-seam feature loss"
     - "Transition count and purge estimate stay within the approved one-off pilot budget"
   physical:
-    - "The seam coupon selects the actual permanent tongue/groove and bridge-key allowance"
-    - "A representative bonded seam/bridge coupon passes handling and a defined proof load before full assembly"
+    - "The connector coupon selects the actual pocket clearance, spring geometry and locating-land allowance"
+    - "A representative glue-free seam/connector coupon passes one-time assembly, crack/whitening, flushness and defined pull/step checks before full assembly"
     - "The completed two-half artwork remains flat, permanently aligned and visually continuous"
     - "Installed artwork survives a mass-based proof load; wall anchors remain user/installer-selected"
     - "Halo/light-through gauge confirms strip envelopes, cable exits, diffuser lands and visible passage without a rear grid"
@@ -368,7 +373,7 @@ acceptance:
     status: NOT_RUN
   - id: AC-PERMANENT-ASSEMBLY
     criterion: "The two halves form one flat permanent artwork without a rear grid or replaceable interface."
-    method: "digital interface audit, seam/bond coupon and assembled proof test"
+    method: "digital interface audit, one-way connector coupon and assembled proof test"
     status: NOT_RUN
   - id: AC-MULTICOLOR
     criterion: "Four named abstract color solids slice with correct ACE slot mapping and approved purge evidence."
@@ -388,7 +393,7 @@ deliverables:
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"
   - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"
-  - "Small printed rear bridge keys and hanger/standoff parts; no rear grid"
+  - "Three small concealed one-way seam connectors and snap-in hanger/standoff parts; no rear grid"
   - "Named color meshes and four-color Anycubic-oriented 3MFs"
-  - "Seam/bond, light-envelope and multicolor coupons plus validation reports"
+  - "Seam/connector, snap-fit, light-envelope and multicolor coupons plus validation reports"
   - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

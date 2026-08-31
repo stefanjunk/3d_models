@@ -28,7 +28,8 @@ feature:
   named_datums:
     - assembled visible panel frame
     - permanent center seam
-    - local bridge-key bond lands
+    - concealed one-way connector pockets and spring roots
+    - local hanger/standoff snap sockets
     - isolated hanger/standoff wall plane
   constraints:
     - Manufacturing segmentation and customer service segmentation are separate requirement decisions.
@@ -64,12 +65,12 @@ scope:
   environment: requirements correction before replacement concept or production CAD
   transfer_limits:
     - Evidence covers three related 600 x 400 mm one-off relief pilots on one verified large-format printer.
-    - It does not validate the proposed adhesive, tongue/groove, bridge keys, hanger blocks or proof loads.
+    - It does not validate the proposed one-way connector springs, pocket clearances, snap-in hanger/standoffs or proof loads.
     - Serviceable wall-art products may still require a rear grid when replaceability is explicitly requested and justified.
 observation:
   summary: The initial architecture incorrectly turned a request for multiple prints into six replaceable tiles on a magnetic rear grid; the user required no rear grid, no replaceability and one permanent one-off per pilot.
   expected: The workflow asks or records lifecycle intent independently from printer-bed segmentation and selects the fewest reasonable main parts that fit the verified machine.
-  actual: Revision 0.2.0 added a segmented grid, magnets and service interfaces that were not required; revision 0.3.0 replaces them with a proposed permanent two-half architecture and reopens approval gates.
+  actual: Revision 0.2.0 added a segmented grid, magnets and service interfaces that were not required; revision 0.3.0 now records an approved permanent two-half architecture with glue-free one-way connectors and snap-in local standoffs, while physical interfaces remain coupon-gated.
   outcome: correction
   parameter: relationship between manufacturing split and lifecycle/service architecture
   recommended_value: Treat bed-fit splitting as manufacturing decomposition only unless replaceability or repeated service is explicitly approved.
@@ -81,7 +82,7 @@ explanation:
     - Six permanent tiles could satisfy non-replaceability, but add unnecessary seams and alignment work on the verified target machine.
     - A separate rear frame could simplify hanging, but the user explicitly rejected a rear grid and it remains outside the current requirement.
   validated: false
-  validation_method: Apply the targeted lifecycle-intent eval now, then validate the selected permanent seam, bond and isolated standoffs with process-matched coupons before full assembly.
+  validation_method: Apply the targeted lifecycle-intent eval now, then validate the selected one-way seam connectors and isolated snap-in standoffs with process-matched coupons before full assembly.
 evidence:
   observations: 1
   same_scope_repetitions: 0
@@ -91,20 +92,20 @@ evidence:
   nozzle_count: 1
   measured: false
   measurement_method: Explicit user correction, requirements trace review and official target-printer envelope check; no printed measurement.
-  uncertainty: The user has not yet approved local bridge keys and bonded standoffs, and their dimensions and strength remain untested.
+  uncertainty: The user approved glue-free one-way connectors and snap-in local standoffs, but their exact clearances, insertion/retention behavior, dimensions and strength remain untested.
   sources:
     - type: product-trace
       ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
-      hash: c7ec1f4928df2efc37f094389dcd72f50fbf720271fb8d1d1a220fb2eab3076b
-      notes: Records the Berlin user correction, two-half recommendation and reopened requirements gate.
+      hash: 104c99a327c223ed60872493b74b640ae3ed83261877a29b1b924c0c17e45656
+      notes: Records the Berlin correction, approved two-half glue-free requirements and pending concept gate.
     - type: product-trace
       ref: products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/design-spec.yaml
-      hash: 048f5e65de69952a536796242c3f04ad1e1ff30d0dd4a2edf3f9a725ec1d94fc
-      notes: Records the Harz and Rhenish pilot correction and permanent architecture recommendation.
+      hash: 328cf568f4b24b4653a2d8f6a5587584f3abec7090f3dd12bad2c6ed521e3fa5
+      notes: Records the Harz/Rhenish correction, approved two-half glue-free requirements and pending concept gate.
     - type: user-statement
       ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
-      hash: 8854aedc63cb98b28511da869205b2060550e3e953293b273c86c71d62f3d699
-      notes: Preserves the correction and its gate impact in the owning product trace.
+      hash: ca5601d17cf97205fb1a07085634009ca4ea93b55c4202536856315ae37ba95a
+      notes: Preserves the original correction, the accepted glue-free architecture and its gate impact in the owning product trace.
   artifacts:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.3.0.md
     - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
@@ -136,7 +137,7 @@ validation:
     - products/art-decor/mm-art-011-modular-topographic-relief-wall-panel/requirements-review-0.3.0.md
 provenance:
   project: MM-ART-010/MM-ART-011
-  part_revision: 0.3.0-requirements-draft.1
+  part_revision: 0.3.0-concept-candidate.2
   trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
   source_commit: null
   created_by: Codex

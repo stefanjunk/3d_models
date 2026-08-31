@@ -14,10 +14,16 @@ verschraubt und besitzt weder Adapterplatte noch Clip, Schlitten, Rastung oder
 Schnellverschluss. Offene Wabenwände und das mittige eigene metriMade-Logo
 bleiben geschützt.
 
-Hierzu existiert noch **keine freigegebene Modell- oder 3MF-Datei**. Vor einem
-neuen Konzept müssen die Anforderungen ausdrücklich freigegeben werden; vor
-Produktions-CAD folgen Konzeptfreigabe sowie reale Schrauben- und
-Maschinenhüllkurvenprüfung.
+Hierzu existiert noch **keine freigegebene Modell- oder 3MF-Datei**. Die
+Anforderungen sind für ein bemaßtes Prüfblatt freigegeben. Aktuell zur
+Zeichnungs-/Konzeptprüfung stehen:
+
+- [`R7-REQ5-DWG-001-dimensioned-concept.png`](drawings/R7-REQ5-DWG-001-dimensioned-concept.png)
+- [`R7-REQ5-DWG-001-dimensioned-concept.svg`](drawings/R7-REQ5-DWG-001-dimensioned-concept.svg)
+- [`R7-REQ5-DWG-001-dimensioned-concept.pdf`](drawings/R7-REQ5-DWG-001-dimensioned-concept.pdf)
+
+Produktions-CAD folgt erst nach separater Zeichnungs-/Konzeptfreigabe sowie
+realer Schrauben- und Maschinenhüllkurvenprüfung.
 
 ## Passende Drittanbieter-Referenz
 

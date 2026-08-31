@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b45309"/>
+    </marker>
+    <marker id="flow" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+      <path d="M 0 0 L 11 5.5 L 0 11 z" fill="#0284c7"/>
+    </marker>
+    <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#f59e0b" stroke-width="3" opacity="0.30"/>
+    </pattern>
+    <pattern id="honey" width="42" height="36.4" patternUnits="userSpaceOnUse">
+      <path d="M10.5 0 L31.5 0 L42 18.2 L31.5 36.4 L10.5 36.4 L0 18.2 Z"
+            fill="none" stroke="#0f766e" stroke-width="3" opacity="0.72"/>
+    </pattern>
+    <style>
+      .title { font: 700 32px 'DejaVu Sans', sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 17px 'DejaVu Sans', sans-serif; fill: #475569; }
+      .panel-title { font: 700 21px 'DejaVu Sans', sans-serif; fill: #0f172a; }
+      .label { font: 500 16px 'DejaVu Sans', sans-serif; fill: #1e293b; }
+      .small { font: 400 14px 'DejaVu Sans', sans-serif; fill: #475569; }
+      .tiny { font: 400 12px 'DejaVu Sans', sans-serif; fill: #475569; }
+      .dimtext { font: 700 17px 'DejaVu Sans', sans-serif; fill: #92400e; paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+      .tbd { font: 700 16px 'DejaVu Sans', sans-serif; fill: #b91c1c; }
+      .panel { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; rx: 12; }
+      .part { fill: #d7f3ee; stroke: #0f766e; stroke-width: 4; }
+      .part-dark { fill: #99ded2; stroke: #0f766e; stroke-width: 4; }
+      .host { fill: #dbe4ea; stroke: #475569; stroke-width: 4; }
+      .unknown { fill: #fff7ed; fill-opacity: 0.48; stroke: #b91c1c; stroke-width: 3; stroke-dasharray: 10 7; }
+      .datum { stroke: #0e7490; stroke-width: 3; stroke-dasharray: 10 7; }
+      .centerline { stroke: #64748b; stroke-width: 2; stroke-dasharray: 12 8 2 8; }
+      .dim { stroke: #b45309; stroke-width: 2; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .ext { stroke: #b45309; stroke-width: 1.5; }
+      .leader { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .flowline { stroke: #0284c7; stroke-width: 5; fill: none; marker-end: url(#flow); }
+      .note-head { font: 700 16px 'DejaVu Sans', sans-serif; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1800" height="1200" fill="#f8fafc"/>
+  <rect x="24" y="22" width="1752" height="1128" fill="#fff" stroke="#0f172a" stroke-width="3"/>
+
+  <text x="52" y="68" class="title">Anycubic Kobra 3 Max · bodenloser Purge-Umlenker</text>
+  <text x="52" y="98" class="subtitle">Bemaßtes Konzept- und Datumsprüfblatt · R7 · Anforderungen 0.7.0-requirements.5 · alle Maße in mm</text>
+  <rect x="1410" y="42" width="325" height="52" rx="7" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+  <text x="1572" y="65" text-anchor="middle" class="note-head" fill="#92400e">NICHT ZUR FERTIGUNG</text>
+  <text x="1572" y="86" text-anchor="middle" class="small">Konzept / Messprüfung / TBD offen</text>
+
+  <!-- PANEL A -->
+  <rect x="45" y="130" width="590" height="640" class="panel"/>
+  <text x="68" y="166" class="panel-title">A · Eigenes Funktionsdesign</text>
+  <text x="68" y="190" class="small">Geschützte R6-Fanggeometrie; Maschinenlage noch nicht freigegeben</text>
+
+  <!-- Isometric-ish body -->
+  <polygon points="150,270 430,270 514,222 234,222" fill="#c7eee7" stroke="#0f766e" stroke-width="4"/>
+  <polygon points="430,270 514,222 514,502 430,550" class="part-dark"/>
+  <rect x="150" y="270" width="280" height="280" class="part"/>
+  <rect x="155" y="326" width="270" height="218" fill="url(#honey)" stroke="none"/>
+  <polygon points="434,325 510,281 510,496 434,539" fill="url(#honey)" stroke="none"/>
+  <rect x="150" y="270" width="280" height="54" fill="#99ded2" stroke="#0f766e" stroke-width="4"/>
+
+  <!-- Open bottom -->
+  <line x1="150" y1="550" x2="175" y2="550" stroke="#0f766e" stroke-width="4"/>
+  <line x1="405" y1="550" x2="430" y2="550" stroke="#0f766e" stroke-width="4"/>
+  <line x1="175" y1="550" x2="405" y2="550" stroke="#0284c7" stroke-width="3" stroke-dasharray="9 7"/>
+  <path d="M 245 430 C 260 485, 270 535, 270 610" class="flowline"/>
+  <path d="M 335 430 C 320 485, 310 535, 310 610" class="flowline"/>
+  <text x="290" y="634" text-anchor="middle" class="label" fill="#0369a1">freier Fall · kein Boden</text>
+
+  <!-- Logo island -->
+  <rect x="235" y="390" width="112" height="54" rx="12" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+  <text x="291" y="413" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="15" font-weight="700" fill="#0f766e">metriMade</text>
+  <text x="291" y="433" text-anchor="middle" class="tiny">mittig / eigene Marke</text>
+
+  <!-- Integrated mount pad -->
+  <path d="M 108 332 L150 312 L150 462 L108 442 Z" fill="#99ded2" stroke="#0f766e" stroke-width="4"/>
+  <circle cx="126" cy="352" r="10" fill="#fff" stroke="#0f766e" stroke-width="4"/>
+  <circle cx="126" cy="429" r="10" fill="#fff" stroke="#0f766e" stroke-width="4"/>
+  <line x1="126" y1="330" x2="126" y2="451" class="centerline"/>
+  <path d="M 108 378 L80 360 L70 328" class="leader"/>
+  <text x="68" y="308" class="label">integrierte massive</text>
+  <text x="68" y="328" class="label">Schraubenzone</text>
+
+  <!-- Body dimensions -->
+  <line x1="150" y1="250" x2="150" y2="205" class="ext"/>
+  <line x1="430" y1="250" x2="430" y2="205" class="ext"/>
+  <line x1="150" y1="210" x2="430" y2="210" class="dim"/>
+  <text x="290" y="203" text-anchor="middle" class="dimtext">62 · Fangbreite</text>
+
+  <line x1="535" y1="270" x2="565" y2="270" class="ext"/>
+  <line x1="535" y1="550" x2="565" y2="550" class="ext"/>
+  <line x1="555" y1="270" x2="555" y2="550" class="dim"/>
+  <text x="575" y="415" transform="rotate(90 575 415)" text-anchor="middle" class="dimtext">62 · Prallwandhöhe</text>
+
+  <line x1="440" y1="270" x2="470" y2="270" class="ext"/>
+  <line x1="440" y1="324" x2="470" y2="324" class="ext"/>
+  <line x1="460" y1="270" x2="460" y2="324" class="dim"/>
+  <text x="477" y="302" transform="rotate(90 477 302)" text-anchor="middle" class="dimtext">12 · Haube</text>
+
+  <text x="70" y="678" class="note-head">Weitere geschützte Funktionsmaße</text>
+  <text x="70" y="703" class="label">Tiefe außen: 44</text>
+  <text x="265" y="703" class="label">freie Fallöffnung: 57 × 39</text>
+  <text x="70" y="731" class="small">Waben-/Logomaße und Wandstärken: nach Konzept- und Couponfreigabe.</text>
+  <text x="70" y="753" class="small">Ansicht formbeschreibend; Maßlinien sind die verbindliche Information.</text>
+
+  <!-- PANEL B -->
+  <rect x="655" y="130" width="545" height="640" class="panel"/>
+  <text x="678" y="166" class="panel-title">B · Eigene Maschinendatums</text>
+  <text x="678" y="190" class="small">Nur Benutzermaße; keine Fremdgeometrie oder Fremdmaße</text>
+
+  <!-- Side datum view -->
+  <text x="680" y="226" class="note-head">Seitenansicht X/Z</text>
+  <line x1="760" y1="250" x2="760" y2="510" class="datum"/>
+  <line x1="690" y1="408" x2="1158" y2="408" class="centerline"/>
+  <circle cx="760" cy="408" r="11" fill="#0e7490"/>
+  <circle cx="760" cy="340" r="11" fill="#0e7490"/>
+  <line x1="908" y1="242" x2="908" y2="538" stroke="#ea580c" stroke-width="3" stroke-dasharray="10 7"/>
+  <line x1="690" y1="448" x2="1165" y2="448" stroke="#ea580c" stroke-width="3" stroke-dasharray="10 7"/>
+  <text x="920" y="262" class="small" fill="#c2410c">beobachtete Purge-Wurfbahn</text>
+  <text x="930" y="469" class="small" fill="#c2410c">Purge-Ablageebene</text>
+
+  <!-- 17 dimension -->
+  <line x1="730" y1="340" x2="705" y2="340" class="ext"/>
+  <line x1="730" y1="408" x2="705" y2="408" class="ext"/>
+  <line x1="715" y1="340" x2="715" y2="408" class="dim"/>
+  <text x="698" y="376" transform="rotate(-90 698 376)" text-anchor="middle" class="dimtext">17 ± Messunsicherheit</text>
+
+  <!-- 10 dimension -->
+  <line x1="782" y1="408" x2="830" y2="408" class="ext"/>
+  <line x1="782" y1="448" x2="830" y2="448" class="ext"/>
+  <line x1="817" y1="408" x2="817" y2="448" class="dim"/>
+  <text x="838" y="433" class="dimtext">10</text>
+
+  <!-- 37 dimension -->
+  <line x1="760" y1="490" x2="760" y2="518" class="ext"/>
+  <line x1="908" y1="490" x2="908" y2="518" class="ext"/>
+  <line x1="760" y1="507" x2="908" y2="507" class="dim"/>
+  <text x="834" y="500" text-anchor="middle" class="dimtext">37</text>
+  <text x="682" y="548" class="small">37: Achse/Enddatum vor CAD nochmals am realen Drucker bestätigen.</text>
+
+  <!-- Provisional concept envelope -->
+  <path d="M 785 280 L1122 280 L1122 532 L785 532 Z" class="unknown"/>
+  <text x="1050" y="322" text-anchor="middle" class="tbd">Umlenkerkontur TBD</text>
+  <text x="1050" y="344" text-anchor="middle" class="small">nicht aus Datumsbild ableiten</text>
+
+  <!-- Top view keepout -->
+  <text x="680" y="594" class="note-head">Draufsicht X/Y · rückwärtiger Wiper-Bereich</text>
+  <rect x="740" y="618" width="140" height="82" fill="url(#hatch)" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="880" y1="605" x2="880" y2="728" stroke="#0e7490" stroke-width="4"/>
+  <circle cx="880" cy="659" r="10" fill="#0e7490"/>
+  <line x1="740" y1="712" x2="880" y2="712" class="dim"/>
+  <text x="810" y="705" text-anchor="middle" class="dimtext">40</text>
+  <text x="748" y="641" class="small" fill="#92400e">Wiper-Ausdehnung</text>
+  <text x="900" y="641" class="label">Schraubenauflage</text>
+  <text x="900" y="666" class="small">zulässige neue Hülle:</text>
+  <text x="900" y="687" class="tbd">TBD per Umrisslehre</text>
+  <text x="680" y="746" class="small">Bett, Rollen, Kopf, Kabel und Werkzeugweg sind noch nicht vollständig bemaßt.</text>
+
+  <!-- PANEL C -->
+  <rect x="1220" y="130" width="535" height="640" class="panel"/>
+  <text x="1243" y="166" class="panel-title">C · Direktverschraubung und Schnitt</text>
+  <text x="1243" y="190" class="small">Feste Montage; kein Clip, Adapter, Schlitten oder Verschluss</text>
+
+  <!-- Screw section -->
+  <text x="1245" y="228" class="note-head">Schnitt durch eine Schraubenachse</text>
+  <rect x="1270" y="266" width="100" height="142" class="host"/>
+  <text x="1320" y="427" text-anchor="middle" class="small">Wiper / Host</text>
+  <rect x="1370" y="280" width="95" height="114" class="part-dark"/>
+  <text x="1417" y="427" text-anchor="middle" class="small">Druckteil</text>
+  <rect x="1465" y="308" width="48" height="58" rx="8" fill="#94a3b8" stroke="#334155" stroke-width="3"/>
+  <rect x="1300" y="328" width="177" height="18" rx="9" fill="#64748b" stroke="#334155" stroke-width="3"/>
+  <line x1="1280" y1="337" x2="1530" y2="337" class="centerline"/>
+  <text x="1489" y="299" text-anchor="middle" class="small">Schraubenkopf</text>
+  <path d="M 1515 320 L1580 265" class="leader"/>
+  <text x="1590" y="253" class="tbd">Kopf-Ø TBD</text>
+  <text x="1590" y="276" class="tbd">Kopfhöhe TBD</text>
+  <path d="M 1390 344 L1575 386" class="leader"/>
+  <text x="1585" y="388" class="tbd">Loch-Ø TBD</text>
+  <line x1="1370" y1="455" x2="1465" y2="455" class="dim"/>
+  <text x="1417" y="448" text-anchor="middle" class="tbd">Auflage t = TBD</text>
+  <text x="1248" y="482" class="tbd">Schraubenlänge: TBD</text>
+  <text x="1248" y="505" class="tbd">verbleibender Gewindeeingriff: TBD</text>
+  <text x="1248" y="529" class="small">Demontage nur durch vollständiges Lösen beider Schrauben.</text>
+
+  <!-- Bottomless section -->
+  <text x="1245" y="558" class="note-head">Funktionsschnitt durch den Umlenker</text>
+  <path d="M 1300 590 L1370 590 L1425 665 L1425 716" fill="none" stroke="#0f766e" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M 1650 590 L1580 590 L1525 665 L1525 716" fill="none" stroke="#0f766e" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M 1385 606 C 1420 630, 1450 655, 1475 732" class="flowline"/>
+  <path d="M 1565 606 C 1530 630, 1500 655, 1475 732" class="flowline"/>
+  <line x1="1425" y1="716" x2="1525" y2="716" stroke="#0284c7" stroke-width="3" stroke-dasharray="9 7"/>
+  <text x="1475" y="579" text-anchor="middle" class="label">Trefferzone</text>
+  <text x="1475" y="753" text-anchor="middle" class="label" fill="#0369a1">offener Auslass · keine Bodenfläche</text>
+
+  <!-- Notes and title block -->
+  <rect x="45" y="792" width="1170" height="330" class="panel"/>
+  <text x="68" y="830" class="panel-title">Zeichnungshinweise und Prüfstatus</text>
+
+  <text x="70" y="867" class="note-head">Verbindlich gemessen / übernommen</text>
+  <text x="70" y="895" class="label">1 · Schraubenabstand vertikal: 17</text>
+  <text x="70" y="923" class="label">2 · untere Schraube bis Purge-Ablageebene: 10</text>
+  <text x="70" y="951" class="label">3 · Schraubendatum bis horizontale Purge-Wurfbahn: 37</text>
+  <text x="70" y="979" class="label">4 · Schraubenebene bis rückwärtige Wiper-Ausdehnung: 40</text>
+  <text x="70" y="1007" class="label">5 · Körper: 62 × 44 × 62; Haube: 12; Öffnung: 57 × 39</text>
+
+  <text x="650" y="867" class="note-head">Vor CAD / Coupon zwingend zu ergänzen</text>
+  <text x="650" y="895" class="tbd">A · Gewinde-/Schaft-Ø und Lochspiel</text>
+  <text x="650" y="923" class="tbd">B · Kopf-Ø, Kopfhöhe und Werkzeugzugang</text>
+  <text x="650" y="951" class="tbd">C · Schraubenlänge, Auflagendicke, Gewindeeingriff</text>
+  <text x="650" y="979" class="tbd">D · vollständige Maschine-/Kabel-/Bett-/Rollen-Hüllkurve</text>
+  <text x="650" y="1007" class="tbd">E · endgültige Position des 62 × 44 × 62-Fangkörpers</text>
+
+  <line x1="70" y1="1038" x2="1188" y2="1038" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="1067" class="small">RECHTEGRENZE: Die Drittanbieter-3MF ist keine Geometrie-, Kontur- oder Maßquelle. Verwendet werden nur eigene Konstruktion, eigene Fotos und eigene Messungen.</text>
+  <text x="70" y="1093" class="small">FREIGABEGRENZE: Dieses Blatt beschreibt Anforderungen und Datumsbeziehungen. Es ist weder Passnachweis noch Fertigungszeichnung und erzeugt keine Druckfreigabe.</text>
+
+  <rect x="1235" y="792" width="520" height="330" fill="#fff" stroke="#0f172a" stroke-width="2"/>
+  <line x1="1235" y1="875" x2="1755" y2="875" stroke="#0f172a" stroke-width="2"/>
+  <line x1="1235" y1="965" x2="1755" y2="965" stroke="#0f172a" stroke-width="2"/>
+  <line x1="1475" y1="875" x2="1475" y2="1122" stroke="#0f172a" stroke-width="2"/>
+  <line x1="1610" y1="965" x2="1610" y2="1122" stroke="#0f172a" stroke-width="2"/>
+  <text x="1255" y="826" class="note-head">ZEICHNUNG</text>
+  <text x="1255" y="853" class="label">R7-REQ5-DWG-001</text>
+  <text x="1495" y="826" class="note-head">BENENNUNG</text>
+  <text x="1495" y="850" class="small">bodenloser Purge-Umlenker</text>
+  <text x="1255" y="908" class="note-head">STATUS</text>
+  <text x="1255" y="936" class="tbd">KONZEPT · TBD OFFEN</text>
+  <text x="1495" y="908" class="note-head">PROJEKTREVISION</text>
+  <text x="1495" y="936" class="label">0.7.0-requirements.5</text>
+  <text x="1255" y="997" class="note-head">MAẞSTAB</text>
+  <text x="1255" y="1024" class="small">Ansichten unterschiedlich;</text>
+  <text x="1255" y="1044" class="small">Maßzahlen gelten</text>
+  <text x="1495" y="997" class="note-head">EINHEIT</text>
+  <text x="1495" y="1024" class="label">mm</text>
+  <text x="1630" y="997" class="note-head">BLATT</text>
+  <text x="1630" y="1024" class="label">1 / 1</text>
+  <text x="1255" y="1080" class="note-head">ERSTELLT</text>
+  <text x="1255" y="1106" class="small">2026-08-31 · Codex</text>
+  <text x="1495" y="1080" class="note-head">FREIGABE</text>
+  <text x="1495" y="1106" class="tbd">Stefan: ausstehend</text>
+</svg>

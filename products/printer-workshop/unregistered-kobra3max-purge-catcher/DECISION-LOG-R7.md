@@ -171,3 +171,19 @@
 - Entscheidung: Gewinde-/Schaftdurchmesser, Kopf-Ø, Kopfhöhe, vorhandene Länge unter Kopf, gedruckte Auflagendicke und verbleibender Gewindeeingriff werden nicht aus der Fremddatei oder einem angenommenen M-Schraubenstandard abgeleitet.
 - Nachweisfolge: Zuerst Realmaße erfassen und eine eigene 17-mm-Lochbild-/Auflagendicken-/Umrisslehre drucken. Danach stromlos Sitz, Wiper-Lage, Werkzeugzugang und vollständige Maschinenbewegung prüfen. Erst ein bestandener Coupon darf die direkte Schraubenzone für ein Vollteil freigeben.
 - Konzeptgrenze: Preflight erlaubt bis dahin nur ein nicht maßhaltiges Clean-Room-Konzept. Produktions-CAD, Fertigungs-3MF und Slicing bleiben hinter Anforderungs- und Konzeptfreigabe sowie den physischen Interface-Gates gesperrt.
+
+### DEC-R7-025 – Anforderungen `.5` für ein bemaßtes Prüfblatt freigegeben
+
+- Status: vom Benutzer freigegeben
+- Evidenz: Benutzeranweisung „erstelle erstmal eine bemaßte zeichnung“ vom 31. August 2026 als ausdrücklicher Auftrag für den nächsten Konzeptnachweis.
+- Entscheidung: Die konsolidierte einteilige, bodenlose und direkt verschraubte Architektur darf als bemaßtes Clean-Room-Prüfblatt visualisiert werden. Das ist keine Freigabe für Produktions-CAD, 3MF, Slicing oder physische Passungsbehauptungen.
+
+### DEC-R7-026 – Bemaßtes Konzept- und Datumsprüfblatt R7-REQ5-DWG-001
+
+- Status: zur menschlichen Zeichnungs-/Konzeptprüfung ausgegeben
+- Artefakte: SVG-Quelle, 1800 × 1200 PNG und PDF unter `drawings/R7-REQ5-DWG-001-dimensioned-concept.*`.
+- Verbindlich: eigene 17/10/37/40-mm-Datumsmaße und eigene 62 × 44 × 62-/12-/57 × 39-mm-Funktionsmaße.
+- Schematisch: endgültige Umlenkerkontur, Maschinenlage, Wabenabmessung und jede rot als `TBD` gekennzeichnete Größe.
+- Schraubengate: Loch-Ø, Kopf-Ø/-Höhe, Schraubenlänge, Auflagendicke und Gewindeeingriff bleiben ausdrücklich offen.
+- Rechte: Das Blatt wurde als eigene Vektorzeichnung aus der Spezifikation aufgebaut; die Drittanbieter-3MF war keine Geometrie-, Kontur- oder Maßquelle.
+- Folge: Produktions-CAD bleibt bis zur ausdrücklichen Freigabe von `R7-REQ5-DWG-001` gesperrt.

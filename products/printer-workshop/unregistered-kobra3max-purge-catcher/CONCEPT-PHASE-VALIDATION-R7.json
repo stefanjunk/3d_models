@@ -1,106 +1,133 @@
 {
   "schema_version": "1.0",
-  "phase": "concept-visualization",
-  "project_revision": "0.7.0-requirements.2",
-  "date": "2026-08-29",
-  "status": "PASS_CONCEPT_APPROVED",
+  "phase": "dimensioned-concept-and-datum-drawing",
+  "project_revision": "0.7.0-requirements.5",
+  "date": "2026-08-31",
+  "status": "PASS_DRAWING_PENDING_HUMAN_APPROVAL",
   "repository_sync": {
     "branch": "main",
     "upstream": "origin/main",
-    "base_commit": "0177e577",
+    "base_commit": "11134935",
     "ahead_before_phase": 0,
     "behind_before_phase": 0
   },
   "requirements_gate": {
-    "status": "APPROVED_HUMAN",
+    "status": "APPROVED_HUMAN_FOR_DRAWING",
     "approved_by": "Stefan via conversation",
-    "approved_at": "2026-08-29T12:01:09+02:00",
-    "approval_message": "freigegebene"
+    "approved_at": "2026-08-31T20:36:21+02:00",
+    "approval_message": "erstelle erstmal eine bemaßte zeichnung",
+    "scope": "approval to create the dimensioned concept/datum drawing; no production CAD or manufacturing release"
   },
   "concept_gate": {
-    "status": "APPROVED_HUMAN",
-    "approved_by": "Stefan via conversation",
-    "approved_at": "2026-08-29T12:17:09+02:00",
-    "approval_message": "freigegeben",
-    "scope": "system architecture and form direction shown in R7 Z-Rider v1; dimensional and physical gates remain open"
+    "status": "PENDING_HUMAN",
+    "review_document": "DRAWING-REVIEW-R7.md",
+    "required_approval_message": "Bemaßte Zeichnung R7-REQ5-DWG-001 freigegeben."
   },
-  "concept_asset": {
-    "path": "concepts/R7-concept-sheet-z-rider-v1.png",
-    "sha256": "3505742788b3c128aca81cdb9d23a67b083214ceec2067994d5b61ff59bf0e00",
-    "width_px": 1523,
-    "height_px": 1032,
-    "colorspace": "sRGB",
-    "generator": "OpenAI imagegen",
-    "mode": "stylized-concept",
-    "dimensional_authority": false
+  "concept_assets": [
+    {
+      "path": "drawings/R7-REQ5-DWG-001-dimensioned-concept.svg",
+      "sha256": "d0fdf7b19a6ddf4a30557ec7c87b871c244be1040a75f7642f7eecca0b667925",
+      "format": "SVG",
+      "role": "editable vector master"
+    },
+    {
+      "path": "drawings/R7-REQ5-DWG-001-dimensioned-concept.png",
+      "sha256": "f232575f1a235ccaa6df0462d0ea5ec3aafd5334f679a95260b54133bf403d7b",
+      "format": "PNG",
+      "width_px": 1800,
+      "height_px": 1200,
+      "colorspace": "sRGB",
+      "role": "human review preview"
+    },
+    {
+      "path": "drawings/R7-REQ5-DWG-001-dimensioned-concept.pdf",
+      "sha256": "9a03557aca76e36928005b8c257ffc4c907cc2b89ded8994f88b300336dd0b57",
+      "format": "PDF 1.7",
+      "role": "printable review sheet"
+    }
+  ],
+  "generation": {
+    "source_method": "hand-authored repository-native SVG from approved requirements and owned measurement records",
+    "raster_pdf_renderer": "rsvg-convert",
+    "third_party_geometry_or_dimensions_used": false,
+    "production_geometry_generated": false
   },
   "checks": {
     "requirements_correspondence": {
-      "status": "PASS_VISUAL_REVIEW",
+      "status": "PASS_VISUAL_REVIEW_READY",
       "shown": [
-        "catcher co-moves with the Z-moving Wiper",
-        "thin two-screw moving datum plate",
-        "short removable catcher interface with positive latch concept",
-        "local enclosed impact zone and direct open downward diversion",
-        "separate stationary lower bin",
-        "no full-height tower, hose or moving storage mass"
+        "one-piece bottomless capture/diverter body",
+        "direct integrated two-hole screw zone",
+        "fixed removal only by loosening both screws",
+        "open honeycomb side walls",
+        "centred owned metriMade logo island",
+        "free downward outlet without floor or flap",
+        "owned 17/10/37/40 mm datums",
+        "owned 62 x 44 x 62 mm body, 12 mm hood and 57 x 39 mm fall-opening requirements"
       ]
     },
     "clean_room_reference_separation": {
       "status": "PASS_DOCUMENTED",
-      "third_party_visual_or_geometry_inputs": false,
-      "inputs": [
-        {
-          "role": "own physical printer and Wiper spatial reference",
-          "path": "Photos-1-001/PXL_20260829_093031316.jpg",
-          "sha256": "bcdbbe46be9c37009c54c922e56da6956e8c4378c5d3192e16c5ffa5b7be60ce"
-        },
-        {
-          "role": "own physical screw-datum reference",
-          "path": "Photos-1-001/PXL_20260829_093122291.jpg",
-          "sha256": "13283f27168d09dd7e5eefa777f4dc9cd60c44a63a9c62ecbd65f36700f4c01d"
-        },
-        {
-          "role": "own R6 catcher function and form reference",
-          "path": "Anycubic-Kobra-3-Max-Purge-Catcher-metriMade-R6/anycubic-kobra3-max-purge-catcher-r6/previews/catcher-r6-section.png",
-          "sha256": "09ef0a595fc8fe9753f06533148de89a96fd9c567dc6c6bd446b05ca1ee4f934"
-        }
+      "third_party_visual_geometry_or_dimension_inputs": false,
+      "authoritative_inputs": [
+        "design-spec.yaml",
+        "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+        "owned R6 functional geometry requirements",
+        "user-selected direct-fixed bottomless architecture"
       ]
     },
     "dimensional_claims": {
-      "status": "PASS_NONE_IN_IMAGE",
-      "authoritative_source": "design-spec.yaml and WIPER-PHOTO-MEASUREMENTS-R7.yaml",
-      "image_may_not_be_measured": true
+      "status": "PASS_KNOWN_AND_UNKNOWN_SEPARATED",
+      "authoritative_known_dimensions_mm": [
+        "17 screw-centre pitch",
+        "10 lower screw to purge deposition plane",
+        "37 screw datum to horizontal purge throw plane",
+        "40 screw plane to rear Wiper extent",
+        "62 x 44 capture body",
+        "62 impact-wall height",
+        "12 hood height",
+        "57 x 39 free fall opening"
+      ],
+      "explicit_tbd": [
+        "thread or shaft diameter and hole clearance",
+        "head diameter and height",
+        "screw length, printed seating thickness and remaining engagement",
+        "complete machine/service envelope",
+        "final body placement and exterior contour",
+        "honeycomb dimensions, wall thickness and radii"
+      ],
+      "drawing_may_be_scaled_for_tbd_geometry": false
     },
-    "known_visual_ambiguities": {
-      "status": "DOCUMENTED_FOR_HUMAN_REVIEW",
-      "items": [
-        "simplified Wiper and machine geometry",
-        "illustrative plate, guides and latch",
-        "exploded view may read as straight pull-off rather than the allowed lateral or pivot service motion",
-        "stationary bin envelope remains trajectory-test dependent"
-      ]
+    "visual_review": {
+      "status": "PASS_INTERNAL",
+      "method": "rendered 1800 x 1200 PNG inspected at original resolution",
+      "result": "dimension labels and TBD boundaries are legible; direct screw zone, bottomless section, honeycomb and logo are visible"
     },
     "production_artifacts": {
       "cad_generated": false,
       "manufacturing_export_generated": false,
-      "slicing_run": false
+      "slicing_run": false,
+      "printer_upload_or_start": false
     },
     "design_spec_structure": {
       "status": "PASS",
-      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml",
-      "spec_sha256": "848365e783323bc553f6163b974fb5989822e9fc5d980963218d42ab828845e1",
+      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml --require-current-preflight",
+      "spec_sha256": "303f7ba5fae453b475fc2a4caa6a5318c638430a1be5c20654f38b2328fb60e4",
       "warnings": [
-        "final release remains gated until watermark approval",
+        "preflight decision blocks production design release",
+        "production CAD remains gated until concept approval",
         "print-time/material optimization decision remains pending",
         "manufacturing-mesh simplification decision remains pending"
       ]
     }
   },
   "workflow_gates": {
-    "concept_approval": "APPROVED_HUMAN_2026-08-29T12:17:09+02:00",
-    "production_cad": "AUTHORIZED_DRAFT",
-    "physical_validation": "NOT_RUN",
+    "requirements_approval": "APPROVED_HUMAN_2026-08-31T20:36:21+02:00",
+    "drawing_concept_approval": "PENDING_HUMAN",
+    "production_cad": "BLOCKED_BY_DRAWING_CONCEPT_APPROVAL",
+    "physical_interface": "BLOCKED_PENDING_SCREW_MEASUREMENTS_AND_COUPON",
+    "manufacturing_3mf": "NOT_GENERATED",
+    "slicing": "NOT_RUN",
     "commercial_release": "BLOCKED"
   }
 }

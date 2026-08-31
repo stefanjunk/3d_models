@@ -1,5 +1,11 @@
 # R7 Konzeptprüfung – Z-Rider v1
 
+> **Historische, ersetzte Konzeptfassung.** Datumplatte, Schnellverschluss und
+> stationärer Unterbehälter wurden durch Anforderungen
+> `0.7.0-requirements.5` verworfen. Aktuell ist ausschließlich
+> [`DRAWING-REVIEW-R7.md`](DRAWING-REVIEW-R7.md) mit
+> `R7-REQ5-DWG-001`; dieses Dokument bleibt nur als Entscheidungsevidenz.
+
 ## Freigabestatus
 
 - Anforderungsrevision: `0.7.0-requirements.2`, durch Stefan am `2026-08-29T12:01:09+02:00` freigegeben

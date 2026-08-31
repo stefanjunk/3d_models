@@ -1,6 +1,10 @@
 # Anforderungsreview — R7 `0.7.0-requirements.5`
 
-Status: **Freigabe durch Stefan ausstehend**
+Status: **für die Zeichnungs-/Konzeptphase durch Stefan freigegeben**
+
+Freigabeevidenz: Benutzeranweisung „erstelle erstmal eine bemaßte zeichnung“
+vom 31. August 2026. Diese Freigabe erlaubt das Prüfblatt, aber noch kein
+Produktions-CAD oder Fertigungsexport.
 
 ## Konsolidierte Produktrichtung
 
@@ -32,12 +36,13 @@ nachgezeichnet oder skaliert.
 - gedruckte Auflagendicke und verbleibender Gewindeeingriff
 - eigene vollständige Wiper-, Bett-, Rollen-, Kopf-, Kabel-, Werkzeug- und Servicehüllkurve
 
-Nach der Anforderungsfreigabe folgt zuerst ein nicht maßhaltiges eigenes
-Konzeptblatt. Erst nach dessen separater Freigabe darf Produktions-CAD
-entstehen. Der erste physische Fit-Nachweis ist eine eigene 17-mm-Lochbild-,
+Nach der Anforderungsfreigabe folgt zuerst ein bemaßtes eigenes Prüfblatt. Nur
+die eingetragenen Eigenmaße sind verbindlich; `TBD`-Konturen bleiben
+schematisch. Erst nach separater Zeichnungs-/Konzeptfreigabe darf
+Produktions-CAD entstehen. Der erste physische Fit-Nachweis ist eine eigene 17-mm-Lochbild-,
 Auflagendicken- und Umrisslehre; ein Vollteil ist bis zu deren Bestehen kein
 Druckkandidat.
 
-## Erforderliche Freigabe
+## Erfasste Freigabe
 
-Freigabetext: `Anforderungen 0.7.0-requirements.5 freigegeben.`
+Freigabetext: `erstelle erstmal eine bemaßte zeichnung`

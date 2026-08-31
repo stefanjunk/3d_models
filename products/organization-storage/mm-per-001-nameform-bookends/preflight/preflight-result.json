@@ -1,6 +1,6 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-002",
-  "assessment_version": "0.2.0",
+  "assessment_id": "PREFLIGHT-MM-PER-001-003",
+  "assessment_version": "0.3.0",
   "assessment_date": "2026-08-31",
   "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
@@ -248,26 +248,25 @@
   },
   "readiness": {
     "level": "R3",
-    "component_levels": {"scope_variant": "R4", "requirements": "R3", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
+    "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
     "blocking_unknowns": [
-      "Explicit approval of requirements revision 0.4.0 and its Kobra 3 Max-only footprint",
       "Approved concept view proving that the rear connector is visually subordinate",
       "Physical connector and textured-glyph coupon evidence",
       "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
     ],
-    "completeness_percent": 72.0
+    "completeness_percent": 76.0
   },
   "criticality": {
     "level": "K1",
     "rationale": "The retained bookend load is modest and static; credible failures are appearance loss, a broken decorative glyph, or limited item/surface damage rather than high-energy or safety-critical harm.",
     "credible_failure_effects": ["loss of intended book-retaining or personalized appearance function", "minor item or shelf damage", "sharp edge if a decorative bridge breaks"]
   },
-  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "WARN", "G5": "PASS", "G6": "PASS"},
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
   "decision": {
     "lane": "C",
     "confidence": "CONDITIONAL",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retained functional core and physically preferred C texture route make the redesign feasible. CAD remains gated by requirements and concept approval; release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
+    "rationale": "The retained functional core, approved requirements, and physically preferred C texture route make the redesign feasible. CAD remains gated only by concept approval; release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
   },
   "warnings": [
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The recessed rear connector topology and recommended 2.4 mm thickness are not yet supported by a sectioned concept, generated body, or physical handling coupon."},
@@ -276,21 +275,16 @@
   "next_actions": [
     {
       "priority": 1,
-      "action": "Obtain explicit approval or corrections for design-spec revision 0.4.0.",
-      "exit_criterion": "Requirements approval records revision 0.4.0 and confirms the 122 mm cap height, tight-gap contract, recessed connector, C front texture, and Kobra 3 Max-only footprint."
-    },
-    {
-      "priority": 2,
       "action": "Create and obtain approval for a concept sheet showing front, three-quarter rear, and connector section views.",
       "exit_criterion": "The user confirms that the facade reads as separate large glyphs and the rear web is barely visible from the front."
     },
     {
-      "priority": 3,
+      "priority": 2,
       "action": "Generate a process-matched representative letter/bridge coupon before the complete pair.",
       "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, and passes handling plus visual review."
     },
     {
-      "priority": 4,
+      "priority": 3,
       "action": "Build, validate, exactly slice, and physically test the complete left/right pair.",
       "exit_criterion": "Both bodies pass topology, bed, support, texture, watermark, package, 2.0 kg load/slide, and final human appearance gates."
     }
@@ -309,7 +303,9 @@
       "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
       "coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md",
       "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
-      "coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json"
+      "coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json",
+      "concept/nameform-bookends-v0.4.0-concept.png",
+      "concept/nameform-bookends-v0.4.0-concept.md"
     ],
     "change_triggers": [
       "user_selected_direct_sampled_texture_candidate_c",
@@ -317,10 +313,12 @@
       "larger_tightly_spaced_glyphs",
       "recessed_connector_web",
       "texture_scope_moves_from_panel_to_glyphs",
-      "layer_height_changes_to_0p12_mm"
+      "layer_height_changes_to_0p12_mm",
+      "explicit_requirements_approval",
+      "gate_0b_concept_generated"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-001",
-    "created_at": "2026-08-31T13:41:59+02:00",
-    "updated_at": "2026-08-31T13:41:59+02:00"
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-002",
+    "created_at": "2026-08-31T14:27:28+02:00",
+    "updated_at": "2026-08-31T14:27:28+02:00"
   }
 }

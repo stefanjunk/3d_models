@@ -1,9 +1,9 @@
 # NameForm Bookends
 
 Status: v0.3.0 remains the existing generated baseline. Revision 0.4.0 is an
-active requirements draft for a letter-dominant facade with candidate-C wood
-relief on the glyph fronts; no 0.4.0 CAD or manufacturing export exists before
-requirements and concept approval.
+approved requirements revision for a letter-dominant facade with candidate-C
+wood relief on the glyph fronts; its concept sheet awaits approval, and no
+0.4.0 CAD or manufacturing export exists before that gate closes.
 
 Status: digitally validated DRAFT candidate. The geometry, marked STEP/STL/3MF
 pair, text sweep, and validation evidence exist. Exact slicer review, watermark

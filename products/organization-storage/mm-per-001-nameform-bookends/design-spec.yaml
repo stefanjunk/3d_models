@@ -17,11 +17,11 @@ workflow:
     status: current
     mode: PROSPECTIVE
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-002
-    assessment_version: 0.2.0
-    previous_assessment_id: PREFLIGHT-MM-PER-001-001
+    assessment_id: PREFLIGHT-MM-PER-001-003
+    assessment_version: 0.3.0
+    previous_assessment_id: PREFLIGHT-MM-PER-001-002
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-08-31T13:41:59+02:00"
+    updated_at: "2026-08-31T14:27:28+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -29,19 +29,23 @@ workflow:
       - recessed_connector_web
       - texture_scope_moves_from_panel_to_glyphs
       - layer_height_changes_to_0p12_mm
+      - explicit_requirements_approval
+      - gate_0b_concept_generated
   requirements_approval:
-    status: changes-requested
+    status: approved
     spec_revision: 0.4.0
-    approved_by: null
-    approved_at: null
-    reason: "User requested a letter-only visual architecture after selecting texture coupon C; structured revision approval is pending."
+    approved_by: "Stefan — 'freigegeben'"
+    approved_at: "2026-08-31T14:22:45+02:00"
+    reason: "User explicitly approved the structured 0.4.0 requirements without changes."
   concept_approval:
-    status: blocked
+    status: pending
     spec_revision: 0.4.0
-    asset: null
+    asset: "concept/nameform-bookends-v0.4.0-concept.png"
+    asset_sha256: "14e21a1e86c3a2f1fa28ef2939c9fd0987a3434713476126039911bf8dfa57bc"
+    generated_at: "2026-08-31T14:22:45+02:00"
     approved_by: null
     approved_at: null
-    reason: "Blocked until requirements revision 0.4.0 is explicitly approved."
+    reason: "Concept sheet is generated and awaiting explicit human review."
   watermark_approval:
     status: blocked
     spec_revision: 0.4.0
@@ -361,7 +365,7 @@ deliverables:
 
 paths:
   historical_release: "release/manifest.json, release/design-spec-0.2.0.yaml, and committed 0.3.0 source/exports/validation"
-  concept: null
+  concept: "concept/nameform-bookends-v0.4.0-concept.png"
   source: "source/v0.4.0/"
   exports: "exports/v0.4.0/"
   validation: "validation/v0.4.0/"

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "tool": "NameForm height-field Boolean postprocess comparison",
+  "tool_version": "0.4.0",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py",
+      "sha256": "5cea575f365b7319fb31a35961637cc3dec2797ab1a58a7e7710d27ca7123911"
+    },
+    {
+      "path": "products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl",
+      "sha256": "2fd750b565946e28f1e7b82a97090f12a56f81c114d07ce5bbd6555bf9d79ae8"
+    }
+  ],
+  "experiment": {
+    "geometry": "122 mm FA glyph-front candidate after Manifold height-field subtraction",
+    "control": "serialize the certified Manifold output without decimal coordinate welding",
+    "comparison": "Trimesh process, merge_vertices(digits_vertex=4), remove faces collapsed below 1e-8 height, remove unreferenced vertices",
+    "weld_resolution_mm": 0.0001
+  },
+  "results": {
+    "raw_manifold_output": {
+      "status": "PASS",
+      "triangles": 120874,
+      "vertices": 60437,
+      "components": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "boundary_edges_after_exact_coordinate_audit": 0,
+      "nonmanifold_edges_after_exact_coordinate_audit": 0,
+      "diagnostic_degenerate_faces_after_float32_stl": 3
+    },
+    "decimal_weld_cleanup": {
+      "status": "FAIL",
+      "triangles": 120864,
+      "vertices": 60432,
+      "faces_removed": 10,
+      "components": 3,
+      "watertight": false,
+      "winding_consistent": true
+    }
+  },
+  "decision": "Retain and independently audit the certified Manifold output. Do not use decimal-place vertex welding as an implicit cleanup step. Any later simplification needs its own topology and geometric-error contract.",
+  "checks": {
+    "negative_cleanup_result_preserved": true,
+    "retained_candidate_is_watertight_single_body": true,
+    "retained_candidate_has_zero_boundary_and_nonmanifold_edges": true
+  },
+  "limitations": [
+    "Observed once on this exact clipped glyph-front height-field Boolean.",
+    "The causal role of the cap-plane transitions is strongly localized but not replicated across another CAD kernel or export precision."
+  ]
+}

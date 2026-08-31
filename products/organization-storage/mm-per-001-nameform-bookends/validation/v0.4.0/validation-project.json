@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-PER-001",
+    "revision": "0.4.0",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420, 420, 500]
+  },
+  "artifacts": [
+    {"id": "source", "path": "../../source/v0.4.0/nameform_letter_only.py", "kind": "source", "revision": "0.4.0"},
+    {"id": "render-source", "path": "../../source/v0.4.0/render_previews.py", "kind": "source", "revision": "0.4.0"},
+    {"id": "font", "path": "../../source/v0.4.0/assets/fonts/NotoSans-ExtraCondensedExtraBold.ttf", "kind": "font", "revision": "0.4.0"},
+    {"id": "font-license", "path": "../../source/v0.4.0/assets/fonts/LICENSE-Noto.txt", "kind": "license", "revision": "0.4.0"},
+    {"id": "font-source", "path": "../../source/v0.4.0/assets/fonts/SOURCE.json", "kind": "provenance", "revision": "0.4.0"},
+    {"id": "design-spec", "path": "../../design-spec.yaml", "kind": "specification", "revision": "0.4.0"},
+    {"id": "architecture", "path": "../../source/v0.4.0/architecture.md", "kind": "architecture", "revision": "0.4.0"},
+    {"id": "wood-master", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png", "kind": "heightmap"},
+    {"id": "wood-registration", "path": "../../../../../libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png.source.json", "kind": "provenance"},
+    {"id": "coupon-stl", "path": "../../coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl", "kind": "mesh", "revision": "0.4.0"},
+    {"id": "left-stl", "path": "../../exports/v0.4.0/candidate/DRAFT-nameform-STE-left-wood-C-v0.4.0.stl", "kind": "mesh", "revision": "0.4.0"},
+    {"id": "right-stl", "path": "../../exports/v0.4.0/candidate/DRAFT-nameform-FAN-right-wood-C-v0.4.0.stl", "kind": "mesh", "revision": "0.4.0"},
+    {"id": "coupon-generation", "path": "../../coupons/nameform-letter-bridge-v0.4.0/reports/generation-report.json", "kind": "report", "revision": "0.4.0"},
+    {"id": "pair-generation", "path": "generation-report.json", "kind": "report", "revision": "0.4.0"},
+    {"id": "reproducibility", "path": "reproducibility-report.json", "kind": "report", "revision": "0.4.0"},
+    {"id": "mesh-postprocess", "path": "mesh-postprocess-comparison.json", "kind": "report", "revision": "0.4.0"},
+    {"id": "machine-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "process-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/process/0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "filament-profile", "path": "../../../../../archive/local-tool-state/anycubic-slicer-next/system/Anycubic/filament/Anycubic PETG @Anycubic Kobra 3 Max 0.4 nozzle.json", "kind": "slicer-profile"},
+    {"id": "coupon-slice", "path": "../../coupons/nameform-letter-bridge-v0.4.0/reports/anycubic-slice-coupon-v0.4.0-run03.json", "kind": "report"},
+    {"id": "left-slice", "path": "anycubic-slice-left-run01.json", "kind": "report"},
+    {"id": "right-slice", "path": "anycubic-slice-right-run01.json", "kind": "report"},
+    {"id": "coupon-gcode", "path": "../../coupons/nameform-letter-bridge-v0.4.0/slicer-runs/2026-08-31-candidate-c-kobra3max-0p12-run03/plate_1.gcode", "kind": "gcode"},
+    {"id": "left-gcode", "path": "slicer-runs/2026-08-31-left-kobra3max-0p12-run01/plate_1.gcode", "kind": "gcode"},
+    {"id": "right-gcode", "path": "slicer-runs/2026-08-31-right-kobra3max-0p12-run01/plate_1.gcode", "kind": "gcode"},
+    {"id": "front-render", "path": "renders/DRAFT-nameform-STE-FAN-front-v0.4.0.png", "kind": "image", "revision": "0.4.0"},
+    {"id": "three-quarter-render", "path": "renders/DRAFT-nameform-STE-FAN-three-quarter-v0.4.0.png", "kind": "image", "revision": "0.4.0"},
+    {"id": "physical-record", "path": "../../coupons/nameform-letter-bridge-v0.4.0/physical-evaluation.md", "kind": "physical-review-record", "revision": "0.4.0"}
+  ],
+  "checks": [
+    {
+      "id": "coupon-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "coupon-stl",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 5,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 200000,
+        "max_file_mib": 25
+      }
+    },
+    {
+      "id": "left-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "left-stl",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 400000,
+        "max_file_mib": 50
+      }
+    },
+    {
+      "id": "right-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "right-stl",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 10,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 400000,
+        "max_file_mib": 50
+      }
+    },
+    {"id": "coupon-generation", "type": "external_report", "required": true, "artifact": "coupon-generation", "expected_inputs": ["source", "font", "font-license", "font-source", "wood-master", "wood-registration"]},
+    {"id": "pair-generation", "type": "external_report", "required": true, "artifact": "pair-generation", "expected_inputs": ["source", "font", "font-license", "font-source", "wood-master", "wood-registration"]},
+    {"id": "reproducibility", "type": "external_report", "required": true, "artifact": "reproducibility", "expected_inputs": ["source", "wood-master", "left-stl", "right-stl"]},
+    {"id": "mesh-postprocess", "type": "external_report", "required": true, "artifact": "mesh-postprocess", "expected_inputs": ["source", "coupon-stl"]},
+    {"id": "coupon-exact-slice", "type": "external_report", "required": true, "artifact": "coupon-slice", "expected_inputs": ["coupon-stl", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "left-exact-slice", "type": "external_report", "required": true, "artifact": "left-slice", "expected_inputs": ["left-stl", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "right-exact-slice", "type": "external_report", "required": true, "artifact": "right-slice", "expected_inputs": ["right-stl", "machine-profile", "process-profile", "filament-profile"]},
+    {"id": "layer-and-seam-review", "type": "review", "required": true, "status": "REVIEW_REQUIRED", "criterion": "Human layer-by-layer review accepts first layer, glyph crossbars, local rear bridges, seam placement, and no-support strategy.", "evidence_artifact": null},
+    {"id": "physical-coupon", "type": "physical", "required": true, "status": "REVIEW_REQUIRED", "criterion": "Exact FA coupon preserves the selected wood appearance, open A counter and gap, and survives normal connector handling.", "evidence_artifact": "physical-record"},
+    {"id": "complete-pair", "type": "physical", "required": true, "status": "NOT_RUN", "criterion": "Unchanged pair passes load, slide, handling, and appearance tests.", "evidence_artifact": null},
+    {"id": "watermark-and-package", "type": "review", "required": true, "status": "REVIEW_REQUIRED", "criterion": "Approved 0.4.0 watermark placement and standards-valid profile-bound left/right 3MFs exist.", "evidence_artifact": null}
+  ],
+  "release": {
+    "required_approvals": ["physical-coupon", "complete-pair", "watermark-and-package", "final-model-release"],
+    "approvals": {
+      "physical-coupon": "pending",
+      "complete-pair": "pending",
+      "watermark-and-package": "pending",
+      "final-model-release": "pending"
+    }
+  }
+}

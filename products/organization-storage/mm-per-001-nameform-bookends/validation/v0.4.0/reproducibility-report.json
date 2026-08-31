@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "tool": "NameForm 0.4.0 clean temporary rebuild comparison",
+  "tool_version": "0.4.0",
+  "profile": "draft",
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py",
+      "sha256": "5cea575f365b7319fb31a35961637cc3dec2797ab1a58a7e7710d27ca7123911"
+    },
+    {
+      "path": "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png",
+      "sha256": "4d7b212b7d5fc1c9eede170b95450d92c4bda387693cdb31bdb42baefb4178f6"
+    },
+    {
+      "path": "products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/candidate/DRAFT-nameform-STE-left-wood-C-v0.4.0.stl",
+      "sha256": "99840e01d811dba78cac43ca1f2f8d23da9b442d32b62f5618d6a9c6f723c150"
+    },
+    {
+      "path": "products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/candidate/DRAFT-nameform-FAN-right-wood-C-v0.4.0.stl",
+      "sha256": "cf1f34d2f3045dbaa4dbedffb31593c613fbba6dd9d645210c126b5c86e27876"
+    }
+  ],
+  "checks": {
+    "clean_temporary_left_rebuild_byte_identical": true,
+    "clean_temporary_right_rebuild_byte_identical": true,
+    "temporary_outputs_removed_after_comparison": true
+  },
+  "metrics": {
+    "left": {
+      "expected_sha256": "99840e01d811dba78cac43ca1f2f8d23da9b442d32b62f5618d6a9c6f723c150",
+      "rebuilt_sha256": "99840e01d811dba78cac43ca1f2f8d23da9b442d32b62f5618d6a9c6f723c150",
+      "size_bytes": 7910684
+    },
+    "right": {
+      "expected_sha256": "cf1f34d2f3045dbaa4dbedffb31593c613fbba6dd9d645210c126b5c86e27876",
+      "rebuilt_sha256": "cf1f34d2f3045dbaa4dbedffb31593c613fbba6dd9d645210c126b5c86e27876",
+      "size_bytes": 10567484
+    }
+  },
+  "limitations": [
+    "This proves deterministic rebuilds in the recorded local software environment; it is not a cross-platform floating-point guarantee."
+  ]
+}

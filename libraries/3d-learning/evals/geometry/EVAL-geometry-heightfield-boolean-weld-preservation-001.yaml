@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-heightfield-boolean-weld-preservation-001
+title: Height-field Boolean cleanup preserves the certified connected shell
+category: geometry
+status: draft
+trigger: A closed manufacturing mesh produced by a manifold image-relief Boolean has microfacets and a coordinate-weld or simplification step is proposed before serialization or slicing.
+risk: A cleanup that reduces diagnostic tiny facets can collapse valid transition triangles, create boundary edges or fragments, and silently turn one printable shell into an open multipart mesh.
+given:
+  source_mesh: certified Boolean result with recorded topology, bounds, volume, triangle count and physical relief pitch
+  proposed_cleanup: exact weld or simplification tolerance plus the faces and vertices it changes
+  protected_contract: body count, boundary/nonmanifold edge limits, volume sign, bounds, bed datum, counter/gap topology and geometric-error allowance
+expected:
+  - The source mesh is audited before cleanup so pre-existing defects are not attributed to the cleanup step.
+  - The cleanup tolerance is stated in millimetres and compared with the smallest protected feature and physical relief pitch.
+  - The post-cleanup mesh preserves expected body count, watertightness, winding, positive volume, zero boundary/nonmanifold edges, protected bounds and allowed geometric error.
+  - Any reduction in degenerate or microfacet count is rejected if it opens the shell, disconnects a component, changes a protected silhouette or exceeds the error budget.
+  - When the certified source passes manufacturing topology and the proposed cleanup fails, the unmodified source is retained and the failed cleanup evidence is preserved.
+failure_conditions:
+  - A decimal-place weld is assumed harmless without a before/after topology and geometric-error report.
+  - Fewer degenerate faces are treated as success even though boundary edges, nonmanifold edges, disconnected components or negative volume increase.
+  - Cleanup rewrites the manufacturing mesh after its slicer/hash evidence was generated.
+  - One topology-preserving cleanup observed for isolated OCC fragments is generalized to a clipped height-field Boolean without an equivalent audit.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+  - products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: "Pass only when the retained manufacturing artifact has a successful independent topology audit and the rejected cleanup's before/after metrics are preserved. A physical print is not required for this digital topology eval."
+  measurement_method: Exact-coordinate edge incidence, body count, watertightness, winding, volume and bounds before and after the proposed cleanup, plus immutable artifact hashes.
+relationships:
+  lessons:
+    - EXP-00016
+    - EXP-00051
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-31
+  report: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+  artifact_hashes:
+    - 2fd750b565946e28f1e7b82a97090f12a56f81c114d07ce5bbd6555bf9d79ae8
+tags:
+  - geometry
+  - heightfield
+  - manifold3d
+  - mesh-cleanup
+  - vertex-weld
+  - topology
+  - regression

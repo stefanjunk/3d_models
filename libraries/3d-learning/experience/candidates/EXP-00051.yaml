@@ -1,0 +1,148 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00051
+title: Decimal vertex welding can open a certified clipped height-field Boolean shell
+captured_at: 2026-08-31
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One controlled digital before/after comparison on the full-height NameForm FA coupon; no cross-kernel or second-geometry replication."
+feature:
+  type: manufacturing-mesh postprocessing after image-derived relief Boolean
+  geometry: 122 mm clipped Noto FA glyph fronts engraved by a closed 0.45 mm-grid Manifold height-field cutter
+  design_parameters:
+    source_triangles: 120874
+    source_vertices: 60437
+    decimal_weld_mm: 0.0001
+    removed_faces: 10
+    welded_triangles: 120864
+    source_components: 1
+    welded_components: 3
+  named_datums:
+    - glyph-front-y0
+    - print-bed-z0
+    - cap-plane-z122
+  constraints:
+    - A certified Manifold result must remain one closed positive-volume shell after serialization.
+    - Mesh cleanup may not trade fewer diagnostic microfacets for new boundary edges or disconnected components.
+    - Any simplification needs explicit topology and geometric-error acceptance rather than a decimal-place weld assumption.
+scope:
+  process: Manifold3D Boolean to binary float32 STL with Trimesh diagnostic postprocessing
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG family
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: upright glyphs on z=0 with textured fronts toward -Y
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle
+    profile_hash: d3b71ea02eb8192b2ca5ad8cd03f56cfdb1f64aea7e1b8e41789003d2584efbf
+  geometry_class: clipped masked height-field relief on exact extruded font outlines
+  environment: digital-only comparison; intended indoor FFF print
+  transfer_limits:
+    - Observed once with Manifold3D, Trimesh decimal welding, and binary float32 STL.
+    - This does not excuse boundary edges, nonmanifold edges, duplicate faces, disconnected bodies, or unbounded diagnostic degenerates.
+    - OCC meshes with isolated zero-area fragments may still benefit from a different conservative cleanup proven by before/after topology.
+observation:
+  summary: The direct Manifold output was watertight and single-body, but merging vertices to four decimal places and removing collapsed faces opened the same shell into three components.
+  expected: A sub-micron decimal weld would remove only numerical Boolean residue while preserving the certified shell.
+  actual: The raw 120874-triangle output had one watertight component; the cleanup removed 10 faces and produced a non-watertight three-component mesh. Retaining the raw output passed exact-coordinate audit with zero boundary and nonmanifold edges and sliced successfully.
+  outcome: failure
+  parameter: post-Boolean vertex-weld cleanup
+  recommended_value: preserve-certified-manifold-output-unless-topology-aware-simplification-passes-before-after-contract
+  units: topology-contract
+explanation:
+  hypothesis: Valid sub-0.0001 mm transition triangles at exact cap/bed clipping planes collapsed under coordinate rounding, after which degenerate-face removal deleted faces required to close the shell.
+  mechanism: Decimal welding is geometric quantization rather than a topology-aware simplifier. Coincident rounding can collapse a valid narrow transition even when the original edge incidence is closed; removing the new zero-area faces then exposes boundaries.
+  alternatives:
+    - Float32 STL quantization rather than the clipping plane may dominate the narrow transitions.
+    - Expanding the closed cutter beyond protected silhouette boundaries could avoid some coplanar transitions.
+    - Manifold topology-aware simplify or a higher-precision interchange format may remove microfacets without opening the shell.
+  validated: false
+  validation_method: Repeat on a second clipped relief geometry and compare raw, topology-aware simplify, decimal weld, and padded-cutter variants with exact edge-incidence and geometric-error reports.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: In-memory Manifold status plus Trimesh component/watertight counts before and after the exact decimal-weld pipeline; independent fdm_ci exact-coordinate audit of the retained STL.
+  uncertainty: "The topology change is directly observed. The exact numerical source of the microtriangles and best alternative simplifier are not yet isolated."
+  sources:
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+      hash: null
+      notes: "Preserves the exact before/after counts and retained-output decision."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json
+      hash: null
+      notes: "Independent audit of the retained float32 STL: one watertight body, zero boundary/nonmanifold edges, three diagnostic microfacets."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+applicability:
+  triggers:
+    - A manifold Boolean result contains tiny but topologically valid transition facets near clipped or coplanar relief boundaries.
+    - A proposed coordinate-weld cleanup is intended to reduce diagnostic microfacets before STL delivery.
+  exclusions:
+    - Isolated zero-area export fragments that are not part of the closed primary shell and can be removed with a proved one-body before/after audit.
+    - Meshes already containing boundary or nonmanifold edges before cleanup.
+  transfer_limits:
+    - Diagnose edge incidence before choosing cleanup; do not generalize the 0.0001 mm threshold to other kernels, scales, or formats.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00016
+    - EXP-00050
+  evals:
+    - EVAL-geometry-heightfield-boolean-weld-preservation-001
+  patterns: []
+  references:
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json
+provenance:
+  project: MM-PER-001
+  part_revision: 0.4.0-draft-candidate
+  trace: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - mesh-postprocess
+  - heightfield
+  - manifold3d
+  - trimesh
+  - vertex-weld
+  - topology
+  - float32-stl
+  - fail-closed

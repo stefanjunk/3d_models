@@ -1,6 +1,6 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-003",
-  "assessment_version": "0.3.0",
+  "assessment_id": "PREFLIGHT-MM-PER-001-004",
+  "assessment_version": "0.4.0",
   "assessment_date": "2026-08-31",
   "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
@@ -250,11 +250,10 @@
     "level": "R3",
     "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
     "blocking_unknowns": [
-      "Approved concept view proving that the rear connector is visually subordinate",
       "Physical connector and textured-glyph coupon evidence",
       "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
     ],
-    "completeness_percent": 76.0
+    "completeness_percent": 80.0
   },
   "criticality": {
     "level": "K1",
@@ -266,7 +265,7 @@
     "lane": "C",
     "confidence": "CONDITIONAL",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retained functional core, approved requirements, and physically preferred C texture route make the redesign feasible. CAD remains gated only by concept approval; release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
+    "rationale": "The retained functional core, approved requirements/concept, and physically preferred C texture route permit parametric CAD with controls. Release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
   },
   "warnings": [
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The recessed rear connector topology and recommended 2.4 mm thickness are not yet supported by a sectioned concept, generated body, or physical handling coupon."},
@@ -275,16 +274,11 @@
   "next_actions": [
     {
       "priority": 1,
-      "action": "Create and obtain approval for a concept sheet showing front, three-quarter rear, and connector section views.",
-      "exit_criterion": "The user confirms that the facade reads as separate large glyphs and the rear web is barely visible from the front."
-    },
-    {
-      "priority": 2,
       "action": "Generate a process-matched representative letter/bridge coupon before the complete pair.",
       "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, and passes handling plus visual review."
     },
     {
-      "priority": 3,
+      "priority": 2,
       "action": "Build, validate, exactly slice, and physically test the complete left/right pair.",
       "exit_criterion": "Both bodies pass topology, bed, support, texture, watermark, package, 2.0 kg load/slide, and final human appearance gates."
     }
@@ -315,10 +309,11 @@
       "texture_scope_moves_from_panel_to_glyphs",
       "layer_height_changes_to_0p12_mm",
       "explicit_requirements_approval",
-      "gate_0b_concept_generated"
+      "gate_0b_concept_generated",
+      "explicit_concept_approval"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-002",
-    "created_at": "2026-08-31T14:27:28+02:00",
-    "updated_at": "2026-08-31T14:27:28+02:00"
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-003",
+    "created_at": "2026-08-31T14:46:24+02:00",
+    "updated_at": "2026-08-31T14:46:24+02:00"
   }
 }

@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once as an explicit appearance correction for NameForm revision 0.4.0. No concept, CAD, print, or connector test exists yet."
+    notes: "Observed once as an explicit appearance correction for NameForm revision 0.4.0. The approved concept, deterministic CAD/mesh, front and three-quarter renders, exact slices, and process-matched FA coupon now exist; physical coupon and pair evidence remain pending."
 feature:
   type: letter-dominant personalized facade with hidden connector
   geometry: large extruded STE and FAN glyph groups fused to a retained bookend core by a recessed rear web and local inter-glyph bridges
@@ -62,7 +62,7 @@ scope:
   slicer:
     name: Anycubic Slicer Next
     version: 1.3.9.4
-    profile: "0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle; final exact profile set remains to be frozen for 0.4.0"
+    profile: "Anycubic Kobra 3 Max 0.4 nozzle + 0.12mm Standard + Anycubic PETG; exact profile hashes are recorded in the v0.4.0 slice reports"
     profile_hash: d3b71ea02eb8192b2ca5ad8cd03f56cfdb1f64aea7e1b8e41789003d2584efbf
   geometry_class: fused freestanding text facade with image-derived relief and a visually hidden structural web
   environment: indoor shelf or desk, 10-30 C, normal moisture, limited UV
@@ -71,9 +71,9 @@ scope:
     - The proposed connector dimensions are recommendations, not physically validated rules.
     - Other fonts, names, glyph counts, orientations, materials, machines, or texture patterns require their own connectivity and appearance checks.
 observation:
-  summary: The existing broad textured wing still read as a panel with letters on it; the user requested a stand that reads primarily as large wooden characters.
+  summary: The existing broad textured wing still read as a panel with letters on it; the user requested a stand that reads primarily as large wooden characters, and the resulting digital candidate now preserves that hierarchy with local recessed bridges.
   expected: The existing architecture would present the split name clearly while retaining a decorative textured wing.
-  actual: The user selected the wood texture but requested larger tightly spaced glyphs, wood appearance on the glyphs including the front, and a background moved far behind so it only joins the letters and is barely visible.
+  actual: The user selected the wood texture but requested larger tightly spaced glyphs, wood appearance on the glyphs including the front, and a background moved far behind so it only joins the letters and is barely visible. The generated STE/FAN pair has true 122 mm caps, 1.8 mm real outline gaps, one watertight body per side, open A counter, local 6 mm bridge bands at a nominal 6 mm setback, and no rectangular front panel in the reviewed renders.
   outcome: correction
   parameter: visible facade architecture and connector depth hierarchy
   recommended_value: "large outline-packed glyph bodies with open counters, >=1.2 mm finished gaps, and only local rear bridges beginning 6.0 mm behind the glyph front"
@@ -87,17 +87,17 @@ explanation:
     - Side relief can reduce the finished gap or make bridges more visible if gap keep-outs are not enforced.
     - Some personalized glyph pairs may not offer two robust bridge bands and must fail closed or use a different local bridge layout.
   validated: false
-  validation_method: "Approve a front/rear/section concept, then generate and print a representative textured multi-glyph bridge coupon. Require the front silhouette, counters, >=1.2 mm finished gaps, one connected body, and normal-handling result to pass before the full pair."
+  validation_method: "The approved concept and deterministic digital candidate pass silhouette, counter, 1.8 mm gap, one-body, relief-mask, compute-budget, reproducibility, and exact-slicer checks. Print the exact FA coupon and require wood recognition, open gap/counter, acceptable bridge visibility, and normal-handling survival before the complete pair can validate the mechanism."
 evidence:
   observations: 1
   same_scope_repetitions: 0
-  geometry_count: 0
-  machine_count: 0
+  geometry_count: 3
+  machine_count: 1
   material_count: 0
   nozzle_count: 1
-  measured: false
-  measurement_method: "Explicit user correction and requirements normalization; proposed dimensions are not measurements."
-  uncertainty: "No approved concept, generated connector, print, photo, gap measurement, or handling result exists. Exact physical C material/profile context is incomplete."
+  measured: true
+  measurement_method: "Explicit user correction plus exact glyph-outline distance, connector-graph, B-Rep, mesh topology, relief-span, deterministic rebuild, render, and Kobra 3 Max slicer reports; no physical caliper, profilometry, or handling result yet."
+  uncertainty: "The digital geometry and exact profile set are recorded, but the FA coupon is not printed. Exact physical filament product/color/batch/conditioning, photos, bridge strength, printed gap, and front-view bridge visibility remain unknown."
   sources:
     - type: user-statement
       ref: "User correction in the 2026-08-31 NameForm letter-dominant design phase"
@@ -111,9 +111,22 @@ evidence:
       ref: products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
       hash: null
       notes: "Prospective preflight treats the connector and visual front as separate interfaces in Lane C."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generation-report.json
+      hash: null
+      notes: "Records exact glyph gaps, counters, connector spans, relief metrics, mesh budgets, and manufacturing artifact hashes."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/validation-project-locked-result.json
+      hash: null
+      notes: "Aggregates the frozen digital checks and preserves the remaining human/physical gates."
   artifacts:
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/renders/DRAFT-nameform-STE-FAN-wood-direct-v0.3.0-tx0.2.0.png
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/candidate/DRAFT-nameform-STE-left-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/candidate/DRAFT-nameform-FAN-right-wood-C-v0.4.0.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/renders/DRAFT-nameform-STE-FAN-front-v0.4.0.png
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/renders/DRAFT-nameform-STE-FAN-three-quarter-v0.4.0.png
 applicability:
   triggers:
     - A personalized FFF name object must read as freestanding characters while remaining one connected body.
@@ -138,13 +151,16 @@ relationships:
     - .agents/skills/design-printable-surface-textures/SKILL.md
     - .agents/skills/3d-print-heightmap-relief/SKILL.md
 validation:
-  targeted: not-run
-  regression: not-run
+  targeted: review-required
+  regression: pass
   reports:
     - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/reproducibility-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/validation-project-locked-result.json
 provenance:
   project: MM-PER-001
-  part_revision: 0.4.0-requirements
+  part_revision: 0.4.0-draft-candidate
   trace: products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
   source_commit: null
   created_by: Codex

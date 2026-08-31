@@ -8,9 +8,9 @@
 - Lane: `C — Iterative Engineering`
 - The retained functional core and the physically preferred direct-sampled C
   texture make the redesign feasible.
-- Requirements 0.4.0 are approved. Concept approval still gates CAD. The new
-  rear connector, textured glyph geometry, exact slice, and complete pair
-  remain test items.
+- Requirements and concept 0.4.0 are approved. Parametric CAD may proceed with
+  controls; the new rear connector, textured glyph geometry, exact slice, and
+  complete pair remain test items.
 
 ## Assessed revision
 
@@ -48,8 +48,7 @@ mask remain unresolved.
 | VER | 3 | Deterministic checks plus texture, connector, handling, and full-pair physical tests are required. |
 
 Readiness is `R3`: scope, requirements, and manufacturing route are defined,
-but the generated concept still awaits approval and the glyph connector has no
-CAD or physical evidence.
+but the glyph connector still has no CAD or physical evidence.
 
 ## Interface register
 
@@ -74,10 +73,9 @@ CAD or physical evidence.
 
 ## Required next evidence
 
-1. Approve the generated concept sheet with front, rear three-quarter, and connector section.
-2. Print one representative textured glyph/bridge coupon; require visible gaps,
+1. Print one representative textured glyph/bridge coupon; require visible gaps,
    open counters, one connected body, recognizable C texture, and handling pass.
-3. Build, exactly slice, and physically test the complete pair before release.
+2. Build, exactly slice, and physically test the complete pair before release.
 
-The preceding prospective assessment is `PREFLIGHT-MM-PER-001-002`; this
-post-requirements Gate 0B update is `PREFLIGHT-MM-PER-001-003`.
+The preceding prospective assessment is `PREFLIGHT-MM-PER-001-003`; this
+post-concept Gate 1 update is `PREFLIGHT-MM-PER-001-004`.

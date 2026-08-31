@@ -17,11 +17,11 @@ workflow:
     status: current
     mode: PROSPECTIVE
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-003
-    assessment_version: 0.3.0
-    previous_assessment_id: PREFLIGHT-MM-PER-001-002
+    assessment_id: PREFLIGHT-MM-PER-001-004
+    assessment_version: 0.4.0
+    previous_assessment_id: PREFLIGHT-MM-PER-001-003
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-08-31T14:27:28+02:00"
+    updated_at: "2026-08-31T14:46:24+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -31,6 +31,7 @@ workflow:
       - layer_height_changes_to_0p12_mm
       - explicit_requirements_approval
       - gate_0b_concept_generated
+      - explicit_concept_approval
   requirements_approval:
     status: approved
     spec_revision: 0.4.0
@@ -38,14 +39,14 @@ workflow:
     approved_at: "2026-08-31T14:22:45+02:00"
     reason: "User explicitly approved the structured 0.4.0 requirements without changes."
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 0.4.0
     asset: "concept/nameform-bookends-v0.4.0-concept.png"
     asset_sha256: "14e21a1e86c3a2f1fa28ef2939c9fd0987a3434713476126039911bf8dfa57bc"
     generated_at: "2026-08-31T14:22:45+02:00"
-    approved_by: null
-    approved_at: null
-    reason: "Concept sheet is generated and awaiting explicit human review."
+    approved_by: "Stefan — 'freigegeben'"
+    approved_at: "2026-08-31T14:46:24+02:00"
+    reason: "User explicitly approved the 0.4.0 concept without changes."
   watermark_approval:
     status: blocked
     spec_revision: 0.4.0
@@ -58,15 +59,23 @@ workflow:
     placement: null
     preview_asset: null
     validation_asset: null
-    reason: "Requirements, concept, production geometry, and safe underside region are not yet approved."
+    reason: "The 0.4.0 geometry exists, but the revised safe underside region, generated R2 asset, placement preview, and human branding review are not yet approved."
   digital_candidate:
-    status: blocked
-    evidence: null
-    reason: "No 0.4.0 CAD is permitted before requirements and concept approval."
+    status: draft-pass
+    evidence:
+      - "validation/v0.4.0/generation-report.json"
+      - "validation/v0.4.0/mesh-audits/audit-left.json"
+      - "validation/v0.4.0/mesh-audits/audit-right.json"
+      - "coupons/nameform-letter-bridge-v0.4.0/reports/generation-report.json"
+      - "coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json"
+    reason: "Exact glyph/core B-Reps and textured manufacturing meshes pass digital generation, topology, gap, counter, relief, envelope, and compute-budget checks; physical and branding gates remain open."
   slicer_preflight:
-    status: blocked
-    evidence: null
-    reason: "No 0.4.0 manufacturing mesh exists yet."
+    status: pass-with-human-review
+    evidence:
+      - "coupons/nameform-letter-bridge-v0.4.0/reports/anycubic-slice-coupon-v0.4.0-run03.json"
+      - "validation/v0.4.0/anycubic-slice-left-run01.json"
+      - "validation/v0.4.0/anycubic-slice-right-run01.json"
+    reason: "All exact Anycubic Slicer Next 1.3.9.4 runs returned native success and valid G-code. Expected floating-region/cantilever warnings at glyph crossbars and local rear bridges require human layer review and physical coupon evidence."
   physical_validation:
     status: blocked
     evidence_plan: "test-plan.yaml"
@@ -91,7 +100,7 @@ provenance:
     - "Shared font size and baseline for split-name halves"
     - "Shell/rib construction instead of a 100%-solid ballast slab"
     - "Valid per-side 3MFs, exact print profile, deterministic validation, and physical test plan"
-  recommended_pending_approval:
+  approved_design_basis:
     - "Use Noto Sans ExtraCondensed ExtraBold as the default open-licensed glyph source so the letters can grow materially without exceeding the Kobra 3 Max bed"
     - "Use 122 mm default cap height and outline-position glyphs with 1.8 mm nominal gaps; preserve at least 1.2 mm after any side relief"
     - "Replace the full wing with 6.0 mm deep glyph bodies and a 2.4 mm rear connector web whose front begins 6.0 mm behind the glyph front"
@@ -129,7 +138,7 @@ function:
       description: "Optional same full name on both sides using the same freestanding-glyph architecture"
   text_contract:
     default_text: STEFAN
-    font: "Recommended pending approval: bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded"
+    font: "Bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded under source/v0.4.0/assets/fonts"
     normalization: "Unicode NFC"
     supported_initial_set: "A-Z, a-z, digits, space, hyphen, apostrophe, ÄÖÜäöüẞß"
     unsupported_glyph_behavior: "Fail closed with the missing code point; never substitute silently"

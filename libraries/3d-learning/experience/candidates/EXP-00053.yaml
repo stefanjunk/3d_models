@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once on a printed NameForm 0.4.0 MARITA artifact. The report is qualitative; no force, deflection, fracture, photo, material identity, or profile deviation is recorded."
+    notes: "Observed once on a printed NameForm 0.4.0 MARITA artifact. A reinforced 0.4.1 digital candidate and FA coupon now pass exact geometry, mesh, and slicer checks, but no 0.4.1 force, deflection, fracture, photo, material identity, or physical profile deviation is recorded."
 feature:
   type: letter-dominant personalized facade with hidden structural connector
   geometry: MA and RITA glyph groups with 6 mm front-to-back depth, one recessed glyph-shaped rear layer, and one local bridge band between each neighboring node
@@ -30,6 +30,15 @@ feature:
     proposed_rear_connector_thickness_mm: 4.0
     proposed_minimum_positive_overlap_mm: 2.0
     proposed_local_bridge_band_width_mm: 12.0
+    generated_candidate_revision: 0.4.1
+    generated_glyph_body_depth_mm: 12.0
+    generated_rear_connector_front_y_mm: 10.0
+    generated_rear_connector_rear_y_mm: 14.0
+    generated_rear_connector_thickness_mm: 4.0
+    generated_positive_overlap_mm: 2.0
+    generated_local_bridge_band_width_mm: 12.0
+    generated_nominal_gross_bridge_section_mm2: 48.0
+    historical_nominal_gross_bridge_section_mm2: 14.4
   named_datums:
     - glyph-front-y0
     - glyph-back-y6
@@ -71,14 +80,14 @@ scope:
   transfer_limits:
     - The observation applies to the printed NameForm 0.4.0 MARITA geometry and a 0.4 mm nozzle / 0.12 mm layer context.
     - It does not prove that the current connector fractured or fails a specified load.
-    - It does not validate the proposed 0.4.1 dimensions; they require concept, digital section, slicer, and physical coupon review.
+    - It does not physically validate the generated 0.4.1 dimensions; concept, exact digital section, mesh, and slicer gates pass, while the coupon and complete pair remain unprinted.
 observation:
   summary: The printed 0.4.0 MARITA letter-to-letter connections looked insufficiently stable to the user even though the digital meshes were connected and watertight.
   expected: The 6 mm-deep glyphs, 2.4 mm rear web, 0.1 mm nominal depth overlap, and 6 mm local bridge bands would look adequately integrated while the connector remained visually subordinate.
   actual: The user reported that the letters did not look very stable where they hang together and requested deeper letters plus a stronger connection farther behind the visible front.
   outcome: correction
   parameter: glyph depth, connector setback/thickness/overlap, and local bridge-band width
-  recommended_value: "Unapproved 0.4.1 proposal: 12 mm glyph depth; connector front at y=10 mm; 4 mm connector thickness; at least 2 mm positive overlap; 12 mm local bridge bands."
+  recommended_value: "Approved 0.4.1 digital test candidate, not a universal rule: 12 mm glyph depth; connector at y=10..14 mm; 2 mm positive overlap; 12 mm local bridge bands. Physical coupon and pair acceptance remain required."
   units: mm
 explanation:
   hypothesis: The combination of shallow glyph extrusion, almost tangent connector overlap, thin rear-web depth, and narrow single local bridge bands can make the facade appear and potentially behave like lightly attached plates even though a mesh connectivity audit passes.
@@ -89,17 +98,17 @@ explanation:
     - A single nearest-point bridge location may be the main weakness even if its width and depth are increased.
     - A stronger full rear panel would improve rigidity but violate the approved letter-only appearance.
   validated: false
-  validation_method: "Compare the historical and approved reinforced sections digitally, exact-slice the reinforced candidate, then print a process-matched representative glyph/bridge coupon and record front visibility, handling, force/deflection if available, and any fracture."
+  validation_method: "Historical/reinforced section comparison, exact mesh audits, and explicit-profile slices now pass. Next print the process-matched FA glyph/bridge coupon and record front visibility, handling, force/deflection if available, and any fracture before the complete pair."
 evidence:
   observations: 1
   same_scope_repetitions: 0
-  geometry_count: 1
-  machine_count: 0
+  geometry_count: 2
+  machine_count: 1
   material_count: 0
   nozzle_count: 1
-  measured: false
-  measurement_method: "Qualitative user assessment of a printed STL; the supplied 0.4.0 mesh reports establish the nominal geometry only."
-  uncertainty: "No photo, part identification, printed half, material, machine confirmation, slicer/profile deviation, force, deflection, fracture, or connector close-up is recorded."
+  measured: true
+  measurement_method: "Qualitative user assessment of the printed 0.4.0 result plus exact 0.4.0/0.4.1 source constants, B-Rep connector sections, relief metrics, independent mesh topology, and Anycubic Slicer Next 1.3.9.4 reports. Physical stiffness remains unmeasured."
+  uncertainty: "No photo, exact printed 0.4.0 half, physical material/machine confirmation, force, deflection, fracture, or connector close-up is recorded. The 0.4.1 FA coupon and complete pair are unprinted."
   sources:
     - type: user-statement
       ref: "User feedback in the 2026-08-31 NameForm MARITA reinforcement phase"
@@ -112,11 +121,24 @@ evidence:
     - type: product-trace
       ref: products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
       hash: null
-      notes: "0.4.1 requirements proposal and explicit gate status."
+      notes: "0.4.1 approved requirements, exact candidate dimensions, optimization decision, and open physical/release gates."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json
+      hash: 42b0203400a8771acc0b81c82d74032a3a85d0a566d01a8f61341e462f3fa7f6
+      notes: "Exact digital comparison: 2x glyph depth, 1.67x connector thickness, 20x overlap, 2x bridge width, and 3.33x nominal gross bridge section; not a strength proof."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/validation-project-result-run04.json
+      hash: null
+      notes: "Aggregates passing geometry, mesh, texture, coupon, and exact-slicer evidence while leaving human and physical checks open."
   artifacts:
     - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-MA-left-wood-C-v0.4.0.stl
     - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.0/generated/MARITA/run02/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.0.stl
     - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.1/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.1.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.1/generated/MARITA/reinforced-run01/candidate/DRAFT-nameform-MA-left-wood-C-v0.4.1.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/exports/v0.4.1/generated/MARITA/reinforced-run01/candidate/DRAFT-nameform-RITA-right-wood-C-v0.4.1.stl
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json
 applicability:
   triggers:
     - Tall personalized glyphs are joined mainly by a recessed rear web and local bridge bands.
@@ -141,13 +163,16 @@ relationships:
     - .agents/skills/functional-3d-design/SKILL.md
     - .agents/skills/design-printable-surface-textures/SKILL.md
 validation:
-  targeted: not-run
+  targeted: review-required
   regression: pass
   reports:
     - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json
+    - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.1/generated/MARITA/reinforced-run01/validation-project-result-run04.json
 provenance:
   project: MM-PER-001
-  part_revision: 0.4.0-printed-feedback-to-0.4.1-requirements
+  part_revision: 0.4.0-printed-feedback-to-0.4.1-digital-candidate
   trace: products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md
   source_commit: null
   created_by: Codex

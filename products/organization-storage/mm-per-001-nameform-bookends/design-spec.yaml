@@ -1,5 +1,5 @@
 # NameForm Bookends — active design specification (single source of truth)
-# Revision 0.4.1 is the requirements proposal for the reinforced letter-only facade.
+# Revision 0.4.1 is the reinforced letter-only digital print candidate.
 
 project:
   id: MM-PER-001
@@ -15,13 +15,13 @@ project:
 workflow:
   preflight:
     status: current
-    mode: PROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-008
-    assessment_version: 0.4.4
-    previous_assessment_id: PREFLIGHT-MM-PER-001-007
+    assessment_id: PREFLIGHT-MM-PER-001-010
+    assessment_version: 0.4.6
+    previous_assessment_id: PREFLIGHT-MM-PER-001-009
     assessed_project_revision: "0.4.1"
-    updated_at: "2026-08-31T18:18:55+02:00"
+    updated_at: "2026-08-31T20:46:35+02:00"
     change_triggers:
       - user_selected_direct_sampled_texture_candidate_c
       - letter_dominant_front_architecture
@@ -40,6 +40,9 @@ workflow:
       - requested_stronger_more_recessed_rear_connector
       - explicit_requirements_approval_0p4p1
       - gate_0b_reinforcement_concept_generated
+      - explicit_concept_approval_0p4p1
+      - reinforced_geometry_generated_0p4p1
+      - exact_mesh_and_slicer_evidence_0p4p1
   requirements_approval:
     status: approved
     spec_revision: 0.4.1
@@ -48,55 +51,53 @@ workflow:
     approved_at: "2026-08-31T18:13:41+02:00"
     reason: "User explicitly approved the 0.4.1 reinforcement requirements without changes."
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 0.4.1
     asset: "concept/nameform-bookends-v0.4.1-reinforced-concept.png"
     asset_sha256: "0dfabffa0554a51f41493ab729c1239f6fb8e71b9cc2674b62f865c73c5a1651"
     generated_at: "2026-08-31T18:18:55+02:00"
+    approved_by: "Stefan — 'freigegeben'"
+    approved_at: "2026-08-31T20:27:31+02:00"
     previous_approved_asset: "concept/nameform-bookends-v0.4.0-concept.png"
-    reason: "The selected concept shows deep glyph bodies, glyph-shaped rear reinforcement, and short local bridges without a rectangular front panel; explicit human concept approval remains required."
+    reason: "User explicitly approved the selected 0.4.1 reinforced letter-only concept without changes."
   watermark_approval:
     status: blocked
     spec_revision: 0.4.1
     asset_id: MM-WM-001-R2
     product_id: MM-PER-001
     version: 0.4.1
-    digital_status: "NOT GENERATED for the revised geometry"
+    digital_status: "PENDING until the reinforced draft passes physical handling and pair tests"
     generated_profile: null
     manifest_asset: null
     placement: null
     preview_asset: null
     validation_asset: null
-    reason: "The 0.4.1 production geometry does not exist; watermark work remains blocked until the reinforced geometry is stable."
+    reason: "The 0.4.1 digital draft exists and passes geometry/slicer checks, but watermarking remains the last solid change after the reinforced connector passes physical handling and pair tests."
   digital_candidate:
-    status: stale
+    status: passed-draft
     evidence:
-      - "validation/v0.4.0/generation-report.json"
-      - "validation/v0.4.0/mesh-audits/audit-left.json"
-      - "validation/v0.4.0/mesh-audits/audit-right.json"
-      - "coupons/nameform-letter-bridge-v0.4.0/reports/generation-report.json"
-      - "coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json"
-      - "validation/v0.4.0/generated/MARITA/run02/generation-report.json"
-      - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-left.json"
-      - "validation/v0.4.0/generated/MARITA/run02/mesh-audit-right.json"
-      - "validation/v0.4.0/generated/MARITA/run02/parametric-plan-sweep.json"
-    reason: "The 0.4.0 meshes remain valid historical evidence but are superseded by the requested structural change and cannot validate 0.4.1."
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json"
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/mesh-audit-left.json"
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/mesh-audit-right.json"
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/parametric-plan-sweep.json"
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json"
+      - "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json"
+      - "coupons/nameform-letter-bridge-v0.4.1/reports/mesh-audit-coupon.json"
+    reason: "Both reinforced MARITA meshes are one watertight positive body, preserve candidate C exactly, fit the declared envelope, and pass the structural-proxy contract. This remains a DRAFT until human slicer review and physical tests pass."
   slicer_preflight:
-    status: stale
+    status: passed-with-review
     evidence:
-      - "coupons/nameform-letter-bridge-v0.4.0/reports/anycubic-slice-coupon-v0.4.0-run03.json"
-      - "validation/v0.4.0/anycubic-slice-left-run01.json"
-      - "validation/v0.4.0/anycubic-slice-right-run01.json"
-      - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-MA-run02.json"
-      - "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-RITA-run02.json"
-    reason: "The exact 0.4.0 slices remain historical evidence; deeper glyphs and the new connector require fresh isolated slicer runs."
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-MA-run01.json"
+      - "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-RITA-run01.json"
+      - "coupons/nameform-letter-bridge-v0.4.1/reports/anycubic-slice-coupon-run01.json"
+    reason: "The isolated MARITA and FA-coupon Anycubic Slicer Next 1.3.9.4 runs pass with the explicit Kobra 3 Max 0.4 mm / 0.12 mm Standard / PETG profiles. RITA and FA retain native floating-cantilever warnings and require human layer review before printing."
   physical_validation:
     status: blocked
     evidence_plan: "test-plan.yaml"
-    reason: "The user printed the 0.4.0 STL and reports that the letter-to-letter connection looks insufficiently stable. No force, deflection, material, profile deviation, photo, or fracture result is recorded yet."
+    reason: "A new 0.4.1 FA bridge coupon and complete MARITA draft now exist, but neither has been printed. Connector handling/deflection, candidate-C appearance on the reinforced letters, and the 2.0 kg complete-pair test remain open."
   final_release_approval:
     status: blocked
-    reason: "Requirements, concept, slicer, physical, watermark, and final human approval gates remain open."
+    reason: "Human layer review, physical connector/pair tests, watermark integration, packaging, and final human approval remain open."
 
 provenance:
   user_stated:
@@ -162,7 +163,7 @@ function:
       description: "Optional same full name on both sides using the same freestanding-glyph architecture"
   text_contract:
     default_text: STEFAN
-    font: "Bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded under source/v0.4.0/assets/fonts"
+    font: "Bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded under source/v0.4.1/assets/fonts"
     normalization: "Unicode NFC"
     supported_initial_set: "Uppercase single-name variants A-Z, digits, hyphen, apostrophe, ÄÖÜẞ; spaces and lowercase remain fail-closed until their detached/descender connector behavior is explicitly implemented and swept"
     unsupported_glyph_behavior: "Fail closed with the missing code point; never substitute silently"
@@ -299,7 +300,10 @@ manufacturing:
   target_formats: [step, stl, 3mf]
 
 optimization:
-  status: pending
+  status: not-beneficial
+  baseline_slicer_report: "validation/v0.4.0/generated/MARITA/run02/anycubic-slice-MA-run02.json and anycubic-slice-RITA-run02.json"
+  comparison_report: "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json"
+  rationale: "The approved structural revision intentionally increases material and time. Reducing the 12 mm glyph depth, 4 mm connector, 2 mm overlap, or 12 mm bridge bands would undo the user-approved stability correction before physical proof; retain this reinforced baseline for testing."
   historical_0_3_0_geometry_result:
     candidate_pair_mass_g_at_pla_1_24: 319.98
     historical_pair_mass_g_at_pla_1_24: 3682.4
@@ -321,10 +325,10 @@ optimization:
     - "D fallback: candidate B with flank appearance carried only by material/finish if side mapping harms gaps, bonds, mesh budget, or slice quality"
   acceptance: "Select no 0.4.1 candidate without approved concept correspondence, exact slicer metrics, protected-region checks, and the process-matched glyph/connector coupon"
   mesh_simplification:
-    status: pending
-    master_mesh: null
-    comparison_report: null
-    rationale: "The 0.4.1 reference and manufacturing meshes do not exist yet; any relief simplification must be local and physically error-bounded."
+    status: not-applicable
+    master_mesh: "exports/v0.4.1/generated/MARITA/reinforced-run01/candidate/DRAFT-nameform-MA-left-wood-C-v0.4.1.stl and DRAFT-nameform-RITA-right-wood-C-v0.4.1.stl"
+    comparison_report: "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json"
+    rationale: "The directly sampled meshes are already below the 400k production target (185,876 and 237,232 triangles) and below 12 MiB each. Decimation would risk the physically selected candidate-C relief without material slicer benefit."
     protected_regions:
       - "Side blade/book contact face"
       - "Inward foot top and bed datum"
@@ -336,8 +340,8 @@ optimization:
       max_mesh_mib: 50
       max_slicer_seconds: 240
     slicer_resolution_check:
-      status: not-run
-      report: null
+      status: passed
+      report: "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-MA-run01.json and anycubic-slice-RITA-run01.json"
 
 acceptance:
   - id: paired-function
@@ -405,7 +409,7 @@ paths:
   historical_release: "release/manifest.json, release/design-spec-0.2.0.yaml, and committed 0.3.0 source/exports/validation"
   concept: "concept/nameform-bookends-v0.4.1-reinforced-concept.png"
   concept_review: "concept/nameform-bookends-v0.4.1-reinforced-concept.md"
-  source: "source/v0.4.1/ (blocked until concept approval)"
-  exports: "exports/v0.4.1/ (blocked until concept approval)"
+  source: "source/v0.4.1/"
+  exports: "exports/v0.4.1/"
   validation: "validation/v0.4.1/"
   test_plan: "test-plan.yaml"

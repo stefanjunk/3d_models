@@ -1,6 +1,6 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-008",
-  "assessment_version": "0.4.4",
+  "assessment_id": "PREFLIGHT-MM-PER-001-010",
+  "assessment_version": "0.4.6",
   "assessment_date": "2026-08-31",
   "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
@@ -10,7 +10,7 @@
       "0.4.0 requirements draft",
       "default name STEFAN split STE | FAN",
       "requested name MARITA; planned automatic contour-balanced split MA | RITA",
-      "0.4.1 reinforced facade requirements proposal: 12 mm glyph depth and stronger rear connector"
+      "0.4.1 reinforced MARITA digital draft: 12 mm glyph depth, 4 mm rear connector, 2 mm overlap, and 12 mm bridge bands"
     ],
     "out_of_scope": [
       "Wall mounting, stacking, child-directed use, structural shelving, or loads beyond the approved physical test",
@@ -140,12 +140,12 @@
         "Keep wood relief out of connector bonds, minimum-wall zones, the side-blade load path, and finished inter-glyph gaps."
       ],
       "evidence": {
-        "level": "E1",
-        "sources": ["design-spec.yaml", "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md", "user correction recorded 2026-08-31"],
-        "variant_confirmed": false,
-        "coverage_percent": 35,
-        "uncertainty_note": "The printed 0.4.0 result is qualitatively reported as looking insufficiently stable, but there is no force/deflection/fracture measurement. The proposed 12 mm glyph depth, 10 mm connector-front setback, 4 mm connector thickness, 2 mm positive overlap, and 12 mm bridge bands remain requirements-stage recommendations without concept, CAD section, coupon, or physical proof.",
-        "observability": "INFERRED"
+        "level": "E2",
+        "sources": ["design-spec.yaml", "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md", "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json", "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json", "user correction recorded 2026-08-31"],
+        "variant_confirmed": true,
+        "coverage_percent": 72,
+        "uncertainty_note": "Exact digital evidence proves the approved depths, overlap, bridge width, one-body topology, and a 3.33x nominal gross bridge-section proxy versus v0.4.0. No physical 0.4.1 force, deflection, handling, or fracture result exists yet.",
+        "observability": "PARTLY_OBSERVED"
       },
       "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 2, "total": 9, "tier": "I2"},
       "criticality": "K1",
@@ -159,8 +159,8 @@
       "verification": {
         "method": "test_coupon",
         "acceptance_criteria": ["Every glyph is part of one watertight body; the rear connector begins at least 10 mm behind the front, overlaps glyph bodies by at least 2 mm in depth, uses at least 12 mm-wide local bridge bands, remains visually subordinate from the approved front view, and the representative coupon survives the approved handling/deflection test without fracture."],
-        "status": "PLANNED",
-        "result_refs": []
+        "status": "IN_PROGRESS",
+        "result_refs": ["validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json", "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json"]
       },
       "owner": "product owner",
       "version": "0.1"
@@ -214,9 +214,9 @@
           "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
           "user selection of candidate C recorded 2026-08-31"
         ],
-        "variant_confirmed": false,
-        "coverage_percent": 60,
-        "uncertainty_note": "Candidate C is physically preferred on the upright planar coupon, but the new glyph mask, connector visibility, exposed flanks, exact filament, and complete profile are not yet validated.",
+        "variant_confirmed": true,
+        "coverage_percent": 75,
+        "uncertainty_note": "Candidate C is physically preferred on the upright planar coupon, and the reinforced MARITA meshes preserve its source, phase, pitch, and robust relief span exactly on the new glyph mask. Connector visibility, exposed flanks, exact filament, and the reinforced physical print remain unvalidated.",
         "observability": "PARTLY_OBSERVED"
       },
       "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 0, "VAR": 3, "LIF": 2, "total": 8, "tier": "I2"},
@@ -231,8 +231,8 @@
       "verification": {
         "method": "user_test",
         "acceptance_criteria": ["From the approved front view the object reads as large separate wooden glyphs; gaps and counters are visible; no rectangular background is perceived; wood relief remains recognizable under the intended lighting."],
-        "status": "PLANNED",
-        "result_refs": ["coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md"]
+        "status": "IN_PROGRESS",
+        "result_refs": ["coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md", "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/renders/DRAFT-nameform-MARITA-front-v0.4.1.png"]
       },
       "owner": "product owner",
       "version": "0.1"
@@ -252,10 +252,10 @@
     "level": "R3",
     "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
     "blocking_unknowns": [
-      "Measured 0.4.0 connector deflection/fracture evidence and process-matched proof of the proposed 0.4.1 connector",
+      "Process-matched physical handling/deflection proof of the generated 0.4.1 connector and complete pair",
       "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
     ],
-    "completeness_percent": 76.0
+    "completeness_percent": 84.0
   },
   "criticality": {
     "level": "K1",
@@ -267,23 +267,23 @@
     "lane": "C",
     "confidence": "CONDITIONAL",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retained functional core, approved 0.4.1 reinforcement requirements, and physically preferred C texture route permit a controlled sectioned concept. No 0.4.1 production CAD or export is permitted before concept approval. Release additionally requires a connector/glyph coupon, exact slicing, and full-pair physical tests."
+    "rationale": "The retained functional core, approved requirements and concept, exact reinforced geometry, watertight meshes, preserved candidate-C relief, and explicit-profile slices support a controlled print candidate. Human layer review, connector/glyph coupon, watermark integration, and full-pair physical tests still block release."
   },
   "warnings": [
-    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The printed 0.4.0 facade is reported as looking insufficiently stable. The proposed deeper glyphs and stronger connector are not yet supported by an approved sectioned concept, generated body, measured deflection, or physical handling coupon."},
-    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The preferred C print confirms appearance qualitatively, but the exact filament identity, conditioning, and complete slicer profile remain unknown."},
-    {"code": "VARIANT_ENVELOPE_MARGIN_LOW", "severity": "WARN", "message": "At the approved 122 mm cap height, the planned MA | RITA split has only about 1.25 mm X margin to the 350 mm per-part design envelope; exact generated bounds and slicer bed placement must pass before this variant is a print candidate."}
+    {"code": "CRITICAL_INTERFACE_PHYSICAL_PENDING", "severity": "WARN", "message": "The reinforced 0.4.1 geometry now passes exact section, connectivity, mesh, and slicer checks, but connector stiffness and handling remain physically unmeasured."},
+    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The digital candidate has an explicit Anycubic PETG profile, but the exact physical filament product, color, batch, conditioning, and profile deviations remain unknown."},
+    {"code": "VARIANT_ENVELOPE_MARGIN_LOW", "severity": "WARN", "message": "The generated RITA half passes the 350 mm internal envelope and exact slicer bed check at 348.748 mm, leaving only about 1.25 mm internal design margin."}
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Generate and approve a sectioned 0.4.1 reinforcement concept before production geometry.",
-      "exit_criterion": "The concept shows 12 mm glyphs, a 4 mm rear connector starting 10 mm behind the front, at least 2 mm positive overlap, 12 mm local bridge bands, open counters, visible gaps, and no rectangular front panel."
+      "action": "Perform human layer/seam review and print the reinforced FA letter/bridge coupon using the recorded 0.4 mm nozzle and 0.12 mm profile.",
+      "exit_criterion": "The coupon preserves candidate C, keeps gaps/counters open, hides the rear connector from the front, and passes the approved handling/deflection test without fracture."
     },
     {
       "priority": 2,
-      "action": "After concept approval, generate and test a reinforced letter/bridge coupon before rebuilding the complete MA | RITA pair.",
-      "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, remains visually letter-dominant, and passes the approved handling/deflection test."
+      "action": "After coupon acceptance, print and test the complete reinforced MA | RITA pair before watermark/package release.",
+      "exit_criterion": "The unchanged pair passes appearance, normal handling, 2.0 kg load, tip, permanent-set, and <=5 mm slide checks."
     }
   ],
   "traceability": {
@@ -305,7 +305,12 @@
       "concept/nameform-bookends-v0.4.0-concept.md",
       "concept/nameform-bookends-v0.4.1-reinforced-concept.png",
       "concept/nameform-bookends-v0.4.1-reinforced-concept.md",
-      "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md"
+      "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md",
+      "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json",
+      "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json",
+      "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-MA-run01.json",
+      "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-RITA-run01.json",
+      "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json"
     ],
     "change_triggers": [
       "user_selected_direct_sampled_texture_candidate_c",
@@ -324,10 +329,13 @@
       "requested_deeper_glyphs",
       "requested_stronger_more_recessed_rear_connector",
       "explicit_requirements_approval_0p4p1",
-      "gate_0b_reinforcement_concept_generated"
+      "gate_0b_reinforcement_concept_generated",
+      "explicit_concept_approval_0p4p1",
+      "reinforced_geometry_generated_0p4p1",
+      "exact_mesh_and_slicer_evidence_0p4p1"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-007",
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-009",
     "created_at": "2026-08-31T14:46:24+02:00",
-    "updated_at": "2026-08-31T18:18:55+02:00"
+    "updated_at": "2026-08-31T20:46:35+02:00"
   }
 }

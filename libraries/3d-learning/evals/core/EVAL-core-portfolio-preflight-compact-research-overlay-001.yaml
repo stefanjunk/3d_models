@@ -1,0 +1,60 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-portfolio-preflight-compact-research-overlay-001
+title: Portfolio scorecards preserve exact product evidence and visibly preliminary research bands
+category: core
+status: draft
+trigger: A portfolio workbook, product preflight, research-idea register, implementation mapping, or preflight-planning overlay is created or changed.
+risk: Compact labels can silently turn research assumptions into apparent product evidence, hide Lane E hard gates, lose product/purpose traceability, or combine market potential with engineering risk into one misleading score.
+given:
+  product_scope: Every current products/<family>/<product> directory with its product-local preflight and PURPOSE.md.
+  portfolio_scope: The 99 controlled Portfolio rows in product-portfolio.xlsx.
+  research_scope: SKU-001 through SKU-200 split across Research Ideas 100 and Research Ideas +100.
+  compact_form: "C# · R# · K# · Lane X · CONFIDENCE"
+expected:
+  - Every Portfolio row shows an exact compact scorecard and links an existing product-local preflight and PURPOSE.md.
+  - Product Preflights lists every current product directory exactly once with an exact scorecard, PC value, assessment identity/date, current release decision, target lane, purpose path, and archive status.
+  - Every research SKU appears exactly once in the 200-row estimate source and exactly once across the two 100-row research sheets.
+  - A mapped current product uses its exact product-preflight scorecard and source; an unmapped idea is labelled PRELIMINARY IDEA ESTIMATE — NOT RELEASE APPROVAL.
+  - Every preliminary idea remains R0–R1 and current Lane E; its separate target lane cannot replace the current lane, confidence, or CONCEPT_ONLY status.
+  - The Implementation Priority sheet retains market-potential fields beside, not merged into, the preflight fields.
+  - Re-running the estimate generator and workbook build leaves complete source-to-workbook reconciliation.
+failure_conditions:
+  - Any current product, Portfolio row, or research SKU is missing, duplicated, stale, or linked to a missing purpose/preflight source.
+  - A preliminary idea receives an exact-looking readiness value above R1 or a current Lane A–D without a linked current product preflight.
+  - A target lane is presented as the current lane or as release permission.
+  - A research estimate omits the NOT RELEASE APPROVAL disclaimer or presents its K proxy as a safety qualification.
+  - Market opportunity and C/R/K/lane/confidence are collapsed into one average or the market comparison fields disappear from Implementation Priority.
+fixtures:
+  - products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json
+  - business/02-portfolio/product-portfolio.xlsx
+  - business/02-portfolio/research-idea-preflight-estimates.csv
+  - business/tools/build_research_preflight_estimates.py
+  - business/tools/build_product_workbook.py
+  - business/tools/validate_portfolio_preflight_overlay.py
+grader:
+  type: hybrid
+  command: python business/tools/validate_portfolio_preflight_overlay.py
+  expected_exit_code: 0
+  rubric: Sample linked and preliminary rows from both research tabs, including one K3/NOT_AUTONOMOUSLY_RELEASABLE case; confirm the legend states that target lane and market potential do not override current preflight or release gates.
+  measurement_method: Deterministic ID/value/source reconciliation, live product-directory coverage, compact-form validation, generated-source freshness, and XLSX ZIP integrity plus human review of the legend wording.
+relationships:
+  lessons:
+    - EXP-00049
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-31
+  report: business/tools/validate_portfolio_preflight_overlay.py
+  artifact_hashes:
+    - 347d058d3364420e55c4267a588fe66f7e1dbed996e3528d9d75dc0a734ded46
+    - 718a4ba4ac36e425e839cb5f8714131353918c832975760f389a89732ac361a1
+tags:
+  - core
+  - portfolio
+  - preflight
+  - research
+  - market-potential
+  - complexity
+  - traceability
+  - release-gate

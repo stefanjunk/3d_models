@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""Build the 200-row preliminary research preflight planning overlay."""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import io
+import json
+import re
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+PORTFOLIO_CSV = REPO_ROOT / "business/02-portfolio/product-portfolio.csv"
+PRIORITY_CSV = REPO_ROOT / "business/02-portfolio/research-idea-priority.csv"
+STATUS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-implementation.csv"
+OUTPUT = REPO_ROOT / "business/02-portfolio/research-idea-preflight-estimates.csv"
+ASSESSMENT_DATE = "2026-08-31"
+ESTIMATE_VERSION = "1.0"
+
+FIELDNAMES = [
+    "SKU_ID",
+    "Preflight_Short",
+    "Complexity_Band",
+    "Readiness_Band",
+    "Criticality_Band",
+    "Current_Lane",
+    "Target_Lane_After_Evidence",
+    "Confidence",
+    "Design_Release",
+    "Estimate_Status",
+    "Creation_Effort_1_5",
+    "Validation_Effort_1_5",
+    "Research_Risk_1_5",
+    "Basis",
+    "Source_Or_Linked_Preflight",
+    "Assessed_On",
+    "Estimate_Version",
+]
+
+
+def read_dict_rows(path: Path) -> list[dict[str, str]]:
+    with path.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def preliminary_complexity(creation: int, validation: int) -> str:
+    """Return a conservative class band without pretending to calculate full PC."""
+    peak = max(creation, validation)
+    if peak == 1:
+        return "C1"
+    if peak == 2:
+        return "C1\u2013C2" if creation == 1 else "C2"
+    if peak == 3:
+        return "C2\u2013C3" if creation <= 2 else "C3"
+    if peak == 4:
+        return "C3\u2013C4"
+    if creation >= 5:
+        return "C5"
+    if creation >= 4:
+        return "C4\u2013C5"
+    return "C3\u2013C4"
+
+
+def preliminary_criticality(research_risk: int) -> str:
+    """Map the existing research-risk proxy to a deliberately broad K band."""
+    return {
+        1: "K1",
+        2: "K1\u2013K2",
+        3: "K2",
+        4: "K2\u2013K3",
+        5: "K3",
+    }[research_risk]
+
+
+def upper_level(value: str, prefix: str) -> int:
+    levels = [int(match) for match in re.findall(rf"{prefix}([0-5])", value)]
+    if not levels:
+        raise ValueError(f"Cannot parse {prefix} level from {value!r}")
+    return max(levels)
+
+
+def lower_level(value: str, prefix: str) -> int:
+    levels = [int(match) for match in re.findall(rf"{prefix}([0-5])", value)]
+    if not levels:
+        raise ValueError(f"Cannot parse {prefix} level from {value!r}")
+    return min(levels)
+
+
+def target_lane(complexity: str, criticality: str) -> str:
+    """Show the likely design lane only after R/gate evidence is sufficient."""
+    c_low = lower_level(complexity, "C")
+    c_high = upper_level(complexity, "C")
+    k_high = upper_level(criticality, "K")
+    if k_high >= 4:
+        return "E"
+    if c_high >= 4 or k_high >= 3:
+        return "D"
+    if c_high >= 3 or k_high >= 2:
+        return "C"
+    if c_low <= 1 and k_high == 0:
+        return "A"
+    return "B"
+
+
+def linked_product_row(
+    idea: dict[str, str],
+    implementation: dict[str, str],
+    portfolio_by_sku: dict[str, dict[str, str]],
+) -> dict[str, str]:
+    mapped_sku = implementation.get("Mapped_Working_SKU", "")
+    if not mapped_sku or mapped_sku not in portfolio_by_sku:
+        raise ValueError(f"{idea['SKU_ID']} has MODEL_EXISTS without a valid Mapped_Working_SKU")
+    portfolio = portfolio_by_sku[mapped_sku]
+    preflight_path = REPO_ROOT / portfolio["Source_Path"] / "preflight/preflight-result.json"
+    with preflight_path.open(encoding="utf-8") as handle:
+        preflight = json.load(handle)
+    complexity = str(preflight["complexity"]["class"])
+    readiness = str(preflight["readiness"]["level"])
+    criticality = str(preflight["criticality"]["level"])
+    lane = str(preflight["decision"]["lane"])
+    confidence = str(preflight["decision"]["confidence"])
+    design_release = str(preflight["decision"]["design_release"])
+    relative_preflight = preflight_path.relative_to(REPO_ROOT).as_posix()
+    return {
+        "Preflight_Short": f"{complexity} \u00b7 {readiness} \u00b7 {criticality} \u00b7 Lane {lane} \u00b7 {confidence}",
+        "Complexity_Band": complexity,
+        "Readiness_Band": readiness,
+        "Criticality_Band": criticality,
+        "Current_Lane": lane,
+        "Target_Lane_After_Evidence": target_lane(complexity, criticality),
+        "Confidence": confidence,
+        "Design_Release": design_release,
+        "Estimate_Status": "LINKED CURRENT PRODUCT PREFLIGHT \u2014 NOT RELEASE APPROVAL",
+        "Basis": f"Mapped to {mapped_sku}; exact current scorecard from the linked product preflight.",
+        "Source_Or_Linked_Preflight": relative_preflight,
+    }
+
+
+def preliminary_idea_row(idea: dict[str, str]) -> dict[str, str]:
+    creation = int(idea["Creation_Effort_1_5"])
+    validation = int(idea["Validation_Effort_1_5"])
+    research_risk = int(idea["Commercial_Risk_1_5"])
+    if not all(1 <= value <= 5 for value in (creation, validation, research_risk)):
+        raise ValueError(f"Research planning inputs are outside 1\u20135 for {idea['SKU_ID']}")
+    complexity = preliminary_complexity(creation, validation)
+    readiness = "R0\u2013R1"
+    criticality = preliminary_criticality(research_risk)
+    confidence = "NOT_AUTONOMOUSLY_RELEASABLE" if criticality == "K3" else "LOW_UNKNOWN"
+    return {
+        "Preflight_Short": f"{complexity} \u00b7 {readiness} \u00b7 {criticality} \u00b7 Lane E \u00b7 {confidence}",
+        "Complexity_Band": complexity,
+        "Readiness_Band": readiness,
+        "Criticality_Band": criticality,
+        "Current_Lane": "E",
+        "Target_Lane_After_Evidence": target_lane(complexity, criticality),
+        "Confidence": confidence,
+        "Design_Release": "CONCEPT_ONLY",
+        "Estimate_Status": "PRELIMINARY IDEA ESTIMATE \u2014 NOT RELEASE APPROVAL",
+        "Basis": (
+            f"C band from creation/validation planning effort ({creation}/{validation}); "
+            f"K band from the research-risk proxy ({research_risk}/5); R0\u2013R1 and Lane E until "
+            "critical interfaces, the manufacturing profile, acceptance criteria, and verification evidence exist."
+        ),
+        "Source_Or_Linked_Preflight": "business/02-portfolio/research-idea-priority.csv",
+    }
+
+
+def build_rows() -> list[dict[str, str]]:
+    priority = read_dict_rows(PRIORITY_CSV)
+    if len(priority) != 200:
+        raise ValueError(f"Expected 200 research ideas; found {len(priority)}")
+    ids = [row["SKU_ID"] for row in priority]
+    expected = {f"SKU-{number:03d}" for number in range(1, 201)}
+    if set(ids) != expected or len(ids) != len(set(ids)):
+        raise ValueError("Research priority must contain each SKU-001 through SKU-200 exactly once")
+
+    implementation_by_id = {row["SKU_ID"]: row for row in read_dict_rows(STATUS_CSV)}
+    portfolio_rows = read_dict_rows(PORTFOLIO_CSV)
+    portfolio_by_sku = {row["Working_SKU"]: row for row in portfolio_rows}
+    if len(portfolio_by_sku) != len(portfolio_rows):
+        raise ValueError("Portfolio Working_SKU values must be unique for linked preflight lookup")
+
+    output: list[dict[str, str]] = []
+    for idea in sorted(priority, key=lambda row: int(row["SKU_ID"].split("-")[1])):
+        implementation = implementation_by_id.get(idea["SKU_ID"], {})
+        if implementation.get("Implementation_Status") == "MODEL_EXISTS":
+            assessment = linked_product_row(idea, implementation, portfolio_by_sku)
+        else:
+            assessment = preliminary_idea_row(idea)
+        output.append(
+            {
+                "SKU_ID": idea["SKU_ID"],
+                **assessment,
+                "Creation_Effort_1_5": idea["Creation_Effort_1_5"],
+                "Validation_Effort_1_5": idea["Validation_Effort_1_5"],
+                "Research_Risk_1_5": idea["Commercial_Risk_1_5"],
+                "Assessed_On": ASSESSMENT_DATE,
+                "Estimate_Version": ESTIMATE_VERSION,
+            }
+        )
+    return output
+
+
+def render(rows: list[dict[str, str]]) -> str:
+    buffer = io.StringIO(newline="")
+    writer = csv.DictWriter(buffer, fieldnames=FIELDNAMES, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    return buffer.getvalue()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true", help="Fail if the generated CSV is missing or stale.")
+    args = parser.parse_args()
+    content = render(build_rows())
+    if args.check:
+        if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
+            raise SystemExit(f"stale or missing generated research preflight overlay: {OUTPUT}")
+        print(f"PASS: {OUTPUT} is current with 200 research preflight rows")
+        return 0
+    OUTPUT.write_text(content, encoding="utf-8")
+    print(f"Wrote {OUTPUT} with 200 research preflight rows")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

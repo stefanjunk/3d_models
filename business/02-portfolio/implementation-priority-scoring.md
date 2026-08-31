@@ -1,10 +1,32 @@
 # Research-idea implementation priority
 
-Status: planning model reviewed 2026-08-27. Scoring version: `1.0`.
+Status: planning model plus 3D-preflight overlay reviewed 2026-08-31. Priority-scoring version: `1.0`; preflight-estimate version: `1.0`.
 
 This model orders all 200 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
 The ordered source is `research-idea-priority.csv`; the generated workbook presents it as `Implementation Priority`.
+
+## 3D-preflight planning overlay
+
+The workbook keeps market potential and implementation feasibility separate. `Research Ideas 100`, `Research Ideas +100`, and `Implementation Priority` therefore show a compact preflight field beside the existing opportunity and market-fit fields:
+
+`C# · R# · K# · Lane X · CONFIDENCE`
+
+- The 37 research rows mapped to a current product use that product's exact documented preflight scorecard and link its `preflight/preflight-result.json`.
+- The 163 ideas without a mapped product are explicitly marked `PRELIMINARY IDEA ESTIMATE — NOT RELEASE APPROVAL`.
+- For those preliminary rows, the C band is derived conservatively from the existing creation- and validation-effort estimates; the K band uses the existing research-risk value only as a broad proxy. It is not a safety qualification.
+- An unstarted idea remains `R0–R1`, current `Lane E`, and `LOW_UNKNOWN` until scope, critical interfaces, manufacturing profile, acceptance criteria, and verification evidence exist. A research-risk proxy of 5 is shown as `K3` and `NOT_AUTONOMOUSLY_RELEASABLE`.
+- `Preflight_Target_Lane_After_Evidence` is a planning aid for the likely design path after readiness and hard gates are sufficient. It never replaces the current lane, a `HOLD`/`CONCEPT_ONLY` decision, or product release gates.
+
+The version-controlled row-level source is `research-idea-preflight-estimates.csv`. Regenerate and verify it before rebuilding the workbook:
+
+```bash
+python business/tools/build_research_preflight_estimates.py
+python business/tools/build_research_preflight_estimates.py --check
+python business/tools/build_product_workbook.py
+```
+
+Do not combine C, R, K, lane, confidence, and market opportunity into one average. For later market-potential-versus-complexity analysis, compare `Opportunity_Score` or `Estimated_Market_Fit_1_5` beside `Preflight_Complexity_Band`, while retaining K and the current/target lane as separate gates.
 
 ## Strategic rule before the score
 

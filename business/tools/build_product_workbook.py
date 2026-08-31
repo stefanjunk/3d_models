@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import json
 import posixpath
 import re
 import zipfile
@@ -19,9 +20,12 @@ RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv
 RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
 RESEARCH_PRIORITY_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
+RESEARCH_PREFLIGHT_CSV = ROOT / "02-portfolio" / "research-idea-preflight-estimates.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
 RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
+PRODUCTS_ROOT = ROOT.parent / "products"
+PRODUCT_PREFLIGHT_AUDIT_GLOB = "PRODUCT-PREFLIGHT-AUDIT-*.json"
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
@@ -29,6 +33,221 @@ REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 def read_csv(path: Path) -> list[list[str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.reader(handle))
+
+
+def read_dict_csv(path: Path) -> list[dict[str, str]]:
+    with path.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def exact_target_lane(complexity: str, criticality: str) -> str:
+    """Return the likely lane after readiness and hard-gate evidence is sufficient."""
+    complexity_level = int(complexity[1:])
+    criticality_level = int(criticality[1:])
+    if criticality_level >= 4:
+        return "E"
+    if complexity_level >= 4 or criticality_level >= 3:
+        return "D"
+    if complexity_level >= 3 or criticality_level >= 2:
+        return "C"
+    if complexity_level <= 1 and criticality_level == 0:
+        return "A"
+    return "B"
+
+
+def preflight_short(scorecard: dict[str, object]) -> str:
+    return (
+        f"{scorecard['complexity']} \u00b7 {scorecard['readiness']} \u00b7 "
+        f"{scorecard['criticality']} \u00b7 Lane {scorecard['lane']} \u00b7 {scorecard['confidence']}"
+    )
+
+
+def load_product_preflight_records() -> list[dict[str, object]]:
+    """Load and cross-check the documented preflight for every product directory."""
+    audit_paths = sorted(PRODUCTS_ROOT.glob(PRODUCT_PREFLIGHT_AUDIT_GLOB))
+    if not audit_paths:
+        raise ValueError(f"No product preflight audit matches {PRODUCT_PREFLIGHT_AUDIT_GLOB}")
+    with audit_paths[-1].open(encoding="utf-8") as handle:
+        audit = json.load(handle)
+    entries = audit.get("products", [])
+    if audit.get("product_count") != len(entries):
+        raise ValueError("Product preflight audit count does not match its product rows")
+    audit_products = {str(entry["product"]) for entry in entries}
+    product_directories = {
+        product.relative_to(PRODUCTS_ROOT).as_posix()
+        for family in PRODUCTS_ROOT.iterdir()
+        if family.is_dir()
+        for product in family.iterdir()
+        if product.is_dir()
+    }
+    if audit_products != product_directories:
+        missing = sorted(product_directories.difference(audit_products))
+        extra = sorted(audit_products.difference(product_directories))
+        raise ValueError(f"Product preflight audit is stale; missing={missing}, extra={extra}")
+
+    records: list[dict[str, object]] = []
+    for entry in entries:
+        product_root = PRODUCTS_ROOT / str(entry["product"])
+        preflight_path = product_root / str(entry["preflight_result"])
+        purpose_path = product_root / str(entry["purpose_document"])
+        if not preflight_path.is_file() or not purpose_path.is_file():
+            raise ValueError(f"Missing purpose or preflight document for {entry['product']}")
+        with preflight_path.open(encoding="utf-8") as handle:
+            preflight = json.load(handle)
+        scorecard = {
+            "complexity": preflight["complexity"]["class"],
+            "score_0_100": preflight["complexity"]["score_0_100"],
+            "readiness": preflight["readiness"]["level"],
+            "criticality": preflight["criticality"]["level"],
+            "lane": preflight["decision"]["lane"],
+            "confidence": preflight["decision"]["confidence"],
+            "release": preflight["decision"]["design_release"],
+        }
+        if scorecard != entry["scorecard"]:
+            raise ValueError(f"Product preflight audit scorecard is stale for {entry['product']}")
+        records.append(
+            {
+                "audit": entry,
+                "preflight": preflight,
+                "scorecard": scorecard,
+                "product_root": product_root,
+                "preflight_path": preflight_path,
+                "purpose_path": purpose_path,
+            }
+        )
+    return records
+
+
+def add_portfolio_preflight(
+    portfolio: list[list[str]], records: list[dict[str, object]]
+) -> None:
+    columns = [
+        "Preflight_Short",
+        "Preflight_Target_Lane_After_Evidence",
+        "Preflight_Assessment_ID",
+        "Preflight_Result_Path",
+        "Purpose_Document_Path",
+    ]
+    source_width = len(portfolio[0])
+    source_index = portfolio[0].index("Source_Path")
+    by_source = {
+        record["product_root"].relative_to(ROOT.parent).as_posix(): record
+        for record in records
+    }
+    portfolio[0].extend(columns)
+    for row in portfolio[1:]:
+        row.extend([""] * (source_width - len(row)))
+        source = str(row[source_index])
+        if source not in by_source:
+            raise ValueError(f"Portfolio row lacks a product preflight: {source}")
+        record = by_source[source]
+        scorecard = record["scorecard"]
+        preflight = record["preflight"]
+        row.extend(
+            [
+                preflight_short(scorecard),
+                exact_target_lane(str(scorecard["complexity"]), str(scorecard["criticality"])),
+                str(preflight["assessment_id"]),
+                record["preflight_path"].relative_to(ROOT.parent).as_posix(),
+                record["purpose_path"].relative_to(ROOT.parent).as_posix(),
+            ]
+        )
+
+
+def product_preflight_sheet(records: list[dict[str, object]]) -> list[list[object]]:
+    rows: list[list[object]] = [[
+        "Project_ID",
+        "Product_Path",
+        "Revision",
+        "Preflight_Short",
+        "PC_0_100",
+        "Target_Lane_After_Evidence",
+        "Design_Release",
+        "Assessment_ID",
+        "Assessment_Date",
+        "Preflight_Result",
+        "Purpose_Document",
+        "Archive_Status",
+        "Archived_Entries",
+    ]]
+    for record in sorted(records, key=lambda item: str(item["audit"]["product"])):
+        audit = record["audit"]
+        preflight = record["preflight"]
+        scorecard = record["scorecard"]
+        rows.append(
+            [
+                audit["project_id"],
+                f"products/{audit['product']}",
+                audit["revision"],
+                preflight_short(scorecard),
+                scorecard["score_0_100"],
+                exact_target_lane(str(scorecard["complexity"]), str(scorecard["criticality"])),
+                scorecard["release"],
+                preflight["assessment_id"],
+                preflight["assessment_date"],
+                record["preflight_path"].relative_to(ROOT.parent).as_posix(),
+                record["purpose_path"].relative_to(ROOT.parent).as_posix(),
+                audit["archive"]["root_status"],
+                len(audit["archive"]["moved_entries"]),
+            ]
+        )
+    return rows
+
+
+def read_research_preflight(path: Path, expected_ids: set[str]) -> dict[str, dict[str, str]]:
+    rows = read_dict_csv(path)
+    required = {
+        "SKU_ID",
+        "Preflight_Short",
+        "Complexity_Band",
+        "Readiness_Band",
+        "Criticality_Band",
+        "Current_Lane",
+        "Target_Lane_After_Evidence",
+        "Confidence",
+        "Estimate_Status",
+        "Basis",
+        "Source_Or_Linked_Preflight",
+    }
+    if not rows or required.difference(rows[0]):
+        raise ValueError(f"Research preflight overlay has a missing required column: {path}")
+    ids = [row["SKU_ID"] for row in rows]
+    if len(rows) != 200 or set(ids) != expected_ids or len(ids) != len(set(ids)):
+        raise ValueError("Research preflight overlay must contain every combined research idea exactly once")
+    for row in rows:
+        if row["Current_Lane"] not in {"A", "B", "C", "D", "E"}:
+            raise ValueError(f"Invalid current lane for {row['SKU_ID']}")
+        if "NOT RELEASE APPROVAL" not in row["Estimate_Status"]:
+            raise ValueError(f"Research preflight disclaimer missing for {row['SKU_ID']}")
+    return {row["SKU_ID"]: row for row in rows}
+
+
+def add_research_preflight(
+    rows: list[list[object]],
+    sku_column: str,
+    estimates: dict[str, dict[str, str]],
+) -> None:
+    output_columns = [
+        ("Preflight_Short", "Preflight_Short"),
+        ("Preflight_Complexity_Band", "Complexity_Band"),
+        ("Preflight_Readiness_Band", "Readiness_Band"),
+        ("Preflight_Criticality_Band", "Criticality_Band"),
+        ("Preflight_Current_Lane", "Current_Lane"),
+        ("Preflight_Target_Lane_After_Evidence", "Target_Lane_After_Evidence"),
+        ("Preflight_Estimate_Status", "Estimate_Status"),
+        ("Preflight_Basis", "Basis"),
+        ("Preflight_Source", "Source_Or_Linked_Preflight"),
+    ]
+    source_width = len(rows[0])
+    sku_index = rows[0].index(sku_column)
+    rows[0].extend(output_name for output_name, _ in output_columns)
+    for row in rows[1:]:
+        row.extend([""] * (source_width - len(row)))
+        sku_id = str(row[sku_index])
+        if sku_id not in estimates:
+            raise ValueError(f"Missing research preflight estimate for {sku_id}")
+        estimate = estimates[sku_id]
+        row.extend(estimate[source_name] for _, source_name in output_columns)
 
 
 def read_research_status(path: Path) -> dict[str, dict[str, str]]:
@@ -367,6 +586,9 @@ def sheet_xml(rows: list[list[object]]) -> str:
 
 def main() -> None:
     portfolio = read_csv(PORTFOLIO_CSV)
+    product_preflight_records = load_product_preflight_records()
+    add_portfolio_preflight(portfolio, product_preflight_records)
+    all_product_preflights = product_preflight_sheet(product_preflight_records)
     tasks = read_csv(TASKS_CSV)
     header = portfolio[0]
     role_index = header.index("Initial_Portfolio_Role")
@@ -467,6 +689,7 @@ def main() -> None:
         str(row[additional_sku_index]) for row in additional_research[1:]
     }
     validate_research_priority(research_priority, combined_research_ids, research_status)
+    research_preflight = read_research_preflight(RESEARCH_PREFLIGHT_CSV, combined_research_ids)
     add_research_overlay(
         legacy_product_matrix,
         "SKU ID",
@@ -479,6 +702,9 @@ def main() -> None:
         research_status,
         "New research hypothesis checked 2026-08-27; not a selected, qualified or released product",
     )
+    add_research_preflight(legacy_product_matrix, "SKU ID", research_preflight)
+    add_research_preflight(additional_research, "SKU_ID", research_preflight)
+    add_research_preflight(research_priority, "SKU_ID", research_preflight)
     for imported in (legacy_unit_economics, legacy_family_strategy):
         imported[0].append("Business_Workspace_Interpretation")
         for row in imported[1:]:
@@ -507,10 +733,19 @@ def main() -> None:
     first_new_candidate = next(
         row for row in next_candidate_rows if row[next_rank_index] == "1"
     )
+    linked_preflight_count = sum(
+        1
+        for estimate in research_preflight.values()
+        if estimate["Estimate_Status"].startswith("LINKED CURRENT")
+    )
+    preliminary_preflight_count = len(research_preflight) - linked_preflight_count
     summary = [
         ["Metric", "Value", "Interpretation"],
-        ["Review date", "2026-08-27", "Repository-evidence snapshot"],
+        ["Review date", "2026-08-31", "Repository-evidence snapshot"],
         ["Portfolio records", len(portfolio) - 1, "Includes planned concepts and non-external local model families"],
+        ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence is listed in Product Preflights"],
+        ["Portfolio rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are appended to the Portfolio sheet"],
+        ["Product directories with explicit purpose", sum(1 for record in product_preflight_records if record["purpose_path"].is_file()), "Purpose paths are listed beside every product preflight"],
         ["Initial launch SKUs", len(initial) - 1, "Fixed target scope"],
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
         ["Additional research concepts", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
@@ -520,6 +755,9 @@ def main() -> None:
         ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
         ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
         ["Ranked research ideas", len(research_priority) - 1, "Comparable implementation planning queue; not release approval"],
+        ["Research ideas linked to current product preflights", linked_preflight_count, "Exact scorecard copied from the mapped product; still not release approval"],
+        ["Research ideas with preliminary preflight bands", preliminary_preflight_count, "C and K are planning bands; R0\u2013R1 and current Lane E remain until interface/process/test evidence exists"],
+        ["Research target lane", "Separate planning field", "Expected design path after evidence closure; it never replaces the current lane or a release gate"],
         ["Finish-current research models", finish_current_count, "Close slicer, physical, rights and commercial evidence before expanding CAD work"],
         ["Gated next-candidate pool", len(next_candidate_rows), "Candidate pool only; demand-test and select at most one new CAD workstream"],
         ["First gated new candidate", f"{first_new_candidate[priority_sku_index]} — {first_new_candidate[priority_product_index]}", "Highest-ranked unstarted idea passing effort, validation, risk, strategy, market-fit and evidence-confidence gates"],
@@ -533,10 +771,28 @@ def main() -> None:
         ["Launch recommendation", "Germany digital-only", "At least one fixed safe-core P5 3MF release; three preferred; print/configuration gated later"],
     ]
 
+    preflight_legend = [
+        ["Field", "Meaning", "Portfolio use"],
+        ["Compact form", "C# \u00b7 R# \u00b7 K# \u00b7 Lane X \u00b7 CONFIDENCE", "Exact current scorecard for product preflights; bands are allowed only for explicitly preliminary research estimates"],
+        ["C0\u2013C5", "Intrinsic product/design complexity", "Never average with readiness, criticality or market potential"],
+        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Research-only concepts remain R0\u2013R1 until measured evidence exists"],
+        ["K0\u2013K4", "Credible failure consequence and required rigor", "A research K band is a conservative proxy, not a safety qualification"],
+        ["Lane A\u2013E", "Currently permitted workflow", "R<=1 or a hard-gate failure forces current Lane E"],
+        ["Target lane after evidence", "Likely design workflow after readiness and hard gates are sufficient", "Planning aid only; does not override current Lane E, HOLD or CONCEPT_ONLY"],
+        ["Confidence", "Qualitative workflow confidence", "No numerical success probability is inferred"],
+        ["Linked current product preflight", "Research idea maps to an existing Working_SKU", "Exact current product scorecard and source path are shown; not release approval"],
+        ["Preliminary idea estimate", "No mapped current product preflight", "C band uses creation/validation planning effort; K band uses the research-risk proxy; R0\u2013R1 and Lane E are fixed until evidence exists"],
+        ["Market potential", "Opportunity and market-fit fields in the research register", "Keep separate from C/R/K/lane; compare side by side in Implementation Priority"],
+        ["Update rule", "Regenerate after product-preflight, implementation mapping or research-priority changes", "Run build_research_preflight_estimates.py, then build_product_workbook.py"],
+        ["Product source", "products/*/*/preflight/preflight-result.json", "Validated project-level source of truth"],
+        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 200-row planning overlay"],
+    ]
+
     sheets = [
         ("Summary", summary),
         ("Initial Portfolio", initial),
         ("Portfolio", portfolio),
+        ("Product Preflights", all_product_preflights),
         ("External Exclusions", exclusions),
         ("Stage Definitions", stages),
         ("MVP Tasks", tasks),
@@ -547,6 +803,7 @@ def main() -> None:
         ("Research Economics", legacy_unit_economics),
         ("Research Families", legacy_family_strategy),
         ("Research Sources", research_sources),
+        ("Preflight Legend", preflight_legend),
     ]
 
     content_types = [
@@ -626,6 +883,7 @@ def main() -> None:
         archive.writestr("xl/styles.xml", styles)
         for idx, (_, rows) in enumerate(sheets, start=1):
             archive.writestr(f"xl/worksheets/sheet{idx}.xml", sheet_xml(rows))
+    OUTPUT.chmod(0o644)
     print(f"Wrote {OUTPUT} with {len(sheets)} sheets")
 
 

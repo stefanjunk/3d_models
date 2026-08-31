@@ -1,6 +1,6 @@
 # R7 – lizenzgetrennte Analyse der Montage- und Aufstellprinzipien
 
-Stand: 2026-08-29
+Stand: 2026-08-31
 Status: Anforderungen/Ideation, keine CAD-Ableitung
 
 ## Ausgangslage
@@ -11,9 +11,15 @@ Der R6-Fangkopf erfüllt die gewünschte kurze Fangstrecke grundsätzlich, sein 
 
 Die Dateien unter `research/third-party/printer-workshop/` bleiben reine Betrachtungsquellen. Es wird kein Mesh importiert, kein Profil nachgezeichnet, kein Maß übernommen, kein Bild ausgeliefert und kein Fremdmodell in einem R7-Export eingebettet. Selbst Dateien mit Metadaten werden nicht als Rechtefreigabe für kommerzielle Ableitungen verstanden.
 
+Der detaillierte Audit der vom Benutzer als passend bewerteten Meisech-3MF
+steht in `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md`. Die eingebetteten
+Montagefotos und die Übereinstimmung des nominellen 17-mm-Lochachsenabstands mit
+der unabhängigen Benutzermessung erhöhen die Evidenz für Seite, Orientierung
+und direktes Zweischraubenprinzip. Sie ändern die Clean-Room-Grenze nicht.
+
 | Lokale Datei | SHA-256 | Lokale Rechteinformation | Nur abstrahiertes Prinzip | Aus R7 ausgeschlossen |
 |---|---|---|---|---|
-| `Anycubic_Kobra_3_Max_Poop_catcher.3mf` und identische `(1)`-Kopie | `ba353bf0d44328b406599fe770307c4221e9f29cc2d04447abcf688eba4df35d` | eingebettet: Designer `Meisech`, `BY-NC` | Eine Fangzone nahe am Wiper reduziert den freien Flugweg. | Gehäuse, Schublade, Schraub-/Schlitzkontur, Lochbild, Perforation und alle Maße |
+| `Anycubic_Kobra_3_Max_Poop_catcher.3mf` | `ba353bf0d44328b406599fe770307c4221e9f29cc2d04447abcf688eba4df35d` | eingebettet: Designer `Meisech`, `BY-NC`; die bytegleiche `(1)`-Doppelkopie wurde am 31.08.2026 entfernt | Eine direkt am mitfahrenden Wiper verschraubte Fangzone reduziert Flugweg und Zwischeninterfaces. | Gehäuse, Schublade, Schraub-/Schlitzkontur, Lochbild, Perforation und alle Maße |
 | `Poop+catcher+LBI3D.3mf` | `b431af0b8a3761aea82b5efc26330c35c6d6220c04a78e5ff3896f4b7d5aebcb` | eingebettet: `Standard Digital File License`; zusätzlich Verweis auf das BY-NC-Ursprungsmodell | Lokales Umlenken und entfernte Speicherkapazität sind zwei getrennte Funktionen. | sämtliche Remix-Geometrie, Kontakt-/Clipkonturen, Ausschnitte, Maße und Bilder |
 | `Poopbin.3mf` | `b486e11cb3d1f25b52b150054153bad166f38108ee5658e5382aea66d037ef6f` | eingebettet: Designer `MrBaham`, `BY-NC-SA` | Eine große Standfläche kann die Maschine von Behälterlasten entkoppeln. | Behältersilhouette, hohe Rückwand, Seitenprofil, Radien, Maße und Bildmaterial |
 | `poubelle+anycubic.3mf` | `a81e341d829760ccb0b1512e27e858d7510ed49a6ecfbfaef723a5d316bea6a7` | eingebettet: `MakerWorld Exclusive License`, als Remix mit BY-NC-SA-Verweis | Ein frei aufgestellter Behälter ist wartungsarm, braucht aber eine reproduzierbare Positionierung. | gesamte Remix-/Ursprungsgeometrie, Logo, Kontur und Maße |

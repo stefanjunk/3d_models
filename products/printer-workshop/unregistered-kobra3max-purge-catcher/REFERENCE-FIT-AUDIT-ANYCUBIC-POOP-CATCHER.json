@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "audit_date": "2026-08-31",
+  "status": "REFERENCE_FIT_SUPPORTED_R7_RELEASE_BLOCKED",
+  "source": {
+    "path": "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf",
+    "sha256": "ba353bf0d44328b406599fe770307c4221e9f29cc2d04447abcf688eba4df35d",
+    "size_bytes": 1423849,
+    "duplicate_removed": "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher (1).3mf",
+    "duplicate_was_byte_identical": true
+  },
+  "embedded_metadata": {
+    "application": "BambuStudio-02.00.03.54",
+    "title": "Anycubic Kobra 3 Max version 1 Poop Catcher",
+    "designer": "Meisech",
+    "designer_user_id": "487044581",
+    "creation_date": "2025-05-13",
+    "modification_date": "2025-05-13",
+    "license": "BY-NC",
+    "license_version": null,
+    "design_model_id": "US41f6be5deb5489",
+    "makerworld_model_id": "DSM00000001326104"
+  },
+  "package_validation": {
+    "tool": "fdm_ci.py validate-3mf",
+    "tool_version": "1.2.1",
+    "profile": "draft",
+    "status": "FAIL",
+    "errors": [
+      "content types do not declare the standard 3D model part",
+      "component object 3 references external object 1",
+      "component object 3 references external object 2",
+      "component object 5 references external object 4"
+    ],
+    "interpretation": "Bambu Studio stores meshes in split 3MF Production-extension object files; this is a core-package portability failure and not by itself a broken-mesh result."
+  },
+  "objects": [
+    {
+      "name": "Poop catcher.stl",
+      "role": "product_main_body",
+      "extents_mm": [74.092407, 38.975033, 120.0],
+      "vertices": 23232,
+      "triangles": 46960,
+      "signed_volume_mm3": 49292.582,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_volume": true,
+      "degenerate_faces": 34,
+      "mesh_audit_status": "PASS"
+    },
+    {
+      "name": "Drawer.stl",
+      "role": "removable_bottom_flap",
+      "extents_mm": [69.329269, 40.852551, 2.481613],
+      "vertices": 2376,
+      "triangles": 4748,
+      "signed_volume_mm3": 6245.448,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_volume": true,
+      "degenerate_faces": 0,
+      "mesh_audit_status": "PASS"
+    },
+    {
+      "name": "Generic-Cube",
+      "role": "support_enforcer_not_product_geometry",
+      "extents_mm_before_transform": [25.6, 25.6, 25.6],
+      "triangles": 12
+    }
+  ],
+  "fit_evidence": {
+    "user_statement": "this would fit perfectly",
+    "physical_fit_on_user_unit": "UNKNOWN",
+    "embedded_installed_photos": [
+      {
+        "member": "Auxiliaries/Model Pictures/Image-01.webp",
+        "sha256": "d06272333b6469067a98c32c89675ec0a3ee3e088c255d2d53be16322fb5af8c"
+      },
+      {
+        "member": "Auxiliaries/Model Pictures/Image-02.webp",
+        "sha256": "f041198e4b2f87afaf8dd7a024e709e72ed38471f8e14d38a4c0b236aaadcc0c"
+      },
+      {
+        "member": "Auxiliaries/Model Pictures/Image-04.webp",
+        "sha256": "0b97666f0d4f2e41822ff3dd8c8243fc8a4b6bdd27d08b4399cc5f7efced13d7"
+      }
+    ],
+    "mounting_principle": "Directly co-bolted to the moving Wiper with the two existing vertically aligned screws.",
+    "slot_axis_pitch_cross_check": "Nominally consistent with the independent user-measured 17 mm screw pitch in M-R7-001.",
+    "recommended_screws_in_embedded_description": "M3x10",
+    "evidence_limit": "The source confirms a third-party fit arrangement; it neither proves fit of R7 nor licenses source geometry as an owned CAD interface."
+  },
+  "embedded_print_configuration": {
+    "printer_model": "Bambu Lab P1S",
+    "printer_variant": "0.4",
+    "profile_title": "0.2mm layer, 2 walls, 50% infill",
+    "description_infill_recommendation": {
+      "main_body_percent": 100,
+      "drawer_percent": 15
+    },
+    "support_enforcer_present": true,
+    "valid_for_anycubic_kobra_3_max": false
+  },
+  "rights_boundary": {
+    "commercial_clean_room_reuse": "BLOCKED",
+    "excluded": [
+      "mesh",
+      "contours",
+      "dimensions",
+      "slot and hole geometry",
+      "drawer geometry",
+      "perforation pattern",
+      "embedded images",
+      "Bambu project metadata"
+    ],
+    "allowed_qualitative_principle": "Minimize intermediate interfaces by capturing at the moving Wiper and using the independently measured existing screw pair."
+  },
+  "r7_decision": {
+    "current_owned_printable_version": null,
+    "requirements_status": "changes-requested",
+    "concept_status": "blocked",
+    "preflight_decision": "HOLD",
+    "next_gate": "Select storage architecture, then pass a clean-room 17 mm hole-pattern and conservative outline coupon on the powered-off target machine."
+  }
+}

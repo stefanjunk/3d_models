@@ -1,13 +1,13 @@
 product: Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
 intended_use: Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar
   an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+user_context: Betreiber eines Anycubic Kobra 3 Max; die konkrete Maschine ist durch eigene Fotos und Benutzermessungen
+  dokumentiert, Serien-/Revisionskennung und vollständige Maschinenhüllkurve bleiben unbekannt.
 host_variant:
-  manufacturer: null
-  model: null
+  manufacturer: Anycubic
+  model: Kobra 3 Max
   revision: null
-  variant_confirmed: false
+  variant_confirmed: true
 lifecycle_states:
 - transport
 - assembly
@@ -20,11 +20,19 @@ lifecycle_states:
 requirements:
 - Preserve the explicit purpose within the cited scope.
 - Close every blocking preflight gate before production release.
+- Use the independently measured 17 mm Wiper screw pitch, but do not derive proprietary geometry or dimensions from the BY-NC reference mesh.
+- Resolve whether storage moves with the Wiper or remains stationary before concept approval.
 known_components:
 - Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
-- Intended host object or storage envelope
+- Anycubic Kobra 3 Max Purge-Wiper assembly
+- Third-party fit reference, evidence only
 available_evidence:
 - design-spec.yaml
+- WIPER-PHOTO-MEASUREMENTS-R7.yaml
+- learning-trace-interface-r7.yaml
+- REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
+- REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json
+- research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf
 - REQUIREMENTS-PHASE-VALIDATION-R7.json
 - CONCEPT-PHASE-VALIDATION-R7.json
 - current/anycubic-kobra3max-purge-catcher-r7/README-DE.md
@@ -46,5 +54,6 @@ known_loads_environment:
 safety_notes:
 - The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled
   functional testing.
+- Embedded Bambu P1S profiles in the reference 3MF are not valid Anycubic Kobra 3 Max manufacturing profiles.
 interfaces:
 - IF-EXT-GEO-CON-MIXED-001

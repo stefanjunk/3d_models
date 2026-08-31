@@ -131,3 +131,20 @@
 - Feststellung: Die Digitalprüfung bewies nur interne Beziehungen im erfundenen CAD-Koordinatensystem. Für vorhandene Wiper-Schale, Metallablage, Rollen, Kabel, Bett, reale Schraubenköpfe und den Montageweg existierten weder Maschinensolids noch konservative vollständige Keep-outs.
 - Kritische Abstraktionen: 37 mm wurden zur Mitte eines 62-mm-Catchers, 40 mm nur zu einer rückwärtigen Referenzebene und 10 mm zu einer beliebigen Ebene innerhalb der Fangzone. Der Catcher belegt nominal `X=6..68`, `Y=2,4..46,4` und `Z=-36..26` mm, ohne dass dieser freie Raum am Drucker nachgewiesen wurde.
 - Entscheidung: Anforderungen wechseln auf `0.7.0-requirements.3 / changes-requested`; Konzept und Produktion sind blockiert. Vor neuer Geometrie müssen konkrete Fehlpassung, Achsrichtung/Endpunkte und zulässige X/Y/Z-Hüllkurve geklärt und mit einer flachen Interface-/Umrisslehre geprüft werden.
+
+## 2026-08-31 – Passende Drittanbieter-Referenz
+
+### DEC-R7-020 – Meisech-3MF als starke Fit-Referenz auswählen
+
+- Status: Evidenz ausgewählt; keine Geometrie- oder Druckfreigabe für R7
+- Benutzerevidenz: `research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf` „would fit perfectly“.
+- Prüfung: Die BY-NC-3MF enthält einen direkt mit zwei Schrauben am mitfahrenden Wiper montierten Hauptkörper, eine Bodenklappe und eingebettete Montagefotos an einem Anycubic Kobra 3 Max. Der nominelle Abstand der Befestigungsschlitzachsen ist mit der unabhängigen 17-mm-Benutzermessung konsistent.
+- Entscheidung: Die Referenz darf Seite, Bewegungsbezug und das allgemeine Prinzip einer direkten Zweischraubenmontage bestätigen. Mesh, Konturen, Fremdmaße, Schlitz-/Lochform, Klappe, Perforation, Bilder und Bambu-Projektmetadaten bleiben aus R7 ausgeschlossen.
+- Nachweis: `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md`.
+
+### DEC-R7-021 – Architekturentscheidung erneut öffnen
+
+- Status: offen; Anforderungen `0.7.0-requirements.4 / changes-requested`
+- Konflikt: Die passende Referenz nutzt einen etwa 120 mm hohen, vollständig mitfahrenden Speicherbehälter. Die bisherige R7-Freigabe verlangte dagegen einen leichten lokalen Umlenker und einen stationären Speicherbehälter.
+- Entscheidung: Keine neue Vollgeometrie, bis der Produkteigner ausdrücklich zwischen diesen Architekturen gewählt hat. Unabhängig von der Wahl wird zuerst eine eigene 17-mm-Lochbild-/Umrisslehre aus den eigenen Maschinenmessungen erzeugt und am stromlosen Drucker geprüft.
+- Fertigung: Die Drittanbieter-3MF enthält ein Bambu-P1S-Profil und ist kein unmittelbar gültiges Anycubic-Kobra-3-Max-Projekt.

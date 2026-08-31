@@ -1,13 +1,14 @@
 {
-  "assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-001",
-  "assessment_version": "0.1.0",
+  "assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-002",
+  "assessment_version": "0.2.0",
   "assessment_date": "2026-08-31",
   "product": "Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf",
   "scope": {
     "intended_use": "Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filamentreste unmittelbar an der Quelle und lenkt sie ohne langen Kanal nach unten in einen stationären, entnehmbaren Sammelbehälter.",
-    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "user_context": "Betreiber eines Anycubic Kobra 3 Max; die konkrete Maschine ist durch eigene Fotos und Benutzermessungen dokumentiert, Serien-/Revisionskennung und vollständige Maschinenhüllkurve bleiben unbekannt.",
     "variants": [
-      "0.7.0-requirements.3"
+      "Anycubic Kobra 3 Max",
+      "0.7.0-requirements.4"
     ],
     "out_of_scope": [
       "Claims not explicitly supported by the cited repository evidence",
@@ -23,7 +24,7 @@
     {
       "id": "E-HOST-001",
       "kind": "HOST_OBJECT",
-      "name": "Intended host object or storage envelope"
+      "name": "Anycubic Kobra 3 Max Purge-Wiper assembly"
     }
   ],
   "interfaces": [
@@ -49,6 +50,18 @@
       ],
       "dimensions": [
         {
+          "id": "DIM-SCREW-PITCH-001",
+          "feature": "Vertical centre-to-centre pitch of the two user-measured Wiper screws",
+          "nominal_mm": 17.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DIRECT_MEASURED",
+          "source_ref": "WIPER-PHOTO-MEASUREMENTS-R7.yaml#M-R7-001",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
           "id": "DIM-PRIMARY-001",
           "feature": "Primary interface envelope and functional allowance",
           "nominal_mm": null,
@@ -65,6 +78,11 @@
         "level": "E2",
         "sources": [
           "design-spec.yaml",
+          "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+          "learning-trace-interface-r7.yaml",
+          "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md",
+          "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json",
+          "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf",
           "REQUIREMENTS-PHASE-VALIDATION-R7.json",
           "CONCEPT-PHASE-VALIDATION-R7.json",
           "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
@@ -73,9 +91,9 @@
           "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-report.json",
           "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
         ],
-        "variant_confirmed": false,
-        "coverage_percent": 55,
-        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "variant_confirmed": true,
+        "coverage_percent": 70,
+        "uncertainty_note": "The exact Kobra 3 Max variant and 17 mm screw pitch are supported, including an installed third-party reference, but the clean-room accessory envelope, screw hardware, tolerances and full machine-motion keep-outs remain unverified.",
         "observability": "PARTLY_OBSERVED"
       },
       "interface_complexity": {
@@ -99,7 +117,8 @@
       "verification": {
         "method": "prototype_test",
         "acceptance_criteria": [
-          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+          "A clean-room 17 mm hole-pattern and conservative outline coupon fits the powered-off target machine without interference.",
+          "The complete installed accessory and service sweep retain the approved clearance over the full powered-off machine-motion envelope."
         ],
         "status": "PLANNED",
         "result_refs": []
@@ -115,17 +134,18 @@
       "PAR": 2,
       "INT": 3,
       "CPL": 2,
-      "MOT": 1,
+      "MOT": 2,
       "GEO": 2,
       "PHY": 3,
       "MAT": 2,
       "EXT": 2,
       "VER": 3
     },
-    "score_0_100": 56.8,
+    "score_0_100": 59.3,
     "class": "C3",
     "drivers": [
       "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "MOT=2: The accessory co-moves with the Purge-Wiper along the guided Z translation.",
       "PHY=3: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested.",
       "VER=3: Several fit, function, flow, load, motion, or process checks are required."
     ]
@@ -137,13 +157,13 @@
       "requirements": "R2",
       "critical_interfaces": "R2",
       "manufacturing_profile": "R3",
-      "verification": "R2"
+      "verification": "R3"
     },
     "blocking_unknowns": [
-      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
-      "measurable acceptance criteria"
+      "clean-room machine envelope, screw hardware, tolerances and uncertainty beyond the independently measured 17 mm pitch",
+      "architecture decision between a lightweight diverter with stationary storage and a directly mounted moving storage bin"
     ],
-    "completeness_percent": 48.0
+    "completeness_percent": 62.0
   },
   "criticality": {
     "level": "K2",
@@ -159,41 +179,61 @@
     "G1": "PASS",
     "G2": "FAIL",
     "G3": "PASS",
-    "G4": "WARN",
+    "G4": "PASS",
     "G5": "PASS",
-    "G6": "PASS"
+    "G6": "WARN"
   },
   "decision": {
     "lane": "E",
     "confidence": "LOW_UNKNOWN",
     "design_release": "HOLD",
-    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+    "rationale": "The installed third-party reference materially improves variant, side, orientation and two-screw-interface evidence, but it cannot supply clean-room geometry or commercial rights. R7 remains held until its own envelope, hardware and architecture are approved and physically checked."
   },
   "warnings": [
     {
       "code": "CRITICAL_INTERFACE_UNKNOWN",
       "severity": "BLOCKER",
-      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+      "message": "The exact host variant and 17 mm screw pitch are supported, but the clean-room accessory still lacks a complete machine envelope, hardware contract, tolerances and physical coupon result."
+    },
+    {
+      "code": "THIRD_PARTY_BY_NC",
+      "severity": "WARN",
+      "message": "The strongest fit reference is marked BY-NC and may not be copied into a commercial R7 design; its exact license version is not embedded."
+    },
+    {
+      "code": "REFERENCE_PROFILE_MISMATCH",
+      "severity": "WARN",
+      "message": "The reference 3MF embeds a Bambu Lab P1S profile, not an Anycubic Kobra 3 Max manufacturing profile."
     }
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
-      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+      "action": "Build and fit a clean-room 17 mm hole-pattern plus conservative outline coupon from the user's own measurements and machine photos.",
+      "exit_criterion": "The coupon fits the powered-off target machine, screw hardware and engagement are recorded, and no third-party contour or dimension is used."
     },
     {
       "priority": 2,
-      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
-      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+      "action": "Select the storage architecture before reopening concept approval.",
+      "exit_criterion": "The owner explicitly approves either lightweight moving diversion with stationary storage or directly mounted moving storage, including the corresponding moving-mass and service constraints."
+    },
+    {
+      "priority": 3,
+      "action": "Verify the complete machine-motion and service envelope with the selected clean-room concept.",
+      "exit_criterion": "Powered-off full-travel, tool-access and removal-sweep tests meet the documented clearance criteria."
     }
   ],
   "traceability": {
     "mode": "RETROSPECTIVE",
     "project_id": "ANYCUBIC-K3MAX-PURGE-CATCHER-R7",
-    "project_revision": "0.7.0-requirements.3",
+    "project_revision": "0.7.0-requirements.4",
     "basis_refs": [
       "design-spec.yaml",
+      "WIPER-PHOTO-MEASUREMENTS-R7.yaml",
+      "learning-trace-interface-r7.yaml",
+      "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md",
+      "REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json",
+      "research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf",
       "REQUIREMENTS-PHASE-VALIDATION-R7.json",
       "CONCEPT-PHASE-VALIDATION-R7.json",
       "current/anycubic-kobra3max-purge-catcher-r7/README-DE.md",
@@ -203,12 +243,12 @@
       "current/anycubic-kobra3max-purge-catcher-r7/reports/validation-project-lock-report.json"
     ],
     "change_triggers": [
-      "backfill_missing_preflight",
-      "portfolio_documentation_audit",
-      "product_root_version_cleanup"
+      "new_third_party_fit_reference",
+      "user_fit_assessment",
+      "interface_evidence_change"
     ],
-    "previous_assessment_id": null,
+    "previous_assessment_id": "PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-001",
     "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T12:29:39+02:00"
+    "updated_at": "2026-08-31T17:04:21+02:00"
   }
 }

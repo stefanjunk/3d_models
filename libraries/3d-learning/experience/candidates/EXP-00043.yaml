@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "One user fit rejection on one unprinted R7-DRAFT-2 machine accessory; exact collision or orientation error is not yet localized."
+    notes: "One user fit rejection on unprinted R7-DRAFT-2 plus one user-selected, physically installed third-party reference. The reference clarifies the correct side and simplest interface, but the exact R7 collision and the user's physical fit-test status remain unknown."
 feature:
   type: external-machine-envelope-fit
   geometry: Two-screw Wiper datum plate, forward slide/latch and 62 x 44 x 62 mm moving purge catcher
@@ -67,15 +67,15 @@ scope:
     - The exact wrong side, collision body or fastener mismatch remains unknown.
     - No material, nozzle or slicer effect caused or resolves the observed external fit failure.
 observation:
-  summary: The R7-DRAFT-2 datum illustration looked plausible to the user, but the user stated that the generated models would not fit the real machine.
+  summary: The R7-DRAFT-2 datum illustration looked plausible to the user, but the user stated that the generated models would not fit the real machine. The user later identified one specific BY-NC reference 3MF as a model that would fit perfectly; its embedded photos show direct installation at the same two-screw Wiper interface.
   expected: A model advertised as the current print candidate would occupy a measured free machine envelope and mount through physically confirmed hardware and service paths.
-  actual: Digital checks proved self-consistency only. The model assigned 37 mm to its own catcher center, 40 mm to one reference plane and 10 mm to a plane within its own capture zone while stock machine solids and the full installation envelope were absent.
+  actual: Digital checks proved self-consistency only. The model assigned 37 mm to its own catcher center, 40 mm to one reference plane and 10 mm to a plane within its own capture zone while stock machine solids and the full installation envelope were absent. The fitting reference instead minimizes the interface chain by mounting the catcher directly with the two existing screws; its nominal slot pitch is independently consistent with the user's 17 mm measurement.
   outcome: failure
   parameter: internal-datum-proof versus external-machine-fit proof
   recommended_value: null
   units: interface-contract
 explanation:
-  hypothesis: The fit rejection arose because an internally consistent accessory coordinate model was mistaken for a registered external interface model.
+  hypothesis: The fit rejection arose because an internally consistent accessory coordinate model was mistaken for a registered external interface model and introduced extra adapter and service-envelope geometry absent from the physically installed reference.
   mechanism: Without machine-side solids or conservative measured keep-outs, the checker can prove accessory topology and nominal relationships while being mathematically unable to detect collisions, mirror/orientation errors or insufficient installation clearance.
   alternatives:
     - The catcher may be on the wrong side or mirrored relative to the physical Wiper.
@@ -85,19 +85,19 @@ explanation:
   validated: false
   validation_method: null
 evidence:
-  observations: 1
-  same_scope_repetitions: 0
-  geometry_count: 1
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 2
   machine_count: 1
   material_count: 0
   nozzle_count: 0
   measured: false
   measurement_method: User design-fit correction followed by comparison of the generated bounds/checks with the six existing ruler photographs and missing machine-envelope evidence.
-  uncertainty: Exact failing surface, physical orientation intended by the user and whether any part was test-printed are unknown.
+  uncertainty: The fitting reference clarifies physical side and direct mounting, but the exact R7 failing surface, whether the user physically fitted the reference on their own unit and the complete clean-room envelope remain unknown.
   sources:
     - type: user-statement
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
-      hash: 1cd176a2238bb62607c4d96edb8f05d0e8ed918688186da32da5551f958dcf16
+      hash: ad44a592ac2bbea744d770f37953d4d4231c2ef1bf0d2ab6b7f3223b4f599d5f
       notes: Preserves the exact fit correction and unknown failure location.
     - type: product-trace
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
@@ -111,11 +111,22 @@ evidence:
       ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
       hash: 05cda5af9244a1c2f53ea3f377723d31f9576883ccd001cfab6feb7907ac7490
       notes: Original ruler-photo measurements plus the new external-fit rejection.
+    - type: research
+      ref: research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf
+      hash: ba353bf0d44328b406599fe770307c4221e9f29cc2d04447abcf688eba4df35d
+      notes: BY-NC evidence-only reference with embedded Kobra 3 Max installation photos and direct two-screw mounting; geometry is excluded from the clean-room design.
+    - type: product-trace
+      ref: products/printer-workshop/unregistered-kobra3max-purge-catcher/REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
+      hash: d471a7264c28b0a88a251ba1c508d2c71047392a0eec2b108ae4ad047aded1f2
+      notes: Records package metadata, dimensions, mesh audit, profile mismatch, fit evidence and rights boundary.
   artifacts:
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/params/r7-z-rider-draft2.json
     - products/printer-workshop/unregistered-kobra3max-purge-catcher/current/anycubic-kobra3max-purge-catcher-r7/src/generate_r7_z_rider.py
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
+    - products/printer-workshop/unregistered-kobra3max-purge-catcher/REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json
+    - research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf
 applicability:
   triggers:
     - A functional accessory is dimensioned from user measurements but the mating machine envelope is absent from CAD and validation.
@@ -125,7 +136,7 @@ applicability:
     - Accessories checked against an authoritative machine interface model with complete keep-outs and verified installation sweep
     - Purely internal parts whose complete mating system is modeled and independently dimensioned
   transfer_limits:
-    - E0 correction candidate; use for targeted review and experiment planning, not as a universal rule.
+    - E0 correction candidate; the added third-party success reference narrows the hypothesis but does not validate a clean-room R7 fit.
     - Required machine representation and physical coupon depend on the specific interface and risk.
 relationships:
   duplicates: []

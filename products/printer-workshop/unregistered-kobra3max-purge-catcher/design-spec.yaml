@@ -1,9 +1,9 @@
 project:
   id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
   name: "Anycubic Kobra 3 Max Purge Catcher — Interface-Neuentwurf"
-  revision: 0.7.0-requirements.3
+  revision: 0.7.0-requirements.4
   owner: Stefan
-  revised: "2026-08-30"
+  revised: "2026-08-31"
   units: mm
   baseline:
     revision: R7-DRAFT-1
@@ -17,23 +17,23 @@ project:
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: retrospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "0.7.0-requirements.3"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    assessment_id: PREFLIGHT-ANYCUBIC-K3MAX-PURGE-CATCHER-R7-002
+    assessment_version: 0.2.0
+    assessed_project_revision: "0.7.0-requirements.4"
+    updated_at: "2026-08-31T17:04:21+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
+      - new_third_party_fit_reference
+      - user_fit_assessment
+      - interface_evidence_change
   requirements_approval:
     status: changes-requested
-    spec_revision: 0.7.0-requirements.3
+    spec_revision: 0.7.0-requirements.4
     approved_by: null
     approved_at: null
     approval_message: null
-    change_reason: "R7-DRAFT-2 bindet interne Maßbezüge, besitzt aber keinen nachgewiesenen realen Einbauraum; Benutzerkorrektur: Modelle werden nicht passen."
+    change_reason: "R7-DRAFT-2 bleibt verworfen. Eine physisch montiert dokumentierte BY-NC-Drittanbieter-3MF wurde vom Benutzer als passend bewertet und verbessert die Evidenz für Seite, Orientierung und direktes Zweischraubenprinzip, darf aber nicht als eigene Geometriequelle dienen."
     previous_approval:
       spec_revision: 0.7.0-requirements.2
       approved_by: "Stefan via conversation"
@@ -65,7 +65,7 @@ workflow:
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-    version: 0.7.0-requirements.3
+    version: 0.7.0-requirements.4
     approved_by: null
     approved_at: null
   final_release_approval:
@@ -86,12 +86,15 @@ requirements_trace:
     - "Vom Schraubendatum bis zur horizontalen Purge-Wurfbahn wurden 37 mm und von der Schraubenebene horizontal nach hinten bis zur Wiper-Ausdehnung 40 mm angegeben."
     - "Sechs Fotos in Photos-1-001 dokumentieren Wiper, Schrauben und angelegte Maßstäbe."
     - "R7-DRAFT-2 wird trotz plausibler Maßgrafik nicht an den realen Drucker passen."
+    - "Die Drittanbieterdatei research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf würde nach Benutzerbewertung perfekt passen."
   inferred:
     - "Die R6-Fangfunktion nahe am Wiper, die offene Fallstrecke, die glatte Wabenstruktur und die metriMade-Gestaltung sollen grundsätzlich erhalten bleiben."
     - "Der lokale Fangkopf muss dasselbe bewegte Z-Bezugssystem wie der Purge-Wiper besitzen; eine stationäre Fangöffnung an nur einer Z-Höhe ist ungeeignet."
     - "Die mitbewegte Baugruppe soll nur fangen und umlenken; die Speichermasse bleibt in einem stationären Behälter unterhalb des Bewegungsbereichs."
     - "Das direkte Wiper-Interface ist normal-funktional, aber wegen bewegter Masse, Schraubeneingriff, Bett-, Kopf-, Kabel- und Wiper-Kollision physisch zu qualifizieren."
     - "Die sichtbare schmale Schraubenauflage eignet sich eher für eine dünne frontseitige Datumplatte als für einen tief um das Wiper-Gehäuse greifenden Clip."
+    - "Die eingebetteten Montagefotos der passenden Referenz bestätigen die physische Seite und zeigen, dass ein direkt gemeinsam mit dem Wiper verschraubter Catcher ohne zusätzliches Maschineninterface grundsätzlich funktioniert."
+    - "Die passende Referenz nutzt einen integrierten mitfahrenden Speicherbehälter; ob dieses Architekturmerkmal für R7 übernommen oder nur die direkte Montage als Prinzip genutzt werden soll, ist noch nicht freigegeben."
   recommended:
     - "R7 wird als leichter, direkt am Wiper befestigter Z-Rider ausgelegt, der der Purge-Quelle über den vollständigen Z-Weg folgt."
     - "Der weitgehend erhaltene R6-Fangkopf leitet Purge unmittelbar über einen glatten, offenen Auslass nach unten; es gibt keinen Tower, Schlauch oder Führungskanal über die volle Z-Höhe."
@@ -99,6 +102,7 @@ requirements_trace:
     - "Die bewegte Baugruppe soll einschließlich Adapter höchstens 25 g wiegen; der Schwerpunkt bleibt möglichst dicht an Schraubenebene und Wiper. Dieser Wert ist ein vorläufiges Projektziel, keine zulässige Maschinenlast."
     - "Ein großer, stationärer Behälter unterhalb des Wipers speichert den Purge; seine Fangfläche wird aus beaufsichtigten Auswürfen bei niedriger, mittlerer und hoher Z-Position abgeleitet."
     - "Der freistehende Dock-Tower und die vertikale R6-Schwalbenschwanzführung entfallen."
+    - "Vor neuer Vollgeometrie zuerst eine eigene 17-mm-Lochbild- und konservative Umrisslehre aus Benutzermessungen und Maschinenfotos ableiten; keine Fremdkontur oder Fremdmaße verwenden."
   resolved_by_requirements_approval:
     - id: DEC-R7-01
       question: "Darf eine minimale Datumplatte mit dem vorhandenen, vertikal 17 mm beabstandeten Wiper-Schraubenpaar befestigt werden, sobald Kopfmaß, Schraubenlänge und Gewindeeingriff ergänzt wurden?"
@@ -168,6 +172,7 @@ geometry:
     screw_datum_to_horizontal_purge_throw_plane_mm: 37
     screw_plane_to_rear_wiper_extent_mm: 40
     status: "R7-DRAFT-2 besitzt nominale interne Bindungen, wurde aber wegen fehlendem realem Einbaunachweis vom Benutzer verworfen"
+    reference_cross_check: "Die BY-NC-Referenz besitzt einen nominell 17 mm beabstandeten Zweischraubenanschluss und eingebettete Montagefotos am Kobra 3 Max; dies bestätigt das unabhängig gemessene Schraubenpaar qualitativ, ist aber keine CAD-Maßquelle."
   unresolved_measurements:
     - "Schraubenkopf-Durchmesser und -Höhe, Gewindegröße, vorhandene Schraubenlänge, Bauteildicke und verbleibender Gewindeeingriff"
     - "Wiper-Außenkontur und freier Bauraum links, rechts, unterhalb und vor der Schraubenebene"
@@ -177,6 +182,7 @@ geometry:
     - "Purge-Landeflächen bei niedriger, mittlerer und hoher Z-Position sowie verfügbare Stellfläche des Unterbehälters"
     - "vom Benutzer erkannte konkrete Fehlpassung: falsche Seite/Ausrichtung, Hüllkurvenkollision oder unpassendes Schraubeninterface"
     - "zulässige freie X/Y/Z-Hüllkurve für Platte, Verriegelung und Catcher relativ zu vorhandener Wiper-Schale, Metallablage, Rollen, Kabeln und Bett"
+    - "Produktentscheidung, ob R7 einen kleinen Umlenker mit stationärem Unterbehälter oder einen direkt verschraubten mitfahrenden Speicher wie die Referenz erhalten soll"
 
 interfaces:
   - id: IF-R7-WIPER-PLATE
@@ -301,7 +307,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: ANYCUBIC-K3MAX-PURGE-CATCHER-R7
-  version: 0.7.0-requirements.3
+  version: 0.7.0-requirements.4
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   selected_surface: null
@@ -367,6 +373,8 @@ provenance:
     Maße, Konturen, Befestigungsprofile, Bilder und Projektmetadaten werden weder
     importiert noch nachgezeichnet noch mit ausgeliefert.
   analysis: INTERFACE-REFERENCE-ANALYSIS-R7.md
+  selected_fit_reference_audit: REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
+  selected_fit_reference_audit_data: REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json
   physical_measurements: WIPER-PHOTO-MEASUREMENTS-R7.yaml
   user_correction_trace: learning-trace-interface-r7.yaml
 

@@ -5,7 +5,7 @@ Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filame
 ## Scope status
 
 - Product ID: `ANYCUBIC-K3MAX-PURGE-CATCHER-R7`
-- Assessed revision: `0.7.0-requirements.3`
+- Assessed revision: `0.7.0-requirements.4`
 - Purpose source: design-spec.yaml
 - Purpose confidence: retrospective and limited to the evidence below
 - Release meaning: this purpose statement is not a production, safety, compatibility, food-contact, or performance approval
@@ -13,6 +13,11 @@ Ein leichter Fangkopf fährt direkt mit dem Purge-Wiper entlang Z, fängt Filame
 ## Evidence basis
 
 - `design-spec.yaml`
+- `WIPER-PHOTO-MEASUREMENTS-R7.yaml`
+- `learning-trace-interface-r7.yaml`
+- `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md`
+- `REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json`
+- `research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf`
 - `REQUIREMENTS-PHASE-VALIDATION-R7.json`
 - `CONCEPT-PHASE-VALIDATION-R7.json`
 - `current/anycubic-kobra3max-purge-catcher-r7/README-DE.md`

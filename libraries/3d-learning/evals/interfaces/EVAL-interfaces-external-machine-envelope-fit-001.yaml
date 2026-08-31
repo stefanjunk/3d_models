@@ -13,12 +13,14 @@ given:
   correction_trace: learning-trace-interface-r7.yaml
   rejected_geometry_report: current/anycubic-kobra3max-purge-catcher-r7/build/current/reports/geometry-validation.json
   fit_failure_analysis: FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+  selected_fit_reference_audit: REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
 expected:
   - Every user measurement has unambiguous physical start/end datums, signed axis direction and uncertainty before it drives an external interface.
   - The mating hardware, stock machine parts, cables, moving members and bed are represented by measured solids or explicitly conservative keep-outs covering the complete relevant motion.
   - The accessory body, fasteners, tool access and complete insertion/removal sweep meet the project clearance contract against those external owners.
   - Added envelope beyond measured datums is justified by separately measured free space rather than by arbitrary centering, mirroring or one-sided assumptions.
   - A minimal hole-pattern and outline/keep-out gauge passes on the real machine before a full accessory body is treated as a print candidate.
+  - A physically installed third-party reference may confirm side, motion frame and a general mounting principle, but it does not replace an owned interface contract or authorize copying its contour, dimensions or mesh.
   - Unresolved external geometry or a user fit rejection forces the candidate to rejected/blocked status even when topology, slicer and internal datum checks pass.
 failure_conditions:
   - Validation compares only accessory features with other accessory features.
@@ -26,12 +28,16 @@ failure_conditions:
   - A machine part that could intersect the accessory or service sweep has neither geometry nor a conservative keep-out.
   - Screw thread, head, length, seating thickness or engagement is assumed for a machine-mounted plate.
   - A full model is recommended for printing before a minimal interface/envelope coupon passes.
+  - Third-party fit evidence is converted into owned CAD contours or dimensions without a compatible license and independent measurement basis.
   - User or physical evidence says the model will not fit but the model remains current or print-recommended.
 fixtures:
   - products/printer-workshop/unregistered-kobra3max-purge-catcher/design-spec.yaml
   - products/printer-workshop/unregistered-kobra3max-purge-catcher/WIPER-PHOTO-MEASUREMENTS-R7.yaml
   - products/printer-workshop/unregistered-kobra3max-purge-catcher/learning-trace-interface-r7.yaml
   - products/printer-workshop/unregistered-kobra3max-purge-catcher/FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
+  - products/printer-workshop/unregistered-kobra3max-purge-catcher/REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json
+  - research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf
   - products/printer-workshop/unregistered-kobra3max-purge-catcher/Photos-1-001/
 grader:
   type: hybrid

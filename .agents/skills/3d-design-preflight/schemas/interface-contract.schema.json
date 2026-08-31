@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/3d-design-preflight/interface-contract.schema.json",
+  "title": "3D Design Interface Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "endpoint_a",
+    "endpoint_b",
+    "boundary",
+    "domains",
+    "function",
+    "geometry",
+    "lifecycle_states",
+    "evidence",
+    "criticality",
+    "verification"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^IF-(EXT|INT|HUM|ENV)-[A-Z]{3}-[A-Z]{3}-[A-Z0-9]{3,8}-[0-9]{3}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "endpoint_a": {
+      "type": "string"
+    },
+    "endpoint_b": {
+      "type": "string"
+    },
+    "boundary": {
+      "enum": [
+        "EXT",
+        "INT",
+        "HUM",
+        "ENV"
+      ]
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "GEO",
+          "MEC",
+          "KIN",
+          "FLU",
+          "THM",
+          "ELE",
+          "DAT",
+          "OPT",
+          "HUM",
+          "ENV"
+        ]
+      }
+    },
+    "function": {
+      "enum": [
+        "SUP",
+        "LOC",
+        "RET",
+        "FST",
+        "GDE",
+        "SLD",
+        "ROT",
+        "SEA",
+        "FLW",
+        "LOD",
+        "CLR",
+        "KOT",
+        "ACC",
+        "CON",
+        "PWR",
+        "DAT",
+        "VIS",
+        "USR"
+      ]
+    },
+    "geometry": {
+      "enum": [
+        "PLN",
+        "CYL",
+        "HLP",
+        "SLOT",
+        "EDGE",
+        "THREAD",
+        "SNAP",
+        "FREEFORM",
+        "VOLUME",
+        "BODY",
+        "MIXED"
+      ]
+    },
+    "lifecycle_states": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "transport",
+          "assembly",
+          "calibration",
+          "use",
+          "cleaning",
+          "service",
+          "disassembly",
+          "storage",
+          "failure"
+        ]
+      }
+    },
+    "coordinate_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "type": "string"
+        },
+        "x_positive": {
+          "type": "string"
+        },
+        "y_positive": {
+          "type": "string"
+        },
+        "z_positive": {
+          "type": "string"
+        },
+        "unit": {
+          "const": "mm"
+        }
+      },
+      "required": [
+        "origin",
+        "x_positive",
+        "y_positive",
+        "z_positive",
+        "unit"
+      ]
+    },
+    "datums": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "degrees_of_freedom": {
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constrained": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assembly": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "type": "string"
+        },
+        "contact_mode": {
+          "type": "string"
+        },
+        "sequence_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "feature",
+          "status",
+          "criticality"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "feature": {
+            "type": "string"
+          },
+          "nominal_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "lower_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "upper_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "clearance_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "uncertainty_mm": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "OFFICIAL_NOMINAL",
+              "DIRECT_MEASURED",
+              "SCAN_VALIDATED",
+              "REFERENCE_MODEL_VALIDATED",
+              "DERIVED",
+              "ESTIMATED",
+              "UNKNOWN"
+            ]
+          },
+          "source_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "criticality": {
+            "enum": [
+              "COSMETIC",
+              "FIT_CRITICAL",
+              "FUNCTION_CRITICAL",
+              "SAFETY_CRITICAL"
+            ]
+          }
+        }
+      }
+    },
+    "loads_and_performance": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "environment_and_variation": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "keepouts_and_access": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "sources",
+        "variant_confirmed"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "E0",
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "E5"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variant_confirmed": {
+          "type": "boolean"
+        },
+        "coverage_percent": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "uncertainty_note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observability": {
+          "enum": [
+            "OBSERVED",
+            "PARTLY_OBSERVED",
+            "INFERRED",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "interface_complexity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "GEO",
+        "KIN",
+        "TOL",
+        "PHY",
+        "VAR",
+        "LIF",
+        "total",
+        "tier"
+      ],
+      "properties": {
+        "GEO": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "KIN": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "TOL": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "PHY": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "VAR": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "LIF": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 24
+        },
+        "tier": {
+          "enum": [
+            "I0",
+            "I1",
+            "I2",
+            "I3",
+            "I4",
+            "I5"
+          ]
+        }
+      }
+    },
+    "criticality": {
+      "enum": [
+        "K0",
+        "K1",
+        "K2",
+        "K3",
+        "K4"
+      ]
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "mode",
+          "effect"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string"
+          },
+          "effect": {
+            "type": "string"
+          },
+          "mitigation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "acceptance_criteria",
+        "status"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "inspection",
+            "measurement",
+            "analysis",
+            "simulation",
+            "demonstration",
+            "test_coupon",
+            "prototype_test",
+            "proof_load",
+            "user_test",
+            "expert_review"
+          ]
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "NOT_PLANNED",
+            "PLANNED",
+            "IN_PROGRESS",
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "result_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version": {
+      "type": "string"
+    }
+  }
+}

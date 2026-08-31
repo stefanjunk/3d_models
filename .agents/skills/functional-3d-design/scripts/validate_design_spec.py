@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 from common import load_structured
@@ -26,6 +28,15 @@ SEMVER_RE = re.compile(
     r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
 )
 VALID_OPTIMIZATION_STATUS = {"pending", "applied", "not-beneficial", "not-applicable"}
+VALID_PREFLIGHT_STATUS = {"pending", "current", "stale"}
+VALID_PREFLIGHT_MODE = {"prospective", "retrospective"}
+PREFLIGHT_ARTIFACT = "preflight/preflight-result.json"
+PREFLIGHT_VALIDATOR = (
+    Path(__file__).resolve().parents[2]
+    / "3d-design-preflight"
+    / "scripts"
+    / "validate_preflight.py"
+)
 
 
 def main() -> int:
@@ -36,6 +47,11 @@ def main() -> int:
         "--require-final-approval",
         action="store_true",
         help="Fail unless requirements, concept, and the current watermarked geometry are approved.",
+    )
+    p.add_argument(
+        "--require-current-preflight",
+        action="store_true",
+        help="Fail unless a schema-valid preflight for the current project revision is linked.",
     )
     args = p.parse_args()
 
@@ -59,14 +75,129 @@ def main() -> int:
         errors.append("project.revision must be a Semantic Versioning version")
     workflow = data.get("workflow")
     if not isinstance(workflow, dict):
-        errors.append("workflow must contain requirements_approval, concept_approval, and watermark_approval")
+        errors.append(
+            "workflow must contain preflight, requirements_approval, concept_approval, and watermark_approval"
+        )
+        preflight = {}
         requirements_approval = {}
         concept_approval = {}
         watermark_approval = {}
     else:
+        preflight = workflow.get("preflight", {})
         requirements_approval = workflow.get("requirements_approval", {})
         concept_approval = workflow.get("concept_approval", {})
         watermark_approval = workflow.get("watermark_approval", {})
+
+    require_current_preflight = args.require_current_preflight or args.require_final_approval
+    preflight_status = None
+    preflight_decision: dict = {}
+    if not isinstance(preflight, dict):
+        errors.append("workflow.preflight must be an object")
+        preflight = {}
+    else:
+        preflight_status = preflight.get("status")
+        if preflight_status not in VALID_PREFLIGHT_STATUS:
+            errors.append(f"workflow.preflight.status must be one of {sorted(VALID_PREFLIGHT_STATUS)}")
+
+        artifact = preflight.get("artifact")
+        if artifact != PREFLIGHT_ARTIFACT:
+            errors.append(f"workflow.preflight.artifact must be {PREFLIGHT_ARTIFACT}")
+
+        change_triggers = preflight.get("change_triggers")
+        if not isinstance(change_triggers, list):
+            errors.append("workflow.preflight.change_triggers must be a list")
+            change_triggers = []
+        elif preflight_status in {"current", "stale"} and not change_triggers:
+            errors.append(f"{preflight_status} preflight needs at least one change trigger")
+
+        if preflight_status == "current":
+            for field in (
+                "mode",
+                "assessment_id",
+                "assessment_version",
+                "assessed_project_revision",
+                "updated_at",
+            ):
+                if not preflight.get(field):
+                    errors.append(f"current preflight needs workflow.preflight.{field}")
+            if preflight.get("mode") not in VALID_PREFLIGHT_MODE:
+                errors.append(f"workflow.preflight.mode must be one of {sorted(VALID_PREFLIGHT_MODE)} when current")
+            if preflight.get("assessed_project_revision") != project_revision:
+                errors.append("current preflight must assess the current project revision")
+
+            spec_path = Path(args.spec).resolve()
+            artifact_path = (spec_path.parent / str(artifact)).resolve()
+            try:
+                artifact_path.relative_to(spec_path.parent)
+            except ValueError:
+                errors.append("workflow.preflight.artifact must remain inside the owning product directory")
+            else:
+                if not PREFLIGHT_VALIDATOR.is_file():
+                    errors.append(f"required sibling preflight validator is missing: {PREFLIGHT_VALIDATOR}")
+                elif not artifact_path.is_file():
+                    errors.append(f"linked preflight artifact does not exist: {artifact_path}")
+                else:
+                    process = subprocess.run(
+                        [
+                            sys.executable,
+                            str(PREFLIGHT_VALIDATOR),
+                            str(artifact_path),
+                            "--project-id",
+                            str(project_id),
+                            "--project-revision",
+                            str(project_revision),
+                        ],
+                        capture_output=True,
+                        text=True,
+                        check=False,
+                    )
+                    try:
+                        preflight_report = json.loads(process.stdout)
+                    except json.JSONDecodeError:
+                        errors.append(
+                            "preflight validator did not return JSON: "
+                            + (process.stderr.strip() or process.stdout.strip() or "no output")
+                        )
+                        preflight_report = {}
+                    for item in preflight_report.get("errors", []):
+                        errors.append(f"preflight artifact: {item}")
+                    for item in preflight_report.get("warnings", []):
+                        warnings.append(f"preflight artifact: {item}")
+                    if process.returncode != 0 and not preflight_report.get("errors"):
+                        errors.append("preflight validator failed without a structured error")
+
+                    try:
+                        preflight_document = load_structured(artifact_path)
+                    except (OSError, ValueError, json.JSONDecodeError) as exc:
+                        errors.append(f"cannot read linked preflight artifact: {exc}")
+                        preflight_document = {}
+                    if isinstance(preflight_document, dict):
+                        if preflight.get("assessment_id") != preflight_document.get("assessment_id"):
+                            errors.append("workflow.preflight.assessment_id must match the linked artifact")
+                        if preflight.get("assessment_version") != preflight_document.get("assessment_version"):
+                            errors.append("workflow.preflight.assessment_version must match the linked artifact")
+                        traceability = preflight_document.get("traceability", {})
+                        if isinstance(traceability, dict):
+                            linked_mode = str(traceability.get("mode", "")).lower()
+                            if preflight.get("mode") != linked_mode:
+                                errors.append("workflow.preflight.mode must match artifact traceability.mode")
+                            if preflight.get("updated_at") != traceability.get("updated_at"):
+                                errors.append("workflow.preflight.updated_at must match artifact traceability.updated_at")
+                            if change_triggers != traceability.get("change_triggers"):
+                                errors.append(
+                                    "workflow.preflight.change_triggers must match artifact traceability.change_triggers"
+                                )
+                        decision = preflight_document.get("decision")
+                        if isinstance(decision, dict):
+                            preflight_decision = decision
+
+        elif preflight_status == "stale":
+            warnings.append("preflight is stale; update and validate it before the next affected design action")
+        elif preflight_status == "pending":
+            warnings.append("preflight is pending; complete it before requirements approval or design generation")
+
+    if require_current_preflight and preflight_status != "current":
+        errors.append("a current validated preflight is required")
 
     if not isinstance(requirements_approval, dict):
         errors.append("workflow.requirements_approval must be an object")
@@ -87,6 +218,11 @@ def main() -> int:
         errors.append(f"workflow.concept_approval.status must be one of {sorted(VALID_CONCEPT_APPROVAL)}")
     if watermark_status not in VALID_WATERMARK_APPROVAL:
         errors.append(f"workflow.watermark_approval.status must be one of {sorted(VALID_WATERMARK_APPROVAL)}")
+
+    if requirements_status == "approved" and preflight_status != "current":
+        errors.append("requirements approval requires a current validated preflight")
+    if concept_status == "approved" and preflight_status != "current":
+        errors.append("concept approval requires a current validated preflight")
 
     if requirements_status == "approved":
         if requirements_approval.get("spec_revision") != project_revision:
@@ -196,6 +332,10 @@ def main() -> int:
             errors.append("final release requires approved concept")
         if watermark_status != "approved":
             errors.append("final release requires approved watermarked geometry")
+        if preflight_decision.get("design_release") not in {"GO", "GO_WITH_CONTROLS"}:
+            errors.append("final release requires a preflight design decision of GO or GO_WITH_CONTROLS")
+        if preflight_decision.get("confidence") == "NOT_AUTONOMOUSLY_RELEASABLE":
+            errors.append("preflight prohibits autonomous final release")
 
     risk = data.get("risk", {}).get("class") if isinstance(data.get("risk"), dict) else None
     if risk not in VALID_RISK:

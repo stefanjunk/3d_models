@@ -56,6 +56,20 @@ Prioritize replaceability, known interfaces, low print risk, and conventional as
 
 ## Stage gates
 
+### Gate 0P — mandatory 3D design preflight
+
+Before Gate 0A, invoke the sibling `3d-design-preflight` skill and follow
+`preflight-integration.md`. Create and validate
+`preflight/preflight-result.json`, then link its identity, revision, mode, and
+current lifecycle state under `workflow.preflight` in `design-spec.yaml`.
+
+For a new design use a prospective assessment before generating concepts,
+geometry, source, or exports. For an existing design without the artifact,
+create a retrospective, source-linked backfill before the next design change.
+Mark and refresh a stale assessment whenever a relevant scope, interface,
+evidence, risk, manufacturing, or test input changes. A current assessment does
+not override `HOLD`, `CONCEPT_ONLY`, or Lane D/E controls.
+
 ### Gate 0A — requirements synthesis and approval
 
 Create `design-spec.yaml` with:
@@ -189,6 +203,9 @@ Recommended tree:
 
 ```text
 project/
+  preflight/
+    preflight-input.yaml
+    preflight-result.json
   design-spec.yaml
   decision-log.md
   bom.yaml
@@ -225,4 +242,11 @@ A design is done only when every acceptance criterion is either:
 - explicitly waived by the user with risk recorded; or
 - marked failed/open.
 
-In addition, `scripts/validate_design_spec.py design-spec.yaml --require-final-approval` must pass. Unlike an ordinary acceptance criterion, the mandatory product-specific `metriMade.com` watermark, exact product-ID/version match, physical coupon evidence, and explicit current-revision approval cannot be waived silently. The user-facing process is not complete until the final model result report inventories the deliverables and states the model's verified readiness and remaining limitations.
+In addition,
+`scripts/validate_design_spec.py design-spec.yaml --require-current-preflight --require-final-approval`
+must pass. Unlike an ordinary acceptance criterion, a current validated
+preflight, the mandatory product-specific `metriMade.com` watermark, exact
+product-ID/version match, physical coupon evidence, and explicit
+current-revision approval cannot be waived silently. The user-facing process is
+not complete until the final model result report inventories the deliverables
+and states the model's verified readiness and remaining limitations.

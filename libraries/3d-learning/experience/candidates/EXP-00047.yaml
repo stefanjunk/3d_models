@@ -1,0 +1,157 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00047
+title: Functional 3D designs need a documented preflight lifecycle before design-producing work
+captured_at: 2026-08-31
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once in this repository workflow. The pre-change omission is directly inspectable; future-agent compliance and the sufficiency of the selected lifecycle states still need longitudinal evidence."
+feature:
+  type: functional-design workflow preflight orchestration
+  geometry: all functional 3D project classes; procedure rather than a geometry-specific rule
+  design_parameters:
+    canonical_result: preflight/preflight-result.json
+    lifecycle_states: [pending, current, stale]
+    new_design_mode: PROSPECTIVE
+    missing_legacy_mode: RETROSPECTIVE
+    release_requires_current: true
+  named_datums: []
+  constraints:
+    - The preflight precedes requirements approval, concept generation, CAD/source creation, and manufacturing export.
+    - Existing designs without a preflight are assessed from current evidence and are not described as historically preflighted.
+    - Unknown dimensions, variants, loads, interfaces, process data, or evidence remain unknown.
+    - A current assessment does not override HOLD, CONCEPT_ONLY, or Lane D/E restrictions.
+scope:
+  process: functional 3D CAD and FFF/FDM design workflow
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: workflow/procedure; not geometry-specific
+  environment: Codex workspace at /home/stefan/Projekte/3d_models
+  transfer_limits:
+    - This candidate concerns the repository's functional-3d-design workflow and its sibling 3d-design-preflight v0.9 skill.
+    - It does not establish that the current scores or lane thresholds are statistically calibrated.
+    - It does not prove future agents will comply without continued regression and real-project evidence.
+observation:
+  summary: The newly added 3d-design-preflight skill existed in .agents, while functional-3d-design still began with design-spec requirements and had no mandatory preflight artifact, lifecycle, update trigger, validator linkage, or legacy-project backfill rule.
+  expected: Every new functional design starts with a documented preflight, relevant changes update it, and existing designs missing it receive an explicit retrospective backfill before further design work.
+  actual: The pre-change functional workflow had no reference to 3d-design-preflight or preflight/preflight-result.json and could proceed through requirements, concept, CAD, and release validation without that assessment.
+  outcome: failure
+  parameter: workflow entry gate and assessment lifecycle
+  recommended_value: mandatory prospective preflight, stale-on-relevant-change update, and source-linked retrospective backfill with deterministic validation
+  units: workflow contract
+explanation:
+  hypothesis: A first-class project artifact, explicit lifecycle state, canonical path, cross-file validator, and release gate make omission or stale reuse visible and fail-closed at the points that create or release design artifacts.
+  mechanism: The functional skill now routes to 3d-design-preflight first; project scaffolds record pending state and input; current state requires schema/project/revision agreement; relevant changes become stale; final validation requires current status; legacy absence routes to RETROSPECTIVE backfill.
+  alternatives:
+    - A prose-only instruction might be sufficient for attentive agents but would not expose missing or mismatched artifacts deterministically.
+    - A global AGENTS.md rule alone could route new work but would not document per-project scores, interfaces, decisions, or update history.
+    - Project-template changes alone would not protect manually created or legacy products.
+  validated: false
+  validation_method: Run the linked targeted eval on each workflow/schema/initializer/validator change and collect real new-design, stale-update, and retrospective-backfill traces before considering promotion.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: Repository diff inspection plus deterministic skill and unit tests; no longitudinal agent-compliance measurement.
+  uncertainty: The integration is structurally tested, but no independent future project has yet demonstrated prospective execution, stale refresh, and retrospective backfill end to end.
+  sources:
+    - type: user-statement
+      ref: User request in the 2026-08-31 3D preflight integration phase
+      hash: null
+      notes: "Requested preflight at design start, documentation, updates when needed, and retrospective creation when missing."
+    - type: other
+      ref: git:f365c10d:.agents/skills/functional-3d-design/SKILL.md
+      hash: 3e0159cc3d0773ea17c745d800bf08c9709f06564586a34040b04e82b1431158
+      notes: Pre-change workflow began with the design contract and requirements review; it did not invoke the new preflight skill.
+    - type: other
+      ref: .agents/skills/functional-3d-design/references/preflight-integration.md
+      hash: null
+      notes: Proposed durable lifecycle and backfill procedure under test in this phase.
+    - type: other
+      ref: .agents/skills/functional-3d-design/tests/test_scripts.py
+      hash: null
+      notes: Deterministic pending/current, project-link, retrospective, initializer, and package checks.
+  artifacts:
+    - .agents/skills/3d-design-preflight/SKILL.md
+    - .agents/skills/3d-design-preflight/schemas/preflight-result.schema.json
+    - .agents/skills/3d-design-preflight/scripts/validate_preflight.py
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/functional-3d-design/references/preflight-integration.md
+    - .agents/skills/functional-3d-design/scripts/validate_design_spec.py
+applicability:
+  triggers:
+    - A new functional 3D design or design phase begins.
+    - An existing functional design lacks a documented 3D design preflight.
+    - Scope, variant, requirements, interfaces, evidence, risk, manufacturing inputs, or test results change after a preflight.
+  exclusions:
+    - Purely informational questions that do not create or change a design artifact.
+    - Presentation-only edits that cannot affect preflight inputs or decisions.
+    - Workflows outside this repository until their artifact and gate contracts are evaluated separately.
+  transfer_limits:
+    - Treat the procedure as an E0 candidate even though the user explicitly requested its immediate repository implementation.
+    - Do not promote the scoring model or infer numeric success probabilities from this workflow observation.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-core-functional-design-preflight-lifecycle-001
+  patterns: []
+  references:
+    - .agents/skills/3d-design-preflight/SKILL.md
+    - .agents/skills/functional-3d-design/SKILL.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - .agents/skills/3d-design-preflight/tests/test_validate_preflight.py
+    - .agents/skills/functional-3d-design/tests/test_scripts.py
+    - .agents/skills/functional-3d-design/tests/test_skill_structure.py
+provenance:
+  project: WORKSPACE-FUNCTIONAL-3D-PREFLIGHT-INTEGRATION
+  part_revision: 0.1.0
+  trace: User request in the 2026-08-31 3D preflight integration phase
+  source_commit: f365c10d
+  created_by: Codex
+tags:
+  - workflow
+  - preflight
+  - functional-design
+  - backfill
+  - traceability
+  - release-gate
+  - user-correction

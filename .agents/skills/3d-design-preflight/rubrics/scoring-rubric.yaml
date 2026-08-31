@@ -1,0 +1,289 @@
+version: '0.9'
+product_complexity:
+  formula: PC = sum(weight[d] * score[d] / 4) for d in dimensions
+  range:
+  - 0
+  - 100
+  weights:
+    REQ: 7
+    CTX: 5
+    PAR: 10
+    INT: 20
+    CPL: 10
+    MOT: 10
+    GEO: 7
+    PHY: 10
+    MAT: 7
+    EXT: 7
+    VER: 7
+  dimensions:
+    REQ:
+      name: Anforderungsdichte und Neuheitsgrad
+      levels:
+        '0': rein dekorativ oder ein einziges qualitatives Ziel
+        '1': wenige klare, nicht konkurrierende Anforderungen
+        '2': mehrere quantitative Anforderungen oder einfache Zielkonflikte
+        '3': viele gekoppelte/konkurrierende Anforderungen oder neue Funktion
+        '4': neuartige, unvollständig verstandene oder regulierte Zielsetzung
+    CTX:
+      name: Kontext-, Varianten- und Zustandsvielfalt
+      levels:
+        '0': ein bekannter statischer Einsatzfall
+        '1': begrenzte bekannte Abmessungen und ein Hauptzustand
+        '2': mehrere Varianten, Umgebungen oder Betriebszustände
+        '3': große Streuung, Verschleiß, Wartung oder wechselnde Umgebung
+        '4': biologische/deformierbare Nutzer oder weitgehend unkontrollierter Kontext
+    PAR:
+      name: Architektur der kundenspezifischen Druckteile
+      levels:
+        '0': kein oder ein triviales Druckteil
+        '1': ein kundenspezifisches Teil mit wenigen Features
+        '2': zwei bis fünf Teile oder Print-in-Place-Elemente
+        '3': sechs bis fünfzehn Teile bzw. mehrere Subassemblies
+        '4': sehr viele einzigartige Teile; Zerlegung und Konfiguration dominieren
+    INT:
+      name: Interface-Belastung
+      levels:
+        '0': keine funktionale Schnittstelle
+        '1': wenige einfache, gut beobachtbare Interfaces
+        '2': mehrere gewöhnliche oder ein anspruchsvolles Interface
+        '3': viele bzw. hochpräzise, verdeckte, dynamische oder freie Interfaces
+        '4': mehrere sehr anspruchsvolle, menschliche, deformierbare oder multidomänige Interfaces
+    CPL:
+      name: Kopplung und Änderungsfortpflanzung
+      levels:
+        '0': unabhängige Geometrie; Änderungen bleiben lokal
+        '1': einfache Baumstruktur ohne Rückkopplungen
+        '2': gemeinsame Datums/Abhängigkeiten und moderate Fortpflanzung
+        '3': Zyklen, Knoten mit vielen Verbindungen oder starke Subsystemkopplung
+        '4': dichtes Many-to-many-Netz; Änderungen propagieren systemweit
+    MOT:
+      name: Bewegung, Kinematik und Zustände
+      levels:
+        '0': statisch
+        '1': einmalige Montagebewegung oder einfache Flexur
+        '2': eine geführte Translation/Rotation oder wenige diskrete Zustände
+        '3': mehrere Gelenke/Freiheitsgrade, dynamischer Kontakt oder Spiel
+        '4': koordinierter Mechanismus mit Dynamik, Steuerung, Verschleiß oder Backlash
+    GEO:
+      name: Geometrische und Rekonstruktionsschwierigkeit
+      levels:
+        '0': einfache Prismen, Platten oder 2D-Konturen
+        '1': einfache Extrusionen, Rotationen und Standardradien
+        '2': zusammengesetzte Primitive oder organische, aber nicht passkritische Form
+        '3': Freiformflächen, verborgene Hohlräume, dünne Clips oder interne Kanäle
+        '4': anatomische/deformierbare Flächen, komplexe Topologie oder hochpräzise Rekonstruktion
+    PHY:
+      name: Lasten, Umwelteinflüsse und gekoppelte Physik
+      levels:
+        '0': keine funktional relevante Belastung
+        '1': Eigengewicht oder geringe statische Last
+        '2': strukturelle Last oder einfache Wärme-/Strömungsanforderung
+        '3': Dynamik, Ermüdung, Vibration, Temperatur oder relevante Strömung
+        '4': mehrere gekoppelte physikalische Domänen oder folgenkritische Last
+    MAT:
+      name: Material- und Prozesskomplexität
+      levels:
+        '0': ein übliches starres Material ohne besondere Prozessanforderung
+        '1': bekanntes Material und bekannter Druckprozess
+        '2': Flexibilität, Anisotropie, Orientierung oder Support sind funktional wichtig
+        '3': mehrere Materialien, Inserts, Nacharbeit, Alterung oder enge Prozessfenster
+        '4': qualifikationskritisches Materialmodell, Multi-Material oder starke Langzeitabhängigkeit
+    EXT:
+      name: Kaufteile, Elektronik und Softwareintegration
+      levels:
+        '0': keine externen Komponenten
+        '1': ein normiertes Kaufteil oder wenige Standardschrauben
+        '2': mehrere Kaufteile oder Varianten eines Standards
+        '3': Motor/Sensor/Elektronik/Firmware oder viele abhängige Komponenten
+        '4': eng integriertes Hardware-Elektronik-Software-System
+    VER:
+      name: Verifikations- und Testaufwand
+      levels:
+        '0': Sichtprüfung oder einfacher Standtest
+        '1': ein Maß-, Sitz- oder Basistest
+        '2': mehrere Fit-/Funktionstests oder ein Testcoupon
+        '3': Last-, Wärme-, Strömungs-, Dauer- oder mehrstufige Tests
+        '4': formale Qualifikation, Nutzerstudie, regulatorischer oder Lebenszyklusnachweis
+  classes:
+  - code: C0
+    min: 0
+    max: 14
+    name: Form-/Dekorationsaufgabe
+    meaning: Direkte generative Modellierung; einfache Druck- und Stabilitätsprüfung.
+  - code: C1
+    min: 15
+    max: 24
+    name: Einfache funktionale Aufgabe
+    meaning: Ein Teil oder geringe Passanforderung; parametrische Basis genügt meist.
+  - code: C2
+    min: 25
+    max: 39
+    name: Statische Pass-/Baugruppenaufgabe
+    meaning: Interface-Vertrag, metrische Erfassung und mindestens ein Fit-Test.
+  - code: C3
+    min: 40
+    max: 59
+    name: Gekoppelte Engineering-Aufgabe
+    meaning: Subsysteme, mehrere Interfaces, Testcoupons und iteratives Engineering.
+  - code: C4
+    min: 60
+    max: 79
+    name: Hohe multidisziplinäre Komplexität
+    meaning: Expert-in-the-loop, Simulation/Prüfung und gestufte Prototypen.
+  - code: C5
+    min: 80
+    max: 100
+    name: System-/Forschungsniveau
+    meaning: Workflow unterstützt Teilprobleme; keine autonome Produktfreigabe.
+interface_complexity:
+  formula: IC = GEO + KIN + TOL + PHY + VAR + LIF
+  range:
+  - 0
+  - 24
+  axes:
+    GEO:
+      name: Geometrie und Beobachtbarkeit
+      levels:
+        '0': Ebene/Volumen
+        '1': einfache Primitive
+        '2': mehrere Features
+        '3': Freiform/verdeckte Features
+        '4': deformierbar/anatomisch
+    KIN:
+      name: Zwangsbedingungen und Montagebewegung
+      levels:
+        '0': nur Auflage
+        '1': lokalisieren/halten
+        '2': präzise Paarung
+        '3': dynamisches Gelenk
+        '4': compliant/multi-state
+    TOL:
+      name: Toleranz, Spiel, Vorspannung, Dichtung
+      levels:
+        '0': nicht kritisch
+        '1': lose Passung
+        '2': gewöhnliche Passung
+        '3': enge/abzustimmende Passung
+        '4': Dichtung/Vorspannung/sehr eng
+    PHY:
+      name: Last-/Energie-/Strömungsdomänen
+      levels:
+        '0': keine
+        '1': geringe statische Last
+        '2': strukturelle Last
+        '3': Dynamik/Ermüdung/Wärme/Flow
+        '4': mehrere gekoppelte Domänen
+    VAR:
+      name: Variation, Verformung, Verschleiß
+      levels:
+        '0': stabil
+        '1': geringe Streuung
+        '2': flexibel/Varianten
+        '3': zeit-/nutzer-/temperaturabhängig
+        '4': hoch und unkontrolliert
+    LIF:
+      name: Lebenszykluszustände
+      levels:
+        '0': ein Zustand
+        '1': Montage + Nutzung
+        '2': zusätzlich Demontage/Service
+        '3': mehrere Betriebszustände
+        '4': Verschleiß/irreversible Übergänge/Wartung
+  tiers:
+  - code: I0
+    min: 0
+    max: 3
+  - code: I1
+    min: 4
+    max: 7
+  - code: I2
+    min: 8
+    max: 11
+  - code: I3
+    min: 12
+    max: 15
+  - code: I4
+    min: 16
+    max: 19
+  - code: I5
+    min: 20
+    max: 24
+  project_INT_formula: ceil(0.25*N_level + 0.25*(4*mean(IC)/24) + 0.50*(4*max(IC)/24)), clamped 0..4
+  N_level:
+    '0': 0
+    1-2: 1
+    3-5: 2
+    6-10: 3
+    '>10': 4
+readiness:
+  dimensions:
+  - scope_variant
+  - requirements
+  - critical_interfaces
+  - manufacturing_profile
+  - verification
+  project_rule: R = minimum of readiness dimensions and all critical-interface readiness values
+  levels:
+    R0:
+      name: Konzept
+      meaning: Zweck, Variante oder Interfaces sind weitgehend unbekannt.
+    R1:
+      name: Beschreibung
+      meaning: Text/Bilder vorhanden, aber keine belastbare Skalierung oder vollständige Interface-Erfassung.
+    R2:
+      name: Teilweise erfasst
+      meaning: Einige Daten sind brauchbar; mindestens ein kritischer unbekannter Punkt bleibt.
+    R3:
+      name: Geometrisch erfasst
+      meaning: Kritische Interfaces sind nominal erfasst; unabhängige Validierung fehlt.
+    R4:
+      name: Vertraglich kontrolliert
+      meaning: Interface-Verträge, Toleranzen/Unsicherheit, Variantenbezug und Testplan liegen vor.
+    R5:
+      name: Physisch validiert
+      meaning: Prototyp, Testcoupon oder bewährtes Interface hat die Akzeptanzkriterien bestanden.
+  evidence_levels:
+    E0: Unbekannt/angenommen
+    E1: Beschreibung oder unskaliertes Bild
+    E2: skalierte Aufnahme, grober Scan oder Teilquelle
+    E3: kalibrierter Scan, offizielle Nominaldaten oder vollständige Geometrie
+    E4: variantenbestätigter Vertrag mit Toleranz/Unsicherheit und Kontrollmaß
+    E5: physisch validierter Fit/Funktionstest oder nachweislich bewährtes Interface
+criticality:
+  K0:
+    name: Ästhetisch
+    meaning: Fehler erzeugt im Wesentlichen optische Unzufriedenheit oder einen erneuten Druck.
+  K1:
+    name: Gering
+    meaning: Unannehmlichkeit, kleiner Sachwert oder Funktionsausfall ohne gefährliche Folge.
+  K2:
+    name: Mittel
+    meaning: Relevante Wärme, Strömung, Leckage, Last oder Bewegung; kontrollierter Test erforderlich.
+  K3:
+    name: Hoch
+    meaning: Plausible Verletzung, großer Sachschaden, Fahrzeug-/Menschenlast oder hohe Energie; Expertenprüfung.
+  K4:
+    name: Safety/Regulatory
+    meaning: Lebens-, Straßen-, Medizin- oder regulatorisch kritische Anwendung; keine autonome Freigabe.
+lanes:
+  A:
+    name: Generativ
+    entry: C0-C1, K0, ausreichende Basisevidenz
+    workflow: Direktes Design, Druckbarkeits- und Stabilitätscheck.
+  B:
+    name: Parametric Fit
+    entry: meist C1-C2, K0-K1, R>=3
+    workflow: Interface-Master, metrische Erfassung und Fit-Coupon.
+  C:
+    name: Iteratives Engineering
+    entry: meist C2-C3, K<=2, R>=3
+    workflow: Subsysteme, Testcoupons, Funktionsprüfungen, Schleifen.
+  D:
+    name: Expert-in-the-loop
+    entry: C4 oder K3
+    workflow: Fachprüfung, Simulation, gestufte Prototypen; keine automatische Endfreigabe.
+  E:
+    name: Hold/Restricted
+    entry: K4, R<=1 oder Hard-Gate verletzt
+    workflow: Nur Konzept, Datenerfassung oder Teilproblem; Freigabe blockiert.

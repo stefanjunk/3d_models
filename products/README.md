@@ -32,6 +32,8 @@ that apply:
 
 ```text
 README.md
+preflight/preflight-input.yaml
+preflight/preflight-result.json
 design-spec.yaml
 decision-log.md
 bom.yaml
@@ -53,3 +55,7 @@ releases/
 Existing products retain some legacy internal names so that the migration does
 not merge or overwrite artifacts. New work should follow the template in
 [`../templates/product/`](../templates/product/).
+
+At the next functional design phase, an existing product without
+`preflight/preflight-result.json` receives a source-linked retrospective
+preflight before geometry or manufacturing artifacts are changed.

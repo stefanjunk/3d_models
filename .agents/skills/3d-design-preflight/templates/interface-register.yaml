@@ -1,0 +1,71 @@
+interfaces:
+- id: IF-EXT-GEO-CON-VOLUME-001
+  name: <Druckprodukt zu Host-Innenraum>
+  endpoint_a: E-PRINT-001
+  endpoint_b: E-HOST-001
+  boundary: EXT
+  domains:
+  - GEO
+  function: CON
+  geometry: VOLUME
+  lifecycle_states:
+  - assembly
+  - use
+  - service
+  coordinate_frame:
+    origin: <Datum A/B/C>
+    x_positive: rechts
+    y_positive: vorne
+    z_positive: oben
+    unit: mm
+  datums: []
+  degrees_of_freedom:
+    allowed: []
+    constrained:
+    - Tx
+    - Ty
+    - Tz
+  assembly:
+    direction: <Richtung>
+    contact_mode: <lose/gleitend/pressend>
+    sequence_notes: ''
+  dimensions:
+  - id: D01
+    feature: <Merkmal>
+    nominal_mm: null
+    lower_mm: null
+    upper_mm: null
+    clearance_mm: null
+    uncertainty_mm: null
+    status: UNKNOWN
+    source_ref: null
+    criticality: FIT_CRITICAL
+  loads_and_performance: {}
+  environment_and_variation: {}
+  keepouts_and_access: []
+  evidence:
+    level: E0
+    sources: []
+    variant_confirmed: false
+    coverage_percent: null
+    uncertainty_note: null
+    observability: UNKNOWN
+  interface_complexity:
+    GEO: 0
+    KIN: 0
+    TOL: 0
+    PHY: 0
+    VAR: 0
+    LIF: 0
+    total: 0
+    tier: I0
+  criticality: K0
+  failure_modes: []
+  verification:
+    method: inspection
+    acceptance_criteria:
+    - <Kriterium>
+    status: NOT_PLANNED
+    result_refs: []
+  owner: null
+  version: '0.1'

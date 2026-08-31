@@ -9,9 +9,27 @@ description: Design, generate, optimize, validate, test, and package parametric 
 
 Create source-controlled, parameterized designs whose geometry, material, purchased components, print configuration, and verification evidence are traceable. Optimize for the user's objective rather than maximizing printed content by default. Keep the actual 3D model, its function, and its manufacturing readiness as the primary outcome; treat branding as a subordinate release constraint.
 
+## Start every design with the mandatory preflight
+
+Before requirements approval, concept generation, CAD/source creation, or
+manufacturing export, invoke the sibling `3d-design-preflight` skill and read
+`references/preflight-integration.md`. Document the current assessment at
+`preflight/preflight-result.json`, validate it with the sibling validator, and
+link it under `workflow.preflight` in `design-spec.yaml`.
+
+For an existing design with no preflight, create a `RETROSPECTIVE` backfill from
+the current recorded evidence before making the next design change. Do not
+claim that it existed historically, and do not infer missing historical facts.
+If a relevant scope, variant, requirement, interface, evidence, risk, process,
+or test input changed, mark the linked assessment `stale` and update it before
+continuing. A schema-valid `current` assessment is required, but its
+`HOLD`/`CONCEPT_ONLY` decision and Lane D/E restrictions still control what work
+may proceed.
+
 ## Start every design with an explicit contract
 
-Create or update `design-spec.yaml`. Capture, or clearly state assumptions for:
+After the initial preflight decision permits the next step, create or update
+`design-spec.yaml`. Capture, or clearly state assumptions for:
 
 - function, dimensions, interfaces, target environment, load, speed, cycle count, and service life;
 - risk class: `decorative`, `normal-functional`, `structural`, or `safety-critical`;
@@ -30,7 +48,7 @@ For every new design and every revision that changes function, geometry, interfa
 2. **Concept approval** — after requirements approval, record the approved specification revision and create a concept image that visualizes that revision. Show the views and functional details needed to judge the design; keep exact dimensions and requirements in the accompanying text because image labels are not authoritative. Map visible features back to the approved requirements and request explicit approval or corrections. Do not start production CAD or exports before approval.
 3. **Final release approval** — after the production model is stable and verified, read `references/watermark-release-gate.md`, generate the canonical workspace `metriMade.com` watermark from the exact product ID and version, and insert it as the last planned design-feature/solid-geometry change. A previously validated derived-export tessellation/simplification policy may run afterward only with the mark and protected geometry locked and all affected checks repeated. Present the release candidate with the model result, function, validation, and deliverables first. Include watermark evidence as a compact secondary release note. Do not publish, package, or label manufacturing exports as final before this gate is approved; validation exports must be marked `DRAFT`.
 
-Record all gate states under `workflow` in `design-spec.yaml`. If a correction changes an approved requirement, mark the requirements gate `changes-requested`, invalidate concept and watermark approval, update the specification, and repeat the affected gates. If feedback changes only the concept depiction, repeat concept and watermark approval. If feedback changes only watermark size or placement without changing the approved design, repeat only the watermark gate. Informational questions and requests that do not change the design do not reopen the gates.
+Record all gate states under `workflow` in `design-spec.yaml`. If a correction changes an approved requirement, mark the preflight `stale` when it affects a preflight input, mark the requirements gate `changes-requested`, invalidate concept and watermark approval, update the assessment and specification, and repeat the affected gates. If feedback changes only the concept depiction, repeat concept and watermark approval. If feedback changes only watermark size or placement without changing the approved design, repeat only the watermark gate. Informational questions and requests that do not change the design do not reopen the gates.
 
 When maintaining a task list, include exactly one subordinate watermark item near the end, after model design and primary verification. Do not split watermark selection, placement, previews, and approval into the dominant task structure unless the watermark is blocking release.
 
@@ -38,21 +56,22 @@ When maintaining a task list, include exactly one subordinate watermark item nea
 
 A completed design should contain, as applicable:
 
-1. `design-spec.yaml` and a decision log;
-2. a printed/purchased/hybrid decomposition and BOM;
-3. parameterized source code;
-4. native or neutral CAD output, preferably STEP for precise functional geometry;
-5. 3MF or STL for manufacturing;
-6. geometry validation report;
-7. print profile and orientation rationale;
-8. print-time/material optimization baseline, candidate comparison, and selected or no-change decision;
-9. manufacturing-mesh complexity/simplification report for every mesh deliverable;
-10. explicit triangle, peak-memory, mesh-file, and exact-slicer budgets for dense/relief jobs, with separate master and manufacturing mesh artifacts;
-11. simulation or calculation report when it changes a decision;
-12. coupon and physical-test plan;
-13. `metriMade.com` watermark generation, product-ID/version identity match, placement, validation, physical coupon, and approval evidence;
-14. evidence and version metadata for parts-library promotion;
-15. a final model result report that inventories the delivered files and summarizes the actual 3D model.
+1. a schema-valid current `preflight/preflight-result.json` linked from `design-spec.yaml`;
+2. `design-spec.yaml` and a decision log;
+3. a printed/purchased/hybrid decomposition and BOM;
+4. parameterized source code;
+5. native or neutral CAD output, preferably STEP for precise functional geometry;
+6. 3MF or STL for manufacturing;
+7. geometry validation report;
+8. print profile and orientation rationale;
+9. print-time/material optimization baseline, candidate comparison, and selected or no-change decision;
+10. manufacturing-mesh complexity/simplification report for every mesh deliverable;
+11. explicit triangle, peak-memory, mesh-file, and exact-slicer budgets for dense/relief jobs, with separate master and manufacturing mesh artifacts;
+12. simulation or calculation report when it changes a decision;
+13. coupon and physical-test plan;
+14. `metriMade.com` watermark generation, product-ID/version identity match, placement, validation, physical coupon, and approval evidence;
+15. evidence and version metadata for parts-library promotion;
+16. a final model result report that inventories the delivered files and summarizes the actual 3D model.
 
 A render is not proof of function. A slicable mesh is not proof of strength.
 
@@ -138,22 +157,23 @@ The supplied calculators are preliminary design aids, not certification tools.
 
 Follow this order:
 
-1. **Requirements and risk review** — create the measurable specification, expose assumptions and recommendations, and obtain explicit requirements approval.
-2. **Concept visualization** — visualize the approved specification, check requirement-to-feature correspondence, and obtain explicit concept approval.
-3. **Functional decomposition** — printed parts, purchased parts, interfaces, assembly order, maintenance.
-4. **Tool route** — choose the simplest representation that preserves required editability and precision.
-5. **Calibration check** — identify missing printer/material data and generate coupons first where needed.
-6. **Parametric source** — named parameters, units in millimetres, assertions, deterministic exports.
-7. **Geometry checks** — dimensions, body count, manifold/watertight state, normals, wall/feature rules, collisions.
-8. **Manufacturing baseline** — orientation, support access, bridging, overhangs, seams, bed fit, material/support volume, mesh burden, and an exact-profile slicer dry run. For Anycubic printers, route the dry run through the sibling validation skill's `slice-anycubic-next` command (or this skill's `slicer_preflight.py --slicer AnycubicSlicerNext`) so source/profile/output hashes and native slicer status are retained.
-9. **Engineering characterization** — hand calculations, kinematics, contact, FEM, thermal/flow analysis only at useful fidelity; establish the baseline constraints that optimization may not violate.
-10. **Efficiency and mesh-simplification gate** — invoke `optimize-fdm-design` where applicable; compare process/geometry candidates; inspect every manufacturing mesh using `references/mesh-simplification.md`; set dense-job resource budgets; preserve separate master/manufacturing artifacts; run the geometric gate; then run the independent slicer-resolution gate. Select and validate an export policy or record `not-beneficial`/`not-applicable`. Rerun affected geometry, manufacturing, and engineering checks on the selected candidate.
-11. **Selected model candidate verification** — gather coupon, interface, subassembly, prototype, or field evidence for the selected optimized or unchanged production geometry.
-12. **Watermark integration** — as the last planned design-feature/solid-geometry change, generate all exact `MM-WM-001-R2` tiers for the current product ID and version. Use the selector to choose Full, then Compact, then Micro at 0°/90° and scale 1.0. Full and Compact show `metriMade.com`; Micro may omit the domain only when the larger tiers do not fit. Subtract the selected tier at the approved depth and verify identity match, host-wall reserve, tier justification, and finished-underside reading direction.
-13. **Final derived mesh export and release regression checks** — apply only the prevalidated tessellation/simplification policy, with protected interfaces, bed datum, and watermark locked; rerun affected mesh, surface-error, wall, bed-contact, mark-readability, and exact-slicer checks.
-14. **Final release approval and packaging** — present the model-centered candidate and its deliverables first, include the watermark as a compact release note, obtain explicit approval, then run `scripts/validate_design_spec.py design-spec.yaml --require-final-approval` before final packaging.
-15. **Revision and learning** — invoke the sibling `3d-skill-maintainer`; preserve the trace, store measured results and failures with exact process scope, turn actionable user corrections into eval candidates, and promote only reviewed evidence-backed explanations.
-16. **Final model result report** — finish with the actual model outcome, validation status, print guidance, complete deliverable links, open limitations, one compact marking note, and the next model-focused action or readiness statement.
+1. **3D design preflight** — invoke `3d-design-preflight`, create or backfill the canonical result, validate it, and obey its gates and lane.
+2. **Requirements and risk review** — create the measurable specification, expose assumptions and recommendations, obtain explicit requirements approval, and update the preflight if the approved revision changes an assessed input.
+3. **Concept visualization** — visualize the approved specification, check requirement-to-feature correspondence, and obtain explicit concept approval.
+4. **Functional decomposition** — printed parts, purchased parts, interfaces, assembly order, maintenance.
+5. **Tool route** — choose the simplest representation that preserves required editability and precision.
+6. **Calibration check** — identify missing printer/material data and generate coupons first where needed.
+7. **Parametric source** — named parameters, units in millimetres, assertions, deterministic exports.
+8. **Geometry checks** — dimensions, body count, manifold/watertight state, normals, wall/feature rules, collisions.
+9. **Manufacturing baseline** — orientation, support access, bridging, overhangs, seams, bed fit, material/support volume, mesh burden, and an exact-profile slicer dry run. For Anycubic printers, route the dry run through the sibling validation skill's `slice-anycubic-next` command (or this skill's `slicer_preflight.py --slicer AnycubicSlicerNext`) so source/profile/output hashes and native slicer status are retained.
+10. **Engineering characterization** — hand calculations, kinematics, contact, FEM, thermal/flow analysis only at useful fidelity; establish the baseline constraints that optimization may not violate.
+11. **Efficiency and mesh-simplification gate** — invoke `optimize-fdm-design` where applicable; compare process/geometry candidates; inspect every manufacturing mesh using `references/mesh-simplification.md`; set dense-job resource budgets; preserve separate master/manufacturing artifacts; run the geometric gate; then run the independent slicer-resolution gate. Select and validate an export policy or record `not-beneficial`/`not-applicable`. Rerun affected geometry, manufacturing, and engineering checks on the selected candidate.
+12. **Selected model candidate verification** — gather coupon, interface, subassembly, prototype, or field evidence for the selected optimized or unchanged production geometry, then update the preflight readiness/evidence if the results change it.
+13. **Watermark integration** — as the last planned design-feature/solid-geometry change, generate all exact `MM-WM-001-R2` tiers for the current product ID and version. Use the selector to choose Full, then Compact, then Micro at 0°/90° and scale 1.0. Full and Compact show `metriMade.com`; Micro may omit the domain only when the larger tiers do not fit. Subtract the selected tier at the approved depth and verify identity match, host-wall reserve, tier justification, and finished-underside reading direction.
+14. **Final derived mesh export and release regression checks** — apply only the prevalidated tessellation/simplification policy, with protected interfaces, bed datum, and watermark locked; rerun affected mesh, surface-error, wall, bed-contact, mark-readability, and exact-slicer checks.
+15. **Final release approval and packaging** — present the model-centered candidate and its deliverables first, include the watermark as a compact release note, obtain explicit approval, then run `scripts/validate_design_spec.py design-spec.yaml --require-current-preflight --require-final-approval` before final packaging.
+16. **Revision and learning** — invoke the sibling `3d-skill-maintainer`; preserve the trace, store measured results and failures with exact process scope, turn actionable user corrections into eval candidates, and promote only reviewed evidence-backed explanations.
+17. **Final model result report** — finish with the actual model outcome, validation status, print guidance, complete deliverable links, open limitations, one compact marking note, and the next model-focused action or readiness statement.
 
 Read `references/validation-testing.md` and `references/simulation-model-fidelity.md` for the verification ladder and appropriate analysis fidelity.
 
@@ -232,7 +252,7 @@ A missing, unreadable, mirrored, protruding, structurally unsafe, identity-misma
 
 ## Deterministic validation handoff
 
-Use the sibling `validate-printable-3d-projects` skill as the final release orchestrator and apply `assets/validation-profile.json`. Register source, parameters, dependencies, mesh/3MF, slicer profile, G-code, interface contracts, coupons, and reports with hashes in `validation-project.json`. Run mesh audits, exact interface checks, motion and parameter sweeps, G-code/3MF checks, report-freshness checks, and named approvals. Existing calculators and validators are component checks, not release proof. Required `NOT_RUN`, `REVIEW_REQUIRED`, stale evidence, missing watermark approval, or failed physical gate blocks release.
+Use the sibling `validate-printable-3d-projects` skill as the final release orchestrator and apply `assets/validation-profile.json`. Register the current preflight result, source, parameters, dependencies, mesh/3MF, slicer profile, G-code, interface contracts, coupons, and reports with hashes in `validation-project.json`. Run the preflight validator, mesh audits, exact interface checks, motion and parameter sweeps, G-code/3MF checks, report-freshness checks, and named approvals. Existing calculators and validators are component checks, not release proof. A missing, stale, invalid, or release-blocking preflight; required `NOT_RUN` or `REVIEW_REQUIRED`; stale evidence; missing watermark approval; or a failed physical gate blocks release.
 
 For Anycubic Slicer Next specifics, read the dedicated Anycubic reference in the sibling validation skill. Its CLI adapter is the authoritative automated path; final GUI preview remains required for layers, supports, seams, and multicolor tool/purge interpretation.
 

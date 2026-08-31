@@ -23,8 +23,27 @@
     },
     "workflow": {
       "type": "object",
-      "required": ["requirements_approval", "concept_approval", "watermark_approval"],
+      "required": ["preflight", "requirements_approval", "concept_approval", "watermark_approval"],
       "properties": {
+        "preflight": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "mode", "artifact", "assessment_id", "assessment_version", "assessed_project_revision", "updated_at", "change_triggers"],
+          "properties": {
+            "status": {"enum": ["pending", "current", "stale"]},
+            "mode": {"enum": ["prospective", "retrospective", null]},
+            "artifact": {"const": "preflight/preflight-result.json"},
+            "assessment_id": {"type": ["string", "null"]},
+            "assessment_version": {"type": ["string", "null"]},
+            "assessed_project_revision": {"type": ["string", "null"]},
+            "updated_at": {"type": ["string", "null"], "format": "date-time"},
+            "change_triggers": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            }
+          }
+        },
         "requirements_approval": {
           "type": "object",
           "required": ["status", "spec_revision"],

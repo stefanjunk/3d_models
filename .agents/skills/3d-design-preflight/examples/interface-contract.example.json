@@ -1,0 +1,120 @@
+{
+  "id": "IF-EXT-GEO-CON-VOLUME-001",
+  "name": "Inlay zu Schubladeninnenraum",
+  "endpoint_a": "E-PRINT-001",
+  "endpoint_b": "E-HOST-001",
+  "boundary": "EXT",
+  "domains": [
+    "GEO"
+  ],
+  "function": "CON",
+  "geometry": "VOLUME",
+  "lifecycle_states": [
+    "assembly",
+    "use",
+    "service"
+  ],
+  "coordinate_frame": {
+    "origin": "hintere linke Bodenecke",
+    "x_positive": "rechts",
+    "y_positive": "nach vorne",
+    "z_positive": "oben",
+    "unit": "mm"
+  },
+  "datums": [
+    {
+      "id": "A",
+      "description": "Schubladenboden"
+    },
+    {
+      "id": "B",
+      "description": "linke Innenwand"
+    },
+    {
+      "id": "C",
+      "description": "hintere Innenwand"
+    }
+  ],
+  "degrees_of_freedom": {
+    "allowed": [
+      "Tz bei Entnahme"
+    ],
+    "constrained": [
+      "Tx",
+      "Ty während Nutzung"
+    ]
+  },
+  "assembly": {
+    "direction": "von oben",
+    "contact_mode": "lose Passung",
+    "sequence_notes": "vorhandene Auszugsschrauben freihalten"
+  },
+  "dimensions": [
+    {
+      "id": "D01",
+      "feature": "Innenbreite",
+      "nominal_mm": null,
+      "lower_mm": null,
+      "upper_mm": null,
+      "clearance_mm": 0.6,
+      "uncertainty_mm": 0.25,
+      "status": "SCAN_VALIDATED",
+      "source_ref": "SRC-MARKER-VIDEO-001",
+      "criticality": "FIT_CRITICAL"
+    }
+  ],
+  "loads_and_performance": {
+    "expected_payload_n": 20
+  },
+  "environment_and_variation": {
+    "temperature_c": [
+      15,
+      35
+    ],
+    "drawer_variants": "one confirmed unit"
+  },
+  "keepouts_and_access": [
+    "Auszugsschrauben links/rechts",
+    "10 mm Griff-Freiraum vorne"
+  ],
+  "evidence": {
+    "level": "E4",
+    "sources": [
+      "SRC-MARKER-VIDEO-001",
+      "CTRL-BAR-002"
+    ],
+    "variant_confirmed": true,
+    "coverage_percent": 98.0,
+    "uncertainty_note": "lokale Scanunsicherheit ca. 0.25 mm",
+    "observability": "OBSERVED"
+  },
+  "interface_complexity": {
+    "GEO": 1,
+    "KIN": 1,
+    "TOL": 2,
+    "PHY": 1,
+    "VAR": 1,
+    "LIF": 2,
+    "total": 8,
+    "tier": "I2"
+  },
+  "criticality": "K1",
+  "failure_modes": [
+    {
+      "mode": "Inlay klemmt",
+      "effect": "Schublade lässt sich nicht entnehmen",
+      "mitigation": "Fit-Coupon und Randspiel"
+    }
+  ],
+  "verification": {
+    "method": "test_coupon",
+    "acceptance_criteria": [
+      "Coupon lässt sich ohne Werkzeug einsetzen und entnehmen",
+      "kein Kontakt zu Auszugsschrauben"
+    ],
+    "status": "PLANNED",
+    "result_refs": []
+  },
+  "owner": "3D Design Workflow",
+  "version": "0.1"
+}

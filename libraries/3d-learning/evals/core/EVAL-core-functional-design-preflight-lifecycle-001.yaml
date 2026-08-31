@@ -1,0 +1,56 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-functional-design-preflight-lifecycle-001
+title: Functional design starts with a current documented preflight and backfills legacy absence honestly
+category: core
+status: draft
+trigger: A functional-3d-design workflow, project scaffold, design-spec schema, preflight schema, or release validator is created or changed.
+risk: Design geometry or release work can begin without an assessed interface/risk/data basis, reuse a stale assessment, or falsely imply that a legacy project was preflighted before it existed.
+given:
+  new_project: A newly initialized functional design with only a project ID, revision, and user input.
+  existing_project: An existing design with requirements and geometry but no preflight artifact.
+  changed_project: A project whose scope, variant, interface, evidence, risk, manufacturing input, or test result changed after assessment.
+  release_project: A candidate with requirements, concept, optimization, manufacturing, and watermark gates.
+expected:
+  - The functional workflow invokes 3d-design-preflight before requirements approval, concept generation, CAD/source creation, or manufacturing export.
+  - A new project records a PROSPECTIVE assessment at preflight/preflight-result.json and cross-links its ID, version, project revision, update timestamp, and change triggers from design-spec.yaml.
+  - An existing project without the artifact receives a source-linked RETROSPECTIVE assessment with backfill_missing_preflight before the next design-producing action; missing historical facts remain UNKNOWN.
+  - A relevant post-assessment change marks workflow.preflight stale and blocks the affected next design action until the assessment is updated and revalidated.
+  - Current status is accepted only when the linked JSON satisfies the preflight schema and agrees with project ID, project revision, mode, assessment identity, timestamp, and change triggers.
+  - HOLD, CONCEPT_ONLY, and Lane D/E decisions remain controlling even when the assessment status is current.
+  - Final release validation fails unless the preflight is current, schema-valid, linked to the current project revision, and permits release.
+failure_conditions:
+  - Requirements approval, concept generation, CAD/source creation, manufacturing export, or final release can proceed under the documented workflow without first checking the applicable preflight gate.
+  - A missing legacy assessment is silently treated as prospective or as evidence that a preflight historically occurred.
+  - A current link points to a missing, invalid, cross-project, cross-revision, or metadata-mismatched result.
+  - Relevant changes can leave the assessment current without an explicit reassessment decision.
+  - A structurally valid result is treated as design permission despite HOLD, CONCEPT_ONLY, or restricted lane output.
+fixtures:
+  - .agents/skills/3d-design-preflight/examples/preflight-result.example.json
+  - .agents/skills/3d-design-preflight/tests/test_validate_preflight.py
+  - .agents/skills/functional-3d-design/templates/design-spec.yaml
+  - .agents/skills/functional-3d-design/references/preflight-integration.md
+  - .agents/skills/functional-3d-design/tests/test_scripts.py
+  - .agents/skills/functional-3d-design/tests/test_skill_structure.py
+grader:
+  type: hybrid
+  command: python3 .agents/skills/functional-3d-design/tests/test_scripts.py ScriptTests.test_current_preflight_is_required_and_cross_validated
+  expected_exit_code: 0
+  rubric: Verify Gate 0P precedes requirements in SKILL.md; review new-design, stale-update, restricted-decision, and retrospective-backfill wording; run the preflight validator tests and confirm final release implicitly requires current preflight.
+  measurement_method: Deterministic schema/project-link unit test plus human review of workflow ordering, trigger coverage, and authorization boundaries.
+relationships:
+  lessons:
+    - EXP-00047
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-08-31
+  report: .agents/skills/functional-3d-design/tests/test_scripts.py
+  artifact_hashes: []
+tags:
+  - core
+  - workflow
+  - preflight
+  - backfill
+  - traceability
+  - release-gate

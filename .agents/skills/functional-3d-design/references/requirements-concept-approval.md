@@ -1,6 +1,12 @@
 # Requirements, concept, and final release approval gates
 
-Use these gates at the start of a new design and when a revision changes function, geometry, interfaces, risk, manufacturing, or appearance. Treat `design-spec.yaml` as the single source of truth; the chat review is a readable projection of it, not a separate requirements document.
+Use these gates after the mandatory Gate 0P preflight at the start of a new
+design and when a revision changes function, geometry, interfaces, risk,
+manufacturing, or appearance. Read `preflight-integration.md`; require a
+schema-valid current `preflight/preflight-result.json` and obey its decision
+before entering Gate 0A. Treat `design-spec.yaml` as the single source of truth
+for approved requirements; the chat review is a readable projection of it, not
+a separate requirements document.
 
 ## Gate 0A — structured requirements review
 
@@ -28,6 +34,11 @@ Ask no more than three questions at once. Resolve high-impact geometry, interfac
 
 Do not generate images, CAD, code, or exports while `workflow.requirements_approval.status` is not `approved`.
 
+After requirements approval, compare the approved revision with the preflight
+basis. If scope, variant, interfaces, risk, manufacturing, acceptance criteria,
+or verification inputs changed, mark the preflight `stale`, update and validate
+it, and obey the revised decision before Gate 0B.
+
 ## Gate 0B — concept image review
 
 After explicit requirements approval:
@@ -48,7 +59,7 @@ Use these states:
 - requirements: `pending` -> `approved` or `changes-requested`;
 - concept: `blocked` while requirements are unapproved, then `pending` -> `approved` or `changes-requested`.
 
-When the user changes an approved requirement, increment the specification revision, set requirements to `changes-requested`, set concept to `blocked`, and clear the prior concept asset reference. When only the depiction is wrong and the specification remains valid, keep requirements approved and set only concept to `changes-requested`.
+When the user changes an approved requirement, increment the specification revision, set requirements to `changes-requested`, set concept to `blocked`, clear the prior concept asset reference, and mark the preflight `stale` when the change affects an assessed input. When only the depiction is wrong and the specification remains valid, keep requirements approved and set only concept to `changes-requested`.
 
 After concept approval, record the approving user, specification revision, concept asset, and timestamp when available. Continue with architecture and production geometry only when both approvals are for the current specification revision.
 

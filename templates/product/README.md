@@ -6,6 +6,7 @@ inside this template or to a sibling product.
 
 Recommended roles:
 
+- `preflight/`: mandatory pre-design input and current validated preflight result;
 - `source/`: editable CAD, mesh, and generator source;
 - `assets/`: reference images, measurements, textures, branding, and disclosed
   third-party inputs;
@@ -18,4 +19,6 @@ Recommended roles:
 - `releases/`: immutable approved packages.
 
 Keep `README.md`, `design-spec.yaml`, `decision-log.md`, `bom.yaml`, and
-`validation-project.json` at the product root when they apply.
+`validation-project.json` at the product root when they apply. Complete
+`preflight/preflight-result.json` with the `3d-design-preflight` skill before
+concept, CAD, source, or manufacturing export work.

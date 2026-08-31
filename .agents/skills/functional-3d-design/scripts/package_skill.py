@@ -22,6 +22,13 @@ METRIMADE_WATERMARK_FILES = (
     "validation/concept-r2-watermark-tiers.png",
     "validation/validation-report.md",
 )
+PREFLIGHT_REQUIRED_FILES = (
+    "SKILL.md",
+    "schemas/interface-contract.schema.json",
+    "schemas/preflight-result.schema.json",
+    "scripts/validate_preflight.py",
+    "templates/preflight-input.yaml",
+)
 
 
 def add_file(zf: zipfile.ZipFile, source: Path, archive_path: Path) -> None:
@@ -38,6 +45,7 @@ def main() -> int:
     root = args.package_root.resolve()
     output = args.output or root.parent / f"{root.name}.zip"
     workspace_watermark = root.parents[2] / "tools" / "metrimade-watermark"
+    preflight_root = root.parent / "3d-design-preflight"
     missing_watermark = [
         relative
         for relative in METRIMADE_WATERMARK_FILES
@@ -47,6 +55,14 @@ def main() -> int:
         raise SystemExit(
             "Cannot package functional-3d-design without MM-WM-001-R2 files: "
             + ", ".join(missing_watermark)
+        )
+    missing_preflight = [
+        relative for relative in PREFLIGHT_REQUIRED_FILES if not (preflight_root / relative).is_file()
+    ]
+    if missing_preflight:
+        raise SystemExit(
+            "Cannot package functional-3d-design without sibling 3d-design-preflight files: "
+            + ", ".join(missing_preflight)
         )
     skip_names = {"__pycache__", ".git"}
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
@@ -63,6 +79,10 @@ def main() -> int:
                 workspace_watermark / relative,
                 Path(root.name) / "assets" / "metrimade-watermark" / relative,
             )
+        for path in sorted(preflight_root.rglob("*")):
+            if path.is_dir() or any(part in skip_names for part in path.parts):
+                continue
+            add_file(zf, path, Path(preflight_root.name) / path.relative_to(preflight_root))
     print(output.resolve())
     return 0
 

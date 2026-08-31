@@ -1,0 +1,172 @@
+{
+  "assessment_id": "PREFLIGHT-MM-CAL-001-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-08-31",
+  "product": "FDM calibration coupon example",
+  "scope": {
+    "intended_use": "Demonstrate a documented preflight artifact for a low-risk calibration coupon.",
+    "user_context": "Bench-top FDM process calibration by an informed operator.",
+    "variants": [
+      "example fixture only"
+    ],
+    "out_of_scope": [
+      "load-bearing or safety-critical qualification"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Calibration coupon"
+    },
+    {
+      "id": "E-ENV-001",
+      "kind": "ENVIRONMENT",
+      "name": "Printer build surface"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-ENV-GEO-SUP-PLN-001",
+      "name": "Coupon to printer build surface",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-ENV-001",
+      "boundary": "ENV",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "disassembly"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "examples/preflight-result.example.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": null,
+        "uncertainty_note": "Example fixture; exact printer and surface are intentionally unspecified.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 1,
+        "VAR": 1,
+        "LIF": 1,
+        "total": 5,
+        "tier": "I1"
+      },
+      "criticality": "K0",
+      "failure_modes": [
+        {
+          "mode": "Coupon detaches during printing",
+          "effect": "Invalid calibration result",
+          "mitigation": "Inspect first layer and repeat the coupon when adhesion is inadequate."
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "Coupon remains attached until the calibration print completes."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "example fixture",
+      "version": "0.1"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 1,
+      "CTX": 1,
+      "PAR": 1,
+      "INT": 1,
+      "CPL": 0,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 1,
+      "MAT": 1,
+      "EXT": 0,
+      "VER": 1
+    },
+    "score_0_100": 18.0,
+    "class": "C1",
+    "drivers": [
+      "process-specific first-layer behavior",
+      "material and surface condition",
+      "measurement repeatability"
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R3",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R2",
+      "verification": "R3"
+    },
+    "blocking_unknowns": [
+      "exact printer, material, nozzle, orientation, and process profile"
+    ],
+    "completeness_percent": 55.0
+  },
+  "criticality": {
+    "level": "K0",
+    "rationale": "A failed example coupon wastes only limited time and material.",
+    "credible_failure_effects": [
+      "invalid calibration conclusion"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "WARN",
+    "G3": "FAIL",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "Fill in the exact manufacturing profile before using the fixture for a real calibration design."
+  },
+  "warnings": [
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "BLOCKER",
+      "message": "The exact printer/material/nozzle/profile scope is intentionally absent from this example."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Record the exact manufacturing profile.",
+      "exit_criterion": "Printer, material, nozzle, orientation, and process profile are uniquely identified."
+    }
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-CAL-001",
+    "project_revision": "1.0.0",
+    "basis_refs": [
+      "examples/preflight-result.example.json"
+    ],
+    "change_triggers": [
+      "initial_design"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:00:00+02:00",
+    "updated_at": "2026-08-31T12:00:00+02:00"
+  }
+}

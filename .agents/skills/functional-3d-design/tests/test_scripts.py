@@ -29,6 +29,7 @@ WATERMARK_R2_EXAMPLES = (
     / "exports"
     / "examples-r2"
 )
+PREFLIGHT_EXAMPLE = SKILL.parent / "3d-design-preflight" / "examples" / "preflight-result.example.json"
 
 
 def run_json(script: str, *args: str, expected: int = 0) -> dict:
@@ -98,6 +99,81 @@ def branding_fixture(product_id: str, version: str) -> dict:
         "depth_mm": 0.4,
         "minimum_host_wall_mm": 1.2,
         "minimum_remaining_wall_mm": 0.8,
+    }
+
+
+def pending_preflight_fixture() -> dict:
+    return {
+        "status": "pending",
+        "mode": None,
+        "artifact": "preflight/preflight-result.json",
+        "assessment_id": None,
+        "assessment_version": None,
+        "assessed_project_revision": None,
+        "updated_at": None,
+        "change_triggers": [],
+    }
+
+
+def write_current_preflight(
+    project_root: Path,
+    product_id: str,
+    version: str,
+    *,
+    mode: str = "prospective",
+) -> dict:
+    document = json.loads(PREFLIGHT_EXAMPLE.read_text(encoding="utf-8"))
+    assessment_id = f"PREFLIGHT-{product_id}-001"
+    updated_at = "2026-08-31T12:00:00+02:00"
+    triggers = ["initial_design"] if mode == "prospective" else ["backfill_missing_preflight"]
+    document.update(
+        {
+            "assessment_id": assessment_id,
+            "product": f"{product_id} validation fixture",
+            "warnings": [],
+        }
+    )
+    document["gates"] = {f"G{index}": "PASS" for index in range(7)}
+    document["decision"] = {
+        "lane": "A",
+        "confidence": "HIGH",
+        "design_release": "GO",
+        "rationale": "Deterministic unit-test fixture.",
+    }
+    document["readiness"].update({"level": "R4", "blocking_unknowns": []})
+    document["readiness"]["component_levels"] = {
+        key: "R4"
+        for key in (
+            "scope_variant",
+            "requirements",
+            "critical_interfaces",
+            "manufacturing_profile",
+            "verification",
+        )
+    }
+    document["traceability"].update(
+        {
+            "mode": mode.upper(),
+            "project_id": product_id,
+            "project_revision": version,
+            "basis_refs": ["design-spec.json"],
+            "change_triggers": triggers,
+            "previous_assessment_id": None,
+            "updated_at": updated_at,
+        }
+    )
+    artifact = project_root / "preflight" / "preflight-result.json"
+    artifact.parent.mkdir(parents=True, exist_ok=True)
+    artifact.write_text(json.dumps(document), encoding="utf-8")
+    return {
+        "status": "current",
+        "mode": mode,
+        "artifact": "preflight/preflight-result.json",
+        "assessment_id": assessment_id,
+        "assessment_version": document["assessment_version"],
+        "assessed_project_revision": version,
+        "updated_at": updated_at,
+        "change_triggers": triggers,
     }
 
 
@@ -220,6 +296,67 @@ class ScriptTests(unittest.TestCase):
             )
             self.assertEqual(proc.returncode, 0, f"{spec}\n{proc.stdout}\n{proc.stderr}")
 
+    def test_project_init_scaffolds_pending_preflight_input(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            process = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPTS / "project_init.py"),
+                    "fixture",
+                    "--directory",
+                    directory,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(process.returncode, 0, process.stderr)
+            project = Path(directory) / "fixture"
+            self.assertTrue((project / "preflight" / "preflight-input.yaml").is_file())
+            spec = yaml.safe_load((project / "design-spec.yaml").read_text(encoding="utf-8"))
+            self.assertEqual(spec["workflow"]["preflight"]["status"], "pending")
+
+    def test_current_preflight_is_required_and_cross_validated(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            spec = yaml.safe_load((SKILL / "templates" / "design-spec.yaml").read_text(encoding="utf-8"))
+            spec_path = root / "design-spec.yaml"
+            spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
+            pending = run_json(
+                "validate_design_spec.py",
+                str(spec_path),
+                "--require-current-preflight",
+                expected=1,
+            )
+            self.assertTrue(any("current validated preflight" in item for item in pending["errors"]))
+
+            spec["workflow"]["requirements_approval"].update(
+                {
+                    "status": "approved",
+                    "spec_revision": spec["project"]["revision"],
+                    "approved_by": "test-user",
+                }
+            )
+            spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
+            premature_approval = run_json("validate_design_spec.py", str(spec_path), expected=1)
+            self.assertTrue(
+                any("requirements approval requires" in item for item in premature_approval["errors"])
+            )
+
+            spec["workflow"]["preflight"] = write_current_preflight(
+                root,
+                spec["project"]["id"],
+                spec["project"]["revision"],
+                mode="retrospective",
+            )
+            spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
+            current = run_json(
+                "validate_design_spec.py",
+                str(spec_path),
+                "--require-current-preflight",
+            )
+            self.assertTrue(current["passed"])
+
     def test_packager_bundles_metrimade_watermark_core(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             package = Path(td) / "functional-3d-design.zip"
@@ -248,6 +385,8 @@ class ScriptTests(unittest.TestCase):
                 "tools/generate_watermark.py",
             ):
                 self.assertIn(prefix + relative, names)
+            self.assertIn("3d-design-preflight/SKILL.md", names)
+            self.assertIn("3d-design-preflight/scripts/validate_preflight.py", names)
 
     def test_watermark_selector_exact_rotated_and_block(self) -> None:
         exact = run_json(
@@ -331,6 +470,7 @@ class ScriptTests(unittest.TestCase):
             spec.write_text(json.dumps({
                 "project": {"id": "MM-GATE-TEST", "revision": "0.1.0"},
                 "workflow": {
+                    "preflight": pending_preflight_fixture(),
                     "requirements_approval": {"status": "pending", "spec_revision": None},
                     "concept_approval": {
                         "status": "approved",
@@ -355,10 +495,12 @@ class ScriptTests(unittest.TestCase):
 
     def test_final_release_requires_approved_watermark(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            spec = Path(td) / "design-spec.json"
+            root = Path(td)
+            spec = root / "design-spec.json"
             spec.write_text(json.dumps({
                 "project": {"id": "MM-RELEASE-TEST", "revision": "1.0.0"},
                 "workflow": {
+                    "preflight": write_current_preflight(root, "MM-RELEASE-TEST", "1.0.0"),
                     "requirements_approval": {
                         "status": "approved",
                         "spec_revision": "1.0.0",
@@ -412,10 +554,12 @@ class ScriptTests(unittest.TestCase):
 
     def test_final_release_rejects_pending_optimization(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            spec = Path(td) / "design-spec.json"
+            root = Path(td)
+            spec = root / "design-spec.json"
             spec.write_text(json.dumps({
                 "project": {"id": "MM-OPT-TEST", "revision": "1.0.0"},
                 "workflow": {
+                    "preflight": write_current_preflight(root, "MM-OPT-TEST", "1.0.0"),
                     "requirements_approval": {"status": "approved", "spec_revision": "1.0.0", "approved_by": "test"},
                     "concept_approval": {"status": "approved", "spec_revision": "1.0.0", "asset": "concept.png", "approved_by": "test"},
                     "watermark_approval": watermark_approval_fixture(

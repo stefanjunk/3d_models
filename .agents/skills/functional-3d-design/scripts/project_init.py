@@ -6,7 +6,7 @@ import argparse
 import shutil
 from pathlib import Path
 
-from common import TEMPLATE_ROOT
+from common import SKILL_ROOT, TEMPLATE_ROOT
 
 
 def main() -> int:
@@ -20,10 +20,15 @@ def main() -> int:
     if target.exists() and any(target.iterdir()) and not args.force:
         raise SystemExit(f"Target is not empty: {target}. Use --force to merge templates.")
     target.mkdir(parents=True, exist_ok=True)
-    for directory in ["source", "exports", "profiles", "validation", "tests"]:
+    preflight_template = SKILL_ROOT.parent / "3d-design-preflight" / "templates" / "preflight-input.yaml"
+    if not preflight_template.is_file():
+        raise SystemExit(f"Required sibling 3d-design-preflight template is missing: {preflight_template}")
+
+    for directory in ["preflight", "source", "exports", "profiles", "validation", "tests"]:
         (target / directory).mkdir(exist_ok=True)
     for filename in ["design-spec.yaml", "bom.yaml", "test-plan.yaml", "decision-log.md"]:
         shutil.copy2(TEMPLATE_ROOT / filename, target / filename)
+    shutil.copy2(preflight_template, target / "preflight" / "preflight-input.yaml")
     print(target.resolve())
     return 0
 

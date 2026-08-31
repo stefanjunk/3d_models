@@ -30,7 +30,7 @@ class SkillStructureTests(unittest.TestCase):
             self.assertTrue((SKILL / "examples" / example / "design-spec.yaml").exists())
 
     def test_metrimade_watermark_package(self) -> None:
-        root = SKILL.parents[2] / "metrimade-watermark"
+        root = SKILL.parents[2] / "tools" / "metrimade-watermark"
         expected = [
             "design-spec.yaml",
             "RIGHTS-NOTICE.md",
@@ -106,6 +106,30 @@ class SkillStructureTests(unittest.TestCase):
             skill_text.index("**Watermark integration**"),
             skill_text.index("**Final derived mesh export and release regression checks**"),
         )
+
+    def test_preflight_is_the_first_design_gate_and_has_deterministic_handoff(self) -> None:
+        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        integration = SKILL / "references" / "preflight-integration.md"
+        preflight_skill = SKILL.parent / "3d-design-preflight"
+        self.assertTrue(integration.is_file())
+        self.assertTrue((preflight_skill / "SKILL.md").is_file())
+        self.assertTrue((preflight_skill / "scripts" / "validate_preflight.py").is_file())
+        self.assertLess(
+            skill_text.index("## Start every design with the mandatory preflight"),
+            skill_text.index("## Start every design with an explicit contract"),
+        )
+        self.assertLess(
+            skill_text.index("**3D design preflight**"),
+            skill_text.index("**Requirements and risk review**"),
+        )
+        self.assertIn("RETROSPECTIVE", skill_text)
+        self.assertIn("preflight/preflight-result.json", skill_text)
+
+        schema = json.loads((SKILL / "schemas" / "design-spec.schema.json").read_text(encoding="utf-8"))
+        self.assertIn("preflight", schema["properties"]["workflow"]["required"])
+        profile = json.loads((SKILL / "assets" / "validation-profile.json").read_text(encoding="utf-8"))
+        roles = {item["id"]: item for item in profile["artifact_roles"]}
+        self.assertTrue(roles["preflight-result"]["required"])
 
     def test_no_placeholder_tokens_in_core(self) -> None:
         pattern = re.compile(r"\b(TODO|FIXME|REPLACE_ME)\b")

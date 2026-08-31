@@ -12,10 +12,10 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once in this recorded scope. The physical failure is certain from the user report; the preprocessing explanation remains a hypothesis until the direct-transfer coupon is printed."
+    notes: "Observed in one failed prefiltered coupon and one subsequent direct-transfer coupon selection. Candidate C was physically preferred, but A/B/D were not separately reported and the exact print context remains incomplete; maturity stays E0."
 feature:
   type: continuous-tone image-relief surface texture transfer
-  geometry: successful Honeycomb shelf wood relief transferred to four upright planar coupon fields and broad planar NameForm wings
+  geometry: successful Honeycomb shelf wood relief transferred to four upright planar coupon fields, historical broad NameForm wings, and the planned letter-dominant NameForm facade
   design_parameters:
     texture_id: wood-001
     master_pixels: [1254, 1254]
@@ -40,7 +40,7 @@ feature:
     - The direct control samples the full registered master bilinearly at every physical mesh vertex.
     - Geometry density is limited by the 0.45 mm physical grid, not by downsampling the source image.
     - Text, boundaries, bed datum and NameForm functional regions remain protected from relief.
-    - No NameForm depth is accepted until the v0.2 physical appearance gate passes.
+    - Candidate C at 0.6 mm is selected for the next NameForm glyph fronts; the glyph mask, exposed flanks, connector, and complete pair remain separate gates.
 scope:
   process: FFF
   machine:
@@ -70,19 +70,19 @@ scope:
   geometry_class: repeating image-derived relief on upright appearance-critical FFF walls
   environment: unknown
   transfer_limits:
-    - The physical failure is one visual user report without photos or measured surface amplitude.
+    - The physical failure and later C preference are user visual reports without photos or measured surface amplitude.
     - The 34.8 percent span loss is a digital comparison of this wood source and preprocessing path, not a universal filter penalty.
     - Printer, filament identity, conditioning, wall count, seam placement and exact physical profiles remain unknown.
 observation:
-  summary: The user printed the v0.1 pitch coupon at a stated 0.4 mm nozzle and 0.12 mm layer height and reported that all three panels looked flat with little or no recognizable wood texture.
-  expected: The 0.45 mm field would retain the successful Honeycomb wood character closely enough to serve as the reference for coarser-pitch selection.
-  actual: None of the 0.45, 0.50 or 0.60 mm fields reproduced enough of the original wood appearance.
-  outcome: failure
+  summary: The prefiltered v0.1 coupon looked flat, while the later direct-sampled v0.2 candidate C was reported to look quite good and was selected for the next NameForm design.
+  expected: Preserving full-master direct sampling while limiting only the 0.45 mm physical geometry grid would retain enough of the Honeycomb wood character for a repeating NameForm patch.
+  actual: The v0.1 fields failed visually; after the direct-transfer correction, the user selected C with its 120 x 45 mm patch, 24 px seam blend, 0.6 mm depth, and 0.45 mm grid. A/B/D and seam quality were not separately reported.
+  outcome: mixed
   parameter: preprocessing and sampling pipeline equivalence
   recommended_value: "direct full-master bilinear sampling at the physical mesh vertices; no low-resolution build-raster prefilter"
   units: null
 explanation:
-  hypothesis: The added Lanczos downsampling before mesh sampling suppressed much of the source contrast and was a major contributor to the visually flat print.
+  hypothesis: The added Lanczos downsampling before mesh sampling suppressed much of the source contrast and was a major contributor to the visually flat v0.1 print; the physical C preference supports preserving direct sampling but does not isolate every alternative cause.
   mechanism: On an equivalent 45 x 45 mm wall patch, direct full-master sampling retains a normalized P95-P5 span of 0.5763 while the failed build-raster path retains 0.3760. At 0.6 mm maximum depth this reduces robust modeled relief span from about 0.346 mm to 0.226 mm before slicing. Limiting only the physical mesh grid avoids paying for source-image pixels as geometry while preserving the successful sampling behavior.
   alternatives:
     - Upright perimeter deposition may suppress the relief even when the direct-sampled mesh has adequate digital amplitude.
@@ -90,17 +90,17 @@ explanation:
     - Physical scale or source-axis mapping may be more important than the prefilter.
     - The absence of photos or measured surface depth can hide an orientation or lighting failure rather than a geometry-amplitude failure.
   validated: false
-  validation_method: "Print the unchanged v0.2 A/B/C/D coupon upright at 0.4 mm nozzle and 0.12 mm layers. A reproduces the exact Honeycomb wall mapping; B/C isolate patch mapping and seam blending; D isolates a 0.9 mm depth reserve."
+  validation_method: "Preserve the selected C pipeline on a masked, upright NameForm glyph-front and connector coupon at 0.4 mm nozzle and 0.12 mm layers; record exact material/profile, fixed-condition appearance, seam, gap, counter, and handling results."
 evidence:
-  observations: 1
+  observations: 2
   same_scope_repetitions: 0
   geometry_count: 1
   machine_count: 0
   material_count: 0
   nozzle_count: 1
   measured: true
-  measurement_method: "User visual result plus deterministic bilinear-sampling comparison on the same 45 x 45 mm wall coordinates; no physical profilometry."
-  uncertainty: "Physical result has no photo, profilometry, exact printer, filament or slicer-profile evidence. The digital contrast loss is measured, but causation is not isolated."
+  measurement_method: "Two user visual results plus deterministic bilinear-sampling comparison on the same 45 x 45 mm wall coordinates; no physical profilometry."
+  uncertainty: "The C preference has no photo, profilometry, exact printer, filament, complete slicer-profile, or separate A/B/D scores. The digital contrast loss is measured and the direct route is physically supported, but causation is not fully isolated."
   sources:
     - type: user-statement
       ref: "User correction in the 2026-08-30 NameForm wood-texture phase"
@@ -108,12 +108,16 @@ evidence:
       notes: "Printed v0.1 coupon looked flat; original Honeycomb shelf wood appearance was not reproduced; user requested renewed pipeline comparison and patch-based transfer."
     - type: product-trace
       ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/transfer-spec.json
-      hash: c244913506127aa6395a1f55d72f8cbb10e1479a752b2ca38ce962c64360c6c9
-      notes: "Records the failed preprocessing difference, direct-transfer mapping, process claims and test matrix."
+      hash: 29edd758e5c5e0d3d2e1c55994f8195eabd8f9083c51820f9267b8b11ef42bbc
+      notes: "Records the failed preprocessing difference, direct-transfer mapping, process claims, test matrix, and the scoped C selection."
     - type: product-trace
       ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
-      hash: bc30b858d1708de38ab3e37b713c33db2356d3a2b4f47130e6e32cad426ff41e
-      notes: "Preserves the v0.1 failure report and the unresolved v0.2 physical gate."
+      hash: d47206473196b9cd9faf5d6bcb20a867a60da7c099d674c9a96935edfc117def
+      notes: "Preserves the v0.1 failure, the later C preference, missing physical context, and the remaining glyph/connector gates."
+    - type: user-statement
+      ref: "User selection in the 2026-08-31 NameForm letter-dominant design phase"
+      hash: null
+      notes: "Variant C already looks quite good; reuse it as the wood appearance on larger glyphs, including their fronts."
     - type: product-trace
       ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json
       hash: 4d43ac651dc652c0fbcafad0cc8c2d81334b81f977481a9abd6cf02aae578d07
@@ -151,7 +155,7 @@ relationships:
     - .agents/skills/3d-print-heightmap-relief/SKILL.md
 validation:
   targeted: review-required
-  regression: fail
+  regression: review-required
   reports:
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/reports/validation-summary-locked.json
 provenance:

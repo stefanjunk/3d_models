@@ -1,0 +1,158 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00050
+title: A letter-dominant name facade needs local recessed bridges rather than a full back panel
+captured_at: 2026-08-31
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once as an explicit appearance correction for NameForm revision 0.4.0. No concept, CAD, print, or connector test exists yet."
+feature:
+  type: letter-dominant personalized facade with hidden connector
+  geometry: large extruded STE and FAN glyph groups fused to a retained bookend core by a recessed rear web and local inter-glyph bridges
+  design_parameters:
+    default_cap_height_mm: 122.0
+    nominal_inter_glyph_gap_mm: 1.8
+    minimum_finished_gap_mm: 1.2
+    glyph_body_depth_mm: 6.0
+    rear_connector_thickness_mm: 2.4
+    rear_connector_front_setback_mm: 6.0
+    front_texture_candidate: C
+    front_texture_depth_mm: 0.6
+    front_texture_mesh_pitch_mm: 0.45
+  named_datums:
+    - glyph-front-y0
+    - front-view-minus-y
+    - shared-glyph-baseline-z
+    - rear-connector-front-y6
+    - print-bed-z0
+  constraints:
+    - The front silhouette is defined by glyphs, not a rectangular panel.
+    - Glyph counters remain open and neighboring fronts retain a visible gap.
+    - Only local shadowed bridges may appear between glyphs from the intended front view.
+    - The rear connector remains outside the book load path and is protected from wood relief.
+    - Candidate C is applied to glyph fronts without changing its source, physical period, seam blend, depth, or direct-sampling method.
+scope:
+  process: FFF
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: PETG family
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: "Each bookend remains upright on z=0; glyph fronts face -Y."
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: "0.12mm Standard @Anycubic Kobra 3 Max 0.4 nozzle; final exact profile set remains to be frozen for 0.4.0"
+    profile_hash: d3b71ea02eb8192b2ca5ad8cd03f56cfdb1f64aea7e1b8e41789003d2584efbf
+  geometry_class: fused freestanding text facade with image-derived relief and a visually hidden structural web
+  environment: indoor shelf or desk, 10-30 C, normal moisture, limited UV
+  transfer_limits:
+    - The preference is specific to NameForm and its intended front view.
+    - The proposed connector dimensions are recommendations, not physically validated rules.
+    - Other fonts, names, glyph counts, orientations, materials, machines, or texture patterns require their own connectivity and appearance checks.
+observation:
+  summary: The existing broad textured wing still read as a panel with letters on it; the user requested a stand that reads primarily as large wooden characters.
+  expected: The existing architecture would present the split name clearly while retaining a decorative textured wing.
+  actual: The user selected the wood texture but requested larger tightly spaced glyphs, wood appearance on the glyphs including the front, and a background moved far behind so it only joins the letters and is barely visible.
+  outcome: correction
+  parameter: visible facade architecture and connector depth hierarchy
+  recommended_value: "large outline-packed glyph bodies with open counters, >=1.2 mm finished gaps, and only local rear bridges beginning 6.0 mm behind the glyph front"
+  units: mm
+explanation:
+  hypothesis: A full rectangular backer remains visually legible from the front even when translated rearward; masking the rear layer to glyph silhouettes and adding only local bridges preserves negative space while keeping the letters in one printable body.
+  mechanism: The glyph bodies occlude a matching recessed rear layer, while only short bridge spans occupy inter-glyph gaps. Their 6.0 mm setback places those spans in shadow and prevents the facade from reading as a sign panel.
+  alternatives:
+    - A full recessed panel may remain visible through every counter and gap and continue to read as a plaque.
+    - Very thin or single-point bridges may fracture during transport or cleaning.
+    - Side relief can reduce the finished gap or make bridges more visible if gap keep-outs are not enforced.
+    - Some personalized glyph pairs may not offer two robust bridge bands and must fail closed or use a different local bridge layout.
+  validated: false
+  validation_method: "Approve a front/rear/section concept, then generate and print a representative textured multi-glyph bridge coupon. Require the front silhouette, counters, >=1.2 mm finished gaps, one connected body, and normal-handling result to pass before the full pair."
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: false
+  measurement_method: "Explicit user correction and requirements normalization; proposed dimensions are not measurements."
+  uncertainty: "No approved concept, generated connector, print, photo, gap measurement, or handling result exists. Exact physical C material/profile context is incomplete."
+  sources:
+    - type: user-statement
+      ref: "User correction in the 2026-08-31 NameForm letter-dominant design phase"
+      hash: null
+      notes: "Make the stand mostly from larger tightly spaced glyphs; put the wood look on the glyphs including the fronts; recess the background so it only connects the letters and is barely visible."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
+      hash: null
+      notes: "Requirements revision 0.4.0 records the user correction and the proposed dimensions pending approval."
+    - type: product-trace
+      ref: products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+      hash: null
+      notes: "Prospective preflight treats the connector and visual front as separate interfaces in Lane C."
+  artifacts:
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/renders/DRAFT-nameform-STE-FAN-wood-direct-v0.3.0-tx0.2.0.png
+    - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+applicability:
+  triggers:
+    - A personalized FFF name object must read as freestanding characters while remaining one connected body.
+    - A full plaque or background panel is explicitly rejected as the dominant front silhouette.
+  exclusions:
+    - Text printed as an inlay, label, or shallow relief on a deliberately visible plaque.
+    - Independent loose letters that do not need a shared printable connector.
+    - Safety-critical signs or load-bearing letter structures without separate engineering.
+  transfer_limits:
+    - Treat the 122 mm cap height, 1.8/1.2 mm gap values, 6.0 mm setback, and 2.4 mm web as NameForm experiment values until physically tested.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00046
+  evals:
+    - EVAL-visual-letter-dominant-recessed-connector-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/design-printable-surface-textures/SKILL.md
+    - .agents/skills/3d-print-heightmap-relief/SKILL.md
+validation:
+  targeted: not-run
+  regression: not-run
+  reports:
+    - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+provenance:
+  project: MM-PER-001
+  part_revision: 0.4.0-requirements
+  trace: products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
+  source_commit: null
+  created_by: Codex
+tags:
+  - nameform
+  - freestanding-text
+  - letter-dominant
+  - recessed-connector
+  - visible-gap
+  - wood-texture
+  - fff

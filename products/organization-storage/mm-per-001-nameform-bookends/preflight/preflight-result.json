@@ -1,213 +1,326 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-001",
-  "assessment_version": "0.1.0",
+  "assessment_id": "PREFLIGHT-MM-PER-001-002",
+  "assessment_version": "0.2.0",
   "assessment_date": "2026-08-31",
-  "product": "Nameform Split Pair Bookends",
+  "product": "NameForm letter-dominant split-pair bookends",
   "scope": {
-    "intended_use": "A coordinated pair of distinct left and right bookends. Books stand between the two ends along X. Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing decorative wing. The left and right text halves read as one name from the front; neither text half is mirrored. Functional stop height does not change with the name.",
-    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "intended_use": "A coordinated left/right indoor bookend pair whose visible front facade is formed by large, tightly spaced name glyphs. The wood appearance uses the physically preferred direct-sampled candidate C on the glyph fronts. A recessed rear web only connects the glyphs; the existing side-blade and inward-foot architecture carries the books.",
+    "user_context": "Adult indoor use on a flat shelf or desk; default STE | FAN pair; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers.",
     "variants": [
-      "0.3.0"
+      "0.4.0 requirements draft",
+      "default name STEFAN split STE | FAN"
     ],
     "out_of_scope": [
-      "Claims not explicitly supported by the cited repository evidence",
-      "Production release without closure of blocking gates"
+      "Wall mounting, stacking, child-directed use, structural shelving, or loads beyond the approved physical test",
+      "Automatic printer upload or print start",
+      "Claiming candidate C as equivalent for another material, machine, nozzle, orientation, relief depth, pattern, or physical scale without another controlled coupon"
     ]
   },
   "entities": [
-    {
-      "id": "E-PRINT-001",
-      "kind": "PRINTED_PART",
-      "name": "Nameform Split Pair Bookends"
-    },
-    {
-      "id": "E-HOST-001",
-      "kind": "HOST_OBJECT",
-      "name": "Intended host object or storage envelope"
-    }
+    {"id": "E-CORE-001", "kind": "PRINTED_PART", "name": "Mirrored side-blade and inward-foot functional core"},
+    {"id": "E-FACADE-001", "kind": "PRINTED_PART", "name": "Fused large-glyph facade with recessed connector web and wood relief"},
+    {"id": "E-BOOKS-001", "kind": "HOST_OBJECT", "name": "Representative indoor book row"},
+    {"id": "E-SHELF-001", "kind": "HOST_OBJECT", "name": "Flat shelf or desk"},
+    {"id": "E-HUMAN-001", "kind": "HUMAN", "name": "Adult viewer and handler"}
   ],
   "interfaces": [
     {
-      "id": "IF-EXT-GEO-CON-MIXED-001",
-      "name": "Printed product to intended host",
-      "endpoint_b": "E-HOST-001",
+      "id": "IF-EXT-MEC-SUP-PLN-001",
+      "name": "Inward foot support on shelf",
+      "endpoint_a": "E-CORE-001",
+      "endpoint_b": "E-SHELF-001",
       "boundary": "EXT",
-      "domains": [
-        "GEO",
-        "MEC"
+      "domains": ["GEO", "MEC"],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": ["assembly", "use", "cleaning", "service", "storage"],
+      "evidence": {
+        "level": "E3",
+        "sources": ["design-spec.yaml", "source/v0.3.0/nameform_bookends.py", "validation/v0.3.0/interface-validation.json", "test-plan.yaml"],
+        "variant_confirmed": true,
+        "coverage_percent": 75,
+        "uncertainty_note": "The 0.3.0 foot geometry is retained, but 0.4.0 load and slide tests have not run.",
+        "observability": "OBSERVED"
+      },
+      "interface_complexity": {"GEO": 0, "KIN": 0, "TOL": 1, "PHY": 1, "VAR": 2, "LIF": 2, "total": 6, "tier": "I1"},
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Foot slides or tips on the shelf",
+          "effect": "The book row may lean or fall and may cause minor item or surface damage.",
+          "mitigation": "Retain the inward weighted foot and run the defined pair load/slide test on the intended shelf condition."
+        }
       ],
-      "function": "CON",
-      "geometry": "MIXED",
-      "endpoint_a": "E-PRINT-001",
-      "lifecycle_states": [
-        "assembly",
-        "use",
-        "cleaning",
-        "service",
-        "disassembly",
-        "storage"
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": ["With the defined 2.0 kg row there is no tip, fracture, permanent set, or slide beyond 5 mm."],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-EXT-MEC-LOD-PLN-002",
+      "name": "Side blade and foot support the book row",
+      "endpoint_a": "E-CORE-001",
+      "endpoint_b": "E-BOOKS-001",
+      "boundary": "EXT",
+      "domains": ["GEO", "MEC"],
+      "function": "LOD",
+      "geometry": "PLN",
+      "lifecycle_states": ["assembly", "use", "service", "disassembly", "storage"],
+      "loads_and_performance": {"book_row_mass_kg": 2.0, "representative_width_mm": [100, 400], "representative_height_mm": [100, 240]},
+      "evidence": {
+        "level": "E3",
+        "sources": ["design-spec.yaml", "source/v0.3.0/nameform_bookends.py", "validation/v0.3.0/stiffness-comparison.json", "test-plan.yaml"],
+        "variant_confirmed": true,
+        "coverage_percent": 70,
+        "uncertainty_note": "The nominal retained load path is defined, but no 0.4.0 physical proof load exists.",
+        "observability": "OBSERVED"
+      },
+      "interface_complexity": {"GEO": 1, "KIN": 0, "TOL": 1, "PHY": 2, "VAR": 2, "LIF": 2, "total": 8, "tier": "I2"},
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Side blade, foot, or gusset cracks under lateral book load",
+          "effect": "Loss of book-retaining function with limited property damage.",
+          "mitigation": "Keep decorative glyphs out of the primary load claim and repeat geometry, slicer, and physical pair tests on 0.4.0."
+        }
       ],
+      "verification": {
+        "method": "proof_load",
+        "acceptance_criteria": ["The complete pair passes the 2.0 kg book-row test without fracture, tip, permanent set, or excessive slide."],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-MEC-FST-EDGE-001",
+      "name": "Glyph facade joins the functional core through a recessed rear web",
+      "endpoint_a": "E-FACADE-001",
+      "endpoint_b": "E-CORE-001",
+      "boundary": "INT",
+      "domains": ["GEO", "MEC"],
+      "function": "FST",
+      "geometry": "EDGE",
+      "lifecycle_states": ["transport", "use", "cleaning", "service", "storage", "failure"],
       "dimensions": [
         {
-          "id": "DIM-PRIMARY-001",
-          "feature": "Primary interface envelope and functional allowance",
-          "nominal_mm": null,
+          "id": "DIM-CONNECTOR-SETBACK-001",
+          "feature": "Recommended glyph-front to connector-front setback",
+          "nominal_mm": 6.0,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
           "uncertainty_mm": null,
-          "status": "UNKNOWN",
+          "status": "ESTIMATED",
           "source_ref": "design-spec.yaml",
-          "criticality": "FIT_CRITICAL"
+          "criticality": "COSMETIC"
+        },
+        {
+          "id": "DIM-CONNECTOR-THICKNESS-001",
+          "feature": "Recommended rear connector web thickness",
+          "nominal_mm": 2.4,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "ESTIMATED",
+          "source_ref": "design-spec.yaml",
+          "criticality": "FUNCTION_CRITICAL"
         }
       ],
+      "keepouts_and_access": [
+        "Do not fill glyph counters or create a rectangular front panel.",
+        "Keep wood relief out of connector bonds, minimum-wall zones, the side-blade load path, and finished inter-glyph gaps."
+      ],
       "evidence": {
-        "level": "E2",
-        "sources": [
-          "design-spec.yaml",
-          "README.md",
-          "validation-project.locked.json",
-          "validation-project.json",
-          "print-profile-v0.3.0.json",
-          "test-plan.yaml",
-          "coupons/wood-texture-transfer-v0.2.0/README.md",
-          "coupons/wood-texture-pitch-v0.1.0/README.md"
-        ],
+        "level": "E1",
+        "sources": ["design-spec.yaml", "user requirement recorded 2026-08-31"],
         "variant_confirmed": false,
-        "coverage_percent": 55,
-        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
-        "observability": "PARTLY_OBSERVED"
+        "coverage_percent": 35,
+        "uncertainty_note": "The topology and dimensions are requirements-stage recommendations; no concept, CAD section, coupon, or physical result exists yet.",
+        "observability": "INFERRED"
       },
-      "interface_complexity": {
-        "GEO": 1,
-        "KIN": 0,
-        "TOL": 3,
-        "PHY": 1,
-        "VAR": 3,
-        "LIF": 2,
-        "total": 10,
-        "tier": "I2"
-      },
+      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 2, "total": 9, "tier": "I2"},
       "criticality": "K1",
       "failure_modes": [
         {
-          "mode": "Primary interface does not meet fit or functional intent",
-          "effect": "Loss of intended function and the credible failure effects recorded at product level",
-          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+          "mode": "A glyph or bridge is disconnected or breaks during handling",
+          "effect": "Appearance failure, sharp edge, and loss of the personalized facade.",
+          "mitigation": "Fail closed on disconnected glyph graphs, preserve 2.4 mm nominal rear structure, and print a representative connector/letter coupon before the full pair."
         }
       ],
       "verification": {
         "method": "test_coupon",
-        "acceptance_criteria": [
-          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
-        ],
+        "acceptance_criteria": ["Every glyph is part of one watertight body and the representative bridge coupon survives normal handling without fracture."],
         "status": "PLANNED",
         "result_refs": []
+      },
+      "owner": "product owner",
+      "version": "0.1"
+    },
+    {
+      "id": "IF-HUM-OPT-VIS-BODY-001",
+      "name": "Letter-only wood appearance from the intended front view",
+      "endpoint_a": "E-FACADE-001",
+      "endpoint_b": "E-HUMAN-001",
+      "boundary": "HUM",
+      "domains": ["GEO", "OPT", "HUM"],
+      "function": "VIS",
+      "geometry": "BODY",
+      "lifecycle_states": ["use", "cleaning", "service", "storage"],
+      "dimensions": [
+        {
+          "id": "DIM-GLYPH-GAP-001",
+          "feature": "Recommended nominal gap between neighboring glyph outlines",
+          "nominal_mm": 1.8,
+          "lower_mm": 1.2,
+          "upper_mm": null,
+          "clearance_mm": 1.2,
+          "uncertainty_mm": null,
+          "status": "ESTIMATED",
+          "source_ref": "design-spec.yaml",
+          "criticality": "COSMETIC"
+        },
+        {
+          "id": "DIM-FRONT-RELIEF-001",
+          "feature": "Candidate C glyph-front maximum relief depth",
+          "nominal_mm": 0.6,
+          "lower_mm": null,
+          "upper_mm": 0.6,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "DERIVED",
+          "source_ref": "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
+          "criticality": "COSMETIC"
+        }
+      ],
+      "keepouts_and_access": [
+        "No rectangular background may define the front silhouette.",
+        "Counters and finished glyph gaps remain visibly open.",
+        "The rear connector remains untextured and begins behind the glyph body."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
+          "coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md",
+          "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
+          "user selection of candidate C recorded 2026-08-31"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 60,
+        "uncertainty_note": "Candidate C is physically preferred on the upright planar coupon, but the new glyph mask, connector visibility, exposed flanks, exact filament, and complete profile are not yet validated.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 0, "VAR": 3, "LIF": 2, "total": 8, "tier": "I2"},
+      "criticality": "K0",
+      "failure_modes": [
+        {
+          "mode": "Texture becomes flat, gaps close, or the rear web reads as a panel",
+          "effect": "The product no longer reads as a letter-only wooden name stand.",
+          "mitigation": "Preserve candidate C on the glyph fronts, mask by exact glyph outlines, inspect orthographic and three-quarter views, and print a process-matched textured letter coupon."
+        }
+      ],
+      "verification": {
+        "method": "user_test",
+        "acceptance_criteria": ["From the approved front view the object reads as large separate wooden glyphs; gaps and counters are visible; no rectangular background is perceived; wood relief remains recognizable under the intended lighting."],
+        "status": "PLANNED",
+        "result_refs": ["coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md"]
       },
       "owner": "product owner",
       "version": "0.1"
     }
   ],
   "complexity": {
-    "dimension_scores": {
-      "REQ": 2,
-      "CTX": 3,
-      "PAR": 3,
-      "INT": 3,
-      "CPL": 1,
-      "MOT": 0,
-      "GEO": 1,
-      "PHY": 1,
-      "MAT": 2,
-      "EXT": 0,
-      "VER": 2
-    },
-    "score_0_100": 43.5,
+    "dimension_scores": {"REQ": 3, "CTX": 1, "PAR": 2, "INT": 2, "CPL": 2, "MOT": 0, "GEO": 2, "PHY": 1, "MAT": 2, "EXT": 0, "VER": 3},
+    "score_0_100": 41.25,
     "class": "C3",
     "drivers": [
-      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
-      "PAR=3: The current evidence exposes approximately 22 distinct geometry-file stems; exports may duplicate physical parts.",
-      "CTX=3: The use context includes a host, environment, or user variant that must be confirmed."
+      "REQ=3: Appearance, personalized glyph layout, hidden connection, preserved load path, texture fidelity, and print limits are coupled.",
+      "INT=2: Shelf, books, glyph-to-core connection, and human visual/handling interfaces all require independent acceptance.",
+      "VER=3: The revision needs deterministic geometry and exact slicing plus connector, texture, handling, and complete-pair physical tests."
     ]
   },
   "readiness": {
-    "level": "R2",
-    "component_levels": {
-      "scope_variant": "R3",
-      "requirements": "R2",
-      "critical_interfaces": "R2",
-      "manufacturing_profile": "R3",
-      "verification": "R2"
-    },
+    "level": "R3",
+    "component_levels": {"scope_variant": "R4", "requirements": "R3", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
     "blocking_unknowns": [
-      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
-      "measurable acceptance criteria"
+      "Explicit approval of requirements revision 0.4.0 and its Kobra 3 Max-only footprint",
+      "Approved concept view proving that the rear connector is visually subordinate",
+      "Physical connector and textured-glyph coupon evidence",
+      "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
     ],
-    "completeness_percent": 48.0
+    "completeness_percent": 72.0
   },
   "criticality": {
     "level": "K1",
-    "rationale": "Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.",
-    "credible_failure_effects": [
-      "loss of intended function",
-      "minor item or surface damage"
-    ]
+    "rationale": "The retained bookend load is modest and static; credible failures are appearance loss, a broken decorative glyph, or limited item/surface damage rather than high-energy or safety-critical harm.",
+    "credible_failure_effects": ["loss of intended book-retaining or personalized appearance function", "minor item or shelf damage", "sharp edge if a decorative bridge breaks"]
   },
-  "gates": {
-    "G0": "PASS",
-    "G1": "PASS",
-    "G2": "WARN",
-    "G3": "PASS",
-    "G4": "WARN",
-    "G5": "PASS",
-    "G6": "PASS"
-  },
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "WARN", "G5": "PASS", "G6": "PASS"},
   "decision": {
     "lane": "C",
-    "confidence": "LOW_UNKNOWN",
+    "confidence": "CONDITIONAL",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+    "rationale": "The retained functional core and physically preferred C texture route make the redesign feasible. CAD remains gated by requirements and concept approval; release additionally requires the new connector/glyph coupon, exact slicing, and full-pair physical tests."
   },
   "warnings": [
-    {
-      "code": "CRITICAL_INTERFACE_UNKNOWN",
-      "severity": "BLOCKER",
-      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
-    }
+    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The recessed rear connector topology and recommended 2.4 mm thickness are not yet supported by a sectioned concept, generated body, or physical handling coupon."},
+    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The preferred C print confirms appearance qualitatively, but the exact filament identity, conditioning, and complete slicer profile remain unknown."}
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
-      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+      "action": "Obtain explicit approval or corrections for design-spec revision 0.4.0.",
+      "exit_criterion": "Requirements approval records revision 0.4.0 and confirms the 122 mm cap height, tight-gap contract, recessed connector, C front texture, and Kobra 3 Max-only footprint."
     },
     {
       "priority": 2,
-      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
-      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+      "action": "Create and obtain approval for a concept sheet showing front, three-quarter rear, and connector section views.",
+      "exit_criterion": "The user confirms that the facade reads as separate large glyphs and the rear web is barely visible from the front."
+    },
+    {
+      "priority": 3,
+      "action": "Generate a process-matched representative letter/bridge coupon before the complete pair.",
+      "exit_criterion": "The coupon preserves candidate C on the front, retains at least 1.2 mm finished gaps, keeps counters open, and passes handling plus visual review."
+    },
+    {
+      "priority": 4,
+      "action": "Build, validate, exactly slice, and physically test the complete left/right pair.",
+      "exit_criterion": "Both bodies pass topology, bed, support, texture, watermark, package, 2.0 kg load/slide, and final human appearance gates."
     }
   ],
   "traceability": {
-    "mode": "RETROSPECTIVE",
+    "mode": "PROSPECTIVE",
     "project_id": "MM-PER-001",
-    "project_revision": "0.3.0",
+    "project_revision": "0.4.0",
     "basis_refs": [
       "design-spec.yaml",
-      "README.md",
-      "validation-project.locked.json",
-      "validation-project.json",
-      "print-profile-v0.3.0.json",
+      "source/v0.3.0/nameform_bookends.py",
+      "validation/v0.3.0/interface-validation.json",
+      "validation/v0.3.0/stiffness-comparison.json",
       "test-plan.yaml",
       "coupons/wood-texture-transfer-v0.2.0/README.md",
-      "coupons/wood-texture-pitch-v0.1.0/README.md"
+      "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
+      "coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md",
+      "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
+      "coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json"
     ],
     "change_triggers": [
-      "backfill_missing_preflight",
-      "portfolio_documentation_audit",
-      "product_root_version_cleanup"
+      "user_selected_direct_sampled_texture_candidate_c",
+      "letter_dominant_front_architecture",
+      "larger_tightly_spaced_glyphs",
+      "recessed_connector_web",
+      "texture_scope_moves_from_panel_to_glyphs",
+      "layer_height_changes_to_0p12_mm"
     ],
-    "previous_assessment_id": null,
-    "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T12:29:39+02:00"
+    "previous_assessment_id": "PREFLIGHT-MM-PER-001-001",
+    "created_at": "2026-08-31T13:41:59+02:00",
+    "updated_at": "2026-08-31T13:41:59+02:00"
   }
 }

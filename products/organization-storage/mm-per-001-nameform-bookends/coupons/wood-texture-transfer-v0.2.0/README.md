@@ -1,6 +1,7 @@
 # NameForm wood-texture direct-transfer coupon v0.2.0
 
-Status: digitally validated DRAFT. Physical appearance review is required.
+Status: candidate C physically preferred for the next NameForm design; exact
+print context and the revised textured-glyph/connector review remain open.
 
 This revision corrects the failed v0.1 coupon. The successful Honeycomb shelf
 does not first shrink the wood image to a low-resolution build raster. Its mesh
@@ -64,8 +65,10 @@ support and estimates 108.10/108.31 g and 7 h 43 min/7 h 42 min respectively.
   is a separately flat-printed textured skin or faceplate, because its relief
   is then resolved in Z rather than primarily by XY perimeter placement.
 
-Record the observation in `physical-evaluation.md` before treating either
-integrated NameForm STL as a print candidate.
+The user selected C on 2026-08-31 as already looking quite good. That selection
+authorizes C as the 0.4.0 glyph-front design input. It does not promote the old
+broad-wing pair to a print candidate and does not validate textured glyph
+flanks or the new recessed connector.
 
 ## Integrated NameForm draft
 

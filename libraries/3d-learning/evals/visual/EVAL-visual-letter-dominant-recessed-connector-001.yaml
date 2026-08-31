@@ -1,0 +1,51 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-letter-dominant-recessed-connector-001
+title: Letter-dominant facade stays visually separate while a recessed web keeps every glyph connected
+category: visual
+status: draft
+trigger: A personalized FFF name facade must appear to be made from separate large glyphs while printing as one connected body with a rear connector.
+risk: A full backer can remain visible through gaps and counters so the object reads as a plaque, while an undersized or relief-damaged connector can leave glyphs disconnected or fragile.
+given:
+  approved_requirements: intended front direction, font, cap height, baseline, nominal and minimum finished gap, glyph depth, connector setback/thickness, and permitted bridge regions
+  geometry_candidate: exact glyph outlines, counters, rear web, local bridges, core junction, and textured-surface masks
+  process_context: printer, material, nozzle, layer height, orientation, exact slicer profiles, and intended viewing distance/lighting
+expected:
+  - The orthographic front silhouette contains no rectangular panel; glyph counters remain open and every neighboring pair retains the approved minimum finished gap.
+  - The rear layer follows glyph-covered regions and uses only local bridge spans across gaps; those spans begin at or behind the approved setback and are visibly subordinate in the approved front view.
+  - Every visible glyph belongs to one connected watertight manufacturing body through the rear web and core junction, with no tangent-only contact or disconnected island.
+  - Wood relief is limited to approved glyph surfaces and cannot enter bridge bonds, counters, minimum-gap keep-outs, the book-contact face, foot, bed datum, or other protected structure.
+  - A front, rear three-quarter, and connector-section image correspond to the same geometry revision and make both visual hierarchy and bond geometry reviewable.
+  - A process-matched representative glyph/bridge coupon passes front-view appearance, finished-gap measurement, counter openness, one-body connectivity, edge quality, and normal-handling review before the complete pair is released.
+failure_conditions:
+  - A continuous rectangular or counter-filling background remains visible from the approved front view.
+  - Any finished glyph gap is below the approved minimum, disappears after relief, or is bridged at the glyph front.
+  - A glyph or counter becomes a disconnected island, tangent-only contact is used, or a bridge fractures in the representative handling test.
+  - The selected wood texture appears only on the background while the glyph front is smooth, or glyph relief damages connector bonds and protected regions.
+  - A beauty render, mesh audit, or slicer success substitutes for the front-silhouette, section, and physical coupon evidence.
+fixtures:
+  - products/organization-storage/mm-per-001-nameform-bookends/design-spec.yaml
+  - products/organization-storage/mm-per-001-nameform-bookends/preflight/preflight-result.json
+  - products/organization-storage/mm-per-001-nameform-bookends/coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: "Deterministic checks must prove one watertight connected body, open counters, protected surfaces, and the approved minimum gap. Human review must confirm that the front reads as separate large wooden glyphs and that rear bridges are barely visible."
+  measurement_method: "Exact front-silhouette and connectivity analysis, section inspection, exact-slicer layer review, then a process-matched visual/handling coupon with caliper gap checks."
+relationships:
+  lessons:
+    - EXP-00050
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - visual
+  - nameform
+  - freestanding-text
+  - recessed-connector
+  - visible-gap
+  - surface-texture

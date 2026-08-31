@@ -1,52 +1,63 @@
-product: Nameform Split Pair Bookends
-intended_use: A coordinated pair of distinct left and right bookends. Books stand between the two ends along X.
-  Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing
-  decorative wing. The left and right text halves read as one name from the front; neither text half is mirrored.
-  Functional stop height does not change with the name.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+product: NameForm letter-dominant split-pair bookends
+intended_use: >
+  Coordinated indoor left/right bookends whose visible front facade is made from
+  large, tightly spaced wood-textured glyphs. A recessed rear web only connects
+  the glyphs; the retained side blade and inward foot carry the book row.
+user_context: Adult indoor use on a flat shelf or desk; default STE | FAN pair.
 host_variant:
-  manufacturer: null
-  model: null
+  manufacturer: Anycubic
+  model: Kobra 3 Max
   revision: null
-  variant_confirmed: false
+  variant_confirmed: true
 lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
+  - transport
+  - assembly
+  - use
+  - cleaning
+  - service
+  - disassembly
+  - storage
+  - failure
 requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
+  - Use candidate C as the glyph-front wood appearance basis.
+  - Replace the rectangular front wing with large freestanding glyphs.
+  - Keep glyph gaps visible and the rear connector barely visible from the front.
+  - Preserve the retained side-blade and inward-foot book load path.
+  - Do not enter CAD before requirements and concept approval.
 known_components:
-- Nameform Split Pair Bookends
-- Intended host object or storage envelope
+  - Mirrored side-blade and inward-foot functional core
+  - Fused glyph facade and recessed rear connector web
+  - Representative book row
+  - Flat shelf or desk
 available_evidence:
-- design-spec.yaml
-- README.md
-- validation-project.locked.json
-- validation-project.json
-- print-profile-v0.3.0.json
-- test-plan.yaml
-- coupons/wood-texture-transfer-v0.2.0/README.md
-- coupons/wood-texture-pitch-v0.1.0/README.md
+  - design-spec.yaml
+  - source/v0.3.0/nameform_bookends.py
+  - validation/v0.3.0/interface-validation.json
+  - validation/v0.3.0/stiffness-comparison.json
+  - test-plan.yaml
+  - coupons/wood-texture-transfer-v0.2.0/README.md
+  - coupons/wood-texture-transfer-v0.2.0/transfer-spec.json
+  - coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
+  - coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json
+  - coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json
 manufacturing_profile:
-  printer: 'operator_model: "anycubic kobra 3 max'
+  printer: Anycubic Kobra 3 Max
   process: FDM/FFF
   nozzle_mm: 0.4
-  material: PLA
+  material: PETG family; exact product/color/batch unknown
+  layer_height_mm: 0.12
   orientation_known: true
 known_loads_environment:
-  loads: []
-  temperature_c: null
+  loads:
+    - 2.0 kg representative static book row
+  temperature_c: [10, 30]
   media: []
-  duration: null
+  duration: years with occasional repositioning
 safety_notes:
-- Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy
-  in the documented scope.
+  - Credible failure is K1: appearance or book-retaining function loss with limited property damage.
+  - The decorative glyph facade is not part of the primary book-load claim.
 interfaces:
-- IF-EXT-GEO-CON-MIXED-001
+  - IF-EXT-MEC-SUP-PLN-001
+  - IF-EXT-MEC-LOD-PLN-002
+  - IF-INT-MEC-FST-EDGE-001
+  - IF-HUM-OPT-VIS-BODY-001

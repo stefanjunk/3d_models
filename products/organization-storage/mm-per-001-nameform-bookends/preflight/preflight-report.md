@@ -1,91 +1,84 @@
-# Retrospective 3D-design preflight — Nameform Split Pair Bookends
+# Prospective 3D-design preflight — NameForm 0.4.0
 
-`Nameform Split Pair Bookends | C3 (43.5/100) | R2 | K1 | Lane C | LOW_UNKNOWN`
+`NameForm letter-dominant split-pair bookends | C3 (41.25/100) | R3 | K1 | Lane C | CONDITIONAL`
 
 ## Decision
 
-- Release: `GO_WITH_CONTROLS`
-- Lane: `C`
-- Rationale: The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete.
-- Purpose: A coordinated pair of distinct left and right bookends. Books stand between the two ends along X. Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing decorative wing. The left and right text halves read as one name from the front; neither text half is mirrored. Functional stop height does not change with the name.
+- Release route: `GO_WITH_CONTROLS`
+- Lane: `C — Iterative Engineering`
+- The retained functional core and the physically preferred direct-sampled C
+  texture make the redesign feasible.
+- Requirements and concept approval still gate CAD. The new rear connector,
+  textured glyph geometry, exact slice, and complete pair remain test items.
 
-This is a retrospective backfill of the currently evidenced repository state.
-Unknown facts were not reconstructed or inferred as measurements.
+## Assessed revision
 
-## Complexity score rationale
+The visible rectangular wing is replaced by large outline-packed glyphs. A
+glyph-shaped rear layer and local bridges connect adjacent glyphs 6.0 mm behind
+their front faces. The existing side blade and inward foot retain the book load;
+the glyph facade remains visually and structurally secondary to that load path.
 
-| Dimension | Score | Evidence-based rationale |
+Candidate C is carried forward unchanged on glyph fronts:
+
+- full 1254 x 1254 16-bit master sampled directly at mesh vertices;
+- 120 x 45 mm physical patch and 24 px seam blend;
+- 0.6 mm maximum front relief and 0.45 mm surface grid;
+- upright front face pointing toward `-Y`;
+- 0.4 mm nozzle and 0.12 mm layer height.
+
+The physical statement “variant C already looks quite good” supports this route,
+but exact filament identity, conditioning, complete profile, and the new glyph
+mask remain unresolved.
+
+## Complexity and readiness
+
+| Dimension | Score | Rationale |
 |---|---:|---|
-| REQ | 2 | A design specification or requirement record exists, but release criteria may still be incomplete. |
-| CTX | 3 | The use context includes a host, environment, or user variant that must be confirmed. |
-| PAR | 3 | The current evidence exposes approximately 22 distinct geometry-file stems; exports may duplicate physical parts. |
-| INT | 3 | At least one functional host, human, medium, or assembly boundary governs success. |
-| CPL | 1 | The available architecture appears locally coupled or monolithic. |
-| MOT | 0 | The primary product state is static apart from assembly handling. |
-| GEO | 1 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
-| PHY | 1 | Only low static or cosmetic loading is evident. |
-| MAT | 2 | Material behavior, anisotropy, flexibility, surface process, or post-processing affects function. |
-| EXT | 0 | Little or no external-component integration is evidenced. |
-| VER | 2 | Several fit, function, flow, load, motion, or process checks are required. |
+| REQ | 3 | Appearance, personalized glyphs, hidden connection, load path, texture fidelity, and print limits are coupled. |
+| CTX | 1 | One known indoor use context and one target printer dominate the current revision. |
+| PAR | 2 | Two mirrored manufacturing parts contain logical functional-core and glyph-facade subsystems. |
+| INT | 2 | Shelf, books, facade bond, and human visual/handling interfaces require separate acceptance. |
+| CPL | 2 | Font, gap, bridge, texture mask, footprint, and side-blade junction share datums. |
+| MOT | 0 | No mechanism. |
+| GEO | 2 | Vector glyphs, local connector synthesis, and masked image relief are more than simple primitives. |
+| PHY | 1 | Modest static book load and handling only. |
+| MAT | 2 | Upright FFF orientation and appearance are process/material sensitive. |
+| EXT | 0 | No purchased parts or electronics. |
+| VER | 3 | Deterministic checks plus texture, connector, handling, and full-pair physical tests are required. |
 
-## Readiness
-
-| Component | Level |
-|---|---|
-| scope_variant | R3 |
-| requirements | R2 |
-| critical_interfaces | R2 |
-| manufacturing_profile | R3 |
-| verification | R2 |
-
-Blocking unknowns:
-
-- variant-confirmed critical interface dimensions, tolerances, and uncertainty
-- measurable acceptance criteria
-
-## Criticality
-
-`K1` — Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.
-
-Credible effects: loss of intended function, minor item or surface damage.
+Readiness is `R3`: scope and manufacturing route are defined, but the revised
+requirements are unapproved and the glyph connector has no concept, CAD, or
+physical evidence.
 
 ## Interface register
 
 | Contract | Interface | Evidence | Criticality | Verification |
 |---|---|---:|---:|---|
-| `IF-EXT-GEO-CON-MIXED-001` | Printed product to intended host | E2 | K1 | PLANNED |
-
-The JSON contract records the primary discovered boundary. Because the audit
-does not prove complete interface discovery, G1/G2 remain conservative.
+| `IF-EXT-MEC-SUP-PLN-001` | Inward foot to shelf | E3 | K1 | planned pair test |
+| `IF-EXT-MEC-LOD-PLN-002` | Side blade/foot to book row | E3 | K1 | planned proof load |
+| `IF-INT-MEC-FST-EDGE-001` | Glyph facade to core | E1 | K1 | planned connector coupon |
+| `IF-HUM-OPT-VIS-BODY-001` | Letter-only wood appearance | E3 | K0 | planned concept and textured-letter review |
 
 ## Hard gates
 
-| Gate | Status |
-|---|---|
-| G0 | PASS |
-| G1 | PASS |
-| G2 | WARN |
-| G3 | PASS |
-| G4 | WARN |
-| G5 | PASS |
-| G6 | PASS |
+| Gate | Status | Reason |
+|---|---|---|
+| G0 | PASS | Product, user, default text, and indoor use are defined. |
+| G1 | PASS | Functional, structural, host, and visual interfaces are registered. |
+| G2 | WARN | The new connector has requirement-level evidence only. |
+| G3 | WARN | Printer/nozzle/layer/orientation are known; exact physical-C filament and full profile are not. |
+| G4 | WARN | Acceptance methods are defined but revision 0.4.0 is not approved. |
+| G5 | PASS | K1 permits Lane C with physical gates. |
+| G6 | PASS | Transport, handling, cleaning, service, and storage are included. |
 
-## Warnings
+## Required next evidence
 
-- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence.
+1. Approve or correct requirements revision 0.4.0.
+2. Approve a concept sheet with front, rear three-quarter, and connector section.
+3. Print one representative textured glyph/bridge coupon; require visible gaps,
+   open counters, one connected body, recognizable C texture, and handling pass.
+4. Build, exactly slice, and physically test the complete pair before release.
 
-## Next evidence
-
-1. Confirm the exact product/host variant and complete the primary interface contract. Exit: Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence.
-2. Define measurable acceptance criteria and a minimal coupon/prototype test. Exit: Each critical interface and credible failure mode has a method, threshold, and result-record location.
-
-## Traceability basis
-
-- `design-spec.yaml`
-- `README.md`
-- `validation-project.locked.json`
-- `validation-project.json`
-- `print-profile-v0.3.0.json`
-- `test-plan.yaml`
-- `coupons/wood-texture-transfer-v0.2.0/README.md`
-- `coupons/wood-texture-pitch-v0.1.0/README.md`
+The previous retrospective assessment is
+`PREFLIGHT-MM-PER-001-001`; this prospective update is
+`PREFLIGHT-MM-PER-001-002`.

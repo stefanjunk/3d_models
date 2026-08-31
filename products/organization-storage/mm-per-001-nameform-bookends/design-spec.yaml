@@ -1,94 +1,116 @@
 # NameForm Bookends — active design specification (single source of truth)
-# Revision 0.3.0 replaces the product architecture while preserving release 0.2.0.
+# Revision 0.4.0 is the requirements draft for the letter-dominant wood-texture redesign.
 
 project:
   id: MM-PER-001
   name: "NameForm Split-Pair Bookends"
   sku: MM-PER-001
-  revision: 0.3.0
+  revision: 0.4.0
   owner: "Stefan"
   created: "2026-08-26"
-  supersedes: "0.2.0 (historical M prototype retained under release/)"
+  supersedes: "0.3.0 (existing source, exports, concept, and validation remain historical evidence)"
   portfolio_record: "business/02-portfolio/product-portfolio.csv#PORT-002"
-  tool_route: "CadQuery B-Rep source of truth; vector font outlines; Trimesh and validate-printable-3d-projects evidence"
+  tool_route: "CadQuery B-Rep functional core and glyph outlines; masked direct-sampled heightmap patches on visible glyph surfaces; Trimesh and validate-printable-3d-projects evidence"
 
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: PROSPECTIVE
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-PER-001-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "0.3.0"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    assessment_id: PREFLIGHT-MM-PER-001-002
+    assessment_version: 0.2.0
+    previous_assessment_id: PREFLIGHT-MM-PER-001-001
+    assessed_project_revision: "0.4.0"
+    updated_at: "2026-08-31T13:41:59+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
+      - user_selected_direct_sampled_texture_candidate_c
+      - letter_dominant_front_architecture
+      - larger_tightly_spaced_glyphs
+      - recessed_connector_web
+      - texture_scope_moves_from_panel_to_glyphs
+      - layer_height_changes_to_0p12_mm
   requirements_approval:
-    status: approved
-    spec_revision: 0.3.0
-    approved_by: "Stefan — 'fix it, follow your recommendations and go on'"
-    approved_at: "2026-08-26"
+    status: changes-requested
+    spec_revision: 0.4.0
+    approved_by: null
+    approved_at: null
+    reason: "User requested a letter-only visual architecture after selecting texture coupon C; structured revision approval is pending."
   concept_approval:
-    status: approved
-    spec_revision: 0.3.0
-    asset: "concept/nameform-bookends-v0.3.0-concept.png"
-    approved_by: "Stefan — 'freigegeben'"
-    approved_at: "2026-08-26"
+    status: blocked
+    spec_revision: 0.4.0
+    asset: null
+    approved_by: null
+    approved_at: null
+    reason: "Blocked until requirements revision 0.4.0 is explicitly approved."
   watermark_approval:
     status: blocked
-    spec_revision: 0.3.0
-    asset_id: MM-WM-001-R1
+    spec_revision: 0.4.0
+    asset_id: null
     product_id: MM-PER-001
-    version: 0.3.0
-    digital_status: "PASS on both parts; exact profile and physical coupon pending"
-    generated_profile: "assets/metrimade-watermark/generated/MM-PER-001_v0.3.0/"
-    manifest_asset: "assets/metrimade-watermark/generated/MM-PER-001_v0.3.0/manifest.sha256"
-    placement: "centered on each inward-foot underside; selector rotation 90 degrees; scale 1.0"
-    preview_asset: "validation/v0.3.0/watermark/finished-underside.png"
-    validation_asset: "validation/v0.3.0/watermark-candidate.json"
-    reason: "Exact slicer layers and the physical watermark coupon are not yet approved"
+    version: 0.4.0
+    digital_status: "NOT GENERATED for the revised geometry"
+    generated_profile: null
+    manifest_asset: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    reason: "Requirements, concept, production geometry, and safe underside region are not yet approved."
   digital_candidate:
-    status: completed
-    evidence: "validation/v0.3.0/build-summary-candidate.json"
+    status: blocked
+    evidence: null
+    reason: "No 0.4.0 CAD is permitted before requirements and concept approval."
   slicer_preflight:
     status: blocked
-    evidence: "validation/v0.3.0/slicer-preflight.json"
-    reason: "No supported exact slicer executable is installed on the build host"
+    evidence: null
+    reason: "No 0.4.0 manufacturing mesh exists yet."
   physical_validation:
     status: blocked
     evidence_plan: "test-plan.yaml"
-    reason: "Human-operated coupon and complete-pair tests TP-01 through TP-06 are not run"
+    reason: "The revised glyph connector, textured glyph surfaces, and complete pair are not yet tested."
   final_release_approval:
     status: blocked
-    reason: "Slicer, physical, watermark, and final human approval gates remain open"
+    reason: "Requirements, concept, slicer, physical, watermark, and final human approval gates remain open."
 
 provenance:
   user_stated:
     - "Fix the audited design and continue using the recommended improvements"
     - "Support different letters, whole names, and a name split between left and right ends"
-  recommended_and_approved:
+    - "Wood-texture transfer coupon variant C already looks quite good and is selected as the wood appearance basis"
+    - "The visible front shall consist primarily of larger letters rather than a textured rectangular panel"
+    - "Apply the wood appearance to the letters, explicitly including their front faces"
+    - "Move the background far behind the letters so it is barely visible from the front and serves only to connect the letters"
+    - "Set letters very close together while retaining a visible gap"
+  previously_approved:
     - "True mechanically mirrored left/right pair with books between the ends"
     - "Inward feet under the books so book weight stabilizes the pair"
     - "Fixed functional stop height independent of text length"
     - "Shared font size and baseline for split-name halves"
     - "Shell/rib construction instead of a 100%-solid ballast slab"
     - "Valid per-side 3MFs, exact print profile, deterministic validation, and physical test plan"
+  recommended_pending_approval:
+    - "Use Noto Sans ExtraCondensed ExtraBold as the default open-licensed glyph source so the letters can grow materially without exceeding the Kobra 3 Max bed"
+    - "Use 122 mm default cap height and outline-position glyphs with 1.8 mm nominal gaps; preserve at least 1.2 mm after any side relief"
+    - "Replace the full wing with 6.0 mm deep glyph bodies and a 2.4 mm rear connector web whose front begins 6.0 mm behind the glyph front"
+    - "Generate only local rear bridges between neighboring glyphs and the functional side blade; do not fill counters or create a rectangular background"
+    - "Keep the side-blade and inward-foot load path from 0.3.0 while making it visually subordinate from the front"
+    - "Use accepted candidate C unchanged on glyph fronts; use a shallower mapped treatment on exposed glyph flanks only after a process-matched letter coupon"
   inferred:
     - "Front viewing direction is -Y; the complete split name reads left-to-right across the book row"
     - "First demonstration name is STEFAN, split STE | FAN"
     - "Indoor adult decorative/normal-functional use only"
   unresolved_nonblocking:
     - "Final color/material finish and optional heavy-duty fillable-ballast derivative"
+    - "Exact filament product, color, batch, conditioning, and the complete profile used for the physical C print"
 
 function:
   summary: >
     A coordinated pair of distinct left and right bookends. Books stand between
     the two ends along X. Each part has a vertical side blade beside the books,
-    a thin inward foot beneath the books, and a front-facing decorative wing.
+    a thin inward foot beneath the books, and a front-facing letter-dominant
+    facade without a rectangular wing.
     The left and right text halves read as one name from the front; neither text
-    half is mirrored. Functional stop height does not change with the name.
+    half is mirrored. A recessed rear web only joins the glyphs; the side blade
+    and foot retain the book load independently of the decorative glyphs.
   users:
     - "Adults retaining an indoor book row on a flat shelf or desk"
     - "3D-printer owners generating or printing a personalized pair"
@@ -100,16 +122,19 @@ function:
     explicit_pair:
       description: "Independent --left-text and --right-text values, including initials"
     whole_name_each_side:
-      description: "Optional same full name on both wings using shallow raised text"
+      description: "Optional same full name on both sides using the same freestanding-glyph architecture"
   text_contract:
     default_text: STEFAN
-    font: "Bundled DejaVu Sans Bold or Condensed Bold, SIL OFL 1.1; exact file and hash recorded"
+    font: "Recommended pending approval: bundled Noto Sans ExtraCondensed ExtraBold, SIL OFL; exact file, license, and hash recorded"
     normalization: "Unicode NFC"
     supported_initial_set: "A-Z, a-z, digits, space, hyphen, apostrophe, ÄÖÜäöüẞß"
     unsupported_glyph_behavior: "Fail closed with the missing code point; never substitute silently"
-    split_rule: "Choose a character boundary minimizing the larger rendered half width, then use one common scale"
+    split_rule: "Choose a character boundary minimizing the larger outline-packed half width, then use one common cap height and baseline"
     minimum_printed_stroke_mm: 1.8
-    raised_depth_mm: 2.0
+    default_cap_height_mm: 122.0
+    nominal_inter_glyph_gap_mm: 1.8
+    minimum_finished_gap_mm: 1.2
+    glyph_body_depth_mm: 6.0
   interfaces:
     - "Shelf/desk: flat underside; optional anti-slip pads are a later accessory, not assumed in the load claim"
     - "Books: side blade contacts the outer book cover; inward foot lies beneath the book row"
@@ -125,28 +150,57 @@ coordinate_system:
   y: "shelf depth; +Y moves away from the front viewer"
   z: "up; print-bed datum z=0"
   handedness:
-    left: "decorative wing extends toward -X; foot extends inward toward +X"
-    right: "decorative wing extends toward +X; foot extends inward toward -X"
+    left: "letter facade extends toward -X; foot extends inward toward +X"
+    right: "letter facade extends toward +X; foot extends inward toward -X"
 
 geometry:
   fixed_parameters_mm:
     overall_height: 160
     side_blade_height: 150
     side_blade_depth: 115
-    decorative_wing_width: 125
+    default_letter_facade_width: "derived from glyph outlines; approximately 193 mm for STE and 241 mm for FAN at the recommended cap height and gap"
     inward_foot_length: 70
     inward_foot_thickness: "2.0 with a 15 mm support-free taper to a 0.6 mm inner toe"
     nominal_plate_thickness: 3.2
     nominal_rib_thickness: 2.4
     corner_radius: 3.0
-    text_edge_margin: 8.0
-  maximum_part_envelope_mm: [200, 120, 165]
-  build_margin_on_220_mm_bed: ">=10 mm on each XY axis without brim"
+    glyph_body_depth: 6.0
+    rear_connector_thickness: 2.4
+    rear_connector_setback_from_glyph_front: 6.0
+    nominal_inter_glyph_gap: 1.8
+    minimum_finished_inter_glyph_gap: 1.2
+  maximum_part_envelope_mm: [350, 120, 165]
+  build_margin_on_420_mm_bed: ">=35 mm in X and >=150 mm in Y for the default STE | FAN pair before brim"
   architecture:
     - "Continuous side blade and inward foot form the primary L-shaped book load path"
-    - "Front wing is a perpendicular framed skin carrying shallow raised text"
-    - "Rounded triangular gussets connect side blade, front wing, and foot"
-    - "No decorative text controls stop height, foot length, or side-blade depth"
+    - "Large extruded glyphs replace the rectangular front wing and create the visible facade silhouette"
+    - "A glyph-shaped rear layer and only the local bridges needed between adjacent glyphs connect the facade; counters remain open and no rectangular background is permitted"
+    - "The connector web begins 6.0 mm behind the glyph front so only small shadowed bridges can be seen through the gaps"
+    - "Rounded triangular gussets connect side blade, glyph facade, and foot where hidden from the intended front view"
+    - "Glyph geometry does not control stop height, foot length, or side-blade depth"
+
+surface_texture:
+  selected_candidate: "wood-texture-transfer-v0.2.0 candidate C — user reported on 2026-08-31 that it already looks quite good"
+  source_master: "libraries/surface-textures/wood-001/master/wood-001-tile-16bit.png"
+  source_sampling: "direct bilinear sampling from the full 1254 x 1254 16-bit master; no build-raster downsampling"
+  repeating_patch_mm: [120.0, 45.0]
+  seam_blend_px: 24
+  front_relief_depth_mm: 0.6
+  front_mesh_pitch_mm: 0.45
+  front_mapping: "image X follows model X; image Y follows descending model Z; phase remains continuous across a half-name before glyph masking"
+  front_mask: "glyph front faces only, tapered inside the outline so counters, silhouette, gaps, connector, side blade, foot, bed datum, and book-contact surfaces remain protected"
+  exposed_flanks: "recommended pending coupon: same master and physical phase on outward-visible glyph perimeter strips, maximum 0.30 mm normal relief, 0.45 mm surface pitch, with gap and junction keep-outs"
+  excluded_surfaces:
+    - "rear connector web and local bridges"
+    - "glyph backs and connector bonds"
+    - "side-blade book-contact face, foot, bed datum, gussets, watermark region, and all minimum-wall zones"
+  compute_budget:
+    strategy: "sample only masked glyph patches and serialize each half separately; source pixels never become a full-surface vertex grid"
+    target_triangles_each: 400000
+    stop_triangles_each: 1000000
+    max_mesh_mib_each: 50
+    max_peak_memory_gib: 4
+    max_exact_slicer_seconds: 240
 
 duty:
   book_row_mass_kg: 2.0
@@ -180,57 +234,56 @@ fabrication:
   process: fdm-fff
   printer:
     operator_model: "Anycubic Kobra 3 Max"
-    common_build_volume_mm: [220, 220, 250]
-  primary_material: "PLA matte"
-  alternative_material: "PETG after separate profile and creep/fit verification"
+    common_build_volume_mm: [420, 420, 500]
+  primary_material: "PETG family for transfer continuity; exact product/color/batch remains unresolved"
+  alternative_material: "PLA matte only after a separate appearance/process coupon"
   nozzle_mm: 0.4
-  layer_height_mm: 0.2
-  orientation: "Each side upright on its foot/front-wing base; z=0 underside on bed"
+  layer_height_mm: 0.12
+  orientation: "Each side upright on its foot/glyph-facade base; z=0 underside on bed; textured glyph fronts point -Y"
   supports: none
   target_formats: [step, stl, 3mf]
   manufacturing_delivery: "Separate left and right 3MFs for sequential printing plus an assembly STEP/preview"
 
 printer:
-  model: "Anycubic Kobra 3 Max (operator); common-printer design contract"
-  build_volume_mm: [220, 220, 250]
+  model: "Anycubic Kobra 3 Max (operator and current revision target)"
+  build_volume_mm: [420, 420, 500]
   enclosure: false
 
 manufacturing:
   process: fdm-fff
-  material: "PLA matte; PETG only after separate qualification"
+  material: "PETG family; exact product/color/batch unresolved"
   nozzle_mm: 0.4
-  layer_height_mm: 0.2
+  layer_height_mm: 0.12
   supports: none
   orientation: "upright on the designed bed datum"
   target_formats: [step, stl, 3mf]
 
 optimization:
-  status: pending
-  measured_geometry_result:
+  status: restarted-for-0.4.0
+  historical_0_3_0_geometry_result:
     candidate_pair_mass_g_at_pla_1_24: 319.98
     historical_pair_mass_g_at_pla_1_24: 3682.4
     cad_mass_reduction_percent: 91.31
     report: "validation/v0.3.0/optimization-comparison.json"
-    note: "Geometry candidate selected; print-time/process selection remains pending exact slicer evidence"
+    note: "Historical broad-wing geometry only; it is not the 0.4.0 candidate."
   protected_regions:
     - "Side blade/book contact face"
     - "Inward foot top and bed datum"
     - "Side-blade/foot/gusset load path"
-    - "Front text faces and shared baseline"
+    - "Glyph silhouette, counters, minimum finished gaps, rear connector bonds, and shared baseline"
+    - "Accepted candidate-C phase, scale, depth, seam treatment, and direct-sampling pipeline on glyph fronts"
     - "Watermark safe region after geometry lock"
   baseline: "Historical 0.2.0 M: 1484.805 cm3 and 1841.2 g per part at PLA density 1.24 g/cm3"
   candidates:
-    - "A process-only: current geometry with a faster qualified nozzle/profile — historical comparison only"
-    - "B geometry-only: fixed-height thin plates, feet, framed wing, and local gussets"
-    - "C combined: candidate B plus the fastest qualified 0.4/0.6 mm process retaining text and watermark"
-  acceptance: "No candidate selected without exact slicer metrics and all protected constraints passing"
+    - "A baseline: letter-dominant facade with candidate C on glyph fronts only and local recessed bridges"
+    - "B optional: candidate A plus shallower direct-sampled relief on approved exposed glyph flanks"
+    - "C fallback: candidate A with flank appearance carried only by material/finish if side mapping harms gaps, bonds, mesh budget, or slice quality"
+  acceptance: "Select no 0.4.0 candidate without approved concept correspondence, exact slicer metrics, protected-region checks, and the process-matched glyph/connector coupon"
   mesh_simplification:
-    status: not-beneficial
-    master_mesh:
-      - "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-left-candidate.stl"
-      - "exports/v0.3.0/candidate/DRAFT-nameform-STE-FAN-right-candidate.stl"
-    comparison_report: "validation/v0.3.0/mesh-simplification.json"
-    rationale: "Marked meshes are already below 8,000 faces and 0.4 MiB each; lossy decimation would risk protected text and watermark geometry without useful savings"
+    status: pending
+    master_mesh: null
+    comparison_report: null
+    rationale: "The 0.4.0 reference and manufacturing meshes do not exist yet; any relief simplification must be local and physically error-bounded."
     protected_regions:
       - "Side blade/book contact face"
       - "Inward foot top and bed datum"
@@ -239,11 +292,11 @@ optimization:
       triangle_target: 250000
       triangle_stop: 1000000
       peak_memory_gib: 4
-      max_mesh_mib: 25
-      max_slicer_seconds: 120
+      max_mesh_mib: 50
+      max_slicer_seconds: 240
     slicer_resolution_check:
       status: not-run
-      report: "validation/v0.3.0/slicer-preflight.json"
+      report: null
 
 acceptance:
   - id: paired-function
@@ -253,11 +306,20 @@ acceptance:
     criterion: "Each side is one positive watertight body with no nonmanifold or degenerate faces"
     method: "fdm_ci audit-mesh"
   - id: bed-fit
-    criterion: "Each sequential print fits 200x120x165 mm and the 220x220x250 contract"
+    criterion: "Each sequential default STE | FAN part fits the declared 350x120x165 mm maximum envelope and the 420x420x500 mm Kobra 3 Max profile"
     method: "mesh bounds plus exact slicer bed check"
   - id: text-valid
-    criterion: "Requested glyphs exist, outlines preserve holes, minimum printed stroke >=1.8 mm, common split scale/baseline"
-    method: "Font sweep, polygon validity, generated-mesh checks, and slicer thin-wall review"
+    criterion: "Requested glyphs exist; counters remain open; minimum stroke >=1.8 mm; default cap height is 122 mm; adjacent fronts retain >=1.2 mm visible gap; both halves share cap height and baseline"
+    method: "Font sweep, polygon validity, outline-spacing assertions, front-view silhouette render, and slicer thin-wall review"
+  - id: letter-only-front
+    criterion: "From the approved front view there is no rectangular panel; only glyphs, open counters, and small shadowed rear bridges are visible"
+    method: "Orthographic front silhouette comparison plus three-quarter concept/model render"
+  - id: wood-front-transfer
+    criterion: "Glyph fronts preserve candidate C source, 120 x 45 mm physical period, 24 px seam blend, 0.6 mm depth, 0.45 mm pitch, and direct full-master sampling"
+    method: "Source-coordinate regression, relief-span report, mesh audit, exact slice, and process-matched letter coupon"
+  - id: connector-integrity
+    criterion: "Every glyph is fused through the recessed rear web with no disconnected island and survives the defined handling coupon without fracture"
+    method: "Connectivity graph, watertight-body audit, section review, and physical handling test"
   - id: supports
     criterion: "No generated support; bridges/overhangs remain within the qualified profile"
     method: "CAD construction and exact slicer layer review"
@@ -278,9 +340,9 @@ branding:
   required: true
   brand: metriMade
   domain: metriMade.com
-  asset_id: MM-WM-001-R1
+  asset_id: MM-WM-001-R2
   product_id: MM-PER-001
-  version: 0.3.0
+  version: 0.4.0
   operation: recessed
   depth_mm: 0.4
   preferred_surface: flat-nonfunctional-low-stress-underside
@@ -298,9 +360,9 @@ deliverables:
   - "Current product-specific metriMade.com watermark package and evidence"
 
 paths:
-  historical_release: "release/manifest.json and release/design-spec-0.2.0.yaml"
-  concept: "concept/nameform-bookends-v0.3.0-concept.png"
-  source: "source/v0.3.0/"
-  exports: "exports/v0.3.0/"
-  validation: "validation/v0.3.0/"
+  historical_release: "release/manifest.json, release/design-spec-0.2.0.yaml, and committed 0.3.0 source/exports/validation"
+  concept: null
+  source: "source/v0.4.0/"
+  exports: "exports/v0.4.0/"
+  validation: "validation/v0.4.0/"
   test_plan: "test-plan.yaml"

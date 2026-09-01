@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-gcode-layer-marker-double-count-001
+title: Alternative G-code layer comments are not summed as independent layers
+category: core
+status: draft
+trigger: One G-code contains canonical layer-change markers and a second supported layer-comment syntax describing overlapping physical layers.
+risk: An additive parser reports a false layer mismatch and blocks a valid native slice, or a workaround rewrites manufacturing G-code to hide the analyzer defect.
+given:
+  gcode: immutable exact target-slicer output
+  declared_layers: header and footer declarations when present
+  marker_families: all recognized comment syntaxes classified separately
+  physical_layer_key: canonical Z value or another dialect-specific unique layer identity
+expected:
+  - Each marker family is counted separately before selecting a dialect-specific canonical sequence.
+  - Alternative families are cross-checked rather than added when they describe overlapping layers.
+  - The selected canonical count is supported by unique monotonic physical layer keys and agrees with valid header/footer declarations.
+  - Ambiguous marker semantics return REVIEW_REQUIRED instead of an invented additive count.
+  - The manufacturing G-code remains byte-exact and unchanged.
+failure_conditions:
+  - Canonical and supplemental marker counts are added into one layer total.
+  - A parser suppresses a mismatch without showing marker-family and physical-key evidence.
+  - G-code is normalized or edited to make the validator pass.
+  - Header/footer declarations override contradictory executable-layer evidence without review.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1/plate_1.gcode
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: Pass when the fixture resolves to 23 canonical layers with 23 unique Z values, records 19 supplemental comments separately, and does not report their sum as 42 layers.
+  measurement_method: Exact comment classification, canonical marker/Z enumeration, header/footer comparison and unchanged G-code SHA-256.
+relationships:
+  lessons:
+    - EXP-00057
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+  artifact_hashes:
+    - 83c38399c61395f03570b45824026717884d854bd5870457590cea5f3746e93b
+    - 83a126b2f8d5e13d43895bfc55da4e281003c1185076826d2a14df9159da8d0c
+tags:
+  - core
+  - gcode
+  - layer-count
+  - parser
+  - anycubic
+  - regression

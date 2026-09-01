@@ -1,0 +1,284 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer-executable",
+      "message": "Anycubic Slicer Next executable: /usr/bin/AnycubicSlicerNext",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-file",
+      "message": "Slicer input: /home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.3.0/berlin/berlin-left-four-color.3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-format",
+      "message": "Supported slicer input format: .3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fresh-output-directory",
+      "message": "Output directory is new: /home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "plate-index",
+      "message": "Slice plate selector: 0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "timeout",
+      "message": "Slicer timeout: 600 s",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile-set",
+      "message": "Using profiles embedded in the 3MF project",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-version",
+      "message": "Anycubic Slicer Next version 1.3.9.4",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-process",
+      "message": "Anycubic Slicer Next exited with code 0",
+      "metrics": {
+        "return_code": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-native-result",
+      "message": "Anycubic result.json reports success",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-output",
+      "message": "Generated 1 non-empty G-code file(s)",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-analysis:1",
+      "message": "G-code analysis for plate_1.gcode: FAIL",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-detail:1:layer-count-consistency",
+      "message": "plate_1.gcode: Layer markers 42; header [23]; summary [23]",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-detail:1:arc-motion",
+      "message": "plate_1.gcode: 1038 arc move(s) were reduced to endpoint chords; bounds, time, and flow are incomplete",
+      "metrics": {},
+      "required": false,
+      "status": "REVIEW_REQUIRED"
+    }
+  ],
+  "gcode_reports": {
+    "plate_1.gcode": {
+      "checks": [
+        {
+          "evidence": [],
+          "id": "gcode-parse",
+          "message": "G-code parsed without executing or uploading it",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "filament-diameter",
+          "message": "Filament diameter 1.75 mm",
+          "metrics": {},
+          "required": true,
+          "status": "PASS"
+        },
+        {
+          "evidence": [],
+          "id": "layer-count-consistency",
+          "message": "Layer markers 42; header [23]; summary [23]",
+          "metrics": {},
+          "required": true,
+          "status": "FAIL"
+        },
+        {
+          "evidence": [],
+          "id": "arc-motion",
+          "message": "1038 arc move(s) were reduced to endpoint chords; bounds, time, and flow are incomplete",
+          "metrics": {},
+          "required": false,
+          "status": "REVIEW_REQUIRED"
+        }
+      ],
+      "metrics": {
+        "arc_moves": 1038,
+        "extruded_volume_mm3": 246635.23468638142,
+        "filament_diameter_mm": 1.75,
+        "layers_declared": 23,
+        "layers_declared_header": 23,
+        "layers_declared_summary": 23,
+        "layers_from_comments": 42,
+        "motion_bounds_mm": {
+          "X": [
+            0.0,
+            420.0
+          ],
+          "Y": [
+            0.0,
+            420.0
+          ],
+          "Z": [
+            0.2,
+            6.6
+          ]
+        },
+        "motion_time_lower_bound_s": 31387.225980196414,
+        "peak_flow_line": 1026517,
+        "peak_flow_mm3_s": 15.458148116915483,
+        "positive_extrusion_mm_by_tool": {
+          "0": 85650.1467500764,
+          "1": 8275.341690000561,
+          "2": 8172.827710000861,
+          "3": 440.69901000000283
+        },
+        "positive_extrusion_total_mm": 102539.01516007782,
+        "printing_move_path_mm": 3005239.9249837156,
+        "slicer_metadata_time_s": 42107.0,
+        "tool_changes": 3,
+        "tools_seen": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "travel_path_mm": 251150.27195030948,
+        "volumetric_extrusion_seen": false,
+        "warnings": []
+      },
+      "status": "FAIL"
+    }
+  },
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.3.0/berlin/berlin-left-four-color.3mf",
+      "sha256": "4e3ca3d455e201c6eef15f49138a225fb52d202e542ee5d5362fe4de45a80786",
+      "size_bytes": 718591
+    },
+    {
+      "path": "/usr/bin/AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "size_bytes": 252
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+      "sha256": "30e57f5edfb4cd6c9754aaf7a0f4f626b3ba856625e13f6311fe2ba3093d1e1d",
+      "size_bytes": 100312072
+    }
+  ],
+  "limitations": [
+    "Anycubic Slicer Next embeds a wall-clock timestamp and may vary path segmentation or ordering between same-scope runs; neither raw nor normalized byte identity is guaranteed.",
+    "Do not normalize or rewrite manufacturing G-code in place; retain each exact hash, compare approved metric tolerances, and use separate path diffs only as regression diagnostics.",
+    "Headless slicing does not replace final layer/tool/color preview or physical validation.",
+    "This adapter only performs local export; it implements no printer upload or print-start action."
+  ],
+  "metrics": {
+    "gcode_files": 1
+  },
+  "native_result": {
+    "error_string": "Success.",
+    "plate_index": 0,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "id": 1,
+        "triangle_count": 75540,
+        "warning_message": ""
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1/plate_1.gcode",
+      "relative_path": "plate_1.gcode",
+      "sha256": "927147513fc6aeabead2aad6c36735b06987d9cb9873c320c8fcc2e690b0d1c3",
+      "size_bytes": 28667494
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1/plate_1.gcode.metadata",
+      "relative_path": "plate_1.gcode.metadata",
+      "sha256": "a4c03424ad3e0d97791b6f84713e1947ef8d153e33c29396b4a5369a2f44668d",
+      "size_bytes": 24928
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1/result.json",
+      "relative_path": "result.json",
+      "sha256": "323feadb8b8a12d5b5183c92ff94c5b08f0bc8f25d3382082c76462a4d6509e8",
+      "size_bytes": 340
+    }
+  ],
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "slicer": {
+    "executable": "/usr/bin/AnycubicSlicerNext",
+    "invocation": [
+      "<AnycubicSlicerNext>",
+      "--datadir",
+      "<isolated-datadir>",
+      "--slice",
+      "0",
+      "--outputdir",
+      "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1",
+      "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.3.0/berlin/berlin-left-four-color.3mf"
+    ],
+    "name": "Anycubic Slicer Next",
+    "plate": 0,
+    "profiles": [],
+    "runtime_executable": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+    "version": "1.3.9.4"
+  },
+  "status": "FAIL",
+  "tool": "slice-anycubic-next",
+  "tool_version": "1.3.0"
+}

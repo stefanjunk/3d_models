@@ -1,33 +1,33 @@
 version: 1
-status: superseded-by-requirements-0.3.0
-superseded_reason: "The job targets six 200 mm replaceable tiles and a generic printer; rebuild after the permanent two-half Kobra 3 Max concept is approved."
+status: digital-candidate
 project:
   name: MM-ART-010 Berlin Urban Signal
-  purpose: "abstract four-color modular city-map wall art"
+  purpose: "abstract four-color permanent two-half city-map wall art"
   risk_class: decorative
   units: mm
 
 printer:
-  model: "Anycubic FDM printer; exact machine profile pending"
-  material_changer: "ACE-class four-filament single-nozzle system"
+  model: "Anycubic Kobra 3 Max Combo"
+  material_changer: "one ACE Pro, four-filament single-nozzle configuration"
   nozzle_mm: 0.4
   layer_height_mm: 0.2
   max_filaments: 4
   slicer: "Anycubic Slicer Next"
 
 source:
-  path: parametric/berlin-map-assembly.py
+  path: source/v0.3.0/berlin/build_berlin.py
   kind: parametric_cad
   preserve_immutable: true
   units: mm
   texture_paths: []
-  source_sha256: null
+  source_sha256: 63967f15e76ed6966be22248c5c7e1a9e1b475fe50dd31cc5663e1bfb396be58
 
 representation:
   method: separate_solids
   authoritative_color_data: "semantic named solids generated from one global vector frame"
   destination_format: 3mf
   slicer_project_required: true
+  destination_container: "Anycubic Slicer Next target-project 3MF; named aligned STLs remain the portable source of color intent"
 
 palette:
   path: palette-catalog.yaml
@@ -54,10 +54,10 @@ materials:
 purge:
   matrix_path: null
   matrix_status: "required physical directed transition coupon before print-candidate approval"
-  maximum_changes: 60
-  maximum_changes_scope: "per 200 x 200 mm tile"
+  maximum_changes: 3
+  maximum_changes_scope: "per 299.875 x 400 mm half; horizontal Z-only color bands"
   maximum_purge_volume_mm3: 12000
-  maximum_purge_volume_scope: "per tile; provisional ceiling to be tightened from exact slicer evidence"
+  maximum_purge_volume_scope: "per half; provisional ceiling pending directed transition coupon and GUI wipe-tower review"
   permit_flush_into_infill: false
   light_wall_show_through_review: true
 

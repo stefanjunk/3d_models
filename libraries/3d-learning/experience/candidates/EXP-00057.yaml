@@ -1,0 +1,140 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00057
+title: Do not add canonical and supplemental Anycubic layer comments
+captured_at: 2026-09-01
+source_type: design-trace
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: high
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Mechanism reproduced on two multicolor G-codes in one Anycubic version; production analyzer remains unchanged pending review."
+feature:
+  type: G-code layer-count validation
+  geometry: two four-tool Berlin map-relief G-codes with 23 executable layers
+  design_parameters:
+    declared_layers: 23
+    canonical_layer_change_markers: 23
+    supplemental_layer_comments: 19
+    erroneous_combined_count: 42
+    tool_count: 4
+    tool_changes: 3
+  named_datums:
+    - G-code header total layer number
+    - canonical ;LAYER_CHANGE marker
+    - following ;Z value
+    - supplemental ; layer # comment
+  constraints:
+    - Manufacturing G-code is immutable evidence and must not be rewritten to satisfy an analyzer.
+    - Layer families that describe the same physical layer sequence must not be summed.
+scope:
+  process: FFF G-code static analysis
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: unknown
+  material:
+    manufacturer: Anycubic candidate
+    product: PLA Matte candidate
+    variant: four palette profiles
+    color: Bone White/Nardo Grey/Black/Orange
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: embedded 0.20mm Standard multicolor project
+    profile_hash: c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab
+  geometry_class: four horizontal color bands producing three tool changes
+  environment: local digital validation only
+  transfer_limits:
+    - Evidence covers the recorded Anycubic comment dialect and the repository analyzer version 1.3.0.
+observation:
+  summary: The analyzer counted two comment families for the same layers and reported 42 markers although the G-code contained 23 canonical layer changes with 23 unique Z values and matching header/footer declarations.
+  expected: Layer-count consistency compares one canonical layer sequence with the declared count.
+  actual: The analyzer increments for both exact `;LAYER_CHANGE` and non-consecutive `; layer #` comments. Product-local review finds 23 canonical markers, 19 supplemental comments and 23 unique Z values in both files.
+  outcome: failure
+  parameter: layer-comment precedence
+  recommended_value: one-canonical-marker-family-with-cross-checks
+  units: parser-contract
+explanation:
+  hypothesis: The generic analyzer treats alternative supported syntaxes as additive event streams instead of mutually exclusive descriptions of a layer sequence.
+  mechanism: Its current control flow increments for every canonical marker and separately increments for every distinct supplemental marker; the recorded multicolor G-code emits both families.
+  alternatives:
+    - Supplemental comments could represent tool-local layers in another dialect and require a more explicit precedence rule rather than being ignored universally.
+    - Header/footer metadata could be wrong in another file, so canonical Z uniqueness remains necessary.
+  validated: true
+  validation_method: Direct source inspection plus deterministic counts of canonical markers, supplemental comments, unique Z values and header/footer declarations in both exact G-code artifacts.
+evidence:
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: Immutable-text comment classification, canonical marker/Z enumeration and comparison to exact adapter reports.
+  uncertainty: No other slicer dialect has been evaluated for precedence interactions.
+  sources:
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1.json
+      hash: 323f286c2e2b2a33a81bb7129594207662193656648b76793024bd99a1fd4855
+      notes: Preserves the false 42-versus-23 failure with native slicer success.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+      hash: 83a126b2f8d5e13d43895bfc55da4e281003c1185076826d2a14df9159da8d0c
+      notes: Separates 23 canonical and 19 supplemental comments without changing G-code.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.3.0/berlin/review_anycubic_multicolor_slice.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1/plate_1.gcode
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1/plate_1.gcode
+applicability:
+  triggers:
+    - A G-code layer analyzer supports multiple comment syntaxes and one file emits more than one family.
+    - Declared layers disagree with an additive marker count while one marker family has unique monotonic Z values matching the declaration.
+  exclusions:
+    - Canonical markers themselves repeat, omit layers or have non-unique/non-monotonic Z values.
+    - Supplemental markers are the only available layer evidence.
+  transfer_limits:
+    - Define precedence per dialect and fixture; do not globally discard a marker family without regression coverage.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-core-gcode-layer-marker-double-count-001
+  patterns: []
+  references:
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1-review.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.3.0-anycubic-3mf-repair-candidate.2
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - gcode
+  - layer-count
+  - anycubic
+  - multicolor
+  - parser
+  - regression

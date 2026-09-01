@@ -92,3 +92,12 @@
 - Through-light water paths occupy 1.52% left and 1.88% right, below the 12% limit, after seam and connector/hanger keep-outs.
 - Optimization: reducing the rejected 3.4 mm source baseline to the approved 3.0 mm backer cuts the measured left single-material preflight from 105,158.03 to 102,400.49 mm filament (-2.62%) and from 45,072 to 43,695 s (-3.06%) without changing the visible field.
 - Final geometry-only Anycubic preflight passes for both halves with exact profiles: 102,400.49 mm / 43,695 s left and 99,093.48 mm / 41,553 s right. These composite slices validate bed fit, layers and apertures only; ACE slot mapping, purge tower and final color preview remain human-controlled.
+
+## 2026-09-01 — Anycubic 3MF import failure reproduced and repaired
+
+- User observation: the right Berlin 3MF opened without usable geometry in the target slicer.
+- Reproduction: both original standards-only 3MFs pass the repository structural validator but Anycubic Slicer Next 1.3.9.4 exits with native `return_code=-6` before loading a model. The failure is therefore a target-slicer interoperability defect, not an empty right-hand mesh.
+- Repair: `package_anycubic_project.py` asks Anycubic Slicer Next to author its own vendor project container, keeps the four aligned source STLs as distinct volumes, assigns tools 1–4 in the project metadata, expands the embedded filament arrays to four palette entries and centres the assembled half on the configured bed.
+- Result: native import and slicing succeed for both replacement 3MFs. Each G-code contains tools 0–3 and exactly three material changes; source STL hashes are recorded in the build reports.
+- Validation limitation: the generic G-code analyzer double-counts 23 canonical `;LAYER_CHANGE` markers plus 19 supplemental `; layer #` comments and therefore reports 42 versus the correct 23 layers. Product-local regression reports verify the canonical markers, unique Z sequence, header/footer counts, tools and changes without rewriting G-code. The aggregate adapter status remains transparently `FAIL` pending a reviewed validator fix.
+- Human gates: final ACE slot identity, wipe/purge preview, appearance and physical printing remain unapproved; no upload or print start occurred.

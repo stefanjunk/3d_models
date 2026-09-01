@@ -1,0 +1,147 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00056
+title: Gate multicolor 3MF handoff with the exact destination slicer
+captured_at: 2026-09-01
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed on two Berlin halves in Anycubic Slicer Next 1.3.9.4; no other slicer version or standards writer has been tested."
+feature:
+  type: multicolor 3MF manufacturing handoff
+  geometry: two 299.875 x 400 mm relief halves, each containing four aligned watertight Z-band color volumes
+  design_parameters:
+    source_color_volume_count_per_half: 4
+    source_standard_3mf_count: 2
+    target_project_3mf_count: 2
+    intended_tool_count: 4
+    intended_tool_changes: 3
+    layer_height_mm: 0.2
+  named_datums:
+    - aligned local STL coordinate frame
+    - rear bed datum Z0
+    - Anycubic project build transform
+  constraints:
+    - A standards-only structural validation pass does not satisfy the target-slicer import gate.
+    - The exact destination slicer must produce a native success result and non-empty G-code from the delivered 3MF.
+    - Source color volumes, palette identity and tool assignments remain hash-bound and inspectable.
+scope:
+  process: FFF multicolor project packaging and headless target-slicer import
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: unknown
+  material:
+    manufacturer: Anycubic candidate
+    product: PLA Matte candidate
+    variant: four palette profiles
+    color: Bone White/Nardo Grey/Black/Orange
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on the build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: embedded 0.20mm Standard and four Anycubic PLA Matte-derived project profiles
+    profile_hash: c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab
+  geometry_class: large two-part decorative map relief with four horizontal material volumes per part
+  environment: local digital validation only
+  transfer_limits:
+    - The evidence covers one standards writer and Anycubic Slicer Next 1.3.9.4 on the recorded Linux installation.
+    - It does not show that every standard 3MF, Anycubic GUI version or other vendor slicer needs the same project extensions.
+observation:
+  summary: Two standards-valid multipart 3MFs contained positive-volume watertight meshes but Anycubic rejected both before loading geometry; Anycubic-authored project containers using the same source STLs imported and sliced.
+  expected: A structurally valid four-material 3MF opens in the target slicer with all four geometry volumes.
+  actual: Both standards-only files returned native code -6 and no G-code. Repackaging the unchanged STL volumes through Anycubic, centering the project and normalizing four filament arrays produced native success, non-empty G-code, tools 0-3 and three tool changes for both halves.
+  outcome: mixed
+  parameter: target-slicer 3MF package representation
+  recommended_value: exact-destination-slicer-import-and-slice-gate
+  units: interoperability-contract
+explanation:
+  hypothesis: The recorded Anycubic parser path requires or more reliably accepts its vendor project package structure and metadata than the standards-only multipart package emitted by the generic writer.
+  mechanism: The generic packages fail before any triangle count is reported, while the vendor package created from the exact same STL hashes reports the expected triangles and produces toolpaths.
+  alternatives:
+    - The standards-only writer may contain a narrower namespace, relationship or extension incompatibility that another standards-compliant encoding could correct without vendor metadata.
+    - A different Anycubic release may import the same standards-only package.
+    - GUI import behavior may differ from the headless parser in unrecorded versions.
+  validated: false
+  validation_method: Paired left/right target-slicer import of rejected packages and rebuilt vendor projects using unchanged source STL hashes.
+evidence:
+  observations: 2
+  same_scope_repetitions: 1
+  geometry_count: 2
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: 3MF structural validation, native Anycubic return code, triangle count, G-code existence/hash, canonical layer count and tool routing.
+  uncertainty: The exact parser incompatibility inside the standards-only package is not isolated to one XML/package feature.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-01 — right 3MF reported as containing no geometry
+      hash: null
+      notes: Actionable correction that triggered the target-slicer regression.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/anycubic-3mf-import-failure-right.json
+      hash: 23ac87a0302c2f6101d5c0636e52c74b9123dcf423a67a32a5353348c978a778
+      notes: Standards-only right package returns native -6 and no G-code.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+      hash: 83a126b2f8d5e13d43895bfc55da4e281003c1185076826d2a14df9159da8d0c
+      notes: Rebuilt project imports with 23 canonical layers, tools 0-3 and three changes.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.3.0/berlin/package_anycubic_project.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.3.0/berlin/berlin-right-four-color.3mf
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/fixtures/berlin-right-portable-rejected-by-anycubic-1.3.9.4.3mf
+applicability:
+  triggers:
+    - A multicolor 3MF passes structural validation but the destination slicer reports missing or unreadable geometry.
+    - A project promises a slicer-specific manufacturing handoff rather than a standards-only archive.
+  exclusions:
+    - The source meshes themselves are empty, non-positive-volume or missing.
+    - The target slicer and exact import path are not identified.
+  transfer_limits:
+    - Re-test every slicer version and package writer; do not universalize the Anycubic project-container route.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-print-target-slicer-3mf-import-001
+  patterns: []
+  references:
+    - .agents/skills/multicolor-fdm-design/SKILL.md
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1-review.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.3.0-anycubic-3mf-repair-candidate.2
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - 3mf
+  - multicolor
+  - anycubic
+  - target-slicer
+  - interoperability
+  - fail-closed

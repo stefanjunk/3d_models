@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-print-target-slicer-3mf-import-001
+title: Delivered multicolor 3MF imports and slices in the declared target slicer
+category: print
+status: draft
+trigger: A multicolor manufacturing handoff names a specific destination slicer and delivers a 3MF containing multiple aligned material volumes.
+risk: A standards-valid package can still be rejected or appear empty in the target slicer, leaving the customer without printable geometry.
+given:
+  source_parts: positive-volume watertight named material meshes with recorded hashes and a shared coordinate frame
+  delivered_3mf: exact candidate file promised for the destination slicer
+  target_slicer: exact executable version and import path
+  expected_material_regions: declared volume/tool count and semantic palette mapping
+expected:
+  - Structural package validation and target-slicer import are separate required checks.
+  - The exact delivered 3MF produces native target-slicer success and a non-empty G-code artifact without rearranging its authored assembly.
+  - The native triangle count is nonzero and consistent with the intended source volumes.
+  - Material-volume assignments remain inspectable and the resulting G-code exposes the expected tool set and transition count.
+  - A target-slicer failure is preserved as evidence and is not converted to PASS because another validator accepted the package.
+failure_conditions:
+  - Only XML/package structure is tested and the target slicer is never invoked.
+  - The target slicer reports missing/unreadable geometry or produces no G-code.
+  - Independent STLs are silently auto-arranged and lose their shared registration.
+  - Display colors are claimed to prove physical ACE/AMS/MMU slot identity.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/fixtures/berlin-right-portable-rejected-by-anycubic-1.3.9.4.3mf
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.3.0/berlin/berlin-right-four-color.3mf
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: Pass only when the exact target slicer reports native success, emits non-empty G-code and preserves the declared material-volume routing; structural validation alone is insufficient.
+  measurement_method: Target-slicer native result, triangle count, exact output hash, canonical layer evidence, tools and changes.
+relationships:
+  lessons:
+    - EXP-00056
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-right-anycubic-3mf-r1-review.json
+  artifact_hashes:
+    - 22eba3a2122972a61c02e7aa813b9c4986a0399eac3d643836f99e236437dbee
+    - 83a126b2f8d5e13d43895bfc55da4e281003c1185076826d2a14df9159da8d0c
+tags:
+  - print
+  - 3mf
+  - multicolor
+  - target-slicer
+  - interoperability

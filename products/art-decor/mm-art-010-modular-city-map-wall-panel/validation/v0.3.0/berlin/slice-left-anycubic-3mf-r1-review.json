@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "scope": "MM-ART-010 Anycubic project-3MF import and four-volume routing regression",
+  "inputs": {
+    "adapter_report": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1.json",
+      "sha256": "57680b38449a0df0c4009760dc65bc1ab7f5a56516b17238e6b4b903b695c9b9"
+    },
+    "gcode": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.3.0/berlin/slice-left-anycubic-3mf-r1/plate_1.gcode",
+      "bytes": 28667494,
+      "sha256": "927147513fc6aeabead2aad6c36735b06987d9cb9873c320c8fcc2e690b0d1c3"
+    }
+  },
+  "checks": {
+    "native_slicer_success": true,
+    "gcode_nonempty": true,
+    "canonical_layer_markers_match_header": true,
+    "canonical_layer_z_values_unique": true,
+    "header_and_summary_agree": true,
+    "expected_tools_seen": true,
+    "expected_tool_changes": true
+  },
+  "metrics": {
+    "declared_header_layers": [
+      23
+    ],
+    "declared_summary_layers": [
+      23
+    ],
+    "canonical_layer_change_markers": 23,
+    "canonical_unique_z_values": 23,
+    "supplemental_layer_comments": 19,
+    "tools_seen": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tool_changes": 3
+  },
+  "adapter_observation": {
+    "status": "FAIL",
+    "known_false_failure": "The generic analyzer adds canonical ';LAYER_CHANGE' markers and supplemental '; layer #' comments, reporting 42 instead of the 23 executable layers."
+  },
+  "limitations": [
+    "This regression establishes target-slicer import, non-empty G-code, canonical layer consistency and four tool routes; it does not approve ACE slot identity, purge sufficiency or appearance.",
+    "The exact G-code is evidence only and was neither normalized nor rewritten."
+  ]
+}

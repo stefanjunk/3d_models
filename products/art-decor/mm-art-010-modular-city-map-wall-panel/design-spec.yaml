@@ -6,7 +6,7 @@ project:
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
   revision: 0.3.0
-  candidate: 0.3.0-parametric-source-candidate.1
+  candidate: 0.3.0-anycubic-3mf-repair-candidate.2
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,13 +16,13 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-002
-    assessment_version: 0.2.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-001
+    assessment_id: PREFLIGHT-MM-ART-010-003
+    assessment_version: 0.3.0
+    previous_assessment_id: PREFLIGHT-MM-ART-010-002
     assessed_project_revision: "0.3.0"
-    updated_at: "2026-08-31T16:44:58+02:00"
+    updated_at: "2026-09-01T12:57:00+02:00"
     change_triggers:
-      - user_approved_glue_free_one_way_connectors
+      - user_reported_anycubic_3mf_geometry_import_failure
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -59,7 +59,7 @@ workflow:
     basis: "User explicitly approved decomposition revision 0.3.0 in chat"
   digital_candidate:
     status: review-required
-    reason: "Shared interface/coupon, Berlin source freeze, eight named color meshes, two portable 3MFs and geometry-only exact Anycubic preflight have deterministic PASS evidence; physical coupon selection, destination-slicer ACE mapping, watermark and human print-candidate approval remain pending"
+    reason: "Shared interface/coupon, Berlin source freeze and eight named color meshes have deterministic PASS evidence. The formal portable 3MFs were rejected by Anycubic Slicer Next 1.3.9.4 and are being replaced by target-slicer project 3MFs with an exact import/slice gate; physical coupon selection, final ACE preview, watermark and human print-candidate approval remain pending."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -121,7 +121,7 @@ function:
     - "two permanent Berlin main relief halves"
     - "three small concealed one-way printed seam connectors"
     - "small snap-in hanger/standoff parts and lighting-interface gauge"
-    - "portable aligned four-color 3MFs and named per-color meshes"
+    - "Anycubic Slicer Next project 3MFs with four aligned named volumes plus named per-color meshes"
     - "rebuildable map-data and CAD pipeline with provenance"
   excluded:
     - "separate rear grid, rear frame or replaceable tile system"
@@ -235,7 +235,7 @@ map_content:
 multicolor:
   maximum_simultaneous_filaments: 4
   target_machine_configuration: "Anycubic Kobra 3 Max Combo with one ACE Pro, four-color configuration"
-  representation: "named disjoint solids in one shared frame; portable 3MF material intent"
+  representation: "named disjoint solids in one shared frame; Anycubic Slicer Next project 3MF for target-slicer compatibility, with named STL solids retained as the portable source of color intent"
   palette_catalog: palette-catalog.yaml
   selected_palette: urban_signal
   realistic_color_claim: false
@@ -344,7 +344,7 @@ optimization:
       max_slicer_seconds: 240.0
     slicer_resolution_check:
       status: passed
-      method: "exact Anycubic Slicer Next 1.3.9.4 composite preflight plus portable 3MF structural validation"
+      method: "exact Anycubic Slicer Next 1.3.9.4 target-project 3MF import/slice plus named-volume and composite geometry validation"
       result: "both final composites slice; right/left triangle counts are 59,326 and 71,996"
       report: validation/v0.3.0/berlin/mesh-summary.json
 
@@ -408,6 +408,6 @@ deliverables:
   - "Immutable OSM snapshot, source register and attribution notice"
   - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"
   - "Three small concealed one-way seam connectors and snap-in hanger/standoff parts; no rear grid"
-  - "Named color meshes and four-color Anycubic-oriented 3MFs"
+  - "Named color meshes and four-volume Anycubic Slicer Next project 3MFs"
   - "Seam/connector, snap-fit, light-envelope and multicolor coupons plus validation reports"
   - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

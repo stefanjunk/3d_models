@@ -1,0 +1,474 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/3d-design-preflight/preflight-result.schema.json",
+  "title": "3D Design Preflight Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "assessment_id",
+    "product",
+    "scope",
+    "entities",
+    "interfaces",
+    "complexity",
+    "readiness",
+    "criticality",
+    "gates",
+    "decision",
+    "warnings",
+    "next_actions"
+  ],
+  "properties": {
+    "assessment_id": {
+      "type": "string"
+    },
+    "assessment_version": {
+      "type": "string"
+    },
+    "assessment_date": {
+      "type": "string"
+    },
+    "product": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "intended_use",
+        "user_context",
+        "variants"
+      ],
+      "properties": {
+        "intended_use": {
+          "type": "string"
+        },
+        "user_context": {
+          "type": "string"
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "PRINTED_PART",
+              "PURCHASED_PART",
+              "HOST_OBJECT",
+              "HUMAN",
+              "ENVIRONMENT",
+              "SOFTWARE",
+              "ENERGY",
+              "MEDIUM"
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "interface-contract.schema.json"
+      }
+    },
+    "complexity": {
+      "type": "object",
+      "required": [
+        "dimension_scores",
+        "score_0_100",
+        "class"
+      ],
+      "properties": {
+        "dimension_scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "REQ",
+            "CTX",
+            "PAR",
+            "INT",
+            "CPL",
+            "MOT",
+            "GEO",
+            "PHY",
+            "MAT",
+            "EXT",
+            "VER"
+          ],
+          "properties": {
+            "REQ": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "CTX": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "PAR": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "INT": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "CPL": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "MOT": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "GEO": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "PHY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "MAT": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "EXT": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "VER": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            }
+          }
+        },
+        "score_0_100": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "class": {
+          "enum": [
+            "C0",
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5"
+          ]
+        },
+        "drivers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "required": [
+        "level",
+        "component_levels",
+        "blocking_unknowns"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5"
+          ]
+        },
+        "component_levels": {
+          "type": "object",
+          "properties": {
+            "scope_variant": {
+              "enum": [
+                "R0",
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "requirements": {
+              "enum": [
+                "R0",
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "critical_interfaces": {
+              "enum": [
+                "R0",
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "manufacturing_profile": {
+              "enum": [
+                "R0",
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "verification": {
+              "enum": [
+                "R0",
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            }
+          }
+        },
+        "blocking_unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "completeness_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "criticality": {
+      "type": "object",
+      "required": [
+        "level",
+        "rationale"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "K0",
+            "K1",
+            "K2",
+            "K3",
+            "K4"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "credible_failure_effects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "properties": {
+        "G0": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G1": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G2": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G3": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G4": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G5": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "G6": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "lane",
+        "confidence",
+        "design_release"
+      ],
+      "properties": {
+        "lane": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "HIGH",
+            "MEDIUM_HIGH",
+            "CONDITIONAL",
+            "LOW_UNKNOWN",
+            "NOT_AUTONOMOUSLY_RELEASABLE"
+          ]
+        },
+        "design_release": {
+          "enum": [
+            "GO",
+            "GO_WITH_CONTROLS",
+            "HOLD",
+            "CONCEPT_ONLY"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "severity",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "INFO",
+              "WARN",
+              "BLOCKER"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "priority",
+          "action",
+          "exit_criterion"
+        ],
+        "properties": {
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "action": {
+            "type": "string"
+          },
+          "exit_criterion": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "traceability": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

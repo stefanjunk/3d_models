@@ -87,6 +87,7 @@ Read [licensing-inputs-and-components.md](references/licensing-inputs-and-compon
 - Distinguish permission to run a tool commercially from rights in its output.
 - Audit bundled sample files, templates, fonts, textures, materials, AI models, add-ons, macros, post-processors, cloud libraries, and render engines independently.
 - When adding or upgrading a tool, create a register row and repeat this gate before using it on a release candidate.
+- When Step1X-3D is used, register its code, weights and each executed model dependency separately; attach the hashed `step1x-run.json` and runtime profile rather than recording only the provider name.
 - Treat personal, educational, trial, maker, community, non-commercial, and marketplace-restricted plans as BLOCK until their commercial rights are confirmed.
 
 Open-source application licenses normally govern distribution or modification of the application, not the model output, but copied program code, libraries, and assets can create notice, source, patent, or reciprocal obligations. Read [toolchain-and-output-licenses.md](references/toolchain-and-output-licenses.md).
@@ -137,6 +138,8 @@ Generate complete attribution and third-party notices, including title, author, 
 ### Gate 6 — AI Provenance, Disclosure, and Watermarking
 
 Classify each AI use as ideation, source-image generation, geometry generation, code generation, editing, rendering, inspection, or documentation. State who performed the engineering review.
+
+For every material AI generation, add a hashed run record to `ai_use.generation_records`. Use `scripts/record_ai_generation.py` to copy and link a Step1X or other provider record without silently filling human-review or clearance fields.
 
 Do not assert that EU law requires a blanket “AI-generated” label on every AI-assisted CAD file or printed object. As of 10 August 2026, EU AI Act Article 50 provider marking addresses synthetic audio, image, video, and text; deployer disclosure is narrower, including deepfakes and certain public-interest text. A mesh is not expressly one of those listed output types. Nonetheless:
 
@@ -233,6 +236,7 @@ State assumptions, source-check date, and limits. Do not say “copyright cleare
 - Read [commercial-3d-research-report.md](references/commercial-3d-research-report.md) for the researched executive conclusions and responsibility map.
 - Read [scenario-playbooks.md](references/scenario-playbooks.md) for ChatGPT image-to-relief, external-photo, supplier-CAD, digital-file, and physical-print examples.
 - Read [legal-source-register.md](references/legal-source-register.md) before making a current legal claim; open and verify the official source on the release date.
+- When Step1X appears in the rights graph, load the sibling `step1x-image-to-3d` commercial/research reference and preserve its exact run/runtime evidence.
 - Read [documentation-and-release-system.md](references/documentation-and-release-system.md) whenever creating or auditing records.
 - Read only the topic-specific reference needed for the active gate, but always complete all seven gates before commercial release.
 

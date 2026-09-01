@@ -1,6 +1,6 @@
 # Legal Source Register
 
-Research cut-off: 2026-08-10. Links are primary/official unless marked otherwise. Open and re-verify the operative text, amendments, national implementation, exact account plan, and effective date before release. Summaries are issue-spotting only.
+Research cut-off: 2026-09-01. Links are primary/official unless marked otherwise. Open and re-verify the operative text, amendments, national implementation, exact account plan, and effective date before release. Summaries are issue-spotting only.
 
 ## Contents
 
@@ -11,7 +11,7 @@ Research cut-off: 2026-08-10. Links are primary/official unless marked otherwise
 5. Copyright and AI
 6. Designs, patents, trademarks, and 3D printing
 7. Open and content licenses
-8. CAD/3D tool licenses
+8. CAD/3D tool and model licenses
 9. 3MF, C2PA, and technical provenance
 10. EU product, digital, and consumer law
 11. Privacy and people
@@ -123,7 +123,7 @@ Database searching is not a legal opinion. Record national status and obtain cou
 
 Never use this table instead of the exact item’s license text.
 
-## 8. CAD/3D Tool Licenses
+## 8. CAD/3D Tool and Model Licenses
 
 | Source | Decision supported | Re-check trigger |
 |---|---|---|
@@ -132,8 +132,11 @@ Never use this table instead of the exact item’s license text.
 | [FreeCAD official LICENSE](https://github.com/FreeCAD/FreeCAD/blob/main/LICENSE) | Current official repository license notice | Installed/tagged version |
 | [Blender license](https://www.blender.org/about/license/) | Blender GPL terms | Installed/version change |
 | [Blender FAQ](https://www.blender.org/support/faq/) | Artwork/output commercial-use explanation | FAQ/version change |
+| [Step1X-3D official repository](https://github.com/stepfun-ai/Step1X-3D) | Source repository identifies Apache-2.0; preserve the exact commit and local patch/hash | Commit, license, or runtime change |
+| [Step1X-3D official model repository](https://huggingface.co/stepfun-ai/Step1X-3D) | Official weights repository identifies Apache-2.0; preserve the exact snapshot revision | Model revision or license change |
+| [SDXL CreativeML Open RAIL++-M license](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/e4e60c65aa20ee60092c60ba197f541872cf9373/LICENSE.md) | Texture dependency carries use restrictions separate from Step1X's Apache license | Dependency revision or use change |
 
-Check every add-on, font, texture, library, plugin, renderer, slicer, cloud service, and asset separately.
+Check every model dependency, add-on, font, texture, library, plugin, renderer, slicer, cloud service, and asset separately. Step1X's Apache evidence does not license the complete executed stack, input image, or generated product by itself.
 
 ## 9. 3MF, C2PA, and Technical Provenance
 

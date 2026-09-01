@@ -480,8 +480,41 @@ def check_manifest(
         for field in ("disclosure_text", "human_reviewer"):
             if not clean(ai.get(field)):
                 audit.block("AI-003", f"AI use needs {field}")
-        if not (is_yes(ai.get("source_originals_retained")) or is_na(ai.get("source_originals_retained"))):
+        if not (
+            is_yes(ai.get("source_originals_retained"))
+            or is_na(ai.get("source_originals_retained"))
+        ):
             audit.block("AI-004", "AI source-original retention is unresolved")
+        generation_records = ai.get("generation_records")
+        if not isinstance(generation_records, list) or not generation_records:
+            audit.block("AI-005", "AI use needs at least one hashed generation record")
+        else:
+            seen_generation_hashes: set[str] = set()
+            for index, item in enumerate(generation_records, start=1):
+                label = f"AI generation record {index}"
+                if not isinstance(item, dict):
+                    audit.block("AI-006", f"{label} is not an object")
+                    continue
+                for field in ("provider", "roles", "record_path", "sha256"):
+                    if not item.get(field):
+                        audit.block("AI-006", f"{label} has unresolved {field}")
+                expected_hash = str(item.get("sha256") or "").strip().lower()
+                if not HASH_RE.fullmatch(expected_hash):
+                    audit.block("AI-007", f"{label} needs a valid SHA-256")
+                    continue
+                if expected_hash in seen_generation_hashes:
+                    audit.block(
+                        "AI-007",
+                        f"{label} duplicates a generation-record SHA-256",
+                    )
+                seen_generation_hashes.add(expected_hash)
+                record_path = audit.path(
+                    str(item.get("record_path") or ""),
+                    "AI-007",
+                    label,
+                )
+                if record_path is not None and sha256_file(record_path) != expected_hash:
+                    audit.block("AI-007", f"{label} SHA-256 does not match record_path")
 
     check_artifacts(audit, manifest)
 

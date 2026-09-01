@@ -90,6 +90,7 @@ Use `scripts/select_tool.py` and read `references/tool-selection.md` when the ro
 - **FreeCAD**: interactive STEP editing, drawings, assemblies, FEM/CalculiX, and human-in-the-loop refinement.
 - **Blender**: organic meshes, scans, sculpting, remesh, visual texture/relief, mesh repair, and presentation.
 - **Hybrid**: use precise CAD for interfaces and Blender/SDF/mesh tools for organic or high-density surface fields.
+- **Step1X image-to-3D**: after concept approval and interface/decomposition freeze, load `step1x-image-to-3d` for a whole appearance-led draft, bounded organic component, or sacrificial preform. Keep exact interfaces and manufacturing authority in this skill's CAD/validation route.
 
 Do not convert a dense organic STL into a face-per-triangle B-Rep unless there is a demonstrated need. Do not model thousands of decorative cells as individual B-Rep booleans when an implicit, mesh, or texture route is more stable.
 

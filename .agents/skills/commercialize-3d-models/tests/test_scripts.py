@@ -409,6 +409,109 @@ class ScriptTests(unittest.TestCase):
             self.assertEqual(tampered.returncode, 2)
             self.assertIn("Evidence hash mismatch", tampered.stdout)
 
+    def test_ai_generation_record_is_hashed_into_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            project = root / "clearance"
+            created = run(
+                "new_commercial_3d_project.py",
+                "--name",
+                "Step1X Fixture",
+                "--seller-country",
+                "DE",
+                "--markets",
+                "EU",
+                "--release-type",
+                "digital",
+                "--output",
+                project,
+            )
+            self.assertEqual(created.returncode, 0, created.stderr)
+
+            provenance_path = project / "07-release/provenance.json"
+            provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+            provenance["ai_use"].update(
+                {
+                    "used": "yes",
+                    "roles": ["geometry proposal"],
+                    "providers": ["stepfun-ai/Step1X-3D"],
+                }
+            )
+            provenance_path.write_text(
+                json.dumps(provenance, indent=2) + "\n", encoding="utf-8"
+            )
+            missing_record = run("audit_commercial_release.py", project)
+            self.assertIn("AI-005", missing_record.stdout)
+
+            run_dir = root / "step1x-run"
+            run_dir.mkdir()
+            input_path = run_dir / "input.png"
+            geometry_path = run_dir / "geometry.raw.glb"
+            texture_path = run_dir / "textured.raw.glb"
+            input_path.write_bytes(b"test image evidence")
+            geometry_path.write_bytes(b"glTF geometry evidence")
+            texture_path.write_bytes(b"glTF texture evidence")
+
+            def linked(path: Path) -> dict[str, object]:
+                return {
+                    "path": str(path),
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                    "bytes": path.stat().st_size,
+                }
+
+            run_record_path = run_dir / "step1x-run.json"
+            run_record = {
+                "schema_version": "1.0",
+                "run_id": "step1x-test-run",
+                "status": "succeeded",
+                "provider": {
+                    "name": "Step1X-3D",
+                    "organization": "stepfun-ai",
+                    "code_license": "Apache-2.0",
+                    "weights_license": "Apache-2.0",
+                },
+                "operation": "single-image-to-geometry-and-textured-glb",
+                "input": linked(input_path),
+                "outputs": [linked(geometry_path), linked(texture_path)],
+            }
+            run_record_path.write_text(
+                json.dumps(run_record, indent=2) + "\n", encoding="utf-8"
+            )
+
+            recorded = run(
+                "record_ai_generation.py",
+                project,
+                run_record_path,
+                "--provider",
+                "stepfun-ai/Step1X-3D",
+                "--role",
+                "geometry proposal",
+                "--role",
+                "texture appearance",
+            )
+            self.assertEqual(recorded.returncode, 0, recorded.stdout + recorded.stderr)
+            entry = json.loads(recorded.stdout)
+            evidence_path = project / entry["record_path"]
+            self.assertTrue(evidence_path.is_file())
+            self.assertEqual(
+                hashlib.sha256(evidence_path.read_bytes()).hexdigest(), entry["sha256"]
+            )
+
+            provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+            self.assertEqual(provenance["ai_use"]["used"], "yes")
+            self.assertIn(
+                "stepfun-ai/Step1X-3D", provenance["ai_use"]["providers"]
+            )
+            self.assertEqual(provenance["ai_use"]["generation_records"], [entry])
+
+            attached = run("audit_commercial_release.py", project)
+            self.assertNotIn("AI-005", attached.stdout)
+            self.assertNotIn("AI-007", attached.stdout)
+
+            evidence_path.write_text("tampered\n", encoding="utf-8")
+            tampered = run("audit_commercial_release.py", project)
+            self.assertIn("AI-007", tampered.stdout)
+
     def test_hash_generation_and_tamper_detection(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             release = Path(temporary) / "release"

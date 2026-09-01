@@ -276,7 +276,7 @@ provenance.json should include:
 - release types and target markets;
 - intended use and prohibited uses;
 - product classification;
-- AI use: used, roles, providers, disclosure text, human reviewer;
+- AI use: used, roles, providers, hashed generation-record paths, disclosure text, human reviewer;
 - source/tool/component register paths and hashes;
 - artifact list: path, media type, SHA-256, role, license;
 - outgoing licenses by layer;

@@ -75,6 +75,8 @@ Record landmarks in normalized image coordinates and physical dimensions where s
 
 Read [references/ai-photogrammetry-hybrid.md](references/ai-photogrammetry-hybrid.md) before using generative reconstruction or photogrammetry. Read only the selected tool guide:
 
+When the single-image AI route selects the local Step1X provider, load `step1x-image-to-3d` for input-plate prompting, API invocation, raw GLB evidence and explicit GLB-to-manufacturing handoff. Keep evidence interpretation, scale and hidden-region confidence in this skill.
+
 - [references/tools-openscad.md](references/tools-openscad.md)
 - [references/tools-cadquery.md](references/tools-cadquery.md)
 - [references/tools-freecad.md](references/tools-freecad.md)

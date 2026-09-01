@@ -134,6 +134,14 @@ If a locally run generative model is added, record:
 
 A nominally open code license does not establish that model weights or training data have the same license.
 
+### Step1X-3D local image-to-3D
+
+For every Step1X use, record the source worktree/patch hash, Docker image and configuration hashes, Python/PyTorch/CUDA versions, exact model snapshots, API schema, parameters, source-image hash, and both returned GLB hashes. Attach the run JSON through `scripts/record_ai_generation.py`; a provider name without a run record is not a sufficient history.
+
+The official Step1X source and weight repositories identify Apache-2.0, which is permissive and supports commercial use subject to its conditions. Review executed dependencies separately: the current texture path includes SDXL under CreativeML Open RAIL++-M use restrictions, and opaque-input background removal can execute a separately downloaded U2Net ONNX asset. Do not label the complete runtime simply `Apache-2.0`.
+
+Load `step1x-image-to-3d/references/commercial-and-research.md` for the current revision ledger and official evidence links. Re-verify them at release time.
+
 ## 4. Add-Ons, Libraries, and Assets
 
 ### High-Risk Labels

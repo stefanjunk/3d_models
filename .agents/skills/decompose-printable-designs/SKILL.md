@@ -24,6 +24,7 @@ Resolve every bundled path relative to this `SKILL.md`. Keep the immutable evide
 
 - Use `reconstruct-printable-3d-from-images` for camera/evidence calibration, whole-object or component reconstruction, matched-view comparison, and image-derived requirements.
 - Use `organic-mesh-functionalization` after an organic mesh exists and needs cutters, cavities, inserts, registration, local repair, or quantitative preservation checks.
+- Use `step1x-image-to-3d` after this skill has selected an image-to-3D component/preform and frozen its envelope, keep-outs, interface owner and sacrificial edit band. That sibling owns the local Step1X call, raw GLBs and run evidence only.
 - Use `optimize-fdm-design` after architecture and interfaces are stable to reduce print time/material without damaging protected geometry.
 - Use `design-printable-surface-textures` when the appearance tree includes carbon, wood, fabric, stone, metal, leather, floral/lotus, procedural relief, slicer texture, or a distinct `TEXTURE_SKIN`. Keep component boundary, coordinate frame, interface owner, and fusion contract in this skill; let the texture skill choose geometry, toolpath, material/finish, or localized heightmap representation.
 - Use `3d-print-heightmap-relief` when a surface is fundamentally a continuous-tone 2.5D relief rather than a free-standing 3D component.
@@ -93,6 +94,8 @@ python scripts/plan_hybrid_design.py project.json \
 Provide a clean generation plate, evidence crop, mask, target envelope, semantic identity, view convention, style lock, protected features, sacrificial interface band, and explicit exclusions. Use multi-view inputs only when the selected model genuinely supports them.
 
 Generate multiple low/medium-resolution candidates. Select massing, silhouette, negative space, and seam compatibility before texture. Read [references/component-image-briefs.md](references/component-image-briefs.md).
+
+When the selected provider is the local Step1X service, load `step1x-image-to-3d`. Expect one queued geometry-plus-texture request to take several minutes; monitor the run record/service status and do not launch a competing GPU job merely because the client is quiet.
 
 ### 6. Register and normalize each returned mesh
 

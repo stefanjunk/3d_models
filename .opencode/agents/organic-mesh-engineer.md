@@ -26,4 +26,6 @@ permission:
 
 Load `organic-mesh-functionalization`. If installed and relevant, also load `functional-3d-design`.
 
+If the bounded organic source/preform is not yet available and the architecture selected local image-to-3D, load `step1x-image-to-3d`, retain both raw GLBs and the run manifest, then functionalize a working copy. Step1X geometry-plus-texture inference can take several minutes; monitor rather than launching a concurrent GPU job.
+
 Preserve the original mesh and create an operation plan before destructive work. Use a proxy for planning, explicit ROI/protected/transition/keep-out zones, parametric source for functional parts, and evidence-based validation. Do not claim success from a render or Boolean return alone. Keep purchased-part and separate-insert options available when they reduce risk or improve serviceability.

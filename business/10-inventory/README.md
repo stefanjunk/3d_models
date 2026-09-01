@@ -1,7 +1,8 @@
 # Produktionsinventar
 
-Letzte Aktualisierung: 2026-08-26  
-Datenstatus: **Erstinventur offen**
+Letzte Aktualisierung: 2026-09-01
+
+Datenstatus: **Erstinventur begonnen — sechs Filamentrollen fotografisch erfasst; Restmassen, Lagerorte, Öffnungsdaten und Chargen sind noch unbekannt**
 
 Diese Datei ist die einzige Inventarquelle für Menschen und Agenten. Es gibt bewusst keine zweite JSON-, CSV- oder generierte Ansicht.
 
@@ -38,7 +39,143 @@ Noch keine Einträge.
 
 ## Filamente einschließlich Supportmaterial
 
-Noch keine Einträge.
+### FIL-0001 — SUNLU PLA+ Mint Green
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / PLA+ / `01160403Y` (Etikettcode)
+- Materialfamilie / Variante: PLA / PLA+
+- Farbe / Farbcode: Mint Green / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195657700.jpg`); auf dem Etikett stehen 195–205 °C bei 50–100 mm/s, 205–220 °C bei 100–300 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
+
+### FIL-0002 — SUNLU PLA+ Sky Blue
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / PLA+ / `06860603A` (Etikettcode)
+- Materialfamilie / Variante: PLA / PLA+
+- Farbe / Farbcode: Sky Blue / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195705328.jpg`); auf dem Etikett stehen 195–205 °C bei 50–100 mm/s, 205–220 °C bei 100–300 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
+
+### FIL-0003 — SUNLU PLA+2.0 Midnight
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / PLA+2.0 / `06660601A` (Etikettcode)
+- Materialfamilie / Variante: PLA / PLA+2.0
+- Farbe / Farbcode: Midnight / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195715176.jpg`); auf dem Etikett stehen 195–205 °C bei 50–100 mm/s, 205–220 °C bei 100–300 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
+
+### FIL-0004 — SUNLU High Speed PLA Marble, Chestnut Brown Marble
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / High Speed PLA Marble / `04160601Z` (Etikettcode)
+- Materialfamilie / Variante: PLA / High Speed PLA Marble
+- Farbe / Farbcode: Chestnut Brown Marble / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195726072.jpg`); auf dem Etikett stehen 190–210 °C bei 50–150 mm/s, 210–230 °C bei 150–300 mm/s, 230–260 °C bei 300–600 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Abrasivität des Marble-Additivs und Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
+
+### FIL-0005 — SUNLU PLA+2.0 Oak
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / PLA+2.0 / `05860601A` (Etikettcode)
+- Materialfamilie / Variante: PLA / PLA+2.0
+- Farbe / Farbcode: Oak / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195734205.jpg`); auf dem Etikett stehen 195–205 °C bei 50–100 mm/s, 205–220 °C bei 100–300 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
+
+### FIL-0006 — SUNLU TPU 90A Sunny Orange
+
+- Status: unbekannt
+- Rolle: Modell
+- Standort: unbekannt
+- Hersteller / Produkt / Artikelnummer: SUNLU (Herstellerangabe des Nutzers) / TPU 90A / `04160413Z` (Etikettcode)
+- Materialfamilie / Variante: TPU / 90A
+- Farbe / Farbcode: Sunny Orange / unbekannt
+- Durchmesser: 1,75 mm
+- Abrasiv: Unbekannt
+- Kompatible Drucker: unbekannt
+- Geeignete Modellmaterialien bei Supportrolle: nicht zutreffend
+- Trennverfahren bei Supportrolle: Nicht zutreffend
+- Anfangsmasse netto: 1000 g laut Etikett
+- Restmasse netto: unbekannt
+- Ermittlung der Restmasse: Unbekannt
+- Chargennummer: unbekannt
+- Gekauft / geöffnet / haltbar bis: unbekannt
+- Hersteller-Trocknung: unbekannt
+- Zuletzt getrocknet: unbekannt
+- Produktseite / Datenblatt: unbekannt
+- Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195742132.jpg`); auf dem Etikett stehen 220–240 °C Drucktemperatur, 30–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
 
 ## Werkzeuge und Zusatzgeräte
 
@@ -52,6 +189,7 @@ Hierzu gehören beispielsweise Haftmittel, Trockenmittel, Reinigungsmittel, Schm
 
 ## Änderungsprotokoll
 
+- 2026-09-01 — Sechs vom Nutzer als SUNLU bezeichnete Filamentrollen anhand ihrer Etikettfotos als `FIL-0001` bis `FIL-0006` erfasst; unbestätigte Bestands- und Zustandsdaten bewusst als unbekannt belassen.
 - 2026-08-26 — Inventarstruktur angelegt; Erstinventur noch offen.
 
 ## Datensatzvorlagen

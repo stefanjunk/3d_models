@@ -6,7 +6,7 @@ project:
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
   revision: 0.4.0
-  candidate: 0.4.0-mode-aware-decomposition.1
+  candidate: 0.4.0-two-display-modes-digital-candidate.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,13 +16,13 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-005
+    assessment_id: PREFLIGHT-MM-ART-010-006
     assessment_version: 0.4.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-004
+    previous_assessment_id: PREFLIGHT-MM-ART-010-005
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-09-01T15:57:39+02:00"
+    updated_at: "2026-09-01T16:16:01+02:00"
     change_triggers:
-      - human_approved_berlin_display_modes_concept_v03
+      - human_approved_mode_aware_decomposition_0_4_0
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -48,18 +48,18 @@ workflow:
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
     version: 0.4.0
-    reason: "Revision 0.4.0 display-mode concept is not approved and no mode-aware production geometry exists"
+    reason: "No stable, fully validated 0.4.0 production geometry or approved watermark placement exists yet"
   decomposition_approval:
-    status: pending
+    status: approved
     spec_revision: 0.4.0
     artifact: plan/hybrid-design-plan-v0.4.0.json
     review: decomposition-review-0.4.0.md
-    approved_by: null
-    approved_at: null
-    basis: "Mode-aware decomposition candidate prepared after concept v03 approval; awaiting separate human approval under the guided policy"
+    approved_by: Stefan
+    approved_at: "2026-09-01"
+    basis: "User explicitly wrote 'freigegeben' in direct response to decomposition-review-0.4.0.md and plan/hybrid-design-plan-v0.4.0.json"
   digital_candidate:
-    status: blocked
-    reason: "The repaired 0.3.0 Anycubic project 3MFs remain valid interoperability evidence, but neither new 0.4.0 display mode may enter production CAD before mode-aware decomposition approval."
+    status: in-progress
+    reason: "Decomposition is approved. Source freeze, mode-specific interface solving, mesh generation and exact target-slicer validation are authorized; print-candidate approval remains human-controlled."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -217,7 +217,7 @@ geometry:
 permanent_assembly:
   architecture: "two non-replaceable main prints permanently joined into one unique artwork; no rear grid"
   nominal_owner: "one parametric global seam skeleton owns both mating edges, three connector pockets, snap-in standoff sockets and wall plane"
-  interface_source: "revision 0.3.0 interface authority retained as reference; mode-aware 0.4.0 placement is blocked until concept and decomposition approval; provisional 0.25 mm per-side clearance remains physical-coupon controlled"
+  interface_source: "revision 0.3.0 interface authority retained as reference; mode-aware 0.4.0 placements are now authorized for digital solving; provisional 0.25 mm per-side clearance remains physical-coupon controlled"
   seam_interface: "discrete locating lands plus three concealed loose one-way spring/tenon connectors; no structural adhesive"
   wall_interface: "isolated upper hanger/standoff and lower standoff parts lock into local rear sockets; exact wall anchors remain installer-selected"
   assembly_sequence:
@@ -251,7 +251,7 @@ map_content:
   pilot: Berlin
   production_mode: "unique one-off pilot"
   source: "OpenStreetMap vector data"
-  source_snapshot: "frozen revision 0.3.0 Berlin source remains the boundary_crop concept input; context_outline requires a larger immutable Berlin/Brandenburg snapshot after 0.4.0 concept approval"
+  source_snapshot: "frozen revision 0.3.0 Berlin source remains the boundary_crop reference; acquisition and freezing of the larger immutable Berlin/Brandenburg context source is authorized by the approved 0.4.0 decomposition"
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
   display_mode_parameter_source: source/v0.4.0/berlin/display-mode-parameters.json
   attribution:
@@ -416,7 +416,7 @@ acceptance:
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
     method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
-    status: REVIEW_REQUIRED
+    status: PASS
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"

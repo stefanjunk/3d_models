@@ -121,3 +121,10 @@
 - `context_outline` remains fail-closed until a larger immutable Berlin/Brandenburg source covers the approved 12% default context margin.
 - The first planner run correctly failed on a zero-height non-product source envelope. That report is retained as `reports/architecture-v0.4.0-failure-r0.*`; the corrected candidate passes with zero errors and zero warnings.
 - Next gate: explicit human approval of `decomposition-review-0.4.0.md` and `plan/hybrid-design-plan-v0.4.0.json`. Source acquisition, CAD, mesh and 3MF work remain blocked until then.
+
+## 2026-09-01 — Mode-aware decomposition 0.4.0 approved
+
+- Human decision: Stefan explicitly wrote `freigegeben` in direct response to `decomposition-review-0.4.0.md` and `plan/hybrid-design-plan-v0.4.0.json`.
+- Authorized digital work: acquisition/freezing of the expanded Berlin/Brandenburg source, mode-specific safe-land and interface solving, parameterized CAD/mesh generation, four-color Anycubic project 3MF packaging and deterministic local validation for both display examples.
+- Continuing boundaries: the connector/snap compensation remains physically unqualified; exact filament batches, ACE/purge preview, physical print, wall installation, appearance, watermark, safety, rights and commercial release remain human-controlled.
+- No printer upload or print start is authorized.

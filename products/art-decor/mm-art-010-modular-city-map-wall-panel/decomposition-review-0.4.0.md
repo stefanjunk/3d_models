@@ -1,12 +1,12 @@
 # Decomposition review 0.4.0 — MM-ART-010 Berlin display modes
 
-Status: **awaiting human approval**.
+Status: **human-approved by Stefan on 2026-09-01**.
 
 Machine-readable candidate: `plan/hybrid-design-plan-v0.4.0.json`
 
-Plan SHA-256: `929682a5038f329055b9fa0739815f78692a2d177dabe90fc7e580b6dc33f47d`
+Plan SHA-256: `985d17c584b13a0afc9da960f4ac731c8a07e77a377030ac2e7f359e93252561`
 
-Planner evidence: `reports/architecture-v0.4.0.json` and `reports/architecture-v0.4.0.md` — **PASS, 0 errors, 0 warnings**. The initial fail-closed run with one invalid zero-height source-data envelope is preserved as `reports/architecture-v0.4.0-failure-r0.*`. A planner pass proves internal allocation and reference consistency, not printable geometry, physical fit or wall safety.
+Planner evidence after approval recording: `reports/architecture-v0.4.0-approved.json` and `reports/architecture-v0.4.0-approved.md` — **PASS, 0 errors, 0 warnings**. The pre-approval PASS remains at `reports/architecture-v0.4.0.*`; the initial fail-closed run with one invalid zero-height source-data envelope is preserved as `reports/architecture-v0.4.0-failure-r0.*`. A planner pass proves internal allocation and reference consistency, not printable geometry, physical fit or wall safety.
 
 ## Shared printed architecture per one-off
 

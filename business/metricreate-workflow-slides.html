@@ -1,0 +1,2697 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B0F12" />
+    <meta
+      name="description"
+      content="Visuelle Übersicht des metriCreate-Workflows mit Orca, Codex CLI, GPT-5.6 Sol und den spezialisierten 3D-Design-Skills."
+    />
+    <title>metriCreate — Vom Problem zum druckbaren Produkt</title>
+    <style>
+      :root {
+        --canvas: #0b0f12;
+        --deep: #071014;
+        --surface: #111a20;
+        --raised: #17242c;
+        --midnight: #112431;
+        --petrol: #0d4d53;
+        --teal: #08777d;
+        --aqua: #7fd5d3;
+        --aqua-bright: #b8f1ef;
+        --offwhite: #f2f6f5;
+        --soft: #d3dcde;
+        --graphite: #a7b4b8;
+        --line: #25343c;
+        --line-strong: #3c4d55;
+        --orange: #f05a28;
+        --orange-soft: #ff946d;
+        --success: #62c7ab;
+        --warning: #f2b84b;
+        --danger: #ff5a5f;
+        --display: "Arial Narrow", "Aptos Narrow", "Roboto Condensed", "Segoe UI", sans-serif;
+        --body: Inter, Manrope, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        --progress: 8.33%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--canvas);
+        color-scheme: dark;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--canvas);
+        color: var(--offwhite);
+        font-family: var(--body);
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      ::selection {
+        background: var(--orange);
+        color: var(--canvas);
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--aqua);
+        outline-offset: 4px;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 100;
+        top: 12px;
+        left: 12px;
+        padding: 0.75rem 1rem;
+        transform: translateY(-160%);
+        border: 1px solid var(--orange);
+        background: var(--orange);
+        color: var(--canvas);
+        font: 700 0.78rem/1 var(--mono);
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .progress {
+        position: fixed;
+        z-index: 90;
+        inset: 0 0 auto;
+        height: 3px;
+        background: rgb(255 255 255 / 5%);
+      }
+
+      .progress::after {
+        display: block;
+        width: var(--progress);
+        height: 100%;
+        background: var(--orange);
+        box-shadow: 0 0 18px rgb(240 90 40 / 60%);
+        content: "";
+        transition: width 320ms ease;
+      }
+
+      .deck-nav {
+        position: fixed;
+        z-index: 80;
+        top: 50%;
+        right: clamp(12px, 2vw, 30px);
+        display: grid;
+        gap: 9px;
+        transform: translateY(-50%);
+      }
+
+      .deck-nav button {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        border: 1px solid var(--line-strong);
+        border-radius: 1px;
+        background: var(--surface);
+        cursor: pointer;
+        transform: rotate(45deg);
+      }
+
+      .deck-nav button::before {
+        position: absolute;
+        inset: -9px;
+        content: "";
+      }
+
+      .deck-nav button[aria-current="true"] {
+        border-color: var(--orange);
+        background: var(--orange);
+        box-shadow: 0 0 12px rgb(240 90 40 / 48%);
+      }
+
+      .deck-controls {
+        position: fixed;
+        z-index: 85;
+        right: clamp(14px, 2vw, 30px);
+        bottom: clamp(12px, 2vw, 26px);
+        display: flex;
+        gap: 6px;
+      }
+
+      .deck-controls button {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 3px;
+        background: rgb(17 26 32 / 88%);
+        color: var(--offwhite);
+        cursor: pointer;
+        font: 700 1rem/1 var(--mono);
+        backdrop-filter: blur(10px);
+      }
+
+      .deck-controls button:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      .slide {
+        position: relative;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+        isolation: isolate;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .slide::before {
+        position: absolute;
+        z-index: -2;
+        inset: 0;
+        background-image:
+          linear-gradient(rgb(127 213 211 / 4%) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(127 213 211 / 4%) 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: linear-gradient(90deg, transparent 4%, black 28%, black 84%, transparent);
+        content: "";
+      }
+
+      .slide::after {
+        position: absolute;
+        z-index: -3;
+        width: 42vw;
+        height: 42vw;
+        border-radius: 50%;
+        background: rgb(13 77 83 / 18%);
+        filter: blur(90px);
+        content: "";
+      }
+
+      .slide:nth-of-type(odd)::after {
+        top: -25vw;
+        right: -12vw;
+      }
+
+      .slide:nth-of-type(even)::after {
+        bottom: -28vw;
+        left: -18vw;
+      }
+
+      .slide-frame {
+        display: grid;
+        width: min(1440px, 100%);
+        height: 100%;
+        margin: 0 auto;
+        padding: clamp(24px, 4.2vh, 52px) clamp(48px, 6.5vw, 104px) clamp(28px, 4vh, 48px);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: clamp(12px, 2vh, 24px);
+      }
+
+      .slide-head,
+      .slide-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        color: var(--graphite);
+        font: 700 clamp(0.62rem, 0.7vw, 0.74rem)/1.2 var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .slide-head .section-code,
+      .slide-foot .slide-no {
+        color: var(--aqua);
+      }
+
+      .slide-head .mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .slide-head .mark::before {
+        width: 8px;
+        height: 8px;
+        border: 1px solid var(--orange);
+        background: rgb(240 90 40 / 18%);
+        content: "";
+        transform: rotate(45deg);
+      }
+
+      .slide-foot {
+        padding-right: 58px;
+      }
+
+      .slide-foot .rule {
+        height: 1px;
+        flex: 1;
+        background: linear-gradient(90deg, var(--line-strong), transparent);
+      }
+
+      .content {
+        display: grid;
+        min-height: 0;
+        align-items: center;
+        gap: clamp(26px, 5vw, 80px);
+      }
+
+      .two-col {
+        grid-template-columns: minmax(0, 0.86fr) minmax(480px, 1.14fr);
+      }
+
+      .two-col.equal {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .copy {
+        position: relative;
+        z-index: 2;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 clamp(12px, 2vh, 22px);
+        color: var(--aqua);
+        font: 700 clamp(0.66rem, 0.8vw, 0.82rem)/1.3 var(--mono);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 2px;
+        background: var(--orange);
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        font-stretch: condensed;
+        text-wrap: balance;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin-bottom: clamp(18px, 2.5vh, 30px);
+        font-size: clamp(3.8rem, 7.5vw, 8.2rem);
+        font-weight: 900;
+        letter-spacing: -0.065em;
+        line-height: 0.84;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        max-width: 13ch;
+        margin-bottom: clamp(16px, 2.2vh, 26px);
+        font-size: clamp(2.9rem, 5vw, 6rem);
+        font-weight: 900;
+        letter-spacing: -0.055em;
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin-bottom: 0.45rem;
+        font-size: clamp(1.05rem, 1.35vw, 1.42rem);
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .lead {
+        max-width: 53ch;
+        margin-bottom: 0;
+        color: var(--soft);
+        font-size: clamp(1rem, 1.25vw, 1.28rem);
+        line-height: 1.55;
+      }
+
+      .accent {
+        color: var(--aqua);
+      }
+
+      .signal {
+        color: var(--orange-soft);
+      }
+
+      .mono {
+        font-family: var(--mono);
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: clamp(20px, 3vh, 34px);
+      }
+
+      .pill {
+        padding: 0.58rem 0.72rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 3px;
+        background: rgb(17 26 32 / 68%);
+        color: var(--soft);
+        font: 700 clamp(0.62rem, 0.68vw, 0.74rem)/1 var(--mono);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .pill.valid {
+        border-color: rgb(127 213 211 / 55%);
+        color: var(--aqua);
+      }
+
+      .pill.active {
+        border-color: var(--orange);
+        background: rgb(240 90 40 / 12%);
+        color: var(--orange-soft);
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgb(17 26 32 / 78%);
+        box-shadow: 0 28px 80px rgb(0 0 0 / 32%);
+        backdrop-filter: blur(12px);
+      }
+
+      .cornered {
+        position: relative;
+      }
+
+      .cornered::before,
+      .cornered::after {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-color: var(--orange);
+        content: "";
+        pointer-events: none;
+      }
+
+      .cornered::before {
+        top: -1px;
+        left: -1px;
+        border-top: 2px solid;
+        border-left: 2px solid;
+      }
+
+      .cornered::after {
+        right: -1px;
+        bottom: -1px;
+        border-right: 2px solid;
+        border-bottom: 2px solid;
+      }
+
+      /* 01 — cover */
+      .cover .slide-frame {
+        padding-top: clamp(26px, 5vh, 62px);
+      }
+
+      .brand-logo {
+        width: clamp(168px, 17vw, 260px);
+        height: auto;
+      }
+
+      .cover-visual {
+        position: relative;
+        display: grid;
+        min-height: 0;
+        place-items: center;
+      }
+
+      .cover-visual svg {
+        width: min(100%, 710px);
+        max-height: 66vh;
+        filter: drop-shadow(0 32px 34px rgb(0 0 0 / 35%));
+      }
+
+      .cover .lead {
+        max-width: 42ch;
+      }
+
+      .orbit-tag {
+        position: absolute;
+        padding: 0.62rem 0.78rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 3px;
+        background: rgb(7 16 20 / 88%);
+        color: var(--soft);
+        font: 700 clamp(0.58rem, 0.7vw, 0.74rem)/1 var(--mono);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .orbit-tag strong {
+        color: var(--aqua);
+        font-weight: 800;
+      }
+
+      .orbit-tag.one {
+        top: 13%;
+        right: 4%;
+      }
+
+      .orbit-tag.two {
+        bottom: 16%;
+        left: 0;
+      }
+
+      .orbit-tag.three {
+        right: 2%;
+        bottom: 5%;
+        border-color: rgb(240 90 40 / 52%);
+      }
+
+      .trace-line {
+        stroke-dasharray: 9 9;
+        animation: trace 12s linear infinite;
+      }
+
+      @keyframes trace {
+        to {
+          stroke-dashoffset: -180;
+        }
+      }
+
+      /* 02 — orchestration */
+      .control-plane {
+        padding: clamp(18px, 2.2vw, 30px);
+      }
+
+      .window-bar {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .window-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--line-strong);
+      }
+
+      .window-dot:last-of-type {
+        background: var(--orange);
+      }
+
+      .window-title {
+        margin-left: auto;
+        color: var(--graphite);
+        font: 700 0.64rem/1 var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .orca-map {
+        display: grid;
+        padding-top: clamp(18px, 2.6vh, 28px);
+        grid-template-columns: 0.9fr 1.2fr 0.9fr;
+        gap: clamp(10px, 1.5vw, 18px);
+      }
+
+      .orca-card {
+        display: grid;
+        min-height: 118px;
+        padding: 14px;
+        align-content: space-between;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--deep);
+      }
+
+      .orca-card.codex {
+        border-color: rgb(127 213 211 / 52%);
+        background: linear-gradient(145deg, var(--petrol), #0a1c21);
+      }
+
+      .orca-card .tag {
+        color: var(--graphite);
+        font: 700 0.59rem/1 var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .orca-card strong {
+        font: 800 clamp(1rem, 1.5vw, 1.42rem)/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .orca-card small {
+        color: var(--graphite);
+        font: 0.68rem/1.35 var(--mono);
+      }
+
+      .agent-rail {
+        display: grid;
+        margin-top: 16px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .agent-rail span {
+        padding: 9px 6px;
+        border-top: 2px solid var(--line-strong);
+        color: var(--graphite);
+        font: 700 0.57rem/1.25 var(--mono);
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .agent-rail .active {
+        border-color: var(--orange);
+        color: var(--offwhite);
+      }
+
+      .role-list {
+        display: grid;
+        margin-top: 28px;
+        gap: 10px;
+      }
+
+      .role {
+        display: grid;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        grid-template-columns: 32px 1fr;
+        gap: 12px;
+      }
+
+      .role .index {
+        color: var(--orange);
+        font: 700 0.72rem/1 var(--mono);
+      }
+
+      .role b {
+        display: block;
+        margin-bottom: 3px;
+        font-family: var(--display);
+        text-transform: uppercase;
+      }
+
+      .role span:last-child {
+        color: var(--graphite);
+        font-size: clamp(0.72rem, 0.82vw, 0.86rem);
+      }
+
+      /* 03 — preflight */
+      .preflight-board {
+        display: grid;
+        padding: clamp(22px, 3vw, 38px);
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(18px, 3vw, 42px);
+      }
+
+      .brief-card,
+      .route-card {
+        padding: clamp(18px, 2vw, 26px);
+        border: 1px solid var(--line);
+        background: var(--deep);
+      }
+
+      .brief-card .sketch {
+        position: relative;
+        height: 150px;
+        margin-bottom: 18px;
+        background-image:
+          linear-gradient(rgb(127 213 211 / 6%) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(127 213 211 / 6%) 1px, transparent 1px);
+        background-size: 22px 22px;
+      }
+
+      .sketch::before {
+        position: absolute;
+        inset: 26px 18px 32px 34px;
+        border: 2px solid var(--aqua);
+        clip-path: polygon(0 18%, 60% 18%, 60% 0, 100% 0, 100% 82%, 42% 82%, 42% 100%, 0 100%);
+        content: "";
+        transform: skewY(-5deg);
+      }
+
+      .sketch::after {
+        position: absolute;
+        right: 14px;
+        bottom: 12px;
+        width: 64%;
+        border-top: 1px solid var(--orange);
+        color: var(--orange-soft);
+        content: "≤ 220 mm";
+        font: 700 0.62rem/2.3 var(--mono);
+        text-align: center;
+      }
+
+      .brief-card strong,
+      .route-card strong {
+        display: block;
+        color: var(--offwhite);
+        font: 800 1rem/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .brief-card small,
+      .route-card small {
+        color: var(--graphite);
+        font: 0.68rem/1.4 var(--mono);
+      }
+
+      .preflight-core {
+        display: grid;
+        width: clamp(180px, 18vw, 250px);
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, var(--surface) 0 24%, transparent 25%),
+          repeating-radial-gradient(circle, transparent 0 20%, rgb(127 213 211 / 10%) 21% 21.6%);
+      }
+
+      .preflight-core::before {
+        position: absolute;
+        width: 12%;
+        height: 12%;
+        border: 2px solid var(--orange);
+        background: var(--surface);
+        content: "";
+        transform: rotate(45deg);
+      }
+
+      .preflight-axes {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .axis {
+        position: absolute;
+        display: grid;
+        width: 66px;
+        height: 66px;
+        place-items: center;
+        border: 1px solid var(--teal);
+        border-radius: 50%;
+        background: var(--surface);
+        color: var(--aqua);
+        font: 900 1.35rem/1 var(--display);
+      }
+
+      .axis small {
+        display: block;
+        color: var(--graphite);
+        font: 700 0.48rem/1 var(--mono);
+        letter-spacing: 0.06em;
+      }
+
+      .axis.c {
+        top: 4%;
+        left: calc(50% - 33px);
+      }
+
+      .axis.r {
+        right: 4%;
+        bottom: 8%;
+      }
+
+      .axis.k {
+        bottom: 8%;
+        left: 4%;
+      }
+
+      .route-card {
+        border-color: rgb(127 213 211 / 45%);
+      }
+
+      .lane {
+        display: flex;
+        margin-bottom: 18px;
+        align-items: end;
+        gap: 5px;
+      }
+
+      .lane span {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        color: var(--graphite);
+        font: 700 0.7rem/1 var(--mono);
+      }
+
+      .lane span:nth-child(2) {
+        height: 40px;
+      }
+
+      .lane span:nth-child(3) {
+        height: 50px;
+      }
+
+      .lane span:nth-child(4) {
+        height: 60px;
+      }
+
+      .lane span:nth-child(5) {
+        height: 70px;
+      }
+
+      .lane .chosen {
+        border-color: var(--orange);
+        background: rgb(240 90 40 / 15%);
+        color: var(--orange-soft);
+      }
+
+      /* 04 — skills */
+      .skill-map {
+        position: relative;
+        width: min(100%, 820px);
+        aspect-ratio: 1.75;
+        margin: 0 auto;
+      }
+
+      .skill-map::before,
+      .skill-map::after {
+        position: absolute;
+        inset: 14% 12%;
+        border: 1px dashed rgb(127 213 211 / 22%);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .skill-map::after {
+        inset: 29% 30%;
+        border-style: solid;
+      }
+
+      .skill-core,
+      .skill-node {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+        color: var(--soft);
+        font: 700 clamp(0.56rem, 0.72vw, 0.72rem)/1.25 var(--mono);
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .skill-core {
+        z-index: 3;
+        top: 50%;
+        left: 50%;
+        width: 182px;
+        height: 100px;
+        padding: 14px;
+        border-color: var(--orange);
+        background: linear-gradient(135deg, #28170f, var(--surface));
+        color: var(--offwhite);
+        transform: translate(-50%, -50%);
+      }
+
+      .skill-core b {
+        color: var(--orange-soft);
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+      }
+
+      .skill-node {
+        z-index: 2;
+        width: 142px;
+        min-height: 58px;
+        padding: 10px;
+        border-radius: 4px;
+      }
+
+      .skill-node.route {
+        border-color: rgb(127 213 211 / 50%);
+        color: var(--aqua);
+      }
+
+      .skill-node.n1 {
+        top: 0;
+        left: 6%;
+      }
+
+      .skill-node.n2 {
+        top: 0;
+        left: 34%;
+      }
+
+      .skill-node.n3 {
+        top: 0;
+        right: 6%;
+      }
+
+      .skill-node.n4 {
+        top: 40%;
+        left: 0;
+      }
+
+      .skill-node.n5 {
+        top: 40%;
+        right: 0;
+      }
+
+      .skill-node.n6 {
+        bottom: 0;
+        left: 7%;
+      }
+
+      .skill-node.n7 {
+        bottom: 0;
+        left: 34%;
+      }
+
+      .skill-node.n8 {
+        right: 7%;
+        bottom: 0;
+      }
+
+      .skill-lines {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* 05 — build loop */
+      .build-loop {
+        display: grid;
+        width: min(100%, 720px);
+        aspect-ratio: 1.22;
+        margin: auto;
+        place-items: center;
+      }
+
+      .loop-ring {
+        position: relative;
+        width: 78%;
+        aspect-ratio: 1;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        background:
+          conic-gradient(from 22deg, transparent 0 23%, rgb(8 119 125 / 26%) 23% 25%, transparent 25% 48%, rgb(8 119 125 / 26%) 48% 50%, transparent 50% 73%, rgb(240 90 40 / 28%) 73% 75%, transparent 75%),
+          radial-gradient(circle, rgb(13 77 83 / 20%), transparent 58%);
+      }
+
+      .loop-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: grid;
+        width: 38%;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--teal);
+        background: var(--deep);
+        clip-path: polygon(50% 0, 92% 24%, 92% 76%, 50% 100%, 8% 76%, 8% 24%);
+        color: var(--aqua);
+        font: 900 clamp(1.1rem, 1.8vw, 1.75rem)/0.95 var(--display);
+        text-align: center;
+        text-transform: uppercase;
+        transform: translate(-50%, -50%);
+      }
+
+      .loop-step {
+        position: absolute;
+        display: grid;
+        width: 136px;
+        min-height: 74px;
+        padding: 12px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 4px;
+        background: var(--surface);
+        text-align: center;
+      }
+
+      .loop-step b {
+        display: block;
+        margin-bottom: 4px;
+        font: 900 0.92rem/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .loop-step small {
+        color: var(--graphite);
+        font: 0.58rem/1.3 var(--mono);
+      }
+
+      .loop-step.s1 {
+        top: -2%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .loop-step.s2 {
+        top: 50%;
+        right: -3%;
+        transform: translateY(-50%);
+      }
+
+      .loop-step.s3 {
+        bottom: -2%;
+        left: 50%;
+        border-color: rgb(240 90 40 / 60%);
+        transform: translateX(-50%);
+      }
+
+      .loop-step.s4 {
+        top: 50%;
+        left: -3%;
+        transform: translateY(-50%);
+      }
+
+      .tool-legend {
+        display: grid;
+        margin-top: 26px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .tool-chip {
+        padding: 12px;
+        border-left: 2px solid var(--teal);
+        background: rgb(17 26 32 / 65%);
+      }
+
+      .tool-chip b {
+        display: block;
+        font: 800 0.82rem/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .tool-chip span {
+        color: var(--graphite);
+        font: 0.62rem/1.25 var(--mono);
+      }
+
+      /* 06 — proof stack */
+      .proof-stack {
+        display: grid;
+        gap: 9px;
+      }
+
+      .proof-layer {
+        display: grid;
+        min-height: 74px;
+        padding: 14px 18px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-left-width: 4px;
+        background: rgb(17 26 32 / 76%);
+        grid-template-columns: 44px 1fr auto;
+        gap: 14px;
+      }
+
+      .proof-layer:nth-child(1) {
+        width: 70%;
+        border-left-color: var(--teal);
+      }
+
+      .proof-layer:nth-child(2) {
+        width: 80%;
+        border-left-color: var(--aqua);
+      }
+
+      .proof-layer:nth-child(3) {
+        width: 90%;
+        border-left-color: var(--warning);
+      }
+
+      .proof-layer:nth-child(4) {
+        width: 100%;
+        border-left-color: var(--orange);
+      }
+
+      .proof-layer .num {
+        color: var(--graphite);
+        font: 700 0.72rem/1 var(--mono);
+      }
+
+      .proof-layer strong {
+        display: block;
+        font: 800 clamp(0.9rem, 1.2vw, 1.18rem)/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .proof-layer small {
+        color: var(--graphite);
+        font: 0.64rem/1.35 var(--mono);
+      }
+
+      .proof-state {
+        padding: 6px 8px;
+        border: 1px solid var(--line-strong);
+        color: var(--aqua);
+        font: 700 0.58rem/1 var(--mono);
+      }
+
+      .state-grid {
+        display: grid;
+        margin-top: 24px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+
+      .state-grid span {
+        padding: 10px 4px;
+        border: 1px solid var(--line);
+        color: var(--graphite);
+        font: 700 clamp(0.52rem, 0.6vw, 0.64rem)/1 var(--mono);
+        text-align: center;
+      }
+
+      .state-grid .pass {
+        border-color: var(--success);
+        color: var(--success);
+      }
+
+      .state-grid .warn {
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+
+      .state-grid .block {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+
+      /* 07 — revision spine */
+      .revision-system {
+        position: relative;
+        display: grid;
+        min-height: 520px;
+        place-items: center;
+      }
+
+      .revision-system::before {
+        position: absolute;
+        top: 50%;
+        right: 8%;
+        left: 8%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--teal), var(--orange), transparent);
+        content: "";
+      }
+
+      .revision-core {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        width: 220px;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--orange);
+        background: radial-gradient(circle at 50% 30%, #23323a, var(--deep) 70%);
+        clip-path: polygon(50% 0, 94% 25%, 94% 75%, 50% 100%, 6% 75%, 6% 25%);
+        text-align: center;
+      }
+
+      .revision-core b {
+        display: block;
+        color: var(--offwhite);
+        font: 900 2.3rem/0.95 var(--display);
+        letter-spacing: -0.04em;
+      }
+
+      .revision-core span {
+        color: var(--orange-soft);
+        font: 700 0.72rem/1 var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      .artifact {
+        position: absolute;
+        z-index: 2;
+        display: grid;
+        width: 160px;
+        min-height: 76px;
+        padding: 12px;
+        align-content: center;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+      }
+
+      .artifact strong {
+        font: 800 0.9rem/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .artifact small {
+        margin-top: 4px;
+        color: var(--graphite);
+        font: 0.57rem/1.3 var(--mono);
+      }
+
+      .artifact.a1 {
+        top: 4%;
+        left: 8%;
+      }
+
+      .artifact.a2 {
+        top: 4%;
+        right: 8%;
+      }
+
+      .artifact.a3 {
+        top: 42%;
+        left: 0;
+      }
+
+      .artifact.a4 {
+        top: 42%;
+        right: 0;
+      }
+
+      .artifact.a5 {
+        bottom: 3%;
+        left: 12%;
+      }
+
+      .artifact.a6 {
+        right: 12%;
+        bottom: 3%;
+      }
+
+      .hash-strip {
+        display: flex;
+        margin-top: 22px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        background: var(--deep);
+        color: var(--graphite);
+        font: 0.62rem/1 var(--mono);
+        gap: 12px;
+      }
+
+      .hash-strip b {
+        color: var(--aqua);
+      }
+
+      /* 08 — boundary */
+      .boundary {
+        display: grid;
+        min-height: 480px;
+        border: 1px solid var(--line);
+        background: rgb(7 16 20 / 66%);
+        grid-template-columns: 1fr 84px 1fr;
+      }
+
+      .boundary-lane {
+        display: grid;
+        padding: clamp(20px, 3vw, 42px);
+        align-content: center;
+      }
+
+      .boundary-lane.ai {
+        background: linear-gradient(135deg, rgb(13 77 83 / 42%), transparent);
+      }
+
+      .boundary-lane.human {
+        background: linear-gradient(225deg, rgb(240 90 40 / 12%), transparent);
+      }
+
+      .boundary-lane h3 {
+        margin-bottom: 24px;
+        font-size: clamp(1.6rem, 2.4vw, 2.8rem);
+      }
+
+      .boundary-lane ul {
+        display: grid;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        gap: 12px;
+      }
+
+      .boundary-lane li {
+        display: grid;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--soft);
+        font-size: clamp(0.74rem, 0.95vw, 0.96rem);
+        grid-template-columns: 18px 1fr;
+        gap: 10px;
+      }
+
+      .boundary-lane li::before {
+        color: var(--aqua);
+        content: "◆";
+        font-size: 0.6rem;
+      }
+
+      .boundary-lane.human li::before {
+        color: var(--orange);
+      }
+
+      .boundary-gate {
+        position: relative;
+        display: grid;
+        place-items: center;
+        border-right: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+        background: repeating-linear-gradient(135deg, var(--surface) 0 8px, var(--deep) 8px 16px);
+      }
+
+      .boundary-gate span {
+        padding: 10px 7px;
+        border: 1px solid var(--orange);
+        background: var(--canvas);
+        color: var(--orange-soft);
+        font: 700 0.58rem/1 var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+      }
+
+      /* 09 — lifecycle */
+      .lifecycle {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .lifecycle::before {
+        position: absolute;
+        z-index: -1;
+        top: 38px;
+        right: 3%;
+        left: 3%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--teal), var(--aqua), var(--orange));
+        content: "";
+      }
+
+      .life-stage {
+        display: grid;
+        min-height: 250px;
+        padding: 16px 12px;
+        align-content: start;
+        border: 1px solid var(--line);
+        background: rgb(17 26 32 / 88%);
+      }
+
+      .life-stage .stage-dot {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        margin-bottom: 34px;
+        place-items: center;
+        border: 1px solid var(--teal);
+        background: var(--deep);
+        color: var(--aqua);
+        font: 900 0.92rem/1 var(--display);
+        transform: rotate(45deg);
+      }
+
+      .life-stage .stage-dot span {
+        transform: rotate(-45deg);
+      }
+
+      .life-stage strong {
+        min-height: 34px;
+        font: 800 clamp(0.75rem, 0.88vw, 0.94rem)/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .life-stage small {
+        margin-top: 8px;
+        color: var(--graphite);
+        font: clamp(0.55rem, 0.62vw, 0.66rem)/1.38 var(--mono);
+      }
+
+      .life-stage.live {
+        border-color: var(--orange);
+        background: linear-gradient(180deg, rgb(240 90 40 / 16%), var(--surface));
+      }
+
+      .life-stage.live .stage-dot {
+        border-color: var(--orange);
+        color: var(--orange-soft);
+      }
+
+      .gate-caption {
+        display: flex;
+        margin-top: 24px;
+        align-items: center;
+        gap: 14px;
+        color: var(--soft);
+        font-size: clamp(0.78rem, 0.95vw, 1rem);
+      }
+
+      .gate-caption::before {
+        width: 44px;
+        height: 2px;
+        background: var(--orange);
+        content: "";
+      }
+
+      /* 10 — learning */
+      .learning-loop {
+        position: relative;
+        display: grid;
+        width: min(100%, 750px);
+        aspect-ratio: 1.4;
+        margin: auto;
+        place-items: center;
+      }
+
+      .learning-loop svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .learning-core {
+        z-index: 2;
+        display: grid;
+        width: 180px;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--teal);
+        border-radius: 50%;
+        background: var(--deep);
+        color: var(--aqua);
+        font: 900 1.35rem/1 var(--display);
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .learn-node {
+        position: absolute;
+        z-index: 2;
+        display: grid;
+        width: 154px;
+        min-height: 72px;
+        padding: 12px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+        font: 700 0.66rem/1.25 var(--mono);
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .learn-node small {
+        display: block;
+        margin-top: 4px;
+        color: var(--graphite);
+        font-size: 0.54rem;
+        text-transform: none;
+      }
+
+      .learn-node.l1 {
+        top: 0;
+        left: calc(50% - 77px);
+      }
+
+      .learn-node.l2 {
+        top: 42%;
+        right: 0;
+      }
+
+      .learn-node.l3 {
+        right: 18%;
+        bottom: 0;
+        border-color: rgb(127 213 211 / 48%);
+      }
+
+      .learn-node.l4 {
+        bottom: 0;
+        left: 18%;
+      }
+
+      .learn-node.l5 {
+        top: 42%;
+        left: 0;
+        border-color: rgb(240 90 40 / 48%);
+      }
+
+      .maturity {
+        display: grid;
+        margin-top: 26px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+
+      .maturity span {
+        padding: 10px 4px;
+        border-top: 2px solid var(--line-strong);
+        color: var(--graphite);
+        font: 700 0.6rem/1 var(--mono);
+        text-align: center;
+      }
+
+      .maturity span:last-child {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* 11 — package */
+      .package-explosion {
+        position: relative;
+        display: grid;
+        min-height: 510px;
+        place-items: center;
+        perspective: 1100px;
+      }
+
+      .package-layer {
+        position: absolute;
+        display: grid;
+        width: min(78%, 580px);
+        height: 100px;
+        padding: 16px 22px;
+        border: 1px solid var(--line-strong);
+        background: rgb(17 26 32 / 94%);
+        box-shadow: 0 18px 28px rgb(0 0 0 / 24%);
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        transform: rotateX(58deg) rotateZ(-6deg);
+      }
+
+      .package-layer strong {
+        display: block;
+        font: 900 1.05rem/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .package-layer small {
+        color: var(--graphite);
+        font: 0.59rem/1.3 var(--mono);
+      }
+
+      .package-layer .filetype {
+        color: var(--aqua);
+        font: 800 0.72rem/1 var(--mono);
+      }
+
+      .package-layer.p1 {
+        top: 5%;
+      }
+
+      .package-layer.p2 {
+        top: 23%;
+      }
+
+      .package-layer.p3 {
+        top: 41%;
+      }
+
+      .package-layer.p4 {
+        top: 59%;
+        border-color: rgb(127 213 211 / 52%);
+      }
+
+      .package-layer.p5 {
+        top: 77%;
+        border-color: var(--orange);
+        background: linear-gradient(90deg, #28170f, var(--surface));
+      }
+
+      .package-caption {
+        display: grid;
+        margin-top: 26px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .package-caption div {
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: rgb(17 26 32 / 58%);
+      }
+
+      .package-caption b {
+        display: block;
+        color: var(--aqua);
+        font: 800 0.76rem/1 var(--mono);
+        text-transform: uppercase;
+      }
+
+      .package-caption span {
+        color: var(--graphite);
+        font-size: 0.72rem;
+      }
+
+      /* 12 — close */
+      .closing-grid {
+        display: grid;
+        min-height: clamp(260px, 38vh, 360px);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+      }
+
+      .closing-step {
+        position: relative;
+        display: grid;
+        min-height: 260px;
+        padding: 22px 16px;
+        align-content: center;
+        border: 1px solid var(--line);
+        background: rgb(17 26 32 / 76%);
+        text-align: center;
+      }
+
+      .closing-step:not(:last-child)::after {
+        position: absolute;
+        z-index: 3;
+        top: 50%;
+        right: -13px;
+        display: grid;
+        width: 26px;
+        height: 26px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        background: var(--canvas);
+        color: var(--aqua);
+        content: "→";
+        font: 700 0.8rem/1 var(--mono);
+        transform: translateY(-50%);
+      }
+
+      .closing-step .big {
+        margin-bottom: 20px;
+        color: var(--aqua);
+        font: 900 clamp(2.3rem, 4vw, 4.2rem)/1 var(--display);
+      }
+
+      .closing-step:nth-child(5) .big {
+        color: var(--orange);
+      }
+
+      .closing-step strong {
+        font: 900 clamp(0.85rem, 1vw, 1rem)/1 var(--display);
+        text-transform: uppercase;
+      }
+
+      .closing-step small {
+        margin-top: 8px;
+        color: var(--graphite);
+        font: 0.6rem/1.35 var(--mono);
+      }
+
+      .source-links {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 22px;
+        gap: 8px;
+      }
+
+      .source-links a {
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        color: var(--graphite);
+        font: 700 0.58rem/1 var(--mono);
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .source-links a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      #slide-12 .content {
+        align-content: start;
+        align-items: start;
+        gap: clamp(10px, 2vh, 18px);
+        grid-template-rows: auto auto;
+      }
+
+      #slide-12 h2 {
+        max-width: 22ch;
+        margin-bottom: 0;
+        font-size: clamp(1.75rem, 4vw, 4.5rem);
+      }
+
+      @media (max-width: 1050px) {
+        .two-col,
+        .two-col.equal {
+          grid-template-columns: minmax(0, 0.8fr) minmax(390px, 1.2fr);
+          gap: 32px;
+        }
+
+        h1 {
+          font-size: clamp(3.5rem, 8vw, 6.5rem);
+        }
+
+        h2 {
+          font-size: clamp(2.5rem, 5.6vw, 4.4rem);
+        }
+
+        .lifecycle {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .lifecycle::before {
+          display: none;
+        }
+
+        .life-stage {
+          min-height: 150px;
+        }
+
+        .life-stage .stage-dot {
+          width: 36px;
+          height: 36px;
+          margin-bottom: 18px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .slide-frame {
+          padding: 18px 34px 18px 20px;
+          gap: 8px;
+        }
+
+        .slide-head .mark,
+        .slide-foot .rule,
+        .deck-controls {
+          display: none;
+        }
+
+        .deck-nav {
+          right: 9px;
+          gap: 7px;
+        }
+
+        .deck-nav button {
+          width: 8px;
+          height: 8px;
+        }
+
+        .content,
+        .two-col,
+        .two-col.equal {
+          grid-template-columns: 1fr;
+          align-content: center;
+          gap: 14px;
+        }
+
+        .copy {
+          display: grid;
+          grid-template-columns: 1fr;
+          align-content: center;
+        }
+
+        .eyebrow {
+          margin-bottom: 8px;
+          font-size: 0.57rem;
+        }
+
+        h1 {
+          max-width: 9ch;
+          margin-bottom: 12px;
+          font-size: clamp(2.8rem, 14vw, 4.5rem);
+        }
+
+        h2 {
+          max-width: 16ch;
+          margin-bottom: 9px;
+          font-size: clamp(2rem, 9.5vw, 3.1rem);
+        }
+
+        .lead {
+          font-size: 0.82rem;
+          line-height: 1.42;
+        }
+
+        .pill-row {
+          margin-top: 12px;
+          gap: 5px;
+        }
+
+        .pill {
+          padding: 0.43rem 0.52rem;
+          font-size: 0.52rem;
+        }
+
+        .cover .content {
+          grid-template-rows: auto 1fr;
+        }
+
+        .brand-logo {
+          width: 148px;
+        }
+
+        .cover-visual svg {
+          width: min(92%, 390px);
+          max-height: 35vh;
+        }
+
+        .orbit-tag {
+          padding: 0.4rem 0.5rem;
+          font-size: 0.49rem;
+        }
+
+        .orbit-tag.one {
+          top: 3%;
+        }
+
+        .orbit-tag.two {
+          bottom: 14%;
+        }
+
+        .orbit-tag.three {
+          bottom: 0;
+        }
+
+        .control-plane {
+          padding: 12px;
+        }
+
+        .orca-map {
+          padding-top: 12px;
+          gap: 6px;
+        }
+
+        .orca-card {
+          min-height: 72px;
+          padding: 8px;
+        }
+
+        .orca-card strong {
+          font-size: 0.7rem;
+        }
+
+        .orca-card small,
+        .window-title {
+          display: none;
+        }
+
+        .agent-rail {
+          margin-top: 8px;
+        }
+
+        .agent-rail span {
+          padding: 5px 3px;
+          font-size: 0.45rem;
+        }
+
+        .role-list {
+          display: none;
+        }
+
+        .preflight-board {
+          padding: 12px;
+          grid-template-columns: 0.82fr auto 0.82fr;
+          gap: 8px;
+        }
+
+        .brief-card,
+        .route-card {
+          padding: 9px;
+        }
+
+        .brief-card .sketch {
+          height: 74px;
+          margin-bottom: 9px;
+        }
+
+        .brief-card strong,
+        .route-card strong {
+          font-size: 0.66rem;
+        }
+
+        .brief-card small,
+        .route-card small {
+          display: none;
+        }
+
+        .preflight-core {
+          width: 116px;
+        }
+
+        .axis {
+          width: 40px;
+          height: 40px;
+          font-size: 0.88rem;
+        }
+
+        .axis small {
+          font-size: 0.36rem;
+        }
+
+        .lane {
+          margin-bottom: 8px;
+        }
+
+        .lane span {
+          width: 18px;
+          height: 20px !important;
+          font-size: 0.5rem;
+        }
+
+        .skill-map {
+          width: 100%;
+          max-height: 43vh;
+        }
+
+        .skill-node {
+          width: 92px;
+          min-height: 42px;
+          padding: 6px;
+          font-size: 0.43rem;
+        }
+
+        .skill-core {
+          width: 116px;
+          height: 70px;
+          font-size: 0.52rem;
+        }
+
+        .skill-node.n2,
+        .skill-node.n7 {
+          display: none;
+        }
+
+        .build-loop {
+          max-height: 43vh;
+        }
+
+        .loop-step {
+          width: 92px;
+          min-height: 50px;
+          padding: 7px;
+        }
+
+        .loop-step b {
+          font-size: 0.62rem;
+        }
+
+        .loop-step small {
+          font-size: 0.43rem;
+        }
+
+        .tool-legend {
+          display: none;
+        }
+
+        .proof-layer {
+          min-height: 50px;
+          padding: 8px;
+          grid-template-columns: 22px 1fr auto;
+          gap: 6px;
+        }
+
+        .proof-layer strong {
+          font-size: 0.67rem;
+        }
+
+        .proof-layer small {
+          font-size: 0.48rem;
+        }
+
+        .proof-state {
+          padding: 4px;
+          font-size: 0.44rem;
+        }
+
+        .state-grid {
+          margin-top: 10px;
+        }
+
+        .state-grid span {
+          padding: 6px 1px;
+          font-size: 0.42rem;
+        }
+
+        .revision-system {
+          min-height: 340px;
+        }
+
+        .revision-core {
+          width: 125px;
+        }
+
+        .revision-core b {
+          font-size: 1.25rem;
+        }
+
+        .revision-core span {
+          font-size: 0.5rem;
+        }
+
+        .artifact {
+          width: 100px;
+          min-height: 52px;
+          padding: 7px;
+        }
+
+        .artifact strong {
+          font-size: 0.59rem;
+        }
+
+        .artifact small {
+          display: none;
+        }
+
+        .hash-strip {
+          display: none;
+        }
+
+        .boundary {
+          min-height: 340px;
+          grid-template-columns: 1fr 42px 1fr;
+        }
+
+        .boundary-lane {
+          padding: 12px;
+        }
+
+        .boundary-lane h3 {
+          margin-bottom: 12px;
+          font-size: 1.1rem;
+        }
+
+        .boundary-lane ul {
+          gap: 6px;
+        }
+
+        .boundary-lane li {
+          padding-bottom: 6px;
+          font-size: 0.58rem;
+          grid-template-columns: 10px 1fr;
+          gap: 5px;
+        }
+
+        .boundary-gate span {
+          font-size: 0.42rem;
+        }
+
+        .lifecycle {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 5px;
+        }
+
+        .life-stage {
+          min-height: 112px;
+          padding: 8px;
+        }
+
+        .life-stage .stage-dot {
+          width: 25px;
+          height: 25px;
+          margin-bottom: 10px;
+          font-size: 0.58rem;
+        }
+
+        .life-stage strong {
+          min-height: auto;
+          font-size: 0.57rem;
+        }
+
+        .life-stage small {
+          font-size: 0.43rem;
+        }
+
+        .gate-caption {
+          margin-top: 10px;
+          font-size: 0.63rem;
+        }
+
+        .learning-loop {
+          max-height: 41vh;
+        }
+
+        .learning-core {
+          width: 100px;
+          font-size: 0.8rem;
+        }
+
+        .learn-node {
+          width: 92px;
+          min-height: 48px;
+          padding: 6px;
+          font-size: 0.46rem;
+        }
+
+        .learn-node small {
+          display: none;
+        }
+
+        .maturity {
+          margin-top: 10px;
+        }
+
+        .maturity span {
+          padding: 6px 2px;
+          font-size: 0.45rem;
+        }
+
+        .package-explosion {
+          min-height: 340px;
+        }
+
+        .package-layer {
+          height: 66px;
+          padding: 8px 12px;
+        }
+
+        .package-layer strong {
+          font-size: 0.66rem;
+        }
+
+        .package-layer small {
+          font-size: 0.44rem;
+        }
+
+        .package-caption {
+          display: none;
+        }
+
+        .closing-grid {
+          min-height: 0;
+          grid-template-columns: repeat(5, 1fr);
+        }
+
+        .closing-step {
+          min-height: 170px;
+          padding: 8px 4px;
+        }
+
+        .closing-step .big {
+          margin-bottom: 10px;
+          font-size: 1.65rem;
+        }
+
+        .closing-step strong {
+          font-size: 0.52rem;
+        }
+
+        .closing-step small {
+          display: none;
+        }
+
+        .closing-step:not(:last-child)::after {
+          right: -8px;
+          width: 16px;
+          height: 16px;
+          font-size: 0.5rem;
+        }
+
+        .source-links {
+          margin-top: 10px;
+          gap: 4px;
+        }
+
+        .source-links a {
+          padding: 5px 6px;
+          font-size: 0.43rem;
+        }
+      }
+
+      @media (max-height: 680px) and (min-width: 761px) {
+        .slide-frame {
+          padding-top: 22px;
+          padding-bottom: 20px;
+          gap: 10px;
+        }
+
+        h1 {
+          font-size: clamp(3.6rem, 7vw, 6.2rem);
+        }
+
+        h2 {
+          font-size: clamp(2.6rem, 4.7vw, 4.4rem);
+        }
+
+        .lead {
+          font-size: 0.96rem;
+        }
+
+        .role-list,
+        .tool-legend,
+        .package-caption {
+          margin-top: 14px;
+        }
+
+        .revision-system,
+        .package-explosion {
+          min-height: 410px;
+        }
+
+        .closing-grid {
+          min-height: 250px;
+        }
+
+        .boundary {
+          min-height: 390px;
+        }
+
+        .life-stage {
+          min-height: 210px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media print {
+        html,
+        body {
+          background: var(--canvas);
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .slide {
+          height: 100vh;
+          break-after: page;
+        }
+
+        .deck-nav,
+        .deck-controls,
+        .progress,
+        .skip-link {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Zum Hauptinhalt springen</a>
+    <div class="progress" aria-hidden="true"></div>
+    <nav class="deck-nav" aria-label="Foliennavigation"></nav>
+    <div class="deck-controls" aria-label="Folien wechseln">
+      <button type="button" data-direction="previous" aria-label="Vorherige Folie">↑</button>
+      <button type="button" data-direction="next" aria-label="Nächste Folie">↓</button>
+    </div>
+
+    <main id="main-content">
+      <section class="slide cover" id="slide-1" aria-labelledby="title-1" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head">
+            <img
+              class="brand-logo"
+              src="01-strategy/brand-assets/metricreate/exports/metricreate-lockup-horizontal-color-dark.svg"
+              alt="metriCreate"
+              width="773"
+              height="244"
+            />
+            <span class="mark">Workflow / 2026</span>
+          </header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Vom Problem zum Produkt</p>
+              <h1 id="title-1">Design mit Beweiskette</h1>
+              <p class="lead">
+                Orca koordiniert. Codex entwickelt. Spezialisierte Skills führen. Tests entscheiden.
+              </p>
+              <div class="pill-row" aria-label="Werkzeuge">
+                <span class="pill active">Orca</span>
+                <span class="pill valid">Codex CLI</span>
+                <span class="pill valid">GPT-5.6 Sol</span>
+                <span class="pill">FDM / FFF</span>
+              </div>
+            </div>
+            <div class="cover-visual" aria-label="Ein Modell entwickelt sich vom Drahtgitter zur fertigen Geometrie">
+              <svg viewBox="0 0 720 600" role="img" aria-labelledby="cover-svg-title cover-svg-desc">
+                <title id="cover-svg-title">Wireframe-zu-Produkt-Diagramm</title>
+                <desc id="cover-svg-desc">Links ein technisches Drahtgitter, rechts ein kontrollierter solider Modellkörper.</desc>
+                <defs>
+                  <linearGradient id="solidFace" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0" stop-color="#08777D" />
+                    <stop offset="1" stop-color="#112431" />
+                  </linearGradient>
+                  <clipPath id="rightHalf"><rect x="360" width="360" height="600" /></clipPath>
+                </defs>
+                <g fill="none" stroke="#7FD5D3" stroke-width="1.5" opacity=".75">
+                  <path d="M90 440L240 260L416 304L548 466L364 550Z" />
+                  <path d="M240 260L250 116L428 158L416 304" />
+                  <path d="M428 158L580 324L548 466" />
+                  <path d="M90 440L88 286L250 116" />
+                  <path d="M88 286L264 334L364 550" />
+                  <path d="M264 334L428 158M264 334L580 324" />
+                  <path d="M150 370L310 205L488 240L558 388L452 505L272 450Z" opacity=".45" />
+                  <path d="M205 315L356 248L504 351L387 474L223 397Z" opacity=".3" />
+                </g>
+                <g fill="url(#solidFace)" clip-path="url(#rightHalf)" opacity=".96">
+                  <path d="M240 260L250 116L428 158L416 304L264 334Z" />
+                  <path d="M416 304L428 158L580 324L548 466Z" fill="#08777D" />
+                  <path d="M90 440L264 334L416 304L548 466L364 550Z" fill="#112431" />
+                </g>
+                <g fill="none" stroke="#F05A28" stroke-width="2">
+                  <path class="trace-line" d="M72 494C201 568 535 593 648 430" />
+                  <path d="M629 421L648 430L639 450" />
+                </g>
+                <g fill="#F05A28">
+                  <rect x="569" y="313" width="18" height="18" transform="rotate(45 578 322)" />
+                  <rect x="610" y="378" width="10" height="10" transform="rotate(45 615 383)" opacity=".72" />
+                </g>
+                <g fill="#0B0F12" stroke="#7FD5D3">
+                  <circle cx="250" cy="116" r="5" /><circle cx="428" cy="158" r="5" />
+                  <circle cx="264" cy="334" r="5" /><circle cx="416" cy="304" r="5" />
+                  <circle cx="90" cy="440" r="5" /><circle cx="548" cy="466" r="5" />
+                </g>
+                <g fill="#A7B4B8" font-family="monospace" font-size="11" letter-spacing="1">
+                  <text x="52" y="266">PARAMETRIC SOURCE</text>
+                  <text x="482" y="526">RELEASE CANDIDATE</text>
+                </g>
+              </svg>
+              <span class="orbit-tag one"><strong>01</strong> kontrollierte Quelle</span>
+              <span class="orbit-tag two"><strong>02</strong> prüfbare Geometrie</span>
+              <span class="orbit-tag three"><strong>03</strong> freigegebene Revision</span>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Scrollen · Pfeiltasten · Leertaste</span><span class="rule"></span><span class="slide-no">01 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2" aria-labelledby="title-2" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">01 / SYSTEM</span><span class="mark">Orchestrierung</span></header>
+          <div class="content two-col equal">
+            <div class="copy">
+              <p class="eyebrow">Ein sichtbares Kontrollzentrum</p>
+              <h2 id="title-2">Orca hält den Arbeitsraum zusammen</h2>
+              <p class="lead">Repo-Kontext, Agent-Terminals, Aufgabenstatus und Ergebnisse bleiben an einem Ort nachvollziehbar.</p>
+              <div class="role-list" aria-label="Rollen im System">
+                <div class="role"><span class="index">A</span><span><b>Orca</b><span>steuert Sessions und macht Fortschritt sichtbar</span></span></div>
+                <div class="role"><span class="index">B</span><span><b>Codex CLI</b><span>liest, plant, modelliert und prüft im Repository</span></span></div>
+                <div class="role"><span class="index">C</span><span><b>GPT-5.6 Sol</b><span>liefert Reasoning, Code und Tool-Nutzung</span></span></div>
+                <div class="role"><span class="index">D</span><span><b>main</b><span>bleibt in diesem Repo die einzige aktive Branch-Linie</span></span></div>
+              </div>
+            </div>
+            <div class="panel cornered control-plane" aria-label="Diagramm des Orca-Kontrollzentrums">
+              <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">ORCA / ACTIVE WORKSPACE</span></div>
+              <div class="orca-map">
+                <div class="orca-card"><span class="tag">Input</span><strong>Brief + Dateien</strong><small>Problem · Maße · Fotos · Ziel</small></div>
+                <div class="orca-card codex"><span class="tag">Agent</span><strong>Codex CLI</strong><small>gpt-5.6-sol · Skills · Tools</small></div>
+                <div class="orca-card"><span class="tag">Truth</span><strong>Git Repository</strong><small>Quelle · Tests · Evidence</small></div>
+              </div>
+              <div class="agent-rail" aria-label="Arbeitsphasen">
+                <span>Kontext</span><span class="active">Entwurf</span><span>Validierung</span><span>Review</span>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Orca unterstützt jeden Terminal-Agenten; hier läuft Codex CLI</span><span class="rule"></span><span class="slide-no">02 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3" aria-labelledby="title-3" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">02 / PREFLIGHT</span><span class="mark">Vor dem CAD</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Erst Machbarkeit, dann Geometrie</p>
+              <h2 id="title-3">Preflight bestimmt die richtige Spur</h2>
+              <p class="lead">Komplexität, Interface-Reife und Kritikalität entscheiden, ob wir direkt bauen, erst messen oder bewusst stoppen.</p>
+              <div class="pill-row">
+                <span class="pill valid">C · Complexity</span>
+                <span class="pill valid">R · Readiness</span>
+                <span class="pill active">K · Criticality</span>
+              </div>
+            </div>
+            <div class="panel preflight-board" aria-label="Preflight führt vom Brief zur Designspur">
+              <div class="brief-card">
+                <div class="sketch" aria-hidden="true"></div>
+                <strong>Aufgabe</strong><small>Zweck, Maße, Lasten, Material, Drucker</small>
+              </div>
+              <div class="preflight-core" aria-label="Bewertung nach Komplexität, Reife und Kritikalität">
+                <div class="preflight-axes">
+                  <div class="axis c">C<small>Komplexität</small></div>
+                  <div class="axis r">R<small>Reife</small></div>
+                  <div class="axis k">K<small>Kritikalität</small></div>
+                </div>
+              </div>
+              <div class="route-card">
+                <div class="lane" aria-label="Spuren A bis E"><span>A</span><span class="chosen">B</span><span>C</span><span>D</span><span>E</span></div>
+                <strong>Route + Gates</strong><small>CAD beginnen, Daten schließen, Coupon planen oder blockieren</small>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Unbekannte kritische Inputs werden nicht erraten</span><span class="rule"></span><span class="slide-no">03 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-4" aria-labelledby="title-4" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">03 / ROUTING</span><span class="mark">Skills als Leitplanken</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Für jede Geometrie die passende Methode</p>
+              <h2 id="title-4">Ein Router statt ein Universal-Prompt</h2>
+              <p class="lead">Der Core-Workflow verteilt Teilprobleme an spezialisierte Skills — mit eigenen Regeln, Artefakten und Akzeptanztests.</p>
+            </div>
+            <div class="skill-map" aria-label="Karte der spezialisierten 3D-Skills">
+              <svg class="skill-lines" viewBox="0 0 820 470" aria-hidden="true">
+                <g fill="none" stroke="#25343C" stroke-width="1.3">
+                  <path d="M410 235L120 48M410 235L330 48M410 235L700 48M410 235L70 235M410 235L750 235M410 235L120 422M410 235L330 422M410 235L700 422" />
+                </g>
+                <g fill="#08777D"><circle cx="410" cy="235" r="5" /><circle cx="120" cy="48" r="3" /><circle cx="700" cy="422" r="3" /></g>
+              </svg>
+              <div class="skill-core"><b>CORE</b>functional<br />3D design</div>
+              <div class="skill-node route n1">Reconstruct from images</div>
+              <div class="skill-node n2">Freeform surfacing</div>
+              <div class="skill-node route n3">Organic mesh + CAD</div>
+              <div class="skill-node n4">Surface textures</div>
+              <div class="skill-node n5">Heightmap relief</div>
+              <div class="skill-node route n6">Multicolor FDM</div>
+              <div class="skill-node n7">Casting molds</div>
+              <div class="skill-node route n8">Optimize + validate</div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Präzise Interfaces bleiben parametrisch; organische Flächen bleiben geschützt</span><span class="rule"></span><span class="slide-no">04 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-5" aria-labelledby="title-5" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">04 / BUILD</span><span class="mark">Source-controlled CAD</span></header>
+          <div class="content two-col equal">
+            <div class="copy">
+              <p class="eyebrow">Der Codex-Build-Loop</p>
+              <h2 id="title-5">Aus Anforderungen wird eine reproduzierbare Quelle</h2>
+              <p class="lead">Jede Schleife verkleinert Unsicherheit — ohne Maße, Interfaces oder Annahmen im Mesh zu verstecken.</p>
+              <div class="tool-legend" aria-label="CAD-Werkzeuge und ihre Rollen">
+                <div class="tool-chip"><b>CadQuery</b><span>B-Rep · STEP · Interfaces</span></div>
+                <div class="tool-chip"><b>OpenSCAD</b><span>CSG · Muster · Parameter</span></div>
+                <div class="tool-chip"><b>Blender</b><span>organische Meshes · Repair</span></div>
+                <div class="tool-chip"><b>Hybrid</b><span>exakte Kerne + freie Hüllen</span></div>
+              </div>
+            </div>
+            <div class="build-loop" aria-label="Iterativer Build-Loop">
+              <div class="loop-ring">
+                <div class="loop-center">Editable<br />Source</div>
+                <div class="loop-step s1"><span><b>01 · Spezifikation</b><small>Kriterien + Datums</small></span></div>
+                <div class="loop-step s2"><span><b>02 · Modell</b><small>Parameter + Bodies</small></span></div>
+                <div class="loop-step s3"><span><b>03 · Export</b><small>STEP · STL · 3MF</small></span></div>
+                <div class="loop-step s4"><span><b>04 · Vergleich</b><small>Render + Maße + Diff</small></span></div>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Die Manufacturing-Mesh ist ein abgeleitetes Artefakt — nicht die Quelle</span><span class="rule"></span><span class="slide-no">05 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-6" aria-labelledby="title-6" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">05 / VALIDATE</span><span class="mark">Fail closed</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Ein Render ist kein Beweis</p>
+              <h2 id="title-6">Prüfung wird mit jedem Gate realer</h2>
+              <p class="lead">Automatisierte Geometriechecks beginnen die Beweiskette. Exaktes Slicing, Coupons und reale Belastung schließen sie.</p>
+              <div class="state-grid" aria-label="Mögliche Validierungszustände">
+                <span class="pass">PASS</span><span class="warn">WARN</span><span class="block">BLOCK</span><span>NOT_RUN</span><span>REVIEW</span>
+              </div>
+            </div>
+            <div class="proof-stack" aria-label="Vier Ebenen der Validierung">
+              <div class="proof-layer"><span class="num">01</span><span><strong>Geometrie</strong><small>manifold · Maße · Wände · Interfaces · Build volume</small></span><span class="proof-state">SCRIPT</span></div>
+              <div class="proof-layer"><span class="num">02</span><span><strong>Exakter Slicer</strong><small>Profile + Hashes + G-code-Metriken · neuer Run-Ordner</small></span><span class="proof-state">ASN</span></div>
+              <div class="proof-layer"><span class="num">03</span><span><strong>Coupon + Prototyp</strong><small>Passung · Material · Orientierung · Prozess</small></span><span class="proof-state">PHYSISCH</span></div>
+              <div class="proof-layer"><span class="num">04</span><span><strong>Qualifikation</strong><small>Reproduzierbarkeit · Nutzung · Missbrauch · Zyklen</small></span><span class="proof-state">HUMAN</span></div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Für Anycubic: slice-anycubic-next mit expliziten Maschinen-, Prozess- und Filamentprofilen</span><span class="rule"></span><span class="slide-no">06 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-7" aria-labelledby="title-7" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">06 / TRACE</span><span class="mark">One SKU · one evidence chain</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Die Revision ist der rote Faden</p>
+              <h2 id="title-7">Alles zeigt auf dasselbe Produkt</h2>
+              <p class="lead">Quelle, Exporte, Tests, Anleitung und Kundendatei tragen dieselbe Identität. Nichts wird still überschrieben.</p>
+              <div class="hash-strip"><b>SHA-256</b><span>8c91…7fd2</span><span>immutable artifact</span></div>
+            </div>
+            <div class="revision-system" aria-label="Artefakte gruppieren sich um eine stabile SKU und Revision">
+              <div class="revision-core"><span><b>SKU</b>v1.3</span></div>
+              <div class="artifact a1"><strong>CAD Source</strong><small>Parameter · Datums · Dependencies</small></div>
+              <div class="artifact a2"><strong>Exports</strong><small>STEP · STL · exact 3MF</small></div>
+              <div class="artifact a3"><strong>Checks</strong><small>Reports · Hashes · thresholds</small></div>
+              <div class="artifact a4"><strong>Print Tests</strong><small>Profile · Lot · photos · measures</small></div>
+              <div class="artifact a5"><strong>Customer Pack</strong><small>Files · license · instructions</small></div>
+              <div class="artifact a6"><strong>Support</strong><small>Orders · incidents · takedown</small></div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Jede relevante Änderung erzeugt eine neue Revision und Impact Assessment</span><span class="rule"></span><span class="slide-no">07 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-8" aria-labelledby="title-8" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">07 / AUTHORITY</span><span class="mark">Mensch bleibt Entscheider</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Autonomie mit harter Grenze</p>
+              <h2 id="title-8">AI bringt bis zum Print-Kandidaten</h2>
+              <p class="lead">Was physisch, sicherheitsrelevant, ästhetisch oder kommerziell ist, bleibt eine explizite menschliche Freigabe.</p>
+            </div>
+            <div class="boundary" aria-label="Aufteilung zwischen Codex-Automation und menschlicher Freigabe">
+              <div class="boundary-lane ai">
+                <h3 class="accent">Codex / automatisiert</h3>
+                <ul><li>Preflight + Spezifikation vorbereiten</li><li>CAD-Quelle und Exporte bauen</li><li>Geometrie, 3MF und G-code prüfen</li><li>Evidence-Paket zusammenstellen</li></ul>
+              </div>
+              <div class="boundary-gate"><span>Approval Gate</span></div>
+              <div class="boundary-lane human">
+                <h3 class="signal">Mensch / verbindlich</h3>
+                <ul><li>Anforderungen und Konzept freigeben</li><li>Passung, Funktion und Oberfläche prüfen</li><li>Sicherheit und Claims verantworten</li><li>Release und Veröffentlichung signieren</li></ul>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Drucker-Upload und Druckstart erfolgen nie automatisch</span><span class="rule"></span><span class="slide-no">08 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-9" aria-labelledby="title-9" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">08 / RELEASE</span><span class="mark">Von P0 bis P7</span></header>
+          <div class="content">
+            <div class="copy">
+              <p class="eyebrow">Ein Modell ist noch kein Produkt</p>
+              <h2 id="title-9">Acht Stufen bis live</h2>
+            </div>
+            <div>
+              <div class="lifecycle" aria-label="Produktlebenszyklus von Idee bis Live">
+                <div class="life-stage"><div class="stage-dot"><span>P0</span></div><strong>Idee</strong><small>Problem + Hypothese</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P1</span></div><strong>Modell</strong><small>Quelle oder Mesh vorhanden</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P2</span></div><strong>Digital</strong><small>kontrollierte Candidate-Revision</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P3</span></div><strong>Prototyp</strong><small>Coupon + erster Realprint</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P4</span></div><strong>Qualifiziert</strong><small>reproduzierbar + getestet</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P5</span></div><strong>Commercial</strong><small>Paket + Rechte + Preis</small></div>
+                <div class="life-stage"><div class="stage-dot"><span>P6</span></div><strong>Staged</strong><small>Shop- und Download-Tests</small></div>
+                <div class="life-stage live"><div class="stage-dot"><span>P7</span></div><strong>Live</strong><small>signiert + überwacht</small></div>
+              </div>
+              <p class="gate-caption">Unbekannte Evidence bedeutet am Release-Gate: <strong class="signal">BLOCK</strong>.</p>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Verkaufte Dateien bleiben versionsgenau und auflösbar</span><span class="rule"></span><span class="slide-no">09 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-10" aria-labelledby="title-10" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">09 / LEARN</span><span class="mark">Evidence-gated learning</span></header>
+          <div class="content two-col equal">
+            <div class="copy">
+              <p class="eyebrow">Jeder Test verbessert das System</p>
+              <h2 id="title-10">Lernen ohne vorschnelle Regeln</h2>
+              <p class="lead">Beobachtungen bleiben zunächst scoped Candidates. Erst Erklärung, Eval, Regression und Review machen daraus wiederverwendbares Wissen.</p>
+              <div class="maturity" aria-label="Reifegrade E0 bis E4"><span>E0</span><span>E1</span><span>E2</span><span>E3</span><span>E4</span></div>
+            </div>
+            <div class="learning-loop" aria-label="Lernkreislauf aus Test, Beobachtung, Kandidat, Evaluation und Review">
+              <svg viewBox="0 0 750 540" aria-hidden="true"><path class="trace-line" d="M375 72C600 70 690 220 620 380C550 530 200 530 130 350C70 200 180 80 375 72Z" fill="none" stroke="#08777D" stroke-width="2" /><path d="M374 72l-18-9m18 9-16 14" fill="none" stroke="#F05A28" stroke-width="2" /></svg>
+              <div class="learning-core">Scoped<br />Knowledge</div>
+              <div class="learn-node l1">Print / Test<small>Material, Maschine, Profil</small></div>
+              <div class="learn-node l2">Beobachtung<small>Erfolg oder Fehler</small></div>
+              <div class="learn-node l3">Candidate<small>noch keine Universalregel</small></div>
+              <div class="learn-node l4">Targeted Eval<small>reproduzierbarer Test</small></div>
+              <div class="learn-node l5">Human Review<small>Promotion bleibt kontrolliert</small></div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Jede actionable User-Korrektur wird zum Eval-Candidate</span><span class="rule"></span><span class="slide-no">10 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-11" aria-labelledby="title-11" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head"><span class="section-code">10 / OUTPUT</span><span class="mark">Mehr als STL</span></header>
+          <div class="content two-col">
+            <div class="copy">
+              <p class="eyebrow">Das Ergebnis ist ein Paket</p>
+              <h2 id="title-11">Druckbar, prüfbar, reproduzierbar</h2>
+              <p class="lead">Ein guter Output verbindet editierbare Geometrie, Manufacturing-Dateien und die Evidence, die ihren Einsatz begrenzt.</p>
+              <div class="package-caption" aria-label="Eigenschaften des Pakets">
+                <div><b>Exact</b><span>Maße + Revision</span></div><div><b>Open</b><span>Quelle + Parameter</span></div><div><b>Traceable</b><span>Hashes + Reports</span></div>
+              </div>
+            </div>
+            <div class="package-explosion" aria-label="Explosionsdarstellung eines Release-Pakets">
+              <div class="package-layer p1"><span><strong>Design Contract</strong><small>requirements · risks · interfaces</small></span><span class="filetype">YAML</span></div>
+              <div class="package-layer p2"><span><strong>Editable Master</strong><small>parameters · source · dependencies</small></span><span class="filetype">CQ / SCAD</span></div>
+              <div class="package-layer p3"><span><strong>Neutral Geometry</strong><small>B-Rep + manufacturing mesh</small></span><span class="filetype">STEP / STL</span></div>
+              <div class="package-layer p4"><span><strong>Slicer Handoff</strong><small>parts · colors · exact profile</small></span><span class="filetype">3MF</span></div>
+              <div class="package-layer p5"><span><strong>Evidence Bundle</strong><small>reports · hashes · approvals · limits</small></span><span class="filetype">JSON + PDF</span></div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>Ein überzeugender Render ist Kommunikation — nicht Akzeptanz</span><span class="rule"></span><span class="slide-no">11 / 12</span></footer>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-12" aria-labelledby="title-12" tabindex="-1">
+        <div class="slide-frame">
+          <header class="slide-head">
+            <img
+              class="brand-logo"
+              src="01-strategy/brand-assets/metricreate/exports/metricreate-lockup-horizontal-color-dark.svg"
+              alt="metriCreate"
+              width="773"
+              height="244"
+            />
+            <span class="mark">The operating model</span>
+          </header>
+          <div class="content">
+            <div class="copy">
+              <p class="eyebrow">In einem Satz</p>
+              <h2 id="title-12">Schnell bauen. Hart prüfen. Bewusst freigeben.</h2>
+            </div>
+            <div>
+              <div class="closing-grid" aria-label="Zusammenfassung des Workflows in fünf Schritten">
+                <div class="closing-step"><span class="big">01</span><strong>Orchestrate</strong><small>Orca hält Kontext und Sessions sichtbar</small></div>
+                <div class="closing-step"><span class="big">02</span><strong>Route</strong><small>Preflight und Skills wählen die Methode</small></div>
+                <div class="closing-step"><span class="big">03</span><strong>Build</strong><small>Codex erzeugt kontrollierte Quellen</small></div>
+                <div class="closing-step"><span class="big">04</span><strong>Prove</strong><small>Scripts, Slicer und Prints liefern Evidence</small></div>
+                <div class="closing-step"><span class="big">05</span><strong>Release</strong><small>Menschen signieren die exakte Revision</small></div>
+              </div>
+              <div class="source-links" aria-label="Quellen">
+                <a href="04-operations/product-development-and-release-process.md">Business workflow</a>
+                <a href="02-portfolio/product-lifecycle-and-release-gates.md">Release gates</a>
+                <a href="../.agents/skills/functional-3d-design/SKILL.md">3D skills</a>
+                <a href="https://github.com/stablyai/orca" target="_blank" rel="noreferrer">Orca source</a>
+                <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noreferrer">OpenAI model docs</a>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-foot"><span>metriCreate · controlled models for real-world making</span><span class="rule"></span><span class="slide-no">12 / 12</span></footer>
+        </div>
+      </section>
+    </main>
+
+    <div id="slide-status" class="skip-link" aria-live="polite" aria-atomic="true"></div>
+    <script>
+      (() => {
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const nav = document.querySelector(".deck-nav");
+        const controls = document.querySelector(".deck-controls");
+        const status = document.querySelector("#slide-status");
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let activeIndex = 0;
+
+        const goTo = (index, focus = false) => {
+          const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
+          setActive(nextIndex);
+          slides[nextIndex].scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+          if (focus) slides[nextIndex].focus({ preventScroll: true });
+        };
+
+        slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          const title = slide.querySelector("h1, h2")?.textContent.trim() || `Folie ${index + 1}`;
+          button.type = "button";
+          button.setAttribute("aria-label", `Folie ${index + 1}: ${title}`);
+          button.setAttribute("aria-current", index === 0 ? "true" : "false");
+          button.addEventListener("click", () => goTo(index, true));
+          nav.append(button);
+        });
+
+        const dots = Array.from(nav.querySelectorAll("button"));
+        const setActive = (index) => {
+          if (index === activeIndex && index !== 0) return;
+          activeIndex = index;
+          dots.forEach((dot, dotIndex) => dot.setAttribute("aria-current", dotIndex === index ? "true" : "false"));
+          document.documentElement.style.setProperty("--progress", `${((index + 1) / slides.length) * 100}%`);
+          status.textContent = `Folie ${index + 1} von ${slides.length}`;
+        };
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible) setActive(slides.indexOf(visible.target));
+          },
+          { threshold: [0.45, 0.7] },
+        );
+        slides.forEach((slide) => observer.observe(slide));
+
+        controls.addEventListener("click", (event) => {
+          const button = event.target.closest("button");
+          if (!button) return;
+          goTo(activeIndex + (button.dataset.direction === "next" ? 1 : -1), true);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.altKey || event.ctrlKey || event.metaKey) return;
+          if (["ArrowDown", "ArrowRight", "PageDown", " "].includes(event.key)) {
+            event.preventDefault();
+            goTo(activeIndex + 1, true);
+          } else if (["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)) {
+            event.preventDefault();
+            goTo(activeIndex - 1, true);
+          } else if (event.key === "Home") {
+            event.preventDefault();
+            goTo(0, true);
+          } else if (event.key === "End") {
+            event.preventDefault();
+            goTo(slides.length - 1, true);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

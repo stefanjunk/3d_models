@@ -2,7 +2,7 @@
 name: 3d-design-preflight
 description: Bewerte vor Beginn eines 3D-Druck- oder CAD-Designs die intrinsische Produktkomplexität, Interface-Reife, Kritikalität, Dateneignung und Workflow-Machbarkeit. Verwende diesen Skill vor jedem funktionalen Design, bei Baugruppen, Passungen, menschlichen Interfaces, Kaufteilen, bewegten Teilen, Lasten, Wärme/Strömung, Fahrzeug-/Maschinenbezug oder wenn die Erfolgswahrscheinlichkeit des 3D-Design-Workflows eingeschätzt werden soll.
 metadata:
-  version: "0.9"
+  version: "1.0"
 ---
 
 # 3D Design Preflight
@@ -30,6 +30,27 @@ Lade Detailrubriken nur bei Bedarf aus `rubrics/scoring-rubric.yaml`. Nutze die 
 - Bei K3: nur Expert-in-the-loop-Prototyping. Bei K4: keine autonome Freigabe; Konzept- und Datenerfassungsunterstützung.
 - Keep-outs, Servicezugänge, Luft-/Fluidpfade, Nutzerkontakt, Umwelt und Software sind Interfaces, auch ohne direkten Festkörperkontakt.
 
+## Pflicht-Gate für neue Produkte
+
+Entsteht eine neue, eigenständig versionierte, angebotene oder unterstützte
+Produktidentität, lies vor jedem Konzeptbild, CAD-, Mesh-, GLB- oder
+Fertigungsexport `references/product-intake.md`. Das Produkt benötigt vor dem
+Design:
+
+- eine eindeutige SKU im bestehenden `MM-<Kategorie>-<Nummer>`-System;
+- einen passenden Ordner `products/<family>/<lowercase-sku>-<slug>`;
+- genau einen Eintrag in der kanonischen
+  `business/02-portfolio/product-portfolio.csv` und danach im generierten
+  `product-portfolio.xlsx`;
+- eine initialisierte, wahrheitsgemäße Lizenz- und Provenienz-Kette im
+  produktlokalen `commercial-clearance/`-Workspace;
+- einen ausgeführten, validierten `PROSPECTIVE`-Preflight.
+
+Ein Teil, eine Variante oder ein Step1X-Vorprodukt innerhalb eines bestehenden
+Produkts erbt dessen SKU, sofern es nicht unabhängig angeboten, versioniert,
+unterstützt und stillgelegt wird. `UNKNOWN` ist in der Lizenzkette zulässig,
+bleibt aber explizit und blockiert die betroffene kommerzielle Freigabe.
+
 ## Pflichtartefakt und Lebenszyklus
 
 Dokumentiere jeden Preflight im jeweiligen Produktordner als
@@ -39,9 +60,10 @@ Dokumentiere jeden Preflight im jeweiligen Produktordner als
 `workflow.preflight`-Abschnitt der zugehörigen `design-spec.yaml`.
 
 Führe den Preflight zu Beginn eines neuen Designs aus, bevor Konzeptbilder,
-CAD-Geometrie, Quellcode oder Fertigungsexporte erzeugt werden. Eine minimale
-Projekt-ID und Revision dürfen vorher nur angelegt werden, um die Artefakte
-eindeutig zuzuordnen. Kennzeichne diesen Normalfall in
+CAD-Geometrie, Quellcode oder Fertigungsexporte erzeugt werden. SKU,
+Produktordner, Portfoliozeile, Lizenzketten-Workspace sowie die minimale
+Projekt-ID und Revision dürfen vorher nur als Aufnahme- und
+Traceability-Artefakte angelegt werden. Kennzeichne diesen Normalfall in
 `traceability.mode` als `PROSPECTIVE`.
 
 Bei einem bestehenden Design ohne Preflight erstelle den Preflight

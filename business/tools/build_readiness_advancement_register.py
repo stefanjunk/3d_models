@@ -29,7 +29,6 @@ OUTPUT = PORTFOLIO_DIR / "readiness-advancement-register.csv"
 ASSESSMENT_DATE = "2026-08-31"
 REGISTER_VERSION = "1.0"
 RESEARCH_COUNT = 314
-PRODUCT_COUNT = 108
 
 FIELDS = [
     "Record_Key",
@@ -64,6 +63,18 @@ FIELDS = [
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
+
+
+def product_dirs() -> list[Path]:
+    """Return every live products/<family>/<product> directory."""
+    return sorted(
+        product
+        for family in PRODUCTS_ROOT.iterdir()
+        if family.is_dir()
+        for product in family.iterdir()
+        if product.is_dir()
+        and product.name.startswith(("mm-", "unregistered-"))
+    )
 
 
 def level(value: str, prefix: str, *, upper: bool = True) -> int:
@@ -244,8 +255,14 @@ def product_rows() -> list[dict[str, str]]:
     audit_path = sorted(PRODUCTS_ROOT.glob("PRODUCT-PREFLIGHT-AUDIT-*.json"))[-1]
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     entries = audit["products"]
-    if len(entries) != PRODUCT_COUNT:
-        raise ValueError(f"Expected {PRODUCT_COUNT} product directories; found {len(entries)}")
+    if audit.get("product_count") != len(entries):
+        raise ValueError("Product preflight audit count does not match its product rows")
+    expected_products = {
+        product.relative_to(PRODUCTS_ROOT).as_posix() for product in product_dirs()
+    }
+    audited_products = {str(entry["product"]) for entry in entries}
+    if audited_products != expected_products:
+        raise ValueError("Product preflight audit is stale against the product-directory inventory")
 
     portfolio = read_csv(PORTFOLIO_CSV)
     working_by_path = {row["Source_Path"]: row["Working_SKU"] for row in portfolio}
@@ -353,7 +370,7 @@ def build_rows() -> list[dict[str, str]]:
     products = product_rows()
     rows = research + products
     keys = [row["Record_Key"] for row in rows]
-    if len(research) != RESEARCH_COUNT or len(products) != PRODUCT_COUNT or len(keys) != len(set(keys)):
+    if len(research) != RESEARCH_COUNT or len(products) != len(product_dirs()) or len(keys) != len(set(keys)):
         raise ValueError("Readiness advancement register coverage or key uniqueness failed")
     if any(row["Purpose_Documented"] != "YES" for row in rows):
         raise ValueError("Every register record must have an explicit purpose")
@@ -373,13 +390,14 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="Fail when the checked-in register is stale")
     args = parser.parse_args()
     content = render(build_rows())
+    product_count = len(product_dirs())
     if args.check:
         if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
             raise SystemExit(f"stale or missing readiness advancement register: {OUTPUT}")
-        print(f"PASS: {OUTPUT} is current with {RESEARCH_COUNT + PRODUCT_COUNT} records")
+        print(f"PASS: {OUTPUT} is current with {RESEARCH_COUNT + product_count} records")
         return 0
     OUTPUT.write_text(content, encoding="utf-8")
-    print(f"Wrote {OUTPUT} with {RESEARCH_COUNT} research and {PRODUCT_COUNT} product records")
+    print(f"Wrote {OUTPUT} with {RESEARCH_COUNT} research and {product_count} product records")
     return 0
 
 

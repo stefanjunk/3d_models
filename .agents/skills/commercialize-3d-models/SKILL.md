@@ -11,6 +11,24 @@ Build an evidence-backed commercial release package for a 3D model file, a print
 
 Treat this as a structured compliance workflow, not legal advice or a promise of worldwide clearance. Use primary law and current official terms for the seller, target markets, product category, sales channel, and exact tool plan. Escalate regulated, safety-critical, patent-sensitive, disputed, or high-value releases to qualified counsel and testing bodies.
 
+## Register a New Portfolio Product First
+
+Inside the `3d_models` workspace, a new independently managed product must
+already have one unique SKU, a correctly categorized
+`products/<family>/<lowercase-sku>-<slug>` folder, one canonical
+`business/02-portfolio/product-portfolio.csv` row, a regenerated
+`product-portfolio.xlsx` row, and a current prospective preflight. Load
+`3d-design-preflight` and read its `references/product-intake.md` when any of
+those are absent. Do not allocate a separate SKU for a component or generated
+preform that belongs to an existing product lifecycle.
+
+Create this skill's evidence workspace inside that product folder at
+`commercial-clearance/`. The portfolio `Rights_Provenance` field summarizes
+the current state; the source, tool, component, authorship, evidence, and
+provenance records here remain authoritative for the detailed license chain.
+Explicit `UNKNOWN` keeps the chain truthful but blocks the affected release
+gate; portfolio registration never means rights clearance.
+
 ## Establish Scope Before Clearance
 
 Collect:

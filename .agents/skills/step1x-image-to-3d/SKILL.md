@@ -42,6 +42,11 @@ Read [examples/hybrid-recipes.md](examples/hybrid-recipes.md) only when selectin
 
 ## Non-negotiable rules
 
+- If the run creates a new independently managed product, load
+  `3d-design-preflight` and complete its product-intake gate—SKU, correct
+  product folder, portfolio CSV/XLSX row, initialized license chain, and
+  prospective preflight—before imagegen or Step1X. A component or preform for
+  an existing product stays in that product's folder and rights chain.
 - A single-image output contains synthesized depth and hidden geometry. Label it `generated proposal`, not measured reconstruction.
 - Keep the source image, image-generation prompt/record, geometry GLB, textured GLB, API schema and run manifest immutable.
 - Do not ask Step1X to create exact dimensions, wall thickness, clearances, mating surfaces, seals, snaps, bearings, screw threads, text, logos, or certified load paths.

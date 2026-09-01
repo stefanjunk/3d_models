@@ -18,6 +18,12 @@ For carbon weave, wood grain, fabric, stone, metal, leather, floral patterns, or
 
 The folder follows the standard `SKILL.md` plus relative-resource layout used by ChatGPT Work, OpenCode, and other Agent-Skills-compatible runtimes. Run bundled scripts with Python 3 from the skill directory or by absolute path.
 
+If the relief is a new independently managed product, load
+`3d-design-preflight` and complete its SKU, correct product-folder, portfolio
+CSV/XLSX, license-chain, and prospective-preflight intake before generating
+the source image or geometry. Relief inside an existing product shares its SKU
+and rights chain.
+
 ## Read only what the task needs
 
 - Physical aspect ratio and non-square target sampling: `references/aspect-ratio-and-physical-coordinates.md`

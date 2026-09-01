@@ -4,14 +4,31 @@ Use the sibling `3d-design-preflight` skill before every new functional design
 and at the start of every later phase that can change the product. The
 preflight is an engineering gate, not a confidence decoration.
 
+## New product intake gate
+
+First decide whether the request creates a separately offered, versioned,
+supported, and retired product or only a component/variant of an existing SKU.
+For a new product, read the sibling preflight skill's
+`references/product-intake.md` and complete its identity, folder, portfolio,
+and rights intake before any design-generating action. For an existing product,
+work inside its folder and reuse its SKU and license chain.
+
+The intake-only creation of a SKU, product folder, portfolio row,
+`commercial-clearance/` scaffold, and preflight/design records is permitted
+before the preflight. Concept images, image-to-3D jobs, CAD, meshes, GLBs, and
+manufacturing exports are not.
+
 ## Project artifacts
 
 Keep these paths inside the owning product:
 
 ```text
+PURPOSE.md
+commercial-clearance/
 preflight/
   preflight-input.yaml
   preflight-result.json
+  preflight-report.md
 design-spec.yaml
 ```
 
@@ -34,13 +51,19 @@ K4 restrictions remain binding.
 
 ## New designs
 
-1. Allocate only the minimum project ID and revision needed for traceability.
-2. Copy or populate `preflight/preflight-input.yaml` from the sibling skill.
-3. Invoke `3d-design-preflight`, preserving every unknown.
-4. Write and validate `preflight/preflight-result.json` with
+1. If this is a new product, finish the sibling product-intake gate: one unique
+   SKU, correct `products/<family>/<sku>-<slug>` folder, one canonical CSV row,
+   generated XLSX row, and initialized license chain. Otherwise confirm the
+   existing owning SKU.
+2. Allocate only the minimum product/revision traceability records and create
+   an explicit `PURPOSE.md`.
+3. Copy or populate `preflight/preflight-input.yaml` from the sibling skill.
+4. Invoke `3d-design-preflight`, preserving every unknown and linking the
+   portfolio row plus rights records in `traceability.basis_refs`.
+5. Write and validate `preflight/preflight-result.json` with
    `traceability.mode: PROSPECTIVE` and `initial_design` in
    `change_triggers`.
-5. Set `workflow.preflight.status: current`, link the assessment identity and
+6. Set `workflow.preflight.status: current`, link the assessment identity and
    revision, then run:
 
    ```bash
@@ -48,7 +71,7 @@ K4 restrictions remain binding.
      path/to/product/design-spec.yaml --require-current-preflight
    ```
 
-6. Follow the selected lane and decision before entering requirements approval,
+7. Follow the selected lane and decision before entering requirements approval,
    concept generation, production CAD, or manufacturing export.
 
 The initial preflight can legitimately end in `HOLD` or `CONCEPT_ONLY` because

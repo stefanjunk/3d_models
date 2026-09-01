@@ -29,6 +29,7 @@ def product_dirs() -> list[Path]:
         if family.is_dir()
         for product in family.iterdir()
         if product.is_dir()
+        and product.name.startswith(("mm-", "unregistered-"))
     )
 
 

@@ -2,16 +2,22 @@
 name: casting-negative-molds
 description: Designs and validates printable negative molds, masters, cases, and plaster-working-mold workflows for casting porcelain, stoneware, gypsum, plaster, and related materials. Covers demolding, parting, shrinkage, resolution, memory, fill/drain systems, ribs, keys, and OpenSCAD, CadQuery, FreeCAD, and Blender implementations.
 license: MIT
-compatibility: OpenCode Agent Skills; Python 3.10+; optional OpenSCAD, CadQuery, FreeCAD, or Blender
 metadata:
   domain: 3d-printing
   version: 1.0.0
   languages: de,en
+  compatibility: OpenCode Agent Skills; Python 3.10+; optional OpenSCAD, CadQuery, FreeCAD, or Blender
 ---
 
 # Casting Negative Molds
 
 Create production-aware tooling for casts from arbitrary 3D objects. Treat geometry, casting material, demolding, shrinkage, surface transfer, and workshop process as one system.
+
+If the cast product or independently offered tool is a new product identity,
+load `3d-design-preflight` and complete its SKU, correct product-folder,
+portfolio CSV/XLSX, license-chain, and prospective-preflight intake before
+model generation. A mold, case, or master belonging to an existing product
+normally remains in that product's folder and evidence chain.
 
 ## First principle: classify the process before modeling
 

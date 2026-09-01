@@ -2,10 +2,10 @@
 name: parametric-freeform-surfacing
 description: Create, reconstruct, fair, parameterize, validate, and FDM-prepare smooth aesthetic curves and freeform product envelopes using B-splines/NURBS, section lofts, SubD, free-form deformation, morph targets, and local SDF blends. Use when a new shoe, vessel, vehicle body, enclosure, furniture part, or decorative product looks boxy or faceted; when hardpoints must remain exact while the visible shell becomes organic; or when an AI/scan reference must become an editable parametric surface rather than remain a dense mesh.
 license: MIT
-compatibility: OpenCode with project file access and Python 3.10+. NumPy and PyYAML are the core runtime; SciPy, Trimesh, CadQuery, build123d, geomdl, PyGeM, Blender, Rhino/Grasshopper, FreeCAD, Houdini, or nTop are optional backends.
 metadata:
   version: "1.0.0"
   domain: "parametric freeform surfacing for additive manufacturing"
+  compatibility: "OpenCode with project file access and Python 3.10+. NumPy and PyYAML are the core runtime; SciPy, Trimesh, CadQuery, build123d, geomdl, PyGeM, Blender, Rhino/Grasshopper, FreeCAD, Houdini, or nTop are optional backends."
   manufacturing: "fdm-fff-first"
   inputs: "dimensions, hardpoints, guide curves, sections, sketches, reference images, reference meshes"
   outputs: "editable curves, aesthetic envelope, STEP when available, OBJ/STL/3MF handoff, fairness and printability reports"
@@ -17,6 +17,12 @@ metadata:
 Create **editable, smooth product form**, not a box with large fillets and not an opaque AI mesh.
 
 Use millimetres. Respond in the user's language. Keep functional dimensions and aesthetic form coupled by explicit named constraints, not by hidden vertex edits.
+
+If the freeform envelope creates a new independently managed product, load
+`3d-design-preflight` and complete its SKU, correct product-folder, portfolio
+CSV/XLSX, license-chain, and prospective-preflight intake before creating
+curves or surfaces. An envelope or shell within an existing product uses its
+owning SKU and evidence chain.
 
 Set the skill path before using the supplied helpers:
 

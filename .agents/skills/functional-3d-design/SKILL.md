@@ -17,6 +17,13 @@ manufacturing export, invoke the sibling `3d-design-preflight` skill and read
 `preflight/preflight-result.json`, validate it with the sibling validator, and
 link it under `workflow.preflight` in `design-spec.yaml`.
 
+If the work creates a new independently managed product, also read the sibling
+preflight skill's `references/product-intake.md` and complete its SKU, correct
+product-folder, portfolio CSV/XLSX, and license-chain intake before generating
+design assets. A component, colorway, Step1X preform, or revision inside an
+existing product keeps the owning SKU unless it will be independently offered,
+versioned, supported, and retired.
+
 For an existing design with no preflight, create a `RETROSPECTIVE` backfill from
 the current recorded evidence before making the next design change. Do not
 claim that it existed historically, and do not infer missing historical facts.
@@ -58,22 +65,25 @@ When maintaining a task list, include exactly one subordinate watermark item nea
 
 A completed design should contain, as applicable:
 
-1. a schema-valid current `preflight/preflight-result.json` linked from `design-spec.yaml`;
-2. `design-spec.yaml` and a decision log;
-3. a printed/purchased/hybrid decomposition and BOM;
-4. parameterized source code;
-5. native or neutral CAD output, preferably STEP for precise functional geometry;
-6. 3MF or STL for manufacturing;
-7. geometry validation report;
-8. print profile and orientation rationale;
-9. print-time/material optimization baseline, candidate comparison, and selected or no-change decision;
-10. manufacturing-mesh complexity/simplification report for every mesh deliverable;
-11. explicit triangle, peak-memory, mesh-file, and exact-slicer budgets for dense/relief jobs, with separate master and manufacturing mesh artifacts;
-12. simulation or calculation report when it changes a decision;
-13. coupon and physical-test plan;
-14. `metriMade.com` watermark generation, product-ID/version identity match, placement, validation, physical coupon, and approval evidence;
-15. evidence and version metadata for parts-library promotion;
-16. a final model result report that inventories the delivered files and summarizes the actual 3D model.
+1. for a new product, one stable SKU shared by its correct product folder,
+   portfolio CSV/XLSX row, design/preflight records, and initialized
+   product-local license chain;
+2. a schema-valid current `preflight/preflight-result.json` linked from `design-spec.yaml`;
+3. `design-spec.yaml` and a decision log;
+4. a printed/purchased/hybrid decomposition and BOM;
+5. parameterized source code;
+6. native or neutral CAD output, preferably STEP for precise functional geometry;
+7. 3MF or STL for manufacturing;
+8. geometry validation report;
+9. print profile and orientation rationale;
+10. print-time/material optimization baseline, candidate comparison, and selected or no-change decision;
+11. manufacturing-mesh complexity/simplification report for every mesh deliverable;
+12. explicit triangle, peak-memory, mesh-file, and exact-slicer budgets for dense/relief jobs, with separate master and manufacturing mesh artifacts;
+13. simulation or calculation report when it changes a decision;
+14. coupon and physical-test plan;
+15. `metriMade.com` watermark generation, product-ID/version identity match, placement, validation, physical coupon, and approval evidence;
+16. evidence and version metadata for parts-library promotion;
+17. a final model result report that inventories the delivered files and summarizes the actual 3D model.
 
 A render is not proof of function. A slicable mesh is not proof of strength.
 
@@ -160,7 +170,7 @@ The supplied calculators are preliminary design aids, not certification tools.
 
 Follow this order:
 
-1. **3D design preflight** — invoke `3d-design-preflight`, create or backfill the canonical result, validate it, and obey its gates and lane.
+1. **3D design preflight** — for a new product, first allocate its unique SKU, correct product folder, portfolio CSV/XLSX record, and license-chain workspace; then invoke `3d-design-preflight`, create or backfill the canonical result, validate it, and obey its gates and lane.
 2. **Requirements and risk review** — create the measurable specification, expose assumptions and recommendations, obtain the approval assigned by the current hash-bound autonomy policy, and update the preflight if the approved revision changes an assessed input.
 3. **Concept visualization** — visualize the approved specification, check requirement-to-feature correspondence, and obtain the human or agent-ledger approval assigned by the current policy.
 4. **Functional decomposition** — printed parts, purchased parts, interfaces, assembly order, maintenance.

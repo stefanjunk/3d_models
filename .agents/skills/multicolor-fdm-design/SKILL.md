@@ -18,6 +18,12 @@ Create **manufacturable color architecture**, not merely a colorful render.
 
 This skill owns color-region design, actual-filament palette mapping, texture-to-color conversion, multi-part 3MF packaging, color-change budgeting, purge planning, and slicer handoff. It does not replace the companion skills that own the underlying mechanical geometry, protected organic source mesh, freeform envelope, or image-to-depth relief.
 
+If the job creates a new independently managed product, load
+`3d-design-preflight` and complete its SKU, correct product-folder, portfolio
+CSV/XLSX, license-chain, and prospective-preflight intake first. A multicolor
+variant of an existing product normally remains under the owning SKU and
+revision history.
+
 Set the skill path before using the supplied helpers:
 
 ```bash

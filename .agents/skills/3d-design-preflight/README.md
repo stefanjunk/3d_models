@@ -1,4 +1,4 @@
-# 3D Design Preflight Skill v0.9
+# 3D Design Preflight Skill v1.0
 
 Dieses Paket enthält ein research-basiertes, aber bewusst **noch nicht statistisch kalibriertes** Preflight-System für 3D-Druck- und CAD-Projekte.
 
@@ -14,6 +14,7 @@ Dieses Paket enthält ein research-basiertes, aber bewusst **noch nicht statisti
 - `examples/example-assessments.yaml` - Beispielbewertungen
 - `examples/preflight-result.example.json` - vollständiges validierbares Ergebnisbeispiel
 - `references/research-basis.md` - Forschungsbasis und Grenzen
+- `references/product-intake.md` - SKU-, Produktordner-, Portfolio- und Lizenzketten-Gate
 
 ## Empfohlene Integration
 
@@ -27,5 +28,12 @@ Der kanonische Projektpfad ist `preflight/preflight-result.json`. Neue Designs
 verwenden `PROSPECTIVE`; ein fehlender Preflight in einem Bestandsdesign wird
 vor der nächsten Designänderung als `RETROSPECTIVE` Backfill erstellt und mit
 den tatsächlich vorhandenen Quellen verknüpft.
+
+Neue Produktidentitäten müssen zusätzlich vor der Designerzeugung eindeutig
+per SKU registriert, unter `products/<family>/<sku>-<slug>` abgelegt, in der
+CSV-Quelle und der generierten Portfolio-XLSX erfasst und mit einer
+produktlokalen Lizenz-/Provenienz-Kette verknüpft sein. Komponenten und
+Vorprodukte eines bestehenden Produkts erhalten nicht automatisch eine neue
+SKU.
 
 Die Gewichte und Schwellwerte sind eine operationale Synthese. Sie sollten nach 30-100 dokumentierten Projekten gegen reale Erstpassungs-, Funktions- und Iterationsdaten kalibriert werden.

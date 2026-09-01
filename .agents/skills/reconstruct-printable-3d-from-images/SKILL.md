@@ -9,6 +9,12 @@ Turn reference imagery into an evidence-backed model, not an unlabelled guess. S
 
 Resolve every bundled `assets/`, `references/`, and `scripts/` path relative to the directory containing this `SKILL.md`. Command examples assume that directory is the current working directory; otherwise prefix each path with the resolved skill root.
 
+If the reconstruction creates a new independently managed product, load
+`3d-design-preflight` first and complete its product-intake gate: SKU, correct
+product folder, portfolio CSV/XLSX row, initialized license chain, and
+prospective preflight. An image-derived component inside an existing product
+uses that product's identity and rights chain.
+
 ## Non-negotiable rules
 
 1. Treat a single image as incomplete evidence. Never claim that it determines scale, depth, hidden surfaces, wall thickness, material, or function.

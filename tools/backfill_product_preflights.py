@@ -256,6 +256,7 @@ def product_dirs() -> list[Path]:
         if family.is_dir()
         for product in family.iterdir()
         if product.is_dir()
+        and product.name.startswith(("mm-", "unregistered-"))
     )
 
 
@@ -1388,6 +1389,7 @@ def main() -> int:
         "mode": "write" if args.write else "dry-run",
         "products": len(contexts),
         "changed_files": len(changed),
+        "changed_paths": changed,
         "archive_moves_expected": sum(len(items) for items in ARCHIVE_MOVES.values()),
         "archive_errors": archive_errors,
         "root_review_exceptions": len(ROOT_REVIEW_EXCEPTIONS),

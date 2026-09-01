@@ -9,6 +9,13 @@ Turn a visual or written product concept into a controlled hybrid assembly. Trea
 
 Resolve every bundled path relative to this `SKILL.md`. Keep the immutable evidence, parametric masters, organic masters, interface bodies, transforms, and manufacturing exports as distinct artifacts.
 
+Before decomposing a new independently managed product, load
+`3d-design-preflight` and complete its product-intake gate: one unique SKU, the
+correct product-family folder, portfolio CSV/XLSX registration, initialized
+license chain, and prospective preflight. Subcomponents and generated
+preforms share the owning product's SKU unless they have an independent offer
+and lifecycle.
+
 ## Non-negotiable rules
 
 1. Decompose by function, geometry, uncertainty, manufacturing, and appearance; never by color or visible seams alone.

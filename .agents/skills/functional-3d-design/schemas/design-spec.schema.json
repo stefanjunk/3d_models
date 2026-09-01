@@ -15,6 +15,22 @@
           "maxLength": 32,
           "pattern": "^[A-Z0-9]+(?:-[A-Z0-9]+)+$"
         },
+        "sku": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 32,
+          "pattern": "^[A-Z0-9]+(?:-[A-Z0-9]+)+$"
+        },
+        "name": {"type": "string", "minLength": 1},
+        "source_path": {"type": "string", "pattern": "^products/[^/]+/[^/]+$"},
+        "portfolio_record": {
+          "type": "string",
+          "pattern": "^business/02-portfolio/product-portfolio\\.csv#PORT-[0-9]+$"
+        },
+        "rights_workspace": {
+          "type": "string",
+          "pattern": "^commercial-clearance/(?:project\\.json)?$"
+        },
         "revision": {
           "type": "string",
           "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"

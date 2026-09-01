@@ -9,6 +9,12 @@ Choose the lowest-complexity representation that creates the required physical o
 
 Resolve every bundled path relative to this `SKILL.md`. Keep the editable texture definition, exact product core, manufacturing parts, slicer project, and final fused print as distinct artifacts.
 
+If the textured object is a new independently managed product, load
+`3d-design-preflight` and complete its SKU, correct product-folder, portfolio
+CSV/XLSX, license-chain, and prospective-preflight intake before generating
+texture or geometry. A texture skin or finish for an existing product shares
+the owning SKU and rights chain.
+
 ## Read only what the task needs
 
 - Representation ladder and decision matrix: `references/representation-selection.md`

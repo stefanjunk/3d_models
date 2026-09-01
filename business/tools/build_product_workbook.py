@@ -95,6 +95,7 @@ def load_product_preflight_records() -> list[dict[str, object]]:
         if family.is_dir()
         for product in family.iterdir()
         if product.is_dir()
+        and product.name.startswith(("mm-", "unregistered-"))
     }
     if audit_products != product_directories:
         missing = sorted(product_directories.difference(audit_products))
@@ -586,7 +587,9 @@ def validate_specific_r3_variants(
             raise ValueError(f"Specific R3 variant exact-process reference is missing: {sku_id}")
 
 
-def validate_readiness_advancement(rows: list[list[str]], research_ids: set[str]) -> None:
+def validate_readiness_advancement(
+    rows: list[list[str]], research_ids: set[str], expected_product_count: int
+) -> None:
     """Validate the complete all-idea/all-product advancement triage."""
     if not rows:
         raise ValueError(f"Readiness advancement source is empty: {READINESS_ADVANCEMENT_CSV}")
@@ -599,15 +602,18 @@ def validate_readiness_advancement(rows: list[list[str]], research_ids: set[str]
     missing = sorted(required.difference(header))
     if missing:
         raise ValueError(f"Readiness advancement source is missing columns: {', '.join(missing)}")
-    if len(rows) != 423 or any(len(row) != len(header) for row in rows):
-        raise ValueError("Readiness advancement register must contain 314 research and 108 product rows")
+    expected_row_count = 1 + len(research_ids) + expected_product_count
+    if len(rows) != expected_row_count or any(len(row) != len(header) for row in rows):
+        raise ValueError(
+            "Readiness advancement register must cover every research record and product directory"
+        )
     idx = {name: header.index(name) for name in required}
     keys = [row[idx["Record_Key"]] for row in rows[1:]]
     if len(keys) != len(set(keys)):
         raise ValueError("Readiness advancement register has duplicate record keys")
     research_records = {row[idx["Record_ID"]] for row in rows[1:] if row[idx["Record_Type"]] == "RESEARCH_IDEA"}
     product_count = sum(row[idx["Record_Type"]] == "PRODUCT_DIRECTORY" for row in rows[1:])
-    if research_records != research_ids or product_count != 108:
+    if research_records != research_ids or product_count != expected_product_count:
         raise ValueError("Readiness advancement register does not cover the complete research/product inventory")
     for row in rows[1:]:
         if row[idx["Purpose_Documented"]] != "YES" or len(row[idx["Purpose_or_Intended_Use"]].strip()) < 12:
@@ -1154,8 +1160,9 @@ def build_unified_portfolio(
             + raw_block(advancement_header, advancement_row, "Advancement__", advancement_raw_columns)
         )
 
-    if len(output) != 423 or any(len(row) != len(output[0]) for row in output):
-        raise ValueError("Unified portfolio must contain 422 complete, width-stable records")
+    expected_output_count = 1 + len(idea_by_sku) + len(product_paths)
+    if len(output) != expected_output_count or any(len(row) != len(output[0]) for row in output):
+        raise ValueError("Unified portfolio must contain every complete, width-stable research and product record")
     working_sku_index = output[0].index("Working_SKU")
     working_skus = [str(row[working_sku_index]) for row in output[1:]]
     if any(not sku for sku in working_skus) or len(working_skus) != len(set(working_skus)):
@@ -1413,7 +1420,9 @@ def main() -> None:
         str(row[variant_sku_index]) for row in specific_r3_variants[1:]
     }
     validate_research_priority(research_priority, combined_research_ids, research_status)
-    validate_readiness_advancement(readiness_advancement, combined_research_ids)
+    validate_readiness_advancement(
+        readiness_advancement, combined_research_ids, len(product_preflight_records)
+    )
     research_preflight = read_research_preflight(RESEARCH_PREFLIGHT_CSV, combined_research_ids)
     add_research_overlay(
         legacy_product_matrix,
@@ -1521,7 +1530,7 @@ def main() -> None:
     summary = [
         ["Metric", "Value", "Interpretation"],
         ["Review date", "2026-08-31", "Repository-evidence snapshot"],
-        ["Unified portfolio records", len(unified_portfolio) - 1, "Single filterable list: 108 product directories plus 314 planned products and research ideas; every row has one unique Working_SKU"],
+        ["Unified portfolio records", len(unified_portfolio) - 1, f"Single filterable list: {len(product_preflight_records)} product directories plus {len(combined_research_ids)} planned products and research ideas; every row has one unique Working_SKU"],
         ["Curated product source records", len(portfolio) - 1, "Existing product-family source is retained in product-portfolio.csv; no duplicate Product Register worksheet"],
         ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence and source paths are joined into Portfolio"],
         ["Stale aggregate-audit scorecards", stale_audit_scorecards, "Live product preflight is used; any mismatch is exposed in Portfolio audit columns and the dated aggregate audit must be refreshed separately"],
@@ -1544,7 +1553,7 @@ def main() -> None:
         ["Research ideas with structured R2 concept preflights", structured_preflight_count, "SKU-201–300: K1 and C<=2; current Lane E while the exact manufacturing-process gate remains open"],
         ["Research ideas with specific R3 preflights", specific_r3_preflight_count, "Named-interface children only; all are CONDITIONAL and require independent coupon/device/host validation"],
         ["Research ideas with preliminary preflight bands", preliminary_preflight_count, "C and K are planning bands; R0\u2013R1 and current Lane E remain until interface/process/test evidence exists"],
-        ["Readiness advancement records", len(readiness_advancement) - 1, "Complete triage for 314 research ideas plus 108 product directories, with purpose, bottleneck and exact next evidence"],
+        ["Readiness advancement records", len(readiness_advancement) - 1, f"Complete triage for {len(combined_research_ids)} research ideas plus {len(product_preflight_records)} product directories, with purpose, bottleneck and exact next evidence"],
         ["Research target lane", "Separate planning field", "Expected design path after evidence closure; it never replaces the current lane or a release gate"],
         ["Finish-current research models", finish_current_count, "Close slicer, physical, rights and commercial evidence before expanding CAD work"],
         ["Gated next-candidate pool", len(next_candidate_rows), "Candidate pool only; demand-test and select at most one new CAD workstream"],
@@ -1576,7 +1585,7 @@ def main() -> None:
         ["Update rule", "Regenerate after product-preflight, implementation mapping, source, variant or research-priority changes", "Run the R3 variant, priority, preflight and advancement builders, then build_product_workbook.py"],
         ["Product source", "products/*/*/preflight/preflight-result.json", "Validated project-level source of truth"],
         ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 314-row planning overlay"],
-        ["Advancement source", "readiness-advancement-register.csv", "Complete 422-row triage: 314 research ideas plus 108 product directories"],
+        ["Advancement source", "readiness-advancement-register.csv", f"Complete {len(combined_research_ids) + len(product_preflight_records)}-row triage: {len(combined_research_ids)} research ideas plus {len(product_preflight_records)} product directories"],
     ]
 
     sheets = [

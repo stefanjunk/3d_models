@@ -438,7 +438,7 @@ def build_expected_unified_portfolio() -> list[list[object]]:
     variant_ids = {str(row[variants[0].index("SKU_ID")]) for row in variants[1:]}
     research_ids = prior_ids | variant_ids
     workbook.validate_research_priority(priority, research_ids, research_status)
-    workbook.validate_readiness_advancement(advancement, research_ids)
+    workbook.validate_readiness_advancement(advancement, research_ids, len(product_records))
     preflight = workbook.read_research_preflight(workbook.RESEARCH_PREFLIGHT_CSV, research_ids)
 
     source_tables = [
@@ -513,8 +513,11 @@ def validate_slim_workbook(expected: list[list[object]]) -> tuple[int, int, int]
     type_index = header.index("Record_Type")
     key_index = header.index("Unified_Record_Key")
     skus = [str(row[sku_index]) for row in actual[1:]]
-    if any(not sku for sku in skus) or len(skus) != len(set(skus)) or len(skus) != 422:
-        raise ValueError("Portfolio must contain exactly 422 populated, unique Working_SKU values")
+    expected_total = len(expected) - 1
+    if any(not sku for sku in skus) or len(skus) != len(set(skus)) or len(skus) != expected_total:
+        raise ValueError(
+            f"Portfolio must contain exactly {expected_total} populated, unique Working_SKU values"
+        )
     research_count = 0
     product_count = 0
     for row in actual[1:]:
@@ -528,7 +531,13 @@ def validate_slim_workbook(expected: list[list[object]]) -> tuple[int, int, int]
             product_count += 1
         else:
             raise ValueError(f"Unknown portfolio record type: {record_type}")
-    if (research_count, product_count) != (314, 108):
+    expected_research_count = sum(
+        str(row[type_index]) == "RESEARCH_IDEA" for row in expected[1:]
+    )
+    expected_product_count = sum(
+        str(row[type_index]) == "PRODUCT_DIRECTORY" for row in expected[1:]
+    )
+    if (research_count, product_count) != (expected_research_count, expected_product_count):
         raise ValueError(f"Unexpected portfolio split: {research_count}/{product_count}")
     return len(skus), research_count, product_count
 

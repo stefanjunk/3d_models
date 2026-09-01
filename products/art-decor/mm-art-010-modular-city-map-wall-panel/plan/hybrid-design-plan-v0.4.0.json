@@ -1,0 +1,492 @@
+{
+  "schema_version": "1.0",
+  "status": "decomposition-candidate",
+  "revision": "0.4.0",
+  "unknown_numeric_policy": "A zero in a schema-required fit, wall-hardware or allowance field accompanied by dimensions_status is an UNSELECTED sentinel, not an authorized production dimension. Mode-specific source and interface checks fail closed until named evidence selects them.",
+  "project": {
+    "id": "MM-ART-010",
+    "title": "Berlin wall relief with boundary-crop and context-outline modes",
+    "source_modes": ["concept_image", "design_description", "measurements"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max Combo with one ACE Pro",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "PROVISIONAL-KOBRA3MAX-PLA-0.4-0.20"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "lower-left corner of the 600 x 400 mm maximum artwork frame on the rear datum plane",
+      "x_axis": "+X right in installed front view",
+      "y_axis": "+Y upward in installed front view",
+      "z_axis": "+Z from wall toward viewer",
+      "transform_convention": "row-major 4x4 matrix maps component source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [0.0, 0.0, -35.0], "max": [600.0, 400.0, 6.0]},
+    "requirements": [
+      {
+        "id": "REQ-MODES",
+        "statement": "Generate one boundary_crop Berlin example whose positive bodies end at the administrative boundary and one context_outline example whose rectangular field includes Umland and marks Berlin.",
+        "evidence_class": "requested",
+        "source": "approved specification 0.4.0 and concept v03",
+        "priority": "critical",
+        "verification": "mode manifest, outer-mask containment report, source-coverage report and matched renders"
+      },
+      {
+        "id": "REQ-PANEL",
+        "statement": "Each one-off example shall use two permanent main prints, one vertical split, no rear grid and no replaceable section; 600 x 400 mm is fixed for context_outline and a maximum envelope for boundary_crop.",
+        "evidence_class": "requested",
+        "source": "approved specification 0.4.0",
+        "priority": "critical",
+        "verification": "global bounds, positive-body count, Kobra bed-fit and assembly audit"
+      },
+      {
+        "id": "REQ-MAP",
+        "statement": "Every mode shall use one immutable geospatial frame and split only after global scaling, semantic mapping, outer masking and protected-interface registration.",
+        "evidence_class": "requested",
+        "source": "approved specification 0.4.0",
+        "priority": "critical",
+        "verification": "source manifest, transform record and cross-seam coordinate report"
+      },
+      {
+        "id": "REQ-SOURCE",
+        "statement": "context_outline shall fail closed unless a new immutable Berlin/Brandenburg source covers the selected 12 percent default margin on every side.",
+        "evidence_class": "requested",
+        "source": "approved requirements and concept 0.4.0",
+        "priority": "critical",
+        "verification": "projected source bounds contain selected context bounds for every required semantic layer"
+      },
+      {
+        "id": "REQ-COLOR",
+        "statement": "Each mode shall use at most four broad Urban Signal filament bodies without dithering; context_outline shall use Orange for the robust Berlin boundary relief.",
+        "evidence_class": "requested",
+        "source": "approved concept v03 and display-mode parameters",
+        "priority": "important",
+        "verification": "named-body audit, minimum-feature audit, target-slicer tool routing and purge review"
+      },
+      {
+        "id": "REQ-JOIN",
+        "statement": "Three concealed loose one-way printed connectors shall permanently join each pair of halves without glue, magnets, screws or a service interface.",
+        "evidence_class": "requested",
+        "source": "approved revision 0.3.0 architecture retained by revision 0.4.0",
+        "priority": "critical",
+        "verification": "mode-specific safe-land placement, interface sections, existing coupon series and physical one-time assembly test"
+      },
+      {
+        "id": "REQ-MOUNT",
+        "statement": "Two upper local hangers and two lower local standoffs shall lie inside each mode's retained safe body and establish the 18 mm wall plane without a rear frame.",
+        "evidence_class": "inferred",
+        "source": "approved isolated mounting architecture and mode-topology correction",
+        "priority": "critical",
+        "verification": "eroded-mask containment, socket ligament report, wall-plane gauge and installed proof test"
+      },
+      {
+        "id": "REQ-LIGHT",
+        "statement": "Both modes shall reserve optional customer-added rear halo lighting and protected true front-through paths while remaining complete when unlit.",
+        "evidence_class": "requested",
+        "source": "approved specification 0.4.0",
+        "priority": "critical",
+        "verification": "mode-specific route/keep-out audit, aperture report, passive gauge and human lit/unlit review"
+      },
+      {
+        "id": "REQ-SCOPE",
+        "statement": "LEDs, wiring, controller, power supply, diffuser, wall screws and wall anchors remain excluded; no electrical or universal wall-load claim is made.",
+        "evidence_class": "requested",
+        "source": "approved specification 0.4.0",
+        "priority": "critical",
+        "verification": "BOM, installation boundary and release-package review"
+      }
+    ],
+    "global_style": {
+      "summary": "Two abstract Berlin readings sharing Urban Signal color logic: a compact administrative silhouette and a rectangular metropolitan context field",
+      "motifs": ["Bone White ground", "Nardo Grey secondary network", "Black primary network", "Orange signals or Berlin boundary", "single controlled split"],
+      "exclude": ["photographic realism", "dither", "unassigned rectangular free area", "fake Umland without source coverage", "visible grid", "visible fasteners"],
+      "generation_material": "four same-family matte PLA colors on a flat-backed printed substrate",
+      "detail_hierarchy": "outer-mode identity first, global Berlin registration second, seam-continuous primary routes third, printable secondary detail last"
+    },
+    "architecture_trees": {
+      "functional": ["select outer topology", "register two halves", "retain one-time seam", "mount locally", "reserve halo", "pass selected light", "preserve attribution"],
+      "physical": ["two mode-owned main halves", "three shared-design seam connectors", "two upper hangers", "two lower standoffs", "negative light cutters", "optional customer envelopes", "qualification coupon"],
+      "appearance": ["irregular Berlin silhouette or rectangular Umland field", "one center split", "four broad colors", "marked Berlin boundary in context mode", "warm rear halo"],
+      "manufacturing": ["two flat main prints per example", "shared support-free connector/standoff set", "named color bodies", "target-slicer project 3MF", "DRAFT handoff"],
+      "lifecycle": ["source freeze", "digital generation", "coupon qualification", "one-time assembly", "optional lighting addition", "wall installation", "non-serviceable display"]
+    },
+    "assembly_sequence": [
+      "Select one display_mode and load its immutable outer mask, source extent and interface-placement manifest.",
+      "Print and qualify the existing process-matched connector/standoff coupon on the exact production process.",
+      "Regenerate both main halves, rear sockets and cutters from the selected mode skeleton and the recorded winning compensation.",
+      "Insert three one-way connectors into the left half, align both halves on a flat fixture and press the right half home once.",
+      "Snap two upper hangers and two lower standoffs into the mode-specific rear sockets and verify the 18 mm wall plane.",
+      "Optionally add customer lighting only inside declared lands and routes, then install with substrate-appropriate customer-selected hardware."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-DECOMP-040",
+      "topic": "Approve the revision 0.4.0 mode-aware component, source, interface, color and validation decomposition.",
+      "status": "open",
+      "current_basis": "Requirements and concept v03 are human-approved; the guided policy keeps decomposition human-controlled.",
+      "evidence_needed": "Explicit approval of plan/hybrid-design-plan-v0.4.0.json or requested corrections.",
+      "blocks_gates": ["proxy", "component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-SOURCE-040",
+      "topic": "Freeze the expanded context_outline Berlin/Brandenburg source and derived layers.",
+      "status": "open",
+      "current_basis": "The Berlin-only 0.3.0 PBF does not cover the approved 12 percent context margin.",
+      "evidence_needed": "Immutable transport source, hashes, projected bounds, extraction commands, layer counts and attribution notice.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-PLACEMENT-040",
+      "topic": "Freeze mode-specific connector, hanger, standoff and LED-route placements.",
+      "status": "provisional",
+      "current_basis": "Revision 0.3.0 interface shapes remain the shared authority, but their old placements cannot be assumed inside the irregular silhouette.",
+      "evidence_needed": "Inward-offset safe-region solve, ligament sections, symmetry/load-path review and collision-free proxy for both modes.",
+      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-PERIMETER-040",
+      "topic": "Freeze boundary_crop perimeter simplification and weak-peninsula policy.",
+      "status": "provisional",
+      "current_basis": "The administrative boundary is appearance-authoritative, while sub-print notches and narrow necks can be mechanically fragile.",
+      "evidence_needed": "Physical-scale deviation report, minimum retained neck/edge-ligament audit and matched outline preview.",
+      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+    },
+    {
+      "id": "DEC-APERTURE-040",
+      "topic": "Freeze mode-specific light-through path sets and rear halo routes.",
+      "status": "provisional",
+      "current_basis": "Both modes retain light preparation, but perimeter and interface keep-outs differ.",
+      "evidence_needed": "Aperture width/open-area/ligament reports, rear-route coverage and physical light gauge.",
+      "blocks_gates": ["integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-FILAMENT-040",
+      "topic": "Freeze the four physical Urban Signal spools and directed transition purge matrix.",
+      "status": "provisional",
+      "current_basis": "Semantic colors are approved; exact products, batches, measured swatches and opacity remain unrecorded.",
+      "evidence_needed": "Spool/batch records, swatches, opacity notes and exact-profile transition coupon.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-WALL-040",
+      "topic": "Select wall-substrate-specific hardware outside the product package.",
+      "status": "open",
+      "current_basis": "Wall substrate and anchors remain installer-specific.",
+      "evidence_needed": "Actual substrate, chosen hardware data and installer-owned proof test.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "MODE_OUTER_MASK_SET",
+      "name": "Boundary-crop and context-outline outer-mask authority",
+      "role": "owns display_mode enum, maximum frame, boundary silhouette, context rectangle, projected bounds and all derived clip bodies",
+      "authority": "parametric",
+      "representation": "mixed",
+      "source": {"kind": "derived", "refs": ["display-mode-parameters.json", "boundary.geojson", "concept v03"], "confidence": "high"},
+      "functions": ["select physical perimeter", "define source extent", "provide positive mask", "derive safe-region erosion", "preserve one global split datum"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 4.6]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product vector/mesh masks consumed by all positive bodies", "material": "not applicable", "color_body": "not applicable", "orientation": "project frame"},
+      "interface_ids": ["IF-MASK-MAIN", "IF-SOURCE-MASK"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.03, "checks": ["boundary_crop equals Berlin polygon", "context_outline equals full rectangle", "uniform scale", "source coverage", "split datum unchanged"]}
+    },
+    {
+      "id": "MAP_SOURCE_SET",
+      "name": "Immutable Berlin and metropolitan source snapshots",
+      "role": "owns transport files, provenance, working-CRS derived layers and coverage evidence",
+      "authority": "hybrid",
+      "representation": "mixed",
+      "source": {"kind": "derived", "refs": ["source-data/v0.3.0/berlin", "DEC-SOURCE-040"], "confidence": "medium"},
+      "functions": ["preserve Berlin boundary", "supply roads rail accents and waterways", "cover selected context", "retain attribution"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 0.01]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product immutable geospatial data and deterministic derived layers", "material": "not applicable", "color_body": "semantic source only", "orientation": "EPSG:25833 transformed once into project frame"},
+      "interface_ids": ["IF-SOURCE-MASK", "IF-MAIN-MAP"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.0, "checks": ["immutable hashes", "documented extraction", "context bounds fully contained", "OSM attribution retained"]}
+    },
+    {
+      "id": "MAIN_HALF_SET",
+      "name": "Mode-owned left and right main substrates",
+      "role": "rear datum, retained perimeter, structural base, derived sockets, local lands and split authority",
+      "authority": "parametric",
+      "representation": "mixed",
+      "source": {"kind": "design_description", "refs": ["REQ-MODES", "REQ-PANEL", "MODE_OUTER_MASK_SET"], "confidence": "high"},
+      "functions": ["form two printable halves", "carry visible field", "retain local interfaces", "reserve lighting and attribution", "provide flat bed datum"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "two separate flat FDM main prints per selected mode", "material": "same-family PLA candidate", "color_body": "Bone White base plus aligned top bands", "orientation": "flat rear datum on bed; visible face upward"},
+      "interface_ids": ["IF-MASK-MAIN", "IF-MAIN-MAP", "IF-MAIN-INTERFACE", "IF-MAIN-APERTURE", "IF-MAIN-LIGHTING"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["two halves per mode", "bed fit", "flat datum", "no rear grid", "positive bodies inside mode mask", "no unsupported rear socket roofs"]}
+    },
+    {
+      "id": "MULTICOLOR_RELIEF_SET",
+      "name": "Four semantic relief volumes for both modes",
+      "role": "owns printable Bone White, Nardo Grey, Black and Orange relief regions in the selected global mode frame",
+      "authority": "hybrid",
+      "representation": "mesh",
+      "source": {"kind": "derived", "refs": ["MAP_SOURCE_SET", "MODE_OUTER_MASK_SET", "REQ-COLOR"], "confidence": "medium"},
+      "functions": ["encode abstract road hierarchy", "mark Berlin boundary in context mode", "preserve cross-seam registration", "limit active color bands"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 4.6]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "four disjoint named solids per half, packaged as target-slicer project 3MF", "material": "four same-family matte PLA colors", "color_body": "Urban Signal", "orientation": "inherits each MAIN_HALF_SET bed orientation"},
+      "interface_ids": ["IF-MAIN-MAP"],
+      "acceptance": {"expected_components": 16, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["four named bodies per half per mode", "pairwise non-overlap", "union reconstructs composite", "minimum 0.9 mm isolated color width", "no dithering"]}
+    },
+    {
+      "id": "MODE_INTERFACE_SKELETON",
+      "name": "Mode-specific rear interface placement skeleton",
+      "role": "single owner for seam, connector, hanger, standoff and lighting-land placements constrained to retained safe regions",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["MODE_OUTER_MASK_SET", "revision 0.3.0 interface kit", "DEC-PLACEMENT-040"], "confidence": "medium"},
+      "functions": ["derive interior safe regions", "place three connector pockets", "place four wall sockets", "protect edge ligaments", "export per-mode interface kits"],
+      "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product exact placement/datum/keep-out kit; sockets derive into main halves", "material": "not applicable", "color_body": "concealed", "orientation": "project frame"},
+      "interface_ids": ["IF-MAIN-INTERFACE", "IF-SKELETON-CONNECTOR", "IF-SKELETON-STANDOFF"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.03, "checks": ["one kit per mode", "all local lands inside eroded body", "three connectors", "two upper and two lower sockets", "no light/cable collision"]}
+    },
+    {
+      "id": "SEAM_CONNECTOR_SET",
+      "name": "Three shared-design one-way seam connectors per artwork",
+      "role": "owns connector section, flexure dimensions and derived pocket-clearance bodies",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["source/v0.3.0/interface_geometry.py", "coupon v0.3.0", "REQ-JOIN"], "confidence": "medium"},
+      "functions": ["retain permanent seam", "provide one-way insertion", "supply derived pockets", "reuse qualified shape across modes"],
+      "envelope_mm": {"min": [285.0, 35.0, 0.2], "max": [315.0, 365.0, 2.8]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "three support-free FDM parts per artwork", "material": "same-family PLA candidate", "color_body": "concealed single color", "orientation": "spring arms in bed plane"},
+      "interface_ids": ["IF-SKELETON-CONNECTOR", "IF-COUPON-CONNECTOR"],
+      "acceptance": {"expected_components": 3, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["strain record", "coupon-selected clearance", "one-way insertion", "no crack or whitening", "three identical revisioned parts"]}
+    },
+    {
+      "id": "HANGER_STANDOFF_SET",
+      "name": "Two upper hangers and two lower standoffs per artwork",
+      "role": "owns the isolated snap geometry and 18 mm wall-plane counterpart",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["source/v0.3.0/interface_geometry.py", "coupon v0.3.0", "REQ-MOUNT"], "confidence": "medium"},
+      "functions": ["transfer self-weight", "set wall plane", "supply socket cutters", "remain independent of outer silhouette"],
+      "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 0.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "four support-free FDM parts per artwork", "material": "same-family PLA candidate", "color_body": "concealed single color", "orientation": "snap flexures in validated bed-plane orientation"},
+      "interface_ids": ["IF-SKELETON-STANDOFF", "IF-STANDOFF-WALL", "IF-COUPON-STANDOFF"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["two upper and two lower identities", "18 mm rear extent", "snap strain", "wall-fastener access", "proof-load gate"]}
+    },
+    {
+      "id": "LIGHT_CUTTER_SET",
+      "name": "Mode-specific front-through light cutters",
+      "role": "owns selected negative paths after perimeter and interface keep-outs",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "derived", "refs": ["MAP_SOURCE_SET", "MODE_INTERFACE_SKELETON", "DEC-APERTURE-040"], "confidence": "medium"},
+      "functions": ["cut true light paths", "preserve edge and interface ligaments", "limit open area", "avoid isolated fragments"],
+      "envelope_mm": {"min": [0.0, 0.0, -0.5], "max": [600.0, 400.0, 5.5]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product Boolean cutter regenerated per mode", "material": "not applicable", "color_body": "negative light path", "orientation": "project frame"},
+      "interface_ids": ["IF-MAIN-APERTURE"],
+      "acceptance": {"expected_components": 2, "require_watertight": true, "max_bounds_error_mm": 0.03, "checks": ["2 mm minimum width", "5 mm ligament", "12 percent open-area ceiling", "mode-mask containment", "keep-out compliance"]}
+    },
+    {
+      "id": "LIGHTING_ENVELOPES",
+      "name": "Mode-specific rear halo and cable envelopes",
+      "role": "non-product authority for strip space, adhesive lands, cable routes, exits and ventilation",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "design_description", "refs": ["REQ-LIGHT", "MODE_OUTER_MASK_SET"], "confidence": "medium"},
+      "functions": ["reserve 12 x 4 mm strip space", "reserve 6 x 4 mm cable paths", "follow retained perimeter safely", "preserve optional add-on scope"],
+      "envelope_mm": {"min": [0.0, 0.0, -17.0], "max": [600.0, 400.0, -3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product keep-out; customer lighting excluded", "material": "not applicable", "color_body": "not applicable", "orientation": "installed rear frame"},
+      "interface_ids": ["IF-MAIN-LIGHTING"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["18 mm halo cavity", "strip/cable access", "left right bottom exits", "no interface collision", "unlit function unchanged"]}
+    },
+    {
+      "id": "WALL_HARDWARE_REFERENCE",
+      "name": "Customer-selected wall hardware reference",
+      "role": "planning envelopes for excluded wall fasteners and tools",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "measurements", "refs": ["actual wall substrate and chosen hardware pending"], "confidence": "low"},
+      "functions": ["represent excluded hardware", "preserve tool access", "separate printed interface from wall-load claim"],
+      "envelope_mm": {"min": [0.0, 0.0, -35.0], "max": [600.0, 400.0, -12.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "purchased by customer/installer; not supplied", "material": "substrate-specific", "color_body": "not applicable", "orientation": "installer-selected"},
+      "interface_ids": ["IF-STANDOFF-WALL"],
+      "acceptance": {"expected_components": 2, "require_watertight": false, "max_bounds_error_mm": 0.1, "checks": ["supplier dimensions", "actual substrate", "tool access", "installed proof test"]}
+    },
+    {
+      "id": "COUPON_SET",
+      "name": "Existing connector and standoff qualification coupon",
+      "role": "selects process compensation and flexure behavior shared by both display modes",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {"kind": "derived", "refs": ["coupons/v0.3.0", "SEAM_CONNECTOR_SET", "HANGER_STANDOFF_SET"], "confidence": "high"},
+      "functions": ["test four per-side clearances", "test representative seam", "test hanger snap", "record winning process compensation"],
+      "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [184.0, 118.0, 3.0]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "one support-free development build; not sold", "material": "exact production PLA/nozzle/profile", "color_body": "single process-control color", "orientation": "matches production interface layer direction"},
+      "interface_ids": ["IF-COUPON-CONNECTOR", "IF-COUPON-STANDOFF"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.1, "checks": ["0.15 0.25 0.35 0.45 mm variants", "production orientation", "damage observations", "winning result hash-bound"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-MASK-MAIN", "a": "MODE_OUTER_MASK_SET", "b": "MAIN_HALF_SET", "owner": "MODE_OUTER_MASK_SET", "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "mode_selected_positive_body_mask", "boundary_crop": "Berlin administrative polygon", "context_outline": "600 x 400 mm rectangle", "split_x_mm": 300.0},
+      "joining": {"method": "all positive bodies intersect one selected global mask before splitting", "assembly_direction": "+Z", "anti_rotation": "asymmetric global map frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 8.0, "keepout_ids": ["KEEP-PERIMETER", "KEEP-SEAM", "KEEP-ATTRIBUTION", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 2.0, "load_or_flow": "outer body contains all structural and visual positive geometry"},
+      "verification": ["positive-body containment", "outer-perimeter deviation", "connected-component audit", "global split reconstruction"]
+    },
+    {
+      "id": "IF-SOURCE-MASK", "a": "MAP_SOURCE_SET", "b": "MODE_OUTER_MASK_SET", "owner": "MODE_OUTER_MASK_SET", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "uniform_geospatial_fit", "working_crs": "EPSG:25833", "context_margin_ratio": 0.12},
+      "joining": {"method": "transform immutable source once into selected project frame", "assembly_direction": "+Z", "anti_rotation": "north-up project axes", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 0.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "load_or_flow": "every requested semantic source layer covers the selected extent"},
+      "verification": ["source hash", "projected bounds containment", "feature count", "transform record"]
+    },
+    {
+      "id": "IF-MAIN-MAP", "a": "MAIN_HALF_SET", "b": "MULTICOLOR_RELIEF_SET", "owner": "MAIN_HALF_SET", "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0,0,3], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "four_disjoint_horizontal_color_bands", "z_bands_mm": [[0,3.0],[3.0,3.6],[3.6,4.2],[4.2,4.6]]},
+      "joining": {"method": "closed color bodies share exact boundaries and are fused by FDM toolpaths", "assembly_direction": "+Z", "anti_rotation": "global map frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 8.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-ATTRIBUTION", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 0.9, "load_or_flow": "appearance geometry; base carries assembly and wall loads"},
+      "verification": ["named-body audit", "pairwise overlap", "union reconstruction", "minimum-feature audit", "target-slicer tool routing"]
+    },
+    {
+      "id": "IF-MAIN-INTERFACE", "a": "MAIN_HALF_SET", "b": "MODE_INTERFACE_SKELETON", "owner": "MODE_INTERFACE_SKELETON", "kind": "other",
+      "local_frame": {"origin_mm": [300,200,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "mode_specific_socket_and_land_placement", "dimensions_status": "placements solved from retained eroded body after decomposition approval"},
+      "joining": {"method": "derive rear sockets and protected lands from the selected skeleton", "assembly_direction": "+Z", "anti_rotation": "mode and side indexed datums", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 16.0, "keepout_ids": ["KEEP-PERIMETER", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-LED", "KEEP-CABLE"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "all rear interfaces remain inside retained substrate and preserve edge ligaments"},
+      "verification": ["eroded-mask containment", "two-axis sections", "collision audit", "per-mode placement manifest"]
+    },
+    {
+      "id": "IF-SKELETON-CONNECTOR", "a": "MODE_INTERFACE_SKELETON", "b": "SEAM_CONNECTOR_SET", "owner": "SEAM_CONNECTOR_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [300,200,1.5], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "three_one_way_spring_tenons_with_derived_pockets", "quantity": 3, "clearance_candidates_per_side_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "single press assembly on flat fixture", "assembly_direction": "+X", "anti_rotation": "asymmetric section and indexed Y positions", "lead_in_mm": 0.0, "lead_in_status": "inherited from qualified source", "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 16.0, "keepout_ids": ["KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-LED", "KEEP-CABLE"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 5.0, "dimensions_status": "winning process compensation requires physical coupon", "load_or_flow": "retain permanent seam during handling and installed use without universal rating"},
+      "verification": ["shared-source hash", "mode-placement audit", "four-clearance coupon", "one-time insertion test"]
+    },
+    {
+      "id": "IF-SKELETON-STANDOFF", "a": "MODE_INTERFACE_SKELETON", "b": "HANGER_STANDOFF_SET", "owner": "HANGER_STANDOFF_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [300,200,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "two_upper_hanger_and_two_lower_standoff_snaps", "installed_rear_extent_mm": 18.0},
+      "joining": {"method": "rear insertion after seam assembly", "assembly_direction": "+Z toward visible face", "anti_rotation": "upper/lower keys and side-indexed sockets", "lead_in_mm": 0.0, "lead_in_status": "inherited from qualified source", "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 16.0, "keepout_ids": ["KEEP-PERIMETER", "KEEP-STANDOFFS", "KEEP-LED", "KEEP-CABLE", "KEEP-WALLTOOLS"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 5.0, "dimensions_status": "winning process compensation requires physical coupon", "load_or_flow": "upper parts carry self-weight; lower parts set wall plane"},
+      "verification": ["safe-region containment", "snap coupon", "socket ligament sections", "18 mm wall-plane gauge", "proof test"]
+    },
+    {
+      "id": "IF-MAIN-APERTURE", "a": "MAIN_HALF_SET", "b": "LIGHT_CUTTER_SET", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "mode_specific_through_part_paths", "minimum_width_mm": 2.0, "minimum_ligament_mm": 5.0, "maximum_open_area_fraction_per_half": 0.12},
+      "joining": {"method": "Boolean subtraction after mask and interface keep-outs", "assembly_direction": "+Z", "anti_rotation": "global mode frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 16.0, "keepout_ids": ["KEEP-PERIMETER", "KEEP-SEAM", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-ATTRIBUTION", "KEEP-WATERMARK"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "pass optional rear light without weakening perimeter or interfaces"},
+      "verification": ["open-area report", "width/ligament sampling", "keep-out collision", "slicer review", "physical light gauge"]
+    },
+    {
+      "id": "IF-MAIN-LIGHTING", "a": "MAIN_HALF_SET", "b": "LIGHTING_ENVELOPES", "owner": "MAIN_HALF_SET", "kind": "other",
+      "local_frame": {"origin_mm": [300,200,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "mode_specific_rear_halo_and_cable_keepout", "wall_gap_mm": 18.0, "strip_keepout_mm": [12.0,4.0], "cable_channel_min_mm": [6.0,4.0]},
+      "joining": {"method": "customer may attach unsupplied lighting to declared rear lands", "assembly_direction": "rear access before wall installation", "anti_rotation": "indexed cable exits", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 16.0, "keepout_ids": ["KEEP-PERIMETER", "KEEP-LED", "KEEP-CABLE", "KEEP-CONNECTORS", "KEEP-STANDOFFS", "KEEP-WALLTOOLS"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "reserve air light and cable space; electrical system remains outside product"},
+      "verification": ["route coverage", "proxy collision", "strip/cable gauge", "unlit-state test"]
+    },
+    {
+      "id": "IF-STANDOFF-WALL", "a": "HANGER_STANDOFF_SET", "b": "WALL_HARDWARE_REFERENCE", "owner": "WALL_HARDWARE_REFERENCE", "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [300,340,-18], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "installer_selected_fastener_and_tool_envelope", "dimensions_status": "unknown until substrate and hardware are selected"},
+      "joining": {"method": "installer-selected hardware engages two upper printed hangers", "assembly_direction": "wall-specific", "anti_rotation": "two spaced upper load points", "lead_in_mm": 0.0, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 0.0, "keepout_ids": ["KEEP-WALLTOOLS", "KEEP-LED", "KEEP-CABLE"],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "hardware-specific", "load_or_flow": "transfer self-weight to actual substrate without universal rating"},
+      "verification": ["supplier record", "tool access", "substrate review", "installed proof test"]
+    },
+    {
+      "id": "IF-COUPON-CONNECTOR", "a": "COUPON_SET", "b": "SEAM_CONNECTOR_SET", "owner": "SEAM_CONNECTOR_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [60,60,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "four_pocket_compensation_variants", "clearance_per_side_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "one insertion per labeled variant", "assembly_direction": "+X", "anti_rotation": "production asymmetric section", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "mirrors production interface", "load_or_flow": "qualify fit and flexure behavior"},
+      "verification": ["dimension audit", "orientation audit", "manual insertion", "photo and measured record"]
+    },
+    {
+      "id": "IF-COUPON-STANDOFF", "a": "COUPON_SET", "b": "HANGER_STANDOFF_SET", "owner": "HANGER_STANDOFF_SET", "kind": "keyed_insert",
+      "local_frame": {"origin_mm": [140,60,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "representative_hanger_snap_and_socket", "clearance_per_side_mm": [0.15,0.25,0.35,0.45]},
+      "joining": {"method": "one insertion per selected candidate", "assembly_direction": "+Z", "anti_rotation": "production keyed section", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0, "process_compensation_per_side_mm": 0, "assembly_allowance_per_side_mm": 0, "adhesive_gap_per_side_mm": 0, "boolean_overlap_mm": 0, "registration_uncertainty_mm": 0, "solver_margin_mm": 0},
+      "seam_band_mm": 12.0, "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0, "minimum_ligament_mm": 0, "dimensions_status": "mirrors production interface", "load_or_flow": "qualify snap insertion and damage behavior"},
+      "verification": ["dimension audit", "orientation audit", "manual insertion", "photo and measured record"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-PERIMETER", "type": "mesh", "purpose": "mode-specific inward safe-region erosion preserving printable outer edge and local interface ligaments", "source": "MODE_OUTER_MASK_SET"},
+    {"id": "KEEP-SEAM", "type": "mesh", "purpose": "protected center band around visible split and three connector stations", "source": "MODE_INTERFACE_SKELETON"},
+    {"id": "KEEP-CONNECTORS", "type": "mesh", "purpose": "connector pockets, spring sweeps and insertion paths", "source": "SEAM_CONNECTOR_SET interface kit"},
+    {"id": "KEEP-STANDOFFS", "type": "mesh", "purpose": "two upper and two lower socket/flexure regions per mode", "source": "MODE_INTERFACE_SKELETON"},
+    {"id": "KEEP-LED", "type": "mesh", "purpose": "12 x 4 mm rear strip envelope and front-light approach volumes", "source": "LIGHTING_ENVELOPES"},
+    {"id": "KEEP-CABLE", "type": "mesh", "purpose": "6 x 4 mm cable routes, bends and left/right/bottom exits", "source": "LIGHTING_ENVELOPES"},
+    {"id": "KEEP-WALLTOOLS", "type": "mesh", "purpose": "fastener head, shank, driver and approach volumes", "source": "WALL_HARDWARE_REFERENCE"},
+    {"id": "KEEP-ATTRIBUTION", "type": "mesh", "purpose": "mode-specific retained rear OpenStreetMap attribution land", "source": "MODE_INTERFACE_SKELETON"},
+    {"id": "KEEP-WATERMARK", "type": "mesh", "purpose": "candidate mode-specific protected rear watermark host; final placement is later", "source": "MODE_INTERFACE_SKELETON"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "plan_hybrid_design.py plus linked-tree and unique-owner review", "acceptance": "both modes are allocated, every interface has one owner, no rear grid/magnet/glue/service interface exists and assembly remains feasible"},
+    {"id": "VAL-SOURCE", "gate": "proxy", "method": "hash and projected-bounds audit for every source and derived semantic layer", "acceptance": "boundary_crop uses the frozen Berlin boundary and context_outline source bounds contain the approved 12 percent extent on all sides"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "assemble per-mode mask, two halves, interface kit, lighting and wall proxies", "acceptance": "each half fits 420 x 420 mm, all rear lands lie inside eroded retained bodies and no keep-out collision exists"},
+    {"id": "VAL-COMP", "gate": "component", "method": "source manifests, mask containment, mesh audits and named-body inventory", "acceptance": "four watertight main composites and 16 aligned watertight color bodies exist; boundary crop has zero positive volume outside Berlin"},
+    {"id": "VAL-INT", "gate": "integration", "method": "sections, clearance/ligament checks, motion sweeps and process-matched coupon", "acceptance": "shared interface shapes are correctly placed in both modes, one seam stays flush and lighting paths avoid all interfaces"},
+    {"id": "VAL-MFG", "gate": "manufacturing", "method": "mesh/3MF audits and exact Anycubic Slicer Next runs with complete profiles in new output directories", "acceptance": "four target-project 3MFs import with geometry, retain four tools, do not auto-arrange, preserve intended paths and stay within budgets"},
+    {"id": "VAL-PHY", "gate": "physical", "method": "coupon, representative seam, wall-plane/light gauge and completed-artwork proof/appearance tests", "acceptance": "one-time assembly passes without damage, artwork remains flat, wall proof passes and lit/unlit appearance is human-approved"}
+  ],
+  "bom": [
+    {"item": "MAIN_HALF_SET", "quantity": 2, "included": true, "note": "per selected display-mode one-off; four digital halves across both examples"},
+    {"item": "SEAM_CONNECTOR_SET", "quantity": 3, "included": true, "note": "per artwork; shared geometry, mode-specific positions"},
+    {"item": "HANGER_STANDOFF_SET", "quantity": 4, "included": true, "note": "per artwork; two upper and two lower"},
+    {"item": "COUPON_SET", "quantity": 1, "included": false, "note": "shared development artifact, not sold"},
+    {"item": "customer lighting system", "quantity": 0, "included": false, "note": "mechanical preparation only"},
+    {"item": "wall hardware", "quantity": 0, "included": false, "note": "customer/installer-selected"},
+    {"item": "adhesive, magnets or rear grid", "quantity": 0, "included": false, "note": "explicitly prohibited"}
+  ]
+}

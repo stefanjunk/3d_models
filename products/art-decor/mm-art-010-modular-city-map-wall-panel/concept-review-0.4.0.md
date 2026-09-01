@@ -1,6 +1,6 @@
 # Concept review 0.4.0 — MM-ART-010 Berlin display modes
 
-Status: **awaiting human approval**.
+Status: **approved by Stefan on 2026-09-01 for specification revision 0.4.0**.
 
 Review artifact: `concepts/berlin-display-modes-concept-v03.png`
 
@@ -30,4 +30,6 @@ The sheet is generated from the frozen Berlin boundary and network vectors. It i
 - Four semantic colors: Bone White, Nardo Grey, Black and Orange; no realistic color claim or dithering.
 - Two non-replaceable main prints with glue-free concealed connectors; no rear grid.
 - Optional 18 mm rear halo and protected front-through paths remain prepared, while all electrical equipment stays outside the product.
-- Production examples, interface relocation, source download, mesh generation and 3MF packaging remain blocked until this exact concept is explicitly approved.
+- Production examples, interface relocation, source download, mesh generation and 3MF packaging remain blocked until the separate mode-aware decomposition is explicitly approved.
+
+Approval evidence: Stefan wrote `freigegeben` in direct response to concept v03. This authorizes the mode-aware decomposition candidate, not production CAD or manufacturing exports.

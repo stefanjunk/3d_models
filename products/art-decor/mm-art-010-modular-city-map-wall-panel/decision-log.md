@@ -111,3 +111,13 @@
 - `context_outline` retains the rectangular 600 × 400 mm field, defaults to 12% context margin per side and marks Berlin with a 2.4 mm Orange relief band.
 - The frozen Berlin-only extract cannot cover the selected Umland margin. Production `context_outline` therefore requires a larger immutable Berlin/Brandenburg snapshot after concept approval.
 - Concept v03 is generated from the frozen boundary/network vectors and stored at `concepts/berlin-display-modes-concept-v03.png`. Requirements are approved by the user's explicit request; concept, mode-aware decomposition and production examples remain gated by separate human approval.
+
+## 2026-09-01 — Concept v03 approved; mode-aware decomposition prepared
+
+- Human decision: Stefan explicitly wrote `freigegeben` in direct response to the boundary-crop/context-outline concept v03.
+- The concept approval advances revision 0.4.0 to decomposition; it does not itself authorize production CAD under the guided project policy.
+- `MODE_OUTER_MASK_SET` owns the physical perimeter and context extent. `MODE_INTERFACE_SKELETON` derives mode-specific connector, hanger, standoff, LED, attribution and future watermark lands only inside the retained safe body.
+- The shared 0.3.0 connector/snap shapes remain reusable, but their absolute placements do not. `boundary_crop` and `context_outline` receive separate placement manifests.
+- `context_outline` remains fail-closed until a larger immutable Berlin/Brandenburg source covers the approved 12% default context margin.
+- The first planner run correctly failed on a zero-height non-product source envelope. That report is retained as `reports/architecture-v0.4.0-failure-r0.*`; the corrected candidate passes with zero errors and zero warnings.
+- Next gate: explicit human approval of `decomposition-review-0.4.0.md` and `plan/hybrid-design-plan-v0.4.0.json`. Source acquisition, CAD, mesh and 3MF work remain blocked until then.

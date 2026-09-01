@@ -6,7 +6,7 @@ project:
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
   revision: 0.4.0
-  candidate: 0.4.0-display-modes-concept.1
+  candidate: 0.4.0-mode-aware-decomposition.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,14 +16,13 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-004
+    assessment_id: PREFLIGHT-MM-ART-010-005
     assessment_version: 0.4.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-003
+    previous_assessment_id: PREFLIGHT-MM-ART-010-004
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-09-01T13:26:19+02:00"
+    updated_at: "2026-09-01T15:57:39+02:00"
     change_triggers:
-      - user_requested_boundary_crop_and_context_outline_display_modes
-      - user_reported_excess_free_area
+      - human_approved_berlin_display_modes_concept_v03
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -36,12 +35,12 @@ workflow:
     change_requested_on: "2026-09-01"
     basis: "User explicitly requested one boundary-cropped Berlin example and one rectangular Umland example with the Berlin administrative boundary marked"
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 0.4.0
     asset: concepts/berlin-display-modes-concept-v03.png
-    approved_by: null
-    approved_at: null
-    basis: "Concept v03 generated from frozen Berlin vectors and awaiting explicit human approval"
+    approved_by: Stefan
+    approved_at: "2026-09-01"
+    basis: "User explicitly wrote 'freigegeben' in direct response to concept v03"
   watermark_approval:
     status: blocked
     spec_revision: null
@@ -51,16 +50,16 @@ workflow:
     version: 0.4.0
     reason: "Revision 0.4.0 display-mode concept is not approved and no mode-aware production geometry exists"
   decomposition_approval:
-    status: blocked
+    status: pending
     spec_revision: 0.4.0
-    artifact: plan/hybrid-design-plan-v0.3.0.json
-    review: decomposition-review-0.3.0.md
+    artifact: plan/hybrid-design-plan-v0.4.0.json
+    review: decomposition-review-0.4.0.md
     approved_by: null
     approved_at: null
-    basis: "The approved 0.3.0 decomposition is retained as history but must be updated after 0.4.0 concept approval for irregular perimeter and context-source effects"
+    basis: "Mode-aware decomposition candidate prepared after concept v03 approval; awaiting separate human approval under the guided policy"
   digital_candidate:
     status: blocked
-    reason: "The repaired 0.3.0 Anycubic project 3MFs remain valid interoperability evidence, but neither new 0.4.0 display mode may enter production CAD before concept and mode-aware decomposition approval."
+    reason: "The repaired 0.3.0 Anycubic project 3MFs remain valid interoperability evidence, but neither new 0.4.0 display mode may enter production CAD before mode-aware decomposition approval."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -413,6 +412,10 @@ acceptance:
   - id: AC-CONCEPT
     criterion: "Concept v03 accurately distinguishes the irregular Berlin silhouette from the rectangular Umland field with marked Berlin boundary."
     method: "human approval recorded against concepts/berlin-display-modes-concept-v03.png"
+    status: PASS
+  - id: AC-DECOMPOSITION
+    criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
+    method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
     status: REVIEW_REQUIRED
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
@@ -436,7 +439,7 @@ acceptance:
     status: NOT_RUN
 
 deliverables:
-  - "Approved revision 0.4.0 display-mode requirements and concept v03 awaiting approval"
+  - "Approved revision 0.4.0 display-mode requirements and concept v03"
   - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"

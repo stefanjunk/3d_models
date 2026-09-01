@@ -4,7 +4,7 @@ Status: planning model plus 3D-preflight and readiness-advancement overlay revie
 
 This model orders all 314 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
-The ordered source is `research-idea-priority.csv`; the generated workbook presents it as `Implementation Priority`.
+The ordered source is `research-idea-priority.csv`; the generated workbook presents it as `Implementation Priority`. The workbook's leading `Portfolio` tab joins this queue with all product directories, idea sources, unit economics and readiness advancement in one 422-row filterable list. The source-prefixed columns are a complete audit copy; `Product Register` retains the prior 99-row curated product source.
 
 ## 3D-preflight planning overlay
 

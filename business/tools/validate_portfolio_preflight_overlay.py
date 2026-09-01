@@ -41,9 +41,9 @@ def cell(header: list[object], row: list[object], column: str) -> object:
 
 
 def validate_product_sheets() -> tuple[int, int]:
-    portfolio_header, portfolio = rows_by_key("Portfolio", "Record_ID")
+    portfolio_header, portfolio = rows_by_key("Product Register", "Record_ID")
     if len(portfolio) != 99:
-        raise ValueError(f"Expected 99 Portfolio rows, found {len(portfolio)}")
+        raise ValueError(f"Expected 99 Product Register rows, found {len(portfolio)}")
     for record_id, row in portfolio.items():
         compact = str(cell(portfolio_header, row, "Preflight_Short"))
         if not EXACT_COMPACT_RE.fullmatch(compact):
@@ -74,6 +74,195 @@ def validate_product_sheets() -> tuple[int, int]:
             if not path.is_file():
                 raise ValueError(f"Missing {column} for {product_path}: {path}")
     return len(portfolio), len(products)
+
+
+def indexed_sheet(
+    sheet_name: str, key: str
+) -> tuple[list[object], dict[str, tuple[int, list[object]]]]:
+    rows = workbook.read_xlsx_sheet(workbook.OUTPUT, sheet_name)
+    if not rows or key not in rows[0]:
+        raise ValueError(f"Workbook sheet/key is missing: {sheet_name}/{key}")
+    header = rows[0]
+    key_index = header.index(key)
+    result: dict[str, tuple[int, list[object]]] = {}
+    for row_number, source_row in enumerate(rows[1:], start=2):
+        row = list(source_row) + [""] * (len(header) - len(source_row))
+        value = str(row[key_index])
+        if not value or value in result:
+            raise ValueError(f"Duplicate or blank {key} in {sheet_name}: {value}")
+        result[value] = (row_number, row)
+    return header, result
+
+
+def compare_raw_block(
+    master_header: list[object],
+    master_row: list[object],
+    source_header: list[object],
+    source_row: list[object] | None,
+    prefix: str,
+    record_key: str,
+) -> None:
+    """Verify every namespaced raw cell against the source sheet cell-for-cell."""
+    source_values: dict[str, object] = {}
+    if source_row is not None:
+        padded = list(source_row) + [""] * (len(source_header) - len(source_row))
+        source_values = dict(zip(workbook.namespaced_headers(source_header, prefix), padded))
+    for column_index, column in enumerate(master_header):
+        column_name = str(column)
+        if not column_name.startswith(prefix):
+            continue
+        expected = source_values.get(column_name, "")
+        actual = master_row[column_index] if column_index < len(master_row) else ""
+        if str(actual or "") != str(expected or ""):
+            raise ValueError(
+                f"Raw-source mismatch for {record_key} at {column_name}: "
+                f"master={actual!r}, source={expected!r}"
+            )
+
+
+def validate_unified_portfolio() -> tuple[int, int, int]:
+    master_header, master = rows_by_key("Portfolio", "Unified_Record_Key")
+    if len(master) != 422 or len(master_header) != len(set(master_header)):
+        raise ValueError(
+            f"Unified Portfolio must contain 422 records and unique columns; "
+            f"found {len(master)} records/{len(master_header)} columns"
+        )
+
+    product_header, product_rows = indexed_sheet("Product Register", "Source_Path")
+    preflight_header, preflight_rows = indexed_sheet("Product Preflights", "Product_Path")
+    priority_header, priority_rows = indexed_sheet("Implementation Priority", "SKU_ID")
+    economics_header, economics_rows = indexed_sheet("Research Economics", "SKU ID")
+    advancement_header, advancement_rows = indexed_sheet("R Advancement", "Record_Key")
+    idea_sources: dict[str, tuple[str, int, list[object], list[object]]] = {}
+    for sheet_name, key in (
+        ("Research Ideas 100", "SKU ID"),
+        ("Research Ideas +100", "SKU_ID"),
+        ("Research Ideas +200", "SKU_ID"),
+        ("Research Variants R3", "SKU_ID"),
+    ):
+        source_header, source_rows = indexed_sheet(sheet_name, key)
+        for sku_id, (row_number, row) in source_rows.items():
+            if sku_id in idea_sources:
+                raise ValueError(f"Research idea exists in multiple source sheets: {sku_id}")
+            idea_sources[sku_id] = (sheet_name, row_number, source_header, row)
+
+    required_master_columns = {
+        "Portfolio_Status", "Primary_Source_Sheet", "Primary_Source_Row", "Record_ID", "Product",
+        "Purpose_or_Customer_Job", "Preflight_Short", "Complexity", "Readiness", "Criticality",
+        "Current_Lane", "Suggested_Target_R", "Bottleneck", "Exact_Next_Evidence", "Evidence_Boundary",
+        "Max_L_mm", "Max_W_mm", "Max_H_mm", "Priority_Score_0_100", "Trend_Score_0_100",
+    }
+    missing_columns = sorted(required_master_columns.difference(master_header))
+    if missing_columns:
+        raise ValueError(f"Unified Portfolio lacks comparison columns: {', '.join(missing_columns)}")
+
+    product_count = 0
+    research_count = 0
+    detailed_economics_count = 0
+    numeric_trend_count = 0
+    used_product_paths: set[str] = set()
+    used_preflight_paths: set[str] = set()
+    used_research_ids: set[str] = set()
+    for record_key, master_row in master.items():
+        record_type = str(cell(master_header, master_row, "Record_Type"))
+        record_id = str(cell(master_header, master_row, "Record_ID"))
+        product_path = str(cell(master_header, master_row, "Product_Path"))
+        primary_sheet = str(cell(master_header, master_row, "Primary_Source_Sheet"))
+        primary_row = int(cell(master_header, master_row, "Primary_Source_Row"))
+        for required in (
+            "Portfolio_Status", "Record_ID", "Product", "Purpose_or_Customer_Job", "Preflight_Short",
+            "Complexity", "Readiness", "Criticality", "Current_Lane", "Suggested_Target_R",
+            "Bottleneck", "Exact_Next_Evidence", "Evidence_Boundary",
+        ):
+            if not str(cell(master_header, master_row, required)).strip():
+                raise ValueError(f"Unified Portfolio field {required} is blank for {record_key}")
+
+        advancement_entry = advancement_rows.get(record_key)
+        if advancement_entry is None:
+            raise ValueError(f"Unified Portfolio row has no advancement source: {record_key}")
+        compare_raw_block(
+            master_header, master_row, advancement_header, advancement_entry[1], "Advancement__", record_key
+        )
+
+        if record_type == "PRODUCT_DIRECTORY":
+            product_count += 1
+            preflight_entry = preflight_rows.get(product_path)
+            if not product_path or preflight_entry is None:
+                raise ValueError(f"Product row lacks its path-based preflight: {record_key}")
+            product_entry = product_rows.get(product_path)
+            expected_sheet = "Product Register" if product_entry is not None else "Product Preflights"
+            expected_row = product_entry[0] if product_entry is not None else preflight_entry[0]
+            if (primary_sheet, primary_row) != (expected_sheet, expected_row):
+                raise ValueError(f"Product source-row pointer shifted for {record_key}")
+            compare_raw_block(
+                master_header,
+                master_row,
+                product_header,
+                product_entry[1] if product_entry else None,
+                "Product__",
+                record_key,
+            )
+            compare_raw_block(
+                master_header, master_row, preflight_header, preflight_entry[1], "Preflight__", record_key
+            )
+            compare_raw_block(master_header, master_row, [], None, "Idea__", record_key)
+            compare_raw_block(master_header, master_row, [], None, "Priority__", record_key)
+            compare_raw_block(master_header, master_row, [], None, "Economics__", record_key)
+            used_preflight_paths.add(product_path)
+            if product_entry:
+                used_product_paths.add(product_path)
+        elif record_type == "RESEARCH_IDEA":
+            research_count += 1
+            idea_entry = idea_sources.get(record_id)
+            priority_entry = priority_rows.get(record_id)
+            if idea_entry is None or priority_entry is None:
+                raise ValueError(f"Research row lacks an idea or priority source: {record_key}")
+            idea_sheet, idea_row_number, idea_header, idea_row = idea_entry
+            if (primary_sheet, primary_row) != (idea_sheet, idea_row_number):
+                raise ValueError(f"Research source-row pointer shifted for {record_key}")
+            for numeric_column in (
+                "Max_L_mm", "Max_W_mm", "Max_H_mm", "Priority_Score_0_100", "Opportunity_Score_0_100"
+            ):
+                if not isinstance(cell(master_header, master_row, numeric_column), (int, float)):
+                    raise ValueError(f"Unified numeric comparison field is not numeric: {record_key}/{numeric_column}")
+            trend_score = cell(master_header, master_row, "Trend_Score_0_100")
+            if trend_score not in (None, ""):
+                if not isinstance(trend_score, (int, float)):
+                    raise ValueError(f"Unified trend score is populated but nonnumeric: {record_key}")
+                numeric_trend_count += 1
+            economics_entry = economics_rows.get(record_id)
+            if economics_entry:
+                detailed_economics_count += 1
+            compare_raw_block(master_header, master_row, [], None, "Product__", record_key)
+            compare_raw_block(master_header, master_row, [], None, "Preflight__", record_key)
+            compare_raw_block(master_header, master_row, idea_header, idea_row, "Idea__", record_key)
+            compare_raw_block(
+                master_header, master_row, priority_header, priority_entry[1], "Priority__", record_key
+            )
+            compare_raw_block(
+                master_header,
+                master_row,
+                economics_header,
+                economics_entry[1] if economics_entry else None,
+                "Economics__",
+                record_key,
+            )
+            used_research_ids.add(record_id)
+        else:
+            raise ValueError(f"Unexpected unified record type for {record_key}: {record_type}")
+
+    if (research_count, product_count, detailed_economics_count) != (314, 108, 100):
+        raise ValueError(
+            "Unexpected unified split/economics coverage: "
+            f"{research_count}/{product_count}/{detailed_economics_count}"
+        )
+    if numeric_trend_count != 214:
+        raise ValueError(f"Unexpected populated trend-score coverage: {numeric_trend_count}/314")
+    if used_product_paths != set(product_rows) or used_preflight_paths != set(preflight_rows):
+        raise ValueError("Product source rows were duplicated or omitted from Unified Portfolio")
+    if used_research_ids != set(idea_sources) or used_research_ids != set(priority_rows):
+        raise ValueError("Research source rows were duplicated or omitted from Unified Portfolio")
+    return research_count, product_count, detailed_economics_count
 
 
 def validate_research_sheets() -> tuple[int, int, int, int]:
@@ -223,11 +412,15 @@ def main() -> int:
     if bad_member:
         raise ValueError(f"Corrupt workbook member: {bad_member}")
     portfolio_count, product_count = validate_product_sheets()
+    unified_research, unified_products, unified_economics = validate_unified_portfolio()
     linked, preliminary, structured_count, specific_r3 = validate_research_sheets()
     advancement_research, advancement_products = validate_advancement_sheet()
+    if (unified_research, unified_products) != (advancement_research, advancement_products):
+        raise ValueError("Unified Portfolio and R Advancement record universes differ")
     print(
         "PASS: portfolio preflight overlay; "
-        f"portfolio={portfolio_count}, products={product_count}, "
+        f"product_register={portfolio_count}, products={product_count}, "
+        f"unified={unified_research}+{unified_products}, economics={unified_economics}, "
         f"research_linked={linked}, research_preliminary={preliminary}, "
         f"research_structured_r2={structured_count}, research_specific_r3={specific_r3}, "
         f"advancement={advancement_research}+{advancement_products}"

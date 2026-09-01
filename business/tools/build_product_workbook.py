@@ -731,6 +731,440 @@ def add_research_overlay(
         )
 
 
+def indexed_rows(
+    rows: list[list[object]], key_column: str
+) -> dict[str, tuple[int, list[object]]]:
+    """Return complete, padded rows keyed by one exact source column."""
+    if not rows or key_column not in rows[0]:
+        raise ValueError(f"Missing key column {key_column}")
+    header = rows[0]
+    key_index = header.index(key_column)
+    result: dict[str, tuple[int, list[object]]] = {}
+    for row_number, source_row in enumerate(rows[1:], start=2):
+        row = list(source_row) + [""] * (len(header) - len(source_row))
+        key = str(row[key_index])
+        if not key or key in result:
+            raise ValueError(f"Blank or duplicate {key_column}: {key}")
+        result[key] = (row_number, row)
+    return result
+
+
+def namespaced_headers(header: list[object], prefix: str) -> list[str]:
+    """Create stable unique raw-data headers without collapsing duplicate columns."""
+    counts: dict[str, int] = {}
+    result: list[str] = []
+    for column_number, value in enumerate(header, start=1):
+        base = str(value).strip() or f"Column_{column_number}"
+        counts[base] = counts.get(base, 0) + 1
+        occurrence = counts[base]
+        suffix = "" if occurrence == 1 else f"__{occurrence}"
+        result.append(f"{prefix}{base}{suffix}")
+    return result
+
+
+def source_value(header: list[object], row: list[object] | None, *names: str) -> object:
+    """Return the first populated exact-name value from a source row."""
+    if row is None:
+        return ""
+    for name in names:
+        for index, header_value in enumerate(header):
+            if header_value == name and index < len(row) and row[index] not in (None, ""):
+                return row[index]
+    return ""
+
+
+def numeric_value(value: object) -> object:
+    """Type known comparison fields as numbers so spreadsheet sorting is numeric."""
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return value
+    text = str(value).strip()
+    if not text:
+        return ""
+    if re.fullmatch(r"-?\d+", text):
+        return int(text)
+    if re.fullmatch(r"-?(?:\d+\.\d*|\d*\.\d+)", text):
+        return float(text)
+    return value
+
+
+def build_unified_portfolio(
+    portfolio: list[list[object]],
+    product_preflights: list[list[object]],
+    research_sources: list[tuple[str, list[list[object]], str]],
+    research_priority: list[list[object]],
+    research_economics: list[list[object]],
+    readiness_advancement: list[list[object]],
+) -> list[list[object]]:
+    """Build one lossless, filterable product-and-idea register from stable keys."""
+    product_by_path = indexed_rows(portfolio, "Source_Path")
+    preflight_by_path = indexed_rows(product_preflights, "Product_Path")
+    priority_by_sku = indexed_rows(research_priority, "SKU_ID")
+    economics_by_sku = indexed_rows(research_economics, "SKU ID")
+    advancement_by_key = indexed_rows(readiness_advancement, "Record_Key")
+
+    idea_by_sku: dict[str, tuple[str, int, list[object], list[object]]] = {}
+    idea_raw_columns: list[str] = []
+    for sheet_name, rows, key_column in research_sources:
+        raw_headers = namespaced_headers(rows[0], "Idea__")
+        for column in raw_headers:
+            if column not in idea_raw_columns:
+                idea_raw_columns.append(column)
+        for sku_id, (row_number, row) in indexed_rows(rows, key_column).items():
+            if sku_id in idea_by_sku:
+                raise ValueError(f"Research idea appears in multiple source sheets: {sku_id}")
+            idea_by_sku[sku_id] = (sheet_name, row_number, rows[0], row)
+
+    advancement_header = readiness_advancement[0]
+    advancement_rows = [row for _, row in advancement_by_key.values()]
+    advancement_record_type_index = advancement_header.index("Record_Type")
+    advancement_record_id_index = advancement_header.index("Record_ID")
+    advancement_path_index = advancement_header.index("Product_Path")
+    research_ids = {
+        str(row[advancement_record_id_index])
+        for row in advancement_rows
+        if row[advancement_record_type_index] == "RESEARCH_IDEA"
+    }
+    product_paths = {
+        str(row[advancement_path_index])
+        for row in advancement_rows
+        if row[advancement_record_type_index] == "PRODUCT_DIRECTORY"
+    }
+    if research_ids != set(idea_by_sku) or research_ids != set(priority_by_sku):
+        raise ValueError("Unified portfolio research keys do not match idea and priority sources")
+    if set(economics_by_sku) != {f"SKU-{number:03d}" for number in range(1, 101)}:
+        raise ValueError("Unified portfolio economics source must contain SKU-001 through SKU-100")
+    if set(product_by_path).difference(product_paths):
+        raise ValueError("Product register contains a path absent from readiness advancement")
+    if set(preflight_by_path) != product_paths:
+        raise ValueError("Product preflight paths do not match readiness advancement")
+
+    core_columns = [
+        "Unified_Record_Key",
+        "Record_Type",
+        "Portfolio_Status",
+        "Primary_Source_Sheet",
+        "Primary_Source_Row",
+        "Record_ID",
+        "Parent_SKU_ID",
+        "Working_SKU",
+        "Mapped_Working_SKU",
+        "Product",
+        "Product_Family_or_Category",
+        "Purpose_or_Customer_Job",
+        "Product_Path",
+        "Origin_Class",
+        "Strategy_Fit",
+        "Lifecycle_Stage",
+        "Implementation_Status",
+        "Workflow_Stage",
+        "Design_Status",
+        "Priority",
+        "Decision_Tier",
+        "Launch_Wave",
+        "Commercial_Existing",
+        "Digital_Offer_or_Mode",
+        "Printed_Offer_or_Mode",
+        "Website_Status",
+        "Preflight_Short",
+        "Complexity",
+        "Readiness",
+        "Criticality",
+        "Current_Lane",
+        "Target_Lane_After_Evidence",
+        "Suggested_Target_R",
+        "R_Scope",
+        "R_Requirements",
+        "R_Critical_Interfaces",
+        "R_Manufacturing_Profile",
+        "R_Verification",
+        "PC_0_100",
+        "Confidence",
+        "Design_Release",
+        "Preflight_Status",
+        "Advancement_Potential",
+        "Trend_Score_0_100",
+        "Priority_Score_0_100",
+        "Opportunity_Score_0_100",
+        "Risk_Score_1_5",
+        "Estimated_Market_Fit_1_5",
+        "Market_Evidence_Confidence_1_5",
+        "Creation_Effort_1_5",
+        "Validation_Effort_1_5",
+        "Commercial_Risk_1_5",
+        "Strategy_Fit_1_5",
+        "AM_Differentiation_1_5",
+        "Portfolio_Leverage_1_5",
+        "Digital_First_Fit_1_5",
+        "Economics_1_5",
+        "Max_L_mm",
+        "Max_W_mm",
+        "Max_H_mm",
+        "Size_Class",
+        "Part_Strategy",
+        "Primary_Material",
+        "Secondary_BOM",
+        "Printer_Class",
+        "Enclosure",
+        "Supports",
+        "Difficulty",
+        "Mass_g",
+        "Print_Time_h",
+        "Hands_on_min",
+        "Manufacturing_Economics",
+        "Digital_Price_or_Band_EUR",
+        "Printed_Price_Band_EUR",
+        "Modeled_Local_COGS_EUR",
+        "Minimum_Net_Price_EUR",
+        "Recommended_Net_Price_EUR",
+        "Recommended_Gross_Price_EUR",
+        "Contribution_EUR",
+        "Contribution_Margin",
+        "Packaging_EUR",
+        "Royalty_License_EUR",
+        "Material_EUR_per_kg",
+        "Material_Cost_EUR",
+        "Machine_Cost_EUR",
+        "Labor_Cost_EUR",
+        "QA_Reserve_EUR",
+        "Customer_Inputs",
+        "Parametric_Variables",
+        "Validation_or_Test",
+        "Risk_or_Limit",
+        "Source_IDs",
+        "Next_Gate",
+        "Bottleneck",
+        "Exact_Next_Evidence",
+        "Evidence_Boundary",
+        "Notes",
+    ]
+    product_raw_columns = namespaced_headers(portfolio[0], "Product__")
+    preflight_raw_columns = namespaced_headers(product_preflights[0], "Preflight__")
+    priority_raw_columns = namespaced_headers(research_priority[0], "Priority__")
+    economics_raw_columns = namespaced_headers(research_economics[0], "Economics__")
+    advancement_raw_columns = namespaced_headers(readiness_advancement[0], "Advancement__")
+    raw_columns = (
+        product_raw_columns
+        + preflight_raw_columns
+        + idea_raw_columns
+        + priority_raw_columns
+        + economics_raw_columns
+        + advancement_raw_columns
+    )
+    output: list[list[object]] = [core_columns + raw_columns]
+
+    def raw_block(
+        source_header: list[object], source_row: list[object] | None, prefix: str, columns: list[str]
+    ) -> list[object]:
+        if source_row is None:
+            return [""] * len(columns)
+        values = dict(zip(namespaced_headers(source_header, prefix), source_row))
+        return [values.get(column, "") for column in columns]
+
+    for advancement_row_number, advancement_row in advancement_by_key.values():
+        advancement = dict(zip(advancement_header, advancement_row))
+        record_type = str(advancement["Record_Type"])
+        record_id = str(advancement["Record_ID"])
+        product_path = str(advancement["Product_Path"])
+
+        product_row_number = 0
+        product_row: list[object] | None = None
+        if product_path in product_by_path:
+            product_row_number, product_row = product_by_path[product_path]
+        preflight_row: list[object] | None = None
+        if product_path in preflight_by_path:
+            _, preflight_row = preflight_by_path[product_path]
+
+        idea_sheet = ""
+        idea_row_number = 0
+        idea_header: list[object] = []
+        idea_row: list[object] | None = None
+        if record_id in idea_by_sku:
+            idea_sheet, idea_row_number, idea_header, idea_row = idea_by_sku[record_id]
+
+        priority_row: list[object] | None = None
+        if record_id in priority_by_sku:
+            _, priority_row = priority_by_sku[record_id]
+        economics_row: list[object] | None = None
+        if record_id in economics_by_sku:
+            _, economics_row = economics_by_sku[record_id]
+
+        product_header = portfolio[0]
+        preflight_header = product_preflights[0]
+        priority_header = research_priority[0]
+        economics_header = research_economics[0]
+
+        lifecycle = source_value(product_header, product_row, "Lifecycle_Stage")
+        implementation = source_value(priority_header, priority_row, "Implementation_Status")
+        workflow = source_value(idea_header, idea_row, "Workflow_Stage")
+        design_status = source_value(idea_header, idea_row, "Design_Status", "Design Status")
+        if record_type == "PRODUCT_DIRECTORY":
+            portfolio_status = lifecycle or "PRODUCT DIRECTORY — NOT IN PRODUCT REGISTER"
+            primary_sheet = "Product Register" if product_row is not None else "Product Preflights"
+            primary_row = product_row_number or preflight_by_path[product_path][0]
+        else:
+            if implementation == "MODEL_EXISTS" and workflow and workflow != "research-backlog":
+                portfolio_status = str(workflow).replace("-", " ")
+            else:
+                portfolio_status = "P0 Research idea"
+            primary_sheet = idea_sheet
+            primary_row = idea_row_number
+
+        confidence = source_value(idea_header, idea_row, "Confidence")
+        if not confidence:
+            compact_parts = str(advancement["Current_Preflight_Short"]).split(" · ")
+            confidence = compact_parts[-1] if len(compact_parts) == 5 else ""
+
+        canonical = [
+            advancement["Record_Key"],
+            record_type,
+            portfolio_status,
+            primary_sheet,
+            primary_row,
+            record_id,
+            advancement["Parent_SKU_ID"],
+            source_value(product_header, product_row, "Working_SKU"),
+            source_value(priority_header, priority_row, "Mapped_Working_SKU"),
+            source_value(product_header, product_row, "Product_or_Model")
+            or source_value(idea_header, idea_row, "Product")
+            or advancement["Product"],
+            source_value(product_header, product_row, "Category")
+            or source_value(idea_header, idea_row, "Product_Family", "Product Family"),
+            advancement["Purpose_or_Intended_Use"],
+            product_path,
+            source_value(product_header, product_row, "Origin_Class"),
+            source_value(product_header, product_row, "Strategy_Fit")
+            or source_value(idea_header, idea_row, "Strategy_Fit"),
+            lifecycle,
+            implementation,
+            workflow,
+            design_status,
+            source_value(product_header, product_row, "Priority"),
+            source_value(priority_header, priority_row, "Decision_Tier"),
+            source_value(idea_header, idea_row, "Launch_Wave", "Launch Wave"),
+            source_value(product_header, product_row, "Commercial_Existing"),
+            source_value(product_header, product_row, "Digital_Offer")
+            or source_value(idea_header, idea_row, "Offer_Mode"),
+            source_value(product_header, product_row, "Printed_Offer")
+            or source_value(idea_header, idea_row, "Offer_Mode"),
+            source_value(product_header, product_row, "Website_Status"),
+            advancement["Current_Preflight_Short"],
+            advancement["Complexity"],
+            advancement["Readiness"],
+            advancement["Criticality"],
+            advancement["Current_Lane"],
+            source_value(preflight_header, preflight_row, "Target_Lane_After_Evidence")
+            or source_value(priority_header, priority_row, "Preflight_Target_Lane_After_Evidence"),
+            advancement["Suggested_Target_R"],
+            source_value(idea_header, idea_row, "R_Scope"),
+            source_value(idea_header, idea_row, "R_Requirements"),
+            source_value(idea_header, idea_row, "R_Critical_Interfaces"),
+            source_value(idea_header, idea_row, "R_Manufacturing_Profile"),
+            source_value(idea_header, idea_row, "R_Verification"),
+            numeric_value(
+                source_value(preflight_header, preflight_row, "PC_0_100")
+                or source_value(idea_header, idea_row, "PC_0_100")
+            ),
+            confidence,
+            source_value(preflight_header, preflight_row, "Design_Release")
+            or source_value(idea_header, idea_row, "Design_Release"),
+            source_value(idea_header, idea_row, "Preflight_Status")
+            or source_value(priority_header, priority_row, "Preflight_Estimate_Status"),
+            advancement["Advancement_Potential"],
+            numeric_value(
+                advancement["Trend_Score_0_100"]
+                or source_value(priority_header, priority_row, "Trend_Score_0_100")
+                or source_value(idea_header, idea_row, "Trend_Score_0_100", "Trend Score")
+            ),
+            numeric_value(
+                advancement["Priority_Score_0_100"]
+                or source_value(priority_header, priority_row, "Priority_Score_0_100")
+            ),
+            numeric_value(source_value(idea_header, idea_row, "Opportunity_Score", "Opportunity Score")),
+            numeric_value(source_value(idea_header, idea_row, "Risk_Score", "Risk Score")),
+            numeric_value(source_value(priority_header, priority_row, "Estimated_Market_Fit_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Market_Evidence_Confidence_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Creation_Effort_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Validation_Effort_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Commercial_Risk_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Strategy_Fit_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "AM_Differentiation_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Portfolio_Leverage_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Digital_First_Fit_1_5")),
+            numeric_value(source_value(priority_header, priority_row, "Economics_1_5")),
+            numeric_value(source_value(idea_header, idea_row, "Max_L_mm", "Max L mm")),
+            numeric_value(source_value(idea_header, idea_row, "Max_W_mm", "Max W mm")),
+            numeric_value(source_value(idea_header, idea_row, "Max_H_mm", "Max H mm")),
+            source_value(idea_header, idea_row, "Size_Class", "Size Class")
+            or source_value(economics_header, economics_row, "Size Class"),
+            source_value(idea_header, idea_row, "Part_Strategy", "Part Strategy"),
+            source_value(idea_header, idea_row, "Primary_Material", "Primary Material")
+            or source_value(economics_header, economics_row, "Material"),
+            source_value(idea_header, idea_row, "Secondary_BOM", "Secondary BOM"),
+            source_value(idea_header, idea_row, "Printer_Class", "Printer Class"),
+            source_value(idea_header, idea_row, "Enclosure"),
+            source_value(idea_header, idea_row, "Supports"),
+            source_value(idea_header, idea_row, "Difficulty"),
+            numeric_value(source_value(economics_header, economics_row, "Mass g")),
+            numeric_value(source_value(economics_header, economics_row, "Print Time h")),
+            numeric_value(source_value(economics_header, economics_row, "Hands-on min")),
+            source_value(idea_header, idea_row, "Manufacturing Economics"),
+            source_value(idea_header, idea_row, "Digital_Price_Band_EUR", "Digital SKU Price €")
+            or source_value(economics_header, economics_row, "Digital SKU Price €"),
+            source_value(idea_header, idea_row, "Printed_Price_Band_EUR"),
+            numeric_value(
+                source_value(idea_header, idea_row, "Modeled Local COGS €")
+                or source_value(economics_header, economics_row, "Total Local COGS €")
+            ),
+            numeric_value(source_value(economics_header, economics_row, "Minimum Net Price €")),
+            numeric_value(source_value(economics_header, economics_row, "Recommended Net Price €")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Recommended Gross Price €")
+                or source_value(economics_header, economics_row, "Recommended Gross Price €")
+            ),
+            numeric_value(source_value(economics_header, economics_row, "Contribution €")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Contribution Margin")
+                or source_value(economics_header, economics_row, "Contribution Margin")
+            ),
+            numeric_value(source_value(economics_header, economics_row, "Packaging €")),
+            numeric_value(source_value(economics_header, economics_row, "Royalty / License €")),
+            numeric_value(source_value(economics_header, economics_row, "Material €/kg")),
+            numeric_value(source_value(economics_header, economics_row, "Material Cost €")),
+            numeric_value(source_value(economics_header, economics_row, "Machine Cost €")),
+            numeric_value(source_value(economics_header, economics_row, "Labor Cost €")),
+            numeric_value(source_value(economics_header, economics_row, "QA Reserve €")),
+            source_value(idea_header, idea_row, "Customer_Inputs", "Customer Inputs"),
+            source_value(idea_header, idea_row, "Parametric_Variables", "Parametric Variables"),
+            source_value(idea_header, idea_row, "Validation / Test", "Verification_Plan"),
+            source_value(idea_header, idea_row, "Risk_or_Limit", "Intended-use Limits"),
+            source_value(idea_header, idea_row, "Source_IDs", "Source IDs"),
+            source_value(product_header, product_row, "Next_Gate")
+            or source_value(idea_header, idea_row, "Next_Gate", "Next Gate"),
+            advancement["Bottleneck"],
+            advancement["Exact_Next_Evidence"],
+            advancement["Evidence_Boundary"],
+            source_value(product_header, product_row, "Notes")
+            or source_value(idea_header, idea_row, "Notes"),
+        ]
+        if len(canonical) != len(core_columns):
+            raise AssertionError("Unified portfolio canonical column count mismatch")
+
+        idea_values = raw_block(idea_header, idea_row, "Idea__", idea_raw_columns)
+        output.append(
+            canonical
+            + raw_block(product_header, product_row, "Product__", product_raw_columns)
+            + raw_block(preflight_header, preflight_row, "Preflight__", preflight_raw_columns)
+            + idea_values
+            + raw_block(priority_header, priority_row, "Priority__", priority_raw_columns)
+            + raw_block(economics_header, economics_row, "Economics__", economics_raw_columns)
+            + raw_block(advancement_header, advancement_row, "Advancement__", advancement_raw_columns)
+        )
+
+    if len(output) != 423 or any(len(row) != len(output[0]) for row in output):
+        raise ValueError("Unified portfolio must contain 422 complete, width-stable records")
+    return output
+
+
 def read_xlsx_sheet(path: Path, sheet_name: str) -> list[list[object]]:
     """Read cached/constant values from a simple XLSX sheet without third-party packages."""
     ns = {"m": MAIN_NS, "r": REL_NS}
@@ -814,7 +1248,7 @@ def cell_xml(row: int, col: int, value: object) -> str:
     return f'<c r="{ref}" s="{style}" t="inlineStr"><is><t xml:space="preserve">{text}</t></is></c>'
 
 
-def sheet_xml(rows: list[list[object]]) -> str:
+def sheet_xml(rows: list[list[object]], freeze_columns: int = 0) -> str:
     row_count = max(1, len(rows))
     col_count = max((len(row) for row in rows), default=1)
     max_lengths = [8] * col_count
@@ -833,11 +1267,19 @@ def sheet_xml(rows: list[list[object]]) -> str:
         xml_rows.append(f'<row r="{row_idx}"{height}>{cells}</row>')
     last = f"{col_name(col_count)}{row_count}"
     auto_filter = f'<autoFilter ref="A1:{last}"/>' if len(rows) > 1 else ""
+    if freeze_columns:
+        top_left = f"{col_name(freeze_columns + 1)}2"
+        pane = (
+            f'<pane xSplit="{freeze_columns}" ySplit="1" topLeftCell="{top_left}" '
+            'activePane="bottomRight" state="frozen"/>'
+        )
+    else:
+        pane = '<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>'
     return (
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
         f'<dimension ref="A1:{last}"/>'
-        '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>'
+        f'<sheetViews><sheetView workbookViewId="0">{pane}</sheetView></sheetViews>'
         '<sheetFormatPr defaultRowHeight="18"/>'
         f'<cols>{"".join(widths)}</cols><sheetData>{"".join(xml_rows)}</sheetData>{auto_filter}'
         '<pageMargins left="0.25" right="0.25" top="0.5" bottom="0.5" header="0.2" footer="0.2"/>'
@@ -1010,6 +1452,20 @@ def main() -> None:
             row.extend([""] * (len(imported[0]) - 1 - len(row)))
             row.append("Research hypothesis only; not an existing, qualified, staged or live product")
 
+    unified_portfolio = build_unified_portfolio(
+        portfolio,
+        all_product_preflights,
+        [
+            ("Research Ideas 100", legacy_product_matrix, "SKU ID"),
+            ("Research Ideas +100", additional_research, "SKU_ID"),
+            ("Research Ideas +200", structured_research, "SKU_ID"),
+            ("Research Variants R3", specific_r3_variants, "SKU_ID"),
+        ],
+        research_priority,
+        legacy_unit_economics,
+        readiness_advancement,
+    )
+
     stages_present: dict[str, int] = {}
     for row in portfolio[1:]:
         stage = row[header.index("Lifecycle_Stage")]
@@ -1067,10 +1523,11 @@ def main() -> None:
     summary = [
         ["Metric", "Value", "Interpretation"],
         ["Review date", "2026-08-31", "Repository-evidence snapshot"],
-        ["Portfolio records", len(portfolio) - 1, "Includes planned concepts and non-external local model families"],
+        ["Unified portfolio records", len(unified_portfolio) - 1, "Single filterable list: 108 product directories plus 314 planned products and research ideas; source-prefixed raw fields preserve every joined source value"],
+        ["Product register records", len(portfolio) - 1, "Existing curated product-family register retained as a source and audit trail"],
         ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence is listed in Product Preflights"],
         ["Stale aggregate-audit scorecards", stale_audit_scorecards, "Live product preflight is used; any mismatch is named in Product Preflights and the dated aggregate audit must be refreshed separately"],
-        ["Portfolio rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are appended to the Portfolio sheet"],
+        ["Product-register rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are retained in Product Register and joined into Portfolio"],
         ["Product directories with explicit purpose", sum(1 for record in product_preflight_records if record["purpose_path"].is_file()), "Purpose paths are listed beside every product preflight"],
         ["Initial launch SKUs", len(initial) - 1, "Fixed target scope"],
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
@@ -1126,8 +1583,9 @@ def main() -> None:
 
     sheets = [
         ("Summary", summary),
-        ("Initial Portfolio", initial),
-        ("Portfolio", portfolio),
+        ("Portfolio", unified_portfolio),
+        ("Product Register", portfolio),
+        ("Initial Scope", initial),
         ("Product Preflights", all_product_preflights),
         ("External Exclusions", exclusions),
         ("Stage Definitions", stages),
@@ -1220,8 +1678,12 @@ def main() -> None:
         archive.writestr("xl/workbook.xml", workbook)
         archive.writestr("xl/_rels/workbook.xml.rels", "".join(workbook_rels))
         archive.writestr("xl/styles.xml", styles)
-        for idx, (_, rows) in enumerate(sheets, start=1):
-            archive.writestr(f"xl/worksheets/sheet{idx}.xml", sheet_xml(rows))
+        for idx, (sheet_name, rows) in enumerate(sheets, start=1):
+            freeze_columns = 10 if sheet_name == "Portfolio" else 0
+            archive.writestr(
+                f"xl/worksheets/sheet{idx}.xml",
+                sheet_xml(rows, freeze_columns=freeze_columns),
+            )
     OUTPUT.chmod(0o644)
     print(f"Wrote {OUTPUT} with {len(sheets)} sheets")
 

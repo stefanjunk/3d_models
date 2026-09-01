@@ -50,6 +50,7 @@ Read [examples/hybrid-recipes.md](examples/hybrid-recipes.md) only when selectin
 - Establish physical scale and semantic orientation from the design contract after generation. Never trust the generated apparent size merely because glTF declares metres.
 - Do not rename or directly convert a dense triangle GLB to STEP and call it editable CAD. Reconstruct exact surfaces/features or retain a mesh-plus-CAD hybrid.
 - Queue one generation at a time. The two GPUs split one pipeline; they do not make concurrent jobs safe by default.
+- A container or image may exist while the models are stopped or still loading. Before every submission, run the bundled `status` check and require `safe_to_submit_generation: true`; container state alone is insufficient.
 - Expect a geometry-plus-texture request to take several minutes, including possible queue time. A quiet blocking client is not by itself a hang; inspect the service/container status before retrying or cancelling.
 - Preserve failure records. A rendered preview or successful API response is not topology, printability, or license clearance.
 
@@ -74,7 +75,17 @@ Load `imagegen` when generating or editing the raster input. Prefer one isolated
 
 Generate critical interfaces as simple sacrificial stock, not visual promises of precision. Read [references/image-input.md](references/image-input.md) for prompt templates, alpha/background handling and deterministic preprocessing.
 
-### 3. Probe and freeze the runtime
+### 3. Confirm loading, then freeze the runtime
+
+Check model readiness before creating a run directory or submitting work:
+
+```bash
+python scripts/step1x_client.py status \
+  --url http://127.0.0.1:7861 \
+  --report reports/step1x-status.json
+```
+
+Proceed only on exit code `0`, `status: ready`, and `safe_to_submit_generation: true`. Exit code `1` means not ready or not confirmed: follow `recommended_action`, wait while loading, and rerun the check. Exit code `2` means the API answered but is incompatible. Do not start a second container merely because loading takes several minutes.
 
 Probe the live contract before a run:
 

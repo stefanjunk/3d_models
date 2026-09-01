@@ -10,6 +10,7 @@ import json
 import mimetypes
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -145,6 +146,218 @@ def probe(base_url: str, timeout: float) -> tuple[dict[str, Any], dict[str, Any]
     return info, report
 
 
+def default_repo() -> Path:
+    configured = os.getenv("STEP1X_REPO")
+    if configured:
+        return Path(configured)
+    return Path(__file__).resolve().parents[5] / "Step1X-3D"
+
+
+def run_process(
+    command: list[str], cwd: Path | None, timeout: float
+) -> tuple[subprocess.CompletedProcess[str] | None, str | None]:
+    try:
+        return (
+            subprocess.run(
+                command,
+                cwd=cwd,
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=timeout,
+            ),
+            None,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return None, str(exc)
+
+
+def docker_service_status(
+    repo: Path, compose_file: Path, service: str, timeout: float
+) -> dict[str, Any]:
+    record: dict[str, Any] = {
+        "checked": True,
+        "repo": str(repo),
+        "compose_file": str(compose_file),
+        "service": service,
+        "logs_command": [
+            "docker",
+            "compose",
+            "-f",
+            str(compose_file),
+            "logs",
+            "--tail",
+            "200",
+            service,
+        ],
+    }
+    if not compose_file.is_file():
+        record.update(
+            {
+                "observation": "unavailable",
+                "error": f"compose file does not exist: {compose_file}",
+            }
+        )
+        return record
+
+    result, error = run_process(
+        [
+            "docker",
+            "compose",
+            "-f",
+            str(compose_file),
+            "ps",
+            "-a",
+            "-q",
+            service,
+        ],
+        repo,
+        timeout,
+    )
+    if result is None:
+        record.update({"observation": "unavailable", "error": error})
+        return record
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout).strip()
+        record.update({"observation": "unavailable", "error": detail})
+        return record
+    container_ids = [
+        line.strip() for line in result.stdout.splitlines() if line.strip()
+    ]
+    if not container_ids:
+        record["observation"] = "container_absent"
+        return record
+
+    container_id = container_ids[0]
+    record["container_id"] = container_id
+    inspected, inspect_error = run_process(
+        ["docker", "inspect", container_id], None, timeout
+    )
+    if inspected is None or inspected.returncode != 0:
+        detail = inspect_error or (inspected.stderr or inspected.stdout).strip()
+        record.update({"observation": "inspect_failed", "error": detail})
+        return record
+    try:
+        inspect_payload = json.loads(inspected.stdout)
+        state = inspect_payload[0]["State"]
+        if not isinstance(state, dict):
+            raise TypeError("docker inspect State is not an object")
+    except (IndexError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        record.update({"observation": "inspect_failed", "error": str(exc)})
+        return record
+
+    health = state.get("Health") if isinstance(state.get("Health"), dict) else {}
+    record.update(
+        {
+            "observation": "observed",
+            "container_status": state.get("Status"),
+            "running": bool(state.get("Running")),
+            "exit_code": state.get("ExitCode"),
+            "health": health.get("Status"),
+            "started_at": state.get("StartedAt"),
+            "finished_at": state.get("FinishedAt"),
+        }
+    )
+
+    logs, _ = run_process(
+        ["docker", "logs", "--tail", "160", container_id], None, timeout
+    )
+    if logs is not None and logs.returncode == 0:
+        text = f"{logs.stdout}\n{logs.stderr}"
+        record["startup_markers"] = {
+            "model_loading_seen": any(
+                marker in text
+                for marker in (
+                    "Loading CLIP model",
+                    "Loading Dinov2 model",
+                    "Loading pipeline components",
+                    "Fetching ",
+                )
+            ),
+            "server_listening_seen": "Running on local URL:" in text,
+            "traceback_seen": "Traceback (most recent call last)" in text,
+        }
+    return record
+
+
+def classify_readiness(
+    api: dict[str, Any], docker: dict[str, Any] | None
+) -> tuple[str, str, bool | None, bool, str, int]:
+    if api.get("contract_status") == "compatible":
+        return (
+            "ready",
+            "loaded_and_ready",
+            True,
+            True,
+            "The current app exposes its API only after geometry and texture pipelines load. Submit one job; API readiness does not prove that the queue is idle.",
+            0,
+        )
+    if api.get("reachable"):
+        return (
+            "incompatible",
+            "loaded_but_client_incompatible",
+            True,
+            False,
+            "The server answered after startup, but its API contract drifted. Do not submit until the pinned environment/client contract is restored.",
+            2,
+        )
+    if docker and docker.get("observation") == "container_absent":
+        return (
+            "not_ready",
+            "not_loaded_container_absent",
+            False,
+            False,
+            "Start the Compose service, then rerun status. Do not call generate yet.",
+            1,
+        )
+    if docker and docker.get("observation") == "observed":
+        if not docker.get("running"):
+            return (
+                "not_ready",
+                "not_loaded_container_stopped",
+                False,
+                False,
+                "Inspect the recorded logs command and container exit code, then start or repair the service before generation.",
+                1,
+            )
+        markers = docker.get("startup_markers")
+        markers = markers if isinstance(markers, dict) else {}
+        if markers.get("server_listening_seen"):
+            return (
+                "not_ready",
+                "startup_completed_but_api_unreachable",
+                None,
+                False,
+                "The container previously reached its listen marker, but the API is unavailable now. Inspect logs/networking before retrying; do not assume the models remain usable.",
+                1,
+            )
+        if markers.get("model_loading_seen"):
+            return (
+                "not_ready",
+                "loading_or_initializing",
+                False,
+                False,
+                "Model loading has started. It can take several minutes; wait, inspect logs if needed, and rerun status instead of launching another container or job.",
+                1,
+            )
+        return (
+            "not_ready",
+            "not_loaded_or_initializing",
+            None,
+            False,
+            "The container runs, but completed model loading is not confirmed. Inspect logs and rerun status before generation.",
+            1,
+        )
+    return (
+        "not_ready",
+        "model_load_not_confirmed",
+        None,
+        False,
+        "The API is unavailable and local Docker state was not observed. Check the URL or rerun without --skip-docker before generation.",
+        1,
+    )
+
+
 def ensure_new_run_dir(path: Path) -> Path:
     resolved = path.expanduser().resolve()
     if resolved.exists():
@@ -234,6 +447,70 @@ def package_version(name: str) -> str:
         return importlib.metadata.version(name)
     except importlib.metadata.PackageNotFoundError:
         return "not-installed"
+
+
+def command_status(args: argparse.Namespace) -> int:
+    api: dict[str, Any] = {
+        "url": args.url.rstrip("/"),
+        "endpoint": ENDPOINT,
+        "reachable": False,
+        "contract_status": "not_observed",
+    }
+    try:
+        info = fetch_api_info(args.url, args.timeout)
+        api.update(
+            {
+                "reachable": True,
+                "api_schema_sha256": hashlib.sha256(canonical_bytes(info)).hexdigest(),
+            }
+        )
+        try:
+            validate_api_info(info)
+            api["contract_status"] = "compatible"
+        except (RuntimeError, TypeError) as exc:
+            api.update({"contract_status": "incompatible", "error": str(exc)})
+    except (RuntimeError, TypeError) as exc:
+        api["error"] = str(exc)
+
+    docker: dict[str, Any] | None
+    if args.skip_docker:
+        docker = None
+    else:
+        repo = args.repo.expanduser().resolve()
+        compose_file = (
+            args.compose_file.expanduser().resolve()
+            if args.compose_file
+            else repo / "docker-compose.yml"
+        )
+        docker = docker_service_status(repo, compose_file, args.service, args.timeout)
+
+    status, model_state, model_loaded, safe, action, exit_code = classify_readiness(
+        api, docker
+    )
+    report = {
+        "schema_version": "1.0",
+        "captured_at": utc_now(),
+        "status": status,
+        "model_state": model_state,
+        "model_loaded": model_loaded,
+        "safe_to_submit_generation": safe,
+        "readiness_basis": (
+            "In the pinned local app, geometry and texture pipelines are constructed "
+            "before Gradio starts listening; a compatible live API therefore confirms "
+            "that model loading completed for that process."
+        ),
+        "api": api,
+        "docker": docker if docker is not None else {"checked": False},
+        "recommended_action": action,
+        "limitations": [
+            "API readiness does not prove that the serial queue is idle.",
+            "If the app is changed to lazy model loading, this readiness rule must be updated.",
+        ],
+    }
+    if args.report:
+        atomic_json(args.report.expanduser().resolve(), report)
+    print(json.dumps(report, indent=2, ensure_ascii=False))
+    return exit_code
 
 
 def command_probe(args: argparse.Namespace) -> int:
@@ -435,6 +712,24 @@ def command_generate(args: argparse.Namespace) -> int:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    status_parser = subparsers.add_parser(
+        "status", help="Confirm that the current model process is loaded and API-ready"
+    )
+    status_parser.add_argument(
+        "--url", default=os.getenv("STEP1X_URL", "http://127.0.0.1:7861")
+    )
+    status_parser.add_argument("--timeout", type=float, default=10.0)
+    status_parser.add_argument("--repo", type=Path, default=default_repo())
+    status_parser.add_argument("--compose-file", type=Path)
+    status_parser.add_argument("--service", default="step1x3d")
+    status_parser.add_argument(
+        "--skip-docker",
+        action="store_true",
+        help="Check only the API, for a remote or non-Docker deployment",
+    )
+    status_parser.add_argument("--report", type=Path)
+    status_parser.set_defaults(handler=command_status)
 
     probe_parser = subparsers.add_parser(
         "probe", help="Validate and hash the API schema"

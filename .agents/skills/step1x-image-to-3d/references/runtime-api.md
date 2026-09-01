@@ -49,6 +49,29 @@ docker compose -f /home/stefan/Projekte/Step1X-3D/docker-compose.yml logs --tail
 
 Do not rebuild or restart a healthy service during an active generation. A rebuild can be lengthy because native CUDA extensions target `sm_89`.
 
+## Model readiness check
+
+The Docker image may be built while no container exists, and a running container may still be downloading or loading models. `docker compose ps` alone is therefore not proof that Step1X can accept a job.
+
+Run the fail-closed check before every generation:
+
+```bash
+python scripts/step1x_client.py status \
+  --url http://127.0.0.1:7861 \
+  --repo /home/stefan/Projekte/Step1X-3D \
+  --report reports/step1x-status.json
+```
+
+In the pinned app, both geometry and texture pipelines are constructed before `demo.launch()`. A compatible response from `/gradio_api/info` therefore confirms that loading completed for the current process. It does not prove that the serial queue is idle.
+
+| Exit | Required interpretation | Agent action |
+|---:|---|---|
+| `0` | `model_state=loaded_and_ready` and `safe_to_submit_generation=true` | submit at most one job |
+| `1` | stopped, absent, loading, unreachable, or otherwise not confirmed | follow `recommended_action`; inspect the included Docker/log command and rerun status |
+| `2` | API is reachable but incompatible with the pinned client contract | do not generate; restore the pinned service/client environment |
+
+Useful non-ready states include `not_loaded_container_absent`, `not_loaded_container_stopped`, `loading_or_initializing`, and `startup_completed_but_api_unreachable`. Never translate an unknown state into “loaded.” For a remote/non-Docker deployment, add `--skip-docker`; readiness still requires the compatible API.
+
 ## Endpoint contract
 
 Base URL: `http://127.0.0.1:7861`

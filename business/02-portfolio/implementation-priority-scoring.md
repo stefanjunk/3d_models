@@ -1,6 +1,6 @@
 # Research-idea implementation priority
 
-Status: planning model plus 3D-preflight and readiness-advancement overlay reviewed 2026-08-31. Priority-scoring version: `1.2`; preflight-estimate version: `1.2`.
+Status: planning model plus 3D-preflight and readiness-advancement overlay reviewed 2026-09-01. Priority-scoring version: `1.2`; preflight-estimate version: `1.2`; SKU-101–200 trend-screen version: `1.0`.
 
 This model orders all 314 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
@@ -24,6 +24,8 @@ The workbook keeps market potential and implementation feasibility separate. `Re
 The version-controlled row-level sources are `research-ideas-r3-variants.csv`, `research-idea-preflight-estimates.csv`, and `readiness-advancement-register.csv`. The last file covers all 314 ideas plus all 108 product directories and assigns a purpose, wave, bottleneck, evidence boundary, and next R-evidence action. Regenerate and verify them before rebuilding the workbook:
 
 ```bash
+python business/tools/score_research_additions_trends.py
+python business/tools/score_research_additions_trends.py --check
 python business/tools/build_research_ideas_201_300.py
 python business/tools/build_research_ideas_201_300.py --check
 python business/tools/build_research_r3_variants.py
@@ -117,7 +119,7 @@ The current signals are directional:
 - `S36` is Pinterest's 2026 platform-search forecast for correspondence, Poetcore, and fragrance rituals; it is not German product-level demand.
 - `S29` supports the EU repair direction but does not prove demand for a specific printed replacement part.
 
-For SKU-201–300, `Trend_Score_0_100` is a transparent directional screen: primary-source strength (0–30) + signal magnitude (0–30) + metriMade strategy fit (0–25) + nonduplicate portfolio whitespace (0–15). All 100 score 87–94 and therefore exceed the requested `>70` gate. This is a prioritization judgment, not a statistically calibrated trend index or demand forecast.
+For SKU-101–300, `Trend_Score_0_100` is a transparent directional screen: primary-source strength (0–30) + signal magnitude (0–30) + metriMade strategy fit (0–25) + nonduplicate portfolio whitespace (0–15). SKU-101–200 are now scored individually and reproducibly at 48–99; ten remain below 70 because maker-only, repair-policy-only, or missing direct market evidence was not promoted into demand proof. Their row-level components, basis, assessment date, version, and warning status are stored in `research-ideas-additions.csv`. SKU-201–300 retain their curated 87–94 scores. These are prioritization judgments, not statistically calibrated trend indices or demand forecasts.
 
 No current source supplies German product-level search volume, listing competition, conversion, acquisition cost, return rate, or validated price. `Market_Evidence_Confidence_1_5` is therefore capped at `4`, and most ideas score `2` or `3`.
 
@@ -131,4 +133,4 @@ For each tier-1 candidate:
 4. Define the smallest coupon or prototype that can disprove fit, usability, or willingness-to-pay assumptions.
 5. Assign CAD capacity only after the evidence is recorded and the candidate remains ahead of the other tier-1 ideas.
 
-The deterministic SKU-201–300 source generator is `business/tools/build_research_ideas_201_300.py`; the common queue generator is `business/tools/score_research_ideas.py`. Run both after changing the curated rows or implementation status, and use `--check` to detect stale outputs.
+The deterministic SKU-101–200 trend scorer is `business/tools/score_research_additions_trends.py`; the SKU-201–300 source generator is `business/tools/build_research_ideas_201_300.py`; the common queue generator is `business/tools/score_research_ideas.py`. Run the applicable source scorer/generator before the common queue after changing curated rows or implementation status, and use `--check` to detect stale outputs.

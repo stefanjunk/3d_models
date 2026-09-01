@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0",
+  "status": "PASS",
+  "transport": {
+    "filename": "germany-260830.osm.pbf",
+    "bytes": 4828999134,
+    "md5": "67f6fe1597784796ebe0d36ac5fb990f",
+    "sha256": "505860193092ce58cc8e4bb7f3b657b5f7de5f6d329d2b1bed44561cdfa7da55",
+    "provider_url": "https://download.geofabrik.de/europe/germany/germany-260830.osm.pbf",
+    "retrieval_mirror_url": "https://ftp5.gwdg.de/pub/misc/openstreetmap/download.geofabrik.de/germany-latest.osm.pbf",
+    "retrieved": "2026-09-01"
+  },
+  "source_crs": "EPSG:4326",
+  "working_crs": "EPSG:25833",
+  "extraction_bbox_wgs84": [
+    12.9,
+    52.28,
+    13.95,
+    52.73
+  ],
+  "selected_context_bounds_wgs84": [
+    12.915122544462,
+    52.286863833626,
+    13.933841707589,
+    52.721180774853
+  ],
+  "selected_context_bounds_epsg25833": [
+    357796.5793918899,
+    5794991.9300077595,
+    427990.7480931101,
+    5841788.04247524
+  ],
+  "coverage_check": {
+    "method": "selected context bbox must be strictly contained by the transport extraction bbox",
+    "pass": true
+  },
+  "gdal_version": "GDAL 3.13.3 \"Iowa City\", released 2026/08/13",
+  "snapshot_reused_after_identical_command": true,
+  "semantic_filters": {
+    "roads-major.geojson": "highway IN ('motorway','motorway_link','trunk','trunk_link','primary','primary_link','secondary','secondary_link','tertiary','tertiary_link','residential','unclassified','living_street')",
+    "roads-accent.geojson": "highway IN ('motorway','motorway_link','trunk','trunk_link')",
+    "rail.geojson": "railway IN ('rail','light_rail','subway','tram')",
+    "waterways.geojson": "waterway IN ('river','canal')"
+  },
+  "feature_counts": {
+    "boundary.geojson": 1,
+    "roads-major.geojson": 126806,
+    "roads-accent.geojson": 4356,
+    "rail.geojson": 14659,
+    "waterways.geojson": 422
+  },
+  "artifacts": [
+    {
+      "path": "source-data/v0.4.0/berlin/metropolitan-lines-snapshot.gpkg",
+      "bytes": 257404928,
+      "sha256": "7a4772392b2fa236ca05ce478e2ec5c35650aef632ea537aec340d5a3525596a"
+    },
+    {
+      "path": "source-data/v0.4.0/berlin/boundary.geojson",
+      "bytes": 191213,
+      "sha256": "9856de09351ce2df39de29fc86b96d28918d067c7b56827c5b22d0d8079a1947"
+    },
+    {
+      "path": "source-data/v0.4.0/berlin/roads-major.geojson",
+      "bytes": 108172857,
+      "sha256": "1c0fba6c988a5c385f28ef1869e87ea1e08e8cf9382894f882e96a97443cbaba"
+    },
+    {
+      "path": "source-data/v0.4.0/berlin/roads-accent.geojson",
+      "bytes": 3140778,
+      "sha256": "fd8ecbebcf23236d7346584778dfcba3574b5508d9c686ce397ff9e99a7e4cc1"
+    },
+    {
+      "path": "source-data/v0.4.0/berlin/rail.geojson",
+      "bytes": 11126710,
+      "sha256": "682e468adfa1d6ce04dfebc43bf98bc4b5ef508135dbbd82fcc83a31c18f9cf3"
+    },
+    {
+      "path": "source-data/v0.4.0/berlin/waterways.geojson",
+      "bytes": 339349,
+      "sha256": "1ab47284fab79c6de399e8804565e1db5fd6f40ca67854db25d1c5ef239efdd8"
+    }
+  ],
+  "attribution": "Map data \u00a9 OpenStreetMap contributors \u00b7 ODbL 1.0; extract distributed by Geofabrik GmbH and retrieved through the GWDG mirror."
+}

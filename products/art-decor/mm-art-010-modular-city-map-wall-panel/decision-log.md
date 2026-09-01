@@ -128,3 +128,11 @@
 - Authorized digital work: acquisition/freezing of the expanded Berlin/Brandenburg source, mode-specific safe-land and interface solving, parameterized CAD/mesh generation, four-color Anycubic project 3MF packaging and deterministic local validation for both display examples.
 - Continuing boundaries: the connector/snap compensation remains physically unqualified; exact filament batches, ACE/purge preview, physical print, wall installation, appearance, watermark, safety, rights and commercial release remain human-controlled.
 - No printer upload or print start is authorized.
+
+## 2026-09-01 — Expanded source and mode placements frozen
+
+- Frozen transport authority: Geofabrik/GWDG `germany-260830.osm.pbf`, 4,828,999,134 bytes, provider MD5 `67f6fe1597784796ebe0d36ac5fb990f`, SHA-256 `505860193092ce58cc8e4bb7f3b657b5f7de5f6d329d2b1bed44561cdfa7da55`.
+- `source-data/v0.4.0/berlin/source-manifest.json` passes strict extraction/context containment and records 126,806 major-road, 4,356 accent-road, 14,659 rail and 422 river/canal features plus the approved Berlin boundary.
+- The default context preserves the approved 12% vertical margin; the source extent expands horizontally to 26.6545805% per side so it fills the 600 × 400 mm frame at one uniform scale without distortion, crop or letterboxing.
+- `validation/v0.4.0/berlin/interface-placement-report.json` passes for both modes. The boundary silhouette uses connector stations Y 120/232/344 mm and relocated local mounts; the context rectangle retains the 0.3.0 positions. Minimum modeled perimeter ligament is 5.307 mm.
+- Exact connector/snap process compensation, light appearance, wall hardware and proof load remain physical human gates.

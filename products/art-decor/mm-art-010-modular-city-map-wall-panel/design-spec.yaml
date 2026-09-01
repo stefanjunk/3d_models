@@ -16,13 +16,14 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-006
+    assessment_id: PREFLIGHT-MM-ART-010-007
     assessment_version: 0.4.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-005
+    previous_assessment_id: PREFLIGHT-MM-ART-010-006
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-09-01T16:16:01+02:00"
+    updated_at: "2026-09-01T17:56:10+02:00"
     change_triggers:
-      - human_approved_mode_aware_decomposition_0_4_0
+      - expanded_context_source_frozen
+      - mode_interface_placements_digitally_validated
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -217,7 +218,7 @@ geometry:
 permanent_assembly:
   architecture: "two non-replaceable main prints permanently joined into one unique artwork; no rear grid"
   nominal_owner: "one parametric global seam skeleton owns both mating edges, three connector pockets, snap-in standoff sockets and wall plane"
-  interface_source: "revision 0.3.0 interface authority retained as reference; mode-aware 0.4.0 placements are now authorized for digital solving; provisional 0.25 mm per-side clearance remains physical-coupon controlled"
+  interface_source: "revision 0.3.0 interface shapes remain authoritative; source/v0.4.0/berlin/placements owns the digitally validated per-mode positions; provisional 0.25 mm per-side clearance remains physical-coupon controlled"
   seam_interface: "discrete locating lands plus three concealed loose one-way spring/tenon connectors; no structural adhesive"
   wall_interface: "isolated upper hanger/standoff and lower standoff parts lock into local rear sockets; exact wall anchors remain installer-selected"
   assembly_sequence:
@@ -251,9 +252,10 @@ map_content:
   pilot: Berlin
   production_mode: "unique one-off pilot"
   source: "OpenStreetMap vector data"
-  source_snapshot: "frozen revision 0.3.0 Berlin source remains the boundary_crop reference; acquisition and freezing of the larger immutable Berlin/Brandenburg context source is authorized by the approved 0.4.0 decomposition"
+  source_snapshot: "source-data/v0.4.0/berlin/source-manifest.json freezes the bounded Germany-260830 Geofabrik/GWDG transport derivative and proves complete selected context coverage; revision 0.3.0 remains historical reference"
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
   display_mode_parameter_source: source/v0.4.0/berlin/display-mode-parameters.json
+  production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
@@ -416,6 +418,14 @@ acceptance:
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
     method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
+    status: PASS
+  - id: AC-SOURCE-COVERAGE
+    criterion: "The immutable metropolitan source covers the selected distortion-free 3:2 context extent and every semantic production layer is non-empty."
+    method: "source-data/v0.4.0/berlin/source-manifest.json hash, bbox-containment and feature-count checks"
+    status: PASS
+  - id: AC-INTERFACE-PLACEMENT
+    criterion: "Both modes place every connector pocket, hanger and standoff footprint inside the retained body with at least 5.0 mm modeled perimeter ligament."
+    method: "validation/v0.4.0/berlin/interface-placement-report.json"
     status: PASS
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."

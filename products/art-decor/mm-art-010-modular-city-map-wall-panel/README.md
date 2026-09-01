@@ -1,6 +1,6 @@
 # MM-ART-010 — Permanent One-off City Map Wall Relief
 
-Status: **revision 0.4.0 requirements, concept v03 and the mode-aware decomposition are human-approved. Expanded source freezing, per-mode interface solving, production CAD, mesh generation and deterministic target-slicer validation are in progress. Revision 0.3.0 remains the repaired Anycubic-import reference; no human print candidate exists**.
+Status: **revision 0.4.0 requirements, concept v03 and decomposition are human-approved. Expanded source coverage and both mode-specific interface placements pass deterministic checks; DRAFT production mesh generation and target-slicer validation are in progress. Revision 0.3.0 remains the repaired Anycubic-import reference; no human print candidate exists**.
 
 The planned pilot is a unique Berlin street-map wall relief with two parameterized appearance modes. `boundary_crop` removes every printed body outside the Berlin administrative boundary and produces an irregular silhouette inside a maximum 600 × 400 mm envelope. `context_outline` keeps the 600 × 400 mm rectangle, maps surrounding context and marks Berlin with an Orange boundary relief. Both retain two permanent four-color main prints, glue-free concealed connectors, isolated rear standoffs, an 18 mm halo-light cavity and protected light-through openings without a rear grid. Lighting and electrical hardware remain customer add-ons and are not part of the product.
 

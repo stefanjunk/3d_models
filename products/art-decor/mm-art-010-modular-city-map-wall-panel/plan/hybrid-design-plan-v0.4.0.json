@@ -135,18 +135,18 @@
     {
       "id": "DEC-SOURCE-040",
       "topic": "Freeze the expanded context_outline Berlin/Brandenburg source and derived layers.",
-      "status": "open",
-      "current_basis": "The Berlin-only 0.3.0 PBF does not cover the approved 12 percent context margin.",
-      "evidence_needed": "Immutable transport source, hashes, projected bounds, extraction commands, layer counts and attribution notice.",
-      "blocks_gates": ["component", "integration", "manufacturing", "release"]
+      "status": "resolved",
+      "current_basis": "source-data/v0.4.0/berlin/source-manifest.json freezes the verified Geofabrik/GWDG Germany-260830 transport derivative, proves strict context-bbox containment and records non-empty semantic layers.",
+      "evidence_needed": "Retain immutable snapshot/layer hashes and OpenStreetMap/Geofabrik attribution through packaging.",
+      "blocks_gates": []
     },
     {
       "id": "DEC-PLACEMENT-040",
       "topic": "Freeze mode-specific connector, hanger, standoff and LED-route placements.",
-      "status": "provisional",
-      "current_basis": "Revision 0.3.0 interface shapes remain the shared authority, but their old placements cannot be assumed inside the irregular silhouette.",
-      "evidence_needed": "Inward-offset safe-region solve, ligament sections, symmetry/load-path review and collision-free proxy for both modes.",
-      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+      "status": "resolved",
+      "current_basis": "validation/v0.4.0/berlin/interface-placement-report.json passes for both modes; every actual and protected interface footprint lies inside the retained body with at least 5.0 mm modeled outer ligament.",
+      "evidence_needed": "Physical process compensation, snap behavior and wall-load proof remain separate later gates.",
+      "blocks_gates": []
     },
     {
       "id": "DEC-PERIMETER-040",
@@ -203,7 +203,7 @@
       "role": "owns transport files, provenance, working-CRS derived layers and coverage evidence",
       "authority": "hybrid",
       "representation": "mixed",
-      "source": {"kind": "derived", "refs": ["source-data/v0.3.0/berlin", "DEC-SOURCE-040"], "confidence": "medium"},
+      "source": {"kind": "derived", "refs": ["source-data/v0.4.0/berlin/source-manifest.json", "DEC-SOURCE-040"], "confidence": "high"},
       "functions": ["preserve Berlin boundary", "supply roads rail accents and waterways", "cover selected context", "retain attribution"],
       "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 0.01]},
       "source_to_mm_scale": 1.0,
@@ -248,7 +248,7 @@
       "role": "single owner for seam, connector, hanger, standoff and lighting-land placements constrained to retained safe regions",
       "authority": "parametric",
       "representation": "brep",
-      "source": {"kind": "derived", "refs": ["MODE_OUTER_MASK_SET", "revision 0.3.0 interface kit", "DEC-PLACEMENT-040"], "confidence": "medium"},
+      "source": {"kind": "derived", "refs": ["MODE_OUTER_MASK_SET", "revision 0.3.0 interface kit", "validation/v0.4.0/berlin/interface-placement-report.json", "DEC-PLACEMENT-040"], "confidence": "high"},
       "functions": ["derive interior safe regions", "place three connector pockets", "place four wall sockets", "protect edge ligaments", "export per-mode interface kits"],
       "envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 3.0]},
       "source_to_mm_scale": 1.0,

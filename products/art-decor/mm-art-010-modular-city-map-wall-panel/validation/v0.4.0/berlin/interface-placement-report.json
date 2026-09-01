@@ -1,0 +1,287 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0",
+  "status": "PASS",
+  "inputs": {
+    "boundary": {
+      "path": "source-data/v0.3.0/berlin/boundary.geojson",
+      "sha256": "7e1a9a058ed3596a4fb397d8ac6926838361833443b39a5195cb03f73d176dda"
+    },
+    "display_parameters": {
+      "path": "source/v0.4.0/berlin/production-mode-parameters.json",
+      "sha256": "c54e8a46720857c3172b5e57334da738456785d0b0c4c9a76b8b7d00cd602d58"
+    },
+    "interface_parameters": {
+      "path": "source/v0.3.0/interface-parameters.json",
+      "sha256": "0f68736528b66f3ce642888dd77fcc218bfb36df5e6b89c752856bcf3c3fd446"
+    }
+  },
+  "modes": {
+    "boundary_crop": {
+      "schema_version": "1.0",
+      "project": "MM-ART-010",
+      "revision": "0.4.0",
+      "mode": "boundary_crop",
+      "status": "PASS",
+      "transform": {
+        "source_bounds_epsg25833": [
+          370000.6519204594,
+          5799520.586052926,
+          415786.67556471843,
+          5837259.386429744
+        ],
+        "uniform_scale_mm_per_source_m": 0.010599171038984969,
+        "translate_mm": [
+          -3864.3471421411473,
+          -61470.110635689314
+        ],
+        "result_bounds_mm": [
+          57.35305209974422,
+          0.0,
+          542.6469479002558,
+          400.0
+        ]
+      },
+      "outer_bounds_mm": [
+        57.35305209974422,
+        0.0,
+        542.6469479002558,
+        400.0
+      ],
+      "outer_area_mm2": 100062.12129234169,
+      "connector_y_positions_mm": [
+        120.0,
+        232.0,
+        344.0
+      ],
+      "socket_centers_global_mm": {
+        "upper_hanger_left": [
+          170.0,
+          320.0
+        ],
+        "lower_standoff_left": [
+          150.0,
+          130.0
+        ],
+        "upper_hanger_right": [
+          330.0,
+          305.0
+        ],
+        "lower_standoff_right": [
+          450.0,
+          80.0
+        ]
+      },
+      "connector_checks": [
+        {
+          "y_mm": 120.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 19.220260739082555
+        },
+        {
+          "y_mm": 232.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 81.87502174886639
+        },
+        {
+          "y_mm": 344.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 6.79597798244356
+        }
+      ],
+      "mount_checks": [
+        {
+          "kind": "upper_hanger_left",
+          "center_mm": [
+            170.0,
+            320.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 5.3070748886116235
+        },
+        {
+          "kind": "lower_standoff_left",
+          "center_mm": [
+            150.0,
+            130.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 9.760635176760843
+        },
+        {
+          "kind": "upper_hanger_right",
+          "center_mm": [
+            330.0,
+            305.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 6.191748802710663
+        },
+        {
+          "kind": "lower_standoff_right",
+          "center_mm": [
+            450.0,
+            80.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 12.916887055871484
+        }
+      ],
+      "rear_halo_route": {
+        "construction": "boundary of retained outer body after a 14 mm inward offset; local gaps around mounts, seam and cable exits are applied by the production build",
+        "nominal_led_keepout_mm": [
+          12.0,
+          4.0
+        ],
+        "wall_gap_mm": 18.0
+      },
+      "physical_gate": "The 0.25 mm process compensation remains provisional until the exact Kobra 3 Max/filament/profile coupon passes."
+    },
+    "context_outline": {
+      "schema_version": "1.0",
+      "project": "MM-ART-010",
+      "revision": "0.4.0",
+      "mode": "context_outline",
+      "status": "PASS",
+      "transform": {
+        "source_bounds_epsg25833": [
+          357796.5793918899,
+          5794991.9300077595,
+          427990.7480931101,
+          5841788.04247524
+        ],
+        "uniform_scale_mm_per_source_m": 0.008547718579785249,
+        "translate_mm": [
+          -3058.344469451665,
+          -49533.960189832906
+        ],
+        "result_bounds_mm": [
+          0.0,
+          0.0,
+          600.0,
+          400.0
+        ],
+        "berlin_boundary_bounds_mm": [
+          104.31697750150033,
+          38.709677418723004,
+          495.6830225000199,
+          361.2903225784539
+        ]
+      },
+      "outer_bounds_mm": [
+        0.0,
+        0.0,
+        600.0,
+        400.0
+      ],
+      "outer_area_mm2": 240000.0,
+      "connector_y_positions_mm": [
+        72.0,
+        200.0,
+        328.0
+      ],
+      "socket_centers_global_mm": {
+        "upper_hanger_left": [
+          118.0,
+          330.0
+        ],
+        "upper_hanger_right": [
+          482.0,
+          330.0
+        ],
+        "lower_standoff_left": [
+          118.0,
+          70.0
+        ],
+        "lower_standoff_right": [
+          482.0,
+          70.0
+        ]
+      },
+      "connector_checks": [
+        {
+          "y_mm": 72.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 69.15
+        },
+        {
+          "y_mm": 200.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 197.15
+        },
+        {
+          "y_mm": 328.0,
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 69.14999999999998
+        }
+      ],
+      "mount_checks": [
+        {
+          "kind": "upper_hanger_left",
+          "center_mm": [
+            118.0,
+            330.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 54.0
+        },
+        {
+          "kind": "upper_hanger_right",
+          "center_mm": [
+            482.0,
+            330.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 54.0
+        },
+        {
+          "kind": "lower_standoff_left",
+          "center_mm": [
+            118.0,
+            70.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 54.0
+        },
+        {
+          "kind": "lower_standoff_right",
+          "center_mm": [
+            482.0,
+            70.0
+          ],
+          "actual_footprint_within_outer": true,
+          "protected_footprint_within_outer": true,
+          "minimum_outer_ligament_mm": 54.0
+        }
+      ],
+      "rear_halo_route": {
+        "construction": "boundary of retained outer body after a 14 mm inward offset; local gaps around mounts, seam and cable exits are applied by the production build",
+        "nominal_led_keepout_mm": [
+          12.0,
+          4.0
+        ],
+        "wall_gap_mm": 18.0
+      },
+      "physical_gate": "The 0.25 mm process compensation remains provisional until the exact Kobra 3 Max/filament/profile coupon passes."
+    }
+  },
+  "preview": "validation/v0.4.0/berlin/renders/interface-placement-preview.png",
+  "limitations": [
+    "This is a deterministic proxy/ligament audit, not physical connector, hanger or wall-load qualification.",
+    "Wall hardware and customer lighting remain excluded purchased systems."
+  ]
+}

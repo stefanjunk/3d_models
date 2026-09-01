@@ -4,9 +4,11 @@ Status: **human-approved by Stefan on 2026-09-01**.
 
 Machine-readable candidate: `plan/hybrid-design-plan-v0.4.0.json`
 
-Plan SHA-256: `985d17c584b13a0afc9da960f4ac731c8a07e77a377030ac2e7f359e93252561`
+Human-approved architecture baseline SHA-256: `985d17c584b13a0afc9da960f4ac731c8a07e77a377030ac2e7f359e93252561`
 
-Planner evidence after approval recording: `reports/architecture-v0.4.0-approved.json` and `reports/architecture-v0.4.0-approved.md` — **PASS, 0 errors, 0 warnings**. The pre-approval PASS remains at `reports/architecture-v0.4.0.*`; the initial fail-closed run with one invalid zero-height source-data envelope is preserved as `reports/architecture-v0.4.0-failure-r0.*`. A planner pass proves internal allocation and reference consistency, not printable geometry, physical fit or wall safety.
+Current post-approval evidence-state SHA-256: `25d0d6d9528c44b3c4b9a8f640d3765f57980478fe17c869e9df02f8d2206a5b`. Only `DEC-SOURCE-040` and `DEC-PLACEMENT-040` changed from open/provisional to resolved, with links to the frozen source and deterministic placement evidence; component ownership, interfaces and manufacturing architecture are unchanged.
+
+Planner evidence after source and placement closure: `reports/architecture-v0.4.0-source-placement-pass.json` and `reports/architecture-v0.4.0-source-placement-pass.md` — **PASS, 0 errors, 0 warnings**. The approval-recording PASS remains at `reports/architecture-v0.4.0-approved.*`; the pre-approval PASS remains at `reports/architecture-v0.4.0.*`; the initial fail-closed run with one invalid zero-height source-data envelope is preserved as `reports/architecture-v0.4.0-failure-r0.*`. A planner pass proves internal allocation and reference consistency, not printable geometry, physical fit or wall safety.
 
 ## Shared printed architecture per one-off
 

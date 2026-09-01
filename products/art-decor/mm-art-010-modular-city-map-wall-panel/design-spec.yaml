@@ -5,8 +5,8 @@ project:
   name: "Permanent One-off City Map Wall Relief"
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
-  revision: 0.4.0
-  candidate: 0.4.0-two-display-modes-digital-candidate.1
+  revision: 0.4.1
+  candidate: 0.4.1-oak-mint-midnight-sky-concept.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -14,42 +14,43 @@ project:
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "0.4.0"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    assessment_id: PREFLIGHT-MM-ART-010-009
+    assessment_version: 0.4.1
+    previous_assessment_id: PREFLIGHT-MM-ART-010-008
+    assessed_project_revision: "0.4.1"
+    updated_at: "2026-09-01T22:34:15+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
+      - actual_four_spool_palette_selected
+      - appearance_requirement_revision_0_4_1
+      - restore_product_specific_preflight_after_generic_refresh
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
     status: approved
-    spec_revision: 0.4.0
+    spec_revision: 0.4.1
     approved_by: Stefan
     approved_at: "2026-09-01"
-    previous_approved_revision: 0.3.0
+    previous_approved_revision: 0.4.0
     change_requested_by: "Stefan"
     change_requested_on: "2026-09-01"
-    basis: "User explicitly requested one boundary-cropped Berlin example and one rectangular Umland example with the Berlin administrative boundary marked"
+    basis: "User explicitly assigned Oak to the base, Mint Green to the middle relief/area level, Midnight to the street network, and Sky Blue to the Berlin boundary and accents"
   concept_approval:
-    status: approved
-    spec_revision: 0.4.0
-    asset: concepts/berlin-display-modes-concept-v03.png
-    approved_by: Stefan
-    approved_at: "2026-09-01"
-    basis: "User explicitly wrote 'freigegeben' in direct response to concept v03"
+    status: pending
+    spec_revision: 0.4.1
+    asset: concepts/berlin-display-modes-concept-v04.png
+    approved_by: null
+    approved_at: null
+    basis: "The geometry of approved concept v03 is retained; only the physical four-spool palette changes and requires visual approval of concept v04"
   watermark_approval:
     status: blocked
     spec_revision: null
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
-    version: 0.4.0
-    reason: "No stable, fully validated 0.4.0 production geometry or approved watermark placement exists yet"
+    version: 0.4.1
+    reason: "Revision 0.4.1 palette concept, remapped production projects and watermark placement are not yet human-approved"
   decomposition_approval:
     status: approved
     spec_revision: 0.4.0
@@ -59,23 +60,23 @@ workflow:
     approved_at: "2026-09-01"
     basis: "User explicitly wrote 'freigegeben' in direct response to decomposition-review-0.4.0.md and plan/hybrid-design-plan-v0.4.0.json"
   digital_candidate:
-    status: in-progress
-    reason: "Decomposition is approved. Source freeze, mode-specific interface solving, mesh generation and exact target-slicer validation are authorized; print-candidate approval remains human-controlled."
+    status: blocked
+    reason: "Revision 0.4.0 geometry remains the validated topology baseline; revision 0.4.1 color-body and 3MF remapping begins only after concept v04 approval."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
   final_release_approval:
     status: blocked
-    reason: "Concept, decomposition, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open for revision 0.4.0"
+    reason: "Palette concept, remapped 3MF, physical, appearance, rights, watermark, safety and commercial gates remain open for revision 0.4.1"
 
 history:
-  previous_revision: 0.3.0
-  previous_concept_artifact: concepts/permanent-relief-collection-concept-v02.png
-  previous_status: "approved architecture and repaired target-slicer 3MF reference; superseded for new display-mode production work"
-  superseded_revision: 0.2.0
-  superseded_concept_artifact: concepts/modular-relief-collection-concept-v01.png
-  superseded_decomposition_artifact: plan/hybrid-design-plan.json
-  superseded_reason: "Shows a six-tile replaceable rear-grid architecture explicitly rejected by the user"
+  previous_revision: 0.4.0
+  previous_concept_artifact: concepts/berlin-display-modes-concept-v03.png
+  previous_status: "display-mode geometry and digital candidate r9 remain the topology baseline; its former Bone White/Nardo Grey/Black/Orange mapping is superseded"
+  superseded_revision: 0.3.0
+  superseded_concept_artifact: concepts/permanent-relief-collection-concept-v02.png
+  superseded_decomposition_artifact: plan/hybrid-design-plan-v0.3.0.json
+  superseded_reason: "Revision 0.3.0 is retained only as historical connector, coupon and target-slicer interoperability authority"
 
 requirements_trace:
   user_stated:
@@ -85,6 +86,10 @@ requirements_trace:
     - "Create Berlin as the first city-map pilot"
     - "Prepare optional customer-added rear halo lighting and light-through openings"
     - "Keep the palette abstract and avoid wasteful pseudo-realistic color mixing"
+    - "Use Oak for the light base plate"
+    - "Use Mint Green for the middle relief and area level"
+    - "Use Midnight for the dark street network"
+    - "Use Sky Blue for the Berlin boundary and accents"
     - "Do not use a rear grid"
     - "Do not make the printed sections replaceable"
     - "Treat each pilot as a permanent one-off artwork"
@@ -104,15 +109,15 @@ requirements_trace:
     - "Join the halves permanently with discrete seam locating lands and three concealed loose one-way spring/tenon connectors; no structural adhesive"
     - "Create the 18 mm halo gap with isolated snap-in printed hanger/standoff parts, not a frame or grid"
     - "Apply optional LED strip directly to declared rear adhesive lands or small local clips and reserve matched cable passages across the center seam"
-    - "Use explicit aligned color solids, broad semantic regions and the approved Urban Signal palette without dithering"
+    - "Use explicit aligned color solids and broad semantic regions; map Oak, Mint Green, Midnight and Sky Blue to the existing four sequential relief bodies without dithering"
     - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
     - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
     - "Use boundary_crop as the customer-facing default and a 12 percent per-side Umland margin for context_outline"
-    - "Mark Berlin in context_outline with a 2.4 mm Orange relief boundary"
+    - "Mark Berlin in context_outline with a 2.4 mm Sky Blue relief boundary"
   unresolved_consequential: []
   unresolved_nonblocking:
     - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
-    - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
+    - "The four physical spool identities are recorded as FIL-0005, FIL-0001, FIL-0003 and FIL-0002; exact batches, conditioning, measured swatches and opacity remain to be recorded before final slicing"
     - "Final aperture pattern and visual density remain subject to the new concept and a physical light coupon"
     - "The exact expanded Berlin/Brandenburg source snapshot and context bounds are selected only after concept approval"
 
@@ -152,7 +157,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-ART-010
-  version: 0.4.0
+  version: 0.4.1
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
@@ -185,7 +190,7 @@ geometry:
   seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
   outer_frame_target_mm: 8.0
   backer_thickness_mm: 3.0
-  display_mode_parameters: source/v0.4.0/berlin/display-mode-parameters.json
+  display_mode_parameters: source/v0.4.1/berlin/display-mode-parameters.json
   display_modes:
     boundary_crop:
       outside_geometry: remove
@@ -196,7 +201,7 @@ geometry:
       outside_geometry: retain
       outer_perimeter: rectangle
       context_margin_ratio_default: 0.12
-      berlin_boundary_marker_mm: {width: 2.4, height_above_black: 0.4, color: Orange}
+      berlin_boundary_marker_mm: {width: 2.4, height_above_midnight: 0.4, color: Sky Blue}
   front_relief:
     inlay_depth_mm: 0.6
     transport_emboss_height_mm: 0.6
@@ -254,11 +259,11 @@ map_content:
   source: "OpenStreetMap vector data"
   source_snapshot: "source-data/v0.4.0/berlin/source-manifest.json freezes the bounded Germany-260830 Geofabrik/GWDG transport derivative and proves complete selected context coverage; revision 0.3.0 remains historical reference"
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
-  display_mode_parameter_source: source/v0.4.0/berlin/display-mode-parameters.json
+  display_mode_parameter_source: source/v0.4.1/berlin/display-mode-parameters.json
   production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   current_digital_candidate:
     id: digital-candidate-r9
-    status: DRAFT_DIGITAL_PASS
+    status: SUPERSEDED_COLOR_MAPPING_GEOMETRY_BASELINE
     summary: validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json
     validation_contract: validation/v0.4.0/berlin/digital-candidate-r9/validation-project.json
     aggregate_draft_report: validation/v0.4.0/berlin/digital-candidate-r9/validation-summary-draft-r2.json
@@ -279,7 +284,14 @@ multicolor:
   target_machine_configuration: "Anycubic Kobra 3 Max Combo with one ACE Pro, four-color configuration"
   representation: "named disjoint solids in one shared frame; Anycubic Slicer Next project 3MF for target-slicer compatibility, with named STL solids retained as the portable source of color intent"
   palette_catalog: palette-catalog.yaml
-  selected_palette: urban_signal
+  selected_palette: berlin_oak_mint_midnight_sky
+  physical_filaments:
+    land_base: {inventory_id: FIL-0005, manufacturer: SUNLU, product: PLA+2.0, color: Oak, label_code: 05860601A}
+    medium_relief_and_areas: {inventory_id: FIL-0001, manufacturer: SUNLU, product: PLA+, color: Mint Green, label_code: 01160403Y}
+    street_network: {inventory_id: FIL-0003, manufacturer: SUNLU, product: PLA+2.0, color: Midnight, label_code: 06660601A}
+    berlin_boundary_and_accents: {inventory_id: FIL-0002, manufacturer: SUNLU, product: PLA+, color: Sky Blue, label_code: 06860603A}
+  spool_evidence: ../../../business/10-inventory/README.md
+  display_color_status: "photo-derived approximations only; no calibrated swatches"
   realistic_color_claim: false
   dithering: prohibited
   polymer_rule: "one PLA family per co-sliced half"
@@ -325,8 +337,8 @@ fabrication:
   official_machine_source: "https://store.anycubic.com/products/kobra-3-max-combo"
   source_checked: "2026-08-30"
   main_part_bed_margin_mm: [120.0, 20.0]
-  main_material: "PLA candidate; exact Anycubic PLA Matte products/batches unresolved"
-  local_joiner_and_standoff_material: "same-family PLA candidate; exact filament identity and spring behavior require coupon evidence"
+  main_material: "Four photographed SUNLU PLA-family rolls: FIL-0005 Oak, FIL-0001 Mint Green, FIL-0003 Midnight and FIL-0002 Sky Blue; batch, conditioning, opacity and common process require coupon evidence"
+  local_joiner_and_standoff_material: "SUNLU PLA-family candidate from the selected palette; final color and spring behavior require process-matched coupon evidence"
   nozzle_mm: 0.4
   line_width_mm: 0.45
   layer_height_mm: 0.20
@@ -348,7 +360,7 @@ manufacturing:
   process: FFF/FDM
   printer: "Anycubic Kobra 3 Max Combo"
   build_volume_mm: [420.0, 420.0, 500.0]
-  target_material: "same-family PLA; exact products, colors and batches pending"
+  target_material: "SUNLU PLA-family palette FIL-0005/FIL-0001/FIL-0003/FIL-0002; batches, conditioning and common multicolor process pending"
   nozzle_mm: 0.4
   layer_height_mm: 0.20
   line_width_mm: 0.45
@@ -420,13 +432,13 @@ acceptance_details:
 
 acceptance:
   - id: AC-REQ
-    criterion: "Revision 0.4.0 requirements explicitly define boundary_crop and context_outline before mode-aware concept or CAD work."
+    criterion: "Revision 0.4.1 retains boundary_crop and context_outline and explicitly maps Oak, Mint Green, Midnight and Sky Blue to the four semantic relief levels."
     method: "human approval recorded against this exact revision"
     status: PASS
   - id: AC-CONCEPT
-    criterion: "Concept v03 accurately distinguishes the irregular Berlin silhouette from the rectangular Umland field with marked Berlin boundary."
-    method: "human approval recorded against concepts/berlin-display-modes-concept-v03.png"
-    status: PASS
+    criterion: "Concept v04 preserves the two approved display modes and visibly communicates the new four-spool palette mapping."
+    method: "human approval recorded against concepts/berlin-display-modes-concept-v04.png"
+    status: REVIEW_REQUIRED
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
     method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
@@ -456,7 +468,7 @@ acceptance:
     method: "digital interface audit, one-way connector coupon and assembled proof test"
     status: REVIEW_REQUIRED
   - id: AC-MULTICOLOR
-    criterion: "Four named abstract color solids slice with correct ACE slot mapping and approved purge evidence."
+    criterion: "Oak, Mint Green, Midnight and Sky Blue named solids slice with correct physical spool/ACE mapping and approved directed purge evidence."
     method: "3MF audit, exact Anycubic slice and physical transition coupon"
     status: REVIEW_REQUIRED
   - id: AC-LIGHT

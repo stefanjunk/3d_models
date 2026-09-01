@@ -146,3 +146,11 @@
 - Four native Anycubic project 3MFs import and slice successfully in Anycubic Slicer Next 1.3.9.4. Every retained exact G-code has 23 canonical layers, tools 0–3 and three tool changes. The generic standard-only 3MF parser does not follow the vendor object-part relationship layout, and the generic G-code analyzer counts 19 supplemental vendor comments; both limitations remain visible and are not rewritten away.
 - Digital perimeter and aperture evidence removes their blocks from component, integration and manufacturing gates. Physical connector/light coupon, exact filament/ACE/purge GUI review, full prints, wall proof, lit/unlit appearance, watermark and release remain human-controlled.
 - No printer upload or print start was performed.
+
+## 2026-09-01 — Physical SUNLU palette selected as revision 0.4.1
+
+- User-selected mapping: Oak (`FIL-0005`) for the light base, Mint Green (`FIL-0001`) for the middle relief/area level, Midnight (`FIL-0003`) for the dark street network and Sky Blue (`FIL-0002`) for the Berlin boundary and accents.
+- All four photographed rolls are 1.75 mm SUNLU PLA-family products, but the mix of PLA+ and PLA+2.0 remains supplier-specific. Exact batches, conditioning, common-process compatibility, opacity and directed purge behavior require physical evidence.
+- The revision 0.4.0 digital-candidate-r9 topology remains the geometry baseline. Revision 0.4.1 changes the appearance/material mapping and therefore reopens the human concept gate before production solids and Anycubic project 3MFs may be remapped.
+- Concept v04 was generated at `concepts/berlin-display-modes-concept-v04.png`; display RGB values are photo-derived approximations and not colorimetric claims.
+- The product-specific preflight is restored as `PREFLIGHT-MM-ART-010-009`: `C3 (62.0)`, `R2`, `K2`, Lane C, `LOW_UNKNOWN`, `GO_WITH_CONTROLS`. Digital concept work is allowed, while print-candidate and release gates remain blocked.

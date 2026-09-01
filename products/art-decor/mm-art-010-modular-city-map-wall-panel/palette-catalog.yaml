@@ -1,14 +1,15 @@
 schema_version: 1.0.0
 project_id: MM-ART-010
-revision: 0.2.0
-status: recommended-retail-colors-not-yet-loaded-or-swatch-verified
+revision: 0.4.1
+status: selected-physical-spools-photographed-not-color-calibrated
 intent: "Curated abstract palettes for a four-color modular city-map wall panel; no palette claims geographic realism"
 polymer_family: PLA
-manufacturer: Anycubic
-product_family: "PLA Matte 1.75 mm"
-official_source: "https://store.anycubic.com/products/matte-pla-filament"
-source_checked: "2026-08-30"
-batch_warning: "Manufacturer notes that batches and old/new versions can vary slightly; final jobs require measured or photographed physical swatches and exact spool identity"
+manufacturer: "preset-specific; selected Berlin pilot uses SUNLU"
+product_family: "selected Berlin pilot mixes SUNLU PLA+ and PLA+2.0, all 1.75 mm"
+official_source: null
+inventory_source: ../../../business/10-inventory/README.md
+source_checked: "2026-09-01"
+batch_warning: "The four physical rolls are identified by inventory ID and label code, but exact batch, conditioning, calibrated swatch color and opacity remain unverified"
 production_rules:
   maximum_colors: 4
   dithering: prohibited
@@ -17,9 +18,19 @@ production_rules:
   minimum_island_area_mm2: 0.8
   one_polymer_family_per_tile: true
   machine_slots: "assigned only in the destination slicer after the physical spools are loaded"
-selected_pilot_palette: urban_signal
+selected_pilot_palette: berlin_oak_mint_midnight_sky
 presets:
+  berlin_oak_mint_midnight_sky:
+    character: "abstract natural base with cool urban depth and a clear blue Berlin signature"
+    manufacturer: SUNLU
+    color_evidence: "display values approximated from user-supplied spool photographs; not calibrated"
+    colors:
+      - {order: 1, role: land_base, name: "Oak", inventory_id: FIL-0005, product: "PLA+2.0", label_code: "05860601A", display_hex: "#C6AA7A"}
+      - {order: 2, role: medium_relief_and_areas, name: "Mint Green", inventory_id: FIL-0001, product: "PLA+", label_code: "01160403Y", display_hex: "#72CFAE"}
+      - {order: 3, role: street_network, name: "Midnight", inventory_id: FIL-0003, product: "PLA+2.0", label_code: "06660601A", display_hex: "#1E2B36"}
+      - {order: 4, role: berlin_boundary_and_accents, name: "Sky Blue", inventory_id: FIL-0002, product: "PLA+", label_code: "06860603A", display_hex: "#69C7E5"}
   urban_signal:
+    status: "historical revision 0.4.0 palette; no longer selected"
     character: "architectural, graphic and high-contrast with one warm signal accent"
     colors:
       - {order: 1, role: land_base, name: "Bone White", display_hex: "#EFEDE3"}

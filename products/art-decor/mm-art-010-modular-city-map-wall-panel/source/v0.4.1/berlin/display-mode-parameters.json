@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.1-concept",
+  "pilot": "Berlin",
+  "units": "mm",
+  "parameter_status": "concept-gate-input",
+  "display_mode": {
+    "type": "enum",
+    "allowed": [
+      "boundary_crop",
+      "context_outline"
+    ],
+    "default": "boundary_crop"
+  },
+  "shared": {
+    "maximum_assembled_envelope_mm": [600.0, 400.0],
+    "main_print_count": 2,
+    "nominal_vertical_split_x_mm": 300.0,
+    "uniform_geospatial_scale": true,
+    "maximum_simultaneous_filaments": 4,
+    "palette": {
+      "Bone White": "#C6AA7A",
+      "Nardo Grey": "#72CFAE",
+      "Black": "#1E2B36",
+      "Orange": "#69C7E5"
+    },
+    "palette_labels": {
+      "Bone White": "Oak",
+      "Nardo Grey": "Mint Green",
+      "Black": "Midnight",
+      "Orange": "Sky Blue"
+    },
+    "palette_roles": {
+      "Oak": "land_base",
+      "Mint Green": "medium_relief_and_areas",
+      "Midnight": "street_network",
+      "Sky Blue": "berlin_boundary_and_accents"
+    },
+    "palette_inventory_ids": {
+      "Oak": "FIL-0005",
+      "Mint Green": "FIL-0001",
+      "Midnight": "FIL-0003",
+      "Sky Blue": "FIL-0002"
+    },
+    "display_color_evidence": "photo-derived approximations; not calibrated swatches",
+    "dithering": false,
+    "rear_grid": false,
+    "replaceable_sections": false,
+    "optional_backlight_preparation": true,
+    "outside_source_policy": "fail_closed_when_frozen_source_does_not_cover_the_selected_context_extent"
+  },
+  "modes": {
+    "boundary_crop": {
+      "customer_label_de": "Nur Berlin",
+      "outside_geometry": "remove",
+      "outer_perimeter": "berlin_administrative_boundary",
+      "rectangular_backer": false,
+      "boundary_marker": false,
+      "fit_rule": "uniformly_fit_boundary_into_maximum_envelope",
+      "minimum_perimeter_feature_mm": 2.0,
+      "printed_free_area_outside_boundary": 0.0,
+      "assembly_note": "The two permanent prints are clipped after all semantic layers and rear interfaces share one global Berlin frame."
+    },
+    "context_outline": {
+      "customer_label_de": "Berlin mit Umland",
+      "outside_geometry": "retain",
+      "outer_perimeter": "rectangle",
+      "rectangular_backer": true,
+      "fit_rule": "uniformly_fit_selected_context_extent_into_full_600_by_400_frame",
+      "context_margin_ratio": {
+        "default": 0.12,
+        "minimum": 0.05,
+        "maximum": 0.3,
+        "definition": "fraction of Berlin boundary width and height added on every side before fitting"
+      },
+      "boundary_marker": {
+        "enabled": true,
+        "semantic_color": "Sky Blue",
+        "nominal_width_mm": 2.4,
+        "nominal_height_above_midnight_mm": 0.4,
+        "minimum_ligament_to_aperture_mm": 2.0
+      },
+      "source_requirement": "Use the immutable metropolitan Berlin/Brandenburg source already frozen for revision 0.4.0 production geometry."
+    }
+  },
+  "concept_footer": "Konzeptdarstellung, keine Fertigungszeichnung. Die Geometrie entspricht der freigegebenen v0.4.0-Topologie; dargestellt wird die neue physische Vierrollen-Palette.",
+  "concept_limitations": [
+    "visual concept only",
+    "display colors are approximated from spool photographs and are not calibrated swatches",
+    "opacity, directed purge and backlight appearance are not physically validated",
+    "rear interfaces and light apertures are not dimensionally depicted"
+  ],
+  "gate_note": "The user approved the exact palette requirement. Production color-body names and 3MF projects remain blocked until human approval of concept v04."
+}

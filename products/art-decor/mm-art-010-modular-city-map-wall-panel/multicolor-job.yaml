@@ -1,7 +1,7 @@
 version: 1
-status: digital-candidate
+status: concept-palette-approved-requirements
 project:
-  name: MM-ART-010 Berlin Urban Signal
+  name: MM-ART-010 Berlin Oak Mint Midnight Sky
   purpose: "abstract four-color permanent two-half city-map wall art"
   risk_class: decorative
   units: mm
@@ -15,12 +15,12 @@ printer:
   slicer: "Anycubic Slicer Next"
 
 source:
-  path: source/v0.3.0/berlin/build_berlin.py
+  path: source/v0.4.0/berlin/build_berlin_modes.py
   kind: parametric_cad
   preserve_immutable: true
   units: mm
   texture_paths: []
-  source_sha256: 63967f15e76ed6966be22248c5c7e1a9e1b475fe50dd31cc5663e1bfb396be58
+  source_sha256: c728247f9c44f6b2b044e289155022574358008e3f7c56f6c009b0a45416b079
 
 representation:
   method: separate_solids
@@ -31,11 +31,18 @@ representation:
 
 palette:
   path: palette-catalog.yaml
-  selected_preset: urban_signal
+  selected_preset: berlin_oak_mint_midnight_sky
   maximum_colors: 4
   mapping_method: manual
   dither: false
-  actual_spools_status: "pending batch and swatch verification"
+  actual_spools_status: "four photographed inventory rolls identified; batch, conditioning and calibrated swatches unverified"
+  semantic_mapping:
+    land_base: {inventory_id: FIL-0005, name: Oak, label_code: 05860601A, display_hex: "#C6AA7A"}
+    medium_relief_and_areas: {inventory_id: FIL-0001, name: Mint Green, label_code: 01160403Y, display_hex: "#72CFAE"}
+    street_network: {inventory_id: FIL-0003, name: Midnight, label_code: 06660601A, display_hex: "#1E2B36"}
+    berlin_boundary_and_accents: {inventory_id: FIL-0002, name: Sky Blue, label_code: 06860603A, display_hex: "#69C7E5"}
+  display_color_evidence: "photo-derived visual approximations; not calibrated color measurements"
+  inventory_source: ../../../business/10-inventory/README.md
 
 geometry:
   minimum_color_width_mm: 0.9

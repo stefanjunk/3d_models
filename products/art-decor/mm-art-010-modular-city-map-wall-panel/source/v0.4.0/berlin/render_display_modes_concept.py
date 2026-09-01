@@ -20,7 +20,8 @@ from shapely.ops import unary_union
 HERE = Path(__file__).resolve().parent
 PRODUCT = HERE.parents[2]
 SOURCE = PRODUCT / "source-data" / "v0.3.0" / "berlin"
-PARAMETERS = json.loads((HERE / "display-mode-parameters.json").read_text())
+PARAMETER_SOURCE = HERE / "display-mode-parameters.json"
+PARAMETERS = json.loads(PARAMETER_SOURCE.read_text())
 OUTPUT = PRODUCT / "concepts" / "berlin-display-modes-concept-v03.png"
 REPORT = PRODUCT / "concepts" / "berlin-display-modes-concept-v03.json"
 
@@ -30,6 +31,7 @@ CARD = "#FCFAF5"
 INK = "#242321"
 MUTED = "#68645D"
 PALETTE = PARAMETERS["shared"]["palette"]
+PALETTE_LABELS = PARAMETERS["shared"].get("palette_labels", {name: name for name in PALETTE})
 
 
 def sha256(path: Path) -> str:
@@ -236,17 +238,22 @@ def main():
     draw.text((105, 870), "Max. Hüllmaß 600 × 400 mm; reale Silhouette bleibt unregelmäßig.", font=font(19), fill=MUTED)
 
     draw.text((970, 800), "Rechteck = vollständiger Umland-Ausschnitt", font=font(22, True), fill=INK)
-    draw.text((970, 837), "Orange = Berliner Landesgrenze als eigener Reliefzug (2,4 mm).", font=font(19), fill=MUTED)
+    boundary_name = PALETTE_LABELS.get("Orange", "Orange")
+    draw.text((970, 837), f"{boundary_name} = Berliner Landesgrenze als eigener Reliefzug (2,4 mm).", font=font(19), fill=MUTED)
     draw.text((970, 870), "Standard-Umlandrand 12 % je Seite; einstellbar von 5–30 %.", font=font(19), fill=MUTED)
 
     draw.text((92, 955), "FARBLOGIK", font=font(22, True), fill=INK)
     x = 245
     for name, color in PALETTE.items():
         draw.rounded_rectangle((x, 948, x + 42, 990), radius=6, fill=color, outline="#B9B1A5")
-        draw.text((x + 55, 952), name, font=font(19), fill=INK)
+        draw.text((x + 55, 952), PALETTE_LABELS.get(name, name), font=font(19), fill=INK)
         x += 300
 
-    draw.text((92, 1030), "Konzeptdarstellung, keine Fertigungszeichnung. Für Modus B wird vor CAD ein größerer, eingefrorener Berlin/Brandenburg-Quelldatensatz benötigt.", font=font(18), fill=MUTED)
+    footer = PARAMETERS.get(
+        "concept_footer",
+        "Konzeptdarstellung, keine Fertigungszeichnung. Für Modus B wird vor CAD ein größerer, eingefrorener Berlin/Brandenburg-Quelldatensatz benötigt.",
+    )
+    draw.text((92, 1030), footer, font=font(18), fill=MUTED)
     draw.text((92, 1063), "Die senkrechte Linie zeigt die vorgesehene Teilung in zwei dauerhafte Hauptdrucke; Beleuchtung bleibt ein optionales Kunden-Add-on.", font=font(18), fill=MUTED)
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -254,12 +261,12 @@ def main():
     report = {
         "schema_version": "1.0",
         "project": "MM-ART-010",
-        "revision": "0.4.0-concept",
+        "revision": PARAMETERS["revision"],
         "status": "PASS",
         "artifact": str(OUTPUT.relative_to(PRODUCT)),
         "artifact_sha256": sha256(OUTPUT),
-        "parameter_source": str((HERE / "display-mode-parameters.json").relative_to(PRODUCT)),
-        "parameter_source_sha256": sha256(HERE / "display-mode-parameters.json"),
+        "parameter_source": str(PARAMETER_SOURCE.relative_to(PRODUCT)),
+        "parameter_source_sha256": sha256(PARAMETER_SOURCE),
         "frozen_inputs": {
             name: sha256(SOURCE / name)
             for name in ["boundary.geojson", "roads-major.geojson", "roads-accent.geojson", "rail.geojson", "waterways.geojson"]
@@ -268,11 +275,14 @@ def main():
         "crop_source_units_per_pixel": 1.0 / crop_scale,
         "context_source_bounds": list(context_bounds),
         "context_source_units_per_pixel": 1.0 / context_scale,
-        "limitations": [
-            "visual concept only",
-            "the existing Berlin-only extract does not qualify the context-mode production extent",
-            "rear interfaces and light apertures are not dimensionally depicted"
-        ]
+        "limitations": PARAMETERS.get(
+            "concept_limitations",
+            [
+                "visual concept only",
+                "the existing Berlin-only extract does not qualify the context-mode production extent",
+                "rear interfaces and light apertures are not dimensionally depicted",
+            ],
+        ),
     }
     REPORT.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

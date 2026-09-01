@@ -1,59 +1,91 @@
-# Prospective 3D-design preflight — NameForm 0.4.1
+# Retrospective 3D-design preflight — Nameform Split Pair Bookends
 
-`NameForm letter-dominant split-pair bookends | C3 (41.25/100) | R3 | K1 | Lane C | CONDITIONAL`
-
-Assessment: `PREFLIGHT-MM-PER-001-008`, version `0.4.4`.
+`Nameform Split Pair Bookends | C3 (48.5/100) | R2 | K1 | Lane C | LOW_UNKNOWN`
 
 ## Decision
 
-- Design route: `GO_WITH_CONTROLS` through the sectioned concept and coupon gates.
-- The 0.4.1 reinforcement requirements are approved; the generated reinforced concept is still pending human concept approval.
-- Production CAD, manufacturing exports, and release remain blocked until concept approval, a process-matched glyph/connector coupon, exact slicing, and complete-pair physical tests pass.
+- Release: `GO_WITH_CONTROLS`
+- Lane: `C`
+- Rationale: The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete.
+- Purpose: A coordinated pair of distinct left and right bookends. Books stand between the two ends along X. Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing letter-dominant facade without a rectangular wing. The left and right text halves read as one name from the front; neither text half is mirrored. A recessed rear web only joins the glyphs; the side blade and foot retain the book load independently of the decorative glyphs.
 
-## Assessed revision
+This is a retrospective backfill of the currently evidenced repository state.
+Unknown facts were not reconstructed or inferred as measurements.
 
-The 0.4.1 proposal preserves the letter-dominant `MA | RITA` appearance, the retained side-blade/inward-foot book-load path, and the physically preferred direct-sampled candidate-C texture on glyph fronts. It changes the insufficiently stable-looking 0.4.0 facade to:
+## Complexity score rationale
 
-- 12.0 mm glyph depth;
-- a 4.0 mm rear connector beginning 10.0 mm behind the front datum;
-- at least 2.0 mm positive glyph/connector overlap;
-- at least 12.0 mm local bridge bands;
-- at least 1.2 mm finished glyph gaps, open counters, and no rectangular front panel.
-
-The concept image makes this architecture reviewable but is not dimensional CAD or strength evidence.
-
-## Complexity and readiness
-
-| Dimension | Result | Boundary |
+| Dimension | Score | Evidence-based rationale |
 |---|---:|---|
-| Complexity | C3 · 41.25/100 | Personalized glyph layout, hidden connection, texture, load path, and verification are coupled. |
-| Readiness | R3 · 76% | Scope, requirements, process route, and nominal interfaces are defined; the changed connection lacks generated and physical evidence. |
-| Criticality | K1 | Credible failures are appearance/function loss, limited item damage, or a sharp decorative break edge. |
-| Lane | C | Iterative engineering with concept, coupon, slice, and pair-test controls. |
+| REQ | 2 | A design specification or requirement record exists, but release criteria may still be incomplete. |
+| CTX | 3 | The use context includes a host, environment, or user variant that must be confirmed. |
+| PAR | 4 | The current evidence exposes approximately 41 distinct geometry-file stems; exports may duplicate physical parts. |
+| INT | 3 | At least one functional host, human, medium, or assembly boundary governs success. |
+| CPL | 1 | The available architecture appears locally coupled or monolithic. |
+| MOT | 0 | The primary product state is static apart from assembly handling. |
+| GEO | 1 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
+| PHY | 2 | Load, heat, airflow, water, fatigue, or another functional physical domain must be tested. |
+| MAT | 2 | Material behavior, anisotropy, flexibility, surface process, or post-processing affects function. |
+| EXT | 0 | Little or no external-component integration is evidenced. |
+| VER | 2 | Several fit, function, flow, load, motion, or process checks are required. |
 
-Readiness does not advance beyond R3 because the 0.4.1 connector has no measured deflection/fracture result and the exact filament product, batch, conditioning, and complete profile remain unknown.
+## Readiness
+
+| Component | Level |
+|---|---|
+| scope_variant | R3 |
+| requirements | R2 |
+| critical_interfaces | R2 |
+| manufacturing_profile | R3 |
+| verification | R2 |
+
+Blocking unknowns:
+
+- variant-confirmed critical interface dimensions, tolerances, and uncertainty
+- measurable acceptance criteria
+
+## Criticality
+
+`K1` — Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.
+
+Credible effects: loss of intended function, minor item or surface damage.
 
 ## Interface register
 
-| Contract | Interface | Evidence | Criticality | Required verification |
+| Contract | Interface | Evidence | Criticality | Verification |
 |---|---|---:|---:|---|
-| `IF-EXT-MEC-SUP-PLN-001` | Inward foot to shelf | E3 | K1 | complete-pair test |
-| `IF-EXT-MEC-LOD-PLN-002` | Side blade/foot to book row | E3 | K1 | representative proof load |
-| `IF-INT-MEC-FST-EDGE-001` | Reinforced glyph facade to core | E1 | K1 | sectioned concept, generated-body checks, and connector coupon |
-| `IF-HUM-OPT-VIS-BODY-001` | Letter-only wood appearance | E3 | K0 | concept and textured-letter review |
+| `IF-EXT-GEO-CON-MIXED-001` | Printed product to intended host | E2 | K1 | PLANNED |
+
+The JSON contract records the primary discovered boundary. Because the audit
+does not prove complete interface discovery, G1/G2 remain conservative.
 
 ## Hard gates
 
-`G0 PASS · G1 PASS · G2 WARN · G3 WARN · G4 PASS · G5 PASS · G6 PASS`
+| Gate | Status |
+|---|---|
+| G0 | PASS |
+| G1 | PASS |
+| G2 | WARN |
+| G3 | PASS |
+| G4 | WARN |
+| G5 | PASS |
+| G6 | PASS |
 
-- `G2 WARN`: the revised connector remains requirement/concept evidence only.
-- `G3 WARN`: printer, nozzle, layer height, and orientation are known, but the exact successful filament/profile identity is incomplete.
-- The remaining gates permit controlled concept work; they do not authorize production geometry or release.
+## Warnings
 
-## Required next evidence
+- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence.
 
-1. Obtain explicit human approval for `concept/nameform-bookends-v0.4.1-reinforced-concept.png` against the approved dimensions.
-2. Generate and test one reinforced glyph/bridge coupon; require visible gaps, open counters, one connected body, recognizable candidate-C texture, and the approved handling/deflection result.
-3. Rebuild, exactly slice, and physically test the complete `MA | RITA` pair before release.
+## Next evidence
 
-Previous assessment: `PREFLIGHT-MM-PER-001-007`. Canonical machine-readable evidence: `preflight-result.json`; input trace: `preflight-input.yaml`.
+1. Confirm the exact product/host variant and complete the primary interface contract. Exit: Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence.
+2. Define measurable acceptance criteria and a minimal coupon/prototype test. Exit: Each critical interface and credible failure mode has a method, threshold, and result-record location.
+
+## Traceability basis
+
+- `design-spec.yaml`
+- `README.md`
+- `validation-project.locked.json`
+- `validation-project.json`
+- `print-profile-v0.3.0.json`
+- `test-plan.yaml`
+- `validation/v0.4.0/README.md`
+- `coupons/wood-texture-transfer-v0.2.0/README.md`

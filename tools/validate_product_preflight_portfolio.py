@@ -112,7 +112,12 @@ def main() -> int:
                 "assessed_project_revision": trace.get("project_revision"),
             }
             for field, value in expected.items():
-                if linked.get(field) != value:
+                linked_value = linked.get(field)
+                if field == "mode":
+                    matches = str(linked_value).lower() == str(value).lower()
+                else:
+                    matches = linked_value == value
+                if not matches:
                     errors.append(f"{key}: workflow.preflight.{field} mismatch")
 
         entry = audit_entries.get(key)

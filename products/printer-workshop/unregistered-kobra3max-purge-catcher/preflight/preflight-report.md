@@ -1,88 +1,97 @@
-# Prospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher
+# Retrospective 3D-design preflight — Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
 
-`0.7.0-requirements.5 | C3 (52.5/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
+`Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf | C3 (56.8/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
 
 ## Decision
 
-- Release: `CONCEPT_ONLY`
-- Architecture: one-piece, bottomless diverter, directly and permanently mounted through two holes with the existing Wiper screws
-- Removed: adapter plate, clip, slider, latch, quick-release, floor, flap and moving storage volume
-- Preserved: open honeycomb walls and a centred owned metriMade logo
-- Rationale: the user has resolved the product architecture, so a non-dimensional clean-room concept may follow after explicit requirements approval. Production CAD remains blocked by the unknown screw contract and incomplete owned machine envelope.
+- Release: `HOLD`
+- Lane: `E`
+- Rationale: The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete.
+- Purpose: Ein einteiliger, bodenloser Umlenker ist mit den beiden vorhandenen Wiper-Schrauben fest am bewegten Purge-Wiper verschraubt, fängt Filamentreste unmittelbar an der Quelle und lässt sie durch einen freien unteren Auslass nach unten fallen.
 
-The third-party 3MF is evidence-only. Its geometry, contours, dimensions,
-images and project metadata are not design inputs.
+This is a retrospective backfill of the currently evidenced repository state.
+Unknown facts were not reconstructed or inferred as measurements.
 
-## Complexity
+## Complexity score rationale
 
-| Dimension | Score | Rationale |
+| Dimension | Score | Evidence-based rationale |
 |---|---:|---|
-| REQ | 2 | The requested architecture is explicit; requirements approval remains open. |
-| CTX | 2 | The exact machine unit and surrounding envelope still require physical confirmation. |
-| PAR | 1 | One printed production part plus inexpensive fit coupons are planned. |
-| INT | 3 | Fastener, machine-envelope and purge-medium boundaries govern success. |
-| CPL | 1 | The one-piece architecture removes intermediate attachment and storage subsystems. |
-| MOT | 2 | The diverter co-moves with the guided Wiper along Z. |
-| GEO | 2 | Conventional printable geometry, but several external datums and keep-outs are unresolved. |
-| PHY | 3 | Screw clamping, vibration, warm purge impact and gravity diversion require physical tests. |
-| MAT | 2 | Printed anisotropy and creep affect the direct screw zone. |
-| EXT | 1 | Only the host and its two existing screws participate. |
-| VER | 3 | Fit, engagement, motion, purge flow, mesh and slicer checks are required. |
+| REQ | 2 | A design specification or requirement record exists, but release criteria may still be incomplete. |
+| CTX | 2 | The use context includes a host, environment, or user variant that must be confirmed. |
+| PAR | 2 | The current evidence exposes approximately 0 distinct geometry-file stems; exports may duplicate physical parts. |
+| INT | 3 | At least one functional host, human, medium, or assembly boundary governs success. |
+| CPL | 2 | Changes can propagate across multiple parts, datums, or functional subsystems. |
+| MOT | 1 | The primary product state is static apart from assembly handling. |
+| GEO | 2 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
+| PHY | 3 | Load, heat, airflow, water, fatigue, or another functional physical domain must be tested. |
+| MAT | 2 | Material behavior, anisotropy, flexibility, surface process, or post-processing affects function. |
+| EXT | 2 | Purchased hardware, printer equipment, electronics, or software participates in the system. |
+| VER | 3 | Several fit, function, flow, load, motion, or process checks are required. |
 
-## Readiness and blockers
+## Readiness
 
 | Component | Level |
 |---|---|
-| Scope and variant | R4 |
-| Requirements | R3 |
-| Critical interfaces | R2 |
-| Manufacturing profile | R3 |
-| Verification | R3 |
+| scope_variant | R3 |
+| requirements | R2 |
+| critical_interfaces | R2 |
+| manufacturing_profile | R3 |
+| verification | R2 |
 
 Blocking unknowns:
 
-- screw thread or shaft diameter, head diameter, head height and current length under head
-- required printed seating thickness and remaining thread engagement
-- owned complete Wiper, bed, rollers, head, cable, tool-access and service envelope
-- approved clean-room concept and physical bottomless purge trajectory
+- variant-confirmed critical interface dimensions, tolerances, and uncertainty
+- measurable acceptance criteria
+
+## Criticality
+
+`K2` — The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.
+
+Credible effects: functional failure, leakage, obstruction, or detachment, minor injury or property damage.
 
 ## Interface register
 
-| Contract | Purpose | Evidence | Criticality | Status |
+| Contract | Interface | Evidence | Criticality | Verification |
 |---|---|---:|---:|---|
-| `IF-EXT-GEO-FST-HLP-001` | Direct fixed two-screw Wiper mount | E2 | K2 | Coupon planned |
-| `IF-INT-FLU-GDE-VOLUME-001` | Bottomless capture and gravity diversion | E1 | K2 | Prototype test planned |
-| `IF-EXT-KIN-CLR-VOLUME-001` | Full moving machine keep-out envelope | E1 | K2 | Outline coupon and motion test planned |
+| `IF-EXT-GEO-CON-MIXED-001` | Printed product to intended host | E2 | K2 | PLANNED |
 
-The independently measured vertical screw pitch is 17 mm. That is the only
-fastener geometry currently admitted as a measured design input. Hole diameter,
-head seat and screw length are deliberately `UNKNOWN` until physically measured.
+The JSON contract records the primary discovered boundary. Because the audit
+does not prove complete interface discovery, G1/G2 remain conservative.
 
 ## Hard gates
 
 | Gate | Status |
 |---|---|
-| G0 purpose | PASS |
-| G1 entities | PASS |
-| G2 critical interfaces | FAIL |
-| G3 complexity | PASS |
-| G4 criticality | PASS |
-| G5 manufacturing context | PASS |
-| G6 maintenance and service | PASS |
+| G0 | PASS |
+| G1 | PASS |
+| G2 | FAIL |
+| G3 | PASS |
+| G4 | WARN |
+| G5 | PASS |
+| G6 | PASS |
 
-## Main failure modes
+## Warnings
 
-| Failure | Effect | Control |
-|---|---|---|
-| Hole, head seat or screw stack does not match | No fit, Wiper distortion, loosening or printed-zone fracture | Caliper measurement plus 17 mm hole-pattern/seating coupon |
-| Added thickness reduces thread engagement | Unreliable original Wiper or accessory retention | Record screw and stack dimensions; verify replacement length if needed |
-| Body enters an omitted machine envelope | Collision or damage | Owned outline coupon and powered-off full-travel/service sweep |
-| Purge catches on internal, honeycomb or logo edges | Backlog or uncontrolled fall | Smooth bottomless section and nine supervised low/mid/high-Z purge cycles |
+- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence.
+
+## Functional FMEA
+
+| Failure | Local/final effect | Detection | Mitigation | Verification |
+|---|---|---|---|---|
+| Primary interface misses fit or functional intent | Loss of function; consequences listed under criticality | Variant measurement, coupon, and controlled prototype inspection | Confirm host/variant, tolerance, uncertainty, keep-outs, and stop conditions | Coupon/prototype test; expert review for K3/K4 |
 
 ## Next evidence
 
-1. Measure screw/shaft diameter, head diameter, head height, current length under head and seating stack; then fit an independently designed 17 mm hole-pattern and outline coupon.
-2. Obtain explicit approval for `0.7.0-requirements.5`, then create a non-dimensional clean-room concept sheet showing the direct holes, bottomless section, open honeycomb walls and centred logo.
-3. After concept approval, implement production CAD and verify the complete powered-off motion/service envelope and physical purge path before print-candidate release.
+1. Confirm the exact product/host variant and complete the primary interface contract. Exit: Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence.
+2. Define measurable acceptance criteria and a minimal coupon/prototype test. Exit: Each critical interface and credible failure mode has a method, threshold, and result-record location.
 
-No CAD, manufacturing 3MF or slicer run is authorized by this preflight.
+## Traceability basis
+
+- `design-spec.yaml`
+- `REQUIREMENTS-PHASE-VALIDATION-R7.json`
+- `COUPON-C01-VALIDATION-R7.json`
+- `CONCEPT-PHASE-VALIDATION-R7.json`
+- `REQUIREMENTS-REVIEW-R7-0.7.0-requirements.5.md`
+- `current/r7-interface-measurement-coupon-c01/README-DE.md`
+- `current/anycubic-kobra3max-purge-catcher-r7/README-DE.md`
+- `current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json`

@@ -1,0 +1,75 @@
+{
+  "id": "IF-EXT-MEC-SUP-PLN-001",
+  "name": "Station support and upright stability on a flat desk",
+  "endpoint_a": "E-PRINT-001",
+  "endpoint_b": "E-DESK-001",
+  "boundary": "EXT",
+  "domains": [
+    "GEO",
+    "MEC"
+  ],
+  "function": "SUP",
+  "geometry": "PLN",
+  "lifecycle_states": [
+    "assembly",
+    "use",
+    "service",
+    "storage"
+  ],
+  "assembly": {
+    "direction": "place the station on its flat stable base",
+    "contact_mode": "gravity-supported planar contact",
+    "sequence_notes": "Use only on a dry, flat indoor desk or shelf."
+  },
+  "loads_and_performance": {
+    "host_load": "one closed memo book; exact physical mass not recorded",
+    "stability_test": "10-degree base tilt after inserting the book"
+  },
+  "environment_and_variation": {
+    "surface": "dry, flat indoor desk or shelf",
+    "friction": "UNKNOWN until the physical test surface is recorded"
+  },
+  "keepouts_and_access": [
+    "Do not claim wall, vehicle, impact, or security retention.",
+    "Do not infer anti-slip performance from geometry alone."
+  ],
+  "evidence": {
+    "level": "E1",
+    "sources": [
+      "business/02-portfolio/research-ideas-r3-variants.csv#SKU-303",
+      "preflight/preflight-input.yaml"
+    ],
+    "variant_confirmed": false,
+    "coverage_percent": 40.0,
+    "uncertainty_note": "The support context and test are specified, but no station geometry, physical desk surface, mass, center of gravity, or stability result exists.",
+    "observability": "INFERRED"
+  },
+  "interface_complexity": {
+    "GEO": 0,
+    "KIN": 0,
+    "TOL": 0,
+    "PHY": 1,
+    "VAR": 1,
+    "LIF": 1,
+    "total": 3,
+    "tier": "I0"
+  },
+  "criticality": "K1",
+  "failure_modes": [
+    {
+      "mode": "The station tips or slides during ordinary placement.",
+      "effect": "The book loses its display position and may receive minor cosmetic damage.",
+      "mitigation": "Preserve a stable base and verify the complete physical prototype on the recorded surface."
+    }
+  ],
+  "verification": {
+    "method": "prototype_test",
+    "acceptance_criteria": [
+      "With one current Original Kraft book inserted, the station remains upright after a 10-degree base tilt."
+    ],
+    "status": "PLANNED",
+    "result_refs": []
+  },
+  "owner": "MM-ORG-040 design lead",
+  "version": "0.1.0"
+}

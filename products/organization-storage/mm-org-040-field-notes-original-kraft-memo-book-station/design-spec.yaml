@@ -1,0 +1,218 @@
+project:
+  id: MM-ORG-040
+  sku: MM-ORG-040
+  name: Field Notes Original Kraft 89 x 140 memo-book station
+  revision: 0.1.0
+  owner: project-owner-via-chat-2026-09-01
+  created: 2026-09-01
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-109
+  product_path: products/organization-storage/mm-org-040-field-notes-original-kraft-memo-book-station
+  research_record: business/02-portfolio/research-ideas-r3-variants.csv#SKU-303
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-ORG-040-0.1.0
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ORG-040-001
+    assessment_version: 0.1.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-01T21:01:51+02:00"
+    change_triggers:
+      - initial_design
+      - portfolio_registration
+      - license_chain_initialization
+  requirements_approval:
+    status: pending
+    reason: Requirements were drafted for traceability only; no approval event was created in this intake phase.
+  concept_approval:
+    status: blocked
+    reason: Requirements are not approved and this phase forbids concept generation.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ORG-040
+    version: 0.1.0
+    reason: No concept or production geometry exists; watermarking remains a later human-controlled release gate.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: Rights, trademark, outgoing-license, market, compliance, physical and human approval gates remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ORG-040
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Register MM-ORG-040 as one new product at revision 0.1.0.
+    - Produce a prospective preflight and linked design contract without concept or CAD.
+    - Use DE seller, DE market, digital-first commercial intake and release ID MM-ORG-040-0.1.0.
+    - Authorize schema 1.1 workflow policy as project-owner-via-chat-2026-09-01, no more permissive than the preflight ceiling.
+  research_evidenced:
+    - One closed Field Notes Original Kraft memo book uses the published 89 x 140 mm planform.
+    - Use two loose desk datums without clamping the spine.
+    - Keep top and spine side open; thickness is not a fit interface.
+    - Use a planning envelope no larger than 175 x 115 x 55 mm.
+    - Use the pinned Kobra 3 Max / SUNLU PETG Black / 0.4 mm hardened-nozzle / 0.20 mm baseline, flat stable base down and support-free, unless a later validated revision supersedes it.
+  inferred:
+    - Adult dry indoor tabletop use is the only intended environment.
+    - The prospective printed station is one custom part with no purchased hardware currently defined.
+  recommended:
+    - Select the exact left- or right-spine orientation during requirements normalization.
+    - Derive loose datum clearance through the two-datum coupon rather than inventing a tolerance now.
+    - Preserve a finger-access removal path and a flat nonfunctional underside region for the later watermark.
+  unresolved:
+    - Exact left/right orientation and optional label treatment
+    - Clearance candidate values and detailed geometry
+    - Direct measurement, book mass, cover condition and physical desk surface
+    - Final outgoing license, seller legal identity, trademark wording and DE sales channel
+
+function:
+  summary: >-
+    A prospective one-piece station registers one closed named memo book against
+    two loose desk datums for repeatable adult indoor writing or display placement.
+  included:
+    - Loose planform registration using the published 89 x 140 mm nominal dimensions
+    - Open top and removal path
+    - Non-clamping treatment of the stapled spine
+    - Stable support on a dry flat desk or shelf
+  excluded:
+    - Other notebook editions or generic compatibility
+    - Thickness-controlled capture
+    - Archival, impact, security, child, wall, vehicle, or regulated use
+  interfaces:
+    - preflight/interfaces/IF-EXT-GEO-LOC-EDGE-001.json
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+
+dimensions:
+  host_planform_mm:
+    width: 89
+    length: 140
+    status: official-nominal
+    source: business/02-portfolio/research-idea-sources-additions.csv#S40
+  host_thickness:
+    status: excluded-from-fit-interface
+  planning_envelope_ceiling_mm: [175, 115, 55]
+  design_clearances:
+    status: unresolved-until-coupon-plan
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Dry adult tabletop use only.
+  hazards:
+    - Binding or marking the book at a datum
+    - Tipping or sliding during placement
+    - Sharp or rough printed contact edges
+  controls:
+    - Loose non-clamping datums and open removal path
+    - Two-datum measurement coupon
+    - Physical insertion, marking and 10-degree stability tests
+    - No release claim before physical and human gates pass
+
+fabrication:
+  preference: balanced-hybrid
+  preference_basis: Default selected because the product owner did not select a fabrication preference; no purchased hardware is currently planned.
+  process: FDM/FFF
+  parts_status: No concept, decomposition, CAD or geometry exists.
+  release_scope: Digital first only after physical qualification and commercial clearance.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: flat stable base down
+  supports: none planned
+  profiles:
+    machine:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json
+      sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+    process:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json
+      sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
+    filament:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json
+      sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+
+optimization:
+  status: pending
+  rationale: No geometry or slicer baseline exists in this preflight-only phase.
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - book contact datums
+      - desk-support plane
+      - finger-access path
+      - future watermark safe region
+    rationale: No master or manufacturing mesh exists.
+
+acceptance:
+  - id: AC-DATUM-001
+    criterion: All source-defined datum features on the coupon measure within 0.30 mm of their specified values.
+    method: Dimensional measurement of the two-datum coupon.
+    status: planned
+  - id: AC-FIT-001
+    criterion: One current Original Kraft book inserts and removes without force.
+    method: Physical coupon/prototype test.
+    status: planned
+  - id: AC-STABILITY-001
+    criterion: The inserted book remains upright after a 10-degree base tilt.
+    method: Physical prototype test on a recorded dry flat surface.
+    status: planned
+  - id: AC-MARKING-001
+    criterion: No visible mark appears on the book after 20 insertion/removal cycles.
+    method: Before/after visual inspection under recorded lighting.
+    status: planned
+
+deliverables:
+  current:
+    - PURPOSE.md
+    - decision-log.md
+    - design-spec.yaml
+    - preflight/preflight-input.yaml
+    - preflight/preflight-result.json
+    - preflight/preflight-report.md
+    - preflight/interfaces/IF-EXT-GEO-LOC-EDGE-001.json
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+    - commercial-clearance/
+    - autonomy-policy.json
+  forbidden_in_this_phase:
+    - concept images
+    - CAD or source geometry
+    - STEP, STL, OBJ, GLB, 3MF, or G-code
+    - printer upload or print start
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-109
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-303
+    - business/02-portfolio/research-idea-sources-additions.csv#S40
+    - business/02-portfolio/research-r3-process-baseline.json
+    - commercial-clearance/project.json
+    - commercial-clearance/01-sources/source-register.csv
+    - commercial-clearance/02-tools/tool-register.csv
+    - commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md
+    - commercial-clearance/08-approvals/release-approval.json

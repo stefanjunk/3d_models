@@ -1,0 +1,389 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ORG-040-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-09-01",
+  "product": "Field Notes Original Kraft 89 x 140 memo-book station",
+  "scope": {
+    "intended_use": "Register one closed Field Notes Original Kraft memo book against two loose, non-clamping desk datums for repeatable adult indoor writing or display placement.",
+    "user_context": "Adult use on a dry, flat indoor desk or shelf; digital-first product planning with physical fit and stability qualification required before an offer.",
+    "variants": [
+      "Field Notes Original Kraft memo book with published 89 x 140 mm planform",
+      "left- or right-spine orientation remains a requirements parameter using the same named planform"
+    ],
+    "out_of_scope": [
+      "Other Field Notes editions or unnamed notebooks",
+      "Thickness-controlled capture or clamping the stapled spine",
+      "Archival, impact-protection, security, child-use, wall-use, or vehicle-use claims",
+      "Commercial release before rights, trademark, market, compliance, physical and human approval gates close"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Prospective one-piece memo-book station"
+    },
+    {
+      "id": "E-BOOK-001",
+      "kind": "HOST_OBJECT",
+      "name": "One current Field Notes Original Kraft memo book"
+    },
+    {
+      "id": "E-DESK-001",
+      "kind": "HOST_OBJECT",
+      "name": "Dry flat indoor desk or shelf"
+    },
+    {
+      "id": "E-HUMAN-001",
+      "kind": "HUMAN",
+      "name": "Adult user inserting and removing the book"
+    },
+    {
+      "id": "E-PROCESS-001",
+      "kind": "ENVIRONMENT",
+      "name": "Pinned Kobra 3 Max / SUNLU PETG Black FFF research baseline"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-LOC-EDGE-001",
+      "name": "Named memo-book planform to two loose station datums",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-BOOK-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "LOC",
+      "geometry": "EDGE",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "intersection of the two planned loose datum contact lines on the station base",
+        "x_positive": "across the closed book's published 89 mm planform dimension",
+        "y_positive": "along the closed book's published 140 mm planform dimension",
+        "z_positive": "up from the station's planned desk-support plane",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "planned loose short-edge datum"
+        },
+        {
+          "id": "B",
+          "description": "planned loose side datum; left/right spine orientation remains a requirements parameter"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "positive-z removal",
+          "clearance motion away from both loose datums"
+        ],
+        "constrained": [
+          "negative-x translation at datum A during use",
+          "negative-y translation at datum B during use"
+        ]
+      },
+      "assembly": {
+        "direction": "from above without flexing or clamping the book",
+        "contact_mode": "loose two-datum edge contact",
+        "sequence_notes": "Keep the top and spine side open; do not use thickness as a fit interface."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-BOOK-X-001",
+          "feature": "published closed-book planform width",
+          "nominal_mm": 89.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S40",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-BOOK-Y-001",
+          "feature": "published closed-book planform length",
+          "nominal_mm": 140.0,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S40",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry adult indoor tabletop",
+        "uncontrolled": [
+          "cover bow",
+          "corner wear",
+          "physical manufacturing variation",
+          "future edition changes"
+        ],
+        "excluded_from_fit": [
+          "book thickness",
+          "spine compression"
+        ]
+      },
+      "keepouts_and_access": [
+        "Do not clamp or load the stapled spine.",
+        "Keep the top and removal path open.",
+        "Provide finger access without relying on an unverified book thickness."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "business/02-portfolio/research-idea-sources-additions.csv#S40",
+          "business/02-portfolio/research-ideas-r3-variants.csv#SKU-303",
+          "commercial-clearance/01-sources/source-register.csv#SRC-0001",
+          "commercial-clearance/01-sources/source-register.csv#SRC-0002"
+        ],
+        "variant_confirmed": true,
+        "coverage_percent": 70.0,
+        "uncertainty_note": "The named variant and published planform are identified, but no independent measurement or physical fit exists; cover bow, wear and edition changes remain test variables.",
+        "observability": "OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 1,
+        "PHY": 0,
+        "VAR": 1,
+        "LIF": 1,
+        "total": 5,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "The physical book binds, rocks, or is marked at a datum.",
+          "effect": "The station fails its placement function or cosmetically marks a low-value host item.",
+          "mitigation": "Derive clearance only after a two-datum coupon and 20-cycle physical fit/marking test on one current book."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "All source-defined datum features on the coupon measure within 0.30 mm of their specified values.",
+          "One current Original Kraft book inserts and removes without force.",
+          "No visible mark appears after 20 insertion/removal cycles."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-040 design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-EXT-MEC-SUP-PLN-001",
+      "name": "Station support and upright stability on a flat desk",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-DESK-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "service",
+        "storage"
+      ],
+      "assembly": {
+        "direction": "place the station on its flat stable base",
+        "contact_mode": "gravity-supported planar contact",
+        "sequence_notes": "Use only on a dry, flat indoor desk or shelf."
+      },
+      "loads_and_performance": {
+        "host_load": "one closed memo book; exact physical mass not recorded",
+        "stability_test": "10-degree base tilt after inserting the book"
+      },
+      "environment_and_variation": {
+        "surface": "dry, flat indoor desk or shelf",
+        "friction": "UNKNOWN until the physical test surface is recorded"
+      },
+      "keepouts_and_access": [
+        "Do not claim wall, vehicle, impact, or security retention.",
+        "Do not infer anti-slip performance from geometry alone."
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "business/02-portfolio/research-ideas-r3-variants.csv#SKU-303",
+          "preflight/preflight-input.yaml"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 40.0,
+        "uncertainty_note": "The support context and test are specified, but no station geometry, physical desk surface, mass, center of gravity, or stability result exists.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 0,
+        "KIN": 0,
+        "TOL": 0,
+        "PHY": 1,
+        "VAR": 1,
+        "LIF": 1,
+        "total": 3,
+        "tier": "I0"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "The station tips or slides during ordinary placement.",
+          "effect": "The book loses its display position and may receive minor cosmetic damage.",
+          "mitigation": "Preserve a stable base and verify the complete physical prototype on the recorded surface."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "With one current Original Kraft book inserted, the station remains upright after a 10-degree base tilt."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-040 design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 1,
+      "CTX": 1,
+      "PAR": 1,
+      "INT": 1,
+      "CPL": 0,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 0,
+      "MAT": 1,
+      "EXT": 1,
+      "VER": 1
+    },
+    "score_0_100": 17.5,
+    "class": "C1",
+    "drivers": [
+      "The 89 x 140 mm named-host planform is a fit-critical interface that still needs an independent measurement and coupon.",
+      "The physical station must balance loose fit, non-marking contact and tabletop stability without clamping the spine.",
+      "Verification needs a dimensional coupon plus insertion, marking and 10-degree stability tests on one current physical book."
+    ]
+  },
+  "readiness": {
+    "level": "R3",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R3",
+      "critical_interfaces": "R3",
+      "manufacturing_profile": "R3",
+      "verification": "R3"
+    },
+    "blocking_unknowns": [
+      "Independent measurement of one current Original Kraft book is not recorded.",
+      "Cover bow, corner wear, edition variation and the selected design clearance are not physically characterized.",
+      "No coupon, prototype, insertion-cycle, marking or 10-degree stability result exists.",
+      "Seller legal identity, source/tool terms evidence, trademark review, outgoing license, DE market/compliance review and commercial approvals remain UNKNOWN/BLOCK."
+    ],
+    "completeness_percent": 70.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "Within the explicitly limited dry adult tabletop scope, credible failures are loss of organization, a reprint, minor book marking, or a low-energy tip; no structural, vehicle, wall, child, archival, security or regulated claim is permitted.",
+    "credible_failure_effects": [
+      "The book binds or cannot be removed comfortably.",
+      "A contact datum leaves a visible cosmetic mark.",
+      "The station tips or slides and the book loses its display position."
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "B",
+    "confidence": "CONDITIONAL",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "The exact named planform, limited use, two interfaces, pinned FFF baseline and measurable coupon/prototype tests support parametric fit work. Requirements normalization, concept, clearance selection, coupon and physical fit/stability evidence remain mandatory; this decision does not authorize commercial or physical release."
+  },
+  "warnings": [
+    {
+      "code": "PHYSICAL_VALIDATION_OPEN",
+      "severity": "WARN",
+      "message": "No independent book measurement, coupon, prototype, marking test or stability result exists."
+    },
+    {
+      "code": "COMMERCIAL_RIGHTS_OPEN",
+      "severity": "BLOCKER",
+      "message": "The digital commercial release remains blocked by UNKNOWN source/tool/trademark/outgoing-license/market approvals even though controlled design work may proceed."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Normalize and approve revision 0.1.0 requirements, including the left/right spine orientation and loose-clearance strategy, under the current hash-bound autonomy policy.",
+      "exit_criterion": "The requirements stage is approved by its assigned policy authority with no unresolved consequential interface choice."
+    },
+    {
+      "priority": 2,
+      "action": "Create and approve a concept in a later design phase without treating it as dimensional evidence.",
+      "exit_criterion": "The concept maps visible features to the approved requirements and its assigned approval gate passes."
+    },
+    {
+      "priority": 3,
+      "action": "Print the two-datum corner coupon and test one current Original Kraft book on the pinned process baseline.",
+      "exit_criterion": "Datum measurements are within 0.30 mm; insertion/removal is force-free; the book remains upright after a 10-degree base tilt; and no visible mark appears after 20 cycles."
+    },
+    {
+      "priority": 4,
+      "action": "Complete source/tool/trademark/outgoing-license/DE-market reviews and authorized commercial approvals.",
+      "exit_criterion": "Every applicable commercial-clearance gate is evidenced and no BLOCK remains for release MM-ORG-040-0.1.0."
+    }
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-ORG-040",
+    "project_revision": "0.1.0",
+    "basis_refs": [
+      "business/02-portfolio/product-portfolio.csv#PORT-109",
+      "business/02-portfolio/research-ideas-r3-variants.csv#SKU-303",
+      "business/02-portfolio/research-idea-sources-additions.csv#S40",
+      "business/02-portfolio/research-r3-process-baseline.json",
+      "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json",
+      "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json",
+      "products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json",
+      "commercial-clearance/project.json",
+      "commercial-clearance/01-sources/source-register.csv",
+      "commercial-clearance/02-tools/tool-register.csv",
+      "commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md",
+      "commercial-clearance/08-approvals/release-approval.json",
+      "preflight/interfaces/IF-EXT-GEO-LOC-EDGE-001.json",
+      "preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json"
+    ],
+    "change_triggers": [
+      "initial_design",
+      "portfolio_registration",
+      "license_chain_initialization"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-01T21:01:51+02:00",
+    "updated_at": "2026-09-01T21:01:51+02:00"
+  }
+}

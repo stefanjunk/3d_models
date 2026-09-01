@@ -1,69 +1,53 @@
-product: NameForm letter-dominant split-pair bookends
-intended_use: >
-  Coordinated indoor left/right bookends whose visible front facade is made from
-  large, tightly spaced wood-textured glyphs. A recessed rear web only connects
-  the glyphs; the retained side blade and inward foot carry the book row.
-user_context: Adult indoor use on a flat shelf or desk; requested MA | RITA pair.
+product: Nameform Split Pair Bookends
+intended_use: A coordinated pair of distinct left and right bookends. Books stand between the two ends along X.
+  Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing
+  letter-dominant facade without a rectangular wing. The left and right text halves read as one name from the front;
+  neither text half is mirrored. A recessed rear web only joins the glyphs; the side blade and foot retain the book
+  load independently of the decorative glyphs.
+user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
+  release state remain limited to cited evidence.
 host_variant:
-  manufacturer: Anycubic
-  model: Kobra 3 Max
+  manufacturer: null
+  model: null
   revision: null
-  variant_confirmed: true
+  variant_confirmed: false
 lifecycle_states:
-  - transport
-  - assembly
-  - use
-  - cleaning
-  - service
-  - disassembly
-  - storage
-  - failure
+- transport
+- assembly
+- use
+- cleaning
+- service
+- disassembly
+- storage
+- failure
 requirements:
-  - Use candidate C as the glyph-front wood appearance basis.
-  - Replace the rectangular front wing with large freestanding glyphs.
-  - Keep glyph gaps visible and the rear connector barely visible from the front.
-  - Preserve the retained side-blade and inward-foot book load path.
-  - Requirements 0.4.1 are approved; do not enter production CAD before concept approval.
-  - Use 12.0 mm glyph depth and a 4.0 mm rear connector starting 10.0 mm behind the front datum.
-  - Preserve at least 2.0 mm positive glyph/connector overlap and 12.0 mm local bridge bands.
-  - Keep counters open and finished glyph gaps at or above 1.2 mm without a rectangular front panel.
+- Preserve the explicit purpose within the cited scope.
+- Close every blocking preflight gate before production release.
 known_components:
-  - Mirrored side-blade and inward-foot functional core
-  - Fused glyph facade and recessed rear connector web
-  - Representative book row
-  - Flat shelf or desk
+- Nameform Split Pair Bookends
+- Intended host object or storage envelope
 available_evidence:
-  - design-spec.yaml
-  - source/v0.3.0/nameform_bookends.py
-  - validation/v0.3.0/interface-validation.json
-  - validation/v0.3.0/stiffness-comparison.json
-  - test-plan.yaml
-  - coupons/wood-texture-transfer-v0.2.0/README.md
-  - coupons/wood-texture-transfer-v0.2.0/transfer-spec.json
-  - coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md
-  - coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json
-  - coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json
-  - concept/nameform-bookends-v0.4.1-reinforced-concept.png
-  - concept/nameform-bookends-v0.4.1-reinforced-concept.md
-  - validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md
+- design-spec.yaml
+- README.md
+- validation-project.locked.json
+- validation-project.json
+- print-profile-v0.3.0.json
+- test-plan.yaml
+- validation/v0.4.0/README.md
+- coupons/wood-texture-transfer-v0.2.0/README.md
 manufacturing_profile:
-  printer: Anycubic Kobra 3 Max
+  printer: 'operator_model: "anycubic kobra 3 max'
   process: FDM/FFF
   nozzle_mm: 0.4
-  material: PETG family; exact product/color/batch unknown
-  layer_height_mm: 0.12
+  material: PETG
   orientation_known: true
 known_loads_environment:
-  loads:
-    - 2.0 kg representative static book row
-  temperature_c: [10, 30]
+  loads: []
+  temperature_c: null
   media: []
-  duration: years with occasional repositioning
+  duration: null
 safety_notes:
-  - Credible failure is K1: appearance or book-retaining function loss with limited property damage.
-  - The decorative glyph facade is not part of the primary book-load claim.
+- Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy
+  in the documented scope.
 interfaces:
-  - IF-EXT-MEC-SUP-PLN-001
-  - IF-EXT-MEC-LOD-PLN-002
-  - IF-INT-MEC-FST-EDGE-001
-  - IF-HUM-OPT-VIS-BODY-001
+- IF-EXT-GEO-CON-MIXED-001

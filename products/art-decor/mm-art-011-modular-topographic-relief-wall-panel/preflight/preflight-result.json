@@ -1,117 +1,230 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-011-002",
-  "assessment_version": "0.2.0",
+  "assessment_id": "PREFLIGHT-MM-ART-011-001",
+  "assessment_version": "0.1.0",
   "assessment_date": "2026-08-31",
-  "product": "MM-ART-011 permanent Harz and Rhenish topographic wall reliefs",
+  "product": "Permanent One Off Topographic Relief Wall Panel",
   "scope": {
-    "intended_use": "Two unique 600 x 400 mm indoor decorative terrain artworks, each produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections.",
-    "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
-    "variants": ["Harz Moss and Stone one-off", "Rhenish Industrial Earth one-off"],
-    "out_of_scope": ["Wall anchors, electrical equipment, outdoor use, survey/navigation/planning/mine-safety claims, repeated disassembly, and universal load rating"]
+    "intended_use": "Two unique permanent 600 x 400 mm topographic wall artworks: Harz and the Rheinisches Braunkohlerevier. Each one-off is printed as two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo and permanently joined into one non-serviceable relief using concealed one-way printed connectors. Local connector springs and isolated snap-in hanger/standoff parts provide assembly and an 18 mm halo cavity without a rear grid. Selected terrain-derived paths pass optional customer-added light through the visible face.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "variants": [
+      "0.3.0"
+    ],
+    "out_of_scope": [
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
+    ]
   },
   "entities": [
-    {"id": "E-PANEL-L", "kind": "PRINTED_PART", "name": "Left four-color terrain main half"},
-    {"id": "E-PANEL-R", "kind": "PRINTED_PART", "name": "Right four-color terrain main half"},
-    {"id": "E-CONNECT", "kind": "PRINTED_PART", "name": "Three concealed one-way loose connector springs"},
-    {"id": "E-MOUNT", "kind": "PRINTED_PART", "name": "Local snap-in hanger and standoff set"},
-    {"id": "E-WALL", "kind": "HOST_OBJECT", "name": "Customer wall and installer-selected anchors"},
-    {"id": "E-LED", "kind": "PURCHASED_PART", "name": "Optional customer-supplied LED system"},
-    {"id": "E-DATA", "kind": "SOFTWARE", "name": "Frozen 16-bit terrain source and transform"},
-    {"id": "E-HUMAN", "kind": "HUMAN", "name": "Adult assembler, installer, and viewer"}
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Permanent One Off Topographic Relief Wall Panel"
+    },
+    {
+      "id": "E-ENV-001",
+      "kind": "ENVIRONMENT",
+      "name": "Display or use surface"
+    }
   ],
   "interfaces": [
     {
-      "id": "IF-INT-MEC-FST-SNAP-001",
-      "name": "Glue-free one-way center-seam connector system",
-      "endpoint_a": "E-CONNECT",
-      "endpoint_b": "E-PANEL-L and E-PANEL-R",
-      "boundary": "INT",
-      "domains": ["GEO", "MEC", "KIN"],
-      "function": "FST",
-      "geometry": "SNAP",
-      "lifecycle_states": ["transport", "assembly", "use", "failure"],
-      "assembly": {"direction": "Connector inserted into the first seam-edge pocket, then the halves are pressed together in panel X.", "contact_mode": "Three loose one-way spring/tenon connectors plus discrete seam locating lands.", "sequence_notes": "One assembly cycle; removal is not a service requirement and may be destructive."},
-      "keepouts_and_access": ["Continuous terrain samples", "light-through openings", "LED/cable envelope", "watermark and attribution lands"],
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.3.0.md", "decision-log.md"], "variant_confirmed": true, "coverage_percent": 45, "uncertainty_note": "Topology and lifecycle intent are approved; exact connector dimensions, clearance, retention and warp response require CAD and a process-matched coupon.", "observability": "INFERRED"},
-      "interface_complexity": {"GEO": 2, "KIN": 2, "TOL": 3, "PHY": 1, "VAR": 2, "LIF": 4, "total": 14, "tier": "I3"},
-      "criticality": "K2",
-      "failure_modes": [{"mode": "Connector is too tight, too loose, fractures, or permits a terrain seam step", "effect": "Assembly failure, damaged one-off panel, visible height discontinuity, or separation during handling", "mitigation": "Parametric multi-clearance coupon, in-plane spring orientation, three distributed connectors, locked seam samples, and assembled handling/proof test"}],
-      "verification": {"method": "test_coupon", "acceptance_criteria": ["At least one coupon variant assembles once without crack or whitening, holds the two seam strips flush, and resists the defined pull/step checks."], "status": "PLANNED", "result_refs": []},
-      "owner": "MM-ART-011 parametric seam skeleton",
-      "version": "0.1"
-    },
-    {
-      "id": "IF-INT-DAT-CON-VOLUME-001",
-      "name": "Frozen 16-bit global terrain field controls both seam-locked halves",
-      "endpoint_a": "E-DATA",
-      "endpoint_b": "E-PANEL-L and E-PANEL-R",
-      "boundary": "INT",
-      "domains": ["DAT", "GEO"],
-      "function": "DAT",
-      "geometry": "VOLUME",
-      "lifecycle_states": ["calibration", "assembly", "use"],
-      "keepouts_and_access": ["No independent half normalization", "seam vertices protected from simplification", "color bands do not replace height data"],
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "briefs/HARZ_HEIGHTFIELD.md", "briefs/RHENISH_HEIGHTFIELD.md"], "variant_confirmed": false, "coverage_percent": 40, "uncertainty_note": "Source routes are selected, but exact frozen acquisitions, hashes, masters and transforms do not yet exist.", "observability": "INFERRED"},
-      "interface_complexity": {"GEO": 3, "KIN": 0, "TOL": 2, "PHY": 0, "VAR": 2, "LIF": 2, "total": 9, "tier": "I2"},
-      "criticality": "K1",
-      "failure_modes": [{"mode": "Halves use different normalization, sampling, source state, or seam simplification", "effect": "Visible terrain discontinuity, distortion, or unrebuildable product", "mitigation": "Immutable global 16-bit master, one transform per pilot, seam-locked samples, hashes and comparison gates"}],
-      "verification": {"method": "analysis", "acceptance_criteria": ["Both halves share one hash-bound master/transform and pass physical-aspect, seam-height and reference/manufacturing comparison limits."], "status": "PLANNED", "result_refs": []},
-      "owner": "MM-ART-011 terrain pipeline",
-      "version": "0.1"
-    },
-    {
-      "id": "IF-EXT-MEC-SUP-MIXED-001",
-      "name": "Local hanger and standoffs support each terrain artwork at the wall",
-      "endpoint_a": "E-MOUNT",
-      "endpoint_b": "E-WALL",
-      "boundary": "EXT",
-      "domains": ["GEO", "MEC"],
+      "id": "IF-ENV-GEO-SUP-PLN-001",
+      "name": "Printed product to display or use surface",
+      "endpoint_b": "E-ENV-001",
+      "boundary": "ENV",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
       "function": "SUP",
-      "geometry": "MIXED",
-      "lifecycle_states": ["assembly", "use", "failure"],
-      "loads_and_performance": {"load": "assembled artwork self-weight; exact mass and proof factor unknown until CAD/slicer evidence", "load_path": "each main half receives its own upper support so the center seam is not the primary gravity path"},
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.3.0.md"], "variant_confirmed": false, "coverage_percent": 35, "uncertainty_note": "Wall substrate, anchors, exact part mass, connector geometry and physical proof result are unknown.", "observability": "INFERRED"},
-      "interface_complexity": {"GEO": 2, "KIN": 1, "TOL": 2, "PHY": 2, "VAR": 3, "LIF": 2, "total": 12, "tier": "I3"},
+      "geometry": "PLN",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
+      ],
+      "dimensions": [
+        {
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
+          "lower_mm": null,
+          "upper_mm": null,
+          "clearance_mm": null,
+          "uncertainty_mm": null,
+          "status": "UNKNOWN",
+          "source_ref": "design-spec.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "design-spec.yaml",
+          "README.md",
+          "autonomy-policy-validation.json",
+          "source-data/v0.3.0/rhenish/README.md",
+          "source-data/v0.3.0/harz/README.md",
+          "assets/metrimade-watermark/design-spec.yaml",
+          "assets/metrimade-watermark/README.md",
+          "validation/v0.3.0/watermark-placement-candidate.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
+        "observability": "PARTLY_OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 3,
+        "TOL": 2,
+        "PHY": 2,
+        "VAR": 0,
+        "LIF": 3,
+        "total": 12,
+        "tier": "I3"
+      },
       "criticality": "K2",
-      "failure_modes": [{"mode": "Hanger, snap socket, anchor, or substrate fails", "effect": "Artwork falls and may cause injury or property damage", "mitigation": "Exclude universal anchors, provide independent support per half, qualify the printed interface, and require substrate-appropriate installation"}],
-      "verification": {"method": "proof_load", "acceptance_criteria": ["The complete printed hanger/standoff system survives the documented mass-based proof load without crack, disengagement, or permanent set; wall-anchor selection remains installer controlled."], "status": "PLANNED", "result_refs": []},
-      "owner": "MM-ART-011 local mounting-interface owner",
-      "version": "0.1"
-    },
-    {
-      "id": "IF-EXT-THM-CLR-VOLUME-001",
-      "name": "Optional customer LED system remains inside open rear keep-outs",
-      "endpoint_a": "E-LED",
-      "endpoint_b": "E-PANEL-L and E-PANEL-R",
-      "boundary": "EXT",
-      "domains": ["GEO", "THM", "ELE", "OPT"],
-      "function": "CLR",
-      "geometry": "VOLUME",
-      "lifecycle_states": ["assembly", "use", "service", "failure"],
-      "keepouts_and_access": ["18 mm open wall gap", "12 x 4 mm strip keep-out", "6 x 4 mm cable route", "ventilation around unsupplied low-power lighting"],
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml"], "variant_confirmed": false, "coverage_percent": 40, "uncertainty_note": "The customer LED product, power, temperature, adhesive and wiring remain unknown and outside the product claim.", "observability": "INFERRED"},
-      "interface_complexity": {"GEO": 2, "KIN": 1, "TOL": 1, "PHY": 3, "VAR": 3, "LIF": 3, "total": 13, "tier": "I3"},
-      "criticality": "K2",
-      "failure_modes": [{"mode": "Oversized or hot lighting conflicts with printed parts or overheats the open cavity", "effect": "Poor lighting, softened plastic, wiring damage, or fire risk from customer equipment", "mitigation": "Mechanical preparation only, open ventilation, declared generic envelope, and no electrical compatibility or safety claim"}],
-      "verification": {"method": "test_coupon", "acceptance_criteria": ["A passive envelope gauge passes through all declared routes and the unlit artwork remains fully functional."], "status": "PLANNED", "result_refs": []},
-      "owner": "Customer for electrical system; MM-ART-011 for passive keep-outs",
+      "failure_modes": [
+        {
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product owner",
       "version": "0.1"
     }
   ],
-  "complexity": {"dimension_scores": {"REQ": 3, "CTX": 1, "PAR": 3, "INT": 3, "CPL": 3, "MOT": 1, "GEO": 3, "PHY": 1, "MAT": 3, "EXT": 1, "VER": 3}, "score_0_100": 59.0, "class": "C3", "drivers": ["Fit-sensitive concealed one-way seam and snap-in mount interfaces", "Coupling of immutable terrain data, dense mesh, color bands, center seam and lighting cutters", "Four-color large-format manufacturing plus relief, fit, proof-load and appearance verification"]},
-  "readiness": {"level": "R2", "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R2", "manufacturing_profile": "R2", "verification": "R2"}, "blocking_unknowns": ["Exact connector and snap clearances for the selected filament/profile", "Exact frozen DEM acquisitions, hashes and pilot transforms", "Exact filament products, batches, conditioning and Anycubic profiles", "As-built mass, wall-anchor/substrate selection and physical proof-load result"], "completeness_percent": 62.0},
-  "criticality": {"level": "K2", "rationale": "The reliefs are decorative, but failed printed wall interfaces or unsuitable customer lighting have credible injury, property-damage, or heat consequences and therefore require controlled tests.", "credible_failure_effects": ["Falling artwork", "Damaged one-off assembly or sharp terrain fragments", "Customer-lighting heat or wiring conflict", "Misleading terrain if provenance/exaggeration is omitted"]},
-  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
-  "decision": {"lane": "C", "confidence": "LOW_UNKNOWN", "design_release": "GO_WITH_CONTROLS", "rationale": "Proceed through concept approval, then coupon-first interface CAD and immutable global relief pipelines. Production/release remains blocked until exact data/profile, connector fit, assembled load behavior and human appearance review are evidenced."},
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 0,
+      "CTX": 0,
+      "PAR": 4,
+      "INT": 2,
+      "CPL": 2,
+      "MOT": 3,
+      "GEO": 2,
+      "PHY": 2,
+      "MAT": 1,
+      "EXT": 3,
+      "VER": 2
+    },
+    "score_0_100": 51.5,
+    "class": "C3",
+    "drivers": [
+      "PAR=4: The current evidence exposes approximately 45 distinct geometry-file stems; exports may duplicate physical parts.",
+      "INT=2: At least one functional host, human, medium, or assembly boundary governs success.",
+      "MOT=3: The purpose or evidence includes repeated motion, flexure, or a guided mechanism."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R2",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "complete printer/material/nozzle/orientation/process-profile set",
+      "measurable acceptance criteria"
+    ],
+    "completeness_percent": 44.0
+  },
+  "criticality": {
+    "level": "K2",
+    "rationale": "The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.",
+    "credible_failure_effects": [
+      "functional failure",
+      "leakage, obstruction, or detachment",
+      "minor injury or property damage"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "FAIL",
+    "G4": "WARN",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+  },
   "warnings": [
-    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The one-way connector and snap-in mounting interfaces have no exact process-qualified clearance or physical result."},
-    {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "Concealed seam pockets must remain printable in the face-up terrain orientation and must not create unsupported roofs or terrain read-through."},
-    {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "Test methods are selected, but numeric pull, step, insertion-force and proof-load thresholds must be fixed after mass and coupon geometry exist."}
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    },
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "BLOCKER",
+      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
+    },
+    {
+      "code": "DYNAMIC_OR_FATIGUE_LOAD",
+      "severity": "WARN",
+      "message": "Repeated motion, flexure, vibration, or dynamic contact needs cycle and failure testing."
+    }
   ],
   "next_actions": [
-    {"priority": 1, "action": "Approve a replacement concept showing two permanent halves, concealed one-way connectors, local snap-in standoffs and no rear grid.", "exit_criterion": "Human concept approval references revision 0.3.0 and the stored concept artifact."},
-    {"priority": 2, "action": "Generate a multi-clearance seam/connector coupon before full terrain CAD.", "exit_criterion": "At least one process-matched coupon variant meets assembly, crack/whitening, flushness and pull/step acceptance."},
-    {"priority": 3, "action": "Freeze each DEM source/master and qualify the local hanger/standoff sockets and complete artwork proof load.", "exit_criterion": "Hash-bound terrain gates and recorded physical mounting tests pass in the exact production scope."}
+    {
+      "priority": 1,
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+    },
+    {
+      "priority": 2,
+      "action": "Record the exact manufacturing profile.",
+      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
+    },
+    {
+      "priority": 3,
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+    }
   ],
-  "traceability": {"mode": "PROSPECTIVE", "project_id": "MM-ART-011", "project_revision": "0.3.0", "basis_refs": ["design-spec.yaml", "requirements-review-0.3.0.md", "decision-log.md", "autonomy-policy.json", "briefs/HARZ_HEIGHTFIELD.md", "briefs/RHENISH_HEIGHTFIELD.md"], "change_triggers": ["user_approved_glue_free_one_way_connectors"], "previous_assessment_id": "PREFLIGHT-MM-ART-011-001", "created_at": "2026-08-31T16:44:58+02:00", "updated_at": "2026-08-31T16:44:58+02:00"}
+  "traceability": {
+    "mode": "RETROSPECTIVE",
+    "project_id": "MM-ART-011",
+    "project_revision": "0.3.0",
+    "basis_refs": [
+      "design-spec.yaml",
+      "README.md",
+      "autonomy-policy-validation.json",
+      "source-data/v0.3.0/rhenish/README.md",
+      "source-data/v0.3.0/harz/README.md",
+      "assets/metrimade-watermark/design-spec.yaml",
+      "assets/metrimade-watermark/README.md",
+      "validation/v0.3.0/watermark-placement-candidate.json"
+    ],
+    "change_triggers": [
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
+  }
 }

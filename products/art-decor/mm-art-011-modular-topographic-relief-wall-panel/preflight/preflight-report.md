@@ -1,30 +1,101 @@
-# Prospective 3D-design preflight — MM-ART-011 terrain pilots
+# Retrospective 3D-design preflight — Permanent One Off Topographic Relief Wall Panel
 
-`Harz/Rhenish wall reliefs | C3 (59.0/100) | R2 | K2 | Lane C | LOW_UNKNOWN`
+`Permanent One Off Topographic Relief Wall Panel | C3 (51.5/100) | R2 | K2 | Lane E | LOW_UNKNOWN`
 
 ## Decision
 
-- Design route: `GO_WITH_CONTROLS` through concept approval, coupon-first interface CAD and immutable global relief pipelines.
-- Release remains blocked until exact terrain sources, filament/profile evidence, connector/snap coupons, assembled proof testing and human appearance review pass.
-- This prospective reassessment follows the approved connector-interface change and governs the next concept/CAD work; no historical measurement was inferred.
+- Release: `HOLD`
+- Lane: `E`
+- Rationale: The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete.
+- Purpose: Two unique permanent 600 x 400 mm topographic wall artworks: Harz and the Rheinisches Braunkohlerevier. Each one-off is printed as two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo and permanently joined into one non-serviceable relief using concealed one-way printed connectors. Local connector springs and isolated snap-in hanger/standoff parts provide assembly and an 18 mm halo cavity without a rear grid. Selected terrain-derived paths pass optional customer-added light through the visible face.
 
-## Main drivers and interfaces
+This is a retrospective backfill of the currently evidenced repository state.
+Unknown facts were not reconstructed or inferred as measurements.
 
-- Fit-sensitive concealed one-way center connectors and snap-in local wall standoffs.
-- Coupled immutable 16-bit terrain data, dense meshes, four Z-color bands, one seam and protected lighting apertures.
-- Four-color large-format FDM plus relief, connector, mounting, light and appearance tests.
+## Complexity score rationale
 
-| Interface | Evidence | Criticality | Planned evidence |
-|---|---:|---:|---|
-| Glue-free one-way center seam | E1 | K2 | multi-clearance connector coupon |
-| Global terrain master to both halves | E1 | K1 | hash/transform and seam-height reports |
-| Local hanger/standoffs to wall | E1 | K2 | socket coupon and assembled proof load |
-| Optional customer LED keep-outs | E1 | K2 | passive envelope/light gauge |
+| Dimension | Score | Evidence-based rationale |
+|---|---:|---|
+| REQ | 0 | A design specification or requirement record exists, but release criteria may still be incomplete. |
+| CTX | 0 | The documented use is a narrow decorative or static context. |
+| PAR | 4 | The current evidence exposes approximately 45 distinct geometry-file stems; exports may duplicate physical parts. |
+| INT | 2 | At least one functional host, human, medium, or assembly boundary governs success. |
+| CPL | 2 | Changes can propagate across multiple parts, datums, or functional subsystems. |
+| MOT | 3 | The purpose or evidence includes repeated motion, flexure, or a guided mechanism. |
+| GEO | 2 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
+| PHY | 2 | Load, heat, airflow, water, fatigue, or another functional physical domain must be tested. |
+| MAT | 1 | A conventional single-material FDM route is sufficient at the documented level. |
+| EXT | 3 | Purchased hardware, printer equipment, electronics, or software participates in the system. |
+| VER | 2 | Several fit, function, flow, load, motion, or process checks are required. |
+
+## Readiness
+
+| Component | Level |
+|---|---|
+| scope_variant | R3 |
+| requirements | R2 |
+| critical_interfaces | R2 |
+| manufacturing_profile | R2 |
+| verification | R2 |
+
+Blocking unknowns:
+
+- variant-confirmed critical interface dimensions, tolerances, and uncertainty
+- complete printer/material/nozzle/orientation/process-profile set
+- measurable acceptance criteria
+
+## Criticality
+
+`K2` — The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.
+
+Credible effects: functional failure, leakage, obstruction, or detachment, minor injury or property damage.
+
+## Interface register
+
+| Contract | Interface | Evidence | Criticality | Verification |
+|---|---|---:|---:|---|
+| `IF-ENV-GEO-SUP-PLN-001` | Printed product to display or use surface | E2 | K2 | PLANNED |
+
+The JSON contract records the primary discovered boundary. Because the audit
+does not prove complete interface discovery, G1/G2 remain conservative.
 
 ## Hard gates
 
-`G0 PASS · G1 PASS · G2 WARN · G3 WARN · G4 PASS · G5 PASS · G6 PASS`
+| Gate | Status |
+|---|---|
+| G0 | PASS |
+| G1 | PASS |
+| G2 | FAIL |
+| G3 | FAIL |
+| G4 | WARN |
+| G5 | PASS |
+| G6 | PASS |
 
-The warnings preserve unknown connector clearance, exact terrain acquisitions, exact filament/profile identity, as-built mass and wall-anchor/substrate conditions. They permit the controlled concept/CAD path but not final release.
+## Warnings
 
-Canonical evidence: `preflight-result.json`; input trace: `preflight-input.yaml`.
+- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence.
+- `VERIFICATION_NOT_DEFINED` (BLOCKER): Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set.
+- `DYNAMIC_OR_FATIGUE_LOAD` (WARN): Repeated motion, flexure, vibration, or dynamic contact needs cycle and failure testing.
+
+## Functional FMEA
+
+| Failure | Local/final effect | Detection | Mitigation | Verification |
+|---|---|---|---|---|
+| Primary interface misses fit or functional intent | Loss of function; consequences listed under criticality | Variant measurement, coupon, and controlled prototype inspection | Confirm host/variant, tolerance, uncertainty, keep-outs, and stop conditions | Coupon/prototype test; expert review for K3/K4 |
+
+## Next evidence
+
+1. Confirm the exact product/host variant and complete the primary interface contract. Exit: Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence.
+2. Record the exact manufacturing profile. Exit: Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked.
+3. Define measurable acceptance criteria and a minimal coupon/prototype test. Exit: Each critical interface and credible failure mode has a method, threshold, and result-record location.
+
+## Traceability basis
+
+- `design-spec.yaml`
+- `README.md`
+- `autonomy-policy-validation.json`
+- `source-data/v0.3.0/rhenish/README.md`
+- `source-data/v0.3.0/harz/README.md`
+- `assets/metrimade-watermark/design-spec.yaml`
+- `assets/metrimade-watermark/README.md`
+- `validation/v0.3.0/watermark-placement-candidate.json`

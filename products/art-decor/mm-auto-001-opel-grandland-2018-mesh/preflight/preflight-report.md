@@ -18,7 +18,7 @@ Unknown facts were not reconstructed or inferred as measurements.
 |---|---:|---|
 | REQ | 0 | Only product-level intent and artifact names are available; quantified requirements are incomplete. |
 | CTX | 0 | The documented use is a narrow decorative or static context. |
-| PAR | 2 | The current evidence exposes approximately 6 distinct geometry-file stems; exports may duplicate physical parts. |
+| PAR | 2 | The current evidence exposes approximately 7 distinct geometry-file stems; exports may duplicate physical parts. |
 | INT | 0 | No fit-critical functional interface is evidenced beyond display/support. |
 | CPL | 0 | The available architecture appears locally coupled or monolithic. |
 | MOT | 0 | The primary product state is static apart from assembly handling. |
@@ -91,5 +91,6 @@ does not prove complete interface discovery, G1/G2 remain conservative.
 - `sf3d.stl`
 - `sf3d.glb`
 - `hunyuan3d.stl`
+- `step1x-3d/eed20d47-ea79-4c89-a712-ddfa91b8c982-textured.glb`
 - `Direct3D-S2/20260718171302.obj`
 - `Direct3D-S2/20260718170118_simplified_mesh.obj`

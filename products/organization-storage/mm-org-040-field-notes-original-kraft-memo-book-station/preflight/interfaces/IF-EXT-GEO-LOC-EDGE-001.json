@@ -1,0 +1,139 @@
+{
+  "id": "IF-EXT-GEO-LOC-EDGE-001",
+  "name": "Named memo-book planform to two loose station datums",
+  "endpoint_a": "E-PRINT-001",
+  "endpoint_b": "E-BOOK-001",
+  "boundary": "EXT",
+  "domains": [
+    "GEO",
+    "MEC"
+  ],
+  "function": "LOC",
+  "geometry": "EDGE",
+  "lifecycle_states": [
+    "assembly",
+    "use",
+    "service",
+    "disassembly",
+    "storage"
+  ],
+  "coordinate_frame": {
+    "origin": "intersection of the two planned loose datum contact lines on the station base",
+    "x_positive": "across the closed book's published 89 mm planform dimension",
+    "y_positive": "along the closed book's published 140 mm planform dimension",
+    "z_positive": "up from the station's planned desk-support plane",
+    "unit": "mm"
+  },
+  "datums": [
+    {
+      "id": "A",
+      "description": "planned loose short-edge datum"
+    },
+    {
+      "id": "B",
+      "description": "planned loose side datum; left/right spine orientation remains a requirements parameter"
+    }
+  ],
+  "degrees_of_freedom": {
+    "allowed": [
+      "positive-z removal",
+      "clearance motion away from both loose datums"
+    ],
+    "constrained": [
+      "negative-x translation at datum A during use",
+      "negative-y translation at datum B during use"
+    ]
+  },
+  "assembly": {
+    "direction": "from above without flexing or clamping the book",
+    "contact_mode": "loose two-datum edge contact",
+    "sequence_notes": "Keep the top and spine side open; do not use thickness as a fit interface."
+  },
+  "dimensions": [
+    {
+      "id": "DIM-BOOK-X-001",
+      "feature": "published closed-book planform width",
+      "nominal_mm": 89.0,
+      "lower_mm": null,
+      "upper_mm": null,
+      "clearance_mm": null,
+      "uncertainty_mm": null,
+      "status": "OFFICIAL_NOMINAL",
+      "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S40",
+      "criticality": "FIT_CRITICAL"
+    },
+    {
+      "id": "DIM-BOOK-Y-001",
+      "feature": "published closed-book planform length",
+      "nominal_mm": 140.0,
+      "lower_mm": null,
+      "upper_mm": null,
+      "clearance_mm": null,
+      "uncertainty_mm": null,
+      "status": "OFFICIAL_NOMINAL",
+      "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S40",
+      "criticality": "FIT_CRITICAL"
+    }
+  ],
+  "environment_and_variation": {
+    "environment": "dry adult indoor tabletop",
+    "uncontrolled": [
+      "cover bow",
+      "corner wear",
+      "physical manufacturing variation",
+      "future edition changes"
+    ],
+    "excluded_from_fit": [
+      "book thickness",
+      "spine compression"
+    ]
+  },
+  "keepouts_and_access": [
+    "Do not clamp or load the stapled spine.",
+    "Keep the top and removal path open.",
+    "Provide finger access without relying on an unverified book thickness."
+  ],
+  "evidence": {
+    "level": "E3",
+    "sources": [
+      "business/02-portfolio/research-idea-sources-additions.csv#S40",
+      "business/02-portfolio/research-ideas-r3-variants.csv#SKU-303",
+      "commercial-clearance/01-sources/source-register.csv#SRC-0001",
+      "commercial-clearance/01-sources/source-register.csv#SRC-0002"
+    ],
+    "variant_confirmed": true,
+    "coverage_percent": 70.0,
+    "uncertainty_note": "The named variant and published planform are identified, but no independent measurement or physical fit exists; cover bow, wear and edition changes remain test variables.",
+    "observability": "OBSERVED"
+  },
+  "interface_complexity": {
+    "GEO": 1,
+    "KIN": 1,
+    "TOL": 1,
+    "PHY": 0,
+    "VAR": 1,
+    "LIF": 1,
+    "total": 5,
+    "tier": "I1"
+  },
+  "criticality": "K1",
+  "failure_modes": [
+    {
+      "mode": "The physical book binds, rocks, or is marked at a datum.",
+      "effect": "The station fails its placement function or cosmetically marks a low-value host item.",
+      "mitigation": "Derive clearance only after a two-datum coupon and 20-cycle physical fit/marking test on one current book."
+    }
+  ],
+  "verification": {
+    "method": "test_coupon",
+    "acceptance_criteria": [
+      "All source-defined datum features on the coupon measure within 0.30 mm of their specified values.",
+      "One current Original Kraft book inserts and removes without force.",
+      "No visible mark appears after 20 insertion/removal cycles."
+    ],
+    "status": "PLANNED",
+    "result_refs": []
+  },
+  "owner": "MM-ORG-040 design lead",
+  "version": "0.1.0"
+}

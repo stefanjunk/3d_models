@@ -18,7 +18,7 @@ Unknown facts were not reconstructed or inferred as measurements.
 |---|---:|---|
 | REQ | 1 | Only product-level intent and artifact names are available; quantified requirements are incomplete. |
 | CTX | 2 | The use context includes a host, environment, or user variant that must be confirmed. |
-| PAR | 2 | The current evidence exposes approximately 2 distinct geometry-file stems; exports may duplicate physical parts. |
+| PAR | 2 | The current evidence exposes approximately 3 distinct geometry-file stems; exports may duplicate physical parts. |
 | INT | 2 | At least one functional host, human, medium, or assembly boundary governs success. |
 | CPL | 1 | The available architecture appears locally coupled or monolithic. |
 | MOT | 2 | The purpose or evidence includes repeated motion, flexure, or a guided mechanism. |
@@ -98,3 +98,4 @@ does not prove complete interface discovery, G1/G2 remain conservative.
 - `textured_mesh.3mf`
 - `spar3d.stl`
 - `spar3d.glb`
+- `5bd5fe67-f72b-4c3f-919e-e20beb967126-textured.glb`

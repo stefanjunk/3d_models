@@ -1,69 +1,51 @@
 product: Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
-intended_use: >-
-  Ein einteiliger, bodenloser Umlenker fährt fest mit dem Purge-Wiper entlang Z,
-  fängt Filamentreste unmittelbar an der Quelle und leitet sie durch einen freien
-  unteren Auslass nach unten. Die beiden vorhandenen Wiper-Schrauben befestigen
-  den Umlenker direkt; es gibt weder Adapterplatte noch Clip oder Schnellverschluss.
-user_context: >-
-  Betreiber eines Anycubic Kobra 3 Max; die konkrete Maschine ist durch eigene
-  Fotos und Benutzermessungen dokumentiert. Serien-/Revisionskennung,
-  Schraubenhardware und vollständige Maschinenhüllkurve bleiben unbekannt.
+intended_use: Ein einteiliger, bodenloser Umlenker ist mit den beiden vorhandenen Wiper-Schrauben fest am bewegten
+  Purge-Wiper verschraubt, fängt Filamentreste unmittelbar an der Quelle und lässt sie durch einen freien unteren
+  Auslass nach unten fallen.
+user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
+  release state remain limited to cited evidence.
 host_variant:
-  manufacturer: Anycubic
-  model: Kobra 3 Max
+  manufacturer: null
+  model: null
   revision: null
-  variant_confirmed: true
+  variant_confirmed: false
 lifecycle_states:
-  - transport
-  - assembly
-  - use
-  - cleaning
-  - service
-  - disassembly
-  - storage
-  - failure
+- transport
+- assembly
+- use
+- cleaning
+- service
+- disassembly
+- storage
+- failure
 requirements:
-  - Preserve the explicit purpose within the cited scope.
-  - Close every blocking preflight gate before production release.
-  - Use the independently measured 17 mm Wiper screw pitch, but do not derive geometry or dimensions from the third-party reference.
-  - Integrate both screw holes directly into the one-piece diverter and require deliberate removal of both screws for disassembly.
-  - Keep the lower outlet fully open and omit a storage floor, flap, clip, adapter plate, slider, latch and quick-release.
-  - Preserve open honeycomb side walls and place the owned metriMade logo centrally on the visible main wall without weakening the screw load path or purge path.
+- Preserve the explicit purpose within the cited scope.
+- Close every blocking preflight gate before production release.
 known_components:
-  - One-piece printed bottomless diverter with integrated two-screw mounting zone
-  - Anycubic Kobra 3 Max Purge-Wiper assembly
-  - Two existing Wiper screws with currently unknown thread, head and length
-  - Purged filament remnants
-  - Third-party fit reference, evidence only and excluded from design inputs
+- Anycubic Kobra 3 Max Purge Catcher — Interface Neuentwurf
+- Intended host object or storage envelope
 available_evidence:
-  - design-spec.yaml
-  - WIPER-PHOTO-MEASUREMENTS-R7.yaml
-  - learning-trace-interface-r7.yaml
-  - FIT-FAILURE-ANALYSIS-R7-DRAFT-2.md
-  - REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.md
-  - REFERENCE-FIT-AUDIT-ANYCUBIC-POOP-CATCHER.json
-  - research/third-party/printer-workshop/Anycubic_Kobra_3_Max_Poop_catcher.3mf
-  - Photos-1-001/
+- design-spec.yaml
+- REQUIREMENTS-PHASE-VALIDATION-R7.json
+- COUPON-C01-VALIDATION-R7.json
+- CONCEPT-PHASE-VALIDATION-R7.json
+- REQUIREMENTS-REVIEW-R7-0.7.0-requirements.5.md
+- current/r7-interface-measurement-coupon-c01/README-DE.md
+- current/anycubic-kobra3max-purge-catcher-r7/README-DE.md
+- current/anycubic-kobra3max-purge-catcher-r7/validation-project.lock.json
 manufacturing_profile:
-  printer: Anycubic Kobra 3 Max
+  printer: anycubic kobra 3 max
   process: FDM/FFF
   nozzle_mm: 0.4
   material: PETG
-  orientation_known: false
+  orientation_known: true
 known_loads_environment:
-  loads:
-    - moving self-mass under Z acceleration and printer vibration
-    - short purge impact impulses
-    - screw clamp load on printed mounting pads
+  loads: []
   temperature_c: null
-  media:
-    - warm filament purge remnants
-  duration: occasional workshop use; service life unverified
+  media: []
+  duration: null
 safety_notes:
-  - The moving machine accessory requires controlled fit, fastener, motion-envelope and purge-flow testing.
-  - Embedded Bambu P1S profiles in the reference 3MF are not valid Anycubic Kobra 3 Max manufacturing profiles.
-  - Printer upload and print start remain outside the authorized workflow.
+- The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled
+  functional testing.
 interfaces:
-  - IF-EXT-GEO-FST-HLP-001
-  - IF-INT-FLU-GDE-VOLUME-001
-  - IF-EXT-KIN-CLR-VOLUME-001
+- IF-EXT-GEO-CON-MIXED-001

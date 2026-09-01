@@ -17,6 +17,7 @@ Provide a printable toy-boat mesh for supervised play or display; flotation and 
 - `textured_mesh.3mf`
 - `spar3d.stl`
 - `spar3d.glb`
+- `5bd5fe67-f72b-4c3f-919e-e20beb967126-textured.glb`
 
 The current preflight decision is `HOLD`. See
 [`preflight/preflight-report.md`](preflight/preflight-report.md) for unknowns,

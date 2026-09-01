@@ -1,341 +1,213 @@
 {
-  "assessment_id": "PREFLIGHT-MM-PER-001-010",
-  "assessment_version": "0.4.6",
+  "assessment_id": "PREFLIGHT-MM-PER-001-001",
+  "assessment_version": "0.1.0",
   "assessment_date": "2026-08-31",
-  "product": "NameForm letter-dominant split-pair bookends",
+  "product": "Nameform Split Pair Bookends",
   "scope": {
-    "intended_use": "A coordinated left/right indoor bookend pair whose visible front facade is formed by large, tightly spaced name glyphs. The wood appearance uses the physically preferred direct-sampled candidate C on the glyph fronts. Revision 0.4.1 must deepen the glyph bodies and strengthen the more deeply recessed rear connection without turning it into a visible rectangular panel; the existing side-blade and inward-foot architecture carries the books.",
-    "user_context": "Adult indoor use on a flat shelf or desk; requested MARITA pair with contour-balanced MA | RITA split; sequential FFF printing on the recorded Anycubic Kobra 3 Max profile with 0.4 mm nozzle and 0.12 mm layers. The user printed the 0.4.0 STL and reports that the letters do not look sufficiently stable where they join; no measured load, deflection, fracture, material identity, or photo is recorded.",
+    "intended_use": "A coordinated pair of distinct left and right bookends. Books stand between the two ends along X. Each part has a vertical side blade beside the books, a thin inward foot beneath the books, and a front-facing letter-dominant facade without a rectangular wing. The left and right text halves read as one name from the front; neither text half is mirrored. A recessed rear web only joins the glyphs; the side blade and foot retain the book load independently of the decorative glyphs.",
+    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
     "variants": [
-      "0.4.0 requirements draft",
-      "default name STEFAN split STE | FAN",
-      "requested name MARITA; planned automatic contour-balanced split MA | RITA",
-      "0.4.1 reinforced MARITA digital draft: 12 mm glyph depth, 4 mm rear connector, 2 mm overlap, and 12 mm bridge bands"
+      "0.4.1"
     ],
     "out_of_scope": [
-      "Wall mounting, stacking, child-directed use, structural shelving, or loads beyond the approved physical test",
-      "Automatic printer upload or print start",
-      "Claiming candidate C as equivalent for another material, machine, nozzle, orientation, relief depth, pattern, or physical scale without another controlled coupon"
+      "Claims not explicitly supported by the cited repository evidence",
+      "Production release without closure of blocking gates"
     ]
   },
   "entities": [
-    {"id": "E-CORE-001", "kind": "PRINTED_PART", "name": "Mirrored side-blade and inward-foot functional core"},
-    {"id": "E-FACADE-001", "kind": "PRINTED_PART", "name": "Fused large-glyph facade with recessed connector web and wood relief"},
-    {"id": "E-BOOKS-001", "kind": "HOST_OBJECT", "name": "Representative indoor book row"},
-    {"id": "E-SHELF-001", "kind": "HOST_OBJECT", "name": "Flat shelf or desk"},
-    {"id": "E-HUMAN-001", "kind": "HUMAN", "name": "Adult viewer and handler"}
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Nameform Split Pair Bookends"
+    },
+    {
+      "id": "E-HOST-001",
+      "kind": "HOST_OBJECT",
+      "name": "Intended host object or storage envelope"
+    }
   ],
   "interfaces": [
     {
-      "id": "IF-EXT-MEC-SUP-PLN-001",
-      "name": "Inward foot support on shelf",
-      "endpoint_a": "E-CORE-001",
-      "endpoint_b": "E-SHELF-001",
+      "id": "IF-EXT-GEO-CON-MIXED-001",
+      "name": "Printed product to intended host",
+      "endpoint_b": "E-HOST-001",
       "boundary": "EXT",
-      "domains": ["GEO", "MEC"],
-      "function": "SUP",
-      "geometry": "PLN",
-      "lifecycle_states": ["assembly", "use", "cleaning", "service", "storage"],
-      "evidence": {
-        "level": "E3",
-        "sources": ["design-spec.yaml", "source/v0.3.0/nameform_bookends.py", "validation/v0.3.0/interface-validation.json", "test-plan.yaml"],
-        "variant_confirmed": true,
-        "coverage_percent": 75,
-        "uncertainty_note": "The 0.3.0 foot geometry is retained, but 0.4.0 load and slide tests have not run.",
-        "observability": "OBSERVED"
-      },
-      "interface_complexity": {"GEO": 0, "KIN": 0, "TOL": 1, "PHY": 1, "VAR": 2, "LIF": 2, "total": 6, "tier": "I1"},
-      "criticality": "K1",
-      "failure_modes": [
-        {
-          "mode": "Foot slides or tips on the shelf",
-          "effect": "The book row may lean or fall and may cause minor item or surface damage.",
-          "mitigation": "Retain the inward weighted foot and run the defined pair load/slide test on the intended shelf condition."
-        }
+      "domains": [
+        "GEO",
+        "MEC"
       ],
-      "verification": {
-        "method": "prototype_test",
-        "acceptance_criteria": ["With the defined 2.0 kg row there is no tip, fracture, permanent set, or slide beyond 5 mm."],
-        "status": "PLANNED",
-        "result_refs": []
-      },
-      "owner": "product owner",
-      "version": "0.2"
-    },
-    {
-      "id": "IF-EXT-MEC-LOD-PLN-002",
-      "name": "Side blade and foot support the book row",
-      "endpoint_a": "E-CORE-001",
-      "endpoint_b": "E-BOOKS-001",
-      "boundary": "EXT",
-      "domains": ["GEO", "MEC"],
-      "function": "LOD",
-      "geometry": "PLN",
-      "lifecycle_states": ["assembly", "use", "service", "disassembly", "storage"],
-      "loads_and_performance": {"book_row_mass_kg": 2.0, "representative_width_mm": [100, 400], "representative_height_mm": [100, 240]},
-      "evidence": {
-        "level": "E3",
-        "sources": ["design-spec.yaml", "source/v0.3.0/nameform_bookends.py", "validation/v0.3.0/stiffness-comparison.json", "test-plan.yaml"],
-        "variant_confirmed": true,
-        "coverage_percent": 70,
-        "uncertainty_note": "The nominal retained load path is defined, but no 0.4.0 physical proof load exists.",
-        "observability": "OBSERVED"
-      },
-      "interface_complexity": {"GEO": 1, "KIN": 0, "TOL": 1, "PHY": 2, "VAR": 2, "LIF": 2, "total": 8, "tier": "I2"},
-      "criticality": "K1",
-      "failure_modes": [
-        {
-          "mode": "Side blade, foot, or gusset cracks under lateral book load",
-          "effect": "Loss of book-retaining function with limited property damage.",
-          "mitigation": "Keep decorative glyphs out of the primary load claim and repeat geometry, slicer, and physical pair tests on 0.4.0."
-        }
+      "function": "CON",
+      "geometry": "MIXED",
+      "endpoint_a": "E-PRINT-001",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "storage"
       ],
-      "verification": {
-        "method": "proof_load",
-        "acceptance_criteria": ["The complete pair passes the 2.0 kg book-row test without fracture, tip, permanent set, or excessive slide."],
-        "status": "PLANNED",
-        "result_refs": []
-      },
-      "owner": "product owner",
-      "version": "0.2"
-    },
-    {
-      "id": "IF-INT-MEC-FST-EDGE-001",
-      "name": "Glyph facade joins the functional core through a recessed rear web",
-      "endpoint_a": "E-FACADE-001",
-      "endpoint_b": "E-CORE-001",
-      "boundary": "INT",
-      "domains": ["GEO", "MEC"],
-      "function": "FST",
-      "geometry": "EDGE",
-      "lifecycle_states": ["transport", "use", "cleaning", "service", "storage", "failure"],
       "dimensions": [
         {
-          "id": "DIM-CONNECTOR-SETBACK-001",
-          "feature": "Recommended glyph-front to connector-front setback",
-          "nominal_mm": 10.0,
+          "id": "DIM-PRIMARY-001",
+          "feature": "Primary interface envelope and functional allowance",
+          "nominal_mm": null,
           "lower_mm": null,
           "upper_mm": null,
           "clearance_mm": null,
           "uncertainty_mm": null,
-          "status": "ESTIMATED",
+          "status": "UNKNOWN",
           "source_ref": "design-spec.yaml",
-          "criticality": "COSMETIC"
-        },
-        {
-          "id": "DIM-CONNECTOR-THICKNESS-001",
-          "feature": "Recommended rear connector web thickness",
-          "nominal_mm": 4.0,
-          "lower_mm": null,
-          "upper_mm": null,
-          "clearance_mm": null,
-          "uncertainty_mm": null,
-          "status": "ESTIMATED",
-          "source_ref": "design-spec.yaml",
-          "criticality": "FUNCTION_CRITICAL"
+          "criticality": "FIT_CRITICAL"
         }
-      ],
-      "keepouts_and_access": [
-        "Do not fill glyph counters or create a rectangular front panel.",
-        "Keep wood relief out of connector bonds, minimum-wall zones, the side-blade load path, and finished inter-glyph gaps."
       ],
       "evidence": {
         "level": "E2",
-        "sources": ["design-spec.yaml", "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md", "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json", "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json", "user correction recorded 2026-08-31"],
-        "variant_confirmed": true,
-        "coverage_percent": 72,
-        "uncertainty_note": "Exact digital evidence proves the approved depths, overlap, bridge width, one-body topology, and a 3.33x nominal gross bridge-section proxy versus v0.4.0. No physical 0.4.1 force, deflection, handling, or fracture result exists yet.",
+        "sources": [
+          "design-spec.yaml",
+          "README.md",
+          "validation-project.locked.json",
+          "validation-project.json",
+          "print-profile-v0.3.0.json",
+          "test-plan.yaml",
+          "validation/v0.4.0/README.md",
+          "coupons/wood-texture-transfer-v0.2.0/README.md"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 55,
+        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
         "observability": "PARTLY_OBSERVED"
       },
-      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 2, "total": 9, "tier": "I2"},
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 3,
+        "PHY": 2,
+        "VAR": 3,
+        "LIF": 2,
+        "total": 11,
+        "tier": "I2"
+      },
       "criticality": "K1",
       "failure_modes": [
         {
-          "mode": "A glyph or bridge is disconnected or breaks during handling",
-          "effect": "Appearance failure, sharp edge, and loss of the personalized facade.",
-          "mitigation": "Fail closed on disconnected glyph graphs or insufficient positive overlap; deepen glyphs, enlarge and recess the rear bridge structure, inspect sections and front visibility, then print a representative connector/letter coupon before the full pair."
+          "mode": "Primary interface does not meet fit or functional intent",
+          "effect": "Loss of intended function and the credible failure effects recorded at product level",
+          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
         }
       ],
       "verification": {
         "method": "test_coupon",
-        "acceptance_criteria": ["Every glyph is part of one watertight body; the rear connector begins at least 10 mm behind the front, overlaps glyph bodies by at least 2 mm in depth, uses at least 12 mm-wide local bridge bands, remains visually subordinate from the approved front view, and the representative coupon survives the approved handling/deflection test without fracture."],
-        "status": "IN_PROGRESS",
-        "result_refs": ["validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json", "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json"]
-      },
-      "owner": "product owner",
-      "version": "0.1"
-    },
-    {
-      "id": "IF-HUM-OPT-VIS-BODY-001",
-      "name": "Letter-only wood appearance from the intended front view",
-      "endpoint_a": "E-FACADE-001",
-      "endpoint_b": "E-HUMAN-001",
-      "boundary": "HUM",
-      "domains": ["GEO", "OPT", "HUM"],
-      "function": "VIS",
-      "geometry": "BODY",
-      "lifecycle_states": ["use", "cleaning", "service", "storage"],
-      "dimensions": [
-        {
-          "id": "DIM-GLYPH-GAP-001",
-          "feature": "Recommended nominal gap between neighboring glyph outlines",
-          "nominal_mm": 1.8,
-          "lower_mm": 1.2,
-          "upper_mm": null,
-          "clearance_mm": 1.2,
-          "uncertainty_mm": null,
-          "status": "ESTIMATED",
-          "source_ref": "design-spec.yaml",
-          "criticality": "COSMETIC"
-        },
-        {
-          "id": "DIM-FRONT-RELIEF-001",
-          "feature": "Candidate C glyph-front maximum relief depth",
-          "nominal_mm": 0.6,
-          "lower_mm": null,
-          "upper_mm": 0.6,
-          "clearance_mm": null,
-          "uncertainty_mm": null,
-          "status": "DERIVED",
-          "source_ref": "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
-          "criticality": "COSMETIC"
-        }
-      ],
-      "keepouts_and_access": [
-        "No rectangular background may define the front silhouette.",
-        "Counters and finished glyph gaps remain visibly open.",
-        "The rear connector remains untextured and begins behind the glyph body."
-      ],
-      "evidence": {
-        "level": "E3",
-        "sources": [
-          "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
-          "coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md",
-          "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
-          "user selection of candidate C recorded 2026-08-31"
+        "acceptance_criteria": [
+          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
         ],
-        "variant_confirmed": true,
-        "coverage_percent": 75,
-        "uncertainty_note": "Candidate C is physically preferred on the upright planar coupon, and the reinforced MARITA meshes preserve its source, phase, pitch, and robust relief span exactly on the new glyph mask. Connector visibility, exposed flanks, exact filament, and the reinforced physical print remain unvalidated.",
-        "observability": "PARTLY_OBSERVED"
-      },
-      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 0, "VAR": 3, "LIF": 2, "total": 8, "tier": "I2"},
-      "criticality": "K0",
-      "failure_modes": [
-        {
-          "mode": "Texture becomes flat, gaps close, or the rear web reads as a panel",
-          "effect": "The product no longer reads as a letter-only wooden name stand.",
-          "mitigation": "Preserve candidate C on the glyph fronts, mask by exact glyph outlines, inspect orthographic and three-quarter views, and print a process-matched textured letter coupon."
-        }
-      ],
-      "verification": {
-        "method": "user_test",
-        "acceptance_criteria": ["From the approved front view the object reads as large separate wooden glyphs; gaps and counters are visible; no rectangular background is perceived; wood relief remains recognizable under the intended lighting."],
-        "status": "IN_PROGRESS",
-        "result_refs": ["coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md", "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json", "validation/v0.4.1/generated/MARITA/reinforced-run01/renders/DRAFT-nameform-MARITA-front-v0.4.1.png"]
+        "status": "PLANNED",
+        "result_refs": []
       },
       "owner": "product owner",
       "version": "0.1"
     }
   ],
   "complexity": {
-    "dimension_scores": {"REQ": 3, "CTX": 1, "PAR": 2, "INT": 2, "CPL": 2, "MOT": 0, "GEO": 2, "PHY": 1, "MAT": 2, "EXT": 0, "VER": 3},
-    "score_0_100": 41.25,
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 3,
+      "PAR": 4,
+      "INT": 3,
+      "CPL": 1,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 0,
+      "VER": 2
+    },
+    "score_0_100": 48.5,
     "class": "C3",
     "drivers": [
-      "REQ=3: Appearance, personalized glyph layout, hidden connection, preserved load path, texture fidelity, and print limits are coupled.",
-      "INT=2: Shelf, books, glyph-to-core connection, and human visual/handling interfaces all require independent acceptance.",
-      "VER=3: The revision needs deterministic geometry and exact slicing plus connector, texture, handling, and complete-pair physical tests."
+      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
+      "PAR=4: The current evidence exposes approximately 41 distinct geometry-file stems; exports may duplicate physical parts.",
+      "PHY=2: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested."
     ]
   },
   "readiness": {
-    "level": "R3",
-    "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R4", "verification": "R3"},
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R2",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R2"
+    },
     "blocking_unknowns": [
-      "Process-matched physical handling/deflection proof of the generated 0.4.1 connector and complete pair",
-      "Exact filament product/color/batch/conditioning and complete profile used for the preferred C print"
+      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
+      "measurable acceptance criteria"
     ],
-    "completeness_percent": 84.0
+    "completeness_percent": 48.0
   },
   "criticality": {
     "level": "K1",
-    "rationale": "The retained bookend load is modest and static; credible failures are appearance loss, a broken decorative glyph, or limited item/surface damage rather than high-energy or safety-critical harm.",
-    "credible_failure_effects": ["loss of intended book-retaining or personalized appearance function", "minor item or shelf damage", "sharp edge if a decorative bridge breaks"]
+    "rationale": "Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.",
+    "credible_failure_effects": [
+      "loss of intended function",
+      "minor item or surface damage"
+    ]
   },
-  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "WARN",
+    "G3": "PASS",
+    "G4": "WARN",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
   "decision": {
     "lane": "C",
-    "confidence": "CONDITIONAL",
+    "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The retained functional core, approved requirements and concept, exact reinforced geometry, watertight meshes, preserved candidate-C relief, and explicit-profile slices support a controlled print candidate. Human layer review, connector/glyph coupon, watermark integration, and full-pair physical tests still block release."
+    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
   },
   "warnings": [
-    {"code": "CRITICAL_INTERFACE_PHYSICAL_PENDING", "severity": "WARN", "message": "The reinforced 0.4.1 geometry now passes exact section, connectivity, mesh, and slicer checks, but connector stiffness and handling remain physically unmeasured."},
-    {"code": "MATERIAL_VARIANT_UNKNOWN", "severity": "WARN", "message": "The digital candidate has an explicit Anycubic PETG profile, but the exact physical filament product, color, batch, conditioning, and profile deviations remain unknown."},
-    {"code": "VARIANT_ENVELOPE_MARGIN_LOW", "severity": "WARN", "message": "The generated RITA half passes the 350 mm internal envelope and exact slicer bed check at 348.748 mm, leaving only about 1.25 mm internal design margin."}
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+    }
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Perform human layer/seam review and print the reinforced FA letter/bridge coupon using the recorded 0.4 mm nozzle and 0.12 mm profile.",
-      "exit_criterion": "The coupon preserves candidate C, keeps gaps/counters open, hides the rear connector from the front, and passes the approved handling/deflection test without fracture."
+      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
+      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
     },
     {
       "priority": 2,
-      "action": "After coupon acceptance, print and test the complete reinforced MA | RITA pair before watermark/package release.",
-      "exit_criterion": "The unchanged pair passes appearance, normal handling, 2.0 kg load, tip, permanent-set, and <=5 mm slide checks."
+      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
+      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
     }
   ],
   "traceability": {
-    "mode": "PROSPECTIVE",
+    "mode": "RETROSPECTIVE",
     "project_id": "MM-PER-001",
     "project_revision": "0.4.1",
     "basis_refs": [
       "design-spec.yaml",
-      "source/v0.3.0/nameform_bookends.py",
-      "validation/v0.3.0/interface-validation.json",
-      "validation/v0.3.0/stiffness-comparison.json",
+      "README.md",
+      "validation-project.locked.json",
+      "validation-project.json",
+      "print-profile-v0.3.0.json",
       "test-plan.yaml",
-      "coupons/wood-texture-transfer-v0.2.0/README.md",
-      "coupons/wood-texture-transfer-v0.2.0/transfer-spec.json",
-      "coupons/wood-texture-transfer-v0.2.0/physical-evaluation.md",
-      "coupons/wood-texture-transfer-v0.2.0/reports/reference-pipeline-comparison.json",
-      "coupons/wood-texture-transfer-v0.2.0/reports/anycubic-slice-coupon.json",
-      "concept/nameform-bookends-v0.4.0-concept.png",
-      "concept/nameform-bookends-v0.4.0-concept.md",
-      "concept/nameform-bookends-v0.4.1-reinforced-concept.png",
-      "concept/nameform-bookends-v0.4.1-reinforced-concept.md",
-      "validation/v0.4.0/generated/MARITA/run02/physical-evaluation.md",
-      "validation/v0.4.1/generated/MARITA/reinforced-run01/generation-report.json",
-      "validation/v0.4.1/generated/MARITA/reinforced-run01/reinforcement-comparison.json",
-      "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-MA-run01.json",
-      "validation/v0.4.1/generated/MARITA/reinforced-run01/anycubic-slice-RITA-run01.json",
-      "coupons/nameform-letter-bridge-v0.4.1/reports/generation-report.json"
+      "validation/v0.4.0/README.md",
+      "coupons/wood-texture-transfer-v0.2.0/README.md"
     ],
     "change_triggers": [
-      "user_selected_direct_sampled_texture_candidate_c",
-      "letter_dominant_front_architecture",
-      "larger_tightly_spaced_glyphs",
-      "recessed_connector_web",
-      "texture_scope_moves_from_panel_to_glyphs",
-      "layer_height_changes_to_0p12_mm",
-      "explicit_requirements_approval",
-      "gate_0b_concept_generated",
-      "explicit_concept_approval",
-      "requested_name_variant_MARITA",
-      "automatic_split_envelope_recheck",
-      "user_printed_MARITA_v0p4p0",
-      "user_reports_facade_looks_insufficiently_stable",
-      "requested_deeper_glyphs",
-      "requested_stronger_more_recessed_rear_connector",
-      "explicit_requirements_approval_0p4p1",
-      "gate_0b_reinforcement_concept_generated",
-      "explicit_concept_approval_0p4p1",
-      "reinforced_geometry_generated_0p4p1",
-      "exact_mesh_and_slicer_evidence_0p4p1"
+      "backfill_missing_preflight",
+      "portfolio_documentation_audit",
+      "product_root_version_cleanup"
     ],
-    "previous_assessment_id": "PREFLIGHT-MM-PER-001-009",
-    "created_at": "2026-08-31T14:46:24+02:00",
-    "updated_at": "2026-08-31T20:46:35+02:00"
+    "previous_assessment_id": null,
+    "created_at": "2026-08-31T12:29:39+02:00",
+    "updated_at": "2026-08-31T12:29:39+02:00"
   }
 }

@@ -1220,7 +1220,7 @@ def existing_current_result(ctx: ProductContext) -> dict[str, Any] | None:
     expected_workflow = {
         "status": "current",
         "artifact": "preflight/preflight-result.json",
-        "mode": trace.get("mode"),
+        "mode": str(trace.get("mode", "")).lower(),
         "assessment_id": result.get("assessment_id"),
         "assessment_version": result.get("assessment_version"),
         "assessed_project_revision": trace.get("project_revision"),

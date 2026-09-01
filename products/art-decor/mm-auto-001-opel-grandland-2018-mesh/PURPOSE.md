@@ -17,6 +17,7 @@ Provide a printable decorative representation of a 2018 Opel Grandland X; it is 
 - `sf3d.stl`
 - `sf3d.glb`
 - `hunyuan3d.stl`
+- `step1x-3d/eed20d47-ea79-4c89-a712-ddfa91b8c982-textured.glb`
 - `Direct3D-S2/20260718171302.obj`
 - `Direct3D-S2/20260718170118_simplified_mesh.obj`
 

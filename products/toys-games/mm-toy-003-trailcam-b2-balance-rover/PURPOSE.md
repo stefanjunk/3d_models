@@ -15,11 +15,11 @@ A two-wheel, single-axis FPV camera rover that actively balances its body as an 
 - `design-spec.yaml`
 - `README.md`
 - `validation-project.json`
+- `validation/project-validation-v0.1.0-bom.2.json`
 - `validation/procurement-bom-validation-v0.1.0-bom.1.json`
+- `validation/preflight-validation-v0.1.0-bom.2.json`
+- `validation/interface-graph-validation-v0.1.0-bom.2.json`
 - `validation/hybrid-plan-validation-v0.1.0.json`
-- `validation/v0.1.0-parametric.3/project-validation.json`
-- `validation/v0.1.0-parametric.3/parameter-sweep.json`
-- `validation/v0.1.0-parametric.3/mesh-DRAFT-upper-crossmember.json`
 
 The current preflight decision is `HOLD`. See
 [`preflight/preflight-report.md`](preflight/preflight-report.md) for unknowns,

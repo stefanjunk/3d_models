@@ -1,0 +1,85 @@
+project:
+  id: MM-ORG-040
+  revision: 0.1.0
+  product: Field Notes Original Kraft 89 x 140 memo-book station
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-109
+  research_record: business/02-portfolio/research-ideas-r3-variants.csv#SKU-303
+
+assessment:
+  mode: PROSPECTIVE
+  triggers:
+    - initial_design
+    - portfolio_registration
+    - license_chain_initialization
+  prohibited_in_this_phase:
+    - concept_image
+    - cad_or_source_geometry
+    - mesh_or_manufacturing_export
+    - slicer_or_gcode
+    - physical_print
+
+scope:
+  intended_use: >-
+    Register one closed Field Notes Original Kraft memo book against two loose,
+    non-clamping desk datums for repeatable adult indoor writing or display placement.
+  named_variant: Field Notes Original Kraft, published 89 x 140 mm planform
+  user_context: Adult use on a dry, flat indoor desk or shelf.
+  out_of_scope:
+    - Other Field Notes editions or unnamed notebooks
+    - Thickness-controlled capture or spine clamping
+    - Archival, impact-protection, security, child-use, wall-use, or vehicle-use claims
+
+evidence:
+  interface_nominal:
+    source_record: business/02-portfolio/research-idea-sources-additions.csv#S40
+    published_planform_mm: [89, 140]
+    source_file_sha256: e293f2dc7d78387c21e2c04dd4b561eb12a9c0520d7dbe6fb7f35e8e31c51c4a
+    limit: >-
+      Only the published planform is controlled. Direct measurement, cover bow,
+      corner wear, thickness, and future edition changes remain unverified.
+  research_variant:
+    path: business/02-portfolio/research-ideas-r3-variants.csv
+    row: SKU-303
+    sha256: c1d2d96bb0f8e7c9bcd5c5c4600d1811f79ac66fa3b44d11b1468548c5efd917
+  manufacturing_baseline:
+    id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+    path: business/02-portfolio/research-r3-process-baseline.json
+    sha256: 772cab90d0608b48255514fea026a511b027e8ce2dbb299a91cb330e32125c61
+    printer: Anycubic Kobra 3 Max
+    nozzle_material: hardened steel
+    nozzle_diameter_mm: 0.4
+    material: SUNLU PETG Black
+    layer_height_mm: 0.2
+    orientation: flat stable base down; support-free
+    profiles:
+      - role: machine
+        path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json
+        sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+      - role: process
+        path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json
+        sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
+      - role: filament
+        path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json
+        sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+
+verification_plan:
+  - Inspect the source-defined 89 x 140 mm planform.
+  - Print one two-datum contact coupon on the pinned baseline.
+  - Check free insertion and removal without clamping or visible marking.
+  - Check upright retention after a 10-degree base tilt.
+  - Repeat insertion and removal for 20 cycles on one current physical book.
+  acceptance:
+    - Coupon source-defined datums are within 0.30 mm of their specified values.
+    - The book inserts and removes without force.
+    - The book remains upright after a 10-degree base tilt.
+    - No visible mark appears after 20 cycles.
+
+commercial_clearance:
+  workspace: commercial-clearance
+  project_id: 14064e6f-8afb-4a81-8e95-652efeffa3b2
+  release_id: MM-ORG-040-0.1.0
+  seller_country: DE
+  market: DE
+  release_type: digital
+  status: BLOCK
+  reason: Rights, trademark, outgoing-license, market, compliance, and human commercial approvals are open.

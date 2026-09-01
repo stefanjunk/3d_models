@@ -11,6 +11,14 @@
 - Recorded the project-owner delegation identity as `project-owner-via-chat-2026-09-01`. No `HUMAN_APPROVED` record was created.
 - Stopped this phase before requirements approval, concept generation, CAD, source geometry, mesh, slicer output, watermark geometry, or any physical action.
 
+## 2026-09-01 — Authorized portfolio preflight reconciliation
+
+- The project owner authorized reconciliation of the complete 27-path backfill set for the four previously omitted products, MM-ORG-040, and the portfolio audit aggregates. This authorization covers documentation reconciliation only and does not reopen or approve product requirements.
+- The four existing products now carry evidence-limited `RETROSPECTIVE` records. MM-ORG-040 retains its product-owned `PROSPECTIVE` assessment at `C1` (`17.5/100`), `R3`, `K1`, Lane `B`, `CONDITIONAL`, and `GO_WITH_CONTROLS`, with the original cited evidence and blocking unknowns preserved.
+- The initial backfill dry-run reported 27 paths; after the authorized write, prospective-record restoration, and aggregate rebuild, the final dry-run reports zero changed paths. The readiness register, workbook, product-preflight portfolio validator, and portfolio overlay validator pass for 109 product records.
+- During the regression, the coordinator narrowly authorized case-insensitive comparison of the schema-canonical preflight mode across the backfill guard and portfolio validator. Stored values remain `PROSPECTIVE` in the preflight artifact and `prospective` in the design contract; no product requirement, score, evidence, or release gate changed.
+- The schema 1.1 autonomy policy was recreated from the validated preflight before any approval-ledger event. No agent or human approval event was recorded, and all physical, fit/function, appearance, safety, and commercial-release stages remain human-controlled.
+
 ## Next controlled action
 
 Normalize and approve the requirements under the hash-bound autonomy policy, then create a concept only in a separately authorized design phase. Before any fit or release claim, print the two-datum corner coupon and test one current Original Kraft book against the recorded criteria.

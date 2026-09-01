@@ -1,12 +1,12 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-003",
-  "assessment_version": "0.3.0",
+  "assessment_id": "PREFLIGHT-MM-ART-010-004",
+  "assessment_version": "0.4.0",
   "assessment_date": "2026-09-01",
-  "product": "MM-ART-010 Berlin permanent one-off city-map wall relief",
+  "product": "MM-ART-010 Berlin permanent one-off city-map wall relief with two display modes",
   "scope": {
-    "intended_use": "Unique 600 x 400 mm indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections.",
+    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.4.0 supports either an irregular Berlin-boundary silhouette inside a maximum 600 x 400 mm envelope or a rectangular 600 x 400 mm Umland field with Berlin marked.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
-    "variants": ["Berlin Urban Signal one-off"],
+    "variants": ["Berlin Urban Signal boundary_crop one-off", "Berlin Urban Signal context_outline one-off"],
     "out_of_scope": ["Wall anchors, electrical equipment, outdoor use, navigation claims, repeated disassembly, and universal load rating"]
   },
   "entities": [
@@ -31,7 +31,7 @@
       "lifecycle_states": ["transport", "assembly", "use", "failure"],
       "assembly": {"direction": "Connector inserted into the first seam-edge pocket, then the halves are pressed together in panel X.", "contact_mode": "Three loose one-way spring/tenon connectors plus discrete seam locating lands.", "sequence_notes": "One assembly cycle; removal is not a service requirement and may be destructive."},
       "keepouts_and_access": ["Visible map face", "light-through openings", "LED/cable envelope", "watermark and attribution lands"],
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.3.0.md", "decision-log.md"], "variant_confirmed": true, "coverage_percent": 45, "uncertainty_note": "Topology and lifecycle intent are approved; exact connector dimensions, clearance, retention and warp response require CAD and a process-matched coupon.", "observability": "INFERRED"},
+      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.4.0.md", "concepts/berlin-display-modes-concept-v03.png", "decision-log.md"], "variant_confirmed": false, "coverage_percent": 35, "uncertainty_note": "Connector topology and lifecycle intent are inherited from 0.3.0, but the irregular perimeter can move or remove local lands; exact mode-specific placement, dimensions, clearance, retention and warp response require approved decomposition, CAD and a process-matched coupon.", "observability": "INFERRED"},
       "interface_complexity": {"GEO": 2, "KIN": 2, "TOL": 3, "PHY": 1, "VAR": 2, "LIF": 4, "total": 14, "tier": "I3"},
       "criticality": "K2",
       "failure_modes": [{"mode": "Connector is too tight, too loose, fractures, or permits a seam step", "effect": "Assembly failure, damaged one-off panel, visible discontinuity, or separation during handling", "mitigation": "Parametric multi-clearance coupon, in-plane spring orientation, three distributed connectors, and assembled handling/proof test"}],
@@ -50,7 +50,7 @@
       "geometry": "MIXED",
       "lifecycle_states": ["assembly", "use", "failure"],
       "loads_and_performance": {"load": "assembled artwork self-weight; exact mass and proof factor unknown until CAD/slicer evidence", "load_path": "each main half receives its own upper support so the center seam is not the primary gravity path"},
-      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.3.0.md"], "variant_confirmed": false, "coverage_percent": 35, "uncertainty_note": "Wall substrate, anchors, exact part mass, connector geometry and physical proof result are unknown.", "observability": "INFERRED"},
+      "evidence": {"level": "E1", "sources": ["design-spec.yaml", "requirements-review-0.4.0.md"], "variant_confirmed": false, "coverage_percent": 30, "uncertainty_note": "Wall substrate, anchors, exact variant mass, silhouette-dependent hanger lands, connector geometry and physical proof result are unknown.", "observability": "INFERRED"},
       "interface_complexity": {"GEO": 2, "KIN": 1, "TOL": 2, "PHY": 2, "VAR": 3, "LIF": 2, "total": 12, "tier": "I3"},
       "criticality": "K2",
       "failure_modes": [{"mode": "Hanger, snap socket, anchor, or substrate fails", "effect": "Artwork falls and may cause injury or property damage", "mitigation": "Exclude universal anchors, provide independent support per half, qualify the printed interface, and require substrate-appropriate installation"}],
@@ -78,20 +78,23 @@
       "version": "0.1"
     }
   ],
-  "complexity": {"dimension_scores": {"REQ": 3, "CTX": 1, "PAR": 3, "INT": 3, "CPL": 3, "MOT": 1, "GEO": 3, "PHY": 1, "MAT": 3, "EXT": 1, "VER": 3}, "score_0_100": 59.0, "class": "C3", "drivers": ["Fit-sensitive concealed one-way seam and snap-in mount interfaces", "Coupling of global map/color registration with the permanent center seam and light openings", "Four-color large-format manufacturing plus coupon, proof-load and appearance verification"]},
-  "readiness": {"level": "R2", "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R2", "manufacturing_profile": "R2", "verification": "R2"}, "blocking_unknowns": ["Exact connector and snap clearances for the selected filament/profile", "Exact filament products, batches, conditioning and Anycubic profiles", "As-built mass, wall-anchor/substrate selection and physical proof-load result"], "completeness_percent": 65.0},
+  "complexity": {"dimension_scores": {"REQ": 3, "CTX": 2, "PAR": 3, "INT": 3, "CPL": 3, "MOT": 1, "GEO": 3, "PHY": 1, "MAT": 3, "EXT": 2, "VER": 3}, "score_0_100": 62.0, "class": "C3", "drivers": ["Two display modes with different outer topology and source extents", "Fit-sensitive concealed one-way seam and snap-in mount interfaces", "Coupling of global map/color registration with the permanent center seam and light openings", "Four-color large-format manufacturing plus coupon, proof-load and appearance verification"]},
+  "readiness": {"level": "R2", "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R1", "manufacturing_profile": "R2", "verification": "R2"}, "blocking_unknowns": ["Human approval of the two-mode concept", "Mode-aware seam, hanger and lighting-land placement for the irregular boundary", "Immutable Berlin/Brandenburg source coverage for context_outline", "Exact connector and snap clearances for the selected filament/profile", "Exact filament products, batches, conditioning and Anycubic profiles", "As-built mass, wall-anchor/substrate selection and physical proof-load result"], "completeness_percent": 58.0},
   "criticality": {"level": "K2", "rationale": "The artwork is decorative, but a failed printed wall interface or unsuitable customer lighting has credible injury, property-damage, or heat consequences and therefore requires controlled tests.", "credible_failure_effects": ["Falling artwork", "Damaged one-off assembly", "Customer-lighting heat or wiring conflict"]},
   "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
-  "decision": {"lane": "C", "confidence": "LOW_UNKNOWN", "design_release": "GO_WITH_CONTROLS", "rationale": "Proceed through concept approval, then coupon-first parametric CAD. Production/release remains blocked until exact profiles, connector fit, assembled load behavior and human appearance review are evidenced."},
+  "decision": {"lane": "C", "confidence": "LOW_UNKNOWN", "design_release": "GO_WITH_CONTROLS", "rationale": "Proceed only through human approval of concept v03, then update decomposition and source coverage before mode-aware CAD. Production/release remains blocked until exact profiles, connector fit, assembled load behavior and human appearance review are evidenced."},
   "warnings": [
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The one-way connector and snap-in mounting interfaces have no exact process-qualified clearance or physical result."},
     {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "Concealed seam pockets must remain printable in the face-up main-part orientation and must not create unsupported roofs or visible read-through."},
-    {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "Test methods are selected, but numeric pull, step, insertion-force and proof-load thresholds must be fixed after mass and coupon geometry exist."}
+    {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "Test methods are selected, but numeric pull, step, insertion-force and proof-load thresholds must be fixed after mass and coupon geometry exist."},
+    {"code": "VARIANT_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The boundary_crop silhouette can remove or weaken revision 0.3.0 rear interface lands; both modes need a new interface-placement audit."},
+    {"code": "SOURCE_DATA_INSUFFICIENT", "severity": "WARN", "message": "The frozen Berlin-only extract does not cover the default 12 percent context margin and cannot authorize a production context_outline build."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Approve a replacement concept showing two permanent halves, concealed one-way connectors, local snap-in standoffs and no rear grid.", "exit_criterion": "Human concept approval references revision 0.3.0 and the stored concept artifact."},
-    {"priority": 2, "action": "Generate a multi-clearance seam/connector coupon before full panel CAD.", "exit_criterion": "At least one process-matched coupon variant meets assembly, crack/whitening, flushness and pull/step acceptance."},
-    {"priority": 3, "action": "Qualify the local hanger/standoff sockets and complete artwork proof load.", "exit_criterion": "Recorded physical tests pass on the exact printer/material/nozzle/profile and installer limitations remain explicit."}
+    {"priority": 1, "action": "Approve concept v03 showing boundary_crop and context_outline.", "exit_criterion": "Human concept approval references revision 0.4.0 and concepts/berlin-display-modes-concept-v03.png."},
+    {"priority": 2, "action": "Update the decomposition for mode-owned outer masks, rear support lands, lighting paths and source ownership.", "exit_criterion": "A reviewed 0.4.0 decomposition covers both modes without relying on removed geometry."},
+    {"priority": 3, "action": "Freeze an expanded Berlin/Brandenburg source and prove it covers the selected context bounds.", "exit_criterion": "The immutable source and derived layers fully cover the 12 percent default context extent with recorded hashes."},
+    {"priority": 4, "action": "Revalidate connector, hanger and lighting interfaces before full panel CAD.", "exit_criterion": "Mode-specific digital audits and process-matched coupons meet the controlled acceptance criteria."}
   ],
-  "traceability": {"mode": "PROSPECTIVE", "project_id": "MM-ART-010", "project_revision": "0.3.0", "basis_refs": ["design-spec.yaml", "requirements-review-0.3.0.md", "decision-log.md", "autonomy-policy.json", "validation/v0.3.0/berlin/anycubic-3mf-import-failure-right.json"], "change_triggers": ["user_reported_anycubic_3mf_geometry_import_failure"], "previous_assessment_id": "PREFLIGHT-MM-ART-010-002", "created_at": "2026-08-31T16:44:58+02:00", "updated_at": "2026-09-01T12:57:00+02:00"}
+  "traceability": {"mode": "PROSPECTIVE", "project_id": "MM-ART-010", "project_revision": "0.4.0", "basis_refs": ["design-spec.yaml", "requirements-review-0.4.0.md", "concept-review-0.4.0.md", "concepts/berlin-display-modes-concept-v03.png", "source/v0.4.0/berlin/display-mode-parameters.json", "decision-log.md", "autonomy-policy.json", "validation/v0.3.0/berlin/anycubic-3mf-import-failure-right.json"], "change_triggers": ["user_requested_boundary_crop_and_context_outline_display_modes", "user_reported_excess_free_area"], "previous_assessment_id": "PREFLIGHT-MM-ART-010-003", "created_at": "2026-08-31T16:44:58+02:00", "updated_at": "2026-09-01T13:26:19+02:00"}
 }

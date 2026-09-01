@@ -1,5 +1,5 @@
-product: MM-ART-010 Berlin permanent one-off city-map wall relief
-intended_use: Unique 600 x 400 mm indoor decorative wall relief, assembled without adhesive from two four-color main prints.
+product: MM-ART-010 Berlin permanent one-off city-map wall relief with two display modes
+intended_use: Unique indoor decorative wall relief, assembled without adhesive from two four-color main prints; either an irregular Berlin silhouette inside a maximum 600 x 400 mm envelope or a rectangular 600 x 400 mm Umland field with Berlin marked.
 user_context: Adult indoor customer; optional customer-supplied low-power rear lighting; Kobra 3 Max Combo production.
 host_variant:
   manufacturer: Anycubic
@@ -18,6 +18,16 @@ requirements:
     acceptance_criterion: The artwork passes mechanically without lighting and the declared strip/cable volumes remain clear.
     priority: MUST
     source: user
+  - id: REQ-DISPLAY-MODE-001
+    text: Support boundary_crop, removing all printed geometry outside the Berlin administrative boundary.
+    acceptance_criterion: The printed outer perimeter follows Berlin and no backer/color body exists outside the boundary.
+    priority: MUST
+    source: user
+  - id: REQ-DISPLAY-MODE-002
+    text: Support context_outline, retaining a rectangular Umland field and clearly marking the Berlin administrative boundary.
+    acceptance_criterion: The full selected context extent contains mapped Umland and Berlin has a distinct robust boundary relief.
+    priority: MUST
+    source: user
 known_components:
   - {id: E-PANEL-L, kind: PRINTED_PART, name: Berlin left main half, source_ref: design-spec.yaml}
   - {id: E-PANEL-R, kind: PRINTED_PART, name: Berlin right main half, source_ref: design-spec.yaml}
@@ -26,9 +36,14 @@ known_components:
 available_evidence:
   - id: SRC-REQ-001
     type: user_statement
-    description: Approved permanent glue-free one-off architecture recorded in chat and the decision log.
+    description: Approved permanent glue-free one-off architecture plus the two explicitly requested Berlin display modes recorded in chat and the decision log.
     variant_confirmed: true
     scale_validated: false
+  - id: SRC-GEO-001
+    type: source_data
+    description: Frozen revision 0.3.0 Berlin boundary/network vectors are valid concept inputs but do not cover the default context_outline Umland extent.
+    variant_confirmed: false
+    scale_validated: true
 manufacturing_profile:
   printer: Anycubic Kobra 3 Max Combo
   process: FDM

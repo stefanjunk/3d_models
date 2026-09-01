@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0-concept",
+  "pilot": "Berlin",
+  "units": "mm",
+  "parameter_status": "concept-gate-input",
+  "display_mode": {
+    "type": "enum",
+    "allowed": [
+      "boundary_crop",
+      "context_outline"
+    ],
+    "default": "boundary_crop"
+  },
+  "shared": {
+    "maximum_assembled_envelope_mm": [600.0, 400.0],
+    "main_print_count": 2,
+    "nominal_vertical_split_x_mm": 300.0,
+    "uniform_geospatial_scale": true,
+    "maximum_simultaneous_filaments": 4,
+    "palette": {
+      "Bone White": "#E9E1D0",
+      "Nardo Grey": "#73777A",
+      "Black": "#171717",
+      "Orange": "#F05A24"
+    },
+    "dithering": false,
+    "rear_grid": false,
+    "replaceable_sections": false,
+    "optional_backlight_preparation": true,
+    "outside_source_policy": "fail_closed_when_frozen_source_does_not_cover_the_selected_context_extent"
+  },
+  "modes": {
+    "boundary_crop": {
+      "customer_label_de": "Nur Berlin",
+      "outside_geometry": "remove",
+      "outer_perimeter": "berlin_administrative_boundary",
+      "rectangular_backer": false,
+      "boundary_marker": false,
+      "fit_rule": "uniformly_fit_boundary_into_maximum_envelope",
+      "minimum_perimeter_feature_mm": 2.0,
+      "printed_free_area_outside_boundary": 0.0,
+      "assembly_note": "The two permanent prints are clipped after all semantic layers and rear interfaces share one global Berlin frame."
+    },
+    "context_outline": {
+      "customer_label_de": "Berlin mit Umland",
+      "outside_geometry": "retain",
+      "outer_perimeter": "rectangle",
+      "rectangular_backer": true,
+      "fit_rule": "uniformly_fit_selected_context_extent_into_full_600_by_400_frame",
+      "context_margin_ratio": {
+        "default": 0.12,
+        "minimum": 0.05,
+        "maximum": 0.3,
+        "definition": "fraction of Berlin boundary width and height added on every side before fitting"
+      },
+      "boundary_marker": {
+        "enabled": true,
+        "semantic_color": "Orange",
+        "nominal_width_mm": 2.4,
+        "nominal_height_above_black_mm": 0.4,
+        "minimum_ligament_to_aperture_mm": 2.0
+      },
+      "source_requirement": "Use a new immutable metropolitan Berlin/Brandenburg extract that covers the complete selected context extent; the v0.3.0 Berlin-only PBF is insufficient for production."
+    }
+  },
+  "gate_note": "These are concept parameters. Production CAD, interface relocation, mesh export and 3MF packaging begin only after human concept approval for revision 0.4.0."
+}

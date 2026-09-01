@@ -101,3 +101,13 @@
 - Result: native import and slicing succeed for both replacement 3MFs. Each G-code contains tools 0–3 and exactly three material changes; source STL hashes are recorded in the build reports.
 - Validation limitation: the generic G-code analyzer double-counts 23 canonical `;LAYER_CHANGE` markers plus 19 supplemental `; layer #` comments and therefore reports 42 versus the correct 23 layers. Product-local regression reports verify the canonical markers, unique Z sequence, header/footer counts, tools and changes without rewriting G-code. The aggregate adapter status remains transparently `FAIL` pending a reviewed validator fix.
 - Human gates: final ACE slot identity, wipe/purge preview, appearance and physical printing remain unapproved; no upload or print start occurred.
+
+## 2026-09-01 — Berlin display-mode requirements 0.4.0 approved; concept v03 pending
+
+- User correction: the existing rectangular Berlin field contains too much unintended free area and the right-hand 3MF appeared geometry-free in the target slicer.
+- The 3MF defect was closed separately in revision 0.3.0 by replacing both portable packages with native Anycubic Slicer Next project 3MFs; exact import/slice evidence is retained as the required 0.4.0 interoperability pattern.
+- New parameter authority: `display_mode = boundary_crop | context_outline` in `source/v0.4.0/berlin/display-mode-parameters.json`.
+- `boundary_crop` removes all bodies outside the Berlin administrative polygon. The artwork becomes an irregular silhouette inside a maximum 600 × 400 mm envelope, with zero printed free area outside Berlin.
+- `context_outline` retains the rectangular 600 × 400 mm field, defaults to 12% context margin per side and marks Berlin with a 2.4 mm Orange relief band.
+- The frozen Berlin-only extract cannot cover the selected Umland margin. Production `context_outline` therefore requires a larger immutable Berlin/Brandenburg snapshot after concept approval.
+- Concept v03 is generated from the frozen boundary/network vectors and stored at `concepts/berlin-display-modes-concept-v03.png`. Requirements are approved by the user's explicit request; concept, mode-aware decomposition and production examples remain gated by separate human approval.

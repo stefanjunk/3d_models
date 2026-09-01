@@ -5,8 +5,8 @@ project:
   name: "Permanent One-off City Map Wall Relief"
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
-  revision: 0.3.0
-  candidate: 0.3.0-anycubic-3mf-repair-candidate.2
+  revision: 0.4.0
+  candidate: 0.4.0-display-modes-concept.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,58 +16,62 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-003
-    assessment_version: 0.3.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-002
-    assessed_project_revision: "0.3.0"
-    updated_at: "2026-09-01T12:57:00+02:00"
+    assessment_id: PREFLIGHT-MM-ART-010-004
+    assessment_version: 0.4.0
+    previous_assessment_id: PREFLIGHT-MM-ART-010-003
+    assessed_project_revision: "0.4.0"
+    updated_at: "2026-09-01T13:26:19+02:00"
     change_triggers:
-      - user_reported_anycubic_3mf_geometry_import_failure
+      - user_requested_boundary_crop_and_context_outline_display_modes
+      - user_reported_excess_free_area
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
     status: approved
-    spec_revision: 0.3.0
+    spec_revision: 0.4.0
     approved_by: Stefan
-    approved_at: "2026-08-31"
-    previous_approved_revision: 0.2.0
+    approved_at: "2026-09-01"
+    previous_approved_revision: 0.3.0
     change_requested_by: "Stefan"
-    change_requested_on: "2026-08-30"
-    basis: "User confirmed the permanent two-half architecture and then explicitly approved glue-free concealed one-way plug connectors and snap-in local hanger/standoff parts"
+    change_requested_on: "2026-09-01"
+    basis: "User explicitly requested one boundary-cropped Berlin example and one rectangular Umland example with the Berlin administrative boundary marked"
   concept_approval:
-    status: approved
-    spec_revision: 0.3.0
-    asset: concepts/permanent-relief-collection-concept-v02.png
-    approved_by: Stefan
-    approved_at: "2026-08-31"
-    basis: "User explicitly approved concept v02 in chat"
+    status: pending
+    spec_revision: 0.4.0
+    asset: concepts/berlin-display-modes-concept-v03.png
+    approved_by: null
+    approved_at: null
+    basis: "Concept v03 generated from frozen Berlin vectors and awaiting explicit human approval"
   watermark_approval:
     status: blocked
     spec_revision: null
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
-    version: 0.3.0
-    reason: "Requirements and replacement concept are not approved and no current production geometry exists"
+    version: 0.4.0
+    reason: "Revision 0.4.0 display-mode concept is not approved and no mode-aware production geometry exists"
   decomposition_approval:
-    status: approved
-    spec_revision: 0.3.0
+    status: blocked
+    spec_revision: 0.4.0
     artifact: plan/hybrid-design-plan-v0.3.0.json
     review: decomposition-review-0.3.0.md
-    approved_by: Stefan
-    approved_at: "2026-08-31"
-    basis: "User explicitly approved decomposition revision 0.3.0 in chat"
+    approved_by: null
+    approved_at: null
+    basis: "The approved 0.3.0 decomposition is retained as history but must be updated after 0.4.0 concept approval for irregular perimeter and context-source effects"
   digital_candidate:
-    status: review-required
-    reason: "Shared interface/coupon, Berlin source freeze and eight named color meshes have deterministic PASS evidence. The formal portable 3MFs were rejected by Anycubic Slicer Next 1.3.9.4 and are being replaced by target-slicer project 3MFs with an exact import/slice gate; physical coupon selection, final ACE preview, watermark and human print-candidate approval remain pending."
+    status: blocked
+    reason: "The repaired 0.3.0 Anycubic project 3MFs remain valid interoperability evidence, but neither new 0.4.0 display mode may enter production CAD before concept and mode-aware decomposition approval."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
   final_release_approval:
     status: blocked
-    reason: "Requirements, concept, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open"
+    reason: "Concept, decomposition, CAD, slicer, physical, appearance, rights, watermark, safety and commercial gates remain open for revision 0.4.0"
 
 history:
+  previous_revision: 0.3.0
+  previous_concept_artifact: concepts/permanent-relief-collection-concept-v02.png
+  previous_status: "approved architecture and repaired target-slicer 3MF reference; superseded for new display-mode production work"
   superseded_revision: 0.2.0
   superseded_concept_artifact: concepts/modular-relief-collection-concept-v01.png
   superseded_decomposition_artifact: plan/hybrid-design-plan.json
@@ -86,11 +90,15 @@ requirements_trace:
     - "Treat each pilot as a permanent one-off artwork"
     - "Use the Anycubic Kobra 3 Max Combo for four-color printing"
     - "Use glue-free plug connectors for the printed assembly"
+    - "Support a boundary-cropped Berlin silhouette with no surrounding printed geometry"
+    - "Support a rectangular Umland relief with the Berlin administrative boundary marked"
+    - "Reduce unintended free area and create one Berlin example of each display mode"
   inferred:
     - "One-off means one permanently assembled physical Berlin artwork, even though its main body requires more than one print"
     - "Indoor decorative adult product, not a navigation aid or structural wall component"
     - "The design remains complete and mountable without customer lighting"
     - "The concealed connector and local hanger/standoff plugs are one-way assembly interfaces; destructive removal does not make the artwork a replaceable system"
+    - "The 600 x 400 mm size is a maximum envelope for boundary_crop and the fixed rectangular size for context_outline"
   recommended:
     - "Use two permanent 300 x 400 mm printed halves instead of the superseded six 200 mm tiles; both halves fit the verified 420 x 420 mm Kobra 3 Max bed and reduce visible seams from seven to one"
     - "Join the halves permanently with discrete seam locating lands and three concealed loose one-way spring/tenon connectors; no structural adhesive"
@@ -99,16 +107,22 @@ requirements_trace:
     - "Use explicit aligned color solids, broad semantic regions and the approved Urban Signal palette without dithering"
     - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
     - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
+    - "Use boundary_crop as the customer-facing default and a 12 percent per-side Umland margin for context_outline"
+    - "Mark Berlin in context_outline with a 2.4 mm Orange relief boundary"
   unresolved_consequential: []
   unresolved_nonblocking:
     - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
     - "Exact purchased filament batches, measured swatches and opacity remain to be recorded before final slicing"
     - "Final aperture pattern and visual density remain subject to the new concept and a physical light coupon"
+    - "The exact expanded Berlin/Brandenburg source snapshot and context bounds are selected only after concept approval"
 
 function:
   summary: >
-    A unique permanent 600 x 400 mm Berlin street-map wall artwork printed as
-    two 300 x 400 mm four-color halves on the Anycubic Kobra 3 Max Combo. The
+    A unique permanent Berlin street-map wall artwork offered in two controlled
+    display modes: an irregular Berlin-boundary silhouette inside a maximum
+    600 x 400 mm envelope, or a 600 x 400 mm rectangular Umland field with the
+    Berlin boundary marked. Each is printed as two four-color halves on the
+    Anycubic Kobra 3 Max Combo. The
     halves are permanently registered by concealed one-way printed connectors
     into one non-serviceable picture. Local connector springs and isolated
     snap-in hanger/standoff parts provide
@@ -119,6 +133,7 @@ function:
     - "customers commissioning one unique city artwork"
   included:
     - "two permanent Berlin main relief halves"
+    - "one selected display mode: boundary_crop or context_outline"
     - "three small concealed one-way printed seam connectors"
     - "small snap-in hanger/standoff parts and lighting-interface gauge"
     - "Anycubic Slicer Next project 3MFs with four aligned named volumes plus named per-color meshes"
@@ -137,14 +152,14 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-ART-010
-  version: 0.3.0
+  version: 0.4.0
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
   proposed_placement: "protected lower rear land outside seam, connector, hanger, lighting and attribution regions"
-  status: "blocked until stable revision 0.3.0 geometry, generated placement evidence and human approval"
+  status: "blocked until stable revision 0.4.0 mode-aware geometry, generated placement evidence and human approval"
 
 coordinate_system:
   units: mm
@@ -162,6 +177,7 @@ coordinate_system:
 
 geometry:
   assembled_nominal_mm: [600.0, 400.0]
+  assembled_envelope_interpretation: "fixed rectangle for context_outline; maximum bounding envelope for boundary_crop"
   print_split: {columns: 2, rows: 1}
   main_part_nominal_mm: [300.0, 400.0]
   main_part_envelope_max_mm: [300.0, 400.0, 5.0]
@@ -169,6 +185,18 @@ geometry:
   seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
   outer_frame_target_mm: 8.0
   backer_thickness_mm: 3.0
+  display_mode_parameters: source/v0.4.0/berlin/display-mode-parameters.json
+  display_modes:
+    boundary_crop:
+      outside_geometry: remove
+      outer_perimeter: berlin_administrative_boundary
+      rectangular_backer: false
+      printed_free_area_outside_boundary: 0.0
+    context_outline:
+      outside_geometry: retain
+      outer_perimeter: rectangle
+      context_margin_ratio_default: 0.12
+      berlin_boundary_marker_mm: {width: 2.4, height_above_black: 0.4, color: Orange}
   front_relief:
     inlay_depth_mm: 0.6
     transport_emboss_height_mm: 0.6
@@ -184,13 +212,13 @@ geometry:
     joiner_hanger_keepout_mm: 12.0
     rear_diffuser_land_width_mm: 6.0
   segmentation:
-    rule: "clip every semantic source layer against one immutable global panel frame, then split once at X = 300 mm; never fit or normalize halves independently"
+    rule: "fit the selected source extent once in one immutable global frame, apply the selected outer mask after semantic and protected interface registration, then split once at X = 300 mm; never fit or normalize halves independently"
     seam_rule: "global feature coordinates and relief heights remain identical on both sides of the permanent seam"
 
 permanent_assembly:
   architecture: "two non-replaceable main prints permanently joined into one unique artwork; no rear grid"
   nominal_owner: "one parametric global seam skeleton owns both mating edges, three connector pockets, snap-in standoff sockets and wall plane"
-  interface_source: "source/v0.3.0/interface_geometry.py with interface-parameters.json; provisional 0.25 mm per-side product clearance remains physical-coupon controlled"
+  interface_source: "revision 0.3.0 interface authority retained as reference; mode-aware 0.4.0 placement is blocked until concept and decomposition approval; provisional 0.25 mm per-side clearance remains physical-coupon controlled"
   seam_interface: "discrete locating lands plus three concealed loose one-way spring/tenon connectors; no structural adhesive"
   wall_interface: "isolated upper hanger/standoff and lower standoff parts lock into local rear sockets; exact wall anchors remain installer-selected"
   assembly_sequence:
@@ -224,8 +252,9 @@ map_content:
   pilot: Berlin
   production_mode: "unique one-off pilot"
   source: "OpenStreetMap vector data"
-  source_snapshot: "to be frozen after revision 0.3.0 requirements and concept approval"
-  target_extent: "Berlin administrative boundary contained without distortion inside the 600 x 400 mm visible frame"
+  source_snapshot: "frozen revision 0.3.0 Berlin source remains the boundary_crop concept input; context_outline requires a larger immutable Berlin/Brandenburg snapshot after 0.4.0 concept approval"
+  target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
+  display_mode_parameter_source: source/v0.4.0/berlin/display-mode-parameters.json
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
@@ -378,9 +407,13 @@ acceptance_details:
 
 acceptance:
   - id: AC-REQ
-    criterion: "Revision 0.3.0 permanent one-off requirements are explicitly approved before replacement concept or CAD work."
+    criterion: "Revision 0.4.0 requirements explicitly define boundary_crop and context_outline before mode-aware concept or CAD work."
     method: "human approval recorded against this exact revision"
     status: PASS
+  - id: AC-CONCEPT
+    criterion: "Concept v03 accurately distinguishes the irregular Berlin silhouette from the rectangular Umland field with marked Berlin boundary."
+    method: "human approval recorded against concepts/berlin-display-modes-concept-v03.png"
+    status: REVIEW_REQUIRED
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"
@@ -403,7 +436,8 @@ acceptance:
     status: NOT_RUN
 
 deliverables:
-  - "Approved revision 0.3.0 requirements and replacement concept sheet"
+  - "Approved revision 0.4.0 display-mode requirements and concept v03 awaiting approval"
+  - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"
   - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"

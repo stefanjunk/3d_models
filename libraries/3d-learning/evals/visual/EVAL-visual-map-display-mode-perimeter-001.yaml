@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-map-display-mode-perimeter-001
+title: Map display mode distinguishes subject silhouette from surrounding context
+category: visual
+status: draft
+trigger: A wall-map relief can either follow an administrative boundary or retain a rectangular field around the subject.
+risk: Clipping only the visible routes while retaining an implicit rectangular backer creates visually unused printed area, while claiming Umland without complete source coverage produces a misleading context field.
+given:
+  administrative_boundary: one valid frozen polygon or multipolygon in the project working CRS
+  semantic_layers: registered map/color/light geometry in the same global frame
+  display_mode: boundary_crop or context_outline
+  source_coverage: recorded immutable bounds for every required semantic layer
+expected:
+  - The display mode is an explicit enum and the chosen value is stored with the build evidence.
+  - In boundary_crop, every positive-volume semantic and base body is intersected with the administrative mask and no printed rectangular ground survives outside it.
+  - In context_outline, the full rectangular field is intentional, source features cover its selected bounds, and the subject boundary is a distinct printable relief feature with declared width, height and color.
+  - One uniform geospatial transform is applied before outer clipping and multi-part splitting; parts are never normalized independently.
+  - Rear connector, hanger, lighting, attribution and watermark lands are revalidated against the selected outer topology.
+  - A concept view clearly shows wall/background outside boundary_crop as unprinted and shows mapped context outside the subject in context_outline.
+failure_conditions:
+  - A rectangular base survives outside boundary_crop.
+  - Empty or source-uncovered areas are presented as meaningful Umland.
+  - The administrative boundary marker is narrower than the declared printable threshold or conflicts with light openings.
+  - Two print halves are fitted independently or do not reconstruct the same global map frame.
+  - Mode-specific interface or support lands extend outside the retained body.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/display-mode-parameters.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.png
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.json
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: "At concept stage, pass only when both modes, masks, context bounds and limitations are explicit and visually distinct. At manufacturing stage, additionally require positive-body containment, source-coverage and mode-specific interface reports before mesh release."
+  measurement_method: "Parameter/schema inspection, deterministic vector concept render, then mode-specific mesh containment, source-bounds and interface audits after concept approval."
+relationships:
+  lessons:
+    - EXP-00058
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.json
+  artifact_hashes:
+    - 367b2ddb8ba9b824ded83e5f21ac62d81d5823469918d39fcdb9377a629d2ef5
+    - 711984e3a7043dcd472030cf88c525cb2c99cf547b6cce70ac0cf692d530c429
+    - 4bc042e0e63261237a2f624eabfd87815be0c149d10ddb682adb1641001767cb
+tags:
+  - visual
+  - map-relief
+  - boundary-crop
+  - context-outline
+  - source-coverage
+  - topology

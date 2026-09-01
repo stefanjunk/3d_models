@@ -1,0 +1,152 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00058
+title: Separate administrative-boundary cropping from contextual map extent
+captured_at: 2026-09-01
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "The correction is captured in one Berlin concept comparison; neither new production mesh nor physical print has been approved or tested."
+feature:
+  type: selectable outer topology for large map wall relief
+  geometry: two-piece four-color Berlin relief with an optional irregular administrative-boundary perimeter or rectangular surrounding context
+  design_parameters:
+    display_mode_count: 2
+    maximum_assembled_width_mm: 600.0
+    maximum_assembled_height_mm: 400.0
+    main_print_count: 2
+    maximum_simultaneous_filaments: 4
+    context_margin_ratio_default: 0.12
+    context_margin_ratio_range: [0.05, 0.3]
+    boundary_marker_width_mm: 2.4
+  named_datums:
+    - immutable geospatial working frame
+    - Berlin administrative boundary
+    - global vertical split datum
+    - selected rectangular context extent
+  constraints:
+    - boundary_crop removes every positive-volume body outside the administrative polygon instead of leaving a rectangular backer.
+    - context_outline intentionally retains a rectangle and requires mapped context through the full selected extent.
+    - Every semantic layer and protected rear interface uses one global transform before clipping and splitting.
+    - Source coverage must fail closed when the requested context extends beyond the frozen extraction.
+scope:
+  process: FFF parametric vector-map relief planning
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: unknown
+  material:
+    manufacturer: Anycubic candidate
+    product: PLA Matte candidate
+    variant: four semantic colors
+    color: Bone White/Nardo Grey/Black/Orange
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: 0.20mm Standard candidate
+    profile_hash: null
+  geometry_class: large two-part decorative administrative map relief
+  environment: digital requirements and visual concept only
+  transfer_limits:
+    - Evidence covers Berlin and one existing two-part relief architecture.
+    - It does not prove that every administrative boundary is mechanically suitable as a printed perimeter.
+    - Context-source acquisition, mode-aware interfaces, meshes and physical behavior remain unvalidated.
+observation:
+  summary: A rectangular relief whose network was clipped to Berlin retained substantial printed ground outside the intended map subject; the user requested an explicit choice between removing that ground and filling it with real surrounding context.
+  expected: The product parameter communicates whether the desired subject controls the physical perimeter or is highlighted inside an intentionally contextual rectangular map.
+  actual: The previous single mode mixed a Berlin-clipped network with a full rectangular backer, creating visually unused printed area. Revision 0.4.0 now separates boundary_crop and context_outline in the parameter and concept contracts.
+  outcome: mixed
+  parameter: display_mode
+  recommended_value: boundary_crop-or-context_outline-explicit-enum
+  units: topology-contract
+explanation:
+  hypothesis: Printed free area appears when content extent and physical outer perimeter are controlled by different implicit masks.
+  mechanism: Clipping routes to an administrative polygon while retaining a rectangular base leaves valid but visually unassigned material between the polygon and rectangle. Using the same boundary as the positive-body mask removes it; alternatively, retaining routes from a larger source gives the rectangular area intentional context.
+  alternatives:
+    - A decorative border or typography could occupy the unused rectangle without changing the perimeter.
+    - A closer rectangular crop could reduce, but not eliminate, non-Berlin ground.
+    - Another city boundary may be too fragmented or mechanically weak for direct silhouette printing.
+  validated: false
+  validation_method: Deterministic concept render from the frozen Berlin boundary and network vectors plus parameter/schema inspection.
+evidence:
+  observations: 1
+  same_scope_repetitions: 1
+  geometry_count: 0
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: User correction, geospatial extent inspection, parameter review and generated concept comparison.
+  uncertainty: Mechanical viability, source completeness, exact material reduction and appearance are not measured until mode-specific CAD and physical prints exist.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-01 — requested Berlin-only silhouette and Berlin-plus-Umland examples
+      hash: null
+      notes: Actionable correction that re-opened requirements as revision 0.4.0.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.4.0.md
+      hash: 9a9dcbc62f0d4d183a77e8d47fd1add5db01356b821dbc62b44ab6097aef0edf
+      notes: Normalized mode contract and fail-closed source requirement.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.png
+      hash: 367b2ddb8ba9b824ded83e5f21ac62d81d5823469918d39fcdb9377a629d2ef5
+      notes: Generated visual comparison based on the frozen Berlin vectors.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/display-mode-parameters.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/render_display_modes_concept.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.json
+applicability:
+  triggers:
+    - An administrative-map relief leaves substantial visually unused ground between clipped content and a rectangular outer backer.
+    - A customer may want either the subject's physical silhouette or a broader geographic context.
+  exclusions:
+    - The requested perimeter is not a single printable region or cannot retain required interface/edge ligaments.
+    - The surrounding source data does not fully cover the requested context extent.
+  transfer_limits:
+    - Re-run topology, support-land, lighting and source-coverage checks for every boundary and scale.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-visual-map-display-mode-perimeter-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/multicolor-fdm-design/SKILL.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v03.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.4.0-display-modes-concept.1
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - map-relief
+  - wall-art
+  - administrative-boundary
+  - crop
+  - context
+  - source-coverage
+  - user-correction

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0",
+  "accepted_candidate": "digital-candidate-r9",
+  "iterations": [
+    {"candidate": "digital-candidate-r1", "status": "rejected", "finding": "color solids touched only at exact Z planes; concatenated composite failed one-body topology audit"},
+    {"candidate": "digital-candidate-r2", "status": "rejected", "finding": "internal Z overlap alone did not remove disconnected backer islands created by closed water apertures"},
+    {"candidate": "digital-candidate-r3", "status": "rejected", "finding": "first bridge solve exposed a raster seam-column ambiguity on the right half"},
+    {"candidate": "digital-candidate-r4", "status": "rejected", "finding": "exact half clipping was correct but the shared raster seam column still entered the right connectivity domain"},
+    {"candidate": "digital-candidate-r5", "status": "rejected", "finding": "aperture bridges produced one in-memory component, but serialized boundary composites contained degenerate triangles"},
+    {"candidate": "digital-candidate-r6", "status": "rejected", "finding": "STL roundtrip became a build gate; all context bodies passed but boundary composite serialization remained unstable"},
+    {"candidate": "digital-candidate-r7", "status": "rejected", "finding": "all sixteen manufacturing color STLs passed; optional composite Boolean still failed serialized topology"},
+    {"candidate": "digital-candidate-r8", "status": "rejected", "finding": "Blender Manifold Boolean plus component filtering passed two of four composites; remaining failures were zero-area seam/intersection triangles"},
+    {"candidate": "digital-candidate-r9", "status": "accepted-draft", "finding": "0.5 mm Bone White part-edge termination, 0.0001 mm numerical weld and fail-closed Blender component filtering yielded four exact-audit composites and sixteen exact-roundtrip color bodies"}
+  ],
+  "retained_evidence": [
+    "validation/v0.4.0/berlin/digital-candidate-r9/build-report.json",
+    "validation/v0.4.0/berlin/digital-candidate-r9/mesh-audits",
+    "validation/v0.4.0/berlin/digital-candidate-r9/composite-raw",
+    "validation/v0.4.0/berlin/digital-candidate-r9/anycubic-slices"
+  ],
+  "cleanup_policy": "Large rejected geometry directories r1-r8 are reproducible development intermediates and are not manufacturing deliverables; the scoped findings are retained here and the final raw Boolean traces remain under r9."
+}

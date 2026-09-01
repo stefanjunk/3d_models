@@ -136,3 +136,13 @@
 - The default context preserves the approved 12% vertical margin; the source extent expands horizontally to 26.6545805% per side so it fills the 600 × 400 mm frame at one uniform scale without distortion, crop or letterboxing.
 - `validation/v0.4.0/berlin/interface-placement-report.json` passes for both modes. The boundary silhouette uses connector stations Y 120/232/344 mm and relocated local mounts; the context rectangle retains the 0.3.0 positions. Minimum modeled perimeter ligament is 5.307 mm.
 - Exact connector/snap process compensation, light appearance, wall hardware and proof load remain physical human gates.
+
+## 2026-09-01 — Both Berlin display examples completed as digital candidate r9
+
+- `boundary_crop` now removes every positive body outside the Berlin administrative silhouette. The two physical halves retain 99,990.59 mm² base area in total; compared with the full rectangular context example this reduces same-profile positive extrusion by 56.29% and the native slicer estimate by 54.88%.
+- `context_outline` retains the full 600 × 400 mm Berlin-plus-Umland field and marks the Berlin boundary as an Orange relief band. Both modes use the approved Bone White, Nardo Grey, Black and Orange Z bands without dithering.
+- Closed waterway aperture loops initially created loose positive islands. Candidate r9 inserts 4/2/2/2 local 2.0 mm material bridges in boundary-left, boundary-right, context-left and context-right; each final half has one connected backer and one watertight composite while remaining below the 12% open-area limit.
+- All sixteen serialized color bodies and four reconstructed composites are watertight, positive-volume and free of boundary, nonmanifold, degenerate and duplicate faces. The exact composites contain 143,300, 116,648, 309,948 and 283,342 triangles.
+- Four native Anycubic project 3MFs import and slice successfully in Anycubic Slicer Next 1.3.9.4. Every retained exact G-code has 23 canonical layers, tools 0–3 and three tool changes. The generic standard-only 3MF parser does not follow the vendor object-part relationship layout, and the generic G-code analyzer counts 19 supplemental vendor comments; both limitations remain visible and are not rewritten away.
+- Digital perimeter and aperture evidence removes their blocks from component, integration and manufacturing gates. Physical connector/light coupon, exact filament/ACE/purge GUI review, full prints, wall proof, lit/unlit appearance, watermark and release remain human-controlled.
+- No printer upload or print start was performed.

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0",
+  "mode": "context-outline",
+  "half": "right",
+  "status": "PASS",
+  "scope": "native Anycubic project-3MF import, executable layer consistency and four-volume tool routing",
+  "inputs": {
+    "project_3mf": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-right-four-color.3mf",
+      "sha256": "6f77df8bb2e7c7d7d1a66e379e26b6b46d91c0e0a338950ad8d055cc3e666dd6"
+    },
+    "adapter_report": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/anycubic-slices/context-outline-right-r1-adapter.json",
+      "sha256": "1bb959bd9ad5d1b107089e793e02f9757bb81b58dab212ee8c1fc953e42ae67e"
+    },
+    "gcode": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/anycubic-slices/context-outline-right-r1/plate_1.gcode",
+      "bytes": 49952452,
+      "sha256": "e1f436ce5bd0024445138c91a4467fa5a466fc9f88b15d163fa94faeadf6a371"
+    }
+  },
+  "input_hashes": {
+    "project_3mf": "6f77df8bb2e7c7d7d1a66e379e26b6b46d91c0e0a338950ad8d055cc3e666dd6",
+    "adapter_report": "1bb959bd9ad5d1b107089e793e02f9757bb81b58dab212ee8c1fc953e42ae67e",
+    "gcode": "e1f436ce5bd0024445138c91a4467fa5a466fc9f88b15d163fa94faeadf6a371"
+  },
+  "checks": {
+    "native_slicer_success": true,
+    "project_hash_matches_adapter_source": true,
+    "gcode_hash_registered_by_adapter": true,
+    "canonical_layer_markers_match_header": true,
+    "canonical_layer_z_values_unique": true,
+    "header_and_summary_agree": true,
+    "expected_tools_seen": true,
+    "expected_tool_changes": true
+  },
+  "metrics": {
+    "declared_header_layers": [
+      23
+    ],
+    "declared_summary_layers": [
+      23
+    ],
+    "canonical_layer_change_markers": 23,
+    "canonical_unique_z_values": 23,
+    "supplemental_layer_comments": 19,
+    "tools_seen": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tool_changes": 3
+  },
+  "adapter_observation": {
+    "status": "FAIL",
+    "generic_analyzer_layer_count": null,
+    "interpretation": "Only the canonical executable markers and native result are used here; supplemental comments are reported separately and the G-code is unchanged."
+  },
+  "limitations": [
+    "This digital review does not approve physical ACE slot identity, purge sufficiency, seam appearance or print quality.",
+    "Final color/tool and wipe-tower inspection remains a human GUI gate."
+  ]
+}

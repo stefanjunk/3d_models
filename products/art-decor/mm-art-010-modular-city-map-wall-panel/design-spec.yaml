@@ -16,14 +16,14 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-007
+    assessment_id: PREFLIGHT-MM-ART-010-008
     assessment_version: 0.4.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-006
+    previous_assessment_id: PREFLIGHT-MM-ART-010-007
     assessed_project_revision: "0.4.0"
-    updated_at: "2026-09-01T17:56:10+02:00"
+    updated_at: "2026-09-01T19:07:27+02:00"
     change_triggers:
-      - expanded_context_source_frozen
-      - mode_interface_placements_digitally_validated
+      - berlin_digital_candidate_r9_geometry_validated
+      - four_native_anycubic_project_slices_completed
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -256,6 +256,18 @@ map_content:
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
   display_mode_parameter_source: source/v0.4.0/berlin/display-mode-parameters.json
   production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
+  current_digital_candidate:
+    id: digital-candidate-r9
+    status: DRAFT_DIGITAL_PASS
+    summary: validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json
+    validation_contract: validation/v0.4.0/berlin/digital-candidate-r9/validation-project.json
+    aggregate_draft_report: validation/v0.4.0/berlin/digital-candidate-r9/validation-summary-draft-r2.json
+    boundary_crop_projects:
+      - exports/v0.4.0/berlin/digital-candidate-r9/boundary-crop/berlin-boundary-crop-left-four-color.3mf
+      - exports/v0.4.0/berlin/digital-candidate-r9/boundary-crop/berlin-boundary-crop-right-four-color.3mf
+    context_outline_projects:
+      - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-left-four-color.3mf
+      - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-right-four-color.3mf
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
@@ -426,6 +438,14 @@ acceptance:
   - id: AC-INTERFACE-PLACEMENT
     criterion: "Both modes place every connector pocket, hanger and standoff footprint inside the retained body with at least 5.0 mm modeled perimeter ligament."
     method: "validation/v0.4.0/berlin/interface-placement-report.json"
+    status: PASS
+  - id: AC-DIGITAL-GEOMETRY
+    criterion: "Four single-component watertight composites and sixteen serialized watertight color bodies exist; every half remains connected after light-through apertures."
+    method: "digital-candidate-r9 build report, exact-coordinate mesh audits and aperture-connectivity eval"
+    status: PASS
+  - id: AC-TARGET-SLICER
+    criterion: "All four native Anycubic project 3MFs import and produce non-empty G-code with 23 canonical layers, tools 0-3 and three tool changes."
+    method: "four slice-anycubic-next result.json artifacts plus product-local canonical slice reviews"
     status: PASS
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."

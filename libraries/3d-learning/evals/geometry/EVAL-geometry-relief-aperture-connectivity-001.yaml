@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-relief-aperture-connectivity-001
+title: Through-aperture relief retains one positive body per physical print
+category: geometry
+status: draft
+trigger: A line, texture or lighting network is subtracted through a relief backer without a continuous rear support layer.
+risk: Closed aperture loops or part clipping can leave loose printed islands that appear valid in a top preview but detach during printing, handling or installation.
+given:
+  outer_mask: retained positive perimeter for every physical print
+  aperture_mask: registered through-opening mask after edge and interface keep-outs
+  split_contract: exact physical print boundaries including seam gaps
+  backer_meshes: serialized manufacturing backer and reconstructed composite meshes
+expected:
+  - Connectivity is evaluated separately inside every physical print boundary after aperture subtraction.
+  - Every retained backer has exactly one positive connected component unless separately retained inlays are explicitly declared and validated.
+  - Any bridge or island removal stays inside the approved outer mask and outside protected connector, hanger, standoff, attribution, watermark and edge-ligament keep-outs.
+  - The serialized backer and reconstructed composite are watertight, positive-volume and free of boundary, nonmanifold, duplicate and degenerate faces.
+  - Preview/open-area checks do not substitute for positive-body connectivity.
+failure_conditions:
+  - A physical print contains more than one undeclared positive backer component.
+  - An aperture bridge adds material outside the approved perimeter or violates a protected keep-out.
+  - A raster pass is contradicted by the serialized STL component count.
+  - The check runs only on the unsplit global artwork and misses a component isolated by the manufacturing split.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/build-report.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/check_candidate_connectivity.py
+grader:
+  type: deterministic
+  command: "python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/check_candidate_connectivity.py --candidate digital-candidate-r9 --output <new-output-path>"
+  expected_exit_code: 0
+  rubric: "Pass only when all four mode/half checks report one retained raster component, one Bone White component and one regular composite component."
+  measurement_method: "Connected-component labeling recorded by the generator plus exact serialized mesh metrics in the candidate build report."
+relationships:
+  lessons:
+    - EXP-00059
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-01
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/aperture-connectivity-eval.json
+  artifact_hashes:
+    - 4a1bd6d97b3d0901ac40ca12bd2f387f9fab74af71c81444a654611e6a3c3a51
+    - 230c35e3db5f49e8bf087a61fa23d77cd25f4f3ea32934f7e4e19f66d7b0df2a
+tags:
+  - geometry
+  - connectivity
+  - through-aperture
+  - floating-body
+  - wall-relief

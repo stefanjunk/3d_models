@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from collections.abc import Iterable, Iterator
 from pathlib import Path
 
@@ -29,6 +30,8 @@ INTERFACE_DIR = PRODUCT / "source" / "v0.3.0"
 INTERFACE_PARAMETERS_PATH = INTERFACE_DIR / "interface-parameters.json"
 INTERFACE_PARAMETERS = json.loads(INTERFACE_PARAMETERS_PATH.read_text())
 PLACEMENT_DIR = HERE / "placements"
+BLENDER = Path("/usr/bin/blender")
+BLENDER_COMPOSITE_SCRIPT = HERE / "rebuild_composite_blender.py"
 
 MODES = ("boundary_crop", "context_outline")
 COLORS = ("bone-white", "nardo-grey", "black", "orange")
@@ -59,9 +62,13 @@ LIGHT = {
     "seam_keepout_half_width_mm": 8.0,
     "functional_keepout_mm": 12.0,
     "maximum_open_area_fraction_per_half": 0.12,
+    "island_bridge_width_mm": 2.0,
 }
 RASTER_PITCH_MM = 0.25
 SEAM_GAP_MM = 0.25
+OUTER_MIN_COMPONENT_AREA_MM2 = 6.0
+UPPER_COLOR_EDGE_INSET_MM = 0.5
+MESH_SIMPLIFY_TOLERANCE_MM = 0.05
 
 
 def sha256(path: Path) -> str:
@@ -123,6 +130,109 @@ def manifold_to_trimesh(manifold: m3d.Manifold) -> trimesh.Trimesh:
     )
 
 
+def roundtrip_stl_metrics(path: Path) -> dict[str, int | float | bool | list]:
+    """Audit the serialized STL representation, not only the in-memory mesh."""
+
+    raw = trimesh.load_mesh(path, process=False)
+    vertices = np.asarray(raw.vertices, dtype=np.float64)
+    faces = np.asarray(raw.faces, dtype=np.int64)
+    unique_vertices, inverse = np.unique(vertices, axis=0, return_inverse=True)
+    mesh = trimesh.Trimesh(
+        vertices=unique_vertices, faces=inverse[faces], process=False
+    )
+    mesh.remove_unreferenced_vertices()
+    edge_counts = np.bincount(
+        mesh.edges_unique_inverse, minlength=len(mesh.edges_unique)
+    )
+    area_threshold = max(float(mesh.area), 1.0) * np.finfo(float).eps * 100.0
+    degenerate_faces = int(np.count_nonzero(mesh.area_faces <= area_threshold))
+    canonical_faces = np.sort(np.asarray(mesh.faces, dtype=np.int64), axis=1)
+    return {
+        "vertices": len(mesh.vertices),
+        "triangles": len(mesh.faces),
+        "watertight": bool(mesh.is_watertight),
+        "positive_volume": bool(mesh.is_volume and mesh.volume > 0),
+        "connected_components": len(mesh.split(only_watertight=False)),
+        "boundary_edges": int(np.count_nonzero(edge_counts == 1)),
+        "nonmanifold_edges": int(np.count_nonzero(edge_counts > 2)),
+        "degenerate_faces": degenerate_faces,
+        "duplicate_faces": int(
+            len(canonical_faces) - len(np.unique(canonical_faces, axis=0))
+        ),
+        "volume_mm3": float(mesh.volume),
+        "bounds_mm": mesh.bounds.tolist(),
+    }
+
+
+def rebuild_composite(
+    color_paths: list[Path], raw_path: Path, final_path: Path
+) -> tuple[dict, dict]:
+    """Union color solids in Blender and retain only one qualified main body."""
+
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    command = [
+        str(BLENDER),
+        "--background",
+        "--factory-startup",
+        "--python",
+        str(BLENDER_COMPOSITE_SCRIPT),
+        "--",
+        str(raw_path),
+        *(str(path) for path in color_paths),
+    ]
+    result = subprocess.run(
+        command,
+        cwd=PRODUCT.parents[2],
+        capture_output=True,
+        text=True,
+        timeout=300,
+        check=False,
+    )
+    if result.returncode != 0 or not raw_path.is_file():
+        raise RuntimeError(
+            "Blender composite rebuild failed: "
+            + (result.stderr or result.stdout)[-4000:]
+        )
+
+    raw_mesh = trimesh.load_mesh(raw_path, process=True)
+    parts = list(raw_mesh.split(only_watertight=False))
+    qualified = [part for part in parts if part.is_watertight and part.volume > 1e-6]
+    qualified_ids = {id(part) for part in qualified}
+    rejected = [part for part in parts if id(part) not in qualified_ids]
+    if len(qualified) != 1:
+        raise ValueError(
+            f"expected one positive watertight Blender component, got {len(qualified)}"
+        )
+    rejected_max_extent = max(
+        (float(part.extents.max()) for part in rejected if len(part.vertices)),
+        default=0.0,
+    )
+    rejected_abs_volume = sum(abs(float(part.volume)) for part in rejected)
+    if rejected_max_extent > 0.1 or rejected_abs_volume > 0.001:
+        raise ValueError(
+            "Blender produced a material rejected component: "
+            f"max_extent={rejected_max_extent}, abs_volume={rejected_abs_volume}"
+        )
+    qualified[0].export(final_path)
+    final_metrics = roundtrip_stl_metrics(final_path)
+    trace = {
+        "backend": "Blender Manifold Boolean",
+        "executable": str(BLENDER),
+        "executable_sha256": sha256(BLENDER.resolve()),
+        "script": str(BLENDER_COMPOSITE_SCRIPT.relative_to(PRODUCT)),
+        "script_sha256": sha256(BLENDER_COMPOSITE_SCRIPT),
+        "raw_path": str(raw_path.relative_to(PRODUCT)),
+        "raw_sha256": sha256(raw_path),
+        "raw_metrics": roundtrip_stl_metrics(raw_path),
+        "rejected_component_count": len(rejected),
+        "rejected_face_count": sum(len(part.faces) for part in rejected),
+        "rejected_max_extent_mm": rejected_max_extent,
+        "rejected_abs_volume_mm3": rejected_abs_volume,
+        "stdout_tail": result.stdout[-2000:],
+    }
+    return final_metrics, trace
+
+
 def transform_geometry(geometry, record):
     scale = record["uniform_scale_mm_per_source_m"]
     tx, ty = record["translate_mm"]
@@ -142,9 +252,100 @@ def load_placement(mode: str):
 def outer_geometry(mode: str, boundary, placement):
     if mode == "boundary_crop":
         # Preserve the authoritative perimeter within 0.06 mm physical error;
-        # raster approximation is used only for semantic masks.
-        return transform_geometry(boundary, placement["transform"]).simplify(0.06, preserve_topology=True)
+        # raster approximation is used only for semantic masks.  Sub-6 mm2
+        # detached source slivers cannot form a useful printed wall-art body.
+        transformed = transform_geometry(boundary, placement["transform"]).simplify(
+            0.06, preserve_topology=True
+        )
+        # Clip at the real seam before filtering.  A concave perimeter can
+        # otherwise leave sub-nozzle slivers on one side of the split even
+        # though the unsplit city polygon is globally connected.
+        retained: list[Polygon] = []
+        for x0, x1 in (
+            (0.0, 300.0 - SEAM_GAP_MM / 2.0),
+            (300.0 + SEAM_GAP_MM / 2.0, 600.0),
+        ):
+            clipped = transformed.intersection(box(x0, 0.0, x1, 400.0))
+            retained.extend(
+                polygon
+                for polygon in polygons(clipped)
+                if polygon.area >= OUTER_MIN_COMPONENT_AREA_MM2
+            )
+        return unary_union(retained)
     return box(0.0, 0.0, 600.0, 400.0)
+
+
+def bridge_aperture_islands(
+    outer_array: np.ndarray, aperture_array: np.ndarray, pitch: float
+) -> tuple[np.ndarray, dict[str, dict[str, float | int]]]:
+    """Restore narrow material bridges until each printable half is connected."""
+
+    result = aperture_array.copy()
+    split_column = round(300.0 / pitch)
+    half_slices = {
+        "left": slice(0, split_column),
+        # Column 1200 is the raster representation of the protected 0.25 mm
+        # physical seam gap.  Exclude it from both connectivity domains.
+        "right": slice(split_column + 1, outer_array.shape[1]),
+    }
+    reports: dict[str, dict[str, float | int]] = {}
+    bridge_width_px = max(1, round(LIGHT["island_bridge_width_mm"] / pitch))
+    for half, column_slice in half_slices.items():
+        outer_half = outer_array[:, column_slice]
+        aperture_half = result[:, column_slice].copy()
+        initial_aperture_pixels = int(aperture_half.sum())
+        bridge_count = 0
+        while True:
+            retained = outer_half & ~aperture_half
+            labels, component_count = ndimage.label(retained)
+            if component_count <= 1:
+                break
+            counts = np.bincount(labels.ravel())
+            counts[0] = 0
+            main_label = int(np.argmax(counts))
+            secondary_labels = [
+                label
+                for label in range(1, component_count + 1)
+                if label != main_label
+            ]
+            secondary_label = max(secondary_labels, key=lambda label: counts[label])
+            main = labels == main_label
+            distance, nearest = ndimage.distance_transform_edt(
+                ~main, return_indices=True
+            )
+            secondary_coordinates = np.argwhere(labels == secondary_label)
+            distances = distance[
+                secondary_coordinates[:, 0], secondary_coordinates[:, 1]
+            ]
+            source_row, source_column = secondary_coordinates[int(np.argmin(distances))]
+            target_row = int(nearest[0, source_row, source_column])
+            target_column = int(nearest[1, source_row, source_column])
+            bridge_image = Image.new("L", (outer_half.shape[1], outer_half.shape[0]), 0)
+            ImageDraw.Draw(bridge_image).line(
+                [(int(source_column), int(source_row)), (target_column, target_row)],
+                fill=255,
+                width=bridge_width_px,
+            )
+            bridge = np.asarray(bridge_image, dtype=np.uint8) > 0
+            restore = bridge & aperture_half & outer_half
+            if not restore.any():
+                raise ValueError(
+                    f"cannot connect retained aperture island in {half} half"
+                )
+            aperture_half[restore] = False
+            bridge_count += 1
+        result[:, column_slice] = aperture_half
+        final_components = ndimage.label(outer_half & ~aperture_half)[1]
+        reports[half] = {
+            "bridge_count": bridge_count,
+            "bridge_width_mm": LIGHT["island_bridge_width_mm"],
+            "restored_material_area_mm2": (
+                initial_aperture_pixels - int(aperture_half.sum())
+            )
+            * pitch**2,
+            "retained_raster_components": int(final_components),
+        }
+    return result, reports
 
 
 def iter_line_coordinates(geometry: dict) -> Iterable[list[list[float]]]:
@@ -243,6 +444,21 @@ def raster_masks(mode: str, boundary, outer, placement):
     orange_array = np.asarray(orange, dtype=np.uint8) > 0
     aperture_array = np.asarray(apertures, dtype=np.uint8) > 0
 
+    color_edge_radius = max(1, round(UPPER_COLOR_EDGE_INSET_MM / pitch))
+    upper_color_safe = morphology.erosion(
+        outer_array, footprint=morphology.disk(color_edge_radius)
+    )
+    seam_min_column = round(
+        (300.0 - SEAM_GAP_MM / 2.0 - UPPER_COLOR_EDGE_INSET_MM) / pitch
+    )
+    seam_max_column = round(
+        (300.0 + SEAM_GAP_MM / 2.0 + UPPER_COLOR_EDGE_INSET_MM) / pitch
+    )
+    upper_color_safe[:, seam_min_column : seam_max_column + 1] = False
+    nardo_array &= upper_color_safe
+    black_array &= upper_color_safe
+    orange_array &= upper_color_safe
+
     network_min_pixels = max(1, round(NETWORK["minimum_component_area_mm2"] / pitch**2))
     nardo_array = morphology.remove_small_objects(nardo_array, max_size=network_min_pixels - 1)
     black_array = morphology.remove_small_objects(black_array, max_size=network_min_pixels - 1)
@@ -254,8 +470,8 @@ def raster_masks(mode: str, boundary, outer, placement):
     aperture_array = morphology.remove_small_objects(aperture_array, max_size=aperture_min_pixels - 1)
 
     edge_radius = max(1, round(LIGHT["outer_ligament_mm"] / pitch))
-    safe = morphology.binary_erosion(outer_array, footprint=morphology.disk(edge_radius))
-    safe_image = Image.fromarray((safe * 255).astype(np.uint8), mode="L")
+    safe = morphology.erosion(outer_array, footprint=morphology.disk(edge_radius))
+    safe_image = Image.fromarray((safe * 255).astype(np.uint8))
     safe_draw = ImageDraw.Draw(safe_image)
 
     def exclude_rect(x0: float, y0: float, x1: float, y1: float):
@@ -271,6 +487,9 @@ def raster_masks(mode: str, boundary, outer, placement):
     exclude_rect(20.0, 10.0, 150.0, 38.0)
     exclude_rect(450.0, 10.0, 580.0, 38.0)
     aperture_array &= np.asarray(safe_image, dtype=np.uint8) > 0
+    aperture_array, bridge_reports = bridge_aperture_islands(
+        outer_array, aperture_array, pitch
+    )
 
     nardo_array &= outer_array
     black_array &= nardo_array
@@ -284,6 +503,7 @@ def raster_masks(mode: str, boundary, outer, placement):
         "black": black_array,
         "orange": orange_array,
         "apertures": aperture_array,
+        "aperture_bridges": bridge_reports,
         "resolution_mm": pitch,
     }
 
@@ -346,7 +566,7 @@ def save_preview(masks, mode: str, path: Path):
     pixels[masks["black"]] = (*rgb(PALETTE["Black"]), 255)
     pixels[masks["orange"]] = (*rgb(PALETTE["Orange"]), 255)
     pixels[masks["apertures"]] = (255, 200, 87, 255)
-    image = Image.fromarray(pixels, mode="RGBA").resize((1200, 800), Image.Resampling.LANCZOS)
+    image = Image.fromarray(pixels).resize((1200, 800), Image.Resampling.LANCZOS)
     image.save(path)
 
 
@@ -356,10 +576,17 @@ def build_mode(mode: str, export_dir: Path, validation_dir: Path):
     outer = outer_geometry(mode, boundary, placement)
     masks = raster_masks(mode, boundary, outer, placement)
     outer_section = to_cross_section(outer)
+    upper_color_section = to_cross_section(
+        outer.buffer(-UPPER_COLOR_EDGE_INSET_MM)
+    )
     sections = {
-        name: mask_to_cross_section(masks[name], RASTER_PITCH_MM) ^ outer_section
-        for name in ("nardo", "black", "orange", "apertures")
+        name: mask_to_cross_section(masks[name], RASTER_PITCH_MM)
+        ^ upper_color_section
+        for name in ("nardo", "black", "orange")
     }
+    sections["apertures"] = (
+        mask_to_cross_section(masks["apertures"], RASTER_PITCH_MM) ^ outer_section
+    )
     preview = validation_dir / f"berlin-{mode.replace('_', '-')}-top-preview.png"
     save_preview(masks, mode, preview)
 
@@ -372,8 +599,19 @@ def build_mode(mode: str, export_dir: Path, validation_dir: Path):
     for half, (x0, x1) in half_definitions.items():
         local_width = x1 - x0
         half_global = to_cross_section(box(x0, 0.0, x1, 400.0))
+        upper_half_global = to_cross_section(
+            box(
+                x0 + UPPER_COLOR_EDGE_INSET_MM,
+                UPPER_COLOR_EDGE_INSET_MM,
+                x1 - UPPER_COLOR_EDGE_INSET_MM,
+                400.0 - UPPER_COLOR_EDGE_INSET_MM,
+            )
+        )
         local_sections = {
-            name: (section ^ half_global).translate((-x0, 0.0))
+            name: (
+                section
+                ^ (half_global if name == "apertures" else upper_half_global)
+            ).translate((-x0, 0.0))
             for name, section in sections.items()
         }
         local_outer = (outer_section ^ half_global).translate((-x0, 0.0))
@@ -389,34 +627,38 @@ def build_mode(mode: str, export_dir: Path, validation_dir: Path):
             "black": extrude_section(body_sections["black"], *Z_BANDS["black"]),
             "orange": extrude_section(body_sections["orange"], *Z_BANDS["orange"]),
         }
-        composite = m3d.Manifold()
         color_reports = {}
+        color_paths: list[Path] = []
         prefix = f"berlin-{mode.replace('_', '-')}-{half}"
         for color in COLORS:
-            manifold = manifolds[color]
+            manifold = manifolds[color].simplify(MESH_SIMPLIFY_TOLERANCE_MM)
+            manifolds[color] = manifold
             if manifold.is_empty() or manifold.volume() <= 0:
                 raise ValueError(f"{mode}/{half}/{color} is empty")
             path = export_dir / f"{prefix}-{color}.stl"
             mesh = manifold_to_trimesh(manifold)
             mesh.export(path)
             artifacts.append(path)
+            color_paths.append(path)
+            roundtrip = roundtrip_stl_metrics(path)
             color_reports[color] = {
                 "semantic_name": COLOR_LABELS[color],
                 "area_mm2": body_sections[color].area(),
-                "volume_mm3": float(manifold.volume()),
-                "vertices": int(manifold.num_vert()),
-                "triangles": int(manifold.num_tri()),
-                "watertight": bool(mesh.is_watertight),
-                "positive_volume": bool(mesh.volume > 0),
-                "bounds_mm": mesh.bounds.tolist(),
+                **roundtrip,
                 "bytes": path.stat().st_size,
                 "sha256": sha256(path),
             }
-            composite += manifold
         composite_path = export_dir / f"{prefix}-composite.stl"
-        composite_mesh = manifold_to_trimesh(composite)
-        composite_mesh.export(composite_path)
+        raw_composite_path = (
+            validation_dir.parent
+            / "composite-raw"
+            / f"{prefix}-composite-blender-raw.stl"
+        )
+        composite_roundtrip, composite_trace = rebuild_composite(
+            color_paths, raw_composite_path, composite_path
+        )
         artifacts.append(composite_path)
+        artifacts.append(raw_composite_path)
         aperture_area = local_sections["apertures"].area()
         retained_area = local_outer.area()
         aperture_fraction = aperture_area / retained_area
@@ -426,25 +668,35 @@ def build_mode(mode: str, export_dir: Path, validation_dir: Path):
             "aperture_area_mm2": aperture_area,
             "aperture_fraction_of_retained_body": aperture_fraction,
             "aperture_limit": LIGHT["maximum_open_area_fraction_per_half"],
+            "aperture_island_control": masks["aperture_bridges"][half],
             "colors": color_reports,
             "composite": {
-                "vertices": int(composite.num_vert()),
-                "triangles": int(composite.num_tri()),
-                "volume_mm3": float(composite.volume()),
-                "watertight": bool(composite_mesh.is_watertight),
-                "positive_volume": bool(composite_mesh.volume > 0),
-                "bounds_mm": composite_mesh.bounds.tolist(),
+                **composite_roundtrip,
                 "bytes": composite_path.stat().st_size,
                 "sha256": sha256(composite_path),
+                "rebuild_trace": composite_trace,
             },
         }
 
     mode_status = "PASS" if all(
         half_report["composite"]["watertight"]
         and half_report["composite"]["positive_volume"]
+        and half_report["composite"]["connected_components"] == 1
+        and half_report["composite"]["boundary_edges"] == 0
+        and half_report["composite"]["nonmanifold_edges"] == 0
+        and half_report["composite"]["degenerate_faces"] == 0
+        and half_report["composite"]["duplicate_faces"] == 0
         and half_report["composite"]["triangles"] <= 750_000
         and half_report["aperture_fraction_of_retained_body"] <= half_report["aperture_limit"]
-        and all(color["watertight"] and color["positive_volume"] for color in half_report["colors"].values())
+        and all(
+            color["watertight"]
+            and color["positive_volume"]
+            and color["boundary_edges"] == 0
+            and color["nonmanifold_edges"] == 0
+            and color["degenerate_faces"] == 0
+            and color["duplicate_faces"] == 0
+            for color in half_report["colors"].values()
+        )
         for half_report in half_reports.values()
     ) else "FAIL"
     return {
@@ -473,6 +725,8 @@ def main():
     required = [
         PARAMETERS_PATH,
         INTERFACE_PARAMETERS_PATH,
+        BLENDER,
+        BLENDER_COMPOSITE_SCRIPT,
         SOURCE / "source-manifest.json",
         SOURCE / "boundary.geojson",
         SOURCE / "roads-major.geojson",
@@ -515,6 +769,8 @@ def main():
         "palette": PALETTE,
         "z_bands_mm": Z_BANDS,
         "manufacturing_raster_pitch_mm": RASTER_PITCH_MM,
+        "upper_color_edge_inset_mm": UPPER_COLOR_EDGE_INSET_MM,
+        "mesh_simplify_tolerance_mm": MESH_SIMPLIFY_TOLERANCE_MM,
         "modes": reports,
         "shared_secondary_parts": {
             "seam_connector": "exports/v0.3.0/interfaces/seam-connector-c025.stl",

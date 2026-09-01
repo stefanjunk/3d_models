@@ -92,6 +92,11 @@ def main():
         "expected_tool_changes": tool_changes == args.expected_tool_changes,
     }
     status = "PASS" if all(checks.values()) else "FAIL"
+    input_hashes = {
+        "project_3mf": sha256(args.project_3mf),
+        "adapter_report": sha256(args.adapter_report),
+        "gcode": sha256(args.gcode),
+    }
     report = {
         "schema_version": "1.0",
         "project": "MM-ART-010",
@@ -101,10 +106,11 @@ def main():
         "status": status,
         "scope": "native Anycubic project-3MF import, executable layer consistency and four-volume tool routing",
         "inputs": {
-            "project_3mf": {"path": str(args.project_3mf.resolve()), "sha256": sha256(args.project_3mf)},
-            "adapter_report": {"path": str(args.adapter_report.resolve()), "sha256": sha256(args.adapter_report)},
-            "gcode": {"path": str(args.gcode.resolve()), "bytes": args.gcode.stat().st_size, "sha256": sha256(args.gcode)},
+            "project_3mf": {"path": str(args.project_3mf.resolve()), "sha256": input_hashes["project_3mf"]},
+            "adapter_report": {"path": str(args.adapter_report.resolve()), "sha256": input_hashes["adapter_report"]},
+            "gcode": {"path": str(args.gcode.resolve()), "bytes": args.gcode.stat().st_size, "sha256": input_hashes["gcode"]},
         },
+        "input_hashes": input_hashes,
         "checks": checks,
         "metrics": {
             "declared_header_layers": sorted(declared_header),

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.4.0",
+  "candidate": "digital-candidate-r9",
+  "status": "DRAFT_DIGITAL_PASS",
+  "examples": {
+    "boundary_crop": {
+      "left_3mf": {"path": "exports/v0.4.0/berlin/digital-candidate-r9/boundary-crop/berlin-boundary-crop-left-four-color.3mf", "sha256": "7643adea10766de02f1ae2a386d9a0ae40bd2faeedeffad1acad408afd68b9fd"},
+      "right_3mf": {"path": "exports/v0.4.0/berlin/digital-candidate-r9/boundary-crop/berlin-boundary-crop-right-four-color.3mf", "sha256": "9354c1bc24f302fa9c26930f3af3ef1b477d2d53b8780bc2e4b777091efc30ce"},
+      "assembled_base_area_mm2": 99990.58792168385,
+      "slicer_filament_mm": 103143.00813999001,
+      "slicer_time_s": 47844.0
+    },
+    "context_outline": {
+      "left_3mf": {"path": "exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-left-four-color.3mf", "sha256": "363bbf081b023c2364eb7498eac7cd8c799646ae3ab216dbed9b8b30f55aa547"},
+      "right_3mf": {"path": "exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-right-four-color.3mf", "sha256": "6f77df8bb2e7c7d7d1a66e379e26b6b46d91c0e0a338950ad8d055cc3e666dd6"},
+      "assembled_base_area_mm2": 240000.0,
+      "slicer_filament_mm": 235960.03984019114,
+      "slicer_time_s": 106035.0
+    }
+  },
+  "digital_gates": [
+    {"id": "source", "status": "PASS", "evidence": "source-data/v0.4.0/berlin/source-manifest.json"},
+    {"id": "mode-interface-placement", "status": "PASS", "evidence": "validation/v0.4.0/berlin/interface-placement-report.json"},
+    {"id": "geometry-build", "status": "PASS", "evidence": "validation/v0.4.0/berlin/digital-candidate-r9/build-report.json"},
+    {"id": "aperture-connectivity", "status": "PASS", "evidence": "validation/v0.4.0/berlin/digital-candidate-r9/aperture-connectivity-eval.json"},
+    {"id": "serialized-composite-topology", "status": "PASS_WITH_LIMITATION", "evidence": "validation/v0.4.0/berlin/digital-candidate-r9/mesh-audits", "limitation": "the central mesh backend has no certified self-intersection capability; Manifold3D and Blender Manifold Boolean are retained tool-native evidence"},
+    {"id": "generic-standard-3mf-parser", "status": "FAIL_EXPECTED_VENDOR_LAYOUT", "evidence": "validation/v0.4.0/berlin/digital-candidate-r9/three-mf-validation", "limitation": "the generic parser does not follow Anycubic object-part relationships"},
+    {"id": "native-anycubic-import-slice", "status": "PASS", "evidence": "validation/v0.4.0/berlin/digital-candidate-r9/anycubic-slices", "details": "four result.json Success verdicts, four non-empty exact G-codes, 23 canonical layers, tools 0-3 and three tool changes per half"}
+  ],
+  "open_human_gates": [
+    "select exact physical filament products, colors, batches and conditioning state",
+    "review ACE slot assignment, purge tower, directed purge matrix, layer preview and seams in the Anycubic GUI",
+    "print and measure the existing connector/socket/light coupon on the final process",
+    "print and inspect both examples, then assemble and proof-load the wall interfaces",
+    "approve unlit and lit appearance with customer-selected lighting hardware",
+    "approve product watermark, rights, safety and commercial release"
+  ],
+  "prohibited_actions_not_performed": ["printer upload", "print start"]
+}

@@ -762,6 +762,16 @@ def namespaced_headers(header: list[object], prefix: str) -> list[str]:
     return result
 
 
+def portfolio_raw_headers(header: list[object], prefix: str) -> list[str]:
+    """Keep audit data while exposing only one working-SKU identity column."""
+    omitted = {"Record_ID", "Mapped_Working_SKU", "Working_SKU"}
+    return [
+        output_name
+        for source_name, output_name in zip(header, namespaced_headers(header, prefix))
+        if str(source_name) not in omitted
+    ]
+
+
 def source_value(header: list[object], row: list[object] | None, *names: str) -> object:
     """Return the first populated exact-name value from a source row."""
     if row is None:
@@ -805,7 +815,7 @@ def build_unified_portfolio(
     idea_by_sku: dict[str, tuple[str, int, list[object], list[object]]] = {}
     idea_raw_columns: list[str] = []
     for sheet_name, rows, key_column in research_sources:
-        raw_headers = namespaced_headers(rows[0], "Idea__")
+        raw_headers = portfolio_raw_headers(rows[0], "Idea__")
         for column in raw_headers:
             if column not in idea_raw_columns:
                 idea_raw_columns.append(column)
@@ -842,12 +852,7 @@ def build_unified_portfolio(
         "Unified_Record_Key",
         "Record_Type",
         "Portfolio_Status",
-        "Primary_Source_Sheet",
-        "Primary_Source_Row",
-        "Record_ID",
-        "Parent_SKU_ID",
         "Working_SKU",
-        "Mapped_Working_SKU",
         "Product",
         "Product_Family_or_Category",
         "Purpose_or_Customer_Job",
@@ -937,11 +942,11 @@ def build_unified_portfolio(
         "Evidence_Boundary",
         "Notes",
     ]
-    product_raw_columns = namespaced_headers(portfolio[0], "Product__")
-    preflight_raw_columns = namespaced_headers(product_preflights[0], "Preflight__")
-    priority_raw_columns = namespaced_headers(research_priority[0], "Priority__")
-    economics_raw_columns = namespaced_headers(research_economics[0], "Economics__")
-    advancement_raw_columns = namespaced_headers(readiness_advancement[0], "Advancement__")
+    product_raw_columns = portfolio_raw_headers(portfolio[0], "Product__")
+    preflight_raw_columns = portfolio_raw_headers(product_preflights[0], "Preflight__")
+    priority_raw_columns = portfolio_raw_headers(research_priority[0], "Priority__")
+    economics_raw_columns = portfolio_raw_headers(research_economics[0], "Economics__")
+    advancement_raw_columns = portfolio_raw_headers(readiness_advancement[0], "Advancement__")
     raw_columns = (
         product_raw_columns
         + preflight_raw_columns
@@ -960,26 +965,23 @@ def build_unified_portfolio(
         values = dict(zip(namespaced_headers(source_header, prefix), source_row))
         return [values.get(column, "") for column in columns]
 
-    for advancement_row_number, advancement_row in advancement_by_key.values():
+    for _, advancement_row in advancement_by_key.values():
         advancement = dict(zip(advancement_header, advancement_row))
         record_type = str(advancement["Record_Type"])
         record_id = str(advancement["Record_ID"])
         product_path = str(advancement["Product_Path"])
 
-        product_row_number = 0
         product_row: list[object] | None = None
         if product_path in product_by_path:
-            product_row_number, product_row = product_by_path[product_path]
+            _, product_row = product_by_path[product_path]
         preflight_row: list[object] | None = None
         if product_path in preflight_by_path:
             _, preflight_row = preflight_by_path[product_path]
 
-        idea_sheet = ""
-        idea_row_number = 0
         idea_header: list[object] = []
         idea_row: list[object] | None = None
         if record_id in idea_by_sku:
-            idea_sheet, idea_row_number, idea_header, idea_row = idea_by_sku[record_id]
+            _, _, idea_header, idea_row = idea_by_sku[record_id]
 
         priority_row: list[object] | None = None
         if record_id in priority_by_sku:
@@ -997,17 +999,14 @@ def build_unified_portfolio(
         implementation = source_value(priority_header, priority_row, "Implementation_Status")
         workflow = source_value(idea_header, idea_row, "Workflow_Stage")
         design_status = source_value(idea_header, idea_row, "Design_Status", "Design Status")
+        working_sku = source_value(product_header, product_row, "Working_SKU") or record_id
         if record_type == "PRODUCT_DIRECTORY":
             portfolio_status = lifecycle or "PRODUCT DIRECTORY — NOT IN PRODUCT REGISTER"
-            primary_sheet = "Product Register" if product_row is not None else "Product Preflights"
-            primary_row = product_row_number or preflight_by_path[product_path][0]
         else:
             if implementation == "MODEL_EXISTS" and workflow and workflow != "research-backlog":
                 portfolio_status = str(workflow).replace("-", " ")
             else:
                 portfolio_status = "P0 Research idea"
-            primary_sheet = idea_sheet
-            primary_row = idea_row_number
 
         confidence = source_value(idea_header, idea_row, "Confidence")
         if not confidence:
@@ -1018,12 +1017,7 @@ def build_unified_portfolio(
             advancement["Record_Key"],
             record_type,
             portfolio_status,
-            primary_sheet,
-            primary_row,
-            record_id,
-            advancement["Parent_SKU_ID"],
-            source_value(product_header, product_row, "Working_SKU"),
-            source_value(priority_header, priority_row, "Mapped_Working_SKU"),
+            working_sku,
             source_value(product_header, product_row, "Product_or_Model")
             or source_value(idea_header, idea_row, "Product")
             or advancement["Product"],
@@ -1162,6 +1156,10 @@ def build_unified_portfolio(
 
     if len(output) != 423 or any(len(row) != len(output[0]) for row in output):
         raise ValueError("Unified portfolio must contain 422 complete, width-stable records")
+    working_sku_index = output[0].index("Working_SKU")
+    working_skus = [str(row[working_sku_index]) for row in output[1:]]
+    if any(not sku for sku in working_skus) or len(working_skus) != len(set(working_skus)):
+        raise ValueError("Unified portfolio Working_SKU values must be populated and unique")
     return output
 
 
@@ -1523,11 +1521,11 @@ def main() -> None:
     summary = [
         ["Metric", "Value", "Interpretation"],
         ["Review date", "2026-08-31", "Repository-evidence snapshot"],
-        ["Unified portfolio records", len(unified_portfolio) - 1, "Single filterable list: 108 product directories plus 314 planned products and research ideas; source-prefixed raw fields preserve every joined source value"],
-        ["Product register records", len(portfolio) - 1, "Existing curated product-family register retained as a source and audit trail"],
-        ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence is listed in Product Preflights"],
-        ["Stale aggregate-audit scorecards", stale_audit_scorecards, "Live product preflight is used; any mismatch is named in Product Preflights and the dated aggregate audit must be refreshed separately"],
-        ["Product-register rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are retained in Product Register and joined into Portfolio"],
+        ["Unified portfolio records", len(unified_portfolio) - 1, "Single filterable list: 108 product directories plus 314 planned products and research ideas; every row has one unique Working_SKU"],
+        ["Curated product source records", len(portfolio) - 1, "Existing product-family source is retained in product-portfolio.csv; no duplicate Product Register worksheet"],
+        ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence and source paths are joined into Portfolio"],
+        ["Stale aggregate-audit scorecards", stale_audit_scorecards, "Live product preflight is used; any mismatch is exposed in Portfolio audit columns and the dated aggregate audit must be refreshed separately"],
+        ["Curated product rows with documented preflight", len(portfolio) - 1, "Exact current product scorecards are joined from their version-controlled sources into Portfolio"],
         ["Product directories with explicit purpose", sum(1 for record in product_preflight_records if record["purpose_path"].is_file()), "Purpose paths are listed beside every product preflight"],
         ["Initial launch SKUs", len(initial) - 1, "Fixed target scope"],
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
@@ -1584,20 +1582,7 @@ def main() -> None:
     sheets = [
         ("Summary", summary),
         ("Portfolio", unified_portfolio),
-        ("Product Register", portfolio),
-        ("Initial Scope", initial),
-        ("Product Preflights", all_product_preflights),
-        ("External Exclusions", exclusions),
         ("Stage Definitions", stages),
-        ("MVP Tasks", tasks),
-        ("Research Backlog", research),
-        ("Implementation Priority", research_priority),
-        ("Research Ideas 100", legacy_product_matrix),
-        ("Research Ideas +100", additional_research),
-        ("Research Ideas +200", structured_research),
-        ("Research Variants R3", specific_r3_variants),
-        ("R Advancement", readiness_advancement),
-        ("Research Economics", legacy_unit_economics),
         ("Research Families", legacy_family_strategy),
         ("Research Sources", research_sources),
         ("Preflight Legend", preflight_legend),
@@ -1679,7 +1664,7 @@ def main() -> None:
         archive.writestr("xl/_rels/workbook.xml.rels", "".join(workbook_rels))
         archive.writestr("xl/styles.xml", styles)
         for idx, (sheet_name, rows) in enumerate(sheets, start=1):
-            freeze_columns = 10 if sheet_name == "Portfolio" else 0
+            freeze_columns = 7 if sheet_name == "Portfolio" else 0
             archive.writestr(
                 f"xl/worksheets/sheet{idx}.xml",
                 sheet_xml(rows, freeze_columns=freeze_columns),

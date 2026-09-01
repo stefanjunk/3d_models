@@ -403,6 +403,136 @@ def validate_advancement_sheet() -> tuple[int, int]:
     return research_count, product_count
 
 
+def build_expected_unified_portfolio() -> list[list[object]]:
+    """Rebuild the master rows directly from version-controlled source data."""
+    portfolio = workbook.read_csv(workbook.PORTFOLIO_CSV)
+    product_records = workbook.load_product_preflight_records()
+    workbook.add_portfolio_preflight(portfolio, product_records)
+    product_preflights = workbook.product_preflight_sheet(product_records)
+
+    legacy = workbook.read_xlsx_sheet(workbook.RESEARCH_WORKBOOK, "Product Matrix")
+    additions = workbook.read_csv(workbook.RESEARCH_ADDITIONS_CSV)
+    structured = workbook.read_csv(workbook.RESEARCH_ADDITIONS_2_CSV)
+    variants = workbook.read_csv(workbook.RESEARCH_R3_VARIANTS_CSV)
+    priority = workbook.read_csv(workbook.RESEARCH_PRIORITY_CSV)
+    advancement = workbook.read_csv(workbook.READINESS_ADVANCEMENT_CSV)
+    economics = workbook.read_xlsx_sheet(workbook.RESEARCH_WORKBOOK, "Unit Economics")
+    research_status = workbook.read_research_status(workbook.RESEARCH_STATUS_CSV)
+
+    workbook.validate_research_additions(additions, legacy, portfolio, research_status)
+    workbook.validate_structured_research_additions(structured, legacy, additions, portfolio)
+    legacy_ids = {str(row[legacy[0].index("SKU ID")]) for row in legacy[1:]}
+    addition_ids = {str(row[additions[0].index("SKU_ID")]) for row in additions[1:]}
+    structured_ids = {str(row[structured[0].index("SKU_ID")]) for row in structured[1:]}
+    prior_ids = legacy_ids | addition_ids | structured_ids
+    occupied_names = {
+        workbook.normalize_name(row[legacy[0].index("Product")]) for row in legacy[1:]
+    } | {
+        workbook.normalize_name(row[additions[0].index("Product")]) for row in additions[1:]
+    } | {
+        workbook.normalize_name(row[structured[0].index("Product")]) for row in structured[1:]
+    } | {
+        workbook.normalize_name(row[portfolio[0].index("Product_or_Model")]) for row in portfolio[1:]
+    }
+    workbook.validate_specific_r3_variants(variants, prior_ids, occupied_names)
+    variant_ids = {str(row[variants[0].index("SKU_ID")]) for row in variants[1:]}
+    research_ids = prior_ids | variant_ids
+    workbook.validate_research_priority(priority, research_ids, research_status)
+    workbook.validate_readiness_advancement(advancement, research_ids)
+    preflight = workbook.read_research_preflight(workbook.RESEARCH_PREFLIGHT_CSV, research_ids)
+
+    source_tables = [
+        ("Research Ideas 100", legacy, "SKU ID", "Research hypothesis; implementation fields are controlled by research-ideas-implementation.csv"),
+        ("Research Ideas +100", additions, "SKU_ID", "New research hypothesis checked 2026-08-27; not a selected, qualified or released product"),
+        ("Research Ideas +200", structured, "SKU_ID", "Trend-screened research hypothesis checked 2026-08-31; structured R2 concept preflight, not a selected, qualified or released product"),
+        ("Research Variants R3", variants, "SKU_ID", "Named-interface child checked 2026-08-31; R3 nominal design inputs only, not physical qualification, demand proof or release"),
+    ]
+    for _, rows, key_column, interpretation in source_tables:
+        workbook.add_research_overlay(rows, key_column, research_status, interpretation)
+        workbook.add_research_preflight(rows, key_column, preflight)
+    workbook.add_research_preflight(priority, "SKU_ID", preflight)
+    economics[0].append("Business_Workspace_Interpretation")
+    for row in economics[1:]:
+        row.extend([""] * (len(economics[0]) - 1 - len(row)))
+        row.append("Research hypothesis only; not an existing, qualified, staged or live product")
+
+    return workbook.build_unified_portfolio(
+        portfolio,
+        product_preflights,
+        [(sheet_name, rows, key_column) for sheet_name, rows, key_column, _ in source_tables],
+        priority,
+        economics,
+        advancement,
+    )
+
+
+def values_equal(left: object, right: object) -> bool:
+    if left in (None, "") and right in (None, ""):
+        return True
+    if isinstance(left, (int, float)) and isinstance(right, (int, float)):
+        return abs(float(left) - float(right)) <= 1e-12
+    return str(left) == str(right)
+
+
+def validate_slim_workbook(expected: list[list[object]]) -> tuple[int, int, int]:
+    """Validate the six-sheet user workbook and its single Working_SKU identity."""
+    with zipfile.ZipFile(workbook.OUTPUT) as archive:
+        workbook_xml = archive.read("xl/workbook.xml").decode("utf-8")
+    expected_sheets = [
+        "Summary", "Portfolio", "Stage Definitions", "Research Families", "Research Sources", "Preflight Legend"
+    ]
+    actual_sheet_names = re.findall(r'<sheet name="([^"]+)"', workbook_xml)
+    if actual_sheet_names != expected_sheets:
+        raise ValueError(f"Unexpected workbook sheets: {actual_sheet_names}")
+
+    actual = workbook.read_xlsx_sheet(workbook.OUTPUT, "Portfolio")
+    if len(actual) != len(expected) or actual[0] != expected[0]:
+        raise ValueError(
+            f"Portfolio shape/header mismatch: actual={len(actual)}x{len(actual[0])}, "
+            f"expected={len(expected)}x{len(expected[0])}"
+        )
+    for row_number, (actual_row, expected_row) in enumerate(zip(actual, expected), start=1):
+        for column_number in range(len(expected[0])):
+            left = actual_row[column_number] if column_number < len(actual_row) else ""
+            right = expected_row[column_number] if column_number < len(expected_row) else ""
+            if not values_equal(left, right):
+                raise ValueError(
+                    f"Portfolio source mismatch at row {row_number}, column {column_number + 1}: "
+                    f"actual={left!r}, expected={right!r}"
+                )
+
+    header = actual[0]
+    forbidden = {
+        "Record_ID", "Mapped_Working_SKU", "Product__Record_ID", "Product__Working_SKU",
+        "Idea__Mapped_Working_SKU", "Priority__Mapped_Working_SKU", "Advancement__Record_ID",
+    }
+    present_forbidden = sorted(forbidden.intersection(str(value) for value in header))
+    if present_forbidden:
+        raise ValueError(f"Redundant portfolio identifiers remain: {', '.join(present_forbidden)}")
+    sku_index = header.index("Working_SKU")
+    type_index = header.index("Record_Type")
+    key_index = header.index("Unified_Record_Key")
+    skus = [str(row[sku_index]) for row in actual[1:]]
+    if any(not sku for sku in skus) or len(skus) != len(set(skus)) or len(skus) != 422:
+        raise ValueError("Portfolio must contain exactly 422 populated, unique Working_SKU values")
+    research_count = 0
+    product_count = 0
+    for row in actual[1:]:
+        record_type = str(row[type_index])
+        if record_type == "RESEARCH_IDEA":
+            research_count += 1
+            expected_sku = str(row[key_index]).removeprefix("RESEARCH:")
+            if str(row[sku_index]) != expected_sku:
+                raise ValueError(f"Research Working_SKU mismatch: {row[key_index]}")
+        elif record_type == "PRODUCT_DIRECTORY":
+            product_count += 1
+        else:
+            raise ValueError(f"Unknown portfolio record type: {record_type}")
+    if (research_count, product_count) != (314, 108):
+        raise ValueError(f"Unexpected portfolio split: {research_count}/{product_count}")
+    return len(skus), research_count, product_count
+
+
 def main() -> int:
     expected_estimate_csv = estimates_builder.render(estimates_builder.build_rows())
     if workbook.RESEARCH_PREFLIGHT_CSV.read_text(encoding="utf-8") != expected_estimate_csv:
@@ -411,19 +541,12 @@ def main() -> int:
         bad_member = archive.testzip()
     if bad_member:
         raise ValueError(f"Corrupt workbook member: {bad_member}")
-    portfolio_count, product_count = validate_product_sheets()
-    unified_research, unified_products, unified_economics = validate_unified_portfolio()
-    linked, preliminary, structured_count, specific_r3 = validate_research_sheets()
-    advancement_research, advancement_products = validate_advancement_sheet()
-    if (unified_research, unified_products) != (advancement_research, advancement_products):
-        raise ValueError("Unified Portfolio and R Advancement record universes differ")
+    expected = build_expected_unified_portfolio()
+    sku_count, research_count, product_count = validate_slim_workbook(expected)
     print(
-        "PASS: portfolio preflight overlay; "
-        f"product_register={portfolio_count}, products={product_count}, "
-        f"unified={unified_research}+{unified_products}, economics={unified_economics}, "
-        f"research_linked={linked}, research_preliminary={preliminary}, "
-        f"research_structured_r2={structured_count}, research_specific_r3={specific_r3}, "
-        f"advancement={advancement_research}+{advancement_products}"
+        "PASS: slim unified portfolio; "
+        f"working_skus={sku_count}, research={research_count}, products={product_count}, "
+        f"columns={len(expected[0])}, sheets=6"
     )
     return 0
 

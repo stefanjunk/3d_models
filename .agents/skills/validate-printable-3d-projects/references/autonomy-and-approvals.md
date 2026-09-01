@@ -1,6 +1,6 @@
 # Autonomy and approval provenance
 
-Choose workflow autonomy before the agent creates or changes project artifacts. The policy is project-scoped, hash-bound, and separate from OpenCode or operating-system tool permissions.
+Choose workflow autonomy before the agent creates or changes project artifacts. The policy is project-scoped, hash-bound, and separate from OpenCode or operating-system tool permissions. For unattended coordination, create schema `1.1` by binding the policy to the validated current preflight. Schema `1.0` policies remain compatible for existing ledgers but are not sufficient for a new unattended Orca run.
 
 ## Modes
 
@@ -11,15 +11,26 @@ Choose workflow autonomy before the agent creates or changes project artifacts. 
 | `autonomous-to-print-candidate` | requirements through a deterministically checked print candidate | physical print and every later stage |
 | `custom` | only stages explicitly edited to `agent` | every remaining stage |
 
+The preflight supplies a hard ceiling, independent of the requested mode:
+
+| Preflight result | Maximum mode |
+|---|---|
+| Lane A/B, K0-K1, R3+, no failed gate, `GO`/`GO_WITH_CONTROLS` | `autonomous-to-print-candidate` |
+| Lane C or K2 with R3+ and no failed gate | `guided` |
+| Lane D, K3, R0-R2, any failed gate, `HOLD`, `CONCEPT_ONLY`, Lane E, or K4 | `manual` |
+
+Requesting a more permissive mode fails without writing a policy.
+
 Generate the initial policy rather than asking a model to recreate its structure:
 
 ```bash
 python3 scripts/fdm_ci.py init-autonomy example-part autonomy-policy.json \
-  --mode autonomous-to-print-candidate --authorized-by project-owner
+  --mode autonomous-to-print-candidate --authorized-by project-owner \
+  --preflight preflight/preflight-result.json
 python3 scripts/fdm_ci.py validate-autonomy autonomy-policy.json
 ```
 
-`--authorized-by` records the human who selected the mode and delegated only the declared workflow stages. `init-autonomy` refuses to overwrite an existing policy unless the caller explicitly supplies `--force`. After the first ledger event, changing the policy invalidates the ledgers because every ledger and event names the policy and its SHA-256.
+`--authorized-by` records the human who selected the mode and delegated only the declared workflow stages. The bound policy stores the preflight path, assessment identity, risk classification, autonomy ceiling, and exact SHA-256. A changed or replaced preflight therefore blocks policy validation until the owner deliberately creates and authorizes a new policy. `init-autonomy` refuses to overwrite an existing policy unless the caller explicitly supplies `--force`. After the first ledger event, changing the policy invalidates the ledgers because every ledger and event names the policy and its SHA-256.
 
 ## Standard stage boundary
 

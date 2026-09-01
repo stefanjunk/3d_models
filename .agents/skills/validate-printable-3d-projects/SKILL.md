@@ -21,7 +21,7 @@ Use this skill beside the specialist 3D-design skills. Let those skills define d
 
 ## Autonomy contract
 
-At project start, create and validate `autonomy-policy.json`. The recommended mode for unattended development is `autonomous-to-print-candidate`: the agent may approve stages through `print-candidate` only when the policy and evidence rules pass; physical printing, fit/function, appearance, safety, and commercial release stay human-controlled.
+At project start, create and validate `autonomy-policy.json`. For unattended development, bind the policy to the validated current preflight with `init-autonomy --preflight ...`. The command derives a maximum autonomy ceiling: Lane A/B with K0-K1 and R3+ may use `autonomous-to-print-candidate`; Lane C or K2 is limited to `guided`; Lane D/K3 and every hold, gate failure, R0-R2, Lane E, or K4 case is limited to `manual`. Physical printing, fit/function, appearance, safety, and commercial release stay human-controlled.
 
 Keep `agent-approvals.json` and `human-approvals.json` separate. The agent command derives `AUTO_APPROVED` or `BLOCKED` and refuses human stages. A human approval is recorded through a frozen request and, by default, a verifier-selected HMAC key kept outside agent-readable paths. Read `references/autonomy-and-approvals.md` before enabling stage auto approval.
 
@@ -37,7 +37,8 @@ python3 scripts/fdm_ci.py slice-anycubic-next model.stl build/anycubic-slice \
   --machine-profile printer.json --process-profile process.json \
   --filament-profile filament.json --json-out reports/anycubic-slice.json
 python3 scripts/fdm_ci.py init-autonomy example-part autonomy-policy.json \
-  --mode autonomous-to-print-candidate --authorized-by project-owner
+  --mode autonomous-to-print-candidate --authorized-by project-owner \
+  --preflight preflight/preflight-result.json
 python3 scripts/fdm_ci.py validate-project validation-project.json \
   --profile draft --json-out reports/validation-summary.json
 ```

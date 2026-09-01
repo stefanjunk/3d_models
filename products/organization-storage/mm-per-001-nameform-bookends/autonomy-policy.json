@@ -14,26 +14,49 @@
     "require_evidence_sha256": true
   },
   "human_approval_proof": "hmac-sha256",
-  "mode": "autonomous-to-print-candidate",
-  "policy_id": "MM-PER-001-autonomous-to-print-candidate-v1",
+  "mode": "guided",
+  "policy_id": "MM-PER-001-guided-v1",
+  "preflight_guard": {
+    "assessment_id": "PREFLIGHT-MM-PER-001-010",
+    "assessment_version": "0.4.6",
+    "autonomy_ceiling": "guided",
+    "confidence": "CONDITIONAL",
+    "criticality": "K1",
+    "design_release": "GO_WITH_CONTROLS",
+    "gates": {
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "WARN",
+      "G3": "WARN",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "PASS"
+    },
+    "lane": "C",
+    "path": "preflight/preflight-result.json",
+    "project_id": "MM-PER-001",
+    "project_revision": "0.4.1",
+    "readiness": "R3",
+    "sha256": "97671156605dfd25e7d6d38faf93c95d65fb0dd2f5041331f8dcd7113bed1389"
+  },
   "project_id": "MM-PER-001",
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "stages": [
     {
-      "approval": "agent",
-      "evidence_mode": "agent-attestation",
+      "approval": "human",
+      "evidence_mode": "human-evidence",
       "id": "requirements-normalization",
       "require_hashed_report_inputs": false
     },
     {
-      "approval": "agent",
-      "evidence_mode": "agent-attestation",
+      "approval": "human",
+      "evidence_mode": "human-evidence",
       "id": "concept",
       "require_hashed_report_inputs": false
     },
     {
-      "approval": "agent",
-      "evidence_mode": "agent-attestation",
+      "approval": "human",
+      "evidence_mode": "human-evidence",
       "id": "decomposition",
       "require_hashed_report_inputs": false
     },
@@ -62,10 +85,10 @@
       "require_hashed_report_inputs": true
     },
     {
-      "approval": "agent",
-      "evidence_mode": "deterministic-pass",
+      "approval": "human",
+      "evidence_mode": "human-evidence",
       "id": "print-candidate",
-      "require_hashed_report_inputs": true
+      "require_hashed_report_inputs": false
     },
     {
       "approval": "human",

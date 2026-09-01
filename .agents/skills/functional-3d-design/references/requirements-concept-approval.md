@@ -8,6 +8,27 @@ before entering Gate 0A. Treat `design-spec.yaml` as the single source of truth
 for approved requirements; the chat review is a readable projection of it, not
 a separate requirements document.
 
+## Resolve approval authority first
+
+Read the project `autonomy-policy.json` before entering Gate 0A. For unattended
+coordination, accept only schema `1.1` with a valid `preflight_guard` whose hash
+matches the current preflight result. The policy's stage authority then controls
+Gate 0A and Gate 0B:
+
+- an `agent` stage is approved only by `fdm_ci.py approve-agent-stage`, which
+  derives `AUTO_APPROVED` or `BLOCKED` and records the bound preflight;
+- a `human` stage requires the human approval flow and must never be written by
+  the agent;
+- a legacy schema `1.0` policy, a stale guard, or a policy above the preflight
+  autonomy ceiling is not eligible for unattended coordination;
+- Gate 0C and every physical, appearance, safety, and commercial decision stay
+  human-controlled.
+
+When an agent-ledger event approves Gate 0A or Gate 0B, set the corresponding
+`design-spec.yaml` status to `approved`, identify `approved_by` as
+`agent:<agent-id>`, and link the ledger event/evidence. The status alone is not
+approval provenance.
+
 ## Gate 0A — structured requirements review
 
 Create or update the specification before proposing geometry. Present the understood design in compact tables covering, as applicable:
@@ -30,7 +51,7 @@ Label every nontrivial item as `user-stated`, `inferred`, `recommended`, or `unr
 - give a recommended answer and why it fits;
 - state the main trade-off and the default that will be written to the specification if accepted.
 
-Ask no more than three questions at once. Resolve high-impact geometry, interface, safety, and printer constraints before low-impact styling choices. End with a direct request to approve the specification revision or provide corrections.
+Ask no more than three questions at once. Resolve high-impact geometry, interface, safety, and printer constraints before low-impact styling choices. If Gate 0A is human-controlled, end with a direct request to approve the specification revision or provide corrections. If it is agent-controlled and no consequential item remains unresolved, record the attested agent-stage decision instead of pausing.
 
 Do not generate images, CAD, code, or exports while `workflow.requirements_approval.status` is not `approved`.
 
@@ -41,14 +62,14 @@ it, and obey the revised decision before Gate 0B.
 
 ## Gate 0B — concept image review
 
-After explicit requirements approval:
+After the requirements approval assigned by the current policy:
 
 1. Store the approved `project.revision` in `workflow.requirements_approval.spec_revision`.
 2. Create one coherent concept sheet from that exact revision. Prefer an image-generation tool for appearance-led products and a quick CAD blockout/render or precise schematic for interface-led parts. The deliverable must still be an image.
 3. Include a three-quarter overview plus the additional view, cutaway, or exploded detail needed to judge mounting, modular connections, compartments, mechanisms, or assembly. Use reference images when the user supplied them.
 4. Keep exact dimensions, tolerances, and safety claims out of AI-generated labels. State them beside the image from `design-spec.yaml`.
 5. Provide a short correspondence list linking each important visible feature to the approved requirement and disclose any visual ambiguity or deliberate simplification.
-6. Ask the user to approve the concept or request changes.
+6. If Gate 0B is human-controlled, ask the user to approve the concept or request changes. If it is agent-controlled, record a concise requirement-to-feature attestation and derive the decision through the agent ledger.
 
 A concept image communicates design intent; it is not dimensional evidence, a strength result, or proof of printability. Do not create production CAD, source code, or manufacturing exports while `workflow.concept_approval.status` is not `approved`.
 
@@ -61,7 +82,7 @@ Use these states:
 
 When the user changes an approved requirement, increment the specification revision, set requirements to `changes-requested`, set concept to `blocked`, clear the prior concept asset reference, and mark the preflight `stale` when the change affects an assessed input. When only the depiction is wrong and the specification remains valid, keep requirements approved and set only concept to `changes-requested`.
 
-After concept approval, record the approving user, specification revision, concept asset, and timestamp when available. Continue with architecture and production geometry only when both approvals are for the current specification revision.
+After concept approval, record the approving human or agent, specification revision, concept asset, ledger event where applicable, and timestamp when available. Continue with architecture and production geometry only when both approvals are for the current specification revision and their assigned provenance validates.
 
 ## Gate 0C — final model and release review
 

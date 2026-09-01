@@ -110,6 +110,7 @@ def parser() -> argparse.ArgumentParser:
     item.add_argument("output", type=Path)
     item.add_argument("--mode", choices=("manual", "guided", "autonomous-to-print-candidate", "custom"), default="autonomous-to-print-candidate")
     item.add_argument("--authorized-by", required=True, help="Human identity that selected this workflow delegation.")
+    item.add_argument("--preflight", type=Path, help="Bind autonomy and its maximum mode to this validated preflight result.")
     item.add_argument("--force", action="store_true")
     output_args(item)
 
@@ -202,7 +203,14 @@ def main() -> int:
         elif args.command == "validate-profile":
             result = validate_profile(args.profile_file, args.profile)
         elif args.command == "init-autonomy":
-            result = init_policy(args.project_id, args.mode, args.authorized_by, args.output, force=args.force)
+            result = init_policy(
+                args.project_id,
+                args.mode,
+                args.authorized_by,
+                args.output,
+                preflight_path=args.preflight,
+                force=args.force,
+            )
             result["profile"] = args.profile
         elif args.command == "validate-autonomy":
             result = validate_policy(args.policy_file, args.profile)

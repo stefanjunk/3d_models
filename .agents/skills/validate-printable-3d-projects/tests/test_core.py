@@ -62,6 +62,114 @@ RELATIONSHIPS_XML = """<?xml version="1.0" encoding="UTF-8"?>
 
 
 class CoreTests(unittest.TestCase):
+    @staticmethod
+    def _write_preflight(
+        path: Path,
+        *,
+        project_id: str = "part",
+        lane: str = "A",
+        readiness: str = "R3",
+        criticality: str = "K1",
+        design_release: str = "GO",
+        confidence: str = "HIGH",
+        gate_status: str = "PASS",
+    ) -> None:
+        path.write_text(json.dumps({
+            "assessment_id": "assessment-1",
+            "assessment_version": "1.0",
+            "decision": {
+                "lane": lane,
+                "design_release": design_release,
+                "confidence": confidence,
+            },
+            "readiness": {"level": readiness},
+            "criticality": {"level": criticality},
+            "gates": {f"G{index}": gate_status for index in range(7)},
+            "traceability": {"project_id": project_id, "project_revision": "0.1.0"},
+        }), encoding="utf-8")
+
+    def test_preflight_bound_autonomy_enforces_risk_ceiling_and_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            preflight = root / "preflight.json"
+            policy = root / "autonomy.json"
+            ledger = root / "agent.json"
+            self._write_preflight(preflight)
+
+            created = init_policy(
+                "part",
+                "autonomous-to-print-candidate",
+                "project-owner",
+                policy,
+                preflight_path=preflight,
+            )
+            self.assertEqual(created["status"], "PASS", created)
+            self.assertEqual(json.loads(policy.read_text(encoding="utf-8"))["schema_version"], "1.1")
+            self.assertEqual(validate_policy(policy)["status"], "PASS")
+
+            approved = approve_agent_stage(
+                policy,
+                ledger,
+                "requirements-normalization",
+                agent_id="agent",
+                model_id="gpt-5.6-sol",
+                evidence=[],
+                attestation="Requirements match the bound preflight scope",
+            )
+            self.assertEqual(approved["status"], "PASS", approved)
+            event = json.loads(ledger.read_text(encoding="utf-8"))["events"][-1]
+            self.assertEqual(event["preflight_guard"]["sha256"], sha256_file(preflight))
+
+            self._write_preflight(preflight, readiness="R4")
+            stale = validate_policy(policy)
+            self.assertEqual(stale["status"], "FAIL", stale)
+
+    def test_preflight_ceiling_routes_guided_and_manual_modes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            preflight = root / "preflight.json"
+            self._write_preflight(preflight, lane="C", criticality="K2", confidence="CONDITIONAL")
+            refused = init_policy(
+                "part",
+                "autonomous-to-print-candidate",
+                "project-owner",
+                root / "too-autonomous.json",
+                preflight_path=preflight,
+            )
+            self.assertEqual(refused["status"], "FAIL", refused)
+            self.assertFalse((root / "too-autonomous.json").exists())
+            guided = init_policy(
+                "part",
+                "guided",
+                "project-owner",
+                root / "guided.json",
+                preflight_path=preflight,
+            )
+            self.assertEqual(guided["status"], "PASS", guided)
+
+            self._write_preflight(
+                preflight,
+                lane="D",
+                criticality="K3",
+                confidence="NOT_AUTONOMOUSLY_RELEASABLE",
+            )
+            expert_only = init_policy(
+                "part",
+                "guided",
+                "project-owner",
+                root / "guided-risky.json",
+                preflight_path=preflight,
+            )
+            self.assertEqual(expert_only["status"], "FAIL", expert_only)
+            manual = init_policy(
+                "part",
+                "manual",
+                "project-owner",
+                root / "manual.json",
+                preflight_path=preflight,
+            )
+            self.assertEqual(manual["status"], "PASS", manual)
+
     def test_all_json_assets_parse(self) -> None:
         for path in sorted((ROOT / "assets").rglob("*.json")):
             with self.subTest(path=path):

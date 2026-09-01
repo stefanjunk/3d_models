@@ -38,6 +38,20 @@ TOOL_ACTIONS = (
     "printer_start",
 )
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
+READINESS_ORDER = {f"R{index}": index for index in range(6)}
+CRITICALITY_ORDER = {f"K{index}": index for index in range(5)}
+CONFIDENCE_BANDS = {
+    "HIGH",
+    "MEDIUM_HIGH",
+    "CONDITIONAL",
+    "LOW_UNKNOWN",
+    "NOT_AUTONOMOUSLY_RELEASABLE",
+}
+AUTONOMY_CEILING_STAGES = {
+    "manual": set(),
+    "guided": set(STAGE_IDS[3:7]),
+    "autonomous-to-print-candidate": set(STAGE_IDS[: STAGE_IDS.index("print-candidate") + 1]),
+}
 
 
 def _canonical(value: Any) -> bytes:
@@ -72,7 +86,101 @@ def _stage_map(policy: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return result
 
 
-def default_policy(project_id: str, mode: str, authorized_by: str) -> dict[str, Any]:
+def _preflight_summary(path: Path) -> dict[str, Any]:
+    value = load_data(path)
+    if not isinstance(value, dict):
+        raise ValidationInputError("preflight result root must be an object")
+    decision = value.get("decision")
+    readiness = value.get("readiness")
+    criticality = value.get("criticality")
+    gates = value.get("gates")
+    traceability = value.get("traceability")
+    if not all(isinstance(item, dict) for item in (decision, readiness, criticality, gates, traceability)):
+        raise ValidationInputError("preflight result is missing decision, readiness, criticality, gates, or traceability")
+
+    lane = decision.get("lane")
+    release = decision.get("design_release")
+    confidence = decision.get("confidence")
+    readiness_level = readiness.get("level")
+    criticality_level = criticality.get("level")
+    if lane not in {"A", "B", "C", "D", "E"}:
+        raise ValidationInputError("preflight decision.lane must be A-E")
+    if release not in {"GO", "GO_WITH_CONTROLS", "HOLD", "CONCEPT_ONLY"}:
+        raise ValidationInputError("preflight decision.design_release is invalid")
+    if confidence not in CONFIDENCE_BANDS:
+        raise ValidationInputError("preflight decision.confidence is invalid")
+    if readiness_level not in READINESS_ORDER:
+        raise ValidationInputError("preflight readiness.level must be R0-R5")
+    if criticality_level not in CRITICALITY_ORDER:
+        raise ValidationInputError("preflight criticality.level must be K0-K4")
+    gate_values = [gates.get(f"G{index}") for index in range(7)]
+    if any(item not in {"PASS", "WARN", "FAIL"} for item in gate_values):
+        raise ValidationInputError("preflight gates G0-G6 must be PASS, WARN, or FAIL")
+    project_id = traceability.get("project_id")
+    project_revision = traceability.get("project_revision")
+    if not isinstance(project_id, str) or not project_id.strip():
+        raise ValidationInputError("preflight traceability.project_id must be a non-empty string")
+    if not isinstance(project_revision, str) or not project_revision.strip():
+        raise ValidationInputError("preflight traceability.project_revision must be a non-empty string")
+    assessment_id = value.get("assessment_id")
+    assessment_version = value.get("assessment_version")
+    if not isinstance(assessment_id, str) or not assessment_id.strip():
+        raise ValidationInputError("preflight assessment_id must be a non-empty string")
+    if not isinstance(assessment_version, str) or not assessment_version.strip():
+        raise ValidationInputError("preflight assessment_version must be a non-empty string")
+
+    has_block = (
+        "FAIL" in gate_values
+        or release in {"HOLD", "CONCEPT_ONLY"}
+        or confidence in {"LOW_UNKNOWN", "NOT_AUTONOMOUSLY_RELEASABLE"}
+        or READINESS_ORDER[readiness_level] < 3
+        or criticality_level == "K4"
+        or lane == "E"
+    )
+    if has_block or lane == "D" or CRITICALITY_ORDER[criticality_level] >= 3:
+        ceiling = "manual"
+    elif lane == "C" or criticality_level == "K2":
+        ceiling = "guided"
+    else:
+        ceiling = "autonomous-to-print-candidate"
+
+    return {
+        "assessment_id": assessment_id,
+        "assessment_version": assessment_version,
+        "project_id": project_id,
+        "project_revision": project_revision,
+        "lane": lane,
+        "readiness": readiness_level,
+        "criticality": criticality_level,
+        "design_release": release,
+        "confidence": confidence,
+        "gates": {f"G{index}": gate_values[index] for index in range(7)},
+        "autonomy_ceiling": ceiling,
+    }
+
+
+def _mode_fits_ceiling(policy: dict[str, Any], ceiling: str) -> bool:
+    allowed = AUTONOMY_CEILING_STAGES[ceiling]
+    stages = _stage_map(policy)
+    return all(stage_id in allowed for stage_id, stage in stages.items() if stage.get("approval") == "agent")
+
+
+def _bound_preflight_guard(preflight_path: Path, policy_path: Path) -> dict[str, Any]:
+    summary = _preflight_summary(preflight_path)
+    return {
+        "path": _portable_path(preflight_path, policy_path.parent),
+        "sha256": sha256_file(preflight_path),
+        **summary,
+    }
+
+
+def default_policy(
+    project_id: str,
+    mode: str,
+    authorized_by: str,
+    *,
+    preflight_guard: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     if not project_id.strip():
         raise ValidationInputError("project_id must be non-empty")
     if mode not in MODES:
@@ -100,8 +208,8 @@ def default_policy(project_id: str, mode: str, authorized_by: str) -> dict[str, 
             "evidence_mode": evidence_mode,
             "require_hashed_report_inputs": evidence_mode == "deterministic-pass",
         })
-    return {
-        "schema_version": "1.0",
+    policy = {
+        "schema_version": "1.1" if preflight_guard is not None else "1.0",
         "policy_id": f"{project_id}-{mode}-v1",
         "project_id": project_id,
         "mode": mode,
@@ -128,18 +236,65 @@ def default_policy(project_id: str, mode: str, authorized_by: str) -> dict[str, 
             "printer_start": "deny",
         },
     }
+    if preflight_guard is not None:
+        policy["preflight_guard"] = preflight_guard
+    return policy
 
 
-def init_policy(project_id: str, mode: str, authorized_by: str, output: Path, *, force: bool = False) -> dict[str, Any]:
+def init_policy(
+    project_id: str,
+    mode: str,
+    authorized_by: str,
+    output: Path,
+    *,
+    preflight_path: Path | None = None,
+    force: bool = False,
+) -> dict[str, Any]:
     if output.exists() and not force:
         return report("init-autonomy", [check("output", "FAIL", f"Refusing to overwrite existing file: {output}")], inputs=[output])
-    value = default_policy(project_id, mode, authorized_by)
+    guard = None
+    if preflight_path is not None:
+        try:
+            guard = _bound_preflight_guard(preflight_path, output)
+        except Exception as exc:
+            return report(
+                "init-autonomy",
+                [check("preflight-guard", "FAIL", f"{type(exc).__name__}: {exc}")],
+                inputs=[preflight_path],
+            )
+        if guard["project_id"] != project_id:
+            return report(
+                "init-autonomy",
+                [check("preflight-guard", "FAIL", "preflight project_id differs from autonomy project_id")],
+                inputs=[preflight_path],
+            )
+    value = default_policy(project_id, mode, authorized_by, preflight_guard=guard)
+    if guard is not None and not _mode_fits_ceiling(value, guard["autonomy_ceiling"]):
+        return report(
+            "init-autonomy",
+            [
+                check(
+                    "preflight-autonomy-ceiling",
+                    "FAIL",
+                    f"Requested mode {mode!r} exceeds preflight ceiling {guard['autonomy_ceiling']!r}",
+                    metrics=guard,
+                )
+            ],
+            inputs=[preflight_path],
+        )
     write_json(output, value)
     return report(
         "init-autonomy",
         [check("policy", "PASS", f"Created {mode} autonomy policy")],
-        inputs=[output],
-        metrics={"policy_id": value["policy_id"], "mode": mode, "authorized_by": authorized_by, "output": str(output.resolve())},
+        inputs=[output, *([preflight_path] if preflight_path is not None else [])],
+        metrics={
+            "policy_id": value["policy_id"],
+            "mode": mode,
+            "authorized_by": authorized_by,
+            "output": str(output.resolve()),
+            "preflight_bound": guard is not None,
+            "autonomy_ceiling": guard.get("autonomy_ceiling") if guard else None,
+        },
     )
 
 
@@ -147,8 +302,8 @@ def validate_policy(path: Path, profile: str = "release") -> dict[str, Any]:
     checks: list[dict[str, Any]] = []
     try:
         policy = _policy_data(path)
-        if policy.get("schema_version") != "1.0":
-            raise ValidationInputError("schema_version must be '1.0'")
+        if policy.get("schema_version") not in {"1.0", "1.1"}:
+            raise ValidationInputError("schema_version must be '1.0' or '1.1'")
         for key in ("policy_id", "project_id"):
             if not isinstance(policy.get(key), str) or not policy[key].strip():
                 raise ValidationInputError(f"{key} must be a non-empty string")
@@ -169,6 +324,53 @@ def validate_policy(path: Path, profile: str = "release") -> dict[str, Any]:
         return report("validate-autonomy", [check("policy-contract", "FAIL", f"{type(exc).__name__}: {exc}")], inputs=[path], profile=profile)
 
     checks.append(check("policy-contract", "PASS", "Policy identity, mode, and stage order are valid"))
+    preflight_path: Path | None = None
+    guard = policy.get("preflight_guard")
+    if policy.get("schema_version") == "1.1" and not isinstance(guard, dict):
+        checks.append(check("preflight-binding", "FAIL", "Schema 1.1 requires a hash-bound preflight_guard"))
+    elif isinstance(guard, dict):
+        try:
+            guard_path = guard.get("path")
+            guard_hash = guard.get("sha256")
+            if not isinstance(guard_path, str) or not guard_path:
+                raise ValidationInputError("preflight_guard.path must be a non-empty string")
+            if not isinstance(guard_hash, str) or not HEX64.fullmatch(guard_hash):
+                raise ValidationInputError("preflight_guard.sha256 must be lowercase SHA-256")
+            preflight_path = resolve_path(path.parent, guard_path)
+            if not preflight_path.is_file():
+                raise ValidationInputError(f"bound preflight is missing: {preflight_path}")
+            if sha256_file(preflight_path) != guard_hash:
+                raise ValidationInputError("bound preflight hash is stale")
+            current = _preflight_summary(preflight_path)
+            for key, expected in current.items():
+                if guard.get(key) != expected:
+                    raise ValidationInputError(f"preflight_guard.{key} does not match the bound artifact")
+            if current["project_id"] != policy["project_id"]:
+                raise ValidationInputError("bound preflight project_id differs from policy project_id")
+            if not _mode_fits_ceiling(policy, current["autonomy_ceiling"]):
+                raise ValidationInputError(
+                    f"agent stage authority exceeds preflight ceiling {current['autonomy_ceiling']!r}"
+                )
+        except Exception as exc:
+            checks.append(check("preflight-binding", "FAIL", f"{type(exc).__name__}: {exc}"))
+        else:
+            checks.append(
+                check(
+                    "preflight-binding",
+                    "PASS",
+                    "Autonomy is bound to the current preflight artifact and its risk ceiling",
+                    metrics=current,
+                )
+            )
+    else:
+        checks.append(
+            check(
+                "preflight-binding",
+                "REVIEW_REQUIRED",
+                "Legacy 1.0 policy is not bound to a preflight; migrate before unattended coordination",
+                required=False,
+            )
+        )
     for stage_id, stage in stages.items():
         approval = stage.get("approval")
         evidence_mode = stage.get("evidence_mode")
@@ -216,10 +418,13 @@ def validate_policy(path: Path, profile: str = "release") -> dict[str, Any]:
     return report(
         "validate-autonomy",
         checks,
-        inputs=[path],
+        inputs=[path, *([preflight_path] if preflight_path is not None else [])],
         profile=profile,
         metrics={"policy_id": policy["policy_id"], "project_id": policy["project_id"], "mode": mode, "authorized_by": policy["authorization"]["authorized_by"], "policy_sha256": sha256_file(path)},
-        limitations=["Workflow approval never grants OpenCode, operating-system, network, upload, or printer permissions."],
+        limitations=[
+            "Workflow approval never grants OpenCode, operating-system, network, upload, or printer permissions.",
+            *(["Schema 1.0 policies remain legacy-compatible but are not eligible for unattended Orca coordination."] if guard is None else []),
+        ],
     )
 
 
@@ -356,6 +561,20 @@ def approve_agent_stage(
     missing = _prior_approved(policy, stage_id, agent, human)
     rows: list[dict[str, Any]] = []
     failures = [f"prior stage is not approved: {item}" for item in missing]
+    guard = policy.get("preflight_guard")
+    guard_event = None
+    if isinstance(guard, dict):
+        guard_event = {
+            "path": guard.get("path"),
+            "sha256": guard.get("sha256"),
+            "assessment_id": guard.get("assessment_id"),
+            "assessment_version": guard.get("assessment_version"),
+            "project_revision": guard.get("project_revision"),
+            "lane": guard.get("lane"),
+            "readiness": guard.get("readiness"),
+            "criticality": guard.get("criticality"),
+            "autonomy_ceiling": guard.get("autonomy_ceiling"),
+        }
     mode = stage.get("evidence_mode")
     if mode == "deterministic-pass":
         rows, evidence_failures = _evidence_rows(evidence, ledger_path.parent, reports=True)
@@ -378,6 +597,7 @@ def approve_agent_stage(
         "authority": {"type": "user-autonomy-policy", "policy_id": policy["policy_id"], "policy_sha256": sha256_file(policy_path)},
         "evidence": rows,
         "attestation": attestation.strip() if isinstance(attestation, str) and attestation.strip() else None,
+        "preflight_guard": guard_event,
         "reasons": failures,
     }
     event = _append_event(agent, payload)

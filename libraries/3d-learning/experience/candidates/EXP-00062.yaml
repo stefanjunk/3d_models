@@ -1,0 +1,157 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00062
+title: Separate site location from replaceable front artwork in map-relief parameters
+captured_at: 2026-09-02
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once in one two-mode Berlin map-relief concept. Digital address/placement checks pass; no production mesh or physical print exists."
+feature:
+  type: parameterized location artwork
+  geometry: single-color raised vector or monochrome-mask feature on a large multicolor map relief
+  design_parameters:
+    address: "Sterkrader Straße 24, 13507 Berlin"
+    source_crs: EPSG:25833
+    artwork_width_mm: 16.5
+    relief_height_mm: 0.6
+    semantic_tool: 4
+    maximum_tools: 4
+  named_datums:
+    - frozen address or coordinate
+    - artwork center
+    - retained map perimeter
+    - permanent center seam
+    - semantic tool map
+  constraints:
+    - Location and artwork asset are independent parameters.
+    - A changed address requires a frozen source-backed coordinate rather than hidden live geocoding.
+    - A changed logo, icon or image requires rights, minimum-feature, placement, mesh and slicer checks.
+    - The marker reuses an existing semantic tool and does not silently create a fifth filament.
+scope:
+  process: FFF four-color single-nozzle concept validation
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU
+    product: PLA-family four-color set
+    variant: Oak/Mint Green/Midnight/Sky Blue and proposed metricreate_forge
+    color: multicolor
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: exact revision 0.5.0 profile not yet generated
+    profile_hash: null
+  geometry_class: two-mode two-half vector street-map wall relief
+  environment: digital concept and projected-coordinate validation
+  transfer_limits:
+    - Evidence covers one planar map and one compact single-color vector mark.
+    - It does not validate live geocoding, arbitrary full-color images, curved surfaces or a fifth material.
+    - Physical readability, color contamination and backlight interaction remain unknown.
+observation:
+  summary: The user required the Berlin company marker address to remain adjustable and the marker artwork to be replaceable by another logo, image or icon.
+  expected: A reusable location-artwork feature exposes separate source-backed location, artwork, size, orientation, relief and existing-tool inputs with fail-closed validation.
+  actual: Revision 0.5.0 freezes the official address result, records two mode-specific transforms, keeps a replaceable artwork contract and proves the default 16.5 mm envelope stays on one half with a roughly 1.20 mm minimum source-grid feature.
+  outcome: success
+  parameter: site_marker_parameter_contract
+  recommended_value: separate location and artwork inputs plus fixed-process relief/tool controls
+  units: workflow-contract
+explanation:
+  hypothesis: Coupling a logo mesh directly to one hard-coded map coordinate prevents safe reuse and makes later customer artwork changes difficult to validate.
+  mechanism: A frozen geospatial point owns placement while an independently versioned monochrome asset owns the visible profile; process dimensions and semantic tool assignment remain explicit downstream controls.
+  alternatives:
+    - Freehand manual placement can be acceptable for purely decorative prototypes but weakens traceability.
+    - A full-color image may require a different texture/quantization workflow and cannot inherit the four-tool single-color-marker contract.
+    - A marker crossing a split or protected aperture needs a different placement or decomposition.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: false
+  measurement_method: Deterministic coordinate transform, planar envelope and minimum source-grid feature calculation.
+  uncertainty: Actual Boolean overlap with all relief/aperture bodies, physical mark readability, purge and brand clearance are open.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-02 — keep the address parameterized and permit a later logo/image/icon replacement
+      hash: null
+      notes: Exact product-configuration correction.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/site-marker-parameters.json
+      hash: 9117a52f3ec9f50c6d8ef75745526d3bb31efa1c321aeaf6a1b021900853b168
+      notes: Parameter separation and process constraints.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+      hash: be40d0ec1cf3f1dfc3b4f518d4a085013c30527090091fdc9e2532aa3deb70b0
+      notes: Both mode transforms, retained-body, seam, perimeter, mount and source-feature checks pass.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.5.0.md
+      hash: 0dbe9d39f75ff3e6ae873f8f111a103fb1dfa19a77ad18ea4b530e17188f43e8
+      notes: Approved contract and open gates.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v05.png
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.0/berlin/metri-create-headquarters-address.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.0/branding/metricreate-mark-mono.svg
+applicability:
+  triggers:
+    - A printed map relief needs a customer- or business-specific marker at an address or coordinate.
+    - The same marker architecture should accept a later logo, icon or monochrome image silhouette.
+  exclusions:
+    - Multi-tone photographic relief or textured color artwork.
+    - A marker that requires more tools than the target machine can supply.
+    - Unverified live-address resolution in a release build.
+  transfer_limits:
+    - Recompute the transform and all keep-out checks for every map extent, scale and split.
+    - Treat alternate artwork as new geometry even when its tool assignment remains unchanged.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00061
+  evals:
+    - EVAL-interfaces-address-artwork-parameter-separation-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/references/requirements-concept-approval.md
+    - .agents/skills/multicolor-fdm-design/references/02-parametric-color-architecture.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.5.0-parameterized-site-marker-concept.1
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - map-relief
+  - location-marker
+  - address-parameter
+  - replaceable-artwork
+  - multicolor
+  - user-correction

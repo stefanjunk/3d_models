@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.0-concept",
+  "units": "mm",
+  "site_marker": {
+    "enabled": true,
+    "location": {
+      "mode": "address",
+      "address": "Sterkrader Straße 24, 13507 Berlin",
+      "frozen_geocode": "../../../source-data/v0.5.0/berlin/metri-create-headquarters-address.json",
+      "coordinate_override_epsg25833": null
+    },
+    "artwork": {
+      "kind": "vector_logo",
+      "asset": "../../../source-data/v0.5.0/branding/metricreate-mark-mono.svg",
+      "asset_id": "MC-BRAND-001-R1-mark-mono",
+      "replaceable_kinds": ["vector_logo", "vector_icon", "monochrome_raster_mask"],
+      "interpretation": "single_color_silhouette"
+    },
+    "placement": {
+      "anchor": "artwork_center",
+      "orientation_deg": 0.0,
+      "width_mm": 16.5,
+      "height_rule": "preserve_source_aspect_ratio",
+      "resolved_height_mm": 15.967742,
+      "minimum_clearance_to_center_seam_mm": 50.0
+    },
+    "relief": {
+      "height_above_highest_local_face_mm": 0.6,
+      "semantic_tool": 4,
+      "role": "berlin_boundary_and_accents",
+      "minimum_source_stroke_mm": 1.197581,
+      "minimum_printable_stroke_mm": 0.9
+    }
+  },
+  "parameter_contract": {
+    "address_or_coordinate": "Changing the address or coordinate regenerates only the marker placement after a frozen geocode and keep-out check.",
+    "artwork_asset": "Changing the logo/image/icon regenerates only the marker silhouette after rights, aspect-ratio and minimum-feature checks.",
+    "width_mm": "The artwork width is independent from map scale and defaults to 16.5 mm for the 600 x 400 mm Berlin product.",
+    "relief_height_mm": "The marker relief is process-controlled and is not scaled with the map.",
+    "semantic_tool": "The marker reuses one of the four existing tools; it must not create a fifth filament assignment."
+  }
+}

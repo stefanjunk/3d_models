@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 project_id: MM-ART-010
-revision: 0.4.2
-status: product-colorway-variants-with-selected-pilot-loading
+revision: 0.5.0
+status: product-colorway-variants-with-third-brand-near-preset
 intent: "Curated abstract palettes for a four-color modular city-map wall panel; no palette claims geographic realism"
 polymer_family: PLA
 manufacturer: "preset-specific; selected Berlin pilot uses SUNLU"
@@ -22,6 +22,20 @@ variant_axis: palette_preset
 geometry_effect: none
 selected_pilot_palette: berlin_oak_mint_midnight_sky
 presets:
+  metricreate_forge:
+    variant_id: MM-ART-010-CW-METRICREATE-FORGE
+    status: proposed-third-configuration
+    application: slicer-or-ace-filament-assignment-only
+    character: "dark technical studio palette nearest to the selected metriCreate identity within the four-filament inventory constraint"
+    manufacturer: SUNLU
+    brand_reference: ../../../business/01-strategy/brand-assets/metricreate/README.md
+    color_evidence: "inventory photo approximations compared by named visual role; no measured swatches or Delta-E result"
+    omitted_brand_color: "Light Aqua #7FD5D3 is omitted because navy, teal, off-white and signal orange provide the stronger four-color identity"
+    colors:
+      - {order: 1, role: land_base, name: "Midnight", inventory_id: FIL-0003, product: "PLA+2.0", label_code: "06660601A", display_hex: "#1E2B36", brand_target: "Midnight Navy #112431"}
+      - {order: 2, role: medium_relief_and_areas, name: "Mint Green", inventory_id: FIL-0001, product: "PLA+", label_code: "01160403Y", display_hex: "#72CFAE", brand_target: "Brand Teal #08777D"}
+      - {order: 3, role: street_network, name: "White", inventory_id: FIL-0009, product: "High Speed PLA+2.0", label_code: "03060420Z", display_hex: "#F2F3EE", brand_target: "Off-white #F2F6F5"}
+      - {order: 4, role: berlin_boundary_and_accents, name: "High Speed Orange", inventory_id: FIL-0007, product: "High Speed PLA+2.0", label_code: "04760420Z", display_hex: "#F36B32", brand_target: "Signal Orange #F05A28"}
   berlin_oak_mint_midnight_sky:
     variant_id: MM-ART-010-CW-OAK-MINT-MIDNIGHT-SKY
     status: selected-pilot-configuration

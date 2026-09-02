@@ -1,5 +1,5 @@
 version: 1
-status: digital-candidate-product-variant
+status: site-marker-concept-pending
 project:
   name: MM-ART-010 Berlin parameterized palette variants
   purpose: "abstract four-color permanent two-half city-map wall art"
@@ -34,6 +34,7 @@ palette:
   variant_catalog: product-variants.json
   parameter: palette_preset
   selected_preset: berlin_oak_mint_midnight_sky
+  proposed_third_preset: metricreate_forge
   maximum_colors: 4
   mapping_method: manual
   dither: false
@@ -53,6 +54,12 @@ palette:
     tool_2: {slot: 2, role: medium_relief_and_areas, inventory_id: FIL-0001, name: Mint Green}
     tool_3: {slot: 3, role: street_network, inventory_id: FIL-0003, name: Midnight}
     tool_4: {slot: 4, role: berlin_boundary_and_accents, inventory_id: FIL-0002, name: Sky Blue}
+  proposed_metricreate_forge_loading:
+    tool_1: {slot: 1, role: land_base, inventory_id: FIL-0003, name: Midnight}
+    tool_2: {slot: 2, role: medium_relief_and_areas, inventory_id: FIL-0001, name: Mint Green}
+    tool_3: {slot: 3, role: street_network, inventory_id: FIL-0009, name: White}
+    tool_4: {slot: 4, role: berlin_boundary_and_accents_and_site_marker, inventory_id: FIL-0007, name: High Speed Orange}
+  metricreate_forge_note: "Closest named inventory roles to the selected metriCreate navy/teal/off-white/orange system; light aqua is omitted to preserve four tools. No measured swatch match is claimed."
 
 geometry:
   palette_parameter_changes_geometry: false
@@ -64,6 +71,13 @@ geometry:
   gap_allowed_mm: 0.03
   shell_depth_mm: 0.6
   voxel_pitch_mm: 0.6
+  site_marker:
+    status: concept-pending
+    parameter_source: source/v0.5.0/berlin/site-marker-parameters.json
+    semantic_tool: 4
+    new_tool_required: false
+    relief_height_mm: 0.6
+    minimum_feature_width_mm: 0.9
 
 materials:
   require_same_polymer_family: true

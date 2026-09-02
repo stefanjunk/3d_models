@@ -1,0 +1,47 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-address-artwork-parameter-separation-001
+title: Location-specific map artwork keeps location, graphic and process controls independent
+category: interfaces
+status: draft
+trigger: A printable map relief places a logo, icon or image-derived silhouette at an address or coordinate and should support later customer configuration.
+risk: A hard-coded or coupled marker can move to the wrong site, cross a part split, collide with protected geometry, become unprintable after artwork replacement or silently exceed the available material tools.
+given:
+  input: A map transform, frozen address or coordinate, part split, retained perimeter, functional keep-outs, replaceable artwork asset and a finite tool budget.
+expected:
+  - The location is a source-backed address/coordinate parameter with frozen CRS and provenance.
+  - The artwork asset/type is independent from the location and has explicit preprocessing rules.
+  - Size, orientation, relief height and semantic tool are explicit process parameters.
+  - Each configured marker is checked against the retained body, split, protected regions and minimum printable feature width.
+  - Artwork replacement cannot silently add a fifth tool to a four-tool design.
+failure_conditions:
+  - The address or coordinate is embedded only as opaque mesh geometry.
+  - Changing the artwork requires hand-editing the map transform or location.
+  - The configured marker crosses a split or protected region without an explicit decomposition.
+  - Minimum features or relief height scale blindly with the map.
+  - The marker adds an undeclared material tool.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/site-marker-parameters.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.0/berlin/metri-create-headquarters-address.json
+grader:
+  type: deterministic
+  command: python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/validate_site_marker_concept.py --report products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Compare the frozen projected coordinate with each mode transform, then test marker envelope/perimeter/split/mount clearances, source-grid feature width and semantic tool range.
+relationships:
+  lessons:
+    - EXP-00062
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-02
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+  artifact_hashes:
+    - be40d0ec1cf3f1dfc3b4f518d4a085013c30527090091fdc9e2532aa3deb70b0
+tags:
+  - interfaces
+  - geospatial-transform
+  - location-marker
+  - artwork-parameter
+  - tool-budget

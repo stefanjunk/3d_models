@@ -164,3 +164,13 @@
 - Size is reserved as a parameter axis, but only 600 × 400 mm is currently production-supported. Arbitrary uniform slicer scaling is prohibited because it would also scale clearances, wall gap, relief depth and printable minima. Future sizes must regenerate the X/Y artwork while preserving functional dimensions.
 - Map-extent selection remains deferred. A new city or crop requires frozen geospatial data and renewed placement, interface, mesh and slicer validation.
 - Concept v04 is retained as an informational palette preview and no longer blocks product configuration. Physical filament-profile, ACE/purge, opacity, fit, appearance and release gates remain open.
+
+## 2026-09-02 — Parameterized metriCreate site marker prepared as concept v05
+
+- User request: add a slightly raised metriCreate.com logo at Sterkrader Straße 24, 13507 Berlin and keep the address and artwork replaceable by later product configuration.
+- The official Land Berlin address WFS returns one quality-A point in EPSG:25833: `383841.69199994, 5826269.76599965`. This maps to X/Y `204.057/283.519 mm` in `boundary_crop` and `222.626/267.354 mm` in `context_outline`.
+- The default uses the selected compact `MC-BRAND-001-R1` metriCreate M mark at 16.5 × 15.97 mm. Its smallest source-grid feature scales to about 1.20 mm, above the 0.9 mm colored-feature minimum.
+- The mark is centered on the address, raised 0.60 mm and assigned to existing semantic tool 4. It remains entirely on the left half and more than 50 mm from the permanent center seam.
+- `site_marker.location`, `artwork`, `width`, `orientation`, `relief height` and `semantic tool` are independent inputs. SVG/DXF silhouettes are preferred; raster images require a monochrome-mask preprocessing and renewed rights/geometry/slicer checks.
+- Inventory review produced the proposed non-geometric `metricreate_forge` palette: Midnight (`FIL-0003`), Mint Green (`FIL-0001`), White (`FIL-0009`) and High Speed Orange (`FIL-0007`). It approximates the brand's navy/teal/off-white/orange roles and deliberately omits aqua to respect the four-tool ceiling.
+- Concept v05 is stored at `concepts/berlin-site-marker-concept-v05.png`. Because the marker changes visible geometry, CAD, mesh and 3MF v0.5.0 generation remains blocked until human concept approval.

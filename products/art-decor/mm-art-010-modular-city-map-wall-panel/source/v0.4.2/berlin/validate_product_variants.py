@@ -100,7 +100,7 @@ def main() -> int:
     result = {
         "schema_version": "1.0",
         "project": "MM-ART-010",
-        "configuration_revision": "0.4.2",
+        "configuration_revision": data.get("configuration_revision"),
         "status": "PASS" if not errors else "FAIL",
         "catalog": {"path": str(CATALOG.relative_to(PRODUCT)), "sha256": sha256(CATALOG)},
         "geometry_authority": authority,

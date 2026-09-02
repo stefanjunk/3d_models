@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project_id": "MM-ART-010",
-  "configuration_revision": "0.4.2",
+  "configuration_revision": "0.5.0",
   "geometry_authority": {
     "revision": "0.4.0",
     "candidate": "digital-candidate-r9",
@@ -16,7 +16,8 @@
       "application": "Assign the four existing semantic bodies/tools to physical filament slots in Anycubic Slicer Next or load the ACE slots according to the selected machine map.",
       "allowed": [
         "urban_signal",
-        "berlin_oak_mint_midnight_sky"
+        "berlin_oak_mint_midnight_sky",
+        "metricreate_forge"
       ],
       "default": "urban_signal"
     },
@@ -47,6 +48,28 @@
       "current": "berlin-v0.4.0-frozen-source",
       "future_application": "Select another city, administrative boundary or rectangular context from a newly frozen and rights-audited geospatial source, then rerun placement, split, interface, mesh and slicer validation.",
       "automatic_source_substitution_allowed": false
+    },
+    "site_marker": {
+      "status": "concept-pending",
+      "affects_geometry": true,
+      "authority": "source/v0.5.0/berlin/site-marker-parameters.json",
+      "default": {
+        "address": "Sterkrader Straße 24, 13507 Berlin",
+        "artwork_asset": "source-data/v0.5.0/branding/metricreate-mark-mono.svg",
+        "width_mm": 16.5,
+        "relief_height_mm": 0.6,
+        "semantic_tool": 4
+      },
+      "parameterized_fields": [
+        "address_or_coordinate",
+        "artwork_asset",
+        "artwork_kind",
+        "width_mm",
+        "orientation_deg",
+        "relief_height_mm",
+        "semantic_tool"
+      ],
+      "production_status": "BLOCKED_UNTIL_CONCEPT_APPROVAL_AND_REVALIDATION"
     }
   },
   "semantic_tool_order": [
@@ -96,6 +119,20 @@
         {"tool": 4, "ace_slot": 4, "filament_name": "Sky Blue", "inventory_id": "FIL-0002", "label_code": "06860603A"}
       ],
       "operator_note": "Slot numbers are the recommended job-local loading order. Confirm the four tool-to-ACE assignments and filament profiles in the final Anycubic Slicer Next preview."
+    },
+    "metricreate_forge": {
+      "variant_id": "MM-ART-010-CW-METRICREATE-FORGE",
+      "status": "proposed-third-configuration",
+      "changes_geometry": false,
+      "brand_reference": "business/01-strategy/brand-assets/metricreate/README.md",
+      "color_match_status": "inventory-backed visual approximation; no calibrated swatches or Delta-E evidence",
+      "machine_map": [
+        {"tool": 1, "ace_slot": 1, "filament_name": "Midnight", "inventory_id": "FIL-0003", "label_code": "06660601A"},
+        {"tool": 2, "ace_slot": 2, "filament_name": "Mint Green", "inventory_id": "FIL-0001", "label_code": "01160403Y"},
+        {"tool": 3, "ace_slot": 3, "filament_name": "White", "inventory_id": "FIL-0009", "label_code": "03060420Z"},
+        {"tool": 4, "ace_slot": 4, "filament_name": "High Speed Orange", "inventory_id": "FIL-0007", "label_code": "04760420Z"}
+      ],
+      "operator_note": "Four-color brand-near abstraction: Midnight/teal-like Mint/White/Orange. The selected metriCreate aqua is deliberately omitted to respect the four-tool ceiling."
     }
   },
   "configured_examples": [
@@ -114,6 +151,24 @@
       "assembled_size_mm": [600.0, 400.0],
       "map_extent": "berlin-v0.4.0-frozen-source",
       "geometry_candidate": "digital-candidate-r9"
+    },
+    {
+      "variant_id": "MM-ART-010-BERLIN-BOUNDARY-METRICREATE-FORGE",
+      "display_mode": "boundary_crop",
+      "palette_preset": "metricreate_forge",
+      "assembled_size_mm": [600.0, 400.0],
+      "map_extent": "berlin-v0.4.0-frozen-source",
+      "geometry_candidate": "digital-candidate-r9",
+      "site_marker": "concept-pending-v0.5.0"
+    },
+    {
+      "variant_id": "MM-ART-010-BERLIN-CONTEXT-METRICREATE-FORGE",
+      "display_mode": "context_outline",
+      "palette_preset": "metricreate_forge",
+      "assembled_size_mm": [600.0, 400.0],
+      "map_extent": "berlin-v0.4.0-frozen-source",
+      "geometry_candidate": "digital-candidate-r9",
+      "site_marker": "concept-pending-v0.5.0"
     }
   ]
 }

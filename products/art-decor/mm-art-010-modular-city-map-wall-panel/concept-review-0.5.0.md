@@ -1,6 +1,6 @@
 # Concept review 0.5.0 — Berlin site marker
 
-Status: **pending human approval**.
+Status: **approved by Stefan on 2026-09-02**.
 
 Review artifact: `concepts/berlin-site-marker-concept-v05.png`
 
@@ -25,10 +25,10 @@ The map views use the existing Oak/Mint Green/Midnight/Sky Blue product variant,
 
 ## Deliberate limitations
 
-- This is visual concept evidence, not manufacturing geometry or a 3MF.
+- This artifact is visual concept evidence, not manufacturing geometry or a 3MF; the subsequently generated DRAFT geometry is documented under `validation/v0.5.0/berlin/digital-candidate-r7/`.
 - Display colors are photographic approximations and are not measured swatches.
 - The official WFS point confirms the address; headquarters occupancy is user-supplied content.
 - The selected metriCreate logo asset is clearance-pending.
 - Physical relief readability, purge contamination and lit/unlit appearance remain open tests.
 
-Production CAD, meshes and Anycubic project 3MFs remain blocked until this exact concept is approved.
+Stefan approved this exact concept in the project conversation on 2026-09-02. Production CAD, meshes and Anycubic project 3MFs may proceed under the guided workflow; physical appearance and print-candidate approval remain human-controlled.

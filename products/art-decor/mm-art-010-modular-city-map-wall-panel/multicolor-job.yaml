@@ -1,5 +1,5 @@
 version: 1
-status: site-marker-concept-pending
+status: digital-candidate-pass-physical-review-required
 project:
   name: MM-ART-010 Berlin parameterized palette variants
   purpose: "abstract four-color permanent two-half city-map wall art"
@@ -15,12 +15,12 @@ printer:
   slicer: "Anycubic Slicer Next"
 
 source:
-  path: source/v0.4.0/berlin/build_berlin_modes.py
+  path: source/v0.5.0/berlin/build_berlin_site_marker.py
   kind: parametric_cad
   preserve_immutable: true
   units: mm
   texture_paths: []
-  source_sha256: c728247f9c44f6b2b044e289155022574358008e3f7c56f6c009b0a45416b079
+  source_sha256: ae59f468ba2b3b22d84d4202ad4be05d00a8fb7baaa90bfec67be77ef8dbbafe
 
 representation:
   method: separate_solids
@@ -39,7 +39,7 @@ palette:
   mapping_method: manual
   dither: false
   changes_geometry: false
-  geometry_candidate: digital-candidate-r9
+  geometry_candidate: digital-candidate-r7
   application: "job-local Anycubic Slicer Next tool/filament assignment or equivalent ACE loading; no CAD, mesh or 3MF body-topology regeneration"
   actual_spools_status: "four photographed inventory rolls identified; batch, conditioning and calibrated swatches unverified"
   semantic_mapping:
@@ -63,7 +63,7 @@ palette:
 
 geometry:
   palette_parameter_changes_geometry: false
-  geometry_authority: "revision 0.4.0 digital-candidate-r9"
+  geometry_authority: "revision 0.5.0 digital-candidate-r7"
   minimum_color_width_mm: 0.9
   minimum_inlay_depth_mm: 0.6
   interface_clearance_mm: 0.0
@@ -72,12 +72,14 @@ geometry:
   shell_depth_mm: 0.6
   voxel_pitch_mm: 0.6
   site_marker:
-    status: concept-pending
+    status: digital-candidate-pass-physical-review-required
     parameter_source: source/v0.5.0/berlin/site-marker-parameters.json
     semantic_tool: 4
     new_tool_required: false
     relief_height_mm: 0.6
     minimum_feature_width_mm: 0.9
+    upper_color_xy_clearance_mm: 0.5
+    digital_evidence: validation/v0.5.0/berlin/digital-candidate-r7/build-report.json
 
 materials:
   require_same_polymer_family: true
@@ -87,8 +89,8 @@ materials:
 purge:
   matrix_path: null
   matrix_status: "required physical directed transition coupon before print-candidate approval"
-  maximum_changes: 3
-  maximum_changes_scope: "per 299.875 x 400 mm half; horizontal Z-only color bands"
+  maximum_changes: 8
+  maximum_changes_scope: "left halves with the raised tool-4 site marker use eight changes; right halves without the marker use three"
   maximum_purge_volume_mm3: 12000
   maximum_purge_volume_scope: "per half; provisional ceiling pending directed transition coupon and GUI wipe-tower review"
   permit_flush_into_infill: false
@@ -102,4 +104,14 @@ acceptance:
   color_boundary_coupon_required: true
   maximum_mean_delta_e: 18.0
   maximum_p95_delta_e: 35.0
-  release_note: "Schema validity is planning evidence only; missing physical spool, purge and preview evidence blocks print-candidate approval."
+  digital_3mf_geometry_reports:
+    - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-left-geometry.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-right-geometry.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-context-outline-left-geometry.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-context-outline-right-geometry.json
+  native_slice_reviews:
+    - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-left-r2-review.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-right-r2-review.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-left-r3-review.json
+    - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-right-r1-review.json
+  release_note: "All four native project files contain four non-empty tool bodies and slice digitally. Physical spool, purge, GUI-preview, marker-readability and release evidence still blocks print-candidate approval."

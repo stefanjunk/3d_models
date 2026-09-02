@@ -1,5 +1,5 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-011",
+  "assessment_id": "PREFLIGHT-MM-ART-010-012",
   "assessment_version": "0.5.0",
   "assessment_date": "2026-09-02",
   "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with replaceable location artwork",
@@ -7,8 +7,8 @@
     "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.0 adds a slightly raised, parameterized single-color site marker at a frozen address or coordinate. Its logo, icon or monochrome image silhouette can later be replaced without creating a fifth tool. Palette selection remains a slicer/ACE product variant.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
     "variants": [
-      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — unchanged boundary_crop geometry plus palette loading",
-      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — unchanged context_outline geometry plus palette loading",
+      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.0 DRAFT native Anycubic projects with the parameterized marker on the left half",
+      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.0 DRAFT native Anycubic projects with the parameterized marker on the left half",
       "MM-ART-010-BERLIN-{MODE}-METRICREATE-FORGE — proposed inventory-backed third palette",
       "Parameterized site marker — default compact metriCreate mark at Sterkrader Straße 24, 13507 Berlin",
       "Future non-default size — reserved, not production-supported",
@@ -44,13 +44,13 @@
       "geometry": "PLN",
       "lifecycle_states": ["assembly", "use", "failure"],
       "keepouts_and_access": ["Center seam and one-way connector pockets", "light-through apertures", "minimum outer ligament and map perimeter", "other attribution or release marks"],
-      "evidence": {"level": "E3", "sources": ["source-data/v0.5.0/berlin/metri-create-headquarters-address.json", "source-data/v0.5.0/branding/source-manifest.json", "source/v0.5.0/berlin/site-marker-parameters.json", "source/v0.4.0/berlin/placements/boundary-crop-placement.json", "source/v0.4.0/berlin/placements/context-outline-placement.json"], "variant_confirmed": true, "coverage_percent": 75, "uncertainty_note": "The official WFS verifies the address point and projected coordinate. The user's headquarters attribution, physical logo readability, alternate artwork preprocessing and final local overlap remain human or generated-candidate gates.", "observability": "OBSERVED"},
+      "evidence": {"level": "E3", "sources": ["source-data/v0.5.0/berlin/metri-create-headquarters-address.json", "source-data/v0.5.0/branding/source-manifest.json", "source/v0.5.0/berlin/site-marker-parameters.json", "source/v0.4.0/berlin/placements/boundary-crop-placement.json", "source/v0.4.0/berlin/placements/context-outline-placement.json", "validation/v0.5.0/berlin/digital-candidate-r7/build-report.json", "validation/v0.5.0/berlin/digital-candidate-r7/digital-candidate-summary.json"], "variant_confirmed": true, "coverage_percent": 92, "uncertainty_note": "The official WFS verifies the address point and projected coordinate. Candidate r7 verifies digital placement, 0.6 mm relief, one-half ownership, four-tool reuse and protected aperture clearance in both modes. The user's headquarters attribution, physical logo readability, alternate artwork preprocessing and brand clearance remain human gates.", "observability": "OBSERVED"},
       "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 0, "VAR": 3, "LIF": 1, "total": 7, "tier": "I2"},
       "criticality": "K0",
       "failure_modes": [{"mode": "Wrong location, unreadable artwork, fifth color, or collision with protected geometry", "effect": "Misleading or visually defective one-off artwork; slice or assembly may fail", "mitigation": "Freeze geocode provenance, parameterize artwork independently, reuse one existing tool and rerun deterministic placement, feature, mesh and slicer checks"}],
-      "verification": {"method": "analysis", "acceptance_criteria": ["The resolved artwork lies on exactly one retained main half, stays at least 12 mm from functional keep-outs and 5 mm from the outer perimeter, has no feature below 0.9 mm, rises 0.6 mm and uses one of tools 1-4. A later print coupon confirms readability."], "status": "PLANNED", "result_refs": []},
+      "verification": {"method": "analysis", "acceptance_criteria": ["The resolved artwork lies on exactly one retained main half, stays at least 12 mm from functional keep-outs and 5 mm from the outer perimeter, has no feature below 0.9 mm, rises 0.6 mm and uses one of tools 1-4. A later print coupon confirms readability."], "status": "IN_PROGRESS", "result_refs": ["validation/v0.5.0/berlin/digital-candidate-r7/build-report.json", "validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-left-geometry.json", "validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-context-outline-left-geometry.json", "validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-left-r2-review.json", "validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-left-r3-review.json"]},
       "owner": "MM-ART-010 site-marker parameter block",
-      "version": "0.1"
+      "version": "0.2"
     },
     {
       "id": "IF-INT-MEC-FST-SNAP-001",
@@ -131,7 +131,7 @@
       "Exact filament batches, conditioning state, ACE slots, measured opacity and directed purge matrix",
       "As-built mass, wall-anchor/substrate selection and physical proof-load result"
     ],
-    "completeness_percent": 84.0
+    "completeness_percent": 89.0
   },
   "criticality": {
     "level": "K2",
@@ -143,19 +143,20 @@
     "lane": "C",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The official address point and both mode transforms support a controlled concept for a parameterized site marker, and the selected compact mark can remain within one existing semantic tool. The visible raised feature changes geometry and appearance, so production source, meshes and 3MFs remain blocked until concept v05 is approved. After approval, regenerate and revalidate both modes. Exact filament profiles, ACE/purge review, process coupons, physical prints, assembled load behavior, lighting appearance, brand clearance and watermark approval remain required before release."
+    "rationale": "Concept v05 is human-approved. Revision 0.5.0 digital-candidate-r7 now passes the deterministic geometry build, four composite mesh audits, four vendor-aware Anycubic 3MF geometry checks and four native Anycubic slices. The marker remains in existing tool 4 and clears retained light apertures by at least 12.25 mm. Exact filament profiles, ACE/purge review, the context-left runtime deviation, process coupons, physical prints, assembled load behavior, lighting appearance, brand clearance and watermark approval remain required before release."
   },
   "warnings": [
     {"code": "BRAND_CLEARANCE_PENDING", "severity": "WARN", "message": "The selected metriCreate vector asset is recorded as clearance pending; manufacturing candidates may be generated for review, but commercial release remains blocked."},
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The one-way connector and snap-in mounting interfaces have no exact process-qualified clearance or physical result."},
     {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "Concealed seam pockets must remain printable in the face-up main-part orientation and must not create unsupported roofs or visible read-through."},
     {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "The physical spool products are identified, but common-process compatibility, opacity, directed purge, conditioning, ACE slots and numeric mechanical thresholds remain unverified."},
-    {"code": "TARGET_SLICER_PROJECT_LAYOUT", "severity": "WARN", "message": "The generic standard-only 3MF parser does not follow the Anycubic object-part relationship layout; the exact Anycubic Slicer Next 1.3.9.4 imports and slices the revision 0.4.0 geometry successfully."}
+    {"code": "TARGET_SLICER_PROJECT_LAYOUT", "severity": "WARN", "message": "The generic standard-only 3MF parser does not follow Anycubic production-extension p:path component relationships. The revision 0.5.0 vendor-aware reports resolve four non-empty bodies per project and Anycubic Slicer Next 1.3.9.4 slices all four projects."},
+    {"code": "SLICER_RUNTIME_TARGET_EXCEEDED", "severity": "WARN", "message": "Context-outline left exceeded the nominal 600 second exact-slice target, timed out twice and completed within a controlled 900 second retry; the geometry result is valid but performance remains a review item."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Generate and obtain human approval for concept v05 showing the 16.5 mm raised marker at the official address in both display modes.", "exit_criterion": "The human approves the exact 0.5.0 concept or supplies corrections; no production CAD, mesh or 3MF is generated before this gate."},
-    {"priority": 2, "action": "After concept approval, generate the parameterized marker into tool 4, rebuild both display-mode halves and package native Anycubic 3MF projects for the selected palette.", "exit_criterion": "Placement, minimum-feature, mesh, 3MF and exact Anycubic Slicer Next checks pass for all four halves; final tool/ACE mapping remains visible for human review."},
-    {"priority": 3, "action": "Print and measure the connector/socket/light and logo-feature coupons with the final selected process, then print and assemble the selected example.", "exit_criterion": "The mark is legible, the selected clearance variant meets one-time assembly and retention criteria, and the assembled artwork passes appearance and wall-proof review."}
+    {"priority": 1, "action": "Open the four r7 projects in Anycubic Slicer Next and approve physical spool profiles, ACE slots, wipe tower, directed purge behavior and transition/seam preview.", "exit_criterion": "The human records the four slot assignments and accepts the final preview without hidden or missing color bodies."},
+    {"priority": 2, "action": "Print and measure the connector/socket/light/opacity and 16.5 mm logo-feature coupons with the selected process.", "exit_criterion": "The mark is legible, the selected clearance variant meets one-time assembly and retention criteria, and the passive lighting envelope remains clear."},
+    {"priority": 3, "action": "Place and approve the recessed rear metriMade.com watermark, then print, permanently assemble and wall-proof the selected example.", "exit_criterion": "Watermark, brand/map rights, assembled appearance, proof load, safety and commercial-release records are approved."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
@@ -176,12 +177,15 @@
       "plan/hybrid-design-plan-v0.4.0.json",
       "validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json",
       "validation/v0.4.0/berlin/digital-candidate-r9/validation-project.json",
+      "validation/v0.5.0/berlin/build-iteration-summary.json",
+      "validation/v0.5.0/berlin/digital-candidate-r7/digital-candidate-summary.json",
+      "validation/v0.5.0/berlin/digital-candidate-r7/validation-project.json",
       "decision-log.md",
       "autonomy-policy.json"
     ],
-    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed"],
-    "previous_assessment_id": "PREFLIGHT-MM-ART-010-010",
+    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-010-011",
     "created_at": "2026-08-31T16:44:58+02:00",
-    "updated_at": "2026-09-02T10:30:00+02:00"
+    "updated_at": "2026-09-02T12:05:03+02:00"
   }
 }

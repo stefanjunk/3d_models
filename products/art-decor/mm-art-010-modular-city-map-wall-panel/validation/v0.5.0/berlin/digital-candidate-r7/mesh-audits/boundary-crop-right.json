@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-right-composite.stl",
+      "sha256": "4a84a02cc221ed78d2842c040da761baaf03554aeed5040ce4885a4deff99a6f",
+      "size_bytes": 5968784
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          0.0,
+          0.02332567423582077,
+          0.0
+        ],
+        [
+          242.52194213867188,
+          400.0,
+          4.599999904632568
+        ]
+      ],
+      "components": 1,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": -12,
+      "extents_mm": [
+        242.52194213867188,
+        399.9766743257642,
+        4.599999904632568
+      ],
+      "faces": 119374,
+      "manifold_edges": 179061,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 164622.75973121193,
+      "surface_area_mm2": 106165.91202167863,
+      "vertices": 59675,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 5.6922760009765625,
+    "raw_file_representation": {
+      "faces": 119374,
+      "vertices": 358122
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.3.0"
+}

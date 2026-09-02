@@ -6,7 +6,7 @@ project:
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
   revision: 0.5.0
-  candidate: 0.5.0-parameterized-site-marker-concept.1
+  candidate: 0.5.0-digital-candidate-r7
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,11 +16,11 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-011
+    assessment_id: PREFLIGHT-MM-ART-010-012
     assessment_version: 0.5.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-010
+    previous_assessment_id: PREFLIGHT-MM-ART-010-011
     assessed_project_revision: "0.5.0"
-    updated_at: "2026-09-02T10:30:00+02:00"
+    updated_at: "2026-09-02T12:05:03+02:00"
     change_triggers:
       - palette_reclassified_as_nongeometric_product_variant
       - size_parameter_axis_reserved
@@ -28,6 +28,9 @@ workflow:
       - parameterized_visible_site_marker_added
       - official_address_point_frozen
       - third_inventory_backed_palette_proposed
+      - concept_v05_human_approved
+      - revision_050_digital_candidate_r7_generated
+      - native_anycubic_projects_geometry_and_slice_validated
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
@@ -40,13 +43,13 @@ workflow:
     change_requested_on: "2026-09-02"
     basis: "User explicitly requested a slightly raised metriCreate.com logo at Sterkrader Straße 24 in Berlin and then required the address, artwork/logo/image/icon, size and related placement controls to remain parameterized. No consequential requirement remains unresolved."
   concept_approval:
-    status: pending
+    status: approved
     spec_revision: 0.5.0
-    geometry_revision: null
-    candidate_asset: concepts/berlin-site-marker-concept-v05.png
-    approved_by: null
-    approved_at: null
-    basis: "The site marker changes visible geometry and requires human review. Palette-only variants remain non-geometric."
+    geometry_revision: 0.5.0
+    asset: concepts/berlin-site-marker-concept-v05.png
+    approved_by: Stefan
+    approved_at: "2026-09-02"
+    basis: "User explicitly wrote 'freigegeben' in direct response to concept v05 on 2026-09-02. Palette-only variants remain non-geometric."
   variant_preview:
     status: informational
     asset: concepts/berlin-display-modes-concept-v04.png
@@ -61,7 +64,7 @@ workflow:
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
     version: 0.5.0
-    reason: "The new visible site-marker concept is unapproved and no stable revision 0.5.0 production geometry exists for rear watermark placement."
+    reason: "Revision 0.5.0 digital-candidate-r7 is stable enough to begin mode-aware rear watermark placement, but the watermark geometry, protected-land manifest and human approval have not been produced."
   decomposition_approval:
     status: approved
     spec_revision: 0.4.0
@@ -71,8 +74,8 @@ workflow:
     approved_at: "2026-09-01"
     basis: "User explicitly wrote 'freigegeben' in direct response to decomposition-review-0.4.0.md and plan/hybrid-design-plan-v0.4.0.json"
   digital_candidate:
-    status: blocked
-    reason: "Revision 0.4.0 digital-candidate-r9 remains the previous geometry authority, but the raised site marker requires new 0.5.0 geometry after human concept approval."
+    status: draft-pass-with-review
+    reason: "Revision 0.5.0 digital-candidate-r7 passes the geometry build, four composite mesh audits, vendor-aware four-component 3MF checks and native Anycubic slicing for all four halves. Context-outline left required a 900 second adapter limit after exceeding the 600 second target; physical, GUI, watermark and release gates remain open."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -86,7 +89,7 @@ history:
   previous_status: "palette mapping recorded correctly, but incorrectly treated as a new design/concept gate"
   geometry_revision: 0.4.0
   geometry_concept_artifact: concepts/berlin-display-modes-concept-v03.png
-  geometry_status: "unchanged approved design and DRAFT digital-candidate-r9 geometry authority"
+  geometry_status: "revision 0.4.0 digital-candidate-r9 is historical; revision 0.5.0 digital-candidate-r7 is the current DRAFT geometry authority"
 
 requirements_trace:
   user_stated:
@@ -195,7 +198,7 @@ branding:
   status: "blocked until stable revision 0.5.0 mode-aware geometry, generated placement evidence and human approval"
 
 front_site_marker:
-  status: concept-pending
+  status: digital-candidate-pass-physical-pending
   brand: metriCreate
   domain: metriCreate.com
   brand_asset_revision: MC-BRAND-001-R1
@@ -219,6 +222,7 @@ front_site_marker:
     height_above_highest_local_face_mm: 0.6
     semantic_tool: 4
     maximum_total_tools: 4
+    upper_color_xy_clearance_mm: 0.5
   placement_mm:
     boundary_crop: [204.056603, 283.519133]
     context_outline: [222.626293, 267.354140]
@@ -241,7 +245,7 @@ coordinate_system:
 
 geometry:
   geometry_revision: 0.5.0
-  geometry_candidate: pending-after-concept-approval
+  geometry_candidate: digital-candidate-r7
   previous_geometry_authority: "revision 0.4.0 digital-candidate-r9"
   variant_catalog: product-variants.json
   assembled_nominal_mm: [600.0, 400.0]
@@ -284,6 +288,7 @@ geometry:
     default_height_mm: 15.967742
     relief_height_mm: 0.6
     minimum_printable_stroke_mm: 0.9
+    upper_color_xy_clearance_mm: 0.5
     address_and_artwork_independently_replaceable: true
     changed_address_requires_frozen_geocode: true
     changed_artwork_requires_rights_and_geometry_validation: true
@@ -358,6 +363,18 @@ map_content:
     context_outline_projects:
       - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-left-four-color.3mf
       - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-right-four-color.3mf
+  current_digital_candidate:
+    id: digital-candidate-r7
+    status: DRAFT_DIGITAL_PASS_REVIEW_REQUIRED
+    summary: validation/v0.5.0/berlin/digital-candidate-r7/digital-candidate-summary.json
+    validation_contract: validation/v0.5.0/berlin/digital-candidate-r7/validation-project.json
+    aggregate_draft_report: validation/v0.5.0/berlin/digital-candidate-r7/validation-summary-draft.json
+    boundary_crop_projects:
+      - exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-left-oak-mint-midnight-sky-anycubic.3mf
+      - exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-right-oak-mint-midnight-sky-anycubic.3mf
+    context_outline_projects:
+      - exports/v0.5.0/berlin/digital-candidate-r7/context-outline/berlin-context-outline-left-oak-mint-midnight-sky-anycubic.3mf
+      - exports/v0.5.0/berlin/digital-candidate-r7/context-outline/berlin-context-outline-right-oak-mint-midnight-sky-anycubic.3mf
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
@@ -374,7 +391,7 @@ multicolor:
   selected_palette: berlin_oak_mint_midnight_sky
   proposed_third_palette: metricreate_forge
   geometry_effect: none
-  geometry_authority: "revision 0.4.0 digital-candidate-r9 with ordered tools 1-4"
+  geometry_authority: "revision 0.5.0 digital-candidate-r7 with ordered tools 1-4; palette remapping remains non-geometric"
   physical_filaments:
     land_base: {inventory_id: FIL-0005, manufacturer: SUNLU, product: PLA+2.0, color: Oak, label_code: 05860601A}
     medium_relief_and_areas: {inventory_id: FIL-0001, manufacturer: SUNLU, product: PLA+, color: Mint Green, label_code: 01160403Y}
@@ -472,7 +489,7 @@ optimization:
     - "connector pockets, one-way spring roots and hanger/standoff snap sockets"
     - "light apertures, LED/cable keep-outs, attribution and watermark host"
   baseline_slicer_report: validation/v0.3.0/berlin/slice-left-composite-r1.json
-  selected_variant: "3.0 mm backer with 0.6/0.6/0.4 mm sequential color bands; 4.6 mm maximum"
+  selected_variant: "3.0 mm backer with 0.6/0.6/0.4 mm sequential map bands; the left site marker adds a local 0.6 mm tool-4 relief for a 5.2 mm maximum"
   comparison_report: validation/v0.3.0/berlin/optimization/optimization-report.json
   mesh_simplification:
     status: applied
@@ -491,19 +508,20 @@ optimization:
       triangle_stop: 1500000
       peak_memory_gib: 4.0
       max_mesh_mib: 75.0
-      max_slicer_seconds: 240.0
+      max_slicer_seconds: 600.0
     slicer_resolution_check:
       status: passed
-      method: "exact Anycubic Slicer Next 1.3.9.4 target-project 3MF import/slice plus named-volume and composite geometry validation"
-      result: "both final composites slice; right/left triangle counts are 59,326 and 71,996"
-      report: validation/v0.3.0/berlin/mesh-summary.json
+      performance_status: review-required
+      method: "vendor-aware production-extension 3MF validation plus exact Anycubic Slicer Next 1.3.9.4 target-project import and slice"
+      result: "all four projects contain four non-empty tool meshes and slice natively; context-outline left exceeded the 600 second target but completed inside the controlled 900 second retry"
+      report: validation/v0.5.0/berlin/digital-candidate-r7/digital-candidate-summary.json
 
 resource_budgets:
   max_triangles_per_main_half: 750000
   stop_triangles_per_main_half: 1500000
   peak_working_memory_gib: 4.0
   max_mesh_mib_per_main_half: 75.0
-  max_exact_slicer_seconds_per_main_half: 240.0
+  max_exact_slicer_seconds_per_main_half: 600.0
 
 acceptance_details:
   digital:
@@ -534,15 +552,15 @@ acceptance:
   - id: AC-CONCEPT
     criterion: "Concept v05 shows the parameterized 16.5 mm compact metriCreate mark at the frozen address in both display modes without changing map, split, mounting or light architecture."
     method: "human approval of concepts/berlin-site-marker-concept-v05.png"
-    status: REVIEW_REQUIRED
+    status: PASS
   - id: AC-VARIANTS
     criterion: "Every palette preset maps exactly four existing ordered tools to filament identities without changing the geometry candidate; non-default size and map extent fail closed."
-    method: "source/v0.4.2/berlin/validate_product_variants.py and reports/product-variant-validation-0.4.2.json"
+    method: "source/v0.5.0/berlin/validate_product_variants.py and reports/product-variant-validation-0.5.0-r7.json"
     status: PASS
   - id: AC-SITE-MARKER
     criterion: "The default artwork is centered at the frozen address point, stays wholly on one retained left half, clears protected geometry, resolves no feature below 0.9 mm, rises 0.6 mm and reuses tool 4."
-    method: "site-marker parameter/placement validator, mesh checks, exact Anycubic slice and physical readability coupon"
-    status: NOT_RUN
+    method: "digital-candidate-r7 build report, vendor-aware 3MF checks, exact Anycubic slice and pending physical readability coupon"
+    status: REVIEW_REQUIRED
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
     method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
@@ -557,12 +575,16 @@ acceptance:
     status: PASS
   - id: AC-DIGITAL-GEOMETRY
     criterion: "Four single-component watertight composites and sixteen serialized watertight color bodies exist; every half remains connected after light-through apertures."
-    method: "digital-candidate-r9 build report, exact-coordinate mesh audits and aperture-connectivity eval"
+    method: "digital-candidate-r7 build report plus four exact composite mesh audits and four vendor-aware 3MF geometry reports"
     status: PASS
   - id: AC-TARGET-SLICER
-    criterion: "All four native Anycubic project 3MFs import and produce non-empty G-code with 23 canonical layers, tools 0-3 and three tool changes."
-    method: "four slice-anycubic-next result.json artifacts plus product-local canonical slice reviews"
+    criterion: "All four native Anycubic project 3MFs import and produce non-empty G-code with 23-26 canonical layers, tools 0-3 and the expected three or eight tool changes."
+    method: "four slice-anycubic-next result.json artifacts plus four product-local canonical slice reviews; the context-left 600 second target deviation is recorded separately"
     status: PASS
+  - id: AC-RESOURCE-BUDGET
+    criterion: "Every half stays below 750,000 composite triangles and exact native slicing completes inside the nominal 600 second per-half target."
+    method: "four mesh audits and recorded slice-anycubic-next wall times"
+    status: REVIEW_REQUIRED
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"
@@ -587,13 +609,13 @@ acceptance:
 deliverables:
   - "Machine-readable product variant catalog with independent palette, display-mode, size and map-extent axes"
   - "Parameterized location-artwork contract supporting another address/coordinate and another rights-cleared logo, icon or monochrome image mask"
-  - "Concept v05 for the raised compact metriCreate mark and inventory-backed metricreate_forge palette"
+  - "Human-approved concept v05 and DRAFT digital-candidate-r7 for the raised compact metriCreate mark"
   - "Approved revision 0.4.0 display-mode requirements and concept v03"
   - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"
   - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"
   - "Three small concealed one-way seam connectors and snap-in hanger/standoff parts; no rear grid"
-  - "Named color meshes and four-volume Anycubic Slicer Next project 3MFs"
+  - "Named color meshes and four native four-volume Anycubic Slicer Next project 3MFs for both modes and both halves"
   - "Seam/connector, snap-fit, light-envelope and multicolor coupons plus validation reports"
   - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

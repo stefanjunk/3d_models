@@ -110,7 +110,7 @@ def main() -> int:
     result = {
         "schema_version": "1.0",
         "project": "MM-ART-010",
-        "revision": "0.5.0-concept",
+        "revision": "0.5.0-parameter-contract",
         "status": "PASS" if not errors else "FAIL",
         "address_source_sha256": sha256(ADDRESS),
         "parameter_source_sha256": sha256(PARAMETERS),
@@ -118,11 +118,22 @@ def main() -> int:
         "minimum_printable_feature_mm": parameters["relief"]["minimum_printable_stroke_mm"],
         "semantic_tool": parameters["relief"]["semantic_tool"],
         "modes": modes,
-        "open_production_checks": [
-            "boolean overlap with actual light apertures and semantic map bodies",
-            "watertight union into tool 4 and reconstructed composite",
-            "exact Anycubic Slicer Next layers and tool mapping",
-            "physical logo readability and purge contamination",
+        "checks_outside_this_validator": [
+            {
+                "check": "boolean overlap, actual aperture clearance and watertight reconstruction",
+                "status": "PASS_IN_DIGITAL_CANDIDATE_R7",
+                "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/build-report.json",
+            },
+            {
+                "check": "native Anycubic 3MF body presence, layers and tool routing",
+                "status": "PASS_IN_DIGITAL_CANDIDATE_R7",
+                "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/digital-candidate-summary.json",
+            },
+            {
+                "check": "physical logo readability and purge contamination",
+                "status": "NOT_RUN",
+                "evidence": None,
+            },
         ],
         "errors": errors,
     }

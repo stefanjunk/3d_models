@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.0",
+  "mode": "boundary-crop",
+  "half": "left",
+  "status": "PASS",
+  "scope": "native Anycubic project-3MF import, executable layer consistency, height and four-tool routing",
+  "inputs": {
+    "project_3mf": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-left-oak-mint-midnight-sky-anycubic.3mf",
+      "sha256": "ff8bc36a33e5e4c0f13e28c6e57c5b74726430d1cbc424ed31a786e94963cd15"
+    },
+    "adapter_report": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-left-r2-adapter.json",
+      "sha256": "7458a5bfd19ad2961771fed853a7d40eb0b162b1e61d1d845459e5041cbaebb7"
+    },
+    "gcode": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-left-r2/plate_1.gcode",
+      "bytes": 26446640,
+      "sha256": "a0c9274c776969098f77a7ed69dcc828099a5e62878dfd4f983bbceb9e88749b"
+    }
+  },
+  "input_hashes": {
+    "project_3mf": "ff8bc36a33e5e4c0f13e28c6e57c5b74726430d1cbc424ed31a786e94963cd15",
+    "adapter_report": "7458a5bfd19ad2961771fed853a7d40eb0b162b1e61d1d845459e5041cbaebb7",
+    "gcode": "a0c9274c776969098f77a7ed69dcc828099a5e62878dfd4f983bbceb9e88749b"
+  },
+  "checks": {
+    "native_slicer_success": true,
+    "project_hash_matches_adapter_source": true,
+    "gcode_hash_registered_by_adapter": true,
+    "canonical_layer_markers_match_header": true,
+    "canonical_layer_z_values_unique": true,
+    "header_and_summary_agree": true,
+    "expected_tools_seen": true,
+    "tool_changes_within_expected_range": true,
+    "maximum_z_matches_geometry": true
+  },
+  "expectations": {
+    "tools": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "minimum_tool_changes": 8,
+    "maximum_tool_changes": 8,
+    "maximum_z_mm": 4.8,
+    "z_tolerance_mm": 0.011
+  },
+  "metrics": {
+    "declared_header_layers": [
+      24
+    ],
+    "declared_summary_layers": [
+      24
+    ],
+    "canonical_layer_change_markers": 24,
+    "canonical_unique_z_values": 24,
+    "canonical_maximum_z_mm": 4.8,
+    "supplemental_layer_comments": 17,
+    "tools_seen": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tool_changes": 8
+  },
+  "adapter_observation": {
+    "status": "FAIL",
+    "generic_analyzer_layer_count": null,
+    "interpretation": "Canonical executable markers and the native result control this gate; the exact G-code remains unchanged."
+  },
+  "limitations": [
+    "This digital review does not approve physical ACE slot identity, purge sufficiency, seam appearance, logo readability or print quality.",
+    "Final color/tool and wipe-tower inspection remains a human GUI gate."
+  ]
+}

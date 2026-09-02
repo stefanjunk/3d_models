@@ -174,3 +174,19 @@
 - `site_marker.location`, `artwork`, `width`, `orientation`, `relief height` and `semantic tool` are independent inputs. SVG/DXF silhouettes are preferred; raster images require a monochrome-mask preprocessing and renewed rights/geometry/slicer checks.
 - Inventory review produced the proposed non-geometric `metricreate_forge` palette: Midnight (`FIL-0003`), Mint Green (`FIL-0001`), White (`FIL-0009`) and High Speed Orange (`FIL-0007`). It approximates the brand's navy/teal/off-white/orange roles and deliberately omits aqua to respect the four-tool ceiling.
 - Concept v05 is stored at `concepts/berlin-site-marker-concept-v05.png`. Because the marker changes visible geometry, CAD, mesh and 3MF v0.5.0 generation remains blocked until human concept approval.
+
+## 2026-09-02 — Concept v05 approved for production geometry
+
+- Stefan explicitly replied `freigegeben` to the v0.5.0 concept handoff.
+- The approval applies to the compact 16.5 mm metriCreate site marker, its 0.60 mm raised tool-4 geometry, the frozen default address and the independently replaceable address/artwork parameter contract.
+- Production geometry and draft Anycubic 3MF generation may proceed. Physical print, appearance, purge, logo-rights, watermark and final release gates remain separate.
+
+## 2026-09-02 — Berlin site-marker DRAFT digital-candidate-r7 selected
+
+- The approved compact marker is generated from the frozen EPSG:25833 address point and merged into semantic tool 4 on the left half of both display modes. It remains 16.5 × 15.97 mm and 0.60 mm above the highest local map face.
+- A 0.50 mm base-color reveal is applied once to the shared 0.25 mm manufacturing raster before tools 2 and 3 are contoured. This preserves disjoint four-color bodies and removes the point-contact topology failures found in r5/r6.
+- Candidate r7 passes with sixteen watertight positive-volume tool bodies, four connected watertight composites and pairwise tool overlaps at numerical zero. Composite triangle counts are 146,758 / 119,374 for `boundary_crop` and 310,998 / 283,648 for `context_outline`.
+- Four native Oak/Mint Green/Midnight/Sky Blue Anycubic projects were authored. The vendor-aware validator follows the production-extension `p:path` references and proves four non-empty tool meshes in every project. In particular, the `boundary_crop` right file contains 65,980 triangles and 164,622.33 mm³ across its four bodies.
+- All four projects slice natively with tools 0–3. Left halves use eight tool changes because the raised marker adds a later tool-4 band; right halves use three. `context_outline` left exceeded the nominal 600 second target and completed only in the controlled 900 second retry, so performance remains review-required.
+- The generic standard-only 3MF parser cannot follow the Anycubic component-path layout; its failure is retained as a validator limitation and does not override the vendor-aware geometry or native slice evidence.
+- No printer upload or print start occurred. Physical marker readability, connector/light/opacity coupons, final ACE/purge GUI review, watermark, rights, proof load and release remain open.

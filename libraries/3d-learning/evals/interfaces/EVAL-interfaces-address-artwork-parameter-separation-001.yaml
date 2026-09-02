@@ -23,9 +23,10 @@ failure_conditions:
 fixtures:
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/site-marker-parameters.json
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.0/berlin/metri-create-headquarters-address.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.0/berlin/digital-candidate-r7/build-report.json
 grader:
   type: deterministic
-  command: python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/validate_site_marker_concept.py --report products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+  command: python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/validate_site_marker_concept.py --report products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-parameter-validation-digital-candidate-r7.json
   expected_exit_code: 0
   rubric: null
   measurement_method: Compare the frozen projected coordinate with each mode transform, then test marker envelope/perimeter/split/mount clearances, source-grid feature width and semantic tool range.
@@ -36,9 +37,10 @@ relationships:
 last_run:
   result: pass
   date: 2026-09-02
-  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-concept-validation-v0.5.0.json
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/site-marker-parameter-validation-digital-candidate-r7.json
   artifact_hashes:
-    - be40d0ec1cf3f1dfc3b4f518d4a085013c30527090091fdc9e2532aa3deb70b0
+    - 11dda3b736196a49a13591d56d552eced4d4e87e5748a74eb828ca2020b7d95f
+    - 060acfac87c2de7f8a48eb047d5cb0dad1cad0c3db8b6ac8f043265346ff2807
 tags:
   - interfaces
   - geospatial-transform

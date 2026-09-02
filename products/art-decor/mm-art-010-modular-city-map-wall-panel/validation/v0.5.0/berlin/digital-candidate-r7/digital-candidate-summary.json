@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.0",
+  "candidate": "digital-candidate-r7",
+  "status": "DRAFT_DIGITAL_PASS_REVIEW_REQUIRED",
+  "selected_palette": [
+    {"tool": 1, "name": "Oak", "inventory_id": "FIL-0005", "display_hex": "#C6AA7A"},
+    {"tool": 2, "name": "Mint Green", "inventory_id": "FIL-0001", "display_hex": "#72CFAE"},
+    {"tool": 3, "name": "Midnight", "inventory_id": "FIL-0003", "display_hex": "#1E2B36"},
+    {"tool": 4, "name": "Sky Blue", "inventory_id": "FIL-0002", "display_hex": "#69C7E5"}
+  ],
+  "site_marker": {
+    "address": "Sterkrader Straße 24, 13507 Berlin",
+    "coordinate_epsg25833": [383841.69199994, 5826269.76599965],
+    "artwork": "source-data/v0.5.0/branding/metricreate-mark-mono.svg",
+    "size_mm": [16.5, 15.967742],
+    "relief_height_mm": 0.6,
+    "semantic_tool": 4,
+    "upper_color_xy_clearance_mm": 0.5,
+    "placement": {
+      "boundary_crop_mm": [204.0566032596057, 283.51913340790634],
+      "context_outline_mm": [222.62629295242914, 267.35413984335173]
+    },
+    "minimum_aperture_clearance_mm": 12.2526,
+    "physical_readability": "NOT_RUN"
+  },
+  "examples": {
+    "boundary_crop": {
+      "left_3mf": {"path": "exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-left-oak-mint-midnight-sky-anycubic.3mf", "sha256": "ff8bc36a33e5e4c0f13e28c6e57c5b74726430d1cbc424ed31a786e94963cd15", "components": 4, "triangles": 80248, "volume_mm3": 201818.1594},
+      "right_3mf": {"path": "exports/v0.5.0/berlin/digital-candidate-r7/boundary-crop/berlin-boundary-crop-right-oak-mint-midnight-sky-anycubic.3mf", "sha256": "d89d609d29e904a69594c6f4442037c437f7ee43ea8fe1a7616bab6ffbf67876", "components": 4, "triangles": 65980, "volume_mm3": 164622.3275},
+      "left_slice": {"layers": 24, "max_z_mm": 4.8, "tools": [0, 1, 2, 3], "tool_changes": 8, "status": "PASS"},
+      "right_slice": {"layers": 23, "max_z_mm": 4.6, "tools": [0, 1, 2, 3], "tool_changes": 3, "status": "PASS"}
+    },
+    "context_outline": {
+      "left_3mf": {"path": "exports/v0.5.0/berlin/digital-candidate-r7/context-outline/berlin-context-outline-left-oak-mint-midnight-sky-anycubic.3mf", "sha256": "70a702c606cf8eece6075514919515f48e495d287c8f0fdfe7f65269454f7801", "components": 4, "triangles": 164384, "volume_mm3": 426361.4086},
+      "right_3mf": {"path": "exports/v0.5.0/berlin/digital-candidate-r7/context-outline/berlin-context-outline-right-oak-mint-midnight-sky-anycubic.3mf", "sha256": "570a201208afb00f9e258398a695c229c086d0b7adf27f32ba21e56fb2423821", "components": 4, "triangles": 150244, "volume_mm3": 415837.1755},
+      "left_slice": {"layers": 26, "max_z_mm": 5.2, "tools": [0, 1, 2, 3], "tool_changes": 8, "status": "PASS_WITH_PERFORMANCE_REVIEW"},
+      "right_slice": {"layers": 23, "max_z_mm": 4.6, "tools": [0, 1, 2, 3], "tool_changes": 3, "status": "PASS"}
+    }
+  },
+  "digital_gates": [
+    {"id": "geometry-build", "status": "PASS", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/build-report.json"},
+    {"id": "composite-mesh-audits", "status": "PASS", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/mesh-audits"},
+    {"id": "vendor-aware-3mf-geometry", "status": "PASS", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/3mf/*-geometry.json", "details": "Every native project resolves four production-extension component paths, four non-empty source meshes and extruders 1-4."},
+    {"id": "native-anycubic-import-slice", "status": "PASS", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/*-review.json", "details": "All four projects produced non-empty exact G-code with 23-26 canonical layers and tools 0-3."},
+    {"id": "nominal-slicer-runtime", "status": "REVIEW_REQUIRED", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-left-r3-adapter.json", "details": "Context-outline left exceeded the 600 second target, timed out twice and completed under the controlled 900 second retry."},
+    {"id": "generic-standard-only-3mf-parser", "status": "LIMITATION_NOT_PRODUCT_FAILURE", "evidence": "validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-right-generic-3mf.json", "details": "The generic parser does not follow Anycubic production-extension p:path component relationships; the vendor-aware validator and native slicer do."}
+  ],
+  "open_human_gates": [
+    "Confirm exact physical spool batches, conditioning and four ACE slot assignments in the final Anycubic GUI.",
+    "Approve the wipe tower, directed purge behavior, transition layers and seam preview.",
+    "Print and measure the marker-readability, connector/socket and passive light/opacity coupons.",
+    "Print, permanently assemble and proof the selected wall-art example with substrate-appropriate anchors.",
+    "Approve unlit/lit appearance, logo rights, map attribution, product watermark, safety and commercial release."
+  ],
+  "prohibited_actions_not_performed": ["printer upload", "print start"]
+}

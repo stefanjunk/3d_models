@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-palette-variant-does-not-redesign-001
+title: Palette-only product variants preserve approved geometry authority
+category: core
+status: active
+trigger: An existing multicolor product with stable semantic bodies receives another physical filament palette or job-local material-changer loading.
+risk: Treating the substitution as geometry work can create unnecessary redesigns and approvals; treating a real topology or material-function change as palette-only can silently bypass required engineering gates.
+given:
+  geometry_authority: "an immutable approved or validated candidate with explicit ordered semantic color bodies"
+  palette_variant: "a mapping from the existing semantic tools to physical filament identities"
+  independent_axes: "display mode, assembled size and source-dependent map extent are declared separately"
+expected:
+  - The palette axis explicitly states that it does not affect geometry and every configured colorway references the same geometry candidate.
+  - Each palette maps every existing semantic tool exactly once to a physical filament identity or an explicit unresolved inventory value.
+  - A palette preview is marked informational and is not promoted to geometry or concept authority.
+  - Destination-slicer or material-changer assignment and physical purge/opacity checks remain required.
+  - Non-default size and source-dependent extent parameters remain blocked until their geometry/data regeneration and validation paths are implemented.
+failure_conditions:
+  - Selecting a palette regenerates, renames, scales or changes the topology of an existing semantic geometry body.
+  - A new design/concept gate is required solely because the filament names or display colors changed within the existing semantic body set.
+  - A different size is produced by unconstrained uniform slicer scaling despite absolute connector, relief, light or minimum-feature dimensions.
+  - Another map extent is substituted without a frozen source and renewed placement/interface validation.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/product-variants.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/product-variant-validation-0.4.2.json
+grader:
+  type: deterministic
+  command: "python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.2/berlin/validate_product_variants.py"
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: "Validate declared parameter effects, palette/tool completeness, immutable geometry candidate, sole qualified size, deferred map extent and existing four-tool packaging reports."
+relationships:
+  lessons:
+    - EXP-00061
+  regression_suites: []
+last_run:
+  result: pass
+  date: "2026-09-02"
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/product-variant-validation-0.4.2.json
+  artifact_hashes:
+    - aca40d50bea4cb89c161a09a0ab578752e5d51409cb1a4f69ae9a84871a0fd38
+tags:
+  - multicolor
+  - product-variant
+  - redesign-gate
+  - parameterization
+  - slicer-mapping

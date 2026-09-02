@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 project_id: MM-ART-010
-revision: 0.4.1
-status: selected-physical-spools-photographed-not-color-calibrated
+revision: 0.4.2
+status: product-colorway-variants-with-selected-pilot-loading
 intent: "Curated abstract palettes for a four-color modular city-map wall panel; no palette claims geographic realism"
 polymer_family: PLA
 manufacturer: "preset-specific; selected Berlin pilot uses SUNLU"
@@ -18,9 +18,14 @@ production_rules:
   minimum_island_area_mm2: 0.8
   one_polymer_family_per_tile: true
   machine_slots: "assigned only in the destination slicer after the physical spools are loaded"
+variant_axis: palette_preset
+geometry_effect: none
 selected_pilot_palette: berlin_oak_mint_midnight_sky
 presets:
   berlin_oak_mint_midnight_sky:
+    variant_id: MM-ART-010-CW-OAK-MINT-MIDNIGHT-SKY
+    status: selected-pilot-configuration
+    application: slicer-or-ace-filament-assignment-only
     character: "abstract natural base with cool urban depth and a clear blue Berlin signature"
     manufacturer: SUNLU
     color_evidence: "display values approximated from user-supplied spool photographs; not calibrated"
@@ -30,7 +35,9 @@ presets:
       - {order: 3, role: street_network, name: "Midnight", inventory_id: FIL-0003, product: "PLA+2.0", label_code: "06660601A", display_hex: "#1E2B36"}
       - {order: 4, role: berlin_boundary_and_accents, name: "Sky Blue", inventory_id: FIL-0002, product: "PLA+", label_code: "06860603A", display_hex: "#69C7E5"}
   urban_signal:
-    status: "historical revision 0.4.0 palette; no longer selected"
+    variant_id: MM-ART-010-CW-URBAN-SIGNAL
+    status: "available product colorway; not selected for the current pilot"
+    application: slicer-or-material-assignment-only
     character: "architectural, graphic and high-contrast with one warm signal accent"
     colors:
       - {order: 1, role: land_base, name: "Bone White", display_hex: "#EFEDE3"}

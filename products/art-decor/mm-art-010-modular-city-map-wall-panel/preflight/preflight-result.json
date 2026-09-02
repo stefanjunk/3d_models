@@ -1,18 +1,22 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-009",
-  "assessment_version": "0.4.1",
-  "assessment_date": "2026-09-01",
-  "product": "MM-ART-010 Berlin permanent one-off city-map wall relief with Oak, Mint Green, Midnight and Sky Blue palette",
+  "assessment_id": "PREFLIGHT-MM-ART-010-010",
+  "assessment_version": "0.4.2",
+  "assessment_date": "2026-09-02",
+  "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with non-geometric palette variants",
   "scope": {
-    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.4.1 keeps the approved boundary_crop and context_outline geometry while assigning the photographed physical SUNLU rolls Oak, Mint Green, Midnight and Sky Blue to the four semantic relief levels.",
+    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.4.2 treats palette selection as a slicer/ACE product variant over the unchanged revision 0.4.0 geometry, reserves a future size axis, and defers selectable map extents.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
     "variants": [
-      "Berlin boundary_crop one-off — Oak, Mint Green, Midnight, Sky Blue",
-      "Berlin context_outline one-off — Oak, Mint Green, Midnight, Sky Blue"
+      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — unchanged boundary_crop geometry plus palette loading",
+      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — unchanged context_outline geometry plus palette loading",
+      "Future non-default size — reserved, not production-supported",
+      "Future selectable map extent — deferred"
     ],
     "out_of_scope": [
       "Wall anchors, electrical equipment, outdoor use, navigation claims, repeated disassembly, and universal load rating",
-      "Photorealistic or dithered color representation"
+      "Photorealistic or dithered color representation",
+      "Arbitrary production scaling in the slicer",
+      "Automatic substitution of another city or map source"
     ]
   },
   "entities": [
@@ -89,7 +93,7 @@
     "score_0_100": 62.0,
     "class": "C3",
     "drivers": [
-      "Two display modes with different outer topology and source extents",
+      "Two display modes with different outer topology and source extents plus reserved future size/map axes",
       "Fit-sensitive concealed one-way seam and snap-in mount interfaces",
       "Coupling of global map/color registration with the permanent center seam and light openings",
       "Four-color large-format manufacturing plus coupon, proof-load and appearance verification"
@@ -115,7 +119,7 @@
     "lane": "C",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "The named physical spool identities now resolve the palette-selection input and permit a revised concept plus, after human concept approval, DRAFT color remapping of the already validated geometry. Do not advance to a print candidate or release until exact ACE/purge review, material/process coupons, physical prints, assembled load behavior, lighting appearance and watermark approval are evidenced."
+    "rationale": "The approved revision 0.4.0 geometry already contains four ordered semantic tools, so selecting the Oak/Mint/Midnight/Sky palette is a non-geometric product configuration and does not require a new concept or mesh build. The existing concept and geometry gates remain valid. Do not advance to a print candidate or release until exact filament profiles, ACE/purge review, material/process coupons, physical prints, assembled load behavior, lighting appearance and watermark approval are evidenced. Non-default sizes and map extents remain fail-closed until separately regenerated and validated."
   },
   "warnings": [
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The one-way connector and snap-in mounting interfaces have no exact process-qualified clearance or physical result."},
@@ -124,18 +128,20 @@
     {"code": "TARGET_SLICER_PROJECT_LAYOUT", "severity": "WARN", "message": "The generic standard-only 3MF parser does not follow the Anycubic object-part relationship layout; the exact Anycubic Slicer Next 1.3.9.4 imports and slices the revision 0.4.0 geometry successfully."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Generate the revision 0.4.1 recolored concept and obtain human concept approval.", "exit_criterion": "Both Berlin display modes visibly map Oak to the base, Mint Green to the middle relief, Midnight to the street network and Sky Blue to the boundary/accents, with explicit user approval."},
-    {"priority": 2, "action": "After concept approval, remap all four named bodies and target-slicer projects, assign the four physical rolls to ACE slots and print a directed transition/opacity coupon.", "exit_criterion": "The exact four-spool mapping and GUI layer/tool/purge preview are approved and the coupon shows acceptable light-to-dark and dark-to-light contamination."},
-    {"priority": 3, "action": "Print and measure the existing connector/socket/light coupon with the final process, then print and assemble the selected examples.", "exit_criterion": "One clearance variant meets documented one-time assembly, flushness, retention and passive lighting-envelope criteria; the assembled artwork passes appearance and wall-proof review."}
+    {"priority": 1, "action": "Apply the selected product colorway as job-local tool/ACE loading without rebuilding geometry, then print a directed transition/opacity coupon.", "exit_criterion": "Anycubic Slicer Next visibly maps tools 1/2/3/4 to Oak/Mint Green/Midnight/Sky Blue with exact supplier-specific profiles, and the coupon shows acceptable light-to-dark and dark-to-light contamination."},
+    {"priority": 2, "action": "Print and measure the existing connector/socket/light coupon with the final process, then print and assemble the selected examples.", "exit_criterion": "One clearance variant meets documented one-time assembly, flushness, retention and passive lighting-envelope criteria; the assembled artwork passes appearance and wall-proof review."},
+    {"priority": 3, "action": "Implement a non-default size only through parametric X/Y regeneration with fixed functional dimensions; keep selectable map extents deferred to a separate phase.", "exit_criterion": "A requested size has new placement, bed-fit, interface, mesh and exact-slicer evidence; any requested map extent additionally has a frozen rights-audited geospatial source."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-ART-010",
-    "project_revision": "0.4.1",
+    "project_revision": "0.4.2",
     "basis_refs": [
       "design-spec.yaml",
       "multicolor-job.yaml",
       "palette-catalog.yaml",
+      "product-variants.json",
+      "requirements-review-0.4.2.md",
       "../../../business/10-inventory/README.md",
       "decomposition-review-0.4.0.md",
       "plan/hybrid-design-plan-v0.4.0.json",
@@ -144,9 +150,9 @@
       "decision-log.md",
       "autonomy-policy.json"
     ],
-    "change_triggers": ["actual_four_spool_palette_selected", "appearance_requirement_revision_0_4_1", "restore_product_specific_preflight_after_generic_refresh"],
-    "previous_assessment_id": "PREFLIGHT-MM-ART-010-008",
+    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-010-009",
     "created_at": "2026-08-31T16:44:58+02:00",
-    "updated_at": "2026-09-01T22:34:15+02:00"
+    "updated_at": "2026-09-02T08:59:54+02:00"
   }
 }

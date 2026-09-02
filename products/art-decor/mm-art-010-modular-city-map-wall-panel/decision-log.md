@@ -154,3 +154,13 @@
 - The revision 0.4.0 digital-candidate-r9 topology remains the geometry baseline. Revision 0.4.1 changes the appearance/material mapping and therefore reopens the human concept gate before production solids and Anycubic project 3MFs may be remapped.
 - Concept v04 was generated at `concepts/berlin-display-modes-concept-v04.png`; display RGB values are photo-derived approximations and not colorimetric claims.
 - The product-specific preflight is restored as `PREFLIGHT-MM-ART-010-009`: `C3 (62.0)`, `R2`, `K2`, Lane C, `LOW_UNKNOWN`, `GO_WITH_CONTROLS`. Digital concept work is allowed, while print-candidate and release gates remain blocked.
+
+## 2026-09-02 — Palette corrected to a non-geometric product variant
+
+- User correction: changing only the four filament colors must not trigger redesign. A new picture may preview the colorway, but concept v03 and revision 0.4.0 `digital-candidate-r9` remain the design and geometry authorities.
+- `product-variants.json` now separates four axes: `palette_preset`, `display_mode`, `assembled_size_mm` and `map_extent`.
+- `palette_preset` is implemented as a slicer/ACE assignment only. Oak/Mint Green/Midnight/Sky Blue map to the existing tools 1/2/3/4; no CAD, mesh, relief, split, connector, mount or light geometry is regenerated or renamed.
+- Both Berlin examples are registered under the same SKU as configured product variants. No new portfolio product identity is created.
+- Size is reserved as a parameter axis, but only 600 × 400 mm is currently production-supported. Arbitrary uniform slicer scaling is prohibited because it would also scale clearances, wall gap, relief depth and printable minima. Future sizes must regenerate the X/Y artwork while preserving functional dimensions.
+- Map-extent selection remains deferred. A new city or crop requires frozen geospatial data and renewed placement, interface, mesh and slicer validation.
+- Concept v04 is retained as an informational palette preview and no longer blocks product configuration. Physical filament-profile, ACE/purge, opacity, fit, appearance and release gates remain open.

@@ -1,7 +1,7 @@
 schema_version: 1.0.0
 kind: lesson
 id: EXP-00060
-title: Bind semantic multicolor roles to physical inventory spools before production remapping
+title: Bind semantic multicolor roles to physical inventory spools without mutating geometry
 captured_at: 2026-09-01
 source_type: user-correction
 lifecycle:
@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once in one Berlin palette revision. The concept is digitally generated, but no physical swatch, purge, opacity, backlight or full-print result exists."
+    notes: "Observed once in one Berlin palette configuration. Follow-up user feedback corrected the initial assumption that the colorway needed a new concept gate. No physical swatch, purge, opacity, backlight or full-print result exists."
 feature:
   type: physical-spool binding for four-color wall-relief semantics
   geometry: two-piece four-color Berlin wall relief with unchanged disjoint horizontal color bodies
@@ -33,7 +33,7 @@ feature:
     - Every role points to one photographed physical inventory ID and exact label code.
     - Display RGB values remain explicitly approximate until a controlled swatch is measured.
     - A standard 3MF display color never substitutes for final ACE slot assignment.
-    - Production solids and slicer projects remain blocked until the revised appearance concept is human-approved.
+    - When semantic body topology is unchanged, palette selection remains a product/slicer configuration and does not regenerate production solids.
 scope:
   process: FFF four-color single-nozzle concept and manufacturing planning
   machine:
@@ -61,7 +61,7 @@ scope:
     profile: embedded 0.20mm Standard multicolor baseline; exact SUNLU common process pending
     profile_hash: null
   geometry_class: large two-part decorative four-color vector-map relief
-  environment: digital requirements and visual concept only
+  environment: digital product-variant and slicer/ACE mapping contract only
   transfer_limits:
     - Evidence covers one four-role Berlin design and the four photographed rolls recorded on 2026-09-01.
     - It does not validate color accuracy, batch equivalence, blend compatibility, opacity, purge volume or backlight appearance.
@@ -69,7 +69,7 @@ scope:
 observation:
   summary: The user replaced a generic recommended retail palette with four exact physical inventory colors and assigned each to a stable semantic relief role.
   expected: A production-facing multicolor contract identifies the actual physical rolls for every semantic color body while keeping geometry, display approximation and machine-slot assignment as separate authorities.
-  actual: Revision 0.4.0 named Bone White, Nardo Grey, Black and Orange without loaded-spool evidence. Revision 0.4.1 now binds Oak, Mint Green, Midnight and Sky Blue to FIL-0005, FIL-0001, FIL-0003 and FIL-0002, while concept approval and physical process gates remain open.
+  actual: Revision 0.4.0 named Bone White, Nardo Grey, Black and Orange without loaded-spool evidence. Revision 0.4.2 binds Oak, Mint Green, Midnight and Sky Blue to FIL-0005, FIL-0001, FIL-0003 and FIL-0002 as a non-geometric variant over the same four ordered tools; physical process and appearance gates remain open.
   outcome: correction
   parameter: semantic-role-to-inventory-spool mapping
   recommended_value: one explicit physical inventory ID and label identity per color role
@@ -91,7 +91,7 @@ evidence:
   material_count: 4
   nozzle_count: 1
   measured: false
-  measurement_method: User role assignment, photographed spool labels, inventory records, schema validation and generated two-mode concept review.
+  measurement_method: User role assignment and workflow correction, photographed spool labels, inventory records, deterministic variant validation and existing four-tool packaging evidence.
   uncertainty: No physical swatch, directed transition coupon, ACE preview, opacity measurement or printed wall-relief evidence exists for this palette.
   sources:
     - type: user-statement
@@ -108,7 +108,7 @@ evidence:
       notes: Generated visual comparison with the four selected color roles.
     - type: product-trace
       ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/palette-catalog.yaml
-      hash: 009fc3611a5e59f5e9c1229d3d23d5bab9d910d9bc660fbf1917f253d98a9fc3
+      hash: dd321e75315110dff60a10b05b6b6b5ebd301a8bf292f128781ea3af38989553
       notes: Stores physical inventory IDs, product variants, label codes and non-calibrated display values.
   artifacts:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/multicolor-job.yaml
@@ -124,7 +124,7 @@ applicability:
     - The physical spool identity is unavailable or cannot be distinguished from another roll.
   transfer_limits:
     - Keep calibrated appearance, exact batch, conditioning, profile and directed purge evidence separate from inventory identity.
-    - Re-run concept, target-slicer and physical gates for every palette or color-order change.
+    - Re-run the design/concept gate only when semantic color-region geometry or another design requirement changes; always re-run target-slicer mapping and relevant physical color/purge checks for a palette change.
 relationships:
   duplicates: []
   conflicts: []
@@ -132,6 +132,7 @@ relationships:
   related:
     - EXP-00056
     - EXP-00058
+    - EXP-00061
   evals:
     - EVAL-visual-abstract-four-color-wall-relief-001
   patterns: []
@@ -145,7 +146,7 @@ validation:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-display-modes-concept-v04.json
 provenance:
   project: MM-ART-010
-  part_revision: 0.4.1-oak-mint-midnight-sky-concept.1
+  part_revision: 0.4.2-parametric-product-variant-contract.1
   trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
   source_commit: null
   created_by: Codex via 3d-skill-maintainer

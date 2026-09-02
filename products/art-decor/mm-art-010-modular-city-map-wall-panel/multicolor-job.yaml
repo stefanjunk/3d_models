@@ -1,7 +1,7 @@
 version: 1
-status: concept-palette-approved-requirements
+status: digital-candidate-product-variant
 project:
-  name: MM-ART-010 Berlin Oak Mint Midnight Sky
+  name: MM-ART-010 Berlin parameterized palette variants
   purpose: "abstract four-color permanent two-half city-map wall art"
   risk_class: decorative
   units: mm
@@ -31,10 +31,15 @@ representation:
 
 palette:
   path: palette-catalog.yaml
+  variant_catalog: product-variants.json
+  parameter: palette_preset
   selected_preset: berlin_oak_mint_midnight_sky
   maximum_colors: 4
   mapping_method: manual
   dither: false
+  changes_geometry: false
+  geometry_candidate: digital-candidate-r9
+  application: "job-local Anycubic Slicer Next tool/filament assignment or equivalent ACE loading; no CAD, mesh or 3MF body-topology regeneration"
   actual_spools_status: "four photographed inventory rolls identified; batch, conditioning and calibrated swatches unverified"
   semantic_mapping:
     land_base: {inventory_id: FIL-0005, name: Oak, label_code: 05860601A, display_hex: "#C6AA7A"}
@@ -43,8 +48,15 @@ palette:
     berlin_boundary_and_accents: {inventory_id: FIL-0002, name: Sky Blue, label_code: 06860603A, display_hex: "#69C7E5"}
   display_color_evidence: "photo-derived visual approximations; not calibrated color measurements"
   inventory_source: ../../../business/10-inventory/README.md
+  recommended_ace_loading:
+    tool_1: {slot: 1, role: land_base, inventory_id: FIL-0005, name: Oak}
+    tool_2: {slot: 2, role: medium_relief_and_areas, inventory_id: FIL-0001, name: Mint Green}
+    tool_3: {slot: 3, role: street_network, inventory_id: FIL-0003, name: Midnight}
+    tool_4: {slot: 4, role: berlin_boundary_and_accents, inventory_id: FIL-0002, name: Sky Blue}
 
 geometry:
+  palette_parameter_changes_geometry: false
+  geometry_authority: "revision 0.4.0 digital-candidate-r9"
   minimum_color_width_mm: 0.9
   minimum_inlay_depth_mm: 0.6
   interface_clearance_mm: 0.0

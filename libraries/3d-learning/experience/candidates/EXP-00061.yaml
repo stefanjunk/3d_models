@@ -1,0 +1,157 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00061
+title: Keep non-geometric palette variants outside redesign gates
+captured_at: 2026-09-02
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Observed once for one four-body Berlin product. The configuration boundary is digitally validated, but no physical palette print exists."
+feature:
+  type: product-variant boundary between semantic geometry and filament loading
+  geometry: unchanged two-mode, two-half, four-tool Berlin wall-relief geometry
+  design_parameters:
+    geometry_revision: 0.4.0
+    geometry_candidate: digital-candidate-r9
+    configuration_revision: 0.4.2
+    palette_axis_changes_geometry: false
+    current_production_size_mm: [600.0, 400.0]
+    nondefault_size_implemented: false
+    map_extent_parameterization_implemented: false
+  named_datums:
+    - four ordered semantic geometry tools
+    - palette_preset configuration axis
+    - assembled_size_mm reserved geometry axis
+    - map_extent deferred geometry/data axis
+  constraints:
+    - A palette preset may change only filament identities, display aids and job-local tool/ACE mapping.
+    - The approved geometry candidate and its body topology remain immutable across palette variants.
+    - A preview image for a palette variant is informational and cannot become new geometry authority.
+    - Size and map extent are separate axes because they change geometry, interfaces or source data.
+scope:
+  process: FFF four-color single-nozzle product configuration
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU
+    product: selected PLA+ and PLA+2.0 set
+    variant: Oak/Mint Green/Midnight/Sky Blue colorway
+    color: Oak/Mint Green/Midnight/Sky Blue
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; map relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: exact SUNLU profiles pending; four ordered volume/tool assignments digitally evidenced
+    profile_hash: null
+  geometry_class: large two-part decorative four-color vector-map relief
+  environment: digital configuration-boundary validation
+  transfer_limits:
+    - Evidence covers a product whose four semantic color bodies already exist and retain identical topology.
+    - It does not apply when a new palette requires another body, color boundary, inlay depth, material family or structural behavior.
+    - It does not make arbitrary slicer scaling safe or make another geospatial extent source-valid.
+observation:
+  summary: The system initially treated a pure four-filament reassignment as a new appearance-design revision and blocked production mapping on a new concept approval; the user corrected it to a product variant and slicer/filament-loading choice.
+  expected: A parameterized product separates non-geometric palette selection from geometry-changing size, display-mode and map-extent parameters, preserving the already approved design and geometry candidate.
+  actual: Revision 0.4.2 keeps revision 0.4.0 digital-candidate-r9 as immutable geometry authority, validates tools 1-4 in all four Anycubic projects, and registers the Oak/Mint/Midnight/Sky configuration without a new design gate.
+  outcome: correction
+  parameter: palette_variant_gate_effect
+  recommended_value: non-geometric product configuration when semantic body topology is unchanged
+  units: workflow-contract
+explanation:
+  hypothesis: Treating every filament substitution as a redesign conflates semantic geometry with job-specific manufacturing configuration and creates unnecessary approval and regeneration work.
+  mechanism: Stable semantic tools own the geometry; a palette catalog owns filament identity; a machine map owns current ACE slots. Only axes that alter shape, interfaces, printability dimensions or source data re-enter parametric geometry and its design gates.
+  alternatives:
+    - A regulated color requirement or safety marking could make a color substitution a design-level change even with identical geometry.
+    - A different polymer family could alter bonding, shrinkage, strength or temperature enough to reopen manufacturing and functional gates.
+    - A palette preview may still be useful for customer communication without becoming design authority.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 2
+  machine_count: 1
+  material_count: 4
+  nozzle_count: 1
+  measured: false
+  measurement_method: User correction plus deterministic validation of variant axes and existing Anycubic tool assignments.
+  uncertainty: Physical filament profiles, contamination, opacity, backlight appearance and the safe implementation range for future sizes remain unresolved.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-02 — color change is a product variant/slicer or filament-loading setting and must not cause redesign; color and size should be parameterized, map extent later
+      hash: null
+      notes: Exact correction and accepted configuration boundary.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/product-variants.json
+      hash: 2dada067511553a3be8c89fb969d6141e105b544ab7e5b21456a0afdf42404b7
+      notes: Machine-readable separation of palette, display-mode, size and map-extent axes.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.4.2.md
+      hash: 98164b04d96a7c04d67bf65b0d924003dba3222a72895e12efaa5e08f9e4fd64
+      notes: Approved requirements normalization and gate effect.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/product-variant-validation-0.4.2.json
+      hash: aca40d50bea4cb89c161a09a0ab578752e5d51409cb1a4f69ae9a84871a0fd38
+      notes: Confirms unchanged geometry authority and ordered tools 1-4 across all four existing Anycubic projects.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/design-spec.yaml
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/multicolor-job.yaml
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/palette-catalog.yaml
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/product-variants.json
+applicability:
+  triggers:
+    - A multicolor product already has stable semantic color bodies and only the physical filament selection changes.
+    - Product configuration must expose palette separately from dimensions and source-dependent content.
+  exclusions:
+    - The palette changes body count, color-boundary geometry, relief topology, inlay depth or functional material behavior.
+    - A color is a regulated safety marking, exact brand standard or otherwise design-critical appearance requirement.
+  transfer_limits:
+    - Preserve physical filament/profile/purge/appearance gates even when redesign gates remain closed.
+    - Keep non-default size and source-dependent map extent fail-closed until implemented and revalidated.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00060
+  evals:
+    - EVAL-core-palette-variant-does-not-redesign-001
+  patterns: []
+  references:
+    - .agents/skills/multicolor-fdm-design/references/02-parametric-color-architecture.md
+    - .agents/skills/functional-3d-design/references/requirements-concept-approval.md
+validation:
+  targeted: pass
+  regression: not-run
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/reports/product-variant-validation-0.4.2.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.4.2-parametric-product-variant-contract.1
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - multicolor
+  - product-variant
+  - configuration-boundary
+  - semantic-color-role
+  - slicer-mapping
+  - user-correction

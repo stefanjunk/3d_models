@@ -5,8 +5,8 @@ project:
   name: "Permanent One-off City Map Wall Relief"
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
-  revision: 0.4.1
-  candidate: 0.4.1-oak-mint-midnight-sky-concept.1
+  revision: 0.4.2
+  candidate: 0.4.2-parametric-product-variant-contract.1
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,41 +16,49 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-009
-    assessment_version: 0.4.1
-    previous_assessment_id: PREFLIGHT-MM-ART-010-008
-    assessed_project_revision: "0.4.1"
-    updated_at: "2026-09-01T22:34:15+02:00"
+    assessment_id: PREFLIGHT-MM-ART-010-010
+    assessment_version: 0.4.2
+    previous_assessment_id: PREFLIGHT-MM-ART-010-009
+    assessed_project_revision: "0.4.2"
+    updated_at: "2026-09-02T08:59:54+02:00"
     change_triggers:
-      - actual_four_spool_palette_selected
-      - appearance_requirement_revision_0_4_1
-      - restore_product_specific_preflight_after_generic_refresh
+      - palette_reclassified_as_nongeometric_product_variant
+      - size_parameter_axis_reserved
+      - map_extent_parameterization_deferred
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
     status: approved
-    spec_revision: 0.4.1
+    spec_revision: 0.4.2
+    approved_by: Stefan
+    approved_at: "2026-09-02"
+    previous_approved_revision: 0.4.1
+    change_requested_by: "Stefan"
+    change_requested_on: "2026-09-02"
+    basis: "User explicitly classified color selection as a product variant and slicer/filament-loading parameter rather than a redesign, requested color and size parameter axes, and deferred map-extent parameterization"
+  concept_approval:
+    status: approved
+    spec_revision: 0.4.2
+    geometry_revision: 0.4.0
+    asset: concepts/berlin-display-modes-concept-v03.png
     approved_by: Stefan
     approved_at: "2026-09-01"
-    previous_approved_revision: 0.4.0
-    change_requested_by: "Stefan"
-    change_requested_on: "2026-09-01"
-    basis: "User explicitly assigned Oak to the base, Mint Green to the middle relief/area level, Midnight to the street network, and Sky Blue to the Berlin boundary and accents"
-  concept_approval:
-    status: pending
-    spec_revision: 0.4.1
+    basis: "Concept v03 remains the approved design authority. The user explicitly confirmed on 2026-09-02 that choosing another palette is a product configuration and must not trigger redesign."
+  variant_preview:
+    status: informational
     asset: concepts/berlin-display-modes-concept-v04.png
-    approved_by: null
-    approved_at: null
-    basis: "The geometry of approved concept v03 is retained; only the physical four-spool palette changes and requires visual approval of concept v04"
+    configuration: berlin_oak_mint_midnight_sky
+    design_authority: false
+    approval_gate: false
+    basis: "Optional visual preview of an existing four-body geometry with another filament loading"
   watermark_approval:
     status: blocked
     spec_revision: null
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
-    version: 0.4.1
-    reason: "Revision 0.4.1 palette concept, remapped production projects and watermark placement are not yet human-approved"
+    version: 0.4.2
+    reason: "The unchanged revision 0.4.0 production geometry still lacks approved watermark placement and final release evidence; palette selection does not affect this geometry gate"
   decomposition_approval:
     status: approved
     spec_revision: 0.4.0
@@ -60,23 +68,22 @@ workflow:
     approved_at: "2026-09-01"
     basis: "User explicitly wrote 'freigegeben' in direct response to decomposition-review-0.4.0.md and plan/hybrid-design-plan-v0.4.0.json"
   digital_candidate:
-    status: blocked
-    reason: "Revision 0.4.0 geometry remains the validated topology baseline; revision 0.4.1 color-body and 3MF remapping begins only after concept v04 approval."
+    status: in-progress
+    reason: "Revision 0.4.0 digital-candidate-r9 remains the geometry authority. The Oak/Mint/Midnight/Sky variant uses its existing tools 1-4 and needs only job-local slicer/ACE filament mapping, not new CAD or mesh generation."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
   final_release_approval:
     status: blocked
-    reason: "Palette concept, remapped 3MF, physical, appearance, rights, watermark, safety and commercial gates remain open for revision 0.4.1"
+    reason: "Physical fit, exact filament profiles, ACE/purge preview, appearance, rights, watermark, safety and commercial gates remain open; palette selection itself is not a redesign gate"
 
 history:
-  previous_revision: 0.4.0
-  previous_concept_artifact: concepts/berlin-display-modes-concept-v03.png
-  previous_status: "display-mode geometry and digital candidate r9 remain the topology baseline; its former Bone White/Nardo Grey/Black/Orange mapping is superseded"
-  superseded_revision: 0.3.0
-  superseded_concept_artifact: concepts/permanent-relief-collection-concept-v02.png
-  superseded_decomposition_artifact: plan/hybrid-design-plan-v0.3.0.json
-  superseded_reason: "Revision 0.3.0 is retained only as historical connector, coupon and target-slicer interoperability authority"
+  previous_revision: 0.4.1
+  previous_concept_artifact: concepts/berlin-display-modes-concept-v04.png
+  previous_status: "palette mapping recorded correctly, but incorrectly treated as a new design/concept gate"
+  geometry_revision: 0.4.0
+  geometry_concept_artifact: concepts/berlin-display-modes-concept-v03.png
+  geometry_status: "unchanged approved design and DRAFT digital-candidate-r9 geometry authority"
 
 requirements_trace:
   user_stated:
@@ -90,6 +97,9 @@ requirements_trace:
     - "Use Mint Green for the middle relief and area level"
     - "Use Midnight for the dark street network"
     - "Use Sky Blue for the Berlin boundary and accents"
+    - "Treat this four-color selection as a product variant and slicer/filament-loading choice, not as a redesign"
+    - "Make palette selection parameterizable and prepare a separate size parameter axis"
+    - "Add selectable map extents later as a separate, more complex capability"
     - "Do not use a rear grid"
     - "Do not make the printed sections replaceable"
     - "Treat each pilot as a permanent one-off artwork"
@@ -104,12 +114,14 @@ requirements_trace:
     - "The design remains complete and mountable without customer lighting"
     - "The concealed connector and local hanger/standoff plugs are one-way assembly interfaces; destructive removal does not make the artwork a replaceable system"
     - "The 600 x 400 mm size is a maximum envelope for boundary_crop and the fixed rectangular size for context_outline"
+    - "The current qualified size remains 600 x 400 mm; another size requires parametric regeneration because functional interfaces must retain absolute dimensions"
   recommended:
     - "Use two permanent 300 x 400 mm printed halves instead of the superseded six 200 mm tiles; both halves fit the verified 420 x 420 mm Kobra 3 Max bed and reduce visible seams from seven to one"
     - "Join the halves permanently with discrete seam locating lands and three concealed loose one-way spring/tenon connectors; no structural adhesive"
     - "Create the 18 mm halo gap with isolated snap-in printed hanger/standoff parts, not a frame or grid"
     - "Apply optional LED strip directly to declared rear adhesive lands or small local clips and reserve matched cable passages across the center seam"
-    - "Use explicit aligned color solids and broad semantic regions; map Oak, Mint Green, Midnight and Sky Blue to the existing four sequential relief bodies without dithering"
+    - "Keep four existing semantic tools/bodies as geometry authority and apply palette presets only through the slicer/ACE filament map; do not regenerate or rename geometry for a colorway"
+    - "For future sizes, scale the map/envelope in X/Y but preserve connector clearances, wall gap, relief heights, light keep-outs and minimum printable feature sizes as absolute process-controlled dimensions"
     - "Use OpenStreetMap vector data with an immutable extraction snapshot and visible attribution"
     - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
     - "Use boundary_crop as the customer-facing default and a 12 percent per-side Umland margin for context_outline"
@@ -118,8 +130,9 @@ requirements_trace:
   unresolved_nonblocking:
     - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
     - "The four physical spool identities are recorded as FIL-0005, FIL-0001, FIL-0003 and FIL-0002; exact batches, conditioning, measured swatches and opacity remain to be recorded before final slicing"
-    - "Final aperture pattern and visual density remain subject to the new concept and a physical light coupon"
-    - "The exact expanded Berlin/Brandenburg source snapshot and context bounds are selected only after concept approval"
+    - "Final aperture appearance and opacity remain subject to a physical light coupon"
+    - "Additional production sizes are not yet implemented or qualified"
+    - "Selectable map extents remain deferred and require a newly frozen geospatial source plus full placement and validation"
 
 function:
   summary: >
@@ -157,7 +170,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-ART-010
-  version: 0.4.1
+  version: 0.4.2
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
@@ -181,6 +194,9 @@ coordinate_system:
     split: "one vertical seam at global X = 300 mm"
 
 geometry:
+  geometry_revision: 0.4.0
+  geometry_candidate: digital-candidate-r9
+  variant_catalog: product-variants.json
   assembled_nominal_mm: [600.0, 400.0]
   assembled_envelope_interpretation: "fixed rectangle for context_outline; maximum bounding envelope for boundary_crop"
   print_split: {columns: 2, rows: 1}
@@ -190,7 +206,13 @@ geometry:
   seam_coupon_range_mm: [0.15, 0.25, 0.35, 0.45]
   outer_frame_target_mm: 8.0
   backer_thickness_mm: 3.0
-  display_mode_parameters: source/v0.4.1/berlin/display-mode-parameters.json
+  display_mode_parameters: source/v0.4.0/berlin/production-mode-parameters.json
+  size_parameter:
+    name: assembled_size_mm
+    current_production_values: [[600.0, 400.0]]
+    status: reserved-single-production-value
+    slicer_uniform_scale_allowed: false
+    future_rule: "regenerate map/envelope in X/Y while preserving qualified functional and process dimensions"
   display_modes:
     boundary_crop:
       outside_geometry: remove
@@ -259,11 +281,16 @@ map_content:
   source: "OpenStreetMap vector data"
   source_snapshot: "source-data/v0.4.0/berlin/source-manifest.json freezes the bounded Germany-260830 Geofabrik/GWDG transport derivative and proves complete selected context coverage; revision 0.3.0 remains historical reference"
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
-  display_mode_parameter_source: source/v0.4.1/berlin/display-mode-parameters.json
+  approved_display_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
+  palette_preview_parameter_source: source/v0.4.1/berlin/display-mode-parameters.json
   production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
+  map_extent_parameter:
+    current: berlin-v0.4.0-frozen-source
+    status: deferred
+    automatic_source_substitution_allowed: false
   current_digital_candidate:
     id: digital-candidate-r9
-    status: SUPERSEDED_COLOR_MAPPING_GEOMETRY_BASELINE
+    status: DRAFT_DIGITAL_PASS_GEOMETRY_AUTHORITY
     summary: validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json
     validation_contract: validation/v0.4.0/berlin/digital-candidate-r9/validation-project.json
     aggregate_draft_report: validation/v0.4.0/berlin/digital-candidate-r9/validation-summary-draft-r2.json
@@ -284,7 +311,11 @@ multicolor:
   target_machine_configuration: "Anycubic Kobra 3 Max Combo with one ACE Pro, four-color configuration"
   representation: "named disjoint solids in one shared frame; Anycubic Slicer Next project 3MF for target-slicer compatibility, with named STL solids retained as the portable source of color intent"
   palette_catalog: palette-catalog.yaml
+  variant_catalog: product-variants.json
+  parameter_axis: palette_preset
   selected_palette: berlin_oak_mint_midnight_sky
+  geometry_effect: none
+  geometry_authority: "revision 0.4.0 digital-candidate-r9 with ordered tools 1-4"
   physical_filaments:
     land_base: {inventory_id: FIL-0005, manufacturer: SUNLU, product: PLA+2.0, color: Oak, label_code: 05860601A}
     medium_relief_and_areas: {inventory_id: FIL-0001, manufacturer: SUNLU, product: PLA+, color: Mint Green, label_code: 01160403Y}
@@ -300,7 +331,7 @@ multicolor:
     status: pending
     target_waste_ratio_max: 0.25
     physical_directed_transition_coupon_required: true
-  machine_slot_mapping: "assigned and reviewed in Anycubic Slicer Next; never inferred from 3MF display colors"
+  machine_slot_mapping: "recommended job-local order is ACE 1 Oak, 2 Mint Green, 3 Midnight, 4 Sky Blue; assign and review in Anycubic Slicer Next and never infer from 3MF display colors"
 
 duty:
   risk_class: decorative
@@ -432,13 +463,17 @@ acceptance_details:
 
 acceptance:
   - id: AC-REQ
-    criterion: "Revision 0.4.1 retains boundary_crop and context_outline and explicitly maps Oak, Mint Green, Midnight and Sky Blue to the four semantic relief levels."
+    criterion: "Revision 0.4.2 treats palette selection as a non-geometric product-variant parameter, keeps 600 x 400 mm as the sole current production size, and defers map-extent parameterization."
     method: "human approval recorded against this exact revision"
     status: PASS
   - id: AC-CONCEPT
-    criterion: "Concept v04 preserves the two approved display modes and visibly communicates the new four-spool palette mapping."
-    method: "human approval recorded against concepts/berlin-display-modes-concept-v04.png"
-    status: REVIEW_REQUIRED
+    criterion: "The approved concept v03 remains the design authority; palette preview v04 is informational and cannot cause geometry regeneration."
+    method: "approved concept provenance plus deterministic product-variant validation"
+    status: PASS
+  - id: AC-VARIANTS
+    criterion: "Every palette preset maps exactly four existing ordered tools to filament identities without changing the geometry candidate; non-default size and map extent fail closed."
+    method: "source/v0.4.2/berlin/validate_product_variants.py and reports/product-variant-validation-0.4.2.json"
+    status: PASS
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
     method: "human approval of plan/hybrid-design-plan-v0.4.0.json after deterministic planner validation"
@@ -481,6 +516,7 @@ acceptance:
     status: NOT_RUN
 
 deliverables:
+  - "Machine-readable product variant catalog with independent palette, display-mode, size and map-extent axes"
   - "Approved revision 0.4.0 display-mode requirements and concept v03"
   - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"

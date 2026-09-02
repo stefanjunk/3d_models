@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-ART-010",
+  "configuration_revision": "0.4.2",
+  "geometry_authority": {
+    "revision": "0.4.0",
+    "candidate": "digital-candidate-r9",
+    "summary": "validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json",
+    "policy": "Palette selection never regenerates, renames, rescales or otherwise changes these geometry bodies."
+  },
+  "variant_axes": {
+    "palette_preset": {
+      "status": "implemented",
+      "affects_geometry": false,
+      "authority": "palette-catalog.yaml",
+      "application": "Assign the four existing semantic bodies/tools to physical filament slots in Anycubic Slicer Next or load the ACE slots according to the selected machine map.",
+      "allowed": [
+        "urban_signal",
+        "berlin_oak_mint_midnight_sky"
+      ],
+      "default": "urban_signal"
+    },
+    "display_mode": {
+      "status": "implemented",
+      "affects_geometry": true,
+      "authority": "source/v0.4.0/berlin/production-mode-parameters.json",
+      "allowed": [
+        "boundary_crop",
+        "context_outline"
+      ],
+      "default": "boundary_crop"
+    },
+    "assembled_size_mm": {
+      "status": "reserved-single-production-value",
+      "affects_geometry": true,
+      "current_production_values": [
+        [600.0, 400.0]
+      ],
+      "default": [600.0, 400.0],
+      "future_application": "Regenerate the map and outer envelope in X/Y while preserving process-controlled relief heights, minimum feature widths, connector/socket geometry, wall gap and light keep-outs at their qualified absolute dimensions.",
+      "slicer_uniform_scale_allowed": false,
+      "reason": "Uniform slicer scaling would also alter connector clearance, wall gap, relief depth, aperture ligament and minimum printable color widths."
+    },
+    "map_extent": {
+      "status": "deferred",
+      "affects_geometry": true,
+      "current": "berlin-v0.4.0-frozen-source",
+      "future_application": "Select another city, administrative boundary or rectangular context from a newly frozen and rights-audited geospatial source, then rerun placement, split, interface, mesh and slicer validation.",
+      "automatic_source_substitution_allowed": false
+    }
+  },
+  "semantic_tool_order": [
+    {
+      "tool": 1,
+      "source_body": "bone-white",
+      "semantic_role": "land_base"
+    },
+    {
+      "tool": 2,
+      "source_body": "nardo-grey",
+      "semantic_role": "medium_relief_and_areas"
+    },
+    {
+      "tool": 3,
+      "source_body": "black",
+      "semantic_role": "street_network"
+    },
+    {
+      "tool": 4,
+      "source_body": "orange",
+      "semantic_role": "berlin_boundary_and_accents"
+    }
+  ],
+  "palette_variants": {
+    "urban_signal": {
+      "variant_id": "MM-ART-010-CW-URBAN-SIGNAL",
+      "status": "available-configuration",
+      "changes_geometry": false,
+      "machine_map": [
+        {"tool": 1, "filament_name": "Bone White", "inventory_id": null},
+        {"tool": 2, "filament_name": "Nardo Grey", "inventory_id": null},
+        {"tool": 3, "filament_name": "Black", "inventory_id": null},
+        {"tool": 4, "filament_name": "Orange", "inventory_id": null}
+      ]
+    },
+    "berlin_oak_mint_midnight_sky": {
+      "variant_id": "MM-ART-010-CW-OAK-MINT-MIDNIGHT-SKY",
+      "status": "selected-pilot-configuration",
+      "changes_geometry": false,
+      "preview": "concepts/berlin-display-modes-concept-v04.png",
+      "preview_is_design_authority": false,
+      "machine_map": [
+        {"tool": 1, "ace_slot": 1, "filament_name": "Oak", "inventory_id": "FIL-0005", "label_code": "05860601A"},
+        {"tool": 2, "ace_slot": 2, "filament_name": "Mint Green", "inventory_id": "FIL-0001", "label_code": "01160403Y"},
+        {"tool": 3, "ace_slot": 3, "filament_name": "Midnight", "inventory_id": "FIL-0003", "label_code": "06660601A"},
+        {"tool": 4, "ace_slot": 4, "filament_name": "Sky Blue", "inventory_id": "FIL-0002", "label_code": "06860603A"}
+      ],
+      "operator_note": "Slot numbers are the recommended job-local loading order. Confirm the four tool-to-ACE assignments and filament profiles in the final Anycubic Slicer Next preview."
+    }
+  },
+  "configured_examples": [
+    {
+      "variant_id": "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY",
+      "display_mode": "boundary_crop",
+      "palette_preset": "berlin_oak_mint_midnight_sky",
+      "assembled_size_mm": [600.0, 400.0],
+      "map_extent": "berlin-v0.4.0-frozen-source",
+      "geometry_candidate": "digital-candidate-r9"
+    },
+    {
+      "variant_id": "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY",
+      "display_mode": "context_outline",
+      "palette_preset": "berlin_oak_mint_midnight_sky",
+      "assembled_size_mm": [600.0, 400.0],
+      "map_extent": "berlin-v0.4.0-frozen-source",
+      "geometry_candidate": "digital-candidate-r9"
+    }
+  ]
+}

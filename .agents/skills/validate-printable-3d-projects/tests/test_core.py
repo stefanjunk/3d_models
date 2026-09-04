@@ -301,6 +301,72 @@ class CoreTests(unittest.TestCase):
             }), encoding="utf-8")
             self.assertEqual(validate_profile(path)["status"], "PASS")
 
+    def _risk_profile(self, risk_requirements: object) -> dict:
+        return {
+            "schema_version": "1.0",
+            "skill": "example",
+            "artifact_roles": [{"id": "mesh", "kind": "mesh", "required": True}],
+            "checks": [
+                {"id": "audit", "type": "mesh", "required": True, "artifact_roles": ["mesh"]},
+                {"id": "optional-audit", "type": "mesh", "required": False, "artifact_roles": ["mesh"]},
+            ],
+            "manual_gates": [{"id": "fit", "kind": "physical", "required": True}],
+            "risk_class_requirements": risk_requirements,
+            "release_policy": {
+                "block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"],
+                "require_sha256": True,
+                "require_fresh_external_reports": True,
+            },
+        }
+
+    def _write_profile(self, tmp: str, payload: dict) -> Path:
+        path = Path(tmp) / "profile.json"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def test_profile_accepts_valid_risk_class_requirements(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_profile(tmp, self._risk_profile([
+                {"risk_class": "decorative", "checks": ["audit"]},
+                {"risk_class": "structural", "criticality": "K2", "checks": ["audit"], "manual_gates": ["fit"]},
+            ]))
+            result = validate_profile(path)
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(
+                result["metrics"]["risk_classes_declared"], ["decorative", "structural"]
+            )
+
+    def test_profile_rejects_risk_class_naming_unrequired_check(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_profile(tmp, self._risk_profile([
+                {"risk_class": "structural", "checks": ["optional-audit"]},
+            ]))
+            self.assertEqual(validate_profile(path)["status"], "FAIL")
+
+    def test_profile_rejects_risk_class_naming_undeclared_check(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_profile(tmp, self._risk_profile([
+                {"risk_class": "structural", "checks": ["missing"]},
+            ]))
+            self.assertEqual(validate_profile(path)["status"], "FAIL")
+
+    def test_profile_rejects_duplicate_risk_class(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_profile(tmp, self._risk_profile([
+                {"risk_class": "structural", "checks": ["audit"]},
+                {"risk_class": "structural", "checks": ["audit"]},
+            ]))
+            self.assertEqual(validate_profile(path)["status"], "FAIL")
+
+    def test_profile_without_risk_classes_stays_valid(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            payload = self._risk_profile([])
+            del payload["risk_class_requirements"]
+            path = self._write_profile(tmp, payload)
+            result = validate_profile(path)
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["metrics"]["risk_classes_declared"], [])
+
     def test_status_is_fail_closed(self) -> None:
         self.assertEqual(status_from_checks([check("a", "PASS", "ok")]), "PASS")
         self.assertEqual(status_from_checks([check("a", "NOT_RUN", "missing")]), "NOT_RUN")

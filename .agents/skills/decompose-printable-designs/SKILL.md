@@ -1,6 +1,6 @@
 ---
 name: decompose-printable-designs
-description: Decompose printable product concepts into coordinated parametric, organic/image-to-3D, interface, purchased, and manufacturing components, then define how to generate, register, join, and validate them. Use for concept images, sketches, product photos, text briefs, or mixed design concepts that combine functional CAD with sculpted shells, ornaments, reliefs, AI-generated meshes, multiple materials/colors, or reusable modules; for planning component boundaries, source-of-truth ownership, keep-outs, datums, transforms, mating geometry, image-to-3D input plates, CAD counterparts, mesh/CAD integration, and interface coupons; and whenever a monolithic image-to-3D result would make a printable design hard to control, customize, repair, scale, or manufacture.
+description: Decompose a printable product concept into coordinated parametric, organic, interface, purchased, and manufacturing components, then define how to generate, register, join, and validate them. Use for concept images, sketches, photos, or briefs that mix functional CAD with sculpted shells, ornament, relief, or AI-generated meshes; for planning component boundaries, source-of-truth ownership, keep-outs, datums, transforms, and mating geometry; and whenever a monolithic image-to-3D result would be hard to control, repair, or manufacture.
 ---
 
 # Decompose Printable Designs
@@ -15,6 +15,16 @@ correct product-family folder, portfolio CSV/XLSX registration, initialized
 license chain, and prospective preflight. Subcomponents and generated
 preforms share the owning product's SKU unless they have an independent offer
 and lifecycle.
+
+## Read only what the task needs
+
+- Interpreting the source and allocating representation authority: `references/decomposition-and-routing.md`
+- Writing a generation brief for an organic component: `references/component-image-briefs.md`
+- Frames, ownership, allowance stack, seams, CAD counterparts: `references/interface-contracts.md`
+- Registration, Boolean/SDF routes, validation gates, release structure: `references/integration-and-validation.md`
+- Known failure patterns and the limits of the evidence: `references/research-and-pitfalls.md`
+
+Load a reference when its task is actually in scope. Do not preload the set.
 
 ## Non-negotiable rules
 

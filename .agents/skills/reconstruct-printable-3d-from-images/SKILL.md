@@ -1,6 +1,6 @@
 ---
 name: reconstruct-printable-3d-from-images
-description: Design, reconstruct, validate, and prepare printable 3D models from one or more reference images. Use when an image, drawing, concept render, product photo, scan set, or turntable should become a measured or plausible 3D-printable object; when extracting design requirements, silhouettes, profiles, dimensions, shapes, relief, textures, colors, and uncertainty; when choosing parametric CAD, Blender, photogrammetry, single-image AI, or a hybrid workflow; when implementing in OpenSCAD, CadQuery, FreeCAD, or Blender; or when comparing matched renders with source images, planning image/mesh resolution and memory, auditing meshes, checking printability, and producing STL, 3MF, STEP, or GLB deliverables. Cover toys, utilities, household objects, image cleanup, camera and scale calibration, hidden-geometry assumptions, wall thickness, tolerances, slicer validation, and physical test prints.
+description: Reconstruct printable 3D models from one or more reference images. Use when a photo, drawing, concept render, scan set, or turntable should become a measured or plausible printable object; for extracting dimensions, silhouettes, profiles, relief, and uncertainty from images; for choosing between parametric CAD, Blender, photogrammetry, and single-image AI; and for camera/scale calibration, hidden-geometry assumptions, matched-view comparison, mesh audits, and STL/3MF/STEP/GLB delivery.
 ---
 
 # Reconstruct Printable 3D from Images

@@ -2,28 +2,182 @@
   "schema_version": "1.0",
   "skill": "functional-3d-design",
   "artifact_roles": [
-    {"id": "preflight-result", "kind": "preflight-result", "required": true},
-    {"id": "editable-source", "kind": "source", "required": true},
-    {"id": "manufacturing-mesh", "kind": "mesh", "required": true},
-    {"id": "interface-contract", "kind": "contract", "required": true},
-    {"id": "sweep-report", "kind": "report", "required": true},
-    {"id": "manufacturing-3mf", "kind": "3mf", "required": true},
-    {"id": "gcode", "kind": "gcode", "required": true},
-    {"id": "autonomy-policy", "kind": "autonomy-policy", "required": false},
-    {"id": "agent-approval-ledger", "kind": "approval-ledger", "required": false},
-    {"id": "human-approval-ledger", "kind": "approval-ledger", "required": false}
+    {
+      "id": "preflight-result",
+      "kind": "preflight-result",
+      "required": true
+    },
+    {
+      "id": "editable-source",
+      "kind": "source",
+      "required": true
+    },
+    {
+      "id": "manufacturing-mesh",
+      "kind": "mesh",
+      "required": true
+    },
+    {
+      "id": "interface-contract",
+      "kind": "contract",
+      "required": true
+    },
+    {
+      "id": "sweep-report",
+      "kind": "report",
+      "required": true
+    },
+    {
+      "id": "manufacturing-3mf",
+      "kind": "3mf",
+      "required": true
+    },
+    {
+      "id": "gcode",
+      "kind": "gcode",
+      "required": true
+    },
+    {
+      "id": "autonomy-policy",
+      "kind": "autonomy-policy",
+      "required": false
+    },
+    {
+      "id": "agent-approval-ledger",
+      "kind": "approval-ledger",
+      "required": false
+    },
+    {
+      "id": "human-approval-ledger",
+      "kind": "approval-ledger",
+      "required": false
+    }
   ],
   "checks": [
-    {"id": "manufacturing-mesh-audit", "type": "mesh", "required": true, "artifact_roles": ["manufacturing-mesh"]},
-    {"id": "interfaces-and-motion", "type": "interfaces", "required": true, "artifact_roles": ["interface-contract"]},
-    {"id": "parameter-envelope", "type": "external_report", "required": true, "artifact_roles": ["editable-source", "manufacturing-mesh", "sweep-report"]},
-    {"id": "manufacturing-package", "type": "3mf", "required": true, "artifact_roles": ["manufacturing-3mf"]},
-    {"id": "slicer-gcode", "type": "gcode", "required": true, "artifact_roles": ["gcode"]},
-    {"id": "stage-provenance", "type": "approvals", "required": false, "artifact_roles": ["autonomy-policy", "agent-approval-ledger", "human-approval-ledger"]}
+    {
+      "id": "manufacturing-mesh-audit",
+      "type": "mesh",
+      "required": true,
+      "artifact_roles": [
+        "manufacturing-mesh"
+      ]
+    },
+    {
+      "id": "interfaces-and-motion",
+      "type": "interfaces",
+      "required": true,
+      "artifact_roles": [
+        "interface-contract"
+      ]
+    },
+    {
+      "id": "parameter-envelope",
+      "type": "external_report",
+      "required": true,
+      "artifact_roles": [
+        "editable-source",
+        "manufacturing-mesh",
+        "sweep-report"
+      ]
+    },
+    {
+      "id": "manufacturing-package",
+      "type": "3mf",
+      "required": true,
+      "artifact_roles": [
+        "manufacturing-3mf"
+      ]
+    },
+    {
+      "id": "slicer-gcode",
+      "type": "gcode",
+      "required": true,
+      "artifact_roles": [
+        "gcode"
+      ]
+    },
+    {
+      "id": "stage-provenance",
+      "type": "approvals",
+      "required": false,
+      "artifact_roles": [
+        "autonomy-policy",
+        "agent-approval-ledger",
+        "human-approval-ledger"
+      ]
+    }
   ],
   "manual_gates": [
-    {"id": "process-matched-fit-coupon", "kind": "physical", "required": true},
-    {"id": "watermark-approval", "kind": "approval", "required": true}
+    {
+      "id": "process-matched-fit-coupon",
+      "kind": "physical",
+      "required": true
+    },
+    {
+      "id": "watermark-approval",
+      "kind": "approval",
+      "required": true
+    }
   ],
-  "release_policy": {"block_statuses": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"], "require_sha256": true, "require_fresh_external_reports": true}
+  "risk_class_requirements": [
+    {
+      "risk_class": "decorative",
+      "criticality": "K0",
+      "checks": [
+        "manufacturing-mesh-audit",
+        "manufacturing-package"
+      ],
+      "manual_gates": []
+    },
+    {
+      "risk_class": "normal-functional",
+      "criticality": "K1",
+      "checks": [
+        "manufacturing-mesh-audit",
+        "interfaces-and-motion",
+        "manufacturing-package",
+        "slicer-gcode"
+      ],
+      "manual_gates": [
+        "process-matched-fit-coupon"
+      ]
+    },
+    {
+      "risk_class": "structural",
+      "criticality": "K2",
+      "checks": [
+        "manufacturing-mesh-audit",
+        "interfaces-and-motion",
+        "parameter-envelope",
+        "manufacturing-package",
+        "slicer-gcode"
+      ],
+      "manual_gates": [
+        "process-matched-fit-coupon"
+      ]
+    },
+    {
+      "risk_class": "safety-critical",
+      "criticality": "K3",
+      "checks": [
+        "manufacturing-mesh-audit",
+        "interfaces-and-motion",
+        "parameter-envelope",
+        "manufacturing-package",
+        "slicer-gcode"
+      ],
+      "manual_gates": [
+        "process-matched-fit-coupon"
+      ]
+    }
+  ],
+  "release_policy": {
+    "block_statuses": [
+      "FAIL",
+      "NOT_RUN",
+      "REVIEW_REQUIRED"
+    ],
+    "require_sha256": true,
+    "require_fresh_external_reports": true
+  }
 }

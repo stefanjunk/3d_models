@@ -101,16 +101,27 @@ Produce:
 
 ### Gate 2 — calibration
 
-Check whether the exact process has evidence for:
+Query the calibration registry for the exact process identity before creating
+any geometry whose dimensions depend on it:
 
-- XY hole/shaft compensation;
-- Z fit and elephant-foot compensation;
-- bridge and overhang limits;
-- minimum wall/feature;
-- snap strain and living hinge life;
-- inserts, adhesives, and material conditioning.
+```bash
+python .agents/skills/3d-skill-maintainer/scripts/learning_records.py calibration \
+  --machine "<machine>" --material "<exact filament>" --nozzle <mm> \
+  --quantity xy_clearance_sliding --quantity hole_delta_vertical
+```
 
-Generate coupons before the full model if the uncertainty can change geometry.
+The registry covers XY sliding/press clearance, vertical and horizontal hole
+deltas, first-layer edge relief, maximum unsupported bridge, minimum overhang
+angle, maximum volumetric flow, XY/Z shrinkage, heat-set insert boss diameter,
+and allowable snap strain.
+
+The command exits non-zero and names the qualifying coupon for every
+`UNQUALIFIED` quantity, and for an unknown process identity. Generate that
+coupon before the full model, record the result as a `benchmark-measurement`,
+and update
+`libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml`.
+Never substitute a default, an estimate, or a value qualified on a different
+machine/material/nozzle/profile.
 
 ### Gate 3 — parametric geometry
 
@@ -184,7 +195,7 @@ Use an escalating test ladder:
 
 ### Gate 9 — model release candidate and final approval
 
-First complete and verify the production model. Then follow `watermark-release-gate.md` as the final planned design-feature/solid-geometry change:
+First complete and verify the production model. Then load the sibling `metrimade-release-marking` skill and follow its `references/watermark-release-gate.md` as the final planned design-feature/solid-geometry change:
 
 - retain overall model views, key geometry, functional evidence, print readiness, and candidate deliverables as the primary approval material;
 - generate all exact `MM-WM-001-R2` tiers, select Full then Compact then Micro against the measured safe region at 0°/90° and scale 1.0, and insert the selected profile containing the logo plus current product ID/version; require the domain on Full/Compact and record selector justification when Micro omits it;

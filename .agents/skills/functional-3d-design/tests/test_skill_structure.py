@@ -66,11 +66,15 @@ class SkillStructureTests(unittest.TestCase):
         self.assertTrue(report_path.is_file())
         report = report_path.read_text(encoding="utf-8")
 
-        self.assertIn("## Mandatory final model result report", skill_text)
+        self.assertIn("## Final model result report", skill_text)
+        # Marking must stay subordinate: it precedes the report in the gate
+        # ladder and the report is the last user-facing step.
+        ladder = skill_text[skill_text.index("## Gate ladder"):]
         self.assertLess(
-            skill_text.index("**Watermark integration**"),
-            skill_text.index("**Final model result report**"),
+            ladder.index("release marking"),
+            ladder.index("final model result report"),
         )
+        self.assertIn("compact late **Kennzeichnung** note", skill_text)
         required_sections = [
             "**Design outcome**",
             "**Model result**",
@@ -86,6 +90,39 @@ class SkillStructureTests(unittest.TestCase):
         self.assertIn("Never title the final response after the watermark", report)
         self.assertIn("Never make watermark status the final sentence", report)
 
+    def test_calibration_gate_precedes_dependent_geometry(self) -> None:
+        """Fits must come from the registry, and the gate must sit before source."""
+        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        registry = (
+            SKILL.parents[2]
+            / "libraries"
+            / "3d-learning"
+            / "knowledge"
+            / "processes"
+            / "fff-calibration-registry.yaml"
+        )
+        self.assertTrue(registry.is_file())
+        self.assertIn("## Calibration gate", skill_text)
+        self.assertIn("learning_records.py calibration", skill_text)
+        self.assertIn("fff-calibration-registry.yaml", skill_text)
+        # Absence of a value must never be read as "no compensation needed".
+        self.assertIn(
+            "Absence of a registry value is never evidence that no compensation is needed",
+            skill_text,
+        )
+        ladder = skill_text[skill_text.index("## Gate ladder"):]
+        self.assertLess(ladder.index("calibration gate"), ladder.index("parametric source"))
+
+    def test_capture_obligation_closes_the_learning_loop(self) -> None:
+        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("## Capture obligation", skill_text)
+        self.assertIn("benchmark-measurement", skill_text)
+        self.assertIn("3d-skill-maintainer", skill_text)
+        # Capture is a completion condition, not an optional afterthought.
+        self.assertIn(
+            "A blank measurement\nworksheet is an incomplete design", skill_text
+        )
+
     def test_efficiency_and_mesh_simplification_are_mandatory_gates(self) -> None:
         skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         mesh_reference = SKILL / "references" / "mesh-simplification.md"
@@ -98,13 +135,14 @@ class SkillStructureTests(unittest.TestCase):
         self.assertIn("Every manufacturing model must pass an efficiency and mesh-complexity decision", skill_text)
         self.assertIn("master_mesh", skill_text)
         self.assertIn("slicer_resolution_check", skill_text)
+        ladder = skill_text[skill_text.index("## Gate ladder"):]
         self.assertLess(
-            skill_text.index("**Efficiency and mesh-simplification gate**"),
-            skill_text.index("**Watermark integration**"),
+            ladder.index("efficiency and mesh gate"),
+            ladder.index("release marking"),
         )
         self.assertLess(
-            skill_text.index("**Watermark integration**"),
-            skill_text.index("**Final derived mesh export and release regression checks**"),
+            ladder.index("release marking"),
+            ladder.index("final derived export"),
         )
 
     def test_preflight_is_the_first_design_gate_and_has_deterministic_handoff(self) -> None:
@@ -115,13 +153,11 @@ class SkillStructureTests(unittest.TestCase):
         self.assertTrue((preflight_skill / "SKILL.md").is_file())
         self.assertTrue((preflight_skill / "scripts" / "validate_preflight.py").is_file())
         self.assertLess(
-            skill_text.index("## Start every design with the mandatory preflight"),
-            skill_text.index("## Start every design with an explicit contract"),
+            skill_text.index("## Mandatory preflight"),
+            skill_text.index("## Design contract"),
         )
-        self.assertLess(
-            skill_text.index("**3D design preflight**"),
-            skill_text.index("**Requirements and risk review**"),
-        )
+        ladder = skill_text[skill_text.index("## Gate ladder"):]
+        self.assertLess(ladder.index("preflight"), ladder.index("requirements"))
         self.assertIn("RETROSPECTIVE", skill_text)
         self.assertIn("preflight/preflight-result.json", skill_text)
 

@@ -21,7 +21,10 @@ class SkillStructureTests(unittest.TestCase):
         end = text.find("\n---\n", 4)
         frontmatter = yaml.safe_load(text[4:end])
         self.assertEqual(frontmatter["name"], self.skill_root.name)
-        self.assertIn("OpenCode", frontmatter["compatibility"])
+        compatibility = frontmatter.get(
+            "compatibility", frontmatter.get("metadata", {}).get("compatibility", "")
+        )
+        self.assertIn("OpenCode", compatibility)
 
     def test_opencode_command_is_portable(self) -> None:
         command = self.skill_root / "opencode" / "commands" / "design-freeform-surface.md"

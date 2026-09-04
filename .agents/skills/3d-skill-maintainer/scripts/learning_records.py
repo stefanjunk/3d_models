@@ -480,6 +480,115 @@ def command_promotion_check(args: argparse.Namespace, repo_root: Path) -> int:
     return 1 if errors else 0
 
 
+CALIBRATION_REGISTRY = Path("knowledge/processes/fff-calibration-registry.yaml")
+
+
+def load_calibration_registry(repo_root: Path) -> dict[str, Any]:
+    path = library_root(repo_root) / CALIBRATION_REGISTRY
+    if not path.is_file():
+        raise ValueError(f"calibration registry not found: {path}")
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or data.get("kind") != "process-calibration-registry":
+        raise ValueError(f"not a process-calibration-registry: {path}")
+    return data
+
+
+def _scope_matches(scope: dict[str, Any], args: argparse.Namespace) -> bool:
+    def same(left: Any, right: Any) -> bool:
+        if right is None:
+            return True
+        if left is None:
+            return False
+        if isinstance(right, float):
+            try:
+                return abs(float(left) - right) < 1e-9
+            except (TypeError, ValueError):
+                return False
+        return str(left).strip().lower() == str(right).strip().lower()
+
+    return (
+        same(scope.get("machine"), args.machine)
+        and same(scope.get("material"), args.material)
+        and same(scope.get("nozzle"), args.nozzle)
+        and same(scope.get("process"), args.process)
+        and same(scope.get("slicer_profile"), args.slicer_profile)
+    )
+
+
+def command_calibration(args: argparse.Namespace, repo_root: Path) -> int:
+    """Look up locally qualified process values. Fail closed on anything unqualified."""
+    try:
+        registry = load_calibration_registry(repo_root)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+    known = {q["id"]: q for q in registry.get("quantities", []) if isinstance(q, dict) and q.get("id")}
+    wanted = args.quantity or sorted(known)
+    unknown_names = [name for name in wanted if name not in known]
+    if unknown_names:
+        print(f"unknown quantity: {', '.join(unknown_names)}", file=sys.stderr)
+        print(f"available: {', '.join(sorted(known))}", file=sys.stderr)
+        return 2
+
+    matches = [
+        entry for entry in registry.get("processes", [])
+        if isinstance(entry, dict) and _scope_matches(entry.get("scope") or {}, args)
+    ]
+
+    result: dict[str, Any] = {
+        "tool": "calibration",
+        "requested_scope": {
+            "process": args.process,
+            "machine": args.machine,
+            "material": args.material,
+            "nozzle": args.nozzle,
+            "slicer_profile": args.slicer_profile,
+        },
+        "matched_process_ids": [entry.get("id") for entry in matches],
+        "qualified": {},
+        "unqualified": [],
+    }
+
+    if not matches:
+        result["status"] = "NO_MATCHING_PROCESS"
+        result["required_action"] = (
+            "No registry entry matches this exact process identity. Add the identity to "
+            "knowledge/processes/fff-calibration-registry.yaml, then qualify each needed "
+            "quantity by coupon. Do not proceed with an assumed value."
+        )
+        result["unqualified"] = [
+            {"quantity": name, "coupon": known[name].get("coupon"), "unit": known[name].get("unit")}
+            for name in wanted
+        ]
+    else:
+        for name in wanted:
+            value = None
+            for entry in matches:
+                candidate = (entry.get("values") or {}).get(name)
+                if isinstance(candidate, dict) and str(candidate.get("state", "")).upper() == "QUALIFIED":
+                    value = dict(candidate)
+                    value["process_id"] = entry.get("id")
+                    break
+            if value is None:
+                result["unqualified"].append(
+                    {"quantity": name, "coupon": known[name].get("coupon"), "unit": known[name].get("unit")}
+                )
+            else:
+                result["qualified"][name] = value
+        result["status"] = "QUALIFIED" if not result["unqualified"] else "UNQUALIFIED"
+        if result["unqualified"]:
+            result["required_action"] = (
+                "Print the named coupon on this exact process, record the outcome as a "
+                "benchmark-measurement under libraries/3d-learning/benchmarks/measurements/, "
+                "and update the registry. Until then no value may be assumed."
+            )
+
+    result["authority"] = registry.get("authority")
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0 if result["status"] == "QUALIFIED" else 1
+
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument(
@@ -507,6 +616,22 @@ def parser() -> argparse.ArgumentParser:
     retrieve.add_argument("--limit", type=int, default=5)
     retrieve.add_argument("--include-candidates", action="store_true")
     retrieve.set_defaults(func=command_retrieve)
+
+    calibration = sub.add_parser(
+        "calibration",
+        help="Look up locally qualified process compensation values; exits non-zero when unqualified.",
+    )
+    calibration.add_argument("--process", default="FFF")
+    calibration.add_argument("--machine", required=True)
+    calibration.add_argument("--material", required=True)
+    calibration.add_argument("--nozzle", type=float, required=True)
+    calibration.add_argument("--slicer-profile", dest="slicer_profile")
+    calibration.add_argument(
+        "--quantity",
+        action="append",
+        help="Repeatable. Omit to report every registry quantity.",
+    )
+    calibration.set_defaults(func=command_calibration)
 
     next_id = sub.add_parser("next-id", help="Print the next unused EXP identifier.")
     next_id.set_defaults(func=command_next_id)

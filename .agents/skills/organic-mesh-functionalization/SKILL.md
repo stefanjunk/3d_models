@@ -20,6 +20,19 @@ component of an existing SKU, load `3d-design-preflight` and complete its
 product-intake gate before mesh edits: SKU, correct product folder, portfolio
 CSV/XLSX row, initialized license chain, and prospective preflight.
 
+## Read only what the task needs
+
+- Choosing between mesh, CAD, voxel/SDF, and hybrid routes: `references/method-selection.md`
+- Registering, aligning, or fitting a replacement shape: `references/alignment-and-fitting.md`
+- Combining mesh and parametric tools on one part: `references/hybrid-workflows.md`
+- A Boolean that fails, self-intersects, or explodes: `references/booleans.md`
+- Controlling peak memory on a dense mesh: `references/memory-performance.md`
+- Defining validation gates and acceptance: `references/validation.md`
+- Worked cases: `references/case-studies.md`
+- Provenance of the guidance: `references/sources.md`
+
+Load a reference when its task is actually in scope. Do not preload the set.
+
 ## Core principle
 
 Treat the project as two coupled representations:
@@ -146,12 +159,14 @@ For moving parts, create separate bodies and explicit clearances. Never fuse a d
 
 ### Phase 6 — Validation gates
 
-Run both topology and change-preservation checks:
+Copy `assets/edit-roi.template.json` to `validation/edit-roi.json` and edit it
+there; never write into the installed skill. Then run both topology and
+change-preservation checks:
 
 ```bash
 python scripts/inspect_mesh.py result.stl --json reports/result.json --require-watertight --max-components 1
 python scripts/validate_edit.py source.stl result.stl \
-  --roi assets/edit-roi.json \
+  --roi validation/edit-roi.json \
   --max-outside-p95 0.20 \
   --max-outside-max 1.00 \
   --json reports/edit-validation.json

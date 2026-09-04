@@ -34,6 +34,26 @@ export MCFDM_SKILL=.opencode/skills/multicolor-fdm-design
 # export MCFDM_SKILL=~/.config/opencode/skills/multicolor-fdm-design
 ```
 
+## Read only what the task needs
+
+- Deciding whether this skill owns the work: `references/00-scope-and-routing.md`
+- Single-nozzle colour mechanics and first principles: `references/01-fundamentals.md`
+- Designing named colour solids and inlays: `references/02-parametric-color-architecture.md`
+- Minimum inlay/wall/step dimensions for colour features: `references/03-dfam-dimensions.md`
+- Converting a textured OBJ/GLB into a multicolour 3MF: `references/04-textured-asset-to-multicolor-3mf.md`
+- Mapping a design to a real filament palette: `references/05-palette-and-color-science.md`
+- 3MF structure and slicer hand-off behaviour: `references/06-3mf-and-slicer-interoperability.md`
+- Reducing purge waste and tool changes: `references/07-purge-and-change-optimization.md`
+- ACE/AMS/MMU hardware and filament pairing: `references/08-materials-and-hardware.md`
+- Defining colour coupons and acceptance: `references/09-validation-and-coupons.md`
+- Diagnosing a bleeding, banded, or mis-assigned result: `references/10-pitfalls-and-solutions.md`
+- Concrete tool invocations: `references/11-tool-recipes.md`
+- Worked examples: `references/12-examples.md`
+- Provenance of the guidance: `references/13-sources.md`
+- Portable-runtime integration notes: `references/14-opencode-integration.md`
+
+Load a reference when its task is actually in scope. Do not preload the set.
+
 ## 1. Route companion work before assigning colors
 
 Read `references/00-scope-and-routing.md` for composite work.

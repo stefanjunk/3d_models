@@ -4,20 +4,44 @@
   "title": "Companion skill deterministic validation profile",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "skill", "artifact_roles", "checks", "manual_gates", "release_policy"],
+  "required": [
+    "schema_version",
+    "skill",
+    "artifact_roles",
+    "checks",
+    "manual_gates",
+    "release_policy"
+  ],
   "properties": {
-    "schema_version": {"const": "1.0"},
-    "skill": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "schema_version": {
+      "const": "1.0"
+    },
+    "skill": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
     "artifact_roles": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "kind", "required"],
+        "required": [
+          "id",
+          "kind",
+          "required"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "kind": {"type": "string", "minLength": 1},
-          "required": {"type": "boolean"}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          }
         }
       }
     },
@@ -26,12 +50,40 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "type", "required", "artifact_roles"],
+        "required": [
+          "id",
+          "type",
+          "required",
+          "artifact_roles"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "type": {"enum": ["mesh", "mesh_compare", "gcode", "3mf", "interfaces", "skill", "external_report", "approvals", "physical", "review"]},
-          "required": {"type": "boolean"},
-          "artifact_roles": {"type": "array", "items": {"type": "string"}}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "mesh",
+              "mesh_compare",
+              "gcode",
+              "3mf",
+              "interfaces",
+              "skill",
+              "external_report",
+              "approvals",
+              "physical",
+              "review"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "artifact_roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -40,27 +92,103 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "kind", "required"],
+        "required": [
+          "id",
+          "kind",
+          "required"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "kind": {"enum": ["physical", "review", "approval"]},
-          "required": {"type": "boolean"}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "physical",
+              "review",
+              "approval"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          }
         }
       }
     },
     "release_policy": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["block_statuses", "require_sha256", "require_fresh_external_reports"],
+      "required": [
+        "block_statuses",
+        "require_sha256",
+        "require_fresh_external_reports"
+      ],
       "properties": {
         "block_statuses": {
           "type": "array",
           "uniqueItems": true,
-          "contains": {"const": "FAIL"},
-          "items": {"enum": ["FAIL", "NOT_RUN", "REVIEW_REQUIRED"]}
+          "contains": {
+            "const": "FAIL"
+          },
+          "items": {
+            "enum": [
+              "FAIL",
+              "NOT_RUN",
+              "REVIEW_REQUIRED"
+            ]
+          }
         },
-        "require_sha256": {"const": true},
-        "require_fresh_external_reports": {"const": true}
+        "require_sha256": {
+          "const": true
+        },
+        "require_fresh_external_reports": {
+          "const": true
+        }
+      }
+    },
+    "risk_class_requirements": {
+      "description": "Optional. Minimum check and manual-gate set per preflight risk class. A risk class listed here must name only declared check/manual-gate ids, and every named id must be required:true in this profile. Absent means the flat declaration applies to every risk class.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "risk_class",
+          "checks"
+        ],
+        "properties": {
+          "risk_class": {
+            "enum": [
+              "decorative",
+              "normal-functional",
+              "structural",
+              "safety-critical"
+            ]
+          },
+          "criticality": {
+            "description": "Preflight K level this risk class corresponds to.",
+            "enum": [
+              "K0",
+              "K1",
+              "K2",
+              "K3",
+              "K4"
+            ]
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "manual_gates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       }
     }
   }

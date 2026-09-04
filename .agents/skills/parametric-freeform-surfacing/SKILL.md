@@ -34,6 +34,23 @@ export PFS_SKILL=.opencode/skills/parametric-freeform-surfacing
 # export PFS_SKILL=~/.config/opencode/skills/parametric-freeform-surfacing
 ```
 
+## Read only what the task needs
+
+- Deciding whether this skill owns the work: `references/00-scope-and-routing.md`
+- Judging or repairing curve fairness and continuity: `references/01-curve-fairness-continuity.md`
+- Building B-spline/NURBS sections, lofts, and surface networks: `references/02-bspline-nurbs-lofts.md`
+- SubD, free-form deformation, and morph targets: `references/03-subd-ffd-morphs.md`
+- SDF and implicit blending: `references/04-sdf-implicit-blending.md`
+- Turning an AI or scan reference into editable geometry: `references/05-ai-assisted-parametricization.md`
+- Surface quality, banding, and seams on FDM: `references/06-fdm-surface-quality.md`
+- Concrete tool invocations: `references/07-tool-recipes.md`
+- Defining validation and acceptance: `references/08-validation-acceptance.md`
+- Worked examples: `references/09-examples.md`
+- Provenance of the guidance: `references/10-sources.md`
+- Portable-runtime integration notes: `references/11-opencode-integration.md`
+
+Load a reference when its task is actually in scope. Do not preload the set.
+
 ## Ownership and companion routing
 
 This skill owns:
@@ -167,11 +184,13 @@ python3 "$PFS_SKILL/scripts/backends/cadquery_loft_to_step.py" sections/ \
   --report validation/cadquery-loft.json
 ```
 
-Apply a bounded FFD cage to an OBJ master:
+Copy `assets/templates/ffd-config.json` into the project as
+`validation/ffd-config.json` before editing. Apply a bounded FFD cage to an
+OBJ master:
 
 ```bash
 python3 "$PFS_SKILL/scripts/ffd_deform.py" source/master.obj \
-  assets/ffd-config.json exports/variant.obj \
+  validation/ffd-config.json exports/variant.obj \
   --report validation/ffd.json
 
 python3 "$PFS_SKILL/scripts/compare_hardpoints.py" \

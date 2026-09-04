@@ -18,7 +18,8 @@ already have one unique SKU, a correctly categorized
 `products/<family>/<lowercase-sku>-<slug>` folder, one canonical
 `business/02-portfolio/product-portfolio.csv` row, a regenerated
 `product-portfolio.xlsx` row, and a current prospective preflight. Load
-`3d-design-preflight` and read its `references/product-intake.md` when any of
+`3d-design-preflight` and read `product-intake.md` from that skill's own
+references directory when any of
 those are absent. Do not allocate a separate SKU for a component or generated
 preform that belongs to an existing product lifecycle.
 

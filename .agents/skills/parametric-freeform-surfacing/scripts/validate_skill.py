@@ -46,10 +46,18 @@ def main() -> int:
             errors.append(f"frontmatter.name {name!r} does not match directory {root.name!r}")
         if not isinstance(description, str) or not 1 <= len(description) <= 1024:
             errors.append("frontmatter.description must be 1..1024 characters")
-        for field in ("license", "compatibility", "metadata"):
+        for field in ("license", "metadata"):
             if field not in frontmatter:
                 errors.append(f"Missing frontmatter field: {field}")
+        # Portable runtimes reject unknown top-level frontmatter keys, so the
+        # corpus convention is metadata.compatibility. Accept a legacy
+        # top-level key too.
         metadata = frontmatter.get("metadata", {})
+        has_compatibility = "compatibility" in frontmatter or (
+            isinstance(metadata, dict) and "compatibility" in metadata
+        )
+        if not has_compatibility:
+            errors.append("Missing frontmatter field: metadata.compatibility")
         if not isinstance(metadata, dict) or any(not isinstance(value, str) for value in metadata.values()):
             errors.append("frontmatter.metadata must be a string-to-string mapping for portable OpenCode compatibility")
     except Exception as exc:

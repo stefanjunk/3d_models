@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.1",
+  "iterations": [
+    {
+      "candidate": "digital-candidate-r1",
+      "status": "REJECTED",
+      "evidence_sha256": "05f4c0b9e0f4b8a0272ce99d99ccc412e002703432b75fa54d4a4b9841cdc28b",
+      "reason": "Boundary-crop left had one numerical degenerate face although it remained watertight, positive and single-component.",
+      "degenerate_faces": 1
+    },
+    {
+      "candidate": "digital-candidate-r2",
+      "status": "REJECTED",
+      "reason": "Aggressive dissolve cleanup split the boundary-left composite into two positive watertight components; no production artifact was accepted."
+    },
+    {
+      "candidate": "triangulation-diagnostic-r3",
+      "status": "REJECTED",
+      "evidence_sha256": "172c664604b3fb670903fae53a72d044989b0330810c8b2622f4141f19c95290",
+      "reason": "EAR_CLIP triangulation increased the numerical degenerates and was rejected.",
+      "degenerate_faces": 11
+    },
+    {
+      "candidate": "digital-candidate-r4",
+      "status": "DRAFT_DIGITAL_PASS_REVIEW_REQUIRED",
+      "reason": "A deterministic topology-preserving one-ULP repair removed the single numerical degeneracy without changing face count, bounds, topology or meaningful volume.",
+      "repair": {
+        "algorithm": "topology-preserving float32 one-ULP XY vertex nudge",
+        "area_threshold_mm2": 2.8330544220155832e-09,
+        "initial_failed_faces": [
+          78621
+        ],
+        "final_failed_faces": [],
+        "repair_count": 1,
+        "repairs": [
+          {
+            "target_face": 78621,
+            "vertex_index": 69433,
+            "axis": "x",
+            "from_mm": 221.74887084960938,
+            "to_mm": 221.7488555908203,
+            "signed_shift_mm": -1.52587890625e-05,
+            "face_area_before_mm2": 4.656612873077393e-10,
+            "face_area_after_mm2": 4.889443516731262e-09,
+            "failed_faces_before": 1,
+            "failed_faces_after": 0,
+            "candidate_volume_delta_from_original_mm3": 2.9482180252671242e-08
+          }
+        ],
+        "maximum_vertex_shift_mm": 1.52587890625e-05,
+        "volume_before_mm3": 203460.93538420484,
+        "volume_after_mm3": 203460.93538423433,
+        "signed_volume_delta_mm3": 2.9482180252671242e-08,
+        "bounds_before_mm": [
+          [
+            57.353050231933594,
+            47.98906326293945,
+            0.0
+          ],
+          [
+            299.875,
+            385.759033203125,
+            5.199999809265137
+          ]
+        ],
+        "bounds_after_mm": [
+          [
+            57.353050231933594,
+            47.98906326293945,
+            0.0
+          ],
+          [
+            299.875,
+            385.759033203125,
+            5.199999809265137
+          ]
+        ],
+        "checks": {
+          "input_watertight": true,
+          "output_watertight": true,
+          "output_positive_volume": true,
+          "face_count_unchanged": true,
+          "vertex_count_unchanged": true,
+          "no_failed_faces_after": true,
+          "maximum_shift_within_limit": true,
+          "volume_delta_within_limit": true,
+          "bounds_unchanged_within_limit": true
+        },
+        "status": "PASS"
+      }
+    }
+  ]
+}

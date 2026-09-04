@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "One concept-stage correction. Digital fit evidence exists; no process-matched print or 2 m sight test exists."
+    notes: "One user correction with completed deterministic geometry/3MF/native-slice evidence. No process-matched print or 2 m sight test exists."
 feature:
   type: viewing-distance-bound raised brand site marker
   geometry: single-color stacked vector lockup on a planar four-color map relief
@@ -34,7 +34,7 @@ feature:
     - Size the complete approved lockup rather than retaining a compact placeholder envelope.
     - Treat intended viewing distance as a physical user-test requirement, not a render-derived claim.
 scope:
-  process: FFF four-color single-nozzle concept stage
+  process: FFF four-color single-nozzle digital manufacturing candidate
   machine:
     manufacturer: Anycubic
     model: Kobra 3 Max Combo
@@ -57,10 +57,10 @@ scope:
   slicer:
     name: Anycubic Slicer Next
     version: 1.3.9.4
-    profile: revision 0.5.1 profile not generated; revision 0.5.0 embedded profiles are historical context only
+    profile: revision 0.5.1 native Anycubic project with embedded inherited process configuration; exact physical spool/ACE mapping remains review-controlled
     profile_hash: null
   geometry_class: two-mode two-half planar vector street-map wall relief
-  environment: concept render and deterministic planar-envelope analysis
+  environment: deterministic planar-envelope analysis, generated meshes, vendor-aware 3MF validation and native Anycubic slicing; no physical print
   transfer_limits:
     - Evidence covers one stacked logo at one map address and two fixed Berlin display modes.
     - Recognition depends on actual contrast, opacity, extrusion quality, lighting and observer.
@@ -68,7 +68,7 @@ scope:
 observation:
   summary: The user rejected the former metriCreate identity and compact size, requiring the metriMade logo to be recognizable from about 2 m.
   expected: The visible marker uses the canonical approved brand asset, records a viewing-distance target, fits protected geometry and remains subject to a physical sight test.
-  actual: Concept v06 uses the canonical stacked monochrome metriMade lockup at 54.0 × 57.18 mm. Its conservative envelope keeps at least 50.37 mm from the center seam and 20.36 mm from the outer perimeter, but recognition at 2 m remains untested.
+  actual: Digital-candidate-r4 uses the exact hashed canonical stacked monochrome metriMade lockup at 54.0 × 57.18 mm on both left-half variants. Four native four-body projects and the two-body Oak/Sky Blue coupon pass geometry and native slice checks, but recognition at 2 m remains untested.
   outcome: correction
   parameter: visible_brand_marker_identity_size_and_viewing_distance
   recommended_value: approved asset plus geometry-constrained size and process-matched distance test
@@ -85,12 +85,12 @@ explanation:
 evidence:
   observations: 1
   same_scope_repetitions: 0
-  geometry_count: 0
+  geometry_count: 5
   machine_count: 1
   material_count: 1
   nozzle_count: 1
   measured: false
-  measurement_method: Deterministic concept envelope, asset component raster inspection and geospatial placement calculation; no physical sight test.
+  measurement_method: Deterministic concept envelope, asset-hash inspection, geospatial placement, five exact composite mesh audits, vendor-aware 3MF checks and native G-code review; no physical sight test.
   uncertainty: Human recognition at 2 m, printed edge quality, Oak/Sky Blue contrast, opacity, purge contamination and brand clearance remain open.
   sources:
     - type: user-statement
@@ -102,17 +102,26 @@ evidence:
       hash: 9997ab3080ca56b692ed54de1981ca69a1138742a0e1bb5969629a9c64482282
       notes: Approved correction, proposed size and physical acceptance boundary.
     - type: product-trace
-      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.1/berlin/site-marker-concept-parameters.json
-      hash: d0f52d0085c77c153112c9faa444f5eef2a339311ff6e67a9250cac945e1778d
-      notes: Canonical asset, size, relief, tool and viewing-distance parameters.
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.1/berlin/site-marker-parameters.json
+      hash: aaccbdeedfa76c8747166e5772029c775513d6bc76adfd45777d705212fc74e9
+      notes: Canonical asset, independent address/artwork parameters, size, relief, tool and viewing-distance target.
     - type: product-trace
       ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v06.json
       hash: 9737b286fb9e8a6dbd59c556e67d46d6e8b17b882c62729871088aae8b6d3b46
       notes: Deterministic concept hash, asset hashes and fit clearances.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json
+      hash: 08980787240bca5662523218552684e2b8068611edd69a71b68cc5f34c9fc589
+      notes: Four generated map projects, exact site-marker metrics and native slice evidence.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/logo-coupon-r1/build-report.json
+      hash: 6f013e3d689f98d9cb74773f3e6853962c039c9c922a472b1fd6b9d967e94297
+      notes: Process-matched coupon geometry passes; physical viewing test remains open.
   artifacts:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v06.png
     - business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.0/berlin/metri-create-headquarters-address.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf
 applicability:
   triggers:
     - A visible printed logo or site marker has an intended recognition distance.
@@ -137,12 +146,13 @@ relationships:
     - .agents/skills/multicolor-fdm-design/references/04-dfam-multicolor.md
 validation:
   targeted: review-required
-  regression: not-run
+  regression: pass
   reports:
-    - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v06.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/logo-coupon-r1/build-report.json
 provenance:
   project: MM-ART-010
-  part_revision: 0.5.1-concept-v06
+  part_revision: 0.5.1-digital-candidate-r4
   trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/concept-review-0.5.1.md
   source_commit: null
   created_by: Codex via 3d-skill-maintainer

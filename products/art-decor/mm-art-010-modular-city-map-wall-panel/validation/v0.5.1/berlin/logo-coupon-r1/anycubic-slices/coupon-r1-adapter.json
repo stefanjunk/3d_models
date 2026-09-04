@@ -1,0 +1,151 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "slicer-executable",
+      "message": "Anycubic Slicer Next executable: /usr/bin/AnycubicSlicerNext",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-file",
+      "message": "Slicer input: products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "source-format",
+      "message": "Supported slicer input format: .3mf",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "fresh-output-directory",
+      "message": "Output directory is new: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/logo-coupon-r1/anycubic-slices/coupon-r1",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "plate-index",
+      "message": "Slice plate selector: 0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "timeout",
+      "message": "Slicer timeout: 600 s",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "profile-set",
+      "message": "Using profiles embedded in the 3MF project",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-version",
+      "message": "Anycubic Slicer Next version 1.3.9.4",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-process",
+      "message": "Anycubic Slicer Next exited with code 253",
+      "metrics": {
+        "return_code": 253
+      },
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "slicer-native-result",
+      "message": "Anycubic Slicer Next did not write result.json",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    },
+    {
+      "evidence": [],
+      "id": "gcode-output",
+      "message": "No G-code output was generated",
+      "metrics": {},
+      "required": true,
+      "status": "FAIL"
+    }
+  ],
+  "diagnostics": [
+    "run found error, return -3, exit...",
+    "No such file: products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf"
+  ],
+  "gcode_reports": {},
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf",
+      "sha256": "f68324364f79508cfe6fd55d46dd0d46f9e77a5ffc83f5d000331d8fade3c3cb",
+      "size_bytes": 18739
+    },
+    {
+      "path": "/usr/bin/AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "size_bytes": 252
+    },
+    {
+      "path": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+      "sha256": "30e57f5edfb4cd6c9754aaf7a0f4f626b3ba856625e13f6311fe2ba3093d1e1d",
+      "size_bytes": 100312072
+    }
+  ],
+  "limitations": [
+    "Anycubic Slicer Next embeds a wall-clock timestamp and may vary path segmentation or ordering between same-scope runs; neither raw nor normalized byte identity is guaranteed.",
+    "Do not normalize or rewrite manufacturing G-code in place; retain each exact hash, compare approved metric tolerances, and use separate path diffs only as regression diagnostics.",
+    "Headless slicing does not replace final layer/tool/color preview or physical validation.",
+    "This adapter only performs local export; it implements no printer upload or print-start action."
+  ],
+  "metrics": {
+    "gcode_files": 0
+  },
+  "native_result": null,
+  "outputs": [],
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "slicer": {
+    "executable": "/usr/bin/AnycubicSlicerNext",
+    "invocation": [
+      "<AnycubicSlicerNext>",
+      "--datadir",
+      "<isolated-datadir>",
+      "--slice",
+      "0",
+      "--outputdir",
+      "products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/logo-coupon-r1/anycubic-slices/coupon-r1",
+      "products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf"
+    ],
+    "name": "Anycubic Slicer Next",
+    "plate": 0,
+    "profiles": [],
+    "runtime_executable": "/opt/AnycubicSlicerNext/bin/AnycubicSlicerNext",
+    "version": "1.3.9.4"
+  },
+  "status": "FAIL",
+  "tool": "slice-anycubic-next",
+  "tool_version": "1.3.0"
+}

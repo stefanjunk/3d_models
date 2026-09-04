@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "One controlled digital before/after comparison on the full-height NameForm FA coupon; no cross-kernel or second-geometry replication."
+    notes: "Two controlled digital cases now exist: the original Manifold height-field coupon and a Blender Boolean map relief. Kernels and cleanup mechanisms differ, so the record remains E0 and unpromoted."
 feature:
   type: manufacturing-mesh postprocessing after image-derived relief Boolean
   geometry: 122 mm clipped Noto FA glyph fronts engraved by a closed 0.45 mm-grid Manifold height-field cutter
@@ -82,9 +82,9 @@ explanation:
   validated: false
   validation_method: Repeat on a second clipped relief geometry and compare raw, topology-aware simplify, decimal weld, and padded-cutter variants with exact edge-incidence and geometric-error reports.
 evidence:
-  observations: 1
+  observations: 2
   same_scope_repetitions: 0
-  geometry_count: 1
+  geometry_count: 2
   machine_count: 0
   material_count: 0
   nozzle_count: 1
@@ -100,10 +100,15 @@ evidence:
       ref: products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json
       hash: null
       notes: "Independent audit of the retained float32 STL: one watertight body, zero boundary/nonmanifold edges, three diagnostic microfacets."
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/build-iteration-summary.json
+      hash: 73d0e21d634f99c3b6fabb021323a9ee7604afb84ed951d384efcff2959dc4b4
+      notes: "A broad dissolve split a second closed Boolean mesh; a bounded one-ULP vertex nudge instead preserved body count, watertightness, bounds, faces and volume within 2.95e-8 mm³."
   artifacts:
     - products/organization-storage/mm-per-001-nameform-bookends/source/v0.4.0/nameform_letter_only.py
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/exports/candidate/DRAFT-nameform-FA-wood-C-v0.4.0.stl
     - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/build-iteration-summary.json
 applicability:
   triggers:
     - A manifold Boolean result contains tiny but topologically valid transition facets near clipped or coplanar relief boundaries.
@@ -132,6 +137,7 @@ validation:
   reports:
     - products/organization-storage/mm-per-001-nameform-bookends/validation/v0.4.0/mesh-postprocess-comparison.json
     - products/organization-storage/mm-per-001-nameform-bookends/coupons/nameform-letter-bridge-v0.4.0/reports/mesh-audit/audit-coupon.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.1/berlin/build-iteration-summary.json
 provenance:
   project: MM-PER-001
   part_revision: 0.4.0-draft-candidate

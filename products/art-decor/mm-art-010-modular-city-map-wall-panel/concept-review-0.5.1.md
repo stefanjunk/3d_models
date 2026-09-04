@@ -1,6 +1,6 @@
 # Concept review 0.5.1 — enlarged metriMade site marker
 
-Status: **pending explicit human approval**.
+Status: **approved by Stefan on 2026-09-04**.
 
 Review artifact: `concepts/berlin-site-marker-concept-v06.png`
 
@@ -45,5 +45,7 @@ Approval of concept v06 authorizes generation of a new immutable revision
 commercial release, brand clearance, the recessed rear product watermark,
 physical visibility, connector fit, purge behavior, lighting or wall mounting.
 
-Requested decision: explicitly approve or reject
-`concepts/berlin-site-marker-concept-v06.png`.
+Decision: Stefan explicitly approved concept v06 with `freigegeben` and then
+reiterated `approved go on`. Production CAD, mesh, 3MF and coupon generation
+for revision 0.5.1 are authorized; physical and final-release gates remain
+human-controlled.

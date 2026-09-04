@@ -177,12 +177,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-09-01 (`PXL_20260901_195742132.jpg`); auf dem Etikett stehen 220–240 °C Drucktemperatur, 30–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
 
-### FIL-0007 — Hersteller unbekannt, High Speed PLA+2.0 Orange
+### FIL-0007 — SUNLU, High Speed PLA+2.0 Orange
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / High Speed PLA+2.0 / `04760420Z` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / High Speed PLA+2.0 / `04760420Z` (Etikettcode)
 - Materialfamilie / Variante: PLA / High Speed PLA+2.0
 - Farbe / Farbcode: Orange / unbekannt
 - Durchmesser: 1,75 mm
@@ -200,12 +200,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-07-29 und 2026-08-04 (`PXL_20260729_081338368.jpg`, `PXL_20260804_145940815.jpg`). Beide Fotos zeigen denselben Produkt- und Etikettcode und wurden daher als eine physische Rolle konsolidiert; eine zweite Rolle ist nicht belegt. Auf dem Etikett stehen 200–215 °C bei 50–150 mm/s, 215–230 °C bei 150–300 mm/s, 230–260 °C bei 300–600 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Hersteller sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0008 — Hersteller unbekannt, PETG Black
+### FIL-0008 — SUNLU, PETG Black
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / PETG / `04680426E2` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / PETG / `04680426E2` (Etikettcode)
 - Materialfamilie / Variante: PETG / unbekannt
 - Farbe / Farbcode: Black / unbekannt
 - Durchmesser: 1,75 mm
@@ -223,12 +223,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-07-30 und 2026-08-04 (`PXL_20260730_072245069.jpg`, `PXL_20260804_150000778.jpg`). Beide Fotos zeigen denselben Produkt- und Etikettcode und wurden daher als eine physische Rolle konsolidiert; eine zweite Rolle ist nicht belegt. Auf dem Etikett stehen 230–240 °C bei 50–100 mm/s, 240–260 °C bei 100–200 mm/s, 60–70 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Hersteller sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0009 — Hersteller unbekannt, High Speed PLA+2.0 White
+### FIL-0009 — SUNLU, High Speed PLA+2.0 White
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / High Speed PLA+2.0 / `03060420Z` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / High Speed PLA+2.0 / `03060420Z` (Etikettcode)
 - Materialfamilie / Variante: PLA / High Speed PLA+2.0
 - Farbe / Farbcode: White / unbekannt
 - Durchmesser: 1,75 mm
@@ -269,12 +269,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-04 (`PXL_20260804_145910367.jpg`). Das Etikett nennt einen ID-Chip und eine hitzebeständige Spule bis 100 °C; Materialfamilie, Durchmesser, Nettomasse und Drucktemperaturen sind auf der Aufnahme nicht belegt. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
 
-### FIL-0011 — Hersteller unbekannt, PLA Green mit RFID-ID-Chip
+### FIL-0011 — Anycubic, PLA Green mit RFID-ID-Chip
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / PLA mit RFID-ID-Chip / unbekannt
+- Hersteller / Produkt / Artikelnummer: Anycubic / PLA mit RFID-ID-Chip / unbekannt
 - Materialfamilie / Variante: PLA / unbekannt
 - Farbe / Farbcode: Green, anhand des sichtbaren Filaments / unbekannt
 - Durchmesser: unbekannt
@@ -292,12 +292,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-04 (`PXL_20260804_145919010.jpg`). Das Etikett nennt PLA, einen ID-Chip, 190–230 °C Drucktemperatur und 55–65 °C Betttemperatur; die aufgedruckte 100–800-g-Skala ist keine belegte Nettomassenangabe. Hersteller, Durchmesser, Nettomasse sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0012 — Hersteller unbekannt, PLA Yellow mit RFID-ID-Chip
+### FIL-0012 — Anycubic, PLA Yellow mit RFID-ID-Chip
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / PLA mit RFID-ID-Chip / unbekannt
+- Hersteller / Produkt / Artikelnummer: Anycubic / PLA mit RFID-ID-Chip / unbekannt
 - Materialfamilie / Variante: PLA / unbekannt
 - Farbe / Farbcode: Yellow, anhand des sichtbaren Filaments / unbekannt
 - Durchmesser: unbekannt
@@ -384,12 +384,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-06 (`PXL_20260806_142318077.jpg`). Auf dem Etikett stehen 180–220 °C Drucktemperatur und 1000 g Nettomasse. Verpackungs- beziehungsweise Siegelzustand nicht verifiziert.
 
-### FIL-0016 — Hersteller unbekannt, TPU 95A Green
+### FIL-0016 — SUNLU, TPU 95A Green
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / TPU 95A / `04260321Z2` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / TPU 95A / `04260321Z2` (Etikettcode)
 - Materialfamilie / Variante: TPU / 95A
 - Farbe / Farbcode: Green / unbekannt
 - Durchmesser: 1,75 mm
@@ -407,12 +407,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-05 (`PXL_20260805_153951998.jpg`). Auf dem Etikett stehen 190–210 °C bei 50–80 mm/s, 210–230 °C bei 80–120 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Hersteller sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0017 — Hersteller unbekannt, TPU 95A Black
+### FIL-0017 — SUNLU, TPU 95A Black
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / TPU 95A / `04160423Z2` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / TPU 95A / `04160423Z2` (Etikettcode)
 - Materialfamilie / Variante: TPU / 95A
 - Farbe / Farbcode: Black / unbekannt
 - Durchmesser: 1,75 mm
@@ -430,12 +430,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-17 (`PXL_20260817_170015662.jpg`). Auf dem Etikett stehen 190–210 °C bei 50–80 mm/s, 210–230 °C bei 80–120 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Hersteller sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0018 — Hersteller unbekannt, PLA+ Silver
+### FIL-0018 — SUNLU, PLA+ Silver
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / PLA+ / `01160224Y` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / PLA+ / `01160224Y` (Etikettcode)
 - Materialfamilie / Variante: PLA / PLA+
 - Farbe / Farbcode: Silver / unbekannt
 - Durchmesser: 1,75 mm
@@ -453,12 +453,12 @@ Noch keine Einträge.
 - Produktseite / Datenblatt: unbekannt
 - Notizen: Fotografisch erfasst am 2026-08-26 (`PXL_20260826_174332389.jpg`). Auf dem Etikett stehen 195–205 °C bei 50–100 mm/s, 205–220 °C bei 100–300 mm/s, 50–60 °C Betttemperatur und eine Spulentemperaturbeständigkeit unter 70 °C. Hersteller sowie Verpackungs- und Siegelzustand nicht verifiziert.
 
-### FIL-0019 — Hersteller unbekannt, PLA+Silk 2.0 Titanium Steel
+### FIL-0019 — SUNLU, PLA+Silk 2.0 Titanium Steel
 
 - Status: unbekannt
 - Rolle: Modell
 - Standort: unbekannt
-- Hersteller / Produkt / Artikelnummer: unbekannt / PLA+Silk 2.0 / `05760621Z` (Etikettcode)
+- Hersteller / Produkt / Artikelnummer: SUNLU / PLA+Silk 2.0 / `05760621Z` (Etikettcode)
 - Materialfamilie / Variante: PLA / PLA+ Silk 2.0
 - Farbe / Farbcode: Titanium Steel / unbekannt
 - Durchmesser: 1,75 mm

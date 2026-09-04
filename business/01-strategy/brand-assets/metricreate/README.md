@@ -37,6 +37,14 @@ The wordmark is outlined from Inter Variable at weight 650. No live font remains
 
 The intended rights owner is `Stefan Junk Holding UG (haftungsbeschränkt)`. That ownership and the public-use risk decision remain subject to the signed `BRD-001` record; the asset package does not itself establish trademark availability.
 
+## Background and light-ground study
+
+The non-binding [`MC-BRAND-001-R2` candidate study](candidates/r2-background-light-ground/README.md)
+tests two responses to the color mark's background dependency: permanent
+Midnight Forge carriers and controlled floor-color treatments for white or light
+grounds. The R1 binding exports remain unchanged until a human selection is
+recorded.
+
 ## Minimum-use rules
 
 - Preserve the spelling and capitalization `metriCreate`.

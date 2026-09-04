@@ -620,8 +620,13 @@ def validate_generative_research_additions(
         hard_gates = row[idx["Hard_Gates"]]
         if "G3 FAIL" not in hard_gates:
             raise ValueError(f"Missing fail-closed process gate for {sku_id}")
-        if "TOOL-LICENCE FAIL" not in hard_gates:
-            raise ValueError(f"Missing fail-closed generative-tooling licence gate for {sku_id}")
+        tool_licence_states = [
+            state for state in ("WARN", "FAIL") if f"TOOL-LICENCE {state}" in hard_gates
+        ]
+        if len(tool_licence_states) != 1:
+            raise ValueError(
+                f"Generative-tooling licence gate must be recorded exactly once as WARN or FAIL for {sku_id}"
+            )
         expected_short = f"{complexity} \u00b7 R2 \u00b7 {criticality} \u00b7 Lane E \u00b7 {row[idx['Confidence']]}"
         if row[idx["Preflight_Short"]] != expected_short:
             raise ValueError(f"Compact preflight is inconsistent for {sku_id}")
@@ -1875,7 +1880,7 @@ def main() -> None:
         ["Generative Step1X research addendum", len(generative_research) - 1, f"{STEP1X_BLOCK_LABEL}; imagegen plus Step1X-3D concepts with explicit purpose, directional trend >70, an R2 concept preflight, a modeled unit-economics block and an open generative-tooling licence gate"],
         ["Generative batch category split", "; ".join(f"{family}={count}" for family, count in sorted(generative_family_counts.items())), "Requested popular-model groups: animals and creatures, cartoon and comic characters, toys and fidgets, tools and desktop utility, persons and figurines, trending decor"],
         ["Generative batch complexity split", "; ".join(f"{band}={count}" for band, count in sorted(generative_complexity_counts.items())), "C1\u2013C3 with K1\u2013K2; every row stays CONCEPT_ONLY in current Lane E"],
-        ["Generative tooling licence gate", "OPEN \u2014 BLOCKING FOR EU COMMERCIAL USE", "Step1X-3D declares Apache-2.0 but retains Tencent Hunyuan non-commercial headers, including one file in the executed geometry path, and that upstream licence excludes the EU; clarify, replace the files or take legal advice before any sale"],
+        ["Generative tooling licence gate", "WARN \u2014 BLOCKER RESOLVED IN THE OWNED FORK", "github.com/stefanjunk/Step1X-3D removed the Tencent Hunyuan-derived code and the SDXL RAIL++-M flow-down with the texture stage and replaced the geometry volume decoder; residual items are the undeclared openai/clip-vit-large-patch14 weight licence, the upstream Objaverse training-data provenance and the per-SKU image-generator licence"],
         ["Total research concepts", len(combined_research_ids), f"Original 300 plus {len(specific_r3_variants) - 1} append-only named-interface variants and {len(generative_research) - 1} generative Step1X concepts"],
         ["Addendum scoring", "Opportunity/trend 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
         ["Product directories with planning scores", len(product_scoring), f"Every product directory carries the same trend/priority/opportunity and ten 1–5 components as the research queue, so Portfolio sorts and filters on one column: {product_scores_inherited} inherited from a mapped research idea and {product_scores_derived} derived from product preflight and register evidence"],
@@ -1917,7 +1922,7 @@ def main() -> None:
         ["Structured R2 research preflight", "SKU-201–300 has a scored PC model and documented R2 basis", "K1 and C<=2 were enforced; current Lane E and CONCEPT_ONLY remain because exact process and variant evidence are open"],
         ["Specific R3 variant preflight", f"{R3_VARIANT_BLOCK_LABEL} is a separate named-interface child with cited E3 nominals and a pinned exact research process", "Generic parents do not inherit R3; confidence remains CONDITIONAL and a physical coupon/exact item or host is the next gate"],
         ["Generative Step1X research preflight", f"{STEP1X_BLOCK_LABEL} carries a scored PC model, a documented mesh-quality gate and a modeled unit-economics block", "C1\u2013C3 and K1\u2013K2 were enforced; current Lane E and CONCEPT_ONLY remain because the exact process, the generated mesh, the rights review and the generative-tooling licence are all open"],
-        ["Generative tooling licence gate", "Step1X-3D retains Tencent Hunyuan non-commercial headers, one of them in the executed geometry path, and that licence excludes the EU", "Treated as a fail-closed hard gate on the whole generative block: no EU commercial use until StepFun clarifies, the files are replaced, or legal advice permits it"],
+        ["Generative tooling licence gate", "State of the generative tooling's own licences, carried as a hard gate beside G0\u2013G6", "WARN once the owned fork removed the Hunyuan-derived code, the SDXL RAIL++-M duty and every copyleft dependency from the inference path; it returns to FAIL if a tool with a non-commercial or territorially limited licence re-enters the pipeline"],
         ["Modeled commercial block", "Mass, print time, hands-on minutes, cost components, price and contribution for the generative block", "Modeled with the retained Unit Economics rates; it is not a quotation, a measured print or approved margin"],
         ["Preliminary idea estimate", "No mapped current product preflight", "C band uses creation/validation planning effort; K band uses the research-risk proxy; R0\u2013R1 and Lane E are fixed until evidence exists"],
         ["Market potential", "Opportunity and market-fit fields in the research register", "Keep separate from C/R/K/lane; compare side by side in Implementation Priority"],

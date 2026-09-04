@@ -381,12 +381,21 @@ ARCHETYPES = {
 }
 
 TOOL_LICENCE_GATE = (
-    "BLOCKING before any EU commercial use: Step1X-3D declares Apache-2.0 for code and weights [S122][S124], but twelve "
-    "repository files retain a verbatim TENCENT HUNYUAN NON-COMMERCIAL LICENSE header, one of them in the geometry path "
-    "that a geometry-only run imports and executes [S125]; that upstream licence excludes the European Union from its "
-    "Territory and forbids use of the works' output outside it [S126]. Clarify with StepFun, replace the affected files, "
-    "or take legal advice before a first sale. The SD-XL-based texture path additionally requires the CreativeML Open "
-    "RAIL++-M use restrictions to be carried into metriMade's own customer terms [S127]."
+    "Generative tooling runs from the owned geometry-only fork github.com/stefanjunk/Step1X-3D [S131]. The Tencent "
+    "Hunyuan-derived code that blocked EU commercial use is gone: the volume decoder every geometry run executes was "
+    "replaced by an independent implementation in commit f00dd46, and the other eleven headed files left with the "
+    "texture stage deleted in commit 2433849 [S125][S126]. The Stable Diffusion XL CreativeML Open RAIL++-M flow-down "
+    "duty left with that same stage [S127], and pymeshlab (GPL-3.0), plyfile, easydict, pytorch3d, kaolin and "
+    "nvdiffrast are out of the inference path. CUTOFF: this position covers only runs whose recorded source commit is "
+    "at or after f00dd46; any artifact generated before it, and any textured artifact whatever its commit, was "
+    "produced by the Hunyuan-derived code and keeps the pre-fork status until it is regenerated [S131]. Residual "
+    "items, none of them blocking the tooling itself: the served visual encoder instantiates its CLIP and DINOv2 "
+    "classes from the configuration files of openai/clip-vit-large-patch14, which declares no licence, and "
+    "facebook/dinov2-with-registers-large (Apache-2.0), while the trained weights come from the Apache-2.0 "
+    "Step1X-3D checkpoint, so no OpenAI or Meta weight file is downloaded or redistributed [S131]; the "
+    "published Step1X-3D weights derive from Objaverse and "
+    "Objaverse-XL with heterogeneous per-asset licences that upstream never resolved [S123]; and the licence of the "
+    "image generator used for step one is fixed per SKU, not here."
 )
 MESH_QUALITY_GATE = (
     "Generative mesh gate before any print or file release [S122][S128][S129][S130]: manifold and hole repair, "
@@ -613,7 +622,7 @@ def build_rows() -> list[dict[str, object]]:
             raise ValueError(f"{sku_id} has an invalid G2 evidence gate: {g2}")
         hard_gates = (
             f"G0 PASS; G1 PASS; G2 {g2}; G3 FAIL; G4 PASS; G5 PASS; G6 PASS; "
-            "TOOL-LICENCE FAIL (Step1X-3D EU licence conflict)"
+            "TOOL-LICENCE WARN (owned fork; weight-licence and disclosure items open)"
         )
 
         row = {
@@ -645,8 +654,8 @@ def build_rows() -> list[dict[str, object]]:
             "Source_IDs": item["sources"],
             "Design_Status": "P0 research backlog",
             "Next_Gate": (
-                "Resolve the Step1X-3D licence conflict for EU commercial use first [S125][S126]; then: "
-                + str(item.get("gate") or group["gate"])
+                "Fix the image-generator licence for this SKU and satisfy the AI-disclosure duty before release "
+                "[S131][S119]; then: " + str(item.get("gate") or group["gate"])
             ),
             "Notes": NOTES,
             "Trend_Source_Strength_0_30": strength,

@@ -11,6 +11,25 @@ Build an evidence-backed commercial release package for a 3D model file, a print
 
 Treat this as a structured compliance workflow, not legal advice or a promise of worldwide clearance. Use primary law and current official terms for the seller, target markets, product category, sales channel, and exact tool plan. Escalate regulated, safety-critical, patent-sensitive, disputed, or high-value releases to qualified counsel and testing bodies.
 
+## Generative tooling licence status (2026-09-04)
+
+Step1X-3D runs from the owned fork `github.com/stefanjunk/Step1X-3D`, which removed the Tencent
+Hunyuan-derived code that excluded the European Union, the Stable Diffusion XL CreativeML Open
+RAIL++-M flow-down duty, and every copyleft dependency from the inference path. No component in the
+current inference path forbids EU commercial use.
+
+When clearing a generatively produced product, still check:
+
+- the run record's source commit — only runs at or after fork commit `f00dd46` are covered, and any
+  textured artifact predates the cleanup by definition;
+- the licence of the image generator used for step one, which is a per-SKU decision;
+- the AI-origin disclosure on the listing and in the file package;
+- that the delivered licence rests on the human CAD work and the contract, not on an assumed
+  copyright in the raw generated mesh.
+
+Evidence and the full component inventory:
+`business/06-legal-compliance/generative-tooling-licence-audit.md`.
+
 ## Register a New Portfolio Product First
 
 Inside the `3d_models` workspace, a new independently managed product must

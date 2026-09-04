@@ -1,6 +1,6 @@
 ---
 name: step1x-image-to-3d
-description: Generate geometry and textured GLB drafts from a single isolated image with the local two-GPU Step1X-3D service, preserve reproducible run evidence, and route the mesh into functional CAD, organic-mesh post-processing, printable STL/3MF, or multicolor workflows. Use when an agent should create a whole appearance-led object, an organic component, or a sacrificial preform with imagegen and Step1X-3D before adding exact holes, channels, mounts, threads, backers, or interfaces.
+description: Generate untextured geometry GLB drafts from a single isolated image with the local two-GPU Step1X-3D service (the owned fork is geometry-only; the texture stage was removed for licence reasons), preserve reproducible run evidence, and route the mesh into functional CAD, organic-mesh post-processing, printable STL/3MF, or multicolor workflows. Use when an agent should create a whole appearance-led object, an organic component, or a sacrificial preform with imagegen and Step1X-3D before adding exact holes, channels, mounts, threads, backers, or interfaces.
 license: MIT
 metadata:
   audience: "functional 3D design agents"
@@ -13,6 +13,32 @@ metadata:
 Use Step1X as a generative mesh provider inside the existing functional-design workflow. It proposes appearance-led 3D geometry from one image; it does not own dimensions, functional interfaces, safety, manufacturing acceptance, or commercial clearance.
 
 Resolve every bundled path relative to this `SKILL.md`. Keep references unloaded until their decision point.
+
+## Tooling licence status (2026-09-04)
+
+The service runs from the owned fork `github.com/stefanjunk/Step1X-3D`, not from upstream, and it is
+**geometry only**. Read this before planning a run:
+
+- **No texture stage.** `step1x3d_texture/` was deleted, so there is no textured GLB output and no
+  Stable Diffusion XL dependency. Assign colour downstream in CAD or in the slicer, and route
+  multicolour work through `multicolor-fdm-design` from geometry plus colour solids, not from a
+  generated texture.
+- **Why:** eleven of the twelve files carrying a Tencent Hunyuan non-commercial licence header left
+  with that stage, and the twelfth — the volume decoder every geometry run executes — was replaced by
+  an independent implementation (fork commit `f00dd46`). That upstream licence excludes the European
+  Union from its territory and reaches the *output*, so it blocked commercial use. pymeshlab
+  (GPL-3.0), plyfile, easydict, pytorch3d, kaolin and nvdiffrast also left the inference path.
+- **Cutoff that matters for existing artifacts:** only runs whose recorded source commit is at or
+  after `f00dd46` inherit the cleared position. Anything generated before it, and any textured
+  artifact whatever its commit, was produced by the Hunyuan-derived code and keeps the pre-fork
+  status until regenerated. Derived meshes, released STL/3MF and G-code inherit their source's
+  status. Check the run record before reusing an older raw GLB.
+- **Still open, and owned by `commercialize-3d-models`:** the image generator's own licence is fixed
+  per SKU, the AI-origin disclosure duty applies per listing, and the published weights'
+  Objaverse/Objaverse-XL training-data provenance is unresolved upstream.
+
+Full component inventory and evidence:
+`business/06-legal-compliance/generative-tooling-licence-audit.md`.
 
 ## Ownership and routing
 

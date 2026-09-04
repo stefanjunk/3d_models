@@ -89,8 +89,8 @@ Apache-2.0, `openai/CLIP` MIT, `huggingface/diffusers` Apache-2.0.
 | Weights | Licence as read (HF model API) | Path | Note |
 | --- | --- | --- | --- |
 | `stepfun-ai/Step1X-3D` | `apache-2.0` | geometry + texture | — |
-| `facebook/dinov2-with-registers-large` | `apache-2.0` | geometry conditioning | Upstream DINOv2 repo also Apache-2.0 |
-| `openai/clip-vit-large-patch14` | **no licence declared on the model card** | geometry conditioning | Upstream CLIP *code* repo is MIT; the weights' own terms are UNVERIFIED |
+| `facebook/dinov2-with-registers-large` | `apache-2.0` | geometry conditioning — configuration only | Cache holds `config.json` and `preprocessor_config.json` (20 KB); weights come from the Step1X-3D checkpoint |
+| `openai/clip-vit-large-patch14` | **no licence declared on the model card** | geometry conditioning — **configuration only** | The local cache holds only `config.json` (16 KB). The encoder class is instantiated from that configuration and the trained weights come from the Apache-2.0 Step1X-3D checkpoint, so no OpenAI weight file is downloaded or redistributed |
 | `stabilityai/stable-diffusion-xl-base-1.0` | `openrail++` | texture (`IG2MVSDXLPipeline` base model) | Use-based restrictions, mandatory flow-down |
 | `madebyollin/sdxl-vae-fp16-fix` | `mit` | texture VAE | — |
 | `ZhengPeng7/BiRefNet` | `mit` | background removal | — |
@@ -155,9 +155,10 @@ Ordered by what unblocks the most.
 4. **Diff the two conditional-encoder files against `facebookresearch/DiT`** (CC BY-NC 4.0) and
    record whether copied expression is present. If it is, that file needs the same treatment as
    item 3 before any commercial use.
-5. **Resolve the `openai/clip-vit-large-patch14` weight terms.** The model card declares no licence.
-   Record what the card and repository files actually say; do not rely on the MIT licence of the
-   upstream CLIP code repository as if it covered the weights.
+5. **`openai/clip-vit-large-patch14` — resolved as far as it needs to be.** The model card declares no
+   licence, but the repository supplies only `config.json` to this pipeline; the trained weights are
+   the Apache-2.0 checkpoint's own. Record the finding; no further action unless a future
+   configuration switches to `CLIPModel.from_pretrained`, which would download real weights.
 6. **If texture stays: add the RAIL++-M use restrictions to the customer terms** as an enforceable
    clause with a flow-down obligation on resellers, and check whether
    `scheduling_shift_snr.py:99` can execute — the referenced Stable Diffusion 1.5 repository no
@@ -207,21 +208,55 @@ commit `cb5ac94`. Five commits change what actually executes:
 
 ### What remains open
 
-- **`openai/clip-vit-large-patch14` declares no licence** on its model card; the weights' terms are still unresolved (check 5).
+- **`openai/clip-vit-large-patch14` declares no licence** on its model card. Materially reduced on 2026-09-04: the
+  local cache proves that repository contributes a 16 KB `config.json` and nothing else, because
+  `dinov2_clip_encoder.py` instantiates the class from configuration and loads the trained weights from the
+  Apache-2.0 Step1X-3D checkpoint's 2.8 GB `visual_encoder`. What remains is a dependency on an undeclared-licence
+  *configuration file*, not on an undeclared-licence trained artifact — and it is not redistributed.
 - **StepFun has not been asked** whether the Hunyuan headers were stale (check 2). This no longer blocks use; it decides whether upstream can be merged again.
 - **Image-generator licence per SKU** (check 11) and the **alternative-model fallback** (check 12).
 - **Training-data provenance** of the published weights (Objaverse / Objaverse-XL) — an upstream question we cannot close.
 - **EU AI Act marking, GPSR article text and platform AI policies** remain UNVERIFIED from the research pass.
 
-### Consequence for the portfolio that is not yet applied
+### Consequence applied to the portfolio
 
-The 100 generative rows `SKU-315`–`SKU-414` still carry the pre-fork gate text in
-`Idea__Generative_Tool_Licence_Gate` and a failing `TOOL-LICENCE` entry in `Hard_Gates`. That text
-describes a runtime that no longer exists. It is deliberately left unchanged until a decision is
-taken on how the residual items above should be reflected, because the honest replacement is not
-"gate closed" but a narrower gate covering the CLIP weight terms, the AI-transparency duty and the
-per-SKU image-generator licence. Regenerating the block with the narrower wording is a one-command
-change once that wording is agreed.
+The 100 generative rows `SKU-315`–`SKU-414` were regenerated on 2026-09-04. Their `Hard_Gates` now
+read `TOOL-LICENCE WARN (owned fork; weight-licence and disclosure items open)` instead of a failing
+gate, `Idea__Generative_Tool_Licence_Gate` describes the fork and names the residual items, and
+`Next_Gate` asks for the `openai/clip-vit-large-patch14` weight terms and the AI-disclosure duty
+before release. Source record `S131` carries the fork and runtime-inventory evidence. The gate is
+kept as a recorded `WARN` rather than removed, so that it returns to `FAIL` if a tool with a
+non-commercial or territorially limited licence re-enters the pipeline; both the workbook validator
+and the preflight-estimate builder now require it to be present as exactly one of `WARN` or `FAIL`.
+
+### The cutoff: what the de-escalation does *not* cover
+
+The `WARN` position describes the tooling as it stands, not every artifact ever produced with it.
+The fork's own history makes the boundary exact:
+
+| Commit | Effect |
+| --- | --- |
+| `f19046a` | Two-GPU packaging only. `volume_decoders.py` still opens with the verbatim Tencent Hunyuan header, and the geometry VAE executes it. |
+| `f00dd46` | The geometry decoder is replaced. **This is the cutoff for geometry-only runs.** |
+| `2433849` | The texture stage and its eleven Hunyuan-headed files are deleted. |
+
+Therefore:
+
+- a **geometry artifact** inherits the `WARN` position only if its recorded source commit is at or
+  after `f00dd46`;
+- a **textured artifact** never inherits it, whatever its commit, because the texture path itself was
+  the Hunyuan-derived code — and it cannot simply be regenerated, since the fork no longer has that
+  stage;
+- anything derived from such an artifact — repaired meshes, released STL/3MF, G-code — carries the
+  same status as its source.
+
+Any existing product package whose Step1X run predates `f00dd46` keeps its pre-fork status until it
+is regenerated, and regenerating changes the mesh, because `5a23ee7` also changed which mesh the
+service exports. That is a per-product decision recorded in the product's own rights record, not
+something this gate resolves.
+
+A grep for the Hunyuan licence string still matches `volume_decoders.py`, `FORK.md` and `NOTICE` at
+the fork's HEAD. In all three the match is prose describing what was removed, not a licence header.
 
 ## 6. Evidence pins
 

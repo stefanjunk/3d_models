@@ -252,8 +252,8 @@ def generative_research_row(source: dict[str, str]) -> dict[str, str]:
         raise ValueError(f"Generative research row does not exceed trend score 70: {sku_id}")
     if source["Current_Lane"] != "E" or "G3 FAIL" not in source["Hard_Gates"]:
         raise ValueError(f"Generative research row must remain Lane E while the process gate is open: {sku_id}")
-    if "TOOL-LICENCE FAIL" not in source["Hard_Gates"]:
-        raise ValueError(f"Generative research row must keep the tooling-licence gate open: {sku_id}")
+    if not any(f"TOOL-LICENCE {state}" in source["Hard_Gates"] for state in ("WARN", "FAIL")):
+        raise ValueError(f"Generative research row must record the tooling-licence gate: {sku_id}")
     if source["Design_Release"] != "CONCEPT_ONLY":
         raise ValueError(f"Generative research row bypasses the concept-only gate: {sku_id}")
     expected_lane = target_lane(source["Complexity"], source["Criticality"])

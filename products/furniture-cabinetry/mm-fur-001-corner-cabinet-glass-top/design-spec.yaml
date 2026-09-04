@@ -1,0 +1,362 @@
+# MM-FUR-001 — design specification, revision 0.1.0
+#
+# ############################################################################ #
+# SCHEMA NOTE — READ FIRST
+# This repository's design-spec schema is written for FDM printing. It requires
+# a `printer.build_volume_mm`, a `manufacturing.nozzle_mm` and `branding`.
+# THIS PRODUCT HAS NO PRINTER, NO NOZZLE AND NO MESH. Rather than leave the
+# required fields blank or invent plausible FDM values, they are filled with
+# explicitly labelled surrogates from the real process and every surrogate is
+# named as such on the line below it. See decision-log.md, entry D-13.
+# ############################################################################ #
+
+project:
+  id: MM-FUR-001
+  sku: MM-FUR-001
+  name: Corner cabinet with glass display top (Eckkommode)
+  source_path: products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-113
+  rights_workspace: commercial-clearance/project.json
+  revision: 0.1.0
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PF-MM-FUR-001-2026-09-04-001
+    assessment_version: 1.0.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-04T21:09:58Z"   # quoted: YAML would otherwise parse it as a datetime
+    change_triggers:
+      - initial_design
+      - portfolio_registration
+      - license_chain_initialization
+  requirements_approval:
+    status: pending
+    spec_revision: 0.1.0
+    approved_by: null
+    approved_at: null
+    note: >
+      Requirements were synthesized from the owner brief of 2026-09-04 and are
+      classified below as user-stated / inferred / recommended / unresolved.
+      Human approval is required; no agent may record it.
+  concept_approval:
+    status: blocked
+    spec_revision: 0.1.0
+    asset: renders/concept-r1/MM-FUR-001-concept-r1.png
+    approved_by: null
+    approved_at: null
+    note: >
+      BLOCKED because the requirements gate is not approved yet. PROCESS DEVIATION,
+      recorded honestly: the owner brief explicitly asked for a concept image, so one
+      draft image was generated in the same phase as the requirements synthesis
+      rather than after requirements approval. It is a draft for review, not an
+      approved concept. It matches the specified architecture on every checked
+      feature. Image proportions are NOT authoritative; exports/cut-list.csv and
+      exports/drill-plan.csv are. Provenance in evidence/imagegen-record.json.
+  watermark_approval:
+    status: blocked
+    spec_revision: 0.1.0
+    geometry_revision: 0.1.0
+    asset_id: MM-WM-001-R2
+    product_id: MM-FUR-001
+    version: 0.1.0
+    generated_profile: null
+    manifest_asset: null
+    placement: null
+    preview_asset: null
+    validation_asset: null
+    physical_test_asset: null
+    layout_tier: null
+    domain_visible: null
+    approved_by: null
+    approved_at: null
+    note: >
+      BLOCKED and expected to stay blocked for this revision. The marking skill
+      owns a recessed mark for printed parts; on a painted timber panel the
+      equivalent would be engraved or branded and is not designed here. There is
+      also no commercial release for this product, so no release gate is open.
+
+branding:
+  required: true            # schema const; see the note in watermark_approval
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-FUR-001
+  version: 0.1.0
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4              # schema default. NOT APPLICABLE: this is an FDM recess
+                             # depth. No mark is designed for a painted timber panel
+                             # in revision 0.1.0; the marking gate stays blocked.
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+
+function:
+  summary: >
+    A 1000 mm high pentagonal corner cabinet for a right-angled niche with two
+    nominally 1 m walls. One flat 45 deg diagonal front, 883.9 mm wide, carries
+    four identical 440 x 439 x 18 mm doors in a 2 x 2 grid on half-overlay 35 mm
+    cup hinges mounted on the central partition, so both doors of a row open
+    outward from the centre and the 90 deg open envelope stays inside the niche.
+    A fixed mid shelf gives two 423 mm compartments. Six adjustable 100 mm feet
+    keep the lower doors off the floor. A flat, hole-free timber top plate at
+    exactly 1000 mm carries a loose five-sided 6 mm ESG glass plate; flat paper
+    is displayed between the two.
+  key_dimensions_mm:
+    carcass_leg_along_each_wall: 965
+    diagonal_front_width: 883.9
+    depth_on_the_corner_bisector: 923
+    total_height_to_top_of_timber_plate: 1000
+    height_including_glass: 1006
+    door: [440, 439, 18]
+    door_overlay_on_the_18mm_partition: 7.5
+    compartment_clear_height: 423
+    foot_height: 100
+    panel_thickness: 18
+    glass_thickness: 6
+    outermost_point_of_the_closed_cabinet_from_the_corner: 987.7
+    door_tip_at_90_deg_open: [972.6, 974.7]
+  requirements:
+    user-stated:
+      - Total height 1000 mm; flat top timber plate at that height.
+      - Fits a right-angled niche, each wall 1 m wide.
+      - Four doors on the front, 2 x 2, all approximately equal.
+      - One shelf between the upper and lower rows.
+      - Feet at the bottom so the lower doors do not stand on the floor.
+      - Glass plate resting directly on the top plate, paper displayed between.
+      - White real wood.
+      - "Deliverables: concept image, BOM, panel sizes with holes, hinges,
+        handles, feet, glass, wood type."
+      - Manufacturing route is a DIY-store cutting service, not 3D printing.
+    inferred:
+      - Single flat diagonal front, hence a pentagonal footprint. A coherent 2 x 2
+        door grid on one plane admits no other footprint.
+      - Doors hinge on the centre partition. End hinging would throw the 90 deg
+        door tip to 1299 mm from the corner, outside the niche; centre hinging
+        keeps it at 973 mm.
+      - The mid shelf is fixed at the door-division height and is structural.
+      - Opaque satin white lacquer rather than a white glaze, so the top plate is
+        a clean, flat background for the cards.
+    recommended:
+      - 18 mm birch plywood for every panel. Flatness under the rigid glass plate
+        is a functional requirement and cross-banded plywood holds it; softwood
+        glued panel is offered as variant B with its caveats stated.
+      - 6 mm ESG rather than 4 mm, with polished edges and ground corners.
+      - One panel thickness throughout, so one material order and one drill regime.
+      - Six feet rather than four, because the pentagon is large and the load path
+        should land under the vertical panels.
+    unresolved:
+      - "The real niche: both wall widths, corner angle, wall flatness. BLOCKING."
+      - Skirting board presence, thickness and height. BLOCKING.
+      - Floor level and covering; foot load rating.
+      - The concrete cup-hinge article and whether its half-overlay range covers
+        7.5 mm on an 18 mm partition.
+      - Whether the chosen store will perform the three 45 deg diagonal cuts.
+      - Whether children have access, which decides the anti-tip bracket.
+
+risk:
+  class: structural
+  rationale: >
+    The unit carries about 81 kg of its own mass plus contents through 18 mm
+    panels into six adjustable feet, and holds an 11 kg glass plate at hand
+    height. Criticality is K2: controlled physical checks are required, but no
+    regulated or expert-review domain is involved.
+
+fabrication:
+  preference: standard-hardware
+  rationale: >
+    Hinges, handles, feet, brackets, screws and the glass are all purchased.
+    Only the flat timber panels are made to measure.
+
+printer:
+  build_volume_mm: [2500, 1250, 18]
+  SURROGATE_NOTE: >
+    NOT A PRINTER. This is the maximum panel-stock envelope of the cutting route:
+    a 2500 x 1250 mm birch plywood sheet at 18 mm, and Bauhaus 'Leimholzplatte
+    nach Mass' spruce up to 2500 x 1220 mm at 18 mm. The largest part, the
+    965 x 965 mm pentagon blank, fits both.
+
+manufacturing:
+  material: >
+    Variant A (specified): birch plywood 18 mm (Multiplexplatte Birke), E1,
+    BB/CP or better. Variant B (alternative): glued solid spruce/pine panel
+    18 mm (Leimholzplatte Fichte/Kiefer) A/B. Finish for both: white filler,
+    adhesion primer (shellac-based knot blocker for variant B), two coats of
+    white satin acrylic furniture lacquer, both faces and all edges.
+  nozzle_mm: 4.0
+  SURROGATE_NOTE: >
+    NOT A NOZZLE. 4.0 mm is the assumed panel-saw kerf, which is the real
+    process allowance this product needs. There is no extrusion in this product.
+  process: DIY-store panel cutting service plus hand assembly
+  process_limits:
+    cut_tolerance_mm: 1.0
+    squareness_check: diagonal-to-diagonal on every blank before assembly
+    minimum_cut_part_mm: [100, 230]      # Hornbach stated minimum
+    non_90_degree_cuts: 3                # P01, P02, P08 - one straight cut each
+    diagonal_cut_availability: market-dependent; guide-rail fallback documented
+  cut_list: exports/cut-list.csv
+  drill_plan: exports/drill-plan.csv
+  layout_lines: exports/layout-lines.csv
+  geometry_checks: exports/geometry-checks.json   # 17/17 PASS, source/checks.py
+  outlines: exports/dxf/
+  fdm_gates_not_applicable:
+    calibration_gate: not-applicable — no printed fit, no nozzle/material/machine identity
+    slicer_dry_run: not-applicable — no mesh and no G-code exists
+    mesh_simplification: not-applicable — STEP/STL are visualization outputs only
+    print_vs_buy: applied — every wear, precision and safety component is purchased
+
+optimization:
+  status: not-applicable
+  baseline_slicer_report: null
+  selected_variant: null
+  comparison_report: null
+  rationale: >
+    There is no slicer and no print time to optimize. Material efficiency was
+    nevertheless decided explicitly: the three pentagon panels are each produced
+    by ONE straight cut from a square blank, which is the minimum possible
+    non-rectangular cutting effort, and it costs 0.563 m2 of offcut out of
+    6.084 m2 of blank. Per-piece cut-to-size ordering is recommended over full
+    sheets because guillotine nesting of three ~950 mm wide pentagon blanks
+    reaches only about 49 % sheet utilisation.
+  mesh_simplification:
+    status: not-applicable
+    master_mesh: exports/MM-FUR-001-assembly.step
+    manufacturing_mesh: null
+    method: null
+    tolerance_mm: null
+    protected_regions:
+      - "not applicable: no mesh is used for manufacturing. The STEP/STL assembly
+         is a visualization and collision-check artifact only; the flat panel
+         outlines in exports/dxf/ are the manufacturing geometry."
+    comparison_report: null
+    resource_budget: null
+    slicer_resolution_check:
+      status: not-applicable
+      report: null
+    rationale: >
+      Manufacturing geometry for this product is 2D panel outlines plus a hole
+      table, not a triangle mesh. Nothing is simplified, so nothing is lost.
+
+loads:
+  # All values are DESIGN ASSUMPTIONS. None has been measured or tested; every
+  # one of them is an open acceptance criterion (A-04, A-08, A-09).
+  self_mass_kg: 81.3                 # 18 mm birch plywood panels 67.4 + glass 10.9 + hardware ~3
+  glass_plate_kg: 10.9               # 0.729 m2 of 6 mm ESG, computed
+  feet: 6
+  load_per_foot_kg_nominal: 13.6     # self mass only, evenly shared
+  foot_rating_required_kg: 50        # per foot, from the supplier datasheet; UNSELECTED
+  mid_shelf_design_load_kg: 25       # uniformly distributed, assumed
+  mid_shelf_longest_unsupported_field_mm: 450
+  top_plate_incidental_point_load_kg: 40   # someone leaning on the display top
+  top_plate_longest_unsupported_field_mm: 450
+  door_leaf_kg_each: 3.5             # 0.193 m2 of 18 mm plywood plus handle
+  hinges_per_door: 2
+  tip_over_check_N: 200              # downward, at the outer end of a fully open lower door
+  environment:
+    service: indoor, heated, dry
+    relative_humidity_assumed_pct: [30, 65]   # UNMEASURED
+    thermal_or_fluid_load: none
+  not_a_load_path:
+    - "The walls of the niche. The carcass is self-supporting; the optional anti-tip
+       bracket is a safety measure, not structure."
+    - "The glass plate. It is loose and carries only itself and hand pressure."
+
+test_plan: design-spec.yaml#acceptance
+geometry_checks:
+  artifact: exports/geometry-checks.json
+  generator: source/checks.py
+  result: 17 of 17 PASS
+  scope: >
+    GEOMETRY ONLY: internal consistency and buildability of the generated drawing
+    set. It found and closed two real defects in the first run - the P03 and P05
+    panels were placed 18 mm inboard (inverted thickness direction), which made
+    them interpenetrate P04/P06 and the mid shelf. It says nothing about the real
+    niche, the floor, timber flatness or strength.
+test_plan_note: >
+  The verification ladder for this product is the ten acceptance criteria in this
+  file, all NOT_RUN. A-01 (measurement gate), A-02, A-03, A-04, A-05, A-06, A-07
+  and A-09 are blocking. There is no simulation and no coupon print, because the
+  dominant uncertainties are the unmeasured host niche and long-term timber
+  moisture movement, neither of which a simulation would resolve.
+
+acceptance:
+  - id: A-01
+    criterion: >
+      MEASUREMENT GATE. Both niche wall widths, the corner angle, wall flatness
+      over 1 m, skirting thickness/height and floor level are measured and
+      recorded; source/params.yaml carries the measured values and the generator
+      has been re-run.
+    method: measurement
+    status: NOT_RUN
+    blocking: true
+  - id: A-02
+    criterion: >
+      Every delivered blank is within +/- 1 mm of the cut list and square within
+      1 mm measured diagonal-to-diagonal.
+    method: inspection
+    status: NOT_RUN
+    blocking: true
+  - id: A-03
+    criterion: >
+      Assembled carcass slides into the niche with the diagonal front parallel to
+      the niche mouth, and no point of the closed cabinet including door thickness
+      exceeds the measured 1 m mark on either wall.
+    method: demonstration
+    status: NOT_RUN
+    blocking: true
+  - id: A-04
+    criterion: >
+      Top plate level within 1 mm/m in two directions after levelling the six
+      feet, and no rocking under a 200 N push on the front edge.
+    method: measurement
+    status: NOT_RUN
+    blocking: true
+  - id: A-05
+    criterion: >
+      Top plate flat within 1.0 mm over any 900 mm span, measured with a
+      straightedge AFTER painting and BEFORE the glass is ordered.
+    method: measurement
+    status: NOT_RUN
+    blocking: true
+  - id: A-06
+    criterion: >
+      All four doors: reveal 3 mm +/- 1 mm on every edge, each door opens to at
+      least 90 deg with no contact to its neighbour or the carcass, and no cup or
+      mounting-plate hole breaks through any panel face.
+    method: prototype_test
+    status: NOT_RUN
+    blocking: true
+  - id: A-07
+    criterion: >
+      Glass supplied as ESG with polished edges and ground/radiused corners,
+      confirmed on the order and the delivery note; gap to the top-plate edge
+      1-3 mm all round; plate does not move under a 20 N horizontal push.
+    method: inspection
+    status: NOT_RUN
+    blocking: true
+  - id: A-08
+    criterion: >
+      Mid shelf carries 25 kg uniformly with residual deflection <= 1 mm 24 h
+      after unloading, and the upper partition remains vertical within 1 mm/m.
+    method: test_coupon
+    status: NOT_RUN
+    blocking: false
+  - id: A-09
+    criterion: >
+      Empty cabinet does not tip under a 200 N downward force at the outer end of
+      a fully open lower door. If children have access, an anti-tip bracket is
+      fitted and recorded.
+    method: demonstration
+    status: NOT_RUN
+    blocking: true
+  - id: A-10
+    criterion: >
+      Both faces and all edges of every panel are sealed before assembly
+      (inspection), and the top plate is re-checked for flatness after one
+      heating season.
+    method: inspection
+    status: NOT_RUN
+    blocking: false

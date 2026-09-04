@@ -2,15 +2,21 @@
 
 ## Outcome
 
-- Products audited: **109**
-- Explicit `PURPOSE.md` documents: **109**
-- Retrospective preflight document sets: **109**
+- Products audited: **110**
+- Explicit `PURPOSE.md` documents: **110**
+- Retrospective preflight document sets: **110**
 - Older/legacy entries moved into product-local `archive/`: **42**
 - Roots requiring human review because of pre-existing dirty or ambiguous content: **3**
 
 Every preflight is a current retrospective assessment of repository evidence,
 not a reconstruction of the state before design began. A `HOLD` is an explicit
 result, not a validation failure of the document.
+
+
+MM-FUR-001 is a 2026-09-04 addition with a PROSPECTIVE preflight, appended by
+hand: it is the first product in the new `furniture-cabinetry` family, and its
+manufacturing route is timber panel cutting rather than FDM printing, so its
+`CONCEPT_ONLY` release state reflects an unmeasured host niche, not a printing gate.
 
 ## Root review exceptions
 
@@ -40,6 +46,7 @@ result, not a validation failure of the document.
 | `art-decor/mm-auto-001-opel-grandland-2018-mesh` | C1 (15.5) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-001-marble-tile` | C2 (37.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-002-roman-pillar` | C3 (42.8) | R1 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top` | C3 (55.75) | R1 | K2 | E | CONCEPT_ONLY | CLEAN_OR_NO_VERSION_CONFLICT |
 | `furniture-systems/mm-sys-001-alex-inventory-workplace-tray` | C2 (39.0) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `furniture-systems/mm-sys-002-bror-tool-shadow-tray` | C2 (39.0) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid` | C3 (40.0) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |

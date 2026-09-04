@@ -96,6 +96,9 @@ CATEGORY_TREND_FAMILY: dict[str, str | None] = {
     "System-furniture media accessory": "Physical-media organization",
     "System-furniture rail": "Modular pegboard & wall-storage ecosystems",
     "System-furniture cable accessory": "Cable-management systems",
+    # A generative appearance shell does not change the customer job: SKU-331 cites the
+    # cable-management family directly as its verified trend source, so it maps there.
+    "Generative desk cable organization": "Cable-management systems",
     # Dry organization and exact-fit storage.
     "Exact-fit storage": "Exact-fit shelf organization",
     "Desk organizer": "Custom desk & drawer organizers",
@@ -140,6 +143,10 @@ CATEGORY_TREND_FAMILY: dict[str, str | None] = {
     "Garden water system": None,
     "Food-contact household item": None,
     "Aroma-diffuser concept": None,
+    # Built timber furniture cut by a panel service. Every research trend family in
+    # this repository surveys 3D-printed products, so none of them is a truthful
+    # comparator for a cut-list cabinet. Reviewed decision: no research family.
+    "Solid-wood corner cabinet, cut-list furniture": None,
 }
 
 # No research family cites a primary source for the category, so the product starts

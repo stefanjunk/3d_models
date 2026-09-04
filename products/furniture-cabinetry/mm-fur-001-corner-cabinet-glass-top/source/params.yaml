@@ -1,0 +1,66 @@
+# MM-FUR-001 revision 0.1.0 — single source of truth for every derived dimension.
+# EVERY value in exports/ is computed from this file by source/corner_cabinet.py.
+# Values marked MEASURE are placeholders for the nominal niche and MUST be
+# replaced with measured values before any panel is cut (preflight gate G2).
+
+niche:
+  wall_1_mm: 1000.0        # MEASURE — width of wall 1 of the niche
+  wall_2_mm: 1000.0        # MEASURE — width of wall 2 of the niche
+  corner_angle_deg: 90.0   # MEASURE — assumed exactly square
+  back_gap_mm: 10.0        # MEASURE-DEPENDENT — rear clearance per wall.
+                           # Set to skirting thickness + 3 mm if a skirting board stays.
+  end_gap_mm: 25.0         # clearance from the corner-measured 1 m mark to the
+                           # carcass end. Sized so the 18 mm door, which projects
+                           # beyond the front plane, still stays inside 1000 mm.
+
+panel:
+  thickness_mm: 18.0
+  material_primary: birch plywood 18 mm (Multiplex Birke)
+  material_alternative: glued solid spruce/pine panel 18 mm (Leimholzplatte Fichte/Kiefer)
+  density_primary_kg_per_m2: 12.2
+  density_alternative_kg_per_m2: 8.3
+
+heights:
+  total_mm: 1000.0         # top face of the timber top plate (owner requirement)
+  foot_mm: 100.0           # clear height under the bottom panel
+
+footprint:
+  side_return_mm: 340.0    # short return at each end of the diagonal front
+  partition_depth_mm: 450.0
+
+doors:
+  gap_horizontal_mm: 3.0   # between left and right door
+  gap_vertical_mm: 3.0     # between upper and lower door
+  bottom_clearance_mm: 1.0 # lower door bottom above the bottom-panel underside
+  hinge_edge_inset_mm: 22.5   # cup centre from the hinge edge (17.5 + C=5)
+  cup_diameter_mm: 35.0
+  cup_depth_mm: 12.5
+  cup_from_end_left_mm: 72.0  # left-hand doors: cup centre from each door end
+  cup_from_end_right_mm: 88.0 # right-hand doors: offset by 16 mm so mounting-plate
+                              # holes on the two partition faces never coincide
+  plate_from_front_mm: 37.0   # System 32
+  plate_pitch_mm: 32.0        # System 32
+  plate_hole_dia_mm: 5.0
+  plate_hole_depth_mm: 10.0
+  handle_hole_pitch_mm: 128.0
+  handle_from_outer_edge_mm: 40.0
+  handle_hole_dia_mm: 5.0
+
+shelf:
+  clearance_mm: 1.0        # mid-shelf clearance to surrounding panel inner faces
+
+glass:
+  thickness_mm: 6.0
+  inset_mm: 2.0            # inward offset from the top-plate outline
+  density_kg_per_m2: 15.0
+  type: ESG (toughened), polished edges, ground/radiused corners
+
+hardware:
+  batten_mm: 20.0          # square softwood batten for shelf and corner joints
+  foot_count: 6
+  foot_plate_pattern_mm: 40.0   # screw square on the foot mounting plate
+
+stock:
+  sheet_length_mm: 2500.0  # birch plywood sheet
+  sheet_width_mm: 1250.0
+  saw_kerf_mm: 4.0

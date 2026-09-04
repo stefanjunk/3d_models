@@ -1,0 +1,58 @@
+{
+  "record_type": "imagegen-record",
+  "product": "MM-FUR-001",
+  "revision": "0.1.0",
+  "purpose": "Concept-gate visualization only. NOT used as geometry, Step1X, photogrammetry or measurement input. No dimension in this product is derived from this image.",
+  "generator": {
+    "service": "OpenAI gpt-image via Codex CLI built-in tool image_gen__imagegen",
+    "driver": "codex exec --json --skip-git-repo-check",
+    "codex_auth_mode": "chatgpt",
+    "api_key_stored": false,
+    "call_mode": "text prompt only; referenced_image_paths NOT used, so no repository file was uploaded",
+    "parameters_available": "prompt only; there is no size, background or output_format parameter"
+  },
+  "codex_thread_id": "01a06e43-1154-7343-b79e-fe584ced80f8",
+  "generated_at_local": "2026-09-04T23:12:15",
+  "located_by": "snapshot diff of ~/.codex/generated_images taken before and after the run (61 files before, 62 after); the single new file was under the run's own thread directory",
+  "source_path_uncontrollable": "/home/stefan/.codex/generated_images/01a06e43-1154-7343-b79e-fe584ced80f8/exec-196dfdf3-d7e4-497f-ae05-e92baa554f04.png",
+  "candidates_generated": 1,
+  "candidates_rejected": 0,
+  "selection_rationale": "Single candidate. It matches the specified architecture on every checked feature: pentagonal corner footprint with one flat diagonal front, four equal flat slab doors in a 2x2 grid with narrow shadow-gap reveals, four vertical bow handles on the OUTER door edges (which is the visual signature of the centre-hinged layout), a flat white top plate forming a rim above the doors, a separate glass plate lying on it with postcards visible underneath, and six slender black adjustable feet holding the lower doors clear of the floor. One candidate was sufficient, and the Codex auth and rate limit are shared with other local sessions.",
+  "known_deviations_from_cad": [
+    "Perspective proportions are not to scale. The image reads shallower than the 933 mm design depth.",
+    "The glass appears flush with or slightly proud of the top-plate edge; the CAD insets it by 2 mm.",
+    "Feet appear at slightly different positions than the six computed centres.",
+    "Image labels and proportions are not authoritative. exports/cut-list.csv and exports/drill-plan.csv are."
+  ],
+  "alpha_preprocessing": {
+    "performed": false,
+    "reason": "The mandatory deterministic alpha step applies to plates used as Step1X or other geometry input. This plate is a concept-gate render only, so no background keying was needed and no rembg/U2Net entered any tool chain.",
+    "checkerboard_requested": false
+  },
+  "terms_basis": {
+    "plan": "Owner ChatGPT Pro subscription (owner-stated 2026-09-04)",
+    "applicable_terms": "ChatGPT plan terms plus the Codex CLI layer, NOT the OpenAI API terms",
+    "commercial_use_of_output": "UNVERIFIED — recorded as such; no clearance is asserted"
+  },
+  "artifacts": {
+    "MM-FUR-001-concept-r1.png": {
+      "sha256": "c69596ff7030f7f20d853791864b59a6c7febe0e9852a05d421d9246ce74776c",
+      "bytes": 1537861,
+      "pixels": "1313 x 1198",
+      "mode": "RGB (8-bit, no alpha channel)"
+    },
+    "imagegen-prompt.txt": {
+      "sha256": "d8e44d32991a8be669a51ec9c11828f5dbe963f03c3bea2ab6341708fb8160ff",
+      "bytes": 2887
+    },
+    "imagegen-events.jsonl": {
+      "sha256": "cb595ab72f26a5ffa9be44556271187458295efac4d067a637bf0df342d2c4ea",
+      "bytes": 351
+    },
+    "imagegen-last-message.json": {
+      "sha256": "283e91eb85d58ffc2ad922884b644c41b54140660f6d1fda3c403d543eedd839",
+      "bytes": 4
+    }
+  },
+  "recorded_at": "2026-09-04T21:15:47Z"
+}

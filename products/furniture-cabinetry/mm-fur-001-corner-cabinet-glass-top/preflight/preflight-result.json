@@ -1,0 +1,1047 @@
+{
+  "assessment_id": "PF-MM-FUR-001-2026-09-04-001",
+  "assessment_version": "1.0.0",
+  "assessment_date": "2026-09-04",
+  "product": "MM-FUR-001 Corner cabinet with glass display top (Eckkommode)",
+  "scope": {
+    "intended_use": "Free-standing corner cabinet, 1000 mm high, filling a right-angled room niche whose two walls are nominally 1 m wide. Pentagonal footprint with a single flat 45 deg diagonal front carrying four approximately equal doors in a 2x2 grid, one fixed mid shelf, six height-adjustable feet, and a flat timber top plate at 1000 mm with a loose 6 mm ESG glass plate laid directly on it so postcards can be displayed between wood and glass. Manufactured from 18 mm white-painted real-wood panels cut by a DIY-store panel service and assembled with purchased furniture hardware.",
+    "user_context": "Private indoor dry living space, single owner-built unit, adult users, child access UNKNOWN. Assembly happens in place because the assembled mass is about 80 kg.",
+    "variants": [
+      "Material variant A (recommended): 18 mm birch plywood (Multiplex Birke) throughout",
+      "Material variant B: 18 mm glued solid spruce or pine panel (Leimholz), cut to size",
+      "Optional: 22 mm top plate instead of 18 mm (changes vertical panel height, parameter-driven)"
+    ],
+    "out_of_scope": [
+      "Wall anchoring as a structural load path",
+      "Electrical, lighting, locks, drawers, soft-close upgrade",
+      "Any commercial release of the design or the built object",
+      "FDM printing: no printed part exists in this product"
+    ]
+  },
+  "entities": [
+    {
+      "id": "ENT-CARCASS",
+      "kind": "PRINTED_PART",
+      "name": "Carcass panel set, 18 mm, custom-cut timber (custom-fabricated part; the schema enum has no timber category)"
+    },
+    {
+      "id": "ENT-DOORS",
+      "kind": "PRINTED_PART",
+      "name": "Four door panels 447 x 439 x 18 mm, custom-cut timber"
+    },
+    {
+      "id": "ENT-TOPPLATE",
+      "kind": "PRINTED_PART",
+      "name": "Pentagonal top display plate, custom-cut timber"
+    },
+    {
+      "id": "ENT-GLASS",
+      "kind": "PURCHASED_PART",
+      "name": "Pentagonal 6 mm ESG glass plate, made to measure, polished edges"
+    },
+    {
+      "id": "ENT-HINGES",
+      "kind": "PURCHASED_PART",
+      "name": "8 x 35 mm cup hinge, half-overlay (Mittelanschlag), with cross mounting plates"
+    },
+    {
+      "id": "ENT-HANDLES",
+      "kind": "PURCHASED_PART",
+      "name": "4 x bow handle, 128 mm hole spacing"
+    },
+    {
+      "id": "ENT-FEET",
+      "kind": "PURCHASED_PART",
+      "name": "6 x height-adjustable furniture foot, 100 mm, M8, screw-on plate"
+    },
+    {
+      "id": "ENT-FASTENERS",
+      "kind": "PURCHASED_PART",
+      "name": "Screws, angle brackets, 20 x 20 mm battens, wood glue, door buffers"
+    },
+    {
+      "id": "ENT-FINISH",
+      "kind": "MEDIUM",
+      "name": "Primer and white acrylic furniture lacquer system"
+    },
+    {
+      "id": "ENT-NICHE",
+      "kind": "HOST_OBJECT",
+      "name": "Room niche: two walls at a right angle, floor, possible skirting board"
+    },
+    {
+      "id": "ENT-USER",
+      "kind": "HUMAN",
+      "name": "Adult user: reach, door operation, glass handling; child access unknown"
+    },
+    {
+      "id": "ENT-ROOM",
+      "kind": "ENVIRONMENT",
+      "name": "Heated indoor dry room: seasonal humidity and temperature cycling, daylight"
+    },
+    {
+      "id": "ENT-CARDS",
+      "kind": "MEDIUM",
+      "name": "Postcards and paper items laid between top plate and glass"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CLR-VOLUME-001",
+      "name": "Cabinet outer envelope to right-angled room niche",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-NICHE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "CLR",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "transport",
+        "assembly",
+        "use",
+        "service",
+        "disassembly"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Owner brief 2026-09-04: 'beide Waende 1 m breit', verbal, no measurement record"
+        ],
+        "variant_confirmed": false,
+        "observability": "INFERRED",
+        "uncertainty_note": "The only stated figure is a verbal nominal. Real niches deviate by 5-30 mm and 0.5-2 deg. All 13 panel sizes depend on it."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 8,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Niche narrower than 1000 mm or corner not 90 deg",
+          "effect": "Cabinet cannot be pushed in; back panels bind; front no longer parallel to the niche mouth",
+          "mitigation": "Measure both wall widths and the corner angle; re-run source with measured values; 15 mm end clearance and 10 mm rear clearance per wall are parameters, not constants"
+        },
+        {
+          "mode": "Wall bulge or plaster fillet at the corner",
+          "effect": "Cabinet stands off the wall, top plate gap grows, cabinet rocks",
+          "mitigation": "Scribe or increase back_gap; check with a 1 m straightedge"
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Both wall widths measured at floor, 500 mm and 1000 mm height, recorded to 1 mm",
+          "Corner angle measured, deviation from 90 deg recorded",
+          "Carcass leg length recomputed as niche_width - back_gap - end_gap and the source re-run"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0",
+      "dimensions": [
+        {
+          "id": "D-001",
+          "feature": "Niche wall width, wall 1",
+          "nominal_mm": 1000,
+          "status": "ESTIMATED",
+          "criticality": "FIT_CRITICAL",
+          "source_ref": "owner brief, verbal",
+          "uncertainty_mm": null
+        },
+        {
+          "id": "D-002",
+          "feature": "Niche wall width, wall 2",
+          "nominal_mm": 1000,
+          "status": "ESTIMATED",
+          "criticality": "FIT_CRITICAL",
+          "source_ref": "owner brief, verbal",
+          "uncertainty_mm": null
+        },
+        {
+          "id": "D-003",
+          "feature": "Corner included angle",
+          "nominal_mm": null,
+          "status": "ESTIMATED",
+          "criticality": "FIT_CRITICAL",
+          "source_ref": "owner brief states 'rechtwinkelig'",
+          "uncertainty_mm": null
+        },
+        {
+          "id": "D-004",
+          "feature": "Carcass leg along each wall",
+          "nominal_mm": 975,
+          "status": "DERIVED",
+          "criticality": "FIT_CRITICAL",
+          "source_ref": "source/corner_cabinet.py leg = niche - back_gap - end_gap"
+        }
+      ]
+    },
+    {
+      "id": "IF-EXT-GEO-SUP-PLN-002",
+      "name": "Adjustable feet to floor: support, levelling and load transfer",
+      "endpoint_a": "ENT-FEET",
+      "endpoint_b": "ENT-NICHE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "transport"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Owner brief: feet required so lower doors clear the floor",
+          "No floor measurement, no covering identified"
+        ],
+        "variant_confirmed": false,
+        "observability": "UNKNOWN",
+        "uncertainty_note": "Cabinet self mass computed from panel area (about 66 kg in 18 mm birch plywood) plus glass and contents. Floor flatness is UNKNOWN."
+      },
+      "interface_complexity": {
+        "GEO": 0,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 9,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Floor out of level; only 3 of 6 feet bear",
+          "effect": "Cabinet rocks, top plate not level, glass plate slides toward the low side",
+          "mitigation": "Height-adjustable feet, level the top plate in two directions before fitting the glass"
+        },
+        {
+          "mode": "Foot plate pulls out of 18 mm panel under point load",
+          "effect": "Local panel failure, cabinet drops on one corner",
+          "mitigation": "Screw-on plate feet with 4 screws each, positioned near the vertical panels; verify foot load rating >= 50 kg"
+        },
+        {
+          "mode": "Soft floor covering creeps under sustained load",
+          "effect": "Slow loss of level",
+          "mitigation": "Re-level after 4 weeks"
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Top plate level within 1 mm/m in two directions after levelling",
+          "All six feet in contact under a 200 N front-edge push, no rocking",
+          "Foot rated load >= 50 kg each, from the supplier datasheet"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-INT-KIN-ROT-CYL-003",
+      "name": "Door to centre partition via 35 mm cup hinge, half-overlay",
+      "endpoint_a": "ENT-DOORS",
+      "endpoint_b": "ENT-CARCASS",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "KIN"
+      ],
+      "function": "ROT",
+      "geometry": "CYL",
+      "lifecycle_states": [
+        "assembly",
+        "calibration",
+        "use",
+        "service"
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "System 32 nominal geometry: mounting-plate row 37 mm from the front edge, 32 mm hole pitch (furnica.de guide)",
+          "Cup 35 mm dia, drilling depth 11.5-12.5 mm, cup centre = 17.5 mm + C (3-6 mm) (furnica.de guide)",
+          "Exact hinge article, crank and overlay adjustment range NOT selected"
+        ],
+        "variant_confirmed": false,
+        "observability": "PARTLY_OBSERVED",
+        "uncertainty_note": "Cup and plate geometry is official System-32 nominal, but the specific article is unselected, so the interface is rated at its weakest link."
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 3,
+        "TOL": 3,
+        "PHY": 1,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 14,
+        "tier": "I3"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Half-overlay range does not reach the required 7.5 mm overlay on an 18 mm partition",
+          "effect": "Doors touch each other or leave an oversized centre gap",
+          "mitigation": "Confirm the article overlay range before drilling; the door gap is a source parameter and can be retuned"
+        },
+        {
+          "mode": "Mounting-plate screws from both partition faces collide inside the 18 mm panel",
+          "effect": "Split panel, loose plate",
+          "mitigation": "Design staggers left and right cup heights by 16 mm so no two plate holes are coaxial"
+        },
+        {
+          "mode": "Cup hole breaks through the 18 mm door",
+          "effect": "Visible damage on the painted face",
+          "mitigation": "Cup depth 12.5 mm max, leaving 5.5 mm; use a depth stop"
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "One door hung and adjusted: reveal 3 mm +/- 1 mm on all four edges",
+          "Door opens to at least 90 deg without contact to the neighbouring door or the carcass",
+          "No cup or plate hole breaks through any panel face"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0",
+      "dimensions": [
+        {
+          "id": "D-010",
+          "feature": "Cup diameter",
+          "nominal_mm": 35.0,
+          "status": "OFFICIAL_NOMINAL",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "System 32 / furnica.de"
+        },
+        {
+          "id": "D-011",
+          "feature": "Cup drilling depth",
+          "nominal_mm": 12.5,
+          "lower_mm": 11.5,
+          "upper_mm": 12.5,
+          "status": "OFFICIAL_NOMINAL",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "furnica.de"
+        },
+        {
+          "id": "D-012",
+          "feature": "Cup centre from door hinge edge",
+          "nominal_mm": 22.5,
+          "status": "DERIVED",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "17.5 mm + C=5 mm"
+        },
+        {
+          "id": "D-013",
+          "feature": "Mounting-plate hole row from carcass front edge",
+          "nominal_mm": 37.0,
+          "status": "OFFICIAL_NOMINAL",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "System 32"
+        },
+        {
+          "id": "D-014",
+          "feature": "Mounting-plate hole pitch",
+          "nominal_mm": 32.0,
+          "status": "OFFICIAL_NOMINAL",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "System 32"
+        },
+        {
+          "id": "D-015",
+          "feature": "Door overlay on the 18 mm partition",
+          "nominal_mm": 7.5,
+          "status": "DERIVED",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "(18 - 3)/2",
+          "uncertainty_mm": 2.0
+        }
+      ]
+    },
+    {
+      "id": "IF-EXT-KIN-KOT-VOLUME-004",
+      "name": "Open-door swing envelope to niche and room keep-out",
+      "endpoint_a": "ENT-DOORS",
+      "endpoint_b": "ENT-NICHE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "KIN"
+      ],
+      "function": "KOT",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "use"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Envelope computed analytically from the design geometry",
+          "Surrounding room geometry beyond the two 1 m walls is UNKNOWN"
+        ],
+        "variant_confirmed": false,
+        "observability": "INFERRED",
+        "uncertainty_note": "Centre hinging was chosen over end hinging exactly for this interface: end-hinged doors would reach 1299 mm from the corner at 90 deg, centre-hinged reach 979 mm."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 2,
+        "TOL": 2,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 3,
+        "total": 10,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "A return wall or door frame stands at the open end of the niche",
+          "effect": "Door strikes it before 90 deg; usable opening lost",
+          "mitigation": "Centre-hinged layout keeps the 90 deg tip inside x,y <= 979 mm; verify the surroundings before building"
+        },
+        {
+          "mode": "Handle projects into the swing path of the neighbouring door",
+          "effect": "Paint damage",
+          "mitigation": "Handles sit on the outer door edges, hinges at the centre; paths do not cross"
+        }
+      ],
+      "verification": {
+        "method": "analysis",
+        "acceptance_criteria": [
+          "Computed door-tip envelope at 90 deg open stays within the measured niche footprint",
+          "Physical check with a cardboard template before cutting doors"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-EXT-GEO-SUP-PLN-005",
+      "name": "Loose ESG glass plate on the timber top plate with a paper interlayer",
+      "endpoint_a": "ENT-GLASS",
+      "endpoint_b": "ENT-TOPPLATE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "service",
+        "cleaning"
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "ESG 6 mm to size with polished edges is a documented catalogue service; pentagon is a listed special shape on request (glas-ab-werk.de, spiegel21.de)",
+          "Glass outline derived from the top-plate polygon by a 2 mm inward offset",
+          "Top-plate flatness after painting is UNMEASURED"
+        ],
+        "variant_confirmed": false,
+        "observability": "PARTLY_OBSERVED",
+        "uncertainty_note": "Wood moisture movement over the seasons is the dominant uncertainty and is not covered by any local measurement."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 3,
+        "PHY": 2,
+        "VAR": 3,
+        "LIF": 2,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Top plate cups; rigid glass bears on three points",
+          "effect": "Glass rocks, cards will not lie flat, local bending stress in the glass",
+          "mitigation": "Use plywood rather than solid glued softwood for the top plate; seal both faces and all edges; check with a straightedge before ordering the glass"
+        },
+        {
+          "mode": "Glass slides on the lacquered surface",
+          "effect": "Overhang, edge exposure, chipping",
+          "mitigation": "Optional stainless glass stops at the two wall-side edges, or a 2 mm routed recess"
+        },
+        {
+          "mode": "Glass ordered before the built top plate is measured",
+          "effect": "ESG cannot be recut; the plate is scrap",
+          "mitigation": "Hard rule: measure the finished top plate, then order the glass"
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Top plate flat within 1.0 mm over any 900 mm span, measured after painting",
+          "Glass gap to the plate edge 1-3 mm all round",
+          "Glass does not move under a 20 N horizontal push"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-HUM-USR-USR-EDGE-006",
+      "name": "Glass edge and corners to user hand",
+      "endpoint_a": "ENT-GLASS",
+      "endpoint_b": "ENT-USER",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "GEO"
+      ],
+      "function": "USR",
+      "geometry": "EDGE",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Owner brief implies frequent hand contact (lifting the plate to exchange cards)",
+          "No user population defined; child access UNKNOWN"
+        ],
+        "variant_confirmed": false,
+        "observability": "UNKNOWN",
+        "uncertainty_note": "Injury plausibility is what drives the product to K2. The mitigation is entirely in the purchase specification, so it must be written into the order."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 2,
+        "VAR": 3,
+        "LIF": 2,
+        "total": 9,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Sharp as-cut edge or 90 deg point corner",
+          "effect": "Cut to hand during card exchange or cleaning",
+          "mitigation": "Specify polished edges and ground/radiused corners; ESG rather than float glass"
+        },
+        {
+          "mode": "Glass breaks when dropped or struck",
+          "effect": "ESG disintegrates into blunt fragments (intended behaviour) but the plate is lost and fragments spread",
+          "mitigation": "ESG mandatory; 6 mm rather than 4 mm; two-person handling of an 11 kg plate"
+        },
+        {
+          "mode": "Plate lifted by one corner",
+          "effect": "Bending failure",
+          "mitigation": "Written handling note in the build manual: lift along an edge, not at a corner"
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "Glass supplied as ESG (tempered) with polished edges and radiused or ground corners, confirmed on the order and the delivery note",
+          "No sharp edge detectable by hand along the full perimeter"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-INT-GEO-LOD-PLN-007",
+      "name": "Fixed mid shelf to support battens and centre partition",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-CARCASS",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "LOD",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use"
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "Spans derived from the design geometry; longest unsupported field about 400 mm",
+          "No load test, no material stiffness data for the chosen panel"
+        ],
+        "variant_confirmed": false,
+        "observability": "PARTLY_OBSERVED",
+        "uncertainty_note": "No local stiffness or creep data exists for either candidate panel material."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 1,
+        "total": 7,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Sustained load causes visible creep in the 18 mm panel",
+          "effect": "Sagging shelf, upper partition drops, door reveals close up",
+          "mitigation": "Perimeter battens on all four surrounding panels plus the partition; keep the field under 450 mm"
+        },
+        {
+          "mode": "Batten screws pull out of the panel face",
+          "effect": "Shelf drops",
+          "mitigation": "4 x 40 mm screws at 200 mm pitch plus glue"
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Shelf carries 25 kg uniformly with residual deflection <= 1 mm after 24 h unloading",
+          "Upper partition still vertical within 1 mm/m"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-EXT-GEO-CON-PLN-008",
+      "name": "Panel blanks to DIY-store cutting-service capability and tolerance",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-NICHE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "CON",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "transport",
+        "assembly"
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "Hornbach: minimum cut part 100 x 230 mm; cut types are market-dependent (hornbach.de service page)",
+          "OBI: straight cuts plus corner routing and cut-outs, hinge-cup drilling in some stores only (obi.de)",
+          "toom: diagonal corner panels orderable as a special service (toom.de)",
+          "Bauhaus: Leimholzplatte to size, max 1220 x 2500 mm, 18 mm; Multiplex birch 2500 x 1250 x 18 mm (bauhaus.info)"
+        ],
+        "variant_confirmed": false,
+        "observability": "PARTLY_OBSERVED",
+        "uncertainty_note": "Only rectangular capability is documented; the diagonal capability is market-dependent and therefore UNKNOWN for the store actually used."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 3,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 1,
+        "total": 7,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Store will not cut the three 45 deg diagonals",
+          "effect": "Pentagon panels cannot be produced there",
+          "mitigation": "Design needs exactly one straight diagonal cut per pentagon panel from a square blank; fallback is a circular saw on a guide rail"
+        },
+        {
+          "mode": "Cut tolerance accumulates across five stacked panel thicknesses",
+          "effect": "Total height and door reveals drift",
+          "mitigation": "Measure every delivered blank, then derive the door and reveal dimensions from the as-built carcass rather than from nominals"
+        },
+        {
+          "mode": "Cut not square",
+          "effect": "Carcass racks, doors will not align",
+          "mitigation": "Check each blank diagonal-to-diagonal before assembly and reject out-of-square parts at the store"
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "Every blank within +/- 1 mm of nominal and square within 1 mm across the diagonals",
+          "Three diagonal cuts confirmed available, or the guide-rail fallback confirmed"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-ENV-PHY-CON-BODY-009",
+      "name": "Panel material to indoor climate: moisture movement, flatness and warp",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-ROOM",
+      "boundary": "ENV",
+      "domains": [
+        "ENV",
+        "GEO",
+        "MEC"
+      ],
+      "function": "CON",
+      "geometry": "BODY",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "storage",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Indoor dry-room service is stated; no humidity or temperature measurement exists",
+          "Birch plywood versus glued softwood behaviour is general literature knowledge, not local evidence"
+        ],
+        "variant_confirmed": false,
+        "observability": "UNKNOWN",
+        "uncertainty_note": "This interface is the reason the material recommendation is plywood for the top plate. It is literature-based, not locally validated."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 3,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 4,
+        "total": 14,
+        "tier": "I3"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Top plate cups seasonally",
+          "effect": "Glass plate rocks; cards trapped or creased",
+          "mitigation": "Cross-banded plywood for the top plate; paint and seal both faces and all edges equally"
+        },
+        {
+          "mode": "Door panels twist",
+          "effect": "Reveals go uneven, doors rub",
+          "mitigation": "Same panel material and equal finish on both door faces; readjust hinges after one heating season"
+        },
+        {
+          "mode": "Bare end grain absorbs moisture",
+          "effect": "Local swelling, paint cracking",
+          "mitigation": "Fill and seal all cut edges before the first topcoat"
+        }
+      ],
+      "verification": {
+        "method": "demonstration",
+        "acceptance_criteria": [
+          "Both faces and all edges of every panel sealed before assembly, confirmed by inspection",
+          "Top plate re-checked for flatness after one heating season, before any glass reorder"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-HUM-USR-USR-VOLUME-010",
+      "name": "Cabinet stability to user: leaning, pulling on an open door, climbing",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-USER",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "MEC"
+      ],
+      "function": "USR",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "use"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "Footprint 933 mm deep and mass about 80 kg with glass computed from the design",
+          "Whether children have access is UNKNOWN"
+        ],
+        "variant_confirmed": false,
+        "observability": "UNKNOWN",
+        "uncertainty_note": "Stability has been argued from geometry only. No push or tip test has been performed."
+      },
+      "interface_complexity": {
+        "GEO": 0,
+        "KIN": 1,
+        "TOL": 0,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 2,
+        "total": 9,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "failure_modes": [
+        {
+          "mode": "Child climbs on an open lower door",
+          "effect": "Hinge or door failure; possible tipping toward the room",
+          "mitigation": "Deep footprint and high mass make tipping unlikely, but this is not verified; optional anti-tip bracket into one wall"
+        },
+        {
+          "mode": "User leans on the glass plate near the front edge",
+          "effect": "Glass slides or plate tips",
+          "mitigation": "Glass inset 2 mm and optional stops; handling note"
+        }
+      ],
+      "verification": {
+        "method": "demonstration",
+        "acceptance_criteria": [
+          "Empty cabinet does not tip under a 200 N downward force at the outer end of a fully open lower door",
+          "If children have access, an anti-tip bracket is fitted and recorded"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    },
+    {
+      "id": "IF-EXT-GEO-CLR-PLN-011",
+      "name": "Skirting board and wall build-up to rear panel clearance",
+      "endpoint_a": "ENT-CARCASS",
+      "endpoint_b": "ENT-NICHE",
+      "boundary": "EXT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "CLR",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use"
+      ],
+      "evidence": {
+        "level": "E0",
+        "sources": [
+          "Not addressed in the brief. Presence, thickness and height of any skirting board are UNKNOWN."
+        ],
+        "variant_confirmed": false,
+        "observability": "UNKNOWN",
+        "uncertainty_note": "This is the single cheapest unknown to close and the one most likely to invalidate the cut list."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 1,
+        "total": 7,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Skirting thicker than the 10 mm rear clearance",
+          "effect": "Cabinet stands off the wall by the skirting thickness; the front rotates out of the niche mouth and the top-plate wall gap becomes visible",
+          "mitigation": "Measure the skirting; set back_gap = skirting thickness + 3 mm, or notch the two back panels, or remove the skirting inside the niche"
+        }
+      ],
+      "verification": {
+        "method": "measurement",
+        "acceptance_criteria": [
+          "Skirting thickness and height measured, or absence confirmed",
+          "back_gap parameter set from that measurement and the source re-run"
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "version": "1.0.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 3,
+      "INT": 3,
+      "CPL": 2,
+      "MOT": 2,
+      "GEO": 1,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 2,
+      "VER": 2
+    },
+    "score_0_100": 55.75,
+    "class": "C3",
+    "drivers": [
+      "INT (weight 20, score 3): eleven interfaces, hardest at IC 14 (cup-hinge joint and wood-to-climate), including two human-contact interfaces.",
+      "PAR (weight 10, score 3): thirteen unique custom panels plus battens, all dimensionally coupled to one datum set.",
+      "CPL and PHY (weight 10 each, score 2): every panel size and every hole position derives from the niche datum, and the product carries an 11 kg glass plate plus about 66 kg of panel mass on six feet."
+    ]
+  },
+  "readiness": {
+    "level": "R1",
+    "component_levels": {
+      "scope_variant": "R2",
+      "requirements": "R3",
+      "critical_interfaces": "R1",
+      "manufacturing_profile": "R2",
+      "verification": "R2"
+    },
+    "blocking_unknowns": [
+      "IF-EXT-GEO-CLR-VOLUME-001 at E1: both niche wall widths and the corner angle are verbal nominals with no measurement record.",
+      "IF-EXT-GEO-CLR-PLN-011 at E0: skirting board presence, thickness and height are entirely unknown and directly set the rear clearance parameter.",
+      "IF-EXT-GEO-SUP-PLN-002 at E1: floor level and covering unknown, foot load rating unselected.",
+      "IF-INT-KIN-ROT-CYL-003 at E2: the specific cup-hinge article, its crank and its overlay adjustment range are not selected, so the 7.5 mm half-overlay target is unconfirmed.",
+      "IF-EXT-GEO-CON-PLN-008 at E2: whether the store actually used will perform the three 45 deg diagonal cuts is unknown.",
+      "IF-ENV-PHY-CON-BODY-009 at E1: no local data on panel flatness stability, which is what the glass plate depends on."
+    ],
+    "completeness_percent": 35
+  },
+  "criticality": {
+    "level": "K2",
+    "rationale": "An 11 kg tempered glass plate sits at hand height on a free-standing 80 kg cabinet that a child could climb, and the whole unit rests on six adjustable feet loaded through 18 mm panels. None of these is a regulated or expert domain, so K3 is not warranted, but every one of them needs a controlled physical check rather than inspection alone. Failure modes are loss of level, glass movement or breakage, shelf creep and tipping.",
+    "credible_failure_effects": [
+      "Cut to the hand from a glass edge or corner during card exchange (mitigated only by the purchase specification: ESG, polished edges, ground corners).",
+      "Glass plate slides off a cupped or unlevelled top plate and breaks.",
+      "Cabinet tips or a door fails if a child climbs on an open lower door.",
+      "Foot plate tears out of the 18 mm bottom panel under an eccentric point load.",
+      "Cut list executed against an unmeasured niche: about 6.2 square metres of panel and a non-recuttable ESG plate become scrap."
+    ]
+  },
+  "gates": {
+    "G0": "WARN",
+    "G1": "PASS",
+    "G2": "FAIL",
+    "G3": "WARN",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "CONCEPT_ONLY",
+    "rationale": "Complexity is C3 and criticality K2, which on their own would place the work in Lane C. Readiness is R1 because the host niche, the single datum from which all thirteen panel sizes and every hole position derive, exists only as a verbal nominal, and the skirting clearance is at E0. Hard gate G2 therefore fails and the lane is forced to E. What this permits is exactly the requested work product: a fully parametric, dimensioned and documented build package plus a concept image, released as CONCEPT_ONLY with a nominal 1000 x 1000 mm niche. It does not permit cutting panels or ordering glass. One measurement session closes IF-...-001, -011 and -002, lifts readiness to R3 or better, and moves the project to Lane C with CONDITIONAL confidence."
+  },
+  "warnings": [
+    {
+      "code": "VARIANT_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "The host niche is the product's only dimensional datum and is unmeasured. Do not cut any panel against the nominal 1000 x 1000 mm values."
+    },
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "BLOCKER",
+      "message": "Skirting-board clearance is at E0; floor level and foot load rating at E1. All three set parameters that appear in the cut list."
+    },
+    {
+      "code": "AUTONOMOUS_RELEASE_PROHIBITED",
+      "severity": "BLOCKER",
+      "message": "Lane E. No agent may record a final release, a build approval or a glass order for this revision."
+    },
+    {
+      "code": "HIDDEN_GEOMETRY",
+      "severity": "WARN",
+      "message": "Wall build-up behind the skirting, plaster fillets at the corner and floor covering thickness are not observable from the brief."
+    },
+    {
+      "code": "PURCHASED_PART_REVISION_UNKNOWN",
+      "severity": "WARN",
+      "message": "Cup hinge, foot, handle and glass supplier articles are specified by function and system dimension only. No article revision is fixed, so the 7.5 mm overlay and the 50 kg foot rating are unconfirmed."
+    },
+    {
+      "code": "GLASS_INJURY_RISK",
+      "severity": "WARN",
+      "message": "An 11 kg glass plate is handled by hand at every card exchange. ESG, polished edges and ground corners are safety requirements, not finish options, and must appear on the order."
+    },
+    {
+      "code": "DYNAMIC_OR_FATIGUE_LOAD",
+      "severity": "INFO",
+      "message": "Four hinged doors cycle for the product life and the 18 mm mid shelf is exposed to long-term creep. Both are addressed by purchased-part rating and span limits, neither is tested."
+    },
+    {
+      "code": "NON_FDM_PROCESS",
+      "severity": "INFO",
+      "message": "This product has no printed part, nozzle, slicer profile, mesh or calibration coupon. The FDM calibration gate, mesh-simplification gate and slicer dry run are NOT_APPLICABLE and are recorded as such in design-spec.yaml rather than left blank."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Measure the niche: both wall widths at floor, 500 mm and 1000 mm height; the corner included angle; wall flatness over 1 m; skirting thickness and height; floor level across the footprint. Record every value with the instrument used.",
+      "exit_criterion": "A measurement record exists in the product folder and IF-EXT-GEO-CLR-VOLUME-001 plus IF-EXT-GEO-CLR-PLN-011 reach E3."
+    },
+    {
+      "priority": 2,
+      "action": "Re-run source/corner_cabinet.py with the measured niche, back_gap and end_gap, and regenerate the cut list, drill plan and DXF set.",
+      "exit_criterion": "exports/cut-list.csv carries the measured niche in its header and its hash is recorded in the build manifest."
+    },
+    {
+      "priority": 3,
+      "action": "Select the concrete cup-hinge article and confirm its half-overlay range covers 7.5 mm on an 18 mm partition, plus the foot load rating and the handle hole spacing. Enter each into the component register.",
+      "exit_criterion": "IF-INT-KIN-ROT-CYL-003 reaches E3 and no purchased-part row remains UNKNOWN."
+    },
+    {
+      "priority": 4,
+      "action": "Confirm with the chosen store whether it performs the three 45 deg diagonal cuts and its stated tolerance; otherwise plan the guide-rail fallback.",
+      "exit_criterion": "IF-EXT-GEO-CON-PLN-008 reaches E3 with a named store and a stated tolerance."
+    },
+    {
+      "priority": 5,
+      "action": "Build and paint the carcass, level it in place, then measure the finished top plate and only then order the ESG glass to the as-built outline.",
+      "exit_criterion": "Top plate flat within 1.0 mm over 900 mm and the glass order carries as-built dimensions, ESG, polished edges and ground corners."
+    },
+    {
+      "priority": 6,
+      "action": "Run the physical acceptance set: door reveal and 90 deg swing, level check, 25 kg shelf load, 200 N open-door tip check.",
+      "exit_criterion": "All acceptance criteria in design-spec.yaml pass and are recorded; readiness reaches R5 for the tested interfaces."
+    }
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-FUR-001",
+    "project_revision": "0.1.0",
+    "basis_refs": [
+      "business/02-portfolio/product-portfolio.csv#PORT-113",
+      "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/preflight/preflight-input.yaml",
+      "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/commercial-clearance/project.json",
+      "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/commercial-clearance/01-sources/source-register.csv",
+      "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/commercial-clearance/02-tools/tool-register.csv",
+      "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/commercial-clearance/03-components/component-register.csv",
+      "Owner brief, German, verbal, 2026-09-04: niche, height, four doors, shelf, feet, top plate plus glass, white real wood",
+      "hornbach.de wood cutting service page (minimum cut part 100 x 230 mm; market-dependent cut types)",
+      "obi.de cutting service page (straight cuts, corner routing, cut-outs, hinge-cup drilling in some stores)",
+      "bauhaus.info Leimholzplatte nach Mass (spruce, max 1220 x 2500 x 18 mm) and Multiplexplatte nach Mass (birch, 2500 x 1250 x 18 mm)",
+      "furnica.de cabinet-door drilling guide (35 mm cup, 11.5-12.5 mm depth, cup centre 17.5 mm + C, plate row 37 mm, 32 mm pitch)"
+    ],
+    "change_triggers": [
+      "initial_design",
+      "portfolio_registration",
+      "license_chain_initialization"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-04T21:09:58Z",
+    "updated_at": "2026-09-04T21:09:58Z"
+  }
+}

@@ -1,0 +1,56 @@
+# MM-FUR-001 — Preflight input (owner brief + derived scope)
+# Recorded 2026-09-04. Source: owner brief, German, verbal. No measurement record.
+
+product: Corner cabinet with glass display top (Eckkommode)
+project_id: MM-FUR-001
+project_revision: 0.1.0
+mode: PROSPECTIVE
+
+owner_stated:                       # verbatim intent, user-stated, unmeasured
+  - Target is NOT a 3D print. Target is a timber object with dimensions for a
+    Baumarkt (DIY store) panel-cutting service.
+  - Corner cabinet, 1000 mm high.
+  - Must fit a right-angled niche in which each of the two walls is 1 m wide.
+  - Four doors on the front: top-left, top-right, bottom-left, bottom-right,
+    all approximately equal in size.
+  - One shelf between the upper and the lower row.
+  - Feet at the very bottom so the lower doors do not stand on the floor.
+  - At 1000 mm height a flat top timber plate, and a glass plate resting
+    directly on it so postcards or other paper items can be laid in between.
+  - The whole object in white real wood.
+  - Deliverables: concept image, BOM, panel dimensions with drilled holes,
+    hinges, handles, feet, glass plate, wood type — a complete product plan.
+
+inferred:                           # agent inference, flagged as such
+  - Single flat diagonal front, i.e. pentagonal footprint. A 2x2 door grid on a
+    single plane is only coherent with one flat front face.
+  - Doors hinge on the central vertical partition (Mittelanschlag), not on the
+    outer ends, so the open-door envelope stays inside the 1 m niche.
+  - Mid shelf is fixed at the door-division height. It is the structural tie of
+    the 898 mm wide diagonal front and carries the upper partition.
+  - Painted opaque white (RAL 9010 class), not white-oiled, because "weiss" plus
+    "Echtholz" for a display top is best served by a filled, flat lacquer.
+
+unresolved:                         # must be closed before cutting
+  - Real niche dimensions: both wall widths, corner angle, wall flatness.
+  - Skirting board (Sockelleiste) present? thickness? height?
+  - Floor: level, covering, and whether the cabinet will later be moved.
+  - Exact hinge article (crank/overlay range), foot load rating, handle SKU.
+  - Whether the local cutting service will perform the three diagonal cuts.
+
+environment:
+  location: indoor dry living space
+  climate: heated, seasonal relative humidity swing assumed 30-65 % RH, UNMEASURED
+  users: adults; child access UNKNOWN
+
+loads_assumed:                      # design assumptions, not measured
+  glass_plate_kg: 11.1
+  shelf_uniform_load_kg: 25
+  top_plate_incidental_point_load_kg: 40
+  cabinet_self_mass_kg: 66            # 18 mm panels only, computed from area
+  foot_count: 6
+
+out_of_scope:
+  - Wall anchoring as a load path (anti-tip bracket is optional, not structural).
+  - Lighting, electrics, locks, soft-close upgrade, drawers.
+  - Any commercial release of the design or the built object.

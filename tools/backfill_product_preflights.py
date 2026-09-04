@@ -505,6 +505,7 @@ def family_base(family: str) -> dict[str, int]:
     bases = {
         "art-decor": dict(REQ=0, CTX=0, PAR=1, INT=0, CPL=0, MOT=0, GEO=2, PHY=0, MAT=1, EXT=0, VER=0),
         "furniture-systems": dict(REQ=2, CTX=2, PAR=1, INT=2, CPL=1, MOT=0, GEO=1, PHY=2, MAT=2, EXT=1, VER=2),
+        "furniture-cabinetry": dict(REQ=2, CTX=2, PAR=3, INT=3, CPL=2, MOT=2, GEO=1, PHY=2, MAT=2, EXT=2, VER=2),
         "home-kitchen-garden": dict(REQ=1, CTX=1, PAR=1, INT=1, CPL=0, MOT=0, GEO=1, PHY=1, MAT=1, EXT=0, VER=1),
         "organization-storage": dict(REQ=2, CTX=2, PAR=2, INT=2, CPL=1, MOT=0, GEO=1, PHY=1, MAT=2, EXT=0, VER=2),
         "printer-workshop": dict(REQ=2, CTX=2, PAR=2, INT=3, CPL=2, MOT=1, GEO=2, PHY=2, MAT=2, EXT=2, VER=3),
@@ -705,7 +706,7 @@ def interface_profile(ctx: ProductContext, product_k: str, scores: dict[str, int
     elif keyword_any(text, ("drain", "filter", "water", "flow", "diffuser")):
         entities.append({"id": "E-MED-001", "kind": "MEDIUM", "name": "Intended fluid or process medium"})
         profile = dict(id="IF-ENV-FLU-FLW-VOLUME-001", name="Printed product to process medium", endpoint_b="E-MED-001", boundary="ENV", domains=["GEO", "FLU", "ENV"], function="FLW", geometry="VOLUME")
-    elif ctx.family == "printer-workshop" or ctx.family == "furniture-systems" or ctx.family == "organization-storage":
+    elif ctx.family in {"printer-workshop", "furniture-systems", "furniture-cabinetry", "organization-storage"}:
         entities.append({"id": "E-HOST-001", "kind": "HOST_OBJECT", "name": "Intended host object or storage envelope"})
         profile = dict(id="IF-EXT-GEO-CON-MIXED-001", name="Printed product to intended host", endpoint_b="E-HOST-001", boundary="EXT", domains=["GEO", "MEC"], function="CON", geometry="MIXED")
     elif ctx.family == "toys-games":

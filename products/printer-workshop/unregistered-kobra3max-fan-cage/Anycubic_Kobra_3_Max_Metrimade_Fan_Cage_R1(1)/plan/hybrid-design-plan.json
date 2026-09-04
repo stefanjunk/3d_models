@@ -1,0 +1,215 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "kobra3max-metrimade-fan-cage",
+    "title": "Original reversible honeycomb printhead cover with Metrimade camera branding",
+    "source_modes": ["product_photo", "design_description", "owner_supplied_vector"],
+    "claim": "functional_redesign",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.44,
+      "layer_height_mm": 0.2,
+      "profile_id": "PETG-0.20mm-user-to-confirm"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "center of the circular fan badge on the visible cover face",
+      "x_axis": "+X right in camera/front view",
+      "y_axis": "+Y down in camera/front view",
+      "z_axis": "+Z rearward toward printer",
+      "transform_convention": "row-major 4x4 matrix maps source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [-37.2, -52.0, 0.0], "max": [37.2, 36.2, 10.8]},
+    "requirements": [
+      {
+        "id": "REQ-MOUNT",
+        "statement": "Mount the spatial full-front add-on cover reversibly on the raised circular bezel, with four secondary side stabilizers, without modifying factory screws or shell.",
+        "evidence_class": "requested",
+        "source": "user brief and official Anycubic service guide",
+        "priority": "critical",
+        "verification": "process-matched D50/D52/D54 full-envelope fit frame and physical installation test"
+      },
+      {
+        "id": "REQ-COVER",
+        "statement": "Cover the complete camera-facing printhead front with a lightweight honeycomb carrier while reserving the fan zone exclusively for the perforated M badge.",
+        "evidence_class": "requested",
+        "source": "user brief and photo-scaled official service imagery",
+        "priority": "important",
+        "verification": "front render, envelope check, and physical interference review"
+      },
+      {
+        "id": "REQ-AIR",
+        "statement": "Retain at least 60 percent projected open area across an assumed 40 mm intake disc and avoid any inward fan-blade intrusion.",
+        "evidence_class": "assumed",
+        "source": "design airflow proxy; exact fan performance not published",
+        "priority": "critical",
+        "verification": "deterministic projected-area calculation followed by fan-noise and thermal observation"
+      },
+      {
+        "id": "REQ-BRAND",
+        "statement": "Use the supplied four-color M as an air-permeable grille and place its outlined wordmark on a closed plate above the fan intake.",
+        "evidence_class": "requested",
+        "source": "user brief and owner-supplied metrimade-lockup-horizontal-color.svg",
+        "priority": "important",
+        "verification": "front render and real camera test video"
+      },
+      {
+        "id": "REQ-PRINT",
+        "statement": "Print support-free with a 0.4 mm nozzle and preserve explicit aligned color bodies in 3MF.",
+        "evidence_class": "requested",
+        "source": "user brief and manufacturing plan",
+        "priority": "critical",
+        "verification": "mesh/3MF checks and destination-slicer layer review"
+      }
+    ],
+    "global_style": {
+      "summary": "spatial wraparound honeycomb shell with a perforated four-plane M exclusively in the fan zone and the supplied wordmark on a closed upper plate",
+      "motifs": ["coarse framed honeycomb", "shallow perimeter shell", "four side stabilizers", "reinforced circular fan badge", "upper outlined metriMade wordmark", "lamellar spatial M"],
+      "exclude": ["copied third-party geometry", "fine pseudo-infill", "fine unprintable text", "fan-blade intrusion", "solid plate across the fan"],
+      "generation_material": "opaque same-family PETG in SVG navy, teal, aqua, and sand",
+      "detail_hierarchy": "mount and airflow first, supplied vector lockup second, physical color match third"
+    },
+    "assembly_sequence": [
+      "Measure the raised factory bezel and print the nearest full-envelope fit frame.",
+      "Print the matching cover visible face down with no supports.",
+      "Power off and cool the printer, then press the cover evenly onto the bezel while holding only the reinforced fan module.",
+      "Run staged fan, thermal, vibration, and camera checks before routine use."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-COVER-ENVELOPE",
+      "topic": "Approve full-front shell silhouette, side engagement, and lower air-nozzle clearance.",
+      "status": "provisional",
+      "current_basis": "Official front photographs and the documented 50 mm fan were proportion-scaled and rounded to an independent 72 by 88 mm face with 10.8 mm side fingers; no manufacturer shell drawing is published.",
+      "evidence_needed": "Physical D50/D52/D54 fit-frame result plus measured front width, height, and side engagement on the cooled, powered-off printhead.",
+      "blocks_gates": ["physical", "release"]
+    },
+    {
+      "id": "DEC-BEZEL-D",
+      "topic": "Select exact raised-bezel target diameter.",
+      "status": "provisional",
+      "current_basis": "Official uncalibrated photos suggest a range around 50-54 mm; D52 is the digital start candidate.",
+      "evidence_needed": "User caliper measurement and matching fit-coupon result.",
+      "blocks_gates": ["physical", "release"]
+    },
+    {
+      "id": "DEC-LOGO",
+      "topic": "Select authoritative camera-facing Metrimade artwork.",
+      "status": "resolved",
+      "current_basis": "Project owner supplied metrimade-lockup-horizontal-color.svg with outlined wordmark and four colors.",
+      "evidence_needed": "Physical filament swatches remain a separate appearance gate.",
+      "blocks_gates": []
+    },
+    {
+      "id": "DEC-SLICER",
+      "topic": "Approve exact Anycubic Slicer Next import, slot map, layer paths, and purge behavior.",
+      "status": "open",
+      "current_basis": "Portable 3MF is generated, but the target slicer is unavailable in this environment.",
+      "evidence_needed": "Saved slicer project and reviewed preview.",
+      "blocks_gates": ["manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-LABEL-CLEARANCE",
+      "topic": "Verify clearance of the closed upper wordmark plate against the printer front shell.",
+      "status": "provisional",
+      "current_basis": "The 54 by 8.8 mm plate is inside the photo-scaled cover envelope and remains outside the assumed fan intake, but the stock shell surface is not dimensioned.",
+      "evidence_needed": "Physical D50/D52/D54 fit frame plus full-cover interference and camera check.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "CAGE_CORE",
+      "name": "Wraparound honeycomb shell, fan badge, upper label plate, and clip tabs",
+      "role": "cover the complete camera-facing printhead front, stabilize around its side edges, protect the fan opening, carry branding, and provide reversible retention",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-MOUNT", "REQ-COVER", "REQ-AIR", "REQ-PRINT"], "confidence": "high"},
+      "functions": ["frame complete front", "wrap side edges", "guard opening", "retain on bezel", "suppress rotation", "support inlays", "remain removable"],
+      "envelope_mm": {"min": [-37.2, -52.0, 0.0], "max": [37.2, 36.2, 10.8]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "FDM", "material": "PETG", "color_body": "body_navy", "orientation": "visible face on build plate; clip tabs upward"},
+      "interface_ids": ["IF-CAGE-BEZEL", "IF-CAGE-INLAYS"],
+      "acceptance": {"expected_components": 1, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["positive volume", "zero boundary edges", "74.4 by 88 by 10.8 mm wraparound envelope", "one connected full cover and one connected fit frame", "minimum 60 percent projected fan opening", "coarse honeycomb remains connected to shell frame and badge"]}
+    },
+    {
+      "id": "COLOR_INLAYS",
+      "name": "Perforated four-color M and closed-plate wordmark",
+      "role": "camera-facing brand identity only",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["REQ-BRAND", "DEC-LOGO"], "confidence": "high"},
+      "functions": ["show supplied brand lockup", "keep the central mark air-permeable", "place closed wordmark outside intake", "limit color changes to first 0.6 mm"],
+      "envelope_mm": {"min": [-28.0, -42.8, 0.0], "max": [28.0, 15.0, 0.6]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "single-nozzle multicolor FDM", "material": "same-family PETG", "color_body": "body_navy, brand_teal, brand_aqua, brand_sand", "orientation": "first three layers on build plate"},
+      "interface_ids": ["IF-CAGE-INLAYS"],
+      "acceptance": {"expected_components": 4, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["wordmark SVG paths preserved at 0.20 mm grid", "M contour and lamellae minimum 0.8 mm", "0.6 mm depth", "no overlap", "camera legibility"]}
+    },
+    {
+      "id": "PRINTER_BEZEL",
+      "name": "Existing raised circular front bezel",
+      "role": "factory mounting datum and nominal interface owner",
+      "authority": "purchased",
+      "representation": "cots",
+      "source": {"kind": "product_photo", "refs": ["IMG-OFFICIAL-GUIDE", "DEC-BEZEL-D"], "confidence": "low"},
+      "functions": ["locate cage", "react light retention load"],
+      "envelope_mm": {"min": [-27.0, -27.0, 2.2], "max": [27.0, 27.0, 6.6]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "existing factory part", "material": "unknown factory polymer", "color_body": "factory black", "orientation": "fixed on print head"},
+      "interface_ids": ["IF-CAGE-BEZEL"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.2, "checks": ["caliper diameter", "protrusion depth", "available undercut", "fit coupon"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-CAGE-BEZEL",
+      "a": "CAGE_CORE",
+      "b": "PRINTER_BEZEL",
+      "owner": "PRINTER_BEZEL",
+      "kind": "purchased_mate",
+      "local_frame": {"origin_mm": [0,0,2.2], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "six-sector circular friction/snap collar", "candidate_target_diameters_mm": [50,52,54], "tab_count": 6, "tab_angle_deg": 24, "retention_interference_radial_mm": 0.15},
+      "joining": {"method": "reversible radial spring tabs plus four provisional edge stabilizers", "assembly_direction": "+Z", "anti_rotation": "four side fingers around a provisional 69.0 mm shell width", "lead_in_mm": 0.75, "serviceable": true},
+      "allowances": {"functional_clearance_per_side_mm": 0.25, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 2.0, "solver_margin_mm": 0.1},
+      "seam_band_mm": 0.0,
+      "keepout_ids": ["KEEP-FAN", "KEEP-DUCT"],
+      "requirements": {"minimum_wall_mm": 1.8, "minimum_ligament_mm": 1.6, "load_or_flow": "retain approximately 12 g cover under print-head acceleration without shell damage"},
+      "verification": ["caliper measurement", "D50/D52/D54 full-envelope fit frame", "side-finger contact review", "manual removal", "vibration observation"]
+    },
+    {
+      "id": "IF-CAGE-INLAYS",
+      "a": "CAGE_CORE",
+      "b": "COLOR_INLAYS",
+      "owner": "CAGE_CORE",
+      "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "shared-boundary first-layer inlay", "depth_mm": 0.6},
+      "joining": {"method": "co-sliced same-family filament", "assembly_direction": "same 3MF coordinate frame", "anti_rotation": "exact shared outline", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.0, "solver_margin_mm": 0.0},
+      "seam_band_mm": 0.2,
+      "keepout_ids": [],
+      "requirements": {"minimum_wall_mm": 0.6, "minimum_ligament_mm": 0.8, "load_or_flow": "appearance only; no structural load"},
+      "verification": ["3MF references", "pairwise non-overlap by construction", "destination-slicer preview", "first-layer color coupon"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-FAN", "type": "cylinder", "purpose": "no geometry may protrude rearward inside the existing intake/blade volume", "source": "official photo and conservative no-intrusion rule", "center_mm": [0,0,2.4], "radius_mm": 20.0, "height_mm": 4.2},
+    {"id": "KEEP-DUCT", "type": "aabb", "purpose": "avoid the lower front-shell duct/opening area", "min_mm": [-10,25,2.2], "max_mm": [10,40,8], "source": "official front-shell photo"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH", "gate": "architecture", "method": "validate hybrid design plan and unique interface ownership", "acceptance": "no unresolved IDs; provisional dimensions remain explicit blockers"},
+    {"id": "VAL-PROXY", "gate": "proxy", "method": "compare the independent 72 by 88 mm face, 10.8 mm side fingers, upper 54 by 8.8 mm label plate, and six fan-clip sectors against official front-shell photographs and the lower-duct keep-out", "acceptance": "full front is covered; honeycomb stays outside the fan module; label stays above intake; physical side-shell and duct clearance remain explicitly gated"},
+    {"id": "VAL-MESH", "gate": "component", "method": "deterministic voxel surface and edge-incidence audit", "acceptance": "positive volume, zero boundary edges, zero nonmanifold edges"},
+    {"id": "VAL-AIR", "gate": "integration", "method": "projected occupancy inside 40 and 42 mm intake discs", "acceptance": "at least 60 percent open for the 40 mm proxy"},
+    {"id": "VAL-3MF", "gate": "manufacturing", "method": "3MF package/XML/reference/material check and final Anycubic Slicer Next preview", "acceptance": "one aligned assembly, four named bodies, no dropped regions, maximum 16 planned changes"},
+    {"id": "VAL-PHYSICAL", "gate": "physical", "method": "full-envelope fit frame then complete prototype", "acceptance": "moderate insertion/removal force, light side-finger contact, no shell marks or duct collision, no new fan noise/thermal issue, camera-readable branding"}
+  ]
+}

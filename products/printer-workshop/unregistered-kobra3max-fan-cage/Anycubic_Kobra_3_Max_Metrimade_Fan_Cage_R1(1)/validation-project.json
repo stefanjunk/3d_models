@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "kobra3max-metrimade-fan-cage",
+    "revision": "R5-wraparound-cover",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420, 420, 500]
+  },
+  "artifacts": [
+    {
+      "id": "generator-source",
+      "path": "source/generate_fan_cage.py",
+      "kind": "source",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "brand-svg",
+      "path": "assets/metrimade-lockup-horizontal-color.svg",
+      "kind": "owner-supplied-vector",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "singlecolor-mesh",
+      "path": "exports/printhead_cover_singlecolor_D52.stl",
+      "kind": "mesh",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "multicolor-3mf-D50",
+      "path": "exports/printhead_cover_metrimade_D50_multicolor.3mf",
+      "kind": "3mf",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "multicolor-3mf-D52",
+      "path": "exports/printhead_cover_metrimade_D52_multicolor.3mf",
+      "kind": "3mf",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "multicolor-3mf-D54",
+      "path": "exports/printhead_cover_metrimade_D54_multicolor.3mf",
+      "kind": "3mf",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "generator-report",
+      "path": "reports/generator-mesh-report.json",
+      "kind": "validation-report",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "autonomy-policy",
+      "path": "validation/autonomy-policy.json",
+      "kind": "autonomy-policy",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    },
+    {
+      "id": "agent-approval-ledger",
+      "path": "validation/agent-approvals.json",
+      "kind": "approval-ledger",
+      "revision": "R5-wraparound-cover",
+      "required": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "generator-invariants",
+      "type": "external_report",
+      "required": true,
+      "artifact": "generator-report",
+      "expected_inputs": ["generator-source", "brand-svg"]
+    },
+    {
+      "id": "singlecolor-mesh-audit",
+      "type": "mesh",
+      "required": true,
+      "artifact": "singlecolor-mesh",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420, 420, 500],
+        "allow_axis_permutation": false,
+        "max_faces": 1000000,
+        "max_file_mib": 100
+      }
+    },
+    {
+      "id": "multicolor-package-D50",
+      "type": "3mf",
+      "required": true,
+      "artifact": "multicolor-3mf-D50",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 4,
+        "max_package_members": 10000,
+        "max_uncompressed_mib": 512,
+        "max_compression_ratio": 200
+      }
+    },
+    {
+      "id": "multicolor-package-D52",
+      "type": "3mf",
+      "required": true,
+      "artifact": "multicolor-3mf-D52",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 4,
+        "max_package_members": 10000,
+        "max_uncompressed_mib": 512,
+        "max_compression_ratio": 200
+      }
+    },
+    {
+      "id": "multicolor-package-D54",
+      "type": "3mf",
+      "required": true,
+      "artifact": "multicolor-3mf-D54",
+      "policy": {
+        "inspect_meshes": true,
+        "require_watertight_meshes": true,
+        "require_positive_volume": true,
+        "require_unit": "millimeter",
+        "min_mesh_objects": 4,
+        "max_package_members": 10000,
+        "max_uncompressed_mib": 512,
+        "max_compression_ratio": 200
+      }
+    },
+    {
+      "id": "workflow-approvals-through-mesh",
+      "type": "approvals",
+      "required": true,
+      "policy_artifact": "autonomy-policy",
+      "agent_ledger_artifact": "agent-approval-ledger",
+      "target_stage": "mesh-generation"
+    },
+    {
+      "id": "physical-bezel-fit",
+      "type": "physical",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Print the D50/D52/D54 full-envelope fit frame and verify secure, removable bezel engagement, light contact at all four side stabilizers, no stress whitening, and no collision of the 74.4 by 88 by 10.8 mm shell with the factory front or lower air nozzle.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "airflow-and-temperature",
+      "type": "physical",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Compare fan noise, vibration, extrusion behavior, and temperature stability at 25/50/100 percent fan before and after installation.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "camera-and-brand-review",
+      "type": "review",
+      "required": false,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Confirm the perforated M and closed-plate metriMade wordmark remain readable in an actual Anycubic camera recording and approve the physical filament color match.",
+      "evidence_artifact": null
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {}
+  }
+}

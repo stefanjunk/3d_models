@@ -1,0 +1,102 @@
+schema_version: 1.0.0
+kind: process-calibration-registry
+updated_at: "2026-09-04"
+
+authority: >-
+  This registry is the single source of truth for locally qualified FFF process
+  compensation values. Only a value whose state is QUALIFIED may be used in a
+  design. UNQUALIFIED means no local measurement exists for that process
+  identity: the design must print the named coupon and record the outcome as a
+  benchmark-measurement before committing to a number. The absence of a value is
+  never evidence that no compensation is needed, and a value qualified on one
+  machine/material/nozzle/profile identity does not transfer to another.
+
+# The fixed set of quantities a functional design may need. Each names the
+# coupon that qualifies it, so an UNQUALIFIED lookup is directly actionable.
+quantities:
+  - id: xy_clearance_sliding
+    unit: mm
+    meaning: per-side gap for a hand-moved sliding or drop-in fit
+    coupon: fit-coupon-xy-series
+  - id: xy_clearance_press
+    unit: mm
+    meaning: per-side gap for a retained press fit
+    coupon: fit-coupon-xy-series
+  - id: hole_delta_vertical
+    unit: mm
+    meaning: diameter correction for holes on the build Z axis
+    coupon: hole-gauge-vertical
+  - id: hole_delta_horizontal
+    unit: mm
+    meaning: diameter correction for bridged horizontal holes
+    coupon: hole-gauge-horizontal
+  - id: first_layer_edge_relief
+    unit: mm
+    meaning: elephant-foot relief required on near-bed mating edges
+    coupon: first-layer-edge-coupon
+  - id: max_unsupported_bridge
+    unit: mm
+    meaning: longest bridge that prints acceptably on this process
+    coupon: bridge-ladder
+  - id: min_overhang_angle
+    unit: deg
+    meaning: shallowest overhang that prints acceptably without support
+    coupon: overhang-fan
+  - id: max_volumetric_flow
+    unit: mm3_s
+    meaning: measured melt capacity limiting speed x width x layer height
+    coupon: flow-ladder
+  - id: shrinkage_xy
+    unit: percent
+    meaning: in-plane dimensional shrinkage over a long span
+    coupon: shrinkage-bar
+  - id: shrinkage_z
+    unit: percent
+    meaning: stack-direction dimensional shrinkage
+    coupon: shrinkage-bar
+  - id: heatset_insert_hole
+    unit: mm
+    meaning: qualified boss hole diameter for the exact insert part number
+    coupon: insert-boss-coupon
+  - id: snapfit_allowable_strain
+    unit: percent
+    meaning: allowable cyclic strain for the printed orientation
+    coupon: snap-arm-coupon
+
+# One entry per exact process identity actually used in this workspace.
+# Every value starts UNQUALIFIED. Populate it only from a recorded
+# benchmark-measurement; never from a datasheet, a slicer default, or an
+# estimate.
+processes:
+  - id: kobra3max|anycubic-pla|0.4|anycubic-slicer-next-reference
+    scope:
+      process: FFF
+      machine: Anycubic Kobra 3 Max
+      material: Anycubic PLA
+      nozzle: 0.4
+      slicer_profile: Anycubic Slicer Next workspace reference profile
+    values: {}
+  - id: kobra3max|anycubic-pla|0.6|anycubic-slicer-next-reference
+    scope:
+      process: FFF
+      machine: Anycubic Kobra 3 Max
+      material: Anycubic PLA
+      nozzle: 0.6
+      slicer_profile: Anycubic Slicer Next workspace reference profile
+    values: {}
+  - id: kobra3max|sunlu-petg|0.6|anycubic-slicer-next-reference
+    scope:
+      process: FFF
+      machine: Anycubic Kobra 3 Max
+      material: SUNLU PETG
+      nozzle: 0.6
+      slicer_profile: Anycubic Slicer Next workspace reference profile
+    values: {}
+  - id: kobra3max|sunlu-pla|0.6|anycubic-slicer-next-reference
+    scope:
+      process: FFF
+      machine: Anycubic Kobra 3 Max
+      material: SUNLU PLA
+      nozzle: 0.6
+      slicer_profile: Anycubic Slicer Next workspace reference profile
+    values: {}

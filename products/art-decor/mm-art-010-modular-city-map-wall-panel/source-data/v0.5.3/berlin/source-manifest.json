@@ -1,0 +1,410 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.3",
+  "status": "PASS",
+  "retrieved": "2026-09-04",
+  "source_crs": "EPSG:4326",
+  "working_crs": "EPSG:25833",
+  "transports": {
+    "berlin": {
+      "filename": "berlin-260830.osm.pbf",
+      "bytes": 99132753,
+      "md5": "f8abc6fea7f28079476afcb115171076",
+      "sha256": "44878bac7391c7d1e9d86e583a0cbd9713a69d164ac47ad1e4ab7e7d374d407c",
+      "provider_url": "https://download.geofabrik.de/europe/germany/berlin-260830.osm.pbf",
+      "path_supplied": "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+      "verified": true
+    },
+    "brandenburg": {
+      "filename": "brandenburg-260830.osm.pbf",
+      "bytes": 299230738,
+      "md5": "6d6087f52dedb66b6b99ba7b1c191ccf",
+      "sha256": "4f7321ad35a111060ff9d3fe3e388063336f94421583295ce1ed029a281e89af",
+      "provider_url": "https://download.geofabrik.de/europe/germany/brandenburg-260830.osm.pbf",
+      "path_supplied": "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+      "verified": true
+    }
+  },
+  "extraction_bbox_wgs84": [
+    12.9,
+    52.28,
+    13.95,
+    52.73
+  ],
+  "selected_context_bounds_wgs84": [
+    12.915122544462,
+    52.286863833626,
+    13.933841707589,
+    52.721180774853
+  ],
+  "selected_context_bounds_epsg25833": [
+    357796.5793918899,
+    5794991.9300077595,
+    427990.7480931101,
+    5841788.04247524
+  ],
+  "coverage_check": {
+    "method": "selected context bbox is strictly contained by the combined Berlin/Brandenburg extraction bbox",
+    "pass": true
+  },
+  "gdal_version": "GDAL 3.13.3 \"Iowa City\", released 2026/08/13",
+  "artifacts": {
+    "boundary.geojson": {
+      "bytes": 149458,
+      "sha256": "c139d0c74d1b690487ad5f284d4267fefa8df509a051a3b10496bda550bd3e5f",
+      "feature_count": 1,
+      "duplicates_removed": 1,
+      "query": {
+        "layer": "multipolygons",
+        "where": "boundary = 'administrative' AND admin_level = '4' AND name = 'Berlin'",
+        "select": "osm_id,name,boundary,admin_level"
+      }
+    },
+    "roads-major.geojson": {
+      "bytes": 35354549,
+      "sha256": "e2a05487448a644eef3951f96110438f12e4da0757bb55d3cc14eca93f0748de",
+      "feature_count": 126806,
+      "duplicates_removed": 91765,
+      "query": {
+        "layer": "lines",
+        "where": "highway IN ('motorway','motorway_link','trunk','trunk_link','primary','primary_link','secondary','secondary_link','tertiary','tertiary_link','residential','unclassified','living_street')",
+        "select": "osm_id,name,highway"
+      }
+    },
+    "water-areas.geojson": {
+      "bytes": 4110554,
+      "sha256": "0a9e9a313e57e7d226b7a9039c7bd3d782536022c2333d878e63d1127b5ac7c0",
+      "feature_count": 4105,
+      "duplicates_removed": 1816,
+      "query": {
+        "layer": "multipolygons",
+        "where": "natural = 'water' OR landuse IN ('reservoir','basin') OR other_tags LIKE '%\"waterway\"=>\"riverbank\"%'",
+        "select": "osm_id,osm_way_id,name,natural,landuse,other_tags"
+      }
+    },
+    "water-lines.geojson": {
+      "bytes": 1192097,
+      "sha256": "1f4a2d5eb55272cd61b97c665155cce2753e316e1bdf26d1451c559fd9aaea33",
+      "feature_count": 3111,
+      "duplicates_removed": 1277,
+      "query": {
+        "layer": "lines",
+        "where": "waterway IN ('river','canal','stream')",
+        "select": "osm_id,name,waterway"
+      }
+    },
+    "sbahn-routes.geojson": {
+      "bytes": 2060296,
+      "sha256": "e106989cb06ec064e831131c66e82527ac8d142b205e27d3486c1079bd7b9515",
+      "feature_count": 64,
+      "duplicates_removed": 12,
+      "query": {
+        "layer": "multilinestrings",
+        "where": "other_tags LIKE '%\"route\"=>\"light_rail\"%' AND other_tags LIKE '%\"network:metro\"=>\"s-bahn\"%'",
+        "select": "osm_id,name,other_tags"
+      }
+    },
+    "ubahn-routes.geojson": {
+      "bytes": 319785,
+      "sha256": "9e6e9901d76cc4b1dac9552095670868961f12b6fd262f4e20c98c5cb9b7adf5",
+      "feature_count": 18,
+      "duplicates_removed": 18,
+      "query": {
+        "layer": "multilinestrings",
+        "where": "other_tags LIKE '%\"route\"=>\"subway\"%' AND other_tags LIKE '%\"network:metro\"=>\"u-bahn\"%'",
+        "select": "osm_id,name,other_tags"
+      }
+    }
+  },
+  "commands": {
+    "boundary.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-boundary.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "multipolygons",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "boundary = 'administrative' AND admin_level = '4' AND name = 'Berlin'",
+        "-select",
+        "osm_id,name,boundary,admin_level",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-boundary.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "multipolygons",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "boundary = 'administrative' AND admin_level = '4' AND name = 'Berlin'",
+        "-select",
+        "osm_id,name,boundary,admin_level",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ],
+    "roads-major.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-roads-major.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "lines",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "highway IN ('motorway','motorway_link','trunk','trunk_link','primary','primary_link','secondary','secondary_link','tertiary','tertiary_link','residential','unclassified','living_street')",
+        "-select",
+        "osm_id,name,highway",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-roads-major.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "lines",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "highway IN ('motorway','motorway_link','trunk','trunk_link','primary','primary_link','secondary','secondary_link','tertiary','tertiary_link','residential','unclassified','living_street')",
+        "-select",
+        "osm_id,name,highway",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ],
+    "water-areas.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-water-areas.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "multipolygons",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "natural = 'water' OR landuse IN ('reservoir','basin') OR other_tags LIKE '%\"waterway\"=>\"riverbank\"%'",
+        "-select",
+        "osm_id,osm_way_id,name,natural,landuse,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-water-areas.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "multipolygons",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "natural = 'water' OR landuse IN ('reservoir','basin') OR other_tags LIKE '%\"waterway\"=>\"riverbank\"%'",
+        "-select",
+        "osm_id,osm_way_id,name,natural,landuse,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ],
+    "water-lines.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-water-lines.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "lines",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "waterway IN ('river','canal','stream')",
+        "-select",
+        "osm_id,name,waterway",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-water-lines.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "lines",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "waterway IN ('river','canal','stream')",
+        "-select",
+        "osm_id,name,waterway",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ],
+    "sbahn-routes.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-sbahn-routes.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "multilinestrings",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "other_tags LIKE '%\"route\"=>\"light_rail\"%' AND other_tags LIKE '%\"network:metro\"=>\"s-bahn\"%'",
+        "-select",
+        "osm_id,name,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-sbahn-routes.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "multilinestrings",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "other_tags LIKE '%\"route\"=>\"light_rail\"%' AND other_tags LIKE '%\"network:metro\"=>\"s-bahn\"%'",
+        "-select",
+        "osm_id,name,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ],
+    "ubahn-routes.geojson": [
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/berlin-ubahn-routes.geojson",
+        "/tmp/mm-art-010-v053-source/berlin-260830.osm.pbf",
+        "multilinestrings",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "other_tags LIKE '%\"route\"=>\"subway\"%' AND other_tags LIKE '%\"network:metro\"=>\"u-bahn\"%'",
+        "-select",
+        "osm_id,name,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ],
+      [
+        "ogr2ogr",
+        "-f",
+        "GeoJSON",
+        "/tmp/mm-art-010-v053-tw06jvkw/brandenburg-ubahn-routes.geojson",
+        "/tmp/mm-art-010-v053-source/brandenburg-260830.osm.pbf",
+        "multilinestrings",
+        "-spat",
+        "12.9",
+        "52.28",
+        "13.95",
+        "52.73",
+        "-t_srs",
+        "EPSG:25833",
+        "-where",
+        "other_tags LIKE '%\"route\"=>\"subway\"%' AND other_tags LIKE '%\"network:metro\"=>\"u-bahn\"%'",
+        "-select",
+        "osm_id,name,other_tags",
+        "-lco",
+        "COORDINATE_PRECISION=3"
+      ]
+    ]
+  },
+  "named_regression_fixtures": {
+    "berlin_boundary": {
+      "osm_relation_id": "62422",
+      "feature_count": 1
+    },
+    "tegeler_see": {
+      "osm_relation_id": "451908",
+      "feature_count": 1,
+      "area_m2": 3819800.5697964984,
+      "bounds_m": [
+        379688.93,
+        5824687.586,
+        383163.364,
+        5828059.421
+      ],
+      "required_representation": "through-part negative geometry"
+    }
+  },
+  "semantic_contract": {
+    "water": "all water polygons and river/canal/stream lines are negative geometry subject only to logged topology bridges and protected keep-outs",
+    "tool_3": "all selected street classes including motorway and trunk",
+    "tool_4": "S-Bahn and U-Bahn route relations plus context boundary and site marker; no independent motorway accent"
+  },
+  "attribution": "Map data © OpenStreetMap contributors · ODbL 1.0; extracts distributed by Geofabrik GmbH."
+}

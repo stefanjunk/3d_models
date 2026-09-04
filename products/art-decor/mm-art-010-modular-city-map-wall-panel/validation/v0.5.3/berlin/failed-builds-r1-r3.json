@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.3",
+  "status": "HISTORICAL_FAILURE_EVIDENCE",
+  "retention": "Compact failure evidence retained; reproducible untracked intermediate meshes and renders were removed after digital-candidate-r4 passed.",
+  "attempts": [
+    {
+      "candidate": "digital-candidate-r1",
+      "status": "FAIL",
+      "stage": "boundary-crop left composite rebuild",
+      "failure": "Blender serialized one rejected single-triangle component outside the qualified watertight composite.",
+      "diagnostic": {
+        "faces": 1,
+        "watertight": false,
+        "volume_mm3_reported_by_trimesh": 0.049276730210289735,
+        "maximum_extent_mm": 0.5799999237060547,
+        "xy_max_extent_mm": 0.000579833984375
+      }
+    },
+    {
+      "candidate": "digital-candidate-r2",
+      "status": "FAIL",
+      "stage": "context-outline left composite rebuild",
+      "failure": "Blender exposed one rejected single-triangle component whose 0.0404 mm XY extent exceeded the candidate-r2 debris threshold.",
+      "diagnostic": {
+        "faces": 1,
+        "watertight": false,
+        "abs_volume_mm3": 0.00006625915613671807,
+        "xy_max_extent_mm": 0.0404052734375,
+        "z_extent_mm": 0.000018596649169921875
+      }
+    },
+    {
+      "candidate": "digital-candidate-r3",
+      "status": "FAIL",
+      "stage": "serialized context-outline right semantic tool-1 mesh",
+      "failure": "Four triangles became collinear at x=299.75 mm after float32 STL serialization.",
+      "diagnostic": {
+        "degenerate_faces": 4,
+        "other_topology_gates": "PASS"
+      },
+      "qualified_repair": {
+        "algorithm": "topology-preserving float32 one-ULP XY vertex nudge",
+        "repair_count": 2,
+        "maximum_vertex_shift_mm": 0.000030517578125,
+        "signed_volume_delta_mm3": -0.000030517578125,
+        "face_count_unchanged": true,
+        "connectivity_unchanged": true,
+        "z_planes_unchanged": true
+      }
+    }
+  ],
+  "selected_successor": "validation/v0.5.3/berlin/digital-candidate-r4/build-report.json"
+}

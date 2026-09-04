@@ -23,25 +23,28 @@ failure_conditions:
   - A raster pass is contradicted by the serialized STL component count.
   - The check runs only on the unsplit global artwork and misses a component isolated by the manufacturing split.
 fixtures:
-  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/build-report.json
-  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/check_candidate_connectivity.py
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/boundary-crop-water-bridge-accounting.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/context-outline-water-bridge-accounting.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.3/berlin/build_berlin_water_transit.py
 grader:
   type: deterministic
-  command: "python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/check_candidate_connectivity.py --candidate digital-candidate-r9 --output <new-output-path>"
+  command: "python products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.3/berlin/build_berlin_water_transit.py --candidate <new-candidate-id>"
   expected_exit_code: 0
-  rubric: "Pass only when all four mode/half checks report one retained raster component, one Bone White component and one regular composite component."
-  measurement_method: "Connected-component labeling recorded by the generator plus exact serialized mesh metrics in the candidate build report."
+  rubric: "Pass only when all four mode/half reports show openings-only disconnection where applicable, exactly one retained component after mandatory local bridges, no rear ribs, a connected base tool and one watertight composite."
+  measurement_method: "Connected-component labeling and per-bridge accounting recorded by the generator plus exact serialized mesh metrics in the candidate build report."
 relationships:
   lessons:
     - EXP-00059
   regression_suites: []
 last_run:
   result: pass
-  date: 2026-09-01
-  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/aperture-connectivity-eval.json
+  date: 2026-09-04
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
   artifact_hashes:
-    - 4a1bd6d97b3d0901ac40ca12bd2f387f9fab74af71c81444a654611e6a3c3a51
-    - 230c35e3db5f49e8bf087a61fa23d77cd25f4f3ea32934f7e4e19f66d7b0df2a
+    - d010a79ab1a7db88224e4dcd5b7c7e0939f60dbf8f6bf71c35fefc545207b034
+    - d9ba96b84c5e631341d31a3c9407917c22ebdd20d7c1a0c26bd40c7119c7d6fe
+    - 5d045cdcead69bc77512f3051ad8daa1348650dd94f775f0bca41b4509796294
 tags:
   - geometry
   - connectivity

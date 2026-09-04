@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.3",
+  "mode": "context-outline",
+  "half": "left",
+  "status": "PASS",
+  "scope": "native Anycubic project-3MF import, executable layer consistency, height and four-tool routing",
+  "inputs": {
+    "project_3mf": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/exports/v0.5.3/berlin/digital-candidate-r4/context-outline/berlin-context-outline-left-oak-mint-midnight-sky-metrimade-water-transit-anycubic.3mf",
+      "sha256": "c1713c96caf52269523d0fba080fee827da928da5775d8b8cd5f6acbe9164589"
+    },
+    "adapter_report": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/anycubic-slices/context-outline-left-r1-adapter.json",
+      "sha256": "ea7d44db5c327205efb21fed3d42809245ec81e535a16e476763516796ec484d"
+    },
+    "gcode": {
+      "path": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/anycubic-slices/context-outline-left-r1/plate_1.gcode",
+      "bytes": 59261551,
+      "sha256": "86621cd7c67cdbda2b99f2ed239e81a40d19fadaff4656aaedbf6780a05cc2f7"
+    }
+  },
+  "input_hashes": {
+    "project_3mf": "c1713c96caf52269523d0fba080fee827da928da5775d8b8cd5f6acbe9164589",
+    "adapter_report": "ea7d44db5c327205efb21fed3d42809245ec81e535a16e476763516796ec484d",
+    "gcode": "86621cd7c67cdbda2b99f2ed239e81a40d19fadaff4656aaedbf6780a05cc2f7"
+  },
+  "checks": {
+    "native_slicer_success": true,
+    "project_hash_matches_adapter_source": true,
+    "gcode_hash_registered_by_adapter": true,
+    "canonical_layer_markers_match_header": true,
+    "canonical_layer_z_values_unique": true,
+    "header_and_summary_agree": true,
+    "expected_tools_seen": true,
+    "tool_changes_within_expected_range": true,
+    "maximum_z_matches_geometry": true
+  },
+  "expectations": {
+    "tools": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "minimum_tool_changes": 8,
+    "maximum_tool_changes": 8,
+    "maximum_z_mm": 5.2,
+    "z_tolerance_mm": 0.011
+  },
+  "metrics": {
+    "declared_header_layers": [
+      26
+    ],
+    "declared_summary_layers": [
+      26
+    ],
+    "canonical_layer_change_markers": 26,
+    "canonical_unique_z_values": 26,
+    "canonical_maximum_z_mm": 5.2,
+    "supplemental_layer_comments": 17,
+    "tools_seen": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tool_changes": 8
+  },
+  "adapter_observation": {
+    "status": "FAIL",
+    "generic_analyzer_layer_count": null,
+    "interpretation": "Canonical executable markers and the native result control this gate; the exact G-code remains unchanged."
+  },
+  "limitations": [
+    "This digital review does not approve physical ACE slot identity, purge sufficiency, seam appearance, logo readability or print quality.",
+    "Final color/tool and wipe-tower inspection remains a human GUI gate.",
+    "Physical bridge strength and installed wall proof-load remain unqualified."
+  ],
+  "reviewer": {
+    "wrapper": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.3/berlin/review_anycubic_slice.py",
+    "wrapper_sha256": "8384c96846defea719030f8f564efe9ccc35948488d9e53960feda86d24ebd6b",
+    "review_engine": "/home/stefan/Projekte/3d_models/products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.0/berlin/review_anycubic_site_marker_slice.py",
+    "review_engine_sha256": "37f739b0beeb645f028a24f9ceea474729815899b9bc3b93eac6428bcfe59d6f"
+  }
+}

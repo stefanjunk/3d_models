@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "Observed once across four digital Berlin half geometries; no physical light, strength or print result exists."
+    notes: "Observed in two Berlin revisions across eight digital half geometries; no physical light, strength or print result exists."
 feature:
   type: through-apertures in a relief backer without a rear grid
   geometry: two-part wall-map relief whose buffered river/canal openings pass from the halo cavity through a 3.0 mm backer
@@ -40,10 +40,10 @@ scope:
     unit_id: null
     firmware: unknown
   material:
-    manufacturer: Anycubic candidate
-    product: PLA Matte candidate
+    manufacturer: SUNLU
+    product: PLA family
     variant: four semantic colors
-    color: Bone White/Nardo Grey/Black/Orange
+    color: Oak/Mint Green/Midnight/Sky Blue
     batch: null
     conditioning: null
   nozzle:
@@ -61,13 +61,13 @@ scope:
   geometry_class: large two-part decorative wall relief with no continuous rear frame
   environment: digital CAD, serialized STL audit and target-slicer validation only
   transfer_limits:
-    - Evidence covers buffered Berlin waterways at 0.25 mm raster pitch and four specific half geometries.
+    - Evidence covers buffered Berlin water polygons and waterway lines at 0.25 mm raster pitch and eight specific half geometries across two revisions.
     - It does not establish a universal bridge width, structural capacity, light quality or thermal behavior.
     - Grid-backed, laminated, resin, laser-cut or continuously framed products can have different connectivity requirements.
 observation:
   summary: Closed or branching waterway apertures divided the retained 3.0 mm backer into multiple positive components, including large loose islands, even though the aperture fraction and outer-edge keep-outs passed.
   expected: Every physical half remains one connected printed backer while selected openings transmit rear light to the front.
-  actual: Before bridge insertion the four raster halves contained 5, 4, 3 and 3 retained components. Candidate r9 inserted 4, 2, 2 and 2 local 2.0 mm material bridges, restoring 16.4375, 7.125, 8.3125 and 7.4375 mm2 respectively; every final half then had one retained raster component, one Bone White body and one watertight composite.
+  actual: Revision 0.4.0 candidate r9 required 4, 2, 2 and 2 local 2.0 mm bridges. After the corrected all-water extraction, revision 0.5.3 openings-only candidates contained 67, 61, 145 and 169 retained components; the selected candidate inserted 61, 56, 126 and 148 local 2.0 mm bridges, restoring 98.8125, 81.375, 221.9375 and 250.0625 mm2. Every final half then had one retained raster component, one connected base body and one watertight composite without a rear grid or rear ribs.
   outcome: correction
   parameter: retained_positive_component_count_per_physical_half
   recommended_value: 1
@@ -80,16 +80,16 @@ explanation:
     - A continuous rear frame, transparent insert or separate retained inlay could intentionally support islands in another architecture.
     - Filling enclosed regions into the aperture instead of adding bridges could also remove loose bodies but would change open area and lighting character.
   validated: false
-  validation_method: Four raster connectivity checks, serialized STL topology audits and four successful native Anycubic target slices.
+  validation_method: Eight raster connectivity checks across two revisions; for revision 0.5.3, exact serialized STL topology audits, vendor-aware four-body 3MF validation and four successful native Anycubic target slices.
 evidence:
-  observations: 4
-  same_scope_repetitions: 1
-  geometry_count: 4
+  observations: 8
+  same_scope_repetitions: 2
+  geometry_count: 8
   machine_count: 1
-  material_count: 0
+  material_count: 1
   nozzle_count: 1
   measured: true
-  measurement_method: 4-connected raster labeling at 0.25 mm pitch, exact-coordinate STL topology audit, and retained Anycubic native result/G-code evidence.
+  measurement_method: 4-connected raster labeling at 0.25 mm pitch, source-to-mask bridge accounting, exact-coordinate STL topology audit, vendor-aware 3MF inspection and retained Anycubic native result/G-code evidence.
   uncertainty: The bridge algorithm and widths have no physical strength, appearance or transmitted-light measurement; target slices do not qualify the installed product.
   sources:
     - type: product-trace
@@ -104,10 +104,24 @@ evidence:
       ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/aperture-connectivity-eval.json
       hash: 4a1bd6d97b3d0901ac40ca12bd2f387f9fab74af71c81444a654611e6a3c3a51
       notes: Deterministic four-half connectivity verdict.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
+      hash: d010a79ab1a7db88224e4dcd5b7c7e0939f60dbf8f6bf71c35fefc545207b034
+      notes: Records openings-only component counts, selected local bridges, final one-body connectivity and serialized mesh metrics for all four corrected halves.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/boundary-crop-water-bridge-accounting.json
+      hash: d9ba96b84c5e631341d31a3c9407917c22ebdd20d7c1a0c26bd40c7119c7d6fe
+      notes: Per-component water disposition and bridge evidence for the boundary-crop mode.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/context-outline-water-bridge-accounting.json
+      hash: 5d045cdcead69bc77512f3051ad8daa1348650dd94f775f0bca41b4509796294
+      notes: Per-component water disposition and bridge evidence for the context-outline mode.
   artifacts:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/build_berlin_modes.py
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/check_candidate_connectivity.py
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/mesh-audits
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.3/berlin/build_berlin_water_transit.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
 applicability:
   triggers:
     - A through-cut line, texture or light-opening network is subtracted from a backer that has no continuous rear support.
@@ -132,12 +146,13 @@ relationships:
     - .agents/skills/validate-printable-3d-projects/SKILL.md
 validation:
   targeted: pass
-  regression: not-run
+  regression: pass
   reports:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.4.0/berlin/digital-candidate-r9/aperture-connectivity-eval.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
 provenance:
   project: MM-ART-010
-  part_revision: 0.4.0-digital-candidate-r9
+  part_revision: 0.5.3-digital-candidate-r4
   trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decision-log.md
   source_commit: null
   created_by: Codex via 3d-skill-maintainer

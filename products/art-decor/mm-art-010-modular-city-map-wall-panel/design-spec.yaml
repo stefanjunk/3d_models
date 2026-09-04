@@ -59,7 +59,7 @@ workflow:
   concept_approval:
     status: approved
     spec_revision: 0.5.3
-    geometry_revision: null
+    geometry_revision: 0.5.3
     asset: concepts/berlin-water-transit-concept-v07.png
     approved_by: Stefan
     approved_at: "2026-09-04"
@@ -78,7 +78,7 @@ workflow:
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
     version: 0.5.3
-    reason: "Revision 0.5.3 has no production geometry yet, and the separate rear watermark geometry, protected-land manifest and human approval have not been produced."
+    reason: "Revision 0.5.3 production geometry exists, but the separate rear watermark geometry, protected-land manifest and human approval have not been produced."
   decomposition_approval:
     status: approved
     spec_revision: 0.5.3
@@ -88,8 +88,10 @@ workflow:
     approved_at: "2026-09-04"
     basis: "The user approved all-water openings, S-/U-Bahn ownership for tool 4, and the targeted bridge comparison described before continuation."
   digital_candidate:
-    status: REJECTED_SEMANTICALLY_INCONSISTENT
-    reason: "Revision 0.5.1 digital-candidate-r4 is mesh-valid but omitted water-area multipolygons such as Tegeler See and used tool 4 for motorway accents. Revision 0.5.3 supersedes it; its manufacturing candidate is now authorized but not yet generated."
+    status: DRAFT_DIGITAL_PASS_PHYSICAL_AND_GUI_REVIEW_REQUIRED
+    revision: 0.5.3
+    candidate: digital-candidate-r4
+    reason: "All four corrected meshes and native Anycubic 3MFs pass digital geometry and canonical slice gates. Context-outline floating-region warnings require GUI review; physical bridge, handling, wall, light, connector and release gates remain open."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -101,9 +103,9 @@ history:
   previous_revision: 0.5.2
   previous_concept_artifact: concepts/berlin-water-transit-concept-v07.png
   previous_status: "concept approved; production geometry not generated"
-  geometry_revision: 0.5.1
+  geometry_revision: 0.5.3
   geometry_concept_artifact: concepts/berlin-site-marker-concept-v06.png
-  geometry_status: "revision 0.5.1 digital-candidate-r4 is historical and explicitly rejected for semantic map inconsistency; it must not be printed or released"
+  geometry_status: "revision 0.5.3 digital-candidate-r4 is the current digitally validated draft; revision 0.5.1 remains historical and rejected for semantic map inconsistency"
 
 requirements_trace:
   user_stated:
@@ -160,9 +162,7 @@ requirements_trace:
     - "Extract water multipolygons independently from waterway centerlines, then account for every retained or intentionally removed component before meshing"
     - "Use route relations tagged network:metro=s-bahn or network:metro=u-bahn as the Sky Blue transit source and dissolve opposite directions before buffering"
     - "Keep motorway and trunk classes in the Midnight street network and prohibit them from independently populating tool 4"
-  unresolved_consequential:
-    - "The newly reacquired same-date Berlin and Brandenburg OSM extracts must be hashed, bounded and converted into production semantic layers before geometry generation"
-    - "The exact final water mask must prove one connected printable body per half after documented topology bridges; otherwise geometry generation fails closed"
+  unresolved_consequential: []
   unresolved_nonblocking:
     - "Exact connector and snap clearances, insertion force and retention require a Kobra 3 Max process-matched coupon before print-candidate approval"
     - "The four physical spool identities are recorded as FIL-0005, FIL-0001, FIL-0003 and FIL-0002; exact batches, conditioning, measured swatches and opacity remain to be recorded before final slicing"
@@ -271,7 +271,7 @@ coordinate_system:
 
 geometry:
   geometry_revision: 0.5.3
-  geometry_candidate: production-build-authorized
+  geometry_candidate: digital-candidate-r4
   previous_geometry_authority: "revision 0.5.1 digital-candidate-r4; rejected for semantic inconsistency"
   variant_catalog: product-variants.json
   assembled_nominal_mm: [600.0, 400.0]
@@ -312,7 +312,7 @@ geometry:
     output_owner: semantic_tool_4
     target_width_mm: 54.0
     target_height_mm: 57.176471
-    production_status: historical-v0.5.1-awaiting-v0.5.3-regeneration
+    production_status: current-v0.5.3-digital-pass-physical-recognition-pending
     relief_height_mm: 0.6
     minimum_printable_stroke_mm: 0.9
     upper_color_xy_clearance_mm: 0.5
@@ -376,15 +376,15 @@ map_content:
   pilot: Berlin
   production_mode: "unique one-off pilot"
   source: "OpenStreetMap vector data"
-  source_snapshot: "source-data/v0.5.2/berlin/concept-source-manifest.json proves the corrected semantics against the local Berlin PBF. Revision 0.5.3 reacquires same-date official Berlin and Brandenburg extracts and must freeze their hashes plus bounded derived layers before source-coverage can pass."
+  source_snapshot: "source-data/v0.5.3/berlin/source-manifest.json freezes the same-date official Berlin and Brandenburg extracts, bounded derived semantic layers, coverage checks and the Tegeler See regression fixture."
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
   approved_display_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   palette_preview_parameter_source: source/v0.4.1/berlin/display-mode-parameters.json
   site_marker_parameter_source: source/v0.5.1/berlin/site-marker-parameters.json
   production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   map_extent_parameter:
-    current: pending-context-complete-v0.5.3-derived-layers
-    status: source-download-complete-derivation-pending
+    current: revision-0.5.3-frozen-berlin-and-context-extents
+    status: current-single-qualified-extent-per-display-mode
     automatic_source_substitution_allowed: false
   previous_digital_candidate:
     id: digital-candidate-r9
@@ -398,7 +398,7 @@ map_content:
     context_outline_projects:
       - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-left-four-color.3mf
       - exports/v0.4.0/berlin/digital-candidate-r9/context-outline/berlin-context-outline-right-four-color.3mf
-  current_digital_candidate:
+  rejected_digital_candidate:
     id: digital-candidate-r4
     status: REJECTED_SEMANTICALLY_INCONSISTENT
     summary: validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json
@@ -412,13 +412,26 @@ map_content:
       - exports/v0.5.1/berlin/digital-candidate-r4/context-outline/berlin-context-outline-right-oak-mint-midnight-sky-metrimade-anycubic.3mf
     logo_coupon: exports/v0.5.1/berlin/logo-coupon-r1/metrimade-logo-coupon-oak-sky-anycubic.3mf
     rejection_evidence: validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
+  current_digital_candidate:
+    id: digital-candidate-r4
+    revision: 0.5.3
+    status: DRAFT_DIGITAL_PASS_PHYSICAL_AND_GUI_REVIEW_REQUIRED
+    summary: validation/v0.5.3/berlin/digital-candidate-r4/digital-candidate-summary.json
+    validation_contract: validation/v0.5.3/berlin/digital-candidate-r4/validation-project-r2.json
+    aggregate_draft_report: validation/v0.5.3/berlin/digital-candidate-r4/validation-summary-draft-r3.json
+    boundary_crop_projects:
+      - exports/v0.5.3/berlin/digital-candidate-r4/boundary-crop/berlin-boundary-crop-left-oak-mint-midnight-sky-metrimade-water-transit-anycubic.3mf
+      - exports/v0.5.3/berlin/digital-candidate-r4/boundary-crop/berlin-boundary-crop-right-oak-mint-midnight-sky-metrimade-water-transit-anycubic.3mf
+    context_outline_projects:
+      - exports/v0.5.3/berlin/digital-candidate-r4/context-outline/berlin-context-outline-left-oak-mint-midnight-sky-metrimade-water-transit-anycubic.3mf
+      - exports/v0.5.3/berlin/digital-candidate-r4/context-outline/berlin-context-outline-right-oak-mint-midnight-sky-metrimade-water-transit-anycubic.3mf
   revised_semantic_layers:
     tool_1: {role: land_base, material: Oak}
     tool_2: {role: medium_relief_and_areas, material: Mint Green}
     tool_3: {role: street_network_including_motorway_and_trunk, material: Midnight}
     tool_4: {role: s_bahn_u_bahn_context_boundary_and_site_marker, material: Sky Blue}
     negative_geometry: {role: all_mapped_water_areas_and_river_canal_stream_lines, material: none, effect: light_through}
-    production_status: approved-for-revision-0.5.3-generation
+    production_status: revision-0.5.3-digital-pass
   attribution:
     required_text: "Map data © OpenStreetMap contributors · ODbL 1.0"
     required_url: "https://www.openstreetmap.org/copyright"
@@ -435,7 +448,7 @@ multicolor:
   selected_palette: berlin_oak_mint_midnight_sky
   proposed_third_palette: metricreate_forge
   geometry_effect: none
-  geometry_authority: "revision 0.5.3 authorized for generation; revision 0.5.1 is rejected because tool 4 and water geometry had the wrong semantics"
+  geometry_authority: "revision 0.5.3 digital-candidate-r4; revision 0.5.1 is rejected because tool 4 and water geometry had the wrong semantics"
   physical_filaments:
     land_base: {inventory_id: FIL-0005, manufacturer: SUNLU, product: PLA+2.0, color: Oak, label_code: 05860601A}
     medium_relief_and_areas: {inventory_id: FIL-0001, manufacturer: SUNLU, product: PLA+, color: Mint Green, label_code: 01160403Y}
@@ -523,10 +536,10 @@ manufacturing:
   line_width_mm: 0.45
   preferred_orientation: "flat rear face on bed, map face upward"
   supports: "none on visible main halves; local secondary parts support-free"
-  slicer: "Anycubic Slicer Next through fdm_ci.py slice-anycubic-next with explicit machine, process and filament profiles"
+  slicer: "Anycubic Slicer Next 1.3.9.4 through fdm_ci.py slice-anycubic-next; each authored 3MF embeds the machine, process and four provisional PLA-family filament profiles"
 
 optimization:
-  status: pending
+  status: applied
   objective: "minimize seam count, filament, support, purge and print time while preserving flatness, connector retention, relief readability and lighting apertures"
   protected:
     - "visible global map registration and center seam"
@@ -536,12 +549,12 @@ optimization:
   selected_variant: "3.0 mm backer with 0.6/0.6/0.4 mm sequential map bands; the left site marker adds a local 0.6 mm tool-4 relief for a 5.2 mm maximum"
   comparison_report: validation/v0.3.0/berlin/optimization/optimization-report.json
   mesh_simplification:
-    status: pending
+    status: applied
     master_mesh: "immutable EPSG:25833 OSM vectors plus protected 0.25 mm manufacturing mask"
-    manufacturing_mesh: "exports/v0.3.0/berlin/berlin-{left,right}-composite.stl"
+    manufacturing_mesh: "exports/v0.5.3/berlin/digital-candidate-r4/{boundary-crop,context-outline}/berlin-{mode}-{left,right}-composite.stl"
     method: "rasterize the immutable vector field at 0.25 mm pitch, remove sub-0.8 mm2 islands, rebuild simplified contours, and preserve seam/interface/light keep-outs exactly"
     tolerance_mm: 0.03
-    comparison_report: validation/v0.3.0/berlin/berlin-build-report.json
+    comparison_report: validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
     protected_regions:
       - "outer perimeter and center seam"
       - "thin map/color boundaries and through-openings"
@@ -554,11 +567,11 @@ optimization:
       max_mesh_mib: 75.0
       max_slicer_seconds: 600.0
     slicer_resolution_check:
-      status: invalidated-by-semantic-change
-      performance_status: not-run-for-revision-0.5.3
+      status: passed
+      performance_status: "PASS: all four native slices completed inside 600 s (101-479 s); both context halves retain a floating-region GUI review warning"
       method: "vendor-aware production-extension 3MF validation plus exact Anycubic Slicer Next 1.3.9.4 target-project import and slice"
-      result: "Historical revision 0.5.1 slices are not evidence for corrected revision 0.5.3. New 3MFs and exact Anycubic slices are authorized but not yet generated."
-      report: validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json
+      result: "Revision 0.5.3 digital-candidate-r4 has four non-empty native project 3MFs, four successful native G-code exports, 23-26 canonical layers, tools 0-3 and three or eight tool changes. The context halves require human inspection of the vendor floating-region warning before printing."
+      report: validation/v0.5.3/berlin/digital-candidate-r4/digital-candidate-summary.json
 
 resource_budgets:
   max_triangles_per_main_half: 750000
@@ -606,7 +619,7 @@ acceptance:
     status: PASS
   - id: AC-SITE-MARKER
     criterion: "The 54.0 × 57.18 mm metriMade lockup is centered at the frozen address point, stays wholly on one retained left half, retains at least 50 mm center-seam clearance, clears the perimeter by at least 5 mm, resolves no feature below 0.9 mm, rises 0.6 mm and reuses tool 4."
-    method: "revision 0.5.1 build, mesh, 3MF and native slice evidence plus the pending process-matched human recognition test at 2.0 m"
+    method: "revision 0.5.3 build, mesh, 3MF and native slice evidence plus the pending process-matched human recognition test at 2.0 m"
     status: REVIEW_REQUIRED
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate water-area extraction, water-line extraction, route-relation extraction, protected topology bridging and four-color bodies to unique authorities before production CAD."
@@ -615,11 +628,11 @@ acceptance:
   - id: AC-SOURCE-COVERAGE
     criterion: "The immutable context-complete source covers both display extents and every water, S-Bahn, U-Bahn and road production layer is non-empty and accounted for."
     method: "new revision 0.5.3 source manifest, bbox-containment, semantic counts and named-feature regression"
-    status: NOT_RUN
+    status: PASS
   - id: AC-WATER-TRANSIT-SEMANTICS
     criterion: "Tegeler See relation 451908 and every retained mapped water component produce through-part negative geometry; Sky Blue contains S-/U-Bahn route relations and no independent motorway accent geometry."
     method: "source-to-mask accounting report, named Tegeler See fixture, body ownership audit and rendered overlay comparison"
-    status: NOT_RUN
+    status: PASS
   - id: AC-INTERFACE-PLACEMENT
     criterion: "Both modes place every connector pocket, hanger and standoff footprint inside the retained body with at least 5.0 mm modeled perimeter ligament."
     method: "validation/v0.4.0/berlin/interface-placement-report.json"
@@ -627,15 +640,15 @@ acceptance:
   - id: AC-DIGITAL-GEOMETRY
     criterion: "Four single-component watertight composites and sixteen serialized watertight color bodies exist; every half remains connected after light-through apertures."
     method: "new revision 0.5.3 build report plus four exact composite mesh audits and four vendor-aware 3MF geometry reports"
-    status: NOT_RUN
+    status: PASS
   - id: AC-TARGET-SLICER
     criterion: "All four native Anycubic project 3MFs import and produce non-empty G-code with 23-26 canonical layers, tools 0-3 and the expected three or eight tool changes."
     method: "four new revision 0.5.3 slice-anycubic-next result.json artifacts plus product-local canonical slice reviews"
-    status: NOT_RUN
+    status: PASS
   - id: AC-RESOURCE-BUDGET
     criterion: "Every half stays below 750,000 composite triangles and exact native slicing completes inside the nominal 600 second per-half target."
     method: "four mesh audits and recorded slice-anycubic-next wall times"
-    status: REVIEW_REQUIRED
+    status: PASS
   - id: AC-ENVELOPE
     criterion: "Both 300 x 400 mm main halves fit the verified Kobra 3 Max build volume with declared margins."
     method: "CAD envelope report and exact slicer import"
@@ -660,14 +673,14 @@ acceptance:
 deliverables:
   - "Machine-readable product variant catalog with independent palette, display-mode, size and map-extent axes"
   - "Parameterized location-artwork contract supporting another address/coordinate and another rights-cleared logo, icon or monochrome image mask"
-  - "Pending concept v07 for all-water light openings and Sky Blue S-/U-Bahn; revision 0.5.1 digital-candidate-r4 is rejected and retained only as historical evidence"
+  - "Approved concept v07 plus revision 0.5.3 production-source extraction, source manifest, source-to-mask accounting and named Tegeler-See regression evidence"
   - "Oak/Sky Blue 84 × 88 mm logo-recognition coupon with a native Anycubic project; physical 2 m sight test remains open"
   - "Approved revision 0.4.0 display-mode requirements and concept v03"
   - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"
   - "Immutable OSM snapshot, source register and attribution notice"
-  - "Berlin one-off master assembly and two DRAFT 300 x 400 mm manufacturing halves"
+  - "Berlin one-off master assembly with four DRAFT 300 x 400 mm manufacturing halves: left/right for boundary_crop and left/right for context_outline"
   - "Three small concealed one-way seam connectors and snap-in hanger/standoff parts; no rear grid"
-  - "Named color meshes and four native four-volume Anycubic Slicer Next project 3MFs for both modes and both halves"
+  - "Named color meshes, four native four-volume Anycubic Slicer Next project 3MFs and four successful native G-code evidence sets for both modes and both halves"
   - "Seam/connector, snap-fit, light-envelope and multicolor coupons plus validation reports"
   - "DRAFT-only package until human print-candidate, appearance, safety, rights and commercial approvals"

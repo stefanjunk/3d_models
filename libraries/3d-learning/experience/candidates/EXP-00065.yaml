@@ -1,0 +1,178 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00065
+title: Measure a printable-map conformance gate on the exported artifact, not on an intermediate build array
+captured_at: 2026-09-04
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "Second user correction on the same product after EXP-00064 declared the same defect class corrected. One corrected digital production run across four halves in two display modes. No physical print evidence."
+feature:
+  type: conformance gate placement in a staged raster-to-mesh pipeline
+  geometry: four-color planar street-map relief with water apertures and raised brand relief
+  design_parameters:
+    gate_input: final aperture array immediately before cross-section conversion
+    gate_measure: open area fraction of mapped water per named body and in aggregate
+    independent_check: cross-section of the exported tool-1 land base
+    functional_keepout_rule: exact rear-cutter footprint dilated by the documented margin
+    functional_margin_mm: 12.0
+    outer_ligament_mm: 2.0
+    site_marker_aperture_clearance_mm: 2.0
+    site_marker_anchor: artwork_west_edge on the frozen address point
+    maximum_open_area_fraction_per_half: 0.15
+  named_datums:
+    - Tegeler See, official Berlin Gewaesserkarte and OSM relation 451908
+    - Havel corridor, official names Havel, Alte Havel, Havelschlenke
+    - permanent center seam and the four wall-mount footprints
+  constraints:
+    - The array a gate measures must be the array that becomes geometry.
+    - A pass threshold must be a coverage fraction, never merely nonzero.
+    - Only an exact functional footprint or a logged bridge may interrupt water.
+    - A polygon rasteriser must apply each polygon's holes to that polygon only.
+scope:
+  process: FFF four-color single-nozzle digital design workflow
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU
+    product: PLA family
+    variant: Oak, Mint Green, Midnight and Sky Blue
+    color: multicolor
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: not re-run for revision 0.5.4; packaging and slicing deliberately deferred until the concept gate is approved
+    profile_hash: null
+  geometry_class: two-mode two-half planar vector city-map wall relief
+  environment: deterministic local raster/mask generation, manifold cross-section extrusion, Blender composite rebuild, serialized STL audits and an independent exported-artifact section check; no physical print
+  transfer_limits:
+    - Observed on one Berlin source and one four-tool wall-relief architecture.
+    - Coverage thresholds are product-specific and must be re-derived per map extent and mount layout.
+    - The 0.15 per-half opening cap and the 2.0 mm ligament are geometry parameters with no strength evidence behind them.
+observation:
+  summary: The user reported that Tegeler See was still completely missing and the Havel largely missing, one revision after the same defect class had been recorded as corrected.
+  expected: All mapped waters are cut through, and the build's own PASS means the exported artifact is correct.
+  actual: "Revision 0.5.3 digital-candidate-r4 reported status PASS and tegeler_see_final_opening_area_mm2 262.5625 and 202.9375. Sectioning the exported tool1-base STLs showed Tegeler See 7.5 percent open in context_outline and 18.3 percent in boundary_crop, and only 54.8 percent of all mapped in-panel water open in boundary_crop. Four independent causes were measured: the accounting ran inside raster_masks before update_aperture_keepout removed a further 821.375 mm2 and 552.25 mm2; the approved 54 mm brand mark was centred on its Tegel address and covered 248 mm2 of a 279 mm2 lake; socket keep-outs were 62 x 66 mm bounding rectangles costing 1326.9 mm2 of water and the 5.0 mm outline ligament cost 793.4 mm2; and the polygon rasteriser filled every exterior then punched every interior, so one water polygon's hole deleted a different lake, leaving Schlachtensee and Gross-Glienicker See 0.0 percent open."
+  outcome: correction
+  parameter: conformance_gate_measurement_point
+  recommended_value: final pre-geometry array plus an independent check on the exported mesh
+  units: workflow-contract
+explanation:
+  hypothesis: A gate placed mid-pipeline certifies a state that later stages still modify, so a green report and a wrong artifact are fully compatible.
+  mechanism: "Place the gate on the last array before geometry conversion, express it as a coverage fraction against an independent naming authority, and add a second checker that reads only the exported artifact. Independently, derive protective keep-outs from the exact cutter footprint rather than its bounding box, and rasterise polygons per polygon so holes cannot cross object boundaries."
+  alternatives:
+    - Keep the mid-pipeline gate but re-run it after every later mutation; rejected because it depends on remembering each new mutation.
+    - Forbid later mutations of the aperture array; rejected because the marker support ring is a legitimate late constraint.
+    - Accept nonzero-area fixtures; rejected because 7.5 percent coverage satisfies nonzero.
+  validated: true
+  validation_method: "Two independent measurements of the same quantity: the build's own gate on the final aperture raster, and verify_candidate_water.py sectioning the exported tool1-base STLs at mid thickness. Both were computed for revision 0.5.3 digital-candidate-r4 and revision 0.5.4 digital-candidate-r2."
+evidence:
+  observations: 4
+  same_scope_repetitions: 1
+  geometry_count: 4
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: "Exported-STL cross-section at mid thickness intersected with the official Berlin Gewaesserkarte polygons in EPSG:25833 panel millimetres; 0.25 mm raster stage-by-stage accounting; trimesh containment sampling; per-file SHA-256 comparison of the two candidates."
+  uncertainty: "Digital coverage only. The relaxed per-half opening cap, the 2.0 mm ligament, the 2.0 mm marker support ring and the 20.0 mm marker seam clearance carry no physical evidence. Residual closed water under wall mounts and the title bar is reported, not solved."
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-04 — Tegeler See missing completely, Havel missing to a notable extent, east half unchecked
+      hash: null
+      notes: Direct corrective requirement; second correction of the same defect class.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.5.4.md
+      hash: null
+      notes: Measured state of the rejected revision 0.5.3 candidate on its exported STLs.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/decomposition-review-0.5.4.md
+      hash: null
+      notes: The four defects and the gate relocation.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.4/berlin/hydrography-parameters.json
+      hash: null
+      notes: Parameter changes with measured cost of each superseded value.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r1/REJECTED-r1.md
+      hash: null
+      notes: Preserved failure record; only the inherited 0.12 per-half opening cap failed, at 0.12966.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/build-report.json
+      hash: null
+      notes: Gate on the final aperture; fixtures Tegeler See 0.954/0.937 and Havel 0.896/0.979.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
+      hash: null
+      notes: Independent exported-artifact measurement; boundary_crop 0.772 and context_outline 0.876 of mapped water open.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.4/berlin/build_berlin_hydrography.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.4/berlin/verify_candidate_water.py
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/renders/tegel-before-after-boundary-crop.png
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/renders/tegel-before-after-context-outline.png
+applicability:
+  triggers:
+    - A pipeline stage mutates the array that an earlier stage already certified.
+    - A named feature regression is expressed as nonzero rather than as a coverage fraction.
+    - A protective keep-out is authored as a bounding rectangle around a functional part.
+    - Polygons with interior rings are rasterised in bulk.
+    - A brand mark is anchored on a geographic point without checking what lies under it.
+  exclusions:
+    - Single-stage generators where no later stage can modify the certified array.
+  transfer_limits:
+    - Coverage thresholds, ligament and opening cap are product-specific and must be re-derived.
+    - Wall-mount and attribution conflicts must be resolved per layout, not by a global rule.
+relationships:
+  duplicates: []
+  conflicts:
+    - EXP-00064
+  supersedes: []
+  related:
+    - EXP-00059
+    - EXP-00064
+  evals:
+    - EVAL-regression-map-water-transit-semantics-001
+    - EVAL-regression-gate-measures-exported-artifact-001
+  patterns: []
+  references:
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+    - .agents/skills/multicolor-fdm-design/references/03-semantic-architecture.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/build-report.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.5.4-digital-candidate-r2
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/decomposition-review-0.5.4.md
+  source_commit: fe5c3cfa
+  created_by: Claude via 3d-skill-maintainer
+tags:
+  - map-relief
+  - water-aperture
+  - conformance-gate
+  - false-pass
+  - rasterisation
+  - keep-out
+  - user-correction
+  - regression

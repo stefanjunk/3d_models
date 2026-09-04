@@ -5,7 +5,7 @@ title: Printable map preserves water features and does not confuse transit with 
 category: regression
 status: draft
 trigger: A printable map creates openings or color bodies from multiple geospatial feature classes, or reassigns a color role from roads to transit.
-risk: Geometry and slicer checks can pass while lakes are silently absent or a color body depicts the wrong infrastructure class, producing a materially incorrect product.
+risk: "Geometry and slicer checks can pass while lakes are silently absent or a color body depicts the wrong infrastructure class, producing a materially incorrect product. This eval was itself recorded as pass on 2026-09-04 against revision 0.5.3 digital-candidate-r4 and corrected the same day: re-measuring that candidate on its exported tool1-base STLs gave Tegeler See 0.075 and 0.183 coverage and 0.548 of all mapped water open in boundary_crop. The pass was an artefact of a nonzero criterion applied to a pre-keep-out mask. Revision 0.5.4 digital-candidate-r2 meets the strengthened expectations: Tegeler See 0.925 and 0.899, Havel 0.862 and 0.924, all mapped water 0.772 and 0.876."
 given:
   source_snapshot: immutable geospatial source with recorded hash, CRS and complete target-extent coverage
   semantic_contract:
@@ -17,13 +17,16 @@ given:
 expected:
   - Polygon water areas, linear waterways and transit route relations are extracted as separate non-empty layers with recorded filters and counts.
   - Every source water component is retained, deliberately bridged or explicitly listed as removed with its reason and remaining opening.
-  - Tegeler See relation 451908 produces nonzero transformed mask area and nonzero through-part geometry in both Berlin display modes.
+  - "Tegeler See produces through-part geometry in both Berlin display modes covering at least the required fraction of its mapped area, measured on the exported land base. STRENGTHENED 2026-09-04: the previous nonzero criterion passed at 7.5 percent coverage."
+  - "Every named-feature expectation is measured on the artifact that ships, not on an intermediate mask or array that a later pipeline stage can still modify."
   - Tool 4 is traceable to S-Bahn/U-Bahn route relations and contains no independent motorway/link/trunk accent source.
   - Motorway/link/trunk remains in tool 3, and all four positive bodies remain disjoint, aligned and within the four-tool limit.
   - Each half remains connected, retains protected ligaments and satisfies the maximum opening fraction after all water cuts.
   - New 3MF geometry reports and exact target-slicer evidence refer to the corrected source and cannot be substituted by historical semantically rejected artifacts.
 failure_conditions:
   - A named mapped lake is present in the source but absent from the final negative geometry without an explicit approved omission.
+  - A named-feature fixture is graded on nonzero area instead of a coverage fraction.
+  - The evidence for a coverage claim is an intermediate build array rather than the exported artifact.
   - Water-area multipolygons are not processed when the product claims all mapped waters.
   - Tool 4 contains motorway/trunk accent geometry or lacks both required transit classes.
   - Source component totals cannot be reconciled with retained, bridged and removed component totals.
@@ -36,6 +39,7 @@ fixtures:
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-water-transit-concept-v07.json
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.3/berlin/source-manifest.json
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
   - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/validation-summary-draft-r3.json
 grader:
   type: hybrid
@@ -46,11 +50,12 @@ grader:
 relationships:
   lessons:
     - EXP-00064
+    - EXP-00065
   regression_suites: []
 last_run:
-  result: pass
+  result: fail
   date: 2026-09-04
-  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/validation-summary-draft-r3.json
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
   artifact_hashes:
     - 649c20ea639e2a65723ed30ad88fcd485dc1ed20d423d13e784aea69585ca8ff
     - d010a79ab1a7db88224e4dcd5b7c7e0939f60dbf8f6bf71c35fefc545207b034

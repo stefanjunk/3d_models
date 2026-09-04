@@ -1,0 +1,61 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-gate-measures-exported-artifact-001
+title: A conformance gate measures the exported artifact, and a coverage fraction, not an intermediate array
+category: regression
+status: draft
+trigger: A staged generator certifies a named-feature or coverage requirement in one stage while later stages can still mutate the same array, mask or body.
+risk: The build reports PASS on a state that no longer exists in the shipped artifact. Revision 0.5.3 of MM-ART-010 reported Tegeler See retained at 262.5625 mm2 while its exported land base was 92.5 percent solid across that lake.
+given:
+  pipeline: source vector data, raster mask, keep-outs, topology bridges, cross-section conversion, extrusion, serialization
+  mutation_points_after_the_legacy_gate:
+    - site-marker aperture keep-out applied in the mode builder
+    - contour simplification during cross-section conversion
+  naming_authority: a source independent of the geometry source, used to name and bound each fixture feature
+  fixtures_measured_as: fraction of the mapped feature area that is open in the artifact
+expected:
+  - The gate reads the last array before geometry conversion; no later stage mutates it.
+  - A second checker measures the same requirement from the exported mesh alone and never reads the build's own arrays.
+  - Every named fixture is expressed as a minimum coverage fraction, never as nonzero area.
+  - "The fixture denominator is stated explicitly as the intersection of the naming authority's outline with the geometry the pipeline is responsible for, and the plain outline fraction is reported alongside it so a source gap cannot hide behind the gate."
+  - Every named feature below the reporting threshold is listed with its area and its cause.
+  - A protective keep-out is the exact functional cutter footprint dilated by a documented margin, not a bounding rectangle.
+  - A polygon rasteriser applies each polygon's interior rings to that polygon alone.
+  - A relaxed guard is recorded with its previous value, the measurement that forced the change, and an explicit approval request.
+failure_conditions:
+  - A gate result is computed before a stage that can still remove the certified geometry.
+  - A named-feature fixture passes on nonzero area while its coverage fraction is below the product requirement.
+  - The only evidence for a coverage claim is the generator's own report.
+  - A keep-out rectangle removes required geometry that its functional footprint does not touch.
+  - A named feature present at 100 percent in the frozen source is absent from the artifact without an explicit, approved and reported cause.
+  - A guard is relaxed without recording the superseded value and the measurement behind the change.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.5.4.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/decomposition-review-0.5.4.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.4/berlin/hydrography-parameters.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r1/REJECTED-r1.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/build-report.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
+grader:
+  type: hybrid
+  command: python3 products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.4/berlin/verify_candidate_water.py --candidate digital-candidate-r2
+  expected_exit_code: 0
+  rubric: "Require two independent measurements of the same requirement, one on the final pre-geometry array and one on the exported mesh, agreeing within the recorded raster tolerance. Require coverage fractions with stated denominators, an explicit list of features below threshold with causes, keep-outs derived from exact footprints, and a recorded superseded value for every relaxed guard."
+  measurement_method: "Cross-section of the exported tool-1 body at mid thickness, intersected with the naming authority's polygons in panel coordinates; 0.25 mm raster stage accounting for attribution of each loss."
+relationships:
+  lessons:
+    - EXP-00065
+    - EXP-00064
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-04
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
+  artifact_hashes: []
+tags:
+  - regression
+  - conformance-gate
+  - false-pass
+  - map-relief
+  - water
+  - verification-independence

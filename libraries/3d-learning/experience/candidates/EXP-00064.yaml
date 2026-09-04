@@ -12,7 +12,7 @@ lifecycle:
     status: pending
     reviewed_by: null
     reviewed_at: null
-    notes: "One user correction followed by a complete corrected digital production run across four Berlin halves. Physical print evidence does not yet exist."
+    notes: "One user correction followed by a complete corrected digital production run across four Berlin halves. Physical print evidence does not yet exist. CORRECTED 2026-09-04: the correction claimed here was not effective in the shipped artifact. See EXP-00065 — the regression was measured on an intermediate array, and sectioning the exported tool1-base STLs of digital-candidate-r4 showed Tegeler See 7.5 percent open in context_outline and 18.3 percent in boundary_crop. The source-semantics findings in this record remain valid; the validation verdict does not."
 feature:
   type: semantic geospatial feature-to-body mapping
   geometry: four-color planar street-map relief with water apertures and transit relief lines
@@ -84,8 +84,8 @@ explanation:
     - Use a curated authoritative hydrography or transit source when OSM classification is incomplete, with a new provenance and coverage audit.
     - Represent very small water features as engraved symbols only when the user approves that visual rule and the omission report remains explicit.
     - Use track geometry instead of route relations only when the product intentionally depicts infrastructure rather than passenger-service lines.
-  validated: true
-  validation_method: Immutable source manifest, per-component water disposition and bridge accounting, named Tegeler-See output regression, four watertight composite audits, sixteen watertight semantic-body audits, four vendor-aware 3MF inspections and four successful native Anycubic slices.
+  validated: false
+  validation_method: "DOWNGRADED 2026-09-04 - the checks below confirmed source semantics and mesh validity but measured the named-feature fixture on the pre-keep-out raster, so they certified an array the pipeline still modified; EXP-00065 records the disproving measurement. Original method: immutable source manifest, per-component water disposition and bridge accounting, named Tegeler-See output regression, four watertight composite audits, sixteen watertight semantic-body audits, four vendor-aware 3MF inspections and four successful native Anycubic slices."
 evidence:
   observations: 5
   same_scope_repetitions: 1
@@ -95,7 +95,7 @@ evidence:
   nozzle_count: 1
   measured: true
   measurement_method: OGR layer/schema queries, GeoJSON extraction, EPSG:25833 area/bounds analysis, source-to-mask accounting, 0.25 mm raster connectivity, exact-coordinate STL audit, vendor-aware 3MF inspection, native target slicing and deterministic rendering
-  uncertainty: Source semantics and digital production geometry are validated for this frozen Berlin snapshot. Very small features and protected keep-outs remain explicitly reported rather than silently represented; physical bridge strength, transmitted-light appearance, exact spool process compatibility and wall performance remain untested.
+  uncertainty: "CORRECTED 2026-09-04 - the digital production geometry was NOT validated: the named-feature check ran before the site-marker keep-out and reported an opening the exported mesh does not have. Source semantics are validated for this frozen Berlin snapshot. Retained original text: very small features and protected keep-outs remain explicitly reported rather than silently represented; physical bridge strength, transmitted-light appearance, exact spool process compatibility and wall performance remain untested."
   sources:
     - type: user-statement
       ref: conversation 2026-09-04 — cut Tegeler See and all other waters; use blue for S-Bahn/U-Bahn instead of motorways
@@ -154,24 +154,28 @@ applicability:
     - Revalidate physical ligaments, opening fraction and connectivity for each size and map extent.
 relationships:
   duplicates: []
-  conflicts: []
+  conflicts:
+    - EXP-00065
   supersedes: []
   related:
     - EXP-00058
     - EXP-00060
+    - EXP-00065
   evals:
     - EVAL-regression-map-water-transit-semantics-001
+    - EVAL-regression-gate-measures-exported-artifact-001
   patterns: []
   references:
     - .agents/skills/functional-3d-design/references/validation-and-dfm.md
     - .agents/skills/multicolor-fdm-design/references/03-semantic-architecture.md
 validation:
-  targeted: pass
-  regression: pass
+  targeted: fail
+  regression: fail
   reports:
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/build-report.json
     - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.3/berlin/digital-candidate-r4/validation-summary-draft-r3.json
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.4/berlin/digital-candidate-r2/exported-water-verification.json
 provenance:
   project: MM-ART-010
   part_revision: 0.5.3-digital-candidate-r4

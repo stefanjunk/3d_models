@@ -1,43 +1,41 @@
-# 3D-design preflight 0.5.1 — MM-ART-010 enlarged metriMade site marker
+# 3D-design preflight 0.5.2 — MM-ART-010 water/transit correction
 
-`MM-ART-010 | C3 (64.0/100) | R2 | K2 | Lane C | LOW_UNKNOWN`
+`MM-ART-010 | C3 (65.0/100) | R2 | K2 | Lane C | LOW_UNKNOWN`
 
 ## Decision
 
 - Design release: `GO_WITH_CONTROLS`
-- Palette selection: non-geometric product/slicer configuration
-- Current DRAFT geometry authority: revision 0.5.1 `digital-candidate-r4`
-- Generated visible change: canonical stacked metriMade lockup, 54.0 × 57.18 mm; four native Anycubic projects and a two-color recognition coupon validated digitally
-- Current production size: 600 × 400 mm only
-- Map-extent selection: deferred
+- Requirements: approved from the user's explicit 2026-09-04 correction
+- Concept gate: pending for `concepts/berlin-water-transit-concept-v07.png`
+- Manufacturing geometry: blocked until concept and revised decomposition approval
+- Previous candidate: revision 0.5.1 `digital-candidate-r4` is rejected for production
 
-The official Berlin address point and both existing map transforms locate the generated 54.0 × 57.18 mm stacked metriMade lockup on the left half in existing tool 4. Its conservative envelope keeps 50.37 mm from the center seam in `context_outline` and 20.36 mm from the outer perimeter in `boundary_crop`. Revision 0.5.1 `digital-candidate-r4` proves the exact logo asset, placement, four non-empty bodies per project and native slices; the 2 m recognition target still requires the generated process-matched physical coupon sight test.
+Revision 0.5.1 is mesh-readable, but it is not a correct Berlin map: the extractor processed river/canal lines but no OSM water-area multipolygons, so Tegeler See relation `451908` and other lakes could not reach the aperture mask. Tool 4 also received motorway/trunk accent geometry instead of S-Bahn/U-Bahn routes.
 
-## Parameter boundary
+The corrected revision 0.5.2 contract is:
 
-| Axis | State | Geometry consequence |
-|---|---|---|
-| `palette_preset` | Implemented | None; maps existing tools 1–4 to filaments |
-| `display_mode` | Implemented | Selects existing `boundary_crop` or `context_outline` geometry |
-| `assembled_size_mm` | Reserved | Non-default value requires X/Y regeneration and renewed validation |
-| `map_extent` | Deferred | Requires a new frozen source and full placement/mesh validation |
-| `site_marker.location` | Implemented in DRAFT r4 | Address/coordinate resolves to a frozen projected point |
-| `site_marker.artwork` | Implemented in DRAFT r4 | Canonical stacked metriMade SVG; logo/icon/monochrome mask remains replaceable by regeneration |
-| `site_marker.size/relief/tool` | Digitally validated | 54.0 × 57.18 mm, 0.60 mm relief, existing tool 4 |
+| Output | Semantic owner |
+|---|---|
+| Tool 1 / Oak | Land base |
+| Tool 2 / Mint Green | Middle relief and area level |
+| Tool 3 / Midnight | Street network including motorway/trunk |
+| Tool 4 / Sky Blue | S-Bahn and U-Bahn route relations, plus the existing context boundary and site marker |
+| Negative geometry | Every retained mapped water area and river/canal/stream |
 
-Uniform production scaling in the slicer remains prohibited because it would also change connector clearance, relief height, wall gap, light keep-outs, aperture ligaments and printable color widths.
+## Source evidence and limitation
 
-## Critical interfaces and open evidence
+The frozen local Berlin PBF contains 1,816 selected water-area features, 1,277 river/canal/stream lines, 38 direction-specific S-Bahn route relations and 18 U-Bahn route relations. Tegeler See is present as a non-empty 3,819,800.57 m² polygon. This proves the classification and the named regression fixture.
 
-- Center connector and snap-in mounting interfaces remain E1/process-unqualified.
-- Exact SUNLU batch, conditioning, compatible filament profiles, opacity and directed purge remain unresolved.
-- Exact ACE slots are a job-local mapping that must be checked in the final slicer preview.
-- As-built mass, substrate-specific wall anchors and physical proof load remain unresolved.
-- Optional customer lighting remains outside the supplied product and requires a passive envelope/opacity coupon.
-- The canonical metriMade asset `MM-BRAND-001-R1` is selected but brand-clearance approval remains open.
-- Recognition from 2 m is only a target until the Oak/Sky Blue raised-logo coupon passes human review.
-- Alternate marker artwork requires fresh rights, minimum-feature, placement, mesh and slicer checks.
-- The `context_outline` left project timed out at 900 seconds and completed inside the controlled 1800 second retry; Anycubic's floating-regions warning still requires layer-preview review.
+The local PBF does not cover the complete 12-percent `context_outline` margin. After concept approval, the already-recorded context-complete snapshot must be reacquired, hashed and processed with the same semantic filters. Network access was not used in this concept phase.
+
+## Verification contract
+
+- Every water source component must be retained, intentionally bridged for a documented keep-out/ligament reason, or explicitly reported as removed.
+- Tegeler See relation `451908` must create nonzero through-part geometry in both display modes.
+- Tool 4 must contain S-/U-Bahn route relations and no independent motorway accent layer.
+- Motorway/trunk must remain in tool 3.
+- Both halves must remain connected, keep at least 5 mm protected ligament and stay below the 12-percent open-area cap.
+- New 3MFs require four-body geometry validation and fresh `slice-anycubic-next` evidence; historical 0.5.1 slices do not count.
 
 ## Hard gates
 
@@ -53,8 +51,9 @@ Uniform production scaling in the slicer remains prohibited because it would als
 
 ## Next evidence
 
-1. Inspect `context_outline` left in the Anycubic layer preview and approve the exact ACE/purge configuration.
-2. Print the generated Oak/Sky Blue coupon and run the human recognition test at 2.0 m.
-3. Qualify connectors and passive lighting, then review the rear metriMade.com watermark before permanent assembly and wall proof.
+1. Explicitly approve concept v07.
+2. Update and approve the revision 0.5.2 decomposition.
+3. Reacquire the context-complete source, generate accounted water/transit layers, then build and validate new CAD/mesh/3MF artifacts.
+4. Continue exact Anycubic GUI/purge review and the physical connector, opacity/light, 2 m logo, wall, watermark and release gates.
 
-Canonical machine-readable result: `preflight/preflight-result.json` (`PREFLIGHT-MM-ART-010-014`).
+Canonical machine-readable result: `preflight/preflight-result.json` (`PREFLIGHT-MM-ART-010-015`).

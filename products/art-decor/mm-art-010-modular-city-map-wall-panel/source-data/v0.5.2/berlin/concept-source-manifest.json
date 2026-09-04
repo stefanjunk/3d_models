@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.2-concept-source-r1",
+  "status": "PASS_CONCEPT_SOURCE_ONLY",
+  "source": {
+    "path": "source-data/v0.3.0/berlin/berlin-snapshot.osm.pbf",
+    "sha256": "44878bac7391c7d1e9d86e583a0cbd9713a69d164ac47ad1e4ab7e7d374d407c",
+    "crs": "EPSG:4326"
+  },
+  "output_crs": "EPSG:25833",
+  "artifacts": {
+    "water-areas.geojson": {
+      "sha256": "22b65182f6b2de6c1755dd92a862be7e4c4f836e038d31592425d243b8e93b73",
+      "feature_count": 1816,
+      "query": {
+        "layer": "multipolygons",
+        "where": "natural = 'water' OR landuse IN ('reservoir','basin') OR other_tags LIKE '%\"waterway\"=>\"riverbank\"%'",
+        "select": "osm_id,name,natural,landuse,other_tags"
+      }
+    },
+    "water-lines.geojson": {
+      "sha256": "0af25ccfcb5d645ca64d142dd652491f7faa5bb29e233be264b5cb0ff3d5a1cc",
+      "feature_count": 1277,
+      "query": {
+        "layer": "lines",
+        "where": "waterway IN ('river','canal','stream')",
+        "select": "osm_id,name,waterway"
+      }
+    },
+    "sbahn-routes.geojson": {
+      "sha256": "cdcd419d5b289a80c53d77da8918d32a6000928162eb8bc967d6af4c774a02f2",
+      "feature_count": 38,
+      "query": {
+        "layer": "multilinestrings",
+        "where": "other_tags LIKE '%\"route\"=>\"light_rail\"%' AND other_tags LIKE '%\"network:metro\"=>\"s-bahn\"%'",
+        "select": "osm_id,name,other_tags"
+      }
+    },
+    "ubahn-routes.geojson": {
+      "sha256": "af130d7c4427a42cc59365541b85683cb145b0b2fb755babb1b9c838f1efc2e6",
+      "feature_count": 18,
+      "query": {
+        "layer": "multilinestrings",
+        "where": "other_tags LIKE '%\"route\"=>\"subway\"%' AND other_tags LIKE '%\"network:metro\"=>\"u-bahn\"%'",
+        "select": "osm_id,name,other_tags"
+      }
+    }
+  },
+  "named_regression_fixtures": {
+    "tegeler_see": {
+      "osm_relation_id": "451908",
+      "feature_count": 1,
+      "area_m2": 3819800.5697964984,
+      "bounds_m": [
+        379688.93,
+        5824687.586,
+        383163.364,
+        5828059.421
+      ],
+      "required_representation": "through-part negative geometry"
+    }
+  },
+  "semantic_contract": {
+    "water": "all mapped water areas plus river/canal/stream centerlines become negative geometry",
+    "sky_blue": "S-Bahn and U-Bahn route relations; context boundary and site marker retain their approved tool-4 assignment",
+    "midnight": "street network including motorway and trunk classes"
+  },
+  "limitations": [
+    "concept evidence only",
+    "the local PBF does not cover the complete 12-percent context-outline margin",
+    "production extraction requires reacquisition and hashing of the recorded context-complete source",
+    "opposite route directions are visually overlaid here and must be dissolved before production buffering"
+  ]
+}

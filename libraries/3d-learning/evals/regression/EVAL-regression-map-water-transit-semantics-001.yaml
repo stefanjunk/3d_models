@@ -1,0 +1,61 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-map-water-transit-semantics-001
+title: Printable map preserves water features and does not confuse transit with motorway accents
+category: regression
+status: draft
+trigger: A printable map creates openings or color bodies from multiple geospatial feature classes, or reassigns a color role from roads to transit.
+risk: Geometry and slicer checks can pass while lakes are silently absent or a color body depicts the wrong infrastructure class, producing a materially incorrect product.
+given:
+  source_snapshot: immutable geospatial source with recorded hash, CRS and complete target-extent coverage
+  semantic_contract:
+    negative_geometry: mapped water areas plus selected waterway lines
+    tool_3: street network including motorway/trunk
+    tool_4: S-Bahn/U-Bahn routes plus explicitly retained boundary/site-marker accents
+  named_fixture: Tegeler See OSM relation 451908 for the Berlin case
+  protected_geometry: seam, connector, hanger, attribution, site-marker, 5 mm ligament and 12 percent per-half opening cap
+expected:
+  - Polygon water areas, linear waterways and transit route relations are extracted as separate non-empty layers with recorded filters and counts.
+  - Every source water component is retained, deliberately bridged or explicitly listed as removed with its reason and remaining opening.
+  - Tegeler See relation 451908 produces nonzero transformed mask area and nonzero through-part geometry in both Berlin display modes.
+  - Tool 4 is traceable to S-Bahn/U-Bahn route relations and contains no independent motorway/link/trunk accent source.
+  - Motorway/link/trunk remains in tool 3, and all four positive bodies remain disjoint, aligned and within the four-tool limit.
+  - Each half remains connected, retains protected ligaments and satisfies the maximum opening fraction after all water cuts.
+  - New 3MF geometry reports and exact target-slicer evidence refer to the corrected source and cannot be substituted by historical semantically rejected artifacts.
+failure_conditions:
+  - A named mapped lake is present in the source but absent from the final negative geometry without an explicit approved omission.
+  - Water-area multipolygons are not processed when the product claims all mapped waters.
+  - Tool 4 contains motorway/trunk accent geometry or lacks both required transit classes.
+  - Source component totals cannot be reconciled with retained, bridged and removed component totals.
+  - Any half disconnects or violates its ligament/open-area constraints.
+  - A historical 3MF or slice is reported as current after the semantic contract changed.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.5.2.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/concept-source-manifest.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-water-transit-concept-v07.json
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: "At concept stage, require distinct source classes, non-empty counts, the Tegeler See fixture and honest context-coverage limits. At manufacturing stage, require component reconciliation, protected-bridge reporting, final body ownership, connectivity/open-fraction checks, four-body 3MF validation and fresh exact Anycubic slices."
+  measurement_method: "OGR/GeoJSON source inspection, EPSG:25833 geometry analysis, source-to-mask/body accounting, mesh connectivity and overlap checks, vendor-aware 3MF inspection and target-slicer reports."
+relationships:
+  lessons:
+    - EXP-00064
+  regression_suites: []
+last_run:
+  result: fail
+  date: 2026-09-04
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
+  artifact_hashes:
+    - 7956600d5e902db5f581abc5d80d666b5977bb63ef941ebe193375753387ba60
+    - 9a58892ab295486021b13439d587aed3dd7795af847991b5006d259544b7231b
+    - 8bf200882f004f58ea81319ec4986214434ee412a00d4508ff1c171b1db5923e
+tags:
+  - regression
+  - map-relief
+  - water
+  - transit
+  - semantic-body
+  - named-feature

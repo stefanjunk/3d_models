@@ -1,0 +1,171 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00064
+title: Account for polygon, line and route-relation semantics end to end in printable maps
+captured_at: 2026-09-04
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "One user correction and one deterministic source/classification audit. Corrected production geometry and physical evidence do not yet exist."
+feature:
+  type: semantic geospatial feature-to-body mapping
+  geometry: four-color planar street-map relief with water apertures and transit relief lines
+  design_parameters:
+    water_area_filter: natural=water or landuse reservoir/basin or waterway=riverbank
+    water_line_filter: waterway in river/canal/stream
+    sbahn_filter: route=light_rail and network:metro=s-bahn
+    ubahn_filter: route=subway and network:metro=u-bahn
+    water_output: through-part negative geometry
+    transit_output: semantic tool 4
+    motorway_output: semantic tool 3
+    maximum_tools: 4
+    minimum_aperture_width_mm: 2.0
+    minimum_ligament_mm: 5.0
+    maximum_open_area_fraction_per_half: 0.12
+  named_datums:
+    - immutable source snapshot and CRS
+    - administrative boundary and context extent
+    - permanent center seam
+    - Tegeler See OSM relation 451908
+  constraints:
+    - Every source feature component is retained, intentionally bridged or explicitly reported.
+    - A color body cannot silently retain the semantic class of a superseded source layer.
+    - Named reference features must survive extraction, transform, raster/mask generation and mesh Boolean stages.
+scope:
+  process: FFF four-color single-nozzle concept and digital design workflow
+  machine:
+    manufacturer: Anycubic
+    model: Kobra 3 Max Combo
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: SUNLU
+    product: PLA family
+    variant: Oak, Mint Green, Midnight and Sky Blue
+    color: multicolor
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: stock candidate
+    hotend: stock candidate
+    wear_state: unknown
+  orientation: flat rear face on build plate; relief upward
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: historical revision 0.5.1 projects; corrected revision 0.5.2 not yet generated
+    profile_hash: null
+  geometry_class: two-mode two-half planar vector city-map wall relief
+  environment: deterministic local source inspection and concept render; no corrected production mesh or physical print
+  transfer_limits:
+    - Observed on one Berlin OSM snapshot and one four-tool wall-relief architecture.
+    - Exact tag filters vary with region, transport network and source schema.
+    - Product ligaments and opening caps may legitimately bridge or omit components, but every decision must be reported.
+observation:
+  summary: The user found that Tegeler See was absent and that the blue body represented motorways rather than the intended transit layer.
+  expected: All mapped waters remain light-through cutouts and Sky Blue represents S-Bahn/U-Bahn while motorways stay in Midnight.
+  actual: The source contained Tegeler See as non-empty relation 451908, but the legacy extractor read only line features and the legacy tool-4 source was a motorway/trunk accent file. The resulting 0.5.1 3MFs were mesh-valid yet semantically wrong.
+  outcome: correction
+  parameter: geospatial_feature_class_to_geometry_body_contract
+  recommended_value: explicit per-class extraction plus source-to-output component accounting and named regression fixtures
+  units: workflow-contract
+explanation:
+  hypothesis: Mesh and slicer validation can pass while a printable map is wrong when source-layer semantics and named feature survival are not validated end to end.
+  mechanism: Validate tag class, geometry type and intended output body separately; then track every source component through clipping, simplification, protected bridging, mask generation, Boolean operations and 3MF body ownership.
+  alternatives:
+    - Use a curated authoritative hydrography or transit source when OSM classification is incomplete, with a new provenance and coverage audit.
+    - Represent very small water features as engraved symbols only when the user approves that visual rule and the omission report remains explicit.
+    - Use track geometry instead of route relations only when the product intentionally depicts infrastructure rather than passenger-service lines.
+  validated: false
+  validation_method: null
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 1
+  machine_count: 1
+  material_count: 1
+  nozzle_count: 1
+  measured: true
+  measurement_method: OGR layer/schema queries, GeoJSON extraction, EPSG:25833 area/bounds analysis, source-code inspection and deterministic concept rendering
+  uncertainty: The context-complete production source is not locally available; protected bridging, output component counts, connectivity, 3MF body ownership and native slicing remain untested for revision 0.5.2.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-04 — cut Tegeler See and all other waters; use blue for S-Bahn/U-Bahn instead of motorways
+      hash: null
+      notes: Direct corrective requirement.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
+      hash: 7956600d5e902db5f581abc5d80d666b5977bb63ef941ebe193375753387ba60
+      notes: Root-cause, source counts, Tegeler See geometry and target semantic contract.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/concept-source-manifest.json
+      hash: 9a58892ab295486021b13439d587aed3dd7795af847991b5006d259544b7231b
+      notes: Frozen concept extraction filters, hashes, feature counts and named fixture.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-water-transit-concept-v07.json
+      hash: 8bf200882f004f58ea81319ec4986214434ee412a00d4508ff1c171b1db5923e
+      notes: Gate render manifest and declared limitations.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/extract_context_source.py
+      hash: 8d363c91322c850926223a02165171fc7898ce323845d94b321e3ef4678eeee1
+      notes: Legacy extraction omitted multipolygon water areas.
+    - type: product-trace
+      ref: products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.4.0/berlin/build_berlin_modes.py
+      hash: c728247f9c44f6b2b044e289155022574358008e3f7c56f6c009b0a45416b079
+      notes: Legacy apertures consumed waterway lines and legacy tool 4 consumed motorway/trunk accents.
+  artifacts:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-water-transit-concept-v07.png
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/water-areas.geojson
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/water-lines.geojson
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/sbahn-routes.geojson
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/source-data/v0.5.2/berlin/ubahn-routes.geojson
+applicability:
+  triggers:
+    - A printable map combines OSM polygon, line or route-relation classes into color bodies or openings.
+    - A user reports that a named geographic feature is missing despite being present in the source.
+    - A palette role changes from one geographic feature class to another.
+  exclusions:
+    - Purely decorative, explicitly fictional maps without geographic accuracy claims.
+  transfer_limits:
+    - Define region-specific named fixtures and tags; do not assume Berlin route/network tagging applies globally.
+    - Revalidate physical ligaments, opening fraction and connectivity for each size and map extent.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+    - EXP-00058
+    - EXP-00060
+  evals:
+    - EVAL-regression-map-water-transit-semantics-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/references/validation-and-dfm.md
+    - .agents/skills/multicolor-fdm-design/references/03-semantic-architecture.md
+validation:
+  targeted: review-required
+  regression: fail
+  reports:
+    - products/art-decor/mm-art-010-modular-city-map-wall-panel/validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json
+provenance:
+  project: MM-ART-010
+  part_revision: 0.5.2-concept-v07
+  trace: products/art-decor/mm-art-010-modular-city-map-wall-panel/concept-review-0.5.2.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - map-relief
+  - geospatial-semantics
+  - water-aperture
+  - transit
+  - multicolor
+  - user-correction
+  - regression

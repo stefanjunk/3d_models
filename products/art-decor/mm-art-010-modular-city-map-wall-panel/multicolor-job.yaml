@@ -1,5 +1,5 @@
 version: 1
-status: digital-candidate-pass-physical-review-required
+status: revision-0.5.2-concept-approval-required
 project:
   name: MM-ART-010 Berlin parameterized palette variants
   purpose: "abstract four-color permanent two-half city-map wall art"
@@ -15,12 +15,14 @@ printer:
   slicer: "Anycubic Slicer Next"
 
 source:
-  path: source/v0.5.0/berlin/build_berlin_site_marker.py
+  path: source/v0.5.1/berlin/build_berlin_metrimade_marker.py
   kind: parametric_cad
   preserve_immutable: true
   units: mm
   texture_paths: []
-  source_sha256: ae59f468ba2b3b22d84d4202ad4be05d00a8fb7baaa90bfec67be77ef8dbbafe
+  source_sha256: null
+  status: historical-rejected-semantic-input
+  planned_revision_0_5_2_source: source/v0.5.2/berlin/build_berlin_water_transit.py
 
 representation:
   method: separate_solids
@@ -39,31 +41,33 @@ palette:
   mapping_method: manual
   dither: false
   changes_geometry: false
-  geometry_candidate: digital-candidate-r7
+  geometry_candidate: pending-after-concept-approval
   application: "job-local Anycubic Slicer Next tool/filament assignment or equivalent ACE loading; no CAD, mesh or 3MF body-topology regeneration"
   actual_spools_status: "four photographed inventory rolls identified; batch, conditioning and calibrated swatches unverified"
   semantic_mapping:
     land_base: {inventory_id: FIL-0005, name: Oak, label_code: 05860601A, display_hex: "#C6AA7A"}
     medium_relief_and_areas: {inventory_id: FIL-0001, name: Mint Green, label_code: 01160403Y, display_hex: "#72CFAE"}
     street_network: {inventory_id: FIL-0003, name: Midnight, label_code: 06660601A, display_hex: "#1E2B36"}
-    berlin_boundary_and_accents: {inventory_id: FIL-0002, name: Sky Blue, label_code: 06860603A, display_hex: "#69C7E5"}
+    s_u_bahn_boundary_and_site_marker: {inventory_id: FIL-0002, name: Sky Blue, label_code: 06860603A, display_hex: "#69C7E5"}
   display_color_evidence: "photo-derived visual approximations; not calibrated color measurements"
   inventory_source: ../../../business/10-inventory/README.md
   recommended_ace_loading:
     tool_1: {slot: 1, role: land_base, inventory_id: FIL-0005, name: Oak}
     tool_2: {slot: 2, role: medium_relief_and_areas, inventory_id: FIL-0001, name: Mint Green}
     tool_3: {slot: 3, role: street_network, inventory_id: FIL-0003, name: Midnight}
-    tool_4: {slot: 4, role: berlin_boundary_and_accents, inventory_id: FIL-0002, name: Sky Blue}
+    tool_4: {slot: 4, role: s_u_bahn_boundary_and_site_marker, inventory_id: FIL-0002, name: Sky Blue}
   proposed_metricreate_forge_loading:
     tool_1: {slot: 1, role: land_base, inventory_id: FIL-0003, name: Midnight}
     tool_2: {slot: 2, role: medium_relief_and_areas, inventory_id: FIL-0001, name: Mint Green}
     tool_3: {slot: 3, role: street_network, inventory_id: FIL-0009, name: White}
-    tool_4: {slot: 4, role: berlin_boundary_and_accents_and_site_marker, inventory_id: FIL-0007, name: High Speed Orange}
+    tool_4: {slot: 4, role: s_u_bahn_boundary_and_site_marker, inventory_id: FIL-0007, name: High Speed Orange}
   metricreate_forge_note: "Closest named inventory roles to the selected metriCreate navy/teal/off-white/orange system; light aqua is omitted to preserve four tools. No measured swatch match is claimed."
 
 geometry:
   palette_parameter_changes_geometry: false
-  geometry_authority: "revision 0.5.0 digital-candidate-r7"
+  geometry_authority: "revision 0.5.2 pending; revision 0.5.1 digital-candidate-r4 rejected for water/tool-4 semantic inconsistency"
+  negative_geometry_role: all_mapped_water_areas_and_river_canal_stream_lines
+  motorway_role: street_network_tool_3
   minimum_color_width_mm: 0.9
   minimum_inlay_depth_mm: 0.6
   interface_clearance_mm: 0.0
@@ -72,14 +76,14 @@ geometry:
   shell_depth_mm: 0.6
   voxel_pitch_mm: 0.6
   site_marker:
-    status: digital-candidate-pass-physical-review-required
-    parameter_source: source/v0.5.0/berlin/site-marker-parameters.json
+    status: historical-v0.5.1-awaiting-regeneration
+    parameter_source: source/v0.5.1/berlin/site-marker-parameters.json
     semantic_tool: 4
     new_tool_required: false
     relief_height_mm: 0.6
     minimum_feature_width_mm: 0.9
     upper_color_xy_clearance_mm: 0.5
-    digital_evidence: validation/v0.5.0/berlin/digital-candidate-r7/build-report.json
+    digital_evidence: validation/v0.5.1/berlin/digital-candidate-r4/build-report.json
 
 materials:
   require_same_polymer_family: true
@@ -99,19 +103,19 @@ purge:
 acceptance:
   all_color_parts_manifold: true
   preserve_common_coordinate_frame: true
-  final_slicer_slot_mapping_reviewed: true
-  final_slicer_preview_reviewed: true
+  final_slicer_slot_mapping_reviewed: false
+  final_slicer_preview_reviewed: false
   color_boundary_coupon_required: true
   maximum_mean_delta_e: 18.0
   maximum_p95_delta_e: 35.0
-  digital_3mf_geometry_reports:
+  historical_digital_3mf_geometry_reports:
     - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-left-geometry.json
     - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-boundary-crop-right-geometry.json
     - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-context-outline-left-geometry.json
     - validation/v0.5.0/berlin/digital-candidate-r7/3mf/berlin-context-outline-right-geometry.json
-  native_slice_reviews:
+  historical_native_slice_reviews:
     - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-left-r2-review.json
     - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/boundary-crop-right-r2-review.json
     - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-left-r3-review.json
     - validation/v0.5.0/berlin/digital-candidate-r7/anycubic-slices/context-outline-right-r1-review.json
-  release_note: "All four native project files contain four non-empty tool bodies and slice digitally. Physical spool, purge, GUI-preview, marker-readability and release evidence still blocks print-candidate approval."
+  release_note: "Historical 0.5.0/0.5.1 slice evidence is not valid for the corrected water/transit geometry. Revision 0.5.2 requires concept approval, regeneration, four-body audit and new exact Anycubic slices."

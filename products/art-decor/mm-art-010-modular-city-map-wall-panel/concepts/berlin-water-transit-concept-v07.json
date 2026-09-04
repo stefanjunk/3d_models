@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.2-concept-v07",
+  "status": "PASS_CONCEPT_EVIDENCE_REVIEW_REQUIRED",
+  "artifact": "concepts/berlin-water-transit-concept-v07.png",
+  "artifact_sha256": "f913815a568bbae51b01735c7aa5e0575c214d1902b329c14c803ae921aa88ee",
+  "semantic_contract": {
+    "water": "all mapped water areas plus river/canal/stream centerlines become negative geometry",
+    "sky_blue": "S-Bahn and U-Bahn route relations; context boundary and site marker retain their approved tool-4 assignment",
+    "midnight": "street network including motorway and trunk classes"
+  },
+  "named_regression_fixtures": {
+    "tegeler_see": {
+      "osm_relation_id": "451908",
+      "feature_count": 1,
+      "area_m2": 3819800.5697964984,
+      "bounds_m": [
+        379688.93,
+        5824687.586,
+        383163.364,
+        5828059.421
+      ],
+      "required_representation": "through-part negative geometry"
+    }
+  },
+  "tool_count": 4,
+  "geometry_generated": false,
+  "manufacturing_3mf_generated": false,
+  "previous_candidate_status": "REJECTED_SEMANTICALLY_INCONSISTENT",
+  "limitations": [
+    "concept evidence only",
+    "the local PBF does not cover the complete 12-percent context-outline margin",
+    "production extraction requires reacquisition and hashing of the recorded context-complete source",
+    "opposite route directions are visually overlaid here and must be dissolved before production buffering",
+    "display colors are uncalibrated visual approximations",
+    "concept approval is required before CAD, mesh, and 3MF regeneration",
+    "minimum ligaments and the 12-percent per-half opening cap are production constraints, not proven by this image"
+  ]
+}

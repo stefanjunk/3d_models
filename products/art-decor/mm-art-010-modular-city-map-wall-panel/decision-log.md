@@ -190,3 +190,13 @@
 - All four projects slice natively with tools 0–3. Left halves use eight tool changes because the raised marker adds a later tool-4 band; right halves use three. `context_outline` left exceeded the nominal 600 second target and completed only in the controlled 900 second retry, so performance remains review-required.
 - The generic standard-only 3MF parser cannot follow the Anycubic component-path layout; its failure is retained as a validator limitation and does not override the vendor-aware geometry or native slice evidence.
 - No printer upload or print start occurred. Physical marker readability, connector/light/opacity coupons, final ACE/purge GUI review, watermark, rights, proof load and release remain open.
+
+## 2026-09-04 — Revision 0.5.1 rejected; complete water apertures and S/U accent proposed as 0.5.2
+
+- User correction: Tegeler See and all other mapped waters must remain cut through; Sky Blue must show S-Bahn and U-Bahn lines instead of motorways.
+- Diagnosis: the previous extractor only read `lines` and passed river/canal centerlines to the aperture mask. It never extracted OSM `multipolygons`, although Tegeler See is present as relation `451908` with a non-empty 3,819,800.57 m² geometry. Tool 4 was sourced from `roads-accent.geojson`, which contained motorway/link/trunk classes.
+- Revision 0.5.1 `digital-candidate-r4` and its 3MFs are therefore rejected for production despite their mesh and slicer validity. They remain historical diagnostic evidence only.
+- Revision 0.5.2 assigns all retained mapped water areas plus river/canal/stream lines to through-part negative geometry; tool 4/Sky Blue receives S-Bahn/U-Bahn route relations plus the existing context boundary and metriMade site marker. Motorway/trunk stays within tool 3/Midnight.
+- Concept-only extraction from the frozen Berlin PBF yields 1,816 water areas, 1,277 water lines, 38 S-Bahn relations and 18 U-Bahn relations. Source-to-mask component accounting and a named Tegeler See regression are mandatory for production.
+- Concept v07 is stored at `concepts/berlin-water-transit-concept-v07.png`. Because this changes visible geometry and semantic layer ownership, explicit human concept approval and a revised decomposition are required before CAD, mesh or 3MF regeneration.
+- The local Berlin PBF does not cover the complete Umland extent. The already-recorded exact context-complete source must be reacquired and hashed after concept approval; no network access or production geometry was used in this phase.

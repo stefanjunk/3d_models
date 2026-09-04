@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.2",
+  "audit_id": "water-transit-layer-audit-r1",
+  "audit_date": "2026-09-04",
+  "status": "FAIL_CURRENT_CANDIDATE",
+  "scope": "Read-only semantic audit of revision 0.5.1 digital-candidate-r4 against the user's corrected water and transit requirements.",
+  "frozen_source_evidence": {
+    "berlin_snapshot": {
+      "path": "source-data/v0.3.0/berlin/berlin-snapshot.osm.pbf",
+      "sha256": "44878bac7391c7d1e9d86e583a0cbd9713a69d164ac47ad1e4ab7e7d374d407c",
+      "coverage_limit": "Berlin-area snapshot only; it does not cover the complete context_outline extent."
+    },
+    "tegeler_see": {
+      "osm_relation_id": "451908",
+      "name": "Tegeler See",
+      "tags": {
+        "natural": "water",
+        "water": "lake"
+      },
+      "area_m2_epsg25833": 3819800.59859467,
+      "bounds_epsg25833": [
+        379688.929643597,
+        5824687.58589104,
+        383163.363709402,
+        5828059.42131954
+      ],
+      "boundary_crop_bounds_mm": [160.041, 266.749, 196.867, 302.488],
+      "boundary_crop_area_mm2": 429.126,
+      "context_outline_bounds_mm": [187.13, 253.83, 216.828, 282.652],
+      "context_outline_area_mm2": 279.088,
+      "expected_print_half": "left",
+      "conclusion": "The feature is present, large enough to print as a deliberate opening in both modes, and was lost before raster/CAD generation."
+    },
+    "berlin_snapshot_inventory": {
+      "water_area_features": 1816,
+      "mapped_water_area_m2": 66753175.912056044,
+      "linear_waterway_features": {
+        "river": 97,
+        "canal": 150,
+        "stream": 1030
+      },
+      "transit_route_geometries": {
+        "s_bahn": 38,
+        "u_bahn": 18
+      },
+      "transit_selection": {
+        "s_bahn": "multilinestring relation with route=light_rail and network:metro=s-bahn",
+        "u_bahn": "multilinestring relation with route=subway and network:metro=u-bahn"
+      }
+    }
+  },
+  "current_pipeline_findings": [
+    {
+      "id": "WATER_AREAS_NOT_EXTRACTED",
+      "status": "FAIL",
+      "evidence": "source/v0.4.0/berlin/extract_context_source.py reads only the OSM lines layer and filters waterway IN ('river','canal'); no multipolygon water layer exists in source-data/v0.4.0/berlin."
+    },
+    {
+      "id": "WATER_USED_ONLY_AS_LINEAR_APERTURE",
+      "status": "FAIL",
+      "evidence": "source/v0.4.0/berlin/build_berlin_modes.py derives apertures only from waterways.geojson; therefore lakes such as Tegeler See can never reach the opening mask."
+    },
+    {
+      "id": "TOOL4_USES_MOTORWAY_TRUNK",
+      "status": "FAIL",
+      "evidence": "roads-accent.geojson is filtered from motorway, motorway_link, trunk and trunk_link and feeds the tool-4 mask."
+    },
+    {
+      "id": "CURRENT_3MF_GEOMETRY_INCONSISTENT",
+      "status": "FAIL",
+      "evidence": "Revision 0.5.1 digital-candidate-r4 is geometrically valid but semantically superseded; it cannot be released or printed as the corrected Berlin map."
+    }
+  ],
+  "approved_target_semantics": {
+    "tool_1": "land base",
+    "tool_2": "middle relief and area level",
+    "tool_3": "street network including motorway/trunk, with no separate blue motorway accent",
+    "tool_4": "S-Bahn and U-Bahn route network, Berlin context boundary, and parameterized site marker",
+    "negative_geometry": "All mapped water areas plus river/canal/stream centerlines that survive the declared physical aperture thresholds and protected keep-outs.",
+    "maximum_tools": 4
+  },
+  "required_next_evidence": [
+    "Human approval of the revision 0.5.2 concept showing complete water openings and blue S/U-Bahn routes.",
+    "A new immutable context-complete source derivative containing water multipolygons, river/canal/stream lines, and S/U-Bahn route relations.",
+    "A machine-readable coverage report proving Tegeler See reaches the final aperture mask with nonzero area in both modes.",
+    "An omission report for source water features below manufacturing thresholds or removed by structural keep-outs; named printable water bodies must not disappear silently.",
+    "Revalidation of retained-body connectivity, open-area ratio, minimum ligaments, four tool bodies, composites, native 3MF geometry, and exact Anycubic slices."
+  ],
+  "method": {
+    "tools": [
+      "GDAL/OGR 3.13.3 read-only SQLite queries",
+      "existing EPSG:25833 placement transforms",
+      "direct source-code and manifest inspection"
+    ],
+    "no_network": true,
+    "no_geometry_modified": true,
+    "no_manufacturing_export_created": true
+  }
+}

@@ -1,14 +1,14 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-014",
-  "assessment_version": "0.5.1",
+  "assessment_id": "PREFLIGHT-MM-ART-010-015",
+  "assessment_version": "0.5.2",
   "assessment_date": "2026-09-04",
-  "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with enlarged metriMade location artwork",
+  "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with complete water apertures and S/U transit accent",
   "scope": {
-    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.1 changes only the visible address artwork to the canonical stacked metriMade lockup at 54.0 × 57.18 mm, targeting recognition from about 2 m. Its address, logo, icon or monochrome image silhouette remains parameterized without creating a fifth tool. Revision 0.5.1 digital-candidate-r4 is the current DRAFT geometry authority.",
+    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.2 changes visible geometry: every retained mapped water area and river/canal/stream becomes a light-through opening, Sky Blue represents S-Bahn/U-Bahn plus the existing context boundary and site marker, and motorway/trunk remains Midnight. Revision 0.5.1 digital-candidate-r4 is rejected and no revision 0.5.2 manufacturing geometry exists before the human gates.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
     "variants": [
-      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.1 DRAFT native Anycubic left/right projects with enlarged metriMade marker",
-      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.1 DRAFT native Anycubic left/right projects with enlarged metriMade marker",
+      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.2 concept pending; corrected native projects not generated",
+      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.2 concept pending; corrected native projects not generated",
       "MM-ART-010-BERLIN-{MODE}-METRICREATE-FORGE — proposed inventory-backed third palette",
       "Parameterized site marker — proposed 54.0 × 57.18 mm canonical stacked metriMade lockup at Sterkrader Straße 24, 13507 Berlin",
       "Future non-default size — reserved, not production-supported",
@@ -30,7 +30,8 @@
     {"id": "E-MOUNT", "kind": "PRINTED_PART", "name": "Local snap-in hanger and standoff set"},
     {"id": "E-WALL", "kind": "HOST_OBJECT", "name": "Customer wall and installer-selected anchors"},
     {"id": "E-LED", "kind": "PURCHASED_PART", "name": "Optional customer-supplied LED system"},
-    {"id": "E-HUMAN", "kind": "HUMAN", "name": "Adult assembler, installer, and viewer"}
+    {"id": "E-HUMAN", "kind": "HUMAN", "name": "Adult assembler, installer, and viewer"},
+    {"id": "E-MAP-DATA", "kind": "SOFTWARE", "name": "Frozen OSM semantic water, road, S-Bahn and U-Bahn source layers"}
   ],
   "interfaces": [
     {
@@ -51,6 +52,25 @@
       "verification": {"method": "user_test", "acceptance_criteria": ["Digital analysis confirms that the canonical stacked metriMade artwork is centered on the frozen address, measures 54.0 × 57.18 mm with aspect ratio preserved, lies on exactly one retained main half, keeps at least 50 mm from the center seam and 5 mm from the outer perimeter, has no printable feature below 0.9 mm, rises 0.6 mm and uses tool 4. A human recognizes it at 2.0 m under ordinary indoor lighting on a process-matched Oak/Sky Blue coupon."], "status": "IN_PROGRESS", "result_refs": ["requirements-review-0.5.1.md", "source/v0.5.1/berlin/site-marker-parameters.json", "validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json", "validation/v0.5.1/berlin/logo-coupon-r1/anycubic-slices/coupon-r2-review.json"]},
       "owner": "MM-ART-010 site-marker parameter block",
       "version": "0.3"
+    },
+    {
+      "id": "IF-INT-DAT-VIS-BODY-001",
+      "name": "Frozen geospatial semantics produce negative water geometry and four owned color bodies",
+      "endpoint_a": "E-MAP-DATA",
+      "endpoint_b": "E-PANEL-L and E-PANEL-R",
+      "boundary": "INT",
+      "domains": ["DAT", "GEO", "OPT"],
+      "function": "VIS",
+      "geometry": "BODY",
+      "lifecycle_states": ["assembly", "use", "failure"],
+      "keepouts_and_access": ["Center seam and one-way connector pockets", "hanger and standoff lands", "minimum 5 mm ligaments", "maximum 12 percent opening fraction per half", "site marker and attribution lands"],
+      "evidence": {"level": "E2", "sources": ["requirements-review-0.5.2.md", "concepts/berlin-water-transit-concept-v07.json", "source-data/v0.5.2/berlin/concept-source-manifest.json", "validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"], "variant_confirmed": false, "coverage_percent": 58, "uncertainty_note": "The local frozen Berlin PBF proves that Tegeler See relation 451908, 1816 water-area features, 1277 river/canal/stream lines, 38 S-Bahn route relations and 18 U-Bahn route relations are extractable. It does not cover the complete context-outline extent, and no protected production buffering, component accounting, bodies, 3MFs or slices exist for revision 0.5.2.", "observability": "OBSERVED"},
+      "interface_complexity": {"GEO": 3, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 3, "LIF": 1, "total": 10, "tier": "I3"},
+      "criticality": "K0",
+      "failure_modes": [{"mode": "A mapped water body is omitted, a water cut disconnects the backer, or a motorway occupies the transit color body", "effect": "The map is semantically inconsistent, visually defective, structurally fragmented, or unsuitable for intended backlighting", "mitigation": "Separate polygon/line/relation extraction, source-to-mask component accounting, named Tegeler See regression, protected bridging report and tool-body ownership audit"}],
+      "verification": {"method": "analysis", "acceptance_criteria": ["Every source water component is retained, intentionally bridged or explicitly reported; Tegeler See relation 451908 yields nonzero openings in both modes; tool 4 contains S-/U-Bahn relations but no independent motorway accent geometry; all halves remain connected and below the 12 percent opening cap."], "status": "PLANNED", "result_refs": ["validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"]},
+      "owner": "MM-ART-010 revision 0.5.2 semantic extraction and mask pipeline",
+      "version": "0.1"
     },
     {
       "id": "IF-INT-MEC-FST-SNAP-001",
@@ -112,26 +132,29 @@
     }
   ],
   "complexity": {
-    "dimension_scores": {"REQ": 3, "CTX": 2, "PAR": 4, "INT": 3, "CPL": 3, "MOT": 1, "GEO": 3, "PHY": 1, "MAT": 3, "EXT": 2, "VER": 3},
-    "score_0_100": 64.0,
+    "dimension_scores": {"REQ": 3, "CTX": 2, "PAR": 4, "INT": 4, "CPL": 3, "MOT": 1, "GEO": 3, "PHY": 1, "MAT": 3, "EXT": 2, "VER": 3},
+    "score_0_100": 65.0,
     "class": "C3",
     "drivers": [
       "Two display modes with different outer topology and source extents plus reserved future size/map axes",
       "Fit-sensitive concealed one-way seam and snap-in mount interfaces",
       "Coupling of global map/color registration with the permanent center seam and light openings",
       "Four-color large-format manufacturing plus coupon, proof-load and appearance verification",
-      "Address-to-map transform and replaceable artwork must remain deterministic and clear all protected regions"
+      "Address-to-map transform and replaceable artwork must remain deterministic and clear all protected regions",
+      "Water areas, water lines and route relations require distinct extraction, ownership, protected bridging and end-to-end semantic accounting"
     ]
   },
   "readiness": {
     "level": "R2",
-    "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R2", "manufacturing_profile": "R2", "verification": "R3"},
+    "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R2", "manufacturing_profile": "R2", "verification": "R2"},
     "blocking_unknowns": [
       "Exact connector and snap clearances for the selected filament/profile",
       "Exact filament batches, conditioning state, ACE slots, measured opacity and directed purge matrix",
-      "As-built mass, wall-anchor/substrate selection and physical proof-load result"
+      "As-built mass, wall-anchor/substrate selection and physical proof-load result",
+      "Human approval of concept v07 and the revised layer decomposition",
+      "Context-complete production OSM source and revision 0.5.2 source-to-mask/body/slicer evidence"
     ],
-    "completeness_percent": 90.0
+    "completeness_percent": 72.0
   },
   "criticality": {
     "level": "K2",
@@ -143,7 +166,7 @@
     "lane": "C",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "Concept v06 is explicitly human-approved. Revision 0.5.1 digital-candidate-r4 and the matching Oak/Sky Blue coupon pass deterministic geometry, vendor-aware 3MF and native Anycubic slice checks with the canonical 54.0 × 57.18 mm stacked metriMade lockup in tool 4. Physical recognition, context-left GUI review, exact filament profiles, ACE/purge review, process coupons, assembled load behavior, lighting appearance, brand clearance and watermark approval remain required before print-candidate and release decisions."
+    "rationale": "Requirements for revision 0.5.2 are explicit and concept evidence can proceed. Production CAD, mesh and 3MF work is controlled by pending concept/decomposition approval and by reacquisition of a context-complete source. Revision 0.5.1 is retained only as rejected historical evidence because it omitted water-area multipolygons and assigned Sky Blue to motorway accents."
   },
   "warnings": [
     {"code": "BRAND_CLEARANCE_PENDING", "severity": "WARN", "message": "The selected canonical metriMade vector asset MM-BRAND-001-R1 is recorded as clearance pending; commercial release remains blocked."},
@@ -151,19 +174,19 @@
     {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "The one-way connector and snap-in mounting interfaces have no exact process-qualified clearance or physical result."},
     {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "Concealed seam pockets must remain printable in the face-up main-part orientation and must not create unsupported roofs or visible read-through."},
     {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "The physical spool products are identified, but common-process compatibility, opacity, directed purge, conditioning, ACE slots and numeric mechanical thresholds remain unverified."},
-    {"code": "TARGET_SLICER_PROJECT_LAYOUT", "severity": "WARN", "message": "The generic standard-only 3MF parser does not follow Anycubic production-extension p:path component relationships. The revision 0.5.1 vendor-aware reports resolve four non-empty bodies per project and Anycubic Slicer Next 1.3.9.4 slices all four projects."},
-    {"code": "SLICER_RUNTIME_TARGET_EXCEEDED", "severity": "WARN", "message": "Context-outline left exceeded the nominal 600 second exact-slice target, timed out at 900 seconds and completed within a controlled 1800 second retry; performance remains a review item."},
-    {"code": "SLICER_FLOATING_REGIONS_GUI_REVIEW", "severity": "WARN", "message": "Anycubic reported floating regions for context-outline left. The G-code is non-empty and canonical checks pass, but a human must inspect the layer preview before deciding whether supports are needed."}
+    {"code": "PREVIOUS_CANDIDATE_REJECTED_SEMANTICS", "severity": "WARN", "message": "Revision 0.5.1 project files are mesh-readable but omit water-area multipolygons including Tegeler See and use Sky Blue for motorway accents; they must not be printed or released as the corrected map."},
+    {"code": "CONCEPT_APPROVAL_REQUIRED", "severity": "WARN", "message": "Concept v07 changes visible negative and color geometry and therefore needs explicit human approval before the decomposition and manufacturing build."},
+    {"code": "CONTEXT_SOURCE_INCOMPLETE", "severity": "WARN", "message": "The local Berlin PBF proves the corrected feature classes but not the full context-outline margin; the recorded context-complete source must be reacquired, hashed and re-extracted before production."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Inspect context-outline left in the Anycubic GUI and resolve the floating-regions warning, ACE mapping, purge, wipe tower, transition layers and seams.", "exit_criterion": "The exact layer preview is approved without unsupported product regions or unintended tool assignments."},
-    {"priority": 2, "action": "Print the generated Oak/Sky Blue coupon and perform the human recognition test at 2.0 m under ordinary indoor lighting.", "exit_criterion": "The human recognizes the intended metriMade logo and records the actual process context."},
-    {"priority": 3, "action": "Review physical profiles, ACE slots and purge, then place and approve the recessed rear metriMade.com watermark before permanent assembly and wall proof.", "exit_criterion": "Watermark, brand/map rights, assembled appearance, proof load, safety and commercial-release records are approved."}
+    {"priority": 1, "action": "Obtain explicit human approval of concept v07 showing all-water openings and Sky Blue S-/U-Bahn routes.", "exit_criterion": "The exact concept asset is approved for revision 0.5.2."},
+    {"priority": 2, "action": "Update and approve the decomposition, then reacquire and hash the recorded context-complete OSM source and generate component-accounted semantic layers.", "exit_criterion": "Both display extents are covered; water, transit and road ownership checks pass with Tegeler See nonzero."},
+    {"priority": 3, "action": "Generate and validate new geometry and native Anycubic 3MFs, then continue physical profile, coupon, watermark, wall and release gates.", "exit_criterion": "Revision 0.5.2 source, mesh, four-body, exact slice and human GUI evidence passes without relying on historical 0.5.1 artifacts."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-ART-010",
-    "project_revision": "0.5.1",
+    "project_revision": "0.5.2",
     "basis_refs": [
       "design-spec.yaml",
       "multicolor-job.yaml",
@@ -172,6 +195,10 @@
       "requirements-review-0.4.2.md",
       "requirements-review-0.5.0.md",
       "requirements-review-0.5.1.md",
+      "requirements-review-0.5.2.md",
+      "concepts/berlin-water-transit-concept-v07.json",
+      "source-data/v0.5.2/berlin/concept-source-manifest.json",
+      "validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json",
       "source-data/v0.5.0/berlin/metri-create-headquarters-address.json",
       "source-data/v0.5.0/branding/source-manifest.json",
       "source/v0.5.0/berlin/site-marker-parameters.json",
@@ -195,9 +222,9 @@
       "decision-log.md",
       "autonomy-policy.json"
     ],
-    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced"],
-    "previous_assessment_id": "PREFLIGHT-MM-ART-010-013",
+    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced", "revision_051_rejected_for_missing_water_area_geometry", "all_mapped_water_reclassified_as_light_through_negative_geometry", "sky_blue_reassigned_from_motorway_accent_to_s_and_u_bahn_routes"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-010-014",
     "created_at": "2026-08-31T16:44:58+02:00",
-    "updated_at": "2026-09-04T18:00:00+02:00"
+    "updated_at": "2026-09-04T21:30:00+02:00"
   }
 }

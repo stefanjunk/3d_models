@@ -15,12 +15,16 @@ The production direction is concept `01` from the [v3 sister-brand concept sheet
 | Use | Preferred file |
 |---|---|
 | Primary stacked logo with fixed dark field | `exports/metricreate-lockup-stacked-color-dark.svg` |
+| Stacked full-color logo with transparent background | `exports/metricreate-lockup-stacked-color-transparent.svg` |
 | Website/header lockup with fixed dark field | `exports/metricreate-lockup-horizontal-color-dark.svg` |
+| Website/header full-color lockup with transparent background | `exports/metricreate-lockup-horizontal-color-transparent.svg` |
 | Compact app icon/favicon with fixed dark field | `exports/metricreate-mark-color.svg` |
+| Compact full-color mark with transparent background | `exports/metricreate-mark-color-transparent.svg` |
 | One-color or light-background production | corresponding `*-mono.svg` file |
-| Raster preview only | corresponding PNG file |
+| Raster use with alpha transparency | corresponding `*-transparent.png` file |
+| Other raster preview | corresponding PNG file |
 
-Use SVG for web, print and packaging masters. PNG files are previews, not source artwork. Do not reconstruct the logo from the AI-generated concept sheet.
+Use SVG for web, print and packaging masters. The transparent PNG exports are production-ready convenience files with a true alpha channel; SVG remains the source artwork. Do not reconstruct the logo from the AI-generated concept sheet.
 
 ## Binding palette
 
@@ -41,15 +45,17 @@ The intended rights owner is `Stefan Junk Holding UG (haftungsbeschränkt)`. Tha
 
 The historical, non-binding [`MC-BRAND-001-R2` candidate study](candidates/r2-background-light-ground/README.md)
 tested permanent carriers and light-ground recoloring on the now-superseded R1
-voxel geometry. The selected R3 route instead adopts v3 concept `01` and embeds
-the dark field directly in every binding full-color asset.
+voxel geometry. The selected R3 route instead adopts v3 concept `01`. Fixed-field
+full-color assets embed the dark canvas; additional transparent full-color exports
+support placement on dark or explicitly contrast-checked host surfaces.
 
 ## Minimum-use rules
 
 - Preserve the spelling and capitalization `metriCreate`.
 - Keep clear space of at least one quarter of the mark width around the complete logo.
-- Keep the fixed anthracite field in every full-color use. Use the monochrome navy version on light backgrounds or when color reproduction is unreliable.
-- Do not recolor individual planes, remove the background field, add gradients/shadows, rotate the mark or place text inside the spatial opening.
+- Prefer the fixed anthracite field for full-color use. Approved `*-color-transparent.*` exports may be placed on dark or explicitly contrast-checked backgrounds; their off-white floor and wordmark must remain visible.
+- Use the monochrome navy version on light backgrounds or when color reproduction is unreliable.
+- Do not recolor individual planes, manually remove a background from fixed-field files, add gradients/shadows, rotate the mark or place text inside the spatial opening.
 - Preserve the complete four-part construction: navy left plane, teal right plane, off-white fitted floor and orange upper cut.
 - Use the compact mark at no less than 24 CSS pixels for ordinary UI. At 16 pixels, use it only as the tested favicon treatment on its dark square field.
 - This selection does not close `BRD-001`: trademark/name searches, visual similarity review and the signed risk decision remain open.

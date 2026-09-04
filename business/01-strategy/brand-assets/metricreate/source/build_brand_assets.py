@@ -208,6 +208,13 @@ def build(font_path: Path) -> None:
         "metriCreate color mark on fixed dark field",
         description,
     )
+    assets["metricreate-mark-color-transparent.svg"] = svg_document(
+        "0 0 248 240",
+        mark_body(),
+        "metriCreate color mark on transparent background",
+        "Transparent full-color version of the selected spatial enclosure mark, "
+        "intended for dark or contrast-checked backgrounds.",
+    )
     assets["metricreate-mark-mono.svg"] = svg_document(
         "0 0 248 240",
         mark_body(monochrome=True),
@@ -237,6 +244,13 @@ def build(font_path: Path) -> None:
         f'{canvas_body(360, 360)}\n{stacked_mark}\n  <g>{stacked_word_dark}</g>',
         "metriCreate stacked color logo on fixed dark field",
         description,
+    )
+    assets["metricreate-lockup-stacked-color-transparent.svg"] = svg_document(
+        "0 0 360 360",
+        f'{stacked_mark}\n  <g>{stacked_word_dark}</g>',
+        "metriCreate stacked color logo on transparent background",
+        "Transparent full-color stacked logo with an off-white wordmark, "
+        "intended for dark or contrast-checked backgrounds.",
     )
     assets["metricreate-lockup-stacked-mono.svg"] = svg_document(
         "0 0 360 360",
@@ -269,6 +283,13 @@ def build(font_path: Path) -> None:
         "metriCreate horizontal color logo on fixed dark field",
         description,
     )
+    assets["metricreate-lockup-horizontal-color-transparent.svg"] = svg_document(
+        "0 0 650 230",
+        f'{horizontal_mark}\n  <g>{horizontal_word_dark}</g>',
+        "metriCreate horizontal color logo on transparent background",
+        "Transparent full-color horizontal logo with an off-white wordmark, "
+        "intended for dark or contrast-checked backgrounds.",
+    )
     assets["metricreate-lockup-horizontal-mono.svg"] = svg_document(
         "0 0 650 230",
         f'{mark_body(monochrome=True, transform="translate(18 8) scale(0.88)")}\n'
@@ -293,6 +314,21 @@ def build(font_path: Path) -> None:
     render_png(
         EXPORTS / "metricreate-mark-color.svg",
         EXPORTS / "metricreate-mark-color.png",
+        768,
+    )
+    render_png(
+        EXPORTS / "metricreate-lockup-stacked-color-transparent.svg",
+        EXPORTS / "metricreate-lockup-stacked-color-transparent.png",
+        1200,
+    )
+    render_png(
+        EXPORTS / "metricreate-lockup-horizontal-color-transparent.svg",
+        EXPORTS / "metricreate-lockup-horizontal-color-transparent.png",
+        1600,
+    )
+    render_png(
+        EXPORTS / "metricreate-mark-color-transparent.svg",
+        EXPORTS / "metricreate-mark-color-transparent.png",
         768,
     )
 
@@ -325,7 +361,11 @@ def build(font_path: Path) -> None:
             "note": "The selected raster concept is a form reference only; no bitmap tracing is used.",
         },
         "background_policy": {
-            "color_assets": "fixed embedded #0B0F12 field",
+            "default_color_assets": "fixed embedded #0B0F12 field",
+            "transparent_color_assets": (
+                "full-color geometry with transparent canvas; off-white wordmark "
+                "in lockups; use only on dark or contrast-checked backgrounds"
+            ),
             "light_background_fallback": "corresponding monochrome navy SVG",
         },
         "font": {

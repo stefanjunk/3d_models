@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-distance-bound-brand-site-marker-001
+title: Visible brand site marker is bound to the approved asset and viewing distance
+category: visual
+status: draft
+trigger: A raised or inlaid brand marker on a printed product must be recognizable from a declared viewing distance.
+risk: A render or minimum-feature check can pass while the wrong identity, undersized lockup, poor contrast or real viewing conditions make the printed brand unrecognizable.
+given:
+  approved_requirements: exact brand asset/revision, placement datum, intended distance, size or sizing rule, relief/inlay process, material colors and lighting condition
+  geometry_candidate: registered logo body plus host, split, perimeter, interface and aperture keep-outs
+  process_context: printer, nozzle, layer height, orientation, exact filament products and slicer profiles
+expected:
+  - The exact approved asset identifier and cryptographic hash are recorded; spelling, aspect ratio, orientation and brand clear space are preserved.
+  - The complete logo envelope and intended viewing distance are explicit parameters rather than inferred from a concept image.
+  - Deterministic checks prove that the logo remains on its intended part, clears splits, perimeters, apertures and interfaces, and contains no feature below the qualified process threshold.
+  - The marker reuses the declared semantic tool or otherwise stays within the approved material/color architecture.
+  - A process-matched coupon reproduces the relevant base/logo colors, relief height, minimum features and surface orientation.
+  - A human reviewer recognizes the intended brand from the declared distance under the declared ordinary-use lighting before any visibility claim is released.
+failure_conditions:
+  - The generated outline differs from the approved asset or changes spelling, aspect ratio, orientation or clear space.
+  - Logo size is inherited from a placeholder or chosen without the declared viewing-distance requirement.
+  - The logo clips a perimeter, crosses a split, conflicts with protected geometry, adds an unapproved fifth tool or loses a printable component.
+  - A render, mesh audit or successful slice is treated as proof of real-distance recognition.
+  - The physical test uses different colors, relief, orientation, lighting or distance without recording the deviation.
+fixtures:
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/requirements-review-0.5.1.md
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/source/v0.5.1/berlin/site-marker-concept-parameters.json
+  - products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v06.json
+  - business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: 0
+  rubric: "At concept stage, pass digital evidence only when asset identity/hash, envelope, aspect, placement, clearances, process threshold, tool and viewing intent are explicit; overall result remains review-required. At manufacturing stage, require a process-matched human recognition result at the declared distance and lighting."
+  measurement_method: "Asset-hash and parameter inspection, deterministic planar containment/clearance/minimum-feature analysis, exact geometry and slicer checks after concept approval, then a wall-mounted human sight test at 2.0 m."
+relationships:
+  lessons:
+    - EXP-00063
+  regression_suites: []
+last_run:
+  result: review-required
+  date: 2026-09-04
+  report: products/art-decor/mm-art-010-modular-city-map-wall-panel/concepts/berlin-site-marker-concept-v06.json
+  artifact_hashes:
+    - 10e3bb0f751572fc806a3282bf87f1a4fa5bf2989252fad3fb365e6a429d242c
+    - 9737b286fb9e8a6dbd59c556e67d46d6e8b17b882c62729871088aae8b6d3b46
+    - b69871086ed4e24be5718b27b4a06c920db4a2c51ca1d630faad7f8d712d548d
+tags:
+  - visual
+  - logo
+  - viewing-distance
+  - brand-asset
+  - map-relief
+  - physical-user-test

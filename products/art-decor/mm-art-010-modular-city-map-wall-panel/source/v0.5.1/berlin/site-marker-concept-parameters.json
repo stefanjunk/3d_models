@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "project": "MM-ART-010",
+  "revision": "0.5.1-concept",
+  "units": "mm",
+  "site_marker": {
+    "enabled": true,
+    "location": {
+      "mode": "address",
+      "address": "Sterkrader Straße 24, 13507 Berlin",
+      "frozen_geocode": "../../../source-data/v0.5.0/berlin/metri-create-headquarters-address.json",
+      "coordinate_override_epsg25833": null
+    },
+    "artwork": {
+      "kind": "vector_logo",
+      "asset": "../../../../../../business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg",
+      "preview": "../../../../../../business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-color.png",
+      "asset_id": "MM-BRAND-001-R1-lockup-stacked-mono",
+      "replaceable_kinds": ["vector_logo", "vector_icon", "monochrome_raster_mask"],
+      "interpretation": "single_color_silhouette"
+    },
+    "placement": {
+      "anchor": "artwork_center",
+      "orientation_deg": 0.0,
+      "width_mm": 54.0,
+      "height_rule": "preserve_source_aspect_ratio",
+      "resolved_height_mm": 57.176471,
+      "minimum_clearance_to_center_seam_mm": 50.0
+    },
+    "relief": {
+      "height_above_highest_local_face_mm": 0.6,
+      "minimum_xy_clearance_to_other_upper_tools_mm": 0.5,
+      "semantic_tool": 4,
+      "role": "berlin_boundary_and_accents",
+      "minimum_source_component_dimension_mm": 1.2,
+      "minimum_printable_stroke_mm": 0.9
+    },
+    "viewing_intent": {
+      "recognition_distance_mm": 2000.0,
+      "digital_status": "targeted_not_proven",
+      "physical_acceptance": "A human reviewer recognizes the metriMade logo at 2.0 m under ordinary indoor lighting on the process-matched Oak/Sky Blue coupon."
+    }
+  },
+  "parameter_contract": {
+    "address_or_coordinate": "Changing the address or coordinate regenerates only marker placement after a frozen geocode and keep-out check.",
+    "artwork_asset": "Changing the logo/image/icon regenerates only the marker silhouette after rights, aspect-ratio and minimum-feature checks.",
+    "width_mm": "Artwork width remains independent from map scale; revision 0.5.1 proposes 54.0 mm for the 600 x 400 mm Berlin product.",
+    "relief_height_mm": "Marker relief is process-controlled and is not scaled with the map.",
+    "upper_tool_clearance_mm": "The marker keeps a printable base-color reveal from tools 2 and 3 so its column remains disjoint and Boolean-stable.",
+    "semantic_tool": "The marker reuses one of the four existing tools; it must not create a fifth filament assignment."
+  }
+}

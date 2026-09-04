@@ -5,8 +5,8 @@ project:
   name: "Permanent One-off City Map Wall Relief"
   sku: MM-ART-010
   portfolio_idea: "SKU-031 — City skyline and street-map panel"
-  revision: 0.5.0
-  candidate: 0.5.0-digital-candidate-r7
+  revision: 0.5.1
+  candidate: 0.5.1-concept-v06
   owner: Stefan
   created: "2026-08-30"
   design_claim: "new permanent one-off indoor wall-art product"
@@ -16,11 +16,11 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-010-012
-    assessment_version: 0.5.0
-    previous_assessment_id: PREFLIGHT-MM-ART-010-011
-    assessed_project_revision: "0.5.0"
-    updated_at: "2026-09-02T12:05:03+02:00"
+    assessment_id: PREFLIGHT-MM-ART-010-013
+    assessment_version: 0.5.1
+    previous_assessment_id: PREFLIGHT-MM-ART-010-012
+    assessed_project_revision: "0.5.1"
+    updated_at: "2026-09-04T09:00:00+02:00"
     change_triggers:
       - palette_reclassified_as_nongeometric_product_variant
       - size_parameter_axis_reserved
@@ -31,25 +31,28 @@ workflow:
       - concept_v05_human_approved
       - revision_050_digital_candidate_r7_generated
       - native_anycubic_projects_geometry_and_slice_validated
+      - metrimade_site_marker_replaces_metricreate
+      - site_marker_enlarged_for_2m_recognition_target
+      - concept_v06_pending
   autonomy_policy: autonomy-policy.json
   mode: guided
   requirements_approval:
     status: approved
-    spec_revision: 0.5.0
+    spec_revision: 0.5.1
     approved_by: Stefan
-    approved_at: "2026-09-02"
-    previous_approved_revision: 0.4.2
+    approved_at: "2026-09-03"
+    previous_approved_revision: 0.5.0
     change_requested_by: "Stefan"
-    change_requested_on: "2026-09-02"
-    basis: "User explicitly requested a slightly raised metriCreate.com logo at Sterkrader Straße 24 in Berlin and then required the address, artwork/logo/image/icon, size and related placement controls to remain parameterized. No consequential requirement remains unresolved."
+    change_requested_on: "2026-09-03"
+    basis: "User explicitly replaced the visible metriCreate marker with the metriMade logo and required a larger mark recognizable from about 2 m. Map geometry and all other product parameters remain unchanged."
   concept_approval:
-    status: approved
-    spec_revision: 0.5.0
-    geometry_revision: 0.5.0
-    asset: concepts/berlin-site-marker-concept-v05.png
-    approved_by: Stefan
-    approved_at: "2026-09-02"
-    basis: "User explicitly wrote 'freigegeben' in direct response to concept v05 on 2026-09-02. Palette-only variants remain non-geometric."
+    status: pending
+    spec_revision: 0.5.1
+    geometry_revision: null
+    asset: concepts/berlin-site-marker-concept-v06.png
+    approved_by: null
+    approved_at: null
+    basis: "Concept approval is reopened because the visible logo identity and envelope change; production CAD, mesh and 3MF revision 0.5.1 remain blocked until explicit human approval."
   variant_preview:
     status: informational
     asset: concepts/berlin-display-modes-concept-v04.png
@@ -63,8 +66,8 @@ workflow:
     geometry_revision: null
     asset_id: MM-WM-001-R2
     product_id: MM-ART-010
-    version: 0.5.0
-    reason: "Revision 0.5.0 digital-candidate-r7 is stable enough to begin mode-aware rear watermark placement, but the watermark geometry, protected-land manifest and human approval have not been produced."
+    version: 0.5.1
+    reason: "Revision 0.5.0 digital-candidate-r7 remains the current geometry authority while concept v06 is pending. The watermark geometry, protected-land manifest and human approval have not been produced."
   decomposition_approval:
     status: approved
     spec_revision: 0.4.0
@@ -74,8 +77,8 @@ workflow:
     approved_at: "2026-09-01"
     basis: "User explicitly wrote 'freigegeben' in direct response to decomposition-review-0.4.0.md and plan/hybrid-design-plan-v0.4.0.json"
   digital_candidate:
-    status: draft-pass-with-review
-    reason: "Revision 0.5.0 digital-candidate-r7 passes the geometry build, four composite mesh audits, vendor-aware four-component 3MF checks and native Anycubic slicing for all four halves. Context-outline left required a 900 second adapter limit after exceeding the 600 second target; physical, GUI, watermark and release gates remain open."
+    status: previous-draft-pass-current-revision-blocked
+    reason: "Revision 0.5.0 digital-candidate-r7 remains the current DRAFT geometry authority and passes its digital checks. No revision 0.5.1 production geometry or 3MF may be generated until concept v06 is human-approved."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -106,7 +109,8 @@ requirements_trace:
     - "Treat this four-color selection as a product variant and slicer/filament-loading choice, not as a redesign"
     - "Make palette selection parameterizable and prepare a separate size parameter axis"
     - "Add selectable map extents later as a separate, more complex capability"
-    - "Add the metriCreate.com logo slightly raised at Sterkrader Straße 24, 13507 Berlin"
+    - "Use the canonical metriMade logo instead of the former metriCreate marker at Sterkrader Straße 24, 13507 Berlin"
+    - "Make the visible metriMade logo large enough to target recognition from about 2 m"
     - "Keep the address configurable for later products"
     - "Allow the location artwork to be replaced by another logo, image or icon"
     - "Do not use a rear grid"
@@ -137,8 +141,8 @@ requirements_trace:
     - "Use indoor PLA, the standard 0.4 mm nozzle and 0.20 mm layers as the provisional colored-art process"
     - "Use boundary_crop as the customer-facing default and a 12 percent per-side Umland margin for context_outline"
     - "Mark Berlin in context_outline with a 2.4 mm Sky Blue relief boundary"
-    - "Use the selected compact metriCreate M mark rather than the wide wordmark so the default 16.5 mm symbol remains legible and does not obscure the local street field"
-    - "Center the mark on the resolved address, raise it 0.6 mm, and merge it into semantic tool 4 so the design still uses at most four filaments"
+    - "Use the canonical monochrome stacked metriMade lockup MM-BRAND-001-R1 at 54.0 × 57.18 mm; this is the largest conservative round width retaining at least 50 mm center-seam clearance in both modes"
+    - "Center the lockup on the resolved address, raise it 0.6 mm, and merge it into semantic tool 4 so the design still uses at most four filaments"
     - "Freeze each address-to-coordinate result and keep location, artwork asset, width, orientation, relief height and semantic tool as independent parameters"
   unresolved_consequential: []
   unresolved_nonblocking:
@@ -147,7 +151,8 @@ requirements_trace:
     - "Final aperture appearance and opacity remain subject to a physical light coupon"
     - "Additional production sizes are not yet implemented or qualified"
     - "Selectable map extents remain deferred and require a newly frozen geospatial source plus full placement and validation"
-    - "The selected metriCreate logo asset is clearance-pending and blocks commercial release until the brand gate is closed"
+    - "The selected metriMade logo asset is clearance-pending and blocks commercial release until the brand gate is closed"
+    - "Recognition from 2 m is a physical human-sight-test target and remains unverified until a process-matched Oak/Sky Blue coupon is reviewed"
 
 function:
   summary: >
@@ -188,21 +193,21 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-ART-010
-  version: 0.5.0
+  version: 0.5.1
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4
   minimum_host_wall_mm: 1.2
   minimum_remaining_wall_mm: 0.8
   proposed_placement: "protected lower rear land outside seam, connector, hanger, lighting and attribution regions"
-  status: "blocked until stable revision 0.5.0 mode-aware geometry, generated placement evidence and human approval"
+  status: "blocked until stable revision 0.5.1 mode-aware geometry, generated placement evidence and human approval"
 
 front_site_marker:
-  status: digital-candidate-pass-physical-pending
-  brand: metriCreate
-  domain: metriCreate.com
-  brand_asset_revision: MC-BRAND-001-R1
-  asset: source-data/v0.5.0/branding/metricreate-mark-mono.svg
+  status: concept-v06-pending
+  brand: metriMade
+  domain: metriMade.com
+  brand_asset_revision: MM-BRAND-001-R1
+  asset: ../../../business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg
   asset_kind: vector_logo
   interpretation: single-color-silhouette
   location_parameter:
@@ -214,7 +219,8 @@ front_site_marker:
     coordinate_override_allowed_with_provenance: true
   artwork_parameter:
     supported_kinds: [vector_logo, vector_icon, monochrome_raster_mask]
-    width_mm: 16.5
+    width_mm: 54.0
+    resolved_height_mm: 57.176471
     preserve_aspect_ratio: true
     orientation_deg: 0.0
     anchor: artwork_center
@@ -227,6 +233,7 @@ front_site_marker:
     boundary_crop: [204.056603, 283.519133]
     context_outline: [222.626293, 267.354140]
   separation_from_release_mark: "Visible location artwork is not the canonical recessed rear product watermark."
+  viewing_intent: "Target recognition at 2.0 m under ordinary indoor lighting; physical process-matched coupon approval required."
   clearance_status: "Selected logo asset is recorded as brand-clearance pending; commercial release remains blocked."
 
 coordinate_system:
@@ -282,10 +289,11 @@ geometry:
     minimum_label_stroke_mm: 1.0
     small_island_min_area_mm2: 0.8
   site_marker:
-    parameter_source: source/v0.5.0/berlin/site-marker-parameters.json
+    parameter_source: source/v0.5.1/berlin/site-marker-concept-parameters.json
     output_owner: semantic_tool_4
-    default_width_mm: 16.5
-    default_height_mm: 15.967742
+    target_width_mm: 54.0
+    target_height_mm: 57.176471
+    production_status: blocked-pending-concept-v06-approval
     relief_height_mm: 0.6
     minimum_printable_stroke_mm: 0.9
     upper_color_xy_clearance_mm: 0.5
@@ -345,7 +353,7 @@ map_content:
   target_extent: "boundary_crop uses the Berlin administrative polygon; context_outline uses the selected rectangular Berlin-plus-Umland bounds"
   approved_display_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   palette_preview_parameter_source: source/v0.4.1/berlin/display-mode-parameters.json
-  site_marker_parameter_source: source/v0.5.0/berlin/site-marker-parameters.json
+  site_marker_parameter_source: source/v0.5.1/berlin/site-marker-concept-parameters.json
   production_mode_parameter_source: source/v0.4.0/berlin/production-mode-parameters.json
   map_extent_parameter:
     current: berlin-v0.4.0-frozen-source
@@ -546,20 +554,20 @@ acceptance_details:
 
 acceptance:
   - id: AC-REQ
-    criterion: "Revision 0.5.0 keeps palette selection non-geometric and adds independent address/coordinate, artwork, size, orientation, relief-height and tool parameters for one visible site marker."
+    criterion: "Revision 0.5.1 keeps palette selection non-geometric, retains the independent marker parameters and replaces only the visible address artwork with the enlarged canonical metriMade lockup."
     method: "human approval recorded against this exact revision"
     status: PASS
   - id: AC-CONCEPT
-    criterion: "Concept v05 shows the parameterized 16.5 mm compact metriCreate mark at the frozen address in both display modes without changing map, split, mounting or light architecture."
-    method: "human approval of concepts/berlin-site-marker-concept-v05.png"
-    status: PASS
+    criterion: "Concept v06 shows the canonical stacked metriMade lockup at 54.0 × 57.18 mm at the frozen address in both display modes without changing map, split, mounting or light architecture."
+    method: "explicit human approval of concepts/berlin-site-marker-concept-v06.png"
+    status: REVIEW_REQUIRED
   - id: AC-VARIANTS
     criterion: "Every palette preset maps exactly four existing ordered tools to filament identities without changing the geometry candidate; non-default size and map extent fail closed."
     method: "source/v0.5.0/berlin/validate_product_variants.py and reports/product-variant-validation-0.5.0-r7.json"
     status: PASS
   - id: AC-SITE-MARKER
-    criterion: "The default artwork is centered at the frozen address point, stays wholly on one retained left half, clears protected geometry, resolves no feature below 0.9 mm, rises 0.6 mm and reuses tool 4."
-    method: "digital-candidate-r7 build report, vendor-aware 3MF checks, exact Anycubic slice and pending physical readability coupon"
+    criterion: "The 54.0 × 57.18 mm metriMade lockup is centered at the frozen address point, stays wholly on one retained left half, retains at least 50 mm center-seam clearance, clears the perimeter by at least 5 mm, resolves no feature below 0.9 mm, rises 0.6 mm and reuses tool 4."
+    method: "concept parameter/fit report, future revision 0.5.1 build and slice evidence, then process-matched human recognition test at 2.0 m"
     status: REVIEW_REQUIRED
   - id: AC-DECOMPOSITION
     criterion: "Both display modes allocate outer masks, geospatial sources, interfaces, lighting and four-color bodies to unique authorities before production CAD."
@@ -609,7 +617,7 @@ acceptance:
 deliverables:
   - "Machine-readable product variant catalog with independent palette, display-mode, size and map-extent axes"
   - "Parameterized location-artwork contract supporting another address/coordinate and another rights-cleared logo, icon or monochrome image mask"
-  - "Human-approved concept v05 and DRAFT digital-candidate-r7 for the raised compact metriCreate mark"
+  - "Pending concept v06 for the enlarged canonical metriMade address logo; revision 0.5.0 digital-candidate-r7 remains the current DRAFT geometry authority"
   - "Approved revision 0.4.0 display-mode requirements and concept v03"
   - "Mode parameters for boundary_crop and context_outline"
   - "Parametric global map, permanent seam, local joiner/standoff and lighting-interface source"

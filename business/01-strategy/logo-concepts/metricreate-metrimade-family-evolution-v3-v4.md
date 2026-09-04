@@ -1,6 +1,6 @@
 # metriCreate family evolution — v3 and v4
 
-Status: `V3_04_SELECTED_VECTOR_R1_CLEARANCE_PENDING`
+Status: `V3_01_SELECTED_VECTOR_R3_CLEARANCE_PENDING`
 
 Generated: 2026-08-29
 
@@ -8,7 +8,7 @@ Generator: OpenAI built-in image generation
 
 Authoritative family reference: metriMade `MM-BRAND-001-R1`
 
-Human selection: Stefan Junk selected v3 concept `04` on 2026-08-29. The binding deterministic redraw is [metriCreate `MC-BRAND-001-R1`](../brand-assets/metricreate/README.md). This explicit selection supersedes the recommendation and all later v4-v6 shortlist exploration; the sheets remain provenance artifacts.
+Human selection: Stefan Junk selected v3 concept `01` on 2026-09-04. The binding deterministic redraw is [metriCreate `MC-BRAND-001-R3`](../brand-assets/metricreate/README.md). This supersedes the earlier 2026-08-29 v3 concept `04` / R1 selection and all later v4-v6 shortlist exploration; the sheets remain provenance artifacts.
 
 ## Objective
 
@@ -67,9 +67,9 @@ more forceful than metriMade. If long-term family recognition is more important,
 select `v3-01`. The wireframe-to-solid behavior of `v4-C` is best retained as a
 motion/interaction system even when it is not selected as the static mark.
 
-The human selection resolves this step in favor of `v3-04`. Do not combine it
+The current human selection resolves this step in favor of `v3-01`. Do not combine it
 with the other marks. Static, monochrome and small-size variants now derive from
-the single `MC-BRAND-001-R1` source geometry.
+the single `MC-BRAND-001-R3` source geometry.
 
 ## Binding exploration palette
 
@@ -88,7 +88,7 @@ a decorative gradient or a general replacement for teal/aqua.
 ## Remaining production and release gate
 
 The selected concept has been reconstructed as original deterministic SVG
-geometry rather than auto-traced from the PNG. `MC-BRAND-001-R1` includes
+geometry rather than auto-traced from the PNG. `MC-BRAND-001-R3` includes
 horizontal and stacked lockups, compact and monochrome marks, an outlined
 licensed wordmark, source/provenance hashes and raster previews. Small-size,
 light/dark and reproduction checks belong to the adoption validation. The

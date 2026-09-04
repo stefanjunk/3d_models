@@ -6,10 +6,11 @@ Candidate revision: `MC-BRAND-001-R2`
 
 Generated: 2026-09-04
 
-This study responds to the observed dependency of the selected color mark on a
-dark canvas. It preserves the complete `MC-BRAND-001-R1` M geometry and tests
-two controlled strategies. No file in this directory replaces a binding R1
-asset until a human selection is recorded.
+This historical study responded to the observed dependency of the then-selected
+color mark on a dark canvas. It preserves the complete `MC-BRAND-001-R1` M
+geometry and tests two controlled strategies. Stefan Junk subsequently selected
+v3 concept `01` as `MC-BRAND-001-R3` on 2026-09-04; no file in this directory is
+a current binding asset.
 
 ![Comparison sheet](metricreate-background-light-ground-study.png)
 

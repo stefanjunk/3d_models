@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build deterministic metriCreate logo assets from selected v3 concept 01."""
+"""Build deterministic metriCreate logo assets from selected v3 concept 04."""
 
 from __future__ import annotations
 
@@ -25,32 +25,26 @@ PALETTE = {
     "orange": "#F05A28",
 }
 
-# The original concept sheet and isolated user-selected crop are raster
-# references. These paths are a deliberate, mechanically reproducible redraw of
-# concept 01: two architectural planes, a fitted floor and one precision-cut
-# orange edge. No bitmap tracing is used.
+# The original concept sheet is a raster ideation artifact. These paths are a
+# deliberate, mechanically reproducible redraw. The two halves keep a complete
+# M skeleton while the square cuts and modules carry the selected voxel language.
 LEFT_PATH = (
-    "M20 66C20 40 42 20 70 20L168 24L112 78V176L30 216"
-    "C24 212 20 204 20 196Z"
+    "M20 70L72 38V54H90V70H108V86H120V96V150L82 124V204L64 220H20V170H40V150H20Z"
+    "M40 100H58V118H40Z"
+    "M58 130H76V148H58Z"
+    "M40 160H58V178H40Z"
 )
 
 RIGHT_PATH = (
-    "M154 82L222 52Q228 50 228 58V198Q228 208 217 216L154 181Z"
+    "M120 96H138V78H156V60H174V42H192V58H210V76H228V94H210V112H228V130H210V148"
+    "H228V184H210V202H228V220H210L176 204V124L120 150Z"
 )
 
-FLOOR_PATH = (
-    "M36 220L117 177Q120 175 123 177L210 220Q203 230 187 230"
-    "H58Q43 230 36 220Z"
-)
-
-ACCENT_PATH = "M118 75L214 29L227 32L124 82Z"
+FLOOR_PATH = "M38 220L120 174L204 220L196 228H46Z"
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTS = ROOT / "exports"
 DEFAULT_FONT = Path("/usr/share/fonts/inter/InterVariable.ttf")
-SELECTION_REFERENCE = (
-    ROOT / "source" / "reference" / "metricreate-v3-concept-01-user-selection.png"
-)
 
 
 def sha256(path: Path) -> str:
@@ -147,22 +141,22 @@ def svg_document(view_box: str, body: str, title: str, description: str) -> str:
     )
 
 
-def canvas_body(width: int, height: int) -> str:
-    return f'  <rect width="{width}" height="{height}" fill="{PALETTE["canvas"]}"/>'
-
-
 def mark_body(*, monochrome: bool = False, transform: str | None = None) -> str:
     navy = PALETTE["navy"]
     teal = navy if monochrome else PALETTE["teal"]
+    aqua = navy if monochrome else PALETTE["aqua"]
     floor = navy if monochrome else PALETTE["offwhite"]
     orange = navy if monochrome else PALETTE["orange"]
 
     content = "\n".join(
         (
-            f'    <path d="{LEFT_PATH}" fill="{navy}"/>',
+            f'    <path d="{LEFT_PATH}" fill="{navy}" fill-rule="evenodd"/>',
             f'    <path d="{RIGHT_PATH}" fill="{teal}"/>',
+            f'    <rect x="184" y="16" width="18" height="18" fill="{aqua}"/>',
+            f'    <rect x="188" y="184" width="18" height="18" fill="{aqua}"/>',
+            f'    <rect x="206" y="184" width="18" height="18" fill="{navy}"/>',
             f'    <path d="{FLOOR_PATH}" fill="{floor}"/>',
-            f'    <path d="{ACCENT_PATH}" fill="{orange}"/>',
+            f'    <rect x="110" y="211" width="20" height="18" fill="{orange}"/>',
         )
     )
     if transform:
@@ -183,7 +177,6 @@ def render_png(svg_path: Path, png_path: Path, width: int) -> None:
             str(svg_path),
             "-resize",
             f"{width}x",
-            "-strip",
             str(png_path),
         ],
         check=True,
@@ -192,58 +185,56 @@ def render_png(svg_path: Path, png_path: Path, width: int) -> None:
 
 def build(font_path: Path) -> None:
     EXPORTS.mkdir(parents=True, exist_ok=True)
-    if not SELECTION_REFERENCE.is_file():
-        raise FileNotFoundError(f"Selection reference not found: {SELECTION_REFERENCE}")
     font = load_font(font_path)
     description = (
-        "Selected metriCreate v3 concept 01: a compact spatial enclosure with a "
-        "rounded navy left plane, a precise teal right plane, a fitted off-white "
-        "floor and one signal-orange upper cut, carried on a fixed dark field."
+        "Selected metriCreate v3 concept 04: a complete spatial M with navy and "
+        "teal voxel-cut planes, one detached aqua module, a fitted off-white "
+        "floor, and a centered signal-orange active block."
     )
 
     assets: dict[str, str] = {}
     assets["metricreate-mark-color.svg"] = svg_document(
         "0 0 248 240",
-        f'{canvas_body(248, 240)}\n{mark_body()}',
-        "metriCreate color mark on fixed dark field",
+        mark_body(),
+        "metriCreate color mark",
         description,
     )
     assets["metricreate-mark-mono.svg"] = svg_document(
         "0 0 248 240",
         mark_body(monochrome=True),
         "metriCreate monochrome mark",
-        "Single-color version of the selected spatial enclosure mark.",
+        "Single-color version of the selected voxel-cut M mark.",
     )
 
     stacked_word_dark = outlined_text(
         font,
         "metriCreate",
-        target_width=270,
-        x=45,
+        target_width=310,
+        x=25,
         y=282,
         fill=PALETTE["offwhite"],
     )
     stacked_word_mono = outlined_text(
         font,
         "metriCreate",
-        target_width=270,
-        x=45,
+        target_width=310,
+        x=25,
         y=282,
         fill=PALETTE["navy"],
     )
-    stacked_mark = mark_body(transform="translate(56 4)")
+    stacked_mark = mark_body(transform="translate(56 10)")
     assets["metricreate-lockup-stacked-color-dark.svg"] = svg_document(
         "0 0 360 360",
-        f'{canvas_body(360, 360)}\n{stacked_mark}\n  <g>{stacked_word_dark}</g>',
-        "metriCreate stacked color logo on fixed dark field",
+        f"{stacked_mark}\n  <g>{stacked_word_dark}</g>",
+        "metriCreate stacked color logo for dark backgrounds",
         description,
     )
     assets["metricreate-lockup-stacked-mono.svg"] = svg_document(
         "0 0 360 360",
-        f'{mark_body(monochrome=True, transform="translate(56 4)")}\n'
+        f'{mark_body(monochrome=True, transform="translate(56 10)")}\n'
         f"  <g>{stacked_word_mono}</g>",
         "metriCreate stacked monochrome logo",
-        "Single-color stacked version of the selected spatial enclosure logo.",
+        "Single-color stacked version of the selected voxel-cut M logo.",
     )
 
     horizontal_word_dark = outlined_text(
@@ -262,19 +253,19 @@ def build(font_path: Path) -> None:
         y=82,
         fill=PALETTE["navy"],
     )
-    horizontal_mark = mark_body(transform="translate(18 8) scale(0.88)")
+    horizontal_mark = mark_body(transform="translate(18 10) scale(0.88)")
     assets["metricreate-lockup-horizontal-color-dark.svg"] = svg_document(
         "0 0 650 230",
-        f'{canvas_body(650, 230)}\n{horizontal_mark}\n  <g>{horizontal_word_dark}</g>',
-        "metriCreate horizontal color logo on fixed dark field",
+        f"{horizontal_mark}\n  <g>{horizontal_word_dark}</g>",
+        "metriCreate horizontal color logo for dark backgrounds",
         description,
     )
     assets["metricreate-lockup-horizontal-mono.svg"] = svg_document(
         "0 0 650 230",
-        f'{mark_body(monochrome=True, transform="translate(18 8) scale(0.88)")}\n'
+        f'{mark_body(monochrome=True, transform="translate(18 10) scale(0.88)")}\n'
         f"  <g>{horizontal_word_mono}</g>",
         "metriCreate horizontal monochrome logo",
-        "Single-color horizontal version of the selected spatial enclosure logo.",
+        "Single-color horizontal version of the selected voxel-cut M logo.",
     )
 
     for filename, content in assets.items():
@@ -299,34 +290,23 @@ def build(font_path: Path) -> None:
     font_hash = sha256(font_path)
     provenance = {
         "asset_family": "metriCreate production logo",
-        "revision": "MC-BRAND-001-R3",
+        "revision": "MC-BRAND-001-R1",
         "status": "selected-vector-redraw-clearance-pending",
         "intended_rights_owner": "Stefan Junk Holding UG (haftungsbeschränkt)",
         "ownership_status": "to be confirmed in signed BRD-001 brand risk approval",
         "selected_by": "Stefan Junk",
-        "selected_at": "2026-09-04",
-        "selection": "metriCreate family evolution v3 concept 01",
-        "supersedes": "MC-BRAND-001-R1 (v3 concept 04)",
-        "superseded_asset_archive": "archive/MC-BRAND-001-R1",
+        "selected_at": "2026-08-29",
+        "selection": "metriCreate family evolution v3 concept 04",
         "concept_sheet": {
             "path": "../../logo-concepts/metricreate-metrimade-sibling-concepts-v3.png",
             "sha256": "821fc7fccab16f71db2b71d17f3d404848fc9c13f8648608d54f271da7e00f5b",
             "generator": "OpenAI built-in image generation",
-        },
-        "selection_reference": {
-            "path": "source/reference/metricreate-v3-concept-01-user-selection.png",
-            "sha256": sha256(SELECTION_REFERENCE),
-            "role": "user-supplied isolated crop confirming v3 concept 01 selection",
         },
         "vector_redraw": {
             "method": "deterministic original SVG geometry and outlined wordmark",
             "source": "source/build_brand_assets.py",
             "designer_operator": "OpenAI Codex under Stefan Junk's direction",
             "note": "The selected raster concept is a form reference only; no bitmap tracing is used.",
-        },
-        "background_policy": {
-            "color_assets": "fixed embedded #0B0F12 field",
-            "light_background_fallback": "corresponding monochrome navy SVG",
         },
         "font": {
             "family": "Inter Variable",
@@ -346,11 +326,7 @@ def build(font_path: Path) -> None:
         encoding="utf-8",
     )
 
-    manifest_files = sorted(EXPORTS.glob("*")) + [
-        ROOT / "provenance.json",
-        SELECTION_REFERENCE,
-        Path(__file__),
-    ]
+    manifest_files = sorted(EXPORTS.glob("*")) + [ROOT / "provenance.json", Path(__file__)]
     lines = [
         f"{sha256(path)}  {path.relative_to(ROOT)}"
         for path in manifest_files

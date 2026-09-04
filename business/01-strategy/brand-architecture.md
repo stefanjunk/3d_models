@@ -55,9 +55,9 @@ For physical product traceability, new metriMade product revisions use the [prod
 
 ## Selected metriCreate identity
 
-Stefan Junk selected concept `04` from the controlled metriCreate v3 sister-brand sheet on 2026-08-29. The reproducible vector candidate is [metriCreate `MC-BRAND-001-R1`](brand-assets/metricreate/README.md): a complete spatial `M` with midnight-navy and teal voxel-cut halves, a detached aqua module, a fitted off-white floor and a centered signal-orange active block.
+Stefan Junk selected concept `01` from the controlled metriCreate v3 sister-brand sheet on 2026-09-04. The reproducible vector candidate is [metriCreate `MC-BRAND-001-R3`](brand-assets/metricreate/README.md): a compact spatial enclosure with a rounded midnight-navy left plane, a precise teal right plane, a fitted off-white floor and one signal-orange upper cut on a fixed anthracite field. This supersedes the previous v3 concept `04` / `MC-BRAND-001-R1` selection.
 
-The compact mark, stacked dark-background logo, horizontal website lockup and monochrome versions share one deterministic source geometry. The wordmark spelling is always `metriCreate`. This choice supersedes the later v5 and v6 explorations as production direction; those sheets remain immutable provenance of the legibility correction. Selection is complete, while name/device-mark searches, similarity review and the signed rights/risk decision remain open under `BRD-001`.
+The compact mark, stacked logo, horizontal website lockup and monochrome versions share one deterministic source geometry. Full-color assets embed the required dark field; monochrome navy assets remain available for light backgrounds. The wordmark spelling is always `metriCreate`. The earlier R1 mark and later v5/v6 explorations remain provenance only. Selection is complete, while name/device-mark searches, similarity review and the signed rights/risk decision remain open under `BRD-001`.
 
 ## Naming system
 
@@ -85,6 +85,6 @@ The local naming research is directional, not legal clearance. Before launch:
 - review similar business, product, and domain names;
 - decide whether both word marks, selected logos or neither are registered initially;
 - introduce the new metriMade logo and product mark into existing product assets only through a controlled new revision; never overwrite released files.
-- introduce the selected metriCreate logo into public channels only from `MC-BRAND-001-R1`; do not use the raster concept sheet as production artwork.
+- introduce the selected metriCreate logo into public channels only from `MC-BRAND-001-R3`; do not use the raster concept sheet or isolated crop as production artwork.
 
 Until that work is signed off, brand-rights status is `BLOCK` for public launch.

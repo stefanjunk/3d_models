@@ -3,7 +3,7 @@
 Document status: `WORKING_DRAFT_LAUNCH_BLOCKED`  
 Task: `BRD-001`  
 Business owner: Stefan Junk  
-Last factual update: 2026-08-25
+Last factual update: 2026-09-04
 
 This record separates naming intent from evidence that a name can be used and, where desired, registered. Founder selection is recorded; clearance, ownership and approval remain open.
 
@@ -45,7 +45,7 @@ The founder confirmed two connected storefronts on 2026-08-25:
 | `metriMade` | Cloudflare domain control founder-confirmed; retained proof pending | Directional research only; not clearance | Directional research only | [MVP goods/services scope](brand-goods-services-scope.md) | Proposed: legal operator; confirm in approval | None | `PARTIAL` |
 | `metriCreate` | Cloudflare domain control founder-confirmed; retained proof pending | Directional research only; not clearance | Directional research only | [MVP goods/services scope](brand-goods-services-scope.md) | Proposed: legal operator; confirm in approval | None | `PARTIAL` |
 | Descriptive product titles + stable product IDs | No separate domains planned | No product-mark registration planned | Basic pre-publication collision/misleading-term check only | Exact released product category | Legal operator owns SKU/catalog records; title is descriptive | Product-brand risk intentionally avoided | `POLICY SET` |
-| Logos, icons and word/device marks | N/A | metriMade V10 `08` selected; device mark not yet searched | [`MM-BRAND-001-R1`](../01-strategy/brand-assets/metrimade/README.md) deterministic SVG redraw, concept/font/provenance records and hashes retained | Premium consumer store, packaging and product identification; approve exact scope | Proposed: legal operator; confirm | Selection fixed; similarity/risk decision open | `PARTIAL` |
+| Logos, icons and word/device marks | N/A | metriMade V10 `08` and metriCreate v3 `01` selected; device marks not yet searched | [`MM-BRAND-001-R1`](../01-strategy/brand-assets/metrimade/README.md) and [`MC-BRAND-001-R3`](../01-strategy/brand-assets/metricreate/README.md) deterministic SVG redraws, concept/font/provenance records and hashes retained | Consumer and maker/configuration storefronts, packaging and product identification; approve exact scope | Proposed: legal operator; confirm | Selections fixed; similarity/risk decision open | `PARTIAL` |
 
 ## Evidence required to complete `BRD-001`
 

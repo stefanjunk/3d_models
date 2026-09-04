@@ -31,6 +31,20 @@ def load_production_builder():
 PRODUCTION = load_production_builder()
 PALETTE = PRODUCTION.PALETTE
 
+# Pin the superseded R1 voxel geometry so this historical R2 study remains
+# reproducible after the binding production builder moves to v3 concept 01.
+VOXEL_LEFT_PATH = (
+    "M20 70L72 38V54H90V70H108V86H120V96V150L82 124V204L64 220H20V170H40V150H20Z"
+    "M40 100H58V118H40Z"
+    "M58 130H76V148H58Z"
+    "M40 160H58V178H40Z"
+)
+VOXEL_RIGHT_PATH = (
+    "M120 96H138V78H156V60H174V42H192V58H210V76H228V94H210V112H228V130H210V148"
+    "H228V184H210V202H228V220H210L176 204V124L120 150Z"
+)
+VOXEL_FLOOR_PATH = "M38 220L120 174L204 220L196 228H46Z"
+
 
 @dataclass(frozen=True)
 class Candidate:
@@ -124,20 +138,20 @@ def mark_body(candidate: Candidate, transform: str) -> str:
     threshold = ""
     if candidate.threshold:
         threshold = (
-            f'    <path d="{PRODUCTION.FLOOR_PATH}" transform="translate(0 10)" '
+            f'    <path d="{VOXEL_FLOOR_PATH}" transform="translate(0 10)" '
             f'fill="{candidate.threshold}" stroke="{PALETTE["navy"]}" '
             'stroke-width="4" stroke-linejoin="round"/>\n'
         )
 
     content = "\n".join(
         (
-            f'    <path d="{PRODUCTION.LEFT_PATH}" fill="{PALETTE["navy"]}" fill-rule="evenodd"/>',
-            f'    <path d="{PRODUCTION.RIGHT_PATH}" fill="{PALETTE["teal"]}"/>',
+            f'    <path d="{VOXEL_LEFT_PATH}" fill="{PALETTE["navy"]}" fill-rule="evenodd"/>',
+            f'    <path d="{VOXEL_RIGHT_PATH}" fill="{PALETTE["teal"]}"/>',
             f'    <rect x="184" y="16" width="18" height="18" fill="{PALETTE["aqua"]}"/>',
             f'    <rect x="188" y="184" width="18" height="18" fill="{PALETTE["aqua"]}"/>',
             f'    <rect x="206" y="184" width="18" height="18" fill="{PALETTE["navy"]}"/>',
             threshold.rstrip(),
-            f'    <path d="{PRODUCTION.FLOOR_PATH}" fill="{candidate.floor}"{floor_outline}/>',
+            f'    <path d="{VOXEL_FLOOR_PATH}" fill="{candidate.floor}"{floor_outline}/>',
             f'    <rect x="110" y="211" width="20" height="18" fill="{candidate.active}"/>',
         )
     )
@@ -237,7 +251,16 @@ def sheet_svg(font) -> str:
 
 def render_png(svg_path: Path, png_path: Path, width: int) -> None:
     subprocess.run(
-        ["magick", "-background", "none", str(svg_path), "-resize", f"{width}x", str(png_path)],
+        [
+            "magick",
+            "-background",
+            "none",
+            str(svg_path),
+            "-resize",
+            f"{width}x",
+            "-strip",
+            str(png_path),
+        ],
         check=True,
     )
 

@@ -1,9 +1,9 @@
 # metriMade and metriCreate logo concepts
 
-Status: `BOTH_BRANDS_SELECTED_VECTOR_R1_CLEARANCE_PENDING`
+Status: `METRIMADE_VECTOR_R1_METRICREATE_VECTOR_R3_CLEARANCE_PENDING`
 Generated: 2026-08-25  
 Generator: OpenAI built-in image generation  
-Human selector: Stefan Junk; V10 concept `08` selected on 2026-08-25
+Human selector: Stefan Junk; metriMade V10 concept `08` selected on 2026-08-25; metriCreate v3 concept `01` selected on 2026-09-04
 
 ## Selected metriMade direction
 
@@ -13,13 +13,13 @@ The selection fixes the visual direction but does not yet constitute trademark c
 
 ## Selected metriCreate direction
 
-Stefan Junk selected concept `04` from the controlled v3 sister-brand sheet on 2026-08-29. The binding vector candidate is `MC-BRAND-001-R1`: [stacked dark-background SVG](../brand-assets/metricreate/exports/metricreate-lockup-stacked-color-dark.svg), [horizontal dark-background SVG](../brand-assets/metricreate/exports/metricreate-lockup-horizontal-color-dark.svg), and [compact mark SVG](../brand-assets/metricreate/exports/metricreate-mark-color.svg). The deterministic redraw, outlined wordmark, palette, font/right record, PNG previews, provenance and hashes are documented in the [metriCreate brand asset package](../brand-assets/metricreate/README.md).
+Stefan Junk selected concept `01` from the controlled v3 sister-brand sheet on 2026-09-04, superseding the 2026-08-29 concept `04` selection. The binding vector candidate is `MC-BRAND-001-R3`: [stacked fixed-field SVG](../brand-assets/metricreate/exports/metricreate-lockup-stacked-color-dark.svg), [horizontal fixed-field SVG](../brand-assets/metricreate/exports/metricreate-lockup-horizontal-color-dark.svg), and [compact fixed-field mark SVG](../brand-assets/metricreate/exports/metricreate-mark-color.svg). The deterministic redraw, outlined wordmark, palette, font/right record, PNG previews, isolated selection reference, provenance and hashes are documented in the [metriCreate brand asset package](../brand-assets/metricreate/README.md).
 
-The v5 and v6 sheets remain correction and exploration provenance, but they do not replace this human selection. Trademark/name searches, visual similarity review and the signed `BRD-001` decision remain open.
+The superseded R1 mark and the v5/v6 sheets remain correction and exploration provenance. Trademark/name searches, visual similarity review and the signed `BRD-001` decision remain open.
 
 ## Concept sheets
 
-metriCreate family evolution, including the selected v3 concept `04`:
+metriCreate family evolution, including the selected v3 concept `01`:
 
 - [metriCreate v3 — controlled sister-brand concepts](metricreate-metrimade-sibling-concepts-v3.png) — SHA-256 `821fc7fccab16f71db2b71d17f3d404848fc9c13f8648608d54f271da7e00f5b`
 - [metriCreate v4 — Midnight Forge overdrive concepts](metricreate-midnight-forge-overdrive-concepts-v4.png) — SHA-256 `6f1891fd926f3410ec6d42bf27865730156228d4cf3fdcbacb17e8125c56721d`

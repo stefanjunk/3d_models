@@ -1,16 +1,16 @@
 # metriCreate M-Locked Voxel Forge — v6
 
-Status: `SUPERSEDED_BY_V3_04_SELECTION_RETAINED_AS_CORRECTION_PROVENANCE`
+Status: `SUPERSEDED_BY_V3_01_SELECTION_RETAINED_AS_CORRECTION_PROVENANCE`
 
 Generated: 2026-08-29
 
 Generator: OpenAI built-in image generation
 
-Selection outcome: Stefan Junk selected the earlier v3 concept `04` on
-2026-08-29. The binding production candidate is [metriCreate
-`MC-BRAND-001-R1`](../brand-assets/metricreate/README.md). V6 remains a useful
-record of the prior `M`-legibility correction, but none of its cells is the
-selected logo.
+Selection outcome: Stefan Junk selected v3 concept `01` on 2026-09-04,
+superseding the earlier v3 concept `04` / R1 selection. The binding production
+candidate is [metriCreate `MC-BRAND-001-R3`](../brand-assets/metricreate/README.md).
+V6 remains a useful record of the prior `M`-legibility correction, but none of
+its cells is the selected logo.
 
 Human correction: v5 was rejected because the `M` disappeared into two
 separate wall-like planes. In v6, the complete uppercase `M` is a protected

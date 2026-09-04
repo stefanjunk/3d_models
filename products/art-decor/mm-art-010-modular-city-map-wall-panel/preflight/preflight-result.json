@@ -1,14 +1,14 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-015",
-  "assessment_version": "0.5.2",
+  "assessment_id": "PREFLIGHT-MM-ART-010-016",
+  "assessment_version": "0.5.3",
   "assessment_date": "2026-09-04",
-  "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with complete water apertures and S/U transit accent",
+  "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with complete water apertures, S/U transit accent and targeted topology bridges",
   "scope": {
-    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.2 changes visible geometry: every retained mapped water area and river/canal/stream becomes a light-through opening, Sky Blue represents S-Bahn/U-Bahn plus the existing context boundary and site marker, and motorway/trunk remains Midnight. Revision 0.5.1 digital-candidate-r4 is rejected and no revision 0.5.2 manufacturing geometry exists before the human gates.",
+    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.3 makes every retained mapped water area and river/canal/stream a light-through opening, with only explicitly logged full-thickness topology bridges where land would otherwise detach. Sky Blue represents S-Bahn/U-Bahn plus the existing context boundary and site marker, and motorway/trunk remains Midnight. Each half has its own upper wall support so the center seam is not the primary gravity load path.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
     "variants": [
-      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.2 concept pending; corrected native projects not generated",
-      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.2 concept pending; corrected native projects not generated",
+      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 production build authorized; corrected native projects not generated",
+      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 production build authorized; corrected native projects not generated",
       "MM-ART-010-BERLIN-{MODE}-METRICREATE-FORGE — proposed inventory-backed third palette",
       "Parameterized site marker — proposed 54.0 × 57.18 mm canonical stacked metriMade lockup at Sterkrader Straße 24, 13507 Berlin",
       "Future non-default size — reserved, not production-supported",
@@ -31,7 +31,8 @@
     {"id": "E-WALL", "kind": "HOST_OBJECT", "name": "Customer wall and installer-selected anchors"},
     {"id": "E-LED", "kind": "PURCHASED_PART", "name": "Optional customer-supplied LED system"},
     {"id": "E-HUMAN", "kind": "HUMAN", "name": "Adult assembler, installer, and viewer"},
-    {"id": "E-MAP-DATA", "kind": "SOFTWARE", "name": "Frozen OSM semantic water, road, S-Bahn and U-Bahn source layers"}
+    {"id": "E-MAP-DATA", "kind": "SOFTWARE", "name": "Frozen OSM semantic water, road, S-Bahn and U-Bahn source layers"},
+    {"id": "E-TOPOLOGY-BRIDGE", "kind": "PRINTED_PART", "name": "Local full-thickness Oak bridge geometry integrated only where required for connected land"}
   ],
   "interfaces": [
     {
@@ -63,14 +64,14 @@
       "function": "VIS",
       "geometry": "BODY",
       "lifecycle_states": ["assembly", "use", "failure"],
-      "keepouts_and_access": ["Center seam and one-way connector pockets", "hanger and standoff lands", "minimum 5 mm ligaments", "maximum 12 percent opening fraction per half", "site marker and attribution lands"],
-      "evidence": {"level": "E2", "sources": ["requirements-review-0.5.2.md", "concepts/berlin-water-transit-concept-v07.json", "source-data/v0.5.2/berlin/concept-source-manifest.json", "validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"], "variant_confirmed": false, "coverage_percent": 58, "uncertainty_note": "The local frozen Berlin PBF proves that Tegeler See relation 451908, 1816 water-area features, 1277 river/canal/stream lines, 38 S-Bahn route relations and 18 U-Bahn route relations are extractable. It does not cover the complete context-outline extent, and no protected production buffering, component accounting, bodies, 3MFs or slices exist for revision 0.5.2.", "observability": "OBSERVED"},
+      "keepouts_and_access": ["Center seam and one-way connector pockets", "hanger and standoff lands", "minimum 5 mm protected ligaments", "maximum 12 percent opening fraction per half", "site marker and attribution lands", "only documented 2.0 mm topology bridges where an aperture would isolate land"],
+      "evidence": {"level": "E2", "sources": ["requirements-review-0.5.2.md", "concept-review-0.5.2.md", "decomposition-review-0.5.3.md", "plan/hybrid-design-plan-v0.5.3.json", "concepts/berlin-water-transit-concept-v07.json", "source-data/v0.5.2/berlin/concept-source-manifest.json", "validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"], "variant_confirmed": false, "coverage_percent": 68, "uncertainty_note": "The semantic concept and topology-bridge architecture are human approved. Same-date official Berlin and Brandenburg extracts have been reacquired, but bounded production layers, protected buffering, bridge accounting, bodies, 3MFs and exact slices do not yet exist for revision 0.5.3.", "observability": "OBSERVED"},
       "interface_complexity": {"GEO": 3, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 3, "LIF": 1, "total": 10, "tier": "I3"},
       "criticality": "K0",
-      "failure_modes": [{"mode": "A mapped water body is omitted, a water cut disconnects the backer, or a motorway occupies the transit color body", "effect": "The map is semantically inconsistent, visually defective, structurally fragmented, or unsuitable for intended backlighting", "mitigation": "Separate polygon/line/relation extraction, source-to-mask component accounting, named Tegeler See regression, protected bridging report and tool-body ownership audit"}],
-      "verification": {"method": "analysis", "acceptance_criteria": ["Every source water component is retained, intentionally bridged or explicitly reported; Tegeler See relation 451908 yields nonzero openings in both modes; tool 4 contains S-/U-Bahn relations but no independent motorway accent geometry; all halves remain connected and below the 12 percent opening cap."], "status": "PLANNED", "result_refs": ["validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"]},
-      "owner": "MM-ART-010 revision 0.5.2 semantic extraction and mask pipeline",
-      "version": "0.1"
+      "failure_modes": [{"mode": "A mapped water body is omitted, a water cut disconnects the backer, an excessive bridge hides water, or a motorway occupies the transit color body", "effect": "The map is semantically inconsistent, visually defective, structurally fragmented, or unsuitable for intended backlighting", "mitigation": "Separate polygon/line/relation extraction, source-to-mask component accounting, named Tegeler See regression, three-candidate topology comparison, per-bridge manifest and tool-body ownership audit"}],
+      "verification": {"method": "analysis", "acceptance_criteria": ["Every source water component is retained, intentionally bridged or explicitly reported; Tegeler See relation 451908 yields nonzero openings in both modes; tool 4 contains S-/U-Bahn relations but no independent motorway accent geometry; all halves remain connected and below the 12 percent opening cap; the openings-only, mandatory-bridge and conditional-rib candidates are compared and the least-material viable candidate is selected."], "status": "IN_PROGRESS", "result_refs": ["validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json", "plan/hybrid-design-validation-v0.5.3.json"]},
+      "owner": "MM-ART-010 revision 0.5.3 semantic extraction, aperture and topology-bridge pipeline",
+      "version": "0.2"
     },
     {
       "id": "IF-INT-MEC-FST-SNAP-001",
@@ -151,10 +152,10 @@
       "Exact connector and snap clearances for the selected filament/profile",
       "Exact filament batches, conditioning state, ACE slots, measured opacity and directed purge matrix",
       "As-built mass, wall-anchor/substrate selection and physical proof-load result",
-      "Human approval of concept v07 and the revised layer decomposition",
-      "Context-complete production OSM source and revision 0.5.2 source-to-mask/body/slicer evidence"
+      "Exact final topology-bridge manifest and physical handling/proof-load result",
+      "Bounded context-complete production OSM derivatives and revision 0.5.3 source-to-mask/body/slicer evidence"
     ],
-    "completeness_percent": 72.0
+    "completeness_percent": 76.0
   },
   "criticality": {
     "level": "K2",
@@ -166,7 +167,7 @@
     "lane": "C",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "Requirements for revision 0.5.2 are explicit and concept evidence can proceed. Production CAD, mesh and 3MF work is controlled by pending concept/decomposition approval and by reacquisition of a context-complete source. Revision 0.5.1 is retained only as rejected historical evidence because it omitted water-area multipolygons and assigned Sky Blue to motorway accents."
+    "rationale": "Requirements, concept v07 and the targeted topology-bridge decomposition for revision 0.5.3 are approved. Production source derivation, CAD, mesh and 3MF work may proceed under fail-closed source, connectivity, open-area and target-slicer controls. Revision 0.5.1 remains rejected historical evidence."
   },
   "warnings": [
     {"code": "BRAND_CLEARANCE_PENDING", "severity": "WARN", "message": "The selected canonical metriMade vector asset MM-BRAND-001-R1 is recorded as clearance pending; commercial release remains blocked."},
@@ -175,18 +176,18 @@
     {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "Concealed seam pockets must remain printable in the face-up main-part orientation and must not create unsupported roofs or visible read-through."},
     {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "The physical spool products are identified, but common-process compatibility, opacity, directed purge, conditioning, ACE slots and numeric mechanical thresholds remain unverified."},
     {"code": "PREVIOUS_CANDIDATE_REJECTED_SEMANTICS", "severity": "WARN", "message": "Revision 0.5.1 project files are mesh-readable but omit water-area multipolygons including Tegeler See and use Sky Blue for motorway accents; they must not be printed or released as the corrected map."},
-    {"code": "CONCEPT_APPROVAL_REQUIRED", "severity": "WARN", "message": "Concept v07 changes visible negative and color geometry and therefore needs explicit human approval before the decomposition and manufacturing build."},
-    {"code": "CONTEXT_SOURCE_INCOMPLETE", "severity": "WARN", "message": "The local Berlin PBF proves the corrected feature classes but not the full context-outline margin; the recorded context-complete source must be reacquired, hashed and re-extracted before production."}
+    {"code": "TOPOLOGY_BRIDGE_PHYSICAL_PROOF_OPEN", "severity": "WARN", "message": "Digital connectivity does not prove handling stiffness or wall safety; the selected bridge candidate still requires a process-matched physical handling and installed proof test."},
+    {"code": "CONTEXT_DERIVATION_PENDING", "severity": "WARN", "message": "Same-date official Berlin and Brandenburg extracts have been reacquired, but bounded semantic derivatives, hashes and coverage evidence must pass before production geometry."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Obtain explicit human approval of concept v07 showing all-water openings and Sky Blue S-/U-Bahn routes.", "exit_criterion": "The exact concept asset is approved for revision 0.5.2."},
-    {"priority": 2, "action": "Update and approve the decomposition, then reacquire and hash the recorded context-complete OSM source and generate component-accounted semantic layers.", "exit_criterion": "Both display extents are covered; water, transit and road ownership checks pass with Tegeler See nonzero."},
-    {"priority": 3, "action": "Generate and validate new geometry and native Anycubic 3MFs, then continue physical profile, coupon, watermark, wall and release gates.", "exit_criterion": "Revision 0.5.2 source, mesh, four-body, exact slice and human GUI evidence passes without relying on historical 0.5.1 artifacts."}
+    {"priority": 1, "action": "Hash and bound the reacquired Berlin/Brandenburg sources and generate component-accounted water, transit and road layers.", "exit_criterion": "Both display extents are covered; water, transit and road ownership checks pass with Tegeler See nonzero."},
+    {"priority": 2, "action": "Compare aperture reinforcement candidates and generate the least-material connected geometry with a complete bridge manifest.", "exit_criterion": "Every half is connected, below the open-area cap and contains no unreported water deletion or blanket rib network."},
+    {"priority": 3, "action": "Package and exactly slice four native Anycubic 3MFs, then continue physical profile, coupon, watermark, wall and release gates.", "exit_criterion": "Revision 0.5.3 source, mesh, four-body and exact slice evidence passes without relying on historical 0.5.1 artifacts."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-ART-010",
-    "project_revision": "0.5.2",
+    "project_revision": "0.5.3",
     "basis_refs": [
       "design-spec.yaml",
       "multicolor-job.yaml",
@@ -209,6 +210,8 @@
       "../../../business/10-inventory/README.md",
       "decomposition-review-0.4.0.md",
       "plan/hybrid-design-plan-v0.4.0.json",
+      "decomposition-review-0.5.3.md",
+      "plan/hybrid-design-plan-v0.5.3.json",
       "validation/v0.4.0/berlin/digital-candidate-r9/digital-candidate-summary.json",
       "validation/v0.4.0/berlin/digital-candidate-r9/validation-project.json",
       "validation/v0.5.0/berlin/build-iteration-summary.json",
@@ -222,9 +225,9 @@
       "decision-log.md",
       "autonomy-policy.json"
     ],
-    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced", "revision_051_rejected_for_missing_water_area_geometry", "all_mapped_water_reclassified_as_light_through_negative_geometry", "sky_blue_reassigned_from_motorway_accent_to_s_and_u_bahn_routes"],
-    "previous_assessment_id": "PREFLIGHT-MM-ART-010-014",
+    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced", "revision_051_rejected_for_missing_water_area_geometry", "all_mapped_water_reclassified_as_light_through_negative_geometry", "sky_blue_reassigned_from_motorway_accent_to_s_and_u_bahn_routes", "concept_v07_human_approved", "targeted_topology_bridge_strategy_human_approved", "rear_grid_and_blanket_ribs_prohibited", "revision_053_production_build_authorized"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-010-015",
     "created_at": "2026-08-31T16:44:58+02:00",
-    "updated_at": "2026-09-04T21:30:00+02:00"
+    "updated_at": "2026-09-04T22:20:00+02:00"
   }
 }

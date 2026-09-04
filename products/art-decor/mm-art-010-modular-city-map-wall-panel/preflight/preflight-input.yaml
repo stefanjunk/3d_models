@@ -1,4 +1,4 @@
-product: Permanent One Off City Map Wall Relief with Complete Water Apertures and S/U Transit Accent
+product: Permanent One Off City Map Wall Relief with Complete Water Apertures, S/U Transit Accent and Targeted Topology Bridges
 intended_use: 'A unique permanent Berlin street-map wall artwork offered in two controlled display modes: an irregular
   Berlin-boundary silhouette inside a maximum 600 x 400 mm envelope, or a 600 x 400 mm rectangular Umland field
   with the Berlin boundary marked. Each is printed as two four-color halves on the Anycubic Kobra 3 Max Combo. The
@@ -8,7 +8,9 @@ intended_use: 'A unique permanent Berlin street-map wall artwork offered in two 
   connector springs and isolated snap-in hanger/standoff parts provide assembly and an 18 mm halo cavity without
   a rear grid. Every retained mapped water area and river/canal/stream passes optional customer-added light through
   the visible face. Sky Blue represents S-Bahn/U-Bahn plus the context boundary and site marker; motorway/trunk
-  remains in the Midnight street network.'
+  remains in the Midnight street network. Full-thickness 2.0 mm topology bridges are permitted only where an opening
+  would otherwise create detached printed land; no rear grid or blanket rib network is allowed. Each half retains its
+  own upper wall support so the center seam is not the primary gravity load path.'
 user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
   release state remain limited to cited evidence.
 host_variant:
@@ -36,6 +38,8 @@ requirements:
 - Use Sky Blue for S-Bahn and U-Bahn route relations instead of motorway accents.
 - Keep motorway and trunk classes in the Midnight street-network body.
 - Account for every source water component and fail if Tegeler See relation 451908 yields no production opening.
+- Compare openings-only, mandatory topology-bridge and conditional local-rib candidates and select the least-material viable connected half.
+- Log every topology bridge by half, coordinates, width, reason and restored area; prohibit a rear grid and blanket rib network.
 known_components:
 - Permanent One Off City Map Wall Relief
 - Display or use surface
@@ -52,6 +56,9 @@ available_evidence:
 - requirements-review-0.5.1.md
 - source/v0.5.1/berlin/site-marker-concept-parameters.json
 - requirements-review-0.5.2.md
+- concept-review-0.5.2.md
+- decomposition-review-0.5.3.md
+- plan/hybrid-design-plan-v0.5.3.json
 - concepts/berlin-water-transit-concept-v07.json
 - source-data/v0.5.2/berlin/concept-source-manifest.json
 - validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json

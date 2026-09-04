@@ -1,8 +1,10 @@
 # Concept review 0.5.2 — complete water apertures and S/U transit accent
 
-Status: **human approval required**
+Status: **human-approved by Stefan on 2026-09-04**
 
 Approval asset: `concepts/berlin-water-transit-concept-v07.png`
+
+The approval was followed by explicit continuation with the targeted structural strategy: full-thickness local topology bridges are allowed only where a water aperture would otherwise create detached printed land. No rear grid or blanket rib network is authorized. Optional local rear reinforcement remains conditional on exact span analysis and separate print-orientation, lighting and physical review.
 
 ## Requirement correspondence
 
@@ -36,6 +38,6 @@ The frozen local Berlin PBF yields 1,816 water areas, 1,277 water lines, 38 S-Ba
 
 The local Berlin PBF is sufficient to prove the feature classification and the Tegeler See regression, but it does not cover the complete rectangular Umland extent. The Umland panel in v07 is therefore a semantic concept, not source-coverage or manufacturing evidence. After approval, the recorded exact context-complete source must be reacquired and frozen before production extraction.
 
-## Gate decision needed
+## Approval effect
 
-Approval authorizes the revised decomposition and production-source acquisition. It does not authorize printing, printer upload, wall installation or commercial release.
+Approval authorizes the revision 0.5.3 decomposition, production-source acquisition, digital geometry generation, target-slicer packaging and validation. It does not authorize printing, printer upload, wall installation or commercial release.

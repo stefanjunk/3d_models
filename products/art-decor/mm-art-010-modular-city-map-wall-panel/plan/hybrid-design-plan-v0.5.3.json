@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "status": "human-approved-decomposition",
+  "revision": "0.5.3",
+  "project": {
+    "id": "MM-ART-010",
+    "title": "Berlin wall relief with complete water openings and S/U transit accent",
+    "source_modes": ["concept_image", "design_description", "geospatial_vector"],
+    "claim": "new_design",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max Combo with one ACE Pro",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.45,
+      "layer_height_mm": 0.2,
+      "profile_id": "PROVISIONAL-KOBRA3MAX-PLA-0.4-0.20"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "lower-left corner of the 600 x 400 mm artwork on the rear datum plane",
+      "x_axis": "+X right in installed front view",
+      "y_axis": "+Y upward in installed front view",
+      "z_axis": "+Z from wall toward viewer",
+      "transform_convention": "row-major 4x4 matrix maps source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {"min": [0.0, 0.0, -18.0], "max": [600.0, 400.0, 6.0]},
+    "requirements": [
+      {
+        "id": "REQ-WATER-053",
+        "statement": "Every retained mapped water area and river/canal/stream shall be a through-opening, except for an explicitly logged topology bridge needed to keep printed land connected.",
+        "evidence_class": "requested",
+        "source": "approved concept v07 and user continuation on 2026-09-04",
+        "priority": "critical",
+        "verification": "source-to-mask accounting, Tegeler See regression and connected-component audit"
+      },
+      {
+        "id": "REQ-COLOR-053",
+        "statement": "Oak owns the base, Mint Green the middle relief, Midnight every street class including motorway/trunk, and Sky Blue S-Bahn/U-Bahn plus context boundary and site marker.",
+        "evidence_class": "requested",
+        "source": "approved requirements 0.5.3",
+        "priority": "critical",
+        "verification": "four-body ownership audit and exact target-slicer tool report"
+      },
+      {
+        "id": "REQ-STRUCT-053",
+        "statement": "Each 300 x 400 mm half shall remain one connected printable body and be independently supported at the wall; no rear grid or blanket rib network is allowed.",
+        "evidence_class": "requested",
+        "source": "approved targeted bridge strategy on 2026-09-04",
+        "priority": "critical",
+        "verification": "candidate comparison, topology audit, placement audit and physical handling/proof test"
+      },
+      {
+        "id": "REQ-SCOPE-053",
+        "statement": "Lighting remains an optional unsupplied add-on and the digital phase shall not upload or start a print.",
+        "evidence_class": "requested",
+        "source": "approved product scope",
+        "priority": "critical",
+        "verification": "BOM, keep-out and release review"
+      }
+    ],
+    "global_style": {
+      "summary": "Abstract four-color Berlin map with light-through water and readable transit accents",
+      "motifs": ["Oak field", "Mint middle relief", "Midnight streets", "Sky Blue transit and marker", "one center seam"],
+      "exclude": ["photorealism", "dither", "blue motorway accent", "rear grid", "unlogged water deletion"],
+      "generation_material": "four inventory-backed PLA-family colors",
+      "detail_hierarchy": "outer mode and water voids first, streets second, S/U transit and site marker third"
+    },
+    "assembly_sequence": [
+      "Print and qualify the existing connector/interface coupon on the selected process.",
+      "Print the left and right four-body halves rear datum down.",
+      "Insert three one-way connectors and press the halves together once on a flat fixture.",
+      "Install one upper support per half plus lower standoffs; do not use the center seam as the gravity load path.",
+      "Optionally add customer lighting only inside the declared rear envelope."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-DECOMP-053",
+      "topic": "Approve water, transit, topology-bridge and four-color ownership.",
+      "status": "resolved",
+      "current_basis": "The user approved concept v07 and the targeted bridge strategy before asking the design work to continue.",
+      "evidence_needed": "Retain the approval trace in design-spec.yaml and decomposition-review-0.5.3.md.",
+      "blocks_gates": []
+    },
+    {
+      "id": "DEC-SOURCE-053",
+      "topic": "Freeze same-date Berlin and Brandenburg extracts and bounded semantic derivatives.",
+      "status": "provisional",
+      "current_basis": "Official 2026-08-30 Berlin and Brandenburg PBFs were reacquired; derivative extraction and coverage evidence are pending.",
+      "evidence_needed": "Record transport hashes, derived-layer hashes, projected coverage, counts and Tegeler See relation 451908.",
+      "blocks_gates": ["component", "integration", "manufacturing", "physical", "release"]
+    },
+    {
+      "id": "DEC-STIFFNESS-053",
+      "topic": "Select the least-material viable aperture reinforcement candidate.",
+      "status": "provisional",
+      "current_basis": "Candidate B uses only mandatory 2.0 mm full-thickness topology bridges. Local rear ribs are conditional and currently disfavored because they conflict with rear-datum-down printing and halo lands.",
+      "evidence_needed": "Compare openings-only, topology-bridged and conditional local-rib candidates; then perform a physical handling and installed proof test.",
+      "blocks_gates": ["physical", "release"]
+    },
+    {
+      "id": "DEC-PROCESS-053",
+      "topic": "Qualify final connector clearance, opacity, purge and wall-load behavior.",
+      "status": "provisional",
+      "current_basis": "Prior digital geometry and exact Anycubic slicing exist, but no exact four-spool physical coupon or wall proof test exists.",
+      "evidence_needed": "Process-matched connector/light/color coupons and mass-based installed proof test.",
+      "blocks_gates": ["physical", "release"]
+    }
+  ],
+  "components": [
+    {
+      "id": "SOURCE_SET_053",
+      "name": "Frozen Berlin-Brandenburg semantic source set",
+      "role": "owns immutable boundary, roads, water areas, water lines and S/U route relations",
+      "authority": "hybrid",
+      "representation": "mixed",
+      "source": {"kind": "derived", "refs": ["source-data/v0.5.3/berlin/source-manifest.json", "REQ-WATER-053", "REQ-COLOR-053"], "confidence": "high"},
+      "functions": ["preserve provenance", "supply complete context", "account semantic features"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 0.01]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "non-product geospatial input", "material": "not applicable", "color_body": "semantic source", "orientation": "EPSG:25833 to one global panel frame"},
+      "interface_ids": ["IF-SOURCE-RELIEF", "IF-SOURCE-WATER"],
+      "acceptance": {"expected_components": 6, "require_watertight": false, "max_bounds_error_mm": 0.0, "checks": ["immutable hashes", "context coverage", "non-empty layers", "Tegeler See present"]}
+    },
+    {
+      "id": "MAIN_RELIEF_SET_053",
+      "name": "Two independently mounted four-color relief halves per display mode",
+      "role": "owns backer, outer masks, seam split, sockets, four positive color bodies and print datum",
+      "authority": "parametric",
+      "representation": "mesh",
+      "source": {"kind": "design_description", "refs": ["design-spec.yaml", "REQ-COLOR-053", "REQ-STRUCT-053"], "confidence": "high"},
+      "functions": ["form artwork", "carry own gravity load", "locate permanent seam", "retain four named colors"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 5.2]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "four disjoint named FDM solids per half", "material": "PLA family", "color_body": "Oak, Mint Green, Midnight, Sky Blue", "orientation": "flat rear datum on bed"},
+      "interface_ids": ["IF-SOURCE-RELIEF", "IF-WATER-BACKER"],
+      "acceptance": {"expected_components": 16, "require_watertight": true, "max_bounds_error_mm": 0.2, "checks": ["bed fit", "four named bodies", "pairwise non-overlap", "one connected composite per half", "no rear grid"]}
+    },
+    {
+      "id": "WATER_APERTURE_TOOL_053",
+      "name": "All-water cutter and mandatory topology bridge authority",
+      "role": "owns through-part negative water geometry, protected keep-outs and the minimum bridge set needed to prevent detached land",
+      "authority": "negative/tooling",
+      "representation": "negative_volume",
+      "source": {"kind": "derived", "refs": ["SOURCE_SET_053", "REQ-WATER-053", "REQ-STRUCT-053"], "confidence": "medium"},
+      "functions": ["cut every retained water feature", "protect functional lands", "restore only required connectivity", "emit bridge accounting"],
+      "envelope_mm": {"min": [0.0, 0.0, 0.0], "max": [600.0, 400.0, 3.01]},
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
+      "manufacturing": {"method": "negative mask plus full-thickness local bridge restoration", "material": "none; restored bridges inherit Oak base", "color_body": "negative geometry", "orientation": "global panel frame"},
+      "interface_ids": ["IF-SOURCE-WATER", "IF-WATER-BACKER"],
+      "acceptance": {"expected_components": 1, "require_watertight": false, "max_bounds_error_mm": 0.25, "checks": ["all source components accounted", "Tegeler See nonzero", "maximum 12 percent open area", "2.0 mm minimum bridge", "every half connected"]}
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-SOURCE-RELIEF",
+      "a": "SOURCE_SET_053", "b": "MAIN_RELIEF_SET_053", "owner": "MAIN_RELIEF_SET_053", "kind": "relief_substrate",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "single global map transform and four semantic body masks"},
+      "joining": {"method": "deterministic raster-to-mesh integration", "assembly_direction": "+Z", "anti_rotation": "shared global frame", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.0, "solver_margin_mm": 0.25},
+      "seam_band_mm": 0.0, "keepout_ids": ["KEEP-SEAM", "KEEP-MOUNTS"],
+      "requirements": {"minimum_wall_mm": 0.9, "minimum_ligament_mm": 5.0, "load_or_flow": "visual relief only; base carries handling and wall loads"},
+      "verification": ["semantic ownership audit", "pairwise overlap audit", "matched render", "3MF body audit"]
+    },
+    {
+      "id": "IF-SOURCE-WATER",
+      "a": "SOURCE_SET_053", "b": "WATER_APERTURE_TOOL_053", "owner": "WATER_APERTURE_TOOL_053", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "water polygon and buffered water-line union"},
+      "joining": {"method": "source-to-negative-mask conversion", "assembly_direction": "not applicable", "anti_rotation": "shared EPSG:25833 transform", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.0, "solver_margin_mm": 0.25},
+      "seam_band_mm": 0.0, "keepout_ids": ["KEEP-SEAM", "KEEP-MOUNTS", "KEEP-MARKER"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "optional light passes through; every retained source component must be accounted"},
+      "verification": ["component accounting", "Tegeler See regression", "open-area report"]
+    },
+    {
+      "id": "IF-WATER-BACKER",
+      "a": "WATER_APERTURE_TOOL_053", "b": "MAIN_RELIEF_SET_053", "owner": "WATER_APERTURE_TOOL_053", "kind": "other",
+      "local_frame": {"origin_mm": [0,0,0], "x_axis": [1,0,0], "y_axis": [0,1,0], "z_axis": [0,0,1]},
+      "nominal_geometry": {"type": "through-cut mask with conditional full-thickness 2.0 mm topology bridges"},
+      "joining": {"method": "subtract aperture then restore minimum connectivity bridges", "assembly_direction": "+Z", "anti_rotation": "global mask registration", "lead_in_mm": 0.0, "serviceable": false},
+      "allowances": {"functional_clearance_per_side_mm": 0.0, "process_compensation_per_side_mm": 0.0, "assembly_allowance_per_side_mm": 0.0, "adhesive_gap_per_side_mm": 0.0, "boolean_overlap_mm": 0.0, "registration_uncertainty_mm": 0.0, "solver_margin_mm": 0.25},
+      "seam_band_mm": 2.0, "keepout_ids": ["KEEP-SEAM", "KEEP-MOUNTS", "KEEP-MARKER"],
+      "requirements": {"minimum_wall_mm": 3.0, "minimum_ligament_mm": 5.0, "load_or_flow": "one connected printed body per half; each half independently hung"},
+      "verification": ["three-candidate topology comparison", "bridge manifest", "connected-component audit", "physical handling and proof test"]
+    }
+  ],
+  "keepouts": [
+    {"id": "KEEP-SEAM", "type": "aabb", "purpose": "center seam and connector protection proxy", "min_mm": [292.0, 0.0, 0.0], "max_mm": [308.0, 400.0, 5.2], "source": "design-spec.yaml"},
+    {"id": "KEEP-MOUNTS", "type": "aabb", "purpose": "union planning proxy for local hanger and standoff lands; exact bodies remain mode-specific", "min_mm": [12.0, 12.0, -18.0], "max_mm": [588.0, 388.0, 3.0], "source": "validation/v0.4.0/berlin/interface-placement-report.json"},
+    {"id": "KEEP-MARKER", "type": "aabb", "purpose": "parameterized site-marker and attribution protection proxy", "min_mm": [170.0, 230.0, 0.0], "max_mm": [260.0, 330.0, 5.2], "source": "source/v0.5.1/berlin/site-marker-parameters.json"}
+  ],
+  "validation": [
+    {"id": "VAL-ARCH-053", "gate": "architecture", "method": "validate plan and review unique ownership", "acceptance": "no plan errors; water, bridge and four-color responsibilities have one owner"},
+    {"id": "VAL-PROXY-053", "gate": "proxy", "method": "compare openings-only, topology-bridge and conditional-rib masks", "acceptance": "select the least-material candidate that leaves one connected backer per half and respects keep-outs"},
+    {"id": "VAL-COMP-053", "gate": "component", "method": "source coverage, feature accounting, Tegeler See regression and mesh audit", "acceptance": "all required layers are non-empty, every water feature is accounted and every exported body is manifold"},
+    {"id": "VAL-INT-053", "gate": "integration", "method": "interface, open-area, ligament, body-overlap and seam-continuity reports", "acceptance": "no unintended collision, no detached land, no tool-4 motorway layer and open area does not exceed 12 percent per half"},
+    {"id": "VAL-MFG-053", "gate": "manufacturing", "method": "vendor-aware 3MF checks and exact slice-anycubic-next runs", "acceptance": "four aligned non-empty tools produce non-empty G-code within resource budgets"},
+    {"id": "VAL-PHYS-053", "gate": "physical", "method": "process-matched connector/light coupon, handling test and installed mass-based proof test", "acceptance": "no crack, detached land, unacceptable flex, disengagement or permanent set; lighting remains optional"}
+  ]
+}

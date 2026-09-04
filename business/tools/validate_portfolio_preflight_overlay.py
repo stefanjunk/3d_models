@@ -414,6 +414,7 @@ def build_expected_unified_portfolio() -> list[list[object]]:
     additions = workbook.read_csv(workbook.RESEARCH_ADDITIONS_CSV)
     structured = workbook.read_csv(workbook.RESEARCH_ADDITIONS_2_CSV)
     variants = workbook.read_csv(workbook.RESEARCH_R3_VARIANTS_CSV)
+    generative = workbook.read_csv(workbook.RESEARCH_ADDITIONS_3_CSV)
     priority = workbook.read_csv(workbook.RESEARCH_PRIORITY_CSV)
     advancement = workbook.read_csv(workbook.READINESS_ADVANCEMENT_CSV)
     economics = workbook.read_xlsx_sheet(workbook.RESEARCH_WORKBOOK, "Unit Economics")
@@ -434,9 +435,14 @@ def build_expected_unified_portfolio() -> list[list[object]]:
     } | {
         workbook.normalize_name(row[portfolio[0].index("Product_or_Model")]) for row in portfolio[1:]
     }
-    workbook.validate_specific_r3_variants(variants, prior_ids, occupied_names)
+    workbook.validate_generative_research_additions(generative, prior_ids, occupied_names)
+    generative_ids = {str(row[generative[0].index("SKU_ID")]) for row in generative[1:]}
+    occupied_names |= {
+        workbook.normalize_name(row[generative[0].index("Product")]) for row in generative[1:]
+    }
+    workbook.validate_specific_r3_variants(variants, prior_ids | generative_ids, occupied_names)
     variant_ids = {str(row[variants[0].index("SKU_ID")]) for row in variants[1:]}
-    research_ids = prior_ids | variant_ids
+    research_ids = prior_ids | generative_ids | variant_ids
     workbook.validate_research_priority(priority, research_ids, research_status)
     workbook.validate_readiness_advancement(advancement, research_ids, len(product_records))
     preflight = workbook.read_research_preflight(workbook.RESEARCH_PREFLIGHT_CSV, research_ids)
@@ -445,7 +451,8 @@ def build_expected_unified_portfolio() -> list[list[object]]:
         ("Research Ideas 100", legacy, "SKU ID", "Research hypothesis; implementation fields are controlled by research-ideas-implementation.csv"),
         ("Research Ideas +100", additions, "SKU_ID", "New research hypothesis checked 2026-08-27; not a selected, qualified or released product"),
         ("Research Ideas +200", structured, "SKU_ID", "Trend-screened research hypothesis checked 2026-08-31; structured R2 concept preflight, not a selected, qualified or released product"),
-        ("Research Variants R3", variants, "SKU_ID", "Named-interface child checked 2026-08-31; R3 nominal design inputs only, not physical qualification, demand proof or release"),
+        ("Research Ideas Generative Step1X", generative, "SKU_ID", "Generative Step1X-3D research hypothesis checked 2026-09-04; R2 concept preflight with a modeled commercial block, blocked by the generative-tooling licence gate, not a selected, qualified or released product"),
+        ("Research Variants R3", variants, "SKU_ID", "Named-interface child; per-row Assessed_On gives the check date (SKU-301\u2013314 on 2026-08-31, SKU-501\u2013557 on 2026-09-04); R3 nominal design inputs only, not physical qualification, demand proof or release"),
     ]
     for _, rows, key_column, interpretation in source_tables:
         workbook.add_research_overlay(rows, key_column, research_status, interpretation)

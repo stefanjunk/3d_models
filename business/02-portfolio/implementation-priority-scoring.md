@@ -1,10 +1,12 @@
 # Research-idea implementation priority
 
-Status: planning model plus 3D-preflight and readiness-advancement overlay reviewed 2026-09-01. Priority-scoring version: `1.2`; preflight-estimate version: `1.2`; SKU-101–200 trend-screen version: `1.0`.
+Status: planning model plus 3D-preflight, readiness-advancement and product-directory scoring overlay reviewed 2026-09-04. Priority-scoring version: `1.2`; preflight-estimate version: `1.2`; SKU-101–200 trend-screen version: `1.0`; product-directory scoring version: `1.0`.
 
-This model orders all 314 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
+This model orders all 471 research ideas for **what to finish, validate, or consider building next**. It does not approve a product for sale, replace the product lifecycle gates, or prove demand, price, margin, rights, safety, or German product-market fit.
 
-The ordered source is `research-idea-priority.csv`; the generated workbook joins it into the leading `Portfolio` tab together with all product directories, idea sources, unit economics and readiness advancement in one 422-row filterable list. Every row has one unique `Working_SKU`; redundant record/mapping identifiers and the duplicate `Product Register` worksheet are omitted. The prior 99-row curated product source remains version-controlled in `product-portfolio.csv`.
+Since 2026-09-04 the same scale also covers all 109 product directories, so the leading `Portfolio` tab can be sorted and filtered on one column across both record types. See "Product-directory scores" below.
+
+The ordered source is `research-idea-priority.csv`; the generated workbook joins it into the leading `Portfolio` tab together with all product directories, idea sources, unit economics and readiness advancement in one 580-row filterable list. Every row has one unique `Working_SKU`; redundant record/mapping identifiers and the duplicate `Product Register` worksheet are omitted. The prior 99-row curated product source remains version-controlled in `product-portfolio.csv`.
 
 ## 3D-preflight planning overlay
 
@@ -17,11 +19,13 @@ The workbook keeps market potential and implementation feasibility separate. `Re
 - For those preliminary rows, the C band is derived conservatively from the existing creation- and validation-effort estimates; the K band uses the existing research-risk value only as a broad proxy. It is not a safety qualification.
 - An unstarted idea remains `R0–R1`, current `Lane E`, and `LOW_UNKNOWN` until scope, critical interfaces, manufacturing profile, acceptance criteria, and verification evidence exist. A research-risk proxy of 5 is shown as `K3` and `NOT_AUTONOMOUSLY_RELEASABLE`.
 - SKU-201 through SKU-300 have an explicit purpose and a structured concept preflight. Every row passes `K1`, `C1–C2`, and `R2`; all remain current `Lane E`, `LOW_UNKNOWN`, and `CONCEPT_ONLY` because the exact printer, filament product/color/batch, nozzle, process profile, and customer variant evidence are still open. Their target is Lane B only after those gates close.
-- SKU-301 through SKU-314 are new, separate children of retained generic ideas. Their scope names one exact device, product article, or published format; critical interface nominals come from cited primary sources; the research-only printer/material/nozzle/orientation/process baseline is exact and hash-pinned; and acceptance criteria plus a coupon method are defined. They therefore reach nominal `R3`, not R4. C1/C2 children use Lane B and C3 children Lane C; all remain `K1`, `CONDITIONAL`, and `GO_WITH_CONTROLS — NOT PRODUCT RELEASE APPROVAL`.
+- SKU-301 through SKU-314 and SKU-501 through SKU-557 are separate children of retained generic ideas. SKU-501–557 is the second wave: 57 named-interface children of the ten highest trend-score records (SKU-130, SKU-112, SKU-178, SKU-200, SKU-133, SKU-171, SKU-173, SKU-001, SKU-160, SKU-107). Their scope names one exact device, product article, or published format; critical interface nominals come from cited primary sources; the research-only printer/material/nozzle/orientation/process baseline is exact and hash-pinned; and acceptance criteria plus a coupon method are defined. They therefore reach nominal `R3`, not R4. C1/C2 children use Lane B and C3 children Lane C; all remain `K1`, `CONDITIONAL`, and `GO_WITH_CONTROLS — NOT PRODUCT RELEASE APPROVAL`.
+- SKU-315 through SKU-414 are the generative Step1X-3D concepts: 100 appearance-led products for the requested popular-model groups (animals and creatures, cartoon and comic characters, toys and fidgets, tools and desktop utility, persons and figurines, trending decor). Each row records the image prompt, the Step1X-3D plus CAD route, a mandatory mesh-quality gate, an IP basis, an AI-transparency duty and a modeled unit-economics block on the retained cost basis. Every row passes a directional trend score above 70, `R2` on all five readiness components, `C1–C3` and `K1–K2`, and every row stays current `Lane E`, `LOW_UNKNOWN` and `CONCEPT_ONLY`. Two hard gates are deliberately left failing: `G3` for the exact manufacturing process and `TOOL-LICENCE` for the Step1X-3D licence conflict described below.
+- The generative block's tooling licence is a blocking gate, not a note. Step1X-3D declares Apache-2.0, but twelve repository files retain a Tencent Hunyuan non-commercial header, one of them in the geometry path that a geometry-only run executes, and that upstream licence excludes the European Union from its territory. No row in SKU-315–414 may reach EU commercial use until StepFun clarifies, the affected files are replaced, or legal advice permits it.
 - A named child never raises its generic parent automatically. The parent remains at its current R until representative variants, parameter-domain limits, and boundary coupons justify broader evidence.
 - `Preflight_Target_Lane_After_Evidence` is a planning aid for the likely design path after readiness and hard gates are sufficient. It never replaces the current lane, a `HOLD`/`CONCEPT_ONLY` decision, or product release gates.
 
-The version-controlled row-level sources are `research-ideas-r3-variants.csv`, `research-idea-preflight-estimates.csv`, and `readiness-advancement-register.csv`. The last file covers all 314 ideas plus all 108 product directories and assigns a purpose, wave, bottleneck, evidence boundary, and next R-evidence action. Regenerate and verify them before rebuilding the workbook:
+The version-controlled row-level sources are `research-ideas-r3-variants.csv`, `research-idea-preflight-estimates.csv`, and `readiness-advancement-register.csv`. The last file covers all 471 ideas plus all 109 product directories and assigns a purpose, wave, bottleneck, evidence boundary, and next R-evidence action. Regenerate and verify them before rebuilding the workbook:
 
 ```bash
 python business/tools/score_research_additions_trends.py
@@ -30,12 +34,16 @@ python business/tools/build_research_ideas_201_300.py
 python business/tools/build_research_ideas_201_300.py --check
 python business/tools/build_research_r3_variants.py
 python business/tools/build_research_r3_variants.py --check
+python business/tools/build_research_ideas_step1x_315_414.py
+python business/tools/build_research_ideas_step1x_315_414.py --check
 python business/tools/score_research_ideas.py
 python business/tools/score_research_ideas.py --check
 python business/tools/build_research_preflight_estimates.py
 python business/tools/build_research_preflight_estimates.py --check
 python business/tools/build_readiness_advancement_register.py
 python business/tools/build_readiness_advancement_register.py --check
+python business/tools/score_product_directories.py
+python business/tools/score_product_directories.py --check
 python business/tools/build_product_workbook.py
 python business/tools/validate_portfolio_preflight_overlay.py
 ```
@@ -57,6 +65,31 @@ The current purge catcher illustrates the fail-closed rule: own machine photos, 
 ## Strategic rule before the score
 
 Complete the current launch and validation critical path before opening another broad CAD workstream. Rows marked `0 FINISH CURRENT VALIDATION` already have mapped models; close their exact slicer, physical, rights, documentation, economics, and release evidence first. The `1 NEXT` rows are a candidate pool, not ten products to develop in parallel. Select at most one new candidate after its demand gate passes.
+
+## Product-directory scores
+
+`business/tools/score_product_directories.py` writes `product-directory-scoring.csv`, which the workbook joins as the product-row fallback for `Trend_Score_0_100`, `Priority_Score_0_100`, `Opportunity_Score_0_100`, `Risk_Score_1_5` and the ten 1–5 components. Products previously left all fourteen blank, so the unified list could not be ordered.
+
+- **37 products inherit.** A product mapped to a research idea via `Mapped_Working_SKU` takes that idea's recorded values unchanged. `Score_Basis` names the SKU.
+- **72 products are derived** from their own documented evidence, never from a portfolio-wide average:
+
+| Component | Derived from |
+|---|---|
+| Strategy fit | The product register's `Strategy_Fit` text (`Core` 5, `Core adjacent` 4, `Adjacent` 3, `Off-strategy` 1) |
+| Trend | Median trend of the research family covering the category, plus a strategy-fit adjustment; `NO PRIMARY-SOURCE RESEARCH FAMILY` uses a baseline of 35, below every scored family |
+| Estimated market fit | Trend bands (>=90 → 5, >=80 → 4, >=65 → 3, >=45 → 2, else 1) |
+| Market-evidence confidence | Exact family match 3, mapped family 2, no family 1; **capped at 3** for derived rows because no product has validated sales or repository physical evidence (an inherited row keeps the mapped idea's recorded value) |
+| Creation effort | Preflight complexity class, reduced when a controlled parametric source already exists and raised when no model exists |
+| Validation effort | Preflight criticality, raised at R0–R1 and when the `PHY` or `MOT` complexity dimension is >=3 |
+| Commercial risk / risk score | The worst of criticality, the register's rights/provenance state, and the graded safety-risk note |
+| AM differentiation | Exact-fit, named-format, measurement, defined-set, personalization and modularity wording in the strategy fit; capped at 3 when the `EXT` dimension is >=4 |
+| Portfolio leverage | Controlled CAD source, a parametric generator, product-family size, and shared system/interface scope |
+| Digital-first fit | Reduced by the `EXT`, `MOT` and `PHY` complexity dimensions and by K2–K3; forced to 1 when the digital offer is blocked from the digital-first scope |
+| Economics | Complexity class adjusted for purchased content and premium exact-fit positioning; a **proxy**, since no product COGS or price is recorded |
+
+`Priority_Score_0_100` then uses the unmodified weighting below, so a product row and a research row are directly comparable. `Opportunity_Score_0_100` follows the register convention of `min(99, trend + 2)`.
+
+A derived product score orders planning work only. It is not product-specific demand, margin, safety or rights evidence, and it never overrides current Lane E, `HOLD`, `CONCEPT_ONLY` or a release gate. Adding a new product category fails the builder until that category receives an explicit research family or an explicit `None` in `CATEGORY_TREND_FAMILY`.
 
 ## Score meanings
 

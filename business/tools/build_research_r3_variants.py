@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Build evidence-backed specific research variants SKU-301 through SKU-314."""
+"""Build evidence-backed specific research variants SKU-301-314 and SKU-501-557.
+
+Wave 1 (SKU-301-314) covers the first named-interface children. Wave 2
+(SKU-501-557) adds named-interface children for the ten highest trend-score
+portfolio records and lives in ``r3_variants_wave2``. SKU-315 through SKU-414
+stay reserved for the generative Step1X research block, so the identifier
+blocks are declared explicitly instead of assumed contiguous.
+"""
 
 from __future__ import annotations
 
@@ -10,6 +17,8 @@ import io
 import json
 from pathlib import Path
 
+from r3_variants_wave2 import ARCHETYPES_WAVE2, VARIANTS_WAVE2
+
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PORTFOLIO_ROOT = REPO_ROOT / "business/02-portfolio"
@@ -18,6 +27,10 @@ PRIORITY_CSV = PORTFOLIO_ROOT / "research-idea-priority.csv"
 PROCESS_BASELINE = PORTFOLIO_ROOT / "research-r3-process-baseline.json"
 ASSESSED_ON = "2026-08-31"
 ASSESSMENT_VERSION = "1.0"
+WAVE2_ASSESSED_ON = "2026-09-04"
+WAVE2_ASSESSMENT_VERSION = "1.0"
+# Declared identifier blocks; SKU-315..414 is reserved for the Step1X research block.
+VARIANT_ID_BLOCKS = ((301, 314), (501, 557))
 
 WEIGHTS = {
     "REQ": 7,
@@ -67,6 +80,8 @@ ARCHETYPES = {
         "prices": ("16-32", "55-120"),
     },
 }
+
+ARCHETYPES.update(ARCHETYPES_WAVE2)
 
 COMMON = {
     "Target_Segment": "Adults seeking precise, low-risk organization or display accessories",
@@ -383,6 +398,9 @@ VARIANTS = [
     },
 ]
 
+VARIANTS += VARIANTS_WAVE2
+WAVE2_IDS = {variant["sku"] for variant in VARIANTS_WAVE2}
+
 FIELDNAMES = [
     "SKU_ID", "Parent_SKU_ID", "Product", "Product_Family", "Concept_Type", "Purpose", "Customer_Job",
     "Target_Segment", "Trend_Signal", "Strategy_Fit", "AM_Advantage", "Customer_Inputs", "Parametric_Variables",
@@ -433,10 +451,15 @@ def build_rows() -> list[dict[str, object]]:
     expected_parents = {variant["parent"] for variant in VARIANTS}
     if expected_parents.difference(parent_rows):
         raise ValueError(f"Unknown parent SKU(s): {sorted(expected_parents.difference(parent_rows))}")
-    expected_ids = {f"SKU-{number:03d}" for number in range(301, 315)}
+    expected_ids = {
+        f"SKU-{number:03d}"
+        for first, last in VARIANT_ID_BLOCKS
+        for number in range(first, last + 1)
+    }
     actual_ids = {variant["sku"] for variant in VARIANTS}
     if actual_ids != expected_ids or len(actual_ids) != len(VARIANTS):
-        raise ValueError("Specific variants must contain each SKU-301 through SKU-314 exactly once")
+        blocks = ", ".join(f"SKU-{first:03d}-SKU-{last:03d}" for first, last in VARIANT_ID_BLOCKS)
+        raise ValueError(f"Specific variants must contain each of {blocks} exactly once")
 
     output: list[dict[str, object]] = []
     for variant in VARIANTS:
@@ -517,8 +540,8 @@ def build_rows() -> list[dict[str, object]]:
             "Hard_Gates": COMMON["Hard_Gates"],
             "Preflight_Short": f"{complexity} · R3 · K1 · Lane {lane} · CONDITIONAL",
             "Preflight_Status": COMMON["Preflight_Status"],
-            "Assessed_On": ASSESSED_ON,
-            "Assessment_Version": ASSESSMENT_VERSION,
+            "Assessed_On": WAVE2_ASSESSED_ON if variant["sku"] in WAVE2_IDS else ASSESSED_ON,
+            "Assessment_Version": WAVE2_ASSESSMENT_VERSION if variant["sku"] in WAVE2_IDS else ASSESSMENT_VERSION,
         }
         output.append(row)
     return output

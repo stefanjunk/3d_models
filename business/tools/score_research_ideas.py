@@ -17,10 +17,16 @@ LEGACY_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Prin
 ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
 R3_VARIANTS_CSV = ROOT / "02-portfolio" / "research-ideas-r3-variants.csv"
+ADDITIONS_3_CSV = ROOT / "02-portfolio" / "research-ideas-additions-3.csv"
+# SKU-315..414 is reserved for the Step1X research block, so the named-interface
+# R3 child identifiers are declared in explicit blocks rather than one range.
+R3_VARIANT_ID_BLOCKS = ((301, 314), (501, 557))
+# Generative Step1X-3D research concepts occupy their own reserved block.
+STEP1X_ID_BLOCK = (315, 414)
 IMPLEMENTATION_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv"
 OUTPUT_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
-SCORED_ON = "2026-08-31"
-SCORING_VERSION = "1.2"
+SCORED_ON = "2026-09-04"
+SCORING_VERSION = "1.3"
 
 CURRENT_FINISH_ORDER = {
     "SKU-001": 1,
@@ -442,11 +448,21 @@ def score_records() -> list[dict[str, object]]:
         + additions_records(ADDITIONS_CSV, "addition")
         + additions_records(ADDITIONS_2_CSV, "addition2")
         + additions_records(R3_VARIANTS_CSV, "r3_variant")
+        + additions_records(ADDITIONS_3_CSV, "addition3")
     )
     ids = [str(record["sku_id"]) for record in records]
-    expected = {f"SKU-{number:03d}" for number in range(1, 315)}
-    if len(records) != 314 or len(ids) != len(set(ids)) or set(ids) != expected:
-        raise ValueError("Scoring inputs must contain each ID from SKU-001 through SKU-314 exactly once")
+    generic = {f"SKU-{number:03d}" for number in range(1, 301)}
+    variants = {
+        f"SKU-{number:03d}"
+        for first, last in R3_VARIANT_ID_BLOCKS
+        for number in range(first, last + 1)
+    }
+    step1x = {
+        f"SKU-{number:03d}" for number in range(STEP1X_ID_BLOCK[0], STEP1X_ID_BLOCK[1] + 1)
+    }
+    expected = generic | variants | step1x
+    if len(records) != len(expected) or len(ids) != len(set(ids)) or set(ids) != expected:
+        raise ValueError("Scoring inputs must contain each declared research ID exactly once")
 
     scored = []
     for record in records:
@@ -602,14 +618,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Fail if the checked-in priority CSV is stale")
     args = parser.parse_args()
-    rendered = render_csv(output_rows())
+    scored_rows = output_rows()
+    rendered = render_csv(scored_rows)
     if args.check:
         if not OUTPUT_CSV.is_file() or OUTPUT_CSV.read_text(encoding="utf-8") != rendered:
             raise SystemExit(f"Stale or missing priority output: {OUTPUT_CSV}")
         print(f"Validated {OUTPUT_CSV}")
         return
     OUTPUT_CSV.write_text(rendered, encoding="utf-8")
-    print(f"Wrote {OUTPUT_CSV} with 314 scored ideas")
+    print(f"Wrote {OUTPUT_CSV} with {len(scored_rows)} scored ideas")
 
 
 if __name__ == "__main__":

@@ -17,10 +17,15 @@ PRIORITY_CSV = REPO_ROOT / "business/02-portfolio/research-idea-priority.csv"
 STATUS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-implementation.csv"
 STRUCTURED_RESEARCH_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-additions-2.csv"
 R3_VARIANTS_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-r3-variants.csv"
+GENERATIVE_RESEARCH_CSV = REPO_ROOT / "business/02-portfolio/research-ideas-additions-3.csv"
 OUTPUT = REPO_ROOT / "business/02-portfolio/research-idea-preflight-estimates.csv"
-ASSESSMENT_DATE = "2026-08-31"
-ESTIMATE_VERSION = "1.2"
-RESEARCH_ID_MAX = 314
+ASSESSMENT_DATE = "2026-09-04"
+ESTIMATE_VERSION = "1.3"
+# Generic research ideas occupy one contiguous block; named-interface R3 children are
+# declared in explicit blocks because SKU-315..414 is reserved for the Step1X block.
+GENERIC_RESEARCH_ID_MAX = 300
+VARIANT_ID_BLOCKS = ((301, 314), (501, 557))
+STEP1X_ID_BLOCK = (315, 414)
 
 FIELDNAMES = [
     "SKU_ID",
@@ -215,6 +220,63 @@ def structured_research_row(source: dict[str, str]) -> dict[str, str]:
     }
 
 
+def generative_research_row(source: dict[str, str]) -> dict[str, str]:
+    """Carry the generative Step1X concept preflight without treating it as a release."""
+    required = {
+        "Preflight_Short",
+        "Complexity",
+        "Readiness",
+        "Criticality",
+        "Current_Lane",
+        "Target_Lane_After_Evidence",
+        "Confidence",
+        "Design_Release",
+        "Preflight_Status",
+        "PC_0_100",
+        "Readiness_Basis",
+        "Hard_Gates",
+        "Trend_Score_0_100",
+        "Generative_Tool_Licence_Gate",
+    }
+    missing = sorted(required.difference(source))
+    if missing:
+        raise ValueError(f"Generative research row {source.get('SKU_ID', '?')} lacks: {', '.join(missing)}")
+    sku_id = source["SKU_ID"]
+    if source["Readiness"] != "R2":
+        raise ValueError(f"Generative research row violates the R2 concept gate: {sku_id}")
+    if source["Criticality"] not in {"K1", "K2"}:
+        raise ValueError(f"Generative research row is outside the K1-K2 band: {sku_id}")
+    if source["Complexity"] not in {"C1", "C2", "C3"}:
+        raise ValueError(f"Generative research row is outside the C1-C3 band: {sku_id}")
+    if float(source["Trend_Score_0_100"]) <= 70:
+        raise ValueError(f"Generative research row does not exceed trend score 70: {sku_id}")
+    if source["Current_Lane"] != "E" or "G3 FAIL" not in source["Hard_Gates"]:
+        raise ValueError(f"Generative research row must remain Lane E while the process gate is open: {sku_id}")
+    if "TOOL-LICENCE FAIL" not in source["Hard_Gates"]:
+        raise ValueError(f"Generative research row must keep the tooling-licence gate open: {sku_id}")
+    if source["Design_Release"] != "CONCEPT_ONLY":
+        raise ValueError(f"Generative research row bypasses the concept-only gate: {sku_id}")
+    expected_lane = target_lane(source["Complexity"], source["Criticality"])
+    if source["Target_Lane_After_Evidence"] != expected_lane:
+        raise ValueError(f"Generative research target lane is inconsistent for {sku_id}")
+    return {
+        "Preflight_Short": source["Preflight_Short"],
+        "Complexity_Band": source["Complexity"],
+        "Readiness_Band": source["Readiness"],
+        "Criticality_Band": source["Criticality"],
+        "Current_Lane": source["Current_Lane"],
+        "Target_Lane_After_Evidence": source["Target_Lane_After_Evidence"],
+        "Confidence": source["Confidence"],
+        "Design_Release": source["Design_Release"],
+        "Estimate_Status": source["Preflight_Status"],
+        "Basis": (
+            f"Explicit generative concept preflight PC={source['PC_0_100']}/100. {source['Readiness_Basis']} "
+            f"Hard gates: {source['Hard_Gates']}. Generative tooling licence: {source['Generative_Tool_Licence_Gate']}"
+        ),
+        "Source_Or_Linked_Preflight": "business/02-portfolio/research-ideas-additions-3.csv",
+    }
+
+
 def specific_variant_row(source: dict[str, str]) -> dict[str, str]:
     """Carry an evidence-backed named-interface R3 variant without releasing it."""
     required = {
@@ -265,15 +327,36 @@ def specific_variant_row(source: dict[str, str]) -> dict[str, str]:
     }
 
 
+def variant_ids() -> set[str]:
+    """Return the declared named-interface R3 child identifiers."""
+    return {
+        f"SKU-{number:03d}"
+        for first, last in VARIANT_ID_BLOCKS
+        for number in range(first, last + 1)
+    }
+
+def generative_ids() -> set[str]:
+    """Return the reserved generative Step1X-3D research identifiers."""
+    return {
+        f"SKU-{number:03d}" for number in range(STEP1X_ID_BLOCK[0], STEP1X_ID_BLOCK[1] + 1)
+    }
+
+
+def expected_research_ids() -> set[str]:
+    """Return every declared research ID: generic ideas, R3 children and generative concepts."""
+    generic = {f"SKU-{number:03d}" for number in range(1, GENERIC_RESEARCH_ID_MAX + 1)}
+    return generic | variant_ids() | generative_ids()
+
+
 def build_rows() -> list[dict[str, str]]:
     priority = read_dict_rows(PRIORITY_CSV)
-    if len(priority) != RESEARCH_ID_MAX:
-        raise ValueError(f"Expected {RESEARCH_ID_MAX} research ideas; found {len(priority)}")
+    expected = expected_research_ids()
+    if len(priority) != len(expected):
+        raise ValueError(f"Expected {len(expected)} research ideas; found {len(priority)}")
     ids = [row["SKU_ID"] for row in priority]
-    expected = {f"SKU-{number:03d}" for number in range(1, RESEARCH_ID_MAX + 1)}
     if set(ids) != expected or len(ids) != len(set(ids)):
         raise ValueError(
-            f"Research priority must contain each SKU-001 through SKU-{RESEARCH_ID_MAX:03d} exactly once"
+            "Research priority must contain each declared research ID exactly once"
         )
 
     implementation_by_id = {row["SKU_ID"]: row for row in read_dict_rows(STATUS_CSV)}
@@ -288,9 +371,14 @@ def build_rows() -> list[dict[str, str]]:
         raise ValueError("Structured research source must contain each SKU-201 through SKU-300 exactly once")
     variant_rows = read_dict_rows(R3_VARIANTS_CSV)
     variant_by_id = {row["SKU_ID"]: row for row in variant_rows}
-    expected_variants = {f"SKU-{number:03d}" for number in range(301, RESEARCH_ID_MAX + 1)}
-    if len(variant_rows) != 14 or set(variant_by_id) != expected_variants:
-        raise ValueError("Specific R3 variant source must contain each SKU-301 through SKU-314 exactly once")
+    expected_variants = variant_ids()
+    if len(variant_rows) != len(expected_variants) or set(variant_by_id) != expected_variants:
+        raise ValueError("Specific R3 variant source must contain each declared variant ID exactly once")
+    generative_rows = read_dict_rows(GENERATIVE_RESEARCH_CSV)
+    generative_by_id = {row["SKU_ID"]: row for row in generative_rows}
+    expected_generative = generative_ids()
+    if len(generative_rows) != len(expected_generative) or set(generative_by_id) != expected_generative:
+        raise ValueError("Generative research source must contain each declared SKU-315..414 ID exactly once")
 
     output: list[dict[str, str]] = []
     for idea in sorted(priority, key=lambda row: int(row["SKU_ID"].split("-")[1])):
@@ -301,6 +389,8 @@ def build_rows() -> list[dict[str, str]]:
             assessment = specific_variant_row(variant_by_id[idea["SKU_ID"]])
         elif idea["SKU_ID"] in structured_by_id:
             assessment = structured_research_row(structured_by_id[idea["SKU_ID"]])
+        elif idea["SKU_ID"] in generative_by_id:
+            assessment = generative_research_row(generative_by_id[idea["SKU_ID"]])
         else:
             assessment = preliminary_idea_row(idea)
         output.append(
@@ -329,14 +419,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Fail if the generated CSV is missing or stale.")
     args = parser.parse_args()
-    content = render(build_rows())
+    estimate_rows = build_rows()
+    content = render(estimate_rows)
     if args.check:
         if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
             raise SystemExit(f"stale or missing generated research preflight overlay: {OUTPUT}")
-        print(f"PASS: {OUTPUT} is current with {RESEARCH_ID_MAX} research preflight rows")
+        print(f"PASS: {OUTPUT} is current with {len(estimate_rows)} research preflight rows")
         return 0
     OUTPUT.write_text(content, encoding="utf-8")
-    print(f"Wrote {OUTPUT} with {RESEARCH_ID_MAX} research preflight rows")
+    print(f"Wrote {OUTPUT} with {len(estimate_rows)} research preflight rows")
     return 0
 
 

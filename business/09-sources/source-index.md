@@ -26,6 +26,41 @@
 
 The full row-level source records are in `business/02-portfolio/research-idea-sources-additions.csv`. Source IDs `S01`–`S30` remain defined in the `Sources` sheet of the retained legacy research workbook. All trend values are research hypotheses, not proof of German conversion, price or product-market fit. The common 200-idea ranking, evidence-confidence cap, weighting, and tier gates are documented in `business/02-portfolio/implementation-priority-scoring.md`.
 
+## Generative Step1X-3D product research checked 2026-09-04
+
+Source records `S84`–`S130` in `business/02-portfolio/research-idea-sources-additions.csv` back the
+100 generative research concepts `SKU-315`–`SKU-414`. The raw research files, the raw Printables API
+response and the provisional-to-registered source-ID remapping are archived in
+`research/market/step1x-generative-batch-2026-09-04/`.
+
+- Platform demand was read from the platforms' own public APIs, not from search results: `S84` and
+  `S110` (Printables GraphQL: animals category, decor and bust models), `S94` and `S102` (Printables
+  fidget and functional models plus the 1,385,663-model platform counter), `S85`, `S103` and `S111`
+  (MakerWorld design API: dragons, tool and cable systems, lamp shades). Search-engine snippets were
+  excluded after they were shown to overstate counts by more than an order of magnitude (`S85`).
+- Category and market context: `S88` (Hasbro Q2 2026 filing), `S89` (Games Workshop FY2026 results),
+  `S100` (Circana 2025 US toy sales), `S101` (fidget market sizing, secondary), `S114` (Germany home
+  decor market, secondary), `S120` (personalized gifts, secondary and conflicting), `S90` (Etsy
+  Spring/Summer 2026 trend report), `S113` (Pinterest Predicts 2026), `S96`/`S104` (Bambu Lab
+  ecosystem statistics, secondary), `S97`/`S105` (Printables Awards 2025).
+- Rights and platform rules: `S92` (MakerWorld community guidelines including the AI-flagging duty),
+  `S87` (Cults3D NoAI policy and paid price points), `S93` (rightsholder enforcement precedent),
+  `S119` (MakerWorld AI-disclosure and real-print-photo rules, snippet-level).
+- Compliance: `S98`/`S99` (EU toy-safety framework and the 2026/2030 Regulation (EU) 2025/2509
+  timeline), `S117` (GPSR identification), `S118` (GPSR article detail, snippet-level and flagged for
+  re-verification).
+- Generative tooling: `S122`–`S124` (Step1X-3D repository, paper and model card), `S125`/`S126` (the
+  retained Tencent Hunyuan non-commercial headers and that licence's exclusion of the European
+  Union), `S127` (CreativeML Open RAIL++-M pass-through duty), `S128`–`S130` (printability guidance
+  and AI-mesh failure modes behind the mandatory mesh-quality gate).
+
+Evidence limits are recorded per record. EUR-Lex article text, the EU AI Act transparency article and
+its application date, US and EU copyright guidance on AI output, most platform AI policies, EUR retail
+prices and German DIY or consumer survey data were **not** retrieved in this pass and are marked
+UNVERIFIED; none of them may be cited in customer-facing or compliance copy until confirmed. The
+Step1X-3D licence conflict recorded in `S125` and `S126` is treated as a blocking commercial gate for
+the whole `SKU-315`–`SKU-414` block, not as a note.
+
 ## Model review scope
 
 All workspace model-bearing top-level/product folders were classified at family level, with individual rows for all 20 system-furniture concepts. Stronger project evidence was reviewed for DrawerFit, Modern Carbon Desk Organizer, over-toilet shelf, toilet-paper system, CyberVault, system furniture, wall shelf, hair clip, barefoot shoe, printer enclosure, camera arm, toy popper, flapping submarine, rainwater filter, labyrinth box and dice tower.

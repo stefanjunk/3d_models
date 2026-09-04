@@ -20,15 +20,35 @@ RESEARCH_STATUS_CSV = ROOT / "02-portfolio" / "research-ideas-implementation.csv
 RESEARCH_ADDITIONS_CSV = ROOT / "02-portfolio" / "research-ideas-additions.csv"
 RESEARCH_ADDITIONS_2_CSV = ROOT / "02-portfolio" / "research-ideas-additions-2.csv"
 RESEARCH_R3_VARIANTS_CSV = ROOT / "02-portfolio" / "research-ideas-r3-variants.csv"
+RESEARCH_ADDITIONS_3_CSV = ROOT / "02-portfolio" / "research-ideas-additions-3.csv"
 RESEARCH_ADDITION_SOURCES_CSV = ROOT / "02-portfolio" / "research-idea-sources-additions.csv"
 RESEARCH_PRIORITY_CSV = ROOT / "02-portfolio" / "research-idea-priority.csv"
 RESEARCH_PREFLIGHT_CSV = ROOT / "02-portfolio" / "research-idea-preflight-estimates.csv"
 READINESS_ADVANCEMENT_CSV = ROOT / "02-portfolio" / "readiness-advancement-register.csv"
+PRODUCT_SCORING_CSV = ROOT / "02-portfolio" / "product-directory-scoring.csv"
+MODEL_ARTIFACT_AUDIT_CSV = ROOT / "02-portfolio" / "model-artifact-audit.csv"
 TASKS_CSV = ROOT / "07-roadmap" / "mvp-tasks.csv"
 OUTPUT = ROOT / "02-portfolio" / "product-portfolio.xlsx"
 RESEARCH_WORKBOOK = ROOT.parent / "research" / "market" / "JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
 PRODUCTS_ROOT = ROOT.parent / "products"
 PRODUCT_PREFLIGHT_AUDIT_GLOB = "PRODUCT-PREFLIGHT-AUDIT-*.json"
+# SKU-315..414 is reserved for the Step1X research block, so the named-interface R3
+# child identifiers are declared in explicit blocks rather than one contiguous range.
+R3_VARIANT_ID_BLOCKS = ((301, 314), (501, 557))
+# Generative Step1X-3D research concepts occupy their own reserved block.
+STEP1X_ID_BLOCK = (315, 414)
+STEP1X_IDS = {
+    f"SKU-{number:03d}" for number in range(STEP1X_ID_BLOCK[0], STEP1X_ID_BLOCK[1] + 1)
+}
+STEP1X_BLOCK_LABEL = f"SKU-{STEP1X_ID_BLOCK[0]:03d}\u2013{STEP1X_ID_BLOCK[1]:03d}"
+R3_VARIANT_IDS = {
+    f"SKU-{number:03d}"
+    for first, last in R3_VARIANT_ID_BLOCKS
+    for number in range(first, last + 1)
+}
+R3_VARIANT_BLOCK_LABEL = "; ".join(
+    f"SKU-{first:03d}\u2013{last:03d}" for first, last in R3_VARIANT_ID_BLOCKS
+)
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 PREFLIGHT_WEIGHTS = {
@@ -256,6 +276,10 @@ def add_research_preflight(
         ("Preflight_Estimate_Status", "Estimate_Status"),
         ("Preflight_Basis", "Basis"),
         ("Preflight_Source", "Source_Or_Linked_Preflight"),
+        ("Preflight_Confidence", "Confidence"),
+        ("Preflight_Design_Release", "Design_Release"),
+        ("Preflight_Assessed_On", "Assessed_On"),
+        ("Preflight_Estimate_Version", "Estimate_Version"),
     ]
     source_width = len(rows[0])
     sku_index = rows[0].index(sku_column)
@@ -488,6 +512,147 @@ def validate_structured_research_additions(
             raise ValueError(f"Structured preflight disclaimer is missing for {sku_id}")
 
 
+def validate_generative_research_additions(
+    rows: list[list[str]],
+    occupied_ids: set[str],
+    occupied_product_names: set[str],
+) -> None:
+    """Validate the generative Step1X-3D block: trend, concept preflight and commercial model."""
+    if not rows:
+        raise ValueError(f"Generative research source is empty: {RESEARCH_ADDITIONS_3_CSV}")
+    header = rows[0]
+    required = {
+        "SKU_ID", "Product", "Product_Family", "Purpose", "Strategy_Fit", "Source_IDs", "Design_Status",
+        "Max_L_mm", "Max_W_mm", "Max_H_mm", "Trend_Source_Strength_0_30", "Trend_Signal_Magnitude_0_30",
+        "Trend_MetriMade_Fit_0_25", "Trend_Whitespace_0_15", "Trend_Score_0_100", "Trend_Score_Status",
+        "REQ", "CTX", "PAR", "INT", "CPL", "MOT", "GEO", "PHY", "MAT", "EXT", "VER", "PC_0_100", "Complexity",
+        "R_Scope", "R_Requirements", "R_Critical_Interfaces", "R_Manufacturing_Profile", "R_Verification",
+        "Readiness", "Criticality", "Current_Lane", "Target_Lane_After_Evidence", "Confidence",
+        "Design_Release", "Hard_Gates", "Preflight_Short", "Preflight_Status",
+        "Image_Prompt", "Generative_Route", "Mesh_Quality_Gate", "IP_Basis", "AI_Transparency_Duty",
+        "Generative_Tool_Licence_Gate", "Concept_Description", "Cost_Model_Basis",
+        "Mass g", "Print Time h", "Hands-on min", "Material Cost \u20ac", "Machine Cost \u20ac",
+        "Labor Cost \u20ac", "Packaging \u20ac", "Royalty / License \u20ac", "QA Reserve \u20ac",
+        "Modeled Local COGS \u20ac", "Recommended Net Price \u20ac", "Recommended Gross Price \u20ac",
+        "Transaction Fee \u20ac", "Contribution \u20ac", "Contribution Margin",
+    }
+    missing = sorted(required.difference(header))
+    if missing:
+        raise ValueError(f"Generative research source is missing columns: {', '.join(missing)}")
+    if len(rows) != len(STEP1X_IDS) + 1 or any(len(row) != len(header) for row in rows):
+        raise ValueError(
+            f"Generative research source must contain exactly {len(STEP1X_IDS)} complete idea rows"
+        )
+    idx = {name: header.index(name) for name in required}
+    ids = [row[idx["SKU_ID"]] for row in rows[1:]]
+    if set(ids) != STEP1X_IDS or len(ids) != len(set(ids)):
+        raise ValueError(f"Generative research rows must use each of {STEP1X_BLOCK_LABEL} exactly once")
+    if occupied_ids.intersection(STEP1X_IDS):
+        raise ValueError("Generative research IDs collide with retained research IDs")
+
+    new_names = [normalize_name(row[idx["Product"]]) for row in rows[1:]]
+    if any(not name for name in new_names) or len(new_names) != len(set(new_names)):
+        raise ValueError("Generative research rows contain blank or duplicate normalized product names")
+    collisions = sorted(set(new_names).intersection(occupied_product_names))
+    if collisions:
+        raise ValueError(f"Generative research rows collide with retained names: {', '.join(collisions)}")
+
+    component_limits = {
+        "Trend_Source_Strength_0_30": 30,
+        "Trend_Signal_Magnitude_0_30": 30,
+        "Trend_MetriMade_Fit_0_25": 25,
+        "Trend_Whitespace_0_15": 15,
+    }
+    readiness_fields = (
+        "R_Scope", "R_Requirements", "R_Critical_Interfaces", "R_Manufacturing_Profile", "R_Verification"
+    )
+    for row in rows[1:]:
+        sku_id = row[idx["SKU_ID"]]
+        if len(row[idx["Purpose"]].strip()) < 20:
+            raise ValueError(f"Generative research purpose is missing or too vague for {sku_id}")
+        if row[idx["Design_Status"]] != "P0 research backlog" or row[idx["Design_Release"]] != "CONCEPT_ONLY":
+            raise ValueError(f"Generative research row bypasses the concept-only gate: {sku_id}")
+        for field in ("Image_Prompt", "Generative_Route", "Mesh_Quality_Gate", "IP_Basis",
+                      "AI_Transparency_Duty", "Generative_Tool_Licence_Gate", "Concept_Description",
+                      "Cost_Model_Basis", "Source_IDs"):
+            if not row[idx[field]].strip():
+                raise ValueError(f"Generative research field {field} is empty for {sku_id}")
+        for dimension in ("Max_L_mm", "Max_W_mm", "Max_H_mm"):
+            value = float(row[idx[dimension]])
+            limit = 250 if dimension == "Max_H_mm" else 220
+            if value <= 0 or value > limit:
+                raise ValueError(f"{dimension} is outside the common-printer envelope for {sku_id}")
+
+        trend_components = []
+        for field, limit in component_limits.items():
+            value = float(row[idx[field]])
+            if not 0 <= value <= limit:
+                raise ValueError(f"{field} is outside its allowed range for {sku_id}")
+            trend_components.append(value)
+        trend_score = float(row[idx["Trend_Score_0_100"]])
+        if abs(sum(trend_components) - trend_score) > 0.01 or trend_score <= 70:
+            raise ValueError(f"Trend-score gate or component sum failed for {sku_id}")
+        if row[idx["Trend_Score_Status"]] != "DIRECTIONAL PLANNING SCORE \u2014 NOT VALIDATED DEMAND":
+            raise ValueError(f"Trend-score disclaimer is missing for {sku_id}")
+
+        pc_components = {}
+        for field in PREFLIGHT_WEIGHTS:
+            value = int(row[idx[field]])
+            if not 0 <= value <= 4:
+                raise ValueError(f"Preflight component {field} is outside 0\u20134 for {sku_id}")
+            pc_components[field] = value
+        pc = round(sum(PREFLIGHT_WEIGHTS[field] * pc_components[field] / 4 for field in PREFLIGHT_WEIGHTS), 2)
+        if abs(pc - float(row[idx["PC_0_100"]])) > 0.01:
+            raise ValueError(f"PC total is inconsistent for {sku_id}")
+        complexity = row[idx["Complexity"]]
+        expected_complexity = "C0" if pc <= 14 else "C1" if pc <= 24 else "C2" if pc <= 39 else "C3" if pc <= 59 else "C4" if pc <= 79 else "C5"
+        if complexity != expected_complexity or complexity not in {"C1", "C2", "C3"}:
+            raise ValueError(f"C1\u2013C3 gate failed for {sku_id}")
+        if any(row[idx[field]] != "R2" for field in readiness_fields) or row[idx["Readiness"]] != "R2":
+            raise ValueError(f"R2 concept-evidence gate failed for {sku_id}")
+        criticality = row[idx["Criticality"]]
+        if criticality not in {"K1", "K2"}:
+            raise ValueError(f"K1\u2013K2 gate failed for {sku_id}")
+        if row[idx["Current_Lane"]] != "E":
+            raise ValueError(f"Generative research must remain in current Lane E: {sku_id}")
+        if row[idx["Target_Lane_After_Evidence"]] != exact_target_lane(complexity, criticality):
+            raise ValueError(f"Target lane is inconsistent with C/K for {sku_id}")
+        hard_gates = row[idx["Hard_Gates"]]
+        if "G3 FAIL" not in hard_gates:
+            raise ValueError(f"Missing fail-closed process gate for {sku_id}")
+        if "TOOL-LICENCE FAIL" not in hard_gates:
+            raise ValueError(f"Missing fail-closed generative-tooling licence gate for {sku_id}")
+        expected_short = f"{complexity} \u00b7 R2 \u00b7 {criticality} \u00b7 Lane E \u00b7 {row[idx['Confidence']]}"
+        if row[idx["Preflight_Short"]] != expected_short:
+            raise ValueError(f"Compact preflight is inconsistent for {sku_id}")
+        if row[idx["Preflight_Status"]] != "GENERATIVE STEP1X RESEARCH PREFLIGHT R2 \u2014 NOT PRODUCT RELEASE APPROVAL":
+            raise ValueError(f"Generative preflight disclaimer is missing for {sku_id}")
+
+        material = float(row[idx["Material Cost \u20ac"]])
+        machine = float(row[idx["Machine Cost \u20ac"]])
+        labor = float(row[idx["Labor Cost \u20ac"]])
+        packaging = float(row[idx["Packaging \u20ac"]])
+        royalty = float(row[idx["Royalty / License \u20ac"]])
+        reserve = float(row[idx["QA Reserve \u20ac"]])
+        cogs = float(row[idx["Modeled Local COGS \u20ac"]])
+        net = float(row[idx["Recommended Net Price \u20ac"]])
+        gross = float(row[idx["Recommended Gross Price \u20ac"]])
+        fee = float(row[idx["Transaction Fee \u20ac"]])
+        contribution = float(row[idx["Contribution \u20ac"]])
+        margin = float(row[idx["Contribution Margin"]])
+        if abs(material + machine + labor + packaging + royalty + reserve - cogs) > 0.01:
+            raise ValueError(f"Modeled COGS does not equal its cost components for {sku_id}")
+        if abs(net - cogs - fee - contribution) > 0.01:
+            raise ValueError(f"Modeled contribution is inconsistent for {sku_id}")
+        if net <= 0 or abs(contribution / net - margin) > 0.001:
+            raise ValueError(f"Modeled contribution margin is inconsistent for {sku_id}")
+        if gross <= net:
+            raise ValueError(f"Gross price must exceed the net price for {sku_id}")
+        for field in ("Mass g", "Print Time h", "Hands-on min"):
+            if float(row[idx[field]]) <= 0:
+                raise ValueError(f"{field} must be positive for {sku_id}")
+
+
 def validate_specific_r3_variants(
     rows: list[list[str]],
     parent_ids: set[str],
@@ -511,13 +676,16 @@ def validate_specific_r3_variants(
     missing = sorted(required.difference(header))
     if missing:
         raise ValueError(f"Specific R3 variant source is missing columns: {', '.join(missing)}")
-    if len(rows) != 15 or any(len(row) != len(header) for row in rows):
-        raise ValueError("Specific R3 variant source must contain exactly 14 complete rows")
+    if len(rows) != len(R3_VARIANT_IDS) + 1 or any(len(row) != len(header) for row in rows):
+        raise ValueError(
+            f"Specific R3 variant source must contain exactly {len(R3_VARIANT_IDS)} complete rows"
+        )
     idx = {name: header.index(name) for name in required}
-    expected_ids = {f"SKU-{number:03d}" for number in range(301, 315)}
     ids = [row[idx["SKU_ID"]] for row in rows[1:]]
-    if set(ids) != expected_ids or len(ids) != len(set(ids)):
-        raise ValueError("Specific R3 variants must use SKU-301 through SKU-314 exactly once")
+    if set(ids) != R3_VARIANT_IDS or len(ids) != len(set(ids)):
+        raise ValueError(
+            f"Specific R3 variants must use each of {R3_VARIANT_BLOCK_LABEL} exactly once"
+        )
     names = [normalize_name(row[idx["Product"]]) for row in rows[1:]]
     if any(not name for name in names) or len(names) != len(set(names)):
         raise ValueError("Specific R3 variants contain blank or duplicate product names")
@@ -817,6 +985,9 @@ def build_unified_portfolio(
     priority_by_sku = indexed_rows(research_priority, "SKU_ID")
     economics_by_sku = indexed_rows(research_economics, "SKU ID")
     advancement_by_key = indexed_rows(readiness_advancement, "Record_Key")
+    product_scores = {row["Product_Path"]: row for row in read_dict_csv(PRODUCT_SCORING_CSV)}
+    model_audit = read_csv(MODEL_ARTIFACT_AUDIT_CSV)
+    model_audit_by_sku = indexed_rows(model_audit, "Working_SKU")
 
     idea_by_sku: dict[str, tuple[str, int, list[object], list[object]]] = {}
     idea_raw_columns: list[str] = []
@@ -853,6 +1024,8 @@ def build_unified_portfolio(
         raise ValueError("Product register contains a path absent from readiness advancement")
     if set(preflight_by_path) != product_paths:
         raise ValueError("Product preflight paths do not match readiness advancement")
+    if set(product_scores) != product_paths:
+        raise ValueError("Product-directory scoring paths do not match readiness advancement")
 
     core_columns = [
         "Unified_Record_Key",
@@ -907,6 +1080,14 @@ def build_unified_portfolio(
         "Portfolio_Leverage_1_5",
         "Digital_First_Fit_1_5",
         "Economics_1_5",
+        "Score_Basis",
+        "Trend_Score_Basis",
+        "Scoring_Rationale",
+        "Score_Status",
+        "Score_Scored_On",
+        "Score_Version",
+        "Product_Record_ID",
+        "Advancement_Record_ID",
         "Max_L_mm",
         "Max_W_mm",
         "Max_H_mm",
@@ -953,6 +1134,7 @@ def build_unified_portfolio(
     priority_raw_columns = portfolio_raw_headers(research_priority[0], "Priority__")
     economics_raw_columns = portfolio_raw_headers(research_economics[0], "Economics__")
     advancement_raw_columns = portfolio_raw_headers(readiness_advancement[0], "Advancement__")
+    audit_raw_columns = portfolio_raw_headers(model_audit[0], "Audit__")
     raw_columns = (
         product_raw_columns
         + preflight_raw_columns
@@ -960,6 +1142,7 @@ def build_unified_portfolio(
         + priority_raw_columns
         + economics_raw_columns
         + advancement_raw_columns
+        + audit_raw_columns
     )
     output: list[list[object]] = [core_columns + raw_columns]
 
@@ -995,6 +1178,7 @@ def build_unified_portfolio(
         economics_row: list[object] | None = None
         if record_id in economics_by_sku:
             _, economics_row = economics_by_sku[record_id]
+        audit_row: list[object] | None = None
 
         product_header = portfolio[0]
         preflight_header = product_preflights[0]
@@ -1006,6 +1190,8 @@ def build_unified_portfolio(
         workflow = source_value(idea_header, idea_row, "Workflow_Stage")
         design_status = source_value(idea_header, idea_row, "Design_Status", "Design Status")
         working_sku = source_value(product_header, product_row, "Working_SKU") or record_id
+        if working_sku in model_audit_by_sku:
+            _, audit_row = model_audit_by_sku[working_sku]
         if record_type == "PRODUCT_DIRECTORY":
             portfolio_status = lifecycle or "PRODUCT DIRECTORY — NOT IN PRODUCT REGISTER"
         else:
@@ -1018,6 +1204,12 @@ def build_unified_portfolio(
         if not confidence:
             compact_parts = str(advancement["Current_Preflight_Short"]).split(" · ")
             confidence = compact_parts[-1] if len(compact_parts) == 5 else ""
+
+        score_row = product_scores.get(product_path) if record_type == "PRODUCT_DIRECTORY" else None
+
+        def score_value(field: str, row: dict[str, str] | None = score_row) -> str:
+            """Product-directory score for one of the shared market/priority fields."""
+            return row.get(field, "") if row else ""
 
         canonical = [
             advancement["Record_Key"],
@@ -1074,23 +1266,77 @@ def build_unified_portfolio(
                 advancement["Trend_Score_0_100"]
                 or source_value(priority_header, priority_row, "Trend_Score_0_100")
                 or source_value(idea_header, idea_row, "Trend_Score_0_100", "Trend Score")
+                or score_value("Trend_Score_0_100")
             ),
             numeric_value(
                 advancement["Priority_Score_0_100"]
                 or source_value(priority_header, priority_row, "Priority_Score_0_100")
+                or score_value("Priority_Score_0_100")
             ),
-            numeric_value(source_value(idea_header, idea_row, "Opportunity_Score", "Opportunity Score")),
-            numeric_value(source_value(idea_header, idea_row, "Risk_Score", "Risk Score")),
-            numeric_value(source_value(priority_header, priority_row, "Estimated_Market_Fit_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Market_Evidence_Confidence_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Creation_Effort_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Validation_Effort_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Commercial_Risk_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Strategy_Fit_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "AM_Differentiation_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Portfolio_Leverage_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Digital_First_Fit_1_5")),
-            numeric_value(source_value(priority_header, priority_row, "Economics_1_5")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Opportunity_Score", "Opportunity Score")
+                or score_value("Opportunity_Score_0_100")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Risk_Score", "Risk Score")
+                or score_value("Risk_Score_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Estimated_Market_Fit_1_5")
+                or score_value("Estimated_Market_Fit_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Market_Evidence_Confidence_1_5")
+                or score_value("Market_Evidence_Confidence_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Creation_Effort_1_5")
+                or score_value("Creation_Effort_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Validation_Effort_1_5")
+                or score_value("Validation_Effort_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Commercial_Risk_1_5")
+                or score_value("Commercial_Risk_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Strategy_Fit_1_5")
+                or score_value("Strategy_Fit_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "AM_Differentiation_1_5")
+                or score_value("AM_Differentiation_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Portfolio_Leverage_1_5")
+                or score_value("Portfolio_Leverage_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Digital_First_Fit_1_5")
+                or score_value("Digital_First_Fit_1_5")
+            ),
+            numeric_value(
+                source_value(priority_header, priority_row, "Economics_1_5")
+                or score_value("Economics_1_5")
+            ),
+            score_value("Score_Basis")
+            or (
+                f"RESEARCH PRIORITY QUEUE v{source_value(priority_header, priority_row, 'Scoring_Version')}"
+                if priority_row
+                else ""
+            ),
+            score_value("Trend_Basis")
+            or source_value(idea_header, idea_row, "Trend_Score_Basis"),
+            score_value("Scoring_Rationale")
+            or source_value(priority_header, priority_row, "Scoring_Rationale"),
+            score_value("Score_Status")
+            or source_value(priority_header, priority_row, "Score_Status"),
+            score_value("Scored_On") or source_value(priority_header, priority_row, "Scored_On"),
+            score_value("Scoring_Version") or source_value(priority_header, priority_row, "Scoring_Version"),
+            source_value(product_header, product_row, "Record_ID"),
+            advancement["Record_ID"],
             numeric_value(source_value(idea_header, idea_row, "Max_L_mm", "Max L mm")),
             numeric_value(source_value(idea_header, idea_row, "Max_W_mm", "Max W mm")),
             numeric_value(source_value(idea_header, idea_row, "Max_H_mm", "Max H mm")),
@@ -1104,9 +1350,18 @@ def build_unified_portfolio(
             source_value(idea_header, idea_row, "Enclosure"),
             source_value(idea_header, idea_row, "Supports"),
             source_value(idea_header, idea_row, "Difficulty"),
-            numeric_value(source_value(economics_header, economics_row, "Mass g")),
-            numeric_value(source_value(economics_header, economics_row, "Print Time h")),
-            numeric_value(source_value(economics_header, economics_row, "Hands-on min")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Mass g")
+                or source_value(economics_header, economics_row, "Mass g")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Print Time h")
+                or source_value(economics_header, economics_row, "Print Time h")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Hands-on min")
+                or source_value(economics_header, economics_row, "Hands-on min")
+            ),
             source_value(idea_header, idea_row, "Manufacturing Economics"),
             source_value(idea_header, idea_row, "Digital_Price_Band_EUR", "Digital SKU Price €")
             or source_value(economics_header, economics_row, "Digital SKU Price €"),
@@ -1115,24 +1370,54 @@ def build_unified_portfolio(
                 source_value(idea_header, idea_row, "Modeled Local COGS €")
                 or source_value(economics_header, economics_row, "Total Local COGS €")
             ),
-            numeric_value(source_value(economics_header, economics_row, "Minimum Net Price €")),
-            numeric_value(source_value(economics_header, economics_row, "Recommended Net Price €")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Minimum Net Price €")
+                or source_value(economics_header, economics_row, "Minimum Net Price €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Recommended Net Price €")
+                or source_value(economics_header, economics_row, "Recommended Net Price €")
+            ),
             numeric_value(
                 source_value(idea_header, idea_row, "Recommended Gross Price €")
                 or source_value(economics_header, economics_row, "Recommended Gross Price €")
             ),
-            numeric_value(source_value(economics_header, economics_row, "Contribution €")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Contribution €")
+                or source_value(economics_header, economics_row, "Contribution €")
+            ),
             numeric_value(
                 source_value(idea_header, idea_row, "Contribution Margin")
                 or source_value(economics_header, economics_row, "Contribution Margin")
             ),
-            numeric_value(source_value(economics_header, economics_row, "Packaging €")),
-            numeric_value(source_value(economics_header, economics_row, "Royalty / License €")),
-            numeric_value(source_value(economics_header, economics_row, "Material €/kg")),
-            numeric_value(source_value(economics_header, economics_row, "Material Cost €")),
-            numeric_value(source_value(economics_header, economics_row, "Machine Cost €")),
-            numeric_value(source_value(economics_header, economics_row, "Labor Cost €")),
-            numeric_value(source_value(economics_header, economics_row, "QA Reserve €")),
+            numeric_value(
+                source_value(idea_header, idea_row, "Packaging €")
+                or source_value(economics_header, economics_row, "Packaging €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Royalty / License €")
+                or source_value(economics_header, economics_row, "Royalty / License €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Material €/kg")
+                or source_value(economics_header, economics_row, "Material €/kg")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Material Cost €")
+                or source_value(economics_header, economics_row, "Material Cost €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Machine Cost €")
+                or source_value(economics_header, economics_row, "Machine Cost €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "Labor Cost €")
+                or source_value(economics_header, economics_row, "Labor Cost €")
+            ),
+            numeric_value(
+                source_value(idea_header, idea_row, "QA Reserve €")
+                or source_value(economics_header, economics_row, "QA Reserve €")
+            ),
             source_value(idea_header, idea_row, "Customer_Inputs", "Customer Inputs"),
             source_value(idea_header, idea_row, "Parametric_Variables", "Parametric Variables"),
             source_value(idea_header, idea_row, "Validation / Test", "Verification_Plan"),
@@ -1158,6 +1443,7 @@ def build_unified_portfolio(
             + raw_block(priority_header, priority_row, "Priority__", priority_raw_columns)
             + raw_block(economics_header, economics_row, "Economics__", economics_raw_columns)
             + raw_block(advancement_header, advancement_row, "Advancement__", advancement_raw_columns)
+            + raw_block(model_audit[0], audit_row, "Audit__", audit_raw_columns)
         )
 
     expected_output_count = 1 + len(idea_by_sku) + len(product_paths)
@@ -1369,7 +1655,15 @@ def main() -> None:
     additional_research = read_csv(RESEARCH_ADDITIONS_CSV)
     structured_research = read_csv(RESEARCH_ADDITIONS_2_CSV)
     specific_r3_variants = read_csv(RESEARCH_R3_VARIANTS_CSV)
+    generative_research = read_csv(RESEARCH_ADDITIONS_3_CSV)
     readiness_advancement = read_csv(READINESS_ADVANCEMENT_CSV)
+    product_scoring = read_dict_csv(PRODUCT_SCORING_CSV)
+    product_scores_inherited = sum(1 for row in product_scoring if row["Score_Basis"].startswith("INHERITED"))
+    product_scores_derived = len(product_scoring) - product_scores_inherited
+    product_scoring_versions = {row["Scoring_Version"] for row in product_scoring}
+    if len(product_scoring_versions) != 1:
+        raise ValueError(f"Product-directory scoring must use one version: {sorted(product_scoring_versions)}")
+    product_scoring_version = product_scoring_versions.pop()
     additional_sources = read_csv(RESEARCH_ADDITION_SOURCES_CSV)
     research_status = read_research_status(RESEARCH_STATUS_CSV)
     validate_research_additions(additional_research, legacy_product_matrix, portfolio, research_status)
@@ -1393,6 +1687,13 @@ def main() -> None:
     } | {
         normalize_name(row[portfolio[0].index("Product_or_Model")]) for row in portfolio[1:]
     }
+    validate_generative_research_additions(generative_research, prior_research_ids, occupied_product_names)
+    occupied_product_names |= {
+        normalize_name(row[generative_research[0].index("Product")]) for row in generative_research[1:]
+    }
+    prior_research_ids |= {
+        str(row[generative_research[0].index("SKU_ID")]) for row in generative_research[1:]
+    }
     validate_specific_r3_variants(specific_r3_variants, prior_research_ids, occupied_product_names)
     if additional_sources[0] != legacy_sources[0]:
         raise ValueError("Additional research-source schema does not match the retained source register")
@@ -1403,7 +1704,7 @@ def main() -> None:
     research_sources = legacy_sources + additional_sources[1:]
     valid_source_ids = {str(row[0]) for row in research_sources[1:]}
     used_source_ids: set[str] = set()
-    for research_rows in (additional_research, structured_research, specific_r3_variants):
+    for research_rows in (additional_research, structured_research, specific_r3_variants, generative_research):
         source_index = research_rows[0].index("Source_IDs")
         used_source_ids.update(
             source_id.strip()
@@ -1443,14 +1744,22 @@ def main() -> None:
         "Trend-screened research hypothesis checked 2026-08-31; structured R2 concept preflight, not a selected, qualified or released product",
     )
     add_research_overlay(
+        generative_research,
+        "SKU_ID",
+        research_status,
+        "Generative Step1X-3D research hypothesis checked 2026-09-04; R2 concept preflight with a modeled commercial "
+        "block, blocked by the generative-tooling licence gate, not a selected, qualified or released product",
+    )
+    add_research_overlay(
         specific_r3_variants,
         "SKU_ID",
         research_status,
-        "Named-interface child checked 2026-08-31; R3 nominal design inputs only, not physical qualification, demand proof or release",
+        "Named-interface child; per-row Assessed_On gives the check date (SKU-301\u2013314 on 2026-08-31, SKU-501\u2013557 on 2026-09-04); R3 nominal design inputs only, not physical qualification, demand proof or release",
     )
     add_research_preflight(legacy_product_matrix, "SKU ID", research_preflight)
     add_research_preflight(additional_research, "SKU_ID", research_preflight)
     add_research_preflight(structured_research, "SKU_ID", research_preflight)
+    add_research_preflight(generative_research, "SKU_ID", research_preflight)
     add_research_preflight(specific_r3_variants, "SKU_ID", research_preflight)
     add_research_preflight(research_priority, "SKU_ID", research_preflight)
     for imported in (legacy_unit_economics, legacy_family_strategy):
@@ -1466,6 +1775,7 @@ def main() -> None:
             ("Research Ideas 100", legacy_product_matrix, "SKU ID"),
             ("Research Ideas +100", additional_research, "SKU_ID"),
             ("Research Ideas +200", structured_research, "SKU_ID"),
+            ("Research Ideas Generative Step1X", generative_research, "SKU_ID"),
             ("Research Variants R3", specific_r3_variants, "SKU_ID"),
         ],
         research_priority,
@@ -1516,9 +1826,27 @@ def main() -> None:
         for estimate in research_preflight.values()
         if estimate["Estimate_Status"].startswith("STRUCTURED SPECIFIC-VARIANT PREFLIGHT R3")
     )
-    preliminary_preflight_count = (
-        len(research_preflight) - linked_preflight_count - structured_preflight_count - specific_r3_preflight_count
+    generative_preflight_count = sum(
+        1
+        for estimate in research_preflight.values()
+        if estimate["Estimate_Status"].startswith("GENERATIVE STEP1X RESEARCH PREFLIGHT R2")
     )
+    preliminary_preflight_count = (
+        len(research_preflight)
+        - linked_preflight_count
+        - structured_preflight_count
+        - specific_r3_preflight_count
+        - generative_preflight_count
+    )
+    generative_family_index = generative_research[0].index("Product_Family")
+    generative_complexity_index = generative_research[0].index("Complexity")
+    generative_family_counts: dict[str, int] = {}
+    generative_complexity_counts: dict[str, int] = {}
+    for row in generative_research[1:]:
+        family = str(row[generative_family_index]).removeprefix("AI-generated ")
+        generative_family_counts[family] = generative_family_counts.get(family, 0) + 1
+        band = str(row[generative_complexity_index])
+        generative_complexity_counts[band] = generative_complexity_counts.get(band, 0) + 1
     structured_trend_index = structured_research[0].index("Trend_Score_0_100")
     structured_trend_scores = [float(row[structured_trend_index]) for row in structured_research[1:]]
     variant_complexity_index = specific_r3_variants[0].index("Complexity")
@@ -1529,7 +1857,7 @@ def main() -> None:
     stale_audit_scorecards = sum(not bool(record["audit_scorecard_match"]) for record in product_preflight_records)
     summary = [
         ["Metric", "Value", "Interpretation"],
-        ["Review date", "2026-08-31", "Repository-evidence snapshot"],
+        ["Review date", "2026-09-04", "Repository-evidence snapshot"],
         ["Unified portfolio records", len(unified_portfolio) - 1, f"Single filterable list: {len(product_preflight_records)} product directories plus {len(combined_research_ids)} planned products and research ideas; every row has one unique Working_SKU"],
         ["Curated product source records", len(portfolio) - 1, "Existing product-family source is retained in product-portfolio.csv; no duplicate Product Register worksheet"],
         ["Product directories with documented preflight", len(product_preflight_records), "Every current products/<family>/<product> directory; exact C/R/K/lane/confidence and source paths are joined into Portfolio"],
@@ -1540,18 +1868,26 @@ def main() -> None:
         ["Legacy research concepts retained", len(legacy_product_matrix) - 1, "Research sheet now carries a controlled implementation overlay"],
         ["First research addendum", len(additional_research) - 1, "Append-only P0 hypotheses; preserved separately from the product portfolio"],
         ["Trend-screened research addendum", len(structured_research) - 1, "SKU-201–300; each has explicit purpose, directional trend >70 and a structured concept preflight"],
-        ["Named-interface R3 variants", len(specific_r3_variants) - 1, "SKU-301–314; separate children with cited E3 nominals and an exact research process baseline; generic parents remain unchanged"],
+        ["Named-interface R3 variants", len(specific_r3_variants) - 1, f"{R3_VARIANT_BLOCK_LABEL}; separate children with cited E3 nominals and an exact research process baseline; generic parents remain unchanged"],
         ["R3 variant complexity split", f"C1={variant_complexity_counts['C1']}; C2={variant_complexity_counts['C2']}; C3={variant_complexity_counts['C3']}", "R3 is nominal design-input maturity, not physical qualification or demand proof"],
         ["Trend-screened score range", f"{min(structured_trend_scores):g}–{max(structured_trend_scores):g}", "Directional 0–100 planning score; not validated demand"],
         ["Additional ideas at core/core-adjacent fit", additional_core_count, "Research allocation only; active development remains constrained by the 70% core-capacity rule"],
-        ["Total research concepts", len(combined_research_ids), "Original 300 plus 14 append-only named-interface variants"],
+        ["Generative Step1X research addendum", len(generative_research) - 1, f"{STEP1X_BLOCK_LABEL}; imagegen plus Step1X-3D concepts with explicit purpose, directional trend >70, an R2 concept preflight, a modeled unit-economics block and an open generative-tooling licence gate"],
+        ["Generative batch category split", "; ".join(f"{family}={count}" for family, count in sorted(generative_family_counts.items())), "Requested popular-model groups: animals and creatures, cartoon and comic characters, toys and fidgets, tools and desktop utility, persons and figurines, trending decor"],
+        ["Generative batch complexity split", "; ".join(f"{band}={count}" for band, count in sorted(generative_complexity_counts.items())), "C1\u2013C3 with K1\u2013K2; every row stays CONCEPT_ONLY in current Lane E"],
+        ["Generative tooling licence gate", "OPEN \u2014 BLOCKING FOR EU COMMERCIAL USE", "Step1X-3D declares Apache-2.0 but retains Tencent Hunyuan non-commercial headers, including one file in the executed geometry path, and that upstream licence excludes the EU; clarify, replace the files or take legal advice before any sale"],
+        ["Total research concepts", len(combined_research_ids), f"Original 300 plus {len(specific_r3_variants) - 1} append-only named-interface variants and {len(generative_research) - 1} generative Step1X concepts"],
         ["Addendum scoring", "Opportunity/trend 0–100; risk 1–5", "Scores and price bands prioritize tests only; they are not approved demand, margin or release claims"],
+        ["Product directories with planning scores", len(product_scoring), f"Every product directory carries the same trend/priority/opportunity and ten 1–5 components as the research queue, so Portfolio sorts and filters on one column: {product_scores_inherited} inherited from a mapped research idea and {product_scores_derived} derived from product preflight and register evidence"],
+        ["Product score derivation", f"v{product_scoring_version}", "Derived rows use the live C/R/K scorecard and complexity dimensions, register strategy fit, rights/provenance state, safety-risk note and model status, plus the directional trend of the research family covering the category; Score_Basis, Trend_Score_Basis and Scoring_Rationale record the inputs per row"],
+        ["Product market-evidence cap", "Derived product Market_Evidence_Confidence_1_5 <= 3", "No product has validated sales or repository physical evidence, so a derived product evidence confidence never reaches 4–5; an inherited row keeps the mapped research idea's own recorded confidence"],
         ["Research source records", len(research_sources) - 1, "Source records support direction only; per-concept demand validation is still required"],
         ["Research ideas with mapped models", sum(1 for row in research_status.values() if row.get("Implementation_Status") == "MODEL_EXISTS"), "Physical validation remains a later human gate"],
         ["Ranked research ideas", len(research_priority) - 1, "Comparable implementation planning queue; not release approval"],
         ["Research ideas linked to current product preflights", linked_preflight_count, "Exact scorecard copied from the mapped product; still not release approval"],
         ["Research ideas with structured R2 concept preflights", structured_preflight_count, "SKU-201–300: K1 and C<=2; current Lane E while the exact manufacturing-process gate remains open"],
         ["Research ideas with specific R3 preflights", specific_r3_preflight_count, "Named-interface children only; all are CONDITIONAL and require independent coupon/device/host validation"],
+        ["Research ideas with generative Step1X R2 preflights", generative_preflight_count, f"{STEP1X_BLOCK_LABEL}: C1\u2013C3 and K1\u2013K2; current Lane E, CONCEPT_ONLY, plus a documented mesh-quality gate and an open tooling-licence gate"],
         ["Research ideas with preliminary preflight bands", preliminary_preflight_count, "C and K are planning bands; R0\u2013R1 and current Lane E remain until interface/process/test evidence exists"],
         ["Readiness advancement records", len(readiness_advancement) - 1, f"Complete triage for {len(combined_research_ids)} research ideas plus {len(product_preflight_records)} product directories, with purpose, bottleneck and exact next evidence"],
         ["Research target lane", "Separate planning field", "Expected design path after evidence closure; it never replaces the current lane or a release gate"],
@@ -1572,19 +1908,26 @@ def main() -> None:
         ["Field", "Meaning", "Portfolio use"],
         ["Compact form", "C# \u00b7 R# \u00b7 K# \u00b7 Lane X \u00b7 CONFIDENCE", "Exact current scorecard for product preflights; bands are allowed only for explicitly preliminary research estimates"],
         ["C0\u2013C5", "Intrinsic product/design complexity", "Never average with readiness, criticality or market potential"],
-        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", "Legacy concepts remain R0\u2013R1; SKU-201–300 reach concept-level R2; only separate SKU-301–314 named-interface children reach nominal R3"],
+        ["R0\u2013R5", "Minimum maturity of scope, requirements, critical interfaces, process and verification", f"Legacy concepts remain R0\u2013R1; SKU-201–300 reach concept-level R2; only separate named-interface children ({R3_VARIANT_BLOCK_LABEL}) reach nominal R3"],
         ["K0\u2013K4", "Credible failure consequence and required rigor", "A research K band is a conservative proxy, not a safety qualification"],
         ["Lane A\u2013E", "Currently permitted workflow", "R<=1 or a hard-gate failure forces current Lane E"],
         ["Target lane after evidence", "Likely design workflow after readiness and hard gates are sufficient", "Planning aid only; does not override current Lane E, HOLD or CONCEPT_ONLY"],
         ["Confidence", "Qualitative workflow confidence", "No numerical success probability is inferred"],
         ["Linked current product preflight", "Research idea maps to an existing Working_SKU", "Exact current product scorecard and source path are shown; not release approval"],
         ["Structured R2 research preflight", "SKU-201–300 has a scored PC model and documented R2 basis", "K1 and C<=2 were enforced; current Lane E and CONCEPT_ONLY remain because exact process and variant evidence are open"],
-        ["Specific R3 variant preflight", "SKU-301–314 is a separate named-interface child with cited E3 nominals and a pinned exact research process", "Generic parents do not inherit R3; confidence remains CONDITIONAL and a physical coupon/exact item or host is the next gate"],
+        ["Specific R3 variant preflight", f"{R3_VARIANT_BLOCK_LABEL} is a separate named-interface child with cited E3 nominals and a pinned exact research process", "Generic parents do not inherit R3; confidence remains CONDITIONAL and a physical coupon/exact item or host is the next gate"],
+        ["Generative Step1X research preflight", f"{STEP1X_BLOCK_LABEL} carries a scored PC model, a documented mesh-quality gate and a modeled unit-economics block", "C1\u2013C3 and K1\u2013K2 were enforced; current Lane E and CONCEPT_ONLY remain because the exact process, the generated mesh, the rights review and the generative-tooling licence are all open"],
+        ["Generative tooling licence gate", "Step1X-3D retains Tencent Hunyuan non-commercial headers, one of them in the executed geometry path, and that licence excludes the EU", "Treated as a fail-closed hard gate on the whole generative block: no EU commercial use until StepFun clarifies, the files are replaced, or legal advice permits it"],
+        ["Modeled commercial block", "Mass, print time, hands-on minutes, cost components, price and contribution for the generative block", "Modeled with the retained Unit Economics rates; it is not a quotation, a measured print or approved margin"],
         ["Preliminary idea estimate", "No mapped current product preflight", "C band uses creation/validation planning effort; K band uses the research-risk proxy; R0\u2013R1 and Lane E are fixed until evidence exists"],
         ["Market potential", "Opportunity and market-fit fields in the research register", "Keep separate from C/R/K/lane; compare side by side in Implementation Priority"],
+        ["Score_Basis", "How a row's trend/priority/opportunity and ten 1–5 components were obtained", "RESEARCH PRIORITY QUEUE for research ideas; INHERITED for a product mapped to a research idea; DERIVED for a product scored from its own preflight and register evidence"],
+        ["Trend_Score_Basis", "Which research family and primary sources back the trend value", "A derived product row names the research family it was mapped from, or states NO PRIMARY-SOURCE RESEARCH FAMILY and uses a baseline below every scored family"],
+        ["Derived product score", "Product directory with no mapped research idea", "Trend uses the covering research-family median plus a strategy-fit adjustment; the 1–5 components use complexity, readiness, criticality, complexity dimensions, rights, safety and model status; Economics is a complexity and purchased-content proxy because no product COGS or price is recorded"],
+        ["Product score limit", "A derived product score orders planning work only", "It is not product-specific demand, margin, safety or rights evidence, and it never overrides Lane E, HOLD, CONCEPT_ONLY or a release gate"],
         ["Update rule", "Regenerate after product-preflight, implementation mapping, source, variant or research-priority changes", "Run the R3 variant, priority, preflight and advancement builders, then build_product_workbook.py"],
         ["Product source", "products/*/*/preflight/preflight-result.json", "Validated project-level source of truth"],
-        ["Research source", "research-idea-preflight-estimates.csv", "Version-controlled 314-row planning overlay"],
+        ["Research source", "research-idea-preflight-estimates.csv", f"Version-controlled {len(combined_research_ids)}-row planning overlay"],
         ["Advancement source", "readiness-advancement-register.csv", f"Complete {len(combined_research_ids) + len(product_preflight_records)}-row triage: {len(combined_research_ids)} research ideas plus {len(product_preflight_records)} product directories"],
     ]
 

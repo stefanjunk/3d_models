@@ -23,12 +23,25 @@ PORTFOLIO_CSV = PORTFOLIO_DIR / "product-portfolio.csv"
 ADDITIONS_CSV = PORTFOLIO_DIR / "research-ideas-additions.csv"
 STRUCTURED_CSV = PORTFOLIO_DIR / "research-ideas-additions-2.csv"
 VARIANTS_CSV = PORTFOLIO_DIR / "research-ideas-r3-variants.csv"
+GENERATIVE_CSV = PORTFOLIO_DIR / "research-ideas-additions-3.csv"
 LEGACY_WORKBOOK = REPO_ROOT / "research/market/JuSt_Innovation_3D_Print_Commercial_Product_Matrix_2026.xlsx"
 PRODUCTS_ROOT = REPO_ROOT / "products"
 OUTPUT = PORTFOLIO_DIR / "readiness-advancement-register.csv"
 ASSESSMENT_DATE = "2026-08-31"
 REGISTER_VERSION = "1.0"
-RESEARCH_COUNT = 314
+# SKU-315..414 is reserved for the Step1X research block, so the named-interface
+# R3 child identifiers are declared in explicit blocks rather than one range.
+GENERIC_RESEARCH_ID_MAX = 300
+R3_VARIANT_ID_BLOCKS = ((301, 314), (501, 557))
+STEP1X_ID_BLOCK = (315, 414)
+RESEARCH_IDS = {f"SKU-{number:03d}" for number in range(1, GENERIC_RESEARCH_ID_MAX + 1)} | {
+    f"SKU-{number:03d}"
+    for first, last in R3_VARIANT_ID_BLOCKS
+    for number in range(first, last + 1)
+} | {
+    f"SKU-{number:03d}" for number in range(STEP1X_ID_BLOCK[0], STEP1X_ID_BLOCK[1] + 1)
+}
+RESEARCH_COUNT = len(RESEARCH_IDS)
 
 FIELDS = [
     "Record_Key",
@@ -135,10 +148,11 @@ def research_purposes() -> dict[str, str]:
         (ADDITIONS_CSV, "Customer_Job"),
         (STRUCTURED_CSV, "Purpose"),
         (VARIANTS_CSV, "Purpose"),
+        (GENERATIVE_CSV, "Purpose"),
     ):
         for row in read_csv(path):
             purposes[row["SKU_ID"]] = row[field].strip()
-    expected = {f"SKU-{number:03d}" for number in range(1, RESEARCH_COUNT + 1)}
+    expected = set(RESEARCH_IDS)
     if set(purposes) != expected or any(len(purpose) < 12 for purpose in purposes.values()):
         raise ValueError("Every research idea must have an explicit purpose/customer job")
     return purposes
@@ -149,11 +163,12 @@ def research_rows() -> list[dict[str, str]]:
     preflight = {row["SKU_ID"]: row for row in read_csv(PREFLIGHT_CSV)}
     variants = {row["SKU_ID"]: row for row in read_csv(VARIANTS_CSV)}
     structured = {row["SKU_ID"]: row for row in read_csv(STRUCTURED_CSV)}
+    generative = {row["SKU_ID"]: row for row in read_csv(GENERATIVE_CSV)}
     additions = {row["SKU_ID"]: row for row in read_csv(ADDITIONS_CSV)}
     purposes = research_purposes()
-    expected = {f"SKU-{number:03d}" for number in range(1, RESEARCH_COUNT + 1)}
+    expected = set(RESEARCH_IDS)
     if set(priority) != expected or set(preflight) != expected:
-        raise ValueError("Priority and preflight sources must cover SKU-001 through SKU-314")
+        raise ValueError("Priority and preflight sources must cover every declared research ID")
 
     child_ids: dict[str, list[str]] = defaultdict(list)
     for child in variants.values():
@@ -170,7 +185,7 @@ def research_rows() -> list[dict[str, str]]:
         readiness = estimate["Readiness_Band"]
         criticality = estimate["Criticality_Band"]
         current_lane = estimate["Current_Lane"]
-        source = variant or structured.get(sku_id) or additions.get(sku_id)
+        source = variant or structured.get(sku_id) or generative.get(sku_id) or additions.get(sku_id)
         source_next_gate = source.get("Next_Gate", "") if source else ""
 
         if variant:

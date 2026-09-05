@@ -96,10 +96,10 @@ workflow:
     approved_at: "2026-09-05"
     basis: "User approved all four hydrography-correction defects, relaxed guards, exact functional keepouts, west-edge marker anchor, and acceptance of wall-mount residual conflicts. See decomposition-review-0.5.4.md."
   digital_candidate:
-    status: DRAFT_DIGITAL_PASS_3MF_PACKAGING_PENDING
+    status: DRAFT_DIGITAL_PASS_PHYSICAL_AND_GUI_REVIEW_REQUIRED
     revision: 0.5.4
     candidate: digital-candidate-r2
-    reason: "All 20 STL meshes pass digital geometry gates. Tegeler See 92–95%, Havel 86–98%, boundary_crop total 77.2%, context_outline 87.6%. Anycubic 3MF packaging and native slice not yet regenerated for v0.5.4. Physical, GUI and release gates remain open."
+    reason: "All 20 STL meshes pass digital geometry gates. Tegeler See 92–95%, Havel 86–98%, boundary_crop 77.2%, context_outline 87.6%. 4 x Anycubic 3MF packaging PASS. All four canonical slices PASS: boundary-crop L/R (26L/5.2mm/8TC, 23L/4.6mm/3TC), context-outline L/R (26L/5.2mm/8TC, 23L/4.6mm/3TC). Context halves retain GUI floating-region warning. Physical, wall, light, connector and release gates remain open."
   physical_validation:
     status: blocked
     reason: "No autonomous print or wall installation"
@@ -573,7 +573,7 @@ optimization:
       status: passed
       performance_status: "PASS: all four native slices completed inside 600 s (101-479 s); both context halves retain a floating-region GUI review warning"
       method: "vendor-aware production-extension 3MF validation plus exact Anycubic Slicer Next 1.3.9.4 target-project import and slice"
-      result: "Pending: revision 0.5.4 digital-candidate-r2 3MF packaging and native slice not yet run. Previous revision 0.5.3 achieved 23-26 canonical layers, tools 0-3 and three or eight tool changes."
+      result: "Revision 0.5.4 digital-candidate-r2: all four native slices PASS. boundary-crop L 26L/5.2mm/8TC, boundary-crop R 23L/4.6mm/3TC, context-outline L 26L/5.2mm/8TC, context-outline R 23L/4.6mm/3TC. Context halves retain vendor floating-region GUI warning."
       report: validation/v0.5.4/berlin/digital-candidate-r2/build-report.json
 
 resource_budgets:
@@ -646,8 +646,8 @@ acceptance:
     status: PASS
   - id: AC-TARGET-SLICER
     criterion: "All four native Anycubic project 3MFs import and produce non-empty G-code with 23-26 canonical layers, tools 0-3 and the expected three or eight tool changes."
-    method: "four revision 0.5.4 slice-anycubic-next result.json artifacts plus product-local canonical slice reviews"
-    status: NOT_RUN
+    method: "four revision 0.5.4 slice-anycubic-next r1 artifacts plus product-local canonical slice reviews"
+    status: PASS
   - id: AC-RESOURCE-BUDGET
     criterion: "Every half stays below 750,000 composite triangles and exact native slicing completes inside the nominal 600 second per-half target."
     method: "four mesh audits and recorded slice-anycubic-next wall times"

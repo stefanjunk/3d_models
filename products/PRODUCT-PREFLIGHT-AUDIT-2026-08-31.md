@@ -2,21 +2,16 @@
 
 ## Outcome
 
-- Products audited: **110**
-- Explicit `PURPOSE.md` documents: **110**
-- Retrospective preflight document sets: **110**
+- Products audited: **116**
+- Explicit `PURPOSE.md` documents: **116**
+- Preflight document sets: **116**
 - Older/legacy entries moved into product-local `archive/`: **42**
 - Roots requiring human review because of pre-existing dirty or ambiguous content: **3**
 
-Every preflight is a current retrospective assessment of repository evidence,
-not a reconstruction of the state before design began. A `HOLD` is an explicit
-result, not a validation failure of the document.
-
-
-MM-FUR-001 is a 2026-09-04 addition with a PROSPECTIVE preflight, appended by
-hand: it is the first product in the new `furniture-cabinetry` family, and its
-manufacturing route is timber panel cutting rather than FDM printing, so its
-`CONCEPT_ONLY` release state reflects an unmeasured host niche, not a printing gate.
+Each product retains its own prospective or retrospective assessment and
+assessed revision. Missing assessments are backfilled retrospectively from
+repository evidence. A `HOLD` is an explicit result, not a validation failure
+of the document; the aggregate does not grant design or release approval.
 
 ## Root review exceptions
 
@@ -41,8 +36,9 @@ manufacturing route is timber panel cutting rather than FDM printing, so its
 | `art-decor/mm-art-007-racehorse-mesh-collection` | C0 (13.0) | R2 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-art-008-sports-car-mesh` | C0 (13.0) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-art-009-whale-mesh-collection` | C0 (13.0) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `art-decor/mm-art-010-modular-city-map-wall-panel` | C3 (51.5) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `art-decor/mm-art-010-modular-city-map-wall-panel` | C3 (65.0) | R2 | K2 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-art-011-modular-topographic-relief-wall-panel` | C3 (51.5) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `art-decor/mm-art-012-comic-octopus-desk-figurine` | C0 (11.25) | R2 | K0 | A | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-auto-001-opel-grandland-2018-mesh` | C1 (15.5) | R1 | K0 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-001-marble-tile` | C2 (37.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `art-decor/mm-dec-002-roman-pillar` | C3 (42.8) | R1 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
@@ -69,6 +65,7 @@ manufacturing route is timber panel cutting rather than FDM printing, so its
 | `furniture-systems/mm-sys-020-lack-leg-two-pocket-mini-dock` | C3 (40.0) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap` | C3 (44.2) | R2 | K2 | E | HOLD | REVIEW_REQUIRED |
 | `home-kitchen-garden/mm-dec-003-sunflower-bowl-tray` | C3 (44.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter` | C2 (30.25) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `home-kitchen-garden/mm-gar-001-rainwater-filter-well` | C2 (38.5) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `home-kitchen-garden/mm-home-001-cup-and-measuring-spoon` | C2 (26.0) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `home-kitchen-garden/unregistered-aroma-diffuser` | C2 (39.2) | R0 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
@@ -77,7 +74,7 @@ manufacturing route is timber panel cutting rather than FDM printing, so its
 | `organization-storage/mm-bth-002-toilet-paper-fifo-system` | C3 (42.2) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-001-drawerfit-modular` | C3 (42.5) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-002-shelffit-mini-bins` | C2 (37.2) | R2 | K2 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
-| `organization-storage/mm-org-003-modern-carbon-desk-organizer` | C3 (42.5) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-org-003-modern-carbon-desk-organizer` | C3 (46.0) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-004-modular-desktop-tray-system` | C2 (34.8) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-005-desk-edge-cable-clip-kit` | C2 (34.8) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-006-charging-cable-docking-bar` | C3 (42.5) | R2 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
@@ -115,6 +112,10 @@ manufacturing route is timber panel cutting rather than FDM printing, so its
 | `organization-storage/mm-org-038-milestone-photo-card-desk-display-block` | C2 (37.2) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-039-coin-capsule-medal-drawer-cassette` | C2 (37.2) | R1 | K1 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-org-040-field-notes-original-kraft-memo-book-station` | C1 (17.5) | R3 | K1 | B | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-org-041-octopus-cable-wrap-organizer` | C2 (34.75) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-org-042-din-a6-postcard-archive-divider-set` | C2 (33.0) | R3 | K1 | B | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-org-043-euro-coin-pocket-emptying-tray` | C2 (31.0) | R3 | K1 | B | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
+| `organization-storage/mm-org-044-tree-frog-bookmark-reading-clip` | C2 (34.75) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-per-001-nameform-bookends` | C3 (48.5) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |
 | `organization-storage/mm-wall-001-honeycomb-wood-wall-shelf` | C2 (39.8) | R2 | K3 | E | HOLD | CLEAN_OR_NO_VERSION_CONFLICT |
 | `printer-workshop/mm-mkr-001-cybervault-nozzle-case` | C3 (54.2) | R2 | K1 | C | GO_WITH_CONTROLS | CLEAN_OR_NO_VERSION_CONFLICT |

@@ -1,0 +1,110 @@
+reconstruction:
+  source: preflight/preflight-result.json
+  sha256: 7c9780d2a82b741e854efcb92f1ab83a5895c924a4b9c80cd7c078479f91d7c7
+  note: Companion reconstructed on 2026-09-05 from the existing prospective assessment; not a new assessment,
+    measurement or approval.
+project:
+  id: MM-ORG-042
+  revision: 0.1.0
+scope:
+  intended_use: Sort DIN A6 postcards and A6 cards by date or theme in a customer-owned dry indoor drawer
+    using labelled, open-top filing lanes cut to the ISO 216 A6 trimmed size.
+  user_context: 'Adult filing at a desk or shelf drawer. metriCreate digital-first: the customer enters
+    the drawer envelope and lane layout and downloads the generated model.'
+  variants:
+  - ISO 216 A6 media at the 105 x 148 mm trimmed nominal
+  - customer-entered drawer envelope and lane count, generated per order
+  out_of_scope:
+  - Any other paper format without its own released variant
+  - Archival, acid-free, moisture, UV, fire or privacy protection
+  - Load-bearing, wall, vehicle, outdoor or wet use
+  - Child use or toy scope
+  - Any fit claim before the lane clearance is qualified by coupon on the exact process
+entities:
+- id: E-PRINT-001
+  kind: PRINTED_PART
+  name: Parametric open-top A6 filing lane block with index tabs
+- id: E-MEDIA-001
+  kind: HOST_OBJECT
+  name: DIN A6 postcards and cards at the ISO 216 trimmed nominal
+- id: E-DRAWER-001
+  kind: HOST_OBJECT
+  name: Customer-owned dry indoor drawer of unknown envelope
+- id: E-HUMAN-001
+  kind: HUMAN
+  name: Adult user filing and browsing by hand
+- id: E-PROCESS-001
+  kind: ENVIRONMENT
+  name: Pinned Anycubic Kobra 3 Max / SUNLU PETG Black FFF baseline
+interface_contracts:
+- id: IF-EXT-GEO-LOC-SLOT-001
+  name: DIN A6 media to labelled filing lane
+  evidence:
+    level: E3
+    sources:
+    - business/02-portfolio/research-idea-sources-additions.csv#S59
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-507
+    variant_confirmed: false
+    coverage_percent: 70.0
+    uncertainty_note: 'The calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max /
+      SUNLU PETG / 0.4 mm: xy_clearance_sliding and hole_delta_vertical are UNQUALIFIED. The interface
+      nominal is published and exact, but the clearance that realises the fit must come from a coupon
+      on this exact process and must not be assumed.'
+    observability: INFERRED
+  verification:
+    method: test_coupon
+    acceptance_criteria:
+    - The lane coupon holds 105 mm plus the qualified clearance within 0.30 mm.
+    - A card enters and leaves single-handed without snagging or bending.
+    - 100 filing cycles leave no scuff on the media.
+    status: PLANNED
+    result_refs: []
+- id: IF-EXT-GEO-CON-VOLUME-001
+  name: Divider set to customer drawer envelope
+  evidence:
+    level: E1
+    sources:
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-507
+    variant_confirmed: false
+    coverage_percent: 20.0
+    uncertainty_note: The drawer is customer-owned and unknown by design. The product is parametric precisely
+      because this interface cannot be fixed.
+    observability: UNKNOWN
+  verification:
+    method: inspection
+    acceptance_criteria:
+    - The generated footprint never exceeds the entered drawer envelope minus the declared placement clearance.
+    - The generated block stays inside the 220 x 180 x 80 mm planning envelope or is split into modules.
+    status: PLANNED
+    result_refs: []
+- id: IF-HUM-GEO-ACC-EDGE-001
+  name: Adult hand to tab and lane edges
+  evidence:
+    level: E1
+    sources:
+    - business/02-portfolio/research-r3-process-baseline.json
+    variant_confirmed: false
+    coverage_percent: 35.0
+    uncertainty_note: Derived from the pinned nozzle baseline; no printed edge has been touched.
+    observability: INFERRED
+  verification:
+    method: inspection
+    acceptance_criteria:
+    - No user-reachable edge is sharp to a bare-hand wipe.
+    - No feature is below 1.35 mm at the released scale.
+    status: PLANNED
+    result_refs: []
+evidence_available:
+- business/02-portfolio/product-portfolio.csv#PORT-111
+- business/02-portfolio/research-ideas-r3-variants.csv#SKU-507
+- business/02-portfolio/research-idea-sources-additions.csv#S59
+- business/02-portfolio/research-r3-process-baseline.json
+- libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml
+- commercial-clearance/project.json
+- preflight/preflight-input.yaml
+blocking_unknowns:
+- Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm; xy_clearance_sliding
+  is UNQUALIFIED. The lane clearance must be qualified by coupon before the lane width is committed.
+- The customer drawer envelope is unknown by design and is a configurator input, not a fixed dimension.
+- No printed coupon, filing test, tab legibility or 100-cycle result exists.
+- Real card tolerance, bow, corner wear and stack growth are unmeasured.

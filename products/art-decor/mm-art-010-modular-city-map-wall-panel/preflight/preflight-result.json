@@ -1,14 +1,14 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-010-016",
-  "assessment_version": "0.5.3",
+  "assessment_id": "PREFLIGHT-MM-ART-010-017",
+  "assessment_version": "0.5.4",
   "assessment_date": "2026-09-04",
   "product": "MM-ART-010 parameterized permanent one-off city-map wall relief with complete water apertures, S/U transit accent and targeted topology bridges",
   "scope": {
-    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.3 makes every retained mapped water area and river/canal/stream a light-through opening, with only explicitly logged full-thickness topology bridges where land would otherwise detach. Sky Blue represents S-Bahn/U-Bahn plus the existing context boundary and site marker, and motorway/trunk remains Midnight. Each half has its own upper wall support so the center seam is not the primary gravity load path.",
+    "intended_use": "Unique indoor decorative Berlin wall relief, produced as two four-color main prints and permanently assembled without adhesive, rear grid, magnets, or replaceable sections. Revision 0.5.4 keeps every retained mapped water area and river/canal/stream as a recognizable light-through opening, cross-checks final apertures against independent Berlin, BKG and OSM hydrography, and permits only explicitly logged local full-thickness topology bridges. Sky Blue represents S-Bahn/U-Bahn plus the existing context boundary and address-anchored site marker, and motorway/trunk remains Midnight. Each half has its own upper wall support so the center seam is not the primary gravity load path.",
     "user_context": "Adult indoor customer; optional customer-supplied low-power rear halo/front-through lighting; production on the Anycubic Kobra 3 Max Combo.",
     "variants": [
-      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 production build authorized; corrected native projects not generated",
-      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 production build authorized; corrected native projects not generated",
+      "MM-ART-010-BERLIN-BOUNDARY-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 rejected after user-observed Tegeler See and Havel omissions; revision 0.5.4 correction in progress",
+      "MM-ART-010-BERLIN-CONTEXT-OAK-MINT-MIDNIGHT-SKY — revision 0.5.3 rejected after user-observed Tegeler See and Havel omissions; revision 0.5.4 correction in progress",
       "MM-ART-010-BERLIN-{MODE}-METRICREATE-FORGE — proposed inventory-backed third palette",
       "Parameterized site marker — proposed 54.0 × 57.18 mm canonical stacked metriMade lockup at Sterkrader Straße 24, 13507 Berlin",
       "Future non-default size — reserved, not production-supported",
@@ -31,7 +31,7 @@
     {"id": "E-WALL", "kind": "HOST_OBJECT", "name": "Customer wall and installer-selected anchors"},
     {"id": "E-LED", "kind": "PURCHASED_PART", "name": "Optional customer-supplied LED system"},
     {"id": "E-HUMAN", "kind": "HUMAN", "name": "Adult assembler, installer, and viewer"},
-    {"id": "E-MAP-DATA", "kind": "SOFTWARE", "name": "Frozen OSM semantic water, road, S-Bahn and U-Bahn source layers"},
+    {"id": "E-MAP-DATA", "kind": "SOFTWARE", "name": "Frozen OSM map layers plus independent official Berlin and BKG hydrography references"},
     {"id": "E-TOPOLOGY-BRIDGE", "kind": "PRINTED_PART", "name": "Local full-thickness Oak bridge geometry integrated only where required for connected land"}
   ],
   "interfaces": [
@@ -46,11 +46,11 @@
       "geometry": "PLN",
       "lifecycle_states": ["assembly", "use", "failure"],
       "keepouts_and_access": ["Center seam and one-way connector pockets", "light-through apertures", "minimum outer ligament and map perimeter", "other attribution or release marks"],
-      "evidence": {"level": "E3", "sources": ["requirements-review-0.5.1.md", "concept-review-0.5.1.md", "concepts/berlin-site-marker-concept-v06.json", "source-data/v0.5.0/berlin/metri-create-headquarters-address.json", "source/v0.5.1/berlin/site-marker-parameters.json", "../../../business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg", "../../../business/01-strategy/brand-assets/metrimade/provenance.json", "source/v0.4.0/berlin/placements/boundary-crop-placement.json", "source/v0.4.0/berlin/placements/context-outline-placement.json", "validation/v0.5.1/berlin/digital-candidate-r4/build-report.json", "validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json", "validation/v0.5.1/berlin/logo-coupon-r1/build-report.json"], "variant_confirmed": true, "coverage_percent": 94, "uncertainty_note": "The official WFS verifies the address point and projected coordinate. Candidate r4 verifies the exact canonical asset hash, 54.0 × 57.18 mm generated envelope, tool-4 placement, clearances, four non-empty 3MF bodies and native slices. Physical recognition at 2 m, headquarters attribution and brand clearance remain open.", "observability": "OBSERVED"},
+      "evidence": {"level": "E2", "sources": ["requirements-review-0.5.1.md", "concept-review-0.5.1.md", "concepts/berlin-site-marker-concept-v06.json", "source-data/v0.5.0/berlin/metri-create-headquarters-address.json", "source/v0.5.1/berlin/site-marker-parameters.json", "../../../business/01-strategy/brand-assets/metrimade/exports/metrimade-lockup-stacked-mono.svg", "../../../business/01-strategy/brand-assets/metrimade/provenance.json", "source/v0.4.0/berlin/placements/boundary-crop-placement.json", "source/v0.4.0/berlin/placements/context-outline-placement.json", "validation/v0.5.3/berlin/digital-candidate-r4/build-report.json"], "variant_confirmed": false, "coverage_percent": 70, "uncertainty_note": "The address and artwork are frozen, but centering the 54.0 × 57.18 mm artwork directly on the shoreline address forced a large dry keep-out across the Tegeler See. Revision 0.5.4 must retain the exact address anchor while moving the readable artwork footprint to a verified dry callout location. Physical recognition at 2 m, headquarters attribution and brand clearance remain open.", "observability": "OBSERVED"},
       "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 0, "VAR": 3, "LIF": 1, "total": 7, "tier": "I2"},
       "criticality": "K0",
       "failure_modes": [{"mode": "Wrong location, unreadable artwork, fifth color, or collision with protected geometry", "effect": "Misleading or visually defective one-off artwork; slice or assembly may fail", "mitigation": "Freeze geocode provenance, parameterize artwork independently, reuse one existing tool and rerun deterministic placement, feature, mesh and slicer checks"}],
-      "verification": {"method": "user_test", "acceptance_criteria": ["Digital analysis confirms that the canonical stacked metriMade artwork is centered on the frozen address, measures 54.0 × 57.18 mm with aspect ratio preserved, lies on exactly one retained main half, keeps at least 50 mm from the center seam and 5 mm from the outer perimeter, has no printable feature below 0.9 mm, rises 0.6 mm and uses tool 4. A human recognizes it at 2.0 m under ordinary indoor lighting on a process-matched Oak/Sky Blue coupon."], "status": "IN_PROGRESS", "result_refs": ["requirements-review-0.5.1.md", "source/v0.5.1/berlin/site-marker-parameters.json", "validation/v0.5.1/berlin/digital-candidate-r4/digital-candidate-summary.json", "validation/v0.5.1/berlin/logo-coupon-r1/anycubic-slices/coupon-r2-review.json"]},
+      "verification": {"method": "user_test", "acceptance_criteria": ["Digital analysis confirms that the canonical stacked metriMade artwork is connected to the frozen address by an unambiguous callout anchor, measures 54.0 × 57.18 mm with aspect ratio preserved, lies on exactly one retained main half, keeps at least 50 mm from the center seam and 5 mm from the outer perimeter, does not delete named water coverage, has no printable feature below 0.9 mm, rises 0.6 mm and uses tool 4. A human recognizes it at 2.0 m under ordinary indoor lighting on a process-matched Oak/Sky Blue coupon."], "status": "IN_PROGRESS", "result_refs": ["requirements-review-0.5.1.md", "source/v0.5.1/berlin/site-marker-parameters.json", "validation/v0.5.1/berlin/logo-coupon-r1/anycubic-slices/coupon-r2-review.json"]},
       "owner": "MM-ART-010 site-marker parameter block",
       "version": "0.3"
     },
@@ -65,13 +65,13 @@
       "geometry": "BODY",
       "lifecycle_states": ["assembly", "use", "failure"],
       "keepouts_and_access": ["Center seam and one-way connector pockets", "hanger and standoff lands", "minimum 5 mm protected ligaments", "maximum 12 percent opening fraction per half", "site marker and attribution lands", "only documented 2.0 mm topology bridges where an aperture would isolate land"],
-      "evidence": {"level": "E2", "sources": ["requirements-review-0.5.2.md", "concept-review-0.5.2.md", "decomposition-review-0.5.3.md", "plan/hybrid-design-plan-v0.5.3.json", "concepts/berlin-water-transit-concept-v07.json", "source-data/v0.5.2/berlin/concept-source-manifest.json", "validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json"], "variant_confirmed": false, "coverage_percent": 68, "uncertainty_note": "The semantic concept and topology-bridge architecture are human approved. Same-date official Berlin and Brandenburg extracts have been reacquired, but bounded production layers, protected buffering, bridge accounting, bodies, 3MFs and exact slices do not yet exist for revision 0.5.3.", "observability": "OBSERVED"},
+      "evidence": {"level": "E1", "sources": ["requirements-review-0.5.2.md", "concept-review-0.5.2.md", "decomposition-review-0.5.3.md", "plan/hybrid-design-plan-v0.5.3.json", "concepts/berlin-water-transit-concept-v07.json", "source-data/v0.5.3/berlin/source-manifest.json", "validation/v0.5.3/berlin/digital-candidate-r4/build-report.json"], "variant_confirmed": false, "coverage_percent": 45, "uncertainty_note": "Revision 0.5.3 passed a weak nonzero-pixel regression but user inspection found the Tegeler See visually deleted and a major Havel interruption. Preliminary comparison shows high source agreement and points to downstream marker keep-outs, protected lands and topology bridges. Revision 0.5.4 requires multi-source final-aperture coverage and continuity evidence before any replacement 3MF is accepted.", "observability": "OBSERVED"},
       "interface_complexity": {"GEO": 3, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 3, "LIF": 1, "total": 10, "tier": "I3"},
       "criticality": "K0",
-      "failure_modes": [{"mode": "A mapped water body is omitted, a water cut disconnects the backer, an excessive bridge hides water, or a motorway occupies the transit color body", "effect": "The map is semantically inconsistent, visually defective, structurally fragmented, or unsuitable for intended backlighting", "mitigation": "Separate polygon/line/relation extraction, source-to-mask component accounting, named Tegeler See regression, three-candidate topology comparison, per-bridge manifest and tool-body ownership audit"}],
-      "verification": {"method": "analysis", "acceptance_criteria": ["Every source water component is retained, intentionally bridged or explicitly reported; Tegeler See relation 451908 yields nonzero openings in both modes; tool 4 contains S-/U-Bahn relations but no independent motorway accent geometry; all halves remain connected and below the 12 percent opening cap; the openings-only, mandatory-bridge and conditional-rib candidates are compared and the least-material viable candidate is selected."], "status": "IN_PROGRESS", "result_refs": ["validation/v0.5.2/berlin/requirements-diagnostic-r1/water-transit-layer-audit.json", "plan/hybrid-design-validation-v0.5.3.json"]},
-      "owner": "MM-ART-010 revision 0.5.3 semantic extraction, aperture and topology-bridge pipeline",
-      "version": "0.2"
+      "failure_modes": [{"mode": "A mapped water body is omitted, a marker or protected land hides a named water body, a topology bridge interrupts a major water corridor, a water cut disconnects the backer, or a motorway occupies the transit color body", "effect": "The map is semantically inconsistent, visually defective, structurally fragmented, or unsuitable for intended backlighting", "mitigation": "Cross-check OSM against official Berlin and BKG hydrography, verify named polygon coverage and Havel corridor continuity on the final aperture and exported mesh, route marker callouts onto dry land, retain local-only bridge manifests and audit tool ownership"}],
+      "verification": {"method": "analysis", "acceptance_criteria": ["The final exported aperture covers at least 90 percent of the official Tegeler See reference after raster tolerance in both modes; no marker or generic keep-out deletes named water; the final Havel opening intersects every ordered official control segment from the northern Berlin boundary through Spandauer See, Pichelssee and Wannsee with only logged local structural bridges; source agreement and every intentional deletion are reported; tool 4 contains S-/U-Bahn relations but no independent motorway accent geometry; all halves remain connected and below the 12 percent opening cap."], "status": "IN_PROGRESS", "result_refs": ["validation/v0.5.3/berlin/digital-candidate-r4/build-report.json", "plan/hybrid-design-validation-v0.5.3.json"]},
+      "owner": "MM-ART-010 revision 0.5.4 multi-source hydrography, aperture and topology-bridge pipeline",
+      "version": "0.3"
     },
     {
       "id": "IF-INT-MEC-FST-SNAP-001",
@@ -153,21 +153,21 @@
       "Exact filament batches, conditioning state, ACE slots, measured opacity and directed purge matrix",
       "As-built mass, wall-anchor/substrate selection and physical proof-load result",
       "Exact final topology-bridge manifest and physical handling/proof-load result",
-      "Bounded context-complete production OSM derivatives and revision 0.5.3 source-to-mask/body/slicer evidence"
+      "Multi-source Berlin/BKG/OSM hydrography agreement and revision 0.5.4 final-aperture/body/slicer evidence"
     ],
-    "completeness_percent": 76.0
+    "completeness_percent": 68.0
   },
   "criticality": {
     "level": "K2",
     "rationale": "The artwork is decorative, but a failed printed wall interface or unsuitable customer lighting has credible injury, property-damage, or heat consequences and therefore requires controlled tests.",
     "credible_failure_effects": ["Falling artwork", "Damaged one-off assembly", "Customer-lighting heat or wiring conflict"]
   },
-  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "WARN", "G5": "PASS", "G6": "PASS"},
   "decision": {
     "lane": "C",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "Requirements, concept v07 and the targeted topology-bridge decomposition for revision 0.5.3 are approved. Production source derivation, CAD, mesh and 3MF work may proceed under fail-closed source, connectivity, open-area and target-slicer controls. Revision 0.5.1 remains rejected historical evidence."
+    "rationale": "The all-water and local-bridge architecture remains approved, but revision 0.5.3 is rejected because weak regressions did not detect final visual deletion of the Tegeler See and a Havel interruption. Revision 0.5.4 correction work may proceed only under multi-source final-aperture coverage, ordered Havel continuity, connectivity, open-area and target-slicer controls."
   },
   "warnings": [
     {"code": "BRAND_CLEARANCE_PENDING", "severity": "WARN", "message": "The selected canonical metriMade vector asset MM-BRAND-001-R1 is recorded as clearance pending; commercial release remains blocked."},
@@ -177,17 +177,18 @@
     {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "The physical spool products are identified, but common-process compatibility, opacity, directed purge, conditioning, ACE slots and numeric mechanical thresholds remain unverified."},
     {"code": "PREVIOUS_CANDIDATE_REJECTED_SEMANTICS", "severity": "WARN", "message": "Revision 0.5.1 project files are mesh-readable but omit water-area multipolygons including Tegeler See and use Sky Blue for motorway accents; they must not be printed or released as the corrected map."},
     {"code": "TOPOLOGY_BRIDGE_PHYSICAL_PROOF_OPEN", "severity": "WARN", "message": "Digital connectivity does not prove handling stiffness or wall safety; the selected bridge candidate still requires a process-matched physical handling and installed proof test."},
-    {"code": "CONTEXT_DERIVATION_PENDING", "severity": "WARN", "message": "Same-date official Berlin and Brandenburg extracts have been reacquired, but bounded semantic derivatives, hashes and coverage evidence must pass before production geometry."}
+    {"code": "REVISION_053_REJECTED_WATER_COVERAGE", "severity": "WARN", "message": "Revision 0.5.3 must not be printed: its nonzero Tegeler See test was a false positive and final visual inspection found the lake and a major Havel segment obscured by downstream keep-outs or bridges."},
+    {"code": "MULTISOURCE_HYDROGRAPHY_PENDING", "severity": "WARN", "message": "Official Berlin Gewässerkarte, BKG DLM250 and OSM references have been identified; immutable bounded derivatives, final-aperture agreement and Havel corridor controls must pass before replacement geometry."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Hash and bound the reacquired Berlin/Brandenburg sources and generate component-accounted water, transit and road layers.", "exit_criterion": "Both display extents are covered; water, transit and road ownership checks pass with Tegeler See nonzero."},
-    {"priority": 2, "action": "Compare aperture reinforcement candidates and generate the least-material connected geometry with a complete bridge manifest.", "exit_criterion": "Every half is connected, below the open-area cap and contains no unreported water deletion or blanket rib network."},
-    {"priority": 3, "action": "Package and exactly slice four native Anycubic 3MFs, then continue physical profile, coupon, watermark, wall and release gates.", "exit_criterion": "Revision 0.5.3 source, mesh, four-body and exact slice evidence passes without relying on historical 0.5.1 artifacts."}
+    {"priority": 1, "action": "Freeze bounded Berlin Gewässerkarte and BKG DLM250 references alongside OSM, then quantify named water agreement.", "exit_criterion": "Tegeler See and the full Berlin Havel corridor are present in at least two independent sources with immutable hashes and common-CRS bounds."},
+    {"priority": 2, "action": "Move the readable site-marker footprint to a dry address-anchored callout and regenerate only local structural bridges that do not erase named water.", "exit_criterion": "Final-aperture coverage and ordered Havel control-segment tests pass in both display modes while each half stays connected below the opening cap."},
+    {"priority": 3, "action": "Package and exactly slice four replacement native Anycubic 3MFs, then continue physical profile, coupon, watermark, wall and release gates.", "exit_criterion": "Revision 0.5.4 source, mesh, four-body and exact slice evidence passes and revision 0.5.3 remains explicitly rejected."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-ART-010",
-    "project_revision": "0.5.3",
+    "project_revision": "0.5.4",
     "basis_refs": [
       "design-spec.yaml",
       "multicolor-job.yaml",
@@ -225,9 +226,9 @@
       "decision-log.md",
       "autonomy-policy.json"
     ],
-    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced", "revision_051_rejected_for_missing_water_area_geometry", "all_mapped_water_reclassified_as_light_through_negative_geometry", "sky_blue_reassigned_from_motorway_accent_to_s_and_u_bahn_routes", "concept_v07_human_approved", "targeted_topology_bridge_strategy_human_approved", "rear_grid_and_blanket_ribs_prohibited", "revision_053_production_build_authorized"],
-    "previous_assessment_id": "PREFLIGHT-MM-ART-010-015",
+    "change_triggers": ["palette_reclassified_as_nongeometric_product_variant", "size_parameter_axis_reserved", "map_extent_parameterization_deferred", "parameterized_visible_site_marker_added", "official_address_point_frozen", "third_inventory_backed_palette_proposed", "concept_v05_human_approved", "revision_050_digital_candidate_r7_generated", "native_anycubic_projects_geometry_and_slice_validated", "metrimade_site_marker_replaces_metricreate", "site_marker_enlarged_for_2m_recognition_target", "concept_v06_pending", "concept_v06_human_approved", "revision_051_production_build_authorized", "revision_051_digital_candidate_r4_generated", "enlarged_metrimade_logo_coupon_generated_and_sliced", "revision_051_rejected_for_missing_water_area_geometry", "all_mapped_water_reclassified_as_light_through_negative_geometry", "sky_blue_reassigned_from_motorway_accent_to_s_and_u_bahn_routes", "concept_v07_human_approved", "targeted_topology_bridge_strategy_human_approved", "rear_grid_and_blanket_ribs_prohibited", "revision_053_production_build_authorized", "revision_053_rejected_after_final_water_visual_inspection", "multi_source_hydrography_and_final_aperture_regression_required", "address_marker_callout_must_not_delete_named_water"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-010-016",
     "created_at": "2026-08-31T16:44:58+02:00",
-    "updated_at": "2026-09-04T22:20:00+02:00"
+    "updated_at": "2026-09-04T23:08:00+02:00"
   }
 }

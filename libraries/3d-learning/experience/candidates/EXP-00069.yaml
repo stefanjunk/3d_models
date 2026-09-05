@@ -1,0 +1,136 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00069
+title: Portfolio intake backfill must preserve existing assessments and reject partial records
+captured_at: 2026-09-05
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: User requested the concrete backfill/portfolio fix; this E0 record is not promoted.
+feature:
+  type: portfolio preflight preservation
+  geometry: repository intake metadata; no manufacturing geometry changed
+  design_parameters: {}
+  named_datums: []
+  constraints:
+  - Preserve existing product-owned assessment bytes and declared assessed revisions.
+  - Invalid or incomplete existing records stop the global write before any mutation.
+  - Regenerated aggregates must match validated current records.
+scope:
+  process: Repository preflight/backfill tooling, Python, YAML/JSON and generated portfolio workbook
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: not applicable
+  environment: /home/stefan/Projekte/3d_models on main tracking origin/main
+  transfer_limits:
+  - Verified for this repository and nine regression scenarios; no physical or manufacturing inference.
+observation:
+  summary: Volute could not pass intake because the global backfill proposed changes to other products.
+  expected: Retain existing assessments and refresh only stale aggregates after targeted intake repair.
+  actual: The initial local dry-run proposed 198 paths; 106 mode comparisons rejected uppercase RETROSPECTIVE
+    links. After repair the repeated dry-run proposes zero changes and both portfolio validators pass for 116
+    products.
+  outcome: success
+  parameter: backfill changed paths
+  recommended_value: Zero on repeated unchanged-input dry-run; fail without writes on incomplete existing intake.
+  units: files
+explanation:
+  hypothesis: Case-sensitive workflow comparison and invalid-as-missing fallthrough caused retrospective regeneration;
+    inventory-derived revision comparison could also displace the assessed revision.
+  mechanism: Normalize only the supported mode comparison, validate existing records and links, preserve their
+    explicit revision, and precheck the full inventory before writes.
+  alternatives:
+  - Missing product companions, stale aggregate data and mismatched assessment links independently blocked
+    the same intake and required targeted reconciliation.
+  validated: true
+  validation_method: Nine temporary-repository regression tests, complete portfolio checks and SHA-256 preservation
+    comparison.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: true
+  measurement_method: Deterministic temporary-repository tests, before/after dry-run, schema/link validation
+    and SHA-256 file comparison
+  uncertainty: One repository incident; no runtime product design, print, physical or commercial validation.
+  sources:
+  - type: user-statement
+    ref: Workspace conversation on 2026-09-05
+    hash: null
+    notes: dann fixe es — requested correction of the Volute backfill/portfolio blocker.
+  - type: other
+    ref: products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/main-intake-repair-2026-09-05.json
+    hash: a1baad55e564621605ae4d32c1bb5608dc820af752803a2746ea2b2c1d735b25
+    notes: Baseline failure, imported immutable intake source, scoped repairs and validation results.
+  artifacts:
+  - products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/main-intake-repair-2026-09-05.json
+applicability:
+  triggers:
+  - Portfolio backfill or intake refresh with existing prospective/retrospective records
+  exclusions:
+  - New measurements or reassessments
+  - Physical and commercial approval
+  transfer_limits:
+  - Other portfolios need their own schemas and ownership rules.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related:
+  - EXP-00048
+  - EXP-00068
+  evals:
+  - EVAL-core-backfill-preserve-current-intake-001
+  patterns: []
+  references:
+  - tools/backfill_product_preflights.py
+  - tools/validate_product_preflight_portfolio.py
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+  - products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/main-intake-repair-2026-09-05.json
+provenance:
+  project: MM-ART-012
+  part_revision: 0.1.0-intake-repair
+  trace: products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/main-intake-repair-2026-09-05.json
+  source_commit: 47ac9078004a82bccd3bdea79c8ae31d83661067
+  created_by: Codex
+tags:
+- workflow
+- portfolio
+- preflight
+- preservation
+- idempotence
+- user-correction

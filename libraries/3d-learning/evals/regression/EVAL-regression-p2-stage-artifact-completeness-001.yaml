@@ -1,0 +1,63 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-p2-stage-artifact-completeness-001
+title: Every portfolio P2 product has a complete revision-bound content and 3MF handoff
+category: regression
+status: draft
+trigger: A portfolio record is assigned or retained at a lifecycle stage beginning with P2.
+risk: A lifecycle label can imply digital readiness while the product lacks listing context, distinguishable concept/model evidence, one or more print parts, or an encoded orientation/support decision.
+given:
+  portfolio: business/02-portfolio/product-portfolio.csv
+  required_manifest: p2-stage/p2-manifest.json below each P2 product root
+  required_artifacts: English product description, whole-product concept image, separate current-model render, complete 3MF print set
+  manufacturing_evidence: revision-specific print-object list, build orientation and support decision
+expected:
+  - Every current P2 row resolves to a product-local P2 manifest with matching record ID, SKU, revision and lifecycle stage.
+  - The English Markdown description, concept image, render and 3MF exist and match their recorded SHA-256 hashes.
+  - Concept and render are distinct; the concept is whole-product evidence and remains required under auto approval.
+  - The declared print-object quantity equals the actual 3MF project-object count and is asserted complete for the named revision.
+  - Orientation is recorded in build transforms or destination-slicer project data, and support mode is embedded or linked to exact hash-bound profiles and a passing slicer report.
+  - Any product that cannot meet the contract is below P2 with a documented return gate.
+failure_conditions:
+  - A current P2 row has no manifest or any required artifact is missing, stale, outside its product root or hash-mismatched.
+  - The description is not English development copy or contains placeholders.
+  - Concept and render are identical, or auto approval is used as a reason to omit the concept image.
+  - The 3MF is a coupon, isolated part or incomplete subset while the product declares additional printed parts.
+  - Declared and actual 3MF object quantities differ, package relationships are invalid, or the support/orientation decision is absent.
+  - A failed row remains labelled P2 rather than being corrected below P2.
+fixtures:
+  - business/02-portfolio/product-portfolio.csv
+  - business/02-portfolio/p2-stage-source-plan.json
+  - business/02-portfolio/p2-stage-audit.json
+  - .agents/skills/validate-printable-3d-projects/assets/p2-stage-manifest.schema.json
+  - .agents/skills/validate-printable-3d-projects/scripts/fdm_validation/p2stage.py
+grader:
+  type: deterministic
+  command: python3 -B business/tools/audit_p2_stage.py --json-out /tmp/metrimade-p2-stage-eval.json --markdown-out /tmp/metrimade-p2-stage-eval.md
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Revalidate each current portfolio P2 manifest and its four hash-bound artifacts, inspect 3MF package/object data, and fail when any row does not pass.
+relationships:
+  lessons:
+    - EXP-00067
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: reports/skill-evals/p2-stage-artifact-completeness-20260905.json
+  artifact_hashes:
+    - e374ca87ef1feedccd2353a3e01a65caba820b1cf66b01f14aec3dfdc60e1659
+    - b717f408bd9b0d873628cb55abaf88b94d5d252db2874cc8f90b1450e72e027f
+    - ebc381eb4fbb6044306cc0c1b5ee9a5d54bce748439577b1523aa7afd732e2d6
+    - 8c831c69a8b4f368cc14eab493d201af311f9247c3c4d4d17fe2f5e768956cd4
+tags:
+  - regression
+  - p2
+  - portfolio
+  - concept-image
+  - english-description
+  - render
+  - 3mf
+  - orientation
+  - support
+  - user-correction

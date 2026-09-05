@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "author-slicer-execution",
+      "message": "Anycubic Slicer Next created the local 3MF project",
+      "metrics": {
+        "return_code": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "author-support-setting",
+      "message": "Embedded support setting matches the requested mode",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf",
+      "sha256": "0457d49ac630ad63318ba79131fe878ac1a862656db5cf8d1d302c887acf2a11",
+      "size_bytes": 5276
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "6bfe04a34c1c2d1ff6930bd11e698c2d7721bb42e64aceefda7795a7d8ff0c7e",
+      "size_bytes": 8525
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab",
+      "size_bytes": 10950
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b",
+      "size_bytes": 5982
+    }
+  ],
+  "limitations": [
+    "The export authors a local slicer project only; it does not upload or start a print.",
+    "Arrangement preserves source rotations but still requires product-specific confirmation that the selected sources are complete and correctly oriented."
+  ],
+  "metrics": {
+    "embedded_enable_support": "0",
+    "invocation": [
+      "AnycubicSlicerNext",
+      "--datadir",
+      "/tmp/metrimade-p2-3mf-47139qsx/slicer-state",
+      "--load-settings",
+      "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json;/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-filaments",
+      "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-defaultfila",
+      "--ensure-on-bed",
+      "--arrange",
+      "1",
+      "--export-3mf",
+      "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-034-snap-on-journal-pen-loop/p2-stage/MM-ORG-034-0.1.0-draft.2-print-set.3mf",
+      "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf"
+    ],
+    "output": {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-034-snap-on-journal-pen-loop/p2-stage/MM-ORG-034-0.1.0-draft.2-print-set.3mf",
+      "sha256": "163a5f3824b604bb5fbeb00e8fd25e1928f2ebcef2adf1a4f600b318a839a94f",
+      "size_bytes": 16820
+    },
+    "profiles": {
+      "filament": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b"
+      },
+      "machine": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "6bfe04a34c1c2d1ff6930bd11e698c2d7721bb42e64aceefda7795a7d8ff0c7e"
+      },
+      "process": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab"
+      }
+    },
+    "settings_ids": {
+      "filament_settings_id": [
+        "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle"
+      ],
+      "print_settings_id": "0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+      "printer_settings_id": "Anycubic Kobra 3 Max 0.4 nozzle"
+    },
+    "slicer": {
+      "executable": "AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "version": "1.3.9.4"
+    },
+    "sources": [
+      {
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-034-snap-on-journal-pen-loop/exports/3mf/DRAFT-MM-ORG-034-petg-clip-kit-0.1.0-draft.2.3mf",
+        "sha256": "0457d49ac630ad63318ba79131fe878ac1a862656db5cf8d1d302c887acf2a11"
+      }
+    ],
+    "stderr": "",
+    "stdout": "[2026-09-05 18:11:00.719517] [0x00007f66220a0fc0] [trace]   Initializing StaticPrintConfigs\n",
+    "support_mode": "disabled"
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "author-anycubic-3mf",
+  "tool_version": "1.3.0"
+}

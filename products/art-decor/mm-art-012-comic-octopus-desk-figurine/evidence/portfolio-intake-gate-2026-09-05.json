@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "product_id": "MM-ART-012",
+  "checked_at": "2026-09-05T18:42:00+02:00",
+  "branch": "stefanjunk/product-comic-octopus-figurine",
+  "origin_main_commit": "f52b2575",
+  "checks": {
+    "portfolio_csv_record": {
+      "record_id": "PORT-116",
+      "status": "PASS"
+    },
+    "portfolio_xlsx_record": {
+      "sku": "MM-ART-012",
+      "xml_member": "xl/worksheets/sheet2.xml",
+      "status": "PASS"
+    },
+    "preflight_validation": {
+      "assessment_id": "PREFLIGHT-MM-ART-012-002",
+      "assessment_version": "0.1.1",
+      "status": "PASS"
+    },
+    "backfill_dry_run": {
+      "command": "python tools/backfill_product_preflights.py",
+      "products_scanned": 116,
+      "changed_files_proposed": 183,
+      "includes_unrelated_product_paths": true,
+      "status": "BLOCK"
+    },
+    "aggregate_portfolio_validation": {
+      "command": "python tools/validate_product_preflight_portfolio.py",
+      "status": "FAIL",
+      "product_specific_open_item": "aggregate audit identity, revision and scorecard are stale for MM-ART-012",
+      "unrelated_errors_present": true
+    }
+  },
+  "decision": "BLOCK_CONCEPT_GENERATION",
+  "rationale": "The product-intake procedure requires stopping when the dry-run proposes changes to another product. Running the global write or modifying shared aggregate records from this product feature branch would violate path ownership and could overwrite concurrent work.",
+  "next_action": "A clean main-only integration task must reconcile the global backfill changes, refresh the aggregate audit/readiness/workbook artifacts, run both portfolio validators, and then synchronize this product branch before concept generation.",
+  "prohibited_actions_while_blocked": [
+    "python tools/backfill_product_preflights.py --write from this feature branch",
+    "manual edits to shared aggregate portfolio artifacts from this feature branch",
+    "concept image generation",
+    "Step1X-3D generation"
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "product_id": "MM-ART-012",
+  "checked_at": "2026-09-05",
+  "scope": "Main-only portfolio intake reconciliation; no generated geometry, print, release, branch merge or workspace cleanup.",
+  "baseline_main_commit": "47ac9078004a82bccd3bdea79c8ae31d83661067",
+  "baseline_validation": {
+    "validator": "product-preflight-portfolio",
+    "products": 116,
+    "purpose_documents": 116,
+    "preflight_results": 116,
+    "archive_moves_verified": 42,
+    "documented_root_exceptions": 3,
+    "errors": [
+      "art-decor/mm-art-010-modular-city-map-wall-panel: workflow.preflight.assessment_id mismatch",
+      "art-decor/mm-art-010-modular-city-map-wall-panel: workflow.preflight.assessment_version mismatch",
+      "art-decor/mm-art-010-modular-city-map-wall-panel: workflow.preflight.assessed_project_revision mismatch",
+      "art-decor/mm-art-010-modular-city-map-wall-panel: aggregate audit scorecard is stale",
+      "art-decor/mm-art-010-modular-city-map-wall-panel: aggregate audit identity/revision is stale",
+      "art-decor/mm-art-012-comic-octopus-desk-figurine: missing preflight/preflight-input.yaml",
+      "art-decor/mm-art-012-comic-octopus-desk-figurine: missing preflight/preflight-report.md",
+      "art-decor/mm-art-012-comic-octopus-desk-figurine: missing design-spec.yaml",
+      "home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter: purpose is not explicit or still contains TODO",
+      "organization-storage/mm-org-003-modern-carbon-desk-organizer: aggregate audit scorecard is stale",
+      "organization-storage/mm-org-003-modern-carbon-desk-organizer: aggregate audit identity/revision is stale",
+      "organization-storage/mm-org-041-octopus-cable-wrap-organizer: aggregate audit identity/revision is stale",
+      "organization-storage/mm-org-042-din-a6-postcard-archive-divider-set: missing preflight/preflight-input.yaml",
+      "organization-storage/mm-org-042-din-a6-postcard-archive-divider-set: missing preflight/preflight-report.md",
+      "organization-storage/mm-org-043-euro-coin-pocket-emptying-tray: missing preflight/preflight-input.yaml",
+      "organization-storage/mm-org-043-euro-coin-pocket-emptying-tray: missing preflight/preflight-report.md",
+      "organization-storage/mm-org-044-tree-frog-bookmark-reading-clip: purpose is not explicit or still contains TODO",
+      "backfill is not idempotent: 198 files would change"
+    ],
+    "passed": false
+  },
+  "baseline_dry_run": {
+    "products": 116,
+    "changed_files_proposed": 198,
+    "mode_case_mismatches": 106
+  },
+  "root_causes": [
+    "Current assessment detection compared an uppercase mode with a lowercase-only workflow expectation.",
+    "An inventory-derived revision could displace the explicit assessed revision.",
+    "A missing companion or invalid assessment fell through to retrospective regeneration.",
+    "Aggregate data and several product intake companion/link records were incomplete or stale."
+  ],
+  "repairs": {
+    "assessment_preservation": "115 of 116 preflight-result.json files unchanged against start-of-task SHA-256 values; only MM-ART-012 replaces its reservation with the published prospective assessment.",
+    "city_preflight": "The pre-existing reassessment remains byte-identical; the design-spec link now names its identity/version/revision. This existing source is included in the fix to keep remote aggregates consistent.",
+    "missing_companions": [
+      "MM-ORG-042",
+      "MM-ORG-043"
+    ],
+    "octopus_source_commit": "557f5347",
+    "octopus_imports": [
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/PURPOSE.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/01-sources/source-register.csv",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/02-tools/TOOL-ONBOARDING.checklist.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/02-tools/evidence/TOOL-0001-codex-runtime.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/02-tools/tool-register.csv",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/03-components/component-register.csv",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/04-authorship/human-contribution-log.csv",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/04-authorship/versions/HUMAN-0002-requirements-approval.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/05-clearance/CONTRIBUTOR-IP-AGREEMENT.checklist.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/05-clearance/MARKET-LAUNCH.checklist.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/05-clearance/MODEL-AND-PROPERTY-RELEASE.checklist.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/05-clearance/market-matrix.csv",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/06-engineering/PRODUCT-TECHNICAL-FILE.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/07-release/AI-DISCLOSURE.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/07-release/COMMERCIAL-MODEL-LICENSE.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/07-release/THIRD-PARTY-NOTICES.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/07-release/provenance.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/08-approvals/release-approval.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/project.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/decision-log.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/design-spec.yaml",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/portfolio-intake-gate-2026-09-05.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/interfaces/IF-HUM-GEO-CON-FREEFORM-001.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/preflight-input.yaml",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/preflight-report.md",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/preflight-result.json",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/04-authorship/geometry-watermark.scad",
+      "products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance/reports/commercial-release-audit.md"
+    ],
+    "aggregate_updates": [
+      "products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json",
+      "products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.md",
+      "business/02-portfolio/readiness-advancement-register.csv",
+      "business/02-portfolio/product-portfolio.xlsx"
+    ]
+  },
+  "checks": {
+    "regressions": {
+      "command": "python -m unittest discover -s tools/tests -p 'test_backfill_product_preflights.py' -v",
+      "exit_code": 0,
+      "tests": 9,
+      "status": "PASS"
+    },
+    "product_preflight_portfolio": {
+      "command": "python tools/validate_product_preflight_portfolio.py",
+      "exit_code": 0,
+      "products": 116,
+      "status": "PASS"
+    },
+    "backfill_repeat": {
+      "changed_files": 0,
+      "status": "PASS"
+    },
+    "octopus_design_spec": {
+      "command": "python .agents/skills/functional-3d-design/scripts/validate_design_spec.py products/art-decor/mm-art-012-comic-octopus-desk-figurine/design-spec.yaml --require-current-preflight",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    "workbook_overlay": {
+      "command": "python business/tools/validate_portfolio_preflight_overlay.py",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  },
+  "remaining_gates": [
+    "Volute must synchronize origin/main and repeat the intake checks in its feature worktree.",
+    "Concept image review remains human-controlled; Step1X, printing and commercial release have not been approved by this repair."
+  ],
+  "artifact_sha256": {
+    "tools/backfill_product_preflights.py": "53d7192c3df222ec37e04ab6f4fa2d6c1aa88d44978ba134d1266134192203a1",
+    "tools/validate_product_preflight_portfolio.py": "8b5c38666c795adfddd50308b49d753cfca513d7a9eafb224eaae14d409b9a7c",
+    "tools/tests/test_backfill_product_preflights.py": "f41e9fd96a0cf5ef2b45796e948aad491ea88b0cf6fad2d0ae5703137c101f22",
+    "products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.json": "b4444f2c864a596fa6b84df41be3138a396d16dbf32a88849055a633bf7a40fc",
+    "products/PRODUCT-PREFLIGHT-AUDIT-2026-08-31.md": "81363c3585f5d44c96c6dad1d51badfde466e02846888ce08a062af7b1479b4f",
+    "business/02-portfolio/readiness-advancement-register.csv": "6777e8d8b08e8647440936b80abf3ff0b8e8f0ba95949e6a65ef7b152b380149",
+    "business/02-portfolio/product-portfolio.xlsx": "993de5948ad8f1c11ff70a51de5e770e529130ab117ef51dee75c733d8be929f",
+    "products/art-decor/mm-art-012-comic-octopus-desk-figurine/preflight/preflight-result.json": "4eb478dd7aba6fcd7f6d1d8591e82d9bdb65bb7e48acd075fb54a0d4c2a8911a"
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "361c0a9aee6810390f119af8e3ba007a0623a75cc7cebb93e36924d2072cd5b8",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/p2-stage/product-description.en.md",
+        "sha256": "361c0a9aee6810390f119af8e3ba007a0623a75cc7cebb93e36924d2072cd5b8"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "853def971fb453ce0cbb109253003732959f0e48bde081eeaeff89707a1d25a7",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/assets/concept/MM-ORG-004-concept-v1.svg",
+        "sha256": "853def971fb453ce0cbb109253003732959f0e48bde081eeaeff89707a1d25a7"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "1eb6dc26606ad82697dc912076a844e4cf520e35ee545f196146898d7a677004",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/renders/MM-ORG-004-digital-candidate.png",
+        "sha256": "1eb6dc26606ad82697dc912076a844e4cf520e35ee545f196146898d7a677004"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "8e67e1c0c8575b0f08c85f3f7fb3eb1389b72c7a62714a378166babb5c115945",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/p2-stage/MM-ORG-004-0.1.0-draft.1-print-set.3mf",
+        "sha256": "8e67e1c0c8575b0f08c85f3f7fb3eb1389b72c7a62714a378166babb5c115945"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 116
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 5
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 5; declared quantity 5",
+      "metrics": {
+        "actual": 5,
+        "declared": 5
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/p2-stage/p2-manifest.json",
+      "sha256": "63103d8c7f085894852581016c071cca2bb943b3d126e54212f194cecc5a186a",
+      "size_bytes": 2319
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-004-modular-desktop-tray-system/p2-stage/MM-ORG-004-0.1.0-draft.1-print-set.3mf",
+      "sha256": "8e67e1c0c8575b0f08c85f3f7fb3eb1389b72c7a62714a378166babb5c115945",
+      "size_bytes": 268862
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 5,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "Modular Desktop Tray System",
+      "record_id": "PORT-059",
+      "revision": "0.1.0-draft.1",
+      "root": "..",
+      "sku": "MM-ORG-004"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

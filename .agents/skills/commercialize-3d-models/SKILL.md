@@ -49,6 +49,15 @@ provenance records here remain authoritative for the detailed license chain.
 Explicit `UNKNOWN` keeps the chain truthful but blocks the affected release
 gate; portfolio registration never means rights clearance.
 
+Before a product is recorded at P2, retain a separate English draft product
+description, the whole-product concept image, a render of the current model,
+and the complete oriented/support-planned 3MF print set in the product's
+hash-bound `p2-stage/p2-manifest.json`. The English description is controlled
+development content, not approved storefront copy; it must state draft
+limitations and must not imply physical, rights, safety, or commercial
+qualification. Concept and rendered images are separate assets and retain
+their own source/tool/provenance records.
+
 ## Establish Scope Before Clearance
 
 Collect:

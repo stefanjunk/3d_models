@@ -1,0 +1,163 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00067
+title: P2 needs a revision-bound content and manufacturing handoff, not only a model-status label
+captured_at: 2026-09-05
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: "The rule is structurally validated across the 78 current P2 products, but future-project compliance and physical usefulness of the packaged orientation/support choices still need longitudinal evidence."
+feature:
+  type: P2 lifecycle artifact and manufacturing-handoff gate
+  geometry: cross-product FFF/FDM workflow; not geometry-specific
+  design_parameters:
+    required_artifact_count: 4
+    description_language: en
+    concept_scope: whole-product
+    render_basis: current-model
+    print_set_format: 3mf
+    complete_print_parts_required: true
+    orientation_decision_required: true
+    support_decision_required: true
+  named_datums: []
+  constraints:
+    - The English description, concept image, current-model render and complete 3MF are separate hash-bound artifacts for one named revision.
+    - Concept auto approval changes the reviewer, never the requirement to create and retain the concept image.
+    - A retrospective concept sheet closes only a legacy inventory gap and does not claim prior concept approval.
+    - The 3MF contains every intended printed part and quantity and preserves the chosen orientation and support mode.
+    - Failure of any required artifact demotes or retains the product below P2.
+scope:
+  process: FFF/FDM digital-candidate workflow
+  machine:
+    manufacturer: Anycubic for the audited portfolio handoff
+    model: Kobra 3 Max for newly authored remediation projects
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: mixed
+    product: PLA, PETG and TPU profile families
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: mixed or unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: revision-specific source orientation preserved and placed on the destination-slicer build plate
+  slicer:
+    name: Anycubic Slicer Next
+    version: 1.3.9.4
+    profile: product-specific or recorded workspace reference profile
+    profile_hash: null
+  geometry_class: mixed functional, decorative and hybrid printable products
+  environment: repository-wide P2 inventory remediation; digital evidence only
+  transfer_limits:
+    - The four-artifact gate is a repository workflow candidate, not evidence that a product is physically or commercially ready.
+    - Current orientation and support results are destination-slicer project decisions, not physical print qualification.
+    - Machine, material and profile choices remain product-specific outside this audited portfolio.
+observation:
+  summary: The portfolio used P2 labels without consistently requiring an English description, whole-product concept, current-model render and one complete print-ready 3MF.
+  expected: Every P2 row has all four revision-bound artifacts, and the 3MF records complete print-object coverage, orientation and support intent.
+  actual: Before remediation, 31 products lacked an identifiable concept image, eight lacked an identifiable current-model render, 28 lacked any 3MF, and only seven 3MF files carried destination-slicer project metadata; four products could not truthfully meet the complete-current-print-set requirement.
+  outcome: correction
+  parameter: lifecycle-stage entry contract
+  recommended_value: fail-closed P2 manifest plus deterministic portfolio audit
+  units: workflow contract
+explanation:
+  hypothesis: A single product-local manifest with artifact hashes, semantic roles and 3MF manufacturing decisions prevents a lifecycle label from outrunning its inspectable evidence.
+  mechanism: The P2 validator checks artifact existence and hashes, English description content, concept/render separation, declared versus actual 3MF object count, package structure, and embedded or linked support evidence; the portfolio audit reruns that validator for every current P2 row.
+  alternatives:
+    - Counting extensions alone was rejected because a coupon-only or incomplete 3MF can exist without representing the product.
+    - Reusing the current render as the concept was rejected because design intent and manufactured geometry have different evidence roles.
+    - Leaving deficient entries at P2 with TODO text was rejected because it preserves a false lifecycle claim.
+  validated: true
+  validation_method: Deterministic validation of 78 product-local manifests and 3MF packages plus a repository-wide portfolio audit; no physical printing was performed.
+evidence:
+  observations: 1
+  same_scope_repetitions: 78
+  geometry_count: 78
+  machine_count: 1
+  material_count: 3
+  nozzle_count: 1
+  measured: true
+  measurement_method: CSV-to-manifest identity comparison, SHA-256 verification, Markdown/image-role checks, 3MF package/XML/object-count inspection and embedded support-setting checks.
+  uncertainty: Object completeness is assessed against each named current revision and declared product scope; future scope changes require a new manifest and review.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-05 — mandatory P2 English description, concept, render and complete oriented/support-planned 3MF
+      hash: null
+      notes: Direct user correction, including the requirement that concept auto approval must not omit the concept image.
+    - type: other
+      ref: business/02-portfolio/p2-stage-audit.json
+      hash: e374ca87ef1feedccd2353a3e01a65caba820b1cf66b01f14aec3dfdc60e1659
+      notes: Repository-wide post-remediation audit; 78 pass, zero fail, four stage corrections.
+    - type: other
+      ref: business/02-portfolio/p2-stage-source-plan.json
+      hash: null
+      notes: Ordered source-selection and remediation record for the 82 entries audited from the pre-correction P2 population.
+  artifacts:
+    - .agents/skills/functional-3d-design/references/p2-stage-handoff.md
+    - .agents/skills/validate-printable-3d-projects/assets/p2-stage-manifest.schema.json
+    - .agents/skills/validate-printable-3d-projects/scripts/fdm_validation/p2stage.py
+    - .agents/skills/validate-printable-3d-projects/scripts/fdm_validation/p2author.py
+    - business/tools/prepare_p2_stage.py
+    - business/tools/audit_p2_stage.py
+    - business/02-portfolio/p2-stage-audit.json
+applicability:
+  triggers:
+    - A product is assigned, audited for, or retained at any lifecycle stage beginning with P2.
+    - A legacy P2 inventory is missing one of the four required artifact roles.
+    - Concept-stage authority is configured for automatic approval.
+    - A multipart or variant product needs a complete print-set assertion.
+  exclusions:
+    - P0/P1 concepts and source-only models that are explicitly not claimed as P2.
+    - Physical, safety, rights, appearance or commercial approval, which remain separate gates.
+  transfer_limits:
+    - Treat the rule as an E0 learning candidate even though it is immediately enforced in this repository at the user's direction.
+    - Do not transfer the Kobra 3 Max profiles or the current support decisions to another machine or product without exact evidence.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-regression-mandatory-product-concept-image-001
+    - EVAL-regression-p2-stage-artifact-completeness-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+    - business/02-portfolio/product-lifecycle-and-release-gates.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - reports/skill-evals/mandatory-product-concept-image-20260905.json
+    - reports/skill-evals/p2-stage-artifact-completeness-20260905.json
+    - business/02-portfolio/p2-stage-audit.json
+provenance:
+  project: WORKSPACE-P2-ARTIFACT-REMEDIATION
+  part_revision: 1.0.0
+  trace: business/02-portfolio/p2-stage-source-plan.json
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - workflow
+  - p2
+  - concept-image
+  - english-description
+  - render
+  - 3mf
+  - orientation
+  - support
+  - user-correction
+  - regression

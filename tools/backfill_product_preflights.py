@@ -14,6 +14,7 @@ import json
 import math
 import os
 import re
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -27,6 +28,9 @@ PRODUCTS_ROOT = REPO_ROOT / "products"
 ASSESSMENT_DATE = "2026-08-31"
 ASSESSMENT_VERSION = "0.1.0"
 UNKNOWN_REVISION = "UNVERSIONED-CURRENT"
+
+sys.path.insert(0, str(REPO_ROOT / ".agents/skills/3d-design-preflight/scripts"))
+from validate_preflight import validate_document  # noqa: E402
 
 PRUNED_DIRS = {
     ".git",
@@ -1185,56 +1189,64 @@ def verify_archive_moves() -> list[str]:
 
 
 def existing_current_result(ctx: ProductContext) -> dict[str, Any] | None:
-    """Preserve a product-owned preflight that has superseded the retrospective backfill."""
+    """Preserve existing assessments; an invalid intake is never a missing one."""
     purpose_path = ctx.root / "PURPOSE.md"
     result_path = ctx.root / "preflight/preflight-result.json"
     input_path = ctx.root / "preflight/preflight-input.yaml"
     report_path = ctx.root / "preflight/preflight-report.md"
     spec_path = ctx.root / "design-spec.yaml"
-    if not all(path.is_file() for path in (purpose_path, result_path, input_path, report_path, spec_path)):
+    if not result_path.exists():
+        workflow = nested_get(safe_yaml(spec_path), "workflow", "preflight") if spec_path.is_file() else None
+        if input_path.exists() or report_path.exists() or workflow:
+            raise ValueError(f"{ctx.key}: existing preflight companions/link have no result")
         return None
+    missing = [path.relative_to(ctx.root).as_posix() for path in
+               (purpose_path, result_path, input_path, report_path, spec_path) if not path.is_file()]
+    if missing:
+        raise ValueError(f"{ctx.key}: existing preflight has missing companions: {', '.join(missing)}")
     purpose = purpose_path.read_text(encoding="utf-8", errors="replace")
-    if not purpose.startswith("# Purpose — ") or "TODO" in purpose:
-        return None
+    if not valid_purpose(purpose):
+        raise ValueError(f"{ctx.key}: purpose needs a title and non-placeholder description")
     try:
         result = json.loads(result_path.read_text(encoding="utf-8"))
         spec = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError, yaml.YAMLError):
-        return None
+    except (OSError, json.JSONDecodeError, yaml.YAMLError) as exc:
+        raise ValueError(f"{ctx.key}: unreadable existing preflight/spec: {exc}") from exc
     if not isinstance(result, dict) or not isinstance(spec, dict):
-        return None
+        raise ValueError(f"{ctx.key}: existing preflight and spec must be objects")
+    errors, _ = validate_document(result, expected_project_id=ctx.project_id)
+    if errors:
+        raise ValueError(f"{ctx.key}: invalid existing preflight: {'; '.join(errors)}")
     trace = result.get("traceability")
     workflow = nested_get(spec, "workflow", "preflight")
     if not isinstance(trace, dict) or not isinstance(workflow, dict):
-        return None
-    required_score_paths = (
-        nested_get(result, "complexity", "class"),
-        nested_get(result, "complexity", "score_0_100"),
-        nested_get(result, "readiness", "level"),
-        nested_get(result, "criticality", "level"),
-        nested_get(result, "decision", "lane"),
-        nested_get(result, "decision", "confidence"),
-        nested_get(result, "decision", "design_release"),
-    )
-    if any(value is None for value in required_score_paths):
-        return None
+        raise ValueError(f"{ctx.key}: workflow.preflight link missing")
     expected_workflow = {
         "status": "current",
         "artifact": "preflight/preflight-result.json",
-        "mode": str(trace.get("mode", "")).lower(),
+        "mode": trace["mode"].upper(),
         "assessment_id": result.get("assessment_id"),
         "assessment_version": result.get("assessment_version"),
         "assessed_project_revision": trace.get("project_revision"),
     }
-    if any(workflow.get(field) != value for field, value in expected_workflow.items()):
-        return None
-    if trace.get("mode") not in {"RETROSPECTIVE", "PROSPECTIVE"}:
-        return None
-    if trace.get("project_id") != ctx.project_id or str(trace.get("project_revision")) != str(ctx.revision):
-        return None
+    mismatched = [field for field, value in expected_workflow.items()
+                  if (str(workflow.get(field, "")).upper() if field == "mode"
+                      else workflow.get(field)) != value]
+    if mismatched:
+        raise ValueError(f"{ctx.key}: stale workflow.preflight fields: {', '.join(mismatched)}")
+    # A validated product-owned preflight is the authority for its assessed
+    # revision.  The inventory context derives a revision heuristically from
+    # every file below the product root; adding a later render, P2 package, or
+    # other evidence must not make the backfill overwrite that current record.
     if not trace.get("basis_refs"):
-        return None
+        raise ValueError(f"{ctx.key}: existing preflight has no basis refs")
     return result
+
+
+def valid_purpose(text: str) -> bool:
+    """Allow product-authored headings while rejecting empty/scaffold documents."""
+    title, _, body = text.strip().partition("\n")
+    return title.startswith("# ") and bool(body.strip()) and "TODO" not in text
 
 
 def process_product(ctx: ProductContext, write: bool) -> tuple[dict[str, Any], list[str]]:
@@ -1281,7 +1293,7 @@ def portfolio_audit(contexts: list[ProductContext], results: dict[str, dict[str,
         entries.append({
             "product": ctx.key,
             "project_id": ctx.project_id,
-            "revision": ctx.revision,
+            "revision": result["traceability"]["project_revision"],
             "purpose_document": "PURPOSE.md",
             "preflight_result": "preflight/preflight-result.json",
             "scorecard": {
@@ -1302,7 +1314,7 @@ def portfolio_audit(contexts: list[ProductContext], results: dict[str, dict[str,
     return {
         "audit_id": "PRODUCT-PREFLIGHT-AUDIT-2026-08-31",
         "generated_at": generated_at,
-        "scope": "Every products/<family>/<product> directory present on 2026-08-31",
+        "scope": "Current products/<family>/<product> inventory; product-owned preflights remain authoritative",
         "product_count": len(contexts),
         "purpose_document_count": len(contexts),
         "preflight_document_count": len(contexts),
@@ -1331,13 +1343,14 @@ def portfolio_markdown(audit: dict[str, Any]) -> str:
 
 - Products audited: **{audit['product_count']}**
 - Explicit `PURPOSE.md` documents: **{audit['purpose_document_count']}**
-- Retrospective preflight document sets: **{audit['preflight_document_count']}**
+- Preflight document sets: **{audit['preflight_document_count']}**
 - Older/legacy entries moved into product-local `archive/`: **{audit['archive_move_count']}**
 - Roots requiring human review because of pre-existing dirty or ambiguous content: **{audit['root_review_required_count']}**
 
-Every preflight is a current retrospective assessment of repository evidence,
-not a reconstruction of the state before design began. A `HOLD` is an explicit
-result, not a validation failure of the document.
+Each product retains its own prospective or retrospective assessment and
+assessed revision. Missing assessments are backfilled retrospectively from
+repository evidence. A `HOLD` is an explicit result, not a validation failure
+of the document; the aggregate does not grant design or release approval.
 
 ## Root review exceptions
 
@@ -1371,6 +1384,21 @@ def main() -> int:
     generated_at = generated_at or datetime.now().astimezone().replace(microsecond=0).isoformat()
     contexts = [build_context(product, generated_at) for product in product_dirs()]
     archive_errors = verify_archive_moves()
+    # Check the entire inventory before the first write. A broken product-owned
+    # record must not cause a partial rewrite of other products or the aggregate.
+    errors: list[str] = []
+    for ctx in contexts:
+        try:
+            existing_current_result(ctx)
+        except (ValueError, OSError) as exc:
+            errors.append(str(exc))
+    if errors or archive_errors:
+        print(json.dumps({
+            "mode": "write" if args.write else "dry-run",
+            "products": len(contexts), "changed_files": 0, "changed_paths": [],
+            "blocked": True, "errors": errors, "archive_errors": archive_errors,
+        }, indent=2, ensure_ascii=False))
+        return 1
     results: dict[str, dict[str, Any]] = {}
     changed: list[str] = []
     for ctx in contexts:

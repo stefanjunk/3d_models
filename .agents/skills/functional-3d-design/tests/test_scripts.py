@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -112,6 +113,24 @@ def pending_preflight_fixture() -> dict:
         "assessed_project_revision": None,
         "updated_at": None,
         "change_triggers": [],
+    }
+
+
+def write_concept_fixture(project_root: Path) -> dict:
+    concept = project_root / "concept" / "concept-product-v1.0.0-r1.png"
+    concept.parent.mkdir(parents=True, exist_ok=True)
+    concept.write_bytes(b"\x89PNG\r\n\x1a\nunit-test-concept")
+    digest = hashlib.sha256(concept.read_bytes()).hexdigest()
+    record = project_root / "evidence" / "concept-image-record.json"
+    record.parent.mkdir(parents=True, exist_ok=True)
+    record.write_text(
+        json.dumps({"image": {"file": "concept/concept-product-v1.0.0-r1.png", "sha256": digest}}),
+        encoding="utf-8",
+    )
+    return {
+        "asset": "concept/concept-product-v1.0.0-r1.png",
+        "asset_sha256": digest,
+        "asset_sha256_record": "evidence/concept-image-record.json",
     }
 
 
@@ -417,9 +436,36 @@ class ScriptTests(unittest.TestCase):
             self.assertFalse(result["passed"])
             self.assertTrue(any("concept" in error for error in result["errors"]))
 
+    def test_design_spec_rejects_approved_concept_without_image_hash_record(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            spec = root / "design-spec.json"
+            spec.write_text(json.dumps({
+                "project": {"id": "MM-CONCEPT-TEST", "revision": "1.0.0"},
+                "workflow": {
+                    "preflight": write_current_preflight(root, "MM-CONCEPT-TEST", "1.0.0"),
+                    "requirements_approval": {"status": "approved", "spec_revision": "1.0.0", "approved_by": "test"},
+                    "concept_approval": {"status": "approved", "spec_revision": "1.0.0", "asset": "missing.png", "approved_by": "agent:test"},
+                    "watermark_approval": watermark_approval_fixture("MM-CONCEPT-TEST", "1.0.0"),
+                },
+                "branding": branding_fixture("MM-CONCEPT-TEST", "1.0.0"),
+                "function": {"summary": "Exercise mandatory concept-image evidence."},
+                "risk": {"class": "normal-functional"},
+                "fabrication": {"preference": "balanced-hybrid"},
+                "printer": {"build_volume_mm": [250, 250, 250]},
+                "manufacturing": {"material": "petg", "nozzle_mm": 0.4},
+                "optimization": completed_optimization_fixture(),
+                "acceptance": [{"id": "concept-image", "criterion": "Concept approval binds an image."}],
+            }), encoding="utf-8")
+            result = run_json("validate_design_spec.py", str(spec), expected=1)
+            self.assertFalse(result["passed"])
+            self.assertTrue(any("concept image" in error for error in result["errors"]))
+            self.assertTrue(any("asset_sha256" in error for error in result["errors"]))
+
     def test_final_release_requires_approved_watermark(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
+            concept = write_concept_fixture(root)
             spec = root / "design-spec.json"
             spec.write_text(json.dumps({
                 "project": {"id": "MM-RELEASE-TEST", "revision": "1.0.0"},
@@ -433,8 +479,8 @@ class ScriptTests(unittest.TestCase):
                     "concept_approval": {
                         "status": "approved",
                         "spec_revision": "1.0.0",
-                        "asset": "concept.png",
                         "approved_by": "test-user",
+                        **concept,
                     },
                     "watermark_approval": watermark_approval_fixture(
                         "MM-RELEASE-TEST", "1.0.0", "pending"
@@ -479,13 +525,14 @@ class ScriptTests(unittest.TestCase):
     def test_final_release_rejects_pending_optimization(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
+            concept = write_concept_fixture(root)
             spec = root / "design-spec.json"
             spec.write_text(json.dumps({
                 "project": {"id": "MM-OPT-TEST", "revision": "1.0.0"},
                 "workflow": {
                     "preflight": write_current_preflight(root, "MM-OPT-TEST", "1.0.0"),
                     "requirements_approval": {"status": "approved", "spec_revision": "1.0.0", "approved_by": "test"},
-                    "concept_approval": {"status": "approved", "spec_revision": "1.0.0", "asset": "concept.png", "approved_by": "test"},
+                    "concept_approval": {"status": "approved", "spec_revision": "1.0.0", "approved_by": "test", **concept},
                     "watermark_approval": watermark_approval_fixture(
                         "MM-OPT-TEST", "1.0.0", "approved"
                     ),

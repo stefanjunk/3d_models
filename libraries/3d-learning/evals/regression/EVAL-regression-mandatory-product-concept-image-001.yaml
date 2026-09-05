@@ -1,0 +1,57 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-mandatory-product-concept-image-001
+title: Every product has a hash-bound whole-product concept image before concept approval
+category: regression
+status: draft
+trigger: A product enters Gate 0B, including a run whose concept stage is assigned to an agent for automatic approval.
+risk: Auto approval or an appearance-generation workflow can skip the product concept image, reuse an isolated Step1X input plate, or approve an image path that is missing or no longer matches its recorded hash.
+given:
+  gate: workflow.concept_approval in the product design specification
+  autonomy_stage: concept
+  required_artifact: versioned product-local image showing the complete product intent
+  provenance: exact image SHA-256 plus a product-local prompt or render-basis record
+expected:
+  - Every independently managed product reaching pending or approved Gate 0B names an existing supported image inside its own product folder.
+  - The design specification records the exact image SHA-256 and links a provenance record containing the same path and hash.
+  - The image shows the complete product and the use context or additional view needed to understand its function.
+  - A Step1X generation plate or raw-mesh preview remains separately classified and does not substitute for the whole-product concept image.
+  - Agent auto approval requires both an attestation and the image itself as ledger evidence, so the event binds the actual file hash.
+  - Human concept-approval requests likewise include the image itself as hash-bound evidence.
+  - The concept remains labelled as concept evidence and is never promoted to dimensional, fit, strength, safety, printability or product-photograph evidence.
+failure_conditions:
+  - The concept stage reaches AUTO_APPROVED or HUMAN_APPROVED without a supported image in its evidence rows.
+  - An approved or pending concept references a missing image, an out-of-product path, an invalid or stale SHA-256, or a provenance record that omits the same path and hash.
+  - The only image is an isolated organic preform, Step1X source plate, or raw mesh that omits the product's CAD-owned function or use context.
+  - Auto-approve configuration is interpreted as permission to skip concept-image creation.
+  - The image is presented as proof of the manufactured geometry or as a photograph of a real print.
+fixtures:
+  - .agents/skills/functional-3d-design/scripts/validate_design_spec.py
+  - .agents/skills/validate-printable-3d-projects/scripts/fdm_validation/autonomy.py
+  - products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/concept/concept-product-v0.2.0-r1.png
+  - products/organization-storage/mm-org-044-tree-frog-bookmark-reading-clip/concept/concept-product-v0.1.0-r1.png
+  - products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/concept/concept-product-v0.1.0-r1.png
+grader:
+  type: deterministic
+  command: python3 -m pytest .agents/skills/functional-3d-design/tests/test_scripts.py::ScriptTests::test_design_spec_rejects_approved_concept_without_image_hash_record .agents/skills/validate-printable-3d-projects/tests/test_core.py::CoreTests::test_auto_approved_concept_requires_hash_bound_image -q
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Exercise both the design-spec artifact gate and the autonomy-ledger gate with missing, wrong-type and valid image evidence.
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: reports/skill-evals/mandatory-product-concept-image-20260905.json
+  artifact_hashes:
+    - 7157804611234735f96875aba345b5837c07017ed178f365652cbe65de5b9e98
+    - 32a934dbf8bdb5064d54edc19522e7d6b4ad6a57213835167dbac83068a4f29d
+    - 118c00ee692e9acf56a6bee7e637e9b291c98c8825081daa2582e4326a514887
+tags:
+  - regression
+  - concept-image
+  - gate-0b
+  - auto-approval
+  - provenance
+  - user-correction

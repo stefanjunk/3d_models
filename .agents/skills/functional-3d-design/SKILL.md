@@ -76,18 +76,25 @@ Record every gate state under `workflow` in `design-spec.yaml`.
    `unresolved`. Ask only consequential questions, each with a recommended
    choice and its trade-off.
 2. **Concept** — visualize the approved specification revision and map visible
-   features back to requirements. Image labels are not authoritative; keep exact
-   dimensions in the text.
+   features back to requirements. Every independently managed product must have
+   a versioned, product-local image of the complete product; a Step1X input
+   plate, raw-mesh preview, or text-only attestation does not satisfy this gate.
+   Image labels are not authoritative; keep exact dimensions in the text.
 3. **Final release** — only after the production model is verified. Load the
    sibling `metrimade-release-marking` skill, which owns the mark entirely.
 
 The hash-bound autonomy policy decides which gate an agent may record through
 the agent ledger; otherwise request explicit human approval. Do not generate a
-concept image, CAD geometry, source, or manufacturing export before the assigned
-approval is recorded. Only a schema `1.1` policy created with
+concept image before requirements approval. Do not generate production CAD,
+source, or manufacturing exports before concept approval. Only a schema `1.1` policy created with
 `init-autonomy --preflight ...` is eligible for unattended Orca coordination.
 Final release, physical printing, fit/function, appearance, safety, and
 commercial stages remain human-controlled.
+
+Auto approval changes who reviews Gate 0B, not which artifact exists. Before an
+agent can record the concept stage, create the concept image, store its prompt
+or render basis and provenance record beside the product, and bind the actual
+image file by SHA-256 in both `design-spec.yaml` and the approval ledger.
 
 If a correction changes an approved requirement, mark the preflight `stale` when
 an assessed input is affected, set the requirements gate `changes-requested`,

@@ -71,3 +71,11 @@
 | 35 | Select the 100k-face manufacturing candidate | It passes 60k-sample-per-direction exact-triangle regression at p95 0.0083 mm and max 0.0242 mm, reduces triangles by 73.87 percent, and changes exact-profile time/extrusion by less than 0.10 percent. | 200k variant, which adds no slicer benefit; 382744-face baseline, which needlessly retains mesh weight |
 | 36 | Move the Step1X product gate from BLOCK to WARN, not PASS | The active chain no longer executes Hunyuan-derived code or a texture stage. Image-generator terms, upstream training provenance, CLIP-config licence, disclosure and human release gates remain open. | Keeping an obsolete run-specific block; declaring full commercial clearance |
 | 37 | Keep commercial release blocked | Mesh and slicer checks are digital evidence only. Cable measurement, retention, jacket-cycle, edge, stability, marking, outgoing licence and human approval are absent. | Publishing v0.2.0 directly to metriCreate |
+
+## 2026-09-05 — Mandatory whole-product concept image
+
+| # | Decision | Reasoning | Alternatives rejected |
+|---|---|---|---|
+| 38 | Add `concept-product-v0.2.0-r1.png` as the Gate 0B review asset | The owner requires a concept image for every product even when design gates are auto-approved. The image uses the current channel render and shows slack cables in the product. | Continuing to use the isolated Step1X preform plate as the product concept |
+| 39 | Reopen concept approval as `pending` | The prior approval predates this exact image, while the current validated autonomy policy assigns the concept stage to a human. Creation does not imply approval. | Backdating approval or treating the owner's request to create the image as approval of its depiction |
+| 40 | Record the reference upload, prompt, output and hashes | The image edit sent the own product-local render to the configured provider under the owner's explicit request; traceability and the unresolved output terms remain visible. | Treating the edit as text-only generation or silently clearing the commercial gate |

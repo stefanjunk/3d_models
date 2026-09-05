@@ -75,6 +75,7 @@ Read [examples/hybrid-recipes.md](examples/hybrid-recipes.md) only when selectin
   an existing product stays in that product's folder and rights chain.
 - A single-image output contains synthesized depth and hidden geometry. Label it `generated proposal`, not measured reconstruction.
 - Keep the source image, image-generation prompt/record, geometry GLB, API schema and run manifest immutable.
+- Keep the isolated Step1X generation plate distinct from the mandatory whole-product Gate 0B concept image. The generation plate does not satisfy product concept approval merely because both are images, and auto approval never waives the separate product concept asset.
 - Do not ask Step1X to create exact dimensions, wall thickness, clearances, mating surfaces, seals, snaps, bearings, screw threads, text, logos, or certified load paths.
 - Create sacrificial excess around future interfaces and protect the visible region from later Booleans/remeshing.
 - Treat GLB as a scene/visual mesh, not a slicer-ready or CAD-native manufacturing authority.
@@ -99,6 +100,12 @@ Complete the applicable functional requirements and concept gates first. For a c
 - downstream route and acceptance checks.
 
 If these are absent, load `decompose-printable-designs` and create them before invoking Step1X.
+
+The concept-gate asset must communicate the complete product, including the
+CAD-owned function or use context needed to understand it. The Step1X plate in
+the next step remains an isolated generation input optimized for mesh quality;
+record both files and their different roles even when they originate from the
+same approved appearance direction.
 
 ### 2. Create or prepare one generation plate
 

@@ -54,12 +54,13 @@ The autonomous print-candidate mode assigns stages 1–8 to the agent and stages
 
 ## Agent decisions
 
-Use `agent-approvals.json` only for agent events. Early semantic stages require an explicit attestation. Technical stages require one or more JSON validation reports with overall `PASS`, no non-PASS required checks, and SHA-256-bound inputs.
+Use `agent-approvals.json` only for agent events. Early semantic stages require an explicit attestation. The `concept` stage additionally requires the versioned whole-product concept image as evidence; the command hashes the file into the ledger and blocks when no supported image is supplied. Technical stages require one or more JSON validation reports with overall `PASS`, no non-PASS required checks, and SHA-256-bound inputs.
 
 ```bash
 python3 scripts/fdm_ci.py approve-agent-stage \
   autonomy-policy.json validation/agent-approvals.json concept \
   --agent-id opencode-agent-1 --model-id local-27b \
+  --evidence concept/concept-product-v0.1.0-r1.png \
   --attestation "Concept satisfies the normalized requirements contract"
 
 python3 scripts/fdm_ci.py approve-agent-stage \

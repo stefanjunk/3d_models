@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "eval_id": "EVAL-regression-mandatory-product-concept-image-001",
+  "run_at": "2026-09-05T16:34:00+02:00",
+  "command": "python3 -m pytest .agents/skills/functional-3d-design/tests/test_scripts.py::ScriptTests::test_design_spec_rejects_approved_concept_without_image_hash_record .agents/skills/validate-printable-3d-projects/tests/test_core.py::CoreTests::test_auto_approved_concept_requires_hash_bound_image -q",
+  "exit_code": 0,
+  "result": "pass",
+  "summary": "2 passed in 0.42s",
+  "checks": [
+    {
+      "id": "design-spec-concept-image-evidence",
+      "status": "PASS",
+      "test": ".agents/skills/functional-3d-design/tests/test_scripts.py::ScriptTests::test_design_spec_rejects_approved_concept_without_image_hash_record"
+    },
+    {
+      "id": "auto-approved-concept-image-evidence",
+      "status": "PASS",
+      "test": ".agents/skills/validate-printable-3d-projects/tests/test_core.py::CoreTests::test_auto_approved_concept_requires_hash_bound_image"
+    }
+  ],
+  "artifact_hashes": {
+    ".agents/skills/functional-3d-design/scripts/validate_design_spec.py": "32a934dbf8bdb5064d54edc19522e7d6b4ad6a57213835167dbac83068a4f29d",
+    ".agents/skills/functional-3d-design/tests/test_scripts.py": "7a1f2e696bfa0a4d457fb3f82d9a3977e63c786366b2c2207012d3a9a48d38d4",
+    ".agents/skills/validate-printable-3d-projects/scripts/fdm_validation/autonomy.py": "118c00ee692e9acf56a6bee7e637e9b291c98c8825081daa2582e4326a514887",
+    ".agents/skills/validate-printable-3d-projects/tests/test_core.py": "2a57286d265016748fef9fcc88efb68d37585e1df5f6beab5250b5617b1fd014"
+  }
+}

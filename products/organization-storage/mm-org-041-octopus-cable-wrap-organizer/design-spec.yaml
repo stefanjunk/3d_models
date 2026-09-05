@@ -37,18 +37,17 @@ workflow:
       after the licence review. Approval covers regeneration and controlled redesign against the
       requirements below; it does not create physical evidence for the cable interface.
   concept_approval:
-    status: approved
-    approved_by: project-owner-via-chat-2026-09-04
-    approved_at: "2026-09-04T21:00:00+02:00"
+    status: pending
+    approved_by: null
+    approved_at: null
     spec_revision: 0.2.0
-    asset: organic/reference/octopus-preform-plate-001.png
-    asset_sha256_record: evidence/imagegen-record.json
+    asset: concept/concept-product-v0.2.0-r1.png
+    asset_sha256: 080ad5585c0ab84c46ffb29367bfc62e0a70478048023836660230056b9e8d9c
+    asset_sha256_record: evidence/concept-image-record-v0.2.0-r1.json
     reason: >-
-      Owner pre-authorized the concept gate. The reference plate was generated with OpenAI
-      gpt-image through Codex CLI, background-keyed to a real alpha channel, visually reviewed
-      and hashed; the Step1X-3D geometry run succeeded and is recorded in
-      organic/raw/step1x/run-005/step1x-run.json. The approved appearance plate is unchanged;
-      only the geometry was regenerated with the current geometry-only fork.
+      The mandatory whole-product concept image now exists, is visually reviewed and hash-bound.
+      It supersedes the Step1X input plate as the Gate 0B review asset. The current policy keeps
+      concept approval human-controlled, so the new depiction awaits explicit owner approval.
   watermark_approval:
     status: blocked
     asset_id: MM-WM-001-R2
@@ -85,6 +84,7 @@ requirements:
     - Select one not-yet-created product from the portfolio that suits imagegen plus Step1X-3D and build it.
     - Auto-approve all workflow gates.
     - Run everything sequentially in this session without subagents.
+    - Create a product concept image even when a design-process gate is configured for automatic approval.
   research_evidenced:
     - Implement research SKU-331 with its declared 125 x 125 x 65 mm envelope ceiling.
     - Provide organized retention channels for slack USB and audio desk cables.

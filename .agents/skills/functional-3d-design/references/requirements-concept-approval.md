@@ -71,6 +71,23 @@ After the requirements approval assigned by the current policy:
 5. Provide a short correspondence list linking each important visible feature to the approved requirement and disclose any visual ambiguity or deliberate simplification.
 6. If Gate 0B is human-controlled, ask the user to approve the concept or request changes. If it is agent-controlled, record a concise requirement-to-feature attestation and derive the decision through the agent ledger.
 
+This artifact is mandatory for every independently managed product, including
+fully autonomous design runs. Auto approval may approve only an image that has
+already been created. Before requesting or deriving approval:
+
+- store the image in a versioned product-local path;
+- record the exact image SHA-256 in `workflow.concept_approval.asset_sha256` and
+  link its prompt/render basis and provenance through
+  `workflow.concept_approval.asset_sha256_record`;
+- include the image itself as hash-bound concept-stage ledger evidence;
+- verify that it depicts the complete product and the context or additional
+  view needed to understand its function.
+
+An isolated image prepared only to generate an organic Step1X component, a raw
+GLB/mesh preview, or an attestation without an image is not the product concept
+asset. It may be reused as an input only when the resulting Gate 0B image still
+shows the full product intent.
+
 A concept image communicates design intent; it is not dimensional evidence, a strength result, or proof of printability. Do not create production CAD, source code, or manufacturing exports while `workflow.concept_approval.status` is not `approved`.
 
 ## State transitions
@@ -82,7 +99,7 @@ Use these states:
 
 When the user changes an approved requirement, increment the specification revision, set requirements to `changes-requested`, set concept to `blocked`, clear the prior concept asset reference, and mark the preflight `stale` when the change affects an assessed input. When only the depiction is wrong and the specification remains valid, keep requirements approved and set only concept to `changes-requested`.
 
-After concept approval, record the approving human or agent, specification revision, concept asset, ledger event where applicable, and timestamp when available. Continue with architecture and production geometry only when both approvals are for the current specification revision and their assigned provenance validates.
+After concept approval, record the approving human or agent, specification revision, concept asset, exact asset SHA-256, provenance record, ledger event where applicable, and timestamp when available. Continue with architecture and production geometry only when both approvals are for the current specification revision and their assigned provenance validates.
 
 ## Gate 0C — final model and release review
 

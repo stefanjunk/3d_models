@@ -29,6 +29,7 @@ Lade Detailrubriken nur bei Bedarf aus `rubrics/scoring-rubric.yaml`. Nutze die 
 - Ohne eigene historische Kalibrierung keine numerische Erfolgswahrscheinlichkeit ausgeben.
 - Bei K3: nur Expert-in-the-loop-Prototyping. Bei K4: keine autonome Freigabe; Konzept- und Datenerfassungsunterstützung.
 - Keep-outs, Servicezugänge, Luft-/Fluidpfade, Nutzerkontakt, Umwelt und Software sind Interfaces, auch ohne direkten Festkörperkontakt.
+- Jedes eigenständig geführte Produkt benötigt nach der Anforderungsfreigabe und vor Produktions-CAD ein versioniertes, produktlokales Konzeptbild des vollständigen Produkts. Eine Auto-Approve-Konfiguration darf nur die Prüfung dieses vorhandenen Bildes delegieren; sie darf seine Erzeugung niemals überspringen.
 
 ## Pflicht-Gate für neue Produkte
 
@@ -65,6 +66,13 @@ Produktordner, Portfoliozeile, Lizenzketten-Workspace sowie die minimale
 Projekt-ID und Revision dürfen vorher nur als Aufnahme- und
 Traceability-Artefakte angelegt werden. Kennzeichne diesen Normalfall in
 `traceability.mode` als `PROSPECTIVE`.
+
+Route nach dem validierten Preflight und der Anforderungsfreigabe immer durch
+das Konzeptbild-Gate des `functional-3d-design`-Skills. Das Bild muss die
+gesamte Produktidee einschließlich der für das Verständnis nötigen
+Funktions- oder Nutzungssituation zeigen. Ein isoliertes Step1X-Eingabebild,
+ein Rohmesh-Preview oder eine rein textliche Attestation ersetzt dieses
+Produkt-Konzeptbild nicht.
 
 Bei einem bestehenden Design ohne Preflight erstelle den Preflight
 nachträglich, bevor die nächste Designänderung beginnt:

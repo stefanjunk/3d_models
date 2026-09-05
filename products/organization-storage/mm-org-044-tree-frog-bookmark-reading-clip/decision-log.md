@@ -15,3 +15,10 @@
 - Did not infer approval of the new image. Concept approval remains pending under the manual autonomy ceiling.
 - Generated separate 0.8, 1.0 and 1.2 mm CAD blade coupons instead of guessing a final product thickness. Every coupon mesh passes; the 0.8 mm candidate also passes an exact-profile local slice.
 - Stopped before the final frog-to-blade join because no coupon has been printed and no paper sample or cycle result exists.
+
+## 2026-09-05 — Mandatory whole-product concept image
+
+- Added `concept/concept-product-v0.1.0-r1.png` as the Gate 0B asset. It shows the selected frog, the provisional CAD-style page blade and its intended placement on an open book.
+- Kept the isolated frog image in `organic/reference/` classified only as the Step1X generation plate; it no longer stands in for the complete product concept.
+- Recorded the own reference render, exact edit prompt, output hash, explicit upload authority and AI-concept disclosure. Blade thickness, preload, paper compatibility and fatigue remain unqualified.
+- Kept concept approval pending because the current autonomy policy assigns that gate to a human and creation of the image is not approval of its depiction.

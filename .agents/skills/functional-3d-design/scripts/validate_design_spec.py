@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -27,6 +28,8 @@ SEMVER_RE = re.compile(
     r"(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
     r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
 )
+HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
+CONCEPT_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".svg", ".webp"}
 VALID_OPTIMIZATION_STATUS = {"pending", "applied", "not-beneficial", "not-applicable"}
 VALID_PREFLIGHT_STATUS = {"pending", "current", "stale"}
 VALID_PREFLIGHT_MODE = {"prospective", "retrospective"}
@@ -37,6 +40,21 @@ PREFLIGHT_VALIDATOR = (
     / "scripts"
     / "validate_preflight.py"
 )
+
+
+def is_supported_concept_image(path: Path) -> bool:
+    if path.suffix.lower() not in CONCEPT_IMAGE_SUFFIXES or not path.is_file():
+        return False
+    with path.open("rb") as handle:
+        prefix = handle.read(512)
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return prefix.startswith(b"\x89PNG\r\n\x1a\n")
+    if suffix in {".jpg", ".jpeg"}:
+        return prefix.startswith(b"\xff\xd8\xff")
+    if suffix == ".webp":
+        return prefix.startswith(b"RIFF") and prefix[8:12] == b"WEBP"
+    return b"<svg" in prefix.lower()
 
 
 def main() -> int:
@@ -54,6 +72,7 @@ def main() -> int:
         help="Fail unless a schema-valid preflight for the current project revision is linked.",
     )
     args = p.parse_args()
+    spec_path = Path(args.spec).resolve()
 
     data = load_structured(args.spec)
     errors: list[str] = []
@@ -125,7 +144,6 @@ def main() -> int:
             if preflight.get("assessed_project_revision") != project_revision:
                 errors.append("current preflight must assess the current project revision")
 
-            spec_path = Path(args.spec).resolve()
             artifact_path = (spec_path.parent / str(artifact)).resolve()
             try:
                 artifact_path.relative_to(spec_path.parent)
@@ -244,6 +262,56 @@ def main() -> int:
             errors.append("approved concept needs approved_by")
     elif requirements_status == "approved":
         warnings.append("production CAD remains gated until concept approval")
+
+    if concept_status in {"pending", "approved", "changes-requested"}:
+        concept_asset = concept_approval.get("asset")
+        expected_concept_sha256 = concept_approval.get("asset_sha256")
+        concept_record = concept_approval.get("asset_sha256_record")
+        resolved_concept_asset: Path | None = None
+
+        if not isinstance(concept_asset, str) or not concept_asset.strip():
+            errors.append("active concept gate needs a product concept image asset")
+        else:
+            resolved_concept_asset = (spec_path.parent / concept_asset).resolve()
+            try:
+                resolved_concept_asset.relative_to(spec_path.parent)
+            except ValueError:
+                errors.append("workflow.concept_approval.asset must remain inside the owning product directory")
+            else:
+                if not resolved_concept_asset.is_file():
+                    errors.append(f"linked product concept image does not exist: {resolved_concept_asset}")
+                elif not is_supported_concept_image(resolved_concept_asset):
+                    errors.append("workflow.concept_approval.asset must be a supported image file with matching image content")
+
+        if not isinstance(expected_concept_sha256, str) or HEX64_RE.fullmatch(expected_concept_sha256) is None:
+            errors.append("active concept gate needs a lowercase SHA-256 in workflow.concept_approval.asset_sha256")
+        elif resolved_concept_asset is not None and resolved_concept_asset.is_file():
+            digest = hashlib.sha256(resolved_concept_asset.read_bytes()).hexdigest()
+            if digest != expected_concept_sha256:
+                errors.append("workflow.concept_approval.asset_sha256 does not match the linked concept image")
+
+        if not isinstance(concept_record, str) or not concept_record.strip():
+            errors.append("active concept gate needs workflow.concept_approval.asset_sha256_record")
+        else:
+            record_path = (spec_path.parent / concept_record).resolve()
+            try:
+                record_path.relative_to(spec_path.parent)
+            except ValueError:
+                errors.append("workflow.concept_approval.asset_sha256_record must remain inside the owning product directory")
+            else:
+                if not record_path.is_file():
+                    errors.append(f"linked concept provenance record does not exist: {record_path}")
+                else:
+                    try:
+                        record_data = load_structured(record_path)
+                    except (OSError, ValueError, json.JSONDecodeError) as exc:
+                        errors.append(f"cannot read linked concept provenance record: {exc}")
+                    else:
+                        record_text = json.dumps(record_data, sort_keys=True)
+                        if isinstance(concept_asset, str) and concept_asset not in record_text:
+                            errors.append("concept provenance record does not reference workflow.concept_approval.asset")
+                        if isinstance(expected_concept_sha256, str) and expected_concept_sha256 not in record_text:
+                            errors.append("concept provenance record does not contain workflow.concept_approval.asset_sha256")
 
     watermark_asset = watermark_approval.get("asset_id")
     if watermark_asset not in SUPPORTED_WATERMARK_ASSETS:

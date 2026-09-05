@@ -175,6 +175,69 @@ class CoreTests(unittest.TestCase):
             with self.subTest(path=path):
                 json.loads(path.read_text(encoding="utf-8"))
 
+    def test_auto_approved_concept_requires_hash_bound_image(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            policy_path = root / "autonomy.json"
+            agent_ledger = root / "agent.json"
+            self.assertEqual(
+                init_policy("part", "autonomous-to-print-candidate", "project-owner", policy_path)["status"],
+                "PASS",
+            )
+            requirements = approve_agent_stage(
+                policy_path,
+                agent_ledger,
+                "requirements-normalization",
+                agent_id="agent",
+                model_id="model",
+                evidence=[],
+                attestation="Requirements normalized",
+            )
+            self.assertEqual(requirements["status"], "PASS", requirements)
+
+            missing = approve_agent_stage(
+                policy_path,
+                agent_ledger,
+                "concept",
+                agent_id="agent",
+                model_id="model",
+                evidence=[],
+                attestation="Concept reviewed",
+            )
+            self.assertEqual(missing["status"], "REVIEW_REQUIRED", missing)
+            self.assertEqual(missing["metrics"]["decision"], "BLOCKED")
+
+            text_evidence = root / "concept.txt"
+            text_evidence.write_text("description only", encoding="utf-8")
+            wrong_type = approve_agent_stage(
+                policy_path,
+                agent_ledger,
+                "concept",
+                agent_id="agent",
+                model_id="model",
+                evidence=[text_evidence],
+                attestation="Concept reviewed",
+            )
+            self.assertEqual(wrong_type["status"], "REVIEW_REQUIRED", wrong_type)
+
+            concept_image = root / "concept-product-v0.1.0-r1.png"
+            concept_image.write_bytes(b"\x89PNG\r\n\x1a\nwhole-product-concept")
+            approved = approve_agent_stage(
+                policy_path,
+                agent_ledger,
+                "concept",
+                agent_id="agent",
+                model_id="model",
+                evidence=[concept_image],
+                attestation="Whole-product concept matches requirements",
+            )
+            self.assertEqual(approved["status"], "PASS", approved)
+            self.assertEqual(approved["metrics"]["decision"], "AUTO_APPROVED")
+            self.assertEqual(
+                validate_approvals(policy_path, agent_ledger, target_stage="concept")["status"],
+                "PASS",
+            )
+
     def test_autonomous_print_candidate_and_signed_human_boundary(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -195,8 +258,12 @@ class CoreTests(unittest.TestCase):
                 "checks": [{"id": "acceptance", "status": "PASS", "required": True}],
             }), encoding="utf-8")
 
+            concept_image = root / "concept-product-v0.1.0-r1.png"
+            concept_image.write_bytes(b"\x89PNG\r\n\x1a\nwhole-product-concept")
+
             for stage in ("requirements-normalization", "concept", "decomposition"):
-                result = approve_agent_stage(policy_path, agent_ledger, stage, agent_id="agent-1", model_id="local-27b", evidence=[], attestation=f"{stage} contract satisfied")
+                evidence = [concept_image] if stage == "concept" else []
+                result = approve_agent_stage(policy_path, agent_ledger, stage, agent_id="agent-1", model_id="local-27b", evidence=evidence, attestation=f"{stage} contract satisfied")
                 self.assertEqual(result["status"], "PASS", result)
             for stage in ("parametric-source", "mesh-generation", "interface-validation", "slicer-preflight", "print-candidate"):
                 result = approve_agent_stage(policy_path, agent_ledger, stage, agent_id="agent-1", model_id="local-27b", evidence=[evidence_report])
@@ -245,8 +312,11 @@ class CoreTests(unittest.TestCase):
             policy_path = root / "autonomy.json"
             agent_ledger = root / "agent.json"
             init_policy("part", "autonomous-to-print-candidate", "project-owner", policy_path)
+            concept_image = root / "concept-product-v0.1.0-r1.png"
+            concept_image.write_bytes(b"\x89PNG\r\n\x1a\nwhole-product-concept")
             for stage in ("requirements-normalization", "concept", "decomposition"):
-                approve_agent_stage(policy_path, agent_ledger, stage, agent_id="agent", model_id="27b", evidence=[], attestation="recorded")
+                stage_evidence = [concept_image] if stage == "concept" else []
+                approve_agent_stage(policy_path, agent_ledger, stage, agent_id="agent", model_id="27b", evidence=stage_evidence, attestation="recorded")
             artifact = root / "source.step"
             artifact.write_text("source", encoding="utf-8")
             evidence = root / "failed.json"

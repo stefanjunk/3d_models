@@ -85,7 +85,7 @@ Present the specification as the structured review defined in `requirements-conc
 
 ### Gate 0B — concept visualization and approval
 
-Generate a concept image from the approved requirements. Provide the views needed to judge the design and map the visible features back to the specification. Stop until the user explicitly approves the concept for the same specification revision.
+Generate and retain a versioned product-local concept image from the approved requirements for every product. It must show the complete product intent and the views or use context needed to judge the design; an isolated Step1X input plate, raw-mesh preview, or text-only attestation is insufficient. Record the image SHA-256 and provenance, then map the visible features back to the specification. Stop until the assigned human or agent authority approves that exact hash for the same specification revision. Auto approval delegates this review only; it never waives image creation.
 
 If requirements change, invalidate requirements, concept, and final watermark approvals and return to Gate 0A. If only the depiction changes, retain requirements approval, repeat Gate 0B, and invalidate the final watermark approval.
 

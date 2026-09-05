@@ -38,6 +38,7 @@ TOOL_ACTIONS = (
     "printer_start",
 )
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
+CONCEPT_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".svg", ".webp"}
 READINESS_ORDER = {f"R{index}": index for index in range(6)}
 CRITICALITY_ORDER = {f"K{index}": index for index in range(5)}
 CONFIDENCE_BANDS = {
@@ -474,6 +475,30 @@ def _evidence_rows(paths: list[Path], base: Path, *, reports: bool) -> tuple[lis
     return rows, failures
 
 
+def _is_supported_concept_image(path: Path) -> bool:
+    if path.suffix.lower() not in CONCEPT_IMAGE_SUFFIXES or not path.is_file():
+        return False
+    with path.open("rb") as handle:
+        prefix = handle.read(512)
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return prefix.startswith(b"\x89PNG\r\n\x1a\n")
+    if suffix in {".jpg", ".jpeg"}:
+        return prefix.startswith(b"\xff\xd8\xff")
+    if suffix == ".webp":
+        return prefix.startswith(b"RIFF") and prefix[8:12] == b"WEBP"
+    return b"<svg" in prefix.lower()
+
+
+def _rows_include_concept_image(rows: list[dict[str, Any]], base: Path) -> bool:
+    return any(
+        isinstance(row, dict)
+        and isinstance(row.get("path"), str)
+        and _is_supported_concept_image(resolve_path(base, row["path"]))
+        for row in rows
+    )
+
+
 def _new_ledger(kind: str, policy: dict[str, Any], policy_path: Path) -> dict[str, Any]:
     return {
         "schema_version": "1.0",
@@ -584,7 +609,12 @@ def approve_agent_stage(
     elif mode == "agent-attestation":
         if not isinstance(attestation, str) or not attestation.strip():
             failures.append("agent-attestation stage requires --attestation")
-        if evidence:
+        if stage_id == "concept":
+            rows, evidence_failures = _evidence_rows(evidence, ledger_path.parent, reports=False)
+            failures.extend(evidence_failures)
+            if rows and not _rows_include_concept_image(rows, ledger_path.parent):
+                failures.append("concept stage evidence must include a supported product concept image")
+        elif evidence:
             rows, evidence_failures = _evidence_rows(evidence, ledger_path.parent, reports=False)
             failures.extend(evidence_failures)
     else:
@@ -624,6 +654,8 @@ def request_human_approval(policy_path: Path, stage_id: str, project_id: str, ev
     if stage_id not in stages or stages[stage_id].get("approval") != "human":
         return report("request-human-approval", [check("authority", "FAIL", f"Stage {stage_id!r} is not human-approved")], inputs=[policy_path])
     rows, failures = _evidence_rows(evidence, output.parent, reports=False)
+    if stage_id == "concept" and rows and not _rows_include_concept_image(rows, output.parent):
+        failures.append("concept stage evidence must include a supported product concept image")
     if failures:
         return report("request-human-approval", [check("evidence", "FAIL", "; ".join(failures))], inputs=[policy_path, *evidence])
     payload = {
@@ -775,10 +807,16 @@ def _verify_ledger(
             if not evidence_path.is_file() or sha256_file(evidence_path) != row["sha256"]:
                 evidence_valid = False
         checks.append(check(f"{label}:evidence", "PASS" if evidence_valid else "FAIL", "Evidence files match recorded SHA-256 values"))
+        concept_image_valid = True
+        if stage_id == "concept" and decision in {"AUTO_APPROVED", "HUMAN_APPROVED"}:
+            concept_image_valid = evidence_valid and _rows_include_concept_image(event.get("evidence", []), ledger_path.parent)
+            checks.append(check(f"{label}:concept-image", "PASS" if concept_image_valid else "FAIL", "Concept approval binds a product concept image"))
         if kind == "agent" and decision == "AUTO_APPROVED" and stage_id in stages:
             stage = stages[stage_id]
             if stage.get("evidence_mode") == "agent-attestation":
                 semantic_valid = isinstance(event.get("attestation"), str) and bool(event["attestation"].strip())
+                if stage_id == "concept":
+                    semantic_valid = semantic_valid and concept_image_valid
             else:
                 semantic_valid = bool(event.get("evidence")) and evidence_valid
                 for row in event.get("evidence", []):

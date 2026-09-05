@@ -16,3 +16,10 @@
 - Added a CAD-owned 4 mm flat-base cut, tapered nominal cavity and visible +Y drain tunnel. These are explicitly unqualified design values because no real nursery pot was measured.
 - The run-004 functional draft is one watertight component and slices without warning at 345 layers / 6 h 30 min 24 s. One numerically negligible-area face remains for final release review.
 - Did not infer approval of the new image. Concept approval and every physical host-fit, drainage and stability gate remain pending.
+
+## 2026-09-05 — Mandatory whole-product concept image
+
+- Added `concept/concept-product-v0.1.0-r1.png` as the Gate 0B asset. It shows the sleeping-cat sleeve with a visibly separate nursery pot and contained succulent.
+- Kept the isolated cat image in `organic/reference/` classified only as the Step1X generation plate; it no longer stands in for the complete product concept.
+- Recorded the own reference render, exact edit prompt, output hash, explicit upload authority and AI-concept disclosure. Pot dimensions, clearance, drainage and stability remain unqualified.
+- Kept concept approval pending because the current autonomy policy assigns that gate to a human and creation of the image is not approval of its depiction.

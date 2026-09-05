@@ -25,6 +25,12 @@ At project start, create and validate `autonomy-policy.json`. For unattended dev
 
 Keep `agent-approvals.json` and `human-approvals.json` separate. The agent command derives `AUTO_APPROVED` or `BLOCKED` and refuses human stages. A human approval is recorded through a frozen request and, by default, a verifier-selected HMAC key kept outside agent-readable paths. Read `references/autonomy-and-approvals.md` before enabling stage auto approval.
 
+The `concept` stage is never evidence-free. Whether its assigned authority is
+an agent or a human, its approval evidence must include the existing
+product-concept image itself so the ledger binds its SHA-256. Auto approval can
+review that image but cannot replace it with an attestation or a Step1X source
+plate.
+
 Workflow autonomy never expands OpenCode, shell, network, upload, or printer permissions. The default policy denies printer upload/start and destructive overwrite.
 
 ## Quick start

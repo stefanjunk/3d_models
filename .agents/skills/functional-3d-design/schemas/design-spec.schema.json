@@ -72,11 +72,13 @@
         },
         "concept_approval": {
           "type": "object",
-          "required": ["status", "spec_revision", "asset"],
+          "required": ["status", "spec_revision", "asset", "asset_sha256", "asset_sha256_record"],
           "properties": {
             "status": {"enum": ["blocked", "pending", "approved", "changes-requested"]},
             "spec_revision": {"type": ["string", "null"]},
             "asset": {"type": ["string", "null"]},
+            "asset_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "asset_sha256_record": {"type": ["string", "null"]},
             "approved_by": {"type": ["string", "null"]},
             "approved_at": {"type": ["string", "null"]}
           }

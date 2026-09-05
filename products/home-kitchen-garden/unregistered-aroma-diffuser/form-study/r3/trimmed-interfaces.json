@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Nominal displayed proxy collision only, not fit approval",
+  "parts": [
+    {
+      "id": "shell",
+      "path": "runs/001/fluent-shell-visual-mm.obj"
+    },
+    {
+      "id": "vial",
+      "path": "assembly/trimmed-160/nominal-vial-mm.obj"
+    },
+    {
+      "id": "reed",
+      "path": "assembly/trimmed-160/nominal-reed-mm.obj"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "nominal-shell-vial",
+      "a": "shell",
+      "b": "vial",
+      "mode": "overlap",
+      "min_overlap_volume_mm3": 0,
+      "max_overlap_volume_mm3": 0,
+      "required": true
+    },
+    {
+      "id": "nominal-shell-reed",
+      "a": "shell",
+      "b": "reed",
+      "mode": "overlap",
+      "min_overlap_volume_mm3": 0,
+      "max_overlap_volume_mm3": 0,
+      "required": true
+    }
+  ],
+  "motions": []
+}

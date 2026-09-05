@@ -1,11 +1,14 @@
-# Preflight R2 — FLUENT Konzept R1
+# Preflight 003 — FLUENT parametrische Formstudie R3
 
 FLUENT | C3 (53.5/100) | R0 | K2 | Lane E | LOW_UNKNOWN
 
 Entscheidung: CONCEPT_ONLY. Der Nutzer hat die visuelle Weiterentwicklung mit
 vorläufigen handelsüblichen Kaufteilmaßen beauftragt. Produktionsfreigabe und
 physische Funktionsaussagen bleiben offen. Der vorausgehende generische Audit
-001 ist in Git erhalten; die Neubewertung ist prospektiv für Revision 0.1.0.
+001 ist in Git erhalten; Assessment 002 liegt zusätzlich unter
+history/preflight-002.json. Assessment 003 wurde vor der R3-Geometrie für
+Revision 0.2.0 validiert. Die parametrische Entwicklungsroute ist vom Nutzer
+ausgewählt; dies ist keine formale Erscheinungsbild- oder Fertigungsfreigabe.
 
 ## Komplexität und Reife
 
@@ -46,6 +49,11 @@ Prozessdaten. G4/G6: messbare Funktions- und Servicekriterien noch festlegen.
 | Hülle behindert Verdunstung | Zu wenig Duft | A/B-Vergleich mit/ohne Hülle | Echte Öffnungen, Massenverlust und Wahrnehmung testen |
 | Spitze bricht | Beschädigung, scharfe Kante | Handhabungsmuster | Abgerundete Enden, untere Griffzone, Orientierung prüfen |
 
-Diese Phase: Bilder, Prompts, Quellen, Hashes und Sichtprüfung.
-Danach: visuelle Auswahl; separate PORT-102-Regularisierung auf main;
-Mustermaße, Halter, genauer Prozess und physische Tests.
+Diese Phase: echte parametrisierte Geometrie, mehrere Modellansichten,
+Topologie-/Parameterdiagnostik und Sichtbarkeit nominaler Kaufteile.
+Komponentenbezogene virtuelle Evidenz R2; die globale Interface-Reife bleibt
+R0. Die Proxies sind keine vermessenen Kaufteilmodelle. Radiale Schalenstärke
+ist kein Nachweis einer minimalen normalen Wandstärke.
+Danach: menschliche Beurteilung der tatsächlichen Geometrie; separate
+PORT-102-Regularisierung auf main; Mustermaße, Halter, genauer Prozess,
+Wand-/Spitzenprüfung, Slicer und physische Tests.

@@ -1,0 +1,88 @@
+schema_version: 1
+project:
+  name: UNREGISTERED-AROMA-DIFFUSER-FLUENT-R3
+  units: mm
+  product_family: dry-diffuser-shell-form-study
+  language: de
+  manufacturing: fdm-fff
+  risk_class: normal-functional
+intent:
+  visual_language:
+    keywords: [fluid, sculptural, warm-ivory, asymmetric, restrained]
+    forbidden_characteristics: [uniform-screw, serrated-crown, exposed-vial]
+  symmetry: asymmetric
+  visible_surfaces: [outer-envelope, crown-rim]
+  reference_role: inspiration
+  reference_provenance:
+    - file: ../../concepts/r1/fluent-hero-r1.png
+      role: primary-style-authority-not-measured-geometry
+      provenance: ../../concepts/r1/PROVENANCE.md
+semantic_parameters:
+  - {"name":"height_mm","value":240,"min":228,"max":252,"unit":"mm","affects":["envelope-only"]}
+  - {"name":"width_mm","value":92,"min":88,"max":98,"unit":"mm","affects":["envelope-only"]}
+  - {"name":"depth_mm","value":86,"min":82,"max":90,"unit":"mm","affects":["envelope-only"]}
+  - {"name":"rib_count","value":12,"min":10,"max":14,"unit":"count","affects":["envelope-only"]}
+  - {"name":"rib_depth_mm","value":7,"min":6,"max":8,"unit":"mm","affects":["envelope-only"]}
+  - {"name":"twist_deg","value":150,"min":140,"max":170,"unit":"deg","affects":["envelope-only"]}
+  - {"name":"crown_asymmetry_fraction","value":0.045,"min":0.035,"max":0.055,"unit":"ratio","affects":["envelope-only"]}
+  - {"name":"rib_crest_power","value":3.5,"min":2.5,"max":4,"unit":"ratio","affects":["envelope-only"]}
+  - {"name":"petal_split_fraction","value":0.56,"min":0.52,"max":0.6,"unit":"ratio","affects":["envelope-only"]}
+  - {"name":"petal_convergence_exponent","value":1.35,"min":1.2,"max":1.5,"unit":"ratio","affects":["envelope-only"]}
+hardpoints:
+  tolerance_mm: 0.10
+  datum_planes: [{name: table, axis: Z, offset_mm: 0}]
+  points: []
+  axes: [{name: purchased-vial-axis, origin_mm: [0, 0, 4], direction: [0, 0, 1]}]
+  protected_faces: []
+  keep_out_volumes:
+    - {name: nominal-vial, type: cylinder, diameter_mm: 50, height_mm: 64, base_mm: [0, 0, 4], status: nominal-reference-not-fit}
+surface_strategy:
+  primary: bspline-loft
+  implementation: cubic-station-splines-with-analytic-ribs-and-bundled-petal-patches
+  continuity_default: G2
+  continuity_status: target-not-certified
+  intentional_creases: [petal-root-transition-unqualified, provisional-rounded-tip-cap, service-bottom]
+  section_count_target: 12
+  controls_per_curve_target: 6
+  closed_section_seam_landmark: positive-local-X
+reference_fitting:
+  enabled: false
+  target_file: ../../concepts/r1/fluent-hero-r1.png
+  fit_region: style-only
+  maximum_rms_error_mm: 1.0
+  maximum_local_error_mm: 3.0
+  preserve_target_noise: false
+fdm:
+  printer_build_volume_mm: [426, 420, 501]
+  nozzle_mm: 0.4
+  layer_height_range_mm: [0.12, 0.20]
+  intended_orientation: upright-candidate-not-sliced
+  visible_orientation_sensitive_regions: [ribs, crown, upper-overhang]
+  minimum_wall_mm: 1.2
+  maximum_overhang_deg_from_vertical: 50
+  mesh_export:
+    chord_tolerance_mm: 0.08
+    angular_tolerance_deg: 4
+    maximum_edge_mm: 2.0
+acceptance:
+  hardpoint_drift_mm_max: 0.10
+  watertight_when_solid: true
+  connected_components_expected: 1
+  degenerate_face_count_max: 0
+  curvature_spikes_allowed: 0
+  unexplained_curvature_extrema_per_primary_curve_max: 4
+  self_intersections_allowed: false
+  minimum_signed_volume_mm3: 1
+  slicer_review_required: true
+  physical_coupon_required: true
+outputs:
+  editable_source_required: true
+  step_required: false
+  obj_required: true
+  stl_or_3mf_required: false
+  reports_required: true
+phase_boundary:
+  status: CONCEPT_ONLY
+  lifecycle: P0-form-study
+  exclusions: [manufacturing-release, P2-handoff, fitted-holder, wet-use, commercial-release]
+  approval: User selects parametric continuation; no human R3 appearance or physical approval recorded.

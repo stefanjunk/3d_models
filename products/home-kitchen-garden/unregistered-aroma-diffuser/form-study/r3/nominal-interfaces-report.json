@@ -1,0 +1,98 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "nominal-shell-vial",
+      "message": "Intersection volume 0 mm³",
+      "metrics": {
+        "a": "shell",
+        "b": "vial",
+        "id": "nominal-shell-vial",
+        "intersection_volume_mm3": 0.0,
+        "maximum_mm3": 0,
+        "method": "manifold",
+        "minimum_mm3": 0.0,
+        "mode": "overlap"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nominal-shell-reed",
+      "message": "Intersection volume 13.9634 mm³",
+      "metrics": {
+        "a": "shell",
+        "b": "reed",
+        "id": "nominal-shell-reed",
+        "intersection_volume_mm3": 13.96341312583189,
+        "maximum_mm3": 0,
+        "method": "manifold",
+        "minimum_mm3": 0.0,
+        "mode": "overlap"
+      },
+      "required": true,
+      "status": "FAIL"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/capricorn/products/home-kitchen-garden/unregistered-aroma-diffuser/form-study/r3/nominal-interfaces.json",
+      "sha256": "3af73f33dc57f7b5966b13d5c0a49f6c40f918fa5e4fc3bb70c9675505ec070c",
+      "size_bytes": 833
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/capricorn/products/home-kitchen-garden/unregistered-aroma-diffuser/form-study/r3/runs/001/fluent-shell-visual-mm.obj",
+      "sha256": "f055f80156b058f0b778d25f157249edf93c7a153624d5705b999e33d75d3641",
+      "size_bytes": 15466063
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/capricorn/products/home-kitchen-garden/unregistered-aroma-diffuser/form-study/r3/assembly/nominal-200/nominal-vial-mm.obj",
+      "sha256": "93b19256542c56c58e3f37b5f8831d49dd248a029f3c676d31d960d151b77e73",
+      "size_bytes": 11432
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/capricorn/products/home-kitchen-garden/unregistered-aroma-diffuser/form-study/r3/assembly/nominal-200/nominal-reed-mm.obj",
+      "sha256": "44ae71473af936c2dd6bf301a774efa46961a152a6a46e87d42cbdd7f9a68934",
+      "size_bytes": 11248
+    }
+  ],
+  "limitations": [
+    "Motion sweeps are discretized; increase steps for narrow interference regions.",
+    "Nearest-vertex clearance fallback is diagnostic and yields REVIEW_REQUIRED.",
+    "Clearance does not replace a process-matched physical fit coupon."
+  ],
+  "metrics": {
+    "interfaces": [
+      {
+        "a": "shell",
+        "b": "vial",
+        "id": "nominal-shell-vial",
+        "intersection_volume_mm3": 0.0,
+        "maximum_mm3": 0,
+        "method": "manifold",
+        "minimum_mm3": 0.0,
+        "mode": "overlap"
+      },
+      {
+        "a": "shell",
+        "b": "reed",
+        "id": "nominal-shell-reed",
+        "intersection_volume_mm3": 13.96341312583189,
+        "maximum_mm3": 0,
+        "method": "manifold",
+        "minimum_mm3": 0.0,
+        "mode": "overlap"
+      }
+    ],
+    "motions": []
+  },
+  "profile": "release",
+  "required_capabilities": [
+    "mesh-boolean"
+  ],
+  "schema_version": "1.0",
+  "status": "FAIL",
+  "tool": "check-interfaces",
+  "tool_version": "1.3.0"
+}

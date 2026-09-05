@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-aroma-visible-components-001
+title: Judge diffuser styling with nominal service components visible
+category: core
+status: draft
+trigger: Appearance-first split-crown diffuser uses nominal purchased reed and vial.
+risk: A clean shell render hides a visually disruptive or intersecting reed.
+given:
+  input: R3 shell, nominal vial and 200-mm reed plus explicit 160-mm trim variant.
+expected:
+  - Render nominal purchased components enabled in the same unchanged model and camera.
+  - Preserve the failed 200-mm visibility and collision evidence.
+  - Label trimming explicitly without changing the purchased reference size.
+  - Keep physical fit, diffusion and material compatibility unapproved.
+failure_conditions:
+  - Hide the reed in the only recommended nominal-assembly render.
+  - Present the 200-mm intersecting axial placement as a validated assembly.
+  - Equate zero volumetric overlap with measured fit or adequate fragrance performance.
+fixtures:
+  - form-study/r3/assembly/nominal-200/assembly-hero.png
+  - form-study/r3/assembly/trimmed-160/assembly-hero.png
+  - form-study/r3/nominal-interfaces-report.json
+  - form-study/r3/trimmed-interfaces-report.json
+grader:
+  type: visual-rubric
+  command: null
+  expected_exit_code: 0
+  rubric: Compare equal-camera real renders, nominal component placement, exact collision reports and scope limits.
+  measurement_method: Virtual geometry and visual comparison; no physical measurements.
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags: [appearance-led, purchased-component, diffuser, nominal-collision, concept-phase]

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-DEC-003",
+  "run_record": {
+    "path": "organic/raw/step1x/run-001/step1x-run.json",
+    "sha256": "083429291f17b22cada4cf5fd277925d40c6ee55b53c9c08c2748c8146ebcc7a",
+    "status": "succeeded",
+    "output_glb_sha256": "15673d2f435dd442627d876c956d3e51b41aac2512c76248cf5d0ae5d7ca1e8c"
+  },
+  "runtime_profile": {
+    "path": "evidence/step1x-runtime-20260905.json",
+    "sha256": "b79b7355e638993d2708574df13a2f6cfe86560cadaf25d11c9856ba9c288339",
+    "captured_at": "2026-09-05T15:55:46Z",
+    "source_commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+    "source_origin": "https://github.com/stefanjunk/Step1X-3D.git",
+    "worktree_clean": true,
+    "container_id": "421a6f15f4d11679e119c1c9441a68ccbc1984e63de65a1a90e70a208de16259",
+    "container_image_id": "sha256:4c4a6acfc11c5f17a6b5eff7684cdfce6a9e35dc6339f219e08a8141388f7be4",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0"
+  },
+  "cleanup_gate": {
+    "minimum_commit": "f00dd46",
+    "verified_with": "git merge-base --is-ancestor f00dd46 4b6da92a56acb3a135b0493703470995c00c5e91",
+    "result": "PASS"
+  },
+  "opaque_input_preprocessing": {
+    "expected": true,
+    "runtime_provider": "rembg 2.0.65 / U2Net ONNX on CPUExecutionProvider",
+    "u2net_asset_sha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491"
+  },
+  "record_discrepancy": {
+    "status": "WARN",
+    "field": "provider.served_by_fork in step1x-run.json",
+    "reason": "The generation client used its obsolete default checkout path and therefore recorded 'not a git checkout'. The separately supplied and archived runtime-profile.json captures the actual healthy service checkout, commit, container and dependency snapshots immediately before generation.",
+    "resolution": "Use this immutable-hash attestation together with the archived runtime profile; do not alter the original run record after generation."
+  },
+  "commercial_interpretation": "The cleanup-fork gate passes technically. Commercial release still remains blocked pending complete input/tool terms, dependency and market review."
+}

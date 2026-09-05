@@ -1,0 +1,216 @@
+schema_version: '1.0'
+project_id: MM-DEC-003
+revision: 0.2.0
+record_type: product-local-learning-handoff
+created_at: '2026-09-05T18:43:53+02:00'
+central_store_status: pending-main-only-task
+promotion_status: not-requested
+scope_note: >-
+  These are E0 product observations and eval candidates, not validated lessons.
+  The product feature branch is restricted to this product subtree, so no
+  libraries/3d-learning record or production skill is changed here.
+
+user_feedback:
+  original_state: Legacy sunflower manufacturing geometry was present without an auditable generator or licence chain.
+  correction: The owner suspected that the old model had been generated with Hunyuan and requested a Step1X-3D replacement.
+  later_correction: The owner prohibited repair and parametric reconstruction of the generated flower body; regeneration with Step1X was required instead.
+  latest_correction: The owner confirmed that the real Anycubic print used an additional disc foot and authorized only that disc as a parametric addition.
+  accepted_after_verification: >-
+    Legacy manufacturing geometry is blocked and excluded. The selected flower
+    body is unchanged registered Step1X run-004 geometry, while the only
+    parametric geometry is an 80 × 6 mm disc recovered from the old 3MF metadata
+    as a factual dimension and confirmed by the owner. Commercial release remains
+    blocked pending the documented rights and human gates.
+  evidence:
+    - evidence/legacy-license-audit-v0.2.0.md
+    - evidence/derivation-manifest-v0.2.0.json
+    - reports/run-004/foot-union.json
+    - reports/run-004/edit-preservation.json
+    - commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md
+  learning_route: commercial-clearance rather than engineering-rule promotion
+
+observations:
+  - handoff_id: LH-MM-DEC-003-004
+    maturity: E0
+    confidence: high-for-recorded-user-correction
+    feature: authority boundary for regenerated organic geometry
+    process: Step1X-3D candidate selection and functionalization
+    expected: A regenerated appearance body is altered only within owner-authorized functional geometry.
+    actual: >-
+      The owner rejected the run-001 planar body operation and prohibited both
+      model fixing and parametric reconstruction. Run 004 was selected without
+      body repair, and a 30,000-sample comparison bound the sole permitted foot
+      edit to its cylindrical ROI plus a rigid 0.1 mm Z registration.
+    explanation_hypothesis: The owner values a fresh licensed generative form over a CAD reconstruction of that form.
+    alternatives:
+      - keep run-001 as a technical but owner-rejected experiment
+      - regenerate additional Step1X draws if run 004 fails physical testing
+    mechanism_validated: true-for-selected-digital-chain
+    evidence:
+      - evidence/derivation-manifest-v0.2.0.json
+      - reports/run-004/edit-preservation.json
+      - reports/run-004/foot-union.json
+    eval_candidate:
+      id: EC-MM-DEC-003-004
+      category: user-authority-boundary
+      trigger: A user rejects repair or parametric reconstruction of AI-generated visible geometry.
+      expected: Preserve or regenerate the visible body and encode every allowed parametric exception as a bounded component/ROI with a regression check.
+      failure: Shipping a technically valid candidate whose visible generative body was modified outside the user's authorized scope.
+      grader: provenance-chain inspection plus protected-region comparison
+
+  - handoff_id: LH-MM-DEC-003-005
+    maturity: E0
+    confidence: high-for-recorded-metadata-and-user-confirmation
+    feature: slicer-added primitive promoted to controlled product geometry
+    process: Anycubic 3MF interpretation and deterministic foot generation
+    expected: The real-print foot intent and dimensions are captured without reusing blocked legacy mesh geometry.
+    actual: >-
+      The old 3MF names a Generic-Disc whose nested primitive bounds and instance
+      transform resolve to approximately 80 mm diameter × 6 mm thickness. The
+      owner confirmed the disc was intentionally added for the real print. A new
+      256-segment cylinder was generated from nominal parameters; no old vertex or
+      face was copied.
+    explanation_hypothesis: A slicer-stage stabilization feature can become product authority when its intent and dimensions are independently documented.
+    alternatives:
+      - ask the owner to remeasure the printed foot
+      - keep the feature only in a new 3MF rather than unite it into the STL
+    mechanism_validated: digital-only; physical stability remains untested
+    evidence:
+      - parameters/foot-disc-v0.2.0.json
+      - reports/run-004/foot-union.json
+      - reports/run-004/slice-footed-support-run-002.json
+    eval_candidate:
+      id: EC-MM-DEC-003-005
+      category: slicer-to-design-authority
+      trigger: A user identifies an intentionally added slicer primitive as part of the real printed product.
+      expected: Record user intent, recover dimensions as facts, regenerate the primitive independently and validate the one-body result.
+      failure: Copying blocked legacy mesh geometry or omitting an intentional real-print feature from the product source of truth.
+      grader: metadata/parameter/mesh-chain audit plus physical follow-up
+
+  - handoff_id: LH-MM-DEC-003-001
+    maturity: E0
+    confidence: high-for-recorded-run
+    feature: foreground isolation for image-to-3D input
+    process: imagegen-to-Step1X-3D
+    expected: Prompted transparent background with one isolated object.
+    actual: RGB image contained a baked checkerboard and no meaningful alpha.
+    outcome: >-
+      The exact opaque source was retained and the Step1X service's recorded
+      rembg/U2Net preprocessing was used; the resulting silhouette was reviewed
+      before functionalization.
+    explanation_hypothesis: The image generator rendered transparency cues as pixels instead of an alpha channel.
+    alternatives:
+      - delivery conversion stripped alpha after generation
+      - the requested transparency was not supported for this response
+    mechanism_validated: false
+    applicability:
+      geometry_class: isolated organic single-image object
+      step1x_fork_commit: 4b6da92
+      input_mode: RGB PNG
+      rembg_version: 2.0.65
+      rembg_model: U2Net
+    exclusions:
+      - alpha-bearing images not inspected for foreground quality
+      - multi-object scenes
+      - methods that do not record preprocessing
+    evidence:
+      - evidence/imagegen-record-v0.2.0.json
+      - evidence/step1x-runtime-20260905.json
+      - organic/raw/step1x/run-001/step1x-run.json
+    eval_candidate:
+      id: EC-MM-DEC-003-001
+      category: visual-and-provenance
+      trigger: An image-to-3D input requests transparency or object isolation.
+      expected: >-
+        Detect and record image mode/alpha; if opaque, bind the exact
+        preprocessing method and require silhouette review before accepting the
+        generated geometry.
+      failure: >-
+        Treating an opaque baked background as transparent, or accepting its
+        generated silhouette without recorded preprocessing and review.
+      grader: hybrid metadata check plus fixed-view visual review
+
+  - handoff_id: LH-MM-DEC-003-002
+    maturity: E0
+    confidence: high-for-recorded-geometry
+    feature: manufacturing-mesh simplification of visible organic petals and seed texture
+    process: FFF digital preparation
+    machine: Anycubic Kobra 3 Max
+    material:
+      manufacturer: SUNLU
+      product: PETG
+      variant: Black new
+      batch: unknown
+    nozzle:
+      diameter_mm: 0.4
+      material: hardened steel
+      wear_state: unknown
+    orientation: planar regenerated underside on build plate
+    slicer:
+      name: Anycubic Slicer Next
+      version: 1.3.9.4
+      layer_height_mm: 0.20
+      machine_profile_sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+      process_profile_sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
+      filament_profile_sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+    expected: Candidate satisfies numeric surface, volume, topology and slice constraints without objectionable visible faceting.
+    actual: >-
+      The 0.05 mm tolerance candidate passed numeric limits but showed visible
+      triangular faceting in 1000 px fixed-view renders. The 0.025 mm candidate
+      passed both numeric and visual gates.
+    explanation_hypothesis: The coarser manifold approximation undersampled curvature and highlight continuity on the broad visible petal surfaces.
+    alternatives:
+      - Workbench lighting exaggerated facets that may be less visible in matte filament
+      - facet visibility depends on final color, layer lines and viewing distance
+    mechanism_validated: false
+    evidence:
+      - reports/run-001/surface-distance-tol-0p025.json
+      - reports/run-001/surface-distance-tol-0p05.json
+      - reports/run-001/candidate-tol-0p025-iso.png
+      - reports/run-001/candidate-tol-0p05-iso.png
+      - reports/run-001/optimization-pareto.json
+    eval_candidate:
+      id: EC-MM-DEC-003-002
+      category: visual-mesh-regression
+      trigger: Simplifying an appearance-critical organic manufacturing mesh.
+      expected: >-
+        Require both bounded bidirectional surface/volume regression and
+        fixed-camera, fixed-lighting review at declared resolution.
+      failure: Selecting a numerically compliant candidate with objectionable visible faceting.
+      grader: deterministic geometry metrics plus human visual rubric
+
+  - handoff_id: LH-MM-DEC-003-003
+    maturity: E0
+    confidence: high-for-recorded-adapter-run
+    feature: isolated headless slicer input resolution
+    process: exact Anycubic Slicer Next local export
+    machine: Anycubic Kobra 3 Max
+    expected: The declared source mesh resolves inside the adapter's isolated execution context.
+    actual: >-
+      The first run used a repository-relative input and failed before producing
+      G-code because the isolated slicer working directory could not resolve it.
+      A new output directory and absolute source path produced a PASS.
+    explanation_hypothesis: The slicer process resolves relative inputs against its isolated working directory rather than the caller's repository root.
+    alternatives:
+      - wrapper-specific path translation failure
+      - slicer CLI inconsistency for relative paths
+    mechanism_validated: true-for-recorded-adapter-version
+    evidence:
+      - reports/run-001/slice-baseline.json
+      - reports/run-001/slice-baseline-run-002.json
+    eval_candidate:
+      id: EC-MM-DEC-003-003
+      category: slicer-adapter
+      trigger: A local source path is passed to an isolated slicer execution.
+      expected: Resolve and record an absolute input path before invoking the slicer, and require a fresh output directory for every retry.
+      failure: Missing G-code or a report whose recorded input cannot be resolved from the isolated execution context.
+      grader: deterministic adapter integration test
+
+duplicate_conflict_audit:
+  status: pending-main-only-task
+  rationale: Product branch policy forbids writing the shared learning store; the integration owner must allocate central EXP/EVAL IDs and run duplicate/conflict checks on main.
+
+human_decisions_required:
+  - Decide whether each handoff should become a central E0 candidate.
+  - Approve any future promotion only after targeted evals and required regression evidence.
+  - Keep the Hunyuan/licence correction in commercial clearance unless a clearly reusable repository procedure is proposed.

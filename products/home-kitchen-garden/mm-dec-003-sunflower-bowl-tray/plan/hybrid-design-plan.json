@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-DEC-003",
+    "title": "Sunflower Bowl / Tray v0.2.0",
+    "source_modes": ["concept_image", "design_description"],
+    "claim": "step1x_regeneration_with_parametric_foot_only",
+    "units": "mm",
+    "process": {
+      "technology": "FDM",
+      "printer": "Anycubic Kobra 3 Max",
+      "nozzle_mm": 0.4,
+      "line_width_mm": 0.42,
+      "layer_height_mm": 0.2,
+      "profile_id": "MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31"
+    },
+    "coordinate_frame": {
+      "handedness": "right",
+      "origin": "centre of the final bed-contact plane",
+      "x_axis": "+X right in the product top view",
+      "y_axis": "+Y toward the selected concept-view back",
+      "z_axis": "+Z upward from the print bed",
+      "transform_convention": "row-major 4x4 matrix maps Step1X source coordinates to project millimetres"
+    },
+    "master_envelope_mm": {
+      "min": [-100.0, -100.0, 0.0],
+      "max": [100.0, 100.0, 65.0]
+    },
+    "requirements": [
+      {
+        "id": "REQ-APPEAR-001",
+        "statement": "The visible body shall retain the selected soft sunflower petal and central seed-disc character.",
+        "evidence_class": "requested",
+        "source": "design-spec.yaml and approved concept assets",
+        "priority": "important",
+        "verification": "top/front/isometric clay review"
+      },
+      {
+        "id": "REQ-MFG-001",
+        "statement": "The manufacturing derivative shall preserve the registered Step1X flower body and add only the owner-confirmed 80 × 6 mm disc foot as parametric geometry.",
+        "evidence_class": "requested",
+        "source": "design-spec.yaml",
+        "priority": "critical",
+        "verification": "registration report, mesh audit and exact-profile slice"
+      },
+      {
+        "id": "REQ-TRAY-001",
+        "statement": "The central open tray depression shall remain free of generated closures and hidden pockets.",
+        "evidence_class": "requested",
+        "source": "design-spec.yaml",
+        "priority": "critical",
+        "verification": "sections, top view and physical dry-item test"
+      }
+    ],
+    "global_style": {
+      "summary": "one coherent soft sunflower tray with rounded petals and readable medium-scale seed detail",
+      "motifs": ["radial sunflower petals", "broad shallow bowl", "spiral-like seed disc"],
+      "exclude": ["text", "logo", "floating fragments", "thin lattice", "detached seeds", "cast shadow geometry", "micro-noise"],
+      "generation_material": "matte warm yellow clay with broad diffuse lighting",
+      "detail_hierarchy": "tray silhouette first, petals second, sparse printable seed relief last"
+    },
+    "assembly_sequence": [
+      "Generate and preserve the raw Step1X geometry proposal.",
+      "Register uniformly to the 200 mm product envelope and convert +Y-up to +Z-up.",
+      "Do not repair, simplify or parametrically reconstruct the Step1X flower body.",
+      "Create the owner-confirmed 80 × 6 mm disc foot and Boolean-union only that foot.",
+      "Audit protected-region preservation and slice the single derived body; no physical assembly is required."
+    ]
+  },
+  "decision_log": [
+    {
+      "id": "DEC-LEGACY-001",
+      "topic": "Exclude all prior AI meshes and the old 3MF from the new derivative chain.",
+      "status": "resolved",
+      "current_basis": "The files predate the Step1X cleanup and have no auditable run manifest.",
+      "evidence_needed": "New Step1X run at or after f00dd46.",
+      "blocks_gates": []
+    },
+    {
+      "id": "DEC-PHYSICAL-001",
+      "topic": "Qualify the final support footprint, petal-edge comfort and loaded tilt stability.",
+      "status": "open",
+      "current_basis": "Only digital and nominal evidence exists.",
+      "evidence_needed": "Full prototype printed on the recorded process and measured physical test results.",
+      "blocks_gates": ["physical", "release"]
+    },
+    {
+      "id": "DEC-FOOT-001",
+      "topic": "Add the real-print disc foot parametrically without repairing the Step1X body.",
+      "status": "resolved",
+      "current_basis": "Owner instruction plus old Anycubic 3MF metadata establishing a nominal 80 × 6 mm disc.",
+      "evidence_needed": "Foot parameters, Boolean report and protected-region comparison.",
+      "blocks_gates": []
+    }
+  ],
+  "components": [
+    {
+      "id": "SUNFLOWER_BODY",
+      "name": "Step1X sunflower appearance preform",
+      "role": "visible one-piece flower form and tray massing",
+      "authority": "organic",
+      "representation": "mesh",
+      "source": {
+        "kind": "concept_image",
+        "refs": ["organic/reference/sunflower-step1x-plate-003.png", "design-spec.yaml"],
+        "confidence": "medium"
+      },
+      "functions": ["create sunflower appearance", "provide open storage depression", "form printable one-piece body"],
+      "envelope_mm": {
+        "min": [-100.0, -100.0, 0.0],
+        "max": [100.0, 100.0, 65.0]
+      },
+      "source_to_mm_scale": 105.43125475183143,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, -1.0, 0.0,
+        0.0, 1.0, 0.0, 29.940893713347258,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "registration_matrix_row_major": [
+        105.43125475183143, 0.0, 0.0, 0.0,
+        0.0, 0.0, -105.43125475183143, 0.0,
+        0.0, 105.43125475183143, 0.0, 29.940893713347258,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "FDM after uniform registration and foot-only Boolean union",
+        "material": "SUNLU PETG Black digital baseline; final yellow material unresolved",
+        "color_body": "single",
+        "orientation": "parametric disc foot on the bed"
+      },
+      "interface_ids": ["IF-BODY-BED-DATUM"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.2,
+        "checks": ["200 mm registered envelope", "provisional height at or below 65 mm", "open tray depression", "no thin or detached petal tips"]
+      },
+      "image_to_3d": {
+        "generation_mode": "single_view_whole_object",
+        "input_views": ["front-right three-quarter, slightly elevated"],
+        "positive_prompt": "One coherent low shallow sunflower tray with twenty broad softly curved petals, a broad accessible central depression and sparse raised sunflower seed detail, shown as matte warm yellow clay.",
+        "exclude": ["text", "logo", "ruler", "ground plane", "cast shadow", "hands", "contents", "separate seeds", "floating fragments", "thin sheets", "open lattice", "deep vase form"],
+        "sacrificial_interface_band_mm": 6.1,
+        "protected_features": ["outer radial petal silhouette", "rounded petal ridges", "central seed-disc relief", "open central depression"],
+        "negative_spaces": ["the central depression remains open from above"],
+        "landmarks": [
+          {"id": "LM-CENTRE", "point_mm": [0.0, 0.0, 0.0], "meaning": "project centre on final bed plane"},
+          {"id": "LM-X-PETAL", "point_mm": [100.0, 0.0, 20.0], "meaning": "positive X silhouette extremum after registration"},
+          {"id": "LM-Y-PETAL", "point_mm": [0.0, 100.0, 20.0], "meaning": "positive Y silhouette extremum after registration"}
+        ]
+      }
+    },
+    {
+      "id": "FOOT_DISC",
+      "name": "Parametric 80 × 6 mm disc foot",
+      "role": "owner-confirmed positive foot geometry and final bed placement",
+      "authority": "parametric",
+      "representation": "brep",
+      "source": {
+        "kind": "design_description",
+        "refs": ["design-spec.yaml", "parameters/foot-disc-v0.2.0.json", "sunflower_bowl/sunflower_bowl.3mf", "owner chat instruction 2026-09-05"],
+        "confidence": "high"
+      },
+      "functions": ["provide the 80 mm planar bed contact", "provide the 6 mm owner-confirmed foot thickness", "own the foot-only edit ROI"],
+      "envelope_mm": {
+        "min": [-40.0, -40.0, 0.0],
+        "max": [40.0, 40.0, 6.0]
+      },
+      "source_to_mm_scale": 1.0,
+      "placement_transform": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "manufacturing": {
+        "method": "printed positive cylinder Boolean-unioned to the Step1X body",
+        "material": "same PETG as the body",
+        "color_body": "single",
+        "orientation": "80 mm circular face coincident with the project XY plane"
+      },
+      "interface_ids": ["IF-BODY-BED-DATUM"],
+      "acceptance": {
+        "expected_components": 1,
+        "require_watertight": true,
+        "max_bounds_error_mm": 0.01,
+        "checks": ["Z=0 plane", "80 mm diameter", "6 mm thickness", "one-body Boolean union"]
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-BODY-BED-DATUM",
+      "a": "SUNFLOWER_BODY",
+      "b": "FOOT_DISC",
+      "owner": "FOOT_DISC",
+      "kind": "other",
+      "local_frame": {
+        "origin_mm": [0.0, 0.0, 0.0],
+        "x_axis": [1.0, 0.0, 0.0],
+        "y_axis": [0.0, 1.0, 0.0],
+        "z_axis": [0.0, 0.0, 1.0]
+      },
+      "nominal_geometry": {
+        "type": "disc_foot",
+        "nominal_support_diameter_mm": 80.0,
+        "nominal_thickness_mm": 6.0,
+        "target_min_z_mm": 0.0
+      },
+      "joining": {
+        "method": "positive disc Boolean union with 5.9 mm nominal overlap and 0.1 mm pre-registration protrusion",
+        "assembly_direction": "+Z",
+        "anti_rotation": "rotational symmetry makes yaw nonfunctional",
+        "lead_in_mm": 0.0,
+        "serviceable": false
+      },
+      "allowances": {
+        "functional_clearance_per_side_mm": 0.0,
+        "process_compensation_per_side_mm": 0.0,
+        "assembly_allowance_per_side_mm": 0.0,
+        "adhesive_gap_per_side_mm": 0.0,
+        "boolean_overlap_mm": 5.9,
+        "registration_uncertainty_mm": 0.2,
+        "solver_margin_mm": 0.1
+      },
+      "seam_band_mm": 6.1,
+      "keepout_ids": ["KEEP-TRAY-DEPRESSION", "KEEP-VISIBLE-UPPER"],
+      "requirements": {
+        "minimum_wall_mm": 3.0,
+        "minimum_ligament_mm": 3.0,
+        "load_or_flow": "self weight and lightweight dry contents only"
+      },
+      "verification": ["registered min Z and bounds", "bed-contact section", "round-trip watertightness", "exact-profile first-layer review"]
+    }
+  ],
+  "keepouts": [
+    {
+      "id": "KEEP-TRAY-DEPRESSION",
+      "type": "aabb",
+      "purpose": "conservative proxy for the open central tray depression; no base fill may close it",
+      "min_mm": [-55.0, -55.0, 6.1],
+      "max_mm": [55.0, 55.0, 65.0],
+      "source": "approved concept and design-spec.yaml"
+    },
+    {
+      "id": "KEEP-VISIBLE-UPPER",
+      "type": "aabb",
+      "purpose": "protected visible upper region outside the underside edit band",
+      "min_mm": [-100.0, -100.0, 6.1],
+      "max_mm": [100.0, 100.0, 65.0],
+      "source": "design-spec.yaml"
+    }
+  ],
+  "validation": [
+    {
+      "id": "VAL-ARCH-001",
+      "gate": "architecture",
+      "method": "run plan_hybrid_design.py and review authority/interface matrix",
+      "acceptance": "one authority per dimension and no unresolved identifiers"
+    },
+    {
+      "id": "VAL-PROXY-001",
+      "gate": "proxy",
+      "method": "compare the registered Step1X body and footed result outside the declared cylindrical foot ROI",
+      "acceptance": "outside the foot ROI only the documented rigid 0.1 mm Z registration is measurable"
+    },
+    {
+      "id": "VAL-COMP-001",
+      "gate": "component",
+      "method": "Step1X intake plus registered mesh audit and clay renders",
+      "acceptance": "one coherent watertight component with accepted silhouette and open depression"
+    },
+    {
+      "id": "VAL-INT-001",
+      "gate": "integration",
+      "method": "bounds, bed contact, sections and protected-region review",
+      "acceptance": "only the underside edit band changes and the support plane is continuous"
+    },
+    {
+      "id": "VAL-MFG-001",
+      "gate": "manufacturing",
+      "method": "Anycubic Slicer Next exact-profile run and layer review",
+      "acceptance": "successful G-code with declared build-plate-only tree support, no floating-region warning and peak-flow analysis at or below 13.3 mm3/s"
+    },
+    {
+      "id": "VAL-PHY-001",
+      "gate": "physical",
+      "method": "full prototype rocking, loaded tilt, dry-item handling and edge inspection",
+      "acceptance": "all recorded physical criteria pass before print-candidate or release approval"
+    }
+  ]
+}

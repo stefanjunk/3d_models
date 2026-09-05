@@ -1,0 +1,75 @@
+{
+  "baseline": "full-resolution-master",
+  "objectives": [
+    {"metric": "faces", "goal": "min"},
+    {"metric": "stl_bytes", "goal": "min"},
+    {"metric": "slicer_time_s", "goal": "min"},
+    {"metric": "positive_extrusion_mm", "goal": "min"}
+  ],
+  "constraints": [
+    {"metric": "mesh_pass", "op": "==", "value": 1},
+    {"metric": "surface_p95_mm", "op": "<=", "value": 0.05},
+    {"metric": "surface_max_mm", "op": "<=", "value": 0.12},
+    {"metric": "absolute_volume_change_fraction", "op": "<=", "value": 0.002},
+    {"metric": "minimum_flat_support_span_mm", "op": ">=", "value": 126.0},
+    {"metric": "visual_pass", "op": "==", "value": 1},
+    {"metric": "slicer_pass", "op": "==", "value": 1},
+    {"metric": "layers", "op": "==", "value": 199}
+  ],
+  "variants": [
+    {
+      "name": "full-resolution-master",
+      "metrics": {
+        "faces": 330228,
+        "stl_bytes": 16511484,
+        "slicer_time_s": 35923.0,
+        "positive_extrusion_mm": 65764.45587000721,
+        "mesh_pass": 1,
+        "surface_p95_mm": 0.0,
+        "surface_max_mm": 0.0,
+        "absolute_volume_change_fraction": 0.0,
+        "minimum_flat_support_span_mm": 180.141357421875,
+        "visual_pass": 1,
+        "slicer_pass": 1,
+        "layers": 199
+      },
+      "notes": ["recoverable high-resolution manufacturing master"]
+    },
+    {
+      "name": "manifold-tol-0p025",
+      "metrics": {
+        "faces": 179454,
+        "stl_bytes": 8972784,
+        "slicer_time_s": 35949.0,
+        "positive_extrusion_mm": 65728.70669000817,
+        "mesh_pass": 1,
+        "surface_p95_mm": 0.013359293218914955,
+        "surface_max_mm": 0.041332896742946594,
+        "absolute_volume_change_fraction": 0.000103046,
+        "minimum_flat_support_span_mm": 180.12584686279297,
+        "visual_pass": 1,
+        "slicer_pass": 1,
+        "layers": 199
+      },
+      "notes": ["selected manufacturing candidate", "flat base regenerated after shell simplification"]
+    },
+    {
+      "name": "manifold-tol-0p05",
+      "metrics": {
+        "faces": 108698,
+        "stl_bytes": 5434984,
+        "slicer_time_s": 36153.0,
+        "positive_extrusion_mm": 65798.87401001187,
+        "mesh_pass": 1,
+        "surface_p95_mm": 0.03270067275468041,
+        "surface_max_mm": 0.09217888639294382,
+        "absolute_volume_change_fraction": 0.000336612,
+        "minimum_flat_support_span_mm": 180.09516143798828,
+        "visual_pass": 0,
+        "slicer_pass": 1,
+        "layers": 199
+      },
+      "notes": ["rejected because 1000 px workbench views show visible triangular faceting"]
+    }
+  ]
+}

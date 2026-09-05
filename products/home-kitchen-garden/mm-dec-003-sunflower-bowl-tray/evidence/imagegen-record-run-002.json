@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "record_id": "MM-DEC-003-IMG-002",
+  "project_id": "MM-DEC-003",
+  "created_at": "2026-09-05T19:20:28+02:00",
+  "role": "regeneration input plate for Step1X run-002",
+  "reason": "Owner directed regeneration rather than parametric repair; run-001 retained as a rejected digital attempt because global thin-feature and self-intersection acceptance was not established.",
+  "generation": {
+    "provider": "OpenAI Media Service API",
+    "tool": "Codex image_gen__imagegen",
+    "model": "gpt-image",
+    "model_version": "2.0",
+    "input_images": [],
+    "prompt_file": "organic/reference/imagegen-prompt-run-002.txt",
+    "prompt_sha256": "ea2fb0488e2a36a99af13bf28b54e2975a6ace2a165af5036932ab6a85217a34",
+    "seed": "not exposed",
+    "account_plan_and_terms_snapshot": "not available in the product workspace"
+  },
+  "output": {
+    "path": "organic/reference/sunflower-step1x-plate-002.png",
+    "sha256": "0b5e34525774621f7d1c8f74997dd09f4d341c3b7ff2d8a8a02dbb96970f6847",
+    "media_type": "image/png",
+    "size_px": [1329, 1183],
+    "mode": "RGB",
+    "meaningful_alpha": false,
+    "visual_review": "PASS: one coherent tray, broad blunt petals, visible substantial lower body, open shallow depression, and plain uniform background",
+    "technical_review": "PASS for deliberate opaque-background Step1X preprocessing route"
+  },
+  "content_credentials": {
+    "present": true,
+    "claim_generator": "OpenAI Media Service API",
+    "software_agent": "gpt-image 2.0",
+    "digital_source_type": "trainedAlgorithmicMedia",
+    "actions": ["c2pa.created", "c2pa.converted", "c2pa.watermarked.unbound"],
+    "action_date_utc": "2026-09-05",
+    "inspection_tool": "ExifTool 13.55"
+  },
+  "preprocessing_route": {
+    "required": true,
+    "expected": "Step1X service rembg/U2Net CPU foreground isolation for the deliberate opaque gray background",
+    "review_requirement": "archive exact RGB source and run manifest; inspect component count, silhouette and underside before accepting manufacturing use"
+  },
+  "rights": {
+    "user_supplied_third_party_inputs": false,
+    "commercial_use_status": "UNKNOWN",
+    "status": "WARN",
+    "reason": "Auditable generation chain exists, but the account plan and operative OpenAI terms snapshot are not recorded locally."
+  },
+  "classification": "AI-generated design reference; not manufacturing geometry and not a standalone commercial release asset"
+}

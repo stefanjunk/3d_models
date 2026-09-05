@@ -1,0 +1,179 @@
+{
+  "baseline": "full-resolution-master",
+  "constraints": [
+    {
+      "metric": "mesh_pass",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "surface_p95_mm",
+      "op": "<=",
+      "value": 0.05
+    },
+    {
+      "metric": "surface_max_mm",
+      "op": "<=",
+      "value": 0.12
+    },
+    {
+      "metric": "absolute_volume_change_fraction",
+      "op": "<=",
+      "value": 0.002
+    },
+    {
+      "metric": "minimum_flat_support_span_mm",
+      "op": ">=",
+      "value": 126.0
+    },
+    {
+      "metric": "visual_pass",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "slicer_pass",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "layers",
+      "op": "==",
+      "value": 199
+    }
+  ],
+  "feasible_count": 2,
+  "interpretation": "Choose among feasible Pareto variants using explicit user priorities; no weighted score was invented.",
+  "objectives": [
+    {
+      "goal": "min",
+      "metric": "faces"
+    },
+    {
+      "goal": "min",
+      "metric": "stl_bytes"
+    },
+    {
+      "goal": "min",
+      "metric": "slicer_time_s"
+    },
+    {
+      "goal": "min",
+      "metric": "positive_extrusion_mm"
+    }
+  ],
+  "pareto_variants": [
+    "full-resolution-master",
+    "manifold-tol-0p025"
+  ],
+  "results": [
+    {
+      "delta_from_baseline": {
+        "faces": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "positive_extrusion_mm": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "slicer_time_s": {
+          "absolute": 0.0,
+          "percent": 0.0
+        },
+        "stl_bytes": {
+          "absolute": 0.0,
+          "percent": 0.0
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "full-resolution-master",
+      "notes": [
+        "recoverable high-resolution manufacturing master"
+      ],
+      "objective_metrics": {
+        "faces": 330228,
+        "positive_extrusion_mm": 65764.45587000721,
+        "slicer_time_s": 35923.0,
+        "stl_bytes": 16511484
+      },
+      "pareto": true
+    },
+    {
+      "delta_from_baseline": {
+        "faces": {
+          "absolute": -150774.0,
+          "percent": -45.65754569570115
+        },
+        "positive_extrusion_mm": {
+          "absolute": -35.74917999903846,
+          "percent": -0.054359424899221846
+        },
+        "slicer_time_s": {
+          "absolute": 26.0,
+          "percent": 0.07237702864460095
+        },
+        "stl_bytes": {
+          "absolute": -7538700.0,
+          "percent": -45.65731341895132
+        }
+      },
+      "failed_constraints": [],
+      "feasible": true,
+      "name": "manifold-tol-0p025",
+      "notes": [
+        "selected manufacturing candidate",
+        "flat base regenerated after shell simplification"
+      ],
+      "objective_metrics": {
+        "faces": 179454,
+        "positive_extrusion_mm": 65728.70669000817,
+        "slicer_time_s": 35949.0,
+        "stl_bytes": 8972784
+      },
+      "pareto": true
+    },
+    {
+      "delta_from_baseline": {
+        "faces": {
+          "absolute": -221530.0,
+          "percent": -67.08395411654978
+        },
+        "positive_extrusion_mm": {
+          "absolute": 34.418140004665474,
+          "percent": 0.05233547445857047
+        },
+        "slicer_time_s": {
+          "absolute": 230.0,
+          "percent": 0.6402583303176238
+        },
+        "stl_bytes": {
+          "absolute": -11076500.0,
+          "percent": -67.08361283576933
+        }
+      },
+      "failed_constraints": [
+        {
+          "actual": 0,
+          "metric": "visual_pass",
+          "op": "==",
+          "required": 1,
+          "tolerance": 0.0
+        }
+      ],
+      "feasible": false,
+      "name": "manifold-tol-0p05",
+      "notes": [
+        "rejected because 1000 px workbench views show visible triangular faceting"
+      ],
+      "objective_metrics": {
+        "faces": 108698,
+        "positive_extrusion_mm": 65798.87401001187,
+        "slicer_time_s": 36153.0,
+        "stl_bytes": 5434984
+      },
+      "pareto": false
+    }
+  ]
+}

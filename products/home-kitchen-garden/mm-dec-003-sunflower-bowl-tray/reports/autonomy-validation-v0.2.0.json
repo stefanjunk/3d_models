@@ -1,0 +1,204 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "policy-contract",
+      "message": "Policy identity, mode, and stage order are valid",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "preflight-binding",
+      "message": "Autonomy is bound to the current preflight artifact and its risk ceiling",
+      "metrics": {
+        "assessment_id": "PREFLIGHT-MM-DEC-003-002",
+        "assessment_version": "0.2.0",
+        "autonomy_ceiling": "autonomous-to-print-candidate",
+        "confidence": "CONDITIONAL",
+        "criticality": "K1",
+        "design_release": "GO_WITH_CONTROLS",
+        "gates": {
+          "G0": "PASS",
+          "G1": "PASS",
+          "G2": "PASS",
+          "G3": "PASS",
+          "G4": "PASS",
+          "G5": "PASS",
+          "G6": "PASS"
+        },
+        "lane": "B",
+        "project_id": "MM-DEC-003",
+        "project_revision": "0.2.0",
+        "readiness": "R3"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:requirements-normalization",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:concept",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:decomposition",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:parametric-source",
+      "message": "approval='agent', evidence_mode='deterministic-pass'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:mesh-generation",
+      "message": "approval='agent', evidence_mode='deterministic-pass'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:interface-validation",
+      "message": "approval='agent', evidence_mode='deterministic-pass'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:slicer-preflight",
+      "message": "approval='agent', evidence_mode='deterministic-pass'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:print-candidate",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:physical-print",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:fit-and-function",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:appearance",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:safety",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "stage:commercial-release",
+      "message": "approval='human', evidence_mode='human-evidence'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "mode-stage-boundary",
+      "message": "Stage authorities match mode 'guided'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "auto-approval-conditions",
+      "message": "Auto approval is fail-closed and hash-bound",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "human-approval-proof",
+      "message": "Human proof mode: 'hmac-sha256'",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "tool-policy-boundary",
+      "message": "Installation, external upload, printer control, and destructive overwrite remain outside workflow auto approval",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/autonomy-policy.json",
+      "sha256": "782be8483a86af022da80163a4708bba92fc0a5a9f32f4a4d577fe9dbcb14f49",
+      "size_bytes": 3511
+    },
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/preflight/preflight-result.json",
+      "sha256": "f88d9fa71e58867e96deba20c49d99707a8d60f89de46faa2c027d85f81eeebc",
+      "size_bytes": 10073
+    }
+  ],
+  "limitations": [
+    "Workflow approval never grants OpenCode, operating-system, network, upload, or printer permissions."
+  ],
+  "metrics": {
+    "authorized_by": "project-owner-via-chat-2026-09-05",
+    "mode": "guided",
+    "policy_id": "MM-DEC-003-guided-v1",
+    "policy_sha256": "782be8483a86af022da80163a4708bba92fc0a5a9f32f4a4d577fe9dbcb14f49",
+    "project_id": "MM-DEC-003"
+  },
+  "profile": "draft",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-autonomy",
+  "tool_version": "1.3.0"
+}

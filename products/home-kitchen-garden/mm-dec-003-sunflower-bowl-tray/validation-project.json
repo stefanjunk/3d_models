@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "MM-DEC-003",
+    "revision": "0.2.0",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [420.0, 420.0, 500.0]
+  },
+  "artifacts": [
+    {"id": "design-spec", "path": "design-spec.yaml", "kind": "contract", "revision": "0.2.0"},
+    {"id": "autonomy-policy", "path": "autonomy-policy.json", "kind": "autonomy-policy", "revision": "0.2.0"},
+    {"id": "step1x-run", "path": "organic/raw/step1x/run-004/step1x-run.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "step1x-attestation", "path": "evidence/step1x-run-attestation-run-004.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "derivation-manifest", "path": "evidence/derivation-manifest-v0.2.0.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "step1x-body", "path": "organic/work/run-004/01-registered-raw.stl", "kind": "mesh", "revision": "0.2.0"},
+    {"id": "parametric-foot", "path": "organic/work/run-004/02-parametric-foot-disc.stl", "kind": "mesh", "revision": "0.2.0"},
+    {"id": "foot-union", "path": "reports/run-004/foot-union.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "edit-preservation", "path": "reports/run-004/edit-preservation.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "mesh-audit", "path": "reports/run-004/mesh-audit-footed.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "digital-candidate", "path": "result/MM-DEC-003-sunflower-bowl-tray-v0.2.0-step1x-run-004-footed-digital-candidate.stl", "kind": "mesh", "revision": "0.2.0"},
+    {"id": "slice-report", "path": "reports/run-004/slice-footed-support-run-002.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "exact-gcode", "path": "exports/v0.2.0/slice-run-004-footed-support-run-002/plate_1.gcode", "kind": "gcode", "revision": "0.2.0"},
+    {"id": "top-preview", "path": "reports/run-004/footed-top.png", "kind": "image", "revision": "0.2.0"},
+    {"id": "front-preview", "path": "reports/run-004/footed-front.png", "kind": "image", "revision": "0.2.0"},
+    {"id": "iso-preview", "path": "reports/run-004/footed-iso.png", "kind": "image", "revision": "0.2.0"},
+    {"id": "bottom-preview", "path": "reports/run-004/footed-bottom.png", "kind": "image", "revision": "0.2.0"},
+    {"id": "section-analysis", "path": "reports/run-004/section-analysis.json", "kind": "report", "revision": "0.2.0"},
+    {"id": "section-x0", "path": "reports/run-004/section-x0.svg", "kind": "image", "revision": "0.2.0"},
+    {"id": "section-y0", "path": "reports/run-004/section-y0.svg", "kind": "image", "revision": "0.2.0"},
+    {"id": "commercial-audit", "path": "reports/commercial-release-audit-v0.2.0.json", "kind": "report", "revision": "0.2.0"}
+  ],
+  "checks": [
+    {
+      "id": "digital-candidate-mesh",
+      "type": "mesh",
+      "required": true,
+      "artifact": "digital-candidate",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "bed_mm": [420.0, 420.0, 500.0],
+        "allow_axis_permutation": false,
+        "max_faces": 500000,
+        "max_file_mib": 25,
+        "min_wall_mm": 0.8,
+        "wall_samples": 1000,
+        "wall_method": "ray",
+        "seed": 20260905,
+        "require_self_intersection_check": false
+      },
+      "report": "reports/project-digital-candidate-mesh-v0.2.0.json"
+    },
+    {
+      "id": "selected-gcode",
+      "type": "gcode",
+      "required": true,
+      "artifact": "exact-gcode",
+      "policy": {
+        "filament_diameter_mm": 1.75,
+        "allowed_tools": [0],
+        "max_tool_changes": 0,
+        "require_complete_motion": true,
+        "require_layer_markers": true,
+        "min_layers": 290,
+        "min_positive_extrusion_mm": 1.0,
+        "bed_mm": [420.0, 420.0, 500.0],
+        "max_flow_mm3_s": 13.3
+      },
+      "report": "reports/project-selected-gcode-v0.2.0.json"
+    },
+    {
+      "id": "exact-anycubic-slice",
+      "type": "external_report",
+      "required": true,
+      "artifact": "slice-report",
+      "expected_inputs": ["digital-candidate"]
+    },
+    {
+      "id": "foot-only-authority",
+      "type": "review",
+      "required": true,
+      "status": "PASS",
+      "criterion": "The only parametric geometry is the owner-confirmed 80 × 6 mm disc foot; the Step1X body is not reconstructed or repaired.",
+      "evidence_artifact": "foot-union"
+    },
+    {
+      "id": "protected-body-preservation",
+      "type": "review",
+      "required": true,
+      "status": "PASS",
+      "criterion": "A 30,000-sample bidirectional exact triangle-distance comparison shows no local body change outside the cylindrical foot ROI; only the documented 0.1 mm rigid Z registration remains.",
+      "evidence_artifact": "edit-preservation"
+    },
+    {"id": "top-view-review", "type": "review", "required": true, "status": "PASS", "criterion": "Top preview shows a coherent open sunflower tray and no disconnected geometry.", "evidence_artifact": "top-preview"},
+    {"id": "front-view-review", "type": "review", "required": true, "status": "PASS", "criterion": "Front preview shows the integrated disc foot and coherent petal body.", "evidence_artifact": "front-preview"},
+    {"id": "isometric-view-review", "type": "review", "required": true, "status": "PASS", "criterion": "Isometric preview shows an open depression, coherent petals and integrated foot.", "evidence_artifact": "iso-preview"},
+    {"id": "bottom-view-review", "type": "review", "required": true, "status": "PASS", "criterion": "Bottom preview shows the centered continuous circular foot.", "evidence_artifact": "bottom-preview"},
+    {"id": "orthogonal-section-screen", "type": "review", "required": true, "status": "PASS", "criterion": "Read-only x=0 and y=0 sections each form one closed contour and show the central top surface below the surrounding rim.", "evidence_artifact": "section-analysis"},
+    {"id": "x-section-view", "type": "review", "required": true, "status": "PASS", "criterion": "The stored x=0 section is bound to the selected candidate.", "evidence_artifact": "section-x0"},
+    {"id": "y-section-view", "type": "review", "required": true, "status": "PASS", "criterion": "The stored y=0 section is bound to the selected candidate.", "evidence_artifact": "section-y0"},
+    {
+      "id": "exact-self-intersection-review",
+      "type": "review",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "A certified exact self-intersection check is unavailable; Manifold one-body Boolean, topology audit and slicer success are supporting evidence only.",
+      "evidence_artifact": "mesh-audit"
+    },
+    {
+      "id": "owner-form-and-aesthetic-acceptance",
+      "type": "review",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "The owner accepts the provisional 59.157 mm height and the visible asymmetric/fused/wrinkled Step1X petal regions without body repair.",
+      "evidence_artifact": "iso-preview"
+    },
+    {
+      "id": "physical-bowl-test",
+      "type": "physical",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "A supervised print confirms first layer, tree-support placement/removal, flatness, rim robustness, food-contact exclusion, stability, cleanup and intended tray use.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "commercial-release-clearance",
+      "type": "review",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Human owner completes rights, IP/FTO, product-safety, export, marking, account-terms and release approvals; current commercial audit is BLOCK.",
+      "evidence_artifact": "commercial-audit"
+    }
+  ],
+  "release": {"required_approvals": [], "approvals": {}}
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-DEC-003",
+  "revision": "0.2.0",
+  "status": "historical_rejected_after_owner_correction",
+  "not_selected_reason": "Run 001 used a planar body operation later prohibited by the owner; no simplification is applied to selected run 004.",
+  "declared_before_surface_and_slicer_comparison": true,
+  "baseline": "organic/work/run-001/03-functionalized-flat-base.stl",
+  "process_baseline": "MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31",
+  "candidates": [
+    {
+      "id": "tol-0p025",
+      "shell_tolerance_mm": 0.025,
+      "manufacturing_mesh": "organic/work/run-001/variants/candidate-tol-0p025.stl"
+    },
+    {
+      "id": "tol-0p05",
+      "shell_tolerance_mm": 0.05,
+      "manufacturing_mesh": "organic/work/run-001/variants/candidate-tol-0p05.stl"
+    }
+  ],
+  "protected_regions": [
+    "outer flower silhouette",
+    "visible petal ridges",
+    "central tray depression and seed relief",
+    "post-simplification deterministic flat bed plane"
+  ],
+  "acceptance": {
+    "connected_components": 1,
+    "watertight": true,
+    "positive_volume": true,
+    "minimum_face_and_file_reduction_fraction": 0.25,
+    "bidirectional_surface_p95_max_mm": 0.05,
+    "bidirectional_surface_absolute_max_mm": 0.12,
+    "absolute_volume_change_max_fraction": 0.002,
+    "xy_bound_change_max_mm": 0.1,
+    "z_height_change_max_mm": 0.02,
+    "minimum_flat_support_span_mm": 126.0,
+    "flat_base_area_loss_max_fraction": 0.01,
+    "visual_regression": "no missing seed, petal, rim or visible faceting at 1000 px clay review",
+    "slicer": "same exact profiles; no required support, missing wall, disconnected path or layer-count regression"
+  },
+  "decision_rule": "Select the lowest-face candidate that passes every geometry, visual and exact-slicer constraint; otherwise retain the unsimplified baseline."
+}

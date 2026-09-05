@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-DEC-003",
+  "revision": "0.2.0",
+  "created_at": "2026-09-05T19:59:27+02:00",
+  "status": "digital-candidate-commercial-block",
+  "legacy_geometry_reused": false,
+  "authority_boundary": {
+    "step1x_body": "appearance geometry retained without parametric reconstruction or local repair",
+    "parametric_geometry": "owner-confirmed underside disc only",
+    "legacy_3mf_use": "dimension and user-intent evidence only; no mesh vertices or faces reused"
+  },
+  "chain": [
+    {
+      "stage": "prompt",
+      "path": "organic/reference/imagegen-prompt-run-003.txt",
+      "sha256": "ff72ed287c8c3e5c5e16118664bfe1178c19ee1768d6280d05d90c537e22951a"
+    },
+    {
+      "stage": "reference-image",
+      "path": "organic/reference/sunflower-step1x-plate-003.png",
+      "sha256": "512f0fcec0eb53ea62c7474e632bf3a59155339e3efad24076a16a55f00010ee"
+    },
+    {
+      "stage": "reference-image-record",
+      "path": "evidence/imagegen-record-run-003.json",
+      "sha256": "30f7e6a12a239a7c44104c9679f39a2b43e349a33ef341366d28ab0c3060090e"
+    },
+    {
+      "stage": "step1x-runtime",
+      "path": "evidence/step1x-runtime-run-003-retry-001-20260905.json",
+      "sha256": "55d71a5aefe338f7a4ce2fdc525f1d74e027c0c4c3ad7cc786e66125ab492852"
+    },
+    {
+      "stage": "step1x-run",
+      "path": "organic/raw/step1x/run-004/step1x-run.json",
+      "sha256": "fd4e92d04254410e48b43d290689450faa6c63a792ecd6a5e76aa59f27aaaec4",
+      "run_id": "eafd0cc3-9604-4840-8aed-512cf7203124"
+    },
+    {
+      "stage": "step1x-raw-geometry",
+      "path": "organic/raw/step1x/run-004/geometry.raw.glb",
+      "sha256": "1d8648e8bf7711afa11c53c342aba896464caf747789dfa3ff02e04d6730757a"
+    },
+    {
+      "stage": "step1x-attestation",
+      "path": "evidence/step1x-run-attestation-run-004.json",
+      "sha256": "12aab52bc98205b873bf4fbd51544cd9f6a0fdff21f19616391abab0778d3f29"
+    },
+    {
+      "stage": "registration-script",
+      "path": "source/register_generated_mesh.py",
+      "sha256": "7e6ed1e3746e1c787fc157b2745205fc40647535bd6b8445c4b7e21365f7c3bf"
+    },
+    {
+      "stage": "registered-step1x-body",
+      "path": "organic/work/run-004/01-registered-raw.stl",
+      "sha256": "870761db53c81a2f9e3756b8bb502c7768f7787ce4d93c007a06d37a7aac1400"
+    },
+    {
+      "stage": "foot-parameters",
+      "path": "parameters/foot-disc-v0.2.0.json",
+      "sha256": "1bb35921afbc1bf0fd4b839a86af9ebed7b90ebebe60f057347f2f0a06190b44"
+    },
+    {
+      "stage": "foot-union-script",
+      "path": "source/add_parametric_foot.py",
+      "sha256": "f06ac03152f125f375f683503b859572b19f79c1452171e987d4eec766eb896c"
+    },
+    {
+      "stage": "parametric-foot",
+      "path": "organic/work/run-004/02-parametric-foot-disc.stl",
+      "sha256": "b05414897dddb81721c67ff9bc98f77038f3779013328328ff19f346c728fcc7"
+    },
+    {
+      "stage": "footed-union",
+      "path": "organic/work/run-004/03-footed-candidate.stl",
+      "sha256": "32c33f96c503dc104d881db8ac7194fafbfe7d169bd4abba1904c5899089c04e"
+    },
+    {
+      "stage": "edit-preservation",
+      "path": "reports/run-004/edit-preservation.json",
+      "sha256": "d82655594022b2acab0e078f3c87e070acf0bb1bcf1d10f050b6687edfb86e94"
+    },
+    {
+      "stage": "mesh-audit",
+      "path": "reports/run-004/mesh-audit-footed.json",
+      "sha256": "f4e9e861cc5d968cabd750fcf064c3da8ad61741beda287376705f7c6c27ed04"
+    },
+    {
+      "stage": "section-analysis-script",
+      "path": "source/analyze_sections.py",
+      "sha256": "03d4a41febd2ca4012567a99c3b055011757863fd6d64b69e060f8b80ea64fec"
+    },
+    {
+      "stage": "orthogonal-section-screen",
+      "path": "reports/run-004/section-analysis.json",
+      "sha256": "2ef6a05b97dc5c92b2075403d0dc13c9da84493298ed0dd9d7a93c104021c8a9"
+    },
+    {
+      "stage": "digital-candidate",
+      "path": "result/MM-DEC-003-sunflower-bowl-tray-v0.2.0-step1x-run-004-footed-digital-candidate.stl",
+      "sha256": "32c33f96c503dc104d881db8ac7194fafbfe7d169bd4abba1904c5899089c04e"
+    },
+    {
+      "stage": "selected-process-profile",
+      "path": "profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max-tree-support.json",
+      "sha256": "b4f83a04a7c7d1107abc51ffdf6a1c4a0e8bb9d93d22bce51cc05fa4ffd3339c"
+    },
+    {
+      "stage": "exact-slice-report",
+      "path": "reports/run-004/slice-footed-support-run-002.json",
+      "sha256": "ad56a61d063326e3f9e5038fd03d74da677399fee9ac6e91eee55c5f7b1742c3"
+    },
+    {
+      "stage": "exact-local-gcode",
+      "path": "exports/v0.2.0/slice-run-004-footed-support-run-002/plate_1.gcode",
+      "sha256": "95ad919c28aa02304741afb86916561cc7633f91e717e2f3e376637ef652a17c",
+      "printer_action": "none"
+    }
+  ],
+  "rejected_history": [
+    {
+      "run": "run-001",
+      "reason": "used deterministic planar modification and simplification later disallowed by the owner"
+    },
+    {
+      "run": "run-002",
+      "reason": "generated two connected components and did not provide the confirmed flat disc foot"
+    },
+    {
+      "run": "run-003",
+      "reason": "one-body watertight result, but first-layer sections were fragmented without the confirmed disc foot"
+    },
+    {
+      "slice": "slice-run-004-footed-run-001",
+      "reason": "support disabled; native slicer warned about floating regions"
+    },
+    {
+      "slice": "slice-run-004-footed-support-run-001",
+      "reason": "100 mm/s support setting exceeded the 13.3 mm3/s conservative analyzer limit"
+    }
+  ],
+  "release_boundaries": [
+    "no printer upload or print start",
+    "no legacy manufacturing geometry in the v0.2.0 selected chain",
+    "human layer/support/seam preview and physical qualification required",
+    "commercial audit and signed human approval required"
+  ]
+}

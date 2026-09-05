@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-09-05T17:21:10Z",
+  "service_url": "http://127.0.0.1:7861",
+  "endpoint": "/generate_func",
+  "status": "compatible",
+  "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+  "parameters": [
+    {
+      "name": "input_image_path",
+      "default": null,
+      "has_default": false,
+      "type": {
+        "properties": {
+          "path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Path to a local file",
+            "title": "Path"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Publicly available url or base64 encoded image",
+            "title": "Url"
+          },
+          "size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Size of image in bytes",
+            "title": "Size"
+          },
+          "orig_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Original filename",
+            "title": "Orig Name"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "mime type of image",
+            "title": "Mime Type"
+          },
+          "is_stream": {
+            "default": false,
+            "description": "Can always be set to False",
+            "title": "Is Stream",
+            "type": "boolean"
+          },
+          "meta": {
+            "default": {
+              "_type": "gradio.FileData"
+            },
+            "title": "Meta",
+            "type": "object"
+          }
+        },
+        "title": "ImageData",
+        "type": "object",
+        "additional_description": "For input, either path or url must be provided. For output, path is always provided."
+      }
+    },
+    {
+      "name": "guidance_scale",
+      "default": "7.5",
+      "has_default": true,
+      "type": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "inference_steps",
+      "default": 50,
+      "has_default": true,
+      "type": {
+        "type": "number",
+        "description": "numeric value between 1 and 100"
+      }
+    },
+    {
+      "name": "max_facenum",
+      "default": "400000",
+      "has_default": true,
+      "type": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "symmetry",
+      "default": "x",
+      "has_default": true,
+      "type": {
+        "enum": [
+          "x",
+          "asymmetry"
+        ],
+        "title": "Radio",
+        "type": "string"
+      }
+    },
+    {
+      "name": "edge_type",
+      "default": "sharp",
+      "has_default": true,
+      "type": {
+        "enum": [
+          "sharp",
+          "normal",
+          "smooth"
+        ],
+        "title": "Radio",
+        "type": "string"
+      }
+    }
+  ],
+  "return_count": 1
+}

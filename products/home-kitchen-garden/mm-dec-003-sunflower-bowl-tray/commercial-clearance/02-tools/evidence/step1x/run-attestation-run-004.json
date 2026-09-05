@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "project_id": "MM-DEC-003",
+  "selection": "selected Step1X geometry body for the footed v0.2.0 digital candidate",
+  "run_record": {
+    "path": "organic/raw/step1x/run-004/step1x-run.json",
+    "sha256": "fd4e92d04254410e48b43d290689450faa6c63a792ecd6a5e76aa59f27aaaec4",
+    "run_id": "eafd0cc3-9604-4840-8aed-512cf7203124",
+    "status": "succeeded",
+    "output_glb_sha256": "1d8648e8bf7711afa11c53c342aba896464caf747789dfa3ff02e04d6730757a"
+  },
+  "runtime_profile": {
+    "path": "evidence/step1x-runtime-run-003-retry-001-20260905.json",
+    "sha256": "55d71a5aefe338f7a4ce2fdc525f1d74e027c0c4c3ad7cc786e66125ab492852",
+    "captured_at": "2026-09-05T17:27:50Z",
+    "source_commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+    "source_origin": "https://github.com/stefanjunk/Step1X-3D.git",
+    "worktree_clean": true,
+    "container_id": "421a6f15f4d11679e119c1c9441a68ccbc1984e63de65a1a90e70a208de16259",
+    "container_image_id": "sha256:4c4a6acfc11c5f17a6b5eff7684cdfce6a9e35dc6339f219e08a8141388f7be4",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0"
+  },
+  "cleanup_gate": {
+    "minimum_commit": "f00dd46",
+    "verified_with": "git merge-base --is-ancestor f00dd46 4b6da92a56acb3a135b0493703470995c00c5e91",
+    "result": "PASS"
+  },
+  "opaque_input_preprocessing": {
+    "expected": true,
+    "runtime_provider": "rembg 2.0.65 / U2Net ONNX on CPUExecutionProvider",
+    "u2net_asset_sha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491"
+  },
+  "record_discrepancy": {
+    "status": "WARN",
+    "field": "provider.served_by_fork in step1x-run.json",
+    "reason": "The generation client recorded an obsolete default checkout path. The separately archived runtime profile captures the actual healthy service checkout, commit, container and dependency snapshots immediately before generation.",
+    "resolution": "Bind the immutable run record to this attestation and archived runtime profile; do not alter the original run record."
+  },
+  "commercial_interpretation": "The cleanup-fork gate passes technically. Commercial release remains blocked pending complete input/tool terms, dependency, market and approval review."
+}

@@ -1,37 +1,301 @@
 schema_version: 1
-product:
-  id: "MM-DEC-003"
-  name: "Mm Dec 003 Sunflower Bowl Tray"
-  version: "UNVERSIONED-CURRENT"
-  status: retrospective-inventory
-
-function:
-  summary: "Provide a sunflower-inspired printable bowl or tray for decorative storage of dry, non-food items."
-
-source_of_truth:
-  status: retrospective-index
-  current_artifact_refs:
-    - "sunflower_bowl/sunflower_bowl.3mf"
-    - "sunflower_bowl/sonnenblumen_ablageschale_idee1.scad"
-    - "sunflower_bowl/2.stl"
-    - "sunflower_bowl/1.stl"
-    - "sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/sonnenblumen_ablageschale_idee1.stl"
-    - "sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/sonnenblumen_ablageschale_idee1.scad"
-    - "sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/SONNENBLUMEN_ABLAGESCHALE_INFO.txt"
+project:
+  id: MM-DEC-003
+  sku: MM-DEC-003
+  name: Sunflower Bowl / Tray
+  revision: 0.2.0
+  owner: project-owner-via-chat-2026-09-05
+  created: 2026-08-03
+  product_path: products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-024
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-DEC-003-0.2.0
 
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: retrospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-DEC-003-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "UNVERSIONED-CURRENT"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    assessment_id: PREFLIGHT-MM-DEC-003-002
+    assessment_version: 0.2.0
+    assessed_project_revision: 0.2.0
+    updated_at: "2026-09-05T20:05:00+02:00"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
-  requirements: review-required
-  concept: existing-artifacts
-  final_release: blocked-by-preflight
+      - step1x_geometry_regeneration
+      - hunyuan_legacy_exclusion
+      - requirements_and_verification_definition
+      - exact_process_baseline_selection
+      - license_chain_initialization
+      - owner_confirmed_parametric_disc_foot_only
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-05
+    approved_at: "2026-09-05T17:45:00+02:00"
+    spec_revision: 0.2.0
+    reason: >-
+      The owner explicitly requested that the existing Sunflower Bowl / Tray be
+      checked for the Hunyuan licence issue, recreated with Step1X-3D and continued.
+      This approval covers the dry non-food tray requirements and selected
+      "Sanfte Bluete" appearance direction below.
+  concept_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-05
+    approved_at: "2026-09-05T17:45:00+02:00"
+    spec_revision: 0.2.0
+    asset: sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_14_14 PM.png
+    asset_sha256: cf1f9326f3c58560bec17c1994e08056944bcdf2c6d310aef633b728afce1b5c
+    asset_sha256_record: evidence/concept-image-record-v0.2.0.json
+    selected_direction_asset: sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_18_09 PM.png
+    selected_direction_sha256: 4dec26bccc677d21c88c4dfb0a5f99bcd9cef11e6f1001e548707cf91af583b3
+    reason: >-
+      The existing concept sheet depicts the complete product and names six
+      alternatives; the product's source and owner instruction select Idea 1,
+      "Sanfte Bluete". A newly generated isolated Step1X plate is a separate
+      production input and does not replace this concept asset.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-DEC-003
+    version: 0.2.0
+    reason: Final production geometry and physical validation do not exist yet.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: >-
+      Legacy Hunyuan-derived or provenance-unknown meshes are excluded from the
+      new chain. The new Step1X run can move the tool gate to WARN, but image
+      terms, training-data provenance, outgoing terms, physical tests, marking
+      and human approvals remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-DEC-003
+  version: 0.2.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Audit the existing Sunflower Bowl / Tray for the suspected Hunyuan licence problem.
+    - Recreate it with Step1X-3D and continue product development.
+    - Do not repair or parametrically reconstruct the generated flower body.
+    - Add the original real-print disc foot parametrically; only the foot may be parametric.
+  inherited_as_new_requirements:
+    - Preserve the selected Idea 1 "Sanfte Bluete" sunflower language.
+    - Nominal outside diameter 200 mm.
+    - Nominal 80 mm diameter × 6 mm disc foot recovered from the owner-confirmed Anycubic 3MF setup.
+    - One-piece orientation with the disc foot on the bed.
+  inferred:
+    - Adult dry-indoor decorative storage only.
+    - Lightweight keys, jewellery or similar dry non-food contents.
+    - Emptying and dry cleaning by hand; no fluid service.
+  recommended:
+    - Use a new prompt-bound source image and a geometry-only Step1X run.
+    - Keep functional authority for the owner-confirmed disc foot in deterministic post-processing and validation.
+    - Preserve the Step1X flower body without repair; allow only uniform scale/registration and the foot Boolean.
+    - Reserve a later underside marking region without changing this draft's appearance.
+  unresolved:
+    - Owner approval of the selected 200 × 195.775 × 59.157 mm generated envelope
+    - Exact yellow production filament, batch and complete profile
+    - Physical rocking, 10-degree tilt, edge comfort and snag results
+    - Final seller identity, markets, outgoing licence, IP searches and commercial approval
+
+function:
+  summary: >-
+    A one-piece sunflower-shaped decorative tray with a central open depression
+    for lightweight dry non-food items and a broad flat underside.
+  included:
+    - Organic sunflower petal massing and central seed-disc appearance
+    - Open accessible tray depression
+    - Parametric 80 × 6 mm bed-facing disc foot
+  excluded:
+    - Food contact and tableware claims
+    - Watertightness, liquid containment or plant-pot use
+    - Outdoor, child-toy, structural, impact or compatibility claims
+    - Any reuse of legacy 1.stl, 2.stl or sunflower_bowl.3mf mesh geometry in the new derivative chain; factual disc dimensions remain documented evidence only
+
+architecture:
+  claim: step1x-regeneration-with-parametric-foot-only
+  printed_parts: 1
+  purchased_parts: 0
+  assembly: none
+  representation:
+    organic_authority: petal silhouette, seed-disc character and nonfunctional visible surface
+    parametric_authority: 80 × 6 mm disc foot only
+    registration_authority: uniform 200 mm longest-XY scale, orientation and bed plane
+    manufacturing_authority: validated millimetre STL and exact slicer profile
+
+dimensions:
+  target_envelope_mm: [200.0, 200.0, 65.0]
+  target_longest_mm: 200.0
+  target_height_mm: 59.157
+  target_height_status: provisional-step1x-run-004-envelope-owner-confirmation-pending
+  candidate_envelope_mm: [200.0, 195.775, 59.157]
+  flat_support_diameter_mm: 80.0
+  flat_support_thickness_mm: 6.0
+  flat_support_status: owner-confirmed-and-passed-digital
+  candidate_flat_support_span_mm: [80.0, 80.0]
+  candidate_flat_support_area_mm2: 5026.044
+  minimum_vertical_material_mm: 3.0
+  minimum_vertical_material_status: passed-1000-point-sample-minimum-4.637-mm-global-proof-pending
+  frame:
+    units: mm
+    handedness: right-handed
+    origin: centre of flat bed-contact plane
+    positive_z: up from the print bed
+    front: rotationally symmetric; registration yaw is nonfunctional
+  hidden_geometry: generated-proposal-not-measured
+
+generative:
+  role: whole-object appearance preform
+  provider: local geometry-only Step1X-3D owned fork
+  authority: appearance-only-generated-proposal
+  symmetry: x
+  edge_type: smooth
+  guidance: 7.5
+  steps: 50
+  max_faces: 400000
+  protected_region: complete Step1X flower body outside the owner-authorized foot ROI
+  editable_region: 80 mm diameter × 6.1 mm high underside foot ROI only
+  functional_keepouts:
+    - central open tray depression
+    - outer 200 mm envelope
+    - parametric disc foot and underside marking reserve
+  raw_meshes: organic/raw/step1x/
+  reference_images: organic/reference/
+
+risk:
+  class: normal-functional
+  criticality: K1
+  hazards:
+    - Rocking or tipping spills lightweight contents.
+    - Thin or sharp petal tips can snag or scratch.
+    - Hidden shells or unsupported geometry can cause print failure.
+  controls:
+    - Owner-confirmed parametric disc foot and bed-contact measurement.
+    - One-component watertight topology gate and thin-feature review.
+    - Exact-profile slicer dry run and physical edge/tilt tests.
+    - Scope limitation to adult dry non-food decorative use.
+
+fabrication:
+  preference: balanced-hybrid
+  process: FDM/FFF
+  one_piece: true
+  orientation: flat underside down
+  supports: build-plate-only automatic tree support required by selected exact slice
+  parts_status: one unmarked Step1X-body-plus-parametric-foot digital candidate generated and exact-profile sliced; physical and commercial gates blocked
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  profiles:
+    machine:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json
+      sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+    process:
+      path: products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max-tree-support.json
+      sha256: b4f83a04a7c7d1107abc51ffdf6a1c4a0e8bb9d93d22bce51cc05fa4ffd3339c
+    filament:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json
+      sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+
+acceptance:
+  - id: AC-LICENCE-001
+    criterion: New geometry run records a clean owned-fork source commit at or after f00dd46 and no texture output.
+    method: step1x-run.json and runtime-profile inspection.
+    status: pass_with_record_discrepancy_and_commercial_warn
+  - id: AC-MESH-001
+    criterion: Manufacturing mesh is one consistently wound watertight component with positive volume.
+    method: Organic mesh inspector and deterministic FDM mesh audit.
+    status: pass
+  - id: AC-ENVELOPE-001
+    criterion: Longest XY extent is 200.0 mm within conversion precision and the provisional digital height does not exceed 65.0 mm.
+    method: Registration and mesh bounds reports.
+    status: pass
+  - id: AC-SUPPORT-001
+    criterion: Candidate has min Z = 0, an 80 mm continuous flat bed-contact disc and a warning-free exact slice with declared support settings.
+    method: Mesh bed-contact analysis and exact slicer report.
+    status: pass_digital
+  - id: AC-TRAY-001
+    criterion: One continuous open central depression remains usable and free of closed hidden pockets.
+    method: Section and top-view review plus physical dry-item test.
+    status: pass_visual_physical_test_pending
+  - id: AC-EDGE-001
+    criterion: No zero-thickness, disconnected or physically uncomfortable hand-reachable petal tip.
+    method: Digital thin-feature screen and physical hand/snag inspection.
+    status: pass_digital_physical_test_pending
+  - id: AC-STABILITY-001
+    criterion: Empty tray does not rock and the declared dry-item load stays upright at a 10-degree quasistatic tilt.
+    method: Physical prototype on a recorded flat surface.
+    status: not_run_release_blocking
+
+optimization:
+  status: not-applicable
+  rationale: The selected full-resolution Step1X body is within resource budgets and the owner prohibited model fixing or reconstruction.
+  mesh_simplification:
+    status: not-applicable
+    rationale: No simplification is applied to run 004; 396316 triangles and 18.898 MiB pass the declared budgets.
+    master_mesh: organic/work/run-004/01-registered-raw.stl
+    manufacturing_mesh: result/MM-DEC-003-sunflower-bowl-tray-v0.2.0-step1x-run-004-footed-digital-candidate.stl
+    protected_regions:
+      - visible upper petal and seed-disc surface
+      - central tray depression
+      - generated flower body outside the foot ROI
+    resource_budget:
+      triangle_target: 500000
+      triangle_stop: 500000
+      peak_memory_gib: 8
+      max_mesh_mib: 25
+      max_slicer_seconds: 600
+    slicer_resolution_check:
+      status: passed
+      report: reports/run-004/slice-footed-support-run-002.json
+
+deliverables:
+  target:
+    - prompt-bound source image and image-generation record
+    - immutable Step1X raw GLB and run/runtime records
+    - registered Step1X body, parametric foot and one-body millimetre STL
+    - exact-profile Anycubic slice evidence
+    - product-local licence/provenance workspace
+    - derivation manifest and digital validation reports
+  forbidden_in_this_phase:
+    - printer upload or print start
+    - repair, simplification or parametric reconstruction of the Step1X flower body
+    - reuse of legacy Hunyuan-derived or provenance-unknown geometry in the new result
+    - food, watertightness, stability, comfort or commercial claims before their gates pass
+
+traceability:
+  legacy_blocked_geometry:
+    - sunflower_bowl/1.stl
+    - sunflower_bowl/2.stl
+    - sunflower_bowl/sunflower_bowl.3mf
+  evidence:
+    - preflight/preflight-result.json
+    - sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_14_14 PM.png
+    - sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_18_09 PM.png
+    - sunflower_bowl/sonnenblumen_ablageschale_idee1.scad
+    - business/06-legal-compliance/generative-tooling-licence-audit.md
+    - commercial-clearance/project.json
+    - evidence/derivation-manifest-v0.2.0.json
+    - reports/run-004/foot-union.json
+    - reports/run-004/edit-preservation.json
+    - reports/run-004/mesh-audit-footed.json
+    - reports/run-004/slice-footed-support-run-002.json

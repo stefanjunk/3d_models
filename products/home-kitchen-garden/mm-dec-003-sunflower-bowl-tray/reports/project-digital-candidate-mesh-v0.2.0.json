@@ -1,0 +1,242 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "component-count",
+      "message": "Expected 1 component(s), found 1",
+      "metrics": {
+        "actual": 1,
+        "expected": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "boundary-edges",
+      "message": "boundary_edges=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "nonmanifold-edges",
+      "message": "nonmanifold_edges=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "degenerate-faces",
+      "message": "degenerate_faces=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "duplicate-faces",
+      "message": "duplicate_faces=0, limit=0",
+      "metrics": {
+        "actual": 0,
+        "limit": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "triangle-budget",
+      "message": "Triangles 396316 / 500000",
+      "metrics": {
+        "actual": 396316,
+        "limit": 500000
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "file-budget",
+      "message": "Mesh file 18.898 MiB / 25 MiB",
+      "metrics": {
+        "actual_mib": 18.897899627685547,
+        "limit_mib": 25.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "bed-fit",
+      "message": "Mesh fits declared build volume",
+      "metrics": {
+        "axis_order": [
+          0,
+          1,
+          2
+        ],
+        "bed_mm": [
+          420.0,
+          420.0,
+          500.0
+        ],
+        "extents_mm": [
+          200.0,
+          195.77508544921875,
+          59.15664673000574
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "minimum-wall",
+      "message": "Sampled minimum wall 4.637 mm; required 0.8 mm",
+      "metrics": {
+        "limitation": "Sampled local thickness can miss small defects; increase samples and inspect reported regions for critical parts.",
+        "median_mm": 24.78018934219325,
+        "method": "ray",
+        "min_mm": 4.6370006710355,
+        "minimum_sample_point_mm": [
+          -66.59865174898131,
+          -52.92834079397562,
+          52.86411072980168
+        ],
+        "p01_mm": 7.2236439542448965,
+        "p05_mm": 9.169995460839543,
+        "samples_requested": 1000,
+        "samples_valid": 1000,
+        "seed": 20260905
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/result/MM-DEC-003-sunflower-bowl-tray-v0.2.0-step1x-run-004-footed-digital-candidate.stl",
+      "sha256": "32c33f96c503dc104d881db8ac7194fafbfe7d169bd4abba1904c5899089c04e",
+      "size_bytes": 19815884
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          -100.40882873535156,
+          -99.45280456542969,
+          -1.4901161415892261e-09
+        ],
+        [
+          99.59117126464844,
+          96.32228088378906,
+          59.156646728515625
+        ]
+      ],
+      "components": 1,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": 2,
+      "extents_mm": [
+        200.0,
+        195.77508544921875,
+        59.15664673000574
+      ],
+      "faces": 396316,
+      "manifold_edges": 594474,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 720142.2275051522,
+      "surface_area_mm2": 88402.61869970002,
+      "vertices": 198160,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 18.897899627685547,
+    "raw_file_representation": {
+      "faces": 396316,
+      "vertices": 1188948
+    },
+    "wall_thickness": {
+      "limitation": "Sampled local thickness can miss small defects; increase samples and inspect reported regions for critical parts.",
+      "median_mm": 24.78018934219325,
+      "method": "ray",
+      "min_mm": 4.6370006710355,
+      "minimum_sample_point_mm": [
+        -66.59865174898131,
+        -52.92834079397562,
+        52.86411072980168
+      ],
+      "p01_mm": 7.2236439542448965,
+      "p05_mm": 9.169995460839543,
+      "samples_requested": 1000,
+      "samples_valid": 1000,
+      "seed": 20260905
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.3.0"
+}

@@ -1,48 +1,56 @@
-product: Mm Dec 003 Sunflower Bowl Tray
-intended_use: Provide a sunflower-inspired printable bowl or tray for decorative storage of dry, non-food items.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+product: MM-DEC-003 Sunflower Bowl / Tray
+intended_use: >-
+  Provide a sunflower-inspired one-piece tray for decorative storage of dry,
+  non-food items on a stable indoor surface.
+user_context: Adult dry-indoor home use; handled for placement, emptying and dry cleaning.
 host_variant:
-  manufacturer: null
-  model: null
-  revision: null
-  variant_confirmed: false
+  manufacturer: not_applicable
+  model: not_applicable
+  revision: 0.2.0
+  variant_confirmed: true
 lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
+  - transport
+  - use
+  - emptying
+  - dry_cleaning
+  - storage
+  - disposal
 requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
+  - Recreate the selected "Sanfte Bluete" appearance with a new post-cleanup geometry-only Step1X run.
+  - Keep the outside envelope at nominally 200 mm longest XY; final generated height remains owner-confirmation pending.
+  - Do not repair or parametrically reconstruct the Step1X flower body.
+  - Add only the owner-confirmed 80 mm diameter × 6 mm disc foot parametrically.
+  - Provide one connected watertight body and allow build-plate-only tree support when the exact slicer requires it.
+  - Preserve a useful open tray depression and rounded hand-reachable petal edges.
+  - Exclude food contact, direct fluid containment, outdoor use, child-toy use and load-bearing claims.
 known_components:
-- Mm Dec 003 Sunflower Bowl Tray
-- Intended fluid or process medium
+  - Step1X-generated sunflower appearance preform
+  - Uniform millimetre registration and owner-confirmed parametric disc-foot union
 available_evidence:
-- sunflower_bowl/sunflower_bowl.3mf
-- sunflower_bowl/sonnenblumen_ablageschale_idee1.scad
-- sunflower_bowl/2.stl
-- sunflower_bowl/1.stl
-- sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/sonnenblumen_ablageschale_idee1.stl
-- sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/sonnenblumen_ablageschale_idee1.scad
-- sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/SONNENBLUMEN_ABLAGESCHALE_INFO.txt
+  - sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_14_14 PM.png
+  - sunflower_bowl/ChatGPT Image Aug 3, 2026, 10_18_09 PM.png
+  - sunflower_bowl/sonnenblumen_ablageschale_idee1.scad
+  - sunflower_bowl/sonnenblumen_ablageschale_idee1_paket/SONNENBLUMEN_ABLAGESCHALE_INFO.txt
+  - business/06-legal-compliance/generative-tooling-licence-audit.md
 manufacturing_profile:
-  printer: null
+  printer: Anycubic Kobra 3 Max
   process: FDM/FFF
-  nozzle_mm: null
-  material: null
-  orientation_known: false
+  nozzle_mm: 0.4
+  material: SUNLU PETG Black baseline; yellow production filament remains unqualified
+  orientation_known: true
 known_loads_environment:
-  loads: []
-  temperature_c: null
-  media: []
-  duration: null
+  loads:
+    - self weight
+    - lightweight dry decorative contents
+  temperature_c: ordinary dry indoor ambient; exact range unqualified
+  media:
+    - dry non-food items only
+  duration: static household use; service life unqualified
 safety_notes:
-- Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy
-  in the documented scope.
+  - K1 low-consequence decorative storage product.
+  - Generated hidden geometry and thin petal tips require digital and physical inspection.
+  - No food-contact, liquid-containment, toy, outdoor or structural claim.
 interfaces:
-- IF-ENV-FLU-FLW-VOLUME-001
+  - IF-EXT-MEC-SUP-PLN-001
+  - IF-EXT-GEO-CON-VOLUME-001
+  - IF-HUM-GEO-CON-FREEFORM-001

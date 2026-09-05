@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "run_id": "077b2c38-d06f-4b64-b633-06454959bfff",
+  "status": "succeeded",
+  "started_at": "2026-09-05T15:56:55Z",
+  "provider": {
+    "name": "Step1X-3D",
+    "organization": "stepfun-ai",
+    "source_repository": "https://github.com/stepfun-ai/Step1X-3D",
+    "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
+    "code_license": "Apache-2.0",
+    "weights_license": "Apache-2.0",
+    "served_by_fork": {
+      "repo": "/home/stefan/orca/workspaces/3d_models/Step1X-3D",
+      "error": "not a git checkout"
+    }
+  },
+  "operation": "single-image-to-geometry-glb",
+  "service": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "client": "gradio_client",
+    "client_version": "1.4.2",
+    "api_schema_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/api-schema.json",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "api_schema_file_sha256": "414740208a4ebaf7bba64c57a86ecbcfdba89ebf60da1da7e57a99e1b5f7a48c",
+    "contract_status": "compatible"
+  },
+  "parameters": {
+    "guidance_scale": 7.5,
+    "inference_steps": 50,
+    "max_facenum": 400000,
+    "symmetry": "x",
+    "edge_type": "smooth",
+    "geometry_seed": "not_exposed_by_endpoint"
+  },
+  "limitations": [
+    "single image does not determine hidden geometry or physical scale",
+    "generated geometry is not a functional or manufacturing authority",
+    "GLB must be registered, inspected and routed before slicer/CAD use",
+    "commercial clearance requires input rights and dependency review"
+  ],
+  "input": {
+    "original_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/reference/sunflower-step1x-plate-001.png",
+    "archived_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/input/source.png",
+    "sha256": "cad7d2a9665ac7734c1bc5fb008c91a9e467f2dc74b1510af4ac27698b1648c9",
+    "bytes": 1604815,
+    "media_type": "image/png",
+    "alpha": {
+      "status": "unknown",
+      "meaningful_transparency": "unknown",
+      "background_removal_expected": "unknown",
+      "diagnostic": "alpha inspection unavailable: No module named 'PIL'"
+    }
+  },
+  "input_evidence": {
+    "image_prompt": {
+      "original_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/reference/imagegen-prompt.txt",
+      "archived_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/input/image-prompt.txt",
+      "sha256": "b394afcd30a2ed52ba2b528e14820526d5c50d953978f13ae7b86f9272e26028",
+      "bytes": 1197
+    },
+    "input_generation_record": {
+      "original_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/evidence/imagegen-record-v0.2.0.json",
+      "archived_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/input/generation-record.json",
+      "sha256": "e4343edffb76aaa410b66b35ece5a4509fec4b4b8af71ab2e6cbaaa4acd4cb4c",
+      "bytes": 2264
+    }
+  },
+  "runtime_profile": {
+    "original_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/evidence/step1x-runtime-20260905.json",
+    "archived_path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/runtime-profile.json",
+    "sha256": "b79b7355e638993d2708574df13a2f6cfe86560cadaf25d11c9856ba9c288339",
+    "bytes": 7263
+  },
+  "finished_at": "2026-09-05T15:58:49Z",
+  "duration_seconds": 114.092,
+  "outputs": [
+    {
+      "path": "/home/stefan/orca/workspaces/3d_models/bramble/products/home-kitchen-garden/mm-dec-003-sunflower-bowl-tray/organic/raw/step1x/run-001/geometry.raw.glb",
+      "sha256": "15673d2f435dd442627d876c956d3e51b41aac2512c76248cf5d0ae5d7ca1e8c",
+      "bytes": 9892548,
+      "media_type": "model/gltf-binary",
+      "role": "untextured-geometry-master",
+      "physical_scale_verified": false,
+      "semantic_orientation_verified": false
+    }
+  ]
+}

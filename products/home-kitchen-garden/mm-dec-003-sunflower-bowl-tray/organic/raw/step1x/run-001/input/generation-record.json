@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "record_id": "MM-DEC-003-IMG-001",
+  "project_id": "MM-DEC-003",
+  "created_at": "2026-09-05T17:54:21+02:00",
+  "role": "prompt-bound Step1X input plate",
+  "generation": {
+    "provider": "OpenAI Media Service API",
+    "tool": "Codex image_gen__imagegen",
+    "model": "gpt-image",
+    "model_version": "2.0",
+    "input_images": [],
+    "prompt_file": "organic/reference/imagegen-prompt.txt",
+    "prompt_sha256": "b394afcd30a2ed52ba2b528e14820526d5c50d953978f13ae7b86f9272e26028",
+    "seed": "not exposed",
+    "account_plan_and_terms_snapshot": "not available in the product workspace"
+  },
+  "output": {
+    "path": "organic/reference/sunflower-step1x-plate-001.png",
+    "sha256": "cad7d2a9665ac7734c1bc5fb008c91a9e467f2dc74b1510af4ac27698b1648c9",
+    "media_type": "image/png",
+    "size_px": [1334, 1179],
+    "mode": "RGB",
+    "meaningful_alpha": false,
+    "visual_review": "PASS for one coherent isolated-looking sunflower tray and open central depression",
+    "technical_review": "WARN: the requested transparent field was delivered as a baked checkerboard without alpha"
+  },
+  "content_credentials": {
+    "present": true,
+    "claim_generator": "OpenAI Media Service API",
+    "software_agent": "gpt-image 2.0",
+    "digital_source_type": "trainedAlgorithmicMedia",
+    "actions": ["c2pa.created", "c2pa.converted", "c2pa.watermarked.unbound"],
+    "action_date_utc": "2026-09-05",
+    "inspection_tool": "ExifTool 13.55"
+  },
+  "preprocessing_route": {
+    "required": true,
+    "expected": "Step1X service rembg/U2Net CPU foreground isolation for opaque input",
+    "reason": "image generation and one image-edit retry both returned opaque checkerboard pixels",
+    "review_requirement": "archive the exact RGB source and Step1X run manifest; inspect the resulting silhouette before manufacturing use"
+  },
+  "rights": {
+    "user_supplied_third_party_inputs": false,
+    "commercial_use_status": "UNKNOWN",
+    "status": "WARN",
+    "reason": "The new plate has an auditable generation chain, but the account plan and operative OpenAI terms snapshot are not recorded locally."
+  },
+  "classification": "AI-generated design reference; not manufacturing geometry and not a standalone commercial release asset"
+}

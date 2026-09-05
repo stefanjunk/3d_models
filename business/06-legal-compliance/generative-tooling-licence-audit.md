@@ -275,6 +275,22 @@ something this gate resolves.
 A grep for the Hunyuan licence string still matches `volume_decoders.py`, `FORK.md` and `NOTICE` at
 the fork's HEAD. In all three the match is prose describing what was removed, not a licence header.
 
+#### Worked example: MM-ORG-041
+
+The first product to be decided by this rule, verified against its own run records and derivation
+manifests on 2026-09-05:
+
+| Artifact | Source run | Fork commit recorded | Position |
+| --- | --- | --- | --- |
+| v0.1.0 STL | `run-002` (2026-09-04 18:50) | none recorded; predates the cleanup | Pre-fork status |
+| v0.2.0 STL | `run-005` (2026-09-05 09:26) | `4b6da92`, worktree clean | `WARN`-covered |
+
+Runs 003 to 005 all record `4b6da92`, which is past the `f00dd46` cutoff; runs 001 and 002 carry no
+fork provenance at all. The distinction is only decidable because the run client now stamps a
+`provider.served_by_fork` block with the commit and worktree state — that stamp is what makes the
+cutoff auditable per artifact rather than arguable after the fact, and it should be treated as
+required evidence for any future generative product.
+
 ## 6. Evidence pins
 
 - Local checkout `/home/stefan/Projekte/Step1X-3D`, origin `github.com/stefanjunk/Step1X-3D`,

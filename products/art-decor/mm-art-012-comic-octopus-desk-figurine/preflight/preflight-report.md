@@ -20,8 +20,9 @@ release approval.
   will be synthesized from a single view.
 - `PAR1` covers one custom printed body; `REQ1`, `MAT1` and `VER1` cover the
   small requirement set, pinned FFF process and basic mesh/stability/appearance checks.
-- Readiness stops at R2 because the owner has not approved the proposed size,
-  pose, expression, colors or manufacturing defaults and no concept or physical evidence exists.
+- Requirements revision `0.1.0` is approved. Readiness remains R2 because no
+  concept, generated geometry or physical evidence exists and both ordinary
+  surface/support interfaces remain only E1.
 - K0 follows from the dry-indoor adult decorative scope; credible failure is
   aesthetic dissatisfaction, wasted print or low-energy tipping.
 
@@ -49,9 +50,14 @@ exists; neither supports a physical claim at intake.
 
 ## Minimum next evidence
 
-Approve or correct requirements revision `0.1.0`. Exit when the owner explicitly
-confirms the size, pose, expression, concept-color treatment and baseline as one
-revision. Only then create and hash-bind the concept image for Gate 0B review.
+Generate and hash-bind the complete product concept sheet from approved revision
+`0.1.0`. Exit when the versioned product-local image, exact prompt and provenance
+record exist and the owner can review that exact image for Gate 0B.
+
+The engineering preflight permits that action, but the repository-level product
+intake currently blocks it: the required aggregate backfill dry-run proposes 183
+changes across unrelated product paths. A clean main-only integration task must
+resolve that shared state before image generation.
 
 Commercial release remains blocked by unknown seller/market scope, incomplete
 source/tool terms, absent physical evidence and missing authorized human approvals.

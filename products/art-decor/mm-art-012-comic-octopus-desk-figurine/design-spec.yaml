@@ -15,23 +15,35 @@ workflow:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ART-012-001
-    assessment_version: 0.1.0
+    assessment_id: PREFLIGHT-MM-ART-012-002
+    assessment_version: 0.1.1
     assessed_project_revision: 0.1.0
-    updated_at: "2026-09-05T17:28:55+02:00"
+    updated_at: "2026-09-05T18:42:00+02:00"
     change_triggers:
       - initial_design
       - portfolio_registration
       - license_chain_initialization
+      - requirements_approval
   requirements_approval:
-    status: pending
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-05
+    approved_at: "2026-09-05T18:42:00+02:00"
+    spec_revision: 0.1.0
+    evidence: commercial-clearance/04-authorship/versions/HUMAN-0002-requirements-approval.md
     reason: >-
-      Revision 0.1.0 converts the short owner brief into explicit, reviewable defaults.
-      The owner has not yet approved the size, pose, color treatment or manufacturing
-      assumptions as one specification revision.
+      The project owner responded "freigegeben" after reviewing revision 0.1.0.
+      Approval covers the proposed size, pose, expression, concept-color treatment
+      and pinned manufacturing default for concept generation only.
   concept_approval:
     status: blocked
-    reason: Requirements revision 0.1.0 is not yet approved; no concept image may be generated.
+    spec_revision: 0.1.0
+    approved_by: null
+    approved_at: null
+    reason: >-
+      Requirements revision 0.1.0 is approved, but the mandatory portfolio-intake
+      dry-run proposes changes to 183 files across many unrelated products. Product
+      intake requires a fail-closed stop instead of running the global write from this
+      feature branch. No concept image has been generated.
   watermark_approval:
     status: blocked
     asset_id: MM-WM-001-R2
@@ -77,7 +89,6 @@ requirements:
     - Use a clean three-quarter hero view on a subtle desk context plus a small front and side view for the concept sheet.
     - Use the pinned Kobra 3 Max / SUNLU PETG Black / 0.4 mm / 0.20 mm baseline for first manufacturability checks unless the owner requests another process.
   unresolved:
-    - Human approval or correction of the proposed size, pose, expression and concept colors
     - Whether a later release should be single-color or enter a separate multicolor workflow
     - Seller legal identity, target markets/channels and outgoing licence
     - Physical print, surface, stability and appearance results
@@ -214,8 +225,7 @@ deliverables:
     - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
     - preflight/interfaces/IF-HUM-GEO-CON-FREEFORM-001.json
     - commercial-clearance/
-  forbidden_before_requirements_approval:
-    - concept images
+  forbidden_before_concept_approval:
     - Step1X input plates or runs
     - CAD, STL, OBJ, GLB, 3MF or G-code
     - printer upload or print start
@@ -227,6 +237,8 @@ traceability:
     - commercial-clearance/project.json
     - commercial-clearance/01-sources/source-register.csv
     - commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md
+    - commercial-clearance/04-authorship/versions/HUMAN-0002-requirements-approval.md
+    - evidence/portfolio-intake-gate-2026-09-05.json
     - commercial-clearance/02-tools/tool-register.csv
     - commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md
     - commercial-clearance/08-approvals/release-approval.json

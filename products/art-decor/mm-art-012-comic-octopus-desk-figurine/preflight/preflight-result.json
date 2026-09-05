@@ -1,12 +1,12 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ART-012-001",
-  "assessment_version": "0.1.0",
+  "assessment_id": "PREFLIGHT-MM-ART-012-002",
+  "assessment_version": "0.1.1",
   "assessment_date": "2026-09-05",
   "product": "Comic Octopus Desk Figurine",
   "scope": {
     "intended_use": "A funny, uplifting, non-functional comic octopus figurine for decorative display on a dry indoor adult desk or shelf.",
     "user_context": "Adult owner or customer; static display and occasional low-force handling at room temperature.",
-    "variants": ["MM-ART-012 revision 0.1.0 requirements draft"],
+    "variants": ["MM-ART-012 revision 0.1.0 approved requirements"],
     "out_of_scope": [
       "Functional organizer, holder or load-bearing role",
       "Child toy or child-care article",
@@ -94,12 +94,11 @@
     "level": "R2",
     "component_levels": {"scope_variant": "R3", "requirements": "R2", "critical_interfaces": "R2", "manufacturing_profile": "R3", "verification": "R3"},
     "blocking_unknowns": [
-      "The owner has not approved the proposed size, pose, expression, concept colors or pinned manufacturing default as revision 0.1.0.",
       "No concept image, generated geometry, mesh measurement, physical print, stability test or appearance review exists.",
       "Single-image Step1X hidden geometry will be synthesized and cannot be treated as observed or dimensionally authoritative.",
       "Seller identity, target markets/channels, source/tool terms, outgoing licence and commercial approvals remain UNKNOWN/BLOCK."
     ],
-    "completeness_percent": 55.0
+    "completeness_percent": 60.0
   },
   "criticality": {
     "level": "K0",
@@ -111,19 +110,18 @@
     "lane": "A",
     "confidence": "LOW_UNKNOWN",
     "design_release": "GO_WITH_CONTROLS",
-    "rationale": "C0 complexity and K0 criticality support the generative Lane A route. Work may proceed to requirements review and, after explicit approval, the mandatory concept image. LOW_UNKNOWN reflects R2 and the absence of any image, geometry or physical evidence; it is not release confidence."
+    "rationale": "C0 complexity and K0 criticality support the generative Lane A route. Requirements revision 0.1.0 is explicitly approved, so work may proceed to the mandatory concept image. LOW_UNKNOWN reflects R2 and the absence of any image, geometry or physical evidence; it is not release confidence."
   },
   "warnings": [
     {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "The planned body will be generated from one image. Rear depth, underside and internal volume are synthesized and require explicit mesh inspection and engineering cleanup."},
-    {"code": "REQUIREMENTS_UNAPPROVED", "severity": "WARN", "message": "The proposed size, pose, expression, colors and process baseline are reviewable defaults, not owner-approved requirements."},
+    {"code": "CONCEPT_ABSENT", "severity": "WARN", "message": "Requirements revision 0.1.0 is approved, but no whole-product concept image has yet been generated or reviewed."},
     {"code": "PHYSICAL_EVIDENCE_ABSENT", "severity": "INFO", "message": "No concept, model, print, measurement, stability result or physical appearance review exists."},
     {"code": "COMMERCIAL_CLEARANCE_BLOCKED", "severity": "WARN", "message": "Seller, market, source/tool terms, outgoing licence, product classification and authorized release approvals remain open."}
   ],
   "next_actions": [
-    {"priority": 1, "action": "Obtain explicit owner approval or corrections for requirements revision 0.1.0.", "exit_criterion": "The owner confirms the proposed size, pose, expression, concept-color treatment and manufacturing default as one current revision."},
-    {"priority": 2, "action": "After requirements approval, generate one whole-product concept sheet and record its prompt, provenance and SHA-256.", "exit_criterion": "A versioned product-local concept image depicts the complete product and awaits human Gate 0B review."},
-    {"priority": 3, "action": "Only after concept approval, run the local geometry-only Step1X workflow and inspect the raw proposal.", "exit_criterion": "The run record is hash-bound and the selected raw mesh has recorded component, topology, silhouette and hidden-geometry findings."},
-    {"priority": 4, "action": "Before any release, create a controlled flat base, validate topology/features/stability and close commercial gates.", "exit_criterion": "The selected candidate passes deterministic and physical acceptance criteria plus authorized human release decisions."}
+    {"priority": 1, "action": "Generate one whole-product concept sheet and record its prompt, provenance and SHA-256.", "exit_criterion": "A versioned product-local concept image depicts the complete product and awaits human Gate 0B review."},
+    {"priority": 2, "action": "Only after concept approval, run the local geometry-only Step1X workflow and inspect the raw proposal.", "exit_criterion": "The run record is hash-bound and the selected raw mesh has recorded component, topology, silhouette and hidden-geometry findings."},
+    {"priority": 3, "action": "Before any release, create a controlled flat base, validate topology/features/stability and close commercial gates.", "exit_criterion": "The selected candidate passes deterministic and physical acceptance criteria plus authorized human release decisions."}
   ],
   "traceability": {
     "mode": "PROSPECTIVE",
@@ -138,11 +136,12 @@
       "commercial-clearance/02-tools/tool-register.csv",
       "commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md",
       "commercial-clearance/08-approvals/release-approval.json",
+      "commercial-clearance/04-authorship/versions/HUMAN-0002-requirements-approval.md",
       "preflight/preflight-input.yaml"
     ],
-    "change_triggers": ["initial_design", "portfolio_registration", "license_chain_initialization"],
-    "previous_assessment_id": null,
-    "created_at": "2026-09-05T17:28:55+02:00",
-    "updated_at": "2026-09-05T17:28:55+02:00"
+    "change_triggers": ["initial_design", "portfolio_registration", "license_chain_initialization", "requirements_approval"],
+    "previous_assessment_id": "PREFLIGHT-MM-ART-012-001",
+    "created_at": "2026-09-05T18:42:00+02:00",
+    "updated_at": "2026-09-05T18:42:00+02:00"
   }
 }

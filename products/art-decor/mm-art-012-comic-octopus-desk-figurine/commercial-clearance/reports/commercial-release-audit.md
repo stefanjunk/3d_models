@@ -1,7 +1,7 @@
 # Commercial 3D Release Audit
 
 - Project: /home/stefan/orca/workspaces/3d_models/volute/products/art-decor/mm-art-012-comic-octopus-desk-figurine/commercial-clearance
-- Generated: 2026-09-05T15:34:07Z
+- Generated: 2026-09-05T16:45:55Z
 - Decision: **BLOCK**
 
 > Automated evidence check only. PASS is not legal advice, a freedom-to-operate opinion, a conformity certificate, or proof of product safety.
@@ -27,17 +27,17 @@
 | BLOCK | TOOL-005 | tool row 2 (TOOL-0001) does not document commercial use |
 | BLOCK | TOOL-006 | tool row 2 (TOOL-0001) status is not cleared: block |
 | PASS | CMP-001 | No imported/bought components declared |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved tax_epr |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved official_source |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved product_safety_framework |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved privacy |
 | BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved channel |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved export_sanctions |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved conformity_and_label |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved official_source |
 | BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved language |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved privacy |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved market |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved conformity_and_label |
 | BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved consumer_digital_terms |
 | BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved effective_date |
-| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved market |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved product_safety_framework |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved export_sanctions |
+| BLOCK | MKT-001 | market row 2 (UNKNOWN) has unresolved tax_epr |
 | BLOCK | MKT-002 | market row 2 (UNKNOWN) status is not cleared: block |
 | BLOCK | MKT-003 | Target market has no cleared country/channel row: UNKNOWN |
 | BLOCK | MAN-005 | seller.legal_name is unresolved |

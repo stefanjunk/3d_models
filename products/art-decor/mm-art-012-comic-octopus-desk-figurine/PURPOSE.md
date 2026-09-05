@@ -1,4 +1,4 @@
-# MM-ART-012 Comic Octopus Desk Figurine
+# Purpose — MM-ART-012 Comic Octopus Desk Figurine
 
 Create a funny, uplifting comic octopus figurine for decorative display on a dry
 indoor adult desk or shelf. The character should read as cheerful from across a

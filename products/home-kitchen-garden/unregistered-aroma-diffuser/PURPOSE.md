@@ -3,6 +3,10 @@
 Bestehendes Produkt UNREGISTERED-AROMA-DIFFUSER / PORT-102, Revision 0.2.0.
 Stand: 2026-09-05. Keine neue unabhängige Produktidentität.
 
+Angefragte Folgephase 0.3.0: [funktionale 3MF-Druckvorbereitung](print-preparation/r4/READINESS.md).
+Noch keine 3MF erzeugt; Prozessbestätigung und Passungskalibrierung fehlen.
+Die unten verlinkte R3-Formstudie bleibt unverändert.
+
 Elegante gedruckte Außenhülle in fließender Flammenform für eine gekaufte
 Glasfiole und einen Faserdocht. Der Nutzer priorisiert die Optik und delegiert
 vorläufige handelsübliche Kaufteilmaße.

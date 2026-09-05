@@ -1,0 +1,29 @@
+{
+  "authority": "This registry is the single source of truth for locally qualified FFF process compensation values. Only a value whose state is QUALIFIED may be used in a design. UNQUALIFIED means no local measurement exists for that process identity: the design must print the named coupon and record the outcome as a benchmark-measurement before committing to a number. The absence of a value is never evidence that no compensation is needed, and a value qualified on one machine/material/nozzle/profile identity does not transfer to another.",
+  "matched_process_ids": [
+    "kobra3max|anycubic-pla|0.4|anycubic-slicer-next-reference"
+  ],
+  "qualified": {},
+  "requested_scope": {
+    "machine": "Anycubic Kobra 3 Max",
+    "material": "Anycubic PLA",
+    "nozzle": 0.4,
+    "process": "FFF",
+    "slicer_profile": "Anycubic Slicer Next workspace reference profile"
+  },
+  "required_action": "Print the named coupon on this exact process, record the outcome as a benchmark-measurement under libraries/3d-learning/benchmarks/measurements/, and update the registry. Until then no value may be assumed.",
+  "status": "UNQUALIFIED",
+  "tool": "calibration",
+  "unqualified": [
+    {
+      "coupon": "fit-coupon-xy-series",
+      "quantity": "xy_clearance_sliding",
+      "unit": "mm"
+    },
+    {
+      "coupon": "hole-gauge-vertical",
+      "quantity": "hole_delta_vertical",
+      "unit": "mm"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ART-012-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-09-05",
+  "product": "Comic Octopus Desk Figurine",
+  "scope": {
+    "intended_use": "A funny, uplifting, non-functional comic octopus figurine for decorative display on a dry indoor adult desk or shelf.",
+    "user_context": "Adult owner or customer; static display and occasional low-force handling at room temperature.",
+    "variants": ["MM-ART-012 revision 0.1.0 requirements draft"],
+    "out_of_scope": [
+      "Functional organizer, holder or load-bearing role",
+      "Child toy or child-care article",
+      "Third-party character, artwork, logo, brand or scanned likeness",
+      "Outdoor, wet, food-contact, vehicle, electrical, medical or safety use",
+      "Commercial release before rights, physical, appearance and human approval gates pass"
+    ]
+  },
+  "entities": [
+    {"id": "E-PRINT-001", "kind": "PRINTED_PART", "name": "One-piece comic octopus figurine"},
+    {"id": "E-ENV-001", "kind": "ENVIRONMENT", "name": "Dry flat indoor desk or shelf"},
+    {"id": "E-HUM-001", "kind": "HUMAN", "name": "Adult user handling and viewing the figurine"},
+    {"id": "E-TOOL-001", "kind": "SOFTWARE", "name": "Image generation and local geometry-only Step1X-3D toolchain"}
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-MEC-SUP-PLN-001",
+      "name": "Figurine to dry flat desk support",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-ENV-001",
+      "boundary": "EXT",
+      "domains": ["GEO", "MEC"],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": ["assembly", "use", "cleaning", "storage"],
+      "coordinate_frame": {"origin": "centre of the planned flat hidden underside", "x_positive": "character right when viewed from the front", "y_positive": "character rear", "z_positive": "up from the desk plane", "unit": "mm"},
+      "datums": [
+        {"id": "A", "description": "flat hidden printed underside"},
+        {"id": "B", "description": "dry flat desk or shelf plane"}
+      ],
+      "degrees_of_freedom": {"allowed": ["free placement and lifting by an adult"], "constrained": ["rocking or tipping during static display"]},
+      "assembly": {"direction": "place vertically downward onto the desk plane", "contact_mode": "gravity-supported planar contact", "sequence_notes": "No fasteners, adhesive or purchased pad is planned."},
+      "dimensions": [
+        {"id": "DIM-FOOTPRINT-001", "feature": "flat support footprint and centre-of-mass margin", "nominal_mm": null, "lower_mm": null, "upper_mm": null, "clearance_mm": null, "uncertainty_mm": null, "status": "UNKNOWN", "source_ref": "preflight/preflight-input.yaml", "criticality": "COSMETIC"}
+      ],
+      "environment_and_variation": {"environment": "dry flat indoor desk or shelf at room temperature", "uncontrolled": ["desk friction", "as-built mass", "centre of gravity", "small surface unevenness"]},
+      "keepouts_and_access": ["Keep the underside free of unsupported texture and unstable point contacts.", "Reserve a broad low-stress region for the later product mark."],
+      "evidence": {"level": "E1", "sources": ["preflight/preflight-input.yaml", "commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md"], "variant_confirmed": false, "coverage_percent": 45.0, "uncertainty_note": "The display context and control concept are known, but no geometry, mass, centre of gravity or physical stability result exists.", "observability": "INFERRED"},
+      "interface_complexity": {"GEO": 0, "KIN": 0, "TOL": 0, "PHY": 1, "VAR": 0, "LIF": 1, "total": 2, "tier": "I0"},
+      "criticality": "K0",
+      "failure_modes": [{"mode": "The generated footprint is narrow, curved or uneven.", "effect": "The figurine rocks or tips and the display intent is not met.", "mitigation": "Create a controlled flat support plane and require the four-direction 10-degree tilt test."}],
+      "verification": {"method": "prototype_test", "acceptance_criteria": ["The printed figurine remains upright without sliding or rocking at 10 degrees in four cardinal directions on the recorded test surface."], "status": "PLANNED", "result_refs": []},
+      "owner": "MM-ART-012 design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-HUM-GEO-CON-FREEFORM-001",
+      "name": "Adult hand to comic-octopus freeform surface",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-HUM-001",
+      "boundary": "HUM",
+      "domains": ["GEO", "MEC"],
+      "function": "CON",
+      "geometry": "FREEFORM",
+      "lifecycle_states": ["transport", "assembly", "use", "cleaning", "storage"],
+      "coordinate_frame": {"origin": "centre of the planned flat hidden underside", "x_positive": "character right when viewed from the front", "y_positive": "character rear", "z_positive": "up from the desk plane", "unit": "mm"},
+      "datums": [{"id": "A", "description": "all user-reachable outer body and tentacle surfaces"}],
+      "degrees_of_freedom": {"allowed": ["ordinary lifting, turning, dusting and repositioning by an adult"], "constrained": ["pinching, sharp-point contact or loose detached fragments"]},
+      "assembly": {"direction": "unrestricted ordinary hand approach", "contact_mode": "intermittent low-force skin contact", "sequence_notes": "No ergonomic grip or load-carrying function is claimed."},
+      "dimensions": [
+        {"id": "DIM-MIN-FEATURE-001", "feature": "minimum user-reachable tentacle tip or facial feature thickness", "nominal_mm": 1.35, "lower_mm": 1.35, "upper_mm": null, "clearance_mm": null, "uncertainty_mm": null, "status": "ESTIMATED", "source_ref": "business/02-portfolio/research-r3-process-baseline.json", "criticality": "COSMETIC"}
+      ],
+      "environment_and_variation": {"environment": "ordinary adult handling in dry indoor conditions", "uncontrolled": ["as-printed layer texture", "support-removal quality", "user grip and sensitivity"]},
+      "keepouts_and_access": ["No needle-like tips, isolated thin fingers, whiskers or unsupported loose accessories.", "No child-toy, skin-safety, allergen or biocompatibility claim."],
+      "evidence": {"level": "E1", "sources": ["preflight/preflight-input.yaml", "business/02-portfolio/research-r3-process-baseline.json"], "variant_confirmed": false, "coverage_percent": 40.0, "uncertainty_note": "The minimum-feature target follows the pinned process, but no generated surface or printed part exists for measurement or touch inspection.", "observability": "INFERRED"},
+      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 0, "PHY": 0, "VAR": 1, "LIF": 1, "total": 4, "tier": "I1"},
+      "criticality": "K0",
+      "failure_modes": [{"mode": "A generated tentacle tip or facial feature is too thin or sharp.", "effect": "The print feels unpleasant, looks damaged or breaks during ordinary handling.", "mitigation": "Thicken and radius all user-reachable features, then run mesh and physical edge checks."}],
+      "verification": {"method": "inspection", "acceptance_criteria": ["No user-reachable feature is thinner than 1.35 mm at released scale.", "No edge feels sharp during a documented bare-hand wipe after normal support removal."], "status": "PLANNED", "result_refs": []},
+      "owner": "MM-ART-012 design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {"REQ": 1, "CTX": 0, "PAR": 1, "INT": 0, "CPL": 0, "MOT": 0, "GEO": 2, "PHY": 0, "MAT": 1, "EXT": 0, "VER": 1},
+    "score_0_100": 11.25,
+    "class": "C0",
+    "drivers": [
+      "GEO 2/4: the appearance is an organic but non-fit-critical body whose unseen depth is synthesized from a single image.",
+      "PAR 1/4: one custom printed body needs a controlled flat underside and minimum-feature cleanup after generation.",
+      "REQ/MAT/VER 1/4: the small requirement set, pinned FFF baseline and basic mesh, stability and appearance checks remain straightforward."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {"scope_variant": "R3", "requirements": "R2", "critical_interfaces": "R2", "manufacturing_profile": "R3", "verification": "R3"},
+    "blocking_unknowns": [
+      "The owner has not approved the proposed size, pose, expression, concept colors or pinned manufacturing default as revision 0.1.0.",
+      "No concept image, generated geometry, mesh measurement, physical print, stability test or appearance review exists.",
+      "Single-image Step1X hidden geometry will be synthesized and cannot be treated as observed or dimensionally authoritative.",
+      "Seller identity, target markets/channels, source/tool terms, outgoing licence and commercial approvals remain UNKNOWN/BLOCK."
+    ],
+    "completeness_percent": 55.0
+  },
+  "criticality": {
+    "level": "K0",
+    "rationale": "The scope is a static, non-functional adult desk decoration. Credible failure is aesthetic dissatisfaction, wasted print, rocking or low-energy tipping. Any sharp, loose or fragile feature is a failed acceptance item rather than an accepted product condition.",
+    "credible_failure_effects": ["The print looks unlike the approved cheerful comic character.", "The figurine rocks or tips on the desk.", "A thin feature breaks and the print is rejected."]
+  },
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "PASS", "G3": "PASS", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
+  "decision": {
+    "lane": "A",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "C0 complexity and K0 criticality support the generative Lane A route. Work may proceed to requirements review and, after explicit approval, the mandatory concept image. LOW_UNKNOWN reflects R2 and the absence of any image, geometry or physical evidence; it is not release confidence."
+  },
+  "warnings": [
+    {"code": "HIDDEN_GEOMETRY", "severity": "WARN", "message": "The planned body will be generated from one image. Rear depth, underside and internal volume are synthesized and require explicit mesh inspection and engineering cleanup."},
+    {"code": "REQUIREMENTS_UNAPPROVED", "severity": "WARN", "message": "The proposed size, pose, expression, colors and process baseline are reviewable defaults, not owner-approved requirements."},
+    {"code": "PHYSICAL_EVIDENCE_ABSENT", "severity": "INFO", "message": "No concept, model, print, measurement, stability result or physical appearance review exists."},
+    {"code": "COMMERCIAL_CLEARANCE_BLOCKED", "severity": "WARN", "message": "Seller, market, source/tool terms, outgoing licence, product classification and authorized release approvals remain open."}
+  ],
+  "next_actions": [
+    {"priority": 1, "action": "Obtain explicit owner approval or corrections for requirements revision 0.1.0.", "exit_criterion": "The owner confirms the proposed size, pose, expression, concept-color treatment and manufacturing default as one current revision."},
+    {"priority": 2, "action": "After requirements approval, generate one whole-product concept sheet and record its prompt, provenance and SHA-256.", "exit_criterion": "A versioned product-local concept image depicts the complete product and awaits human Gate 0B review."},
+    {"priority": 3, "action": "Only after concept approval, run the local geometry-only Step1X workflow and inspect the raw proposal.", "exit_criterion": "The run record is hash-bound and the selected raw mesh has recorded component, topology, silhouette and hidden-geometry findings."},
+    {"priority": 4, "action": "Before any release, create a controlled flat base, validate topology/features/stability and close commercial gates.", "exit_criterion": "The selected candidate passes deterministic and physical acceptance criteria plus authorized human release decisions."}
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-ART-012",
+    "project_revision": "0.1.0",
+    "basis_refs": [
+      "business/02-portfolio/product-portfolio.csv#PORT-116",
+      "business/02-portfolio/research-r3-process-baseline.json",
+      "commercial-clearance/project.json",
+      "commercial-clearance/01-sources/source-register.csv",
+      "commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md",
+      "commercial-clearance/02-tools/tool-register.csv",
+      "commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md",
+      "commercial-clearance/08-approvals/release-approval.json",
+      "preflight/preflight-input.yaml"
+    ],
+    "change_triggers": ["initial_design", "portfolio_registration", "license_chain_initialization"],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-05T17:28:55+02:00",
+    "updated_at": "2026-09-05T17:28:55+02:00"
+  }
+}

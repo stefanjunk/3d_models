@@ -1,0 +1,233 @@
+project:
+  id: MM-ART-012
+  sku: MM-ART-012
+  name: Comic Octopus Desk Figurine
+  revision: 0.1.0
+  owner: project-owner-via-chat-2026-09-05
+  created: 2026-09-05
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-116
+  product_path: products/art-decor/mm-art-012-comic-octopus-desk-figurine
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-ART-012-0.1.0
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ART-012-001
+    assessment_version: 0.1.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-05T17:28:55+02:00"
+    change_triggers:
+      - initial_design
+      - portfolio_registration
+      - license_chain_initialization
+  requirements_approval:
+    status: pending
+    reason: >-
+      Revision 0.1.0 converts the short owner brief into explicit, reviewable defaults.
+      The owner has not yet approved the size, pose, color treatment or manufacturing
+      assumptions as one specification revision.
+  concept_approval:
+    status: blocked
+    reason: Requirements revision 0.1.0 is not yet approved; no concept image may be generated.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ART-012
+    version: 0.1.0
+    reason: No approved concept or production geometry exists; marking remains a later human release gate.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: Seller, market, rights, tool, classification, physical and human approval gates remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ART-012
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Create a new product not already represented in the portfolio.
+    - Make a funny, uplifting comic octopus figurine for desk display.
+    - Create a concept image first and present it for human review.
+    - Do not run Step1X-3D until the concept image has been approved.
+  inferred:
+    - Intended use is non-functional decoration on a dry indoor adult desk or shelf.
+    - The character is an original generic octopus and not based on a third-party character or artwork.
+    - The figurine is one coherent printed body without separate accessories or purchased parts.
+  recommended:
+    - Use a compact planning envelope no larger than 110 x 105 x 95 mm.
+    - Give the character exactly eight clearly readable tentacles: four broad low tentacles form the stable base, two curl forward, and two lift as expressive arms.
+    - Use an oversized rounded head tilted slightly to one side, large raised oval eyes, one arched brow, puffed cheeks and a broad asymmetrical grin.
+    - Keep every tip blunt and thick, avoid isolated thin fingers or whiskers, and reserve a broad flat underside for printing and the later product mark.
+    - Show a coral-orange body with a pale peach underside and small teal eye accents in the concept image; treat color as visual direction only because the local Step1X fork is geometry-only.
+    - Use a clean three-quarter hero view on a subtle desk context plus a small front and side view for the concept sheet.
+    - Use the pinned Kobra 3 Max / SUNLU PETG Black / 0.4 mm / 0.20 mm baseline for first manufacturability checks unless the owner requests another process.
+  unresolved:
+    - Human approval or correction of the proposed size, pose, expression and concept colors
+    - Whether a later release should be single-color or enter a separate multicolor workflow
+    - Seller legal identity, target markets/channels and outgoing licence
+    - Physical print, surface, stability and appearance results
+
+function:
+  summary: >-
+    A one-piece comic octopus whose expressive face and dancing tentacle pose create
+    a cheerful desk companion while four broad tentacles provide a stable display base.
+  included:
+    - Exactly eight recognizable tentacles integrated into one continuous body
+    - Four broad low tentacles forming the primary desk-support footprint
+    - Two forward curls and two lifted gesture tentacles for a lively silhouette
+    - Geometric facial features readable without texture or printed labels
+    - Flat hidden underside for support-free registration and later release marking
+  excluded:
+    - Cable holding, phone holding, storage or any other functional organizer role
+    - Separate props, magnets, electronics, moving joints or purchased hardware
+    - Third-party character likenesses, logos, text or branded trade dress
+    - Child-toy, food-contact, outdoor, wet, vehicle, electrical, medical, load-bearing or safety use
+  interfaces:
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+    - preflight/interfaces/IF-HUM-GEO-CON-FREEFORM-001.json
+
+dimensions:
+  planning_envelope_ceiling_mm: [110, 105, 95]
+  planning_envelope_status: recommended-default-pending-owner-approval
+  tentacle_count: 8
+  minimum_visible_feature_mm: 1.35
+  minimum_visible_feature_basis: >-
+    Preliminary three-perimeter target for the pinned 0.4 mm profile; final geometry
+    must be measured and validated after Step1X processing.
+
+generative:
+  concept_role: mandatory whole-product Gate 0B image after requirements approval
+  step1x_role: appearance-led organic geometry proposal after concept approval
+  authority: >-
+    Image generation owns only the approved appearance reference. Step1X-3D may propose
+    massing and surface character; physical scale, flat support plane, minimum features,
+    topology repair and release marking remain explicit engineering responsibilities.
+  hidden_geometry: synthesized from one image and unverified until mesh inspection
+  texture_status: unsupported by the owned geometry-only Step1X fork
+
+risk:
+  class: decorative
+  criticality: K0
+  scope_limit: Dry indoor adult desk or shelf display only; not a children's toy.
+  hazards:
+    - A narrow footprint or raised tentacle makes the figurine tip or rock on the desk.
+    - A thin generated tentacle tip becomes sharp, fragile or breaks during handling.
+    - The generated body contains non-manifold regions, floaters or an unusable underside.
+  controls:
+    - Four broad low tentacles and a flat support plane with a physical 10-degree tilt check
+    - Minimum-feature and bare-hand edge inspection before any release
+    - Watertightness, connected-component, self-intersection and bed-contact audits
+    - No toy, safety, durability or commercial claim before physical and human gates pass
+
+fabrication:
+  preference: balanced-hybrid
+  preference_basis: >-
+    Default selected because the owner did not choose a fabrication preference; the current
+    concept nevertheless plans one printed body and no purchased hardware.
+  process: FDM/FFF
+  parts_status: No concept image, Step1X geometry, CAD, mesh or physical print exists.
+  release_scope: Digital and physical intent recorded, both blocked pending evidence and approval.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: flat hidden underside down
+  supports: none preferred; buildplate-only permitted after slicer review
+  profiles:
+    machine:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json
+      sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+    process:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json
+      sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
+    filament:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json
+      sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+
+optimization:
+  status: pending
+  rationale: No geometry or slicer baseline exists in the requirements phase.
+  mesh_simplification:
+    status: pending
+    protected_regions:
+      - face and eye geometry
+      - outer tentacle silhouette
+      - desk-support plane
+      - future watermark safe region
+    rationale: No master or manufacturing mesh exists.
+
+acceptance:
+  - id: AC-SILHOUETTE-001
+    criterion: The approved concept and final model visibly contain one head and exactly eight distinct tentacles with no detached accessory.
+    method: Front, side, top and three-quarter visual inspection.
+    status: planned
+  - id: AC-TOPOLOGY-001
+    criterion: The manufacturing mesh is one watertight, consistently wound connected component with no self-intersections or floaters.
+    method: Deterministic mesh audit.
+    status: planned
+  - id: AC-FEATURE-001
+    criterion: No user-reachable tip or facial feature is thinner than 1.35 mm at released scale and no bare-hand edge is sharp after normal support removal.
+    method: Mesh thickness/protrusion audit plus physical bare-hand inspection.
+    status: planned
+  - id: AC-STABILITY-001
+    criterion: The printed figurine remains upright without sliding or rocking at a 10-degree base tilt in four cardinal directions on the recorded test surface.
+    method: Physical prototype tilt and rocking test.
+    status: planned
+  - id: AC-APPEARANCE-001
+    criterion: The owner confirms that the printed character reads as funny, cheerful and recognizably comic-octopus from normal desk-view distance.
+    method: Human appearance review of the physical prototype.
+    status: planned
+
+deliverables:
+  current:
+    - PURPOSE.md
+    - decision-log.md
+    - design-spec.yaml
+    - preflight/preflight-input.yaml
+    - preflight/preflight-result.json
+    - preflight/preflight-report.md
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+    - preflight/interfaces/IF-HUM-GEO-CON-FREEFORM-001.json
+    - commercial-clearance/
+  forbidden_before_requirements_approval:
+    - concept images
+    - Step1X input plates or runs
+    - CAD, STL, OBJ, GLB, 3MF or G-code
+    - printer upload or print start
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-116
+    - business/02-portfolio/research-r3-process-baseline.json
+    - commercial-clearance/project.json
+    - commercial-clearance/01-sources/source-register.csv
+    - commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md
+    - commercial-clearance/02-tools/tool-register.csv
+    - commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md
+    - commercial-clearance/08-approvals/release-approval.json
+    - preflight/preflight-input.yaml

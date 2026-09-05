@@ -11,7 +11,12 @@ For every newly manufactured metriMade revision, the same identity also appears 
 1. **Select:** product owner records customer problem, fit envelope, intended use, excluded uses, markets, and delivery modes.
 2. **Specify:** requirements, measurable acceptance criteria, printer/material constraints, safety questions, and configuration limits are approved.
 3. **Design:** editable source of truth, components, datums, parameters, licenses, and deterministic build are established.
-4. **Digitally validate:** geometry, dimensions, interfaces, products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/features, build volume, orientation, formats, and hashes are checked.
+4. **Digitally validate and enter P2:** geometry, dimensions, interfaces,
+   features, build volume, orientation, formats, and hashes are checked. Create
+   the English product description, whole-product concept image, separate
+   current-model render, and one complete product 3MF with intended part
+   quantities, build orientation, and support decision; bind them in
+   `p2-stage/p2-manifest.json` and require `validate-p2-stage` PASS.
 5. **Prototype:** coupons first, then a complete intended-profile print. Failures become revisions, not undocumented sanding/scaling instructions.
 6. **Qualify:** three reproducible final-revision prints; dimensional, fit, use, misuse, stability, wear/cycles, and appearance evidence appropriate to claims.
 7. **Commercialize:** rights, product-safety decision, instructions, warnings, license, price/cost, media, alt text, translations, support and release manifest.

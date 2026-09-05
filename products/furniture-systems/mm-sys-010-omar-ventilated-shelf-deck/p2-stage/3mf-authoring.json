@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "author-slicer-execution",
+      "message": "Anycubic Slicer Next created the local 3MF project",
+      "metrics": {
+        "return_code": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "author-support-setting",
+      "message": "Embedded support setting matches the requested mode",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-010-omar-ventilated-shelf-deck/exports/stl/10_omar_shelf_deck.stl",
+      "sha256": "9f6fb01a05e51fdf91e88b4c522d897e9e5b879da0578c006ec8273e0e706751",
+      "size_bytes": 788884
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "6bfe04a34c1c2d1ff6930bd11e698c2d7721bb42e64aceefda7795a7d8ff0c7e",
+      "size_bytes": 8525
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab",
+      "size_bytes": 10950
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b",
+      "size_bytes": 5982
+    }
+  ],
+  "limitations": [
+    "The export authors a local slicer project only; it does not upload or start a print.",
+    "Arrangement preserves source rotations but still requires product-specific confirmation that the selected sources are complete and correctly oriented."
+  ],
+  "metrics": {
+    "embedded_enable_support": "0",
+    "invocation": [
+      "AnycubicSlicerNext",
+      "--datadir",
+      "/tmp/metrimade-p2-3mf-4l2knyos/slicer-state",
+      "--load-settings",
+      "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json;/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-filaments",
+      "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+      "--load-defaultfila",
+      "--ensure-on-bed",
+      "--arrange",
+      "1",
+      "--export-3mf",
+      "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-010-omar-ventilated-shelf-deck/p2-stage/MM-SYS-010-R0.2-DRAFT-print-set.3mf",
+      "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-010-omar-ventilated-shelf-deck/exports/stl/10_omar_shelf_deck.stl"
+    ],
+    "output": {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-010-omar-ventilated-shelf-deck/p2-stage/MM-SYS-010-R0.2-DRAFT-print-set.3mf",
+      "sha256": "40272acca6ea3c9028a233408a7a8b93c1b00ea15bfdeb11aca92c29bfe90f6a",
+      "size_bytes": 144790
+    },
+    "profiles": {
+      "filament": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/filament/Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "754476420da7b26c69f286f9288309c6cce7ec11c651c5193084d35b51e1f13b"
+      },
+      "machine": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/machine/Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "6bfe04a34c1c2d1ff6930bd11e698c2d7721bb42e64aceefda7795a7d8ff0c7e"
+      },
+      "process": {
+        "path": "/home/stefan/Projekte/3d_models/archive/local-tool-state/anycubic-slicer-next/ota/profiles/Anycubic/process/0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle.json",
+        "sha256": "c76628f3e1551da20c7c19563856ffabc0b46f65096439a3bc891f8d9f416cab"
+      }
+    },
+    "settings_ids": {
+      "filament_settings_id": [
+        "Anycubic PLA @Anycubic Kobra 3 Max 0.4 nozzle"
+      ],
+      "print_settings_id": "0.20mm Standard @Anycubic Kobra 3 Max 0.4 nozzle",
+      "printer_settings_id": "Anycubic Kobra 3 Max 0.4 nozzle"
+    },
+    "slicer": {
+      "executable": "AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "version": "1.3.9.4"
+    },
+    "sources": [
+      {
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-010-omar-ventilated-shelf-deck/exports/stl/10_omar_shelf_deck.stl",
+        "sha256": "9f6fb01a05e51fdf91e88b4c522d897e9e5b879da0578c006ec8273e0e706751"
+      }
+    ],
+    "stderr": "",
+    "stdout": "[2026-09-05 18:10:06.411616] [0x00007f8aca6e0fc0] [trace]   Initializing StaticPrintConfigs\n",
+    "support_mode": "disabled"
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "author-anycubic-3mf",
+  "tool_version": "1.3.0"
+}

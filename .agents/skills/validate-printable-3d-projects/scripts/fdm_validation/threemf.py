@@ -3,8 +3,7 @@ from __future__ import annotations
 import math
 import xml.etree.ElementTree as ET
 import zipfile
-from pathlib import Path
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from .common import check, report
@@ -15,6 +14,7 @@ REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 CONTENT_NS = "http://schemas.openxmlformats.org/package/2006/content-types"
 MODEL_REL = "http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"
 MODEL_CONTENT = "application/vnd.ms-package.3dmanufacturing-3dmodel+xml"
+PRODUCTION_NS = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"
 
 
 def _integer(value: str | None, label: str, errors: list[str]) -> int | None:
@@ -25,13 +25,27 @@ def _integer(value: str | None, label: str, errors: list[str]) -> int | None:
         return None
 
 
-def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "release") -> dict[str, Any]:
+def validate(
+    path: Path, policy: dict[str, Any] | None = None, profile: str = "release"
+) -> dict[str, Any]:
     policy = policy or {}
     if not path.is_file():
-        return report("validate-3mf", [check("3mf-file", "FAIL", f"3MF not found: {path}")], inputs=[path], profile=profile)
+        return report(
+            "validate-3mf",
+            [check("3mf-file", "FAIL", f"3MF not found: {path}")],
+            inputs=[path],
+            profile=profile,
+        )
     errors: list[str] = []
     warnings: list[str] = []
-    metrics: dict[str, Any] = {"package_members": [], "materials": [], "objects": [], "build_items": []}
+    metrics: dict[str, Any] = {
+        "package_members": [],
+        "materials": [],
+        "objects": [],
+        "build_items": [],
+    }
+    external_models: dict[str, ET.Element] = {}
+    model_relationship_targets: set[str] = set()
     required_members = {"[Content_Types].xml", "_rels/.rels", "3D/3dmodel.model"}
     try:
         with zipfile.ZipFile(path, "r") as archive:
@@ -43,7 +57,9 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
                 errors.append("ZIP contains duplicate member names")
             if len(infos) > int(policy.get("max_package_members", 10000)):
                 errors.append("ZIP contains more members than the configured limit")
-            max_uncompressed = float(policy.get("max_uncompressed_mib", 512)) * 1024 * 1024
+            max_uncompressed = (
+                float(policy.get("max_uncompressed_mib", 512)) * 1024 * 1024
+            )
             total_uncompressed = sum(info.file_size for info in infos)
             metrics["uncompressed_size_bytes"] = total_uncompressed
             if total_uncompressed > max_uncompressed:
@@ -55,7 +71,9 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
                     errors.append(f"unsafe ZIP member path: {info.filename}")
                 ratio = info.file_size / max(info.compress_size, 1)
                 if ratio > maximum_ratio:
-                    errors.append(f"ZIP member compression ratio exceeds limit: {info.filename}")
+                    errors.append(
+                        f"ZIP member compression ratio exceeds limit: {info.filename}"
+                    )
             corrupt = archive.testzip()
             if corrupt:
                 errors.append(f"ZIP CRC check failed: {corrupt}")
@@ -69,8 +87,18 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
                     item.get("PartName"): item.get("ContentType")
                     for item in content_root.findall(f"{{{CONTENT_NS}}}Override")
                 }
-                if overrides.get("/3D/3dmodel.model") != MODEL_CONTENT:
-                    errors.append("content types do not declare the standard 3D model part")
+                defaults = {
+                    str(item.get("Extension", "")).lower(): item.get("ContentType")
+                    for item in content_root.findall(f"{{{CONTENT_NS}}}Default")
+                }
+                model_content_declared = (
+                    overrides.get("/3D/3dmodel.model") == MODEL_CONTENT
+                    or defaults.get("model") == MODEL_CONTENT
+                )
+                if not model_content_declared:
+                    errors.append(
+                        "content types do not declare the standard 3D model part"
+                    )
                 rel_root = ET.fromstring(archive.read("_rels/.rels"))
                 model_targets = [
                     item.get("Target", "").lstrip("/")
@@ -78,21 +106,56 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
                     if item.get("Type") == MODEL_REL
                 ]
                 if "3D/3dmodel.model" not in model_targets:
-                    errors.append("root relationships do not target the standard 3D model part")
+                    errors.append(
+                        "root relationships do not target the standard 3D model part"
+                    )
                 root = ET.fromstring(archive.read("3D/3dmodel.model"))
+                for name in sorted(
+                    item
+                    for item in names
+                    if item.startswith("3D/Objects/") and item.endswith(".model")
+                ):
+                    try:
+                        external_models[name] = ET.fromstring(archive.read(name))
+                    except Exception as exc:
+                        errors.append(
+                            f"invalid external model part {name}: {type(exc).__name__}: {exc}"
+                        )
+                production_rels = "3D/_rels/3dmodel.model.rels"
+                if production_rels in names:
+                    rels_root = ET.fromstring(archive.read(production_rels))
+                    model_relationship_targets = {
+                        item.get("Target", "").lstrip("/")
+                        for item in rels_root.findall(f"{{{REL_NS}}}Relationship")
+                        if item.get("Type") == MODEL_REL
+                    }
     except Exception as exc:
-        return report("validate-3mf", [check("3mf-package", "FAIL", f"{type(exc).__name__}: {exc}")], inputs=[path], profile=profile)
+        return report(
+            "validate-3mf",
+            [check("3mf-package", "FAIL", f"{type(exc).__name__}: {exc}")],
+            inputs=[path],
+            profile=profile,
+        )
     if root is None:
-        return report("validate-3mf", [check("3mf-package", "FAIL", "; ".join(errors))], inputs=[path], profile=profile, metrics=metrics)
+        return report(
+            "validate-3mf",
+            [check("3mf-package", "FAIL", "; ".join(errors))],
+            inputs=[path],
+            profile=profile,
+            metrics=metrics,
+        )
 
     model_unit = root.get("unit", "millimeter")
     metrics["model_unit"] = model_unit
     required_unit = policy.get("require_unit")
     if required_unit is not None and model_unit != required_unit:
-        errors.append(f"model unit {model_unit!r} differs from required unit {required_unit!r}")
+        errors.append(
+            f"model unit {model_unit!r} differs from required unit {required_unit!r}"
+        )
     resources = root.find("m:resources", NS)
     object_ids: set[int] = set()
     component_refs: list[tuple[int, int]] = []
+    external_component_refs: list[tuple[int, int, str]] = []
     material_groups: dict[int, int] = {}
     mesh_payloads: list[tuple[int, list[list[float]], list[list[int]]]] = []
     if resources is None:
@@ -105,7 +168,14 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
             bases = group.findall("m:base", NS)
             material_groups[group_id] = len(bases)
             for index, base in enumerate(bases):
-                metrics["materials"].append({"group_id": group_id, "index": index, "name": base.get("name"), "displaycolor": base.get("displaycolor")})
+                metrics["materials"].append(
+                    {
+                        "group_id": group_id,
+                        "index": index,
+                        "name": base.get("name"),
+                        "displaycolor": base.get("displaycolor"),
+                    }
+                )
         for obj in resources.findall("m:object", NS):
             object_id = _integer(obj.get("id"), "object.id", errors)
             if object_id is None:
@@ -113,71 +183,133 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
             if object_id in object_ids:
                 errors.append(f"duplicate object id {object_id}")
             object_ids.add(object_id)
-            item: dict[str, Any] = {"id": object_id, "name": obj.get("name"), "type": obj.get("type")}
+            item: dict[str, Any] = {
+                "id": object_id,
+                "name": obj.get("name"),
+                "type": obj.get("type"),
+            }
             object_pid = None
             if obj.get("pid") is not None:
                 pid = _integer(obj.get("pid"), f"object {object_id}.pid", errors)
-                pindex = _integer(obj.get("pindex"), f"object {object_id}.pindex", errors)
+                pindex = _integer(
+                    obj.get("pindex"), f"object {object_id}.pindex", errors
+                )
                 object_pid = pid
                 item.update({"pid": pid, "pindex": pindex})
                 if pid not in material_groups:
-                    errors.append(f"object {object_id} references missing material group {pid}")
+                    errors.append(
+                        f"object {object_id} references missing material group {pid}"
+                    )
                 elif pindex is not None and not 0 <= pindex < material_groups[pid]:
-                    errors.append(f"object {object_id} material index {pindex} is out of range")
+                    errors.append(
+                        f"object {object_id} material index {pindex} is out of range"
+                    )
             mesh_node = obj.find("m:mesh", NS)
             components = obj.find("m:components", NS)
             if mesh_node is not None:
                 vertices = []
                 for vertex in mesh_node.findall("m:vertices/m:vertex", NS):
                     try:
-                        coordinates = [float(vertex.get(axis, "nan")) for axis in ("x", "y", "z")]
+                        coordinates = [
+                            float(vertex.get(axis, "nan")) for axis in ("x", "y", "z")
+                        ]
                         if not all(math.isfinite(value) for value in coordinates):
                             raise ValueError("non-finite coordinate")
                         vertices.append(coordinates)
                     except Exception:
-                        errors.append(f"object {object_id} has invalid vertex coordinates")
+                        errors.append(
+                            f"object {object_id} has invalid vertex coordinates"
+                        )
                 faces = []
                 for triangle in mesh_node.findall("m:triangles/m:triangle", NS):
-                    face = [_integer(triangle.get(key), f"object {object_id}.{key}", errors) for key in ("v1", "v2", "v3")]
+                    face = [
+                        _integer(triangle.get(key), f"object {object_id}.{key}", errors)
+                        for key in ("v1", "v2", "v3")
+                    ]
                     if any(value is None for value in face):
                         continue
                     integer_face = [int(value) for value in face]
                     if len(set(integer_face)) != 3:
-                        errors.append(f"object {object_id} triangle repeats indices {integer_face}")
-                    if any(value < 0 or value >= len(vertices) for value in integer_face):
-                        errors.append(f"object {object_id} triangle index out of range {integer_face}")
+                        errors.append(
+                            f"object {object_id} triangle repeats indices {integer_face}"
+                        )
+                    if any(
+                        value < 0 or value >= len(vertices) for value in integer_face
+                    ):
+                        errors.append(
+                            f"object {object_id} triangle index out of range {integer_face}"
+                        )
                     else:
                         faces.append(integer_face)
                     triangle_pid = triangle.get("pid")
                     if triangle_pid is not None or object_pid is not None:
-                        pid = _integer(triangle_pid, f"object {object_id} triangle.pid", errors) if triangle_pid is not None else object_pid
+                        pid = (
+                            _integer(
+                                triangle_pid, f"object {object_id} triangle.pid", errors
+                            )
+                            if triangle_pid is not None
+                            else object_pid
+                        )
                         if pid not in material_groups:
-                            errors.append(f"object {object_id} triangle references missing material group {pid}")
+                            errors.append(
+                                f"object {object_id} triangle references missing material group {pid}"
+                            )
                         else:
                             for property_name in ("p1", "p2", "p3"):
-                                property_value = triangle.get(property_name, triangle.get("p1", "0"))
-                                index = _integer(property_value, f"object {object_id} triangle.{property_name}", errors)
-                                if index is not None and not 0 <= index < material_groups[pid]:
-                                    errors.append(f"object {object_id} triangle material index {index} is out of range")
-                    elif any(triangle.get(name) is not None for name in ("p1", "p2", "p3")):
-                        errors.append(f"object {object_id} triangle declares property indices without a property resource id")
-                item.update({"kind": "mesh", "vertices": len(vertices), "faces": len(faces)})
+                                property_value = triangle.get(
+                                    property_name, triangle.get("p1", "0")
+                                )
+                                index = _integer(
+                                    property_value,
+                                    f"object {object_id} triangle.{property_name}",
+                                    errors,
+                                )
+                                if (
+                                    index is not None
+                                    and not 0 <= index < material_groups[pid]
+                                ):
+                                    errors.append(
+                                        f"object {object_id} triangle material index {index} is out of range"
+                                    )
+                    elif any(
+                        triangle.get(name) is not None for name in ("p1", "p2", "p3")
+                    ):
+                        errors.append(
+                            f"object {object_id} triangle declares property indices without a property resource id"
+                        )
+                item.update(
+                    {"kind": "mesh", "vertices": len(vertices), "faces": len(faces)}
+                )
                 mesh_payloads.append((object_id, vertices, faces))
             elif components is not None:
                 refs = []
                 for component in components.findall("m:component", NS):
-                    ref = _integer(component.get("objectid"), f"object {object_id} component", errors)
+                    ref = _integer(
+                        component.get("objectid"),
+                        f"object {object_id} component",
+                        errors,
+                    )
                     if ref is not None:
                         refs.append(ref)
-                        component_refs.append((object_id, ref))
+                        external_path = component.get(f"{{{PRODUCTION_NS}}}path")
+                        if external_path:
+                            external_component_refs.append(
+                                (object_id, ref, external_path.lstrip("/"))
+                            )
+                        else:
+                            component_refs.append((object_id, ref))
                     transform = component.get("transform")
                     if transform is not None:
                         try:
                             values = [float(value) for value in transform.split()]
-                            if len(values) != 12 or not all(math.isfinite(value) for value in values):
+                            if len(values) != 12 or not all(
+                                math.isfinite(value) for value in values
+                            ):
                                 raise ValueError
                         except Exception:
-                            errors.append(f"object {object_id} component has invalid transform")
+                            errors.append(
+                                f"object {object_id} component has invalid transform"
+                            )
                 item.update({"kind": "components", "component_object_ids": refs})
             else:
                 errors.append(f"object {object_id} has neither mesh nor components")
@@ -185,6 +317,42 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
     for owner, ref in component_refs:
         if ref not in object_ids:
             errors.append(f"component object {owner} references missing object {ref}")
+    external_metrics = []
+    for owner, ref, model_path in external_component_refs:
+        external_root = external_models.get(model_path)
+        if external_root is None:
+            errors.append(
+                f"component object {owner} references missing external model part {model_path}"
+            )
+            continue
+        if model_path not in model_relationship_targets:
+            errors.append(
+                f"external model part {model_path} is not declared by the root model relationships"
+            )
+        external_resources = external_root.find("m:resources", NS)
+        external_ids = (
+            {
+                value
+                for node in external_resources.findall("m:object", NS)
+                if external_resources is not None
+                if (
+                    value := _integer(
+                        node.get("id"), f"external object in {model_path}", errors
+                    )
+                )
+                is not None
+            }
+            if external_resources is not None
+            else set()
+        )
+        if ref not in external_ids:
+            errors.append(
+                f"component object {owner} references missing object {ref} in external model part {model_path}"
+            )
+        external_metrics.append(
+            {"owner_object_id": owner, "object_id": ref, "model_part": model_path}
+        )
+    metrics["external_component_objects"] = external_metrics
     component_graph: dict[int, list[int]] = {}
     for owner, ref in component_refs:
         component_graph.setdefault(owner, []).append(ref)
@@ -218,7 +386,9 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
             if transform is not None:
                 try:
                     values = [float(value) for value in transform.split()]
-                    if len(values) != 12 or not all(math.isfinite(value) for value in values):
+                    if len(values) != 12 or not all(
+                        math.isfinite(value) for value in values
+                    ):
                         raise ValueError
                 except Exception:
                     errors.append("build item has invalid transform")
@@ -227,22 +397,32 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
 
     require_watertight = bool(policy.get("require_watertight_meshes", False))
     require_positive = bool(policy.get("require_positive_volume", False))
-    if mesh_payloads and (require_watertight or require_positive or policy.get("inspect_meshes", True)):
+    if mesh_payloads and (
+        require_watertight or require_positive or policy.get("inspect_meshes", True)
+    ):
         try:
             import numpy as np
             import trimesh
 
             by_id = {item["id"]: item for item in metrics["objects"]}
             for object_id, vertices, faces in mesh_payloads:
-                mesh = trimesh.Trimesh(vertices=np.asarray(vertices), faces=np.asarray(faces, dtype=int), process=False)
+                mesh = trimesh.Trimesh(
+                    vertices=np.asarray(vertices),
+                    faces=np.asarray(faces, dtype=int),
+                    process=False,
+                )
                 row = by_id[object_id]
-                row.update({
-                    "watertight": bool(mesh.is_watertight),
-                    "winding_consistent": bool(mesh.is_winding_consistent),
-                    "positive_volume": bool(mesh.is_volume and mesh.volume > 0),
-                    "volume_mm3": float(mesh.volume),
-                    "bounds_mm": mesh.bounds.tolist() if len(mesh.vertices) else None,
-                })
+                row.update(
+                    {
+                        "watertight": bool(mesh.is_watertight),
+                        "winding_consistent": bool(mesh.is_winding_consistent),
+                        "positive_volume": bool(mesh.is_volume and mesh.volume > 0),
+                        "volume_mm3": float(mesh.volume),
+                        "bounds_mm": mesh.bounds.tolist()
+                        if len(mesh.vertices)
+                        else None,
+                    }
+                )
                 if require_watertight and not mesh.is_watertight:
                     errors.append(f"mesh object {object_id} is not watertight")
                 elif not mesh.is_watertight:
@@ -251,15 +431,39 @@ def validate(path: Path, policy: dict[str, Any] | None = None, profile: str = "r
                     errors.append(f"mesh object {object_id} is not a positive volume")
         except Exception as exc:
             if require_watertight or require_positive:
-                warnings.append(f"required embedded mesh topology check not run: {type(exc).__name__}: {exc}")
+                warnings.append(
+                    f"required embedded mesh topology check not run: {type(exc).__name__}: {exc}"
+                )
 
-    checks = [check("3mf-structure", "PASS" if not errors else "FAIL", "3MF package and references are valid" if not errors else "; ".join(errors), metrics={"error_count": len(errors)})]
-    if (require_watertight or require_positive) and any("not run" in item for item in warnings):
-        checks.append(check("3mf-mesh-topology", "NOT_RUN", next(item for item in warnings if "not run" in item)))
+    checks = [
+        check(
+            "3mf-structure",
+            "PASS" if not errors else "FAIL",
+            "3MF package and references are valid" if not errors else "; ".join(errors),
+            metrics={"error_count": len(errors)},
+        )
+    ]
+    if (require_watertight or require_positive) and any(
+        "not run" in item for item in warnings
+    ):
+        checks.append(
+            check(
+                "3mf-mesh-topology",
+                "NOT_RUN",
+                next(item for item in warnings if "not run" in item),
+            )
+        )
     minimum_parts = policy.get("min_mesh_objects")
     if minimum_parts is not None:
         actual = len(mesh_payloads)
-        checks.append(check("3mf-part-count", "PASS" if actual >= int(minimum_parts) else "FAIL", f"Mesh objects {actual}; minimum {minimum_parts}", metrics={"actual": actual, "minimum": minimum_parts}))
+        checks.append(
+            check(
+                "3mf-part-count",
+                "PASS" if actual >= int(minimum_parts) else "FAIL",
+                f"Mesh objects {actual}; minimum {minimum_parts}",
+                metrics={"actual": actual, "minimum": minimum_parts},
+            )
+        )
     metrics["warnings"] = warnings
     return report(
         "validate-3mf",

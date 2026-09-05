@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "fb07313bd51417f6f2dc96551585efdcb3fe196dfff7a47b48403a179523ff45",
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/product-description.en.md",
+        "sha256": "fb07313bd51417f6f2dc96551585efdcb3fe196dfff7a47b48403a179523ff45"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "6cc093c645344b2566388e51c1aceb2440caf029eea909c7bbbe1a9aaab494e9",
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/concept/concept-product-v0.1.0-r1.png",
+        "sha256": "6cc093c645344b2566388e51c1aceb2440caf029eea909c7bbbe1a9aaab494e9"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "2b91559130beab95574d19ed03ef0cc2c81d421c170beefed5408217f765288e",
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/reports/run-001/cavity-draft-iso.png",
+        "sha256": "2b91559130beab95574d19ed03ef0cc2c81d421c170beefed5408217f765288e"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "bb05539cce2c5f802ff144c09cf03c1f57a30563f1fddc1d060f9d8b19349c2e",
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/MM-DEC-004-0.1.0-print-set.3mf",
+        "sha256": "bb05539cce2c5f802ff144c09cf03c1f57a30563f1fddc1d060f9d8b19349c2e"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 99
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 1; declared quantity 1",
+      "metrics": {
+        "actual": 1,
+        "declared": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "1"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/p2-manifest.json",
+      "sha256": "2f592512fe5bf3e41486e5fb23a8862105db6f799f2b09ab9a47f7aa2f16157a",
+      "size_bytes": 1969
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/MM-DEC-004-0.1.0-print-set.3mf",
+      "sha256": "bb05539cce2c5f802ff144c09cf03c1f57a30563f1fddc1d060f9d8b19349c2e",
+      "size_bytes": 3320739
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 1,
+      "embedded_enable_support": "1",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital draft",
+      "name": "MM-DEC-004 Sleepy Cat nursery-pot sleeve",
+      "record_id": "PORT-115",
+      "revision": "0.1.0",
+      "root": "..",
+      "sku": "MM-DEC-004"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

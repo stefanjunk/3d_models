@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "ad47be9b56cb1c8c7676571e360d786ef2fa57aaac681ba4a7a3f8f810bc7251",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/p2-stage/product-description.en.md",
+        "sha256": "ad47be9b56cb1c8c7676571e360d786ef2fa57aaac681ba4a7a3f8f810bc7251"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "76ad1abfb2a066a94f565917a459df9cfe70b326188b2910e2b73772d79034f9",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/assets/concept/MM-ORG-005-concept-v1.svg",
+        "sha256": "76ad1abfb2a066a94f565917a459df9cfe70b326188b2910e2b73772d79034f9"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "096b2eb539f03a2bcb9cc91fef9d067e457f76f604a1062e3f878747d00ea5ba",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/renders/MM-ORG-005-digital-candidate.png",
+        "sha256": "096b2eb539f03a2bcb9cc91fef9d067e457f76f604a1062e3f878747d00ea5ba"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "954c236043c84dde4e5e086308a9e363ac4db3bcb21808ccd7b0edc7b54fd708",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/p2-stage/MM-ORG-005-0.1.0-draft.1-print-set.3mf",
+        "sha256": "954c236043c84dde4e5e086308a9e363ac4db3bcb21808ccd7b0edc7b54fd708"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 116
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 3
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 3; declared quantity 3",
+      "metrics": {
+        "actual": 3,
+        "declared": 3
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/p2-stage/p2-manifest.json",
+      "sha256": "41a880d7344d27fb6f444691b3b134299a6584a95775a4637ec6bbdbcc9d2429",
+      "size_bytes": 2167
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-005-desk-edge-cable-clip-kit/p2-stage/MM-ORG-005-0.1.0-draft.1-print-set.3mf",
+      "sha256": "954c236043c84dde4e5e086308a9e363ac4db3bcb21808ccd7b0edc7b54fd708",
+      "size_bytes": 46278
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 3,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "Desk-edge Cable Clip Kit",
+      "record_id": "PORT-060",
+      "revision": "0.1.0-draft.1",
+      "root": "..",
+      "sku": "MM-ORG-005"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

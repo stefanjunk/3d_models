@@ -1,0 +1,97 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ART-012-001",
+  "assessment_version": "0.0.0",
+  "assessment_date": "2026-09-05",
+  "product": "Comic Octopus Desk Figurine",
+  "scope": {
+    "intended_use": "Comic-style octopus decorative desk figurine for non-functional display.",
+    "user_context": "Adult dry-indoor decorative display.",
+    "variants": [],
+    "out_of_scope": [
+      "child toy",
+      "functional mechanism",
+      "commercial offer before physical qualification"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-HUMAN-001",
+      "kind": "HUMAN",
+      "name": "Adult desk occupant"
+    }
+  ],
+  "interfaces": [],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 0,
+      "CTX": 0,
+      "PAR": 0,
+      "INT": 0,
+      "CPL": 0,
+      "MOT": 0,
+      "GEO": 0,
+      "PHY": 0,
+      "MAT": 0,
+      "EXT": 0,
+      "VER": 0
+    },
+    "score_0_100": 0.0,
+    "class": "C0",
+    "drivers": [
+      "portfolio reservation only; no geometry evidence"
+    ]
+  },
+  "readiness": {
+    "level": "R1",
+    "component_levels": {
+      "scope_variant": "R1",
+      "requirements": "R1",
+      "critical_interfaces": "R1",
+      "manufacturing_profile": "R1",
+      "verification": "R1"
+    },
+    "blocking_unknowns": [
+      "concept image",
+      "Step1X geometry",
+      "manufacturing profile",
+      "physical qualification"
+    ],
+    "completeness_percent": 0.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "Anticipated adult decorative desk object; tip stability and geometry boundaries require physical qualification once a model exists.",
+    "credible_failure_effects": [
+      "tip and fall",
+      "cosmetic dissatisfaction"
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "WARN",
+    "G3": "HOLD",
+    "G4": "HOLD",
+    "G5": "HOLD",
+    "G6": "HOLD"
+  },
+  "decision": {
+    "lane": "E",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "HOLD",
+    "rationale": "Portfolio reservation only. No geometry, concept image, or physical evidence. All gates past G2 are HOLD pending intake."
+  },
+  "warnings": [
+    "No product artifacts exist; this preflight is a placeholder for the portfolio reservation."
+  ],
+  "next_actions": [
+    "Create product folder and run full preflight intake.",
+    "Generate concept image via Codex CLI.",
+    "Initiate Step1X geometry run.",
+    "Qualify tip stability and geometry once a model exists."
+  ],
+  "traceability": {
+    "portfolio_row": "PORT-116",
+    "research_sku": null
+  }
+}

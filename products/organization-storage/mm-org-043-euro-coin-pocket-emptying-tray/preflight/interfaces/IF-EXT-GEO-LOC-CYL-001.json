@@ -1,0 +1,131 @@
+{
+ "id": "IF-EXT-GEO-LOC-CYL-001",
+ "name": "Euro circulating coin to labelled denomination recess",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-COIN-001",
+ "boundary": "EXT",
+ "domains": [
+  "GEO"
+ ],
+ "function": "LOC",
+ "geometry": "CYL",
+ "lifecycle_states": [
+  "use",
+  "service",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the tray floor",
+  "x_positive": "tray width",
+  "y_positive": "tray depth",
+  "z_positive": "up from the desk plane",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "recess cylindrical wall"
+  },
+  {
+   "id": "B",
+   "description": "recess floor"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "drop a coin in from above",
+   "lift a coin out through the finger notch"
+  ],
+  "constrained": [
+   "a coin entering a recess of a smaller denomination",
+   "coins stacking outside a recess"
+  ]
+ },
+ "assembly": {
+  "direction": "swept in from the slope by hand",
+  "contact_mode": "loose open recess, no retention",
+  "sequence_notes": "Every recess is open-topped and reachable by one adult finger."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-COIN-SET-001",
+   "feature": "euro circulating-coin diameters, EU-fixed",
+   "status": "OFFICIAL_NOMINAL",
+   "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S47",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-RECESS-CLR-001",
+   "feature": "recess diameter = coin nominal plus process clearance",
+   "status": "UNKNOWN",
+   "source_ref": "libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-SEP-CRIT-001",
+   "feature": "smallest diameter step in the set, 10c 19.75 to 2c 18.75 = 1.00 mm",
+   "nominal_mm": 1.0,
+   "status": "DERIVED",
+   "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S47",
+   "criticality": "FIT_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk or entryway",
+  "uncontrolled": [
+   "coin wear and dirt",
+   "mixed mint years",
+   "coins from other euro states"
+  ]
+ },
+ "keepouts_and_access": [
+  "No secure storage, authentication, counting-machine, child-use or financial-protection claim.",
+  "Worn, foreign, commemorative and damaged coins are out of scope."
+ ],
+ "evidence": {
+  "level": "E3",
+  "sources": [
+   "business/02-portfolio/research-idea-sources-additions.csv#S47",
+   "business/02-portfolio/research-ideas-r3-variants.csv#SKU-540"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 75.0,
+  "uncertainty_note": "Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm; hole_delta_vertical and xy_clearance_sliding are UNQUALIFIED. Recess diameters must not be committed until a coupon qualifies the hole delta on this exact process. The binding geometric risk is the 1.00 mm step between 2c and 10c: the clearance must be smaller than half that step or the denominations cross-enter.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 1,
+  "KIN": 1,
+  "TOL": 3,
+  "PHY": 0,
+  "VAR": 2,
+  "LIF": 1,
+  "total": 8,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "Clearance exceeds half the 1.00 mm 2c/10c step and a 2c coin drops into the 10c recess.",
+   "effect": "Sorting fails; the product does not do its one job.",
+   "mitigation": "Qualify the hole delta by coupon, then verify the 2c/10c pair explicitly on the tightest coupon."
+  },
+  {
+   "mode": "Recess is too tight and a coin cannot be lifted out.",
+   "effect": "Frustrating use, possible coin scratching.",
+   "mitigation": "Finger notch on every recess plus a minus/nominal/plus coupon series."
+  }
+ ],
+ "verification": {
+  "method": "test_coupon",
+  "acceptance_criteria": [
+   "Each denomination enters its labelled recess without force and can be removed by the finger notch.",
+   "No coin enters a recess of a smaller denomination, verified explicitly on the 2c/10c pair.",
+   "100 sorting cycles cause no cracking."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "design lead",
+ "version": "0.1.0"
+}

@@ -1,0 +1,175 @@
+{
+  "baseline": "baseline",
+  "objectives": [
+    {
+      "metric": "print_time_min",
+      "goal": "min"
+    },
+    {
+      "metric": "material_g",
+      "goal": "min"
+    }
+  ],
+  "constraints": [
+    {
+      "metric": "inter_recess_wall_mm",
+      "op": ">=",
+      "value": 1.35
+    },
+    {
+      "metric": "peak_flow_mm3_s",
+      "op": "<=",
+      "value": 10.0
+    },
+    {
+      "metric": "support_material_g",
+      "op": "==",
+      "value": 0.0
+    },
+    {
+      "metric": "slicer_warnings",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "passed_slice_gate",
+      "op": "==",
+      "value": 1
+    },
+    {
+      "metric": "qualified_layer_height",
+      "op": "==",
+      "value": 1
+    }
+  ],
+  "protected_geometry": [
+    "eight recess diameters = EU coin nominal + the named clearance",
+    "2.0 mm under-floor beneath the deepest recess",
+    "9 x 3 mm finger notch at every recess",
+    "2.0 mm rim standing 3.0 mm above the field",
+    "rear entry ramp at 7.4 degrees, support-free",
+    "flat underside",
+    "outer envelope 180 x 160 x 45 mm ceiling"
+  ],
+  "cell_strategy": {
+    "preferred": "tighten the cell pitch to the minimum-wall limit so every skin layer shrinks at once",
+    "avoid_as_first_choice": "hollowing the entry ramp, which would replace a support-free slope with a supported one"
+  },
+  "thin_plate_checks": [
+    {
+      "region": "coin slab",
+      "plate_thickness_mm": 10.34,
+      "wall_lines_per_side": 4,
+      "line_width_mm": 0.42,
+      "layer_height_mm": 0.2,
+      "expected_status": "CORE_PRESENT",
+      "decision": "Unlike MM-ORG-042 a real sparse core exists here; the cost is in skins, so reduce footprint and shell count rather than plate thickness."
+    }
+  ],
+  "variants": [
+    {
+      "name": "baseline",
+      "metrics": {
+        "print_time_min": 258.0,
+        "material_g": 76.1,
+        "peak_flow_mm3_s": 8.60539798472227,
+        "inter_recess_wall_mm": 4.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 1
+      }
+    },
+    {
+      "name": "a-process-0p28",
+      "metrics": {
+        "print_time_min": 238.8,
+        "material_g": 78.6,
+        "peak_flow_mm3_s": 8.29917566215229,
+        "inter_recess_wall_mm": 4.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 0
+      }
+    },
+    {
+      "name": "a2-thin-shells",
+      "metrics": {
+        "print_time_min": 234.2,
+        "material_g": 67.7,
+        "peak_flow_mm3_s": 8.834594736197468,
+        "inter_recess_wall_mm": 4.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 1
+      }
+    },
+    {
+      "name": "b1-pitch",
+      "metrics": {
+        "print_time_min": 229.9,
+        "material_g": 68.1,
+        "peak_flow_mm3_s": 9.089876371603733,
+        "inter_recess_wall_mm": 1.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 1
+      }
+    },
+    {
+      "name": "b2-pitch-uniform",
+      "metrics": {
+        "print_time_min": 223.2,
+        "material_g": 67.2,
+        "peak_flow_mm3_s": 9.089876371603733,
+        "inter_recess_wall_mm": 1.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 1
+      }
+    },
+    {
+      "name": "c-combined",
+      "metrics": {
+        "print_time_min": 202.4,
+        "material_g": 67.6,
+        "peak_flow_mm3_s": 9.61687867644554,
+        "inter_recess_wall_mm": 1.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 0
+      }
+    },
+    {
+      "name": "d1-pitch-thinshell",
+      "metrics": {
+        "print_time_min": 208.8,
+        "material_g": 60.8,
+        "peak_flow_mm3_s": 9.089876371603733,
+        "inter_recess_wall_mm": 1.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 1
+      }
+    },
+    {
+      "name": "d2-pitch-0p28",
+      "metrics": {
+        "print_time_min": 209.8,
+        "material_g": 69.5,
+        "peak_flow_mm3_s": 9.616907264126363,
+        "inter_recess_wall_mm": 1.85,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "qualified_layer_height": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+project:
+  id: MM-ORG-043
+  sku: MM-ORG-043
+  name: Euro circulation-coin pocket-emptying tray
+  revision: 0.1.0
+  owner: project-owner-via-chat-2026-09-04
+  created: 2026-09-04
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-112
+  product_path: products/organization-storage/mm-org-043-euro-coin-pocket-emptying-tray
+  research_record: business/02-portfolio/research-ideas-r3-variants.csv#SKU-540
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-ORG-043-0.1.0
+  storefront_role: metriCreate MVP model 3 (digital-first, parametric)
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ORG-043-001
+    assessment_version: 0.1.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-04T23:15:00+02:00"
+    change_triggers: [initial_design, portfolio_registration, license_chain_initialization]
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-04
+    approved_at: "2026-09-04T23:20:00+02:00"
+    spec_revision: 0.1.0
+    reason: >-
+      Owner instructed the design of two further metriCreate MVP models and authorised the
+      workflow gates. Approval covers the requirements below as the design basis; it does not
+      qualify the process clearance, which remains UNQUALIFIED until a coupon exists.
+  concept_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-04
+    approved_at: "2026-09-04T23:50:00+02:00"
+    spec_revision: 0.1.0
+    asset: concept/concept-context-001.png
+    asset_sha256_record: evidence/concept-image-record.json
+    reason: >-
+      Concept image generated from the approved requirements and reviewed against the design
+      contract: eight graded recesses in two rows, a finger notch per recess, low walls and a
+      flat seated underside all match. Deviations are recorded in the concept image record;
+      no dimensional claim rests on the image.
+    revisions:
+      - id: concept-rev-1
+        status: approved
+        approved_by: agent-attestation-under-autonomy-policy
+        approved_at: "2026-09-05T13:00:00+02:00"
+        change: >-
+          Cell pitch tightened from 31 mm to 28 mm. The footprint shrinks from 128 x 112 mm to
+          116 x 106 mm, the material between recesses goes from 4.85 mm to 1.85 mm and the rear
+          entry ramp narrows from 124 mm to 112 mm.
+        reason: >-
+          Silhouette change from the optimize-fdm-design pass. Every solid layer spans the
+          footprint, so shrinking it removes 10.4 % of the material and 10.9 % of the time on
+          the unchanged process. No coin recess diameter, the named clearance, the finger
+          notches, the rim, the ramp angle or the flat underside change.
+        limits: >-
+          1.85 mm between recesses is above the 1.35 mm minimum wall but well below the
+          original 4.85 mm. Drop resistance when coins are tipped in is a physical property and
+          stays with the human fit-and-function and safety gates.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ORG-043
+    version: 0.1.0
+    reason: No production geometry exists; marking is a later human-controlled release gate.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: Rights, outgoing licence, seller identity, physical qualification and human approval remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ORG-043
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Design this as the second metriCreate MVP model, digital-first.
+    - Follow the functional 3D design workflow and double-check the preflight before design starts.
+    - Produce a concept image, then the 3D model, and bring the product to MVP readiness.
+  research_evidenced:
+    - Separate euro circulating coins into open labelled recesses sized to the EU-fixed nominal diameters.
+    - Provide a swept slope so coins can be pushed in from a pocket without picking them up.
+    - Stay within a 180 x 160 x 45 mm planning envelope.
+    - Use PETG on the pinned Kobra 3 Max baseline, support-free.
+  inferred:
+    - Every recess needs a finger notch; a coin sitting flush defeats the purpose.
+    - One printed part; no purchased hardware.
+    - Adult dry indoor use is the only intended environment.
+  recommended:
+    - Bound the recess clearance below half the 1.00 mm 2c-to-10c diameter step.
+    - Keep the walls low and the footprint wide so a one-handed sweep cannot tip the tray.
+    - Reserve a flat nonfunctional underside region for the later mark.
+  unresolved:
+    - hole_delta_vertical on this exact process (UNQUALIFIED, blocking)
+    - Finger-notch geometry, which has no measured basis
+    - Coin wear and mixed mint years
+    - Outgoing licence, seller legal identity and the DE sales channel
+
+function:
+  summary: >-
+    A parametric one-piece tray with a swept slope and open, labelled, denomination-separated
+    recesses, generated per order from the selected denominations, capacity and footprint.
+  included: [recesses at the EU-fixed coin nominals plus a declared clearance, a swept entry slope, a finger notch per recess, flat printed underside]
+  excluded: [worn/foreign/commemorative coins, secure storage or authentication, counting function, child use, any separation claim before the coupon]
+  interfaces:
+    - preflight/interfaces/IF-EXT-GEO-LOC-CYL-001.json
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+    - preflight/interfaces/IF-HUM-GEO-ACC-EDGE-001.json
+
+dimensions:
+  coin_nominal_diameter_mm:
+    "1c": 16.25
+    "2c": 18.75
+    "5c": 21.25
+    "10c": 19.75
+    "20c": 22.25
+    "50c": 24.25
+    "1EUR": 23.25
+    "2EUR": 25.75
+    source: business/02-portfolio/research-idea-sources-additions.csv#S47
+  tightest_separation_mm: 1.00
+  tightest_separation_pair: 2c 18.75 to 10c 19.75
+  planning_envelope_ceiling_mm: [180, 160, 45]
+  minimum_wall_mm: 1.35
+  minimum_wall_basis: three perimeters at the pinned 0.4 mm nozzle
+  recess_clearance_mm:
+    status: UNQUALIFIED
+    parameter_name: recess_clearance
+    upper_bound_mm: 0.50
+    upper_bound_basis: half the 1.00 mm 2c-to-10c step; above this the denominations cross-enter
+    basis: must come from hole-gauge-vertical on this exact process
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Dry adult indoor coin sorting only; loose coins are a child choking hazard and child use is out of scope.
+  hazards: [a 2c coin entering the 10c recess, a coin that cannot be picked without a fingernail, the loaded tray sliding during a sweep]
+  controls: [recess clearance bounded below 0.50 mm and qualified by coupon, finger notch on every recess, wide low footprint, no separation claim before the coupon passes]
+
+fabrication:
+  preference: integrated-print
+  preference_basis: One printed part per module; no purchased hardware is needed or planned.
+  process: FDM/FFF
+  parts_status: No source or geometry exists yet.
+  release_scope: metriCreate digital-first after physical qualification and commercial clearance.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: flat printed underside down
+  supports: none required by design
+  calibration_gate:
+    status: NO_MATCHING_PROCESS
+    registry: libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml
+    unqualified: [xy_clearance_sliding, hole_delta_vertical]
+    consequence: >-
+      No clearance value may be committed as qualified. Clearance stays an explicit named
+      parameter with an UNQUALIFIED status until a coupon on this exact process qualifies it.
+  profiles:
+    machine: {path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json, sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1}
+    process: {path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json, sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1}
+    filament: {path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json, sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd}
+
+optimization:
+  status: complete
+  performed_at: "2026-09-05T13:00:00+02:00"
+  approved_by: agent-attestation-under-autonomy-policy
+  skill: optimize-fdm-design
+  report: optimization/OPTIMIZATION-REPORT.md
+  protected_geometry_map: optimization/protected-geometry.md
+  variant_source: source/tray_variants.py
+  baseline:
+    mesh: source/generated/coin-tray.stl
+    print_time_s: 15482
+    extruded_volume_mm3: 59901
+    material_g_at_1p27: 76.1
+    layers: 81
+    peak_flow_mm3_s: 8.61
+  cost_finding:
+    dominant_feature: internal solid infill
+    detail: >-
+      47.5 % of all filament goes into internal solid infill and a further 11.1 % into internal
+      bridging, because eight recesses are cut to eight different depths and every solid layer
+      spans the full 128 x 112 mm footprint. Walls together are only 25.7 %. Unlike MM-ORG-042
+      a real sparse core exists here, so the levers are footprint and shell count.
+  selected_candidate:
+    id: D1
+    mesh: source/generated/variants/coin-tray-b1-pitch.stl
+    process: profiles/anycubic-slicer-next/process-0p20-petg-thinshell-k3max-CANDIDATE.json
+    process_status: >-
+      Qualified 0.20 mm layer height and 0.4 mm nozzle; only top/bottom shell thickness moves
+      from 1.2 mm to 0.8 mm, so it is not the pinned profile and slicer-preflight stays human.
+    print_time_s: 12528
+    material_g_at_1p27: 60.8
+    time_delta_pct: -19.1
+    material_delta_pct: -20.0
+    basis: Pareto set of one under the qualified-layer-height constraint.
+  rejected:
+    - {id: A, lever: "layer height 0.20 -> 0.28 mm", reason: "costs 3.3 % MORE material; the 1.2 mm bottom shell rounds up to 1.40 mm at 0.28 mm"}
+    - {id: B2, lever: uniform recess depth, reason: "6 minutes and 0.9 g over B1, against sinking 1c/2c/5c coins up to 2.13 mm deeper"}
+    - {id: C, lever: "B2 geometry on the 0.28 mm layer", reason: "6 minutes faster than D1 but 6.8 g heavier and outside the calibration baseline"}
+    - {lever: hollowing the entry ramp, reason: "a 7.4 degree sloped plate over an open cavity would need support; the design is support-free today"}
+    - {lever: open or windowed underside, reason: "trades cheap sparse infill for expensive bridging across the whole field"}
+  mesh_simplification:
+    status: not_required
+    protected_regions: [recess walls, recess floors, slope surface, finger notches, flat underside, future mark region]
+    rationale: >-
+      The manufacturing mesh is 8032 triangles. It burdens neither import, slicing nor the
+      controller, and decimating it would move the coin recess diameters.
+
+acceptance:
+  - {id: AC-RECESS-001, criterion: Each denomination enters its labelled recess without force and is removable by fingertip., method: Printed coupon test with circulating euro coins., status: planned}
+  - {id: AC-SEPARATION-001, criterion: No coin enters a recess of a smaller denomination, verified explicitly on the 2c/10c pair., method: Printed coupon cross-entry test., status: planned}
+  - {id: AC-STABILITY-001, criterion: With every recess loaded the tray remains upright after a 10-degree tilt., method: Physical prototype test., status: planned}
+  - {id: AC-WALL-001, criterion: No feature is below 1.35 mm at the released scale., method: Minimum-wall audit., status: planned}
+  - {id: AC-CYCLE-001, criterion: 100 sorting cycles cause no cracking., method: Physical prototype cycling., status: planned}
+
+deliverables:
+  current: [PURPOSE.md, decision-log.md, design-spec.yaml, preflight/, commercial-clearance/, autonomy-policy.json]
+  forbidden_in_this_phase: [printer upload or print start, any fit or compatibility claim, commercial offer]
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-112
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-540
+    - business/02-portfolio/research-idea-sources-additions.csv#S47
+    - business/02-portfolio/research-r3-process-baseline.json
+    - libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml
+    - commercial-clearance/project.json

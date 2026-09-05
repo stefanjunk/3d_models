@@ -1,0 +1,112 @@
+{
+ "id": "IF-HUM-GEO-ACC-EDGE-001",
+ "name": "Adult finger to coin slope and finger notches",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-HUMAN-001",
+ "boundary": "HUM",
+ "domains": [
+  "HUM",
+  "GEO"
+ ],
+ "function": "ACC",
+ "geometry": "EDGE",
+ "lifecycle_states": [
+  "use",
+  "cleaning"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the swept slope",
+  "x_positive": "tray width",
+  "y_positive": "tray depth",
+  "z_positive": "up from the desk plane",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "slope surface and every recess finger notch"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "sweep coins across the slope with the flat of a hand",
+   "pick one coin via its notch"
+  ],
+  "constrained": [
+   "contact with a sharp or burred edge"
+  ]
+ },
+ "assembly": {
+  "direction": "bare-hand sweeping and picking",
+  "contact_mode": "repeated skin contact",
+  "sequence_notes": "The slope is the defining usability feature: coins must not need fingernails."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-NOTCH-001",
+   "feature": "finger notch width per recess",
+   "status": "UNKNOWN",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FUNCTION_CRITICAL"
+  },
+  {
+   "id": "DIM-WALL-MIN-001",
+   "feature": "minimum wall, three perimeters at the 0.4 mm nozzle",
+   "nominal_mm": 1.35,
+   "lower_mm": 1.35,
+   "status": "DERIVED",
+   "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk",
+  "uncontrolled": [
+   "finger size",
+   "nail length",
+   "as-printed roughness"
+  ]
+ },
+ "keepouts_and_access": [
+  "Not a toy; coins are a choking hazard for children and the product carries no child-use scope."
+ ],
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "business/02-portfolio/research-r3-process-baseline.json"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 30.0,
+  "uncertainty_note": "Notch geometry is a usability decision with no measured basis; it needs a real-hand test.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 1,
+  "KIN": 1,
+  "TOL": 1,
+  "PHY": 0,
+  "VAR": 2,
+  "LIF": 1,
+  "total": 6,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "A coin sits flush in its recess and cannot be picked without a fingernail.",
+   "effect": "Daily annoyance that defeats the pocket-emptying purpose.",
+   "mitigation": "A finger notch on every recess, sized and then verified by a real-hand test."
+  }
+ ],
+ "verification": {
+  "method": "user_test",
+  "acceptance_criteria": [
+   "Every denomination can be picked out with a bare fingertip, without a fingernail.",
+   "No user-reachable edge is sharp to a bare-hand wipe."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "design lead",
+ "version": "0.1.0"
+}

@@ -1,0 +1,109 @@
+{
+ "id": "IF-EXT-MEC-SUP-PLN-001",
+ "name": "Tray to desk support plane",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-DESK-001",
+ "boundary": "EXT",
+ "domains": [
+  "MEC"
+ ],
+ "function": "SUP",
+ "geometry": "PLN",
+ "lifecycle_states": [
+  "assembly",
+  "use",
+  "cleaning",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the flat printed underside",
+  "x_positive": "tray width",
+  "y_positive": "tray depth",
+  "z_positive": "up from the desk surface",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "flat printed underside, also the build-plate seat"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "lift the tray"
+  ],
+  "constrained": [
+   "tipping while coins are swept in",
+   "sliding on the desk"
+  ]
+ },
+ "assembly": {
+  "direction": "place on the flat underside",
+  "contact_mode": "gravity-supported planar contact",
+  "sequence_notes": "Dry flat indoor surfaces only; the flat underside is the support-free print seat."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-FOOT-001",
+   "feature": "flat continuous underside",
+   "nominal_mm": 0.0,
+   "status": "ESTIMATED",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk",
+  "uncontrolled": [
+   "desk friction",
+   "loaded coin mass and its distribution"
+  ]
+ },
+ "keepouts_and_access": [
+  "No anti-slip claim from geometry alone.",
+  "No wall or vehicle mounting."
+ ],
+ "loads_and_performance": {
+  "host_load": "loose coins only; no tension or impact",
+  "stability_test": "10-degree tilt with every recess loaded"
+ },
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "business/02-portfolio/research-ideas-r3-variants.csv#SKU-540"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 35.0,
+  "uncertainty_note": "The flat seat is a CAD-owned design decision; no mass, centre of gravity or desk friction has been measured.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 0,
+  "KIN": 0,
+  "TOL": 0,
+  "PHY": 1,
+  "VAR": 1,
+  "LIF": 1,
+  "total": 3,
+  "tier": "I0"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "The tray slides or tips while coins are swept in from a pocket.",
+   "effect": "Coins scatter; the product is worse than no product.",
+   "mitigation": "Keep the footprint wide and the walls low; verify a 10-degree tilt fully loaded."
+  }
+ ],
+ "verification": {
+  "method": "prototype_test",
+  "acceptance_criteria": [
+   "With every recess loaded the tray remains upright after a 10-degree tilt.",
+   "The tray does not slide during a one-handed pocket sweep."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "design lead",
+ "version": "0.1.0"
+}

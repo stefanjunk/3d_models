@@ -1,13 +1,19 @@
 ---
 name: orca-3d-coordinator
-description: Coordinate supervised autonomous Metricreate 3D-design work through Orca Runs, product feature worktrees, tasks, Codex terminals, validation gates, and human interventions while preserving protected main-only paths and serialized integration. Use when starting, supervising, steering, pausing, or resuming one or more Codex-driven 3D product workflows in Orca. Do not use for ordinary single-agent CAD work that needs no Orca coordination.
+description: Coordinate Metricreate 3D product work from the existing main workspace using the Stably AI Orca CLI, keeping product creation and main-only work local, dispatching isolated product development, and automatically merging and cleaning up completed branches. Use when starting, supervising, steering, pausing, resuming, or completing Codex-driven product workflows in Orca. Do not use for ordinary single-agent CAD work that needs no Orca coordination.
+metadata:
+  version: 1.1.0
 ---
 
 # Orca 3D Coordinator
 
-Coordinate one accountable Codex design lead and bounded read-only reviewers so
-a product can progress autonomously to its permitted digital gate while the
-human can monitor, steer, interrupt, or approve it in Orca.
+Coordinate from the existing `main` workspace at
+`/home/stefan/Projekte/3d_models`. Create new products and perform main-only
+activities here. Use the Stably AI Orca CLI for separate product-development
+workspaces and their supervision. The coordinator is the assigned integration
+owner: after each completed product assignment, integrate its validated work
+into `main`, push, then close and clean up its temporary branches and workspaces
+without asking for routine merge or cleanup confirmation.
 
 ## Load current authority before acting
 
@@ -19,23 +25,35 @@ human can monitor, steer, interrupt, or approve it in Orca.
    the exported Orca command. Confirm `status --json`.
 3. Load the version-matched guides with `skills get orchestration --full` and
    `skills get orca-cli --full`; do not invent Orca flags from memory.
-4. Read the applicable 3D skill, mandatory `3d-design-preflight`, and
-   `validate-printable-3d-projects` instructions.
+4. For design work, read the applicable 3D skill, mandatory
+   `3d-design-preflight`, and `validate-printable-3d-projects` instructions.
+   Main-only business or skill maintenance uses its applicable workflow;
+   it does not need a product preflight merely because it is coordinated here.
 
 Read [references/operating-contract.md](references/operating-contract.md) before
 creating an Orca Run, task DAG, coordinator loop, or scheduled automation.
 
 ## Non-negotiable coordination boundaries
 
+- New product creation (identity, product folder, initial documentation, and
+  associated portfolio/business registration) happens directly in this `main`
+  workspace. Commit and push that creation before branching for subsequent
+  delegated product development. Product work that needs no separate worker
+  may continue here on `main`.
+- Perform all main-only work, including `business/**`, `tools/**`, and skills or
+  agent configuration, directly here on `main`. Do not create a separate
+  workspace for it; serialize local writes with integration work.
 - Create feature branches and Orca/Git worktrees only for explicitly assigned
-  product work under `products/**`. Never change protected main-only paths from
-  a product branch.
+  development of an existing product under `products/**`. Use the Orca CLI to
+  create and manage these workspaces. Never change protected main-only paths
+  from a product branch.
 - Keep exactly one write-capable design lead per worktree and branch. Multiple
   leads may run concurrently only in separate worktrees with disjoint product
   subtrees; reviewers in an active lead's worktree are read-only.
-- The coordinator owns Orca task state and decisions, not product geometry. The
-  design lead owns product-file edits and the feature-branch commit/push. The
-  assigned integration owner merges validated branches into `main` serially.
+- The coordinator owns local intake/main-only work, Orca task state, decisions,
+  serialized integration, and cleanup. In a delegated assignment, its design
+  lead owns product geometry and the feature-branch commit/push; the coordinator
+  does not edit that product concurrently.
 - Require a schema `1.1` `autonomy-policy.json` bound to the current preflight
   before unattended design. Legacy policies require explicit reauthorization.
 - Obey the preflight ceiling: autonomous only for eligible Lane A/B work,
@@ -53,13 +71,18 @@ DAG with explicit dependencies:
 
 `preflight -> requirements/concept -> design lead -> read-only review -> deterministic validation -> print candidate -> human gate`
 
-For concurrent product work, dispatch each write-capable design lead to its own
-feature-branch worktree and include the exact allowed `products/**` subtree in
-the task. Never dispatch two writers to the same checkout. Keep protected-path
-updates and branch integration in separate, serialized tasks on `main`.
+Route intake using the operating contract before creating any workspace. For
+delegated product work, create a dedicated Orca feature worktree based on current
+`origin/main`, start one design lead, and include the exact allowed `products/**`
+subtree in its task. Retain coordinator ownership here and supervise the worker
+through Orca tasks/messages; this is supervised coordination, not a full handoff.
+Never dispatch two writers to the same checkout. Keep protected-path updates
+and branch integration in separate, serialized tasks here on `main`.
 
-At each meaningful transition update the active Orca worktree comment with the
-product, stage, result, and next gate. Create a `decision_gate` only when the
+At each meaningful transition update the affected product's Orca worktree
+comment using its recorded full worktree ID, with the product, stage, result,
+and next gate. Do not use `active` from this coordinator to select a worker's
+workspace. Create a `decision_gate` only when the
 policy assigns the decision to a human or a consequential unknown prevents safe
 progress. Do not interrupt the agent merely to report routine progress.
 
@@ -78,8 +101,12 @@ a printer.
 A coordinated product feature phase is merge-ready only when the worker reports
 `worker_done`, required deterministic checks pass, the approval ledgers validate
 through the permitted target, the diff contains only the assigned product
-subtree, and the phase commit is pushed to its remote feature branch. It is
-integrated only after the assigned integration owner rechecks the scope, merges
-it into `main`, and pushes `origin/main`. A main-only phase remains complete only
-after its commit is pushed to `origin/main`. Report the actual model state and
-next human gate; never describe a digital candidate as physically qualified.
+subtree, and the phase commit is pushed to its remote feature branch. Merge-ready
+is an intermediate state: the coordinator must execute the operating contract's
+integration and cleanup sequence after each completed product assignment. Work
+is integrated only after its commit is verified on `origin/main`; cleanup is
+complete only after the assignment's temporary Orca workspace and merged local
+and remote branches are gone. Preserve blocked or still-needed work and report
+the exact remaining step. A main-only phase remains complete only after its
+commit is pushed to `origin/main`. Report the actual model state and next human
+gate; Git integration does not constitute physical or commercial approval.

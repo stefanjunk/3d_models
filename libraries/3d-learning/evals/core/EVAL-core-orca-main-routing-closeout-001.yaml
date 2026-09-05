@@ -1,0 +1,66 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-orca-main-routing-closeout-001
+title: Orca coordination keeps intake on main and completes verified integration and cleanup
+category: core
+status: draft
+trigger: The coordinator receives new product or main-only work, or a delegated product assignment finishes.
+risk: Work can leave the intended workspace, require repeated routine approval, remain stranded on feature branches, or be deleted before remote integration and artifact preservation.
+given:
+  workspace: /home/stefan/Projekte/3d_models on main tracking origin/main
+  authority: The workspace owner explicitly assigns product creation and main-only work here, plus automatic per-product integration and cleanup to the coordinator.
+  cases:
+    - New product requiring a product folder, initial documents, and business registration, then delegated development.
+    - Business or skill maintenance with unrelated dirty product files in main.
+    - Two disjoint product workers finish at different times with valid evidence and pushed commits.
+    - A completed worker has stale validation, an out-of-scope diff, or a rejected main push.
+    - Main contains unrelated dirty files when a product is ready for integration.
+    - A merged workspace contains required untracked or ignored artifacts, an active dependent, or an advanced feature tip.
+    - Cleanup is retried after only some resources were removed.
+    - Agent startup is delayed, an inbox wait expires, a worker handle becomes stale, or worker_done reports a failed validation.
+expected:
+  - Create/register a new product here on main and push before creating its development workspace; business and skill maintenance also stay here on main.
+  - Use Stably AI Orca CLI workspace creation and one worker per isolated feature branch based on current origin/main, scoped to an existing product subtree.
+  - Retain supervision in this coordinator session, with explicit workspace IDs and worker handles, rather than ending after dispatch.
+  - Wait for agent readiness before dispatch, target the recorded product workspace when updating status, retain live workers across inbox timeouts, and verify lifecycle identity and results.
+  - Integrate each completed assignment serially from clean synchronized main without another routine merge/cleanup approval request or waiting for all products.
+  - Verify exact candidate identity, scope, required checks, and feature-tip ancestry on origin/main before deleting resources.
+  - Preserve unrelated dirty main files and report the integration blocker; do not stash them or move main-only work into another workspace.
+  - Preserve durable reports and required artifacts, close only assignment-owned terminals/tasks, and safely delete its disposable Orca workspace and merged local/remote branches.
+  - Retain resources when validation, push, ownership, unpreserved artifacts, branch advancement, or active dependencies prevent safe closure.
+  - Resume partial cleanup idempotently and distinguish merge-ready, integrated with cleanup pending, and fully closed from physical/commercial release.
+failure_conditions:
+  - Product registration or main-only maintenance is dispatched to a new feature workspace.
+  - The coordinator stops at merge-ready or asks for routine integration permission despite the recorded assignment of authority.
+  - A feature branch changes protected paths, two writers share a checkout, or main is checked out in a second worktree.
+  - A timeout causes duplicate dispatch, stale and replacement handles both receive a task, worker_done alone is treated as success, or a product status update targets the coordinator workspace.
+  - Cleanup occurs before the exact candidate is present on origin/main or destroys required local-only artifacts or active dependent work.
+  - Cleanup force-removes dirty work or deletes main, the coordinator terminal, a protected/unrelated branch, or an unintegrated advanced tip.
+  - A rejected push or incomplete deletion is reported as fully integrated and closed, or Git integration is treated as human release approval.
+fixtures:
+  - .agents/skills/orca-3d-coordinator/SKILL.md
+  - .agents/skills/orca-3d-coordinator/references/operating-contract.md
+  - AGENTS.md
+grader:
+  type: physical-manual
+  command: null
+  expected_exit_code: null
+  rubric: Exercise the cases in an isolated disposable repository/runtime or inspect a recorded coordinator execution; require every expected outcome and no failure condition. A documentation/schema check alone does not pass this behavioral eval.
+  measurement_method: Inspect workspace and branch selection, task/terminal ownership, Git history and remote refs, push results, artifact preservation, cleanup order, and reported final states.
+relationships:
+  lessons:
+    - EXP-00068
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - orca
+  - coordinator
+  - main-only
+  - product-creation
+  - integration
+  - cleanup
+  - user-correction

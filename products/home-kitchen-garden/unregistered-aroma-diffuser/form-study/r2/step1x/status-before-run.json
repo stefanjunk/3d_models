@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-09-05T17:31:40Z",
+  "status": "ready",
+  "model_state": "loaded_and_ready",
+  "model_loaded": true,
+  "safe_to_submit_generation": true,
+  "readiness_basis": "In the pinned local app, the geometry pipeline is constructed before Gradio starts listening; a compatible live API therefore confirms that model loading completed for that process.",
+  "api": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "reachable": true,
+    "contract_status": "compatible",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0"
+  },
+  "docker": {
+    "checked": true,
+    "repo": "/home/stefan/Projekte/Step1X-3D",
+    "compose_file": "/home/stefan/Projekte/Step1X-3D/docker-compose.yml",
+    "service": "step1x3d",
+    "logs_command": [
+      "docker",
+      "compose",
+      "-f",
+      "/home/stefan/Projekte/Step1X-3D/docker-compose.yml",
+      "logs",
+      "--tail",
+      "200",
+      "step1x3d"
+    ],
+    "container_id": "421a6f15f4d11679e119c1c9441a68ccbc1984e63de65a1a90e70a208de16259",
+    "observation": "observed",
+    "container_status": "running",
+    "running": true,
+    "exit_code": 0,
+    "health": "healthy",
+    "started_at": "2026-09-05T08:38:31.047573558Z",
+    "finished_at": "2026-09-04T22:10:13.276899539Z",
+    "startup_markers": {
+      "model_loading_seen": true,
+      "server_listening_seen": true,
+      "traceback_seen": false
+    }
+  },
+  "recommended_action": "The current app exposes its API only after the geometry pipeline loads. Submit one job; API readiness does not prove that the queue is idle.",
+  "limitations": [
+    "API readiness does not prove that the serial queue is idle.",
+    "If the app is changed to lazy model loading, this readiness rule must be updated."
+  ]
+}

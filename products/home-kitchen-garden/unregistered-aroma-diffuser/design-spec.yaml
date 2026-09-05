@@ -3,7 +3,7 @@ project:
   id: UNREGISTERED-AROMA-DIFFUSER
   revision: 0.1.0
   name: FLUENT — Flammen-Diffuser
-  status: visual-concept
+  status: visual-3d-form-study
   portfolio_record: PORT-102
   identity: existing-product-no-new-independent-sku
 workflow:
@@ -74,13 +74,13 @@ manufacturing:
   material: UNKNOWN
   profile: UNKNOWN
   fit_compensation: UNKNOWN
-  output_scope: concept-images-only
+  output_scope: concept-and-visual-3d-studies-not-manufacturing
 optimization:
   status: not-applicable
   rationale: No manufacturing mesh in this visual concept phase.
   mesh_simplification:
     status: not-applicable
-    rationale: Only raster concept images exist.
+    rationale: Visual meshes exist; manufacturing tessellation and simplification are deferred.
     protected_regions: []
 acceptance:
   - id: VIS-001
@@ -94,8 +94,10 @@ acceptance:
   - id: PHY-001
     criterion: Physical approval requires later measured fit, stability, scent and compatibility tests.
 geometry:
-  reference: concepts/r1/parameters.yaml
-  authority: provisional-visual-design-intent
+  reference: form-study/r2/parameters.json
+  authority: parametric-visual-source-plus-separate-generated-appearance-preform
+  phase: form-study/r2/reconstruction-brief.yaml
+  production_authority: none
 sources:
   brief: concepts/r1/DESIGN-BRIEF.md
   provenance: concepts/r1/PROVENANCE.md

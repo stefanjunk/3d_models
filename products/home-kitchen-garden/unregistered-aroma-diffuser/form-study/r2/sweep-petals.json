@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.0",
+  "command": [
+    "/home/stefan/Projekte/3d_models/products/toys-games/mm-puz-001-parametric-labyrinth-gift-box/.venv311/bin/python",
+    "source/sweep_envelope.py",
+    "--height_mm",
+    "{height_mm}",
+    "--width_mm",
+    "{width_mm}",
+    "--depth_mm",
+    "{depth_mm}",
+    "--rib_count",
+    "{rib_count}",
+    "--rib_depth_mm",
+    "{rib_depth_mm}",
+    "--twist_deg",
+    "{twist_deg}",
+    "--crown_valley_fraction",
+    "{crown_valley_fraction}",
+    "--crown_asymmetry_fraction",
+    "{crown_asymmetry_fraction}",
+    "--output",
+    "{workdir}/envelope.obj",
+    "--method",
+    "petals",
+    "--petal_split_fraction",
+    "{petal_split_fraction}"
+  ],
+  "parameters": {
+    "height_mm": {
+      "default": 240
+    },
+    "width_mm": {
+      "default": 92
+    },
+    "depth_mm": {
+      "default": 86
+    },
+    "rib_count": {
+      "default": 12
+    },
+    "rib_depth_mm": {
+      "default": 8
+    },
+    "twist_deg": {
+      "default": 155
+    },
+    "crown_valley_fraction": {
+      "default": 0.6
+    },
+    "crown_asymmetry_fraction": {
+      "default": 0.045
+    },
+    "petal_split_fraction": {
+      "default": 0.55
+    }
+  },
+  "cases": [
+    {
+      "id": "height_mm-min",
+      "values": {
+        "height_mm": 228
+      }
+    },
+    {
+      "id": "height_mm-max",
+      "values": {
+        "height_mm": 252
+      }
+    },
+    {
+      "id": "width_mm-min",
+      "values": {
+        "width_mm": 88
+      }
+    },
+    {
+      "id": "width_mm-max",
+      "values": {
+        "width_mm": 98
+      }
+    },
+    {
+      "id": "depth_mm-min",
+      "values": {
+        "depth_mm": 82
+      }
+    },
+    {
+      "id": "depth_mm-max",
+      "values": {
+        "depth_mm": 90
+      }
+    },
+    {
+      "id": "rib_count-min",
+      "values": {
+        "rib_count": 10
+      }
+    },
+    {
+      "id": "rib_count-max",
+      "values": {
+        "rib_count": 14
+      }
+    },
+    {
+      "id": "rib_depth_mm-min",
+      "values": {
+        "rib_depth_mm": 6.5
+      }
+    },
+    {
+      "id": "rib_depth_mm-max",
+      "values": {
+        "rib_depth_mm": 9
+      }
+    },
+    {
+      "id": "twist_deg-min",
+      "values": {
+        "twist_deg": 140
+      }
+    },
+    {
+      "id": "twist_deg-max",
+      "values": {
+        "twist_deg": 170
+      }
+    },
+    {
+      "id": "crown_asymmetry_fraction-min",
+      "values": {
+        "crown_asymmetry_fraction": 0.035
+      }
+    },
+    {
+      "id": "crown_asymmetry_fraction-max",
+      "values": {
+        "crown_asymmetry_fraction": 0.055
+      }
+    },
+    {
+      "id": "petal_split_fraction-min",
+      "values": {
+        "petal_split_fraction": 0.5
+      }
+    },
+    {
+      "id": "petal_split_fraction-max",
+      "values": {
+        "petal_split_fraction": 0.6
+      }
+    },
+    {
+      "id": "twist-140-split-0.5",
+      "values": {
+        "twist_deg": 140,
+        "petal_split_fraction": 0.5
+      }
+    },
+    {
+      "id": "twist-140-split-0.6",
+      "values": {
+        "twist_deg": 140,
+        "petal_split_fraction": 0.6
+      }
+    },
+    {
+      "id": "twist-170-split-0.5",
+      "values": {
+        "twist_deg": 170,
+        "petal_split_fraction": 0.5
+      }
+    },
+    {
+      "id": "twist-170-split-0.6",
+      "values": {
+        "twist_deg": 170,
+        "petal_split_fraction": 0.6
+      }
+    }
+  ],
+  "timeout_seconds": 60,
+  "environment": {
+    "PYTHONHASHSEED": "0",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "output_root": "validation/sweep-petals-001",
+  "validators": [
+    {
+      "type": "mesh",
+      "path": "envelope.obj",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "max_faces": 500000,
+        "max_file_mib": 50,
+        "bed_mm": [
+          426,
+          420,
+          501
+        ],
+        "allow_axis_permutation": false
+      }
+    }
+  ]
+}

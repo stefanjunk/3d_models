@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "run_id": "b980951e-7eb7-4e84-a5ed-7851d6af1c6f",
+  "status": "succeeded",
+  "started_at": "2026-09-05T17:33:10Z",
+  "provider": {
+    "name": "Step1X-3D",
+    "organization": "stepfun-ai",
+    "source_repository": "https://github.com/stepfun-ai/Step1X-3D",
+    "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
+    "code_license": "Apache-2.0",
+    "weights_license": "Apache-2.0",
+    "served_by_fork": {
+      "repo": "/tmp/fluent-r2-client.q848ud/Step1X-3D",
+      "error": "not a git checkout"
+    }
+  },
+  "operation": "single-image-to-geometry-glb",
+  "service": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "client": "gradio_client",
+    "client_version": "1.4.2",
+    "api_schema_path": "/tmp/fluent-r2-client.q848ud/run-001/api-schema.json",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "api_schema_file_sha256": "414740208a4ebaf7bba64c57a86ecbcfdba89ebf60da1da7e57a99e1b5f7a48c",
+    "contract_status": "compatible"
+  },
+  "parameters": {
+    "guidance_scale": 7.5,
+    "inference_steps": 50,
+    "max_facenum": 400000,
+    "symmetry": "asymmetry",
+    "edge_type": "smooth",
+    "geometry_seed": "not_exposed_by_endpoint"
+  },
+  "limitations": [
+    "single image does not determine hidden geometry or physical scale",
+    "generated geometry is not a functional or manufacturing authority",
+    "GLB must be registered, inspected and routed before slicer/CAD use",
+    "commercial clearance requires input rights and dependency review"
+  ],
+  "input": {
+    "original_path": "/tmp/fluent-r2-client.q848ud/input-plate-r2.png",
+    "archived_path": "/tmp/fluent-r2-client.q848ud/run-001/input/source.png",
+    "sha256": "ecdde6767b63ced539c0eead9fc54d4a7beb10ccf3543c53bc0d9587dda38aff",
+    "bytes": 1183949,
+    "media_type": "image/png",
+    "alpha": {
+      "status": "inspected",
+      "meaningful_transparency": false,
+      "background_removal_expected": "rembg_u2net_cpu",
+      "mode": "RGB",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": null
+    }
+  },
+  "input_evidence": {
+    "image_prompt": {
+      "original_path": "/tmp/fluent-r2-client.q848ud/input-prompt-r2.txt",
+      "archived_path": "/tmp/fluent-r2-client.q848ud/run-001/input/image-prompt.txt",
+      "sha256": "6caa8d61c717545ded1246f827d9d153eab25bee8e53b6c83151b28590f7d4f9",
+      "bytes": 779
+    },
+    "input_generation_record": {
+      "original_path": "/tmp/fluent-r2-client.q848ud/imagegen-record.json",
+      "archived_path": "/tmp/fluent-r2-client.q848ud/run-001/input/generation-record.json",
+      "sha256": "09316e421532031ce68c8a4488bbeaf26df67c64ff6009ceada7a98694955b2d",
+      "bytes": 923
+    }
+  },
+  "runtime_profile": {
+    "original_path": "/tmp/fluent-r2-client.q848ud/runtime.json",
+    "archived_path": "/tmp/fluent-r2-client.q848ud/run-001/runtime-profile.json",
+    "sha256": "1e8d5b595e186d5af02d4ee7c4ae535161846f0e6c9b4fab369b93c74d884b65",
+    "bytes": 7263
+  },
+  "finished_at": "2026-09-05T17:35:00Z",
+  "duration_seconds": 110.068,
+  "outputs": [
+    {
+      "path": "/tmp/fluent-r2-client.q848ud/run-001/geometry.raw.glb",
+      "sha256": "30754499c57e9463f376f5fe73b63728cb12c92be82d30d17a92596b05973df6",
+      "bytes": 9909936,
+      "media_type": "model/gltf-binary",
+      "role": "untextured-geometry-master",
+      "physical_scale_verified": false,
+      "semantic_orientation_verified": false
+    }
+  ]
+}

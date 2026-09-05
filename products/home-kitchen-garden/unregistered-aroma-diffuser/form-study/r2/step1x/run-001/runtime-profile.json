@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.0",
+  "profile_type": "Step1X-3D local runtime evidence",
+  "captured_at": "2026-09-05T17:30:00Z",
+  "status": "captured",
+  "source": {
+    "repository": "/home/stefan/Projekte/Step1X-3D",
+    "origin": "https://github.com/stefanjunk/Step1X-3D.git",
+    "branch": "main",
+    "base_commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+    "worktree_clean": true,
+    "status_porcelain": [],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tracked_diff_bytes": 0,
+    "patch_evidence": null,
+    "runtime_file_hashes": {
+      ".python-version": {
+        "sha256": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93",
+        "bytes": 5
+      },
+      "Dockerfile": {
+        "sha256": "38cf77ac6b8da9dcd580b4c7f4d21529eb8cf9446501260118a59c3b205e8939",
+        "bytes": 4019
+      },
+      "LICENSE": {
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "bytes": 11357
+      },
+      "app.py": {
+        "sha256": "82fdc255615e03fedc7e8ff1d020a930ca7a849abb289ac8ce2e72124f0d4ff6",
+        "bytes": 6017
+      },
+      "docker-compose.yml": {
+        "sha256": "5894a7efcb2c1c934570a25195fe6dd30f3d6ce944dd1181b579fbac2e458a5d",
+        "bytes": 1508
+      },
+      "inference.py": {
+        "sha256": "25ae5de1fad7ee167d1a919a0291659897348bd6caa857c9ddfc3a1412955083",
+        "bytes": 1743
+      },
+      "requirements.cuda124.txt": {
+        "sha256": "149d82089f31d79fa8199908be88ee51733bc143a4594532b7dfd5972b2b0139",
+        "bytes": 93
+      },
+      "requirements.txt": {
+        "sha256": "399fcfe2048602285fad9e436b1cceb20be3ebd9f7838d76f073fd7da3ee4dac",
+        "bytes": 764
+      },
+      "requirements.web.txt": {
+        "sha256": "7f0a1a517b54e31745709da28b02a9ba0a49f9a99acba6c4874ce4263d1fcde2",
+        "bytes": 171
+      }
+    }
+  },
+  "docker": {
+    "compose_file": "/home/stefan/Projekte/Step1X-3D/docker-compose.yml",
+    "compose_file_sha256": "5894a7efcb2c1c934570a25195fe6dd30f3d6ce944dd1181b579fbac2e458a5d",
+    "service": "step1x3d",
+    "container_id": "421a6f15f4d11679e119c1c9441a68ccbc1984e63de65a1a90e70a208de16259",
+    "container_name": "step1x-3d-step1x3d-1",
+    "container_status": "running",
+    "health": "healthy",
+    "started_at": "2026-09-05T08:38:31.047573558Z",
+    "image_reference": "step1x3d:python310-cu124",
+    "image_id": "sha256:4c4a6acfc11c5f17a6b5eff7684cdfce6a9e35dc6339f219e08a8141388f7be4",
+    "selected_environment": {
+      "GEOMETRY_DEVICE": "cuda:0",
+      "REMBG_PROVIDER": "CPUExecutionProvider",
+      "HF_HOME": "/models/huggingface",
+      "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+      "TORCH_CUDA_ARCH_LIST": "8.9"
+    },
+    "device_requests": [
+      {
+        "Driver": "nvidia",
+        "Count": 2,
+        "DeviceIDs": null,
+        "Capabilities": [
+          [
+            "gpu"
+          ]
+        ],
+        "Options": null
+      }
+    ],
+    "mounts": [
+      {
+        "type": "volume",
+        "source": "/var/lib/docker/volumes/step1x-3d_rembg-cache/_data",
+        "destination": "/home/step1x/.u2net",
+        "mode": "rw",
+        "rw": true
+      },
+      {
+        "type": "bind",
+        "source": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface",
+        "destination": "/models/huggingface",
+        "mode": "rw",
+        "rw": true
+      },
+      {
+        "type": "bind",
+        "source": "/home/stefan/Projekte/Step1X-3D/cache",
+        "destination": "/workspace/Step1X-3D/cache",
+        "mode": "rw",
+        "rw": true
+      },
+      {
+        "type": "bind",
+        "source": "/home/stefan/Projekte/Step1X-3D/output",
+        "destination": "/workspace/Step1X-3D/output",
+        "mode": "rw",
+        "rw": true
+      }
+    ],
+    "image": {
+      "id": "sha256:4c4a6acfc11c5f17a6b5eff7684cdfce6a9e35dc6339f219e08a8141388f7be4",
+      "repo_digests": [],
+      "created": "2026-09-04T23:03:21.098696097+02:00",
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "runtime_versions": {
+      "python": "3.10.12",
+      "torch_build": "2.5.1+cu124",
+      "cuda_abi": "12.4",
+      "packages": {
+        "torch": "2.5.1+cu124",
+        "torchvision": "0.20.1+cu124",
+        "gradio": "5.5.0",
+        "gradio_client": "1.4.2",
+        "pydantic": "2.10.6",
+        "diffusers": "0.32.2",
+        "transformers": "4.48.0",
+        "rembg": "2.0.65",
+        "onnxruntime": "1.21.0"
+      }
+    },
+    "gpus": [
+      {
+        "name": "NVIDIA GeForce RTX 4060 Ti",
+        "uuid": "GPU-e3c2c4f9-2d21-49b0-c789-f2950d53ad34",
+        "memory_total": "16380",
+        "driver_version": "610.57.04"
+      },
+      {
+        "name": "NVIDIA GeForce RTX 4060 Ti",
+        "uuid": "GPU-fb6a3fc2-4558-1486-f33f-e413676322b2",
+        "memory_total": "16380",
+        "driver_version": "610.57.04"
+      }
+    ],
+    "background_model_asset": {
+      "container_path": "/home/step1x/.u2net/u2net.onnx",
+      "sha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
+      "bytes": 175997641,
+      "execution_condition": "opaque input without useful alpha"
+    }
+  },
+  "api": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "status": "observed"
+  },
+  "model_snapshots": [
+    {
+      "model_id": "ZhengPeng7/BiRefNet",
+      "revision": "e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--ZhengPeng7--BiRefNet/snapshots/e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4"
+    },
+    {
+      "model_id": "facebook/dinov2-with-registers-large",
+      "revision": "e4c89a4e05589de9b3e188688a303d0f3c04d0f3",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--facebook--dinov2-with-registers-large/snapshots/e4c89a4e05589de9b3e188688a303d0f3c04d0f3"
+    },
+    {
+      "model_id": "madebyollin/sdxl-vae-fp16-fix",
+      "revision": "207b116dae70ace3637169f1ddd2434b91b3a8cd",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--madebyollin--sdxl-vae-fp16-fix/snapshots/207b116dae70ace3637169f1ddd2434b91b3a8cd"
+    },
+    {
+      "model_id": "openai/clip-vit-large-patch14",
+      "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--openai--clip-vit-large-patch14/snapshots/32bd64288804d66eefd0ccbe215aa642df71cc41"
+    },
+    {
+      "model_id": "stabilityai/stable-diffusion-xl-base-1.0",
+      "revision": "462165984030d82259a11f4367a4eed129e94a7b",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--stabilityai--stable-diffusion-xl-base-1.0/snapshots/462165984030d82259a11f4367a4eed129e94a7b"
+    },
+    {
+      "model_id": "stepfun-ai/Step1X-3D",
+      "revision": "bf7084495b3a72222f36549b7942948aa4d9daa7",
+      "host_path": "/home/stefan/Projekte/Step1X-3D/.cache/huggingface/hub/models--stepfun-ai--Step1X-3D/snapshots/bf7084495b3a72222f36549b7942948aa4d9daa7"
+    }
+  ],
+  "license_review_required": true,
+  "license_reference": "step1x-image-to-3d/references/commercial-and-research.md",
+  "warnings": []
+}

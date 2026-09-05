@@ -1,0 +1,60 @@
+project:
+  name: UNREGISTERED-AROMA-DIFFUSER-FLUENT
+  revision: R2-form-study
+  target_use: Compare an editable freeform envelope and a generated appearance preform.
+  target_size_mm: {x: null, y: null, z: 240}
+  coordinate_system: {origin: bottom-center, x_axis: right, y_axis: away-from-front, z_axis: up}
+sources:
+  - id: IMG-HERO
+    file: ../../concepts/r1/fluent-hero-r1.png
+    view: near-front-three-quarter
+    projection: AI-generated-camera-not-calibrated
+    focal_length_mm: null
+    scale_reference: agent-selected-provisional-height
+    known_dimension_mm: null
+    original_preserved: true
+    limitations: [single-image-depth-unknown, crown-and-back-not-constrained, not-measured]
+  - id: IMG-PLATE
+    file: step1x/input-plate-r2.png
+    view: near-front-three-quarter
+    projection: AI-edit-not-calibrated
+    original_preserved: true
+    limitations: [edited-raster, RGB-rembg-required, narrow-margin]
+manufacturing:
+  process: FDM
+  printer: Anycubic Kobra 3 Max candidate
+  material: UNKNOWN
+  nozzle_mm: 0.4
+  layer_height_mm: null
+  intended_orientation: upright-candidate-not-qualified
+  measured_effective_feature_mm: null
+requirements:
+  - {id: R2-001, category: appearance, statement: Elegance is the primary selection criterion., status: requested, source: user, confidence: high, priority: critical, validation: render}
+  - {id: R2-002, category: dimension, statement: Use a provisional 240 mm height without claiming a measured replica., status: assumed, source: R1-design-brief, confidence: medium, nominal_mm: 240, priority: important, validation: dimension}
+  - {id: R2-003, category: shape, statement: Preserve full belly, sweeping ribs and two unequal soft flame tips., status: observed, source: IMG-HERO, confidence: high, priority: critical, validation: render}
+  - {id: R2-004, category: interface, statement: Purchased nominal vial 50 mm diameter by 64 mm height and reed 5 by 200 mm remain separate., status: assumed, source: supplier-links-in-R1-brief, confidence: medium, priority: important, validation: future-coupon}
+appearance:
+  geometry_features: [belly, waist, ribs, asymmetric-crown, negative-spaces]
+  relief_features: []
+  texture_only_features: [fine-porcelain-like-grain-not-modeled]
+  material_hypotheses: [warm-matte-ivory]
+  lighting_or_shadow_cues_to_ignore: [wall-shadows, tabletop-reflection]
+uncertainty:
+  hidden_regions: [back, inside, bottom, ventilation-connectivity]
+  conflicting_evidence: [R1-board-has-cross-view-crown-ambiguity]
+  variants_to_model: [parametric-radial-loft, Step1X-organic-preform]
+  unresolved_questions: [wall, fit, holder, service-access, stability, scent, finish]
+validation_views:
+  - id: VISUAL-COMPARISON
+    source_id: IMG-HERO
+    camera: Common orthographic studio for model-to-model comparison; no calibrated source-image match.
+    landmarks: [high-tip, low-tip, waist, widest-belly]
+    acceptance:
+      silhouette_iou_min: null
+      notes: Qualitative style comparison only. No numerical reconstruction-fidelity claim.
+deliverables:
+  editable_master: source/build_fluent.py
+  generated_master: step1x/run-001/geometry.raw.glb
+  print_mesh: not-created
+  reports: [step1x/geometry-intake.json, sweep-report.json, runs/002/strict-mesh-audit.json]
+  known_deviations: [parametric-crown-too-shell-like, Step1X-hidden-form-generated]

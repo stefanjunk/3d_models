@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "UNREGISTERED-AROMA-DIFFUSER",
+    "revision": "R2-form-study",
+    "units": "mm",
+    "risk_class": "normal-functional",
+    "build_volume_mm": [
+      426,
+      420,
+      501
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "petal-builder",
+      "path": "source/build_petals.py",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "petal-envelope",
+      "path": "source/petal_envelope.py",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "shared-generator",
+      "path": "source/build_fluent.py",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "parameters",
+      "path": "parameters.json",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "visual-shell",
+      "path": "runs/003/fluent-shell-visual-mm.obj",
+      "kind": "mesh",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "visual-glb",
+      "path": "runs/003/fluent-visual.glb",
+      "kind": "mesh",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "blender-master",
+      "path": "runs/003/fluent-parametric-study.blend",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "actual-hero",
+      "path": "runs/003/fluent-hero.png",
+      "kind": "image",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "actual-back",
+      "path": "runs/003/fluent-back.png",
+      "kind": "image",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "actual-side",
+      "path": "runs/003/fluent-side.png",
+      "kind": "image",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "reference-hero",
+      "path": "../../concepts/r1/fluent-hero-r1.png",
+      "kind": "image",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "mesh-audit",
+      "path": "runs/003/strict-mesh-audit.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "sweep-spec",
+      "path": "sweep-petals.json",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "sweep-result",
+      "path": "sweep-petals-report.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "sweep-generator",
+      "path": "source/sweep_envelope.py",
+      "kind": "source",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-raw",
+      "path": "step1x/run-001/geometry.raw.glb",
+      "kind": "mesh",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-record",
+      "path": "step1x/run-001/step1x-run.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-runtime",
+      "path": "step1x/run-001/runtime-profile.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-registration",
+      "path": "step1x/visual-001/registration.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-intake",
+      "path": "step1x/geometry-intake.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "step1x-rejection-audit",
+      "path": "step1x/strict-mesh-audit.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "visual-review",
+      "path": "VISUAL-REVIEW.md",
+      "kind": "report",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "autonomy",
+      "path": "autonomy-policy.json",
+      "kind": "autonomy-policy",
+      "revision": "R2-form-study"
+    },
+    {
+      "id": "preflight",
+      "path": "../../preflight/preflight-result.json",
+      "kind": "report",
+      "revision": "R2-form-study"
+    }
+  ],
+  "checks": [
+    {
+      "id": "selected-shell-topology",
+      "type": "mesh",
+      "required": true,
+      "artifact": "visual-shell",
+      "policy": {
+        "require_watertight": true,
+        "require_winding_consistent": true,
+        "require_positive_volume": true,
+        "expected_components": 1,
+        "max_boundary_edges": 0,
+        "max_nonmanifold_edges": 0,
+        "max_degenerate_faces": 0,
+        "max_duplicate_faces": 0,
+        "max_faces": 500000,
+        "max_file_mib": 50,
+        "bed_mm": [
+          426,
+          420,
+          501
+        ],
+        "allow_axis_permutation": false,
+        "require_self_intersection_check": true
+      }
+    },
+    {
+      "id": "petal-parameter-sweep",
+      "type": "external_report",
+      "required": true,
+      "artifact": "sweep-result",
+      "expected_inputs": [
+        "sweep-spec"
+      ]
+    },
+    {
+      "id": "human-appearance",
+      "type": "review",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "User approves the actual current mesh views; agent recommendation is not approval.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "normal-wall-and-crown",
+      "type": "review",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Validate minimum normal wall, self-intersection, rounded crown robustness and final tessellation.",
+      "evidence_artifact": null
+    },
+    {
+      "id": "slicer-and-physical",
+      "type": "physical",
+      "required": true,
+      "status": "REVIEW_REQUIRED",
+      "criterion": "Measured interfaces, exact slicer/support evidence and physical appearance/stability/scent tests.",
+      "evidence_artifact": null
+    }
+  ],
+  "release": {
+    "required_approvals": [],
+    "approvals": {}
+  },
+  "phase_boundary": {
+    "completed_scope": "comparative-visual-form-study",
+    "manufacturing_release": "blocked",
+    "lifecycle": "P0"
+  }
+}

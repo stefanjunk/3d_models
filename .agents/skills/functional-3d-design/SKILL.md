@@ -32,6 +32,7 @@ Resolve every bundled path relative to this `SKILL.md`.
 - Subagent roles and CI boundaries: `references/automation-architecture.md`
 - Learning capture and the parts library: `references/self-learning.md`
 - Final report structure: `references/final-model-result-report.md`
+- P2 digital-candidate handoff: `references/p2-stage-handoff.md`
 - Adapting the package to a real printer fleet: `references/recommended-extensions.md`
 
 Load a reference when its task is actually in scope. Do not preload the set.
@@ -232,6 +233,25 @@ capture and learning → final model result report.
 For Anycubic printers, route the slicer dry run through the sibling validation
 skill's `slice-anycubic-next` command so source/profile/output hashes and native
 slicer status are retained.
+
+## Mandatory P2 handoff
+
+Before assigning any lifecycle value beginning with `P2`, read
+`references/p2-stage-handoff.md` and create the product-local
+`p2-stage/p2-manifest.json`. P2 always requires four separate, hash-bound
+artifacts for the same named revision: an English product description, a
+whole-product concept image, a render of the current model, and one 3MF print
+set containing every intended printed part. The 3MF must preserve the intended
+build orientation and a deliberate support decision; an arbitrary mesh bundle,
+assembly-only scene, isolated part, or profile-free placeholder is not enough.
+
+Validate the manifest with the sibling validation skill's
+`validate-p2-stage` command. Do not retain or assign a P2 status when that
+command fails. A retrospective P2 inventory may document a missing historical
+concept as a clearly labelled retrospective design-intent sheet, but it must
+not claim that Gate 0B happened earlier, approve the concept, or authorize new
+geometry. P2 remains a digital candidate and never implies physical,
+appearance, rights, safety, or commercial approval.
 
 Before final packaging, run:
 

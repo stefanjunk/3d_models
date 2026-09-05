@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "0f0ce087bc4d5bc8e99fa379856a530125403148e0041be825600691fd7675aa",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/p2-stage/product-description.en.md",
+        "sha256": "0f0ce087bc4d5bc8e99fa379856a530125403148e0041be825600691fd7675aa"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "60f7add66249148ea78b0c3829c6bb4e7b4331662a7d31214cb3e22ba7b9fc80",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/assets/concept/MM-ORG-014-concept-v1.svg",
+        "sha256": "60f7add66249148ea78b0c3829c6bb4e7b4331662a7d31214cb3e22ba7b9fc80"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "0130b102a262475bd2e53901af8a39a5c4a613f658628bcefd89288c7c84a762",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/renders/MM-ORG-014-digital-candidate.png",
+        "sha256": "0130b102a262475bd2e53901af8a39a5c4a613f658628bcefd89288c7c84a762"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "d6a3f1df64429282709a65c567ce5ffb2f6b284db50ada30461b3f8667a3b03a",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/p2-stage/MM-ORG-014-0.1.0-draft.1-print-set.3mf",
+        "sha256": "d6a3f1df64429282709a65c567ce5ffb2f6b284db50ada30461b3f8667a3b03a"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 91
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 2
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 2; declared quantity 2",
+      "metrics": {
+        "actual": 2,
+        "declared": 2
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/p2-stage/p2-manifest.json",
+      "sha256": "b472bdd1bfd9eeb3534779acfa7175855244c903224538d91e857ea8eb0a8471",
+      "size_bytes": 2108
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-014-embroidery-floss-project-palette-dock/p2-stage/MM-ORG-014-0.1.0-draft.1-print-set.3mf",
+      "sha256": "d6a3f1df64429282709a65c567ce5ffb2f6b284db50ada30461b3f8667a3b03a",
+      "size_bytes": 42429
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 2,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital print candidate",
+      "name": "Embroidery-floss project palette dock",
+      "record_id": "PORT-070",
+      "revision": "0.1.0-draft.1",
+      "root": "..",
+      "sku": "MM-ORG-014"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

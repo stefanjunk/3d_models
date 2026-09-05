@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "eval_id": "EVAL-regression-p2-stage-artifact-completeness-001",
+  "run_at": "2026-09-05T18:20:13+02:00",
+  "command": "python3 -B business/tools/audit_p2_stage.py --json-out /tmp/metrimade-p2-stage-eval.json --markdown-out /tmp/metrimade-p2-stage-eval.md",
+  "exit_code": 0,
+  "result": "pass",
+  "summary": "78/78 current portfolio P2 products passed; 0 failed; 4 deficient former P2 records were corrected to P1 Model present.",
+  "checks": [
+    {
+      "id": "portfolio-p2-manifest-coverage",
+      "status": "PASS",
+      "actual": 78,
+      "expected": 78
+    },
+    {
+      "id": "four-hash-bound-artifacts",
+      "status": "PASS",
+      "actual": 78,
+      "expected": 78
+    },
+    {
+      "id": "complete-3mf-orientation-support",
+      "status": "PASS",
+      "actual": 78,
+      "expected": 78
+    },
+    {
+      "id": "failed-p2-products-retained",
+      "status": "PASS",
+      "actual": 0,
+      "expected": 0
+    }
+  ],
+  "artifact_hashes": {
+    "business/02-portfolio/p2-stage-audit.json": "e374ca87ef1feedccd2353a3e01a65caba820b1cf66b01f14aec3dfdc60e1659",
+    "business/02-portfolio/p2-stage-audit.md": "0dfe422d0f5464ca0db21bb19452ae195d0370efc5c338cdc72642b18f87247d",
+    "business/tools/audit_p2_stage.py": "8c831c69a8b4f368cc14eab493d201af311f9247c3c4d4d17fe2f5e768956cd4",
+    "business/tools/prepare_p2_stage.py": "100e9d3c2b2e26d0afa231e4ead0ef402d62e15b02aa0d22979f4197df89a763",
+    ".agents/skills/validate-printable-3d-projects/scripts/fdm_validation/p2stage.py": "b717f408bd9b0d873628cb55abaf88b94d5d252db2874cc8f90b1450e72e027f",
+    ".agents/skills/validate-printable-3d-projects/scripts/fdm_validation/p2author.py": "b9395259727c509c31c26d2ec1030ad03db0e8d945de4fe38ef812ebc9c4ba04",
+    ".agents/skills/validate-printable-3d-projects/assets/p2-stage-manifest.schema.json": "ebc381eb4fbb6044306cc0c1b5ee9a5d54bce748439577b1523aa7afd732e2d6"
+  },
+  "limitations": [
+    "This is digital P2 evidence only; it does not prove physical fit, finish, strength, safety, rights clearance or commercial readiness.",
+    "The complete-object assertion is revision-specific and must be reviewed again after product-scope or geometry changes."
+  ]
+}

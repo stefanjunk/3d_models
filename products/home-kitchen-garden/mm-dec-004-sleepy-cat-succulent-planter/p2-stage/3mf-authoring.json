@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "author-slicer-execution",
+      "message": "Anycubic Slicer Next created the local 3MF project",
+      "metrics": {
+        "return_code": 0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "author-support-setting",
+      "message": "Embedded support setting matches the requested mode",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/work/run-004/04-cavity-and-drain-clean.stl",
+      "sha256": "f19edfe3cd46e117359de88421127f768749746ce8c7e4a5cd9efd265aa4550e",
+      "size_bytes": 14992684
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json",
+      "sha256": "d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1",
+      "size_bytes": 396
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/profiles/process-0p20-petg-tool-k3max-treesupport.json",
+      "sha256": "4cf9394de51393eb96298764ff7554f73454cf4ee777fd856421eb945371262a",
+      "size_bytes": 1240
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json",
+      "sha256": "02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd",
+      "size_bytes": 1287
+    }
+  ],
+  "limitations": [
+    "The export authors a local slicer project only; it does not upload or start a print.",
+    "Arrangement preserves source rotations but still requires product-specific confirmation that the selected sources are complete and correctly oriented."
+  ],
+  "metrics": {
+    "embedded_enable_support": "1",
+    "invocation": [
+      "AnycubicSlicerNext",
+      "--datadir",
+      "/tmp/metrimade-p2-3mf-ekgrnm_z/slicer-state",
+      "--load-settings",
+      "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/profiles/process-0p20-petg-tool-k3max-treesupport.json;/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json",
+      "--load-filaments",
+      "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json",
+      "--load-defaultfila",
+      "--ensure-on-bed",
+      "--arrange",
+      "1",
+      "--export-3mf",
+      "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/MM-DEC-004-0.1.0-print-set.3mf",
+      "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/work/run-004/04-cavity-and-drain-clean.stl"
+    ],
+    "output": {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/p2-stage/MM-DEC-004-0.1.0-print-set.3mf",
+      "sha256": "bb05539cce2c5f802ff144c09cf03c1f57a30563f1fddc1d060f9d8b19349c2e",
+      "size_bytes": 3320739
+    },
+    "profiles": {
+      "filament": {
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json",
+        "sha256": "02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd"
+      },
+      "machine": {
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json",
+        "sha256": "d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1"
+      },
+      "process": {
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/profiles/process-0p20-petg-tool-k3max-treesupport.json",
+        "sha256": "4cf9394de51393eb96298764ff7554f73454cf4ee777fd856421eb945371262a"
+      }
+    },
+    "settings_ids": {
+      "filament_settings_id": [
+        "SUNLU PETG Black new @Anycubic Kobra 3 Max 0.4 nozzle"
+      ],
+      "print_settings_id": "0.20mm PETG Tool @AC K3 Max +tree-support",
+      "printer_settings_id": "Anycubic Kobra 3 Max 0.4 hardened steel nozzle"
+    },
+    "slicer": {
+      "executable": "AnycubicSlicerNext",
+      "sha256": "20a2e851c8914af6a4098f9718b7462f9f108430b498483f9c04eba81e695fc2",
+      "version": "1.3.9.4"
+    },
+    "sources": [
+      {
+        "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/work/run-004/04-cavity-and-drain-clean.stl",
+        "sha256": "f19edfe3cd46e117359de88421127f768749746ce8c7e4a5cd9efd265aa4550e"
+      }
+    ],
+    "stderr": "",
+    "stdout": "[2026-09-05 18:11:42.429351] [0x00007fc4815effc0] [trace]   Initializing StaticPrintConfigs\n",
+    "support_mode": "enabled"
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "author-anycubic-3mf",
+  "tool_version": "1.3.0"
+}

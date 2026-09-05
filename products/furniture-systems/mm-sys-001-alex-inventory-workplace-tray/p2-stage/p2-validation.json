@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "2d6947b3d190d2d075e7d937daf5a3b29abc8add30cf25daca2c140d790dc411",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/product-description.en.md",
+        "sha256": "2d6947b3d190d2d075e7d937daf5a3b29abc8add30cf25daca2c140d790dc411"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "2888d1b0f06ce0d2c47b77ad49615f4c83384e6daa0dec13fbd0a82291257ff9",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/retrospective-concept.svg",
+        "sha256": "2888d1b0f06ce0d2c47b77ad49615f4c83384e6daa0dec13fbd0a82291257ff9"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "b9f67a5b97699c293d9ab77a3598dcc0274230332f5dc46c2ba0be834f04dc83",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/current-model-render.png",
+        "sha256": "b9f67a5b97699c293d9ab77a3598dcc0274230332f5dc46c2ba0be834f04dc83"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "cf35ae36173048977fe8da3cc063f14cf37a8d269d62b209eacf6fb6f739d0d1",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/MM-SYS-001-0.2.0-draft.1-print-set.3mf",
+        "sha256": "cf35ae36173048977fe8da3cc063f14cf37a8d269d62b209eacf6fb6f739d0d1"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 85
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 4; declared quantity 4",
+      "metrics": {
+        "actual": 4,
+        "declared": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/p2-manifest.json",
+      "sha256": "a3f8d031bf5e2a43d4d44e9b9ce1e569d8075d83aae6837ae8b49f579721604a",
+      "size_bytes": 2255
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-001-alex-inventory-workplace-tray/p2-stage/MM-SYS-001-0.2.0-draft.1-print-set.3mf",
+      "sha256": "cf35ae36173048977fe8da3cc063f14cf37a8d269d62b209eacf6fb6f739d0d1",
+      "size_bytes": 40505
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 4,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "ALEX Inventory Workplace Tray",
+      "record_id": "PORT-039",
+      "revision": "0.2.0-draft.1",
+      "root": "..",
+      "sku": "MM-SYS-001"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

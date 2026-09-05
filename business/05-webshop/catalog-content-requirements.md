@@ -1,5 +1,15 @@
 # Catalog and product-page requirements
 
+## P2 development content
+
+Before a product can be shown as a P2 development candidate, retain an English
+product description, a whole-product concept image, a separately identified
+render of the current digital model, and the complete oriented/support-planned
+3MF print set for the exact revision. These are controlled development assets,
+not evidence of a real print and not approved public listing content. Label the
+concept and render truthfully, and do not infer physical finish, fit, safety,
+rights clearance, or availability from them.
+
 ## Product record
 
 Every public product maps to one approved SKU/revision and includes:

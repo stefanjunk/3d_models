@@ -8,7 +8,7 @@ The portfolio workbook uses one stage for progress and separate evidence columns
 |---|---|---|
 | `P0 Idea` | research concept only; no controlled product source | No |
 | `P1 Model present` | a local source or mesh exists; provenance and quality may be unknown | No |
-| `P2 Digital candidate` | controlled source/revision and automated geometry checks exist | Only as clearly labeled development content, never for sale |
+| `P2 Digital candidate` | controlled revision plus a hash-bound English description, whole-product concept image, current-model render, and complete oriented/support-planned 3MF print set pass the P2 validator | Only as clearly labeled development content, never for sale |
 | `P3 Physical prototype` | intended slicer/profile reviewed and at least one physical prototype or coupon tested | No |
 | `P4 Product qualified` | reproducibility, fit/use tests, rights, safety, and claims evidence complete for scope | No; commercial package still open |
 | `P5 Commercial release` | signed release manifest, customer package, price/cost, license, media, and support are approved | Yes in staging |
@@ -36,9 +36,17 @@ For planning, an **existing commercial product** means `P5` or later. A mesh, ST
 
 ### G2 — Digital manufacturing candidate
 
+- one English development-stage product description for the exact SKU/revision;
+- one whole-product concept image and one separate current-model render;
+- one 3MF containing every intended printed product part in the intended
+  quantity; coupons and assembly/reference scenes do not substitute for the
+  product print set;
 - correct units and dimensions;
 - closed/manifold positive-volume bodies as applicable;
 - build-volume, walls, clearances, minimum features, component count, orientation, and intended file format checked;
+- intended print orientation is stored in 3MF build transforms or destination-
+  slicer project data, and the support decision is embedded or bound to the
+  complete exact profile set and a fresh target-slicer report;
 - exact checksums and file inventory recorded;
 - supported core 3MF opens in the target slicer without unsupported extensions.
 - for physical metriMade scope, the generated `metriMade.com` + product-ID/version engraving is integrated, orientation/remaining wall are checked, and the exact profile/cutter/manufacturing hashes are recorded.
@@ -79,3 +87,12 @@ For planning, an **existing commercial product** means `P5` or later. A mesh, ST
 ## Revision rule
 
 Any geometry, material, profile, included-file, safety, claim, license, or instruction change receives a new revision and impact assessment. Evidence may be reused only when the manifest identifies it and the changed feature cannot invalidate it. Never replace a sold file in place.
+
+## P2 assignment rule
+
+Every lifecycle value beginning with `P2` is governed by the same P2 artifact
+contract. Before assigning or retaining it, run `fdm_ci.py validate-p2-stage`
+against the product-local manifest. Failure means the product remains below P2
+or is explicitly held until the missing revision-bound evidence is complete.
+P2 validation does not advance any physical, rights, safety, appearance, or
+commercial gate.

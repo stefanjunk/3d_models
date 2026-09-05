@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parametric CadQuery build for MM-ORG-003 Compact v2.0.0-draft.1.
+"""Parametric CadQuery build for MM-ORG-003 Compact v2.0.0-draft.2.
 
 All dimensions are millimetres. STEP files retain assembly orientation; STL
 files are explicitly transformed into the documented support-free print
@@ -34,7 +34,7 @@ THREE_MF = ROOT / "exports" / "3mf"
 REPORTS = ROOT / "reports"
 VALIDATION = ROOT / "validation"
 PROJECT_ID = "MM-ORG-003"
-REVISION = "2.0.0-draft.1"
+REVISION = "2.0.0-draft.2"
 
 
 @dataclass(frozen=True)
@@ -187,12 +187,11 @@ def validate_parameters(p: Params) -> None:
     expected_drawer_width = p.width - 2.0 * p.side_wall - 2.0 * p.drawer_side_clearance
     assert math.isclose(p.drawer_width, expected_drawer_width, abs_tol=1e-9)
     assert math.isclose(p.opening_height - p.drawer_height, p.drawer_top_clearance, abs_tol=1e-9)
-    assert math.isclose(
-        p.drawer_front_depth + p.drawer_depth + p.drawer_rear_clearance,
-        p.depth - p.rear_wall,
-        abs_tol=1e-9,
-    )
+    assert math.isclose(p.drawer_depth + p.drawer_rear_clearance, p.depth - p.rear_wall, abs_tol=1e-9)
     assert p.drawer_wall >= 2.0 and p.drawer_bottom >= 2.0
+    assert 0.0 < p.drawer_front_radius < 0.5 * min(p.drawer_front_width, p.drawer_front_height)
+    assert p.housing_radius > p.side_wall
+    assert p.sorter_radius > p.sorter_wall
     assert p.divider_wall >= 4.0 * p.line_width
     assert p.side_wall - p.groove_depth >= 2.16
     assert p.sorter_wall - p.groove_depth >= 2.16
@@ -211,9 +210,47 @@ def box_at(x: float, y: float, z: float, sx: float, sy: float, sz: float) -> cq.
     return cq.Workplane("XY").box(sx, sy, sz, centered=(False, False, False)).translate((x, y, z))
 
 
-def rounded_box(width: float, depth: float, height: float, radius: float) -> cq.Workplane:
-    body = box_at(0.0, 0.0, 0.0, width, depth, height)
+def rounded_box_at(
+    x: float,
+    y: float,
+    z: float,
+    width: float,
+    depth: float,
+    height: float,
+    radius: float,
+) -> cq.Workplane:
+    body = box_at(x, y, z, width, depth, height)
     return body.edges("|Z").fillet(radius)
+
+
+def rounded_box(width: float, depth: float, height: float, radius: float) -> cq.Workplane:
+    return rounded_box_at(0.0, 0.0, 0.0, width, depth, height, radius)
+
+
+def rear_rounded_box(
+    x: float,
+    y: float,
+    z: float,
+    width: float,
+    depth: float,
+    height: float,
+    radius: float,
+) -> cq.Workplane:
+    """Prism with square front corners and matched rounded rear corners."""
+    x1 = x + width
+    y1 = y + depth
+    diagonal = radius / math.sqrt(2.0)
+    profile = (
+        cq.Workplane("XY")
+        .moveTo(x, y)
+        .lineTo(x1, y)
+        .lineTo(x1, y1 - radius)
+        .threePointArc((x1 - radius + diagonal, y1 - radius + diagonal), (x1 - radius, y1))
+        .lineTo(x + radius, y1)
+        .threePointArc((x + radius - diagonal, y1 - radius + diagonal), (x, y1 - radius))
+        .close()
+    )
+    return profile.extrude(height).translate((0.0, 0.0, z))
 
 
 def compound_workplane(solids: list[cq.Shape]) -> cq.Workplane | None:
@@ -231,6 +268,7 @@ def front_grooves(
     inward_sign: float,
     p: Params,
     pitch: float | None = None,
+    angles: tuple[float, ...] | None = None,
 ) -> cq.Workplane | None:
     """Create physically scaled diagonal cutters on a world-XZ face."""
     actual_pitch = pitch or p.texture_pitch
@@ -244,7 +282,8 @@ def front_grooves(
     half_span = math.hypot(width, height) / 2.0 + actual_pitch
     solids: list[cq.Shape] = []
     step = actual_pitch * p.texture_spacing_multiplier
-    for family, angle in enumerate(p.texture_angles):
+    angle_families = angles or p.texture_angles
+    for family, angle in enumerate(angle_families):
         theta = math.radians(angle)
         offset = -half_span + family * actual_pitch
         while offset <= half_span:
@@ -272,6 +311,7 @@ def side_grooves(
     inward_sign: float,
     p: Params,
     pitch: float | None = None,
+    angles: tuple[float, ...] | None = None,
 ) -> cq.Workplane | None:
     """Create physically scaled diagonal cutters on a world-YZ face."""
     actual_pitch = pitch or p.texture_pitch
@@ -285,7 +325,8 @@ def side_grooves(
     half_span = math.hypot(depth_span, height) / 2.0 + actual_pitch
     solids: list[cq.Shape] = []
     step = actual_pitch * p.texture_spacing_multiplier
-    for family, angle in enumerate(p.texture_angles):
+    angle_families = angles or p.texture_angles
+    for family, angle in enumerate(angle_families):
         theta = math.radians(angle)
         offset = -half_span + family * actual_pitch
         while offset <= half_span:
@@ -321,25 +362,73 @@ def interface_centers(p: Params) -> list[tuple[float, float]]:
     return [(o, o), (p.width - o, o), (o, p.depth - o), (p.width - o, p.depth - o)]
 
 
+def corner_continuity_metrics(shape: cq.Shape, name: str, p: Params) -> dict:
+    if name == "housing":
+        points = [
+            (3.3, p.depth - 2.7, p.housing_bottom + p.opening_height / 2.0),
+            (p.width - 3.3, p.depth - 2.7, p.housing_bottom + p.opening_height / 2.0),
+            (3.3, p.depth - 2.7, p.housing_bottom + p.opening_height + p.shelf + p.opening_height / 2.0),
+            (p.width - 3.3, p.depth - 2.7, p.housing_bottom + p.opening_height + p.shelf + p.opening_height / 2.0),
+        ]
+    elif name == "sorter":
+        points = [
+            (3.5, 3.5, p.sorter_height / 2.0),
+            (p.sorter_width - 3.5, 3.5, p.sorter_height / 2.0),
+            (3.5, p.sorter_depth - 3.5, p.sorter_height / 2.0),
+            (p.sorter_width - 3.5, p.sorter_depth - 3.5, p.sorter_height / 2.0),
+        ]
+    else:
+        return {"points_mm": [], "inside": [], "all_inside": True}
+    inside = [bool(shape.isInside(cq.Vector(*point))) for point in points]
+    return {"points_mm": points, "inside": inside, "all_inside": all(inside)}
+
+
+def digital_interface_metrics(p: Params) -> dict:
+    """Run exact B-Rep collision checks over drawer travel and sorter seating."""
+    housing = build_housing(p, textured=False, lightweight=True).val()
+    drawer = build_drawer(p, textured=False).val()
+    x = (p.width - p.drawer_width) / 2.0
+    z = p.housing_bottom + 0.25
+    travel_positions = np.linspace(-p.drawer_depth, 0.0, 9)
+    drawer_intersections = []
+    for y in travel_positions:
+        placed = drawer.translate((x, float(y), z))
+        drawer_intersections.append(float(housing.intersect(placed).Volume()))
+    sorter = build_sorter(p, textured=False).val().translate((0.0, 0.0, p.housing_height))
+    stack_intersection = float(housing.intersect(sorter).Volume())
+    return {
+        "drawer_travel_positions_mm": [float(value) for value in travel_positions],
+        "drawer_intersection_volumes_mm3": drawer_intersections,
+        "drawer_max_intersection_mm3": max(drawer_intersections),
+        "sorter_housing_intersection_mm3": stack_intersection,
+        "rear_clearance_mm": p.drawer_rear_clearance,
+        "nominal_side_clearance_each_mm": p.drawer_side_clearance,
+        "nominal_top_clearance_mm": p.drawer_top_clearance,
+    }
+
+
 def build_housing(p: Params, textured: bool = True, lightweight: bool = True) -> cq.Workplane:
     body = rounded_box(p.width, p.depth, p.housing_height, p.housing_radius)
     cavity_depth = p.depth - p.rear_wall + 0.5
-    lower = box_at(
+    inner_rear_radius = p.housing_radius - p.side_wall
+    lower = rear_rounded_box(
         p.side_wall,
         -0.5,
         p.housing_bottom,
         p.width - 2.0 * p.side_wall,
         cavity_depth,
         p.opening_height,
+        inner_rear_radius,
     )
     upper_z = p.housing_bottom + p.opening_height + p.shelf
-    upper = box_at(
+    upper = rear_rounded_box(
         p.side_wall,
         -0.5,
         upper_z,
         p.width - 2.0 * p.side_wall,
         cavity_depth,
         p.opening_height,
+        inner_rear_radius,
     )
     body = body.cut(lower).cut(upper)
     if lightweight:
@@ -373,11 +462,31 @@ def build_housing(p: Params, textured: bool = True, lightweight: bool = True) ->
         badge_z = (p.housing_height - span_z) / 2.0
         body = cut_if_present(
             body,
-            side_grooves(badge_y, badge_z, span_y, span_z, 0.0, 1.0, p, pitch=p.texture_pitch * 2.0),
+            side_grooves(
+                badge_y,
+                badge_z,
+                span_y,
+                span_z,
+                0.0,
+                1.0,
+                p,
+                pitch=p.texture_pitch,
+                angles=(45.0,),
+            ),
         )
         body = cut_if_present(
             body,
-            side_grooves(badge_y, badge_z, span_y, span_z, p.width, -1.0, p, pitch=p.texture_pitch * 2.0),
+            side_grooves(
+                badge_y,
+                badge_z,
+                span_y,
+                span_z,
+                p.width,
+                -1.0,
+                p,
+                pitch=p.texture_pitch,
+                angles=(-45.0,),
+            ),
         )
     for cx, cy in interface_centers(p):
         peg = (
@@ -393,24 +502,25 @@ def build_housing(p: Params, textured: bool = True, lightweight: bool = True) ->
 
 def build_drawer(p: Params, textured: bool = True) -> cq.Workplane:
     tray = rounded_box(p.drawer_width, p.drawer_depth, p.drawer_height, 3.0)
-    interior = box_at(
+    interior = rounded_box_at(
         p.drawer_wall,
         p.drawer_wall,
         p.drawer_bottom,
         p.drawer_width - 2.0 * p.drawer_wall,
         p.drawer_depth - 2.0 * p.drawer_wall,
         p.drawer_height,
+        3.0 - p.drawer_wall,
     )
-    tray = tray.cut(interior).translate((0.0, p.drawer_front_depth, 0.0))
+    tray = tray.cut(interior)
     front_x = (p.drawer_width - p.drawer_front_width) / 2.0
     front = box_at(
         front_x,
-        0.0,
+        -p.drawer_front_depth,
         0.0,
         p.drawer_front_width,
         p.drawer_front_depth,
         p.drawer_front_height,
-    ).edges("|Z").fillet(p.drawer_front_radius)
+    ).edges("|Y").fillet(p.drawer_front_radius)
     drawer = tray.union(front)
     if textured:
         b = p.texture_border
@@ -419,18 +529,19 @@ def build_drawer(p: Params, textured: bool = True) -> cq.Workplane:
             b,
             p.drawer_front_width - 2.0 * b,
             p.drawer_front_height - 2.0 * b,
-            0.0,
+            -p.drawer_front_depth,
             1.0,
             p,
-            pitch=p.texture_pitch * 2.0,
+            pitch=p.texture_pitch,
+            angles=(45.0,),
         )
         if grooves is not None:
             keepout = box_at(
                 (p.drawer_width - p.scoop_width - 8.0) / 2.0,
-                -0.2,
+                -p.drawer_front_depth - 0.2,
                 p.drawer_front_height - p.scoop_depth - 4.0,
                 p.scoop_width + 8.0,
-                p.drawer_front_depth + 0.5,
+                p.drawer_front_depth + 0.4,
                 p.scoop_depth + 5.0,
             )
             grooves = grooves.cut(keepout)
@@ -438,22 +549,23 @@ def build_drawer(p: Params, textured: bool = True) -> cq.Workplane:
     scoop_radius = p.scoop_width / 2.0
     scoop_center_z = p.drawer_front_height + scoop_radius - p.scoop_depth
     scoop = (
-        cq.Workplane("XZ", origin=(p.drawer_width / 2.0, -0.5, scoop_center_z))
+        cq.Workplane("XZ", origin=(p.drawer_width / 2.0, 0.5, scoop_center_z))
         .circle(scoop_radius)
-        .extrude(p.drawer_front_depth + 1.5)
+        .extrude(p.drawer_front_depth + 1.0)
     )
     return drawer.cut(scoop)
 
 
 def build_sorter(p: Params, textured: bool = True) -> cq.Workplane:
     sorter = rounded_box(p.sorter_width, p.sorter_depth, p.sorter_height, p.sorter_radius)
-    interior = box_at(
+    interior = rounded_box_at(
         p.sorter_wall,
         p.sorter_wall,
         p.sorter_bottom,
         p.sorter_width - 2.0 * p.sorter_wall,
         p.sorter_depth - 2.0 * p.sorter_wall,
         p.sorter_height,
+        p.sorter_radius - p.sorter_wall,
     )
     sorter = sorter.cut(interior)
     divider_x = (p.sorter_width - p.divider_wall) / 2.0
@@ -513,7 +625,8 @@ def build_sorter(p: Params, textured: bool = True) -> cq.Workplane:
                 0.0,
                 1.0,
                 p,
-                pitch=p.texture_pitch * 2.0,
+                pitch=p.texture_pitch,
+                angles=(45.0,),
             ),
         )
         side_span = min(72.0, p.sorter_depth - 2.0 * p.sorter_radius)
@@ -522,11 +635,31 @@ def build_sorter(p: Params, textured: bool = True) -> cq.Workplane:
         side_z = front_z
         sorter = cut_if_present(
             sorter,
-            side_grooves(side_y, side_z, side_span, side_height, 0.0, 1.0, p, pitch=p.texture_pitch * 4.0),
+            side_grooves(
+                side_y,
+                side_z,
+                side_span,
+                side_height,
+                0.0,
+                1.0,
+                p,
+                pitch=p.texture_pitch,
+                angles=(45.0,),
+            ),
         )
         sorter = cut_if_present(
             sorter,
-            side_grooves(side_y, side_z, side_span, side_height, p.sorter_width, -1.0, p, pitch=p.texture_pitch * 4.0),
+            side_grooves(
+                side_y,
+                side_z,
+                side_span,
+                side_height,
+                p.sorter_width,
+                -1.0,
+                p,
+                pitch=p.texture_pitch,
+                angles=(-45.0,),
+            ),
         )
     return sorter
 
@@ -547,17 +680,20 @@ def build_fit_coupon(p: Params) -> cq.Compound:
 
 
 def build_texture_coupon(p: Params) -> cq.Workplane:
-    coupon = box_at(0.0, 0.0, 0.0, 78.0, 34.0, 3.0).edges("|Z").fillet(2.0)
-    for index, pitch in enumerate((6.4, 4.8, 3.6)):
+    wall = box_at(0.0, 0.0, 0.0, 78.0, 3.0, 34.0).edges("|Z").fillet(1.0)
+    foot = box_at(0.0, 0.0, 0.0, 78.0, 12.0, 2.0).edges("|Z").fillet(1.0)
+    coupon = wall.union(foot)
+    for index, pitch in enumerate((2.4, 3.2, 4.0)):
         grooves = front_grooves(
             3.0 + index * 25.0,
-            3.0,
+            4.0,
             22.0,
-            28.0,
+            26.0,
             0.0,
             1.0,
             p,
             pitch=pitch,
+            angles=(45.0,),
         )
         coupon = cut_if_present(coupon, grooves)
     return coupon
@@ -762,8 +898,8 @@ def build_all(p: Params) -> dict:
 
     assembly_shapes = {
         "housing": textured["housing"].val(),
-        "drawer_lower": textured["drawer"].val().translate(((p.width - p.drawer_width) / 2.0, 0.6, p.housing_bottom + 0.25)),
-        "drawer_upper": textured["drawer"].val().translate(((p.width - p.drawer_width) / 2.0, 0.6, p.housing_bottom + p.opening_height + p.shelf + 0.25)),
+        "drawer_lower": textured["drawer"].val().translate(((p.width - p.drawer_width) / 2.0, 0.0, p.housing_bottom + 0.25)),
+        "drawer_upper": textured["drawer"].val().translate(((p.width - p.drawer_width) / 2.0, 0.0, p.housing_bottom + p.opening_height + p.shelf + 0.25)),
         "sorter": textured["sorter"].val().translate((0.0, 0.0, p.housing_height)),
     }
     assembly = cq.Compound.makeCompound(list(assembly_shapes.values()))
@@ -776,11 +912,11 @@ def build_all(p: Params) -> dict:
         "texture_coupon": shift_to_origin(coupons["texture_coupon"]),
     }
     stems = {
-        "housing": "DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1",
-        "drawer": "DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1",
-        "sorter": "DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1",
-        "fit_coupon": "DRAFT-MM-ORG-003-compact-fit-coupon-2.0.0-draft.1",
-        "texture_coupon": "DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1",
+        "housing": f"DRAFT-MM-ORG-003-compact-housing-{REVISION}",
+        "drawer": f"DRAFT-MM-ORG-003-compact-drawer-print-twice-{REVISION}",
+        "sorter": f"DRAFT-MM-ORG-003-compact-top-sorter-{REVISION}",
+        "fit_coupon": f"DRAFT-MM-ORG-003-compact-fit-coupon-{REVISION}",
+        "texture_coupon": f"DRAFT-MM-ORG-003-compact-texture-coupon-{REVISION}",
     }
     artifacts: dict[str, dict] = {}
     for name, shape in manufacturing_shapes.items():
@@ -797,11 +933,11 @@ def build_all(p: Params) -> dict:
             "mesh": mesh_metrics(stl),
         }
 
-    assembly_step = MASTER / "DRAFT-MM-ORG-003-compact-assembly-2.0.0-draft.1.step"
-    assembly_stl = MASTER / "DRAFT-MM-ORG-003-compact-assembly-preview-2.0.0-draft.1.stl"
+    assembly_step = MASTER / f"DRAFT-MM-ORG-003-compact-assembly-{REVISION}.step"
+    assembly_stl = MASTER / f"DRAFT-MM-ORG-003-compact-assembly-preview-{REVISION}.stl"
     export_shape(assembly, assembly_step, p)
     export_shape(assembly, assembly_stl, p)
-    print_set = THREE_MF / "DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf"
+    print_set = THREE_MF / f"DRAFT-MM-ORG-003-modern-carbon-compact-{REVISION}.3mf"
     write_print_set_3mf(
         print_set,
         [
@@ -848,7 +984,7 @@ def build_all(p: Params) -> dict:
         check("single-solid", all(artifacts[name]["cad"]["solids"] == 1 for name in production_names), "Each production part is one solid"),
         check("side-clearance", math.isclose((p.width - 2 * p.side_wall - p.drawer_width) / 2.0, 0.45, abs_tol=1e-9), "Drawer side clearance is 0.45 mm per side"),
         check("wall-reserve", min(p.side_wall, p.sorter_wall, p.drawer_front_depth) - p.groove_depth >= 1.76, "Texture host wall reserve is at least 1.76 mm"),
-        check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.01) for a, b in zip(shape_metrics(assembly)["extents_mm"], [210.0, 190.0, 173.0])), "Assembly envelope is 210 x 190 x 173 mm", {"extents_mm": shape_metrics(assembly)["extents_mm"]}),
+        check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.01) for a, b in zip(shape_metrics(assembly)["extents_mm"], [p.width, p.depth + p.drawer_front_depth, p.housing_height + p.sorter_height])), "Assembly envelope includes the proud drawer fascia", {"extents_mm": shape_metrics(assembly)["extents_mm"]}),
     ]
     source_report = pass_report(
         "MM-ORG-003-parametric-source",
@@ -881,11 +1017,11 @@ def build_all(p: Params) -> dict:
 
 def artifact_stem(name: str) -> str:
     stems = {
-        "housing": "DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1",
-        "drawer": "DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1",
-        "sorter": "DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1",
-        "fit_coupon": "DRAFT-MM-ORG-003-compact-fit-coupon-2.0.0-draft.1",
-        "texture_coupon": "DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1",
+        "housing": f"DRAFT-MM-ORG-003-compact-housing-{REVISION}",
+        "drawer": f"DRAFT-MM-ORG-003-compact-drawer-print-twice-{REVISION}",
+        "sorter": f"DRAFT-MM-ORG-003-compact-top-sorter-{REVISION}",
+        "fit_coupon": f"DRAFT-MM-ORG-003-compact-fit-coupon-{REVISION}",
+        "texture_coupon": f"DRAFT-MM-ORG-003-compact-texture-coupon-{REVISION}",
     }
     return stems[name]
 
@@ -945,6 +1081,43 @@ def build_single_part(p: Params, name: str) -> dict:
         check("triangle-budget", metrics["triangles"] <= p.max_triangles, f"{name} stays within triangle budget", {"triangles": metrics["triangles"]}),
         check("file-budget", metrics["file_mib"] <= p.max_file_mib, f"{name} stays within mesh file budget", {"file_mib": metrics["file_mib"]}),
     ]
+    if name in ("housing", "sorter"):
+        continuity = corner_continuity_metrics(raw, name, p)
+        checks.append(
+            check(
+                "corner-continuity",
+                continuity["all_inside"],
+                f"{name} retains material at every defined rounded containment-corner probe",
+                continuity,
+            )
+        )
+    if name == "drawer":
+        scoop_point = cq.Vector(p.drawer_width / 2.0, -p.drawer_front_depth / 2.0, p.drawer_front_height - 1.0)
+        checks.extend(
+            [
+                check(
+                    "rounded-front-language",
+                    p.drawer_front_radius >= 0.75 * p.housing_radius,
+                    "Drawer fascia uses a rounded XZ silhouette consistent with the housing radius",
+                    {"drawer_front_radius_mm": p.drawer_front_radius, "housing_plan_radius_mm": p.housing_radius},
+                ),
+                check(
+                    "finger-scoop-open",
+                    not raw.isInside(scoop_point),
+                    "Finger scoop removes the upper center of the drawer fascia",
+                    {"probe_mm": [scoop_point.x, scoop_point.y, scoop_point.z]},
+                ),
+            ]
+        )
+    if name == "texture_coupon":
+        checks.append(
+            check(
+                "vertical-wall-coupon",
+                cad["extents_mm"][2] > cad["extents_mm"][1],
+                "Texture coupon reproduces the product's vertical-wall orientation",
+                {"extents_mm": cad["extents_mm"]},
+            )
+        )
     report = pass_report(
         f"MM-ORG-003-isolated-{name}-build",
         [PARAMETER_FILE, Path(__file__)],
@@ -1048,11 +1221,11 @@ def build_isolated(p: Params) -> dict:
         else:
             assembly_meshes.append(mesh)
     assembly = trimesh.util.concatenate(assembly_meshes)
-    assembly_preview = MASTER / "DRAFT-MM-ORG-003-compact-assembly-preview-2.0.0-draft.1.stl"
+    assembly_preview = MASTER / f"DRAFT-MM-ORG-003-compact-assembly-preview-{REVISION}.stl"
     assembly.export(assembly_preview)
     assembly_extents = np.round(assembly.extents, 5).tolist()
 
-    print_set = THREE_MF / "DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf"
+    print_set = THREE_MF / f"DRAFT-MM-ORG-003-modern-carbon-compact-{REVISION}.3mf"
     print_set_parts = [
         ("housing", ROOT / artifacts["housing"]["manufacturing_stl"], 1),
         ("drawer", ROOT / artifacts["drawer"]["manufacturing_stl"], 2),
@@ -1064,6 +1237,7 @@ def build_isolated(p: Params) -> dict:
     compact_baseline_volume = sum(float(artifacts[name]["baseline_volume_mm3"]) * (2 if name == "drawer" else 1) for name in product_names)
     dense_baseline_triangles = 1467224 + 2 * 239554 + 1012370
     selected_triangles = sum(artifacts[name]["mesh"]["triangles"] * (2 if name == "drawer" else 1) for name in product_names)
+    interface_metrics = digital_interface_metrics(p)
     optimization = {
         "schema_version": "1.0",
         "tool": "MM-ORG-003-optimization-comparison",
@@ -1102,17 +1276,19 @@ def build_isolated(p: Params) -> dict:
     source_checks = [
         check("parameter-contract", True, "Parameters and derived relationships satisfy assertions"),
         check("part-reports", all(reports[name]["status"] == "PASS" for name in names), "All isolated deterministic part builds pass"),
-        check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.05) for a, b in zip(assembly_extents, [210.0, 190.0, 173.0])), "Assembly envelope is 210 x 190 x 173 mm", {"extents_mm": assembly_extents}),
+        check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.05) for a, b in zip(assembly_extents, [p.width, p.depth + p.drawer_front_depth, p.housing_height + p.sorter_height])), "Assembly envelope includes the proud drawer fascia", {"extents_mm": assembly_extents}),
         check("side-clearance", math.isclose((p.width - 2 * p.side_wall - p.drawer_width) / 2.0, 0.45, abs_tol=1e-9), "Drawer side clearance is 0.45 mm per side"),
-        check("depth-stack", math.isclose(p.drawer_front_depth + p.drawer_depth + p.drawer_rear_clearance, p.depth - p.rear_wall, abs_tol=1e-9), "Drawer depth stack closes exactly"),
+        check("depth-stack", math.isclose(p.drawer_depth + p.drawer_rear_clearance, p.depth - p.rear_wall, abs_tol=1e-9), "Drawer body and rear-clearance stack closes exactly"),
+        check("drawer-full-travel", interface_metrics["drawer_max_intersection_mm3"] <= 1e-6, "Drawer has zero B-Rep collision across the sampled full insertion travel", interface_metrics),
+        check("sorter-seat", interface_metrics["sorter_housing_intersection_mm3"] <= 1e-6, "Sorter seats on all four pegs without B-Rep collision", {"intersection_mm3": interface_metrics["sorter_housing_intersection_mm3"]}),
         check("wall-reserve", min(p.side_wall, p.sorter_wall, p.drawer_front_depth) - p.groove_depth >= 1.76, "Texture wall reserve is at least 1.76 mm"),
     ]
     source_report = pass_report(
         "MM-ORG-003-parametric-source",
         [PARAMETER_FILE, Path(__file__)],
         source_checks,
-        {"parts": artifacts, "assembly_extents_mm": assembly_extents},
-        ["Exact slicer and physical validation are deferred."],
+        {"parts": artifacts, "assembly_extents_mm": assembly_extents, "interface_metrics": interface_metrics},
+        ["Nominal CAD collision checks do not qualify printed sliding clearance.", "Exact slicer and physical validation are deferred."],
     )
     write_json(VALIDATION / "parametric-source-report.json", source_report)
     if source_report["status"] != "PASS":

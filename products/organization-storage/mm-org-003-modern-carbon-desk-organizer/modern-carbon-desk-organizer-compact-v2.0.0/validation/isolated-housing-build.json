@@ -58,9 +58,9 @@
       "message": "housing documented orientation fits 220 x 220 x 250 mm",
       "metrics": {
         "extents_mm": [
-          210.0297414568337,
-          111.26487082841687,
-          190.0218637805329
+          210.0139861042321,
+          111.25699315211607,
+          190.0139861042321
         ]
       },
       "required": true,
@@ -71,7 +71,7 @@
       "id": "triangle-budget",
       "message": "housing stays within triangle budget",
       "metrics": {
-        "triangles": 856
+        "triangles": 1064
       },
       "required": true,
       "status": "PASS"
@@ -81,7 +81,45 @@
       "id": "file-budget",
       "message": "housing stays within mesh file budget",
       "metrics": {
-        "file_mib": 0.040897369384765625
+        "file_mib": 0.050815582275390625
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "corner-continuity",
+      "message": "housing retains material at every defined rounded containment-corner probe",
+      "metrics": {
+        "all_inside": true,
+        "inside": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "points_mm": [
+          [
+            3.3,
+            187.3,
+            27.75
+          ],
+          [
+            206.7,
+            187.3,
+            27.75
+          ],
+          [
+            3.3,
+            187.3,
+            80.25
+          ],
+          [
+            206.7,
+            187.3,
+            80.25
+          ]
+        ]
       },
       "required": true,
       "status": "PASS"
@@ -90,48 +128,48 @@
   "inputs": [
     {
       "path": "model-parameters.json",
-      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "sha256": "b979083bc6cab28cde83f17cee26987fc2615a35aed0ee2c82b6c6d2fc0ae127",
       "size_bytes": 1703
     },
     {
       "path": "cad/build_compact_organizer.py",
-      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
-      "size_bytes": 49663
+      "sha256": "6c29d32141aee0c4457eba79a865f5a92306335e688c0bbee66af233b0d9ae98",
+      "size_bytes": 56692
     }
   ],
   "limitations": [],
   "metrics": {
-    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1-assembly-source.stl",
-    "assembly_source_stl_sha256": "40fcc9e7243b7b4219f57a55a82c7e67166132fcfa49e0a90732deffeaa1b7c4",
-    "baseline_volume_mm3": 513092.37302401307,
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2-assembly-source.stl",
+    "assembly_source_stl_sha256": "d29f1a42bb7d62aa73927cec558af14bf55e650096e6f0e625de304bdda0d349",
+    "baseline_volume_mm3": 515152.2225600613,
     "cad": {
       "bounds_mm": [
         [
-          -0.014870728416840898,
+          -0.006993052116036837,
           -0.25000000000000594,
           -0.006993052116037234
         ],
         [
-          210.01487072841687,
-          111.01487082841687,
-          190.01487072841687
+          210.00699305211606,
+          111.00699315211607,
+          190.00699305211606
         ]
       ],
       "center_of_mass_mm": [
-        105.00000000000094,
-        56.84063732117957,
-        113.84949282935138
+        104.99999999999953,
+        56.84204295460514,
+        114.47354639107387
       ],
       "extents_mm": [
-        210.0297414568337,
-        111.26487082841687,
-        190.0218637805329
+        210.0139861042321,
+        111.25699315211607,
+        190.0139861042321
       ],
       "solids": 1,
       "valid_brep": true,
-      "volume_mm3": 235142.73707604624
+      "volume_mm3": 237235.23178607906
     },
-    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1.stl",
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2.stl",
     "mesh": {
       "bounds_mm": [
         [
@@ -147,8 +185,8 @@
       ],
       "center_mass_mm": [
         105.0,
-        56.84062,
-        113.84842
+        56.84203,
+        114.4746
       ],
       "components": 1,
       "extents_mm": [
@@ -156,21 +194,21 @@
         111.0,
         190.0
       ],
-      "file_bytes": 42884,
-      "file_mib": 0.040897369384765625,
+      "file_bytes": 53284,
+      "file_mib": 0.050815582275390625,
       "positive_volume": true,
-      "sha256": "a6d696b3c57364367b8fa5ed74e06c0b86dd4736035ccc2738472a909b3e03b8",
-      "surface_area_mm2": 174986.68801139627,
-      "triangles": 856,
-      "vertices": 416,
-      "volume_mm3": 235118.73027018365,
+      "sha256": "b4bc8572cef694a0e18c000a60b6c7441b29301cfc39014488c31b75def35bdf",
+      "surface_area_mm2": 174550.2181456426,
+      "triangles": 1064,
+      "vertices": 528,
+      "volume_mm3": 237218.14051435638,
       "watertight": true,
       "winding_consistent": true
     },
     "name": "housing",
     "quantity": 1,
-    "step": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1.step",
-    "step_sha256": "e7a74d0170558057f70fe03149260ca90c507492453fc4b396e6f4e5466d08e7"
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2.step",
+    "step_sha256": "db3a964d9e98f9595da6e4aa0ef56f91245939172b500ed929962d6cc6fdaa3d"
   },
   "profile": "draft",
   "required_capabilities": [],

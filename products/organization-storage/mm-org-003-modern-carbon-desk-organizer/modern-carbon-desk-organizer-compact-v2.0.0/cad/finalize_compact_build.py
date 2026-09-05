@@ -22,7 +22,7 @@ REPORTS = ROOT / "reports"
 MASTER = ROOT / "exports" / "master"
 THREE_MF = ROOT / "exports" / "3mf"
 PROJECT_ID = "MM-ORG-003"
-REVISION = "2.0.0-draft.1"
+REVISION = "2.0.0-draft.2"
 
 
 def sha256(path: Path) -> str:
@@ -153,11 +153,11 @@ def main() -> None:
         else:
             assembly_meshes.append(mesh)
     assembly = trimesh.util.concatenate(assembly_meshes)
-    assembly_preview = MASTER / "DRAFT-MM-ORG-003-compact-assembly-preview-2.0.0-draft.1.stl"
+    assembly_preview = MASTER / f"DRAFT-MM-ORG-003-compact-assembly-preview-{REVISION}.stl"
     assembly.export(assembly_preview)
     assembly_extents = np.round(assembly.extents, 5).tolist()
 
-    print_set = THREE_MF / "DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf"
+    print_set = THREE_MF / f"DRAFT-MM-ORG-003-modern-carbon-compact-{REVISION}.3mf"
     write_print_set_3mf(
         print_set,
         [
@@ -196,7 +196,7 @@ def main() -> None:
     write_json(REPORTS / "optimization-comparison.json", optimization)
 
     side_clearance = (width - 2.0 * float(p["housing"]["side_wall"]) - drawer_width) / 2.0
-    depth_stack = float(p["drawer"]["front_depth"]) + float(p["drawer"]["body_depth"]) + float(p["drawer"]["rear_clearance"])
+    depth_stack = float(p["drawer"]["body_depth"]) + float(p["drawer"]["rear_clearance"])
     cavity_depth = float(p["housing"]["depth"]) - float(p["housing"]["rear_wall"])
     wall_reserve = min(float(p["housing"]["side_wall"]), float(p["sorter"]["outer_wall"]), float(p["drawer"]["front_depth"])) - float(p["texture"]["groove_depth"])
     source_report = report(
@@ -204,9 +204,9 @@ def main() -> None:
         [PARAMS, SOURCE],
         [
             check("part-reports", all(part_reports[name]["status"] == "PASS" for name in names), "All isolated deterministic part builds pass"),
-            check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.05) for a, b in zip(assembly_extents, [210.0, 190.0, 173.0])), "Assembly envelope is 210 x 190 x 173 mm", {"extents_mm": assembly_extents}),
+            check("assembly-envelope", all(math.isclose(a, b, abs_tol=0.05) for a, b in zip(assembly_extents, [width, float(p["housing"]["depth"]) + float(p["drawer"]["front_depth"]), housing_height + float(p["sorter"]["height"])])), "Assembly envelope includes the proud drawer fascia", {"extents_mm": assembly_extents}),
             check("side-clearance", math.isclose(side_clearance, 0.45, abs_tol=1e-9), "Drawer side clearance is 0.45 mm per side", {"clearance_mm": side_clearance}),
-            check("depth-stack", math.isclose(depth_stack, cavity_depth, abs_tol=1e-9), "Drawer front/body/rear-clearance depth stack closes exactly", {"depth_stack_mm": depth_stack, "cavity_depth_mm": cavity_depth}),
+            check("depth-stack", math.isclose(depth_stack, cavity_depth, abs_tol=1e-9), "Drawer body/rear-clearance depth stack closes exactly", {"depth_stack_mm": depth_stack, "cavity_depth_mm": cavity_depth}),
             check("wall-reserve", wall_reserve >= 1.76, "Texture host wall reserve is at least 1.76 mm", {"reserve_mm": wall_reserve}),
             check("print-set", print_set.is_file(), "DRAFT 3MF print set exists"),
         ],

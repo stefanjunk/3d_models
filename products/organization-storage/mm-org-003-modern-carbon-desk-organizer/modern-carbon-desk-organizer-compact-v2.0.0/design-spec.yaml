@@ -1,7 +1,7 @@
 project:
   id: MM-ORG-003
   name: Modern Carbon Desk Organizer Compact
-  revision: 2.0.0-draft.1
+  revision: 2.0.0-draft.2
   units: mm
   lineage:
     portfolio_record: PORT-004
@@ -11,26 +11,35 @@ project:
 
 workflow:
   autonomy_policy: autonomy-policy.json
+  preflight:
+    status: current
+    mode: RETROSPECTIVE
+    artifact: ../preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ORG-003-002
+    assessment_version: 0.2.0
+    assessed_project_revision: 2.0.0-draft.2
+    decision: GO_WITH_CONTROLS
+    lane: C
   requirements_approval:
     status: approved
     decision: AUTO_APPROVED
-    spec_revision: 2.0.0-draft.1
-    basis: User directed autonomous priority-based modeling and explicitly deferred physical print validation.
+    spec_revision: 2.0.0-draft.2
+    basis: The 2026-09-05 correction does not change the approved product intent; it requires the CAD to satisfy the existing closed-corner, rounded-front and carbon-twill requirements.
   concept_approval:
     status: approved
     decision: AUTO_APPROVED
-    spec_revision: 2.0.0-draft.1
+    spec_revision: 2.0.0-draft.2
     asset: assets/concept/MM-ORG-003-compact-concept-v2.png
     sha256: 178918f8b0e475fd8431e87453fd5e8aadcd5d8eb2d2c80e43bf068c6a03896e
-    basis: Concept visibly maps the compact envelope, two identical drawers, removable six-bin sorter and sparse inset twill treatment; exact dimensions remain controlled by this specification.
+    basis: The owner explicitly used this rounded, closed-corner carbon-look concept as the reference that draft.1 failed to match; exact dimensions remain controlled by this specification.
   decomposition:
     status: approved
     decision: AUTO_APPROVED
     artifact: decomposition.md
   digital_candidate:
-    status: geometry-and-interface-approved
-    decision: AUTO_APPROVED_THROUGH_INTERFACE_VALIDATION
-    evidence: validation/approvals-through-interface.json
+    status: geometry-and-interface-verified
+    decision: DIGITAL_PASS_PHYSICAL_BLOCKED
+    evidence: validation/parametric-source-report.json
   slicer_preflight:
     status: blocked
     reason: No supported exact slicer CLI and destination printer/material profile is installed.
@@ -91,7 +100,7 @@ geometry:
     y: depth, front to rear
     z: height, bottom to top
     origin: front-left-bottom of each part in assembly coordinates
-  assembled_envelope_mm: [210.0, 190.0, 173.0]
+  assembled_envelope_mm: [210.0, 193.2, 173.0]
   housing:
     envelope_mm: [210.0, 190.0, 108.0]
     shell_wall_mm: 3.0
@@ -116,10 +125,12 @@ geometry:
     wall_mm: 2.0
     bottom_mm: 2.0
     side_clearance_each_mm: 0.45
-    rear_clearance_mm: 2.5
+    rear_clearance_mm: 5.7
     top_clearance_mm: 3.0
     finger_scoop_width_mm: 36.0
     finger_scoop_depth_mm: 10.0
+    front_corner_radius_xz_mm: 8.0
+    front_location: fascia occupies y=-3.2..0.0; drawer body starts at the housing front datum y=0.0
   sorter:
     envelope_mm: [210.0, 190.0, 65.0]
     bottom_mm: 2.0
@@ -175,13 +186,12 @@ appearance:
   carbon_effect:
     intent: stylized directional twill cue, shallow tactile engraving and directed highlights
     representation: procedural vector/CAD grooves, not raster heightmap
-    nominal_product_pitch_mm: 9.6
-    coupon_fine_pitch_mm: 4.8
-    sorter_side_badge_pitch_mm: 19.2
+    nominal_product_pitch_mm: 3.2
+    coupon_pitch_candidates_mm: [2.4, 3.2, 4.0]
     groove_width_mm: 0.80
     groove_depth_mm: 0.24
     directions_deg: [45, -45]
-    phase: two interleaved diagonal families; 9.6 mm on drawer, housing and sorter-front badges and 19.2 mm on the narrow sorter side badges
+    phase: one 45-degree tow family per badge; opposing side faces mirror direction to avoid the previous coarse X-grid
     target_surfaces:
       - drawer front inset panels
       - housing left and right exterior badge panels
@@ -234,9 +244,11 @@ acceptance:
     - expected STEP/STL files exist for housing, drawer and sorter
     - each manufacturing mesh is one watertight, consistently wound, positive-volume component
     - each production orientation fits 220 x 220 x 250 mm
-    - assembled envelope remains within 210 x 190 x 173 mm plus 0.2 mm tolerance
+    - assembled envelope remains within 210 x 193.2 x 173 mm plus 0.2 mm tolerance
     - side clearance is exactly 0.45 mm per side in source calculations
-    - drawer depth stack is exactly 3.2 mm front + 181.9 mm body + 2.5 mm rear clearance inside the 187.6 mm housing cavity
+    - drawer body depth plus rear clearance is exactly 181.9 + 5.7 = 187.6 mm; the 3.2 mm fascia sits proud and does not overlap the housing
+    - drawer has zero housing intersection at nine sampled positions over the full 181.9 mm insertion travel
+    - four rear housing probes and four sorter corner probes retain material
     - functional drawer products/organization-storage/mm-wall-001-honeycomb-wood-wall-shelf/bottom are at least 2.0 mm; sorter dividers are explicit 1.8 mm two-to-four-path-class webs
     - engraved host-wall reserve is at least 2.16 mm
     - 3MF package is structurally valid and contains four build items: housing, drawer twice, sorter
@@ -255,7 +267,7 @@ deliverables:
   build_script: cad/build.py
   neutral_cad: exports/master/*.step
   manufacturing_mesh: exports/manufacturing/*.stl
-  print_package: exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf
+  print_package: exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.2.3mf
   concept: assets/concept/MM-ORG-003-compact-concept-v2.png
   reports: reports/
 

@@ -14,7 +14,7 @@
     {
       "evidence": [],
       "id": "drawer-depth-stack",
-      "message": "Drawer front, body and rear reserve close the housing cavity depth exactly.",
+      "message": "Drawer body and rear reserve close the housing cavity depth exactly; the rounded fascia remains proud of the housing.",
       "metrics": {
         "cavity_mm": 187.6,
         "drawer_stack_mm": 187.6
@@ -68,11 +68,11 @@
     {
       "evidence": [],
       "id": "assembly-envelope",
-      "message": "Assembled envelope remains 210 x 190 x 173 mm.",
+      "message": "Assembled envelope includes the proud drawer fascia.",
       "metrics": {
         "extents_mm": [
           210.0,
-          190.0,
+          193.2,
           173.0
         ]
       },
@@ -83,22 +83,23 @@
   "inputs": [
     {
       "path": "model-parameters.json",
-      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "sha256": "b979083bc6cab28cde83f17cee26987fc2615a35aed0ee2c82b6c6d2fc0ae127",
       "size_bytes": 1703
     },
     {
       "path": "cad/build_compact_organizer.py",
-      "sha256": "73078c7ec655b475bd2f0b513a79e44f48c78e95f60cf455fd9153d999d1fefb",
-      "size_bytes": 49814
+      "sha256": "6c29d32141aee0c4457eba79a865f5a92306335e688c0bbee66af233b0d9ae98",
+      "size_bytes": 56692
     },
     {
       "path": "validation/parametric-source-report.json",
-      "sha256": "54ac552044ec82d0d5ec848298524f8b4283e780284a02b26bca532e36bfc88b",
-      "size_bytes": 13234
+      "sha256": "5b2877f0871e46006026c77f9ed98c850ef08c534c46b4e29a1856e882f2de8c",
+      "size_bytes": 14977
     }
   ],
   "limitations": [
     "Nominal CAD clearances do not replace printer/material-specific fit coupon results.",
+    "No qualified process record exists for the declared 0.45 mm side clearance.",
     "Physical drawer cycling, stack retention and anti-tip behavior are deferred by the user."
   ],
   "metrics": {
@@ -115,5 +116,5 @@
   "schema_version": "1.0",
   "status": "PASS",
   "tool": "MM-ORG-003-interface-contract",
-  "tool_version": "2.0.0"
+  "tool_version": "2.0.1"
 }

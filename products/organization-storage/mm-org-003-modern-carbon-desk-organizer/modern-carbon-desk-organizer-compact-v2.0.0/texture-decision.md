@@ -14,6 +14,10 @@ The model needs a readable carbon-twill family cue from normal desk viewing dist
 | 16-bit heightmap | rejected for this derivative | structured repeat does not need continuous-tone relief; prior model exceeded one million triangles per large part |
 | Dense freeform mesh | rejected | no evidence-bearing need |
 
-Selected product geometry: 9.6 mm combined pitch on drawer, housing and sorter-front badges, plus a deliberately sparse 19.2 mm side cue on the narrow sorter badges, with 0.80 mm groove width and 0.24 mm recess depth. The 4.8 mm version remains on the coupon as the fine comparison only. Local panels replace full-side coverage to avoid hundreds of short perimeter segments. The two diagonal directions form a stylized weave cue; protected faces and 4 mm borders stay smooth.
+The rejected draft.1 pattern used two coarse crossing families. Together with wireframe triangle edges in the preview, it read as a sparse X-grid rather than carbon.
+
+Selected draft.2 geometry uses one continuous 45-degree tow family per badge at 3.2 mm pitch, 0.80 mm groove width and 0.24 mm recess depth. Opposing side faces mirror the direction; this preserves directional highlight without crossing buildup. The vertical-wall coupon carries 2.4, 3.2 and 4.0 mm candidates so the physical appearance gate can still reject or change the nominal scale. Local badge fields, smooth 4 mm borders and protected interfaces remain unchanged.
+
+This is a stylized carbon-look cue, not literal fibre-scale weave or a structural carbon claim. A dark/gloss material or finish may supply the sub-process optical detail.
 
 The Imagegen concept is appearance evidence only. Texture acceptance still requires the process-matched coupon under multiple light angles.

@@ -1,50 +1,70 @@
 product: Modern Carbon Desk Organizer Compact
-intended_use: Provide a compact compartmented desk organizer with a carbon-inspired visual surface treatment for
-  dry indoor stationery storage.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
+intended_use: >-
+  Provide a compact two-drawer desk organizer with a removable six-bin sorter,
+  closed containment corners, coherent rounded fronts, and a recognizable
+  carbon-twill appearance for dry indoor stationery storage.
+user_context: >-
+  On 2026-09-05 the owner rejected revision 2.0.0-draft.1 as visually and
+  geometrically poor: the housing did not read as carbon, rear housing corners
+  and upper-sorter corners appeared open, and the straight drawer fronts did
+  not match the rounded housing language. The owner also requested a renewed
+  clearance and overall design audit.
 host_variant:
   manufacturer: null
-  model: null
+  model: common 220 x 220 x 250 mm FFF printer class
   revision: null
   variant_confirmed: false
 lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
+  - transport
+  - assembly
+  - calibration
+  - use
+  - cleaning
+  - service
+  - disassembly
+  - storage
+  - failure
 requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
+  - Preserve the 210 x 190 mm housing/sorter footprint and 173 mm total height; report the 3.2 mm proud drawer fascia in the true assembled depth.
+  - Close rear housing and all sorter containment corners with continuous printable walls.
+  - Match drawer-front silhouette and reveals to the approved rounded form language.
+  - Replace the coarse crossed-groove cue with a physically scaled stylized 2x2 carbon twill.
+  - Preserve smooth drawer sliding faces, stack interfaces, bed datums, and hand-contact edges.
+  - Verify nominal CAD clearances and require a process-matched coupon before claiming physical fit.
 known_components:
-- Modern Carbon Desk Organizer Compact
-- Intended host object or storage envelope
+  - housing
+  - two identical drawers
+  - removable six-bin sorter
+  - fit-clearance coupon
+  - texture-scale coupon
+  - adult desk user
+  - dry indoor environment
 available_evidence:
-- modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml
-- modern-carbon-desk-organizer-compact-v2.0.0/README.md
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/slicer-preflight-report.json
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/requirements-approval-report.json
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-texture-coupon.json
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter.json
-- modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-policy-production.json
+  - modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml
+  - modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json
+  - modern-carbon-desk-organizer-compact-v2.0.0/cad/build_compact_organizer.py
+  - modern-carbon-desk-organizer-compact-v2.0.0/renders/MM-ORG-003-compact-digital-candidate.png
+  - modern-carbon-desk-organizer-compact-v2.0.0/assets/concept/MM-ORG-003-compact-concept-v2.png
+  - modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json
+  - owner correction dated 2026-09-05 in the active design review
 manufacturing_profile:
-  printer: null
+  printer: common Cartesian/CoreXY 220 x 220 x 250 mm class; exact machine unknown
   process: FDM/FFF
   nozzle_mm: 0.4
-  material: null
-  orientation_known: false
+  material: ordinary PLA or supplier-specific Tough PLA; exact product unknown
+  orientation_known: true
 known_loads_environment:
-  loads: []
-  temperature_c: null
-  media: []
-  duration: null
+  loads:
+    - future target 0.75 kg per drawer; not a current rating
+  temperature_c: [15, 30]
+  media:
+    - dry indoor air
+  duration: experimental; future target 500 drawer cycles
 safety_notes:
-- Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy
-  in the documented scope.
+  - Normal-functional desk storage only; no safety, structural, food-contact, or child-use claim.
+  - Physical fit, cycling, anti-tip behavior, and appearance remain human-controlled gates.
 interfaces:
-- IF-EXT-GEO-CON-MIXED-001
+  - IF-INT-KIN-SLD-SLOT-001
+  - IF-INT-GEO-LOC-SLOT-002
+  - IF-INT-GEO-CON-BODY-003
+  - IF-HUM-OPT-VIS-FREEFORM-004

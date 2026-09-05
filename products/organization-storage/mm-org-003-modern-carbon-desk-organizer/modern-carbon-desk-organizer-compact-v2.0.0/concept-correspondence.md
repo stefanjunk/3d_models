@@ -2,11 +2,11 @@
 
 Asset: `assets/concept/MM-ORG-003-compact-concept-v2.png`  
 SHA-256: `178918f8b0e475fd8431e87453fd5e8aadcd5d8eb2d2c80e43bf068c6a03896e`  
-Decision: `AUTO_APPROVED` for specification `2.0.0-draft.1`.
+Decision: retained as the explicit owner reference for corrective specification `2.0.0-draft.2`.
 
 | Visible feature | Controlled requirement |
 |---|---|
-| Compact, squat single-column form | 210 × 190 × 173 mm assembled envelope |
+| Compact, squat single-column form | 210 × 193.2 × 173 mm true assembled envelope |
 | Two matching drawers | two identical drawer prints and common fit interface |
 | Six open sorter bins | removable 2-column × 3-row top sorter |
 | Separable top module | shared registered footprint and four-peg stack interface |

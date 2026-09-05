@@ -1,0 +1,38 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-interfaces-sliding-drawer-full-travel-001
+title: A sliding drawer clears its housing over the full travel and keeps its fascia outside the cavity
+category: interfaces
+status: draft
+trigger: A drawer, tray or cassette slides through a housing opening and has a wider or differently shaped fascia.
+risk: Nominal clearance arithmetic passes while the actual solids collide at the front, rear corner transition or another point along travel.
+given:
+  input: Final housing and drawer STEP masters, assembly datums, allowed translation axis, full travel interval and nominal process-independent clearances.
+expected:
+  - Exact B-Rep intersection volume is zero at both travel endpoints and sufficient intermediate samples to cover every profile transition.
+  - The fascia is assigned an explicit proud or inset datum and does not silently consume the drawer-body cavity.
+  - Side, top and rear nominal clearances are reported separately.
+  - Physical fit remains unqualified until the exact-process coupon and unchanged full-length drawer pass.
+failure_conditions:
+  - Any sampled position has positive unintended intersection volume.
+  - Only bounding boxes or scalar clearance equations are checked.
+  - A generic nominal clearance is called proven fit without process identity and coupon evidence.
+fixtures:
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.2.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2.step
+grader:
+  type: deterministic
+  command: python3 products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/audit_quality.py
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Exact CadQuery B-Rep intersection volume over a deterministic full-travel sample set.
+relationships:
+  lessons: [EXP-00066]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/quality-audit-draft.1-to-draft.2.json
+  artifact_hashes: []
+tags: [drawer, clearance, motion-sweep, collision, coupon]

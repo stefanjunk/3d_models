@@ -1,38 +1,196 @@
-schema_version: 1
-product:
-  id: "MM-ORG-003"
-  name: "Modern Carbon Desk Organizer Compact"
-  version: "2.0.0-draft.1"
-  status: retrospective-inventory
-
-function:
-  summary: "Provide a compact compartmented desk organizer with a carbon-inspired visual surface treatment for dry indoor stationery storage."
-
-source_of_truth:
-  status: retrospective-index
-  current_artifact_refs:
-    - "modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/README.md"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/slicer-preflight-report.json"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/requirements-approval-report.json"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-texture-coupon.json"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter.json"
-    - "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-policy-production.json"
+project:
+  id: MM-ORG-003
+  sku: MM-ORG-003
+  name: Modern Carbon Desk Organizer Compact
+  revision: 2.0.0-draft.2
+  owner: project-owner-via-active-review-2026-09-05
+  status: experimental-digital-candidate
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-004
+  product_path: products/organization-storage/mm-org-003-modern-carbon-desk-organizer
+  derivative_path: modern-carbon-desk-organizer-compact-v2.0.0
 
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: retrospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-MM-ORG-003-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "2.0.0-draft.1"
-    updated_at: "2026-08-31T12:29:39+02:00"
-    change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
-  requirements: review-required
-  concept: existing-artifacts
-  final_release: blocked-by-preflight
+    assessment_id: PREFLIGHT-MM-ORG-003-002
+    assessment_version: 0.2.0
+    assessed_project_revision: 2.0.0-draft.2
+    updated_at: "2026-09-05T12:00:00+02:00"
+    change_triggers: [user_quality_correction, corner_continuity_failure, appearance_mismatch, clearance_reaudit]
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-active-review-2026-09-05
+    approved_at: "2026-09-05T12:00:00+02:00"
+    spec_revision: 2.0.0-draft.2
+    reason: The owner confirmed the existing closed-corner, rounded-front and carbon-look intent while rejecting draft.1 for failing to implement it.
+  concept_approval:
+    status: approved
+    approved_by: project-owner-via-active-review-2026-09-05
+    approved_at: "2026-09-05T12:00:00+02:00"
+    spec_revision: 2.0.0-draft.2
+    asset: modern-carbon-desk-organizer-compact-v2.0.0/assets/concept/MM-ORG-003-compact-concept-v2.png
+    asset_sha256: 178918f8b0e475fd8431e87453fd5e8aadcd5d8eb2d2c80e43bf068c6a03896e
+    asset_sha256_record: preflight/concept-image-record-draft.2.json
+    reason: The existing concept is the owner's explicit form and appearance reference for this corrective implementation.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ORG-003
+    version: 2.0.0-draft.2
+    reason: This remains a DRAFT digital candidate; final geometry, exact slicing, physical fit and appearance approval are open.
+  commercial_release:
+    status: blocked
+    reason: Exact process qualification, physical evidence, marking, rights review and explicit final approval remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ORG-003
+  version: 2.0.0-draft.2
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - The housing must visibly read as carbon-inspired rather than coarse triangulated crosshatch.
+    - Rear housing corners and upper-sorter containment corners must not be open.
+    - Drawer fronts must match the rounded front language of the housing.
+    - Recheck the complete design and verify that the interfaces have enough nominal play.
+  retained:
+    - Two identical drawers and one removable six-bin top sorter.
+    - Common-printer footprint with each unique production part within 220 x 220 x 250 mm.
+    - Smooth protected sliding, stack, bed, divider and hand-contact regions.
+  unresolved:
+    - Exact printer, filament product, nozzle hardware and complete slicer profile.
+    - Qualified XY sliding clearance for that exact process.
+    - Physical appearance, drawer cycling, stack retention and anti-tip results.
+
+function:
+  summary: Compact two-drawer desk organizer with a removable six-compartment top sorter for dry indoor stationery, cables, small tools and small electronics.
+  included: [one two-bay housing, two identical removable drawers, one removable six-bin sorter, fit coupon, vertical texture coupon]
+  excluded: [structural rating, child-use claim, food contact, liquids, outdoor use, printer upload or print start]
+  interfaces:
+    - preflight/preflight-result.json#IF-INT-KIN-SLD-SLOT-001
+    - preflight/preflight-result.json#IF-INT-GEO-LOC-SLOT-002
+    - preflight/preflight-result.json#IF-INT-GEO-CON-BODY-003
+    - preflight/preflight-result.json#IF-HUM-OPT-VIS-FREEFORM-004
+
+dimensions:
+  coordinate_frame: {x: left-to-right width, y: front-to-rear depth, z: bottom-to-top height}
+  assembled_envelope_mm: [210.0, 193.2, 173.0]
+  housing_envelope_mm: [210.0, 190.0, 108.0]
+  sorter_envelope_mm: [210.0, 190.0, 65.0]
+  drawer_body_mm: [203.1, 181.9, 46.5]
+  drawer_fascia_mm: [205.6, 3.2, 49.0]
+  drawer_fascia_xz_radius_mm: 8.0
+  nominal_drawer_clearance_mm: {each_side: 0.45, top: 3.0, rear: 5.7}
+  nominal_stack_clearance_each_mm: 0.35
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Adult dry-indoor desk storage only.
+  hazards: [drawer binding or rattle, stack rocking, small-item loss through a corner, snagging texture, tip risk with an extended loaded drawer]
+  controls: [closed matched-radius pockets, full-travel CAD collision sweep, smooth interface keep-outs, fit and texture coupons, no load claim before testing]
+
+fabrication:
+  preference: integrated-print
+  preference_basis: The housing, drawers and sorter are separate one-piece prints; no purchased precision or wear component is required for this low-load experimental draft.
+  process: FDM/FFF
+  release_scope: Digital DRAFT only until exact-profile slicing and physical qualification pass.
+
+printer:
+  manufacturer: UNKNOWN
+  model: common Cartesian/CoreXY class
+  build_volume_mm: [220.0, 220.0, 250.0]
+  profile_source: unresolved
+
+manufacturing:
+  nozzle_mm: 0.4
+  nozzle_material: UNKNOWN
+  material: ordinary PLA or supplier-specific Tough PLA
+  material_product: UNKNOWN
+  layer_height_mm: 0.2
+  line_width_mm: 0.45
+  orientations:
+    housing: rear wall on the bed; drawer openings upward in machine Z
+    drawer: bottom down
+    sorter: bottom down
+    fit_coupon: largest flat face down
+    texture_coupon: integrated foot down with the texture wall vertical
+  support_policy: no generated support in the documented orientations
+  calibration_gate:
+    status: NO_MATCHING_PROCESS
+    unqualified: [xy_clearance_sliding, first_layer_edge_relief]
+    consequence: The 0.45 mm nominal side clearance is not a physical fit claim; print the process-matched fit coupon first.
+
+appearance:
+  form_language: Modern rounded fascia silhouettes with continuous reveals and closed rounded containment corners.
+  color: Dark charcoal or black recommended; color is not encoded as manufacturing geometry.
+  carbon_effect:
+    intent: Stylized directional tow cue plus material highlight; not a structural carbon claim.
+    representation: Compact procedural 45-degree recessed grooves on named exterior badge surfaces.
+    motif_pitch_mm: 3.2
+    groove_width_mm: 0.8
+    groove_depth_mm: 0.24
+    coupon_pitches_mm: [2.4, 3.2, 4.0]
+    target_surfaces: [drawer fascia panels, housing side badge panels, sorter front and side badge panels]
+    keepouts: [sliding faces, stack pegs and sockets, bed datums, finger scoops, hand-contact edges, 4 mm panel borders]
+    claim_boundary: Carbon-look only; no laminate or composite performance claim.
+
+optimization:
+  status: pending
+  rationale: The compact shell/perimeter-frame architecture is retained; matched rounded pockets add only required corner material while the procedural texture stays far below the dense legacy mesh burden.
+  pending_reason: Geometry and mesh budgets pass, but no exact-profile baseline/candidate slicer comparison exists for the corrected revision.
+  mesh_simplification:
+    status: not-beneficial
+    master_mesh: modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-assembly-preview-2.0.0-draft.2.stl
+    protected_regions: [drawer guides and travel envelope, rear stops, closed containment corners, divider junctions, stack pegs and sockets, bed datums, rounded fascia, texture fields]
+    resource_budget:
+      triangle_target: 250000
+      triangle_stop: 500000
+      peak_memory_gib: 2.0
+      max_mesh_mib: 25.0
+      max_slicer_seconds: 120.0
+    rationale: STEP B-Reps are tessellated directly at 0.05 mm chordal tolerance; global lossy decimation would risk functional and visual regions without useful slicer evidence.
+
+acceptance:
+  - {id: AC-PREFLIGHT-001, criterion: The corrective preflight is schema-valid and current for 2.0.0-draft.2., method: 3d-design-preflight validator., status: passed}
+  - {id: AC-CORNER-001, criterion: Four housing-rear bay probes and four sorter-corner probes retain positive material., method: Exact CadQuery point classification., status: passed-digital}
+  - {id: AC-MOTION-001, criterion: The drawer has zero housing collision at nine positions over its full 181.9 mm insertion travel., method: Exact CadQuery B-Rep intersection sweep., status: passed-digital}
+  - {id: AC-STACK-001, criterion: Housing and seated sorter have zero unintended B-Rep intersection while retaining 0.2 mm depth reserve., method: Exact CadQuery intersection and source calculation., status: passed-digital}
+  - {id: AC-MESH-001, criterion: Housing drawer and sorter STL files are watertight consistently wound positive-volume single components with zero boundary and nonmanifold edges., method: fdm_ci audit-mesh release profile., status: passed-digital}
+  - {id: AC-3MF-001, criterion: The print-set package has valid millimetre 3MF structure and four build items using three watertight mesh objects., method: fdm_ci validate-3mf release profile., status: passed-digital}
+  - {id: AC-FIT-001, criterion: A selected process-matched coupon slides freely without objectionable rattle and the unchanged full drawer repeats that result., method: Physical fit coupon and full prototype., status: planned}
+  - {id: AC-TEXTURE-001, criterion: The selected carbon cue reads correctly at desk distance under three light angles without snagging., method: Vertical-wall texture coupon and human appearance review., status: planned}
+  - {id: AC-SLICE-001, criterion: Exact source/profile slicer run passes with manual layer support seam and path review., method: fdm_ci slice-anycubic-next when a complete Anycubic profile set is selected., status: not-run}
+
+deliverables:
+  parameters: modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json
+  editable_source: modern-carbon-desk-organizer-compact-v2.0.0/cad/build_compact_organizer.py
+  build_script: modern-carbon-desk-organizer-compact-v2.0.0/cad/build.py
+  neutral_cad: modern-carbon-desk-organizer-compact-v2.0.0/exports/master/*2.0.0-draft.2.step
+  manufacturing_meshes: modern-carbon-desk-organizer-compact-v2.0.0/exports/manufacturing/*2.0.0-draft.2.stl
+  print_package: modern-carbon-desk-organizer-compact-v2.0.0/exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.2.3mf
+  validation: modern-carbon-desk-organizer-compact-v2.0.0/validation/
+  renders: modern-carbon-desk-organizer-compact-v2.0.0/renders/*draft.2.png
+
+traceability:
+  evidence:
+    - preflight/preflight-result.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/reports/build-manifest.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-housing-draft.2.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-drawer-draft.2.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter-draft.2.json
+    - modern-carbon-desk-organizer-compact-v2.0.0/validation/3mf-print-set-draft.2.json

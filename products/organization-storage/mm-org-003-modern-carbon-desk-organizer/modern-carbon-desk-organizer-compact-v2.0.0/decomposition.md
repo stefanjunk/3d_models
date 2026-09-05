@@ -1,6 +1,6 @@
 # Functional decomposition
 
-Decision: `AUTO_APPROVED` for the `2.0.0-draft.1` concept.
+Decision: retained for corrective revision `2.0.0-draft.2`; component authority is unchanged.
 
 ## Product bodies
 

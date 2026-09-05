@@ -22,7 +22,7 @@ This guide is a starting profile, not completed slicer or physical evidence.
 | drawer | 2 | drawer bottom on the bed |
 | top sorter | 1 | sorter bottom on the bed |
 | fit coupon | 1 first | largest flat face on the bed |
-| texture coupon | 1 first | largest flat face on the bed |
+| texture coupon | 1 first | integrated foot on the bed; textured wall vertical like the product |
 
 Put each unique production part on its own plate. Print the drawer twice. Do not treat the inventory-strip placement encoded in the DRAFT 3MF as a ready-to-print plate arrangement.
 
@@ -30,7 +30,7 @@ Put each unique production part on its own plate. Print the drawer twice. Do not
 
 1. Slice and print the fit coupon with the intended printer, filament and profile. Select the fit that moves freely without visible lateral rattle.
 2. Print the texture coupon. Reject groove scales that snag, close up, or produce fragile ridges.
-3. If coupon results differ from the nominal 0.45 mm drawer-side and 0.35 mm stack clearances, update `model-parameters.json` and rebuild all unchanged production artifacts.
+3. If coupon results differ from the nominal 0.45 mm drawer-side or 0.35 mm stack clearances, update `model-parameters.json` and rebuild all unchanged production artifacts. The 0.45 mm value is not qualified until this step passes.
 4. Print housing, one drawer and sorter; check travel and stack registration before printing the second drawer.
 5. Print the second drawer and test the unchanged assembly.
 

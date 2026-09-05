@@ -5,7 +5,7 @@ Provide a compact compartmented desk organizer with a carbon-inspired visual sur
 ## Scope status
 
 - Product ID: `MM-ORG-003`
-- Assessed revision: `2.0.0-draft.1`
+- Assessed revision: `2.0.0-draft.2`
 - Purpose source: retrospective repository evidence and product identity
 - Purpose confidence: retrospective and limited to the evidence below
 - Release meaning: this purpose statement is not a production, safety, compatibility, food-contact, or performance approval
@@ -21,6 +21,6 @@ Provide a compact compartmented desk organizer with a carbon-inspired visual sur
 - `modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter.json`
 - `modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-policy-production.json`
 
-The current preflight decision is `HOLD`. See
+The current preflight decision is `GO_WITH_CONTROLS` for the corrective digital draft; physical fit, slicing, appearance and release remain blocked. See
 [`preflight/preflight-report.md`](preflight/preflight-report.md) for unknowns,
 gates, and the required next evidence.

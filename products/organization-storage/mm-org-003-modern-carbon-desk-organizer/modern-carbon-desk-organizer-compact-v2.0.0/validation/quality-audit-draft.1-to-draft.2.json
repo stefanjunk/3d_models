@@ -1,0 +1,219 @@
+{
+  "checks": [
+    {
+      "id": "baseline-defect-reproduced",
+      "message": "Draft.1 drawer/housing overlap is reproduced from immutable STEP masters.",
+      "metrics": {
+        "intersection_old_preview_y0_6_mm3": 23.420725327915683,
+        "intersection_y0_mm3": 2.5723928069656856
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "housing-rear-corners",
+      "message": "All four housing rear-corner probes change from void in draft.1 to material in draft.2.",
+      "metrics": {
+        "draft_1_inside": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "draft_2_inside": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "points_mm": [
+          [
+            3.3,
+            187.3,
+            27.75
+          ],
+          [
+            206.7,
+            187.3,
+            27.75
+          ],
+          [
+            3.3,
+            187.3,
+            80.25
+          ],
+          [
+            206.7,
+            187.3,
+            80.25
+          ]
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "sorter-corners",
+      "message": "All four sorter containment-corner probes change from void in draft.1 to material in draft.2.",
+      "metrics": {
+        "draft_1_inside": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "draft_2_inside": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "points_mm": [
+          [
+            3.5,
+            3.5,
+            32.5
+          ],
+          [
+            206.5,
+            3.5,
+            32.5
+          ],
+          [
+            3.5,
+            186.5,
+            32.5
+          ],
+          [
+            206.5,
+            186.5,
+            32.5
+          ]
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "drawer-full-travel",
+      "message": "Draft.2 drawer has zero B-Rep intersection at nine full-travel samples.",
+      "metrics": {
+        "intersection_volumes_mm3": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_mm3": 0.0,
+        "positions_mm": [
+          -181.9,
+          -159.1625,
+          -136.425,
+          -113.6875,
+          -90.95,
+          -68.2125,
+          -45.474999999999994,
+          -22.73750000000001,
+          0.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "sorter-seat",
+      "message": "Draft.2 sorter seats without unintended B-Rep intersection.",
+      "metrics": {
+        "intersection_mm3": 0.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "finger-scoop",
+      "message": "The old fascia retained material at the scoop probe; draft.2 removes it.",
+      "metrics": {
+        "draft_1_probe_inside": true,
+        "draft_2_probe_inside": false
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "id": "vertical-texture-coupon",
+      "message": "Draft.2 changes the coupon from a flat plate to a representative vertical product wall.",
+      "metrics": {
+        "draft_1_extents_mm": [
+          78.0,
+          34.0,
+          3.0
+        ],
+        "draft_2_extents_mm": [
+          78.0,
+          12.0,
+          34.0
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1.step",
+      "sha256": "e7a74d0170558057f70fe03149260ca90c507492453fc4b396e6f4e5466d08e7",
+      "size_bytes": 313838
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.step",
+      "sha256": "4181417400bdb6baef0356ca93c179fde41299439e100c041a5a536e2fc96f80",
+      "size_bytes": 692450
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.step",
+      "sha256": "8769c8cd0e2841be7e2cf78ab8efc648f70e98c90af819b9cb3dffd3fef05618",
+      "size_bytes": 755714
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1.step",
+      "sha256": "e727b345d6f27554868d6abdacdc8b7cfba511b70795a4cae505522d1cf4997b",
+      "size_bytes": 31978
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2.step",
+      "sha256": "db3a964d9e98f9595da6e4aa0ef56f91245939172b500ed929962d6cc6fdaa3d",
+      "size_bytes": 252944
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.2.step",
+      "sha256": "b48c098b14f92b6760230d1e0995aac7306a13acfe5402fae90f411efea35f12",
+      "size_bytes": 1064647
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.2.step",
+      "sha256": "349f21beaf494e28fbfb19ae009d7e7e2529d89be894c95395b962ea40a20249",
+      "size_bytes": 902687
+    },
+    {
+      "path": "exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.2.step",
+      "sha256": "698459299ee104fcd159c93031a46e62bc25ec0e86852f772b1aeff48c051e99",
+      "size_bytes": 621366
+    }
+  ],
+  "limitations": [
+    "STEP/B-Rep checks qualify digital geometry only.",
+    "Nominal 0.45 mm drawer clearance remains unqualified for the exact printing process.",
+    "Carbon appearance, tactility and snagging require the vertical-wall coupon under controlled lighting.",
+    "Exact slicer and G-code evidence are not available without a complete destination profile set."
+  ],
+  "profile": "corrective-digital-draft",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "MM-ORG-003-quality-audit",
+  "tool_version": "1.0.0"
+}

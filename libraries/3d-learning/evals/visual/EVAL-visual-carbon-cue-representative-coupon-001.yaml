@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-carbon-cue-representative-coupon-001
+title: A printable carbon-look cue is judged on a representative surface and without mesh-wireframe contamination
+category: visual
+status: draft
+trigger: Carbon-inspired texture is applied to an FFF product side wall or fascia.
+risk: Coarse crossed grooves or presentation triangulation read as an X-grid, while a non-representative coupon falsely suggests the appearance was tested.
+given:
+  input: Texture intent, physical pitch/width/depth, final surface orientation, plain and multi-pitch coupons, clean renders, exact process identity and fixed-light photographs when printed.
+expected:
+  - The editable pattern distinguishes tow direction from over-under phase and from material highlight.
+  - Product renders do not draw every tessellation edge as though it were texture.
+  - The coupon reproduces final surface orientation, wall reserve, border and groove direction.
+  - Coarse, nominal and fine scales are compared under three fixed light angles at the intended viewing distance.
+  - The result is called carbon-look only and carries no composite structural claim.
+failure_conditions:
+  - The visible cue is dominated by coarse X crossings or mesh triangle edges.
+  - A flat horizontal plate is used to approve a vertical-wall effect.
+  - Appearance is approved from one beauty render or one light angle only.
+fixtures:
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/texture-decision.md
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.1.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-texture-coupon-2.0.0-draft.2.step
+grader:
+  type: hybrid
+  command: python3 products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/audit_quality.py
+  expected_exit_code: 0
+  rubric: Require representative coupon orientation and clean digital presentation; final recognition, tactility and snagging remain a human physical gate under three fixed light angles.
+  measurement_method: STEP bounding-box orientation plus controlled visual and physical coupon review.
+relationships:
+  lessons: [EXP-00066]
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags: [carbon-look, texture, vertical-wall, coupon, presentation]

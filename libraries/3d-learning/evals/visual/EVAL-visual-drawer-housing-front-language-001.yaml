@@ -1,0 +1,37 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-visual-drawer-housing-front-language-001
+title: Drawer fascia silhouette and reveal continue the approved rounded housing language
+category: visual
+status: draft
+trigger: A drawer fascia visually closes a housing with rounded front corners or a rounded concept reference.
+risk: The manufactured design looks unrelated to its approved concept even when the drawer fits and the mesh is valid.
+given:
+  input: Approved concept, housing radius, fascia XZ profile, reveal, scoop keep-out, assembled STEP and front three-quarter render.
+expected:
+  - The fascia rounds the front-plane XZ corners rather than only filleting its thin plan edges.
+  - Both identical drawers use the same centered silhouette and reveal.
+  - The scoop is an actual void through the upper center of the fascia.
+  - The assembled fascia does not intersect the housing.
+failure_conditions:
+  - A straight rectangular front is paired with a visibly rounded housing intent.
+  - The specified scoop probe remains material.
+  - A render offset hides a positive assembly intersection.
+fixtures:
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/assets/concept/MM-ORG-003-compact-concept-v2.png
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/renders/MM-ORG-003-compact-digital-candidate-draft.2.png
+grader:
+  type: hybrid
+  command: python3 products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/audit_quality.py
+  expected_exit_code: 0
+  rubric: Confirm the 8 mm XZ fascia radius, scoop void, symmetric reveals and zero full-travel housing intersection against the final STEP and clean render.
+  measurement_method: Exact STEP point/intersection checks plus visual concept correspondence.
+relationships:
+  lessons: [EXP-00066]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/quality-audit-draft.1-to-draft.2.json
+  artifact_hashes: []
+tags: [drawer-front, rounded-silhouette, concept-correspondence, scoop]

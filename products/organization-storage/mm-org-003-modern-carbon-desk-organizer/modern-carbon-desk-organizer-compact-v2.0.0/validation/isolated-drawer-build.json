@@ -58,9 +58,9 @@
       "message": "drawer documented orientation fits 220 x 220 x 250 mm",
       "metrics": {
         "extents_mm": [
-          205.60167850850786,
-          185.10293723988877,
-          49.002937239888766
+          205.61118892338567,
+          185.11406099058595,
+          49.01717462026833
         ]
       },
       "required": true,
@@ -71,7 +71,7 @@
       "id": "triangle-budget",
       "message": "drawer stays within triangle budget",
       "metrics": {
-        "triangles": 1324
+        "triangles": 2080
       },
       "required": true,
       "status": "PASS"
@@ -81,7 +81,32 @@
       "id": "file-budget",
       "message": "drawer stays within mesh file budget",
       "metrics": {
-        "file_mib": 0.06321334838867188
+        "file_mib": 0.09926223754882812
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "rounded-front-language",
+      "message": "Drawer fascia uses a rounded XZ silhouette consistent with the housing radius",
+      "metrics": {
+        "drawer_front_radius_mm": 8.0,
+        "housing_plan_radius_mm": 10.0
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "finger-scoop-open",
+      "message": "Finger scoop removes the upper center of the drawer fascia",
+      "metrics": {
+        "probe_mm": [
+          101.55,
+          -1.6,
+          48.0
+        ]
       },
       "required": true,
       "status": "PASS"
@@ -90,48 +115,48 @@
   "inputs": [
     {
       "path": "model-parameters.json",
-      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "sha256": "b979083bc6cab28cde83f17cee26987fc2615a35aed0ee2c82b6c6d2fc0ae127",
       "size_bytes": 1703
     },
     {
       "path": "cad/build_compact_organizer.py",
-      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
-      "size_bytes": 49663
+      "sha256": "6c29d32141aee0c4457eba79a865f5a92306335e688c0bbee66af233b0d9ae98",
+      "size_bytes": 56692
     }
   ],
   "limitations": [],
   "metrics": {
-    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1-assembly-source.stl",
-    "assembly_source_stl_sha256": "64b378752a8191ae4f0391a66ecb1e9b87a6820bd1c3c5517fea7522b50d9d27",
-    "baseline_volume_mm3": 173524.0473031649,
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.2-assembly-source.stl",
+    "assembly_source_stl_sha256": "92d72a66d2cdc1bdb62d479d41d64717af0221b45e3b0ee959abcf37e70261e2",
+    "baseline_volume_mm3": 172631.88707892637,
     "cad": {
       "bounds_mm": [
         [
-          -0.0008392542539221359,
-          -0.0008392542539424185,
-          -0.0020979856348251396
+          -0.005594461692815329,
+          -0.011963004951132436,
+          -0.005211615317194479
         ],
         [
-          205.60083925425394,
+          205.60559446169285,
           185.10209798563483,
-          49.00083925425394
+          49.011963004951134
         ]
       ],
       "center_of_mass_mm": [
-        102.80111688025293,
-        77.062815984843,
-        14.389434499831891
+        102.7999999492733,
+        77.62940558348309,
+        14.222403689272475
       ],
       "extents_mm": [
-        205.60167850850786,
-        185.10293723988877,
-        49.002937239888766
+        205.61118892338567,
+        185.11406099058595,
+        49.01717462026833
       ],
       "solids": 1,
       "valid_brep": true,
-      "volume_mm3": 173355.1708703679
+      "volume_mm3": 172114.62931881024
     },
-    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.stl",
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.2.stl",
     "mesh": {
       "bounds_mm": [
         [
@@ -146,9 +171,9 @@
         ]
       ],
       "center_mass_mm": [
-        102.80112,
-        77.06279,
-        14.38936
+        102.8,
+        77.62909,
+        14.22247
       ],
       "components": 1,
       "extents_mm": [
@@ -156,21 +181,21 @@
         185.10001,
         49.0
       ],
-      "file_bytes": 66284,
-      "file_mib": 0.06321334838867188,
+      "file_bytes": 104084,
+      "file_mib": 0.09926223754882812,
       "positive_volume": true,
-      "sha256": "cca482580a34b330ac2fd5bb448d8e1156e0df7d7fdbe840c3eba590d6f1b7e0",
-      "surface_area_mm2": 146760.59680068257,
-      "triangles": 1324,
-      "vertices": 664,
-      "volume_mm3": 173353.7413511714,
+      "sha256": "6a83f776c94d97fc77a2bfc9b3c0ec051527b697dc8ae3a2c577c07d61f43ea2",
+      "surface_area_mm2": 147411.80694246694,
+      "triangles": 2080,
+      "vertices": 1042,
+      "volume_mm3": 172114.0327469453,
       "watertight": true,
       "winding_consistent": true
     },
     "name": "drawer",
     "quantity": 2,
-    "step": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.1.step",
-    "step_sha256": "4181417400bdb6baef0356ca93c179fde41299439e100c041a5a536e2fc96f80"
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-drawer-print-twice-2.0.0-draft.2.step",
+    "step_sha256": "b48c098b14f92b6760230d1e0995aac7306a13acfe5402fae90f411efea35f12"
   },
   "profile": "draft",
   "required_capabilities": [],

@@ -1,0 +1,167 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00066
+title: Rounded-shell organizers need matched pocket profiles and checks on the assembled exported geometry
+captured_at: 2026-09-05
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: low
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: One corrected digital revision of one desk-organizer assembly; no slicer or physical-print evidence.
+feature:
+  type: rounded containment shell with sliding drawer and appearance texture
+  geometry: CadQuery housing, two identical drawers, six-bin sorter, fit coupon and vertical-wall texture coupon
+  design_parameters:
+    outer_plan_radius_mm: 10.0
+    housing_side_wall_mm: 3.0
+    housing_rear_wall_mm: 2.4
+    sorter_outer_wall_mm: 2.4
+    sorter_inner_radius_mm: 7.6
+    drawer_body_radius_mm: 3.0
+    drawer_inner_radius_mm: 1.0
+    drawer_fascia_radius_xz_mm: 8.0
+    nominal_drawer_side_clearance_each_mm: 0.45
+    nominal_drawer_top_clearance_mm: 3.0
+    nominal_drawer_rear_clearance_mm: 5.7
+    texture_pitch_mm: 3.2
+    texture_groove_width_mm: 0.8
+    texture_groove_depth_mm: 0.24
+  named_datums:
+    - housing front plane y=0
+    - housing rear plane y=190
+    - drawer fascia y=-3.2..0
+    - sorter top z=65
+  constraints:
+    - Rounded containment walls remain continuous at every corner.
+    - Drawer fascia remains outside the housing while the body travels along +Y.
+    - Sliding faces, stack features, bed datums and hand-contact edges remain untextured.
+    - A vertical-wall appearance needs a vertical-wall coupon.
+scope:
+  process: FFF
+  machine:
+    manufacturer: unknown
+    model: common 220 x 220 x 250 mm printer class
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: ordinary PLA or supplier-specific Tough PLA
+    variant: null
+    color: dark charcoal or black
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: 0.4
+    material: unknown
+    geometry: unknown
+    hotend: unknown
+    wear_state: unknown
+  orientation: housing rear wall on bed; drawers and sorter bottom down; texture coupon foot down with wall vertical
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: rounded parametric desktop organizer with long sliding drawer
+  environment: dry indoor digital CAD review; no physical print
+  transfer_limits:
+    - Observed on one CadQuery organizer using rectangular cutters inside plan-filleted solids.
+    - Probe coordinates and clearances are product-specific.
+    - The 0.45 mm nominal side clearance has no qualified process evidence.
+observation:
+  summary: The owner reported a non-carbon appearance, open rear housing and sorter corners, inconsistent straight drawer fronts and doubtful play in draft.1.
+  expected: Rounded shells retain closed corners, drawer fronts continue the approved rounded language, the assembled drawer clears the housing, and the carbon cue is tested on a representative surface.
+  actual: Draft.1 used rectangular inner cutters through rounded outer solids, placed its fascia inside the housing, filleted the fascia in plan instead of the front silhouette, cut the scoop on the wrong side, used coarse crossed grooves, and built a 78 x 34 x 3 mm flat coupon for a vertical-wall effect.
+  outcome: correction
+  parameter: inner_profile_and_assembly_verification_route
+  recommended_value: matched inner profiles plus final-STEP corner probes, full-travel B-Rep intersections and a process-representative texture coupon
+  units: workflow-contract
+explanation:
+  hypothesis: A watertight single-component mesh can still contain deliberate but unintended through-openings and assembly collisions when checks cover only topology, nominal arithmetic and isolated part bounds.
+  mechanism: Offset or otherwise matched pocket profiles preserve wall continuity through a rounded corner; placing the fascia outside the housing separates cosmetic closure from the sliding body; probes and B-Rep intersections measure the final solids rather than trusting the generator's construction intent.
+  alternatives:
+    - Fill the visible corner gaps after rectangular subtraction; rejected because it hides the incompatible construction and is harder to parameterize.
+    - Keep the fascia inside the housing and add local clearances; rejected because it consumes depth and caused measurable overlap.
+    - Accept topology PASS as proof of quality; rejected because draft.1 was watertight despite all reported openings.
+  validated: true
+  validation_method: Exact point classification and B-Rep intersections on immutable draft.1 and draft.2 STEP masters using cad/audit_quality.py.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 4
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 1
+  measured: true
+  measurement_method: CadQuery STEP import, exact solid point classification, exact intersection volume and bounding-box comparison.
+  uncertainty: Digital geometry only; fit, warp, appearance, snagging and drawer-cycle behavior remain untested.
+  sources:
+    - type: user-statement
+      ref: conversation 2026-09-05 — MM-ORG-003 quality correction
+      hash: null
+      notes: Direct rejection of carbon appearance, open corners, front inconsistency and doubtful fit.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/quality-audit-draft.1-to-draft.2.json
+      hash: null
+      notes: Reproducible before/after measurements from STEP masters.
+    - type: product-trace
+      ref: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/preflight/preflight-result.json
+      hash: null
+      notes: Corrective C3/R2/K1 Lane-C assessment and physical-gate boundary.
+  artifacts:
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/audit_quality.py
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/build_compact_organizer.py
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json
+applicability:
+  triggers:
+    - A rounded outer shell is hollowed or opened by a rectangular cutter.
+    - A drawer fascia and sliding body share one depth stack.
+    - An isolated watertight part is treated as proof of assembly clearance.
+    - A texture coupon does not reproduce the final surface orientation.
+  exclusions:
+    - Open corners explicitly required as drainage, ventilation or access features.
+    - Assemblies whose fascia is intentionally inset and verified with a distinct pocket.
+  transfer_limits:
+    - Derive probe points, radii, motion samples and fit values per product.
+    - Do not transfer the nominal 0.45 mm clearance across printers, materials or profiles.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-geometry-rounded-shell-pocket-continuity-001
+    - EVAL-interfaces-sliding-drawer-full-travel-001
+    - EVAL-visual-carbon-cue-representative-coupon-001
+    - EVAL-visual-drawer-housing-front-language-001
+  patterns: []
+  references:
+    - .agents/skills/functional-3d-design/SKILL.md
+    - .agents/skills/design-printable-surface-textures/SKILL.md
+    - .agents/skills/validate-printable-3d-projects/SKILL.md
+validation:
+  targeted: pass
+  regression: pass
+  reports:
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/quality-audit-draft.1-to-draft.2.json
+    - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json
+provenance:
+  project: MM-ORG-003
+  part_revision: 2.0.0-draft.2
+  trace: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/decision-log.md
+  source_commit: null
+  created_by: Codex via 3d-skill-maintainer
+tags:
+  - rounded-shell
+  - containment
+  - drawer-clearance
+  - assembly-collision
+  - surface-texture
+  - user-correction
+  - regression

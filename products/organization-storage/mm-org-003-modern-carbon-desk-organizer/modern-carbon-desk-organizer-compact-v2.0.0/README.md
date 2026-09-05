@@ -4,15 +4,16 @@ This is the common-220-printer derivative of PORT-004. It is a fully parameteriz
 
 Current status: **DRAFT digital engineering candidate**. Parametric source, manufacturing meshes, 3MF structure, build-volume checks and nominal interfaces pass. Exact slicing and physical qualification are intentionally open.
 
-![Digital candidate preview](renders/MM-ORG-003-compact-digital-candidate.png)
+![Digital candidate preview](renders/MM-ORG-003-compact-digital-candidate-draft.2.png)
 
 ## Controlled dimensions
 
-- assembled envelope: 210 × 190 × 173 mm
+- assembled envelope: 210 × 193.2 × 173 mm, including the 3.2 mm proud drawer fascia
 - housing: 210 × 190 × 108 mm
 - drawer, quantity two: 205.6 × 185.1 × 49 mm manufacturing envelope
 - sorter: 210 × 190 × 65 mm, six cells
 - drawer side clearance: 0.45 mm per side
+- drawer top/rear clearance: 3.0 / 5.7 mm
 - stack peg/socket clearance: 0.35 mm per side
 - target build volume: 220 × 220 × 250 mm
 
@@ -23,23 +24,18 @@ The source of truth is `model-parameters.json`. `design-spec.yaml` owns the requ
 CadQuery and Trimesh are required. To keep OCCT peak memory bounded, build each part in a separate process from this directory:
 
 ```sh
-python3 -u cad/build_compact_organizer.py --part housing
-python3 -u cad/build_compact_organizer.py --part drawer
-python3 -u cad/build_compact_organizer.py --part sorter
-python3 -u cad/build_compact_organizer.py --part fit_coupon
-python3 -u cad/build_compact_organizer.py --part texture_coupon
-python3 cad/finalize_compact_build.py
+python3 cad/build.py
 python3 cad/check_interfaces.py
 ```
 
-`python3 cad/build.py` is the convenience wrapper. The isolated commands above are the authoritative fallback in cgroup-constrained environments.
+`python3 cad/build.py` runs each part in a fresh process and then performs the aggregate corner, collision, mesh and package checks.
 
 ## Deliverables
 
 - editable source and parameters: `cad/`, `model-parameters.json`
 - STEP masters: `exports/master/`
 - manufacturing STLs: `exports/manufacturing/`
-- DRAFT multi-object 3MF: `exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf`
+- DRAFT multi-object 3MF: `exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.2.3mf`
 - digital reports: `validation/` and `reports/`
 - print guidance: `PRINT-GUIDE.md`
 

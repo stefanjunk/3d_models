@@ -1,225 +1,166 @@
 {
-  "assessment_id": "PREFLIGHT-MM-ORG-003-001",
-  "assessment_version": "0.1.0",
-  "assessment_date": "2026-08-31",
+  "assessment_id": "PREFLIGHT-MM-ORG-003-002",
+  "assessment_version": "0.2.0",
+  "assessment_date": "2026-09-05",
   "product": "Modern Carbon Desk Organizer Compact",
   "scope": {
-    "intended_use": "Provide a compact compartmented desk organizer with a carbon-inspired visual surface treatment for dry indoor stationery storage.",
-    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
-    "variants": [
-      "2.0.0-draft.1"
-    ],
+    "intended_use": "Compact two-drawer desk organizer with removable six-bin sorter, continuous containment walls, coherent rounded fronts, and a recognizable carbon-twill appearance for dry indoor stationery storage.",
+    "user_context": "The owner rejected 2.0.0-draft.1 on 2026-09-05 because its carbon cue, corner continuity, front-language consistency, and apparent fit quality were inadequate. This assessment governs the corrective digital revision; exact printer, filament, and slicer profile remain unknown.",
+    "variants": ["2.0.0-draft.2"],
     "out_of_scope": [
-      "Claims not explicitly supported by the cited repository evidence",
-      "Production release without closure of blocking gates"
+      "A physical fit claim without a process-matched coupon",
+      "A load, cycle-life, safety, or commercial-release claim",
+      "Printer upload or print start"
     ]
   },
   "entities": [
-    {
-      "id": "E-PRINT-001",
-      "kind": "PRINTED_PART",
-      "name": "Modern Carbon Desk Organizer Compact"
-    },
-    {
-      "id": "E-HOST-001",
-      "kind": "HOST_OBJECT",
-      "name": "Intended host object or storage envelope"
-    }
+    {"id": "E-HOUSING-001", "kind": "PRINTED_PART", "name": "Two-bay housing"},
+    {"id": "E-DRAWER-001", "kind": "PRINTED_PART", "name": "Identical sliding drawer"},
+    {"id": "E-SORTER-001", "kind": "PRINTED_PART", "name": "Removable six-bin top sorter"},
+    {"id": "E-HUMAN-001", "kind": "HUMAN", "name": "Adult desk user"},
+    {"id": "E-ENV-001", "kind": "ENVIRONMENT", "name": "Dry indoor desktop environment"}
   ],
   "interfaces": [
     {
-      "id": "IF-EXT-GEO-CON-MIXED-001",
-      "name": "Printed product to intended host",
-      "endpoint_b": "E-HOST-001",
-      "boundary": "EXT",
-      "domains": [
-        "GEO",
-        "MEC"
-      ],
-      "function": "CON",
-      "geometry": "MIXED",
-      "endpoint_a": "E-PRINT-001",
-      "lifecycle_states": [
-        "assembly",
-        "use",
-        "cleaning",
-        "service",
-        "disassembly",
-        "storage"
-      ],
+      "id": "IF-INT-KIN-SLD-SLOT-001",
+      "name": "Drawer body sliding inside housing bay",
+      "endpoint_a": "E-DRAWER-001",
+      "endpoint_b": "E-HOUSING-001",
+      "boundary": "INT",
+      "domains": ["GEO", "KIN", "MEC"],
+      "function": "SLD",
+      "geometry": "SLOT",
+      "lifecycle_states": ["assembly", "calibration", "use", "cleaning", "service", "disassembly", "failure"],
       "dimensions": [
-        {
-          "id": "DIM-PRIMARY-001",
-          "feature": "Primary interface envelope and functional allowance",
-          "nominal_mm": null,
-          "lower_mm": null,
-          "upper_mm": null,
-          "clearance_mm": null,
-          "uncertainty_mm": null,
-          "status": "UNKNOWN",
-          "source_ref": "modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml",
-          "criticality": "FIT_CRITICAL"
-        }
+        {"id": "DIM-SIDE-CLEARANCE-001", "feature": "Nominal side clearance per side", "nominal_mm": 0.45, "lower_mm": null, "upper_mm": null, "clearance_mm": 0.45, "uncertainty_mm": null, "status": "DERIVED", "source_ref": "modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json", "criticality": "FIT_CRITICAL"},
+        {"id": "DIM-TOP-CLEARANCE-001", "feature": "Nominal vertical clearance", "nominal_mm": 3.0, "lower_mm": null, "upper_mm": null, "clearance_mm": 3.0, "uncertainty_mm": null, "status": "DERIVED", "source_ref": "modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json", "criticality": "FIT_CRITICAL"}
       ],
-      "evidence": {
-        "level": "E1",
-        "sources": [
-          "modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml",
-          "modern-carbon-desk-organizer-compact-v2.0.0/README.md",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/slicer-preflight-report.json",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/requirements-approval-report.json",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-texture-coupon.json",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter.json",
-          "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-policy-production.json"
-        ],
-        "variant_confirmed": false,
-        "coverage_percent": 35,
-        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
-        "observability": "INFERRED"
-      },
-      "interface_complexity": {
-        "GEO": 1,
-        "KIN": 0,
-        "TOL": 2,
-        "PHY": 1,
-        "VAR": 2,
-        "LIF": 2,
-        "total": 8,
-        "tier": "I2"
-      },
+      "degrees_of_freedom": {"allowed": ["translation along Y"], "constrained": ["translation along X and Z", "rotation"]},
+      "assembly": {"direction": "front to rear along +Y", "contact_mode": "clearance slide", "sequence_notes": "Print the fit coupon for the exact process before committing a full print."},
+      "evidence": {"level": "E3", "sources": ["modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json", "modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json"], "variant_confirmed": true, "coverage_percent": 70, "uncertainty_note": "Nominal CAD values are exact, but process compensation and long-part warp are unqualified.", "observability": "PARTLY_OBSERVED"},
+      "interface_complexity": {"GEO": 2, "KIN": 2, "TOL": 3, "PHY": 2, "VAR": 3, "LIF": 2, "total": 14, "tier": "I3"},
       "criticality": "K1",
-      "failure_modes": [
-        {
-          "mode": "Primary interface does not meet fit or functional intent",
-          "effect": "Loss of intended function and the credible failure effects recorded at product level",
-          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
-        }
-      ],
-      "verification": {
-        "method": "test_coupon",
-        "acceptance_criteria": [
-          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
-        ],
-        "status": "PLANNED",
-        "result_refs": []
-      },
+      "failure_modes": [{"mode": "Drawer binds, rattles, or collides during travel", "effect": "Loss of intended access and possible cosmetic damage", "mitigation": "Keep rails smooth, verify full motion envelope digitally, then select clearance from a process-matched coupon."}],
+      "verification": {"method": "test_coupon", "acceptance_criteria": ["No CAD collision across full insertion travel.", "Selected coupon pair slides through the full test length without force or objectionable rattle."], "status": "PLANNED", "result_refs": []},
       "owner": "product owner",
-      "version": "0.1"
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-GEO-LOC-SLOT-002",
+      "name": "Sorter registration on housing",
+      "endpoint_a": "E-SORTER-001",
+      "endpoint_b": "E-HOUSING-001",
+      "boundary": "INT",
+      "domains": ["GEO", "MEC"],
+      "function": "LOC",
+      "geometry": "SLOT",
+      "lifecycle_states": ["assembly", "use", "cleaning", "service", "disassembly", "failure"],
+      "dimensions": [{"id": "DIM-STACK-CLEARANCE-001", "feature": "Nominal peg-to-socket clearance per side", "nominal_mm": 0.35, "lower_mm": null, "upper_mm": null, "clearance_mm": 0.35, "uncertainty_mm": null, "status": "DERIVED", "source_ref": "modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json", "criticality": "FIT_CRITICAL"}],
+      "evidence": {"level": "E3", "sources": ["modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json", "modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json"], "variant_confirmed": true, "coverage_percent": 75, "uncertainty_note": "CAD clearance is verified; physical insertion and retention are not.", "observability": "PARTLY_OBSERVED"},
+      "interface_complexity": {"GEO": 2, "KIN": 1, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 1, "total": 9, "tier": "I2"},
+      "criticality": "K1",
+      "failure_modes": [{"mode": "Sorter pegs bind or the sorter rocks", "effect": "Module cannot be seated or feels unstable", "mitigation": "Verify socket depth and lateral clearance, then test the stack coupon/full prototype."}],
+      "verification": {"method": "prototype_test", "acceptance_criteria": ["All four pegs clear their sockets without bottoming in CAD.", "Printed sorter seats fully and can be removed by hand without damage."], "status": "PLANNED", "result_refs": []},
+      "owner": "product owner",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-GEO-CON-BODY-003",
+      "name": "Continuous housing and sorter containment corners",
+      "endpoint_a": "E-HOUSING-001",
+      "endpoint_b": "E-SORTER-001",
+      "boundary": "INT",
+      "domains": ["GEO", "MEC"],
+      "function": "CON",
+      "geometry": "BODY",
+      "lifecycle_states": ["transport", "assembly", "use", "cleaning", "service", "failure"],
+      "dimensions": [{"id": "DIM-CORNER-WALL-001", "feature": "Minimum continuous nominal wall at rounded containment corners", "nominal_mm": 2.4, "lower_mm": 2.16, "upper_mm": null, "clearance_mm": null, "uncertainty_mm": null, "status": "DERIVED", "source_ref": "modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml", "criticality": "FUNCTION_CRITICAL"}],
+      "keepouts_and_access": ["No rectangular pocket may break through a rounded outer corner.", "Drawer and compartment access must remain unobstructed."],
+      "evidence": {"level": "E2", "sources": ["modern-carbon-desk-organizer-compact-v2.0.0/renders/MM-ORG-003-compact-digital-candidate.png", "modern-carbon-desk-organizer-compact-v2.0.0/cad/build_compact_organizer.py", "owner correction dated 2026-09-05"], "variant_confirmed": true, "coverage_percent": 55, "uncertainty_note": "The failure mechanism is identified; corrected minimum-wall evidence is pending the new build.", "observability": "OBSERVED"},
+      "interface_complexity": {"GEO": 3, "KIN": 0, "TOL": 2, "PHY": 1, "VAR": 1, "LIF": 1, "total": 8, "tier": "I2"},
+      "criticality": "K1",
+      "failure_modes": [{"mode": "Rectangular cavity intersects rounded exterior and removes corner wall", "effect": "Visible open corners, loss of small-item containment, weak and poor-quality appearance", "mitigation": "Use matched rounded pocket geometry and deterministic corner-section probes."}],
+      "verification": {"method": "analysis", "acceptance_criteria": ["All defined housing-rear and sorter-top corner probes intersect positive wall material.", "No zero-thickness or open containment corner is visible in orthographic review."], "status": "PLANNED", "result_refs": []},
+      "owner": "product owner",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-HUM-OPT-VIS-FREEFORM-004",
+      "name": "Rounded front language and carbon-twill appearance",
+      "endpoint_a": "E-HOUSING-001",
+      "endpoint_b": "E-HUMAN-001",
+      "boundary": "HUM",
+      "domains": ["OPT", "HUM"],
+      "function": "VIS",
+      "geometry": "FREEFORM",
+      "lifecycle_states": ["use", "cleaning", "service"],
+      "dimensions": [{"id": "DIM-TWILL-PITCH-001", "feature": "Stylized twill motif pitch candidate", "nominal_mm": 3.2, "lower_mm": 1.8, "upper_mm": 3.6, "clearance_mm": null, "uncertainty_mm": null, "status": "ESTIMATED", "source_ref": ".agents/skills/design-printable-surface-textures/references/pattern-families.md", "criticality": "COSMETIC"}],
+      "evidence": {"level": "E2", "sources": ["modern-carbon-desk-organizer-compact-v2.0.0/assets/concept/MM-ORG-003-compact-concept-v2.png", "owner correction dated 2026-09-05", ".agents/skills/design-printable-surface-textures/examples/carbon-twill-flat.json"], "variant_confirmed": true, "coverage_percent": 55, "uncertainty_note": "The desired family is clear; appearance and tactile acceptance require process-matched coupons under three light angles.", "observability": "PARTLY_OBSERVED"},
+      "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 1, "PHY": 1, "VAR": 2, "LIF": 1, "total": 7, "tier": "I2"},
+      "criticality": "K0",
+      "failure_modes": [{"mode": "Pattern reads as coarse crosshatch or mesh triangulation rather than twill", "effect": "The named carbon appearance and perceived product quality are not met", "mitigation": "Use a compact 2x2 twill field, remove wireframe mesh edges from presentation, and compare plain/coarse/medium/fine coupons."}],
+      "verification": {"method": "user_test", "acceptance_criteria": ["Pattern is recognized as a stylized carbon twill at normal desk distance under three light angles.", "Drawer fronts form continuous rounded reveals with the housing.", "No snagging or sharp hand-contact edge is observed."], "status": "PLANNED", "result_refs": []},
+      "owner": "product owner",
+      "version": "0.2"
     }
   ],
   "complexity": {
-    "dimension_scores": {
-      "REQ": 2,
-      "CTX": 2,
-      "PAR": 3,
-      "INT": 2,
-      "CPL": 1,
-      "MOT": 0,
-      "GEO": 1,
-      "PHY": 1,
-      "MAT": 2,
-      "EXT": 3,
-      "VER": 2
-    },
-    "score_0_100": 42.5,
+    "dimension_scores": {"REQ": 2, "CTX": 1, "PAR": 3, "INT": 3, "CPL": 2, "MOT": 1, "GEO": 2, "PHY": 1, "MAT": 2, "EXT": 2, "VER": 3},
+    "score_0_100": 46.0,
     "class": "C3",
     "drivers": [
-      "INT=2: At least one functional host, human, medium, or assembly boundary governs success.",
-      "PAR=3: The current evidence exposes approximately 12 distinct geometry-file stems; exports may duplicate physical parts.",
-      "EXT=3: Purchased hardware, printer equipment, electronics, or software participates in the system."
+      "INT=3: long sliding drawers, a four-point removable stack interface, containment walls, and appearance keep-outs interact.",
+      "PAR=3: one parametric source controls five printable artifacts and derived STEP/STL/3MF evidence.",
+      "VER=3: geometry, motion, fit coupon, texture coupon, exact slicing, and physical appearance require distinct gates."
     ]
   },
   "readiness": {
-    "level": "R1",
-    "component_levels": {
-      "scope_variant": "R3",
-      "requirements": "R2",
-      "critical_interfaces": "R2",
-      "manufacturing_profile": "R1",
-      "verification": "R2"
-    },
+    "level": "R2",
+    "component_levels": {"scope_variant": "R4", "requirements": "R4", "critical_interfaces": "R3", "manufacturing_profile": "R2", "verification": "R2"},
     "blocking_unknowns": [
-      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
-      "complete printer/material/nozzle/orientation/process-profile set",
-      "measurable acceptance criteria",
-      "verification plan and physical result references"
+      "qualified XY sliding clearance for the exact printer/material/nozzle/profile",
+      "exact machine, filament product, slicer version, and complete process profile",
+      "physical drawer travel/cycle, sorter seating, anti-tip, and texture-appearance results"
     ],
-    "completeness_percent": 40.0
+    "completeness_percent": 68.0
   },
   "criticality": {
     "level": "K1",
-    "rationale": "Failure is expected to cause inconvenience, fit loss, or limited property impact without credible high energy in the documented scope.",
-    "credible_failure_effects": [
-      "loss of intended function",
-      "minor item or surface damage"
-    ]
+    "rationale": "In dry indoor desk use, credible failures are binding, rattling, small-item loss, snagging, and limited surface/property damage; no high-energy or safety-rated claim is made.",
+    "credible_failure_effects": ["loss of intended function", "minor item or desktop damage", "poor appearance or hand feel"]
   },
-  "gates": {
-    "G0": "PASS",
-    "G1": "PASS",
-    "G2": "WARN",
-    "G3": "FAIL",
-    "G4": "FAIL",
-    "G5": "PASS",
-    "G6": "PASS"
-  },
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "WARN", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
   "decision": {
-    "lane": "E",
+    "lane": "C",
     "confidence": "LOW_UNKNOWN",
-    "design_release": "HOLD",
-    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "Proceed with a corrective digital draft and deterministic geometry/motion checks. Keep print-candidate, fit/function, appearance, safety, and commercial release blocked until the exact process, coupons, slicer preview, and human review exist."
   },
   "warnings": [
-    {
-      "code": "CRITICAL_INTERFACE_UNKNOWN",
-      "severity": "BLOCKER",
-      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
-    },
-    {
-      "code": "VERIFICATION_NOT_DEFINED",
-      "severity": "BLOCKER",
-      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
-    }
+    {"code": "CRITICAL_INTERFACE_UNKNOWN", "severity": "WARN", "message": "Nominal CAD clearances are defined but physical sliding clearance remains unqualified for the exact process."},
+    {"code": "VERIFICATION_NOT_DEFINED", "severity": "WARN", "message": "The exact printer, filament, and complete slicer profile are still unknown; exact slicing remains fail-closed."}
   ],
   "next_actions": [
-    {
-      "priority": 1,
-      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
-      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
-    },
-    {
-      "priority": 2,
-      "action": "Record the exact manufacturing profile.",
-      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
-    },
-    {
-      "priority": 3,
-      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
-      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
-    }
+    {"priority": 1, "action": "Correct the matched rounded pocket geometry, drawer-front silhouette, and twill representation.", "exit_criterion": "New STEP/STL artifacts pass solid, corner-continuity, full-travel, protected-surface, and visual-review checks."},
+    {"priority": 2, "action": "Qualify XY sliding clearance on the exact printer/material/nozzle/profile.", "exit_criterion": "A measured fit coupon selects a clearance and the unchanged full-length drawer passes insertion and travel."},
+    {"priority": 3, "action": "Run the exact Anycubic slicer adapter if an Anycubic destination and complete profiles are selected.", "exit_criterion": "A fresh isolated slice records the binary/profile/input hashes, native PASS result, G-code hash, and manual layer/seam/support review."}
   ],
   "traceability": {
     "mode": "RETROSPECTIVE",
     "project_id": "MM-ORG-003",
-    "project_revision": "2.0.0-draft.1",
+    "project_revision": "2.0.0-draft.2",
     "basis_refs": [
+      "preflight/preflight-input.yaml",
       "modern-carbon-desk-organizer-compact-v2.0.0/design-spec.yaml",
-      "modern-carbon-desk-organizer-compact-v2.0.0/README.md",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/slicer-preflight-report.json",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/requirements-approval-report.json",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/parametric-source-report.json",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-texture-coupon.json",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-sorter.json",
-      "modern-carbon-desk-organizer-compact-v2.0.0/validation/mesh-policy-production.json"
+      "modern-carbon-desk-organizer-compact-v2.0.0/model-parameters.json",
+      "modern-carbon-desk-organizer-compact-v2.0.0/cad/build_compact_organizer.py",
+      "modern-carbon-desk-organizer-compact-v2.0.0/renders/MM-ORG-003-compact-digital-candidate.png",
+      "modern-carbon-desk-organizer-compact-v2.0.0/validation/interface-report.json",
+      "owner correction dated 2026-09-05 in the active design review"
     ],
-    "change_triggers": [
-      "backfill_missing_preflight",
-      "portfolio_documentation_audit",
-      "product_root_version_cleanup"
-    ],
-    "previous_assessment_id": null,
+    "change_triggers": ["user_quality_correction", "corner_continuity_failure", "appearance_mismatch", "clearance_reaudit"],
+    "previous_assessment_id": "PREFLIGHT-MM-ORG-003-001",
     "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T12:29:39+02:00"
+    "updated_at": "2026-09-05T12:00:00+02:00"
   }
 }

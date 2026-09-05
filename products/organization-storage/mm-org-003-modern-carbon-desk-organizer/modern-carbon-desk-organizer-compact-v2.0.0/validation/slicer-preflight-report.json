@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "tool": "MM-ORG-003-slicer-preflight",
-  "tool_version": "2.0.0",
+  "tool_version": "2.0.0-draft.2",
   "status": "NOT_RUN",
   "profile": "draft",
   "inputs": [
     {
-      "path": "exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.1.3mf",
-      "sha256": "1ab8b66524610c5a2a59cbbf096e14fff2333c385ede7703772fe131671acc4d",
-      "size_bytes": 32441
+      "path": "exports/3mf/DRAFT-MM-ORG-003-modern-carbon-compact-2.0.0-draft.2.3mf",
+      "sha256": "30ab6ed4232b1ab5599ade1e896ed5407dd08bb35c7777291007f7dd20935649",
+      "size_bytes": 46089
     }
   ],
   "checks": [
@@ -16,9 +16,17 @@
       "id": "exact-slicer-profile",
       "status": "NOT_RUN",
       "required": true,
-      "message": "No supported exact slicer CLI and destination printer/material profile is installed in the workspace environment.",
-      "metrics": {},
-      "evidence": []
+      "message": "Anycubic Slicer Next is installed, but the project does not contain the complete explicit machine, process and filament JSON profile set required by the supported headless adapter.",
+      "metrics": {
+        "adapter": "fdm_ci.py slice-anycubic-next",
+        "slicer_executable": "/usr/bin/AnycubicSlicerNext",
+        "machine_profile": "MISSING",
+        "process_profile": "MISSING",
+        "filament_profile": "MISSING"
+      },
+      "evidence": [
+        "validation/environment-draft.2.json"
+      ]
     }
   ],
   "metrics": {
@@ -31,10 +39,13 @@
   },
   "limitations": [
     "No G-code, print-time, deposited-material or support metrics are claimed.",
-    "The user explicitly deferred final print validation."
+    "A slice is fail-closed until a complete explicit Anycubic machine/process/filament profile set is supplied.",
+    "Final layer, support, seam and surface-appearance review remains human-controlled."
   ],
   "required_capabilities": [
     "exact_slicer_cli",
-    "destination_printer_profile"
+    "machine_profile",
+    "process_profile",
+    "filament_profile"
   ]
 }

@@ -1,0 +1,38 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-geometry-rounded-shell-pocket-continuity-001
+title: Rounded containment shells retain material at every corner after pocket subtraction
+category: geometry
+status: draft
+trigger: A rounded or filleted outer shell is hollowed or opened by a pocket with a different corner profile.
+risk: A watertight mesh can still have unintended through-openings, lose small-item containment and present visibly weak corners.
+given:
+  input: Final STEP masters, named outer and inner radii, minimum wall requirement, and corner probe coordinates outside intended access openings.
+expected:
+  - Every named corner probe classifies inside the final solid.
+  - The pocket profile is an explicit offset or otherwise justified matched profile of the outer shell.
+  - A visual rear/top review shows continuous walls without zero-thickness contact.
+failure_conditions:
+  - Any required corner probe classifies as void.
+  - A topology-only watertight PASS is used as proof of containment.
+  - A rectangular pocket breaks through a rounded wall without an explicit opening requirement.
+fixtures:
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.1.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-housing-2.0.0-draft.2.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.step
+  - products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.2.step
+grader:
+  type: deterministic
+  command: python3 products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/cad/audit_quality.py
+  expected_exit_code: 0
+  rubric: null
+  measurement_method: Exact CadQuery point classification on immutable STEP solids.
+relationships:
+  lessons: [EXP-00066]
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: products/organization-storage/mm-org-003-modern-carbon-desk-organizer/modern-carbon-desk-organizer-compact-v2.0.0/validation/quality-audit-draft.1-to-draft.2.json
+  artifact_hashes: []
+tags: [rounded-shell, pocket, corner-continuity, containment]

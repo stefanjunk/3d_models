@@ -58,9 +58,9 @@
       "message": "sorter documented orientation fits 220 x 220 x 250 mm",
       "metrics": {
         "extents_mm": [
-          210.01251220756996,
-          190.01251220756996,
-          65.01251220756996
+          210.0139861042321,
+          190.0139861042321,
+          65.01398610423212
         ]
       },
       "required": true,
@@ -71,7 +71,7 @@
       "id": "triangle-budget",
       "message": "sorter stays within triangle budget",
       "metrics": {
-        "triangles": 1068
+        "triangles": 1516
       },
       "required": true,
       "status": "PASS"
@@ -81,7 +81,45 @@
       "id": "file-budget",
       "message": "sorter stays within mesh file budget",
       "metrics": {
-        "file_mib": 0.051006317138671875
+        "file_mib": 0.07236862182617188
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "corner-continuity",
+      "message": "sorter retains material at every defined rounded containment-corner probe",
+      "metrics": {
+        "all_inside": true,
+        "inside": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "points_mm": [
+          [
+            3.5,
+            3.5,
+            32.5
+          ],
+          [
+            206.5,
+            3.5,
+            32.5
+          ],
+          [
+            3.5,
+            186.5,
+            32.5
+          ],
+          [
+            206.5,
+            186.5,
+            32.5
+          ]
+        ]
       },
       "required": true,
       "status": "PASS"
@@ -90,48 +128,48 @@
   "inputs": [
     {
       "path": "model-parameters.json",
-      "sha256": "3bae3154b42bc53189bbec0939b966c97f319cb9abc492e751f7fa1d592841f9",
+      "sha256": "b979083bc6cab28cde83f17cee26987fc2615a35aed0ee2c82b6c6d2fc0ae127",
       "size_bytes": 1703
     },
     {
       "path": "cad/build_compact_organizer.py",
-      "sha256": "daace5854138f24d598ed094017083b9bb46174fe39789b292590a9f2cf57e66",
-      "size_bytes": 49663
+      "sha256": "6c29d32141aee0c4457eba79a865f5a92306335e688c0bbee66af233b0d9ae98",
+      "size_bytes": 56692
     }
   ],
   "limitations": [],
   "metrics": {
-    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1-assembly-source.stl",
-    "assembly_source_stl_sha256": "350636fcfed861be61db92f6c2e53a699b55986c03900767113c2287172a6776",
-    "baseline_volume_mm3": 262232.7367855098,
+    "assembly_source_stl": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.2-assembly-source.stl",
+    "assembly_source_stl_sha256": "1c9286c1035ade913f93d494cfea21c97e795c60514e7520c5d2fe4da2e7b0a3",
+    "baseline_volume_mm3": 265211.64157303906,
     "cad": {
       "bounds_mm": [
         [
-          -0.006256103784973356,
-          -0.006256103784973356,
-          -0.006256103784973356
+          -0.006993052116036837,
+          -0.0069930521160370355,
+          -0.006993052116055214
         ],
         [
-          210.00625610378498,
-          190.00625610378498,
-          65.00625610378498
+          210.00699305211606,
+          190.00699305211606,
+          65.00699305211606
         ]
       ],
       "center_of_mass_mm": [
-        104.99991525203696,
-        95.03832938858407,
-        23.491768025718294
+        104.99999943174214,
+        95.11604902169329,
+        23.59773243861446
       ],
       "extents_mm": [
-        210.01251220756996,
-        190.01251220756996,
-        65.01251220756996
+        210.0139861042321,
+        190.0139861042321,
+        65.01398610423212
       ],
       "solids": 1,
       "valid_brep": true,
-      "volume_mm3": 262078.31667157463
+      "volume_mm3": 264863.1949534864
     },
-    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.stl",
+    "manufacturing_stl": "exports/manufacturing/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.2.stl",
     "mesh": {
       "bounds_mm": [
         [
@@ -146,9 +184,9 @@
         ]
       ],
       "center_mass_mm": [
-        104.99989,
-        95.03831,
-        23.49134
+        104.99997,
+        95.11603,
+        23.59749
       ],
       "components": 1,
       "extents_mm": [
@@ -156,21 +194,21 @@
         190.0,
         65.0
       ],
-      "file_bytes": 53484,
-      "file_mib": 0.051006317138671875,
+      "file_bytes": 75884,
+      "file_mib": 0.07236862182617188,
       "positive_volume": true,
-      "sha256": "2b1795035d534ec5ad3cf4e883c9f8aa0b2a691595e9844ca29abef38a528c05",
-      "surface_area_mm2": 253674.38913605164,
-      "triangles": 1068,
-      "vertices": 536,
-      "volume_mm3": 262064.9832573182,
+      "sha256": "f35189e65926c87618b8ceae1af55d9f3b3a071f30c8f67691f640e8155515fc",
+      "surface_area_mm2": 254302.98255606805,
+      "triangles": 1516,
+      "vertices": 760,
+      "volume_mm3": 264854.7334035663,
       "watertight": true,
       "winding_consistent": true
     },
     "name": "sorter",
     "quantity": 1,
-    "step": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.1.step",
-    "step_sha256": "8769c8cd0e2841be7e2cf78ab8efc648f70e98c90af819b9cb3dffd3fef05618"
+    "step": "exports/master/DRAFT-MM-ORG-003-compact-top-sorter-2.0.0-draft.2.step",
+    "step_sha256": "349f21beaf494e28fbfb19ae009d7e7e2529d89be894c95395b962ea40a20249"
   },
   "profile": "draft",
   "required_capabilities": [],

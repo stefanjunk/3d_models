@@ -52,11 +52,53 @@ def main():
           f"max x {mx:.1f} <= {niche[0]:.0f}, max y {my:.1f} <= {niche[1]:.0f}; "
           f"spare {niche[0]-mx:.1f} / {niche[1]-my:.1f} mm")
 
-    # C-02 door tip at 90 deg open inside the niche
+    # C-02 door tip at the 90 deg PARKED position is inside the niche
     t90 = G["door_tip_envelope"][90]
-    check("C-02", "door tip at 90 deg open stays inside the niche",
+    check("C-02", "door tip at the 90 deg parked position stays inside the niche",
           t90[0] <= niche[0] and t90[1] <= niche[1],
-          f"tip {t90}; max usable opening angle {G['max_open_angle_inside_niche_deg']} deg")
+          f"tip {t90}; max usable opening angle {G['max_open_angle_inside_niche_deg']} deg. "
+          f"This is the END position only - see C-18 for the swept path, which does "
+          f"leave the niche.")
+
+    # C-18 swept path: the door must never strike either wall, and the room-side
+    # clear space it demands must be stated. C-02 alone was incomplete: it tested
+    # the end position and said nothing about the arc travelled to get there.
+    piv = G["door_pivot"]
+    dw = G["door_w"]
+    f, nout = G["f"], G["n_out"]
+    hit_wall, max_x, max_y, max_r = False, 0.0, 0.0, 0.0
+    for i in range(0, 361):
+        a = math.radians(i * 90.0 / 360.0)                 # 0..90 deg of opening
+        for sgn in (+1, -1):                               # both doors of a row
+            dx = -sgn * f[0] * math.cos(a) + nout[0] * math.sin(a)
+            dy = -sgn * f[1] * math.cos(a) + nout[1] * math.sin(a)
+            for frac in (0.25, 0.5, 0.75, 1.0):            # sample along the leaf
+                px, py = piv[0] + dx * dw * frac, piv[1] + dy * dw * frac
+                if px < 0.0 or py < 0.0:
+                    hit_wall = True
+                max_x, max_y = max(max_x, px), max(max_y, py)
+                max_r = max(max_r, math.hypot(px, py))
+    check("C-18", "door leaf never strikes either niche wall while swinging",
+          not hit_wall,
+          f"swept quarter circle of radius {dw:.0f} mm about the front midpoint "
+          f"{piv}. REQUIRED CLEAR SPACE, room side: the leaf reaches x={max_x:.0f} mm "
+          f"and y={max_y:.0f} mm from the corner, i.e. up to {max_x-niche[0]:.0f} mm "
+          f"BEYOND the 1 m end of each wall, at {max_r:.0f} mm from the corner at its "
+          f"furthest. Nothing may stand in that quarter circle. The surroundings beyond "
+          f"the niche mouth are UNMEASURED - preflight IF-EXT-KIN-KOT-VOLUME-004, E1.")
+
+    # C-19 feet are spread and sit clear of the panel edges
+    p01f = [p for p in parts if p.pid == "P01"][0]
+    fs = [(h.x, h.y) for h in p01f.holes if h.kind == "foot_transfer"]
+    poly01 = Polygon(p01f.local)
+    from shapely.geometry import Point
+    half = P["hardware"]["foot_plate_pattern_mm"] / 2 + 6.0
+    inside = all(poly01.contains(Point(a, b).buffer(half)) for a, b in fs)
+    pair = min(math.dist(a, b) for i, a in enumerate(fs) for b in fs[i + 1:])
+    check("C-19", "feet are inside the bottom panel and adequately spread",
+          inside and pair >= 200.0,
+          f"{len(fs)} feet; closest pair {pair:.0f} mm apart (>= 200 required); every "
+          f"mounting plate fully inside the panel with a {half-20:.0f} mm margin")
 
     # C-03 every carcass part inside the footprint
     bad = []

@@ -1,4 +1,4 @@
-# MM-FUR-001 — design specification, revision 0.1.0
+# MM-FUR-001 — design specification, revision 0.2.0
 #
 # ############################################################################ #
 # SCHEMA NOTE — READ FIRST
@@ -17,24 +17,24 @@ project:
   source_path: products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top
   portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-113
   rights_workspace: commercial-clearance/project.json
-  revision: 0.1.0
+  revision: 0.2.0
 
 workflow:
   preflight:
     status: current
     mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PF-MM-FUR-001-2026-09-04-001
-    assessment_version: 1.0.0
-    assessed_project_revision: 0.1.0
-    updated_at: "2026-09-04T21:09:58Z"   # quoted: YAML would otherwise parse it as a datetime
+    assessment_id: PF-MM-FUR-001-2026-09-05-002
+    assessment_version: 1.1.0
+    assessed_project_revision: 0.2.0
+    updated_at: "2026-09-05T09:50:24Z"   # quoted: YAML would otherwise parse it as a datetime
     change_triggers:
-      - initial_design
-      - portfolio_registration
-      - license_chain_initialization
+      - geometry_revision_side_return_340_to_200_mm
+      - door_width_change_440_to_539_mm
+      - swept_door_path_verification_added
   requirements_approval:
     status: pending
-    spec_revision: 0.1.0
+    spec_revision: 0.2.0
     approved_by: null
     approved_at: null
     note: >
@@ -43,8 +43,8 @@ workflow:
       Human approval is required; no agent may record it.
   concept_approval:
     status: blocked
-    spec_revision: 0.1.0
-    asset: renders/concept-r1/MM-FUR-001-concept-r1.png
+    spec_revision: 0.2.0
+    asset: renders/concept-r2/MM-FUR-001-concept-r2.png
     approved_by: null
     approved_at: null
     note: >
@@ -52,16 +52,18 @@ workflow:
       recorded honestly: the owner brief explicitly asked for a concept image, so one
       draft image was generated in the same phase as the requirements synthesis
       rather than after requirements approval. It is a draft for review, not an
-      approved concept. It matches the specified architecture on every checked
-      feature. Image proportions are NOT authoritative; exports/cut-list.csv and
-      exports/drill-plan.csv are. Provenance in evidence/imagegen-record.json.
+      approved concept. Image proportions are NOT authoritative; exports/cut-list.csv
+      and exports/drill-plan.csv are. Provenance in evidence/imagegen-record.json.
+      STALE FOR 0.2.0: concept-r1 was rendered against the 440 x 439 mm doors of
+      revision 0.1.0 and shows near-square leaves. The 0.2.0 doors are 539 x 439 mm,
+      visibly wider than tall. Superseded by concept-r2.
   watermark_approval:
     status: blocked
-    spec_revision: 0.1.0
-    geometry_revision: 0.1.0
+    spec_revision: 0.2.0
+    geometry_revision: 0.2.0
     asset_id: MM-WM-001-R2
     product_id: MM-FUR-001
-    version: 0.1.0
+    version: 0.2.0
     generated_profile: null
     manifest_asset: null
     placement: null
@@ -85,7 +87,7 @@ branding:
   asset_id: MM-WM-001-R2
   layout_tier: auto
   product_id: MM-FUR-001
-  version: 0.1.0
+  version: 0.2.0
   operation: recessed
   preferred_surface: flat-nonfunctional-low-stress-underside
   depth_mm: 0.4              # schema default. NOT APPLICABLE: this is an FDM recess
@@ -97,28 +99,36 @@ branding:
 function:
   summary: >
     A 1000 mm high pentagonal corner cabinet for a right-angled niche with two
-    nominally 1 m walls. One flat 45 deg diagonal front, 883.9 mm wide, carries
-    four identical 440 x 439 x 18 mm doors in a 2 x 2 grid on half-overlay 35 mm
+    nominally 1 m walls. One flat 45 deg diagonal front, 1081.9 mm wide, carries
+    four identical 539 x 439 x 18 mm doors in a 2 x 2 grid on half-overlay 35 mm
     cup hinges mounted on the central partition, so both doors of a row open
-    outward from the centre and the 90 deg open envelope stays inside the niche.
+    outward from the centre and the PARKED 90 deg door stays inside the niche.
+    The swept path does not: each leaf traces a 539 mm radius quarter circle that
+    reaches 130 mm past each 1 m wall end, which is required clear room space.
     A fixed mid shelf gives two 423 mm compartments. Six adjustable 100 mm feet
     keep the lower doors off the floor. A flat, hole-free timber top plate at
     exactly 1000 mm carries a loose five-sided 6 mm ESG glass plate; flat paper
     is displayed between the two.
   key_dimensions_mm:
     carcass_leg_along_each_wall: 965
-    diagonal_front_width: 883.9
-    depth_on_the_corner_bisector: 923
+    side_return: 200                      # was 340 in revision 0.1.0
+    diagonal_front_width: 1081.9
+    depth_on_the_corner_bisector: 824
+    front_projection_past_the_line_joining_the_wall_ends: 131
+    same_including_the_door_leaf: 149
     total_height_to_top_of_timber_plate: 1000
     height_including_glass: 1006
-    door: [440, 439, 18]
+    door: [539, 439, 18]
     door_overlay_on_the_18mm_partition: 7.5
     compartment_clear_height: 423
     foot_height: 100
     panel_thickness: 18
     glass_thickness: 6
     outermost_point_of_the_closed_cabinet_from_the_corner: 987.7
-    door_tip_at_90_deg_open: [972.6, 974.7]
+    door_tip_at_90_deg_open_parked: [972.6, 974.7]
+    door_swept_quarter_circle_radius: 539
+    door_swept_reach_along_each_wall_direction: 1130
+    door_swept_reach_past_each_1m_wall_end: 130
   requirements:
     user-stated:
       - Total height 1000 mm; flat top timber plate at that height.
@@ -146,6 +156,9 @@ function:
         glued panel is offered as variant B with its caveats stated.
       - 6 mm ESG rather than 4 mm, with polished edges and ground corners.
       - One panel thickness throughout, so one material order and one drill regime.
+      - "Revision 0.2.0, owner decision 2026-09-05: keep the 965 mm legs so the niche
+        stays filled, and pay for the reduced projection in door width (440 -> 539 mm),
+        rather than shortening the legs to hold the doors at 440 mm."
       - Six feet rather than four, because the pentagon is large and the load path
         should land under the vertical panels.
     unresolved:
@@ -252,7 +265,8 @@ loads:
   mid_shelf_longest_unsupported_field_mm: 450
   top_plate_incidental_point_load_kg: 40   # someone leaning on the display top
   top_plate_longest_unsupported_field_mm: 450
-  door_leaf_kg_each: 3.5             # 0.193 m2 of 18 mm plywood plus handle
+  door_leaf_kg_each: 3.1             # 0.237 m2 of 18 mm plywood plus handle
+  door_cg_from_hinge_axis_mm: 270    # was 220 at the 440 mm door of revision 0.1.0
   hinges_per_door: 2
   tip_over_check_N: 200              # downward, at the outer end of a fully open lower door
   environment:
@@ -268,13 +282,16 @@ test_plan: design-spec.yaml#acceptance
 geometry_checks:
   artifact: exports/geometry-checks.json
   generator: source/checks.py
-  result: 17 of 17 PASS
+  result: 19 of 19 PASS
   scope: >
     GEOMETRY ONLY: internal consistency and buildability of the generated drawing
-    set. It found and closed two real defects in the first run - the P03 and P05
-    panels were placed 18 mm inboard (inverted thickness direction), which made
-    them interpenetrate P04/P06 and the mid shelf. It says nothing about the real
-    niche, the floor, timber flatness or strength.
+    set. It says nothing about the real niche, the floor, timber flatness or
+    strength. Defects it has caught so far: revision 0.1.0, the P03 and P05 panels
+    were placed 18 mm inboard through an inverted thickness direction and
+    interpenetrated P04/P06 and the mid shelf; revision 0.2.0, C-02 was found to
+    test only the parked door position, and C-18 now samples the whole 0-90 deg
+    sweep, and C-19 caught foot placement that stopped spreading load once the
+    side return was shortened.
 test_plan_note: >
   The verification ladder for this product is the ten acceptance criteria in this
   file, all NOT_RUN. A-01 (measurement gate), A-02, A-03, A-04, A-05, A-06, A-07

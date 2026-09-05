@@ -1,9 +1,9 @@
 {
   "product": "MM-FUR-001",
   "revision": "0.1.0",
-  "generated_at": "2026-09-04T21:45:05Z",
+  "generated_at": "2026-09-05T09:54:08Z",
   "scope": "GEOMETRY ONLY. Internal consistency and buildability of the generated drawing set. Says nothing about the real niche, floor, timber flatness or strength - those are acceptance criteria A-01..A-10, all NOT_RUN.",
-  "checks_run": 17,
+  "checks_run": 19,
   "failed": 0,
   "verdict": "PASS",
   "checks": [
@@ -15,9 +15,21 @@
     },
     {
       "id": "C-02",
-      "check": "door tip at 90 deg open stays inside the niche",
+      "check": "door tip at the 90 deg parked position stays inside the niche",
       "result": "PASS",
-      "detail": "tip (972.6, 974.7); max usable opening angle 90 deg"
+      "detail": "tip (972.6, 974.7); max usable opening angle 90 deg. This is the END position only - see C-18 for the swept path, which does leave the niche."
+    },
+    {
+      "id": "C-18",
+      "check": "door leaf never strikes either niche wall while swinging",
+      "result": "PASS",
+      "detail": "swept quarter circle of radius 539 mm about the front midpoint (591.4, 593.6). REQUIRED CLEAR SPACE, room side: the leaf reaches x=1130 mm and y=1133 mm from the corner, i.e. up to 130 mm BEYOND the 1 m end of each wall, at 1377 mm from the corner at its furthest. Nothing may stand in that quarter circle. The surroundings beyond the niche mouth are UNMEASURED - preflight IF-EXT-KIN-KOT-VOLUME-004, E1."
+    },
+    {
+      "id": "C-19",
+      "check": "feet are inside the bottom panel and adequately spread",
+      "result": "PASS",
+      "detail": "6 feet; closest pair 252 mm apart (>= 200 required); every mounting plate fully inside the panel with a 6 mm margin"
     },
     {
       "id": "C-03",
@@ -47,13 +59,13 @@
       "id": "C-07",
       "check": "glass outline lies inside the top-plate outline",
       "result": "PASS",
-      "detail": "inset 2 mm; glass 0.729 m2 in top 0.736 m2"
+      "detail": "inset 2 mm; glass 0.632 m2 in top 0.639 m2"
     },
     {
       "id": "C-08",
       "check": "every hole sits inside its panel with a 3 mm edge margin",
       "result": "PASS",
-      "detail": "56 holes checked"
+      "detail": "54 holes checked"
     },
     {
       "id": "C-09",
@@ -71,13 +83,13 @@
       "id": "C-11",
       "check": "every carcass screw clears every foot mounting plate",
       "result": "PASS",
-      "detail": "closest screw-to-foot 46.0 mm, required >= 35 mm (26 screws x 6 feet)"
+      "detail": "closest screw-to-foot 46.0 mm, required >= 35 mm (24 screws x 6 feet)"
     },
     {
       "id": "C-12",
       "check": "two door widths plus the centre gap fit the diagonal front",
       "result": "PASS",
-      "detail": "2 x 440 + 3 = 883 mm on a 883.9 mm front; residual reveal 0.44 mm per end"
+      "detail": "2 x 539 + 3 = 1081 mm on a 1081.9 mm front; residual reveal 0.44 mm per end"
     },
     {
       "id": "C-13",

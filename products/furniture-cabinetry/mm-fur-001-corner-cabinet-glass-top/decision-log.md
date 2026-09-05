@@ -180,3 +180,59 @@ requirements synthesis. `workflow.concept_approval.status` is therefore
 respect the shared Codex rate limit. Provenance:
 `evidence/imagegen-record.json`. The image was **not** used as geometry input;
 no dimension derives from it, so the deterministic alpha step did not apply.
+
+## D-16 — Side returns shortened 340 → 200 mm (revision 0.2.0)
+
+**Decided:** on owner request, shorten the side returns so the cabinet projects
+less into the room. Legs stay at 965 mm.
+**Measured first, then decided.** The number that actually mattered was not the
+depth from the corner but how far the front stands past the line joining the two
+wall ends: **230 mm, 248 mm including the door leaf**. A six-point sweep showed
+the side return is a weak and expensive lever, because shortening it by 1 mm
+widens the diagonal front by √2 mm:
+
+| side return | projects past the wall ends | door width | top plate |
+|---|---|---|---|
+| 322 mm (0.1.0) | 230 mm | 440 mm | 0.736 m² |
+| 182 mm (chosen) | 131 mm | 539 mm | 0.639 m² |
+| 102 mm | 74 mm | 596 mm | 0.574 m² |
+
+**Against:** shortening the legs together with the returns, which holds the doors
+at 440 mm and reaches 67 mm projection at 850 mm legs, or 0 mm at 802 mm legs.
+The owner chose to keep the niche filled and pay for it in door width.
+**Consequences carried through:** doors 440 → 539 mm, front 884 → 1082 mm, depth
+923 → 824 mm, top plate 0.736 → 0.639 m², glass 10.9 → 9.5 kg, assembled mass
+81 → 76 kg, handle x 400 → 499 mm, side-return part 322 → 182 mm, batten L03
+283 → 143 mm. The partition drill patterns are unchanged, because door height and
+the vertical layout did not move.
+**Open consequence:** the 539 mm door puts its centre of gravity 270 mm from the
+hinge axis instead of 220 mm. The hinge article's door weight and width limit is
+now part of the open purchased-part item, not only its overlay range.
+
+## D-17 — Foot placement re-anchored to the front
+
+**Decided:** the two front feet are positioned relative to the front plane
+(150 mm in from each end, 70 mm behind the front) instead of relative to the side
+return.
+**Why:** the old rule placed them at `side_return − 35 mm` along the wall. With
+the return cut to 182 mm they would have landed 130 mm from the rear feet and
+stopped spreading the load. The new rule is stable for any return length; the
+closest foot pair is now 252 mm apart.
+**Guarded by:** new check C-19, which fails below 200 mm spacing or if any foot
+plate leaves the bottom panel.
+
+## D-18 — Swept door path added to the checks, and an earlier claim corrected
+
+**Found:** check C-02 tested only the *parked* 90° door position and reported
+"the door tip stays inside the niche". That was true but incomplete, and it was
+stated that way in the revision 0.1.0 handoff. A hinged door must swing through
+the room to get there.
+**Corrected:** C-02 now says explicitly that it covers the end position only, and
+new check **C-18** samples the whole 0→90° sweep at four points along each leaf.
+It asserts what is genuinely assertable — the leaf never strikes either niche
+wall — and reports the required clear space instead of pretending to pass or fail
+against unmeasured surroundings: a 539 mm radius quarter circle about the front
+midpoint, reaching 1130 mm along each wall direction, i.e. 130 mm past each 1 m
+wall end, 1377 mm from the corner at its furthest.
+**Note:** this was already true in revision 0.1.0 at a 440 mm radius reaching
+1102 mm; the wider door made it worse and the incomplete check made it invisible.

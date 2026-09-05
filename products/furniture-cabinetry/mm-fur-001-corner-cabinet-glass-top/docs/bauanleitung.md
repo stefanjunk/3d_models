@@ -1,6 +1,14 @@
 # Eckkommode MM-FUR-001 — Bauanleitung
 
-**Revision 0.1.0 · Stand 2026-09-04 · Freigabestand: CONCEPT_ONLY**
+**Revision 0.2.0 · Stand 2026-09-05 · Freigabestand: CONCEPT_ONLY**
+
+> **Was sich gegenüber 0.1.0 geändert hat:** Die Seitenwangen sind von 340 auf
+> 200 mm gekürzt, damit die Kommode weniger in den Raum steht — die Front ragt
+> jetzt 131 statt 230 mm über die Linie zwischen den beiden Wandenden. Die Beine
+> bleiben bei 965 mm, die Nische wird also weiter voll ausgefüllt. **Preis dieser
+> Änderung: die Diagonalfront wurde 198 mm breiter, die Türen sind jetzt
+> 539 × 439 statt 440 × 439 mm.** Betroffen sind P01, P02, P05, P06, P08, P10,
+> P11 und die Traglatten L03. Die Bohrbilder der Mittelstege sind unverändert.
 
 > ## ⛔ Vor dem ersten Schnitt: Schritt 0 ist Pflicht
 >
@@ -22,20 +30,30 @@
 |---|---|
 | Höhe bis Holz-Deckplatte | **1000 mm** (Glas darauf: 1006 mm) |
 | Grundfläche | Fünfeck, **965 mm** an jeder Wand, Front als **45°-Diagonale** |
-| Frontbreite | **883,9 mm** |
-| Tiefe auf der Eckwinkelhalbierenden | 923 mm |
-| Türen | **4 × 440 × 439 × 18 mm**, 2 × 2, alle identisch |
+| Frontbreite | **1081,9 mm** |
+| Tiefe auf der Eckwinkelhalbierenden | 824 mm |
+| Überstand über die Nischenkante | 131 mm · mit Türblatt 149 mm |
+| Türen | **4 × 539 × 439 × 18 mm**, 2 × 2, alle identisch |
 | Fächer | 2 × **423 mm** lichte Höhe, dazwischen ein fester Mittelboden |
 | Füße | 6 × höhenverstellbar **100 mm** |
-| Glasplatte | Fünfeck, **6 mm ESG**, 0,729 m², **10,9 kg** |
-| Gewicht fertig | ca. **81 kg** → **am Aufstellort montieren** |
+| Glasplatte | Fünfeck, **6 mm ESG**, 0,632 m², **9,5 kg** |
+| Gewicht fertig | ca. **76 kg** → **am Aufstellort montieren** |
 | Plattenmaterial | 18 mm, eine einzige Dicke für alles |
 
 Warum die Türen in der Mitte angeschlagen sind: bei Anschlag an den Außenenden
-würde die Türspitze bei 90° Öffnung **1299 mm** von der Ecke entfernt stehen,
-also aus der Nische heraus. Mit Mittelanschlag sind es **973 mm** — die Tür
-bleibt vollständig innerhalb der 1-m-Nische. Deshalb sitzen auch alle vier
-Griffe an den **Außenkanten** der Türen, nicht innen.
+würde die Türspitze bei 90° Öffnung **1356 mm** von der Ecke entfernt stehen,
+also weit aus der Nische heraus. Mit Mittelanschlag sind es **973 mm** — die
+geöffnete Tür steht vollständig innerhalb der 1-m-Nische. Deshalb sitzen auch
+alle vier Griffe an den **Außenkanten** der Türen, nicht innen.
+
+> **Freiraum zum Öffnen — das gilt für den Weg, nicht nur für die Endlage.**
+> Die *geöffnete* Tür steht innerhalb der Nische, aber auf dem Weg dorthin
+> schwenkt sie darüber hinaus. Jede Tür überstreicht einen Viertelkreis mit
+> **539 mm Radius** um die Mitte der Front. Der Blattaußenpunkt erreicht dabei
+> **1130 mm** in Richtung Wand 1 und ebenso in Richtung Wand 2, also bis zu
+> **130 mm über das 1-m-Ende der jeweiligen Wand hinaus**, und maximal 1377 mm
+> von der Ecke entfernt. In diesem Viertelkreis darf nichts stehen. Die Tür
+> berührt dabei nie eine der beiden Wände (geprüft, C-18).
 
 ---
 
@@ -95,7 +113,7 @@ Lack.
 ### Bestellweg
 
 **Empfohlen: die 13 Rohteile einzeln als Zuschnitt nach Maß bestellen.** Du
-zahlst 6,084 m² und hast keinen Abfall zu Hause. Ganze 2500 × 1250-Platten sind
+zahlst 6,015 m² und hast keinen Abfall zu Hause. Ganze 2500 × 1250-Platten sind
 hier schlecht: drei Rohteile sind 927–965 mm breit, der Guillotine-Verschnitt
 liegt bei ~49 % Ausnutzung und braucht 4 Platten (12,5 m²).
 
@@ -105,9 +123,9 @@ P01, P02 und P08 sind **Quadrate mit einem einzigen geraden Schnitt**:
 
 | Teil | Rohteil | Schnitt von → nach | Länge |
 |---|---|---|---|
-| P01 Bodenplatte | 965 × 965 | (965; 340) → (340; 965) | 883,9 mm |
-| P02 Deckplatte | 965 × 965 | identisch zu P01 | 883,9 mm |
-| P08 Mittelboden | 927 × 927 | (927; 340) → (340; 927) | 830,1 mm |
+| P01 Bodenplatte | 965 × 965 | (965; 200) → (200; 965) | 1081,9 mm |
+| P02 Deckplatte | 965 × 965 | identisch zu P01 | 1081,9 mm |
+| P08 Mittelboden | 927 × 927 | (927; 200) → (200; 927) | 1028,1 mm |
 
 Ob der Markt 45°-Schnitte macht, ist **filialabhängig**: OBI nennt gerade
 Schnitte plus Eckfräsungen und Ausschnitte, toom nennt diagonale Eckplatten als
@@ -132,12 +150,12 @@ Jede Bohrung ist mit **Fläche**, **x**, **y**, **Durchmesser** und **Tiefe**
 angegeben. x und y werden immer von zwei **benannten Bezugskanten** gemessen.
 Schreibe diese Kanten mit Bleistift auf jedes Teil, **bevor** du bohrst.
 
-### P01 Bodenplatte — 32 Bohrungen, alle von der Oberseite angerissen
+### P01 Bodenplatte — 30 Bohrungen, alle von der Oberseite angerissen
 
 Lege die Platte mit der **Oberseite nach oben**, die 90°-Ecke zwischen den zwei
 langen geraden Kanten links unten. Schreibe „OBEN", „Wand 1" und „Wand 2" drauf.
 
-- **26 × Ø 4,5 mm durchgebohrt** — später mit 4,5 × 50 in die Unterkanten der
+- **24 × Ø 4,5 mm durchgebohrt** — später mit 4,5 × 50 in die Unterkanten der
   Vertikalteile. Danach umdrehen und **von unten auf Ø 9 mm ansenken**.
 - **6 × Ø 2,0 mm durchgebohrt** — nur Übertragungsmarken für die Füße. Platte
   umdrehen, Fußplatte auf die Marke zentrieren, 4 × Ø 4,0 × 12 mm vorbohren.
@@ -154,7 +172,8 @@ ausschließlich **von innen mit Winkeln** befestigt.
 
 ### P07 / P09 Mittelstege — je 8 × Ø 5,0 × 10 mm, auf **beiden** Seiten
 
-Rechteck 450 × 423 mm. Vorderkante und Unterkante anschreiben. Alle Löcher
+Rechteck 450 × 423 mm, **gegenüber Revision 0.1.0 unverändert**. Vorderkante und
+Unterkante anschreiben. Alle Löcher
 liegen **37 mm von der Vorderkante** (System 32), paarweise 32 mm auseinander.
 
 | Fläche | y-Werte (von der Unterkante) |
@@ -176,8 +195,8 @@ Lege jede Tür mit der **Innenseite nach oben**, **Scharnierkante links**,
 |---|---|---|---|---|
 | Topf 1 | 22,5 | Variante A: **88** / Variante B: **72** | 35 | **12,5** |
 | Topf 2 | 22,5 | Variante A: **351** / Variante B: **367** | 35 | **12,5** |
-| Griff oben | 400,0 | 283,5 | 5 | durch |
-| Griff unten | 400,0 | 155,5 | 5 | durch |
+| Griff oben | 499,0 | 283,5 | 5 | durch |
+| Griff unten | 499,0 | 155,5 | 5 | durch |
 
 - **Variante A** → die zwei Türen der Wand-1-Seite. **Variante B** → Wand-2-Seite.
 - **Tiefenanschlag benutzen.** 12,5 mm im 18-mm-Brett lassen 5,5 mm stehen. Ohne
@@ -227,7 +246,7 @@ Verwerfen der Deckplatte:
    **beide Seiten und alle Kanten**.
 
 Ungleich versiegelte Platten nehmen einseitig Feuchte auf und schüsseln. Genau
-das darf bei P02 nicht passieren. Zu lackierende Fläche insgesamt: **11,4 m²**.
+das darf bei P02 nicht passieren. Zu lackierende Fläche insgesamt: **10,7 m²**.
 
 Innenflächen mitlackieren ist optional, aber die **Kanten sind nicht optional**.
 
@@ -240,7 +259,7 @@ Innenflächen mitlackieren ist optional, aber die **Kanten sind nicht optional**
 2. **Eckleisten L04** (3 × 423 mm) in die drei Innenecken P03/P04, P04/P05 und
    P03/P06, Oberkante bei z = 541 mm. Sie tragen später die Ecken des
    Mittelbodens — deshalb braucht P08 keine Ausklinkung.
-3. **Traglatten L01, L02, L03** auf die angerissenen Linien, Oberkante 423 mm
+3. **Traglatten L01 (907), L02 (907), L03 (2 × 143)** auf die angerissenen Linien, Oberkante 423 mm
    über der Unterkante des jeweiligen Teils. 4 × 40 mm, ca. 200 mm Abstand, mit Leim.
 4. **Vertikalteile aufstellen**: P03 zuerst (voll durchlaufend, 965 mm), dann
    P04 dagegen (947 mm, stößt an die Innenfläche von P03), dann P05 und P06,
@@ -284,12 +303,12 @@ Innenflächen mitlackieren ist optional, aber die **Kanten sind nicht optional**
   Platte schüsselt, kommt das Glas nicht darauf.
 - Bestelltext: **ESG 6 mm, klar, Fünfeck nach DXF, alle Kanten geschliffen und
   poliert, Ecken gerundet R5.** DXF: `exports/dxf/P11-glass.dxf`.
-- Sollmaß aus dem Modell: 961 × 961 mm Quadrat mit einem Schnitt von (961; 337)
-  nach (337; 961). Gegen die **Ist-Maße** der gebauten Deckplatte abgleichen,
+- Sollmaß aus dem Modell: 961 × 961 mm Quadrat mit einem Schnitt von (961; 197)
+  nach (197; 961), Schnittlänge 1080,2 mm. Gegen die **Ist-Maße** der gebauten Deckplatte abgleichen,
   Ziel: 1–3 mm Luft rundum.
 - ESG, polierte Kanten und gerundete Ecken sind **Sicherheitsanforderungen**,
   keine Ausstattungsoptionen — du hebst diese Platte bei jedem Kartenwechsel an.
-- **10,9 kg. Zu zweit tragen, an der Kante anfassen, nie an einer Ecke.**
+- **9,5 kg. Zu zweit tragen, an der Kante anfassen, nie an einer Ecke.**
 - Karten einlegen: Vorderkante des Glases anheben, Karten einschieben. Optional
   2 Edelstahl-Glasanschläge an den beiden wandseitigen Kanten, damit die Scheibe
   nicht nach hinten rutscht; die Vorderkante bleibt frei.

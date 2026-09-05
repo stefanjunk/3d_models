@@ -1,6 +1,6 @@
 # Purpose — MM-FUR-001 Corner cabinet with glass display top (Eckkommode)
 
-**Assessed revision: 0.1.0 · Release state: CONCEPT_ONLY · Preflight: Lane E, C3 / R1 / K2**
+**Assessed revision: 0.2.0 · Release state: CONCEPT_ONLY · Preflight: Lane E, C3 / R1 / K2**
 
 ## What this product is
 
@@ -9,12 +9,20 @@ cabinet that fills a right-angled room niche whose two walls are nominally 1 m
 wide. The footprint is a pentagon — two sides run along the walls, two short
 returns close the ends, and the fifth side is one flat 45° diagonal front.
 
-That diagonal front carries four almost-square doors, 440 × 439 mm, in a 2 × 2
-grid. Both doors of a row hinge on the central vertical partition, so they open
-outwards from the middle and the whole open-door envelope stays inside the 1 m
-niche. A fixed mid shelf at the door-division height splits the interior into
-two 423 mm compartments and ties the 884 mm wide front together. Six adjustable
-100 mm feet hold the lower doors clear of the floor.
+That diagonal front carries four doors, 539 × 439 mm, in a 2 × 2 grid. Both
+doors of a row hinge on the central vertical partition, so they open outwards
+from the middle and the *parked* open door stays inside the 1 m niche — though
+the swept path does reach 130 mm past each wall end, which is the clear space
+the room has to provide. A fixed mid shelf at the door-division height splits
+the interior into two 423 mm compartments and ties the 1082 mm wide front
+together. Six adjustable 100 mm feet hold the lower doors clear of the floor.
+
+Revision 0.2.0 shortened the side returns from 340 to 200 mm on owner request so
+the cabinet projects less into the room: the front now stands 131 mm past the
+line joining the two wall ends instead of 230 mm. The legs stay at 965 mm, so
+the niche is still filled. The cost of that trade is door width — 440 mm became
+539 mm, because shortening a side return widens the diagonal front by √2 mm per
+millimetre.
 
 At exactly 1000 mm sits a flat timber top plate with no holes in it at all, and
 laid loose on top of that is a five-sided 6 mm toughened glass plate. Postcards
@@ -68,7 +76,7 @@ Two further blocking rules, both recorded in the preflight:
 | How do I build it? | `docs/bauanleitung.md` |
 | Outlines for the cut service and the glazier | `exports/dxf/` |
 | Drawings | `exports/drawings/` |
-| Concept image and its provenance | `renders/concept-r1/`, `evidence/imagegen-record.json` |
+| Concept image and its provenance | `renders/concept-r2/`, `evidence/imagegen-record-r2.json` |
 | Why the design is the way it is | `decision-log.md` |
 | What is still unknown | `preflight/preflight-report.md` |
 

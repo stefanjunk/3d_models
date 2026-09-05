@@ -1,15 +1,16 @@
 {
-  "assessment_id": "PF-MM-FUR-001-2026-09-04-001",
-  "assessment_version": "1.0.0",
-  "assessment_date": "2026-09-04",
+  "assessment_id": "PF-MM-FUR-001-2026-09-05-002",
+  "assessment_version": "1.1.0",
+  "assessment_date": "2026-09-05",
   "product": "MM-FUR-001 Corner cabinet with glass display top (Eckkommode)",
   "scope": {
-    "intended_use": "Free-standing corner cabinet, 1000 mm high, filling a right-angled room niche whose two walls are nominally 1 m wide. Pentagonal footprint with a single flat 45 deg diagonal front carrying four approximately equal doors in a 2x2 grid, one fixed mid shelf, six height-adjustable feet, and a flat timber top plate at 1000 mm with a loose 6 mm ESG glass plate laid directly on it so postcards can be displayed between wood and glass. Manufactured from 18 mm white-painted real-wood panels cut by a DIY-store panel service and assembled with purchased furniture hardware.",
+    "intended_use": "Free-standing corner cabinet, 1000 mm high, filling a right-angled room niche whose two walls are nominally 1 m wide. Pentagonal footprint with a single flat 45 deg diagonal front, 1081.9 mm wide, carrying four identical 539 x 439 mm doors in a 2x2 grid, one fixed mid shelf, six height-adjustable feet, and a flat timber top plate at 1000 mm with a loose 6 mm ESG glass plate laid directly on it so postcards can be displayed between wood and glass. Manufactured from 18 mm white-painted real-wood panels cut by a DIY-store panel service and assembled with purchased furniture hardware. Revision 0.2.0 shortened the side returns from 340 to 200 mm so the front projects 131 mm rather than 230 mm past the line joining the two wall ends; the legs stay at 965 mm, so the niche is still filled, and the doors widened from 440 to 539 mm as the geometric consequence.",
     "user_context": "Private indoor dry living space, single owner-built unit, adult users, child access UNKNOWN. Assembly happens in place because the assembled mass is about 80 kg.",
     "variants": [
       "Material variant A (recommended): 18 mm birch plywood (Multiplex Birke) throughout",
       "Material variant B: 18 mm glued solid spruce or pine panel (Leimholz), cut to size",
-      "Optional: 22 mm top plate instead of 18 mm (changes vertical panel height, parameter-driven)"
+      "Optional: 22 mm top plate instead of 18 mm (changes vertical panel height, parameter-driven)",
+      "Rejected at owner decision 2026-09-05: shortening the legs together with the side returns (850 mm legs would project only 67 mm and keep 440 mm doors, at the cost of 140 mm of free wall at each end and 28 % of the display top)"
     ],
     "out_of_scope": [
       "Wall anchoring as a structural load path",
@@ -27,7 +28,7 @@
     {
       "id": "ENT-DOORS",
       "kind": "PRINTED_PART",
-      "name": "Four door panels 447 x 439 x 18 mm, custom-cut timber"
+      "name": "Four door panels 539 x 439 x 18 mm, custom-cut timber"
     },
     {
       "id": "ENT-TOPPLATE",
@@ -280,7 +281,7 @@
         ],
         "variant_confirmed": false,
         "observability": "PARTLY_OBSERVED",
-        "uncertainty_note": "Cup and plate geometry is official System-32 nominal, but the specific article is unselected, so the interface is rated at its weakest link."
+        "uncertainty_note": "Cup and plate geometry is official System-32 nominal, but the specific article is unselected, so the interface is rated at its weakest link. Revision 0.2.0 widened the leaf to 539 mm, which raises the hinge moment by about 23 %."
       },
       "interface_complexity": {
         "GEO": 2,
@@ -308,6 +309,11 @@
           "mode": "Cup hole breaks through the 18 mm door",
           "effect": "Visible damage on the painted face",
           "mitigation": "Cup depth 12.5 mm max, leaving 5.5 mm; use a depth stop"
+        },
+        {
+          "mode": "539 mm wide door overloads the hinge or visibly droops at its free edge",
+          "effect": "Reveal goes uneven, door rubs the neighbouring leaf",
+          "mitigation": "Revision 0.2.0 moved the door centre of gravity from 220 to 270 mm from the hinge axis (leaf about 3.1 kg). Two hinges per door remain, so the article's stated door weight AND width limit must now be checked, not only its overlay range."
         }
       ],
       "verification": {
@@ -370,8 +376,16 @@
           "nominal_mm": 7.5,
           "status": "DERIVED",
           "criticality": "FUNCTION_CRITICAL",
-          "source_ref": "(18 - 3)/2",
+          "source_ref": "(18 - 3)/2; unchanged by revision 0.2.0",
           "uncertainty_mm": 2.0
+        },
+        {
+          "id": "D-016",
+          "feature": "Door width",
+          "nominal_mm": 539.0,
+          "status": "DERIVED",
+          "criticality": "FUNCTION_CRITICAL",
+          "source_ref": "(front_len - gap)/2 with front_len 1081.9 mm; was 440 mm in revision 0.1.0"
         }
       ]
     },
@@ -393,12 +407,12 @@
       "evidence": {
         "level": "E1",
         "sources": [
-          "Envelope computed analytically from the design geometry",
+          "Swept path computed analytically over the full 0-90 deg opening and verified by geometry check C-18 (four sample points along each leaf, both leaves)",
           "Surrounding room geometry beyond the two 1 m walls is UNKNOWN"
         ],
         "variant_confirmed": false,
         "observability": "INFERRED",
-        "uncertainty_note": "Centre hinging was chosen over end hinging exactly for this interface: end-hinged doors would reach 1299 mm from the corner at 90 deg, centre-hinged reach 979 mm."
+        "uncertainty_note": "Revision 0.1.0 recorded only the PARKED 90 deg position, which stays inside the niche. That was incomplete: a hinged door must swing through the room to reach it. The swept quarter circle has a 539 mm radius about the front midpoint and reaches 1130 mm along each wall direction, i.e. 130 mm beyond each 1 m wall end, and 1377 mm from the corner at its furthest. Whether that space is clear is UNKNOWN."
       },
       "interface_complexity": {
         "GEO": 1,
@@ -421,13 +435,19 @@
           "mode": "Handle projects into the swing path of the neighbouring door",
           "effect": "Paint damage",
           "mitigation": "Handles sit on the outer door edges, hinges at the centre; paths do not cross"
+        },
+        {
+          "mode": "Furniture, a door frame or a return wall stands inside the 539 mm swept quarter circle",
+          "effect": "Door strikes it part-way through the opening even though the parked position is clear",
+          "mitigation": "C-18 reports the required clear space explicitly. Check it against the real room with a cardboard template before cutting the doors."
         }
       ],
       "verification": {
         "method": "analysis",
         "acceptance_criteria": [
-          "Computed door-tip envelope at 90 deg open stays within the measured niche footprint",
-          "Physical check with a cardboard template before cutting doors"
+          "Computed door-tip envelope at the 90 deg parked position stays within the measured niche footprint",
+          "The full 0-90 deg swept quarter circle, 539 mm radius about the front midpoint, is clear in the real room, checked with a cardboard template before cutting doors",
+          "Door leaf does not strike either niche wall at any point of the sweep (geometry check C-18)"
         ],
         "status": "PLANNED",
         "result_refs": []
@@ -942,7 +962,7 @@
     "lane": "E",
     "confidence": "LOW_UNKNOWN",
     "design_release": "CONCEPT_ONLY",
-    "rationale": "Complexity is C3 and criticality K2, which on their own would place the work in Lane C. Readiness is R1 because the host niche, the single datum from which all thirteen panel sizes and every hole position derive, exists only as a verbal nominal, and the skirting clearance is at E0. Hard gate G2 therefore fails and the lane is forced to E. What this permits is exactly the requested work product: a fully parametric, dimensioned and documented build package plus a concept image, released as CONCEPT_ONLY with a nominal 1000 x 1000 mm niche. It does not permit cutting panels or ordering glass. One measurement session closes IF-...-001, -011 and -002, lifts readiness to R3 or better, and moves the project to Lane C with CONDITIONAL confidence."
+    "rationale": "Complexity is C3 and criticality K2, which on their own would place the work in Lane C. Readiness is R1 because the host niche, the single datum from which all thirteen panel sizes and every hole position derive, exists only as a verbal nominal, and the skirting clearance is at E0. Hard gate G2 therefore fails and the lane is forced to E. What this permits is exactly the requested work product: a fully parametric, dimensioned and documented build package plus a concept image, released as CONCEPT_ONLY with a nominal 1000 x 1000 mm niche. It does not permit cutting panels or ordering glass. Revision 0.2.0 changed the footprint on owner request but not the evidence base, so the lane is unchanged. One measurement session closes IF-...-001, -011 and -002, lifts readiness to R3 or better, and moves the project to Lane C with CONDITIONAL confidence."
   },
   "warnings": [
     {
@@ -984,6 +1004,11 @@
       "code": "NON_FDM_PROCESS",
       "severity": "INFO",
       "message": "This product has no printed part, nozzle, slicer profile, mesh or calibration coupon. The FDM calibration gate, mesh-simplification gate and slicer dry run are NOT_APPLICABLE and are recorded as such in design-spec.yaml rather than left blank."
+    },
+    {
+      "code": "KEEPOUT_UNVERIFIED",
+      "severity": "WARN",
+      "message": "The doors sweep a 539 mm radius quarter circle about the front midpoint, reaching 130 mm past each 1 m wall end. Revision 0.1.0 checked only the parked 90 deg position and did not state this. The room-side space is UNMEASURED."
     }
   ],
   "next_actions": [
@@ -1004,16 +1029,21 @@
     },
     {
       "priority": 4,
+      "action": "Mark the 539 mm radius swept quarter circle on the floor in front of the niche with tape or a cardboard door template and confirm nothing stands in it.",
+      "exit_criterion": "IF-EXT-KIN-KOT-VOLUME-004 reaches E3 with the real surroundings recorded."
+    },
+    {
+      "priority": 5,
       "action": "Confirm with the chosen store whether it performs the three 45 deg diagonal cuts and its stated tolerance; otherwise plan the guide-rail fallback.",
       "exit_criterion": "IF-EXT-GEO-CON-PLN-008 reaches E3 with a named store and a stated tolerance."
     },
     {
-      "priority": 5,
+      "priority": 6,
       "action": "Build and paint the carcass, level it in place, then measure the finished top plate and only then order the ESG glass to the as-built outline.",
       "exit_criterion": "Top plate flat within 1.0 mm over 900 mm and the glass order carries as-built dimensions, ESG, polished edges and ground corners."
     },
     {
-      "priority": 6,
+      "priority": 7,
       "action": "Run the physical acceptance set: door reveal and 90 deg swing, level check, 25 kg shelf load, 200 N open-door tip check.",
       "exit_criterion": "All acceptance criteria in design-spec.yaml pass and are recorded; readiness reaches R5 for the tested interfaces."
     }
@@ -1021,7 +1051,7 @@
   "traceability": {
     "mode": "PROSPECTIVE",
     "project_id": "MM-FUR-001",
-    "project_revision": "0.1.0",
+    "project_revision": "0.2.0",
     "basis_refs": [
       "business/02-portfolio/product-portfolio.csv#PORT-113",
       "products/furniture-cabinetry/mm-fur-001-corner-cabinet-glass-top/preflight/preflight-input.yaml",
@@ -1036,12 +1066,12 @@
       "furnica.de cabinet-door drilling guide (35 mm cup, 11.5-12.5 mm depth, cup centre 17.5 mm + C, plate row 37 mm, 32 mm pitch)"
     ],
     "change_triggers": [
-      "initial_design",
-      "portfolio_registration",
-      "license_chain_initialization"
+      "geometry_revision_side_return_340_to_200_mm",
+      "door_width_change_440_to_539_mm",
+      "swept_door_path_verification_added"
     ],
-    "previous_assessment_id": null,
+    "previous_assessment_id": "PF-MM-FUR-001-2026-09-04-001",
     "created_at": "2026-09-04T21:09:58Z",
-    "updated_at": "2026-09-04T21:09:58Z"
+    "updated_at": "2026-09-05T09:50:24Z"
   }
 }

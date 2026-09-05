@@ -1,0 +1,63 @@
+{
+  "record_type": "imagegen-record",
+  "product": "MM-FUR-001",
+  "revision": "0.2.0",
+  "render_id": "concept-r2",
+  "supersedes": {
+    "render_id": "concept-r1",
+    "revision": "0.1.0",
+    "reason": "concept-r1 was rendered against the 440 x 439 mm doors of revision 0.1.0 and shows near-square leaves. Revision 0.2.0 shortened the side returns to 200 mm, which widened the diagonal front to 1081.9 mm and the doors to 539 x 439 mm. r1 is retained as the record of what 0.1.0 looked like; it is NOT the current concept.",
+    "sha256": "c69596ff7030f7f20d853791864b59a6c7febe0e9852a05d421d9246ce74776c"
+  },
+  "purpose": "Concept-gate visualization only. NOT used as geometry, Step1X, photogrammetry or measurement input. No dimension in this product is derived from this image.",
+  "generator": {
+    "service": "OpenAI gpt-image via Codex CLI built-in tool image_gen__imagegen",
+    "driver": "codex exec --json --skip-git-repo-check",
+    "codex_auth_mode": "chatgpt",
+    "api_key_stored": false,
+    "call_mode": "text prompt only; referenced_image_paths NOT used, so no repository file was uploaded",
+    "parameters_available": "prompt only; there is no size, background or output_format parameter"
+  },
+  "codex_thread_id": "01a070fb-1966-7eb3-84e8-2549065aa01f",
+  "located_by": "snapshot diff of ~/.codex/generated_images before and after the run (62 files before, 63 after); the single new file was under the run's own thread directory",
+  "candidates_generated": 1,
+  "candidates_rejected": 0,
+  "selection_rationale": "Single candidate, matching the discipline of r1 because the Codex auth and rate limit are shared with other local sessions. It carries the 0.2.0 proportions correctly: the diagonal front reads clearly wider than the cabinet is tall, all four doors are landscape rectangles rather than squares, the wall-side flanks are short so the footprint reads as a shallow near-triangular corner unit, and the four vertical handles sit on the outer door edges, which is the visual signature of the centre-hinged layout.",
+  "known_deviations_from_cad": [
+    "The top plate appears to overhang the doors by more than the designed 18 mm rim.",
+    "The glass reads as flush with or slightly proud of the plate edge; the CAD insets it by 2 mm.",
+    "Foot positions are indicative, not the six computed centres.",
+    "Image labels and proportions are not authoritative. exports/cut-list.csv and exports/drill-plan.csv are."
+  ],
+  "alpha_preprocessing": {
+    "performed": false,
+    "reason": "The mandatory deterministic alpha step applies to plates used as Step1X or other geometry input. This plate is a concept-gate render only, so no background keying was needed and no rembg/U2Net entered any tool chain.",
+    "checkerboard_requested": false
+  },
+  "terms_basis": {
+    "plan": "Owner ChatGPT Pro subscription (owner-stated 2026-09-04)",
+    "applicable_terms": "ChatGPT plan terms plus the Codex CLI layer, NOT the OpenAI API terms",
+    "commercial_use_of_output": "UNVERIFIED — recorded as such; no clearance is asserted"
+  },
+  "artifacts": {
+    "MM-FUR-001-concept-r2.png": {
+      "sha256": "e8b9c99301fba8cee48227d2d2cbb8dc5548c2a0f86206f559c8f6e9d3dae407",
+      "bytes": 1829232,
+      "pixels": "1402 x 1122",
+      "mode": "RGB (8-bit, no alpha channel)"
+    },
+    "imagegen-prompt.txt": {
+      "sha256": "80f767e6ec345d43112e7f5fdbc813694d8ef33ab2bb0e1c07a95c5df8975023",
+      "bytes": 3235
+    },
+    "imagegen-events.jsonl": {
+      "sha256": "ca8f11d5e4873be2ec3b7db9eeabe00d3a7b593b675ebb816d3acd3615f67e3e",
+      "bytes": 352
+    },
+    "imagegen-last-message.json": {
+      "sha256": "283e91eb85d58ffc2ad922884b644c41b54140660f6d1fda3c403d543eedd839",
+      "bytes": 4
+    }
+  },
+  "recorded_at": "2026-09-05T09:53:51Z"
+}

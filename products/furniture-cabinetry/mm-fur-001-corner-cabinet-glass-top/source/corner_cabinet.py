@@ -494,17 +494,24 @@ def foot_positions(G, P):
     x0, y0, x1, y1, K = G["x0"], G["y0"], G["x1"], G["y1"], G["K"]
     T = P["panel"]["thickness_mm"]
     m = 35.0                                  # min centre distance to a panel edge
-    inset_front = 55.0                        # centre distance behind the front plane
+    along = 150.0                             # in from each end of the front
+    behind = 70.0                             # behind the front plane
+    f, nin = G["f"], G["n_in"]
+    C, D = G["C"], G["D"]
     pts = [
         (x0 + m, y0 + m),                                     # niche corner
         (x1 - m, y0 + m),                                     # wall-1 end, rear
         (x0 + m, y1 - m),                                     # wall-2 end, rear
-        (x1 - m, y0 + G["side_return"] - m),                  # near front end, wall 1
-        (x0 + G["side_return"] - m, y1 - m),                  # near front end, wall 2
     ]
+    # The two front feet are anchored to the FRONT, not to the side return. Tying
+    # them to the side return put them 130 mm from the rear feet once the return
+    # was shortened to 182 mm, which stopped spreading the load.
+    pts.append((C[0] + f[0] * along + nin[0] * behind,
+                C[1] + f[1] * along + nin[1] * behind))
+    pts.append((D[0] - f[0] * along + nin[0] * behind,
+                D[1] - f[1] * along + nin[1] * behind))
     # front centre, under the partition, set back from the front plane
-    fm = K / 2.0 - inset_front / SQ2
-    pts.append((fm, fm))
+    pts.append((K / 2.0 - behind / SQ2, K / 2.0 - behind / SQ2))
     return [(round(a, 1), round(b, 1)) for a, b in pts]
 
 

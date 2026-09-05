@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-backfill-preserve-current-intake-001
+title: Backfill preserves current assessments and rejects partial existing intake before writing
+category: core
+status: draft
+trigger: Run the portfolio backfill with existing preflights, a new product, or a stale/missing companion.
+risk: Bulk generation can overwrite authored preflights or partially mutate unrelated products.
+given:
+  fixtures: Temporary repository seeded with a schema-valid assessment and its linked product records.
+  cases:
+  - Uppercase/lowercase workflow mode
+  - Inventory revision newer than assessed revision
+  - Product-authored purpose heading
+  - Missing companion with a new product ordered first
+  - Malformed JSON or invalid schema
+  - Mismatched workflow assessment identity/version
+  - Missing result with existing companions
+  - Wrong project identity
+  - New backfill followed by a repeat dry-run
+expected:
+- Preserve current result and companion bytes, including supported mode case and custom headings.
+- Aggregate the explicitly assessed revision.
+- Reject invalid/partial existing intake before any file is written.
+- Generate a retrospective assessment only when none exists and no assessment companions/link remain.
+- Repeat with zero proposed writes after successful generation.
+failure_conditions:
+- A previously existing assessment is regenerated because of casing, inferred revision or a missing companion.
+- A failed inventory check leaves changed files.
+- Invalid schema, stale identity or missing results are silently repaired/approved.
+- A second unchanged-input run proposes modifications.
+fixtures:
+- tools/tests/test_backfill_product_preflights.py
+grader:
+  type: deterministic
+  command: python -m unittest discover -s tools/tests -p 'test_backfill_product_preflights.py' -v
+  expected_exit_code: 0
+  rubric: All nine behavioral tests pass against isolated temporary files.
+  measurement_method: Byte snapshots before/after writes, parsed results, exit codes and audit revision comparisons.
+relationships:
+  lessons:
+  - EXP-00069
+  regression_suites: []
+last_run:
+  result: pass
+  date: 2026-09-05
+  report: products/art-decor/mm-art-012-comic-octopus-desk-figurine/evidence/main-intake-repair-2026-09-05.json
+  artifact_hashes:
+  - a1baad55e564621605ae4d32c1bb5608dc820af752803a2746ea2b2c1d735b25
+tags:
+- core
+- portfolio
+- preflight
+- idempotence
+- preservation

@@ -65,7 +65,7 @@ def main() -> int:
             errors.append(f"{key}: PURPOSE.md missing")
         else:
             purpose = purpose_path.read_text(encoding="utf-8")
-            if not purpose.startswith("# Purpose — ") or "TODO" in purpose:
+            if not backfill.valid_purpose(purpose):
                 errors.append(f"{key}: purpose is not explicit or still contains TODO")
 
         for path in (result_path, input_path, report_path, spec_path):
@@ -89,7 +89,12 @@ def main() -> int:
         mode = trace.get("mode")
         if mode not in {"RETROSPECTIVE", "PROSPECTIVE"}:
             errors.append(f"{key}: unsupported preflight mode {mode!r}")
-        if mode == "RETROSPECTIVE" and "backfill_missing_preflight" not in trace.get("change_triggers", []):
+        triggers = trace.get("change_triggers", [])
+        has_retrospective_origin = (
+            "backfill_missing_preflight" in triggers
+            or bool(trace.get("previous_assessment_id"))
+        )
+        if mode == "RETROSPECTIVE" and not has_retrospective_origin:
             errors.append(f"{key}: missing retrospective backfill traceability")
         if not trace.get("basis_refs"):
             errors.append(f"{key}: no preflight basis refs")

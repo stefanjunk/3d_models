@@ -1,0 +1,114 @@
+reconstruction:
+  source: preflight/preflight-result.json
+  sha256: 25f97323ff326363cc39683ac182e73dfa402cffed541854915a40c4f62ad116
+  note: Companion reconstructed on 2026-09-05 from the existing prospective assessment; not a new assessment,
+    measurement or approval.
+project:
+  id: MM-ORG-043
+  revision: 0.1.0
+scope:
+  intended_use: Let an adult sweep euro circulating coins out of a pocket across a shaped slope into open,
+    labelled, denomination-separated recesses on a dry indoor desk or entryway surface.
+  user_context: 'Adult daily pocket emptying. metriCreate digital-first: the customer selects denominations,
+    coins per recess and footprint, and downloads the generated model.'
+  variants:
+  - Euro circulating coins 1c to 2 EUR at the EU-fixed nominal diameters
+  - customer-selected denomination subset, recess capacity and tray footprint
+  out_of_scope:
+  - Worn, foreign, commemorative, damaged and pre-issue coins
+  - Secure storage, authentication, counting or any financial-protection function
+  - Child use — loose coins are a choking hazard
+  - Wet, outdoor, load-bearing or vehicle use
+  - Any separation claim before the recess clearance is qualified by coupon
+entities:
+- id: E-PRINT-001
+  kind: PRINTED_PART
+  name: Parametric coin tray with swept slope and labelled recesses
+- id: E-COIN-001
+  kind: HOST_OBJECT
+  name: Euro circulating coins at the EU-fixed nominal diameters
+- id: E-DESK-001
+  kind: HOST_OBJECT
+  name: Dry flat indoor desk or entryway surface
+- id: E-HUMAN-001
+  kind: HUMAN
+  name: Adult user sweeping and picking coins by hand
+- id: E-PROCESS-001
+  kind: ENVIRONMENT
+  name: Pinned Anycubic Kobra 3 Max / SUNLU PETG Black FFF baseline
+interface_contracts:
+- id: IF-EXT-GEO-LOC-CYL-001
+  name: Euro circulating coin to labelled denomination recess
+  evidence:
+    level: E3
+    sources:
+    - business/02-portfolio/research-idea-sources-additions.csv#S47
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-540
+    variant_confirmed: false
+    coverage_percent: 75.0
+    uncertainty_note: 'Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU
+      PETG / 0.4 mm; hole_delta_vertical and xy_clearance_sliding are UNQUALIFIED. Recess diameters must
+      not be committed until a coupon qualifies the hole delta on this exact process. The binding geometric
+      risk is the 1.00 mm step between 2c and 10c: the clearance must be smaller than half that step or
+      the denominations cross-enter.'
+    observability: INFERRED
+  verification:
+    method: test_coupon
+    acceptance_criteria:
+    - Each denomination enters its labelled recess without force and can be removed by the finger notch.
+    - No coin enters a recess of a smaller denomination, verified explicitly on the 2c/10c pair.
+    - 100 sorting cycles cause no cracking.
+    status: PLANNED
+    result_refs: []
+- id: IF-EXT-MEC-SUP-PLN-001
+  name: Tray to desk support plane
+  evidence:
+    level: E1
+    sources:
+    - business/02-portfolio/research-ideas-r3-variants.csv#SKU-540
+    variant_confirmed: false
+    coverage_percent: 35.0
+    uncertainty_note: The flat seat is a CAD-owned design decision; no mass, centre of gravity or desk
+      friction has been measured.
+    observability: INFERRED
+  verification:
+    method: prototype_test
+    acceptance_criteria:
+    - With every recess loaded the tray remains upright after a 10-degree tilt.
+    - The tray does not slide during a one-handed pocket sweep.
+    status: PLANNED
+    result_refs: []
+- id: IF-HUM-GEO-ACC-EDGE-001
+  name: Adult finger to coin slope and finger notches
+  evidence:
+    level: E1
+    sources:
+    - business/02-portfolio/research-r3-process-baseline.json
+    variant_confirmed: false
+    coverage_percent: 30.0
+    uncertainty_note: Notch geometry is a usability decision with no measured basis; it needs a real-hand
+      test.
+    observability: INFERRED
+  verification:
+    method: user_test
+    acceptance_criteria:
+    - Every denomination can be picked out with a bare fingertip, without a fingernail.
+    - No user-reachable edge is sharp to a bare-hand wipe.
+    status: PLANNED
+    result_refs: []
+evidence_available:
+- business/02-portfolio/product-portfolio.csv#PORT-112
+- business/02-portfolio/research-ideas-r3-variants.csv#SKU-540
+- business/02-portfolio/research-idea-sources-additions.csv#S47
+- business/02-portfolio/research-r3-process-baseline.json
+- libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml
+- commercial-clearance/project.json
+- preflight/preflight-input.yaml
+blocking_unknowns:
+- Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm; hole_delta_vertical
+  and xy_clearance_sliding are UNQUALIFIED. Recess diameters must not be committed until a coupon qualifies
+  the hole delta on this exact process.
+- The 1.00 mm step between the 2c and 10c diameters is the tightest tolerance in the product and no process
+  clearance is qualified.
+- Finger-notch geometry has no measured basis and needs a real-hand test.
+- No printed coupon, coin placement, separation, stability or 100-cycle result exists.

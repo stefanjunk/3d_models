@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-05 — Portfolio intake preservation repair
+
+- Fixed mode comparison, assessed-revision preservation and fail-before-write handling in the portfolio backfill. Reconciled missing intake companions and refreshed aggregates/workbook.
+- Captured E0 candidate `EXP-00069` and draft eval `EVAL-core-backfill-preserve-current-intake-001`; nine regression tests and both portfolio validators pass. No experience promotion or physical/commercial approval.
+
 ## 2026-09-05 — Orca coordinator skill 1.1.0
 
 - Applied the workspace user's explicit request to keep new product creation

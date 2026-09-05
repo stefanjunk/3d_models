@@ -1,0 +1,78 @@
+{
+  "id": "IF-EXT-MEC-SUP-PLN-001",
+  "name": "Figurine to dry flat desk support",
+  "endpoint_a": "E-PRINT-001",
+  "endpoint_b": "E-ENV-001",
+  "boundary": "EXT",
+  "domains": ["GEO", "MEC"],
+  "function": "SUP",
+  "geometry": "PLN",
+  "lifecycle_states": ["assembly", "use", "cleaning", "storage"],
+  "coordinate_frame": {
+    "origin": "centre of the planned flat hidden underside",
+    "x_positive": "character right when viewed from the front",
+    "y_positive": "character rear",
+    "z_positive": "up from the desk plane",
+    "unit": "mm"
+  },
+  "datums": [
+    {"id": "A", "description": "flat hidden printed underside"},
+    {"id": "B", "description": "dry flat desk or shelf plane"}
+  ],
+  "degrees_of_freedom": {
+    "allowed": ["free placement and lifting by an adult"],
+    "constrained": ["rocking or tipping during static display"]
+  },
+  "assembly": {
+    "direction": "place vertically downward onto the desk plane",
+    "contact_mode": "gravity-supported planar contact",
+    "sequence_notes": "No fasteners, adhesive or purchased pad is planned."
+  },
+  "dimensions": [
+    {
+      "id": "DIM-FOOTPRINT-001",
+      "feature": "flat support footprint and centre-of-mass margin",
+      "nominal_mm": null,
+      "lower_mm": null,
+      "upper_mm": null,
+      "clearance_mm": null,
+      "uncertainty_mm": null,
+      "status": "UNKNOWN",
+      "source_ref": "preflight/preflight-input.yaml",
+      "criticality": "COSMETIC"
+    }
+  ],
+  "environment_and_variation": {
+    "environment": "dry flat indoor desk or shelf at room temperature",
+    "uncontrolled": ["desk friction", "as-built mass", "centre of gravity", "small surface unevenness"]
+  },
+  "keepouts_and_access": [
+    "Keep the underside free of unsupported texture and unstable point contacts.",
+    "Reserve a broad low-stress region for the later product mark."
+  ],
+  "evidence": {
+    "level": "E1",
+    "sources": ["preflight/preflight-input.yaml", "commercial-clearance/01-sources/evidence/SRC-0001-owner-brief.md"],
+    "variant_confirmed": false,
+    "coverage_percent": 45.0,
+    "uncertainty_note": "The display context and control concept are known, but no geometry, mass, centre of gravity or physical stability result exists.",
+    "observability": "INFERRED"
+  },
+  "interface_complexity": {"GEO": 0, "KIN": 0, "TOL": 0, "PHY": 1, "VAR": 0, "LIF": 1, "total": 2, "tier": "I0"},
+  "criticality": "K0",
+  "failure_modes": [
+    {
+      "mode": "The generated footprint is narrow, curved or uneven.",
+      "effect": "The figurine rocks or tips and the display intent is not met.",
+      "mitigation": "Create a controlled flat support plane and require the four-direction 10-degree tilt test."
+    }
+  ],
+  "verification": {
+    "method": "prototype_test",
+    "acceptance_criteria": ["The printed figurine remains upright without sliding or rocking at 10 degrees in four cardinal directions on the recorded test surface."],
+    "status": "PLANNED",
+    "result_refs": []
+  },
+  "owner": "MM-ART-012 design lead",
+  "version": "0.1.0"
+}

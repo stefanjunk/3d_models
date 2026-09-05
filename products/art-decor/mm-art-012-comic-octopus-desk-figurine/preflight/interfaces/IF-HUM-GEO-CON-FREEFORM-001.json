@@ -1,0 +1,80 @@
+{
+  "id": "IF-HUM-GEO-CON-FREEFORM-001",
+  "name": "Adult hand to comic-octopus freeform surface",
+  "endpoint_a": "E-PRINT-001",
+  "endpoint_b": "E-HUM-001",
+  "boundary": "HUM",
+  "domains": ["GEO", "MEC"],
+  "function": "CON",
+  "geometry": "FREEFORM",
+  "lifecycle_states": ["transport", "assembly", "use", "cleaning", "storage"],
+  "coordinate_frame": {
+    "origin": "centre of the planned flat hidden underside",
+    "x_positive": "character right when viewed from the front",
+    "y_positive": "character rear",
+    "z_positive": "up from the desk plane",
+    "unit": "mm"
+  },
+  "datums": [
+    {"id": "A", "description": "all user-reachable outer body and tentacle surfaces"}
+  ],
+  "degrees_of_freedom": {
+    "allowed": ["ordinary lifting, turning, dusting and repositioning by an adult"],
+    "constrained": ["pinching, sharp-point contact or loose detached fragments"]
+  },
+  "assembly": {
+    "direction": "unrestricted ordinary hand approach",
+    "contact_mode": "intermittent low-force skin contact",
+    "sequence_notes": "No ergonomic grip or load-carrying function is claimed."
+  },
+  "dimensions": [
+    {
+      "id": "DIM-MIN-FEATURE-001",
+      "feature": "minimum user-reachable tentacle tip or facial feature thickness",
+      "nominal_mm": 1.35,
+      "lower_mm": 1.35,
+      "upper_mm": null,
+      "clearance_mm": null,
+      "uncertainty_mm": null,
+      "status": "ESTIMATED",
+      "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+      "criticality": "COSMETIC"
+    }
+  ],
+  "environment_and_variation": {
+    "environment": "ordinary adult handling in dry indoor conditions",
+    "uncontrolled": ["as-printed layer texture", "support-removal quality", "user grip and sensitivity"]
+  },
+  "keepouts_and_access": [
+    "No needle-like tips, isolated thin fingers, whiskers or unsupported loose accessories.",
+    "No child-toy, skin-safety, allergen or biocompatibility claim."
+  ],
+  "evidence": {
+    "level": "E1",
+    "sources": ["preflight/preflight-input.yaml", "business/02-portfolio/research-r3-process-baseline.json"],
+    "variant_confirmed": false,
+    "coverage_percent": 40.0,
+    "uncertainty_note": "The minimum-feature target follows the pinned process, but no generated surface or printed part exists for measurement or touch inspection.",
+    "observability": "INFERRED"
+  },
+  "interface_complexity": {"GEO": 2, "KIN": 0, "TOL": 0, "PHY": 0, "VAR": 1, "LIF": 1, "total": 4, "tier": "I1"},
+  "criticality": "K0",
+  "failure_modes": [
+    {
+      "mode": "A generated tentacle tip or facial feature is too thin or sharp.",
+      "effect": "The print feels unpleasant, looks damaged or breaks during ordinary handling.",
+      "mitigation": "Thicken and radius all user-reachable features, then run mesh and physical edge checks."
+    }
+  ],
+  "verification": {
+    "method": "inspection",
+    "acceptance_criteria": [
+      "No user-reachable feature is thinner than 1.35 mm at released scale.",
+      "No edge feels sharp during a documented bare-hand wipe after normal support removal."
+    ],
+    "status": "PLANNED",
+    "result_refs": []
+  },
+  "owner": "MM-ART-012 design lead",
+  "version": "0.1.0"
+}

@@ -236,3 +236,26 @@ midpoint, reaching 1130 mm along each wall direction, i.e. 130 mm past each 1 m
 wall end, 1377 mm from the corner at its furthest.
 **Note:** this was already true in revision 0.1.0 at a 440 mm radius reaching
 1102 mm; the wider door made it worse and the incomplete check made it invisible.
+
+## D-19 — Revision 0.2.0 landed inside another session's commit (provenance note)
+
+**What happened:** the revision 0.2.0 files were staged, and before `git commit`
+ran, a concurrent session in this shared worktree committed with a whole-tree
+stage. All 44 staged MM-FUR-001 files, the audit-JSON revision bump and the
+portfolio row were swept into **`b5056bd6` "MM-ART-010 v0.5.4: Anycubic 3MF
+packaging and boundary-crop slices"**, which is not about this product at all.
+
+**Verified before writing this:** all 69 files listed in `build-manifest.json`
+hash-match `HEAD` exactly, `preflight-result.json` validates against project
+revision 0.2.0, and `design-spec.yaml` validates with
+`--require-current-preflight`. Nothing is lost or corrupted; only the commit
+attribution is wrong.
+
+**Not corrected by rewriting history.** `AGENTS.md` forbids force-pushing or
+rewriting `main`, and the commit is already on `origin/main`. This entry is the
+correction: if you are tracing why revision 0.2.0 has no commit of its own, it is
+in `b5056bd6`, and the reasoning for the change itself is D-16 to D-18.
+
+**For anyone else working in this worktree:** stage explicit paths. `git add -A`,
+`git add .` and `git commit -a` in a worktree shared by several agent sessions
+will absorb another session's staged work into your commit.

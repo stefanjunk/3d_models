@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "run_id": "95eb5de9-469d-49ec-a5d7-2f281ff999b2",
+  "status": "succeeded",
+  "started_at": "2026-09-05T09:20:30Z",
+  "provider": {
+    "name": "Step1X-3D",
+    "organization": "stepfun-ai",
+    "source_repository": "https://github.com/stepfun-ai/Step1X-3D",
+    "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
+    "code_license": "Apache-2.0",
+    "weights_license": "Apache-2.0",
+    "served_by_fork": {
+      "repo": "/home/stefan/Projekte/Step1X-3D",
+      "commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+      "remote": "https://github.com/stefanjunk/Step1X-3D.git",
+      "worktree_clean": true
+    }
+  },
+  "operation": "single-image-to-geometry-glb",
+  "service": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "client": "gradio_client",
+    "client_version": "1.4.2",
+    "api_schema_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-003/api-schema.json",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "api_schema_file_sha256": "414740208a4ebaf7bba64c57a86ecbcfdba89ebf60da1da7e57a99e1b5f7a48c",
+    "contract_status": "compatible"
+  },
+  "parameters": {
+    "guidance_scale": 7.5,
+    "inference_steps": 50,
+    "max_facenum": 400000,
+    "symmetry": "x",
+    "edge_type": "sharp",
+    "geometry_seed": "not_exposed_by_endpoint"
+  },
+  "limitations": [
+    "single image does not determine hidden geometry or physical scale",
+    "generated geometry is not a functional or manufacturing authority",
+    "GLB must be registered, inspected and routed before slicer/CAD use",
+    "commercial clearance requires input rights and dependency review"
+  ],
+  "input": {
+    "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/reference/octopus-preform-plate-001.png",
+    "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-003/input/source.png",
+    "sha256": "ff71e1240e1b85d516afa8be8da17bae7ed755faa76903f3a82deebacc25b1f4",
+    "bytes": 832139,
+    "media_type": "image/png",
+    "alpha": {
+      "status": "unknown",
+      "meaningful_transparency": "unknown",
+      "background_removal_expected": "unknown",
+      "diagnostic": "alpha inspection unavailable: No module named 'PIL'"
+    }
+  },
+  "input_evidence": {
+    "image_prompt": {
+      "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/reference/imagegen-prompt.txt",
+      "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-003/input/image-prompt.txt",
+      "sha256": "ed78deba438afa6769e3dfa5d2286da95ce7dac15acdb7af9218915998af4c1c",
+      "bytes": 2505
+    }
+  },
+  "runtime_profile": {
+    "status": "not_supplied",
+    "note": "required before commercial release"
+  },
+  "finished_at": "2026-09-05T09:22:35Z",
+  "duration_seconds": 124.605,
+  "outputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-003/geometry.raw.glb",
+      "sha256": "5bd0838efa4a27cf7b8f35b188317c8f3b3731dc999410f5523d3b2b4d075135",
+      "bytes": 9894092,
+      "media_type": "model/gltf-binary",
+      "role": "untextured-geometry-master",
+      "physical_scale_verified": false,
+      "semantic_orientation_verified": false
+    }
+  ]
+}

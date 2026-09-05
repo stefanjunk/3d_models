@@ -1,0 +1,136 @@
+{
+ "id": "IF-EXT-GEO-RET-SLOT-001",
+ "name": "Slack cable to open tentacle retention channel",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-CABLE-001",
+ "boundary": "EXT",
+ "domains": [
+  "GEO",
+  "MEC"
+ ],
+ "function": "RET",
+ "geometry": "SLOT",
+ "lifecycle_states": [
+  "use",
+  "service",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the octopus body footprint on the desk-support plane",
+  "x_positive": "toward the front-facing tentacle pair",
+  "y_positive": "toward the rear of the body",
+  "z_positive": "up from the desk-support plane",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "channel floor arc, CAD-owned"
+  },
+  {
+   "id": "B",
+   "description": "channel mouth pinch plane between the two compliant detent lips"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "cable slides along the channel axis",
+   "cable lifts out through the channel mouth under deliberate hand force"
+  ],
+  "constrained": [
+   "cable falling out under its own weight",
+   "cable migrating between adjacent channels"
+  ]
+ },
+ "assembly": {
+  "direction": "press the slack cable down through the channel mouth by hand",
+  "contact_mode": "open compliant pinch, no clamping and no strain relief",
+  "sequence_notes": "Cables are routed after the body is placed. The channel never carries cable tension."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-CH-SMALL-001",
+   "feature": "nominal small channel mouth gap",
+   "nominal_mm": 4.0,
+   "status": "ESTIMATED",
+   "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-CH-LARGE-001",
+   "feature": "nominal large channel mouth gap",
+   "nominal_mm": 6.0,
+   "status": "ESTIMATED",
+   "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-CABLE-OD-001",
+   "feature": "intended cable outer-diameter design range, no cable measured",
+   "lower_mm": 3.0,
+   "upper_mm": 6.0,
+   "status": "UNKNOWN",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FIT_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+  "uncontrolled": [
+   "actual cable outer diameter and jacket hardness",
+   "jacket friction and surface finish",
+   "PETG channel-lip stiffness at the released wall thickness",
+   "print-direction anisotropy at the detent lips"
+  ]
+ },
+ "keepouts_and_access": [
+  "Do not claim strain relief, minimum bend radius, insulation or EMC function.",
+  "Do not route mains cables or cables carrying power-delivery heat under load.",
+  "Keep the channel mouth reachable by one adult finger without tools."
+ ],
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+   "preflight/preflight-input.yaml"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 25.0,
+  "uncertainty_note": "The channel sizes are declared design intent carried from the research row. No real cable was measured, no jacket hardness is recorded and no retention force is known. This is the weakest evidence link in the product and it caps project readiness at R2.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 2,
+  "KIN": 1,
+  "TOL": 2,
+  "PHY": 1,
+  "VAR": 3,
+  "LIF": 1,
+  "total": 10,
+  "tier": "I2"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "The channel mouth is wider than the cable and the cable falls out under its own weight.",
+   "effect": "The organizer does not organize; the desk returns to a tangle.",
+   "mitigation": "Measure real cables, size the pinch gap below the measured minimum outer diameter, verify with a coupon."
+  },
+  {
+   "mode": "The channel mouth is too tight and the cable jacket is scuffed or deformed on insertion.",
+   "effect": "Cosmetic jacket damage and a poor tactile impression.",
+   "mitigation": "Radius the detent lips, keep the pinch compliant, run a 100-cycle insertion test."
+  }
+ ],
+ "verification": {
+  "method": "test_coupon",
+  "acceptance_criteria": [
+   "Each declared channel retains its intended cable against a 2 N vertical tug without the cable leaving the channel.",
+   "Insertion needs no tool and leaves no visible jacket deformation after 100 insertion cycles."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "MM-ORG-041 design lead",
+ "version": "0.1.0"
+}

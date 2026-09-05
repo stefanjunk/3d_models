@@ -1,0 +1,99 @@
+{
+  "assessment_id": "PREFLIGHT-MM-DEC-004-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-09-05",
+  "product": "Sleepy Cat nursery-pot sleeve",
+  "scope": {
+    "intended_use": "Conceal a measured removable succulent nursery pot inside an original stylised curled-cat body while keeping the wet plant container removable.",
+    "user_context": "Adult dry-indoor home decor with occasional watering and cleaning.",
+    "variants": ["one nominal 60-65 mm nursery-pot launch size within 140 x 130 x 85 mm"],
+    "out_of_scope": ["direct soil vessel", "watertight planter claim", "food contact", "outdoor use", "child toy", "commercial offer before physical qualification"]
+  },
+  "entities": [
+    {"id": "E-PRINT-001", "kind": "PRINTED_PART", "name": "Curled-cat decorative sleeve"},
+    {"id": "E-POT-001", "kind": "HOST_OBJECT", "name": "Customer-owned nursery pot"},
+    {"id": "E-WATER-001", "kind": "MEDIUM", "name": "Incidental drainage water"},
+    {"id": "E-HUMAN-001", "kind": "HUMAN", "name": "Adult plant owner"},
+    {"id": "E-PROCESS-001", "kind": "ENVIRONMENT", "name": "Pinned Kobra 3 Max PETG process"}
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-CON-CYL-001",
+      "name": "CAD-owned sleeve cavity to removable nursery pot",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-POT-001",
+      "boundary": "EXT",
+      "domains": ["GEO", "MEC", "FLU"],
+      "function": "CON",
+      "geometry": "CYL",
+      "lifecycle_states": ["assembly", "use", "cleaning", "service", "storage"],
+      "evidence": {
+        "level": "E1",
+        "sources": ["business/02-portfolio/research-ideas-additions-3.csv#SKU-327", "business/02-portfolio/product-portfolio.csv#PORT-115"],
+        "variant_confirmed": false,
+        "coverage_percent": 25.0,
+        "uncertainty_note": "The 65 x 60 mm research cavity is a nominal concept only. No physical host pot, taper, rim, feet or drainage pattern has been measured.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {"GEO": 2, "KIN": 1, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 1, "total": 9, "tier": "I2"},
+      "criticality": "K1",
+      "failure_modes": [
+        {"mode": "Pot does not seat or cannot be removed", "effect": "Product is unusable or traps the wet pot", "mitigation": "Measure the exact host pot and keep cavity diameter, taper, rim and floor clearance parametric."},
+        {"mode": "Drainage water pools unseen in the sleeve", "effect": "Odour, staining or plant-care failure", "mitigation": "Provide an inspectable vent/drain path and qualify it by a water-path test."},
+        {"mode": "Loaded sleeve tips", "effect": "Plant and water spill", "mitigation": "Physically test the declared pot with wet substrate at controlled tilt angles."}
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": ["Declared host pot seats and removes by hand without sticking.", "Water-path test leaves no hidden pooled water in the sleeve.", "Loaded assembly passes the declared tip-stability test."],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {"REQ": 2, "CTX": 1, "PAR": 2, "INT": 1, "CPL": 1, "MOT": 0, "GEO": 2, "PHY": 1, "MAT": 2, "EXT": 0, "VER": 2},
+    "score_0_100": 30.25,
+    "class": "C2",
+    "drivers": ["unmeasured nursery-pot interface", "wet-service drainage path", "organic-to-parametric hybrid cavity"]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {"scope_variant": "R3", "requirements": "R3", "critical_interfaces": "R2", "manufacturing_profile": "R3", "verification": "R2"},
+    "blocking_unknowns": ["exact nursery-pot dimensions", "qualified cavity clearance", "image-generator SKU rights", "physical drainage and tip-stability results"],
+    "completeness_percent": 48.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "Failure is expected to cause limited property damage, plant loss or a small spill, not a safety-critical event.",
+    "credible_failure_effects": ["pot trapping or poor fit", "hidden standing water", "tip and spill", "minor sharp-edge scratch"]
+  },
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "PASS", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
+  "decision": {
+    "lane": "C",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "Proceed with own reference generation and the organic cat preform. Keep the host-pot cavity and drainage path in CAD and block manufacture/release until the exact pot and physical tests are documented."
+  },
+  "warnings": [
+    {"code": "TOOL_LICENCE_WARN", "severity": "WARN", "message": "The owned geometry-only Step1X fork is technically cleared only for new post-cutoff runs; image-generator rights remain a product-local warning."},
+    {"code": "UNMEASURED_HOST_POT", "severity": "BLOCKER", "message": "The nominal 65 x 60 mm research cavity is not a measured interface and cannot support a compatibility claim."},
+    {"code": "NO_WATERTIGHT_CLAIM", "severity": "WARN", "message": "The launch scope is a removable-pot sleeve, not a vessel that directly contains soil or water."}
+  ],
+  "next_actions": [
+    {"priority": 1, "action": "Generate and archive an own transparent curled-cat reference and a post-cutoff geometry-only Step1X run.", "exit_criterion": "Prompt, input hash, runtime provenance and raw GLB are product-local."},
+    {"priority": 2, "action": "Measure the exact nursery pot and reconstruct the cavity parametrically.", "exit_criterion": "Diameter, taper, rim, height, feet and drainage pattern are measured with method and uncertainty."},
+    {"priority": 3, "action": "Run host-fit, water-path and tip-stability physical tests.", "exit_criterion": "The declared host assembly passes every acceptance criterion."}
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-DEC-004",
+    "project_revision": "0.1.0",
+    "basis_refs": ["business/02-portfolio/research-ideas-additions-3.csv#SKU-327", "business/02-portfolio/product-portfolio.csv#PORT-115", "business/06-legal-compliance/generative-tooling-licence-audit.md"],
+    "change_triggers": ["initial_design", "portfolio_registration", "license_chain_initialization"],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-05T11:51:04+02:00",
+    "updated_at": "2026-09-05T11:51:04+02:00"
+  }
+}

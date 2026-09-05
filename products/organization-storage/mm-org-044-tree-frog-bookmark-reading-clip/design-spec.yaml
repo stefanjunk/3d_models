@@ -1,0 +1,152 @@
+project:
+  id: MM-ORG-044
+  sku: MM-ORG-044
+  name: Tree Frog bookmark reading clip
+  revision: 0.1.0
+  owner: project-owner-via-chat-2026-09-05
+  created: 2026-09-05
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-114
+  product_path: products/organization-storage/mm-org-044-tree-frog-bookmark-reading-clip
+  research_record: business/02-portfolio/research-ideas-additions-3.csv#SKU-332
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-ORG-044-0.1.0
+  storefront_role: metriCreate Step1X launch candidate 2
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ORG-044-001
+    assessment_version: 0.1.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-05T11:51:04+02:00"
+    change_triggers: [initial_design, portfolio_registration, license_chain_initialization]
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-05
+    approved_at: "2026-09-05T11:51:04+02:00"
+    spec_revision: 0.1.0
+    reason: Owner instructed continuation of the selected products after the licence review; approval covers this controlled design basis, not release or physical qualification.
+  concept_approval:
+    status: pending
+    asset: organic/reference/frog-concept-001-selected.png
+    asset_sha256_record: evidence/imagegen-record.json
+    reason: The generated concept and Step1X draft exist and passed agent visual/mesh review, but explicit human concept approval is still pending.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ORG-044
+    version: 0.1.0
+    reason: No final production geometry exists.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: Product-local rights, physical qualification, marking and human approval remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ORG-044
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Continue with the three selected Step1X-dependent products after checking the adjusted licences.
+    - Reuse the existing Octopus instead of creating a duplicate.
+  research_evidenced:
+    - Use an original stylised tree frog as the appearance-led element.
+    - Stay within a 75 x 45 x 30 mm planning envelope.
+  inferred:
+    - Adult dry-indoor reading accessory only; no child-toy or archival-paper scope.
+    - Step1X owns only the frog preform; CAD owns every page-contacting surface.
+  unresolved:
+    - Paper sample set, qualified blade thickness, preload, fatigue life and page-marking result
+    - Image-generator terms, outgoing licence, seller identity and storefront disclosures
+
+function:
+  summary: An original tree-frog ornament joined to a CAD-owned spring blade that marks an adult reader's page.
+  included: [organic frog preform, parametric attachment pad, parametric page blade, rounded page-contacting edges]
+  excluded: [child-toy use, archival-paper claim, licensed character, manufacture or listing before qualification]
+  interfaces: [preflight/preflight-result.json#IF-EXT-GEO-RET-SLOT-001]
+
+dimensions:
+  planning_envelope_ceiling_mm: [75, 45, 30]
+  research_blade_thickness_mm:
+    value: 0.8
+    status: REJECTED_AS_UNQUALIFIED
+  blade_thickness_mm:
+    status: UNQUALIFIED_PARAMETER
+    basis: Must be established by the exact-process coupon and 100-cycle test.
+  minimum_general_wall_mm: 1.35
+  minimum_general_wall_basis: Three perimeters at the pinned 0.4 mm nozzle.
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Adult dry-indoor reading accessory only.
+  hazards: [page marking or tearing, loss of retention, spring fracture, sharp edge]
+  controls: [CAD-owned page interface, rounded edges, coupon before full print, 100-cycle physical test, no child claim]
+
+fabrication:
+  preference: balanced-hybrid
+  preference_basis: Step1X creates the frog's appearance; deterministic CAD creates the blade and mating pad.
+  process: FDM/FFF
+  parts_status: A watertight registered frog preform and a 0.8/1.0/1.2 mm blade coupon series exist; the final frog-to-blade product geometry does not.
+  release_scope: Digital-first only after physical and commercial clearance.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: pending after registered frog preform
+  supports: build-plate-only preferred; exact need pending geometry
+  calibration_gate:
+    status: NO_MATCHING_PROCESS
+    unqualified: [spring_blade_thickness, spring_preload, paper_contact_force]
+    consequence: No functional fit or retention claim may be made before a product-specific coupon passes.
+
+optimization:
+  status: pending
+  rationale: The organic preform is not a final manufacturing mesh; only the smallest blade coupon has an exact-profile slicer baseline.
+  mesh_simplification:
+    status: pending
+    protected_regions: [frog silhouette, eyes and toes, CAD mating pad, blade, rounded page-contacting edges, future mark region]
+    rationale: The 400k-face frog is an organic draft; simplification follows only after the final CAD-owned blade and join exist.
+
+acceptance:
+  - {id: AC-PROV-001, criterion: Prompt, input image, post-cutoff Step1X run and CAD derivation are hash-linked., method: Provenance audit., status: passed-for-organic-draft}
+  - {id: AC-MESH-001, criterion: Released mesh is watertight with one intended connected component., method: Deterministic mesh audit., status: passed-for-registered-organic-draft-only}
+  - {id: AC-PAGE-001, criterion: Declared paper samples show no visible marking after use., method: Physical page inspection., status: planned}
+  - {id: AC-CYCLE-001, criterion: The blade survives 100 insertions without fracture or permanent retention loss., method: Physical cycle test., status: planned}
+  - {id: AC-EDGE-001, criterion: Every page- and hand-contacting edge is intentionally rounded., method: CAD and tactile inspection., status: planned}
+
+deliverables:
+  current: [PURPOSE.md, decision-log.md, design-spec.yaml, preflight/, commercial-clearance/, organic/reference/, organic/raw/step1x/run-001/, organic/work/run-001/, coupons/blade-series-001/, evidence/organic-draft-manifest.json]
+  forbidden_in_this_phase: [printer upload or print start, storefront upload, compatibility or retention claim]
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-114
+    - business/02-portfolio/research-ideas-additions-3.csv#SKU-332
+    - business/06-legal-compliance/generative-tooling-licence-audit.md
+    - commercial-clearance/project.json
+    - evidence/organic-draft-manifest.json

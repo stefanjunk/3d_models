@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "run_id": "22834a37-3808-4b73-8ba3-c71a14a80672",
+  "status": "succeeded",
+  "started_at": "2026-09-05T10:05:07Z",
+  "provider": {
+    "name": "Step1X-3D",
+    "organization": "stepfun-ai",
+    "source_repository": "https://github.com/stepfun-ai/Step1X-3D",
+    "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
+    "code_license": "Apache-2.0",
+    "weights_license": "Apache-2.0",
+    "served_by_fork": {
+      "repo": "/home/stefan/Projekte/Step1X-3D",
+      "commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+      "remote": "https://github.com/stefanjunk/Step1X-3D.git",
+      "worktree_clean": true
+    }
+  },
+  "operation": "single-image-to-geometry-glb",
+  "service": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "client": "gradio_client",
+    "client_version": "1.4.2",
+    "api_schema_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/api-schema.json",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "api_schema_file_sha256": "414740208a4ebaf7bba64c57a86ecbcfdba89ebf60da1da7e57a99e1b5f7a48c",
+    "contract_status": "compatible"
+  },
+  "parameters": {
+    "guidance_scale": 7.5,
+    "inference_steps": 50,
+    "max_facenum": 400000,
+    "symmetry": "x",
+    "edge_type": "smooth",
+    "geometry_seed": "not_exposed_by_endpoint"
+  },
+  "limitations": [
+    "single image does not determine hidden geometry or physical scale",
+    "generated geometry is not a functional or manufacturing authority",
+    "GLB must be registered, inspected and routed before slicer/CAD use",
+    "commercial clearance requires input rights and dependency review"
+  ],
+  "input": {
+    "original_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/reference/cat-concept-001.png",
+    "archived_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/input/source.png",
+    "sha256": "ec61fb908a00c425a47256a4c63637d6f5c0310b97640e4731b1b08b9a65a56e",
+    "bytes": 1603652,
+    "media_type": "image/png",
+    "alpha": {
+      "status": "inspected",
+      "meaningful_transparency": false,
+      "background_removal_expected": "rembg_u2net_cpu",
+      "mode": "RGB",
+      "size_px": [
+        1402,
+        1122
+      ],
+      "alpha_extrema": null
+    }
+  },
+  "input_evidence": {
+    "image_prompt": {
+      "original_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/reference/imagegen-prompt.txt",
+      "archived_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/input/image-prompt.txt",
+      "sha256": "6f1bda81c8a8c8119847b089a5a7d39f230bf3da3f8de139eb52838896e8e96c",
+      "bytes": 1130
+    },
+    "input_generation_record": {
+      "original_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/evidence/imagegen-record.json",
+      "archived_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/input/generation-record.json",
+      "sha256": "2ef79a606347e783325aa8069b9e2b7be924d4234afa7d69e9b83090f5513b97",
+      "bytes": 1845
+    }
+  },
+  "runtime_profile": {
+    "original_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/evidence/step1x-runtime-20260905.json",
+    "archived_path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/runtime-profile.json",
+    "sha256": "971dec5e1fe6a7e8944e03ce27409c4c9cc6bfe7c3de0896ce558d630ad68e7e",
+    "bytes": 7263
+  },
+  "finished_at": "2026-09-05T10:07:13Z",
+  "duration_seconds": 126.582,
+  "outputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter/organic/raw/step1x/run-001/geometry.raw.glb",
+      "sha256": "e599d0b5311e7c7eb5e9d2ff4f56a41568b9626ef6bf8a796630a152cd9d8895",
+      "bytes": 9893236,
+      "media_type": "model/gltf-binary",
+      "role": "untextured-geometry-master",
+      "physical_scale_verified": false,
+      "semantic_orientation_verified": false
+    }
+  ]
+}

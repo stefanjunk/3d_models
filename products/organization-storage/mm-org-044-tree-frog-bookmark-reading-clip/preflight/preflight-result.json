@@ -1,0 +1,96 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ORG-044-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-09-05",
+  "product": "Tree Frog bookmark reading clip",
+  "scope": {
+    "intended_use": "Mark reading progress in an adult-owned book with an original stylised frog ornament and a parametrically controlled page clip.",
+    "user_context": "Adult dry-indoor reading; repeated manual insertion and removal from variable paper stocks.",
+    "variants": ["one 75 x 45 x 30 mm maximum launch size"],
+    "out_of_scope": ["child toy", "archival-paper claim", "licensed character or likeness", "commercial offer before physical qualification"]
+  },
+  "entities": [
+    {"id": "E-PRINT-001", "kind": "PRINTED_PART", "name": "Frog ornament and bookmark blade"},
+    {"id": "E-BOOK-001", "kind": "HOST_OBJECT", "name": "Customer-owned book and page stock"},
+    {"id": "E-HUMAN-001", "kind": "HUMAN", "name": "Adult reader"},
+    {"id": "E-PROCESS-001", "kind": "ENVIRONMENT", "name": "Pinned Kobra 3 Max PETG process"}
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-RET-SLOT-001",
+      "name": "CAD-owned bookmark blade to book page",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-BOOK-001",
+      "boundary": "EXT",
+      "domains": ["GEO", "MEC", "HUM"],
+      "function": "RET",
+      "geometry": "SLOT",
+      "lifecycle_states": ["assembly", "use", "service", "storage"],
+      "evidence": {
+        "level": "E1",
+        "sources": ["business/02-portfolio/research-ideas-additions-3.csv#SKU-332", "business/02-portfolio/product-portfolio.csv#PORT-114"],
+        "variant_confirmed": false,
+        "coverage_percent": 25.0,
+        "uncertainty_note": "Paper thickness, coating, acceptable preload, permanent set and cycle life are unmeasured. The research value 0.8 mm is not accepted as a qualified blade thickness.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {"GEO": 1, "KIN": 2, "TOL": 2, "PHY": 1, "VAR": 2, "LIF": 2, "total": 10, "tier": "I2"},
+      "criticality": "K1",
+      "failure_modes": [
+        {"mode": "Blade marks or tears a page", "effect": "Damage to the customer's book", "mitigation": "Use rounded CAD edges and qualify preload on declared paper coupons."},
+        {"mode": "Blade takes a permanent set or breaks", "effect": "Bookmark loses retention or leaves a loose fragment", "mitigation": "Keep thickness parametric and require a 100-cycle physical test."}
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": ["Holds on declared paper samples without visible marking.", "Completes 100 insertion cycles without fracture or permanent loss of retention."],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {"REQ": 2, "CTX": 2, "PAR": 2, "INT": 2, "CPL": 1, "MOT": 0, "GEO": 2, "PHY": 1, "MAT": 1, "EXT": 0, "VER": 2},
+    "score_0_100": 34.75,
+    "class": "C2",
+    "drivers": ["variable paper interface", "fatigue-prone spring blade", "organic-to-parametric hybrid join"]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {"scope_variant": "R3", "requirements": "R3", "critical_interfaces": "R2", "manufacturing_profile": "R3", "verification": "R2"},
+    "blocking_unknowns": ["paper sample set and thickness range", "qualified blade thickness and preload", "image-generator SKU rights", "physical retention and page-marking result"],
+    "completeness_percent": 48.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "Failure is expected to cause limited property damage or product loss, but a sharp or broken clip can damage a book or scratch a hand.",
+    "credible_failure_effects": ["page marking or tearing", "loss of retention", "minor sharp-edge scratch"]
+  },
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "WARN", "G3": "PASS", "G4": "PASS", "G5": "PASS", "G6": "PASS"},
+  "decision": {
+    "lane": "C",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "Proceed with own reference generation and the organic frog preform. Keep every page-contacting dimension in CAD and block manufacture/release until the physical clip coupon passes."
+  },
+  "warnings": [
+    {"code": "TOOL_LICENCE_WARN", "severity": "WARN", "message": "The owned geometry-only Step1X fork is technically cleared only for new post-cutoff runs; image-generator rights remain a product-local warning."},
+    {"code": "UNQUALIFIED_SPRING_INTERFACE", "severity": "BLOCKER", "message": "Blade thickness, preload, paper interaction and cycle life have no physical evidence."}
+  ],
+  "next_actions": [
+    {"priority": 1, "action": "Generate and archive an own transparent frog reference and a post-cutoff geometry-only Step1X run.", "exit_criterion": "Prompt, input hash, runtime provenance and raw GLB are product-local."},
+    {"priority": 2, "action": "Design a CAD-owned blade coupon with named thickness and preload parameters.", "exit_criterion": "Coupon source and dimensional audit exist without claiming a qualified fit."},
+    {"priority": 3, "action": "Run page-marking and 100-cycle physical tests.", "exit_criterion": "Declared paper samples pass the acceptance criteria."}
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-ORG-044",
+    "project_revision": "0.1.0",
+    "basis_refs": ["business/02-portfolio/research-ideas-additions-3.csv#SKU-332", "business/02-portfolio/product-portfolio.csv#PORT-114", "business/06-legal-compliance/generative-tooling-licence-audit.md"],
+    "change_triggers": ["initial_design", "portfolio_registration", "license_chain_initialization"],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-05T11:51:04+02:00",
+    "updated_at": "2026-09-05T11:51:04+02:00"
+  }
+}

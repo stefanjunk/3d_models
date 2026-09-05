@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-ORG-041",
+  "revision": "0.1.0",
+  "created": "2026-09-04",
+  "label": "GENERATED PROPOSAL \u2014 not a measured reconstruction; no physical validation exists",
+  "derivation_chain": [
+    {
+      "path": "organic/reference/candidate-001-raw.png",
+      "sha256": "0f83131663515bb9c71d041970a61f70316d8f75bf780d1e66643749e4d14349",
+      "bytes": 1282177,
+      "note": "gpt-image plate via Codex CLI (RGB, checkerboard background painted in)"
+    },
+    {
+      "path": "organic/reference/octopus-preform-plate-001.png",
+      "sha256": "ff71e1240e1b85d516afa8be8da17bae7ed755faa76903f3a82deebacc25b1f4",
+      "bytes": 832139,
+      "note": "alpha-keyed square Step1X input plate"
+    },
+    {
+      "path": "organic/raw/step1x/run-002/geometry.raw.glb",
+      "sha256": "1b0fe868c9874eb775dde4420f512a047f9d5288ec02dadfa3c5b09186fb4b10",
+      "bytes": 10002296,
+      "note": "Step1X raw geometry master \u2014 IMMUTABLE"
+    },
+    {
+      "path": "organic/raw/step1x/run-002/textured.raw.glb",
+      "sha256": "b2007ef0195e17a07018e447af201044438cf61ad6ab6066ed9d815e37a50e9c",
+      "bytes": 3790728,
+      "note": "Step1X raw textured master \u2014 IMMUTABLE"
+    },
+    {
+      "path": "organic/work/01-defloatered-mm.stl",
+      "sha256": "611eae6c3ff782a2e083897a7742318640c889c652a5a3ce0cc74e84ff55424e",
+      "bytes": 19751734,
+      "note": "floaters removed, oriented, scaled to mm (orientation later found inverted)"
+    },
+    {
+      "path": "organic/work/03-poisson-d8.stl",
+      "sha256": "4829ebb5300980f1b690444f303de0977685d2a3cfb1272df9881a21498aa3f7",
+      "bytes": 27116184,
+      "note": "screened Poisson depth 8 \u2014 closed surface"
+    },
+    {
+      "path": "organic/work/04-repaired.stl",
+      "sha256": "81d81077b1a12b5ae0821725e017ff918ff2bb2959ef3f4ba9e66dcac601b992",
+      "bytes": 19206784,
+      "note": "manifold repair + largest shell \u2014 watertight, genus 0"
+    },
+    {
+      "path": "organic/work/07-oriented-flat-base.stl",
+      "sha256": "b65185930496589f6b53f76816b2497fd733d6ce40c0fb0449565292d1525a0f",
+      "bytes": 18601684,
+      "note": "ORIENTATION CORRECTED (+90 deg X) + parametric flat base at z=4"
+    },
+    {
+      "path": "cutters/cable-channels.stl",
+      "sha256": "ff8b96ce52af8fb22bbca4e2aafb60dcfb70088e3a2bdcc364af6e10b4a206d5",
+      "bytes": 80484,
+      "note": "6 radial channel cutters (bore + mouth slot)"
+    },
+    {
+      "path": "organic/work/08-final-channels.stl",
+      "sha256": "365b74410caa2aff8892cc345b7eb115b75142ca607660c9c47b283acde10a0d",
+      "bytes": 18486984,
+      "note": "final solid with channels"
+    },
+    {
+      "path": "result/mm-org-041-octopus-cable-wrap-organizer-v0.1.0.stl",
+      "sha256": "365b74410caa2aff8892cc345b7eb115b75142ca607660c9c47b283acde10a0d",
+      "bytes": 18486984,
+      "note": "delivered digital candidate"
+    }
+  ],
+  "manufacturing": {
+    "slicer": "AnycubicSlicerNext 1.3.9.4 via fdm_ci.py slice-anycubic-next 1.3.0",
+    "machine": "Anycubic Kobra 3 Max, 0.4 mm hardened steel nozzle",
+    "material": "SUNLU PETG Black (batch UNKNOWN_UNTIL_PROTOTYPE)",
+    "candidates": [
+      {
+        "id": "slice-001",
+        "profile": "pinned baseline MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31 (enable_support=0)",
+        "adapter_status": "PASS",
+        "slicer_return_code": 0,
+        "slicer_warning": "It seems object has floating regions. Please re-orient the object or enable support generation.",
+        "layers": 305,
+        "max_z_mm": 61.04,
+        "filament_g": 77.43,
+        "filament_cm3": 60.97,
+        "print_time_normal": "4h 25m 03s",
+        "gcode_sha256": "52a168c277ce832c9aa2e1dfc21c0d7b353d6f7215cfab20c43605fbeb959c5f",
+        "verdict": "NOT RECOMMENDED \u2014 9003 mm2 of overhang beyond 30 deg (24.5% of surface) prints unsupported"
+      },
+      {
+        "id": "slice-002-treesupport",
+        "profile": "products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/profiles/process-0p20-petg-tool-k3max-treesupport.json",
+        "profile_derivation": "copy of the pinned baseline process profile with only enable_support, support_type, support_on_build_plate_only and support_threshold_angle changed; the pinned baseline file itself is unmodified",
+        "profile_sha256": "4cf9394de51393eb96298764ff7554f73454cf4ee777fd856421eb945371262a",
+        "adapter_status": "PASS",
+        "slicer_return_code": 0,
+        "slicer_warning": "",
+        "filament_g": 90.6,
+        "print_time_normal": "5h 47m 14s",
+        "gcode_sha256": "df599d4d265969e0e381477fa0011d1fb4269345c8097c2de4efea05792e5cbf",
+        "verdict": "RECOMMENDED print candidate \u2014 floating-region warning cleared"
+      }
+    ],
+    "overhang_measurement": {
+      "total_area_mm2": 36690,
+      "overhang_area_beyond_30deg_mm2": 9003,
+      "overhang_fraction": 0.245,
+      "overhang_area_above_z10_mm2": 2027
+    },
+    "modelled_vs_actual": {
+      "research_row_modelled_g": 123.8,
+      "actual_g_no_support": 77.43,
+      "research_row_modelled_h": 3.64,
+      "actual_h_no_support": 4.42,
+      "note": "The research economics row was modelled from a bounding box; these are real slicer values and supersede it for this geometry."
+    },
+    "boundary": "Local export only. No printer upload and no print start were performed; both require separate explicit human action."
+  },
+  "communication_assets": [
+    {
+      "path": "concept/concept-context-001.png",
+      "sha256": "543b7ff2bb399c8be67d7d34fd263ba537c334085a06a82400cc919f1a0b082a",
+      "kind": "AI-generated in-use concept image",
+      "record": "evidence/concept-image-record.json",
+      "warning": "NOT a product photograph and NOT evidence of the built geometry; three known deviations are listed in the record."
+    }
+  ],
+  "licence_position": {
+    "status": "BLOCK for EU commercial use",
+    "verified_on": "2026-09-04",
+    "run_base_commit": "f19046aebce121fd9f832e5e65831e89993fb9c1",
+    "cleanup_commit": "f00dd46 (Replace the Hunyuan-licensed volume decoders with an independent implementation)",
+    "relation": "run predates cleanup",
+    "finding": "Verified 2026-09-04 against the captured runtime profile. This product's geometry run recorded source.base_commit f19046aebce121fd9f832e5e65831e89993fb9c1. The owned fork's cleanup commits land AFTER it: f00dd46 replaced the Hunyuan-licensed volume decoders, 2433849 removed the texture pipeline. At f19046a the file step1x3d_geometry/models/autoencoders/volume_decoders.py \u2014 in the geometry path a geometry-only run executes \u2014 still carried the verbatim TENCENT HUNYUAN NON-COMMERCIAL LICENSE AGREEMENT header. The fork-wide de-escalation to WARN therefore applies to runs made at or after f00dd46 and does NOT cover these artifacts."
+  }
+}

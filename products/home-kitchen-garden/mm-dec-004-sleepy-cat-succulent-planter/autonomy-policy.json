@@ -1,0 +1,134 @@
+{
+  "authorization": {
+    "authorized_by": "project-owner-via-chat-2026-09-05",
+    "scope": "workflow-stages-only",
+    "type": "human-delegation"
+  },
+  "auto_approval_conditions": {
+    "block_statuses": [
+      "FAIL",
+      "NOT_RUN",
+      "REVIEW_REQUIRED"
+    ],
+    "require_all_evidence_pass": true,
+    "require_evidence_sha256": true
+  },
+  "human_approval_proof": "hmac-sha256",
+  "mode": "manual",
+  "policy_id": "MM-DEC-004-manual-v1",
+  "preflight_guard": {
+    "assessment_id": "PREFLIGHT-MM-DEC-004-001",
+    "assessment_version": "0.1.0",
+    "autonomy_ceiling": "manual",
+    "confidence": "LOW_UNKNOWN",
+    "criticality": "K1",
+    "design_release": "GO_WITH_CONTROLS",
+    "gates": {
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "WARN",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "PASS"
+    },
+    "lane": "C",
+    "path": "preflight/preflight-result.json",
+    "project_id": "MM-DEC-004",
+    "project_revision": "0.1.0",
+    "readiness": "R2",
+    "sha256": "116d46441d2dff7f416a44800d682da9ce232e20f71f99b707c96e4d5f145679"
+  },
+  "project_id": "MM-DEC-004",
+  "schema_version": "1.1",
+  "stages": [
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "requirements-normalization",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "concept",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "decomposition",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "parametric-source",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "mesh-generation",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "interface-validation",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "slicer-preflight",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "print-candidate",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "physical-print",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "fit-and-function",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "appearance",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "safety",
+      "require_hashed_report_inputs": false
+    },
+    {
+      "approval": "human",
+      "evidence_mode": "human-evidence",
+      "id": "commercial-release",
+      "require_hashed_report_inputs": false
+    }
+  ],
+  "tool_policy": {
+    "dependency_install": "ask",
+    "destructive_overwrite": "deny",
+    "external_upload": "ask",
+    "local_build_export_test": "allow",
+    "local_workspace_write": "allow",
+    "network": "ask",
+    "printer_start": "deny",
+    "printer_upload": "deny"
+  }
+}

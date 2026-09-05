@@ -1,0 +1,63 @@
+product_identity:
+  sku: MM-DEC-004
+  name: Sleepy Cat nursery-pot sleeve
+  revision: 0.1.0
+  product_path: products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-115
+portfolio:
+  source_csv: business/02-portfolio/product-portfolio.csv
+  generated_workbook: business/02-portfolio/product-portfolio.xlsx
+  registration_status: registered
+rights_chain:
+  workspace: commercial-clearance/
+  source_register: commercial-clearance/01-sources/source-register.csv
+  tool_register: commercial-clearance/02-tools/tool-register.csv
+  component_register: commercial-clearance/03-components/component-register.csv
+  status: WARN
+  blockers:
+    - Image-generator rights and terms must be fixed per SKU.
+    - Physical qualification and outgoing licence remain open.
+product: Sleepy Cat nursery-pot sleeve
+intended_use: Decoratively conceal a removable succulent nursery pot inside an original curled-cat body.
+user_context: Adult dry-indoor home decor; occasional watering with the nursery pot remaining removable.
+host_variant:
+  manufacturer: null
+  model: Customer-owned nominal 60-65 mm nursery pot
+  revision: null
+  variant_confirmed: false
+lifecycle_states: [assembly, use, cleaning, service, storage]
+requirements:
+  - id: REQ-001
+    text: The cat exterior shall be generated from an own isolated image and preserve deterministic cavity stock.
+    acceptance_criterion: Provenance identifies the prompt, image hash, Step1X run and functional CAD derivation.
+    priority: MUST
+    source: user-and-portfolio
+  - id: REQ-002
+    text: The sleeve shall accept only a measured removable nursery pot and provide a visible drainage or vent path.
+    acceptance_criterion: A declared host pot seats and removes by hand; the water-path test shows no hidden pooling in the sleeve.
+    priority: MUST
+    source: inferred-functional
+known_components:
+  - id: E-PRINT-001
+    kind: PRINTED_PART
+    name: Curled-cat nursery-pot sleeve
+available_evidence:
+  - id: SRC-001
+    type: portfolio_research
+    description: Research concept SKU-327 and prospective portfolio record PORT-115
+    variant_confirmed: false
+    scale_validated: false
+manufacturing_profile:
+  printer: Anycubic Kobra 3 Max
+  process: FDM
+  nozzle_mm: 0.4
+  material: SUNLU PETG Black
+  orientation_known: false
+known_loads_environment:
+  loads: [nursery-pot mass, wet substrate mass, incidental watering load]
+  temperature_c: 18-30
+  media: [water outside the removable nursery pot, damp pot exterior]
+  duration: repeated indoor display and occasional watering
+safety_notes:
+  - No direct soil, watertight, food-contact, outdoor or child-toy claim.
+  - Tip stability must be physically tested with the declared pot and wet substrate.

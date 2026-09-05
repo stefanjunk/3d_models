@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "record_type": "IMAGE_GENERATION_RECORD",
+  "product": "MM-ORG-041",
+  "project_revision": "0.1.0",
+  "purpose": "Single Step1X-3D input plate; sacrificial preform for the octopus cable wrap organizer.",
+  "generated_at": "2026-09-04T17:27:00+02:00",
+  "route": "Route A per CLAUDE.md — Codex CLI built-in image_gen__imagegen tool",
+  "tool": {
+    "name": "OpenAI gpt-image via Codex CLI image_gen__imagegen",
+    "cli": "codex-cli 0.153.2",
+    "agent_model": "gpt-5.6-sol",
+    "image_model_version": "UNKNOWN — not exposed by the tool",
+    "auth_mode": "chatgpt",
+    "plan": "ChatGPT Pro subscription (owner-stated 2026-09-04: 'Pro 5x')",
+    "api_key_used": false,
+    "tool_register_ref": "commercial-clearance/02-tools/tool-register.csv#TOOL-0002",
+    "parameters_available": [
+      "prompt",
+      "referenced_image_paths",
+      "num_last_images_to_include"
+    ],
+    "parameters_used": {
+      "prompt": "see prompt_file",
+      "referenced_image_paths": null,
+      "num_last_images_to_include": null
+    },
+    "note": "The tool exposes no size, background or output_format parameter. A square 1:1 aspect was requested in the prompt text only."
+  },
+  "codex_invocation": {
+    "command": "codex exec --json --skip-git-repo-check -o <last-message> -  (prompt on stdin)",
+    "task_file": "evidence/codex-imagegen-task.txt",
+    "event_stream": "evidence/codex-imagegen-events.jsonl",
+    "threads_observed": [
+      "01a06d07-9250-7553-8b16-7a57442e7f14",
+      "01a06d09-2ee9-74f3-8d94-0ae8e8119c6f"
+    ],
+    "output_thread_directory": "01a06d07-9250-7553-8b16-7a57442e7f14",
+    "attribution_note": "The first invocation was launched with the prompt as an argument and reported 'Reading additional input from stdin...', then exited after two events. The second invocation passed the prompt on stdin and completed. The PNG appeared under the FIRST thread's directory, so the Codex app-server daemon completed that call after its CLI process had exited. Snapshot-diff, not newest-file, identified exactly one new PNG.",
+    "invocations": 2
+  },
+  "prompt_file": "organic/reference/imagegen-prompt.txt",
+  "prompt_body_sha256": "b37a686ab98d6d5ec69e7c9ec46e10fd66e6856766072b5d147fae5b3bdad1b7",
+  "candidates": [
+    {
+      "file": "organic/reference/candidate-001-raw.png",
+      "sha256": "0f83131663515bb9c71d041970a61f70316d8f75bf780d1e66643749e4d14349",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGB (no alpha)",
+      "decision": "SELECTED",
+      "finding": "Massing, thick tapering-only-gently tentacles, blunt rounded tips and four outward-facing open C-curls all match the preform brief. No suckers, membranes, thin sheets or texture noise. DEFECT: the model painted a literal checkerboard background into the pixels instead of emitting an alpha channel."
+    }
+  ],
+  "candidate_count": 1,
+  "preprocessing": {
+    "script": ".claude/skills/reconstruct-printable-3d-from-images/scripts/preprocess_image.py",
+    "command": "--background auto --padding-fraction 0.08 --max-side-px 2048",
+    "background_mode_ration": "The `alpha` mode was tried first and failed: it reported 'The image has no useful transparency; the mask is full frame' and left the checkerboard in place. `auto`, a colour-distance heuristic, keyed both checkerboard tones cleanly.",
+    "output_dir": "organic/reference/candidate-001-preprocessed",
+    "report": "organic/reference/candidate-001-preprocessed/report.json",
+    "heuristic_warning": "Automatic background segmentation is a colour-distance heuristic; thin parts, holes and shadows were reviewed visually and the silhouette mask was accepted."
+  },
+  "plate": {
+    "file": "organic/reference/octopus-preform-plate-001.png",
+    "sha256": "ff71e1240e1b85d516afa8be8da17bae7ed755faa76903f3a82deebacc25b1f4",
+    "size_px": [
+      1358,
+      1358
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "opaque_fraction": 0.3293,
+    "max_alpha_on_border": 0,
+    "acceptance": [
+      "square",
+      "real alpha channel present",
+      "object does not touch the image border",
+      "one expected subject",
+      "no checkerboard residue, halo or background island",
+      "visually reviewed at full size"
+    ]
+  },
+  "ip_basis": "Original generative concept from an own text prompt. No third-party model, character, likeness, logo or trade dress. No external model file imported. Recorded as commercial-clearance/01-sources/source-register.csv#SRC-0002.",
+  "rights_status": "The plate exists, but the applicable ChatGPT plan terms and Codex CLI terms are UNVERIFIED. Commercial use of the output for a sold product is not cleared. See commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md.",
+  "labelling": "GENERATED PROPOSAL — not a measured reconstruction. Hidden geometry, depth and internal volume are synthesized."
+}

@@ -1,0 +1,153 @@
+project:
+  id: MM-DEC-004
+  sku: MM-DEC-004
+  name: Sleepy Cat nursery-pot sleeve
+  revision: 0.1.0
+  owner: project-owner-via-chat-2026-09-05
+  created: 2026-09-05
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-115
+  product_path: products/home-kitchen-garden/mm-dec-004-sleepy-cat-succulent-planter
+  research_record: business/02-portfolio/research-ideas-additions-3.csv#SKU-327
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-DEC-004-0.1.0
+  storefront_role: metriCreate Step1X launch candidate 3
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-DEC-004-001
+    assessment_version: 0.1.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-05T11:51:04+02:00"
+    change_triggers: [initial_design, portfolio_registration, license_chain_initialization]
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-05
+    approved_at: "2026-09-05T11:51:04+02:00"
+    spec_revision: 0.1.0
+    reason: Owner instructed continuation of the selected products after the licence review; approval covers this controlled design basis, not release or physical qualification.
+  concept_approval:
+    status: pending
+    asset: organic/reference/cat-concept-001.png
+    asset_sha256_record: evidence/imagegen-record.json
+    reason: The generated concept and Step1X draft exist and passed agent visual/mesh review, but explicit human concept approval is still pending.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-DEC-004
+    version: 0.1.0
+    reason: No final production geometry exists.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: Product-local rights, physical qualification, marking and human approval remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-DEC-004
+  version: 0.1.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Continue with the three selected Step1X-dependent products after checking the adjusted licences.
+    - Reuse the existing Octopus instead of creating a duplicate.
+  research_evidenced:
+    - Use an original curled sleeping cat as the appearance-led element.
+    - Start from a nominal 65 mm pot concept within a 140 x 130 x 85 mm planning envelope.
+  inferred:
+    - Launch as a decorative sleeve for a removable nursery pot, not a direct soil or water vessel.
+    - Step1X owns only the cat preform; CAD owns the cavity, base and drainage/vent path.
+  unresolved:
+    - Exact nursery-pot dimensions, cavity clearance, water path and tip stability
+    - Image-generator terms, outgoing licence, seller identity and storefront disclosures
+
+function:
+  summary: An original curled-cat shell that decoratively surrounds a measured removable succulent nursery pot.
+  included: [organic cat preform, parametric pot cavity, flat seat, inspectable drain or vent path, removable host pot]
+  excluded: [direct soil vessel, watertight claim, food contact, outdoor use, child-toy use, unmeasured pot compatibility]
+  interfaces: [preflight/preflight-result.json#IF-EXT-GEO-CON-CYL-001]
+
+dimensions:
+  planning_envelope_ceiling_mm: [140, 130, 85]
+  research_cavity_nominal_mm:
+    diameter: 65
+    depth: 60
+    status: UNMEASURED_CONCEPT_ONLY
+  cavity_clearance_mm:
+    status: UNQUALIFIED_PARAMETER
+    basis: Must come from the exact host-pot measurement and exact-process fit coupon.
+  minimum_general_wall_mm: 1.35
+  minimum_general_wall_basis: Three perimeters at the pinned 0.4 mm nozzle.
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Adult dry-indoor decorative sleeve for a removable nursery pot only.
+  hazards: [pot trapping, hidden standing water, tip and spill, sharp edge]
+  controls: [measured host pot, CAD-owned cavity, visible water path, physical tip test, no watertight or child claim]
+
+fabrication:
+  preference: balanced-hybrid
+  preference_basis: Step1X creates the cat's appearance; deterministic CAD creates the pot and water interfaces.
+  process: FDM/FFF
+  parts_status: A registered cat preform and an unqualified CAD cavity/drainage draft exist; no physical host pot has been measured or tested.
+  release_scope: Digital-first only after physical and commercial clearance.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: flat printed underside down after organic registration
+  supports: none preferred; exact need pending geometry
+  calibration_gate:
+    status: NO_MATCHING_PROCESS
+    unqualified: [cavity_clearance, hole_delta_vertical]
+    consequence: No pot-fit or bayonet claim may be made before a measured host and exact-process coupon pass.
+
+optimization:
+  status: pending
+  rationale: The run-004 cavity draft has an exact-profile slicer result, but optimization must wait for host-pot measurement and approved final cavity geometry.
+  mesh_simplification:
+    status: pending
+    protected_regions: [cat silhouette, face, paws and tail, CAD cavity rim, flat seat, drainage path, future mark region]
+    rationale: The 299852-face cavity draft is not a final manufacturing master; simplification follows only after host-fit and drainage geometry are approved.
+
+acceptance:
+  - {id: AC-PROV-001, criterion: Prompt, input image, post-cutoff Step1X run and CAD derivation are hash-linked., method: Provenance audit., status: passed-for-digital-draft}
+  - {id: AC-MESH-001, criterion: Released mesh is watertight with one intended connected component., method: Deterministic mesh audit., status: passed-for-run-004-draft-only}
+  - {id: AC-POT-001, criterion: The measured nursery pot seats and removes by hand without sticking., method: Physical host-fit test., status: planned}
+  - {id: AC-WATER-001, criterion: The declared water-path test leaves no hidden pooled water in the sleeve., method: Physical water-path inspection., status: planned}
+  - {id: AC-TIP-001, criterion: The loaded assembly passes the declared controlled tip-stability test., method: Physical test with wet substrate., status: planned}
+
+deliverables:
+  current: [PURPOSE.md, decision-log.md, design-spec.yaml, preflight/, commercial-clearance/, organic/reference/, organic/raw/step1x/run-001/, organic/work/run-004/, evidence/organic-draft-manifest.json]
+  forbidden_in_this_phase: [printer upload or print start, storefront upload, pot compatibility or watertight claim]
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-115
+    - business/02-portfolio/research-ideas-additions-3.csv#SKU-327
+    - business/06-legal-compliance/generative-tooling-licence-audit.md
+    - commercial-clearance/project.json
+    - evidence/organic-draft-manifest.json

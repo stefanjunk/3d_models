@@ -1,0 +1,118 @@
+{
+ "id": "IF-HUM-GEO-CON-FREEFORM-001",
+ "name": "Adult hand to generated organic surface and channel edges",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-HUMAN-001",
+ "boundary": "HUM",
+ "domains": [
+  "HUM",
+  "GEO"
+ ],
+ "function": "CON",
+ "geometry": "FREEFORM",
+ "lifecycle_states": [
+  "use",
+  "cleaning",
+  "service",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the octopus body footprint",
+  "x_positive": "toward the front tentacle pair",
+  "y_positive": "toward the rear of the body",
+  "z_positive": "up from the desk-support plane",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "every user-reachable printed edge, especially the channel mouth lips"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "bare-hand contact anywhere on the outer surface"
+  ],
+  "constrained": [
+   "contact with any sharp, burred or unsupported thin protrusion"
+  ]
+ },
+ "assembly": {
+  "direction": "bare-hand contact during cable routing and dusting",
+  "contact_mode": "incidental skin contact on a decorative surface",
+  "sequence_notes": "No gloves, tools or protective handling are assumed."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-EDGE-R-001",
+   "feature": "minimum radius or chamfer on user-reachable printed edges",
+   "nominal_mm": 0.5,
+   "lower_mm": 0.5,
+   "status": "ESTIMATED",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FUNCTION_CRITICAL"
+  },
+  {
+   "id": "DIM-WALL-MIN-001",
+   "feature": "minimum wall at any user-reachable thin protrusion, three perimeters at 0.4 mm nozzle",
+   "nominal_mm": 1.35,
+   "lower_mm": 1.35,
+   "status": "DERIVED",
+   "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+  "uncontrolled": [
+   "as-printed surface roughness and layer witness lines",
+   "user hand size and sensitivity",
+   "post-processing the customer may or may not perform"
+  ]
+ },
+ "keepouts_and_access": [
+  "Not a toy for children under 3 years; no small-parts or mouthing scope.",
+  "No skin-contact biocompatibility, allergen or food-contact claim.",
+  "No tentacle tip may end below one nozzle width."
+ ],
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "preflight/preflight-input.yaml",
+   "business/02-portfolio/research-r3-process-baseline.json"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 35.0,
+  "uncertainty_note": "The minimum wall follows from the pinned 0.4 mm nozzle baseline at three perimeters, but no printed surface has been touched, inspected or measured for burrs on the generated organic geometry.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 2,
+  "KIN": 0,
+  "TOL": 1,
+  "PHY": 0,
+  "VAR": 2,
+  "LIF": 1,
+  "total": 6,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "A generated tentacle tip prints thinner than one nozzle width and leaves a sharp fragile spike.",
+   "effect": "Unpleasant or scratching hand contact and a breakage that creates a small loose part.",
+   "mitigation": "Run a thin-protrusion audit and thicken every tip above the nozzle width before export."
+  }
+ ],
+ "verification": {
+  "method": "inspection",
+  "acceptance_criteria": [
+   "No user-reachable edge is sharp to a bare-hand wipe after standard post-processing.",
+   "A thin-protrusion audit reports no feature below 1.35 mm at the released scale."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "MM-ORG-041 design lead",
+ "version": "0.1.0"
+}

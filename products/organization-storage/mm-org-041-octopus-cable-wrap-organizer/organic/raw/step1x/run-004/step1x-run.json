@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "run_id": "5acd9289-5429-4ab6-af40-a21853a9bf78",
+  "status": "failed",
+  "started_at": "2026-09-05T09:24:51Z",
+  "provider": {
+    "name": "Step1X-3D",
+    "organization": "stepfun-ai",
+    "source_repository": "https://github.com/stepfun-ai/Step1X-3D",
+    "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
+    "code_license": "Apache-2.0",
+    "weights_license": "Apache-2.0",
+    "served_by_fork": {
+      "repo": "/home/stefan/Projekte/Step1X-3D",
+      "commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+      "remote": "https://github.com/stefanjunk/Step1X-3D.git",
+      "worktree_clean": true
+    }
+  },
+  "operation": "single-image-to-geometry-glb",
+  "service": {
+    "url": "http://127.0.0.1:7861",
+    "endpoint": "/generate_func",
+    "client": "gradio_client",
+    "client_version": "1.3.0",
+    "api_schema_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-004/api-schema.json",
+    "api_schema_sha256": "463e293f5a77982d2b0922143cb6ae29b79d1090e4ae37fd956e0947c8aefaf0",
+    "api_schema_file_sha256": "414740208a4ebaf7bba64c57a86ecbcfdba89ebf60da1da7e57a99e1b5f7a48c",
+    "contract_status": "compatible"
+  },
+  "parameters": {
+    "guidance_scale": 7.5,
+    "inference_steps": 50,
+    "max_facenum": 400000,
+    "symmetry": "x",
+    "edge_type": "sharp",
+    "geometry_seed": "not_exposed_by_endpoint"
+  },
+  "limitations": [
+    "single image does not determine hidden geometry or physical scale",
+    "generated geometry is not a functional or manufacturing authority",
+    "GLB must be registered, inspected and routed before slicer/CAD use",
+    "commercial clearance requires input rights and dependency review"
+  ],
+  "input": {
+    "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/reference/octopus-preform-plate-001.png",
+    "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-004/input/source.png",
+    "sha256": "ff71e1240e1b85d516afa8be8da17bae7ed755faa76903f3a82deebacc25b1f4",
+    "bytes": 832139,
+    "media_type": "image/png",
+    "alpha": {
+      "status": "inspected",
+      "meaningful_transparency": true,
+      "background_removal_expected": "skipped_use_input_alpha",
+      "mode": "RGBA",
+      "size_px": [
+        1358,
+        1358
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  },
+  "input_evidence": {
+    "image_prompt": {
+      "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/reference/imagegen-prompt.txt",
+      "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-004/input/image-prompt.txt",
+      "sha256": "ed78deba438afa6769e3dfa5d2286da95ce7dac15acdb7af9218915998af4c1c",
+      "bytes": 2505
+    },
+    "input_generation_record": {
+      "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/evidence/imagegen-record.json",
+      "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-004/input/generation-record.json",
+      "sha256": "c68ffd0b9301e403cf78295cd1796ff30b7121dc0a799efca098b444f4a86188",
+      "bytes": 4880
+    }
+  },
+  "runtime_profile": {
+    "original_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/evidence/step1x-runtime-20260905.json",
+    "archived_path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-004/runtime-profile.json",
+    "sha256": "78df1f94a427696abe05419c0246213d2e38bc1f92d6dc338163fda58733d21e",
+    "bytes": 7263
+  },
+  "finished_at": "2026-09-05T09:24:51Z",
+  "duration_seconds": 0.529,
+  "failure": {
+    "type": "ValueError",
+    "message": "Could not fetch api info for http://127.0.0.1:7861/: {\"detail\":\"Not Found\"}"
+  }
+}

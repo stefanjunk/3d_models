@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-ORG-044",
+  "revision": "0.1.0",
+  "status": "ORGANIC_DRAFT_AND_COUPON_ONLY",
+  "derivation": [
+    {"path": "organic/reference/frog-concept-001-selected.png", "sha256": "55df1ea9896bee7b39ce7b187ee2f1e2c96072b1bd5d64af3ccaa342a8cd6adb", "note": "own generic frog image; RGB checkerboard background, so Step1X U2Net removal was required"},
+    {"path": "organic/raw/step1x/run-001/geometry.raw.glb", "sha256": "3ffcc8b0bf61f298bb5b4e4578a73dfe0d286bdf66449f27851c64efade5e157", "note": "immutable untextured geometry master; clean owned fork commit 4b6da92"},
+    {"path": "organic/work/run-001/01-registered-mm.stl", "sha256": "53ce953c7c86c6320816415464337c95695a8de673001b90156976802262d552", "note": "uniformly scaled to 44.3 mm longest dimension and registered to CAD Z-up; 44.09 x 44.30 x 29.98 mm"}
+  ],
+  "digital_checks": {
+    "step1x_intake": "reports/step1x-geometry-intake-run-001.json",
+    "registered_mesh": "reports/run-001/mesh-audit.json",
+    "registered_mesh_result": "PASS; one watertight component, zero degenerate/duplicate/nonmanifold faces",
+    "visual_review": ["reports/run-001/registered-iso.png", "reports/run-001/registered-top.png", "reports/run-001/registered-front.png"]
+  },
+  "functional_work": {
+    "status": "COUPON_SERIES_READY_NOT_PRINTED",
+    "report": "coupons/blade-series-001/blade-coupon-series-report.json",
+    "report_sha256": "febf125be1ed097cdd4a42b73bdf4ba5bc89ba5feb0127cb4c906d72c547d46c",
+    "thicknesses_mm": [0.8, 1.0, 1.2],
+    "mesh_audits": "reports/coupon-blade-coupon-*-mesh.json",
+    "smallest_coupon_slice": "reports/coupon-blade-0p8mm-slice.json",
+    "smallest_coupon_slice_result": "PASS; 20 layers; 520 s slicer metadata time; 622.65 mm positive filament length"
+  },
+  "blockers": ["concept image awaits explicit human approval", "coupon not physically printed", "paper sample set and page-marking result absent", "no 100-cycle evidence", "final frog-to-blade geometry absent", "image-generator and commercial-release gates open"],
+  "boundary": "No printer upload or print start was performed. This manifest is not a product release."
+}

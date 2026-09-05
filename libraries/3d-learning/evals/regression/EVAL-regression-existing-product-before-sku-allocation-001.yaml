@@ -1,0 +1,53 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-regression-existing-product-before-sku-allocation-001
+title: Existing portfolio product is resumed before a duplicate SKU is allocated
+category: regression
+status: draft
+trigger: A research idea or requested concept is selected for product intake, especially when the user says or suspects that the product may already exist.
+risk: A second SKU and folder can be created for the same product, splitting provenance and validation; alternatively an existing artifact may be reused without checking whether its generating-tool commit is still commercially admissible.
+given:
+  proposed_concept: Octopus cable wrap organizer from research SKU-331
+  portfolio_source: business/02-portfolio/product-portfolio.csv
+  product_roots: products/
+  existing_identity: PORT-110 / MM-ORG-041 / products/organization-storage/mm-org-041-octopus-cable-wrap-organizer
+  provenance_cutoff: New Step1X geometry runs must record a fork commit at or after f00dd46; textured or pre-cutoff artifacts remain blocked.
+expected:
+  - Search the canonical portfolio CSV and live product folders by product name, research SKU, working SKU and close semantic variants before allocating a new SKU.
+  - When the identity already exists, resume the canonical product ID and folder instead of creating another Octopus product.
+  - Inspect the existing derivation manifest and generation commit before treating any old mesh as a release input.
+  - Preserve the pre-cutoff v0.1.0 chain as historical evidence and generate a new revision from the current geometry-only fork when the old run misses the licence cutoff.
+  - Update the same portfolio record with the new evidence while keeping physical and commercial release gates independent.
+failure_conditions:
+  - A second working SKU or canonical product folder is allocated for the Octopus concept.
+  - Only the research backlog is searched while the product portfolio or live filesystem is ignored.
+  - Existing pre-cutoff or textured geometry is relabelled as current without a new run manifest and derivation chain.
+  - Historical artifacts are overwritten or deleted so their original commit and licence status cannot be reconstructed.
+  - A post-cutoff tooling WARN is presented as physical, IP or commercial release approval.
+fixtures:
+  - business/02-portfolio/product-portfolio.csv#PORT-110
+  - business/02-portfolio/research-ideas-additions-3.csv#SKU-331
+  - products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/result/derivation-manifest.json
+  - products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/result/derivation-manifest-v0.2.0.json
+  - products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/raw/step1x/run-005/step1x-run.json
+grader:
+  type: hybrid
+  command: null
+  expected_exit_code: null
+  rubric: Compare product/research names and IDs across the portfolio and live folders; verify that the selected path reuses MM-ORG-041, preserves v0.1.0, and binds v0.2.0 to a post-cutoff geometry-only run.
+  measurement_method: Deterministic CSV/path/manifest comparison followed by reviewer confirmation that no duplicate product identity or unsupported licence promotion occurred.
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags:
+  - regression
+  - product-intake
+  - duplicate-sku
+  - portfolio-identity
+  - provenance-cutoff
+  - user-correction

@@ -50,7 +50,7 @@ Full component inventory and evidence:
 | Step1X service invocation, raw GLBs and run record | this skill |
 | mesh repair, Boolean holes/channels, backers, mounts and inserts | `organic-mesh-functionalization` |
 | exact solids, threads, fits, load paths and STEP authority | `functional-3d-design` |
-| textured GLB to physical filament bodies/3MF | `multicolor-fdm-design` |
+| generated geometry to physical colour bodies/3MF | `multicolor-fdm-design` |
 | rights graph, licenses and commercial release history | `commercialize-3d-models` |
 
 Do not duplicate those authorities here. Load the sibling skill whose decision is active.
@@ -74,7 +74,7 @@ Read [examples/hybrid-recipes.md](examples/hybrid-recipes.md) only when selectin
   prospective preflight—before imagegen or Step1X. A component or preform for
   an existing product stays in that product's folder and rights chain.
 - A single-image output contains synthesized depth and hidden geometry. Label it `generated proposal`, not measured reconstruction.
-- Keep the source image, image-generation prompt/record, geometry GLB, textured GLB, API schema and run manifest immutable.
+- Keep the source image, image-generation prompt/record, geometry GLB, API schema and run manifest immutable.
 - Do not ask Step1X to create exact dimensions, wall thickness, clearances, mating surfaces, seals, snaps, bearings, screw threads, text, logos, or certified load paths.
 - Create sacrificial excess around future interfaces and protect the visible region from later Booleans/remeshing.
 - Treat GLB as a scene/visual mesh, not a slicer-ready or CAD-native manufacturing authority.
@@ -82,7 +82,7 @@ Read [examples/hybrid-recipes.md](examples/hybrid-recipes.md) only when selectin
 - Do not rename or directly convert a dense triangle GLB to STEP and call it editable CAD. Reconstruct exact surfaces/features or retain a mesh-plus-CAD hybrid.
 - Queue one generation at a time. The two GPUs split one pipeline; they do not make concurrent jobs safe by default.
 - A container or image may exist while the models are stopped or still loading. Before every submission, run the bundled `status` check and require `safe_to_submit_generation: true`; container state alone is insufficient.
-- Expect a geometry-plus-texture request to take several minutes, including possible queue time. A quiet blocking client is not by itself a hang; inspect the service/container status before retrying or cancelling.
+- Expect a geometry request to take several minutes, including possible queue time. A quiet blocking client is not by itself a hang; inspect the service/container status before retrying or cancelling.
 - Preserve failure records. A rendered preview or successful API response is not topology, printability, or license clearance.
 
 ## Workflow
@@ -137,7 +137,7 @@ python scripts/capture_step1x_runtime.py \
 
 Read [references/runtime-api.md](references/runtime-api.md) only for service startup, exact local pins, endpoint details, device placement or troubleshooting.
 
-### 4. Generate an auditable pair of GLBs
+### 4. Generate an auditable geometry GLB
 
 Use a new run directory. Baseline settings are guidance `7.5`, `50` inference steps, `400000` maximum geometry faces, `x` symmetry and `sharp` edges; change them intentionally and record why.
 
@@ -151,9 +151,9 @@ python scripts/step1x_client.py generate input.png \
   --symmetry x --edge-type sharp
 ```
 
-The command writes `geometry.raw.glb`, `textured.raw.glb`, an archived input, the exact API schema and `step1x-run.json` with hashes and parameters. The raw geometry GLB is the preferred shape master. In the current app, the textured path is made from a reduced working mesh and is primarily the appearance master.
+The command writes `geometry.raw.glb`, an archived input, the exact API schema and `step1x-run.json` with hashes, parameters and the serving fork's commit. `--output-dir` names the run directory itself (`.../run-003`), not its parent; the client refuses to write into a non-empty directory.
 
-Generate multiple candidates only when ambiguity warrants the compute. Select first by identity, massing, silhouette, negative spaces, seam reserve and keep-out compatibility; inspect texture last.
+Generate multiple candidates only when ambiguity warrants the compute. Select by identity, massing, silhouette, negative spaces, seam reserve and keep-out compatibility.
 
 ### 5. Normalize and hand off GLB explicitly
 
@@ -167,11 +167,11 @@ python scripts/glb_to_print_mesh.py inspect \
 
 Then choose one of these routes:
 
-- keep GLB for textured review or Blender mesh work;
+- keep GLB for Blender mesh work;
 - register and functionalize it with `organic-mesh-functionalization`;
 - rebuild authoritative functional regions with `functional-3d-design` and retain STEP for those solids;
 - derive a geometry-only STL after explicit scale/orientation/repair, then import it into the destination slicer and save a verified 3MF project;
-- route the textured GLB through `multicolor-fdm-design` when visual texture must become physical filament regions.
+- route the geometry through `multicolor-fdm-design` with separate colour solids when colour must become physical filament regions.
 
 Read [references/glb-handoff.md](references/glb-handoff.md) before any manufacturing export. It defines axis/unit handling, STL/3MF/STEP responsibilities and conversion acceptance.
 
@@ -179,7 +179,7 @@ Read [references/glb-handoff.md](references/glb-handoff.md) before any manufactu
 
 Run the sibling mesh, geometry, slicer and physical gates appropriate to the product. Record every registration matrix, repair, remesh, Boolean, CAD replacement and export hash as a derivative of `step1x-run.json`.
 
-For a commercial candidate, load `commercialize-3d-models`, read [references/commercial-and-research.md](references/commercial-and-research.md), and attach the run record to its provenance history. Step1X code and weights are Apache-2.0 in the verified configuration, but SDXL, background removal, input rights and downstream infringement/safety remain separate gates.
+For a commercial candidate, load `commercialize-3d-models`, read [references/commercial-and-research.md](references/commercial-and-research.md), and attach the run record to its provenance history. Step1X code and weights are Apache-2.0 in the verified geometry-only configuration, but background removal, input rights, training-data uncertainty and downstream infringement/safety remain separate gates.
 
 ## Completion criteria
 
@@ -187,7 +187,7 @@ A Step1X handoff is complete only when:
 
 - the selected use pattern and authority boundary are explicit;
 - input image and prompt/edit history are retained and hashed;
-- service schema, runtime profile, parameters and both raw GLBs are retained and hashed;
+- service schema, runtime profile, parameters and the raw geometry GLB are retained and hashed;
 - hidden geometry, scale and orientation are labelled rather than assumed;
 - the chosen GLB-to-CAD/mesh/3MF route is stated;
 - topology, functional, slicer and physical checks are either passed or plainly blocked;

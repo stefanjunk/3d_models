@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-ORG-041",
+  "revision": "0.2.0",
+  "decision": "SELECT_100K_MANUFACTURING_MESH",
+  "master_mesh": "organic/work/run-005/03-channels-parametric.stl",
+  "selected_mesh": "organic/work/run-005/optimization/octopus-100k.stl",
+  "released_candidate": "result/mm-org-041-octopus-cable-wrap-organizer-v0.2.0.stl",
+  "selected_sha256": "83093b041ecf698dc339303acaf21b211f8403e7cd00225261a0baf44f506c5d",
+  "geometry_regression": {
+    "report": "reports/run-005/optimization-100k-comparison.json",
+    "status": "PASS",
+    "samples_per_direction": 60000,
+    "triangle_exact": true,
+    "worst_rms_mm": 0.004106860763333459,
+    "worst_p95_mm": 0.00826182389748097,
+    "worst_max_mm": 0.024152586479867604,
+    "absolute_extent_delta_max_mm": 0.011814759578555822,
+    "absolute_volume_delta_percent": 0.019608537486605206,
+    "policy_max_distance_mm": 0.15
+  },
+  "exact_profile_slicer_comparison": {
+    "baseline": {
+      "faces": 382744,
+      "report": "reports/run-005/slice-baseline-383k.json",
+      "status": "PASS",
+      "time_s": 21303.0,
+      "positive_extrusion_mm": 41318.2634399635,
+      "gcode_bytes": 44485777
+    },
+    "candidate_200k": {
+      "faces": 200000,
+      "report": "reports/run-005/slice-candidate-200k-rerun.json",
+      "status": "PASS",
+      "time_s": 21324.0,
+      "positive_extrusion_mm": 41314.062489963006,
+      "gcode_bytes": 44556073
+    },
+    "candidate_100k": {
+      "faces": 100000,
+      "report": "reports/run-005/slice-candidate-100k.json",
+      "status": "PASS",
+      "time_s": 21294.0,
+      "positive_extrusion_mm": 41278.82787996493,
+      "gcode_bytes": 43659687
+    },
+    "selected_vs_baseline_percent": {
+      "faces": -73.87288,
+      "time": -0.04225,
+      "positive_extrusion": -0.09544,
+      "gcode_bytes": -1.85698
+    }
+  },
+  "rationale": "The 100k mesh passes the seeded bidirectional surface policy by a wide margin, reduces triangle count 73.87 percent and does not materially worsen exact-profile manufacturing metrics. The 200k variant adds no useful slicer benefit.",
+  "limitations": [
+    "Slicer equivalence does not prove cable fit, jacket safety, edge comfort or stability.",
+    "Final layer and support preview remains human-controlled.",
+    "No printer upload or print start was performed."
+  ]
+}

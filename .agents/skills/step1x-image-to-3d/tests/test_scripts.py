@@ -12,6 +12,8 @@ import unittest
 from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "scripts"
@@ -63,7 +65,7 @@ def compatible_api() -> dict[str, object]:
         "named_endpoints": {
             "/generate_func": {
                 "parameters": parameters,
-                "returns": [{"type": {"type": "string"}}] * 2,
+                "returns": [{"type": {"type": "string"}}],
             }
         }
     }
@@ -110,8 +112,18 @@ class ScriptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         report = json.loads(result.stdout)
         self.assertEqual(report["status"], "compatible")
-        self.assertEqual(report["return_count"], 2)
+        self.assertEqual(report["return_count"], 1)
         self.assertEqual(len(report["api_schema_sha256"]), 64)
+
+    def test_probe_rejects_removed_two_output_contract(self) -> None:
+        api = compatible_api()
+        api["named_endpoints"]["/generate_func"]["returns"] *= 2
+        payload = json.dumps(api).encode("utf-8")
+        with api_server(payload) as url:
+            result = run("step1x_client.py", "probe", "--url", url)
+
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        self.assertIn("exactly one geometry GLB", result.stderr)
 
     def test_status_confirms_loaded_only_for_compatible_live_api(self) -> None:
         payload = json.dumps(compatible_api()).encode("utf-8")
@@ -147,6 +159,26 @@ class ScriptTests(unittest.TestCase):
         self.assertEqual(report["model_state"], "model_load_not_confirmed")
         self.assertIsNone(report["model_loaded"])
         self.assertFalse(report["safe_to_submit_generation"])
+
+    def test_generate_rejects_unpinned_client_before_creating_run(self) -> None:
+        client = load_script("step1x_client.py")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "input.png"
+            source.write_bytes(b"not decoded before version check")
+            output = root / "run-001"
+            args = SimpleNamespace(
+                input=source,
+                guidance=7.5,
+                max_faces=400000,
+                steps=50,
+                output_dir=output,
+            )
+            with mock.patch.object(client, "package_version", return_value="1.3.0"):
+                result = client.command_generate(args)
+
+            self.assertEqual(result, 2)
+            self.assertFalse(output.exists())
 
     def test_status_classifies_stopped_and_loading_containers(self) -> None:
         client = load_script("step1x_client.py")

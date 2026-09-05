@@ -1,6 +1,6 @@
 # Research and commercial evidence for Step1X
 
-Last verified: 2026-09-01. Re-open official sources and preserve dated evidence for every release; this reference is not a legal clearance.
+Last verified: 2026-09-05. Re-open official sources and preserve dated evidence for every release; this reference is not a legal clearance.
 
 ## Practical research conclusions
 
@@ -8,23 +8,22 @@ Step1X is useful as an appearance-led proposal generator, not an engineering ora
 
 - it conditions geometry on one image and therefore synthesizes unseen depth/backside;
 - geometry is generated through a latent diffusion/TSDF/marching-cubes route;
-- texture is generated separately through geometry-guided multi-view diffusion and baked as albedo;
 - the authors explicitly describe the broader field and evaluated results as still short of production-ready quality;
-- the reported texture limitation is albedo-only, not a complete physical/PBR material definition;
 - training views are centered at about 90% occupancy, use background removal, and include orthographic or moderate 35–100 mm perspective equivalents.
 
 Implication: select by massing and topology, then register, repair and engineer the result. Do not use visual similarity as proof of dimensional or functional correctness.
 
 ## Commercial-use conclusion
 
-The official Step1X source repository and official Step1X weight repository identify Apache-2.0. That permissive license supports commercial use, modification and distribution subject to its conditions. This is strong evidence that the Step1X code/weights themselves are commercially usable.
+The official Step1X source repository and official Step1X weight repository identify Apache-2.0. The served owned fork is geometry-only: it replaced the Hunyuan-derived volume decoder independently at `f00dd46` and deleted the texture/SDXL path at `2433849`. This supports a recorded `WARN`, not blanket clearance: only geometry runs at or after the decoder cutoff qualify, and the remaining evidence items below stay open.
 
 It is not a blanket clearance of a sold model. Independently verify:
 
 - rights to the input/reference image and permission to send it through imagegen/Step1X;
 - imagegen provider terms and the exact account/plan;
 - every model/runtime dependency actually executed;
-- OpenRAIL use restrictions in the SDXL texture dependency;
+- the serving fork commit and whether it is at or after `f00dd46`;
+- upstream training-data provenance and the undeclared-licence CLIP configuration file;
 - copied trademarks, designs, copyrighted characters/artwork, privacy/publicity and patents;
 - human authorship and any claim of exclusive copyright;
 - product safety, conformity and destination-market obligations;
@@ -36,13 +35,10 @@ Record exact revisions from `capture_step1x_runtime.py`; the following are the c
 
 | Component | Revision | License evidence | Commercial status |
 |---|---|---|---|
-| Step1X-3D source | base `cb5ac944709c6c913109070c7b90c3447f57f3d4` plus captured working-tree patch/hash | Apache-2.0 in official repo | permitted subject to Apache conditions; local modifications must be preserved |
+| Step1X-3D source | owned fork `4b6da92` from upstream base `cb5ac944709c6c913109070c7b90c3447f57f3d4` | Apache-2.0 plus fork `NOTICE`/`FORK.md`; independently replaced volume decoder | geometry-only runs at/after `f00dd46` are eligible for `WARN`; pre-cutoff runs remain blocked |
 | `stepfun-ai/Step1X-3D` weights | `bf7084495b3a72222f36549b7942948aa4d9daa7` | official HF repository: Apache-2.0 | permitted subject to Apache conditions |
-| `stabilityai/stable-diffusion-xl-base-1.0` | `462165984030d82259a11f4367a4eed129e94a7b` | CreativeML Open RAIL++-M | commercial use is not categorically barred, but Attachment A/use restrictions must pass for the exact use |
-| `openai/clip-vit-large-patch14` | `32bd64288804d66eefd0ccbe215aa642df71cc41` | official CLIP code license: MIT; capture exact HF model evidence | permissive, but retain exact model-page evidence |
+| `openai/clip-vit-large-patch14` | `32bd64288804d66eefd0ccbe215aa642df71cc41`; configuration only | official CLIP code license: MIT; HF model card declares no license | `WARN`; no trained CLIP artifact from this repository is downloaded or redistributed in the verified path |
 | `facebook/dinov2-with-registers-large` | `e4c89a4e05589de9b3e188688a303d0f3c04d0f3` | official HF repository: Apache-2.0 | permitted subject to Apache conditions |
-| `madebyollin/sdxl-vae-fp16-fix` | `207b116dae70ace3637169f1ddd2434b91b3a8cd` | official HF repository: MIT | permissive; retain notice/evidence |
-| `ZhengPeng7/BiRefNet` fallback | `e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4` | official HF repository: MIT | conditional dependency; current web path disables second texture removal |
 | `rembg` | `2.0.65` | official repository: MIT | code permissive |
 | rembg `u2net.onnx` asset | record actual SHA-256 from container volume | rembg release download plus upstream U-2-Net Apache-2.0 repository; exact converted asset provenance/license link is not explicit enough for a high-confidence release | `WARN` until the exact ONNX artifact and license/provenance evidence are archived |
 
@@ -58,7 +54,7 @@ Every accepted or rejected Step1X attempt should have a `step1x-run.json` contai
 - service URL, endpoint, canonical API-schema hash and client version;
 - guidance, steps, face cap, symmetry and edge type;
 - runtime-profile path/hash;
-- geometry and textured GLB paths, SHA-256 and sizes;
+- geometry GLB path, SHA-256 and size;
 - explicit notes that scale/orientation are unverified and geometry is generated;
 - failure details without secrets when unsuccessful.
 
@@ -82,8 +78,7 @@ python /resolved/commercialize-3d-models/scripts/record_ai_generation.py \
   /path/to/commercial-clearance \
   /path/to/step1x-run.json \
   --provider stepfun-ai/Step1X-3D \
-  --role geometry-generation \
-  --role texture-generation
+  --role geometry-generation
 ```
 
 This copies the record into evidence, hashes it, appends a `generation_records` entry to `07-release/provenance.json`, and marks AI use without inventing a human reviewer or legal approval. The commercial audit remains blocked until the other required fields and licenses are resolved.
@@ -95,10 +90,7 @@ If an opaque input executed U2Net and its exact asset evidence remains unresolve
 - [Step1X-3D official repository and Apache-2.0 statement](https://github.com/stepfun-ai/Step1X-3D)
 - [Step1X-3D official model repository, Apache-2.0](https://huggingface.co/stepfun-ai/Step1X-3D)
 - [Step1X-3D technical report](https://arxiv.org/abs/2505.07747)
-- [SDXL CreativeML Open RAIL++-M license](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/e4e60c65aa20ee60092c60ba197f541872cf9373/LICENSE.md)
 - [DINOv2 registers model repository](https://huggingface.co/facebook/dinov2-with-registers-large)
-- [SDXL VAE fp16 fix model repository](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix)
-- [BiRefNet model repository](https://huggingface.co/ZhengPeng7/BiRefNet)
 - [OpenAI CLIP MIT license](https://github.com/openai/CLIP/blob/main/LICENSE)
 - [rembg repository and MIT license](https://github.com/danielgatis/rembg)
 - [U-2-Net upstream repository](https://github.com/xuebinqin/U-2-Net)

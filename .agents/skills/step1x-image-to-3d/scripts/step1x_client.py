@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 ENDPOINT = "/generate_func"
+PINNED_CLIENT_VERSION = "1.4.2"
 EXPECTED_PARAMETERS = [
     "input_image_path",
     "guidance_scale",
@@ -117,8 +118,11 @@ def validate_api_info(info: dict[str, Any]) -> dict[str, Any]:
                 f"Step1X API enum drift for {name}: expected {sorted(expected)}, "
                 f"received {sorted(actual)}"
             )
-    if not isinstance(returns, list) or len(returns) != 2:
-        raise RuntimeError("Step1X endpoint must return geometry and textured GLB")
+    if not isinstance(returns, list) or len(returns) != 1:
+        raise RuntimeError(
+            "Step1X endpoint must return exactly one geometry GLB; the owned fork "
+            "has no texture stage"
+        )
     return endpoint
 
 
@@ -151,6 +155,48 @@ def default_repo() -> Path:
     if configured:
         return Path(configured)
     return Path(__file__).resolve().parents[5] / "Step1X-3D"
+
+
+def fork_provenance(repo: Path) -> dict[str, Any]:
+    """Identify the checkout that serves the endpoint; its licence posture is commit-specific."""
+    record: dict[str, Any] = {"repo": str(repo)}
+    if not (repo / ".git").exists():
+        record["error"] = "not a git checkout"
+        return record
+    for key, command in (
+        ("commit", ["git", "rev-parse", "HEAD"]),
+        ("remote", ["git", "remote", "get-url", "origin"]),
+    ):
+        try:
+            completed = subprocess.run(
+                command,
+                cwd=repo,
+                capture_output=True,
+                text=True,
+                timeout=15,
+                check=False,
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            record[key] = None
+            record.setdefault("errors", []).append(f"{key}: {exc}")
+            continue
+        record[key] = completed.stdout.strip() if completed.returncode == 0 else None
+    try:
+        dirty = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=repo,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        record["worktree_clean"] = None
+    else:
+        record["worktree_clean"] = (
+            not dirty.stdout.strip() if dirty.returncode == 0 else None
+        )
+    return record
 
 
 def run_process(
@@ -289,7 +335,7 @@ def classify_readiness(
             "loaded_and_ready",
             True,
             True,
-            "The current app exposes its API only after geometry and texture pipelines load. Submit one job; API readiness does not prove that the queue is idle.",
+            "The current app exposes its API only after the geometry pipeline loads. Submit one job; API readiness does not prove that the queue is idle.",
             0,
         )
     if api.get("reachable"):
@@ -495,7 +541,7 @@ def command_status(args: argparse.Namespace) -> int:
         "model_loaded": model_loaded,
         "safe_to_submit_generation": safe,
         "readiness_basis": (
-            "In the pinned local app, geometry and texture pipelines are constructed "
+            "In the pinned local app, the geometry pipeline is constructed "
             "before Gradio starts listening; a compatible live API therefore confirms "
             "that model loading completed for that process."
         ),
@@ -532,6 +578,15 @@ def command_generate(args: argparse.Namespace) -> int:
     if args.guidance <= 0 or args.max_faces <= 0:
         print("ERROR: guidance and max-faces must be positive", file=sys.stderr)
         return 2
+    client_version = package_version("gradio_client")
+    if client_version != PINNED_CLIENT_VERSION:
+        print(
+            "ERROR: incompatible gradio_client version: "
+            f"expected {PINNED_CLIENT_VERSION}, received {client_version}; "
+            "use scripts/requirements.txt",
+            file=sys.stderr,
+        )
+        return 2
 
     try:
         run_dir = ensure_new_run_dir(args.output_dir)
@@ -555,13 +610,14 @@ def command_generate(args: argparse.Namespace) -> int:
             "model_repository": "https://huggingface.co/stepfun-ai/Step1X-3D",
             "code_license": "Apache-2.0",
             "weights_license": "Apache-2.0",
+            "served_by_fork": fork_provenance(default_repo()),
         },
-        "operation": "single-image-to-geometry-and-textured-glb",
+        "operation": "single-image-to-geometry-glb",
         "service": {
             "url": args.url.rstrip("/"),
             "endpoint": ENDPOINT,
             "client": "gradio_client",
-            "client_version": package_version("gradio_client"),
+            "client_version": client_version,
         },
         "parameters": {
             "guidance_scale": args.guidance,
@@ -638,7 +694,7 @@ def command_generate(args: argparse.Namespace) -> int:
             ) from exc
 
         print(
-            "Step1X started. Geometry and texture generation can take several minutes; "
+            "Step1X started. Geometry generation can take several minutes; "
             "a quiet client is not by itself a hang. The server queue allows one job at a time.",
             file=sys.stderr,
             flush=True,
@@ -659,12 +715,12 @@ def command_generate(args: argparse.Namespace) -> int:
                 api_name=ENDPOINT,
             )
             values = list(result) if isinstance(result, (tuple, list)) else [result]
-            if len(values) != 2:
+            if len(values) != 1:
                 raise RuntimeError(
-                    f"Step1X returned {len(values)} value(s); expected geometry and texture"
+                    f"Step1X returned {len(values)} value(s); expected one geometry GLB"
                 )
-            names = ("geometry.raw.glb", "textured.raw.glb")
-            roles = ("untextured-geometry-master", "textured-appearance-master")
+            names = ("geometry.raw.glb",)
+            roles = ("untextured-geometry-master",)
             outputs = []
             for value, name, role in zip(values, names, roles):
                 downloaded = result_path(value)
@@ -742,7 +798,7 @@ def parse_args() -> argparse.Namespace:
     probe_parser.set_defaults(handler=command_probe)
 
     generate_parser = subparsers.add_parser(
-        "generate", help="Generate geometry/textured GLBs and an auditable run record"
+        "generate", help="Generate a geometry GLB and an auditable run record"
     )
     generate_parser.add_argument("input", type=Path)
     generate_parser.add_argument("--output-dir", type=Path, required=True)

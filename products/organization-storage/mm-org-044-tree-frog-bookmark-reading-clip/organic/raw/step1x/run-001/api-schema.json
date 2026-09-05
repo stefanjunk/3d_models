@@ -1,0 +1,285 @@
+{
+  "named_endpoints": {
+    "/generate_func": {
+      "parameters": [
+        {
+          "label": "Image",
+          "parameter_name": "input_image_path",
+          "parameter_has_default": false,
+          "parameter_default": null,
+          "type": {
+            "properties": {
+              "path": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Path to a local file",
+                "title": "Path"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Publicly available url or base64 encoded image",
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Size of image in bytes",
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Original filename",
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "mime type of image",
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "description": "Can always be set to False",
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "default": {
+                  "_type": "gradio.FileData"
+                },
+                "title": "Meta",
+                "type": "object"
+              }
+            },
+            "title": "ImageData",
+            "type": "object",
+            "additional_description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "python_type": {
+            "type": "Dict(path: str | None (Path to a local file), url: str | None (Publicly available url or base64 encoded image), size: int | None (Size of image in bytes), orig_name: str | None (Original filename), mime_type: str | None (mime type of image), is_stream: bool (Can always be set to False), meta: Dict())",
+            "description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "component": "Image",
+          "example_input": {
+            "path": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png",
+            "meta": {
+              "_type": "gradio.FileData"
+            },
+            "orig_name": "bus.png",
+            "url": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png"
+          }
+        },
+        {
+          "label": "Guidance Scale",
+          "parameter_name": "guidance_scale",
+          "parameter_has_default": true,
+          "parameter_default": "7.5",
+          "type": {
+            "type": "number"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Number",
+          "example_input": 3
+        },
+        {
+          "label": "Inferece Steps",
+          "parameter_name": "inference_steps",
+          "parameter_has_default": true,
+          "parameter_default": 50,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1 and 100"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1
+        },
+        {
+          "label": "Max Face Num",
+          "parameter_name": "max_facenum",
+          "parameter_has_default": true,
+          "parameter_default": "400000",
+          "type": {
+            "type": "number"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Number",
+          "example_input": 3
+        },
+        {
+          "label": "Symmetry Type",
+          "parameter_name": "symmetry",
+          "parameter_has_default": true,
+          "parameter_default": "x",
+          "type": {
+            "enum": [
+              "x",
+              "asymmetry"
+            ],
+            "title": "Radio",
+            "type": "string"
+          },
+          "python_type": {
+            "type": "Literal['x', 'asymmetry']",
+            "description": ""
+          },
+          "component": "Radio",
+          "example_input": "x"
+        },
+        {
+          "label": "Edge Type",
+          "parameter_name": "edge_type",
+          "parameter_has_default": true,
+          "parameter_default": "sharp",
+          "type": {
+            "enum": [
+              "sharp",
+              "normal",
+              "smooth"
+            ],
+            "title": "Radio",
+            "type": "string"
+          },
+          "python_type": {
+            "type": "Literal['sharp', 'normal', 'smooth']",
+            "description": ""
+          },
+          "component": "Radio",
+          "example_input": "sharp"
+        }
+      ],
+      "returns": [
+        {
+          "label": "Geometry",
+          "type": {
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "default": {
+                  "_type": "gradio.FileData"
+                },
+                "title": "Meta",
+                "type": "object"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "title": "FileData",
+            "type": "object",
+            "additional_description": "The FileData class is a subclass of the GradioModel class that represents a file object within a Gradio interface. It is used to store file data and metadata when a file is uploaded.\n\nAttributes:\n    path: The server file path where the file is stored.\n    url: The normalized server URL pointing to the file.\n    size: The size of the file in bytes.\n    orig_name: The original filename before upload.\n    mime_type: The MIME type of the file.\n    is_stream: Indicates whether the file is a stream.\n    meta: Additional metadata used internally (should not be changed)."
+          },
+          "python_type": {
+            "type": "filepath",
+            "description": ""
+          },
+          "component": "Model3d"
+        }
+      ],
+      "show_api": true
+    }
+  },
+  "unnamed_endpoints": {}
+}

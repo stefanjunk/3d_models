@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "record_type": "IMAGE_GENERATION_RECORD",
+  "product": "MM-DEC-004",
+  "project_revision": "0.1.0",
+  "purpose": "Single Step1X geometry input; organic curled-cat preform with solid CAD cavity stock.",
+  "generated_at": "2026-09-05T11:59:05+02:00",
+  "route": "Codex built-in image_gen__imagegen tool",
+  "tool": {
+    "name": "OpenAI image generation via Codex image_gen__imagegen",
+    "image_model_version": "UNKNOWN_NOT_EXPOSED",
+    "auth_mode": "workspace session",
+    "tool_register_ref": "commercial-clearance/02-tools/tool-register.csv#TOOL-0002",
+    "parameters_used": ["prompt"]
+  },
+  "prompt_file": "organic/reference/imagegen-prompt.txt",
+  "candidates": [
+    {
+      "file": "organic/reference/cat-concept-001.png",
+      "sha256": "ec61fb908a00c425a47256a4c63637d6f5c0310b97640e4731b1b08b9a65a56e",
+      "size_px": [1402, 1122],
+      "mode": "RGB_NO_ALPHA",
+      "decision": "SELECTED_WITH_SERVICE_BACKGROUND_REMOVAL",
+      "finding": "Strong compact curled-cat massing and solid back stock, but the checkerboard transparency preview is baked into RGB pixels. Step1X U2Net background removal is required and must be recorded in the run."
+    }
+  ],
+  "geometry_review": {
+    "status": "ACCEPTED_FOR_ORGANIC_DRAFT_ONLY",
+    "findings": ["one connected-looking subject", "broad stable underside", "thick paws and tail", "solid uncut back stock", "no plant, pot, cavity or third-party mark"]
+  },
+  "ip_basis": "Original generic sleeping-cat concept from an own text prompt; no imported model, named character, logo, likeness or trade dress.",
+  "rights_status": "WARN: the applicable image-generator commercial terms are not yet fixed in this SKU's evidence. No commercial release is cleared.",
+  "labelling": "GENERATED PROPOSAL; hidden geometry and depth are synthesized, not measured."
+}

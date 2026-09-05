@@ -12,10 +12,27 @@ cached repo, and the GitHub licence API plus raw licence texts for each upstream
 the source. Everything below is labelled with where it was read. Items that could not be
 established are marked **UNVERIFIED** and carry no substitute assumption.
 
-## 1. Verdict
+## 1. Current verdict — owned fork at `4b6da92` (2026-09-05)
 
-Two components impose restrictions on the **output**, not merely on redistribution of code, and
-both sit in the live path:
+The commercially considered runtime is the owned geometry-only fork
+`github.com/stefanjunk/Step1X-3D@4b6da92`, not the historical upstream checkout described below.
+The fork is clean and its `main` branch is synchronized with `origin/main` as of this audit.
+
+- The texture pipeline and SDXL stack are absent (`2433849`), so their Hunyuan/RAIL restrictions do
+  not execute and the service returns one untextured geometry GLB.
+- The geometry-path Hunyuan-derived volume decoder was replaced independently at `f00dd46`.
+  Geometry runs recorded at or after that commit inherit the portfolio's `TOOL-LICENCE WARN`
+  position; older geometry and every historical textured artifact do not.
+- The replacement decoder and mesh post-processing tests pass in the serving container (4 passed,
+  7 passed respectively; the optional black-box upstream comparison was not enabled).
+- Residual `WARN` items remain: image-generator rights per SKU, upstream training-data provenance,
+  the undeclared-licence CLIP configuration file, and product/listing disclosure duties. This is
+  evidence for an engineering go/no-go gate, not legal advice.
+
+## 1A. Historical upstream verdict (superseded for new fork runs)
+
+Before the owned-fork changes, two components imposed restrictions on the **output**, not merely
+on redistribution of code, and both sat in the upstream live path:
 
 1. **Tencent Hunyuan-derived code** — blocks EU commercial use today. Twelve files in Step1X-3D
    carry a verbatim Tencent Hunyuan licence header. One of them is in the geometry path and is
@@ -134,7 +151,7 @@ independently. Currently **UNVERIFIED** because the generator choice is not yet 
 - **The Tencent agreement** reaches the output explicitly ("Output or results") and ties it to a
   territory that excludes the EU. This is the reason the whole block is gated.
 
-## 4. What we need to check
+## 4. Historical remediation plan
 
 Ordered by what unblocks the most.
 
@@ -260,13 +277,16 @@ the fork's HEAD. In all three the match is prose describing what was removed, no
 
 ## 6. Evidence pins
 
-- Local checkout `/home/stefan/Projekte/Step1X-3D`, remote `stepfun-ai/Step1X-3D`, commit `cb5ac94`.
+- Local checkout `/home/stefan/Projekte/Step1X-3D`, origin `github.com/stefanjunk/Step1X-3D`,
+  upstream `github.com/stepfun-ai/Step1X-3D`, commit `4b6da92` (upstream base `cb5ac94`).
 - Container `step1x-3d-step1x3d-1`, image `step1x3d:python310-cu124`, 271 installed distributions.
 - Model cache `Step1X-3D/.cache/huggingface/hub` with exactly six model repos, listed in Layer C.
 - Licence texts read on 2026-09-04: repository `LICENSE` files, installed package metadata, the
   Hugging Face model API per repo, the GitHub licence API per upstream project, and the raw
   `LICENSE.txt` of `facebookresearch/DiT` and `NVlabs/nvdiffrast`.
-- Fork evidence: `github.com/stefanjunk/Step1X-3D` commits `f19046a`, `39ffb6e`, `f00dd46`, `2433849`, `f5d4b91`; tests `tests/test_volume_decoders.py` and `tests/test_mesh_postprocess.py`.
+- Fork evidence: `github.com/stefanjunk/Step1X-3D` commits `f19046a`, `39ffb6e`, `f00dd46`,
+  `2433849`, `f5d4b91`, `5a23ee7`, `4b6da92`; tests `tests/test_volume_decoders.py` and
+  `tests/test_mesh_postprocess.py`.
 - Related records: source records `S122`–`S130` in
   `business/02-portfolio/research-idea-sources-additions.csv`; raw research in
   `research/market/step1x-generative-batch-2026-09-04/research-F-pipeline.md`; the per-row gate text

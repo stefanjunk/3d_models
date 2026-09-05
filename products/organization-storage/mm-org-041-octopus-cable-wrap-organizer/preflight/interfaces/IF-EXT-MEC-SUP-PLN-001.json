@@ -1,0 +1,111 @@
+{
+ "id": "IF-EXT-MEC-SUP-PLN-001",
+ "name": "Organizer base to desk support plane",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-DESK-001",
+ "boundary": "EXT",
+ "domains": [
+  "MEC"
+ ],
+ "function": "SUP",
+ "geometry": "PLN",
+ "lifecycle_states": [
+  "assembly",
+  "use",
+  "service",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "centre of the flat printed footprint",
+  "x_positive": "toward the front tentacle pair",
+  "y_positive": "toward the rear of the body",
+  "z_positive": "up from the desk surface",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "flat printed underside acting as both build-plate seat and desk seat"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "lifting the whole body off the desk"
+  ],
+  "constrained": [
+   "tipping during one-handed cable routing",
+   "sliding under lateral cable tension"
+  ]
+ },
+ "assembly": {
+  "direction": "place the body on its flat printed underside",
+  "contact_mode": "gravity-supported planar contact, optional felt liner",
+  "sequence_notes": "Dry flat indoor surfaces only. The flat underside is also the support-free print seat."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-FOOT-Z-001",
+   "feature": "planned flat footprint contact plane",
+   "nominal_mm": 0.0,
+   "status": "ESTIMATED",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+  "uncontrolled": [
+   "desk surface friction",
+   "as-built mass and centre of gravity of the generated body",
+   "lateral force a user applies while pressing a cable into a channel"
+  ]
+ },
+ "keepouts_and_access": [
+  "Do not claim anti-slip performance from geometry alone.",
+  "Do not claim wall, vehicle or shelf-edge mounting."
+ ],
+ "loads_and_performance": {
+  "host_load": "several slack low-voltage cables; no tension is carried",
+  "stability_test": "10-degree base tilt with every declared channel loaded"
+ },
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+   "preflight/preflight-input.yaml"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 30.0,
+  "uncertainty_note": "The support concept and its test are specified, but the generated body has no recorded mass, centre of gravity or measured footprint area, and no physical desk surface has been tested.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 1,
+  "KIN": 0,
+  "TOL": 0,
+  "PHY": 2,
+  "VAR": 1,
+  "LIF": 1,
+  "total": 5,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "The body tips while a user presses a cable into a high tentacle channel.",
+   "effect": "The organizer falls over and cables are released.",
+   "mitigation": "Keep the centre of gravity low, maximise the flat footprint, verify a 10-degree tilt with all channels loaded."
+  }
+ ],
+ "verification": {
+  "method": "prototype_test",
+  "acceptance_criteria": [
+   "With every declared channel loaded, the body remains upright after a 10-degree base tilt.",
+   "The body does not slide when a cable is pressed into the highest channel with one hand."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "MM-ORG-041 design lead",
+ "version": "0.1.0"
+}

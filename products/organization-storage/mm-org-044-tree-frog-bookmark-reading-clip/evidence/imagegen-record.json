@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "record_type": "IMAGE_GENERATION_RECORD",
+  "product": "MM-ORG-044",
+  "project_revision": "0.1.0",
+  "purpose": "Single Step1X geometry input; organic frog preform with sacrificial CAD interface stock.",
+  "generated_at": "2026-09-05T11:59:05+02:00",
+  "route": "Codex built-in image_gen__imagegen tool",
+  "tool": {
+    "name": "OpenAI image generation via Codex image_gen__imagegen",
+    "image_model_version": "UNKNOWN_NOT_EXPOSED",
+    "auth_mode": "workspace session",
+    "tool_register_ref": "commercial-clearance/02-tools/tool-register.csv#TOOL-0002",
+    "parameters_used": ["prompt", "num_last_images_to_include for one repair attempt"]
+  },
+  "prompt_file": "organic/reference/imagegen-prompt.txt",
+  "candidates": [
+    {
+      "file": "organic/reference/frog-concept-001.png",
+      "sha256": "e679fafd7277dd10b2c44fe8b8dcfadbb62e521dfc62fd6c2cc114afe0ab7000",
+      "size_px": [1334, 1179],
+      "mode": "RGB_NO_ALPHA",
+      "decision": "REJECTED_AS_STEP1X_INPUT",
+      "finding": "Good printable frog massing, but the checkerboard transparency preview is baked into RGB pixels."
+    },
+    {
+      "file": "organic/reference/frog-concept-001-selected.png",
+      "sha256": "55df1ea9896bee7b39ce7b187ee2f1e2c96072b1bd5d64af3ccaa342a8cd6adb",
+      "size_px": [1334, 1179],
+      "mode": "RGB_NO_ALPHA",
+      "decision": "SELECTED_WITH_SERVICE_BACKGROUND_REMOVAL",
+      "finding": "Repair request preserved the form but still produced RGB checkerboard pixels. Step1X U2Net background removal is therefore required and must be recorded in the run."
+    }
+  ],
+  "geometry_review": {
+    "status": "ACCEPTED_FOR_ORGANIC_DRAFT_ONLY",
+    "findings": ["one connected-looking subject", "thick toes", "compact perched pose", "solid rear interface stock", "no bookmark blade or third-party mark"]
+  },
+  "ip_basis": "Original generic frog concept from an own text prompt; no imported model, named character, logo, likeness or trade dress.",
+  "rights_status": "WARN: the applicable image-generator commercial terms are not yet fixed in this SKU's evidence. No commercial release is cleared.",
+  "labelling": "GENERATED PROPOSAL; hidden geometry and depth are synthesized, not measured."
+}

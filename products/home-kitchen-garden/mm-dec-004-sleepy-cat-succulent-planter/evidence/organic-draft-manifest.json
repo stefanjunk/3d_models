@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-DEC-004",
+  "revision": "0.1.0",
+  "status": "FUNCTIONAL_DIGITAL_DRAFT_NOT_RELEASED",
+  "derivation": [
+    {"path": "organic/reference/cat-concept-001.png", "sha256": "ec61fb908a00c425a47256a4c63637d6f5c0310b97640e4731b1b08b9a65a56e", "note": "own generic sleeping-cat image; RGB checkerboard background, so Step1X U2Net removal was required"},
+    {"path": "organic/raw/step1x/run-001/geometry.raw.glb", "sha256": "e599d0b5311e7c7eb5e9d2ff4f56a41568b9626ef6bf8a796630a152cd9d8895", "note": "immutable untextured geometry master; clean owned fork commit 4b6da92; five generated components"},
+    {"path": "organic/work/run-001/01-registered-largest-mm.stl", "sha256": "011e256f3f703e3d558f730b94b8fa2907f8dab41f88417cf4c1fb6de614e866", "note": "largest intended shell retained; four negative-volume floaters rejected; 130.0 x 126.27 x 75.49 mm"},
+    {"path": "organic/work/run-004/04-cavity-and-drain-clean.stl", "sha256": "f19edfe3cd46e117359de88421127f768749746ce8c7e4a5cd9efd265aa4550e", "note": "CAD-owned 4 mm base cut, tapered unqualified pot cavity and visible +Y drain tunnel; 130.0 x 126.27 x 69.06 mm"}
+  ],
+  "digital_checks": {
+    "step1x_intake": "reports/step1x-geometry-intake-run-001.json",
+    "registration": "reports/run-001/registration-largest-component.json",
+    "registered_mesh": "reports/run-001/mesh-audit.json",
+    "functionalization": "organic/work/run-004/functionalization-report.json",
+    "functionalization_sha256": "ed016cb2445f6a69306ffc26defa9beb1762b07c68f8d5204b338b3b806a9806",
+    "functional_mesh": "reports/run-004/cavity-draft-mesh-audit.json",
+    "functional_mesh_result": "PASS; one watertight component, winding consistent; one numerically negligible face remains and requires final release review",
+    "slice": "reports/run-004/slice-cavity-draft.json",
+    "slice_result": "PASS; 345 layers; 23424 s metadata time; 45637.09 mm positive filament length; no slicer warning",
+    "visual_review": ["reports/run-001/cavity-draft-iso.png", "reports/run-001/cavity-draft-top.png", "reports/run-001/cavity-draft-back.png", "reports/run-001/cavity-draft-bottom.png"]
+  },
+  "blockers": ["concept image awaits explicit human approval", "exact nursery pot unmeasured", "cavity clearance unqualified", "drainage and hidden-pooling test absent", "loaded tip-stability test absent", "minimum-wall and final numerical-face review pending", "image-generator and commercial-release gates open"],
+  "boundary": "No printer upload or print start was performed. This manifest is not a product release."
+}

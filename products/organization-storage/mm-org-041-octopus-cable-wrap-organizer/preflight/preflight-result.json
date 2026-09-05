@@ -1,0 +1,677 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ORG-041-002",
+  "assessment_version": "0.2.0",
+  "assessment_date": "2026-09-05",
+  "product": "Octopus cable wrap organizer",
+  "scope": {
+    "intended_use": "Hold and separate several slack low-voltage USB and audio desk cables in open retention channels formed by the curled tentacles of a decorative generated octopus body standing on a dry indoor desk.",
+    "user_context": "Adult use on a dry, flat indoor desk or shelf. Digital-first product planning; physical retention, edge-comfort and stability qualification are required before any offer.",
+    "variants": [
+      "One static (non-articulated) octopus body at the released millimetre scale",
+      "Two declared channel sizes for a nominal cable outer-diameter design range, selectable as a parameter"
+    ],
+    "out_of_scope": [
+      "Any measured animal anatomy, scanned original, or third-party character, likeness or trade dress",
+      "Cables in use under power-delivery heat, mains cables, or damaged cables",
+      "Load-bearing, wall, vehicle, outdoor, food-contact or wet use",
+      "A toy for children under 3 years, or any child-safety or small-parts claim",
+      "Cable strain relief, bend-radius protection, electrical insulation or EMC function",
+      "EU commercial use while the Step1X-3D upstream licence conflict is unresolved"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "One-piece generated octopus body with parametric cable-retention channels"
+    },
+    {
+      "id": "E-CABLE-001",
+      "kind": "HOST_OBJECT",
+      "name": "Slack low-voltage USB and audio desk cables of unmeasured outer diameter"
+    },
+    {
+      "id": "E-DESK-001",
+      "kind": "HOST_OBJECT",
+      "name": "Dry flat indoor desk or shelf"
+    },
+    {
+      "id": "E-HUMAN-001",
+      "kind": "HUMAN",
+      "name": "Adult user routing and removing cables by hand"
+    },
+    {
+      "id": "E-PROCESS-001",
+      "kind": "ENVIRONMENT",
+      "name": "Pinned Anycubic Kobra 3 Max / SUNLU PETG Black FFF research baseline"
+    },
+    {
+      "id": "E-TOOL-001",
+      "kind": "SOFTWARE",
+      "name": "Own imagegen reference plus local Step1X-3D generative mesh service"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-RET-SLOT-001",
+      "name": "Slack cable to open tentacle retention channel",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-CABLE-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "MEC"
+      ],
+      "function": "RET",
+      "geometry": "SLOT",
+      "lifecycle_states": [
+        "use",
+        "service",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "centre of the octopus body footprint on the desk-support plane",
+        "x_positive": "toward the front-facing tentacle pair",
+        "y_positive": "toward the rear of the body",
+        "z_positive": "up from the desk-support plane",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "channel floor arc, CAD-owned"
+        },
+        {
+          "id": "B",
+          "description": "channel mouth pinch plane between the two compliant detent lips"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "cable slides along the channel axis",
+          "cable lifts out through the channel mouth under deliberate hand force"
+        ],
+        "constrained": [
+          "cable falling out under its own weight",
+          "cable migrating between adjacent channels"
+        ]
+      },
+      "assembly": {
+        "direction": "press the slack cable down through the channel mouth by hand",
+        "contact_mode": "open compliant pinch, no clamping and no strain relief",
+        "sequence_notes": "Cables are routed after the body is placed. The channel never carries cable tension."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-CH-SMALL-001",
+          "feature": "nominal small channel mouth gap",
+          "nominal_mm": 4.0,
+          "status": "ESTIMATED",
+          "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-CH-LARGE-001",
+          "feature": "nominal large channel mouth gap",
+          "nominal_mm": 6.0,
+          "status": "ESTIMATED",
+          "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-CABLE-OD-001",
+          "feature": "intended cable outer-diameter design range, no cable measured",
+          "lower_mm": 3.0,
+          "upper_mm": 6.0,
+          "status": "UNKNOWN",
+          "source_ref": "preflight/preflight-input.yaml",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+        "uncontrolled": [
+          "actual cable outer diameter and jacket hardness",
+          "jacket friction and surface finish",
+          "PETG channel-lip stiffness at the released wall thickness",
+          "print-direction anisotropy at the detent lips"
+        ]
+      },
+      "keepouts_and_access": [
+        "Do not claim strain relief, minimum bend radius, insulation or EMC function.",
+        "Do not route mains cables or cables carrying power-delivery heat under load.",
+        "Keep the channel mouth reachable by one adult finger without tools."
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+          "preflight/preflight-input.yaml"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 25.0,
+        "uncertainty_note": "The channel sizes are declared design intent carried from the research row. No real cable was measured, no jacket hardness is recorded and no retention force is known. This is the weakest evidence link in the product and it caps project readiness at R2.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 1,
+        "VAR": 3,
+        "LIF": 1,
+        "total": 10,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "The channel mouth is wider than the cable and the cable falls out under its own weight.",
+          "effect": "The organizer does not organize; the desk returns to a tangle.",
+          "mitigation": "Measure real cables, size the pinch gap below the measured minimum outer diameter, verify with a coupon."
+        },
+        {
+          "mode": "The channel mouth is too tight and the cable jacket is scuffed or deformed on insertion.",
+          "effect": "Cosmetic jacket damage and a poor tactile impression.",
+          "mitigation": "Radius the detent lips, keep the pinch compliant, run a 100-cycle insertion test."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Each declared channel retains its intended cable against a 2 N vertical tug without the cable leaving the channel.",
+          "Insertion needs no tool and leaves no visible jacket deformation after 100 insertion cycles."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-041 design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-EXT-MEC-SUP-PLN-001",
+      "name": "Organizer base to desk support plane",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-DESK-001",
+      "boundary": "EXT",
+      "domains": [
+        "MEC"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "service",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "centre of the flat printed footprint",
+        "x_positive": "toward the front tentacle pair",
+        "y_positive": "toward the rear of the body",
+        "z_positive": "up from the desk surface",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "flat printed underside acting as both build-plate seat and desk seat"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "lifting the whole body off the desk"
+        ],
+        "constrained": [
+          "tipping during one-handed cable routing",
+          "sliding under lateral cable tension"
+        ]
+      },
+      "assembly": {
+        "direction": "place the body on its flat printed underside",
+        "contact_mode": "gravity-supported planar contact, optional felt liner",
+        "sequence_notes": "Dry flat indoor surfaces only. The flat underside is also the support-free print seat."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-FOOT-Z-001",
+          "feature": "planned flat footprint contact plane",
+          "nominal_mm": 0.0,
+          "status": "ESTIMATED",
+          "source_ref": "preflight/preflight-input.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+        "uncontrolled": [
+          "desk surface friction",
+          "as-built mass and centre of gravity of the generated body",
+          "lateral force a user applies while pressing a cable into a channel"
+        ]
+      },
+      "keepouts_and_access": [
+        "Do not claim anti-slip performance from geometry alone.",
+        "Do not claim wall, vehicle or shelf-edge mounting."
+      ],
+      "loads_and_performance": {
+        "host_load": "several slack low-voltage cables; no tension is carried",
+        "stability_test": "10-degree base tilt with every declared channel loaded"
+      },
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+          "preflight/preflight-input.yaml"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 30.0,
+        "uncertainty_note": "The support concept and its test are specified, but the generated body has no recorded mass, centre of gravity or measured footprint area, and no physical desk surface has been tested.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 0,
+        "PHY": 2,
+        "VAR": 1,
+        "LIF": 1,
+        "total": 5,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "The body tips while a user presses a cable into a high tentacle channel.",
+          "effect": "The organizer falls over and cables are released.",
+          "mitigation": "Keep the centre of gravity low, maximise the flat footprint, verify a 10-degree tilt with all channels loaded."
+        }
+      ],
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "With every declared channel loaded, the body remains upright after a 10-degree base tilt.",
+          "The body does not slide when a cable is pressed into the highest channel with one hand."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-041 design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-HUM-GEO-CON-FREEFORM-001",
+      "name": "Adult hand to generated organic surface and channel edges",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-HUMAN-001",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "GEO"
+      ],
+      "function": "CON",
+      "geometry": "FREEFORM",
+      "lifecycle_states": [
+        "use",
+        "cleaning",
+        "service",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "centre of the octopus body footprint",
+        "x_positive": "toward the front tentacle pair",
+        "y_positive": "toward the rear of the body",
+        "z_positive": "up from the desk-support plane",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "every user-reachable printed edge, especially the channel mouth lips"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "bare-hand contact anywhere on the outer surface"
+        ],
+        "constrained": [
+          "contact with any sharp, burred or unsupported thin protrusion"
+        ]
+      },
+      "assembly": {
+        "direction": "bare-hand contact during cable routing and dusting",
+        "contact_mode": "incidental skin contact on a decorative surface",
+        "sequence_notes": "No gloves, tools or protective handling are assumed."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-EDGE-R-001",
+          "feature": "minimum radius or chamfer on user-reachable printed edges",
+          "nominal_mm": 0.5,
+          "lower_mm": 0.5,
+          "status": "ESTIMATED",
+          "source_ref": "preflight/preflight-input.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-WALL-MIN-001",
+          "feature": "minimum wall at any user-reachable thin protrusion, three perimeters at 0.4 mm nozzle",
+          "nominal_mm": 1.35,
+          "lower_mm": 1.35,
+          "status": "DERIVED",
+          "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry adult indoor desk or shelf, room temperature, no power delivery under load",
+        "uncontrolled": [
+          "as-printed surface roughness and layer witness lines",
+          "user hand size and sensitivity",
+          "post-processing the customer may or may not perform"
+        ]
+      },
+      "keepouts_and_access": [
+        "Not a toy for children under 3 years; no small-parts or mouthing scope.",
+        "No skin-contact biocompatibility, allergen or food-contact claim.",
+        "No tentacle tip may end below one nozzle width."
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "preflight/preflight-input.yaml",
+          "business/02-portfolio/research-r3-process-baseline.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 35.0,
+        "uncertainty_note": "The minimum wall follows from the pinned 0.4 mm nozzle baseline at three perimeters, but no printed surface has been touched, inspected or measured for burrs on the generated organic geometry.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 1,
+        "total": 6,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "A generated tentacle tip prints thinner than one nozzle width and leaves a sharp fragile spike.",
+          "effect": "Unpleasant or scratching hand contact and a breakage that creates a small loose part.",
+          "mitigation": "Run a thin-protrusion audit and thicken every tip above the nozzle width before export."
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "No user-reachable edge is sharp to a bare-hand wipe after standard post-processing.",
+          "A thin-protrusion audit reports no feature below 1.35 mm at the released scale."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-041 design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-INT-GEO-CON-BODY-001",
+      "name": "Generated appearance shell to CAD-owned channel Boolean band",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-TOOL-001",
+      "boundary": "INT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "CON",
+      "geometry": "BODY",
+      "lifecycle_states": [
+        "assembly",
+        "service"
+      ],
+      "coordinate_frame": {
+        "origin": "registered origin of the repaired generated solid after millimetre scaling",
+        "x_positive": "project front, normal to the generated body's symmetry plane",
+        "y_positive": "project rear",
+        "z_positive": "project up, normal to the desk-support plane",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "protected visible region: head dome and outer tentacle surfaces"
+        },
+        {
+          "id": "B",
+          "description": "editable seam band: tentacle inner curls where channels are cut"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "Boolean subtraction of parametric channel solids inside the editable seam band",
+          "local thickening of thin protrusions",
+          "topology-preserving decimation"
+        ],
+        "constrained": [
+          "remeshing or Boolean operations inside the protected visible region",
+          "any change to the declared millimetre scale after registration"
+        ]
+      },
+      "assembly": {
+        "direction": "CAD authority is applied after mesh repair and before any manufacturing export",
+        "contact_mode": "design authority boundary, not a physical contact",
+        "sequence_notes": "Modelled under the assembly lifecycle state because the enumeration has no design-time value. Step1X owns massing and surface character only; every functional dimension is re-created parametrically because the generator works in a normalised cube with no metric units."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-SCALE-001",
+          "feature": "declared overall bounding envelope ceiling at the released scale",
+          "upper_mm": 125.0,
+          "status": "ESTIMATED",
+          "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "design-time mesh and CAD toolchain",
+        "uncontrolled": [
+          "synthesized hidden geometry from a single image",
+          "generator output bounded by a 256-cubed TSDF grid",
+          "non-manifold artefacts and floaters before repair"
+        ]
+      },
+      "keepouts_and_access": [
+        "The generated mesh is never a slicer-ready or CAD-native manufacturing authority.",
+        "Do not rename or directly convert the dense triangle GLB to STEP and call it editable CAD.",
+        "Do not ask the generator for clearances, wall thickness, text or mating surfaces."
+      ],
+      "evidence": {
+        "level": "E2",
+        "sources": [
+          "organic/raw/step1x/",
+          "reports/step1x-geometry-intake.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 60.0,
+        "uncertainty_note": "After generation the mesh is directly inspectable, so topology and bounding box become measurable facts. What the mesh represents physically remains a generated proposal.",
+        "observability": "OBSERVED"
+      },
+      "interface_complexity": {
+        "GEO": 3,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 0,
+        "total": 6,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "A Boolean is attempted on a self-intersecting or non-manifold generated mesh.",
+          "effect": "A corrupt solid that slices into unpredictable toolpaths or silently loses the channel.",
+          "mitigation": "Pass the manifold and self-intersection audit before any Boolean and re-audit afterwards."
+        },
+        {
+          "mode": "The generated body is used at its apparent glTF size instead of the declared millimetre scale.",
+          "effect": "Every functional channel dimension is wrong by an unknown factor.",
+          "mitigation": "Set physical scale deliberately from the design contract and record the registration matrix."
+        }
+      ],
+      "verification": {
+        "method": "analysis",
+        "acceptance_criteria": [
+          "The repaired solid is watertight and manifold with zero self-intersections before and after the Boolean.",
+          "The released bounding box is within the declared 125 x 125 x 65 mm envelope ceiling."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "MM-ORG-041 design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
+      "INT": 2,
+      "CPL": 1,
+      "MOT": 0,
+      "GEO": 2,
+      "PHY": 1,
+      "MAT": 1,
+      "EXT": 0,
+      "VER": 2
+    },
+    "score_0_100": 34.75,
+    "class": "C2",
+    "drivers": [
+      "INT 2/4: three external contracts plus one internal authority boundary between generated surface and CAD-owned channels.",
+      "GEO 2/4: a freeform generated organic body whose hidden geometry is synthesized rather than measured.",
+      "PAR 2/4: channel size, count, wall thickness and overall millimetre scale must all be re-created parametrically after generation."
+    ]
+  },
+  "readiness": {
+    "level": "R2",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R3",
+      "critical_interfaces": "R2",
+      "manufacturing_profile": "R3",
+      "verification": "R3"
+    },
+    "blocking_unknowns": [
+      "Cable outer diameters are a declared design range, not measured on real cables; no variant-confirmed retention contract exists.",
+      "Generated hidden geometry is synthesized from one image and unverified against any physical object.",
+      "No printed coupon, retention test, edge-comfort check, mass, centre of gravity or stability result exists.",
+      "The image-generator terms, outgoing licence, disclosure package and human commercial approval remain open."
+    ],
+    "completeness_percent": 68.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "A decorative desk organizer holding slack low-voltage cables. Credible failure is loss of tidiness or minor cosmetic cable-jacket marking, not injury or property damage. No load path, no mains contact and no child-use scope.",
+    "credible_failure_effects": [
+      "A cable slips out of its channel and the desk becomes untidy again.",
+      "A rough printed channel edge scuffs a cable jacket over many insertions.",
+      "The body tips during one-handed cable routing and slides on the desk."
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "WARN",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "C",
+    "confidence": "LOW_UNKNOWN",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "C2 complexity with K1 criticality permits iterative engineering in Lane C. The Octopus was regenerated with the owned geometry-only fork at commit 4b6da92, then registered, flat-based, cut with CAD-owned channels, mesh-audited, decimated under a geometric regression policy and sliced with exact profiles. Readiness remains R2 because cable dimensions and all physical retention, jacket, edge and stability evidence are still absent. The tooling gate is now WARN rather than BLOCK for this post-cutoff run; commercial release remains independently blocked."
+  },
+  "warnings": [
+    {
+      "code": "HIDDEN_GEOMETRY",
+      "severity": "WARN",
+      "message": "The body originates from one AI-generated image through single-image 3D generation. Depth, the unseen rear and all internal volume are synthesized. This is a generated proposal, not a measured reconstruction."
+    },
+    {
+      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "severity": "WARN",
+      "message": "Cable outer diameters are declared as a design range (3.0-6.0 mm, realized as nominal 4 mm and 6 mm channels). No real cable was measured, so the retention contract is E1 and no compatibility wording may be used."
+    },
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "INFO",
+      "message": "Acceptance criteria and a coupon method are defined, but no test has been executed. Every acceptance row is PLANNED."
+    },
+    {
+      "code": "GENERATIVE_TOOL_LICENCE_WARN",
+      "severity": "WARN",
+      "message": "Run-005 records the owned geometry-only fork at commit 4b6da92, after independent volume decoder commit f00dd46 and texture-pipeline removal 2433849. Residual warnings are image-generator rights, upstream Objaverse training provenance, the undeclared CLIP configuration licence and disclosure duties; pre-cutoff and textured artifacts remain blocked."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Measure the outer diameter of at least five real USB and audio cables actually intended for this product and replace the declared design range with a variant-confirmed retention contract.",
+      "exit_criterion": "IF-EXT-GEO-RET-CHANNEL-001 reaches E3 or better with recorded nominals, tolerance and a control dimension; critical_interfaces rises to R3."
+    },
+    {
+      "priority": 2,
+      "action": "Print the smallest-feature cable-channel coupon at the released scale and material, then test insertion, retention against a light tug, and 100 insertion cycles.",
+      "exit_criterion": "AC-RETENTION-001 and AC-CYCLE-001 pass with recorded measurements on the pinned process baseline."
+    },
+    {
+      "priority": 3,
+      "action": "Complete the physical minimum-wall, thin-protrusion, edge and stability review on a run-005 prototype.",
+      "exit_criterion": "The released-scale prototype has no blocking wall, sharp-edge, fragile-tip or stability finding."
+    },
+    {
+      "priority": 4,
+      "action": "Close the remaining product-local image-generator, outgoing-licence, disclosure and human-release gates.",
+      "exit_criterion": "The rights workspace reaches a dated human-approved release decision; TOOL-LICENCE remains no worse than WARN and every listing disclosure is fixed."
+    }
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-ORG-041",
+    "project_revision": "0.2.0",
+    "basis_refs": [
+      "business/02-portfolio/product-portfolio.csv#PORT-110",
+      "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+      "business/02-portfolio/research-r3-process-baseline.json",
+      "commercial-clearance/project.json",
+      "commercial-clearance/01-sources/source-register.csv",
+      "commercial-clearance/02-tools/tool-register.csv",
+      "commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md",
+      "commercial-clearance/08-approvals/release-approval.json",
+      "preflight/preflight-input.yaml",
+      "organic/raw/step1x/run-005/step1x-run.json",
+      "organic/work/run-005/functionalization-channels-parametric.json",
+      "reports/run-005/03-fdm-mesh-audit.json",
+      "reports/run-005/optimization-100k-comparison.json",
+      "reports/run-005/slice-candidate-100k.json"
+    ],
+    "change_triggers": [
+      "initial_design",
+      "portfolio_registration",
+      "license_chain_initialization",
+      "step1x_geometry_regeneration",
+      "functional_interface_rebuild",
+      "mesh_optimization"
+    ],
+    "previous_assessment_id": "PREFLIGHT-MM-ORG-041-001",
+    "created_at": "2026-09-04T15:50:00+02:00",
+    "updated_at": "2026-09-05T12:10:00+02:00"
+  }
+}

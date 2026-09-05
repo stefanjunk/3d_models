@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-ORG-041",
+  "revision": "0.2.0",
+  "created": "2026-09-05",
+  "label": "DIGITAL DESIGN CANDIDATE — generated organic surface with CAD-owned channels; no physical qualification",
+  "derivation_chain": [
+    {
+      "path": "organic/reference/octopus-preform-plate-001.png",
+      "sha256": "ff71e1240e1b85d516afa8be8da17bae7ed755faa76903f3a82deebacc25b1f4",
+      "note": "own image-generation plate; product-local generator terms remain WARN"
+    },
+    {
+      "path": "organic/raw/step1x/run-005/geometry.raw.glb",
+      "sha256": "5baba7871fd3487f9ebc28828cdbedb91560ba2aa98b6c8445f47da9a1fe4f2f",
+      "bytes": 9891676,
+      "note": "immutable untextured Step1X geometry master; owned fork commit 4b6da92 after cleanup cutoff f00dd46"
+    },
+    {
+      "path": "organic/work/run-005/01-registered-mm.stl",
+      "sha256": "010931aef8faf04cdafcb217a3300d343469bd494106be11a68e3b5a23a808af",
+      "bytes": 20000084,
+      "note": "uniform metric registration and glTF Y-up to CAD Z-up transform; 65 mm target height"
+    },
+    {
+      "path": "organic/work/run-005/02-flat-base.stl",
+      "sha256": "7f929fde8fa9f82d1d50466dc22ff11fb64cfbc505172c356f2d64c59e50efde",
+      "bytes": 18981084,
+      "note": "CAD-owned 4 mm base-plane cut"
+    },
+    {
+      "path": "cutters/cable-channels-run005.step",
+      "sha256": "49dd0d54c940c9192ccb67b5ce4cd358fde378ce4cc33611817445092cad60c0",
+      "bytes": 200142,
+      "note": "six parametric channel cutters; two 6.4 mm and four 4.4 mm bores, still unqualified against real cables"
+    },
+    {
+      "path": "organic/work/run-005/03-channels-parametric.stl",
+      "sha256": "3b2f6fe437cd163667798a1318902d5f15f2e878bd4a17050c5a7cbc8e9736f5",
+      "bytes": 19137284,
+      "note": "one watertight component after flat-base and channel Booleans"
+    },
+    {
+      "path": "result/mm-org-041-octopus-cable-wrap-organizer-v0.2.0.stl",
+      "sha256": "83093b041ecf698dc339303acaf21b211f8403e7cd00225261a0baf44f506c5d",
+      "bytes": 5000084,
+      "note": "selected 100000-face manufacturing candidate; geometry and exact-profile slicer comparisons PASS"
+    }
+  ],
+  "validation": {
+    "mesh": ["reports/run-005/03-channels-parametric-mesh.json", "reports/run-005/03-fdm-mesh-audit.json", "reports/run-005/optimization-100k-mesh.json"],
+    "geometry_regression": "reports/run-005/optimization-100k-comparison.json",
+    "slicer": "reports/run-005/slice-candidate-100k.json",
+    "optimization_decision": "reports/run-005/optimization-decision.json"
+  },
+  "licence_position": {
+    "status": "WARN — not commercial release",
+    "step1x_run": "organic/raw/step1x/run-005/step1x-run.json",
+    "fork_commit": "4b6da92a56acb3a135b0493703470995c00c5e91",
+    "cutoff_commit": "f00dd46",
+    "finding": "The current run no longer executes the Hunyuan-derived volume decoder or removed texture stage. Pre-cutoff and textured artifacts remain blocked. Image-generator terms, upstream training provenance, outgoing licence, AI disclosure and human approval remain open."
+  },
+  "manufacturing_boundary": "Local slice export only. No printer upload or print start was performed. Final support/layer preview and every physical test remain human-controlled."
+}

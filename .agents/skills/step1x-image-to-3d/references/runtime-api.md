@@ -10,11 +10,11 @@ Add an MCP adapter later only if the service becomes remote or multi-host, needs
 
 ## Verified local configuration
 
-Verified 2026-09-01:
+Verified 2026-09-05:
 
 | Layer | Pin/configuration |
 |---|---|
-| Step1X source base | `cb5ac944709c6c913109070c7b90c3447f57f3d4` plus a modified working tree captured by runtime hash/profile |
+| Step1X source | owned fork `github.com/stefanjunk/Step1X-3D@4b6da92`; upstream base `cb5ac944709c6c913109070c7b90c3447f57f3d4` |
 | model snapshot | `stepfun-ai/Step1X-3D@bf7084495b3a72222f36549b7942948aa4d9daa7` |
 | container | `step1x3d:python310-cu124` |
 | CUDA base | NVIDIA CUDA `12.4.1` with cuDNN development image, digest pinned in `Dockerfile` |
@@ -24,20 +24,17 @@ Verified 2026-09-01:
 | Pydantic | `2.10.6` (newer boolean-schema output breaks this Gradio combination) |
 | GPU architecture | two RTX 4060 Ti 16 GB, compute capability `8.9` |
 
-The source worktree contains the operational fixes. A base commit alone does not reproduce it; `capture_step1x_runtime.py` records the dirty state, tracked-diff hash and relevant file hashes. For a frozen production deployment, commit/tag those runtime changes or archive the patch and all hashed runtime files.
+The source worktree is committed and clean. `capture_step1x_runtime.py` still records the exact commit, status and relevant file hashes for each commercial run.
 
 ## Device placement
 
 | Work | Device | Reason |
 |---|---|---|
-| geometry diffusion, CLIP/DINO conditioning and extraction | `cuda:0` | persistent geometry pipeline |
-| texture SDXL/multiview generation and baking | `cuda:1` | persistent texture pipeline |
-| texture VAE/auxiliary CUDA work | `cuda:0` | uses otherwise released geometry capacity |
-| BiRefNet fallback | `cuda:1` | only used by standalone texture calls that request background removal; the web app reuses geometry RGBA and disables this second removal |
+| geometry diffusion, CLIP/DINO conditioning and extraction | `cuda:0` and `cuda:1` as pinned by the owned fork | one geometry job is distributed across the two-GPU service |
 | rembg/U2Net for an opaque input | CPU ONNX | `REMBG_PROVIDER=CPUExecutionProvider`; skipped when the input has useful alpha |
-| orchestration, image I/O, mesh cleanup/decimation, UV/scene work and Gradio | CPU/RAM | these are host-side algorithms or control paths, not CPU offload of the main texture model |
+| orchestration, image I/O, mesh cleanup/decimation and Gradio | CPU/RAM | host-side algorithms and control paths |
 
-`TEXTURE_CPU_OFFLOAD=0`, so the main texture model is not intentionally moved through system RAM. Both GPUs may show free VRAM because the model stages and kernels have different peak allocations; unused memory is not evidence that one job can be safely parallelized.
+The texture pipeline and its SDXL dependencies were removed in fork commit `2433849`. Free VRAM is not evidence that concurrent jobs are safe; the service queue remains serial.
 
 ## Service control
 
@@ -62,7 +59,7 @@ python scripts/step1x_client.py status \
   --report reports/step1x-status.json
 ```
 
-In the pinned app, both geometry and texture pipelines are constructed before `demo.launch()`. A compatible response from `/gradio_api/info` therefore confirms that loading completed for the current process. It does not prove that the serial queue is idle.
+In the pinned app, the geometry pipeline is constructed before `demo.launch()`. A compatible response from `/gradio_api/info` therefore confirms that loading completed for the current process. It does not prove that the serial queue is idle.
 
 | Exit | Required interpretation | Agent action |
 |---:|---|---|
@@ -87,12 +84,7 @@ Named endpoint: `/generate_func`
 | 5 | `symmetry` | `x` or `asymmetry`, default `x` | semantic shape control |
 | 6 | `edge_type` | `sharp`, `normal`, or `smooth`, default `sharp` | edge/detail prior |
 
-Returns, in order:
-
-1. untextured geometry GLB;
-2. textured GLB.
-
-The current app exports the raw geometry before its texture-stage cleanup and default reduction to roughly 50,000 faces. Therefore use `geometry.raw.glb` for geometric fidelity and `textured.raw.glb` for UV/albedo appearance unless inspection proves a different choice.
+Returns exactly one untextured geometry GLB. The requested `max_facenum` cap is applied to the exported post-processed mesh. No texture or appearance output exists in the owned fork.
 
 No geometry seed is exposed by this endpoint. Identical parameters do not promise bitwise-identical output. Record every candidate separately.
 

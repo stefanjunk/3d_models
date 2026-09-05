@@ -1,0 +1,289 @@
+project:
+  id: MM-ORG-041
+  sku: MM-ORG-041
+  name: Octopus cable wrap organizer
+  revision: 0.2.0
+  owner: project-owner-via-chat-2026-09-04
+  created: 2026-09-04
+  portfolio_record: business/02-portfolio/product-portfolio.csv#PORT-110
+  product_path: products/organization-storage/mm-org-041-octopus-cable-wrap-organizer
+  research_record: business/02-portfolio/research-ideas-additions-3.csv#SKU-331
+  rights_workspace: commercial-clearance
+  commercial_release_id: MM-ORG-041-0.2.0
+
+workflow:
+  preflight:
+    status: current
+    mode: prospective
+    artifact: preflight/preflight-result.json
+    assessment_id: PREFLIGHT-MM-ORG-041-002
+    assessment_version: 0.2.0
+    assessed_project_revision: 0.2.0
+    updated_at: "2026-09-05T12:10:00+02:00"
+    change_triggers:
+      - initial_design
+      - portfolio_registration
+      - license_chain_initialization
+      - step1x_geometry_regeneration
+      - functional_interface_rebuild
+      - mesh_optimization
+  requirements_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-04
+    approved_at: "2026-09-05T12:10:00+02:00"
+    spec_revision: 0.2.0
+    reason: >-
+      The product owner confirmed that the Octopus already exists and instructed continuation
+      after the licence review. Approval covers regeneration and controlled redesign against the
+      requirements below; it does not create physical evidence for the cable interface.
+  concept_approval:
+    status: approved
+    approved_by: project-owner-via-chat-2026-09-04
+    approved_at: "2026-09-04T21:00:00+02:00"
+    spec_revision: 0.2.0
+    asset: organic/reference/octopus-preform-plate-001.png
+    asset_sha256_record: evidence/imagegen-record.json
+    reason: >-
+      Owner pre-authorized the concept gate. The reference plate was generated with OpenAI
+      gpt-image through Codex CLI, background-keyed to a real alpha channel, visually reviewed
+      and hashed; the Step1X-3D geometry run succeeded and is recorded in
+      organic/raw/step1x/run-005/step1x-run.json. The approved appearance plate is unchanged;
+      only the geometry was regenerated with the current geometry-only fork.
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: MM-ORG-041
+    version: 0.2.0
+    reason: >-
+      Final production geometry and a validated flat non-functional safe region do not
+      exist yet; marking stays a later human-controlled release gate.
+  commercial_release:
+    status: blocked
+    artifact: commercial-clearance/08-approvals/release-approval.json
+    reason: >-
+      The post-cutoff geometry-only run moves the Step1X tool gate from BLOCK to WARN, but the
+      image-generator terms, outgoing licence, disclosure package, physical tests, marking and
+      human commercial approval remain open.
+
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  layout_tier: auto
+  product_id: MM-ORG-041
+  version: 0.2.0
+  operation: recessed
+  depth_mm: 0.4
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  status: blocked-until-final-geometry
+
+requirements:
+  user_stated:
+    - Select one not-yet-created product from the portfolio that suits imagegen plus Step1X-3D and build it.
+    - Auto-approve all workflow gates.
+    - Run everything sequentially in this session without subagents.
+  research_evidenced:
+    - Implement research SKU-331 with its declared 125 x 125 x 65 mm envelope ceiling.
+    - Provide organized retention channels for slack USB and audio desk cables.
+    - Use two declared channel sizes, nominal 4 mm and 6 mm, with compliant pinch detents.
+    - Use PETG with a buildplate-only support strategy.
+    - Keep the object a decorative adult desk item with no child-safety or load-bearing claim.
+  inferred:
+    - Adult dry indoor desk or shelf use is the only intended environment.
+    - The product is one single printed part; the felt liner stays optional and unspecified.
+    - Cables are routed slack after placement and the channels never carry cable tension.
+  recommended:
+    - Keep the centre of gravity low and the flat footprint as large as the silhouette allows.
+    - Radius every user-reachable channel lip and thicken tentacle tips above one nozzle width.
+    - Reserve a flat non-functional underside region for the later metriMade mark.
+  unresolved:
+    - Measured outer diameters and jacket hardness of the real target cables
+    - Retention force, insertion feel and 100-cycle jacket behaviour
+    - As-built mass, centre of gravity and desk-surface friction
+    - Final outgoing license, seller legal identity, image-generator terms and disclosure wording
+
+function:
+  summary: >-
+    A one-piece decorative octopus body whose curled tentacles form open, parametrically
+    cut channels that hold slack low-voltage desk cables separated and reachable.
+  included:
+    - Open cable-retention channels in two declared sizes with compliant pinch detents
+    - A flat printed underside serving as both desk seat and support-free print seat
+    - A generated organic appearance envelope from an own imagegen reference
+  excluded:
+    - Strain relief, bend-radius protection, insulation, EMC or power-delivery-heat function
+    - Mains cables, damaged cables and cables under load
+    - Child use, toy scope, load-bearing, wall, vehicle, outdoor, wet or food-contact use
+    - Any measured-anatomy, scanned-original or third-party-likeness claim
+  interfaces:
+    - preflight/interfaces/IF-EXT-GEO-RET-SLOT-001.json
+    - preflight/interfaces/IF-EXT-MEC-SUP-PLN-001.json
+    - preflight/interfaces/IF-HUM-GEO-CON-FREEFORM-001.json
+    - preflight/interfaces/IF-INT-GEO-CON-BODY-001.json
+
+dimensions:
+  planning_envelope_ceiling_mm: [125, 125, 65]
+  channel_nominals_mm:
+    small: 4.0
+    large: 6.0
+    status: declared-design-value-not-measured
+    source: business/02-portfolio/research-ideas-additions-3.csv#SKU-331
+  cable_outer_diameter_design_range_mm:
+    lower: 3.0
+    upper: 6.0
+    status: unmeasured-design-range
+  minimum_wall_mm: 1.35
+  minimum_wall_basis: three perimeters at the pinned 0.4 mm nozzle
+  design_clearances:
+    status: unresolved-until-cable-measurement-and-coupon
+
+generative:
+  role: sacrificial-preform
+  authority: >-
+    Step1X-3D owns massing and surface character only. Every functional dimension is
+    re-created parametrically. The generated mesh is a proposal, not a measured reconstruction.
+  reference_image: organic/reference/
+  raw_meshes: organic/raw/step1x/
+  protected_region: head dome and outer tentacle surfaces
+  editable_seam_band: tentacle inner curls where channels are cut
+  hidden_geometry: synthesized from one image; unverified against any physical object
+
+risk:
+  class: normal-functional
+  criticality: K1
+  scope_limit: Dry adult indoor desk use only; not a toy for children under 3.
+  hazards:
+    - A cable falls out of a channel that is wider than the cable
+    - A tight or burred channel lip scuffs a cable jacket
+    - A thin generated tentacle tip prints sharp or fragile
+    - The body tips or slides during one-handed cable routing
+  controls:
+    - Compliant pinch detents below the measured minimum cable diameter, after measurement
+    - Radiused channel lips and a thin-protrusion audit before export
+    - Low centre of gravity and a maximised flat footprint
+    - No fit, retention, comfort or stability claim before the coupon and physical tests pass
+
+fabrication:
+  preference: balanced-hybrid
+  preference_basis: Generated appearance shell with a parametric functional interface; no purchased hardware is planned.
+  process: FDM/FFF
+  parts_status: Run-005 is a watertight one-part digital candidate with six CAD-owned channels; no physical print exists.
+  release_scope: Digital first only after physical qualification and commercial clearance.
+
+printer:
+  manufacturer: Anycubic
+  model: Kobra 3 Max
+  build_volume_mm: [420, 420, 500]
+  profile_source: business/02-portfolio/research-r3-process-baseline.json
+
+manufacturing:
+  baseline_id: MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31
+  nozzle_mm: 0.4
+  nozzle_material: hardened steel
+  material: SUNLU PETG Black
+  material_batch: UNKNOWN_UNTIL_PROTOTYPE
+  layer_height_mm: 0.2
+  orientation: flat printed underside down
+  supports: buildplate only
+  profiles:
+    machine:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/machine-kobra3max-hardened-0p4.json
+      sha256: d342f93f1b130e57dfeaf3782192462e4bbfa436819137fd6f59697b7d4562c1
+    process:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/process-0p20-petg-tool-k3max.json
+      sha256: fbe19c51b8415c3a16da1d6695d2a51e0d60e12653f5f38e49a22079423a75e1
+    filament:
+      path: products/home-kitchen-garden/mm-bth-003-linear-shower-drain-hair-trap/abflusssieb/shower_drain_hairtrap_v3_loose_segments_945x65x21/profiles/anycubic-slicer-next/filament-sunlu-petg-black-k3max-0p4.json
+      sha256: 02f4f9f2831fdaf744797264bc1ff16cc34d887a4c4067d73cd0716b828c2acd
+
+optimization:
+  status: applied
+  baseline_slicer_report: reports/run-005/slice-baseline-383k.json
+  selected_variant: organic/work/run-005/optimization/octopus-100k.stl
+  comparison_report: reports/run-005/optimization-decision.json
+  rationale: The 100k candidate reduces the manufacturing mesh by 73.87 percent while keeping sliced time and extrusion within 0.10 percent of the 382744-face baseline.
+  mesh_simplification:
+    status: applied
+    master_mesh: organic/work/run-005/03-channels-parametric.stl
+    manufacturing_mesh: result/mm-org-041-octopus-cable-wrap-organizer-v0.2.0.stl
+    method: Blender planar-preserving collapse decimation with seeded bidirectional surface regression
+    tolerance_mm: 0.15
+    comparison_report: reports/run-005/optimization-100k-comparison.json
+    protected_regions:
+      - head dome and outer tentacle surfaces
+      - cable channel floors and pinch lips
+      - flat desk-support underside
+      - future watermark safe region
+    resource_budget:
+      triangle_target: 100000
+      triangle_stop: 400000
+      peak_memory_gib: 8
+      max_mesh_mib: 25
+      max_slicer_seconds: 600
+    slicer_resolution_check:
+      status: passed
+      report: reports/run-005/slice-candidate-100k.json
+    rationale: Geometric regression passed at p95 0.0083 mm and maximum 0.0242 mm, far inside the 0.15 mm ceiling; exact-profile slicing also passed.
+
+acceptance:
+  - id: AC-MESH-001
+    criterion: The repaired solid is watertight and manifold with zero self-intersections before and after the channel Boolean.
+    method: Deterministic mesh audit.
+    status: passed-digital-run-005
+  - id: AC-WALL-001
+    criterion: No feature is below 1.35 mm at the released scale and no tentacle tip ends below one nozzle width.
+    method: Minimum-wall and thin-protrusion audit.
+    status: planned
+  - id: AC-ENVELOPE-001
+    criterion: The released bounding box stays within 125 x 125 x 65 mm.
+    method: Bounding-box measurement of the exported solid.
+    status: passed-digital-run-005
+  - id: AC-RETENTION-001
+    criterion: Each declared channel retains its intended cable against a 2 N vertical tug.
+    method: Printed coupon test with measured real cables.
+    status: planned
+  - id: AC-CYCLE-001
+    criterion: No visible jacket deformation after 100 insertion cycles.
+    method: Printed coupon test, before/after visual inspection.
+    status: planned
+  - id: AC-STABILITY-001
+    criterion: With every declared channel loaded, the body remains upright after a 10-degree base tilt.
+    method: Physical prototype test on a recorded dry flat surface.
+    status: planned
+
+deliverables:
+  current:
+    - PURPOSE.md
+    - decision-log.md
+    - design-spec.yaml
+    - preflight/preflight-input.yaml
+    - preflight/preflight-result.json
+    - preflight/preflight-report.md
+    - preflight/interfaces/
+    - organic/reference/
+    - organic/raw/step1x/
+    - organic/work/run-005/
+    - result/mm-org-041-octopus-cable-wrap-organizer-v0.2.0.stl
+    - reports/run-005/
+    - commercial-clearance/
+    - autonomy-policy.json
+  forbidden_in_this_phase:
+    - printer upload or print start
+    - any fit, retention, comfort, stability or compatibility claim
+    - any commercial offer before product-local rights and physical release gates pass
+
+traceability:
+  evidence:
+    - business/02-portfolio/product-portfolio.csv#PORT-110
+    - business/02-portfolio/research-ideas-additions-3.csv#SKU-331
+    - business/02-portfolio/research-r3-process-baseline.json
+    - commercial-clearance/project.json
+    - commercial-clearance/01-sources/source-register.csv
+    - commercial-clearance/02-tools/tool-register.csv
+    - commercial-clearance/05-clearance/RIGHTS-CLEARANCE.md
+    - commercial-clearance/08-approvals/release-approval.json
+    - organic/raw/step1x/run-005/step1x-run.json
+    - result/derivation-manifest-v0.2.0.json

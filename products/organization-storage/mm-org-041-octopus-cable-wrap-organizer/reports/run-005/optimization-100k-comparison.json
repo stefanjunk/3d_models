@@ -1,0 +1,147 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "surface-distance-executed",
+      "message": "Bidirectional sampled distance completed",
+      "metrics": {
+        "method": [
+          "triangle-indexed",
+          "triangle-indexed"
+        ]
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "surface-rms",
+      "message": "rms_mm=0.00410686 mm; limit=0.03 mm",
+      "metrics": {
+        "actual_mm": 0.004106860763333459,
+        "limit_mm": 0.03
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "surface-p95",
+      "message": "p95_mm=0.00826182 mm; limit=0.05 mm",
+      "metrics": {
+        "actual_mm": 0.00826182389748097,
+        "limit_mm": 0.05
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "surface-surface",
+      "message": "max_mm=0.0241526 mm; limit=0.15 mm",
+      "metrics": {
+        "actual_mm": 0.024152586479867604,
+        "limit_mm": 0.15
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "extent-regression",
+      "message": "Maximum extent delta 0.0118148 mm; limit 0.05 mm",
+      "metrics": {
+        "actual_mm": 0.011814759578555822,
+        "limit_mm": 0.05
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "volume-regression",
+      "message": "Absolute volume delta 0.019608537486605206% ; limit 0.25%",
+      "metrics": {
+        "actual_percent": 0.019608537486605206,
+        "limit_percent": 0.25
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/work/run-005/03-channels-parametric.stl",
+      "sha256": "3b2f6fe437cd163667798a1318902d5f15f2e878bd4a17050c5a7cbc8e9736f5",
+      "size_bytes": 19137284
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-041-octopus-cable-wrap-organizer/organic/work/run-005/optimization/octopus-100k.stl",
+      "sha256": "83093b041ecf698dc339303acaf21b211f8403e7cd00225261a0baf44f506c5d",
+      "size_bytes": 5000084
+    }
+  ],
+  "limitations": [
+    "This is a seeded sampled comparison, not a mathematical Hausdorff proof.",
+    "Evaluate protected interfaces and ROIs separately; a global percentile can hide a small critical breach."
+  ],
+  "metrics": {
+    "absolute_extent_delta_mm": [
+      0.007518768310546875,
+      0.000385284423828125,
+      0.011814759578555822
+    ],
+    "absolute_volume_delta_percent": 0.019608537486605206,
+    "candidate_extents_mm": [
+      119.1993179321289,
+      110.83072280883789,
+      61.01080767950043
+    ],
+    "candidate_to_reference": {
+      "max_mm": 0.022191603247578243,
+      "mean_mm": 0.0031185169622101245,
+      "p50_mm": 0.0025292012915428316,
+      "p95_mm": 0.00826182389748097,
+      "p99_mm": 0.01119356544280384,
+      "rms_mm": 0.004106860763333459
+    },
+    "candidate_volume_mm3": 166858.52878180798,
+    "distance_methods": [
+      "triangle-indexed",
+      "triangle-indexed"
+    ],
+    "reference_extents_mm": [
+      119.19179916381836,
+      110.83033752441406,
+      60.998992919921875
+    ],
+    "reference_to_candidate": {
+      "max_mm": 0.024152586479867604,
+      "mean_mm": 0.003119974966707588,
+      "p50_mm": 0.0025606719952460766,
+      "p95_mm": 0.00819275499659269,
+      "p99_mm": 0.011189598641173812,
+      "rms_mm": 0.004098763658948013
+    },
+    "reference_volume_mm3": 166891.25371585472,
+    "samples_per_direction": 60000,
+    "seed": 41,
+    "triangle_exact": true,
+    "worst_bidirectional": {
+      "max_mm": 0.024152586479867604,
+      "mean_mm": 0.003119974966707588,
+      "p50_mm": 0.0025606719952460766,
+      "p95_mm": 0.00826182389748097,
+      "p99_mm": 0.01119356544280384,
+      "rms_mm": 0.004106860763333459
+    }
+  },
+  "profile": "draft",
+  "required_capabilities": [
+    "mesh-distance"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "compare-meshes",
+  "tool_version": "1.3.0"
+}

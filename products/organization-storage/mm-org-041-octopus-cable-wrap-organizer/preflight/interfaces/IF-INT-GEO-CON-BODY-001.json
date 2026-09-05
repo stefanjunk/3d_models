@@ -1,0 +1,117 @@
+{
+ "id": "IF-INT-GEO-CON-BODY-001",
+ "name": "Generated appearance shell to CAD-owned channel Boolean band",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-TOOL-001",
+ "boundary": "INT",
+ "domains": [
+  "GEO"
+ ],
+ "function": "CON",
+ "geometry": "BODY",
+ "lifecycle_states": [
+  "assembly",
+  "service"
+ ],
+ "coordinate_frame": {
+  "origin": "registered origin of the repaired generated solid after millimetre scaling",
+  "x_positive": "project front, normal to the generated body's symmetry plane",
+  "y_positive": "project rear",
+  "z_positive": "project up, normal to the desk-support plane",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "protected visible region: head dome and outer tentacle surfaces"
+  },
+  {
+   "id": "B",
+   "description": "editable seam band: tentacle inner curls where channels are cut"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "Boolean subtraction of parametric channel solids inside the editable seam band",
+   "local thickening of thin protrusions",
+   "topology-preserving decimation"
+  ],
+  "constrained": [
+   "remeshing or Boolean operations inside the protected visible region",
+   "any change to the declared millimetre scale after registration"
+  ]
+ },
+ "assembly": {
+  "direction": "CAD authority is applied after mesh repair and before any manufacturing export",
+  "contact_mode": "design authority boundary, not a physical contact",
+  "sequence_notes": "Modelled under the assembly lifecycle state because the enumeration has no design-time value. Step1X owns massing and surface character only; every functional dimension is re-created parametrically because the generator works in a normalised cube with no metric units."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-SCALE-001",
+   "feature": "declared overall bounding envelope ceiling at the released scale",
+   "upper_mm": 125.0,
+   "status": "ESTIMATED",
+   "source_ref": "business/02-portfolio/research-ideas-additions-3.csv#SKU-331",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "design-time mesh and CAD toolchain",
+  "uncontrolled": [
+   "synthesized hidden geometry from a single image",
+   "generator output bounded by a 256-cubed TSDF grid",
+   "non-manifold artefacts and floaters before repair"
+  ]
+ },
+ "keepouts_and_access": [
+  "The generated mesh is never a slicer-ready or CAD-native manufacturing authority.",
+  "Do not rename or directly convert the dense triangle GLB to STEP and call it editable CAD.",
+  "Do not ask the generator for clearances, wall thickness, text or mating surfaces."
+ ],
+ "evidence": {
+  "level": "E2",
+  "sources": [
+   "organic/raw/step1x/",
+   "reports/step1x-geometry-intake.json"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 60.0,
+  "uncertainty_note": "After generation the mesh is directly inspectable, so topology and bounding box become measurable facts. What the mesh represents physically remains a generated proposal.",
+  "observability": "OBSERVED"
+ },
+ "interface_complexity": {
+  "GEO": 3,
+  "KIN": 0,
+  "TOL": 1,
+  "PHY": 0,
+  "VAR": 2,
+  "LIF": 0,
+  "total": 6,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "A Boolean is attempted on a self-intersecting or non-manifold generated mesh.",
+   "effect": "A corrupt solid that slices into unpredictable toolpaths or silently loses the channel.",
+   "mitigation": "Pass the manifold and self-intersection audit before any Boolean and re-audit afterwards."
+  },
+  {
+   "mode": "The generated body is used at its apparent glTF size instead of the declared millimetre scale.",
+   "effect": "Every functional channel dimension is wrong by an unknown factor.",
+   "mitigation": "Set physical scale deliberately from the design contract and record the registration matrix."
+  }
+ ],
+ "verification": {
+  "method": "analysis",
+  "acceptance_criteria": [
+   "The repaired solid is watertight and manifold with zero self-intersections before and after the Boolean.",
+   "The released bounding box is within the declared 125 x 125 x 65 mm envelope ceiling."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "MM-ORG-041 design lead",
+ "version": "0.1.0"
+}

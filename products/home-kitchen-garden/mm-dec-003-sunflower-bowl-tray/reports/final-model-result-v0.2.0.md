@@ -51,6 +51,8 @@ The aggregate validator is expected to remain `REVIEW_REQUIRED`: digital geometr
 
 An independent read-only organic-mesh review accepted the derivation as a digital prototype. It also flagged visible asymmetric, fused and wrinkled Step1X petal regions for owner aesthetic acceptance and warned that tree-support removal may damage petal surfaces. No body repair was requested or performed.
 
+The product-local P2 handoff contains a separate English draft description, whole-product concept image, current-mesh render and one complete oriented Anycubic 3MF print set for revision 0.2.0. Its support setting is embedded and enabled. P2 validation is recorded separately and does not replace any physical, appearance, rights, safety or commercial gate.
+
 ## Release boundary
 
 The commercial audit remains `BLOCK`. A human layer/support/seam preview, supervised physical print, support-removal and edge/stability tests, final dimension/material approval, release marking, rights/IP/product-safety/export checks and signed owner approval are required before release. Food-contact, tableware, liquid-service, outdoor, child-toy and structural-use claims are outside the current scope.

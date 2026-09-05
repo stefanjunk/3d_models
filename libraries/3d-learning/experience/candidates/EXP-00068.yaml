@@ -1,0 +1,128 @@
+schema_version: 1.0.0
+kind: lesson
+id: EXP-00068
+title: Workspace owner assigns local product intake and automatic Orca integration and cleanup
+captured_at: 2026-09-05
+source_type: user-correction
+lifecycle:
+  state: candidate
+  maturity: E0
+  confidence: medium
+  review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    notes: The user explicitly requested the scoped coordinator skill update. This authorizes that edit, not promotion of this lesson or a claim of runtime validation.
+feature:
+  type: orca-coordinator workspace routing and assignment closeout
+  geometry: repository workflow; no geometry changed
+  design_parameters: {}
+  named_datums: []
+  constraints:
+    - Product creation and main-only activities run in the existing main workspace.
+    - The coordinator owns serial integration and safe per-assignment cleanup.
+    - Evidence, remote ancestry, artifact preservation, and task ownership constrain cleanup.
+scope:
+  process: 3D workflow coordination through Stably AI Orca CLI and Git
+  machine:
+    manufacturer: unknown
+    model: unknown
+    unit_id: null
+    firmware: null
+  material:
+    manufacturer: unknown
+    product: unknown
+    variant: null
+    color: null
+    batch: null
+    conditioning: null
+  nozzle:
+    diameter_mm: null
+    material: unknown
+    geometry: null
+    hotend: null
+    wear_state: null
+  orientation: unknown
+  slicer:
+    name: unknown
+    version: null
+    profile: null
+    profile_hash: null
+  geometry_class: not applicable
+  environment: /home/stefan/Projekte/3d_models on main tracking origin/main
+  transfer_limits:
+    - This is explicit authority and routing for this workspace, not a universal authorization to merge or delete branches in other repositories.
+    - No product runtime, physical print, or manufacturing result was tested in this skill edit.
+observation:
+  summary: The user clarified where new products and protected-path work belong and assigned the coordinator automatic integration and cleanup after each product.
+  expected: Keep new product creation and main-only work here; complete merge, push, and safe cleanup without another routine permission question.
+  actual: The prior response proposed a workspace per product and integration according to Git rules, but did not explicitly establish local product creation or automatic branch/workspace closure. Skill 1.1.0 now records the requested routing and closeout sequence; execution is untested.
+  outcome: mixed
+  parameter: workspace routing and completion responsibility
+  recommended_value: Explicit local intake and coordinator-owned integration/cleanup within the user's assigned scope
+  units: workflow contract
+explanation:
+  hypothesis: Explicit routing and completion ownership reduce unnecessary workspaces, repeated permission requests, and abandoned merge-ready branches while ordered preservation checks constrain cleanup.
+  mechanism: Separate main-local intake from delegated development and require proof of remote integration before assignment resource removal.
+  alternatives:
+    - A coordinator may already infer this behavior from session authority without an explicit skill clause.
+    - Runtime connectivity or dirty main state can still prevent completion even with correct routing instructions.
+  validated: false
+  validation_method: Exercise the linked behavioral cases in an isolated Orca/Git environment or a later authorized product assignment.
+evidence:
+  observations: 1
+  same_scope_repetitions: 0
+  geometry_count: 0
+  machine_count: 0
+  material_count: 0
+  nozzle_count: 0
+  measured: false
+  measurement_method: User-request comparison and documentation review only
+  uncertainty: No live merge or workspace cleanup was performed; behavioral reliability remains untested.
+  sources:
+    - type: user-statement
+      ref: Workspace conversation on 2026-09-05 requesting the coordinator skill update
+      hash: null
+      notes: 'falls neue produkte angelegt werden oder "main-only" activitäten, wie buisness folder oder skills, soll das selbstverständlich direkt hier im main workspace durchgeführt werden. nach jedem produkt müsste der koordinator selbstständig die branches in main überfphren und schließen / aufräumen. erfasse das so im koordinator skills'
+    - type: other
+      ref: .agents/skills/orca-3d-coordinator/SKILL.md
+      hash: null
+      notes: Version 1.1.0 implements the explicitly requested workspace policy; this is not an experience promotion.
+  artifacts: []
+applicability:
+  triggers:
+    - New product or main-only intake in this coordinator workspace
+    - Completion of a delegated product assignment under this user's coordination authority
+  exclusions:
+    - Cleanup of pre-existing or unrelated workspaces and branches
+    - Physical or commercial release approval
+  transfer_limits:
+    - Reconfirm applicable ownership and authorization when using a different repository or coordinator contract.
+relationships:
+  duplicates: []
+  conflicts: []
+  supersedes: []
+  related: []
+  evals:
+    - EVAL-core-orca-main-routing-closeout-001
+  patterns: []
+  references:
+    - .agents/skills/orca-3d-coordinator/references/operating-contract.md
+validation:
+  targeted: not-run
+  regression: not-run
+  reports: []
+provenance:
+  project: WORKSPACE-ORCA-COORDINATOR
+  part_revision: 1.1.0
+  trace: Workspace conversation on 2026-09-05 requesting the coordinator skill update
+  source_commit: f52b25757617b29015d626e78a31038fdfc468b4
+  created_by: Codex
+tags:
+  - workflow
+  - orca
+  - coordinator
+  - main-only
+  - integration
+  - cleanup
+  - user-correction

@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-09-05 — Portfolio intake preservation repair
+
+- Fixed mode comparison, assessed-revision preservation and fail-before-write handling in the portfolio backfill. Reconciled missing intake companions and refreshed aggregates/workbook.
+- Captured E0 candidate `EXP-00069` and draft eval `EVAL-core-backfill-preserve-current-intake-001`; nine regression tests and both portfolio validators pass. No experience promotion or physical/commercial approval.
+
+## 2026-09-05 — Orca coordinator skill 1.1.0
+
+- Applied the workspace user's explicit request to keep new product creation
+  and main-only work in the existing main workspace and assign automatic
+  per-product integration, push verification, and safe cleanup to the coordinator.
+- Recorded E0 candidate `EXP-00068` and draft behavioral eval
+  `EVAL-core-orca-main-routing-closeout-001`. Neither is promoted; live Orca
+  product dispatch, integration, and cleanup were not run as part of the skill
+  update. Checked the installed Orca 1.4.161 guides and runtime readiness;
+  clarified agent readiness, explicit workspace targeting, and lifecycle checks.
+
 ## 1.1.0 — 2026-08-28
 
 - Added user-correction candidate `EXP-00023` for purpose-built Full, Compact,

@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "eac117582c27fa0320fa718c3c6452a8c88a623dc5548cbf6e3b832a9dad5bad",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/product-description.en.md",
+        "sha256": "eac117582c27fa0320fa718c3c6452a8c88a623dc5548cbf6e3b832a9dad5bad"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "3741b2f0e0cb0640dac027f791dd8b2e88170f547c8759ebf9cfbb93435eb793",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/retrospective-concept.svg",
+        "sha256": "3741b2f0e0cb0640dac027f791dd8b2e88170f547c8759ebf9cfbb93435eb793"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "5f0e7affcb39c7c972be639e2cc243d2abd962fa516b8ad373a1128ee83e235b",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/current-model-render.png",
+        "sha256": "5f0e7affcb39c7c972be639e2cc243d2abd962fa516b8ad373a1128ee83e235b"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "d0bfbf24958aa52a461f2ceb374f89a289ebbb90f63acf8e6ecd1bfc991fbffc",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/MM-SYS-002-0.2.0-draft.1-print-set.3mf",
+        "sha256": "d0bfbf24958aa52a461f2ceb374f89a289ebbb90f63acf8e6ecd1bfc991fbffc"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 87
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 4; declared quantity 4",
+      "metrics": {
+        "actual": 4,
+        "declared": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/p2-manifest.json",
+      "sha256": "56bda97a32cddeb5cf6cd3de76d02125a5b5b7c9fe5ef221a4c5e80659dd6ab0",
+      "size_bytes": 2247
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-002-bror-tool-shadow-tray/p2-stage/MM-SYS-002-0.2.0-draft.1-print-set.3mf",
+      "sha256": "d0bfbf24958aa52a461f2ceb374f89a289ebbb90f63acf8e6ecd1bfc991fbffc",
+      "size_bytes": 73730
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 4,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "BROR Tool Shadow Tray",
+      "record_id": "PORT-040",
+      "revision": "0.2.0-draft.1",
+      "root": "..",
+      "sku": "MM-SYS-002"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

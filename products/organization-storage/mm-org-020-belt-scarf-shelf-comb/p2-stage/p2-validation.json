@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "ff26a7b4de87b4125a71e63c021b9b3551709fe59c7735fbaba796f1ca25cbc9",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/p2-stage/product-description.en.md",
+        "sha256": "ff26a7b4de87b4125a71e63c021b9b3551709fe59c7735fbaba796f1ca25cbc9"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "9a3456aca189e73368db56b5c6dd2bca5208bdcc2b3e8f7385be35956a984224",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/assets/concept/MM-ORG-020-concept-v1.svg",
+        "sha256": "9a3456aca189e73368db56b5c6dd2bca5208bdcc2b3e8f7385be35956a984224"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "a156e703148cabc92d1fbd7f695827228459fee37bd424bc2bbbb2c5f611ff46",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/renders/MM-ORG-020-digital-candidate.png",
+        "sha256": "a156e703148cabc92d1fbd7f695827228459fee37bd424bc2bbbb2c5f611ff46"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "34df464329a5d39fcb41df8a4213e1ee1a30f26522e7885b98b25f072f89aa88",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/p2-stage/MM-ORG-020-0.1.0-draft.1-print-set.3mf",
+        "sha256": "34df464329a5d39fcb41df8a4213e1ee1a30f26522e7885b98b25f072f89aa88"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 113
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 4; declared quantity 4",
+      "metrics": {
+        "actual": 4,
+        "declared": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/p2-stage/p2-manifest.json",
+      "sha256": "45ba98cdd47b8c0c3d197cc636aef22a69b470a104b414cb78dd255930a670a8",
+      "size_bytes": 2273
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-020-belt-scarf-shelf-comb/p2-stage/MM-ORG-020-0.1.0-draft.1-print-set.3mf",
+      "sha256": "34df464329a5d39fcb41df8a4213e1ee1a30f26522e7885b98b25f072f89aa88",
+      "size_bytes": 403822
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 4,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital print candidate",
+      "name": "Wardrobe belt and scarf shelf comb",
+      "record_id": "PORT-076",
+      "revision": "0.1.0-draft.1",
+      "root": "..",
+      "sku": "MM-ORG-020"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

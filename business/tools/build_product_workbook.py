@@ -1597,7 +1597,7 @@ def main() -> None:
         ["Stage", "Meaning", "Commercially existing?", "Public sale"],
         ["P0 Idea", "Research concept only; no controlled product source", "No", "No"],
         ["P1 Model present", "Local source or mesh exists; quality/rights may be unknown", "No", "No"],
-        ["P2 Digital candidate", "Controlled revision and digital geometry evidence", "No", "No"],
+        ["P2 Digital candidate", "Validated English description, concept image, current-model render and complete oriented/support-planned 3MF print set", "No", "No"],
         ["P3 Physical prototype", "Slicer/profile and at least one exact-revision physical prototype/coupon", "No", "No"],
         ["P4 Product qualified", "Physical, rights, safety and claims evidence complete for scope", "No", "No"],
         ["P5 Commercial release", "Signed release/customer/economics/media package", "Yes", "Staging only"],

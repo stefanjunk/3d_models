@@ -70,3 +70,14 @@ The legacy `release.required_approvals` map remains available for simple manuall
 ## Profiles
 
 `draft` permits required `REVIEW_REQUIRED` and `NOT_RUN` to remain visible without labelling the model release-ready. `release` blocks both. `FAIL` always blocks.
+
+## P2 lifecycle manifest
+
+The lifecycle-specific `p2-stage/p2-manifest.json` is separate from the full
+validation project contract. Validate it with `validate-p2-stage`. It binds one
+SKU/revision to an English product description, a distinct whole-product
+concept image, a current-model render, and one complete 3MF print set. The
+print-set declaration must enumerate the intended printed objects/quantities,
+state how orientation is encoded, and bind the exact support decision and its
+embedded or linked profile evidence. Structural 3MF validity alone cannot pass
+this gate.

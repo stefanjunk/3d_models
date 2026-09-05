@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "c37c38238b5e61421f9f0c8d47439545493d49bd0696fa4e541bac2176fd5f75",
+        "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/p2-stage/product-description.en.md",
+        "sha256": "c37c38238b5e61421f9f0c8d47439545493d49bd0696fa4e541bac2176fd5f75"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "2b4c17be4bac9881f2e5476f0e904e2daae7b224979bf8fe367dce629f95948b",
+        "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/kobra3max_enclosure_project/concept/camera_subsystem_concept_v1.png",
+        "sha256": "2b4c17be4bac9881f2e5476f0e904e2daae7b224979bf8fe367dce629f95948b"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "b80431360a388714edfe0ea3fa35976af33c98e04cb75f74c7fde7068e477a3d",
+        "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/kobra3max_enclosure_project/preview/DRAFT/kobra3max_enclosure_complete.png",
+        "sha256": "b80431360a388714edfe0ea3fa35976af33c98e04cb75f74c7fde7068e477a3d"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "7d9ca2ccddfd19edba4d7259eda9de95e3049ae2e59f93125dea71d833221f81",
+        "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/p2-stage/MM-TOOL-001-1.3-camera-reconstruction-draft-print-set.3mf",
+        "sha256": "7d9ca2ccddfd19edba4d7259eda9de95e3049ae2e59f93125dea71d833221f81"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 145
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 28
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 28; declared quantity 28",
+      "metrics": {
+        "actual": 28,
+        "declared": 28
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/p2-stage/p2-manifest.json",
+      "sha256": "cbf63ef0849bed611529c853cfe423e26ccfe46ffdbf8afe3e184bfc91002fe5",
+      "size_bytes": 4659
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/printer-workshop/mm-tool-001-kobra3max-enclosure/p2-stage/MM-TOOL-001-1.3-camera-reconstruction-draft-print-set.3mf",
+      "sha256": "7d9ca2ccddfd19edba4d7259eda9de95e3049ae2e59f93125dea71d833221f81",
+      "size_bytes": 438160
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 28,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "Kobra 3 Max Hybrid Enclosure",
+      "record_id": "PORT-008",
+      "revision": "1.3-camera-reconstruction-draft",
+      "root": "..",
+      "sku": "MM-TOOL-001"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

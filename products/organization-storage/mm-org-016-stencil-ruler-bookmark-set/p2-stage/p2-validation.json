@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "a304fdcad971329c669155cad07d5c548a762f0ddf1724026e8257e2792816c1",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/p2-stage/product-description.en.md",
+        "sha256": "a304fdcad971329c669155cad07d5c548a762f0ddf1724026e8257e2792816c1"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "4112136f1b2a995b134d090e43c7e4c1c69bcc7d46fd657ace5db439ec3375f5",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/assets/concept/MM-ORG-016-concept-v1.svg",
+        "sha256": "4112136f1b2a995b134d090e43c7e4c1c69bcc7d46fd657ace5db439ec3375f5"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "5d196d516aabc7b29974e9b1a3eb131522349c69711cbaf0c0112a37152a37e6",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/renders/MM-ORG-016-digital-candidate.png",
+        "sha256": "5d196d516aabc7b29974e9b1a3eb131522349c69711cbaf0c0112a37152a37e6"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "b4a62942de1b68eb9072f9ba87911f5c91434732c9bb2c947cec253427b2743f",
+        "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/p2-stage/MM-ORG-016-0.1.0-draft.1-print-set.3mf",
+        "sha256": "b4a62942de1b68eb9072f9ba87911f5c91434732c9bb2c947cec253427b2743f"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 94
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 4; declared quantity 4",
+      "metrics": {
+        "actual": 4,
+        "declared": 4
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/p2-stage/p2-manifest.json",
+      "sha256": "61f338a5e00c9cd35b232865ea0a4bb6ef8339fbc2629e0aab2d961bc841f8e1",
+      "size_bytes": 2249
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-016-stencil-ruler-bookmark-set/p2-stage/MM-ORG-016-0.1.0-draft.1-print-set.3mf",
+      "sha256": "b4a62942de1b68eb9072f9ba87911f5c91434732c9bb2c947cec253427b2743f",
+      "size_bytes": 548910
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 4,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital print candidate",
+      "name": "Stencil-ruler bookmark set",
+      "record_id": "PORT-072",
+      "revision": "0.1.0-draft.1",
+      "root": "..",
+      "sku": "MM-ORG-016"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

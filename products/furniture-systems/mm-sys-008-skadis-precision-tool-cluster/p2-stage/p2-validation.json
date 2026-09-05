@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "52b32b1843dea4b42ffb5de4d95e651ef5e73b775683120f0b7278b0080c5f67",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/p2-stage/product-description.en.md",
+        "sha256": "52b32b1843dea4b42ffb5de4d95e651ef5e73b775683120f0b7278b0080c5f67"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "a01ac9ab93c3682447d1ab84d50b6937f4c8fd61fd6c6d26703efb12fafcf00b",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/p2-stage/retrospective-concept.svg",
+        "sha256": "a01ac9ab93c3682447d1ab84d50b6937f4c8fd61fd6c6d26703efb12fafcf00b"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "dcaa70ae0a70831fd86cbd222e190e1f021f6666484dad561a2247c5b3b25c1e",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/previews/08_skadis_workflow_cluster.png",
+        "sha256": "dcaa70ae0a70831fd86cbd222e190e1f021f6666484dad561a2247c5b3b25c1e"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "585c88b71ecd86326a6b6a080d16bb4b84cb3df65cc350c5a13c27d83d7f3a43",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/p2-stage/MM-SYS-008-R0.2-DRAFT-print-set.3mf",
+        "sha256": "585c88b71ecd86326a6b6a080d16bb4b84cb3df65cc350c5a13c27d83d7f3a43"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 97
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 1; declared quantity 1",
+      "metrics": {
+        "actual": 1,
+        "declared": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/p2-stage/p2-manifest.json",
+      "sha256": "394fbb8796460489e2bcf1b47eccef9034c25eb0951dc54bd8d421ab774bb0cf",
+      "size_bytes": 2027
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-008-skadis-precision-tool-cluster/p2-stage/MM-SYS-008-R0.2-DRAFT-print-set.3mf",
+      "sha256": "585c88b71ecd86326a6b6a080d16bb4b84cb3df65cc350c5a13c27d83d7f3a43",
+      "size_bytes": 62764
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 1,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "SKADIS Precision Tool Cluster",
+      "record_id": "PORT-046",
+      "revision": "R0.2-DRAFT",
+      "root": "..",
+      "sku": "MM-SYS-008"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

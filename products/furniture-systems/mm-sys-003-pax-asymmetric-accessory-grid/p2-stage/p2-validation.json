@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "p2-schema-version",
+      "message": "P2 schema version is 1.0",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-product-identity",
+      "message": "SKU, revision, record and P2 lifecycle identity are present",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-hash",
+      "message": "p2-description SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "3ee7329a6d48ceee8d8b2e5c5868136ed340978b7516bf58bba794c74f067a80",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/p2-stage/product-description.en.md",
+        "sha256": "3ee7329a6d48ceee8d8b2e5c5868136ed340978b7516bf58bba794c74f067a80"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-image-hash",
+      "message": "p2-concept-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "67a3d70f2fd0fa9dcac75ea5de9b0ed551d54c202104f04f848093eb1637eb82",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/p2-stage/retrospective-concept.svg",
+        "sha256": "67a3d70f2fd0fa9dcac75ea5de9b0ed551d54c202104f04f848093eb1637eb82"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-rendered-image-hash",
+      "message": "p2-rendered-image SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "2e8defde132adbe7e0a5f8e884c55106bc80bd71e48c17675837b4eb48791ce2",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/previews/03_pax_asymmetric_accessory_grid.png",
+        "sha256": "2e8defde132adbe7e0a5f8e884c55106bc80bd71e48c17675837b4eb48791ce2"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-set-3mf-hash",
+      "message": "p2-print-set-3mf SHA-256 matches the manifest",
+      "metrics": {
+        "expected_sha256": "b994b5b6de32f1ba386912a3c81bbd236f9d33a269f68200940ef276face89b5",
+        "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/p2-stage/MM-SYS-003-R0.2-DRAFT-print-set.3mf",
+        "sha256": "b994b5b6de32f1ba386912a3c81bbd236f9d33a269f68200940ef276face89b5"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-description-english",
+      "message": "English product description is non-placeholder Markdown",
+      "metrics": {
+        "english_word_tokens": 99
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-scope",
+      "message": "Concept is classified as a whole-product image with an explicit approval state",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-basis",
+      "message": "Render is tied to the current model",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-format",
+      "message": "Concept uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-render-format",
+      "message": "Render uses a supported image format",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-concept-render-distinct",
+      "message": "Concept and current-model render are distinct assets",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-print-parts-declared",
+      "message": "Manifest declares every intended printed part and quantity",
+      "metrics": {
+        "declared_object_quantity": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-orientation-decision",
+      "message": "Print orientation is explicitly considered and encoded",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-support-decision",
+      "message": "Support mode is explicitly considered",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-structure",
+      "message": "3MF package structure is valid in millimetres",
+      "metrics": {
+        "validator_status": "PASS"
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-3mf-object-count",
+      "message": "3MF print objects 1; declared quantity 1",
+      "metrics": {
+        "actual": 1,
+        "declared": 1
+      },
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "p2-embedded-support-settings",
+      "message": "Destination-slicer support setting is embedded and matches the manifest",
+      "metrics": {
+        "embedded": true,
+        "enable_support": "0"
+      },
+      "required": true,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/p2-stage/p2-manifest.json",
+      "sha256": "f991eb5633d161b3dfe278982f044f64cc5cfb0a955c0d5952222bd9814b1f64",
+      "size_bytes": 2039
+    },
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/furniture-systems/mm-sys-003-pax-asymmetric-accessory-grid/p2-stage/MM-SYS-003-R0.2-DRAFT-print-set.3mf",
+      "sha256": "b994b5b6de32f1ba386912a3c81bbd236f9d33a269f68200940ef276face89b5",
+      "size_bytes": 35273
+    }
+  ],
+  "limitations": [
+    "P2 is digital evidence only; it does not prove physical fit, finish, strength, safety, rights clearance, or commercial readiness.",
+    "A manifest completeness assertion remains subject to product-owner review of the intended included-part list."
+  ],
+  "metrics": {
+    "print_set": {
+      "actual_print_objects": 1,
+      "embedded_enable_support": "0",
+      "embedded_slicer_settings": true
+    },
+    "product": {
+      "lifecycle_stage": "P2 Digital candidate",
+      "name": "PAX Asymmetric Accessory Grid",
+      "record_id": "PORT-041",
+      "revision": "R0.2-DRAFT",
+      "root": "..",
+      "sku": "MM-SYS-003"
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "validate-p2-stage",
+  "tool_version": "1.3.0"
+}

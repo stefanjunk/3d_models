@@ -47,6 +47,8 @@ python3 scripts/fdm_ci.py init-autonomy example-part autonomy-policy.json \
   --preflight preflight/preflight-result.json
 python3 scripts/fdm_ci.py validate-project validation-project.json \
   --profile draft --json-out reports/validation-summary.json
+python3 scripts/fdm_ci.py validate-p2-stage p2-stage/p2-manifest.json \
+  --json-out p2-stage/p2-validation.json
 ```
 
 For release:
@@ -69,6 +71,12 @@ python3 scripts/fdm_ci.py validate-project validation-project.lock.json \
 - `analyze-gcode`: layers, tools, extrusion, bounds, approximate time and peak flow from local G-code.
 - `slice-anycubic-next`: isolated local Anycubic Slicer Next CLI export with exact source/profile/binary/output hashes, native-result checks, and G-code analysis; no upload/start capability.
 - `validate-3mf`: package/XML/reference/material/mesh structure.
+- `author-anycubic-3mf`: non-overwriting local destination-slicer project
+  authoring from the complete set of already oriented sources and exact
+  machine/process/filament profiles; verifies the embedded support switch.
+- `validate-p2-stage`: fail-closed lifecycle check for the revision-bound
+  English description, whole-product concept image, current-model render, and
+  complete oriented/support-planned 3MF print set.
 - `run-sweep`: deterministic default/min/max/pairwise parameter execution with artifact checks.
 - `validate-skill`: OpenCode/portable layout, references, Python AST syntax, and dependency declaration checks without writing into the installed skill.
 - `validate-profile`: validate a companion skill's artifact roles, check declarations, manual gates, and fail-closed release policy.

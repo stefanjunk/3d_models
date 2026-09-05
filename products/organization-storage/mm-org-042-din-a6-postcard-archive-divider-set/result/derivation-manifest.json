@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "product": "MM-ORG-042",
+  "revision": "0.1.0",
+  "created": "2026-09-04",
+  "label": "PARAMETRIC DESIGN CANDIDATE \u2014 no physical print, no coupon result, clearance UNQUALIFIED",
+  "generative_content": "none \u2014 no AI-generated geometry; the concept image is a communication asset only",
+  "source": {
+    "script": "source/divider.py",
+    "sha256": "9327377011d6de1a3bba182f72d8c28430bfaec83007527fa0956cb9c55c4091",
+    "parameters": "parameters/divider.json",
+    "parameters_sha256": "85a680e31344fdbfb2cc51e9ee2df3c2d54bab551a858ee79fda098efe94d3cc"
+  },
+  "artifacts": [
+    {
+      "name": "divider-block",
+      "role": "product",
+      "stl": "source/generated/divider-block.stl",
+      "stl_sha256": "e0d437c30ed9516fd42f0ea13429c730144ad5e61822f2e39f286454f2e23928",
+      "step": "source/generated/divider-block.step",
+      "step_sha256": "c6dc58472547c6ff5667566d6134a32d877003831fa81a6243677d42e791b3e7",
+      "gcode": "exports/v0.1.0/slice-divider-block/plate_1.gcode",
+      "gcode_sha256": "12b9e61ca1a5a929df4fbacdc993c8fa9f2dce3e12327946c8126cfeece75333",
+      "slicer_status": "PASS",
+      "slicer_warning": "",
+      "layers": 295,
+      "filament_g": 112.89,
+      "filament_cm3": 88.89,
+      "print_time_normal": "6h 20m 57s",
+      "max_z_mm": 0.0
+    },
+    {
+      "name": "fit-coupon-xy-series",
+      "role": "calibration coupon",
+      "stl": "source/generated/fit-coupon-xy-series.stl",
+      "stl_sha256": "211024fba9cff1cbe314ba9bf98ca32e1b660f14910310c3d2cc298dd71a42f9",
+      "step": "source/generated/fit-coupon-xy-series.step",
+      "step_sha256": "c96a98310a2a52164d87f10e1c3d031cb2312adc8aa47ae66be0d0f5ee6566ee",
+      "gcode": "exports/v0.1.0/slice-fit-coupon-xy-series/plate_1.gcode",
+      "gcode_sha256": "5ffa3e451cbd999603a1bdccfac48f989e7d95c2a708742fc0b623f41368b785",
+      "slicer_status": "PASS",
+      "slicer_warning": "",
+      "layers": 80,
+      "filament_g": 53.88,
+      "filament_cm3": 42.42,
+      "print_time_normal": "3h 5m 18s",
+      "max_z_mm": 0.0
+    }
+  ],
+  "manufacturing": {
+    "slicer": "AnycubicSlicerNext 1.3.9.4 via fdm_ci.py slice-anycubic-next 1.3.0",
+    "profile": "pinned baseline MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31",
+    "machine": "Anycubic Kobra 3 Max 0.4 mm hardened",
+    "material": "SUNLU PETG Black (batch UNKNOWN_UNTIL_PROTOTYPE)",
+    "supports": "none \u2014 every slice returned an empty warning",
+    "boundary": "Local export only; no printer upload and no print start were performed."
+  },
+  "efficiency_gate": {
+    "status": "complete",
+    "performed_at": "2026-09-05T12:30:00+02:00",
+    "skill": "optimize-fdm-design",
+    "report": "optimization/OPTIMIZATION-REPORT.md",
+    "report_sha256": "825ab966b5920161079601723549a0bbcae5df8b27276146d9a61feb76e8813c",
+    "protected_geometry_map": "optimization/protected-geometry.md",
+    "protected_geometry_map_sha256": "7bc2ffab917fe8a1f61aac8ec887dcdbacc6bbb8e85f804ca1cc07c0861b4756",
+    "variant_source": "source/divider_variants.py",
+    "variant_source_sha256": "758a27e45b04d00cbe3b5c9e5feb89e38d1fc7231db479c06c45b20af5e390e1",
+    "rationale": "Four candidates sliced with the exact pinned profiles, one isolated lever family each. Infill was ruled out first: plan_shell_ribs.py returns NO_INFILL_CORE for the 1.6 mm divider plate and the baseline G-code deposits 99.3 percent of the CAD solid volume, so sparse_infill_density cannot move bulk on this part.",
+    "protected_if_optimised": [
+      "lane side walls and floor",
+      "tab thickness",
+      "recess walls and floors",
+      "finger notches",
+      "flat underside",
+      "future mark region"
+    ],
+    "protected_verified": "Lane count, lane clear width, lane clear length, flat bed face and XY envelope measured by ray probing each mesh independently of the generator; audit-mesh returns PASS at the release profile for both variants.",
+    "selected": {
+      "id": "B2",
+      "stl": "source/generated/variants/divider-block-b2-floor-thin-scoop.stl",
+      "stl_sha256": "a20c3e1a1410350103c9a9bb3c2698f67b90e5510fc2a364ae069aec2c46285a",
+      "gcode": "exports/v0.1.0/opt-b2-scoop/plate_1.gcode",
+      "gcode_sha256": "7b2bb4352fbf49fad1ce1fb0c9a11a721fd89061aa3b2aee19ef7acb496f001e",
+      "process": "qualified 0.20 mm baseline, unchanged",
+      "print_time_s": 17785,
+      "material_g_at_1p27": 93.9,
+      "time_delta_pct": -22.2,
+      "material_delta_pct": -20.8
+    },
+    "deferred": {
+      "id": "C",
+      "gcode": "exports/v0.1.0/opt-c-combined/plate_1.gcode",
+      "gcode_sha256": "e068e5e3612da513b04f95cd25db551a370e3385f3ce6893b0d5edfdfac3a622",
+      "process": "profiles/anycubic-slicer-next/process-0p28-petg-tool-k3max-CANDIDATE.json",
+      "process_sha256": "3e7cd68375d3f3134f88bd1472dd729b37bb6e7354e1b1fef078b8d2d2022931",
+      "process_status": "UNQUALIFIED",
+      "print_time_s": 15174,
+      "material_g_at_1p27": 89.5,
+      "time_delta_pct": -33.6,
+      "material_delta_pct": -24.4,
+      "blocked_by": "0.28 mm layer height is outside the calibration baseline MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31; slicer-preflight is a human gate."
+    },
+    "next_step": "Human slicer-preflight gate: accept B2 for the MVP package, and decide separately whether the 0.28 mm process is worth qualifying for the extra 44 minutes and 4.4 g."
+  }
+}

@@ -1,0 +1,23 @@
+# MM-ORG-042 decision log
+
+## 2026-09-04 — Intake, preflight and parametric source, revision 0.1.0
+
+| # | Decision | Reasoning | Alternatives rejected |
+|---|---|---|---|
+| 1 | Selected SKU-507 as metriCreate MVP model 2 | Trend 98 and readiness R3, and its critical interface is a *published standard* (ISO 216 A6), so it reaches E3 evidence without any measurement. Purely parametric, which is exactly the metriCreate proposition. | The trend-99 gift-wrap holders (SKU-501–506): their IKEA inner span is not published and would need a physical gauge first |
+| 2 | Preflight double-checked before design, as instructed | All seven hard gates PASS, C2 (33.0) · R3 · K1 · Lane B · CONDITIONAL. Lane B's defined method is literally "interface master plus fit coupon", which matches this product exactly. | Assuming the research-row preflight carried over unchanged; EXT dropped from 1 to 0 because no purchased part exists |
+| 3 | **Calibration gate found empty — recorded as BLOCKER** | The registry returns `NO_MATCHING_PROCESS` for Kobra 3 Max / SUNLU PETG / 0.4 mm; `xy_clearance_sliding` is UNQUALIFIED. The skill forbids inventing or carrying over a value. | Using a 0.2 mm "typical" clearance and calling the fit designed |
+| 4 | Lane clearance ships as a named UNQUALIFIED parameter | Geometry must exist to be sliced and reviewed, so 0.60 mm is a declared placeholder marked `UNQUALIFIED_PROVISIONAL` with its coupon named. No fit claim rests on it. | Blocking all geometry until a coupon is printed, which would deliver nothing |
+| 5 | Fit coupon generated as a first-class deliverable | The coupon is not an afterthought; it is the artefact that closes the gate. Five lanes at 0.30/0.45/0.60/0.75/0.90 mm in one print. | Shipping only the product and leaving the coupon as a to-do |
+| 6 | Drawer envelope kept as a configurator input | IF-EXT-GEO-CON-VOLUME-001 is deliberately E1: the drawer is customer-owned and unknowable. The product validates inputs instead of assuming a host. | Fixing a drawer size and pretending it is generic |
+| 7 | Source enforces its own limits | `_check()` rejects a wall below 1.35 mm, a tab thinner than one nozzle path and any generated envelope beyond 220 × 180 × 80 mm, so a bad configurator input fails loudly rather than producing an unprintable model. | Trusting the parameter file |
+
+## 2026-09-05 — FDM optimization pass on the lane block
+
+| # | Decision | Reasoning | Alternatives rejected |
+|---|---|---|---|
+| 8 | **Infill ruled out as a lever before any variant was drawn** | `plan_shell_ribs.py` returns `NO_INFILL_CORE`: four wall loops per side need 3.10 mm of a 1.6 mm plate, and the 2.0 mm floor is thinner than the 1.2 + 1.2 mm shell stack. The baseline G-code confirms it — extruded volume is 99.3 % of the CAD solid. | Lowering `sparse_infill_density`, which would have changed nothing while looking like progress |
+| 9 | No windows in the dividers, despite being the standard organizer lever | `IF-EXT-GEO-LOC-SLOT-001` names "cards falling between lanes" as a constrained degree of freedom. Any through-window in an internal divider opens exactly that path. The lever is rejected on function, not on cost. | Few large radiused windows plus straps, which the pattern catalog recommends first for hidden organizer walls |
+| 10 | Material taken from plate thickness and from the divider top corner instead | Floor 2.0 → 1.4 mm stays above the 1.2 mm bottom shell; internal dividers 1.6 → 1.35 mm stay at the declared minimum wall and *widen* the lane; the scoop removes the upper front corner where nothing is protected. Together −22.2 % time and −20.8 % material on the unchanged qualified process. | Lane depth 45 → 38 mm, which would have cut card engagement to 26 % with no physical test to support it |
+| 11 | B2 selected, C recorded but deferred | C (B2 geometry on a 0.28 mm layer) dominates on both objectives, −33.6 % time and −24.4 % material, and its peak flow of 9.62 mm³/s is indistinguishable from the baseline's 9.61. But 0.28 mm is outside `MM-R3-K3MAX-PETG-0P4-0P20-2026-08-31`, and this repository does not ship an unqualified process silently. | Shipping C directly on the strength of the slicer numbers |
+| 12 | Concept revision attested by the agent, physical acceptance left to the human gates | The scoop changes the visible silhouette, so it needs a concept decision; `autonomy-policy.json` assigns `concept` to the agent. Card retention, appearance of the 17.5° stepped divider tops and the 0.28 mm process all sit in human stages and stay there. | Treating a silhouette change as a pure manufacturing detail that needs no concept record |

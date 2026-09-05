@@ -1,0 +1,160 @@
+{
+  "baseline": "baseline",
+  "objectives": [
+    {
+      "metric": "print_time_min",
+      "goal": "min"
+    },
+    {
+      "metric": "material_g",
+      "goal": "min"
+    }
+  ],
+  "constraints": [
+    {
+      "metric": "lane_clear_length_mm",
+      "op": ">=",
+      "value": 105.6
+    },
+    {
+      "metric": "lane_clear_width_mm",
+      "op": ">=",
+      "value": 20.4
+    },
+    {
+      "metric": "min_wall_mm",
+      "op": ">=",
+      "value": 1.35
+    },
+    {
+      "metric": "peak_flow_mm3_s",
+      "op": "<=",
+      "value": 10.0
+    },
+    {
+      "metric": "support_material_g",
+      "op": "==",
+      "value": 0.0
+    },
+    {
+      "metric": "slicer_warnings",
+      "op": "==",
+      "value": 0
+    },
+    {
+      "metric": "passed_slice_gate",
+      "op": "==",
+      "value": 1
+    }
+  ],
+  "protected_geometry": [
+    "lane clear length 105.6 mm along the A6 card edge",
+    "lane floor seating datum",
+    "divider inner faces, continuous across the full lane length",
+    "rear wall spine and index tab mounting",
+    "index tab blank faces 18 x 12 mm",
+    "flat underside bed face",
+    "outer envelope 220 x 180 x 80 mm ceiling"
+  ],
+  "cell_strategy": {
+    "preferred": "reduce plate thickness toward the minimum wall and scoop the divider tops at the open side",
+    "avoid_as_first_choice": "through-windows in dividers; a constrained DOF forbids paths between lanes"
+  },
+  "thin_plate_checks": [
+    {
+      "region": "divider wall",
+      "plate_thickness_mm": 1.6,
+      "wall_lines_per_side": 4,
+      "line_width_mm": 0.42,
+      "layer_height_mm": 0.2,
+      "expected_status": "NO_INFILL_CORE",
+      "decision": "Infill density cannot move bulk; change plate thickness and remove upper-corner material instead."
+    },
+    {
+      "region": "floor",
+      "plate_thickness_mm": 2.0,
+      "wall_lines_per_side": 4,
+      "line_width_mm": 0.42,
+      "layer_height_mm": 0.2,
+      "expected_status": "NO_INFILL_CORE",
+      "decision": "1.2 mm bottom shell plus 1.2 mm top shell exceed the 2.0 mm floor; thin the floor toward the bottom shell."
+    }
+  ],
+  "variants": [
+    {
+      "name": "baseline",
+      "metrics": {
+        "print_time_min": 380.9,
+        "material_g": 118.5,
+        "peak_flow_mm3_s": 9.60953921068425,
+        "lane_clear_length_mm": 105.6,
+        "min_wall_mm": 1.6,
+        "lane_clear_width_mm": 20.4,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "process_qualified": 1
+      }
+    },
+    {
+      "name": "a-process-0p28",
+      "metrics": {
+        "print_time_min": 325.3,
+        "material_g": 113.9,
+        "peak_flow_mm3_s": 8.158531447734827,
+        "lane_clear_length_mm": 105.6,
+        "min_wall_mm": 1.6,
+        "lane_clear_width_mm": 20.4,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "process_qualified": 0
+      }
+    },
+    {
+      "name": "b1-floor",
+      "metrics": {
+        "print_time_min": 350.3,
+        "material_g": 107.9,
+        "peak_flow_mm3_s": 9.60953921068425,
+        "lane_clear_length_mm": 105.6,
+        "min_wall_mm": 1.6,
+        "lane_clear_width_mm": 20.4,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "process_qualified": 1
+      }
+    },
+    {
+      "name": "b2-scoop",
+      "metrics": {
+        "print_time_min": 296.4,
+        "material_g": 93.9,
+        "peak_flow_mm3_s": 9.31591957163415,
+        "lane_clear_length_mm": 105.6,
+        "min_wall_mm": 1.35,
+        "lane_clear_width_mm": 20.6083,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "process_qualified": 1
+      }
+    },
+    {
+      "name": "c-combined",
+      "metrics": {
+        "print_time_min": 252.9,
+        "material_g": 89.5,
+        "peak_flow_mm3_s": 9.617973808880702,
+        "lane_clear_length_mm": 105.6,
+        "min_wall_mm": 1.35,
+        "lane_clear_width_mm": 20.6083,
+        "support_material_g": 0.0,
+        "slicer_warnings": 0,
+        "passed_slice_gate": 1,
+        "process_qualified": 0
+      }
+    }
+  ]
+}

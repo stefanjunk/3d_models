@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": [],
+      "id": "mesh-load",
+      "message": "Mesh loaded without altering the source file",
+      "metrics": {},
+      "required": true,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "watertight",
+      "message": "Watertight topology",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "winding",
+      "message": "Consistent face winding",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    },
+    {
+      "evidence": [],
+      "id": "positive-volume",
+      "message": "Positive closed volume",
+      "metrics": {
+        "actual": true
+      },
+      "required": false,
+      "status": "PASS"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/home/stefan/Projekte/3d_models/products/organization-storage/mm-org-042-din-a6-postcard-archive-divider-set/source/generated/variants/divider-block-b1-floor.stl",
+      "sha256": "e8b02d4d8cea7afa0c636a32ba9321f4f07776bf8d2ff5a22d1202d6fe2586db",
+      "size_bytes": 356284
+    }
+  ],
+  "limitations": [
+    "STL contains no authoritative units; dimensions are interpreted as millimetres by project contract.",
+    "Exact-coordinate vertex welding is used only for analysis and does not rewrite the source.",
+    "Sampled wall thickness is not a complete global proof."
+  ],
+  "metrics": {
+    "exact_coordinate_welded": {
+      "boundary_edges": 0,
+      "bounds_mm": [
+        [
+          -66.80000305175781,
+          -54.400001525878906,
+          0.0
+        ],
+        [
+          66.80000305175781,
+          54.400001525878906,
+          58.400001525878906
+        ]
+      ],
+      "components": 1,
+      "degenerate_faces": 0,
+      "duplicate_faces": 0,
+      "euler_number": 2,
+      "extents_mm": [
+        133.60000610351562,
+        108.80000305175781,
+        58.400001525878906
+      ],
+      "faces": 7124,
+      "manifold_edges": 10686,
+      "nonmanifold_edges": 0,
+      "positive_volume": true,
+      "signed_volume_mm3": 85239.75426993903,
+      "surface_area_mm2": 110934.52707198274,
+      "vertices": 3564,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "file_mib": 0.3397789001464844,
+    "raw_file_representation": {
+      "faces": 7124,
+      "vertices": 21372
+    }
+  },
+  "profile": "release",
+  "required_capabilities": [
+    "mesh"
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": "audit-mesh",
+  "tool_version": "1.3.0"
+}

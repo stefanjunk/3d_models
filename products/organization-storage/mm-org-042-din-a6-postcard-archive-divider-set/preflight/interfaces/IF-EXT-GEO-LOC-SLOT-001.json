@@ -1,0 +1,133 @@
+{
+ "id": "IF-EXT-GEO-LOC-SLOT-001",
+ "name": "DIN A6 media to labelled filing lane",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-MEDIA-001",
+ "boundary": "EXT",
+ "domains": [
+  "GEO"
+ ],
+ "function": "LOC",
+ "geometry": "SLOT",
+ "lifecycle_states": [
+  "use",
+  "service",
+  "storage"
+ ],
+ "coordinate_frame": {
+  "origin": "front-left inner corner of the divider set floor",
+  "x_positive": "along the lane width, across the A6 105 mm short edge",
+  "y_positive": "along the lane depth",
+  "z_positive": "up from the drawer floor",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "lane side wall pair defining the clear width"
+  },
+  {
+   "id": "B",
+   "description": "lane floor"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "vertical insertion and withdrawal of one or more cards",
+   "browsing by tilting cards forward"
+  ],
+  "constrained": [
+   "cards falling between lanes",
+   "cards bending against a wall on insertion"
+  ]
+ },
+ "assembly": {
+  "direction": "insert from above, single-handed",
+  "contact_mode": "loose guided slot, no clamping",
+  "sequence_notes": "Top and one long side stay fully open for finger access."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-A6-W-001",
+   "feature": "ISO 216 A6 trimmed short edge",
+   "nominal_mm": 105.0,
+   "status": "OFFICIAL_NOMINAL",
+   "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S59",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-A6-H-001",
+   "feature": "ISO 216 A6 trimmed long edge",
+   "nominal_mm": 148.0,
+   "status": "OFFICIAL_NOMINAL",
+   "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S59",
+   "criticality": "FIT_CRITICAL"
+  },
+  {
+   "id": "DIM-LANE-CLR-001",
+   "feature": "lane clear width = 105 mm plus process clearance",
+   "status": "UNKNOWN",
+   "source_ref": "libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml",
+   "criticality": "FIT_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry indoor adult desk drawer",
+  "uncontrolled": [
+   "card manufacturing tolerance",
+   "corner wear and bow",
+   "stack growth with card count",
+   "paper weight and stiffness"
+  ]
+ },
+ "keepouts_and_access": [
+  "No archival, acid-free, moisture, UV, fire or privacy-protection claim.",
+  "Keep the top and one long side open."
+ ],
+ "evidence": {
+  "level": "E3",
+  "sources": [
+   "business/02-portfolio/research-idea-sources-additions.csv#S59",
+   "business/02-portfolio/research-ideas-r3-variants.csv#SKU-507"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 70.0,
+  "uncertainty_note": "The calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm: xy_clearance_sliding and hole_delta_vertical are UNQUALIFIED. The interface nominal is published and exact, but the clearance that realises the fit must come from a coupon on this exact process and must not be assumed.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 1,
+  "KIN": 1,
+  "TOL": 2,
+  "PHY": 0,
+  "VAR": 2,
+  "LIF": 1,
+  "total": 7,
+  "tier": "I1"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "Lane is too narrow and the card buckles on insertion.",
+   "effect": "Damaged media and a poor filing experience.",
+   "mitigation": "Qualify xy_clearance_sliding by coupon before committing the lane width."
+  },
+  {
+   "mode": "Lane is too wide and cards lean or slip between lanes.",
+   "effect": "The index order is lost.",
+   "mitigation": "Coupon the minus/nominal/plus series and select the tightest free-running fit."
+  }
+ ],
+ "verification": {
+  "method": "test_coupon",
+  "acceptance_criteria": [
+   "The lane coupon holds 105 mm plus the qualified clearance within 0.30 mm.",
+   "A card enters and leaves single-handed without snagging or bending.",
+   "100 filing cycles leave no scuff on the media."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "design lead",
+ "version": "0.1.0"
+}

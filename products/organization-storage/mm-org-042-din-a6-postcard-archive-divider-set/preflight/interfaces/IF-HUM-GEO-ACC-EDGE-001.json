@@ -1,0 +1,114 @@
+{
+ "id": "IF-HUM-GEO-ACC-EDGE-001",
+ "name": "Adult hand to tab and lane edges",
+ "endpoint_a": "E-PRINT-001",
+ "endpoint_b": "E-HUMAN-001",
+ "boundary": "HUM",
+ "domains": [
+  "HUM",
+  "GEO"
+ ],
+ "function": "ACC",
+ "geometry": "EDGE",
+ "lifecycle_states": [
+  "use",
+  "cleaning",
+  "service"
+ ],
+ "coordinate_frame": {
+  "origin": "top edge of one index tab",
+  "x_positive": "lane width",
+  "y_positive": "lane depth",
+  "z_positive": "up from the drawer floor",
+  "unit": "mm"
+ },
+ "datums": [
+  {
+   "id": "A",
+   "description": "every user-reachable printed edge, especially tab tops and lane mouths"
+  }
+ ],
+ "degrees_of_freedom": {
+  "allowed": [
+   "bare-hand browsing and card withdrawal"
+  ],
+  "constrained": [
+   "contact with a sharp or burred printed edge"
+  ]
+ },
+ "assembly": {
+  "direction": "bare-hand contact during filing",
+  "contact_mode": "incidental skin contact",
+  "sequence_notes": "No gloves or tools are assumed."
+ },
+ "dimensions": [
+  {
+   "id": "DIM-EDGE-R-001",
+   "feature": "minimum radius or chamfer on user-reachable edges",
+   "nominal_mm": 0.5,
+   "lower_mm": 0.5,
+   "status": "ESTIMATED",
+   "source_ref": "preflight/preflight-input.yaml",
+   "criticality": "FUNCTION_CRITICAL"
+  },
+  {
+   "id": "DIM-WALL-MIN-001",
+   "feature": "minimum wall, three perimeters at the 0.4 mm nozzle",
+   "nominal_mm": 1.35,
+   "lower_mm": 1.35,
+   "status": "DERIVED",
+   "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+   "criticality": "FUNCTION_CRITICAL"
+  }
+ ],
+ "environment_and_variation": {
+  "environment": "dry indoor desk drawer",
+  "uncontrolled": [
+   "as-printed roughness",
+   "user hand size"
+  ]
+ },
+ "keepouts_and_access": [
+  "Not a toy; no child-use scope.",
+  "No skin-contact biocompatibility claim."
+ ],
+ "evidence": {
+  "level": "E1",
+  "sources": [
+   "business/02-portfolio/research-r3-process-baseline.json"
+  ],
+  "variant_confirmed": false,
+  "coverage_percent": 35.0,
+  "uncertainty_note": "Derived from the pinned nozzle baseline; no printed edge has been touched.",
+  "observability": "INFERRED"
+ },
+ "interface_complexity": {
+  "GEO": 1,
+  "KIN": 0,
+  "TOL": 1,
+  "PHY": 0,
+  "VAR": 1,
+  "LIF": 1,
+  "total": 4,
+  "tier": "I0"
+ },
+ "criticality": "K1",
+ "failure_modes": [
+  {
+   "mode": "A thin tab prints below one nozzle width and snaps.",
+   "effect": "Sharp fragment and lost index.",
+   "mitigation": "Enforce the 1.35 mm minimum wall on every tab in the parametric source."
+  }
+ ],
+ "verification": {
+  "method": "inspection",
+  "acceptance_criteria": [
+   "No user-reachable edge is sharp to a bare-hand wipe.",
+   "No feature is below 1.35 mm at the released scale."
+  ],
+  "status": "PLANNED",
+  "result_refs": []
+ },
+ "owner": "design lead",
+ "version": "0.1.0"
+}

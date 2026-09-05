@@ -1,0 +1,519 @@
+{
+  "assessment_id": "PREFLIGHT-MM-ORG-042-001",
+  "assessment_version": "0.1.0",
+  "assessment_date": "2026-09-04",
+  "product": "DIN A6 postcard archive divider set",
+  "scope": {
+    "intended_use": "Sort DIN A6 postcards and A6 cards by date or theme in a customer-owned dry indoor drawer using labelled, open-top filing lanes cut to the ISO 216 A6 trimmed size.",
+    "user_context": "Adult filing at a desk or shelf drawer. metriCreate digital-first: the customer enters the drawer envelope and lane layout and downloads the generated model.",
+    "variants": [
+      "ISO 216 A6 media at the 105 x 148 mm trimmed nominal",
+      "customer-entered drawer envelope and lane count, generated per order"
+    ],
+    "out_of_scope": [
+      "Any other paper format without its own released variant",
+      "Archival, acid-free, moisture, UV, fire or privacy protection",
+      "Load-bearing, wall, vehicle, outdoor or wet use",
+      "Child use or toy scope",
+      "Any fit claim before the lane clearance is qualified by coupon on the exact process"
+    ]
+  },
+  "entities": [
+    {
+      "id": "E-PRINT-001",
+      "kind": "PRINTED_PART",
+      "name": "Parametric open-top A6 filing lane block with index tabs"
+    },
+    {
+      "id": "E-MEDIA-001",
+      "kind": "HOST_OBJECT",
+      "name": "DIN A6 postcards and cards at the ISO 216 trimmed nominal"
+    },
+    {
+      "id": "E-DRAWER-001",
+      "kind": "HOST_OBJECT",
+      "name": "Customer-owned dry indoor drawer of unknown envelope"
+    },
+    {
+      "id": "E-HUMAN-001",
+      "kind": "HUMAN",
+      "name": "Adult user filing and browsing by hand"
+    },
+    {
+      "id": "E-PROCESS-001",
+      "kind": "ENVIRONMENT",
+      "name": "Pinned Anycubic Kobra 3 Max / SUNLU PETG Black FFF baseline"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-EXT-GEO-LOC-SLOT-001",
+      "name": "DIN A6 media to labelled filing lane",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-MEDIA-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "LOC",
+      "geometry": "SLOT",
+      "lifecycle_states": [
+        "use",
+        "service",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "front-left inner corner of the divider set floor",
+        "x_positive": "along the lane width, across the A6 105 mm short edge",
+        "y_positive": "along the lane depth",
+        "z_positive": "up from the drawer floor",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "lane side wall pair defining the clear width"
+        },
+        {
+          "id": "B",
+          "description": "lane floor"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "vertical insertion and withdrawal of one or more cards",
+          "browsing by tilting cards forward"
+        ],
+        "constrained": [
+          "cards falling between lanes",
+          "cards bending against a wall on insertion"
+        ]
+      },
+      "assembly": {
+        "direction": "insert from above, single-handed",
+        "contact_mode": "loose guided slot, no clamping",
+        "sequence_notes": "Top and one long side stay fully open for finger access."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-A6-W-001",
+          "feature": "ISO 216 A6 trimmed short edge",
+          "nominal_mm": 105.0,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S59",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-A6-H-001",
+          "feature": "ISO 216 A6 trimmed long edge",
+          "nominal_mm": 148.0,
+          "status": "OFFICIAL_NOMINAL",
+          "source_ref": "business/02-portfolio/research-idea-sources-additions.csv#S59",
+          "criticality": "FIT_CRITICAL"
+        },
+        {
+          "id": "DIM-LANE-CLR-001",
+          "feature": "lane clear width = 105 mm plus process clearance",
+          "status": "UNKNOWN",
+          "source_ref": "libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry indoor adult desk drawer",
+        "uncontrolled": [
+          "card manufacturing tolerance",
+          "corner wear and bow",
+          "stack growth with card count",
+          "paper weight and stiffness"
+        ]
+      },
+      "keepouts_and_access": [
+        "No archival, acid-free, moisture, UV, fire or privacy-protection claim.",
+        "Keep the top and one long side open."
+      ],
+      "evidence": {
+        "level": "E3",
+        "sources": [
+          "business/02-portfolio/research-idea-sources-additions.csv#S59",
+          "business/02-portfolio/research-ideas-r3-variants.csv#SKU-507"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 70.0,
+        "uncertainty_note": "The calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm: xy_clearance_sliding and hole_delta_vertical are UNQUALIFIED. The interface nominal is published and exact, but the clearance that realises the fit must come from a coupon on this exact process and must not be assumed.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 0,
+        "VAR": 2,
+        "LIF": 1,
+        "total": 7,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "Lane is too narrow and the card buckles on insertion.",
+          "effect": "Damaged media and a poor filing experience.",
+          "mitigation": "Qualify xy_clearance_sliding by coupon before committing the lane width."
+        },
+        {
+          "mode": "Lane is too wide and cards lean or slip between lanes.",
+          "effect": "The index order is lost.",
+          "mitigation": "Coupon the minus/nominal/plus series and select the tightest free-running fit."
+        }
+      ],
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "The lane coupon holds 105 mm plus the qualified clearance within 0.30 mm.",
+          "A card enters and leaves single-handed without snagging or bending.",
+          "100 filing cycles leave no scuff on the media."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-EXT-GEO-CON-VOLUME-001",
+      "name": "Divider set to customer drawer envelope",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-DRAWER-001",
+      "boundary": "EXT",
+      "domains": [
+        "GEO"
+      ],
+      "function": "CON",
+      "geometry": "VOLUME",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "service",
+        "storage"
+      ],
+      "coordinate_frame": {
+        "origin": "centre of the divider set footprint",
+        "x_positive": "drawer width",
+        "y_positive": "drawer depth",
+        "z_positive": "up from the drawer floor",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "outer footprint of the assembled lane block"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "lift the block out of the drawer"
+        ],
+        "constrained": [
+          "block sliding when the drawer is opened"
+        ]
+      },
+      "assembly": {
+        "direction": "place into the open drawer",
+        "contact_mode": "loose placement, no fixing",
+        "sequence_notes": "The drawer is customer-supplied; its envelope is a configurator input, never an assumed value."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-DRAWER-001",
+          "feature": "customer drawer internal envelope",
+          "status": "UNKNOWN",
+          "source_ref": "customer configurator input",
+          "criticality": "FIT_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry indoor drawer",
+        "uncontrolled": [
+          "drawer size, corner radii and depth",
+          "drawer liner"
+        ]
+      },
+      "keepouts_and_access": [
+        "No structural, load-bearing or anti-tip claim.",
+        "Never assume a drawer size; it is always an input."
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "business/02-portfolio/research-ideas-r3-variants.csv#SKU-507"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 20.0,
+        "uncertainty_note": "The drawer is customer-owned and unknown by design. The product is parametric precisely because this interface cannot be fixed.",
+        "observability": "UNKNOWN"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 0,
+        "VAR": 3,
+        "LIF": 1,
+        "total": 6,
+        "tier": "I1"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "The generated block does not fit the entered drawer.",
+          "effect": "Unusable print and wasted material.",
+          "mitigation": "Validate configurator inputs against the print envelope and emit a dimensional check sheet with every release."
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "The generated footprint never exceeds the entered drawer envelope minus the declared placement clearance.",
+          "The generated block stays inside the 220 x 180 x 80 mm planning envelope or is split into modules."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "design lead",
+      "version": "0.1.0"
+    },
+    {
+      "id": "IF-HUM-GEO-ACC-EDGE-001",
+      "name": "Adult hand to tab and lane edges",
+      "endpoint_a": "E-PRINT-001",
+      "endpoint_b": "E-HUMAN-001",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "GEO"
+      ],
+      "function": "ACC",
+      "geometry": "EDGE",
+      "lifecycle_states": [
+        "use",
+        "cleaning",
+        "service"
+      ],
+      "coordinate_frame": {
+        "origin": "top edge of one index tab",
+        "x_positive": "lane width",
+        "y_positive": "lane depth",
+        "z_positive": "up from the drawer floor",
+        "unit": "mm"
+      },
+      "datums": [
+        {
+          "id": "A",
+          "description": "every user-reachable printed edge, especially tab tops and lane mouths"
+        }
+      ],
+      "degrees_of_freedom": {
+        "allowed": [
+          "bare-hand browsing and card withdrawal"
+        ],
+        "constrained": [
+          "contact with a sharp or burred printed edge"
+        ]
+      },
+      "assembly": {
+        "direction": "bare-hand contact during filing",
+        "contact_mode": "incidental skin contact",
+        "sequence_notes": "No gloves or tools are assumed."
+      },
+      "dimensions": [
+        {
+          "id": "DIM-EDGE-R-001",
+          "feature": "minimum radius or chamfer on user-reachable edges",
+          "nominal_mm": 0.5,
+          "lower_mm": 0.5,
+          "status": "ESTIMATED",
+          "source_ref": "preflight/preflight-input.yaml",
+          "criticality": "FUNCTION_CRITICAL"
+        },
+        {
+          "id": "DIM-WALL-MIN-001",
+          "feature": "minimum wall, three perimeters at the 0.4 mm nozzle",
+          "nominal_mm": 1.35,
+          "lower_mm": 1.35,
+          "status": "DERIVED",
+          "source_ref": "business/02-portfolio/research-r3-process-baseline.json",
+          "criticality": "FUNCTION_CRITICAL"
+        }
+      ],
+      "environment_and_variation": {
+        "environment": "dry indoor desk drawer",
+        "uncontrolled": [
+          "as-printed roughness",
+          "user hand size"
+        ]
+      },
+      "keepouts_and_access": [
+        "Not a toy; no child-use scope.",
+        "No skin-contact biocompatibility claim."
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "business/02-portfolio/research-r3-process-baseline.json"
+        ],
+        "variant_confirmed": false,
+        "coverage_percent": 35.0,
+        "uncertainty_note": "Derived from the pinned nozzle baseline; no printed edge has been touched.",
+        "observability": "INFERRED"
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 0,
+        "VAR": 1,
+        "LIF": 1,
+        "total": 4,
+        "tier": "I0"
+      },
+      "criticality": "K1",
+      "failure_modes": [
+        {
+          "mode": "A thin tab prints below one nozzle width and snaps.",
+          "effect": "Sharp fragment and lost index.",
+          "mitigation": "Enforce the 1.35 mm minimum wall on every tab in the parametric source."
+        }
+      ],
+      "verification": {
+        "method": "inspection",
+        "acceptance_criteria": [
+          "No user-reachable edge is sharp to a bare-hand wipe.",
+          "No feature is below 1.35 mm at the released scale."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "design lead",
+      "version": "0.1.0"
+    }
+  ],
+  "complexity": {
+    "dimension_scores": {
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
+      "INT": 2,
+      "CPL": 1,
+      "MOT": 0,
+      "GEO": 1,
+      "PHY": 1,
+      "MAT": 1,
+      "EXT": 0,
+      "VER": 2
+    },
+    "score_0_100": 33.0,
+    "class": "C2",
+    "drivers": [
+      "INT 2/4: one exact published media nominal plus a deliberately unknown customer drawer envelope.",
+      "PAR 2/4: lane width, count, depth, tab position and text are all customer-driven parameters.",
+      "REQ 2/4: the product is a generator, so requirements must hold for a whole input domain, not one part."
+    ]
+  },
+  "readiness": {
+    "level": "R3",
+    "component_levels": {
+      "scope_variant": "R3",
+      "requirements": "R3",
+      "critical_interfaces": "R3",
+      "manufacturing_profile": "R3",
+      "verification": "R3"
+    },
+    "blocking_unknowns": [
+      "Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm; xy_clearance_sliding is UNQUALIFIED. The lane clearance must be qualified by coupon before the lane width is committed.",
+      "The customer drawer envelope is unknown by design and is a configurator input, not a fixed dimension.",
+      "No printed coupon, filing test, tab legibility or 100-cycle result exists.",
+      "Real card tolerance, bow, corner wear and stack growth are unmeasured."
+    ],
+    "completeness_percent": 72.0
+  },
+  "criticality": {
+    "level": "K1",
+    "rationale": "A dry indoor paper organiser. Credible failure is a buckled card or a lost index order, not injury or property damage. No load path, no electricity, no child scope.",
+    "credible_failure_effects": [
+      "A card buckles against a too-narrow lane and is creased.",
+      "Cards lean between lanes and the index order is lost.",
+      "A thin index tab snaps and leaves a sharp fragment."
+    ]
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS"
+  },
+  "decision": {
+    "lane": "B",
+    "confidence": "CONDITIONAL",
+    "design_release": "GO_WITH_CONTROLS",
+    "rationale": "C2 with K1 and R3 places this in Lane B, whose defined method is exactly an interface master plus a fit coupon. Every hard gate passes: the critical media interface is an ISO 216 published nominal (E3), the manufacturing profile is the pinned hashed baseline, and acceptance criteria with methods exist. The controls are that the lane clearance stays an explicit UNQUALIFIED parameter until a coupon qualifies it on this exact process, and that no fit or compatibility wording is published before then."
+  },
+  "warnings": [
+    {
+      "code": "UNQUALIFIED_PROCESS_CLEARANCE",
+      "severity": "BLOCKER",
+      "message": "Calibration registry returns NO_MATCHING_PROCESS for Anycubic Kobra 3 Max / SUNLU PETG / 0.4 mm; xy_clearance_sliding is UNQUALIFIED. The lane clearance must be qualified by coupon before the lane width is committed."
+    },
+    {
+      "code": "VARIANT_UNKNOWN",
+      "severity": "INFO",
+      "message": "The customer drawer envelope is intentionally unknown; the product is a parametric generator and validates its inputs rather than assuming a host."
+    },
+    {
+      "code": "VERIFICATION_NOT_DEFINED",
+      "severity": "INFO",
+      "message": "Acceptance criteria and a coupon method exist, but no test has been executed; every acceptance row is PLANNED."
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Print the fit-coupon-xy-series on Anycubic Kobra 3 Max / SUNLU PETG Black / 0.4 mm / 0.20 mm and record the outcome as a benchmark-measurement, then update the calibration registry.",
+      "exit_criterion": "xy_clearance_sliding is QUALIFIED for this exact process identity and the lane width can be committed."
+    },
+    {
+      "priority": 2,
+      "action": "Print one A6 lane coupon at the qualified clearance and run insertion, retrieval, snagging, tab legibility and 100 filing cycles with real A6 cards.",
+      "exit_criterion": "All four acceptance criteria of IF-EXT-GEO-LOC-SLOT-001 pass with recorded measurements."
+    },
+    {
+      "priority": 3,
+      "action": "Define and test the configurator input validation so an entered drawer envelope can never generate a block that exceeds the print envelope.",
+      "exit_criterion": "IF-EXT-GEO-CON-VOLUME-001 acceptance passes on a swept set of input values."
+    }
+  ],
+  "traceability": {
+    "mode": "PROSPECTIVE",
+    "project_id": "MM-ORG-042",
+    "project_revision": "0.1.0",
+    "basis_refs": [
+      "business/02-portfolio/product-portfolio.csv#PORT-111",
+      "business/02-portfolio/research-ideas-r3-variants.csv#SKU-507",
+      "business/02-portfolio/research-idea-sources-additions.csv#S59",
+      "business/02-portfolio/research-r3-process-baseline.json",
+      "libraries/3d-learning/knowledge/processes/fff-calibration-registry.yaml",
+      "commercial-clearance/project.json",
+      "preflight/preflight-input.yaml"
+    ],
+    "change_triggers": [
+      "initial_design",
+      "portfolio_registration",
+      "license_chain_initialization"
+    ],
+    "previous_assessment_id": null,
+    "created_at": "2026-09-04T23:10:00+02:00",
+    "updated_at": "2026-09-04T23:10:00+02:00"
+  }
+}

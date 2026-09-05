@@ -1,0 +1,40 @@
+schema_version: 1.0.0
+kind: eval
+id: EVAL-core-aroma-appearance-priority-001
+title: Respect delegated provisional interfaces in an appearance-led concept phase
+category: core
+status: draft
+trigger: User explicitly prioritizes visual quality and delegates provisional purchased-part sizes.
+risk: Blocking the requested visual work on later physical tests, or falsely calling nominal components validated.
+given:
+  input: Existing diffuser references, user correction in concepts/r1/DESIGN-BRIEF.md, and supplier nominal components.
+expected:
+  - Choose traceable commercially available reference sizes and identify them as provisional.
+  - Produce and inspect a complete elegant product concept with saved images and prompts.
+  - Keep styling parameters independent from purchased component dimensions.
+  - Preserve open physical and commercial gates without asserting fit or fragrance performance.
+failure_conditions:
+  - Stop before the requested concept solely because final fragrance or physical tolerances remain open.
+  - Call arbitrary guessed dimensions a universal standard or a qualified fit.
+  - Sacrifice the accepted visual direction to a generic technical enclosure.
+  - Describe generated images as proof of manufacturability or physical performance.
+fixtures:
+  - concepts/r1/DESIGN-BRIEF.md
+  - concepts/r1/parameters.yaml
+  - concepts/r1/fluent-hero-r1.png
+  - concepts/r1/fluent-concept-sheet-r1b.png
+grader:
+  type: visual-rubric
+  command: null
+  expected_exit_code: 0
+  rubric: Compare user instruction, nominal source evidence, complete visual deliverables and honest limitations.
+  measurement_method: Visual and document review; no physical measurements.
+relationships:
+  lessons: []
+  regression_suites: []
+last_run:
+  result: not-run
+  date: null
+  report: null
+  artifact_hashes: []
+tags: [appearance-led, provisional-interface, aroma-diffuser, concept-phase]

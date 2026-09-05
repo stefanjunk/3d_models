@@ -1,19 +1,16 @@
-# Purpose — Unregistered Aroma Diffuser
+# FLUENT — passiver Aromadiffuser, Konzept R1
 
-Document and develop a printable aroma-diffuser concept; the fragrance medium, heat source, and safe operating method are not yet defined.
+Bestehendes Produkt UNREGISTERED-AROMA-DIFFUSER / PORT-102, Revision 0.1.0.
+Stand: 2026-09-05. Keine neue unabhängige Produktidentität.
 
-## Scope status
+Elegante gedruckte Außenhülle in fließender Flammenform für eine gekaufte
+Glasfiole und einen Faserdocht. Der Nutzer priorisiert die Optik und delegiert
+vorläufige handelsübliche Kaufteilmaße.
 
-- Product ID: `UNREGISTERED-AROMA-DIFFUSER`
-- Assessed revision: `UNVERSIONED-CURRENT`
-- Purpose source: retrospective repository evidence and product identity
-- Purpose confidence: retrospective and limited to the evidence below
-- Release meaning: this purpose statement is not a production, safety, compatibility, food-contact, or performance approval
+[Hauptansicht](concepts/r1/fluent-hero-r1.png) ·
+[Konzeptübersicht](concepts/r1/fluent-concept-sheet-r1b.png) ·
+[Entwurfsbrief](concepts/r1/DESIGN-BRIEF.md).
 
-## Evidence basis
-
-- `.`
-
-The current preflight decision is `HOLD`. See
-[`preflight/preflight-report.md`](preflight/preflight-report.md) for unknowns,
-gates, and the required next evidence.
+Preflight: CONCEPT_ONLY; C3 / R0 / K2 / Lane E. Die visuelle Konzeptphase ist
+zulässig, Produktions- und Flüssigkeitsbetrieb sind nicht freigegeben.
+Heizung, Elektrik und sichtbarer Nebel sind ausgeschlossen.

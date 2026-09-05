@@ -1,224 +1,586 @@
 {
-  "assessment_id": "PREFLIGHT-UNREGISTERED-AROMA-DIFFUSER-001",
-  "assessment_version": "0.1.0",
-  "assessment_date": "2026-08-31",
-  "product": "Unregistered Aroma Diffuser",
+  "assessment_id": "PREFLIGHT-UNREGISTERED-AROMA-DIFFUSER-002",
+  "assessment_version": "0.2.0",
+  "assessment_date": "2026-09-05",
+  "product": "FLUENT — existing aroma diffuser concept",
   "scope": {
-    "intended_use": "Document and develop a printable aroma-diffuser concept; the fragrance medium, heat source, and safe operating method are not yet defined.",
-    "user_context": "Retrospectively derived from the current product folder; exact user, host variant, environment, and release state remain limited to cited evidence.",
+    "intended_use": "Develop an elegant visual concept of the existing passive diffuser using supplier nominal vial/wick dimensions expressly delegated by the user. Physical/product release is outside this phase.",
+    "user_context": "Indoor tabletop concept; user prioritizes appearance, with size and fragrance iteration later. Dry printed shell around purchased glass vial and fibre wick.",
     "variants": [
-      "UNVERSIONED-CURRENT"
+      "0.1.0: exterior intent 240 x 92 x 86 mm; 50 ml reference vial; 5 x 200 mm fibre wick"
     ],
     "out_of_scope": [
-      "Claims not explicitly supported by the cited repository evidence",
-      "Production release without closure of blocking gates"
+      "Manufacturing exports and physical-use approval",
+      "Heat, combustion, electricity and visible mist",
+      "Scent performance, compatibility or spill-proof claims",
+      "New independently managed product identity"
     ]
   },
   "entities": [
     {
-      "id": "E-PRINT-001",
+      "id": "SHELL",
       "kind": "PRINTED_PART",
-      "name": "Unregistered Aroma Diffuser"
+      "name": "Sculptural dry shell"
     },
     {
-      "id": "E-HUM-001",
+      "id": "BASE",
+      "kind": "PRINTED_PART",
+      "name": "Foot and replaceable seat"
+    },
+    {
+      "id": "VIAL",
+      "kind": "PURCHASED_PART",
+      "name": "Vaza 9-161 glass vial"
+    },
+    {
+      "id": "WICK",
+      "kind": "PURCHASED_PART",
+      "name": "5 x 200 mm fibre reed"
+    },
+    {
+      "id": "HOLDER",
+      "kind": "PURCHASED_PART",
+      "name": "Compatible holder, UNKNOWN"
+    },
+    {
+      "id": "OIL",
+      "kind": "MEDIUM",
+      "name": "Fragrance formulation, UNKNOWN"
+    },
+    {
+      "id": "AIR",
+      "kind": "ENVIRONMENT",
+      "name": "Room air"
+    },
+    {
+      "id": "TABLE",
+      "kind": "HOST_OBJECT",
+      "name": "Table surface"
+    },
+    {
+      "id": "USER",
       "kind": "HUMAN",
-      "name": "Intended user or body interface"
+      "name": "Adult handling the product"
     }
   ],
   "interfaces": [
     {
-      "id": "IF-HUM-HUM-USR-BODY-001",
-      "name": "Printed product to intended user/body",
-      "endpoint_b": "E-HUM-001",
-      "boundary": "HUM",
+      "id": "IF-EXT-GEO-LOC-CYL-001",
+      "name": "Vial to base seat",
+      "endpoint_a": "VIAL",
+      "endpoint_b": "BASE",
+      "boundary": "EXT",
       "domains": [
         "GEO",
-        "MEC",
-        "HUM"
+        "MEC"
       ],
-      "function": "USR",
-      "geometry": "BODY",
-      "endpoint_a": "E-PRINT-001",
+      "function": "LOC",
+      "geometry": "CYL",
       "lifecycle_states": [
         "assembly",
         "use",
         "cleaning",
         "service",
         "disassembly",
-        "storage"
-      ],
-      "dimensions": [
-        {
-          "id": "DIM-PRIMARY-001",
-          "feature": "Primary interface envelope and functional allowance",
-          "nominal_mm": null,
-          "lower_mm": null,
-          "upper_mm": null,
-          "clearance_mm": null,
-          "uncertainty_mm": null,
-          "status": "UNKNOWN",
-          "source_ref": ".",
-          "criticality": "FUNCTION_CRITICAL"
-        }
+        "failure"
       ],
       "evidence": {
-        "level": "E0",
+        "level": "E2",
         "sources": [
-          "."
+          "concepts/r1/DESIGN-BRIEF.md"
         ],
         "variant_confirmed": false,
-        "coverage_percent": 0,
-        "uncertainty_note": "The retrospective audit did not establish a variant-confirmed tolerance and uncertainty budget.",
-        "observability": "UNKNOWN"
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
       },
       "interface_complexity": {
         "GEO": 1,
-        "KIN": 0,
-        "TOL": 3,
-        "PHY": 3,
-        "VAR": 3,
-        "LIF": 3,
-        "total": 13,
-        "tier": "I3"
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 1,
+        "VAR": 1,
+        "LIF": 2,
+        "total": 8,
+        "tier": "I2"
       },
-      "criticality": "K2",
-      "failure_modes": [
-        {
-          "mode": "Primary interface does not meet fit or functional intent",
-          "effect": "Loss of intended function and the credible failure effects recorded at product level",
-          "mitigation": "Confirm the exact variant, measure the interface, define tolerances, and test a coupon or controlled prototype."
-        }
-      ],
+      "criticality": "K1",
       "verification": {
-        "method": "prototype_test",
+        "method": "test_coupon",
         "acceptance_criteria": [
-          "Variant-confirmed, measurable interface criteria are approved and the planned verification passes before release."
+          "Measure vial and process before engineering a removable seat that does not stress glass."
         ],
         "status": "PLANNED",
         "result_refs": []
       },
-      "owner": "product owner",
-      "version": "0.1"
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-INT-GEO-RET-MIXED-001",
+      "name": "Shell to base service connection",
+      "endpoint_a": "SHELL",
+      "endpoint_b": "BASE",
+      "boundary": "INT",
+      "domains": [
+        "GEO",
+        "MEC",
+        "KIN"
+      ],
+      "function": "RET",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 2,
+        "TOL": 2,
+        "PHY": 1,
+        "VAR": 1,
+        "LIF": 2,
+        "total": 10,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "verification": {
+        "method": "test_coupon",
+        "acceptance_criteria": [
+          "Shell removal leaves the vial upright; service-force and retention thresholds must be specified and tested."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-EXT-GEO-RET-MIXED-002",
+      "name": "Vial and wick to holder",
+      "endpoint_a": "HOLDER",
+      "endpoint_b": "VIAL",
+      "boundary": "EXT",
+      "domains": [
+        "GEO",
+        "FLU"
+      ],
+      "function": "RET",
+      "geometry": "MIXED",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E0",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 1,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 11,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Select actual compatible holder, verify wick support, breathing and medium compatibility. Vaza reducer 11175 does not fit."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-FLU-FLW-BODY-001",
+      "name": "Oil transport through wick",
+      "endpoint_a": "OIL",
+      "endpoint_b": "WICK",
+      "boundary": "ENV",
+      "domains": [
+        "FLU",
+        "ENV"
+      ],
+      "function": "FLW",
+      "geometry": "BODY",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 3,
+        "total": 11,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Test exact oil/wick combination at changing fill levels. No room-scent performance target is yet validated."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-FLU-FLW-SLOT-001",
+      "name": "Wick to room through shell",
+      "endpoint_a": "WICK",
+      "endpoint_b": "AIR",
+      "boundary": "ENV",
+      "domains": [
+        "FLU",
+        "OPT"
+      ],
+      "function": "FLW",
+      "geometry": "SLOT",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 2,
+        "total": 11,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Verify real open paths in model sections, then compare mass loss and perception with and without shell."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-ENV-ENV-CLR-BODY-001",
+      "name": "Oil and wet wick to dry shell",
+      "endpoint_a": "OIL",
+      "endpoint_b": "SHELL",
+      "boundary": "ENV",
+      "domains": [
+        "ENV",
+        "FLU",
+        "GEO"
+      ],
+      "function": "CLR",
+      "geometry": "BODY",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E0",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 2,
+        "PHY": 3,
+        "VAR": 3,
+        "LIF": 3,
+        "total": 12,
+        "tier": "I3"
+      },
+      "criticality": "K2",
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Before wet use, verify wick clearance, no normal-operation wetting and exact compatibility for incidental contact."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-EXT-MEC-SUP-PLN-001",
+      "name": "Base to table stability",
+      "endpoint_a": "BASE",
+      "endpoint_b": "TABLE",
+      "boundary": "EXT",
+      "domains": [
+        "MEC",
+        "GEO"
+      ],
+      "function": "SUP",
+      "geometry": "PLN",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 1,
+        "KIN": 0,
+        "TOL": 1,
+        "PHY": 2,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 8,
+        "tier": "I2"
+      },
+      "criticality": "K2",
+      "verification": {
+        "method": "prototype_test",
+        "acceptance_criteria": [
+          "Define stability and slip thresholds; test full and empty vial with actual mass distribution."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
+    },
+    {
+      "id": "IF-HUM-HUM-USR-BODY-001",
+      "name": "User to shell during handling",
+      "endpoint_a": "USER",
+      "endpoint_b": "SHELL",
+      "boundary": "HUM",
+      "domains": [
+        "HUM",
+        "GEO"
+      ],
+      "function": "USR",
+      "geometry": "BODY",
+      "lifecycle_states": [
+        "assembly",
+        "use",
+        "cleaning",
+        "service",
+        "disassembly",
+        "failure"
+      ],
+      "evidence": {
+        "level": "E1",
+        "sources": [
+          "concepts/r1/DESIGN-BRIEF.md"
+        ],
+        "variant_confirmed": false,
+        "uncertainty_note": "Concept evidence only. Supplier nominals are not physical measurement or tolerance qualification."
+      },
+      "interface_complexity": {
+        "GEO": 2,
+        "KIN": 1,
+        "TOL": 1,
+        "PHY": 1,
+        "VAR": 2,
+        "LIF": 2,
+        "total": 9,
+        "tier": "I2"
+      },
+      "criticality": "K1",
+      "verification": {
+        "method": "user_test",
+        "acceptance_criteria": [
+          "Rounded crown, safe lower-body grip and service access without touching wet wick."
+        ],
+        "status": "PLANNED",
+        "result_refs": []
+      },
+      "owner": "product design",
+      "version": "0.2"
     }
   ],
   "complexity": {
     "dimension_scores": {
-      "REQ": 1,
-      "CTX": 3,
-      "PAR": 1,
+      "REQ": 2,
+      "CTX": 2,
+      "PAR": 2,
       "INT": 3,
-      "CPL": 0,
-      "MOT": 0,
-      "GEO": 1,
-      "PHY": 3,
-      "MAT": 1,
-      "EXT": 0,
+      "CPL": 1,
+      "MOT": 1,
+      "GEO": 3,
+      "PHY": 2,
+      "MAT": 2,
+      "EXT": 2,
       "VER": 3
     },
-    "score_0_100": 39.2,
-    "class": "C2",
+    "score_0_100": 53.5,
+    "class": "C3",
     "drivers": [
-      "INT=3: At least one functional host, human, medium, or assembly boundary governs success.",
-      "PHY=3: Load, heat, airflow, water, fatigue, or another functional physical domain must be tested.",
-      "VER=3: Several fit, function, flow, load, motion, or process checks are required."
+      "INT=3: eight interfaces, mean IC 10, maximum IC 12; rubric formula applied.",
+      "GEO=3: controlled freeform envelope with concealed slots and hollow interior.",
+      "VER=3: eventual fit, scent, stability, compatibility and surface tests."
     ]
   },
   "readiness": {
     "level": "R0",
     "component_levels": {
-      "scope_variant": "R1",
-      "requirements": "R1",
-      "critical_interfaces": "R1",
+      "scope_variant": "R2",
+      "requirements": "R2",
+      "critical_interfaces": "R0",
       "manufacturing_profile": "R0",
-      "verification": "R0"
+      "verification": "R1"
     },
     "blocking_unknowns": [
-      "stable current product revision",
-      "variant-confirmed critical interface dimensions, tolerances, and uncertainty",
-      "complete printer/material/nozzle/orientation/process-profile set",
-      "measurable acceptance criteria",
-      "verification plan and physical result references"
-    ],
-    "completeness_percent": 12.0
+      "Physical vial tolerances and matching wick holder",
+      "Exact oil/material/wick and scent target",
+      "Qualified printer/material/nozzle/profile and fit compensation",
+      "Physical appearance and stability results"
+    ]
   },
   "criticality": {
     "level": "K2",
-    "rationale": "The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.",
+    "rationale": "Eventual liquid-filled tabletop object may spill or tip. Heat and electricity excluded. Current phase is visual only.",
     "credible_failure_effects": [
-      "functional failure",
-      "leakage, obstruction, or detachment",
-      "minor injury or property damage"
+      "Oil spill and property damage",
+      "Glass breakage",
+      "Insufficient scent or shell wetting"
     ]
   },
   "gates": {
-    "G0": "WARN",
-    "G1": "WARN",
+    "G0": "PASS",
+    "G1": "PASS",
     "G2": "FAIL",
     "G3": "FAIL",
-    "G4": "FAIL",
+    "G4": "WARN",
     "G5": "PASS",
     "G6": "WARN"
   },
   "decision": {
     "lane": "E",
     "confidence": "LOW_UNKNOWN",
-    "design_release": "HOLD",
-    "rationale": "The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete."
+    "design_release": "CONCEPT_ONLY",
+    "rationale": "User explicitly delegates provisional nominal dimensions and prioritizes visual design. Continue visual concepts of this existing product. Manufacturing release and wet-use claims remain blocked by open exact interfaces, process and tests."
   },
   "warnings": [
     {
-      "code": "VARIANT_UNKNOWN",
+      "code": "NOMINAL_ONLY",
       "severity": "WARN",
-      "message": "No stable current product revision is evidenced at the product boundary."
+      "message": "Supplier nominals are reference sizes, not calibrated fits."
     },
     {
-      "code": "CRITICAL_INTERFACE_UNKNOWN",
+      "code": "PRODUCTION_GATES_OPEN",
       "severity": "BLOCKER",
-      "message": "The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence."
+      "message": "Process, fit, compatibility and physical tests required before production; visual concept phase authorized."
     },
     {
-      "code": "VERIFICATION_NOT_DEFINED",
-      "severity": "BLOCKER",
-      "message": "Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set."
-    },
-    {
-      "code": "THERMAL_OR_FLOW_CRITICAL",
+      "code": "MAIN_REGISTRATION_DEPENDENCY",
       "severity": "WARN",
-      "message": "Flow, drainage, humidity, heat, or airflow performance needs a controlled functional test."
+      "message": "Existing PORT-102 remains unregistered. MM-SKU/rights/portfolio regularization is a separate main task before production/commercial work."
     }
   ],
   "next_actions": [
     {
       "priority": 1,
-      "action": "Confirm the exact product/host variant and complete the primary interface contract.",
-      "exit_criterion": "Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence."
+      "action": "Generate and review complete elegant concept using user-delegated nominal dimensions.",
+      "exit_criterion": "Versioned hero and service concept, exact prompts, provenance, hashes and honest visual review."
     },
     {
       "priority": 2,
-      "action": "Record the exact manufacturing profile.",
-      "exit_criterion": "Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked."
+      "action": "After visual selection, regularize existing product on main and engineer measured interfaces.",
+      "exit_criterion": "One owning MM-SKU, rights records, actual purchased components and exact process."
     },
     {
       "priority": 3,
-      "action": "Define measurable acceptance criteria and a minimal coupon/prototype test.",
-      "exit_criterion": "Each critical interface and credible failure mode has a method, threshold, and result-record location."
+      "action": "Conduct fit, surface, scent and stability trials before release.",
+      "exit_criterion": "Approved measurable criteria and recorded physical results."
     }
   ],
   "traceability": {
-    "mode": "RETROSPECTIVE",
+    "mode": "PROSPECTIVE",
     "project_id": "UNREGISTERED-AROMA-DIFFUSER",
-    "project_revision": "UNVERSIONED-CURRENT",
+    "project_revision": "0.1.0",
     "basis_refs": [
-      "."
+      "concepts/r1/DESIGN-BRIEF.md",
+      "concepts/r1/parameters.yaml",
+      "concepts/r1/PROVENANCE.md",
+      "../../../business/02-portfolio/product-portfolio.csv#PORT-102"
     ],
     "change_triggers": [
-      "backfill_missing_preflight",
-      "portfolio_documentation_audit",
-      "product_root_version_cleanup"
+      "user_prioritizes_appearance",
+      "user_delegates_nominal_component_selection",
+      "existing_product_visual_revision",
+      "exclude_heat_and_electricity"
     ],
-    "previous_assessment_id": null,
+    "previous_assessment_id": "PREFLIGHT-UNREGISTERED-AROMA-DIFFUSER-001",
     "created_at": "2026-08-31T12:29:39+02:00",
-    "updated_at": "2026-08-31T12:29:39+02:00"
+    "updated_at": "2026-09-05T16:10:52Z"
   }
 }

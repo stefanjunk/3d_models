@@ -1,31 +1,101 @@
 schema_version: 1
-product:
-  id: "UNREGISTERED-AROMA-DIFFUSER"
-  name: "Unregistered Aroma Diffuser"
-  version: "UNVERSIONED-CURRENT"
-  status: retrospective-inventory
-
-function:
-  summary: "Document and develop a printable aroma-diffuser concept; the fragrance medium, heat source, and safe operating method are not yet defined."
-
-source_of_truth:
-  status: retrospective-index
-  current_artifact_refs:
-    - "."
-
+project:
+  id: UNREGISTERED-AROMA-DIFFUSER
+  revision: 0.1.0
+  name: FLUENT — Flammen-Diffuser
+  status: visual-concept
+  portfolio_record: PORT-102
+  identity: existing-product-no-new-independent-sku
 workflow:
   preflight:
     status: current
-    mode: RETROSPECTIVE
+    mode: prospective
     artifact: preflight/preflight-result.json
-    assessment_id: PREFLIGHT-UNREGISTERED-AROMA-DIFFUSER-001
-    assessment_version: 0.1.0
-    assessed_project_revision: "UNVERSIONED-CURRENT"
-    updated_at: "2026-08-31T12:29:39+02:00"
+    assessment_id: PREFLIGHT-UNREGISTERED-AROMA-DIFFUSER-002
+    assessment_version: 0.2.0
+    assessed_project_revision: 0.1.0
+    updated_at: "2026-09-05T16:10:52Z"
     change_triggers:
-      - backfill_missing_preflight
-      - portfolio_documentation_audit
-      - product_root_version_cleanup
-  requirements: review-required
-  concept: existing-artifacts
-  final_release: blocked-by-preflight
+      - user_prioritizes_appearance
+      - user_delegates_nominal_component_selection
+      - existing_product_visual_revision
+      - exclude_heat_and_electricity
+  requirements_approval:
+    status: approved
+    spec_revision: 0.1.0
+    approved_by: user-in-current-conversation
+    evidence: concepts/r1/DESIGN-BRIEF.md
+    scope: User directs visual concept and delegates provisional component dimensions; no physical approval.
+  concept_approval:
+    status: pending
+    spec_revision: 0.1.0
+    asset: concepts/r1/fluent-concept-sheet-r1b.png
+    asset_sha256: baec4448d3a03cbbe6c68a9220171e3c017b3fabb9e63f87f804abbe0635ea20
+    asset_sha256_record: concepts/r1/provenance.json
+  watermark_approval:
+    status: blocked
+    asset_id: MM-WM-001-R2
+    product_id: UNREGISTERED-AROMA-DIFFUSER
+    version: 0.1.0
+    reason: No production geometry; existing unregistered concept.
+  final_release: blocked
+branding:
+  required: true
+  brand: metriMade
+  domain: metriMade.com
+  asset_id: MM-WM-001-R2
+  product_id: UNREGISTERED-AROMA-DIFFUSER
+  version: 0.1.0
+  layout_tier: auto
+  operation: recessed
+  preferred_surface: flat-nonfunctional-low-stress-underside
+  depth_mm: 0.4
+  minimum_host_wall_mm: 1.2
+  minimum_remaining_wall_mm: 0.8
+  dimensions_scope: future-marking-policy-defaults-not-generated-geometry
+  status: deferred-until-production
+function:
+  summary: Elegant dry sculptural shell for a purchased passive glass-vial and fibre-wick diffuser.
+  source: user-stated
+  excluded: [heat, electricity, combustion, visible-mist]
+risk:
+  class: normal-functional
+  physical_use: not-approved
+fabrication:
+  preference: balanced-hybrid
+printer:
+  model: Anycubic Kobra 3 Max
+  nozzle_mm: 0.4
+  build_volume_mm: [426, 420, 501]
+  build_volume_source: ../../../archive/local-tool-state/anycubic-kobra3max-hardened-nozzle-profile.anycubic_printer
+  status: candidate-profile-only
+manufacturing:
+  nozzle_mm: 0.4
+  material: UNKNOWN
+  profile: UNKNOWN
+  fit_compensation: UNKNOWN
+  output_scope: concept-images-only
+optimization:
+  status: not-applicable
+  rationale: No manufacturing mesh in this visual concept phase.
+  mesh_simplification:
+    status: not-applicable
+    rationale: Only raster concept images exist.
+    protected_regions: []
+acceptance:
+  - id: VIS-001
+    criterion: Flowing rib highlights and coherent silhouette.
+  - id: VIS-002
+    criterion: Warm ivory matte appearance and subordinate tone-on-tone foot.
+  - id: VIS-003
+    criterion: Concealed vial in assembled view, soft asymmetrical crown and vent intent.
+  - id: VIS-004
+    criterion: No simulated smoke or unsupported functional claims.
+  - id: PHY-001
+    criterion: Physical approval requires later measured fit, stability, scent and compatibility tests.
+geometry:
+  reference: concepts/r1/parameters.yaml
+  authority: provisional-visual-design-intent
+sources:
+  brief: concepts/r1/DESIGN-BRIEF.md
+  provenance: concepts/r1/PROVENANCE.md

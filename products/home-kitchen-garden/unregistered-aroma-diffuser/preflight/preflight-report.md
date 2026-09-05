@@ -1,97 +1,51 @@
-# Retrospective 3D-design preflight — Unregistered Aroma Diffuser
+# Preflight R2 — FLUENT Konzept R1
 
-`Unregistered Aroma Diffuser | C2 (39.2/100) | R0 | K2 | Lane E | LOW_UNKNOWN`
+FLUENT | C3 (53.5/100) | R0 | K2 | Lane E | LOW_UNKNOWN
 
-## Decision
+Entscheidung: CONCEPT_ONLY. Der Nutzer hat die visuelle Weiterentwicklung mit
+vorläufigen handelsüblichen Kaufteilmaßen beauftragt. Produktionsfreigabe und
+physische Funktionsaussagen bleiben offen. Der vorausgehende generische Audit
+001 ist in Git erhalten; die Neubewertung ist prospektiv für Revision 0.1.0.
 
-- Release: `HOLD`
-- Lane: `E`
-- Rationale: The retrospective preflight blocks release wherever interface evidence, the exact manufacturing profile, lifecycle controls, or measurable verification remains incomplete.
-- Purpose: Document and develop a printable aroma-diffuser concept; the fragrance medium, heat source, and safe operating method are not yet defined.
+## Komplexität und Reife
 
-This is a retrospective backfill of the currently evidenced repository state.
-Unknown facts were not reconstructed or inferred as measurements.
-
-## Complexity score rationale
-
-| Dimension | Score | Evidence-based rationale |
+| Dimension | Score | Begründung |
 |---|---:|---|
-| REQ | 1 | Only product-level intent and artifact names are available; quantified requirements are incomplete. |
-| CTX | 3 | The use context includes a host, environment, or user variant that must be confirmed. |
-| PAR | 1 | The current evidence exposes approximately 0 distinct geometry-file stems; exports may duplicate physical parts. |
-| INT | 3 | At least one functional host, human, medium, or assembly boundary governs success. |
-| CPL | 0 | The available architecture appears locally coupled or monolithic. |
-| MOT | 0 | The primary product state is static apart from assembly handling. |
-| GEO | 1 | Geometry appears conventional or non-fit-critical, although exact dimensions were not re-derived. |
-| PHY | 3 | Load, heat, airflow, water, fatigue, or another functional physical domain must be tested. |
-| MAT | 1 | A conventional single-material FDM route is sufficient at the documented level. |
-| EXT | 0 | Little or no external-component integration is evidenced. |
-| VER | 3 | Several fit, function, flow, load, motion, or process checks are required. |
+| REQ | 2 | Eleganz, Verdeckung und Luftzugang erzeugen Zielkonflikte. |
+| CTX | 2 | Aufstellen, Nachfüllen, Reinigen und wechselnder Füllstand. |
+| PAR | 2 | Hülle, Fuß und austauschbare Aufnahme vorgesehen. |
+| INT | 3 | Acht Interfaces; IC-Mittel 10, Maximum 12; Rubrik ergibt ceil(2.1667)=3. |
+| CPL | 1 | Gemeinsamer Innenraum, getrennte Außen-/Kaufteilparameter. |
+| MOT | 1 | Einfache Montage-/Servicebewegung. |
+| GEO | 3 | Freiform, verdeckte Öffnungen und Hohlraum. |
+| PHY | 2 | Passive Verdunstung, geringe Lasten und Standfestigkeit. |
+| MAT | 2 | Orientierung und Überhänge für spätere Fertigung relevant. |
+| EXT | 2 | Gekaufte Fiole, Docht und Halter. |
+| VER | 3 | Gestufte Fit-, Oberflächen-, Duft- und Standtests. |
 
-## Readiness
+Gewichtete Rubriksumme: 53.5. R0 wegen offener exakter Halter-/Medien- und
+Fertigungsschnittstellen. K2 betrifft das spätere befüllte Produkt; Bilder sind
+keine physischen Prototypen.
 
-| Component | Level |
-|---|---|
-| scope_variant | R1 |
-| requirements | R1 |
-| critical_interfaces | R1 |
-| manufacturing_profile | R0 |
-| verification | R0 |
+## Interfaces und Gates
 
-Blocking unknowns:
+Acht einzelne Verträge im JSON: Flasche/Aufnahme, Hülle/Fuß, Halter/Flasche,
+Öl/Docht, Docht/Raumluft, Öl/Druckhülle, Fuß/Tisch und Nutzer/Hülle.
 
-- stable current product revision
-- variant-confirmed critical interface dimensions, tolerances, and uncertainty
-- complete printer/material/nozzle/orientation/process-profile set
-- measurable acceptance criteria
-- verification plan and physical result references
+G0 PASS, G1 PASS, G2 FAIL, G3 FAIL, G4 WARN, G5 PASS, G6 WARN.
+G2/G3: Lieferantennennmaße sind keine Mustermaße, Toleranzen oder exakten
+Prozessdaten. G4/G6: messbare Funktions- und Servicekriterien noch festlegen.
 
-## Criticality
+## Funktionale FMEA für spätere Entwicklung
 
-`K2` — The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled functional testing.
+| Fehler | Wirkung | Erkennung | Gegenmaßnahme / Prüfung |
+|---|---|---|---|
+| Kippen | Öl tritt aus, Glasbruch | Stand-/Rutschtest voll und leer | Schwerpunkt und Standfläche anhand realer Massen auslegen |
+| Unpassender Halter | Docht kippt oder benetzt Hülle | Lieferanten-/Musterprüfung | Passenden Halter kaufen; Reduzierer 11175 ausgeschlossen |
+| Docht berührt Hülle | Flecken, mögliche Materialschäden | Kontakt-/Medientest | Freiraum und Eignung für genaue Mischung prüfen |
+| Hülle behindert Verdunstung | Zu wenig Duft | A/B-Vergleich mit/ohne Hülle | Echte Öffnungen, Massenverlust und Wahrnehmung testen |
+| Spitze bricht | Beschädigung, scharfe Kante | Handhabungsmuster | Abgerundete Enden, untere Griffzone, Orientierung prüfen |
 
-Credible effects: functional failure, leakage, obstruction, or detachment, minor injury or property damage.
-
-## Interface register
-
-| Contract | Interface | Evidence | Criticality | Verification |
-|---|---|---:|---:|---|
-| `IF-HUM-HUM-USR-BODY-001` | Printed product to intended user/body | E0 | K2 | PLANNED |
-
-The JSON contract records the primary discovered boundary. Because the audit
-does not prove complete interface discovery, G1/G2 remain conservative.
-
-## Hard gates
-
-| Gate | Status |
-|---|---|
-| G0 | WARN |
-| G1 | WARN |
-| G2 | FAIL |
-| G3 | FAIL |
-| G4 | FAIL |
-| G5 | PASS |
-| G6 | WARN |
-
-## Warnings
-
-- `VARIANT_UNKNOWN` (WARN): No stable current product revision is evidenced at the product boundary.
-- `CRITICAL_INTERFACE_UNKNOWN` (BLOCKER): The primary functional interface lacks variant-confirmed dimensions, tolerance, and uncertainty evidence.
-- `VERIFICATION_NOT_DEFINED` (BLOCKER): Printer, material, nozzle, orientation, and process profile are not documented as one complete exact set.
-- `THERMAL_OR_FLOW_CRITICAL` (WARN): Flow, drainage, humidity, heat, or airflow performance needs a controlled functional test.
-
-## Functional FMEA
-
-| Failure | Local/final effect | Detection | Mitigation | Verification |
-|---|---|---|---|---|
-| Primary interface misses fit or functional intent | Loss of function; consequences listed under criticality | Variant measurement, coupon, and controlled prototype inspection | Confirm host/variant, tolerance, uncertainty, keep-outs, and stop conditions | Coupon/prototype test; expert review for K3/K4 |
-
-## Next evidence
-
-1. Confirm the exact product/host variant and complete the primary interface contract. Exit: Datums, nominal dimensions, tolerances, measurement uncertainty, keep-outs, and variant identity are recorded from traceable evidence.
-2. Record the exact manufacturing profile. Exit: Printer, material, nozzle, orientation, and complete process profile are uniquely identified and source-linked.
-3. Define measurable acceptance criteria and a minimal coupon/prototype test. Exit: Each critical interface and credible failure mode has a method, threshold, and result-record location.
-
-## Traceability basis
-
-- `.`
+Diese Phase: Bilder, Prompts, Quellen, Hashes und Sichtprüfung.
+Danach: visuelle Auswahl; separate PORT-102-Regularisierung auf main;
+Mustermaße, Halter, genauer Prozess und physische Tests.

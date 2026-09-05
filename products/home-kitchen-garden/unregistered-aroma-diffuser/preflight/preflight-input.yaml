@@ -1,43 +1,41 @@
-product: Unregistered Aroma Diffuser
-intended_use: Document and develop a printable aroma-diffuser concept; the fragrance medium, heat source, and safe
-  operating method are not yet defined.
-user_context: Retrospectively derived from the current product folder; exact user, host variant, environment, and
-  release state remain limited to cited evidence.
-host_variant:
-  manufacturer: null
-  model: null
-  revision: null
-  variant_confirmed: false
-lifecycle_states:
-- transport
-- assembly
-- use
-- cleaning
-- service
-- disassembly
-- storage
-- failure
-requirements:
-- Preserve the explicit purpose within the cited scope.
-- Close every blocking preflight gate before production release.
-known_components:
-- Unregistered Aroma Diffuser
-- Intended user or body interface
-available_evidence:
-- .
-manufacturing_profile:
-  printer: null
-  process: FDM/FFF
-  nozzle_mm: null
-  material: null
-  orientation_known: false
-known_loads_environment:
-  loads: []
-  temperature_c: null
-  media: []
-  duration: null
-safety_notes:
-- The product involves load, flow, motion, heat-adjacent use, or direct body contact and therefore requires controlled
-  functional testing.
-interfaces:
-- IF-HUM-HUM-USR-BODY-001
+{
+  "product": "FLUENT — existing aroma diffuser concept",
+  "revision": "0.1.0",
+  "phase": "appearance-led-concept",
+  "intended_use": "Develop an elegant visual concept of the existing passive diffuser using supplier nominal vial/wick dimensions expressly delegated by the user. Physical/product release is outside this phase.",
+  "user_context": "Indoor tabletop concept; user prioritizes appearance, with size and fragrance iteration later. Dry printed shell around purchased glass vial and fibre wick.",
+  "requirements": [
+    "Preserve elegant flowing flame direction",
+    "Choose traceable provisional purchased-part sizes as delegated",
+    "Keep external styling separate from purchased component scaling",
+    "Produce a full product concept; retain physical and commercial unknowns"
+  ],
+  "purchased_reference": {
+    "vial": "Vaza 9-161; 50 ml; diameter 50 mm; height 64 mm; PP28",
+    "wick": "London Luxury Candle Supplies; diameter 5 mm; length 200 mm; white",
+    "holder": "UNKNOWN; Vaza reducer 11175 does not fit"
+  },
+  "manufacturing_profile": {
+    "printer": "Anycubic Kobra 3 Max candidate only",
+    "nozzle_mm": 0.4,
+    "material": null,
+    "exact_profile": null,
+    "physical_qualification": false
+  },
+  "available_evidence": [
+    "concepts/r1/DESIGN-BRIEF.md",
+    "concepts/r1/parameters.yaml",
+    "concepts/r1/PROVENANCE.md",
+    "../../../business/02-portfolio/product-portfolio.csv#PORT-102"
+  ],
+  "interfaces": [
+    "IF-EXT-GEO-LOC-CYL-001",
+    "IF-INT-GEO-RET-MIXED-001",
+    "IF-EXT-GEO-RET-MIXED-002",
+    "IF-ENV-FLU-FLW-BODY-001",
+    "IF-ENV-FLU-FLW-SLOT-001",
+    "IF-ENV-ENV-CLR-BODY-001",
+    "IF-EXT-MEC-SUP-PLN-001",
+    "IF-HUM-HUM-USR-BODY-001"
+  ]
+}

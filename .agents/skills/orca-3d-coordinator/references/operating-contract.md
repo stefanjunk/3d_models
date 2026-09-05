@@ -2,19 +2,25 @@
 
 ## Runtime topology
 
-Use a persistent Codex coordinator terminal and create fresh worker terminals
-inside the existing `main` workspace. The coordinator is control-plane only.
+Use a persistent Codex coordinator terminal in a clean `main` integration
+workspace. Put each concurrent write-capable product lead in a dedicated Orca
+worktree on a feature branch with one explicitly assigned `products/**`
+subtree. The coordinator is control-plane and integration owner, not a product
+geometry author.
 
 | Actor | Write authority | Responsibility |
 |---|---|---|
-| Coordinator | Orca task state and short workspace comment | route work, watch lifecycle messages, resolve or escalate gates |
-| Design lead | one named product/phase scope | requirements, architecture, CAD/mesh, evidence, commit and push |
+| Coordinator | Orca task state, short workspace comments, and serialized `main` integration | route work, watch lifecycle messages, resolve or escalate gates, integrate validated product branches |
+| Design lead | one named product/phase subtree in one feature worktree | requirements, architecture, CAD/mesh, evidence, feature-branch commit and push |
 | Reviewer | read-only | independent geometry, interface, validation, or risk review |
 | Human owner | human ledger and external actions | physical print/test, appearance, safety, final/commercial approval |
 
-Do not dispatch two write-capable workers concurrently in the shared checkout.
-Read-only work may run concurrently after the writer has produced an immutable
-candidate or explicitly paused.
+Do not dispatch two write-capable workers concurrently in the same checkout.
+Write-capable leads may run concurrently only in separate feature worktrees
+with disjoint product subtrees. Read-only work may run concurrently after the
+lead in that worktree has produced an immutable candidate or explicitly paused.
+Paths outside the assigned `products/**` subtree, especially `business/**`,
+`tools/**`, and root-level agent configuration, remain main-only.
 
 ## Intake and policy binding
 
@@ -41,8 +47,9 @@ Every dispatched task states:
 ```yaml
 objective: one measurable outcome
 product_scope: one product folder and revision
+branch_scope: one feature branch and Orca worktree based on current origin/main
 allowed_changes: exact paths or read-only
-forbidden: branches, worktrees, printer upload/start, human approvals
+forbidden: protected main-only paths, unrelated products, printer upload/start, human approvals
 inputs: exact files, policy, profiles, and artifact hashes
 acceptance: deterministic command and expected status
 completion: worker_done with filesModified and reportPath
@@ -51,7 +58,7 @@ completion: worker_done with filesModified and reportPath
 Use a manual coordinator loop (`task-create`, worker terminal, `dispatch
 --inject`, rolling `check --wait`) when human steering may be needed. An
 automatic Orca coordinator run is acceptable only when the same boundaries are
-present in its spec and `--worktree active` is used.
+present in its spec and `--worktree` targets the assigned product worktree.
 
 ## Monitoring surface
 

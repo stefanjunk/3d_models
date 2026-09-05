@@ -1,30 +1,36 @@
 # Workspace Agent Instructions
 
-## 1. Git synchronization and main-only branch policy
+## 1. Git synchronization, protected paths, and product feature branches
 
-### Branch policy
+### Branch and path policy
 
-- This repository uses only the `main` branch for active work. Make every change, commit, synchronization, and push directly on `main`.
-- Do not create or use feature, agent, Codex, integration, release, or task branches in this repository. Do not create additional worktrees on non-`main` branches to perform repository work.
-- Treat any existing non-`main` branches as historical references only. Do not add commits to them or use them as the destination for new work unless the human owner explicitly changes this policy.
-- Before changing any file, verify that the current branch is exactly `main` and that its configured upstream is `origin/main`. If another branch is checked out, return to `main` only through a safe workflow that preserves every tracked and untracked change. If that cannot be done safely, stop and report the blocker.
-- Never force-push or rewrite `main` history. Integrate concurrent upstream work non-destructively, stage only the current task's files, and push the completed commit to `origin/main`.
+- `main` is the default integration branch and the only branch on which shared repository policy, business data, tooling, and agent configuration may be changed.
+- Main-only paths include `AGENTS.md`, `business/**`, `tools/**`, `.agents/**`, `.claude/**`, `.codex/**`, `.opencode/**`, equivalent root-level agent-configuration directories, and root-level companion instructions such as `CLAUDE.md`.
+- Product work under `products/**` may be changed directly on `main` or on a dedicated feature branch. Prefer one feature branch and one Orca/Git worktree per product when multiple products are developed concurrently.
+- A product feature branch may change only its explicitly assigned product subtree under `products/**`. Use one product per branch unless the human owner explicitly authorizes a multi-product scope. Do not include main-only paths or unrelated product changes in the branch.
+- If product work requires a change to a main-only path, record or report that dependency and handle it as a separate task on `main`; do not widen the feature-branch diff.
+- Multiple write-capable product leads may run concurrently only in separate worktrees, on separate feature branches, and with disjoint product subtrees. Keep exactly one write-capable lead per worktree and branch; reviewers in that worktree remain read-only while the lead is active.
+- Never check out the same branch in multiple worktrees. Never force-push or rewrite `main` history. Integrate concurrent work non-destructively and stage only the current task's files.
 
 ### Start of a design or design phase
 
 - Synchronize the repository with its upstream remote before changing design artifacts.
-- Inspect the current branch, upstream, and `git status` first, and confirm `main` tracks `origin/main`.
+- Inspect the current branch, upstream, and `git status` first, and confirm that the branch and worktree match the assigned path scope.
+- For main-only work, confirm that the current branch is exactly `main`, that it tracks `origin/main`, and that it is synchronized non-destructively before editing.
+- For product feature work, create or use a dedicated branch and worktree based on the current `origin/main`. Set the branch upstream on its first push, and keep the branch limited to the assigned `products/**` subtree.
 - Preserve all existing user and agent changes. Never discard, overwrite, reset, or silently hide a dirty worktree to make synchronization succeed.
 - Fetch and integrate upstream changes with an appropriate non-destructive workflow, such as `git pull` or an equivalent fetch plus merge/rebase operation.
-- If local changes, conflicts, authentication, or branch state prevent a safe synchronization, stop design edits and report the exact blocker.
+- If local changes, conflicts, authentication, path ownership, or branch state prevent safe synchronization or isolation, stop design edits and report the exact blocker.
 
 ### End of every completed design phase
 
 - Review the diff and validation evidence before staging.
 - Stage only the files that belong to the completed phase; do not include unrelated user changes.
 - Consider Git LFS before staging large binary CAD, mesh, image, archive, 3MF, or other manufacturing artifacts. Follow existing `.gitattributes` and repository conventions. Do not rewrite existing Git history to migrate files into LFS without explicit approval.
-- Create a descriptive commit for the phase directly on `main` and push it to `origin/main`.
-- Confirm that the push succeeded. Do not describe the phase as synchronized or complete while required changes remain only local.
+- For a main-only phase, create a descriptive commit directly on `main` and push it to `origin/main`.
+- For a product feature phase, verify that every changed path is inside the assigned product subtree, create a descriptive commit on the feature branch, push it to its matching remote branch, and report it as merge-ready. The product worker must not merge its own branch into `main` unless it is also the explicitly assigned integration owner.
+- Integrate merge-ready product branches into `main` one at a time from a clean, synchronized integration worktree. Recheck the branch path scope and required validation evidence before merging, then push the updated `main` to `origin/main`.
+- Confirm that the appropriate branch push succeeded. A feature phase is not integrated until its commit is present on `origin/main`; do not describe a branch-only candidate as integrated or released.
 
 ## 2. Evidence-gated 3D learning
 

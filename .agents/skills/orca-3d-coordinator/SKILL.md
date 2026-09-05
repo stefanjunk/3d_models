@@ -1,6 +1,6 @@
 ---
 name: orca-3d-coordinator
-description: Coordinate supervised autonomous Metricreate 3D-design work through Orca Runs, tasks, Codex terminals, validation gates, and human interventions while preserving the repository's main-only policy. Use when starting, supervising, steering, pausing, or resuming one or more Codex-driven 3D product workflows in Orca. Do not use for ordinary single-agent CAD work that needs no Orca coordination.
+description: Coordinate supervised autonomous Metricreate 3D-design work through Orca Runs, product feature worktrees, tasks, Codex terminals, validation gates, and human interventions while preserving protected main-only paths and serialized integration. Use when starting, supervising, steering, pausing, or resuming one or more Codex-driven 3D product workflows in Orca. Do not use for ordinary single-agent CAD work that needs no Orca coordination.
 ---
 
 # Orca 3D Coordinator
@@ -11,8 +11,10 @@ human can monitor, steer, interrupt, or approve it in Orca.
 
 ## Load current authority before acting
 
-1. Read the root `AGENTS.md`, confirm branch `main` tracks `origin/main`, and
-   synchronize non-destructively before any design edit.
+1. Read the root `AGENTS.md`, confirm the active branch and worktree match the
+   assigned path scope, and synchronize non-destructively before any design
+   edit. Protected-path work must use `main`; product feature work must use a
+   branch based on current `origin/main` and stay inside its assigned subtree.
 2. On Linux outside an Orca-managed terminal use `orca-ide`; inside Orca use
    the exported Orca command. Confirm `status --json`.
 3. Load the version-matched guides with `skills get orchestration --full` and
@@ -25,11 +27,15 @@ creating an Orca Run, task DAG, coordinator loop, or scheduled automation.
 
 ## Non-negotiable coordination boundaries
 
-- Never create an Orca/Git worktree or non-`main` branch in this repository.
-- Keep exactly one write-capable design lead active. Reviewers and calculators
-  are read-only or receive one explicitly disjoint file scope.
+- Create feature branches and Orca/Git worktrees only for explicitly assigned
+  product work under `products/**`. Never change protected main-only paths from
+  a product branch.
+- Keep exactly one write-capable design lead per worktree and branch. Multiple
+  leads may run concurrently only in separate worktrees with disjoint product
+  subtrees; reviewers in an active lead's worktree are read-only.
 - The coordinator owns Orca task state and decisions, not product geometry. The
-  design lead owns product-file edits and the phase commit/push.
+  design lead owns product-file edits and the feature-branch commit/push. The
+  assigned integration owner merges validated branches into `main` serially.
 - Require a schema `1.1` `autonomy-policy.json` bound to the current preflight
   before unattended design. Legacy policies require explicit reauthorization.
 - Obey the preflight ceiling: autonomous only for eligible Lane A/B work,
@@ -37,8 +43,8 @@ creating an Orca Run, task DAG, coordinator loop, or scheduled automation.
 - Never upload to or start a printer. Physical print, fit/function, appearance,
   safety, watermark/final release, publication, and commercial release remain
   human-controlled.
-- Preserve dirty user files. Stop if upstream synchronization or single-writer
-  ownership cannot be established safely.
+- Preserve dirty user files. Stop if upstream synchronization, path isolation,
+  or single-writer-per-worktree ownership cannot be established safely.
 
 ## Coordinator behavior
 
@@ -46,6 +52,11 @@ Use Orca Orchestration tasks and dispatches for tracked work. Prefer a shallow
 DAG with explicit dependencies:
 
 `preflight -> requirements/concept -> design lead -> read-only review -> deterministic validation -> print candidate -> human gate`
+
+For concurrent product work, dispatch each write-capable design lead to its own
+feature-branch worktree and include the exact allowed `products/**` subtree in
+the task. Never dispatch two writers to the same checkout. Keep protected-path
+updates and branch integration in separate, serialized tasks on `main`.
 
 At each meaningful transition update the active Orca worktree comment with the
 product, stage, result, and next gate. Create a `decision_gate` only when the
@@ -64,8 +75,11 @@ a printer.
 
 ## Completion
 
-A coordinated design phase is complete only when the worker reports
+A coordinated product feature phase is merge-ready only when the worker reports
 `worker_done`, required deterministic checks pass, the approval ledgers validate
-through the permitted target, the diff contains only phase-owned files, and the
-phase commit is pushed to `origin/main`. Report the actual model state and next
-human gate; never describe a digital candidate as physically qualified.
+through the permitted target, the diff contains only the assigned product
+subtree, and the phase commit is pushed to its remote feature branch. It is
+integrated only after the assigned integration owner rechecks the scope, merges
+it into `main`, and pushes `origin/main`. A main-only phase remains complete only
+after its commit is pushed to `origin/main`. Report the actual model state and
+next human gate; never describe a digital candidate as physically qualified.
